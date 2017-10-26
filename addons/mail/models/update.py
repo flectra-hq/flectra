@@ -88,6 +88,10 @@ class PublisherWarrantyContract(AbstractModel):
         @type cron_mode: boolean
         """
         try:
+            # Code will be execute only if parameter value 'True'
+            parameter_id = self.env.ref("mail.config_update_notification")
+            if parameter_id and parameter_id.value != 'True':
+                return True
             try:
                 result = self._get_sys_logs()
             except Exception:
