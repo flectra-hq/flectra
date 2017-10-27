@@ -2,8 +2,8 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from functools import partial
-import openerp
-from openerp import api, SUPERUSER_ID
+import flectra
+from flectra import api, SUPERUSER_ID
 
 from . import models      # noqa
 from . import report      # noqa

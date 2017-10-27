@@ -9,9 +9,9 @@ from flectra.tools import pycompat
 
 class BusController(Controller):
     """ Examples:
-    openerp.jsonRpc('/longpolling/poll','call',{"channels":["c1"],last:0}).then(function(r){console.log(r)});
-    openerp.jsonRpc('/longpolling/send','call',{"channel":"c1","message":"m1"});
-    openerp.jsonRpc('/longpolling/send','call',{"channel":"c2","message":"m2"});
+    flectra.jsonRpc('/longpolling/poll','call',{"channels":["c1"],last:0}).then(function(r){console.log(r)});
+    flectra.jsonRpc('/longpolling/send','call',{"channel":"c1","message":"m1"});
+    flectra.jsonRpc('/longpolling/send','call',{"channel":"c2","message":"m2"});
     """
 
     @route('/longpolling/send', type="json", auth="public")

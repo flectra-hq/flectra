@@ -4,7 +4,7 @@ import os.path
 
 from werkzeug import urls
 
-from odoo.tools import pycompat
+from flectra.tools import pycompat
 
 """
 * adds github_link(mode) context variable: provides URL (in relevant mode) of

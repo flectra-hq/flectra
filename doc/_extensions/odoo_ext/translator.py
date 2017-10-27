@@ -13,7 +13,7 @@ from docutils import nodes
 from sphinx import addnodes, util
 from sphinx.locale import admonitionlabels
 
-from odoo.tools import pycompat
+from flectra.tools import pycompat
 
 
 def _parents(node):

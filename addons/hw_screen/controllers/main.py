@@ -4,7 +4,7 @@
 from flectra import http
 from flectra.tools import config
 from flectra.addons.web.controllers import main as web
-from openerp.addons.hw_posbox_homepage.controllers import main as homepage
+from flectra.addons.hw_posbox_homepage.controllers import main as homepage
 
 import logging
 import netifaces as ni

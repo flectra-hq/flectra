@@ -749,7 +749,7 @@ class Module(models.Model):
                     raise AccessDenied()
 
                 try:
-                    _logger.info('Downloading module `%s` from OpenERP Apps', module_name)
+                    _logger.info('Downloading module `%s` from Flectra Apps', module_name)
                     response = requests.get(url)
                     response.raise_for_status()
                     content = response.content
