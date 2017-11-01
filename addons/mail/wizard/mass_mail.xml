@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+    <data>
+        <record id="view_mass_retry_mail_form" model="ir.ui.view">
+            <field name="name">mass.retry.mail.form</field>
+            <field name="model">mass.mail</field>
+            <field name="arch" type="xml">
+                <form string="Retry">
+                    <h2>Are you sure?</h2>
+                    <footer>
+                        <span groups="base.group_user">
+                            <button string="Yes" type="object"
+                                name="mass_emails" class="oe_highlight"/>
+                            or
+                            <button special="cancel" string="No" type="object" />
+                        </span>
+                    </footer>
+                </form>
+            </field>
+        </record>   
+        <act_window id="action_mass_retry_mail_view" multi="True"
+            context="{'mail': 'mark_outgoing'}"
+            name="Retry" res_model="mass.mail" src_model="mail.mail"
+            view_mode="form" target="new" view_type="form" />
+
+        <record id="view_mass_resend_mail_form" model="ir.ui.view">
+            <field name="name">mass.resend.mail.form</field>
+            <field name="model">mass.mail</field>
+            <field name="arch" type="xml">
+                <form string="Resend">
+                    <h2>Are you sure?</h2>
+                    <footer>
+                        <span groups="base.group_user">
+                            <button string="Yes" type="object"
+                                name="mass_emails" class="oe_highlight"/>
+                            or
+                            <button special="cancel" string="No" type="object" />
+                        </span>
+                    </footer>
+                </form>
+            </field>
+        </record>   
+        <act_window id="action_mass_resend_mail_view" multi="True"
+            context="{'mail': 'send'}"
+            name="Resend" res_model="mass.mail" src_model="mail.mail"
+            view_mode="form" target="new" view_type="form" />
+
+        <record id="view_mass_cancel_mail_form" model="ir.ui.view">
+            <field name="name">mass.cancel.mail.form</field>
+            <field name="model">mass.mail</field>
+            <field name="arch" type="xml">
+                <form string="Cancel">
+                    <h2>Are you sure?</h2>
+                    <footer>
+                        <span groups="base.group_user">
+                            <button string="Yes" type="object"
+                                name="mass_emails" class="oe_highlight"/>
+                            or
+                            <button special="cancel" string="No" type="object" />
+                        </span>
+                    </footer>
+                </form>
+            </field>
+        </record>   
+        <act_window id="action_mass_cancel_mail_view" multi="True"
+            context="{'mail': 'cancel'}"
+            name="Cancel" res_model="mass.mail" src_model="mail.mail"
+            view_mode="form" target="new" view_type="form" />
+
+    </data>
+</flectra> 
