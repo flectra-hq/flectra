@@ -281,7 +281,7 @@ in ``/etc/nginx/sites-enabled/odoo.conf`` set:
    server 127.0.0.1:8069;
   }
   upstream odoochat {
-   server 127.0.0.1:8072;
+   server 127.0.0.1:7072;
   }
   
   # http -> https

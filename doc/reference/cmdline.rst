@@ -197,7 +197,7 @@ built-in HTTP
 .. option:: --longpolling-port <port>
 
     TCP port for long-polling connections in multiprocessing or gevent mode,
-    defaults to 8072. Not used in default (threaded) mode.
+    defaults to 7072. Not used in default (threaded) mode.
 
 logging
 -------
