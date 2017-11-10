@@ -1,5 +1,7 @@
-Contributing to Odoo
+Contributing to Flectra
 ====================
+
+#TODO
 
 [Full contribution guidelines](https://github.com/odoo/odoo/wiki/Contributing)
 
