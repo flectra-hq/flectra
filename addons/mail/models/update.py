@@ -96,8 +96,8 @@ class PublisherWarrantyContract(AbstractModel):
         try:
             # Code will be execute only if parameter value 'True'
             parameter_id = self.env['ir.config_parameter'].sudo().get_param(
-                "send_statistics")
-            if parameter_id != 'True':
+                'base_setup.send_statistics')
+            if parameter_id != 'true':
                 return True
             try:
                 result = self._get_sys_logs()
