@@ -121,6 +121,8 @@ class configmanager(object):
 
         group.add_option("-D", "--data-dir", dest="data_dir", my_default=_get_default_datadir(),
                          help="Directory where to store Flectra data")
+        group.add_option("-S", "--session-dir", dest="session_dir", my_default=_get_default_datadir(),
+                         help="Directory where to store Flectra Session Data, By Default it is same as data directory (--data-dir)")
         parser.add_option_group(group)
 
         # HTTP
@@ -402,7 +404,7 @@ class configmanager(object):
                 'db_port', 'db_template', 'logfile', 'pidfile', 'smtp_port',
                 'email_from', 'smtp_server', 'smtp_user', 'smtp_password',
                 'db_maxconn', 'import_partial', 'addons_path',
-                'syslog', 'without_demo',
+                'syslog', 'without_demo','session_dir',
                 'dbfilter', 'log_level', 'log_db',
                 'log_db_level', 'geoip_database', 'dev_mode', 'shell_interface'
         ]
@@ -425,7 +427,7 @@ class configmanager(object):
             'language', 'translate_out', 'translate_in', 'overwrite_existing_translations',
             'dev_mode', 'shell_interface', 'smtp_ssl', 'load_language',
             'stop_after_init', 'logrotate', 'without_demo', 'http_enable', 'syslog',
-            'list_db', 'proxy_mode',
+            'list_db', 'proxy_mode','session_dir',
             'test_file', 'test_enable', 'test_commit', 'test_report_directory',
             'osv_memory_count_limit', 'osv_memory_age_limit', 'max_cron_threads', 'unaccent',
             'data_dir',
@@ -620,7 +622,7 @@ class configmanager(object):
 
     @property
     def session_dir(self):
-        d = os.path.join(self['data_dir'], 'sessions')
+        d = os.path.join(self['session_dir'], 'sessions')
         if not os.path.exists(d):
             os.makedirs(d, 0o700)
         else:
