@@ -5,6 +5,7 @@ var core = require('web.core');
 var Dialog = require('web.Dialog');
 var widgets = require('web_editor.widget');
 var options = require('web_editor.snippets.options');
+var ajax = require('web.ajax');
 
 var _t = core._t;
 var qweb = core.qweb;
@@ -933,6 +934,24 @@ options.registry.gallery_img = options.Class.extend({
                 position: value,
             },
         });
+    },
+});
+options.registry.js_menu = options.Class.extend({
+    selected_menu: function (type,value){
+        if(type != true)
+            return
+        var menu = eval(value);
+        var section=this.$target.find('.menu_view');
+        section.empty();
+        console.info(section)
+        ajax.jsonRpc('/website/menu/render', 'call', {'template': menu[1], 'menu_id':menu[0]}
+        ).then(function (result) {
+            $(result).appendTo(section);
+        }).fail(function () {
+                self.$('.o_website_links_code_error').show();
+                self.$('.o_website_links_code_error').html(
+                "<div>ServerError</div><p>We are not able to render template.</p>");
+            }) ;
     },
 });
 });

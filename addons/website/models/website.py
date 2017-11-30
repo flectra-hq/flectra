@@ -17,7 +17,8 @@ from flectra.addons.portal.controllers.portal import pager
 from flectra.tools import pycompat
 from flectra.http import request
 from flectra.osv.expression import FALSE_DOMAIN
-from flectra.tools.translate import _
+
+from flectra.tools.translate import _, html_translate
 from flectra.exceptions import Warning
 
 logger = logging.getLogger(__name__)
@@ -670,6 +671,11 @@ class Website(models.Model):
             return self.env.ref('website.backend_dashboard').read()[0]
         return self.env.ref('website.action_website').read()[0]
 
+    @api.multi
+    def get_website_menus(self, website_id):
+        menus = request.env['website.menu'].search([('parent_id', '=', False), ('website_id', '=', website_id)])
+        if menus:
+            return menus
 
 class SeoMetadata(models.AbstractModel):
 
@@ -902,6 +908,7 @@ class Menu(models.Model):
     parent_left = fields.Integer('Parent Left', index=True)
     parent_right = fields.Integer('Parent Rigth', index=True)
     is_visible = fields.Boolean(compute='_compute_visible', string='Is Visible')
+    menu_view = fields.Many2one('ir.ui.view', domain=[('type', '=', 'qweb')], string='Menu View')
 
     @api.one
     def _compute_visible(self):

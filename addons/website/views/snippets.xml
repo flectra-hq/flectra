@@ -14,6 +14,16 @@
     </section>
 </template>
 
+<template id="s_menu" name="Menu Snippets">
+    <section class="s_menu">
+        <div class="container">
+            <div class="row menu_view">
+            <h2 style="color: rgb(193, 191, 177);text-align: center;">Select Top Menu From Option</h2>
+            </div>
+        </div>
+    </section>
+</template>
+
 <template id="s_banner" name="Slider">
     <div id="myCarousel" class="carousel slide s_banner" data-interval="10000" style="height: 400px;">
         <!-- Indicators -->
@@ -683,6 +693,7 @@
                 <div class="o_panel_body">
                     <t t-snippet="website.s_title" t-thumbnail="/website/static/src/img/blocks/block_title.png"/>
                     <t t-snippet="website.s_cover" t-thumbnail="/website/static/src/img/blocks/block_banner.png"/>
+                    <t t-snippet="website.s_menu" t-thumbnail="/website/static/src/img/blocks/block_menu.png"/>
                     <t t-snippet="website.s_text_image" t-thumbnail="/website/static/src/img/blocks/block_text_image.png"/>
                     <t t-snippet="website.s_image_text" t-thumbnail="/website/static/src/img/blocks/block_image_text.png"/>
                     <t t-snippet="website.s_big_message" t-thumbnail="/website/static/src/img/blocks/block_jumbotron.png"/>
@@ -751,6 +762,21 @@
 
 <template id="snippet_options">
     <t t-call="web_editor.snippet_options"/>
+
+    <div data-js='js_menu' data-selector=".s_menu">
+        <t t-set="top_menu"
+           t-value="website.get_website_menus(website.id) if website else None" />
+        <li class="dropdown-submenu">
+            <a tabindex="-2" href="#"><i class="fa fa-magic"/>Select Top Menu</a>
+            <ul class="dropdown-menu">
+                <t t-foreach="top_menu" t-as="menu">
+                    <li  t-att-data-selected_menu="[menu.id,menu.menu_view.key]"
+                         t-att-data-view="menu.menu_view.key"><a
+                            href="#"><span t-esc="menu.name"/></a></li>
+                </t>
+            </ul>
+        </li>
+    </div>
 
     <div data-js='gallery' data-selector=".o_gallery">
         <li data-add-images="true" data-no-preview="true"><a href="#"><i class="fa fa-plus-circle"/>Add images</a></li>

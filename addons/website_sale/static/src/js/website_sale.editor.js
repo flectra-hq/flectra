@@ -80,19 +80,6 @@ options.registry.website_sale = options.Class.extend({
         if (size_y >= 4) $select = $select.add($size.find('tr:eq(3) td:lt('+size_x+')'));
         $select.addClass("selected");
 
-        this._rpc({
-            model: 'product.style',
-            method: 'search_read',
-        }).then(function (data) {
-            var $ul = self.$el.find('ul[name="style"]');
-            for (var k in data) {
-                $ul.append(
-                    $('<li data-style="'+data[k]['id']+'" data-toggle-class="'+data[k]['html_class']+'" data-no-preview="true"/>')
-                        .append( $('<a/>').text(data[k]['name']) ));
-            }
-            self._setActive();
-        });
-
         this.bind_resize();
     },
     reload: function () {
@@ -141,13 +128,7 @@ options.registry.website_sale = options.Class.extend({
         });
     },
     style: function (previewMode, value, $li) {
-        this._rpc({
-            route: '/shop/change_styles',
-            params: {
-                id: this.product_tmpl_id,
-                style_id: value,
-            },
-        });
+
     },
     go_to: function (previewMode, value) {
         this._rpc({

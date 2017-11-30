@@ -114,6 +114,16 @@
         </t>
         <t t-set="x_icon" t-value="'/web/image/website/%s/favicon/' % website.id"/>
     </xpath>
+    <xpath expr="//header" position="before">
+        <pre-header>
+            <div id="pre-header" class="oe_structure oe_empty"/>
+        </pre-header>
+    </xpath>
+    <xpath expr="//footer" position="after">
+        <post-footer>
+            <div id="post-footer" class="oe_structure oe_empty"/>
+        </post-footer>
+    </xpath>
     <xpath expr="//t[@t-set='head_website']" position="replace">
         <t t-set="head_website">
             <meta t-if="main_object and 'website_indexed' in main_object
@@ -202,6 +212,39 @@
             ga('send','pageview');
         </script>
     </xpath>
+</template>
+
+<template id="menu_snippets" name="Menu View">
+    <nav>
+        <div class="container">
+        <div class="navbar-header"/>
+        <ul id="nav_menu" class="nav navbar-nav navbar-right">
+            <t t-foreach="menu.child_id" t-as="submenu">
+                <t t-call="website.recursive_menu_snippets"/>
+            </t>
+        </ul>
+        </div>
+    </nav>
+</template>
+
+<template id="recursive_menu_snippets" name="Recursive Menu">
+    <li t-if="not submenu.child_id">
+        <a t-att-href="submenu.url" t-ignore="true"
+           t-att-target="submenu.new_window or '_blank'">
+            <span t-esc="submenu.name"/>
+        </a>
+    </li>
+    <li t-if="submenu.child_id" >
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <span t-esc="submenu.name"/>
+            <span class="caret" t-ignore="true"/>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+            <t t-foreach="submenu.child_id" t-as="submenu">
+                <t t-call="website.submenus"/>
+            </t>
+        </ul>
+    </li>
 </template>
 
 <template id="layout_footer_copyright" inherit_id="website.layout" name="Footer Copyright">

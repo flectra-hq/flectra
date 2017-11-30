@@ -8,6 +8,42 @@ from flectra.tools.translate import html_translate
 from flectra.tools import float_is_zero
 
 
+class ProductTags(models.Model):
+    _name = 'product.tags'
+    _order = 'sequence'
+
+    sequence = fields.Integer(help="Gives the sequence order when "
+                                   "displaying a list of rules.")
+    name = fields.Char(string='Name', required=True, translate=True)
+
+    _sql_constraints = [('name_uniq', 'unique (name)',
+                         "Tag name already exists !")]
+
+
+class ProductBrand(models.Model):
+    _name = 'product.brand'
+    _description = 'Product Brands'
+    _order = 'sequence'
+
+    sequence = fields.Integer(help="Gives the sequence order when displaying "
+                                   "a list of rules.")
+    name = fields.Char(string='Name', required=True, translate=True)
+    brand_image = fields.Binary(string='Brand Image')
+
+    _sql_constraints = [('name_uniq', 'unique (name)',
+                         'Brand name already exists !')]
+
+
+class ProductRibbon(models.Model):
+    _name = 'product.ribbon'
+    _description = 'Product Brand'
+    _order = 'name'
+
+    name = fields.Char(string='Name', size=20, required=True, translate=True)
+    ribbon_color_back = fields.Char(string='Background Color', required=True)
+    ribbon_color_text = fields.Char(string='Font Color', required=True)
+
+
 class ProductStyle(models.Model):
     _name = "product.style"
 
@@ -57,6 +93,18 @@ class ProductPricelist(models.Model):
         res = super(ProductPricelist, self).unlink()
         self.clear_cache()
         return res
+
+
+class WebsiteProductLimit(models.Model):
+    _name = 'product.view.limit'
+    _order = 'sequence'
+
+    sequence = fields.Integer(help="Gives the sequence order when "
+                                   "displaying a list of rules.")
+    name = fields.Integer(string='Limit', required=True)
+
+    _sql_constraints = [('name', 'unique(name)', 'This must be unique!')]
+
 
 
 class ProductPublicCategory(models.Model):
@@ -152,7 +200,6 @@ class ProductTemplate(models.Model):
                                              'An algorithm figures out a list of accessories based on all the products added to cart.')
     website_size_x = fields.Integer('Size X', default=1)
     website_size_y = fields.Integer('Size Y', default=1)
-    website_style_ids = fields.Many2many('product.style', string='Styles')
     website_sequence = fields.Integer('Website Sequence', help="Determine the display order in the Website E-commerce",
                                       default=lambda self: self._default_website_sequence())
     public_categ_ids = fields.Many2many('product.public.category', string='Website Product Category',
@@ -169,6 +216,9 @@ class ProductTemplate(models.Model):
                                    string='Websites', copy=False,
                                    help='List of websites in which '
                                         'Product is published.')
+    ribbon_id = fields.Many2one('product.ribbon', string='Product Ribbon')
+    brand_id = fields.Many2one('product.brand', string="Product's Brand")
+    tag_ids = fields.Many2many('product.tags', string='Product Tags')
 
     def _website_price(self):
         # First filter out the ones that have no variant:

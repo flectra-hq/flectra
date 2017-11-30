@@ -80,6 +80,15 @@ class Website(Home):
 
         raise request.not_found()
 
+    @http.route(['/website/menu/render'], type='json', auth="user", website=True)
+    def menu_render(self, **kwargs):
+        menu = request.env['website.menu'].browse(
+            int(kwargs['menu_id']))
+        value = {
+            'menu': menu,
+        }
+        return request.env['ir.ui.view'].render_template(kwargs['template'], value)
+
     #------------------------------------------------------
     # Login - overwrite of the web login so that regular users are redirected to the backend
     # while portal users are redirected to the frontend by default

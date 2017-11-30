@@ -67,10 +67,6 @@ class TableCompute(object):
             for y2 in range(y):
                 for x2 in range(x):
                     self.table[(pos // PPR) + y2][(pos % PPR) + x2] = False
-            self.table[pos // PPR][pos % PPR] = {
-                'product': p, 'x': x, 'y': y,
-                'class': " ".join(x.html_class for x in p.website_style_ids if x.html_class)
-            }
             if index <= ppg:
                 maxy = max(maxy, y + (pos // PPR))
             index += 1
@@ -84,6 +80,15 @@ class TableCompute(object):
             rows[col] = [r[1] for r in cols if r[1]]
 
         return rows
+
+
+class WebsiteProductLimit(http.Controller):
+
+    @http.route(['/shop/product_limit'], type='json', auth="public")
+    def change_limit(self, value):
+        global PPG
+        PPG = int(value)
+        return True
 
 
 class WebsiteSaleForm(WebsiteForm):
@@ -159,7 +164,7 @@ class WebsiteSale(http.Controller):
         # id is added to be sure that order is a unique sort key
         return 'website_published desc,%s , id desc' % post.get('order', 'website_sequence desc')
 
-    def _get_search_domain(self, search, category, attrib_values):
+    def _get_search_domain(self, search, category, attrib_values, tag_values, brand_values):
         domain = request.website.sale_product_domain()
         if search:
             for srch in search.split(" "):
@@ -188,6 +193,12 @@ class WebsiteSale(http.Controller):
         if not request.env.user.has_group('website.group_website_publisher'):
             domain += [('website_ids', 'in', request.website.id)]
 
+        if tag_values:
+            domain += [('tag_ids', 'in', tag_values)]
+
+        if brand_values:
+            domain += [('brand_id', 'in', brand_values)]
+
         return domain
 
     @http.route([
@@ -211,7 +222,17 @@ class WebsiteSale(http.Controller):
         attributes_ids = {v[0] for v in attrib_values}
         attrib_set = {v[1] for v in attrib_values}
 
-        domain = self._get_search_domain(search, category, attrib_values)
+        # For Tags
+        tag_list = request.httprequest.args.getlist('tags')
+        tag_values = [list(map(str, v)) for v in tag_list if v]
+        tag_set = set([int(v[0]) for v in tag_values])
+
+        # For Brands
+        brand_list = request.httprequest.args.getlist('brands')
+        brand_values = [list(map(str, v)) for v in brand_list if v]
+        brand_set = set([int(v[0]) for v in brand_values])
+
+        domain = self._get_search_domain(search, category, attrib_values, list(tag_set), list(brand_set))
 
         keep = QueryURL('/shop', category=category and int(category), search=search, attrib=attrib_list, order=post.get('order'))
 
@@ -249,12 +270,26 @@ class WebsiteSale(http.Controller):
         products = Product.search(domain, limit=ppg, offset=pager['offset'], order=self._get_search_order(post))
 
         ProductAttribute = request.env['product.attribute']
+        ProductBrand = request.env['product.brand']
+        ProductTag = request.env['product.tags']
         if products:
-            # get all products without limit
-            selected_products = Product.search(domain, limit=False)
-            attributes = ProductAttribute.search([('attribute_line_ids.product_tmpl_id', 'in', selected_products.ids)])
+            attributes = ProductAttribute.search([('attribute_line_ids.product_tmpl_id', 'in', products.ids)])
+            prod_brands = []
+            prod_tags = []
+            for product in products:
+                if product.brand_id:
+                    prod_brands.append(product.brand_id.id)
+                if product.tag_ids:
+                    for tag_id in product.tag_ids.ids:
+                        prod_tags.append(tag_id)
+            brands = ProductBrand.browse(list(set(prod_brands)))
+            tags = ProductTag.browse(list(set(prod_tags)))
         else:
             attributes = ProductAttribute.browse(attributes_ids)
+            brands = ProductBrand.browse(brand_set)
+            tags = ProductTag.browse(tag_set)
+
+        limits = request.env['product.view.limit'].search([])
 
         values = {
             'search': search,
@@ -264,6 +299,8 @@ class WebsiteSale(http.Controller):
             'pager': pager,
             'pricelist': pricelist,
             'products': products,
+            'tag_set': tag_set,
+            'brand_set': brand_set,
             'search_count': product_count,  # common for all searchbox
             'bins': TableCompute().process(products, ppg),
             'rows': PPR,
@@ -271,7 +308,11 @@ class WebsiteSale(http.Controller):
             'attributes': attributes,
             'compute_currency': compute_currency,
             'keep': keep,
+            'limits': limits,
             'parent_category_ids': parent_category_ids,
+            'get_attribute_value_ids': self.get_attribute_value_ids,
+            'tags': tags,
+            'brands': brands,
         }
         if category:
             values['main_object'] = category
@@ -304,6 +345,7 @@ class WebsiteSale(http.Controller):
         if not product_context.get('pricelist'):
             product_context['pricelist'] = pricelist.id
             product = product.with_context(product_context)
+
 
         values = {
             'search': search,
@@ -975,28 +1017,6 @@ class WebsiteSale(http.Controller):
             'public_categ_ids': category
         })
         return "/shop/product/%s?enable_editor=1" % slug(product.product_tmpl_id)
-
-    @http.route(['/shop/change_styles'], type='json', auth="public")
-    def change_styles(self, id, style_id):
-        product = request.env['product.template'].browse(id)
-
-        remove = []
-        active = False
-        style_id = int(style_id)
-        for style in product.website_style_ids:
-            if style.id == style_id:
-                remove.append(style.id)
-                active = True
-                break
-
-        style = request.env['product.style'].browse(style_id)
-
-        if remove:
-            product.write({'website_style_ids': [(3, rid) for rid in remove]})
-        if not active:
-            product.write({'website_style_ids': [(4, style.id)]})
-
-        return not active
 
     @http.route(['/shop/change_sequence'], type='json', auth="public")
     def change_sequence(self, id, sequence):

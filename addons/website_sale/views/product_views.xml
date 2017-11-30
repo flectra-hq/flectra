@@ -72,7 +72,9 @@
                     <field name="public_categ_ids" widget="many2many_tags" string="eCommerce Categories"/>
                     <field name="alternative_product_ids" widget="many2many_tags"/>
                     <field name="accessory_product_ids" widget="many2many_tags"/>
-                    <field name="website_style_ids" widget="many2many_tags" groups="base.group_no_one"/>
+                    <field name="ribbon_id"/>
+                    <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="brand_id" options="{'no_create': True}"/>
                 </group>
                 <field name="website_ids"/>
             </group>
@@ -221,5 +223,156 @@
             </form>
         </field>
     </record>
+
+    <!-- Product Limit Tree View -->
+    <record id="portfolio_category_tree_view" model="ir.ui.view">
+        <field name="name">product.view.limit.per.page.tree</field>
+        <field name="model">product.view.limit</field>
+        <field name="field_parent" eval="False" />
+        <field name="arch" type="xml">
+            <tree string="Product Veiw Limit per Page" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Product Limit Action -->
+    <record id="website_product_limit_action" model="ir.actions.act_window">
+        <field name="name">Website Products View Limit</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.view.limit</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to define a new Product View Limit per Page in Shop.
+            </p>
+        </field>
+    </record>
+
+    <!-- Product Ribbon Form View -->
+    <record id="product_ribbon_form_view" model="ir.ui.view">
+        <field name="name">Product Ribbon Form View</field>
+        <field name="model">product.ribbon</field>
+        <field name="arch" type="xml">
+            <form string="Product Ribbon">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="ribbon_color_back"/>
+                        <field name="ribbon_color_text"/>
+                    </group>
+                    <div class="alert alert-danger mt16" style="font-size:15px;">
+                        You can add Color Name | Hex Code in Ribbon's Background | Font color field.
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Product Tags Tree View -->
+    <record id="product_tag_tree_view" model="ir.ui.view">
+        <field name="name">Product Tags Tree</field>
+        <field name="model">product.tags</field>
+        <field name="field_parent" eval="False" />
+        <field name="arch" type="xml">
+            <tree string="Product Tags" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Product Brand From View -->
+    <record id="product_by_brand_form_view" model="ir.ui.view">
+        <field name="name">product.brand.form</field>
+        <field name="model">product.brand</field>
+        <field name="arch" type="xml">
+            <form string="Product Brands">
+                <sheet>
+                    <field name="brand_image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Brand Name"/>
+                        <h1><field name="name" placeholder="Brand Name"/></h1>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Product Brand Tree View -->
+    <record id="product_by_brand_tree_view" model="ir.ui.view">
+        <field name="name">product.brand.tree</field>
+        <field name="model">product.brand</field>
+        <field name="field_parent" eval="False" />
+        <field name="arch" type="xml">
+            <tree string="Product Brands">
+                <field name="sequence" widget="handle"/>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="product_brand_kanban_view" model="ir.ui.view">
+        <field name="name">Product By Brand</field>
+        <field name="model">product.brand</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="brand_image"/>
+                <field name="name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('product.brand', 'brand_image')"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <!-- Product Brand Action -->
+    <record id="product_by_brand_action" model="ir.actions.act_window">
+        <field name="name">Brands</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.brand</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to define a new product brand.
+            </p>
+        </field>
+    </record>
+
+    <!-- Product Tags Action -->
+    <record id="product_tags_action" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.tags</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to define a new product tag.
+            </p>
+        </field>
+    </record>
+
+    <!-- Product Brands Menu -->
+    <menuitem action="product_by_brand_action" id="menu_product_by_brand"
+              parent="website_sale.menu_catalog"/>
+
+    <!-- Product Tags Menu -->
+    <menuitem action="product_tags_action" id="menu_product_tags" name="Tags"
+              parent="website_sale.menu_catalog"/>
 
 </flectra>
