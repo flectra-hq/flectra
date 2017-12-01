@@ -53,7 +53,7 @@ return AbstractRenderer.extend({
             slideWidth: 'auto',
             cellWidth: 20,
             behavior: {
-                onClick: function (data) {
+                onDblClick: function (data) {
                     var dialog = new Dialog(self, {
                         title: _t(data.name),
                         $content: $(QWeb.render('GanttViewWizard')),

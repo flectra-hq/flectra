@@ -18,7 +18,7 @@ behavior: {
 	clickable: boolean,
 	draggable: boolean,
 	resizable: boolean,
-	onClick: function,
+	onDblClick: function,  // Modify by Flectra - Click becomes DblClick
 	onDrag: function,
 	onResize: function
 }
@@ -274,7 +274,7 @@ behavior: {
 		function apply() {
 
 			if (opts.behavior.clickable) {
-            	bindBlockClick(div, opts.behavior.onClick);
+                bindBlockClick(div, opts.behavior.onDblClick);
         	}
 
             if (opts.behavior.resizable) {
@@ -287,7 +287,7 @@ behavior: {
 		}
 
         function bindBlockClick(div, callback) {
-            jQuery("div.ganttview-block", div).on("click", function () {
+            jQuery("div.ganttview-block", div).on("dblclick", function () {
                 if (callback) { callback(jQuery(this).data("block-data")); }
             });
         }
