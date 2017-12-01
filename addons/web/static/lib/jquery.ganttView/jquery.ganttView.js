@@ -229,11 +229,11 @@ behavior: {
             for (var i = 0; i < data.length; i++) {
                 for (var j = 0; j < data[i].series.length; j++) {
                     var series = data[i].series[j];
-                    var size = DateUtils.daysBetween(series.start, series.end) ? DateUtils.daysBetween(series.start, series.end) : 1;
-					var offset = DateUtils.daysBetween(start, series.start) == 0 ? DateUtils.daysBetween(start, series.start) : DateUtils.daysBetween(start, series.start) - 1;
+                    var size = DateUtils.daysBetween(series.start, series.end) + 1;
+					var offset = DateUtils.daysBetween(start, series.start);
 					var block = jQuery("<div>", {
                         "class": "ganttview-block",
-                        "title": series.name + ", " + size + " days",
+                        "title": series.name + ", " + size + " days \n"+ series.start +" to "+ series.end,
                         "css": {
                             "width": ((size * cellWidth) - 7) + "px",
                             "margin-left": ((offset * cellWidth) + 3) + "px"
