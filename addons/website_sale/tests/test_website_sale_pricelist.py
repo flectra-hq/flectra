@@ -22,21 +22,29 @@ class TestWebsitePriceList(TransactionCase):
         self.env['product.pricelist'].search([]).write({'website_id': False})
         website_pls = ('list_benelux', 'list_christmas', 'list_europe')
         for pl in website_pls:
-            self.env.ref('website_sale.' + pl).website_id = self.website.id
-        self.env.ref('product.list0').website_id = self.website.id
-        self.env.ref('website_sale.list_benelux').selectable = True
+            self.env['website.product.pricelist'].create({
+                'pricelist_id': self.env.ref('website_sale.' + pl).id,
+                'website_id': self.website.id,
+                'selectable': False if pl == 'list_christmas' else True
+            })
+        self.env['website.product.pricelist'].create({
+            'pricelist_id': self.env.ref('product.list0').id,
+            'website_id': self.website.id
+        })
         self.website.pricelist_id = self.ref('product.list0')
 
         ca_group = self.env['res.country.group'].create({
             'name': 'Canada',
             'country_ids': [(6, 0, [self.ref('base.ca')])]
         })
-        self.env['product.pricelist'].create({
+        ppl = self.env['product.pricelist'].create({
             'name': 'Canada',
-            'selectable': True,
-            'website_id': self.website.id,
             'country_group_ids': [(6, 0, [ca_group.id])],
             'sequence': 10
+        })
+        self.env['website.product.pricelist'].create({
+            'pricelist_id': ppl.id,
+            'website_id': self.website.id
         })
         patcher = patch('flectra.addons.website_sale.models.website.Website.get_pricelist_available', wraps=self._get_pricelist_available)
         patcher.start()

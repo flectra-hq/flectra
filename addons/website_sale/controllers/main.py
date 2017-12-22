@@ -135,7 +135,7 @@ class WebsiteSale(http.Controller):
     def get_attribute_value_ids(self, product):
         """ list of selectable attributes of a product
 
-        :return: list of product variant description
+        :return: list of product variant description as requested website
            (variant id, [visible attribute ids], variant price, variant sale price)
         """
         # product attributes with at least two choices
@@ -185,6 +185,8 @@ class WebsiteSale(http.Controller):
                     ids = [value[1]]
             if attrib:
                 domain += [('attribute_line_ids.value_ids', 'in', ids)]
+        if not request.env.user.has_group('website.group_website_publisher'):
+            domain += [('website_ids', 'in', request.website.id)]
 
         return domain
 
@@ -222,11 +224,16 @@ class WebsiteSale(http.Controller):
             post["search"] = search
         if category:
             category = request.env['product.public.category'].browse(int(category))
+            website = []
+            for web in category.website_ids:
+                website.append(web.id)
+            if request.website.id not in website:
+                return request.render('website.404')
             url = "/shop/category/%s" % slug(category)
         if attrib_list:
             post['attrib'] = attrib_list
 
-        categs = request.env['product.public.category'].search([('parent_id', '=', False)])
+        categs = request.env['product.public.category'].search([('parent_id', '=', False), ('website_ids', 'in', request.website.id)])
         Product = request.env['product.template']
 
         parent_category_ids = []
@@ -315,7 +322,7 @@ class WebsiteSale(http.Controller):
 
     @http.route(['/shop/change_pricelist/<model("product.pricelist"):pl_id>'], type='http', auth="public", website=True)
     def pricelist_change(self, pl_id, **post):
-        if (pl_id.selectable or pl_id == request.env.user.partner_id.property_product_pricelist) \
+        if (pl_id.website_id or pl_id == request.env.user.partner_id.property_product_pricelist) \
                 and request.website.is_pricelist_available(pl_id.id):
             request.session['website_sale_current_pl'] = pl_id.id
             request.website.sale_get_order(force_pricelist=pl_id.id)

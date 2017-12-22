@@ -15,15 +15,23 @@ class ProductStyle(models.Model):
     html_class = fields.Char(string='HTML Classes')
 
 
+class WebsitePriceList(models.Model):
+    _name = "website.product.pricelist"
+
+    pricelist_id = fields.Many2one('product.pricelist',
+                                   string='Website Pricelist')
+    website_id = fields.Many2one('website', string='Website')
+    selectable = fields.Boolean(string="selectable", default=True)
+
+
 class ProductPricelist(models.Model):
     _inherit = "product.pricelist"
 
     def _default_website(self):
         return self.env['website'].search([], limit=1)
 
-    website_id = fields.Many2one('website', string="website", default=_default_website)
+    website_id = fields.One2many('website.product.pricelist', 'pricelist_id', string='Website')
     code = fields.Char(string='E-commerce Promotional Code', groups="base.group_user")
-    selectable = fields.Boolean(help="Allow the end user to choose this price list")
 
     def clear_cache(self):
         # website._get_pl() is cached to avoid to recompute at each request the
@@ -75,16 +83,40 @@ class ProductPublicCategory(models.Model):
                                 help="Small-sized image of the category. It is automatically "
                                 "resized as a 64x64px image, with aspect ratio preserved. "
                                 "Use this field anywhere a small image is required.")
+    website_ids = fields.Many2many('website', 'website_prod_public_categ_rel',
+                                   'website_id', 'category_id',
+                                   string='Websites', copy=False,
+                                   help='List of websites in which '
+                                        'category is published.')
 
     @api.model
     def create(self, vals):
         tools.image_resize_images(vals)
-        return super(ProductPublicCategory, self).create(vals)
+        res = super(ProductPublicCategory, self).create(vals)
+        # @todo Check different test-case: child & parent category
+        if res.parent_id:
+            res.parent_id.write({
+                'website_ids': [(4, website_id.id) for website_id in res.website_ids]
+            })
+        return res
 
     @api.multi
     def write(self, vals):
         tools.image_resize_images(vals)
-        return super(ProductPublicCategory, self).write(vals)
+        res = super(ProductPublicCategory, self).write(vals)
+        # @todo Check different test-case: child & parent category
+        if self.parent_id and self.website_ids.ids:
+            self.parent_id.write({
+                'website_ids': [(4, website_id.id) for website_id in self.website_ids]
+            })
+        if self.child_id:
+            for child_id in self.child_id:
+                for website_id in child_id.website_ids:
+                    if website_id not in self.website_ids:
+                        child_id.write({
+                            'website_ids': [(3, website_id.id)]
+                        })
+        return res
 
     @api.constrains('parent_id')
     def check_parent_id(self):
@@ -132,6 +164,11 @@ class ProductTemplate(models.Model):
     website_price = fields.Float('Website price', compute='_website_price', digits=dp.get_precision('Product Price'))
     website_public_price = fields.Float('Website public price', compute='_website_price', digits=dp.get_precision('Product Price'))
     website_price_difference = fields.Boolean('Website price difference', compute='_website_price')
+    website_ids = fields.Many2many('website', 'website_prod_pub_rel',
+                                   'website_id', 'product_id',
+                                   string='Websites', copy=False,
+                                   help='List of websites in which '
+                                        'Product is published.')
 
     def _website_price(self):
         # First filter out the ones that have no variant:
@@ -180,6 +217,11 @@ class ProductTemplate(models.Model):
 class Product(models.Model):
     _inherit = "product.product"
 
+    def _get_default_website_ids(self):
+        default_website_id = self.env.ref('website.default_website')
+        return [default_website_id.id] if default_website_id else None
+
+    website_ids = fields.Many2many('website', string="Publish Product On Website", default=_get_default_website_ids)
     website_price = fields.Float('Website price', compute='_website_price', digits=dp.get_precision('Product Price'))
     website_public_price = fields.Float('Website public price', compute='_website_price', digits=dp.get_precision('Product Price'))
     website_price_difference = fields.Boolean('Website price difference', compute='_website_price')

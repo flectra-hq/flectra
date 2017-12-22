@@ -21,6 +21,8 @@ class SaleOrder(models.Model):
         string='Order Lines displayed on Website', readonly=True,
         help='Order Lines to be displayed on the website. They should not be used for computation purpose.',
     )
+    website_id = fields.Many2one('website', string='Website',
+                                 help='Website reference for quotation/order.')
     cart_quantity = fields.Integer(compute='_compute_cart_info', string='Cart Quantity')
     only_services = fields.Boolean(compute='_compute_cart_info', string='Only Services')
     can_directly_mark_as_paid = fields.Boolean(compute='_compute_can_directly_mark_as_paid',
@@ -256,3 +258,9 @@ class SaleOrder(models.Model):
             self.payment_tx_id.state = 'done'
         else:
             raise ValidationError(_("The quote should be sent and the payment acquirer type should be manual or wire transfer"))
+
+    @api.multi
+    def _prepare_invoice(self):
+        res = super(SaleOrder, self)._prepare_invoice()
+        res['website_id'] = self.website_id.id
+        return res

@@ -11,6 +11,8 @@
                 <filter string="From Website" name="from_website" domain="[('team_id.team_type', '=', 'website')]"/>
                 <separator/>
                 <filter string="Recovery Email to Send" name="recovery_email" domain="[('cart_recovery_email_sent', '=', False)]" />
+                <separator/>
+                <filter name="website_id" string="Website" context="{'group_by':'website_id'}"/>
             </search>
         </field>
     </record>
@@ -34,6 +36,9 @@
                     type="object"
                     class="btn-primary"
                     attrs="{'invisible': ['|', ('is_abandoned_cart', '=', False), ('cart_recovery_email_sent', '=', True)]}"/>
+            </xpath>
+            <xpath expr="//group[@name='sales_person']" position="inside">
+                <field name="website_id"/>
             </xpath>
         </field>
     </record>

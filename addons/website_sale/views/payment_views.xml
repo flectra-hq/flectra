@@ -21,4 +21,24 @@
         <field name="view_id" ref="payment.transaction"/>
         <field name="help">You don't have any payments to capture from the website.</field>
     </record>
+
+    <record id="product_template_only_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.product.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='attribute_line_ids']"
+                   position="after">
+                <field name="product_variant_ids">
+                    <tree editable='bottom' delete="false" create="false">
+                        <field name = 'name' readonly="1"/>
+                        <field name = 'attribute_value_ids'
+                               widget="many2many_tags" readonly="1"/>
+                        <field name = 'lst_price' readonly="1"/>
+                        <field name = 'website_ids' widget="many2many_tags" />
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
 </flectra>

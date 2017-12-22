@@ -193,7 +193,7 @@
                                             <t t-if="td_product">
                                                 <t t-set="product" t-value="td_product['product']" />
                                                 <td t-att-colspan="td_product['x'] != 1 and td_product['x']" t-att-rowspan="td_product['y'] != 1 and td_product['y']" t-attf-class="oe_product oe_grid oe-height-#{td_product['y']*2} #{ td_product['class'] }">
-                                                    <div class="oe_product_cart" t-att-data-publish="product.website_published and 'on' or 'off'">
+                                                    <div class="oe_product_cart" t-att-data-publish="website in product.website_ids and 'on' or 'off'">
                                                         <t t-set="product_image_big" t-value="td_product['x']+td_product['y'] &gt; 2" />
                                                         <t t-call="website_sale.products_item" />
                                                     </div>
@@ -258,7 +258,7 @@
 
     <!-- Add to cart button-->
     <template id="categories_recursive" name="Category list">
-        <li t-att-class="'active' if c.id == int(category or 0) else None">
+        <li t-att-class="'active' if c.id == int(category or 0) else None" t-if="website in c.website_ids">
             <a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
             <ul t-if="c.child_id" class="nav nav-pills nav-stacked nav-hierarchy">
                 <t t-foreach="c.child_id" t-as="c">
@@ -365,7 +365,7 @@
     <template id="products_list_view" inherit_id="website_sale.products" active="False" customize_show="True" name="List View">
         <xpath expr="//div[@id='products_grid']//table" position="replace">
             <t t-foreach="products" t-as="product">
-                <div class="oe_product oe_list oe_product_cart" t-att-data-publish="product.website_published and 'on' or 'off'">
+                <div class="oe_product oe_list oe_product_cart" t-att-data-publish="website in product.website_ids and 'on' or 'off'">
                     <t t-call="website_sale.products_item">
                         <t t-set="show_publish" t-value="True" />
                     </t>

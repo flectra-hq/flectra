@@ -12,8 +12,10 @@ from flectra.http import request
 class WebsiteSaleBackend(WebsiteBackend):
 
     @http.route()
-    def fetch_dashboard_data(self, date_from, date_to):
-        results = super(WebsiteSaleBackend, self).fetch_dashboard_data(date_from, date_to)
+    def fetch_dashboard_data(self, date_from, date_to, website_id=None):
+        if not website_id:
+            website_id = request.website.id
+        results = super(WebsiteSaleBackend, self).fetch_dashboard_data(date_from, date_to, website_id)
 
         sales_values = dict(
             graph=[],
@@ -44,6 +46,7 @@ class WebsiteSaleBackend(WebsiteBackend):
                 ('team_id.team_type', '=', 'website'),
                 ('state', 'in', ['sale', 'done']),
                 ('date', '>=', date_from),
+                ('website_id.id', '=', website_id),
                 ('date', '<=', date_to)],
             fields=['product_id', 'product_uom_qty', 'price_subtotal'],
             groupby='product_id', orderby='product_uom_qty desc', limit=5)
@@ -60,7 +63,8 @@ class WebsiteSaleBackend(WebsiteBackend):
         sale_order_domain = [
             ('team_id', 'in', request.env['crm.team'].search([('team_type', '=', 'website')]).ids),
             ('date_order', '>=', fields.Datetime.to_string(datetime_from)),
-            ('date_order', '<=', fields.Datetime.to_string(datetime_to))]
+            ('date_order', '<=', fields.Datetime.to_string(datetime_to)),
+            ('website_id', '=', website_id)]
         so_group_data = request.env['sale.order'].read_group(sale_order_domain, fields=['state'], groupby='state')
         for res in so_group_data:
             if res.get('state') == 'sent':
@@ -74,7 +78,8 @@ class WebsiteSaleBackend(WebsiteBackend):
                 ('team_id.team_type', '=', 'website'),
                 ('state', 'in', ['sale', 'done']),
                 ('date', '>=', date_from),
-                ('date', '<=', date_to)],
+                ('date', '<=', date_to),
+                ('website_id.id', '=', website_id)],
             fields=['team_id', 'price_subtotal'],
             groupby=['team_id'],
         )
@@ -114,7 +119,8 @@ class WebsiteSaleBackend(WebsiteBackend):
             ('team_id.team_type', '=', 'website'),
             ('state', 'in', ['sale', 'done']),
             ('date', '>=', date_from),
-            ('date', '<=', date_to)
+            ('date', '<=', date_to),
+            ('website_id.id', '=', website_id)
         ]
         sales_values['graph'] += [{
             'values': self._compute_sale_graph(date_date_from, date_date_to, sales_domain),
