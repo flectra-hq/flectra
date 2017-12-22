@@ -10,23 +10,29 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[hasclass('settings')]" position="inside">
                     <div class="app_settings_block" data-string="Website" string="Website" data-key="website" groups="website.group_website_designer">
-                            <field name="website_id" invisible="1"/>
                             <h2>Website</h2>
                             <div class="row mt16 o_settings_container" id="webmaster_settings">
                                 <div class="col-xs-12 col-md-6 o_setting_box" id="domain_setting">
                                     <div class="o_setting_right_pane">
                                         <label string="Website Title"/>
                                         <div class="text-muted">
-                                            Name and favicon of your website
+                                            Name, favicon &amp; theme of your website
                                         </div>
                                         <div class="content-group">
                                             <div class="row mt16">
                                                 <label class="col-md-3 o_light_label" string="Name"/>
                                                 <field name="website_name"/>
                                             </div>
-                                            <div class="row">
+                                            <div class="row mt8">
                                                 <label class="col-md-3 o_light_label" for="favicon" />
                                                 <field name="favicon" widget="image" class="pull-left oe_avatar"/>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-md-3 o_light_label" for="website_theme_id"/>
+                                                <field name="website_theme_id"
+                                                       options="{'no_create': True, 'no_open': True}"
+                                                       domain="['|', ('category_id.name', '=', 'Theme'),
+                                                           ('category_id.parent_id.name', '=', 'Theme')]"/>
                                             </div>
                                         </div>
                                     </div>
@@ -69,7 +75,7 @@
                                             </div>
                                         </div>
                                         <div attrs="{'invisible': [('has_google_analytics', '=', False)]}">
-                                            <a href="https://www.flectra.com/documentation/user/11.0/website/optimize/google_analytics.html"
+                                            <a href="https://www.flectrahq.com/documentation/user/11.0/website/optimize/google_analytics.html"
                                                     class="oe_link fa fa-arrow-right" target="_blank">
                                                 How to get my Tracking ID
                                             </a>
@@ -96,7 +102,7 @@
                                             </div>
                                         </div>
                                         <div attrs="{'invisible': [('has_google_analytics_dashboard', '=', False)]}">
-                                            <a href="https://www.flectra.com/documentation/user/online/website/optimize/google_analytics_dashboard.html"
+                                            <a href="https://www.flectrahq.com/documentation/user/online/website/optimize/google_analytics_dashboard.html"
                                                 class="oe_link fa fa-arrow-right" target="_blank">
                                                 How to get my Client ID
                                             </a>
@@ -195,6 +201,24 @@
             <field name="context">{'module' : 'website'}</field>
         </record>
 
+        <record id="action_ui_qweb_view" model="ir.actions.act_window">
+            <field name="name">QWeb Views</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="view_id" ref="base.view_view_tree"/>
+            <field name="context">{'search_default_type': 'qweb',
+                'search_default_group_website_id': True}
+            </field>
+        </record>
+
+        <record id="action_website_website_list" model="ir.actions.act_window">
+            <field name="name">Websites</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">website</field>
+            <field name="view_id" ref="website.view_website_tree"/>
+            <field name="context">{}</field>
+        </record>
+
         <menuitem id="menu_website_global_configuration" parent="menu_website_configuration"
             sequence="100" name="Configuration" groups="base.group_system"/>
         <menuitem name="Settings"
@@ -216,5 +240,26 @@
             parent="menu_website_global_configuration"
             sequence="30"
             groups="base.group_no_one"/>
+
+        <menuitem name="Websites"
+              id="menu_website_website_list"
+              action="action_website_website_list"
+              parent="menu_website_global_configuration"
+              sequence="10"
+              groups="base.group_no_one"/>
+
+        <menuitem name="Menus"
+              id="menu_website_menus_list"
+              action="action_website_menu"
+              parent="menu_website_global_configuration"
+              sequence="40"
+              groups="base.group_no_one"/>
+
+        <menuitem name="QWeb Views"
+              id="menu_website_qweb_views_list"
+              action="action_ui_qweb_view"
+              parent="menu_website_global_configuration"
+              sequence="50"
+              groups="base.group_no_one"/>
 
 </flectra>

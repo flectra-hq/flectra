@@ -6,9 +6,13 @@ from flectra.http import request
 
 
 class WebsiteBackend(http.Controller):
-
-    @http.route('/website/fetch_dashboard_data', type="json", auth='user')
-    def fetch_dashboard_data(self, date_from, date_to):
+    
+    @http.route('/website/fetch_dashboard_data', type="json", auth='user',
+                website=True)
+    def fetch_dashboard_data(self, date_from, date_to, website_id=None):
+        if not website_id:
+            website_id = request.website.id
+        
         has_group_system = request.env.user.has_group('base.group_system')
         has_group_designer = request.env.user.has_group('website.group_website_designer')
         if has_group_system:
@@ -36,6 +40,10 @@ class WebsiteBackend(http.Controller):
                     ga_client_id=config.google_management_client_id or '',  # void string instead of stringified False
                     ga_analytics_key=config.google_analytics_key or '',  # void string instead of stringified False
                 )
+        dashboard_data['website_ids'] = request.env['website'].search_read()
+        dashboard_data['website'] = request.env['website'].browse(
+            website_id).domain
+        dashboard_data['current_website'] = request.website.domain
         return dashboard_data
 
     @http.route('/website/dashboard/set_ga_data', type='json', auth='user')

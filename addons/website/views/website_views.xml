@@ -21,8 +21,10 @@
                     <div name="domain">
                         <separator name="domain" string="Domain"/>
                         <group name="domain">
-                            <field name="name"/>
-                            <field name="domain"/>
+                            <field name="name" required="True"/>
+                            <field name="domain" required="True"/>
+                            <field name="website_code" invisible="True"/>
+                            <field name="is_default_website" invisible="True"/>
                             <field name="google_analytics_key" placeholder="UA-XXXXXXXX-Y"/>
                         </group>
                     </div>
@@ -57,6 +59,8 @@
                     <field name="name"/>
                     <field name="company_id" groups="base.group_multi_company"/>
                     <field name="default_lang_id"/>
+                    <field name="website_code"/>
+                    <field name="is_default_website"/>
                 </tree>
             </field>
         </record>
@@ -212,6 +216,7 @@
                 <field name="name" position="after">
                     <field name="website_id" readonly="1"/>
                     <field name="key" readonly="1"/>
+                    <field name="is_cloned"/>
                     <field name="page_ids" invisible="1" />
                 </field>
                 <sheet position="before">
@@ -220,6 +225,20 @@
                             type="object" attrs="{'invisible': [('page_ids', '=', [])]}"/>
                     </header>
                 </sheet>
+            </field>
+        </record>
+
+        <!-- ir.ui.view search -->
+        <record model="ir.ui.view" id="view_view_search_extend">
+            <field name="model">ir.ui.view</field>
+            <field name="inherit_id" ref="base.view_view_search"/>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="website_id"/>
+                </field>
+                <xpath expr="//group" position="inside">
+                    <filter name="group_website_id" string="Website" domain="[]" context="{'group_by':'website_id'}"/>
+                </xpath>
             </field>
         </record>
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="base_module_form_inherit" model="ir.ui.view">
+        <field name="name">ir.module.module.form.inherit</field>
+        <field name="model">ir.module.module</field>
+        <field name="inherit_id" ref="base.module_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="website_ids" widget="many2many_tags"
+                       invisible="0"/>
+            </xpath>
+        </field>
+    </record>
+</flectra>

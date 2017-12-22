@@ -6,6 +6,7 @@
             <field name="domain">localhost</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="user_id" ref="base.public_user"/>
+            <field name="is_default_website">True</field>
             <field name="favicon" type="base64" file="web/static/src/img/favicon.ico"/>
         </record>
 
@@ -35,6 +36,7 @@
             <field name="name">Home</field>
             <field name="type">qweb</field>
             <field name="key">website.homepage</field>
+            <field name="website_id" ref="default_website"/>
             <field name="arch" type="xml">
                 <t name="Home" priority="29" t-name="website.homepage">
                     <t t-call="website.layout">
@@ -48,6 +50,7 @@
             <field name="website_published">True</field>
             <field name="url">/</field>
             <field name="view_id" ref="homepage" />
+            <field name="website_ids" eval="[(4, ref('default_website'))]" />
         </record>
         <record id="default_website" model="website">
             <field name="homepage_id" ref="homepage_page" />
@@ -91,6 +94,7 @@
             <field name="url">/contactus</field>
             <field name="website_published">True</field>
             <field name="view_id" ref="contactus" />
+            <field name="website_ids" eval="[(4, ref('default_website'))]" />
         </record>
 
         <record id="aboutus" model="ir.ui.view">
@@ -147,6 +151,7 @@
             <field name="website_published">True</field>
             <field name="url">/aboutus</field>
             <field name="view_id" ref="aboutus" />
+            <field name="website_ids" eval="[(4, ref('default_website'))]" />
         </record>
 
         <record id="menu_homepage" model="website.menu">
@@ -553,6 +558,16 @@
             <field name="datas_fname">s_company_team_image_4.png</field>
             <field name="type">url</field>
             <field name="url">/website/static/src/img/snippets_demo/s_team_member_4.png</field>
+        </record>
+
+        <!-- Multi Website Automated Action Rule -->
+        <record id="multi_website_views_on_create" model="base.automation">
+            <field name="name">Multi Website: multi website rule on create</field>
+            <field name="model_id" ref="base.model_ir_ui_view"/>
+            <field name="state">code</field>
+            <field name="code">model.multi_website_view_rule()</field>
+            <field name="trigger">on_create</field>
+            <field name="active" eval="True"/>
         </record>
 
     </data>
