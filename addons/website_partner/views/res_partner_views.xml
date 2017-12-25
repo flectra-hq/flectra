@@ -13,6 +13,9 @@
                         <field name="website_published" widget="website_button"/>
                     </button>
                 </button>
+                <xpath expr="//field[@name='lang']" position="after">
+                    <field name="website_ids" widget="many2many_tags"/>
+                </xpath>
             </data>
         </field>
     </record>
