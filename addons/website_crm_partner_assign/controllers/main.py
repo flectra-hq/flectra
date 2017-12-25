@@ -185,14 +185,14 @@ class WebsiteCrmPartnerAssign(WebsitePartnerPage):
             yield {'loc': '/partners'}
 
         Grade = env['res.partner.grade']
-        dom = [('website_published', '=', True)]
+        dom = [('website_published', '=', True), ('website_ids', 'in', request.website.id)]
         dom += sitemap_qs2dom(qs=qs, route='/partners/grade/', field=Grade._rec_name)
         for grade in env['res.partner.grade'].search(dom):
             loc = '/partners/grade/%s' % slug(grade)
             if not qs or qs.lower() in loc:
                 yield {'loc': loc}
 
-        partners_dom = [('is_company', '=', True), ('grade_id', '!=', False), ('website_published', '=', True), ('grade_id.website_published', '=', True)]
+        partners_dom = [('is_company', '=', True), ('grade_id', '!=', False), ('website_published', '=', True), ('website_ids', 'in', request.website.id), ('grade_id.website_published', '=', True)]
         dom += sitemap_qs2dom(qs=qs, route='/partners/country/')
         countries = env['res.partner'].sudo().read_group(partners_dom, fields=['id', 'country_id'], groupby='country_id')
         for country in countries:
@@ -221,7 +221,7 @@ class WebsiteCrmPartnerAssign(WebsitePartnerPage):
 
         base_partner_domain = [('is_company', '=', True), ('grade_id', '!=', False), ('website_published', '=', True)]
         if not request.env['res.users'].has_group('website.group_website_publisher'):
-            base_partner_domain += [('grade_id.website_published', '=', True)]
+            base_partner_domain += [('grade_id.website_published', '=', True), ('grade_id.website_ids', 'in', request.website.id)]
         if search:
             base_partner_domain += ['|', ('name', 'ilike', search), ('website_description', 'ilike', search)]
 
@@ -327,7 +327,7 @@ class WebsiteCrmPartnerAssign(WebsitePartnerPage):
         if partner_id:
             partner = request.env['res.partner'].sudo().browse(partner_id)
             is_website_publisher = request.env['res.users'].has_group('website.group_website_publisher')
-            if partner.exists() and (partner.website_published or is_website_publisher):
+            if partner.exists() and ((partner.website_published and request.website in  partner.website_ids) or is_website_publisher):
                 values = {
                     'main_object': partner,
                     'partner': partner,

@@ -162,7 +162,7 @@
 
 <template id="grade_in_detail" inherit_id="website_partner.partner_detail">
   <xpath expr="//*[@id='partner_name']" position="after">
-    <h3 class="col-md-12 text-center text-muted" t-if="partner.grade_id and partner.grade_id.website_published">
+    <h3 class="col-md-12 text-center text-muted" t-if="partner.grade_id and partner.grade_id.website_published and website in partner.grade_id.website_published">
       <span t-field="partner.grade_id"/> Partner</h3>
   </xpath>
 </template>
@@ -171,7 +171,7 @@
     <t t-if="any([p.website_published for p in partner.implemented_partner_ids])">
         <h3 id="references">References</h3>
         <div t-foreach="partner.implemented_partner_ids" t-as="reference" class="media">
-          <t t-if="reference.website_published">
+          <t t-if="website in reference.website_ids and reference.website_published">
             <a class="pull-left" t-attf-href="/customers/#{slug(reference)}">
                 <span t-field="reference.image_small" t-options='{"widget": "image", "class": "center-block"}'/>
             </a>

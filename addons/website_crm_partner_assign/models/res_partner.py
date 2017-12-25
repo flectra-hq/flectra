@@ -15,6 +15,11 @@ class ResPartnerGrade(models.Model):
     name = fields.Char('Level Name', translate=True)
     partner_weight = fields.Integer('Level Weight', default=1,
         help="Gives the probability to assign a lead to this partner. (0 means no assignation.)")
+    website_ids = fields.Many2many('website', 'website_partner_grade_pub_rel',
+                                   'website_id', 'partner_grade_id',
+                                   string='Websites', copy=False,
+                                   help='List of websites in which '
+                                        'Partner Grade is published.')
 
     @api.multi
     def _compute_website_url(self):
