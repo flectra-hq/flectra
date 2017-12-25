@@ -10,6 +10,7 @@ Website interface to create short and trackable URLs.
     'version': '1.0',
     'depends': ['website', 'link_tracker'],
     'data': [
+        'views/link_tracker.xml',
         'views/website_links_template.xml',
         'views/website_links_graphs.xml',
         'security/ir.model.access.csv',

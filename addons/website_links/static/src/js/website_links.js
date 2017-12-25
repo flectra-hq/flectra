@@ -351,6 +351,7 @@ if (!$('.o_website_links_create_tracked_url').length) {
 
             var params = {};
             params.url = $("#url").val();
+            params.website_id = $("#website_id").val();
             if (campaign_id !== '') { params.campaign_id = parseInt(campaign_id); }
             if (medium_id !== '') { params.medium_id = parseInt(medium_id); }
             if (source_id !== '') { params.source_id = parseInt(source_id); }
