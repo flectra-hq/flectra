@@ -47,7 +47,7 @@ class WebsiteCustomer(http.Controller):
         Partner = request.env['res.partner']
         search_value = post.get('search')
 
-        domain = [('website_published', '=', True), ('assigned_partner_id', '!=', False)]
+        domain = [('website_published', '=', True), ('website_ids', 'in', request.website.id), ('assigned_partner_id', '!=', False)]
         if search_value:
             domain += [
                 '|', '|',
@@ -118,7 +118,7 @@ class WebsiteCustomer(http.Controller):
         google_map_partner_ids = ','.join(str(it) for it in partners.ids)
         google_maps_api_key = request.env['ir.config_parameter'].sudo().get_param('google_maps_api_key')
 
-        tags = Tag.search([('website_published', '=', True), ('partner_ids', 'in', partners.ids)], order='classname, name ASC')
+        tags = Tag.search([('website_published', '=', True), ('website_ids', 'in', request.website.id), ('partner_ids', 'in', partners.ids)], order='classname, name ASC')
         tag = tag_id and Tag.browse(tag_id) or False
 
         values = {
@@ -145,7 +145,7 @@ class WebsiteCustomer(http.Controller):
         _, partner_id = unslug(partner_id)
         if partner_id:
             partner = request.env['res.partner'].sudo().browse(partner_id)
-            if partner.exists() and partner.website_published:
+            if partner.exists() and partner.website_published and request.website in partner.website_ids:
                 values = {}
                 values['main_object'] = values['partner'] = partner
                 return request.render("website_customer.details", values)

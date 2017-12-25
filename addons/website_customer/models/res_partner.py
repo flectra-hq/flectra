@@ -27,3 +27,8 @@ class Tags(models.Model):
     classname = fields.Selection(get_selection_class, 'Class', default='default', help="Bootstrap class to customize the color", required=True)
     active = fields.Boolean('Active', default=True)
     website_published = fields.Boolean(default=True)
+    website_ids = fields.Many2many('website', 'website_partner_tag_pub_rel',
+                                   'website_id', 'partner_tag_id',
+                                   string='Websites', copy=False,
+                                   help='List of websites in which '
+                                        'Partner Tag is published.')

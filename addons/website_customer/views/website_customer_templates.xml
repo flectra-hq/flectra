@@ -189,7 +189,7 @@
 </template>
 
 <template id="implemented_by_block" name="Partner Implemented By Block">
-        <t t-if="partner.assigned_partner_id and partner.assigned_partner_id.website_published">
+        <t t-if="partner.assigned_partner_id and partner.assigned_partner_id.website_published and website in partner.assigned_partner_id.website_ids">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4>Implemented By</h4>
@@ -198,7 +198,7 @@
         <h4>
             <a t-attf-href="/partners/#{slug(partner.assigned_partner_id)}">
               <span t-field="partner.assigned_partner_id"/>
-              <span class="small"> (<t t-esc="len([p for p in partner.assigned_partner_id.implemented_partner_ids if p.website_published])"/> reference(s))</span>
+              <span class="small"> (<t t-esc="len([p for p in partner.assigned_partner_id.implemented_partner_ids if p.website_published and website in p.website_ids])"/> reference(s))</span>
             </a>
         </h4>
         <div><a t-attf-href="/partners/#{slug(partner.assigned_partner_id)}"
@@ -218,10 +218,10 @@
 </template>
 
 <template id="references_block" name="Partner References Block">
-        <t t-if="any([p.website_published for p in partner.implemented_partner_ids])">
+        <t t-if="any([p.website_published and website in p.website_ids for p in partner.implemented_partner_ids])">
             <h3 id="references">References</h3>
             <div t-foreach="partner.implemented_partner_ids" t-as="reference" class="media">
-              <t t-if="reference.website_published">
+              <t t-if="reference.website_published and website in reference.website_ids">
                 <a class="pull-left" t-attf-href="/customers/#{slug(reference)}">
                     <span t-field="reference.image_small" t-options='{"widget": "image", "class": "center-block"}'/>
                 </a>
