@@ -25,7 +25,7 @@ class KarmaError(Forbidden):
 class Forum(models.Model):
     _name = 'forum.forum'
     _description = 'Forum'
-    _inherit = ['mail.thread', 'website.seo.metadata']
+    _inherit = ['mail.thread', 'website.seo.metadata', 'website.published.mixin']
 
     @api.model_cr
     def init(self):
@@ -128,6 +128,11 @@ class Forum(models.Model):
     karma_user_bio = fields.Integer(string='Display detailed user biography', default=750)
     karma_post = fields.Integer(string='Ask questions without validation', default=100)
     karma_moderate = fields.Integer(string='Moderate posts', default=1000)
+    website_ids = fields.Many2many('website', 'website_forum_pub_rel',
+                                   'website_id', 'forum_id',
+                                   string='Websites', copy=False,
+                                   help='List of websites in which '
+                                        'Forum is published.')
 
     @api.one
     @api.constrains('allow_question', 'allow_discussion', 'allow_link', 'default_post_type')
@@ -271,6 +276,8 @@ class Post(models.Model):
     can_post = fields.Boolean('Can Automatically be Validated', compute='_get_post_karma_rights')
     can_flag = fields.Boolean('Can Flag', compute='_get_post_karma_rights')
     can_moderate = fields.Boolean('Can Moderate', compute='_get_post_karma_rights')
+
+    website_id = fields.Many2one('website', string="Website")
 
     def _search_can_view(self, operator, value):
         if operator not in ('=', '!=', '<>'):
