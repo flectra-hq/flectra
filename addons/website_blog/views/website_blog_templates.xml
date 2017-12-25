@@ -133,7 +133,7 @@
                     </p>
                 </div>
 
-                <div t-foreach="blog_posts" t-as="blog_post" class="mb32" name="blog_post">
+                <div t-foreach="blog_posts" t-as="blog_post" class="mb32" name="blog_post" t-att-data-publish="website in blog_post.website_ids and 'on' or 'off'">
                     <a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }">
                         <h2 t-field="blog_post.name" class="mb4 o_blog_post_title">Untitled Post</h2>
                     </a>

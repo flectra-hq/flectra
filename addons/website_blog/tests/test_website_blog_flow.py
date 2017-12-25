@@ -17,6 +17,7 @@ class TestWebsiteBlogFlow(TestWebsiteBlogCommon):
          - if someone subscribe to the post or comment it, it become follower
            and receive notification for future comments. """
 
+        self.website = self.env['website'].browse(1)
         # Create a new blog, subscribe the employee to the blog
         test_blog = self.env['blog.blog'].sudo(self.user_blogmanager).create({
             'name': 'New Blog',
@@ -39,7 +40,7 @@ class TestWebsiteBlogFlow(TestWebsiteBlogCommon):
             'website_blog: subscribing to a blog should not subscribe to its posts')
 
         # Publish the blog
-        test_blog_post.write({'website_published': True})
+        test_blog_post.write({'website_published': True, 'website_ids': [(6, 0, [self.website.id])]})
 
         # Check publish message has been sent to blog followers
         publish_message = next((m for m in test_blog_post.blog_id.message_ids if m.subtype_id.id == self.ref('website_blog.mt_blog_blog_published')), None)

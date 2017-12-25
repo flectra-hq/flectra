@@ -153,6 +153,11 @@ class BlogPost(models.Model):
     author_avatar = fields.Binary(related='author_id.image_small', string="Avatar")
     visits = fields.Integer('No of Views', copy=False)
     ranking = fields.Float(compute='_compute_ranking', string='Ranking')
+    website_ids = fields.Many2many('website', 'website_blog_pub_rel',
+                                   'website_id', 'blog_id',
+                                   string='Websites', copy=False,
+                                   help='List of websites in which '
+                                        'Blog Post is published.')
 
     @api.multi
     @api.depends('content', 'teaser_manual')
