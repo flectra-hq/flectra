@@ -54,6 +54,20 @@
                     states="done"
                     string="Edit Badges"/>
             </xpath>
+            <xpath expr="//field[@name='auto_confirm']" position="before">
+                <field name="website_ids" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_event_registration_form_inherit">
+        <field name="name">view.event.registration.form.inherit</field>
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_event_registration_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="website_id"/>
+            </field>
         </field>
     </record>
 

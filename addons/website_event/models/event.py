@@ -17,6 +17,11 @@ class Event(models.Model):
     _inherit = ['event.event', 'website.seo.metadata', 'website.published.mixin']
 
     website_published = fields.Boolean(track_visibility='onchange')
+    website_ids = fields.Many2many('website', 'website_event_pub_rel',
+                                   'website_id', 'event_id',
+                                   string='Websites', copy=False,
+                                   help='List of websites in which '
+                                        'Event is published.')
 
     is_participating = fields.Boolean("Is Participating", compute="_compute_is_participating")
 
@@ -131,3 +136,29 @@ class Event(models.Model):
             'target': 'new',
             'url': '/report/html/%s/%s?enable_editor' % ('event.event_event_report_template_badge', self.id),
         }
+
+
+class EventRegistration(models.Model):
+
+    _inherit = 'event.registration'
+
+    website_id = fields.Many2one('website', string="Website")
+
+    @api.model
+    def _prepare_attendee_values(self, registration):
+        """ Method preparing the values to create new attendees based on a
+        sale order line. It takes some registration data (dict-based) that are
+        optional values coming from an external input like a web page. This method
+        is meant to be inherited in various addons that sell events. """
+        partner_id = registration.pop('partner_id', self.env.user.partner_id)
+        event_id = registration.pop('event_id', False)
+        data = {
+            'name': registration.get('name', partner_id.name),
+            'phone': registration.get('phone', partner_id.phone),
+            'email': registration.get('email', partner_id.email),
+            'partner_id': partner_id.id,
+            'website_id': registration.get('website_id', partner_id.email),
+            'event_id': event_id and event_id.id or False,
+        }
+        data.update({key: registration[key] for key in registration.keys() if key in self._fields})
+        return data

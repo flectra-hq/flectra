@@ -53,12 +53,12 @@
                     </div>
                     <ul class="media-list">
                         <li t-foreach="event_ids" t-as="event" class="media">
-                            <div itemscope="itemscope" itemtype="http://schema.org/Event" class="media-body">
+                            <div itemscope="itemscope" itemtype="http://schema.org/Event" class="media-body" t-att-data-publish="website in event.website_ids and 'on' or 'off'">
                                 <h4 class="media-heading">
                                     <a itemprop="url" t-att-class="event.state == 'done' and 'text-success'" t-attf-href="/event/#{ slug(event) }/#{(not event.menu_id) and 'register' or ''}"><span itemprop="name" t-field="event.name"> </span></a>
                                     <small t-if="event.is_participating" class="label label-info">Participating</small>
-                                    <small t-if="event.is_online" class="label label-info">Online</small>
-                                    <small t-if="not event.website_published" class="label label-danger">unpublished</small>
+                                    <small t-if="not event.is_online" class="label label-info">Online</small>
+                                    <small t-if="not event.website_published and website not in event.website_ids" class="label label-danger">unpublished</small>
                                 </h4>
                                 <div>
                                     <t t-if="event.organizer_id">
@@ -680,7 +680,7 @@
                         <h4><b>Upcoming Events</b></h4>
                     </t>
                     <div t-foreach="events[:5]" t-as="event_dict" class="oe_website_overflow_ellipsis mb8">
-                        <t t-if="not event_dict['event'].website_published">
+                        <t t-if="not event_dict['event'].website_published and website not in event_dict['event'].wesite_ids">
                             <span class="label label-danger"><i class="fa fa-ban"></i></span>
                         </t>
                         <t t-if="event_dict['event'].address_id">
