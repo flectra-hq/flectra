@@ -10,6 +10,7 @@
     'depends': ['website_form', 'website_partner', 'crm'],
     'data': [
         'data/website_crm_data.xml',
+        'views/crm_lead_view.xml',
         'views/website_crm_templates.xml',
         'views/res_config_settings_views.xml',
     ],
