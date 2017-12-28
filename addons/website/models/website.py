@@ -102,7 +102,9 @@ class Website(models.Model):
     @api.multi
     def write(self, values):
         self._get_languages.clear_cache(self)
-        if values.get('website_code') or values.get('is_default_website'):
+        if values.get('website_code') or \
+                (values.get('is_default_website')
+                 and self != self.env.ref('website.default_website')):
             raise Warning(_('Unexpected bad things will happen!\n'
                             'Changing website code or default website '
                             'can have unintended side effects.\n'
