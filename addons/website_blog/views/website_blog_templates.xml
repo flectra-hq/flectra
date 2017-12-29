@@ -57,7 +57,7 @@
                     <t t-foreach="posts" t-as="post">
                       <div class="col-md-4">
                         <h4>
-                            <a t-attf-href="#{blog_url('', ['blog', 'post'], blog=post.blog_id, post=post)}" t-field="post.name"></a>
+                            <a t-attf-href="#{blog_url('', ['blog', 'post'], blog=post.blog_id, post=post)}" t-field="post.name"/>
                             <span t-if="not post.website_published" class="text-warning">
                                 <span class="fa fa-exclamation-triangle ml8" title="Unpublished"/>
                             </span>
@@ -133,7 +133,7 @@
                     </p>
                 </div>
 
-                <div t-foreach="blog_posts" t-as="blog_post" class="mb32" name="blog_post" t-att-data-publish="website in blog_post.website_ids and 'on' or 'off'">
+                <div t-foreach="blog_posts" t-as="blog_post" class="mb32" name="blog_post" t-attf-data-publish="#{not blog_post.website_ids or website in blog_post.website_ids and 'on' or 'off'}">
                     <a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }">
                         <h2 t-field="blog_post.name" class="mb4 o_blog_post_title">Untitled Post</h2>
                     </a>

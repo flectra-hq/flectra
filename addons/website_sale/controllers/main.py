@@ -191,7 +191,7 @@ class WebsiteSale(http.Controller):
             if attrib:
                 domain += [('attribute_line_ids.value_ids', 'in', ids)]
         if not request.env.user.has_group('website.group_website_publisher'):
-            domain += [('website_ids', 'in', request.website.id)]
+            domain += ['|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id)]
 
         if tag_values:
             domain += [('tag_ids', 'in', tag_values)]
@@ -254,7 +254,7 @@ class WebsiteSale(http.Controller):
         if attrib_list:
             post['attrib'] = attrib_list
 
-        categs = request.env['product.public.category'].search([('parent_id', '=', False), ('website_ids', 'in', request.website.id)])
+        categs = request.env['product.public.category'].search([('parent_id', '=', False), '|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id)])
         Product = request.env['product.template']
 
         parent_category_ids = []
@@ -290,7 +290,6 @@ class WebsiteSale(http.Controller):
             tags = ProductTag.browse(tag_set)
 
         limits = request.env['product.view.limit'].search([])
-
         values = {
             'search': search,
             'category': category,

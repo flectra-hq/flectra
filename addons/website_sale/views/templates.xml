@@ -229,7 +229,7 @@
                             <t t-foreach="products" t-as="product">
                                 <div id="grid_list"
                                     class="col-md-4 oe_product oe_grid oe_product_cart oe-height-4"
-                                    t-att-data-publish="website in product.website_ids and 'on' or 'off'">
+                                    t-attf-data-publish="#{product.website_published &amp; (not product.website_ids or website in product.website_ids) and 'on' or 'off'}">
                                     <t t-call="website_sale.products_item">
                                     </t>
                                 </div>
@@ -288,7 +288,7 @@
 
     <!-- Add to cart button-->
     <template id="categories_recursive" name="Category list">
-        <li t-att-class="'active' if c.id == int(category or 0) else None" t-if="website in c.website_ids">
+        <li t-att-class="'active' if c.id == int(category or 0) else None" t-if="website in c.website_ids or not c.website_ids">
             <a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
             <ul t-if="c.child_id" class="nav nav-pills nav-stacked nav-hierarchy">
                 <t t-foreach="c.child_id" t-as="c">
@@ -395,7 +395,7 @@
     <template id="products_list_view" inherit_id="website_sale.products" name="List View" active="False">
         <xpath expr="//div[@id='products_grid']/t/div[@id='grid_list']" position="replace">
             <div class="oe_product oe_list oe_product_cart"
-                t-att-data-publish="website in product.website_ids and 'on' or 'off'">
+                t-attf-data-publish="#{product.website_published &amp; (not product.website_ids or website in product.website_ids) and 'on' or 'off'}">
                 <t t-call="website_sale.products_item">
                     <t t-set="show_publish" t-value="True" />
                 </t>
@@ -1757,7 +1757,7 @@
     <template id="quick_view_products_item" inherit_id="website_sale.products_item"
         active="True" customize_show="True" name="Product Quick View">
         <xpath expr="//div[hasclass('oe_product_image')]/a[1]" position="after">
-            <div t-attf-class="quick" t-if="product.website_published and website in product.website_ids">
+            <div t-attf-class="quick" t-if="(not product.website_ids or website in product.website_ids) and product.website_published">
                 <div class="quick-view-bgr">
                     <a class="quick-view btn btn-primary" t-attf-href="##{ product.id }"
                         role="button" data-toggle="modal" title="Quick view">

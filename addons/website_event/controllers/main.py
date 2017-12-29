@@ -83,7 +83,7 @@ class WebsiteEventController(http.Controller):
 
         def dom_without(without):
             domain = [('state', "in", ['draft', 'confirm', 'done'])]
-            domain += [('website_ids', 'in', request.website.id)] if \
+            domain += ['|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id)] if \
                 not request.env.user.has_group('website.group_website_publisher') else []
             for key, search in domain_search.items():
                 if key != without:
