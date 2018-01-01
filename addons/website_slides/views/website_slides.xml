@@ -39,7 +39,7 @@
             <div class="row">
                 <t t-foreach="channels" t-as="channel">
                     <div t-if="channel_index % 3 == 0" class="clearfix"/>
-                    <div class="col-sm-4 mb32">
+                    <div class="col-sm-4 mb32" t-attf-data-publish="#{channel.website_published &amp; (not channel.website_ids or website in channel.website_ids) and 'on' or 'off'}">
                         <div class="well well-sm">
                             <div>
                                 <a t-attf-href="/slides/#{slug(channel)}">

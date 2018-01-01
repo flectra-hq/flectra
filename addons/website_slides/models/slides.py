@@ -51,6 +51,7 @@ class Channel(models.Model):
     @api.depends('custom_slide_id', 'promote_strategy', 'slide_ids.likes',
                  'slide_ids.total_views', "slide_ids.date_published")
     def _compute_promoted_slide_id(self):
+        domain = self.env['website'].get_current_website()
         for record in self:
             if record.promote_strategy == 'none':
                 record.promoted_slide_id = False
@@ -58,7 +59,7 @@ class Channel(models.Model):
                 record.promoted_slide_id = record.custom_slide_id
             elif record.promote_strategy:
                 slides = self.env['slide.slide'].search(
-                    [('website_published', '=', True), ('channel_id', '=', record.id)],
+                    [('website_published', '=', True), '|', ('website_ids', '=', False), ('website_ids', 'in', domain.id), ('channel_id', '=', record.id)],
                     limit=1, order=self._order_by_strategy[record.promote_strategy])
                 record.promoted_slide_id = slides and slides[0] or False
 
@@ -71,8 +72,9 @@ class Channel(models.Model):
     @api.depends('slide_ids.slide_type', 'slide_ids.website_published')
     def _count_presentations(self):
         result = dict.fromkeys(self.ids, dict())
+        domain = self.env['website'].get_current_website()
         res = self.env['slide.slide'].read_group(
-            [('website_published', '=', True), ('channel_id', 'in', self.ids)],
+            [('website_published', '=', True), '|', ('website_ids', '=', False), ('website_ids', 'in', domain.id), ('channel_id', 'in', self.ids)],
             ['channel_id', 'slide_type'], ['channel_id', 'slide_type'],
             lazy=False)
         for res_group in res:
@@ -111,6 +113,11 @@ class Channel(models.Model):
     can_see = fields.Boolean('Can See', compute='_compute_access', search='_search_can_see')
     can_see_full = fields.Boolean('Full Access', compute='_compute_access')
     can_upload = fields.Boolean('Can Upload', compute='_compute_access')
+
+    website_ids = fields.Many2many('website', 'website_slide_channel_pub_rel',
+                                   'website_id', 'slide_channel_id',
+                                   string='Websites', copy=False,
+                                   help='List of websites in which Slide channel is published.')
 
     def _search_can_see(self, operator, value):
         if operator not in ('=', '!=', '<>'):
@@ -200,8 +207,9 @@ class Category(models.Model):
     @api.depends('slide_ids.slide_type', 'slide_ids.website_published')
     def _count_presentations(self):
         result = dict.fromkeys(self.ids, dict())
+        domain = self.env['website'].get_current_website()
         res = self.env['slide.slide'].read_group(
-            [('website_published', '=', True), ('category_id', 'in', self.ids)],
+            [('website_published', '=', True), '|', ('website_ids', '=', False), ('website_ids', 'in', domain.id), ('category_id', 'in', self.ids)],
             ['category_id', 'slide_type'], ['category_id', 'slide_type'],
             lazy=False)
         for res_group in res:
@@ -288,6 +296,9 @@ class Slide(models.Model):
     image = fields.Binary('Image', attachment=True)
     image_medium = fields.Binary('Medium', compute="_get_image", store=True, attachment=True)
     image_thumb = fields.Binary('Thumbnail', compute="_get_image", store=True, attachment=True)
+    website_ids = fields.Many2many('website', 'website_slide_pub_rel', 'website_id', 'slide_id',
+                                   string='Websites', copy=False,
+                                   help='List of websites in which Slide is published.')
 
     @api.depends('image')
     def _get_image(self):
@@ -464,14 +475,16 @@ class Slide(models.Model):
         return groups
 
     def get_related_slides(self, limit=20):
-        domain = [('website_published', '=', True), ('channel_id.visibility', '!=', 'private'), ('id', '!=', self.id)]
+        domain = self.env['website'].get_current_website()
+        domain = [('website_published', '=', True), '|', ('website_ids', '=', False), ('website_ids', 'in', domain.id), ('channel_id.visibility', '!=', 'private'), ('id', '!=', self.id)]
         if self.category_id:
             domain += [('category_id', '=', self.category_id.id)]
         for record in self.search(domain, limit=limit):
             yield record
 
     def get_most_viewed_slides(self, limit=20):
-        for record in self.search([('website_published', '=', True), ('channel_id.visibility', '!=', 'private'), ('id', '!=', self.id)], limit=limit, order='total_views desc'):
+        domain = self.env['website'].get_current_website()
+        for record in self.search([('website_published', '=', True), '|', ('website_ids', '=', False), ('website_ids', 'in', domain.id),  ('channel_id.visibility', '!=', 'private'), ('id', '!=', self.id)], limit=limit, order='total_views desc'):
             yield record
 
     def _post_publication(self):

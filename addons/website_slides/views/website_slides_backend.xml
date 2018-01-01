@@ -67,6 +67,7 @@
                             <field name="channel_id"/>
                             <field name="category_id" context="{'default_channel_id': channel_id}"/>
                             <field name="website_url"/>
+                            <field name="website_ids" widget="many2many_tags"/>
                         </group>
                         <notebook>
                             <page string="Description">
@@ -230,6 +231,7 @@
                                         <field name="promote_strategy" widget="radio"/>
                                         <field name="custom_slide_id" class="oe_edit_only" attrs="{'invisible': [('promote_strategy', '!=', 'custom')]}" domain="[('channel_id','=',id), ('website_published','=',True)]"/>
                                         <field name="promoted_slide_id" attrs="{'invisible': [('promote_strategy', '!=', 'custom')]}"/>
+                                        <field name="website_ids" widget="many2many_tags"/>
                                     </group>
                                     <group>
                                         <field name="publish_template_id" domain="[('model','=','slide.slide')]"/>
