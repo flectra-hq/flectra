@@ -22,6 +22,9 @@
                     <field name="website_published" widget="website_button"/>
                 </button>
             </div>
+            <xpath expr="//field[@name='address_id']" position="after">
+                <field name="website_ids" widget="many2many_tags"/>
+            </xpath>
         </field>
     </record>
 </flectra>

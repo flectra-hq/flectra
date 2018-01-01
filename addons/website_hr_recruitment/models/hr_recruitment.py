@@ -29,6 +29,7 @@ class RecruitmentSource(models.Model):
 class Applicant(models.Model):
 
     _inherit = 'hr.applicant'
+    website_id = fields.Many2one('website', string="Website")
 
     def website_form_input_filter(self, request, values):
         if 'partner_name' in values:
@@ -46,6 +47,10 @@ class Job(models.Model):
         return (default_description.render() if default_description else "")
 
     website_description = fields.Html('Website description', translate=html_translate, sanitize_attributes=False, default=_get_default_website_description)
+    website_ids = fields.Many2many('website', 'website_hr_job_pub_rel',
+                                   'website_id', 'job_id',
+                                   string='Websites', copy=False,
+                                   help='List of websites in which Job is published.')
 
     @api.multi
     def _compute_website_url(self):
