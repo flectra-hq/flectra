@@ -11,7 +11,7 @@
     <xpath expr="//div[hasclass('oe_structure')]" position="after">
         <section class="container" id="team">
             <t t-set="is_publisher" t-value="request.env['res.users'].has_group('website.group_website_publisher')" />
-            <t t-set="employees_domain" t-value="[] if is_publisher else [('website_published', '=', True)]" />
+            <t t-set="employees_domain" t-value="[] if is_publisher else [('website_published', '=', True), '|', ('website_ids', '=', False), ('website_ids', 'in', website)]" />
             <t t-set="employees" t-value="request.env['hr.employee'].search(employees_domain)" />
             <div class="col-sm-12 text-center" t-if="len(employees)">
                 <h2>Our Team</h2>
@@ -22,12 +22,14 @@
                     <t t-set="publish_edit" t-value="True"/>
                 </t>
                 <div class="clearfix"/>
-                <img t-att-src="website.image_url(employee, 'image_medium')" class="img shadow img-rounded"/>
-                <div class="mt8">
-                    <strong t-field="employee.name"></strong>
+                <div class="emp" t-attf-data-publish="#{employee.website_published &amp; (not employee.website_ids or website in employee.website_ids) and 'on' or 'off'}">
+                    <img t-att-src="website.image_url(employee, 'image_medium')" class="img shadow img-rounded"/>
+                    <div class="mt8">
+                        <strong t-field="employee.name"></strong>
+                    </div>
+                    <div t-field="employee.job_id"/>
+                    <div t-field="employee.public_info" class="text-muted mt16 center-block"/>
                 </div>
-                <div t-field="employee.job_id"/>
-                <div t-field="employee.public_info" class="text-muted mt16 center-block"/>
             </div>
         </section>
     </xpath>

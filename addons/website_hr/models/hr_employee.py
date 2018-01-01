@@ -8,6 +8,10 @@ class HrEmployee(models.Model):
     _inherit = ['hr.employee', 'website.published.mixin']
 
     public_info = fields.Char(string='Public Info')
+    website_ids = fields.Many2many('website', 'website_hr_emp_pub_rel',
+                                   'website_id', 'emp_id',
+                                   string='Websites', copy=False,
+                                   help='List of websites in which Employee is published.')
 
     @api.multi
     def _compute_website_url(self):
