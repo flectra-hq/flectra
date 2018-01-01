@@ -57,7 +57,10 @@ class WebsiteSlides(http.Controller):
         """ Returns a list of available channels: if only one is available,
             redirects directly to its slides
         """
-        channels = request.env['slide.channel'].search([], order='sequence, id')
+        domain = []
+        if not request.env.user.has_group('website.group_website_designer'):
+            domain += ['|', ('website_ids', '=', False), ("website_ids", "in", request.website.id)]
+        channels = request.env['slide.channel'].search(domain, order='sequence, id')
         if not channels:
             return request.render("website_slides.channel_not_found")
         elif len(channels) == 1:
