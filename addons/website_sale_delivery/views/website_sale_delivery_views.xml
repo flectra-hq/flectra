@@ -16,6 +16,9 @@
                     <field name="website_published" widget="website_button"/>
                 </button>
             </xpath>
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="website_ids" widget="many2many_tags"/>
+            </xpath>
         </field>
     </record>
 
