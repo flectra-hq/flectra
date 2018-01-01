@@ -60,7 +60,7 @@ def py2exe_options():
         return {
             'console': [
                 {'script': 'flectra-bin', 'icon_resources': [
-                    (1, join('setup', 'win32', 'static', 'pixmaps', 'openerp-icon.ico'))
+                    (1, join('setup', 'win32', 'static', 'pixmaps', 'flectra-icon.ico'))
                 ]},
             ],
             'options': {
