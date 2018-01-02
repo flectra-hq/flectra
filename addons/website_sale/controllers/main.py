@@ -312,6 +312,7 @@ class WebsiteSale(http.Controller):
             'get_attribute_value_ids': self.get_attribute_value_ids,
             'tags': tags,
             'brands': brands,
+            'PPG': PPG,
         }
         if category:
             values['main_object'] = category
