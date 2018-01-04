@@ -555,9 +555,9 @@ class WebsiteForum(http.Controller):
     def users(self, forum, page=1, **searches):
         User = request.env['res.users']
         step = 30
-        tag_count = User.sudo().search_count([('karma', '>', 1), ('website_published', '=', True), ('|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id))])
+        tag_count = User.sudo().search_count([('karma', '>', 1), ('website_published', '=', True), '|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id)])
         pager = request.website.pager(url="/forum/%s/users" % slug(forum), total=tag_count, page=page, step=step, scope=30)
-        user_obj = User.sudo().search([('karma', '>', 1), ('website_published', '=', True), ('|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id))], limit=step, offset=pager['offset'], order='karma DESC')
+        user_obj = User.sudo().search([('karma', '>', 1), ('website_published', '=', True), '|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id)], limit=step, offset=pager['offset'], order='karma DESC')
         # put the users in block of 3 to display them as a table
         users = [[] for i in range(len(user_obj) // 3 + 1)]
         for index, user in enumerate(user_obj):
