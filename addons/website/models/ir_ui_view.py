@@ -19,6 +19,13 @@ class View(models.Model):
     _inherit = ["ir.ui.view", "website.seo.metadata"]
 
     customize_show = fields.Boolean("Show As Optional Inherit", default=False)
+    # @todo Flectra:
+    # Remove ondelete='cascade' (But need to check side-effects!!)
+    #
+    # When we Uninstall ``website`` module then some of
+    # ``portal`` module views are also deleted (For Ex. portal_show_sign_in)
+    # Find proper way to do the same, remove website_id from different
+    # module's view & keep those views, do not delete those views permanently.
     website_id = fields.Many2one('website', ondelete='cascade', string="Website")
     page_ids = fields.One2many('website.page', compute='_compute_page_ids', store=False)
     is_cloned = fields.Boolean(string='Cloned', copy=False, default=False,
@@ -233,6 +240,10 @@ class View(models.Model):
     # Scenario 1:
     # -----------
     # For Delete those views, Manually set ``is_cloned`` field to ``False``
+    # @todo Flectra:
+    # But Actually View is not deleted, It'll create again from
+    # default website's view,
+    # Find a way to delete website specific views form DB.
     #
     # Scenario 2:
     # -----------
@@ -260,4 +271,4 @@ class View(models.Model):
                 # 'will not work properly.\n'
                 # 'So, Be sure before deleting view(s).'
                 return True
-            return super(View, self).unlink()
+            return super(View, view).unlink()
