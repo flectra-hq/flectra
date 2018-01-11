@@ -169,8 +169,29 @@
         <record id="action_website_menu" model="ir.actions.act_window">
             <field name="name">Website Menu</field>
             <field name="res_model">website.menu</field>
-            <field name="view_mode">list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_my_websites':1}</field>
+        </record>
+
+        <record id="menu_from" model="ir.ui.view">
+            <field name="name">website.menu.form</field>
+            <field name="model">website.menu</field>
+            <field name="arch" type="xml">
+                <form string="Website menu">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="url"/>
+                        </group>
+                        <group>
+                            <field name="website_id" options="{'no_create': True}"/>
+                            <field name="new_window"/>
+                            <field name="parent_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
         </record>
 
         <record id="menu_tree" model="ir.ui.view">

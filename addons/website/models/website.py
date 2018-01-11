@@ -904,8 +904,9 @@ class Menu(models.Model):
     page_id = fields.Many2one('website.page', 'Related Page')
     new_window = fields.Boolean('New Window')
     sequence = fields.Integer(default=_default_sequence)
-    website_id = fields.Many2one('website', 'Website')  # TODO: support multiwebsite once done for ir.ui.views
-    parent_id = fields.Many2one('website.menu', 'Parent Menu', index=True, ondelete="cascade")
+    website_id = fields.Many2one('website', 'Website', required=True,
+                                 default=lambda self: self.env.ref('website.default_website'))  # TODO: support multiwebsite once done for ir.ui.views
+    parent_id = fields.Many2one('website.menu', 'Parent Menu', index=True, ondelete="cascade", domain="[('website_id','=', website_id)]")
     child_id = fields.One2many('website.menu', 'parent_id', string='Child Menus')
     parent_left = fields.Integer('Parent Left', index=True)
     parent_right = fields.Integer('Parent Rigth', index=True)
