@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="account_discount_config_view_form" model="ir.ui.view">
+        <field name="name">account.discount.config</field>
+        <field name="model">account.discount.config</field>
+        <field name="priority" eval="3"/>
+        <field name="arch" type="xml">
+            <tree editable="top" string="Account Discount Configuration">
+                <field name="group_id"/>
+                <field name="fix_amount"/>
+                <field name="percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_account_discount_config" model="ir.actions.act_window">
+        <field name="name">Discounts</field>
+        <field name="res_model">account.discount.config</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_account_order"
+        action="action_account_discount_config"
+        parent="account.account_account_menu"/>
+</flectra>
+
