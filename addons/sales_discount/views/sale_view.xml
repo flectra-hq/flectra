@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <!-- Sale -->
+    <record model="ir.ui.view" id="inherit_view_order_form">
+        <field name="name">sale.order.inherit.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_invoice']" position="replace">
+                <button name="action_view_invoice"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-pencil-square-o"
+                    context="{'default_discount_method': discount_method, 'default_discount_amount': discount_amount, 'default_discount': discount,'default_discount_per': discount_per, 'var_for_default_get': True}"
+                    attrs="{'invisible': [('invoice_count', '=', 0)]}">
+                    <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                </button>
+            </xpath>
+            <xpath expr="//group[@name='sale_total']" position="replace">
+                <div>
+                    <group>
+                        <group class="pull-left">
+                            <field name="discount_method" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="discount_amount" attrs="{'invisible': [('discount_method', '=', 'per')], 'readonly': ['|', ('state', '!=', 'draft'), ('discount_method', '=', False)]}"/>
+                            <field name="discount_per" attrs="{'invisible': ['|', ('discount_method', '=', 'fixed'), ('discount_method', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                            <button name="calculate_discount" type="object" class="oe_edit_only oe_link" string="(Update Discount)" attrs="{'invisible': [('discount_method', '=', False)]}" confirm="If you want to apply global discount other discount methods will be reset."/>
+                        </group>
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                            <field name="gross_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="discount" string="Discount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                <label for="amount_total"/>
+                            </div>
+                            <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                    </group>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</flectra>

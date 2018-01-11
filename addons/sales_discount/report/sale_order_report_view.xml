@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <template id="custom_report_sale_layout" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@name='total']" position="replace">
+            <div class="row">
+                <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr>
+                            <td><strong>Gross Amount</strong></td>
+                            <td class="text-right">
+                                <span t-field="doc.gross_amount" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Discount</strong></td>
+                            <td class="text-right">
+                                <span t-field="doc.discount" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td><strong>Untaxed Amount</strong></td>
+                            <td class="text-right">
+                                <span t-field="doc.amount_untaxed" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Taxes</strong></td>
+                            <td class="text-right">
+                                <span t-esc="doc.amount_tax or 0.0" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <span t-esc="doc.amount_total or 0.0" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</flectra>
