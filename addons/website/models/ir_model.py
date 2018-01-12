@@ -174,6 +174,14 @@ class IrModelData(models.Model):
                         'key': view.key + '_' + website.website_code,
                         'website_id': website.id
                     })
+                    new_inherit_id = ir_ui_view.search(
+                        [('key', '=', new_cus_view.inherit_id.key +
+                          '_' + website.website_code),
+                         '|', ('active', '=', False), ('active', '=', True)])
+                    if new_cus_view.inherit_id and new_inherit_id:
+                        new_cus_view.write({
+                            'inherit_id': new_inherit_id.id,
+                        })
                     model_data_id = ir_model_data.create({
                         'model': view.model_data_id.model,
                         'name': view.model_data_id.name +
