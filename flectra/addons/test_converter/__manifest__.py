@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'test-field-converter',
+    'author': 'Odoo S.A',
     'version': '0.1',
     'category': 'Tests',
     'description': """Tests of field conversions""",

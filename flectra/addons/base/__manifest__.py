@@ -4,6 +4,7 @@
 
 {
     'name': 'Base',
+    'author': 'Odoo S.A',
     'version': '1.3',
     'category': 'Hidden',
     'description': """

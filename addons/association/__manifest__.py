@@ -4,6 +4,7 @@
 
 {
     'name': 'Associations Management',
+    'author': 'Odoo S.A',
     'version': '0.1',
     'category': 'Marketing',
     'description': """

@@ -5,6 +5,7 @@
 
 {
     'name': 'France - Accounting',
+    'author': 'Odoo S.A',
     'version': '2.0',
     'category': 'Localization',
     'description': """

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Test API',
+    'author': 'Odoo S.A',
     'version': '1.0',
     'category': 'Tests',
     'description': """A module to test the API.""",

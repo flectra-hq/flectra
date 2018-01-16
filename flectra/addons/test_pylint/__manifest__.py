@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'test-eval',
+    'author': 'Odoo S.A',
     'version': '0.1',
     'category': 'Tests',
     'description': """A module to test Odoo with pylint.""",

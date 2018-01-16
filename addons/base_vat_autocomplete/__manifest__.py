@@ -3,6 +3,7 @@
 
 {
     'name': 'VAT Number Autocomplete',
+    'author': 'Odoo S.A',
     'version': '1.0',
     'category': 'Accounting',
     'description': """

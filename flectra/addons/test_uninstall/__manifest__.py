@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'test-uninstall',
+    'author': 'Odoo S.A',
     'version': '0.1',
     'category': 'Tests',
     'description': """A module to test the uninstall feature.""",

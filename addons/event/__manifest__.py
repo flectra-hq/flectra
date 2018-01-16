@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Events Organization',
+    'author': 'Odoo S.A',
     'version': '1.0',
     'website': 'https://flectrahq.com/page/events',
     'category': 'Marketing',
