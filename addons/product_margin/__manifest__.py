@@ -4,6 +4,7 @@
 
 {
     'name': 'Margins by Products',
+    'author': 'Odoo S.A.',
     'category': 'Sales',
     'description': """
 Adds a reporting menu in products that computes sales, purchases, margins and other interesting indicators based on invoices.

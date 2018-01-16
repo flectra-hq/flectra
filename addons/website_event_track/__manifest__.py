@@ -3,6 +3,7 @@
 
 {
     'name': 'Advanced Events',
+    'author': 'Odoo S.A.',
     'category': 'Marketing',
     'summary': 'Sponsors, Tracks, Agenda, Event News',
     'website': 'https://flectrahq.com/page/events',

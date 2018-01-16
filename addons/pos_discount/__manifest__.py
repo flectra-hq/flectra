@@ -4,6 +4,7 @@
 
 {
     'name': 'Point of Sale Discounts',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Point of Sale',
     'sequence': 6,

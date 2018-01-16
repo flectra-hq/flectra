@@ -3,6 +3,7 @@
 
 {
     'name': 'eCommerce Optional Products',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'version': '1.0',
     'website': 'https://flectrahq.com/page/e-commerce',

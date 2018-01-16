@@ -3,6 +3,7 @@
 
 {
     'name': 'Website Mass Mailing Campaigns',
+    'author': 'Odoo S.A.',
     'description': """
 Add a snippet in the website builder to subscribe a mass_mailing list
     """,

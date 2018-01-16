@@ -4,6 +4,7 @@
 
 {
     'name': 'pos_sale',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Hidden',
     'sequence': 6,

@@ -3,6 +3,7 @@
 
 {
     'name': 'Sales Timesheet',
+    'author': 'Odoo S.A.',
     'category': 'Hidden',
     'summary': 'Sell based on timesheets',
     'description': """

@@ -3,6 +3,7 @@
 
 {
     'name': 'Documentation',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'summary': 'Forum, Documentation',
     'description': """

@@ -1,5 +1,6 @@
 {
     'name': 'Website Theme Install',
+    'author': 'Odoo S.A.',
     'description': "Propose to install a theme on website installation",
     'category': 'Website',
     'version': '1.0',

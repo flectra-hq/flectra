@@ -1,5 +1,6 @@
 {
     'name': 'Contact Form',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'sequence': 54,
     'website': 'https://flectrahq.com/page/website-builder',

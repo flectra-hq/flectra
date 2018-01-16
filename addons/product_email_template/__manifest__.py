@@ -2,6 +2,7 @@
 
 {
     'name': 'Product Email Template',
+    'author': 'Odoo S.A.',
     'depends': ['account'],
     'category': 'Accounting',
     'description': """

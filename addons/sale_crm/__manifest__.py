@@ -3,6 +3,7 @@
 
 {
     'name': 'Opportunity to Quotation',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Hidden',
     'description': """

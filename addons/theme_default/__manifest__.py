@@ -3,6 +3,7 @@
 
 {
     'name': 'Default Theme',
+    'author': 'Odoo S.A.',
     'description': 'Default website theme to showcase customization possibilities.',
     'category': 'Theme/Hidden',
     'sequence': 1000,

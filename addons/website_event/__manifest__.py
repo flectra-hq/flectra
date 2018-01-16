@@ -2,6 +2,7 @@
 
 {
     'name': 'Online Events',
+    'author': 'Odoo S.A.',
     'category': 'Marketing',
     'sequence': 166,
     'summary': 'Publish Events and Manage Online Registrations on your Website',

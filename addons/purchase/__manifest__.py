@@ -3,6 +3,7 @@
 
 {
     'name': 'Purchase Management',
+    'author': 'Odoo S.A.',
     'version': '1.2',
     'category': 'Purchases',
     'sequence': 60,

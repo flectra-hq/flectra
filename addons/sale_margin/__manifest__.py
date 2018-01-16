@@ -3,6 +3,7 @@
 
 {
     'name': 'Margins in Sales Orders',
+    'author': 'Odoo S.A.',
     'version':'1.0',
     'category': 'Sales',
     'description': """

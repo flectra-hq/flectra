@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'SMS gateway',
+    'author': 'Odoo S.A.',
     'category': 'Tools',
     'summary': 'SMS Text Messaging',
     'description': """

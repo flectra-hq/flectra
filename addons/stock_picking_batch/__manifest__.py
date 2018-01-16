@@ -3,6 +3,7 @@
 
 {
     'name': 'Warehouse Management: Batch Picking',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Warehouse',
     'description': """

@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Website Rating Project',
+    'author': 'Odoo S.A.',
     'version': '0.1',
     'category': 'Project',
     'complexity': 'easy',

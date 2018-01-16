@@ -3,6 +3,7 @@
 
 {
     'name': 'Sales and Warehouse Management',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Hidden',
     'summary': 'Quotation, Sales Orders, Delivery & Invoicing Control',

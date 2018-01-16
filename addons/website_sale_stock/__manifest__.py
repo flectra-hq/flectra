@@ -3,6 +3,7 @@
 
 {
     'name': 'Website Sale Stock - Website Delivery Information',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'description': """
     Display delivery orders (picking) infos on the website

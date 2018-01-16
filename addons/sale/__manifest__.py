@@ -3,6 +3,7 @@
 
 {
     'name': 'Sales',
+    'author': 'Odoo S.A.',
     'version': '1.1',
     'category': 'Sales',
     'summary': 'Sales internal machinery',

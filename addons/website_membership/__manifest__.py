@@ -3,6 +3,7 @@
 
 {
     'name': 'Associations: Members',
+    'author': 'Odoo S.A.',
     'summary': 'Online Directory of Members',
     'category': 'Website',
     'summary': 'Publish Associations, Groups and Memberships',

@@ -3,6 +3,7 @@
 
 {
     'name': 'Point of Sale Receipt Reprinting',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Point of Sale',
     'sequence': 6,

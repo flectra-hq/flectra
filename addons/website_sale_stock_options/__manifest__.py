@@ -3,6 +3,7 @@
 
 {
     'name': 'Website Sale Stock&Options',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'description': """
 Odoo E-Commerce

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Website Live Support',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'summary': 'Chat With Your Website Visitors',
     'version': '1.0',

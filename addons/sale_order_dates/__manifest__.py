@@ -4,6 +4,7 @@
 
 {
     'name': 'Dates on Sales Order',
+    'author': 'Odoo S.A.',
     'version': '1.1',
     'category': 'Sales',
     'description': """

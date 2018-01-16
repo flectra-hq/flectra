@@ -3,6 +3,7 @@
 
 {
     'name': 'Sales Expense',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Sales',
     'summary': 'Quotation, Sales Orders, Delivery & Invoicing Control',

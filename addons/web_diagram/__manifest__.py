@@ -3,6 +3,7 @@
 
 {
     'name': 'Odoo Web Diagram',
+    'author': 'Odoo S.A.',
     'category': 'Hidden',
     'description': """
 Openerp Web Diagram view.

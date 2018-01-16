@@ -3,6 +3,7 @@
 
 {
     'name': 'WMS Accounting',
+    'author': 'Odoo S.A.',
     'version': '1.1',
     'summary': 'Inventory, Logistic, Valuation, Accounting',
     'description': """

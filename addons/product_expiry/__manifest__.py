@@ -1,6 +1,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name' : 'Products Expiration Date',
+    'author': 'Odoo S.A.',
     'category' : 'Warehouse',
     'depends' : ['stock'],
     'demo' : ['data/product_expiry_demo.xml'],

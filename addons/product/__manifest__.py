@@ -3,6 +3,7 @@
 
 {
     'name': 'Products & Pricelists',
+    'author': 'Odoo S.A.',
     'version': '1.2',
     'category': 'Sales',
     'depends': ['base', 'decimal_precision', 'mail'],

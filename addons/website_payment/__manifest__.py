@@ -2,6 +2,7 @@
 
 {
     'name': 'Payment: Website Integration',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'summary': 'Payment: Website Integration',
     'version': '1.0',

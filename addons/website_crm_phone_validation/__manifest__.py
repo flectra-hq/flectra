@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Contact Form Number Validation',
+    'author': 'Odoo S.A.',
     'summary': 'Validate and format contact form numbers',
     'sequence': '9999',
     'category': 'Hidden',

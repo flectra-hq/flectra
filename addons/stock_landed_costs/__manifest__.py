@@ -3,6 +3,7 @@
 
 {
     'name': 'WMS Landed Costs',
+    'author': 'Odoo S.A.',
     'version': '1.1',
     'summary': 'Landed Costs',
     'description': """

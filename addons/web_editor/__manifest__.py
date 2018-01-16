@@ -3,6 +3,7 @@
 
 {
     'name': 'Web Editor',
+    'author': 'Odoo S.A.',
     'category': 'Hidden',
     'description': """
 Odoo Web Editor widget.

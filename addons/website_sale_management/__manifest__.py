@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 {
     'name': 'Website Sale - Sale Management',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Website',
     'description': """

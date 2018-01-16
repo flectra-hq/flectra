@@ -2,6 +2,7 @@
 
 {
     'name': 'Questions on Events',
+    'author': 'Odoo S.A.',
     'description': 'Questions on Events',
     'category': 'Marketing',
     'version': '1.0',

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Project Rating',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Project',
     'description': """

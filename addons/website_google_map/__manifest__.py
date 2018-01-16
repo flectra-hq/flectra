@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Website Google Map',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'summary': '',
     'version': '1.0',

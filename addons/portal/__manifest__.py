@@ -3,6 +3,7 @@
 
 {
     'name': 'Customer Portal',
+    'author': 'Odoo S.A.',
     'summary': 'Customer Portal',
     'sequence': '9000',
     'category': 'Hidden',

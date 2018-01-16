@@ -1,5 +1,6 @@
 {
     'name': 'eCommerce Delivery',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'summary': 'Add Delivery Costs to Online Sales',
     'website': 'https://flectrahq.com/page/e-commerce',

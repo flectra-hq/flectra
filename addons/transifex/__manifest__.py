@@ -3,6 +3,7 @@
 
 {
     'name': 'Transifex integration',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'summary': 'Add a link to edit a translation in Transifex',
     'category': 'Extra Tools',

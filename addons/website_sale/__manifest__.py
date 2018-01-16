@@ -1,5 +1,6 @@
 {
     'name': 'eCommerce',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'sequence': 55,
     'summary': 'Sell Your Products Online',

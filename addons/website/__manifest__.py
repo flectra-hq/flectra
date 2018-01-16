@@ -3,6 +3,7 @@
 
 {
     'name': 'Website Builder',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'sequence': 50,
     'summary': 'Build Your Enterprise Website',

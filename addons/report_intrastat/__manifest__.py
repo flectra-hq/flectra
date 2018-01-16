@@ -3,6 +3,7 @@
 
 {
     'name': 'Intrastat Reporting',
+    'author': 'Odoo S.A.',
     'category': 'Accounting',
     'description': """
 A module that adds intrastat reports.

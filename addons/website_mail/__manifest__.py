@@ -3,6 +3,7 @@
 
 {
     'name': 'Website Mail',
+    'author': 'Odoo S.A.',
     'category': 'Hidden',
     'summary': 'Website Module for Mail',
     'version': '0.1',

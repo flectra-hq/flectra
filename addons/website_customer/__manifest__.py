@@ -3,6 +3,7 @@
 
 {
     'name': 'Customer References',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'website': 'https://flectrahq.com/page/website-builder',
     'summary': 'Publish Your Customer References',

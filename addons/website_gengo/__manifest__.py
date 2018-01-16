@@ -3,6 +3,7 @@
 
 {
     'name': 'Website Gengo Translator',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'description': """
 Website Gengo Translator

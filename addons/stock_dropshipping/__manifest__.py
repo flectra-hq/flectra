@@ -3,6 +3,7 @@
 
 {
     'name': 'Drop Shipping',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Warehouse',
     'summary': 'Drop Shipping',

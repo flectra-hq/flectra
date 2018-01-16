@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Survey CRM',
+    'author': 'Odoo S.A.',
     'version': '2.0',
     'category': 'Marketing',
     'complexity': 'easy',

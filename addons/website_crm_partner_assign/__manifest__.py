@@ -3,6 +3,7 @@
 
 {
     'name': 'Resellers',
+    'author': 'Odoo S.A.',
     'category': 'Sales',
     'website': 'https://flectrahq.com/page/website-builder',
     'summary': 'Publish Your Channel of Resellers',

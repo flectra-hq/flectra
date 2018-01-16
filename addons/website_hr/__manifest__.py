@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Team Page',
+    'author': 'Odoo S.A.',
     'category': 'Human Resources',
     'summary': 'Present Your Team',
     'description': """

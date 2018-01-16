@@ -3,6 +3,7 @@
 
 {
     "name" : "Product extension to track sales and purchases",
+    "author" : "Odoo S.A.",
     "version" : "1.0",
     "depends" : ["mrp", "stock_account"],
     "category" : "Manufacturing",

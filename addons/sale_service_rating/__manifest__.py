@@ -3,6 +3,7 @@
 
 {
     'name': 'Sale Service Rating',
+    'author': 'Odoo S.A.',
     'category': 'Hidden',
     'description': """
 This module allows a customer to give rating on task which are created from sales order.

@@ -4,6 +4,7 @@
 
 {
     'name': 'Point of Sale Common Data Drinks',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Point of Sale',
     'sequence': 99,

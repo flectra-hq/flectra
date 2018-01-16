@@ -3,6 +3,7 @@
 
 {
     'name': 'Odoo Settings Dashboard',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'summary': 'Quick actions for installing new app, adding users, completing planners, etc.',
     'category': 'Extra Tools',

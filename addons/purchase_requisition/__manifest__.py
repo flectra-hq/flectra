@@ -1,6 +1,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Purchase Agreements',
+    'author': 'Odoo S.A.',
     'version': '0.1',
     'category': 'Purchases',
     'website': 'https://flectrahq.com/page/purchase',

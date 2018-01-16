@@ -3,6 +3,7 @@
 
 {
     'name': 'Website Partner',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'summary': 'Partner Module for Website',
     'version': '0.1',

@@ -2,6 +2,7 @@
 
 {
     'name': "Online Event's Tickets",
+    'author': 'Odoo S.A.',
     'category': 'Marketing',
     'summary': "Manage Events and Sell Tickets Online",
     'website': 'https://flectrahq.com/page/events',

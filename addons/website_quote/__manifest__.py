@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Online Proposals',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'summary': 'Sales',
     'website': 'https://flectrahq.com/page/quote-builder',

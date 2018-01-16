@@ -1,5 +1,6 @@
 {
     'name': 'Website Link Tracker',
+    'author': 'Odoo S.A.',
     'category': 'Hidden',
     'description': """
 Website interface to create short and trackable URLs.

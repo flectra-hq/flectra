@@ -3,6 +3,7 @@
 
 {
     'name': 'Online Jobs',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'sequence': 142,
     'version': '1.0',

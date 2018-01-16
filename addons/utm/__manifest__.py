@@ -1,5 +1,6 @@
 {
     'name': 'UTM Trackers',
+    'author': 'Odoo S.A.',
     'category': 'Hidden',
     'description': """
 Enable UTM trackers in shared links.

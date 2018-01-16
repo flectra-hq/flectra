@@ -3,6 +3,7 @@
 
 {
     'name': 'Website Form - Project',
+    'author': 'Odoo S.A.',
     'category': 'Project',
     'summary': 'Create Tasks From Contact Form',
     'version': '1.0',

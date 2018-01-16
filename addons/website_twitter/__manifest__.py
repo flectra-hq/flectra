@@ -3,6 +3,7 @@
 
 {
     'name': 'Twitter Roller',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'summary': 'Add twitter scroller snippet in website builder',
     'website': 'https://flectrahq.com/page/website-builder',

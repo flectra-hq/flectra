@@ -3,6 +3,7 @@
 
 {
     'name': 'Planner',
+    'author': 'Odoo S.A.',
     'category': 'Extra Tools',
     'summary': 'Help to configure application',
     'version': '1.0',

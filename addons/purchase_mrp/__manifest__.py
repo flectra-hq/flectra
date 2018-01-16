@@ -4,6 +4,7 @@
 
 {
     'name': 'Purchase and MRP Management',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Hidden',
     'description': """

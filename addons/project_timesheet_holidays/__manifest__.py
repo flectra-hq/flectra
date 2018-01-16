@@ -3,6 +3,7 @@
 
 {
     'name': 'Timesheet when on Leaves',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Human Resources',
     'summary': 'Schedule timesheet when on leaves',

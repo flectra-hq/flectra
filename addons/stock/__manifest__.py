@@ -3,6 +3,7 @@
 
 {
     'name': 'Inventory Management',
+    'author': 'Odoo S.A.',
     'version': '1.1',
     'summary': 'Inventory, Logistics, Warehousing',
     'description': "",

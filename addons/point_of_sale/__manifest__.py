@@ -3,6 +3,7 @@
 
 {
     'name': 'Point of Sale',
+    'author': 'Odoo S.A.',
     'version': '1.0.1',
     'category': 'Point Of Sale',
     'sequence': 20,

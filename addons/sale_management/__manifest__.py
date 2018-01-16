@@ -3,6 +3,7 @@
 
 {
     'name': 'Sales Management',
+    'author': 'Odoo S.A.',
     'version': '1.0',
     'category': 'Sales',
     'sequence': 15,

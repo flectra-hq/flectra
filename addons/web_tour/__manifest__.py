@@ -3,6 +3,7 @@
 
 {
     'name': 'Tours',
+    'author': 'Odoo S.A.',
     'category': 'Hidden',
     'description': """
 Odoo Web tours.

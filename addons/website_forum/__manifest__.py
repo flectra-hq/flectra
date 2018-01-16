@@ -3,6 +3,7 @@
 
 {
     'name': 'Forum',
+    'author': 'Odoo S.A.',
     'category': 'Website',
     'sequence': 150,
     'summary': 'Forum, FAQ, Q&A',

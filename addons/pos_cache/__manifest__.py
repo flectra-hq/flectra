@@ -2,7 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': "pos_cache",
-
+    'author': 'Odoo S.A.',
     'summary': """
         Enable a cache on products for a lower POS loading time.""",
 

@@ -1,5 +1,6 @@
 {
     'name': 'Generic Form Controller',
+    'author': 'Odoo S.A.',
     'category': 'Hidden',
     'summary': 'Generic controller for web forms',
     'description': 'Generic controller for web forms',

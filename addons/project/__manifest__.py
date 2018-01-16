@@ -3,6 +3,7 @@
 
 {
     'name': 'Project',
+    'author': 'Odoo S.A.',
     'version': '1.1',
     'website': 'https://flectrahq.com/page/project-management',
     'category': 'Project',

@@ -2,6 +2,7 @@
 
 {
     'name': 'Payment - Sale',
+    'author': 'Odoo S.A.',
     'category': 'Sales',
     'summary': 'Link Sales and Payment',
     'version': '1.0',

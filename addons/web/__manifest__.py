@@ -3,6 +3,7 @@
 
 {
     'name': 'Web',
+    'author': 'Odoo S.A.',
     'category': 'Hidden',
     'version': '1.0',
     'description':
