@@ -25,8 +25,10 @@ class TestCRMLead(TestCrmCases):
 
     def test_find_stage(self):
         # I create a new lead
+        branch = self.env.ref('base_branch_company.data_branch_1')
         lead = self.env['crm.lead'].create({
             'type': "lead",
+            'branch_id': branch.id,
             'name': "Test lead new",
             'partner_id': self.env.ref("base.res_partner_1").id,
             'description': "This is the description of the test new lead.",
@@ -77,11 +79,12 @@ class TestCRMLead(TestCrmCases):
         # During a mixed merge (involving leads and opps), data should be handled a certain way following their type (m2o, m2m, text, ...)  Start by creating two leads and an opp and giving the rights of Sales manager.
         default_stage_id = self.ref("crm.stage_lead1")
         LeadSalesmanager = self.env['crm.lead'].sudo(self.crm_salemanager.id)
-
+        branch = self.env.ref('base_branch_company.data_branch_2')
         # TEST CASE 1
         test_crm_opp_01 = LeadSalesmanager.create({
             'type': 'opportunity',
             'name': 'Test opportunity 1',
+            'branch_id': branch.id,
             'partner_id': self.env.ref("base.res_partner_3").id,
             'stage_id': default_stage_id,
             'description': 'This is the description of the test opp 1.'
@@ -91,7 +94,7 @@ class TestCRMLead(TestCrmCases):
             'type': 'lead',
             'name': 'Test lead first',
             'partner_id': self.env.ref("base.res_partner_1").id,
-            'stage_id': default_stage_id,
+            'stage_id': default_stage_id, 'branch_id': branch.id,
             'description': 'This is the description of the test lead first.'
         })
 
@@ -99,7 +102,7 @@ class TestCRMLead(TestCrmCases):
             'type': 'lead',
             'name': 'Test lead second',
             'partner_id': self.env.ref("base.res_partner_1").id,
-            'stage_id': default_stage_id,
+            'stage_id': default_stage_id, 'branch_id': branch.id,
             'description': 'This is the description of the test lead second.'
         })
 
@@ -124,14 +127,14 @@ class TestCRMLead(TestCrmCases):
         # I want to test leads merge.  Start by creating two leads (with the same partner)
         test_crm_lead_03 = LeadSalesmanager.create({
             'type': 'lead',
-            'name': 'Test lead 3',
+            'name': 'Test lead 3', 'branch_id': branch.id,
             'partner_id': self.env.ref("base.res_partner_1").id,
             'stage_id': default_stage_id
         })
 
         test_crm_lead_04 = LeadSalesmanager.create({
             'type': 'lead',
-            'name': 'Test lead 4',
+            'name': 'Test lead 4', 'branch_id': branch.id,
             'partner_id': self.env.ref("base.res_partner_1").id,
             'stage_id': default_stage_id
         })
@@ -154,14 +157,14 @@ class TestCRMLead(TestCrmCases):
         # I want to test opps merge.  Start by creating two opportunities (with the same partner).
         test_crm_opp_02 = LeadSalesmanager.create({
             'type': 'opportunity',
-            'name': 'Test opportunity 2',
+            'name': 'Test opportunity 2', 'branch_id': branch.id,
             'partner_id': self.env.ref("base.res_partner_3").id,
             'stage_id': default_stage_id
         })
 
         test_crm_opp_03 = LeadSalesmanager.create({
             'type': 'opportunity',
-            'name': 'Test opportunity 3',
+            'name': 'Test opportunity 3', 'branch_id': branch.id,
             'partner_id': self.env.ref("base.res_partner_3").id,
             'stage_id': default_stage_id
         })

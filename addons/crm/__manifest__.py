@@ -3,7 +3,7 @@
 
 {
     'name': 'CRM',
-    'author': 'Odoo S.A',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Sales',
     'sequence': 5,

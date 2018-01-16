@@ -33,11 +33,13 @@ class TestCrmCases(TransactionCase):
 
     def setUp(self):
         super(TestCrmCases, self).setUp()
-
+        branch0 = self.env.ref('base_branch_company.data_branch_1')
+        branch = self.env.ref('base_branch_company.data_branch_2')
         # Create a user as 'Crm Salesmanager' and added the `sales manager` group
         self.crm_salemanager = self.env['res.users'].create({
             'company_id': self.env.ref("base.main_company").id,
-            'name': "Crm Sales manager",
+            'name': "Crm Sales manager", 'default_branch_id': branch.id,
+            'branch_ids': [(4, branch_id.id) for branch_id in [branch0, branch]],
             'login': "csm",
             'email': "crmmanager@yourcompany.com",
             'groups_id': [(6, 0, [self.ref('sales_team.group_sale_manager')])]
@@ -46,7 +48,8 @@ class TestCrmCases(TransactionCase):
         # Create a user as 'Crm Salesman' and added few groups
         self.crm_salesman = self.env['res.users'].create({
             'company_id': self.env.ref("base.main_company").id,
-            'name': "Crm Salesman",
+            'name': "Crm Salesman", 'default_branch_id': branch.id,
+            'branch_ids': [(4, branch_id.id) for branch_id in [branch0, branch]],
             'login': "csu",
             'email': "crmuser@yourcompany.com",
             'groups_id': [(6, 0, [self.env.ref('sales_team.group_sale_salesman_all_leads').id, self.env.ref('base.group_partner_manager').id])]

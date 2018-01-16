@@ -16,6 +16,7 @@ class NewLeadNotification(TestCrm):
 
         # Imitate what happens in the controller when somebody creates a new
         # lead from the website form
+        branch = self.env.ref('base_branch_company.data_branch_1')
         lead = self.env["crm.lead"].with_context(mail_create_nosubscribe=True).sudo().create({
             "contact_name": "Somebody",
             "description": "Some question",
@@ -23,6 +24,7 @@ class NewLeadNotification(TestCrm):
             "name": "Some subject",
             "partner_name": "Some company",
             "team_id": self.sales_team_1.id,
+            "branch_id": branch.id,
             "phone": "+0000000000"
         })
         # partner and channel should be auto subscribed

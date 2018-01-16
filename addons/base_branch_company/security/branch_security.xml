@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+    <record id="branch_comp_rule" model="ir.rule">
+        <field name="name">Branch</field>
+        <field name="model_id" ref="model_res_branch"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="ir_rule_branch_allowed"
+            model="ir.rule">
+        <field name="model_id" ref="model_res_branch"/>
+        <field name="domain_force">['|',  ('id','=',user.default_branch_id.id), ('id','in',[g.id for g in user.branch_ids])]
+</field>
+        <field name="name">Allowed Branch</field>
+        <field name="global" eval="True"/>
+    </record>
+
+</flectra>

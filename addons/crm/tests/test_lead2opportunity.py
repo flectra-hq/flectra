@@ -38,6 +38,7 @@ class TestLead2opportunity2win(TestCrmCases):
         crm_case_3.message_post(subject='Test note', body='Détails envoyés par le client sur ​​le FAX pour la qualité')
 
         # I convert mass lead into opportunity customer.
+        branch = self.env.ref('base_branch_company.data_branch_1')
         mass = CrmLead2OpportunityPartnerMass.with_context({'active_model': 'crm.lead', 'active_ids': [crm_case_13.id, crm_case_2.id], 'active_id': crm_case_13.id}).create({
             'user_ids': [(6, 0, self.env.ref('base.user_root').ids)],
             'team_id': self.env.ref("sales_team.team_sales_department").id
@@ -73,25 +74,25 @@ class TestLead2opportunity2win(TestCrmCases):
         CrmLead2OpportunityPartnerMass = self.env['crm.lead2opportunity.partner.mass']
         LeadSaleman = self.env['crm.lead'].sudo(self.crm_salesman.id)
         default_stage_id = self.ref("crm.stage_lead1")
-
+        branch = self.env.ref('base_branch_company.data_branch_2')
         # During a lead to opp conversion, salesmen should be assigned to leads following the round-robin method.  Start by creating 4 salesmen (A to D) and 6 leads (1 to 6).
         test_res_user_01 = self.env['res.users'].create({
-            'name': 'Test user A',
+            'name': 'Test user A', 'default_branch_id': branch.id,
             'login': 'tua@example.com',
             'new_password': 'tua'
         })
         test_res_user_02 = self.env['res.users'].create({
-            'name': 'Test user B',
+            'name': 'Test user B', 'default_branch_id': branch.id,
             'login': 'tub@example.com',
             'new_password': 'tub'
         })
         test_res_user_03 = self.env['res.users'].create({
-            'name': 'Test user C',
+            'name': 'Test user C', 'default_branch_id': branch.id,
             'login': 'tuc@example.com',
             'new_password': 'tuc'
         })
         test_res_user_04 = self.env['res.users'].create({
-            'name': 'Test user D',
+            'name': 'Test user D', 'default_branch_id': branch.id,
             'login': 'tud@example.com',
             'new_password': 'tud'
         })
@@ -99,36 +100,36 @@ class TestLead2opportunity2win(TestCrmCases):
         # Salesman also creates lead so giving access rights of salesman.
         test_crm_lead_01 = LeadSaleman.create({
             'type': 'lead',
-            'name': 'Test lead 1',
+            'name': 'Test lead 1', 'branch_id': branch.id,
             'email_from': 'Raoul Grosbedon <raoul@grosbedon.fr>',
             'stage_id': default_stage_id
         })
         test_crm_lead_02 = LeadSaleman.create({
-            'type': 'lead',
+            'type': 'lead', 'branch_id': branch.id,
             'name': 'Test lead 2',
             'email_from': 'Raoul Grosbedon <raoul@grosbedon.fr>',
             'stage_id': default_stage_id
         })
         test_crm_lead_03 = LeadSaleman.create({
-            'type': 'lead',
+            'type': 'lead', 'branch_id': branch.id,
             'name': 'Test lead 3',
             'email_from': 'Raoul Grosbedon <raoul@grosbedon.fr>',
             'stage_id': default_stage_id
         })
         test_crm_lead_04 = LeadSaleman.create({
-            'type': 'lead',
+            'type': 'lead', 'branch_id': branch.id,
             'name': 'Test lead 4',
             'email_from': 'Fabrice Lepoilu',
             'stage_id': default_stage_id
         })
         test_crm_lead_05 = LeadSaleman.create({
-            'type': 'lead',
+            'type': 'lead', 'branch_id': branch.id,
             'name': 'Test lead 5',
             'email_from': 'Fabrice Lepoilu',
             'stage_id': default_stage_id
         })
         test_crm_lead_06 = LeadSaleman.create({
-            'type': 'lead',
+            'type': 'lead', 'branch_id': branch.id,
             'name': 'Test lead 6',
             'email_from': 'Agrolait SuperSeed SA',
             'stage_id': default_stage_id

@@ -8,14 +8,14 @@ from dateutil.relativedelta import relativedelta
 import json
 
 from flectra import api, fields, models, _
-from flectra.exceptions import UserError
+from flectra.exceptions import UserError, ValidationError
 from flectra.release import version
 from flectra.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
 
 class CrmTeam(models.Model):
     _name = "crm.team"
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'ir.branch.company.mixin']
     _description = "Sales Channel"
     _order = "name"
 
@@ -80,6 +80,18 @@ class CrmTeam(models.Model):
         ('month', 'Last Month'),
         ('year', 'Last Year'),
     ], string='Scale', default='month', help="The time period this channel's dashboard graph will consider.")
+
+    @api.constrains('company_id', 'branch_id')
+    def _check_company_branch(self):
+        for record in self:
+            if record.company_id and record.company_id != record.branch_id.company_id:
+                raise ValidationError(
+                    _('Configuration Error of Company:\n'
+                      'The Company (%s) in the Team and '
+                      'the Company (%s) of Branch must '
+                      'be the same company!') % (record.company_id.name,
+                                                record.branch_id.company_id.name)
+                    )
 
     @api.depends('dashboard_graph_group', 'dashboard_graph_model', 'dashboard_graph_period')
     def _compute_dashboard_graph(self):
