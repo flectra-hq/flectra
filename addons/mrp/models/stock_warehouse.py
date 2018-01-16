@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, exceptions, fields, models, _
+from flectra import api, exceptions, fields, models, _
 
 
 class StockWarehouse(models.Model):

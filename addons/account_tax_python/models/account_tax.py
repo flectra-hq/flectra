@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields, api
-from odoo.tools.safe_eval import safe_eval
+from flectra import models, fields, api
+from flectra.tools.safe_eval import safe_eval
 
 
 class AccountTaxPython(models.Model):

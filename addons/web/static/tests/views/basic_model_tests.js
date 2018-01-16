@@ -1,4 +1,4 @@
-odoo.define('web.basic_model_tests', function (require) {
+flectra.define('web.basic_model_tests', function (require) {
 "use strict";
 
 var BasicModel = require('web.BasicModel');

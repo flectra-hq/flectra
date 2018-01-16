@@ -1,4 +1,4 @@
-odoo.define('web.field_utils_tests', function (require) {
+flectra.define('web.field_utils_tests', function (require) {
 "use strict";
 
 var core = require('web.core');

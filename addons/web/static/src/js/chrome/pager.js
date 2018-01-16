@@ -1,4 +1,4 @@
-odoo.define('web.Pager', function (require) {
+flectra.define('web.Pager', function (require) {
 "use strict";
 
 var utils = require('web.utils');

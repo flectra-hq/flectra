@@ -1,4 +1,4 @@
-odoo.define('account_invoicing.tour', function(require) {
+flectra.define('account_invoicing.tour', function(require) {
 "use strict";
 
 var core = require('web.core');

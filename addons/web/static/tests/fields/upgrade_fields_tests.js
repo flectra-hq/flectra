@@ -1,4 +1,4 @@
-odoo.define('web.upgrade_fields_tests', function (require) {
+flectra.define('web.upgrade_fields_tests', function (require) {
 "use strict";
 
 var FormView = require('web.FormView');

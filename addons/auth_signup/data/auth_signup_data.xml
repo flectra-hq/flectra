@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<flectra>
     <data noupdate="1">
 
         <!-- Default template user for new users signing in -->
@@ -35,7 +35,7 @@
 </div>
 <div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
     <p>Dear ${object.name},</p>
-    <p>A password reset was requested for the Odoo account linked to this email.</p>
+    <p>A password reset was requested for the Flectra account linked to this email.</p>
     <p>You may change your password by following this link which will remain valid during 24 hours:</p>
     <div style="text-align: center; margin-top: 16px;">
         <a href="${object.signup_url}" style="padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px">Change password</a>
@@ -46,7 +46,7 @@
 <div style="padding:0px;width:600px;margin:auto; margin-top: 10px; background: #fff repeat top /100%;color:#777777">
     ${user.signature | safe}
     <p style="font-size: 11px; margin-top: 10px;">
-        <strong>Sent by ${user.company_id.name} using <a href="www.odoo.com" style="text-decoration:none; color: #875A7B;">Odoo</a></strong>
+        <strong>Sent by ${user.company_id.name} using <a href="www.flectra.com" style="text-decoration:none; color: #875A7B;">Flectra</a></strong>
     </p>
 </div>]]></field>
             <field name="user_signature" eval="False"/>
@@ -54,11 +54,11 @@
 
         <!-- Email template for new users -->
         <record id="set_password_email" model="mail.template">
-            <field name="name">Auth Signup: Odoo Connection</field>
+            <field name="name">Auth Signup: Flectra Connection</field>
             <field name="model_id" ref="base.model_res_users"/>
             <field name="email_from"><![CDATA["${object.company_id.name|safe}" <${(object.company_id.email or user.email)|safe}>]]></field>
             <field name="email_to">${object.email|safe}</field>
-            <field name="subject"><![CDATA[${object.company_id.name} invitation to connect on Odoo]]></field>
+            <field name="subject"><![CDATA[${object.company_id.name} invitation to connect on Flectra]]></field>
             <field name="body_html"><![CDATA[
 <div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
     <table cellspacing="0" cellpadding="0" style="width:600px;border-collapse:collapse;background:inherit;color:inherit">
@@ -72,7 +72,7 @@
 <div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
 <p>Dear ${object.name},</p>
     <p>
-        You have been invited to connect to "${object.company_id.name}" in order to get access to your documents in Odoo.
+        You have been invited to connect to "${object.company_id.name}" in order to get access to your documents in Flectra.
     </p>
     <p>
         To accept the invitation, click on the following link:
@@ -85,7 +85,7 @@
 <div style="padding:0px;width:600px;margin:auto; margin-top: 10px; background: #fff repeat top /100%;color:#777777">
     ${user.signature | safe}
     <p style="font-size: 11px; margin-top: 10px;">
-        <strong>Sent by ${user.company_id.name} using <a href="www.odoo.com" style="text-decoration:none; color: #875A7B;">Odoo</a></strong>
+        <strong>Sent by ${user.company_id.name} using <a href="www.flectra.com" style="text-decoration:none; color: #875A7B;">Flectra</a></strong>
     </p>
 </div>]]></field>
             <field name="user_signature" eval="False"/>
@@ -93,7 +93,7 @@
 
         <!-- Email template for new users that used a signup token -->
         <record id="mail_template_user_signup_account_created" model="mail.template">
-            <field name="name">Auth Signup: Odoo Account Created</field>
+            <field name="name">Auth Signup: Flectra Account Created</field>
             <field name="model_id" ref="base.model_res_users"/>
             <field name="email_from">"${object.company_id.name|safe}" &lt;${(object.company_id.email or user.email)|safe}&gt;</field>
             <field name="email_to">${object.email|safe}</field>
@@ -129,11 +129,11 @@
 <div style="padding:0px;width:600px;margin:auto; margin-top: 10px; background: #fff repeat top /100%;color:#777777">
     ${user.signature | safe}
     <p style="font-size: 11px; margin-top: 10px;">
-        <strong>Sent by ${user.company_id.name} using <a href="www.odoo.com" style="text-decoration:none; color: #875A7B;">Odoo</a></strong>
+        <strong>Sent by ${user.company_id.name} using <a href="www.flectra.com" style="text-decoration:none; color: #875A7B;">Flectra</a></strong>
     </p>
 </div></field>
             <field name="user_signature" eval="False"/>
         </record>
 
     </data>
-</odoo>
+</flectra>

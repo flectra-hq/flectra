@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import datetime
 import logging
@@ -9,9 +9,9 @@ from collections import Counter, OrderedDict
 from itertools import product
 from werkzeug import urls
 
-from odoo import api, fields, models, tools, SUPERUSER_ID, _
-from odoo.addons.http_routing.models.ir_http import slug
-from odoo.exceptions import UserError, ValidationError
+from flectra import api, fields, models, tools, SUPERUSER_ID, _
+from flectra.addons.http_routing.models.ir_http import slug
+from flectra.exceptions import UserError, ValidationError
 email_validator = re.compile(r"[^@]+@[^@]+\.[^@]+")
 _logger = logging.getLogger(__name__)
 

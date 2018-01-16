@@ -7,15 +7,15 @@ import unittest
 from lxml import objectify
 from werkzeug import urls
 
-import odoo
-from odoo.addons.payment.models.payment_acquirer import ValidationError
-from odoo.addons.payment.tests.common import PaymentAcquirerCommon
-from odoo.addons.payment_authorize.controllers.main import AuthorizeController
-from odoo.tools import mute_logger
+import flectra
+from flectra.addons.payment.models.payment_acquirer import ValidationError
+from flectra.addons.payment.tests.common import PaymentAcquirerCommon
+from flectra.addons.payment_authorize.controllers.main import AuthorizeController
+from flectra.tools import mute_logger
 
 
-@odoo.tests.common.at_install(True)
-@odoo.tests.common.post_install(True)
+@flectra.tests.common.at_install(True)
+@flectra.tests.common.post_install(True)
 class AuthorizeCommon(PaymentAcquirerCommon):
 
     def setUp(self):
@@ -28,8 +28,8 @@ class AuthorizeCommon(PaymentAcquirerCommon):
         # self.authorize.auto_confirm = 'confirm_so'
 
 
-@odoo.tests.common.at_install(True)
-@odoo.tests.common.post_install(True)
+@flectra.tests.common.at_install(True)
+@flectra.tests.common.post_install(True)
 class AuthorizeForm(AuthorizeCommon):
 
     def _authorize_generate_hashing(self, values):
@@ -103,7 +103,7 @@ class AuthorizeForm(AuthorizeCommon):
                 'Authorize: wrong value for input %s: received %s instead of %s' % (values[1], values[2], form_values[values[1]])
             )
 
-    @mute_logger('odoo.addons.payment_authorize.models.payment', 'ValidationError')
+    @mute_logger('flectra.addons.payment_authorize.models.payment', 'ValidationError')
     def test_20_authorize_form_management(self):
         # be sure not to do stupid thing
         self.assertEqual(self.authorize.environment, 'test', 'test without test environment')
@@ -188,7 +188,7 @@ class AuthorizeForm(AuthorizeCommon):
         self.assertEqual(authorize.environment, 'test', 'test without test environment')
 
         # add credential
-        # FIXME: put this test in master-nightly on odoo/odoo + create sandbox account
+        # FIXME: put this test in master-nightly on flectra/flectra + create sandbox account
         authorize.write({
             'authorize_transaction_key': '',
             'authorize_login': '',

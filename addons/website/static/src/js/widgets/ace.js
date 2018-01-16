@@ -1,4 +1,4 @@
-odoo.define("website.ace", function (require) {
+flectra.define("website.ace", function (require) {
 "use strict";
 
 var AceEditor = require('web_editor.ace');

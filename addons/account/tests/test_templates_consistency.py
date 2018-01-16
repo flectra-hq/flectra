@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo.tests.common import HttpCase
+from flectra.tests.common import HttpCase
 
 
 class AccountingTestTemplConsistency(HttpCase):

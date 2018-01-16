@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.mrp.tests.common import TestMrpCommon
-from odoo.exceptions import UserError
+from flectra.addons.mrp.tests.common import TestMrpCommon
+from flectra.exceptions import UserError
 
 
 class TestUnbuild(TestMrpCommon):
@@ -452,4 +452,4 @@ class TestUnbuild(TestMrpCommon):
         ml = mo.finished_move_line_ids[0].consume_line_ids.filtered(lambda m: m.product_id == p1 and m.lot_produced_id == lot_finished_1)
         self.assertEqual(ml.qty_done, 12.0, 'Should have consumed 12 for the first lot')
         ml = mo.finished_move_line_ids[1].consume_line_ids.filtered(lambda m: m.product_id == p1 and m.lot_produced_id == lot_finished_2)
-        self.assertEqual(ml.qty_done, 8.0, 'Should have consumed 8 for the second lot')
+        self.assertEqual(ml.qty_done, 8.0, 'Should have consumed 8 for the second lot')        

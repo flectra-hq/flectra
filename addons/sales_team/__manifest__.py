@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Sales Channels',
     'version': '1.0',
@@ -9,7 +9,7 @@
 Using this application you can manage Sales Channels  with CRM and/or Sales
 ===========================================================================
  """,
-    'website': 'https://www.odoo.com/page/crm',
+    'website': 'https://flectrahq.com/page/crm',
     'depends': ['base', 'mail'],
     'data': ['security/sales_team_security.xml',
              'security/ir.model.access.csv',

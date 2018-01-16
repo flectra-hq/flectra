@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import werkzeug
 
 from datetime import datetime
 from dateutil import relativedelta
 
-from odoo import http, fields, tools, _
-from odoo.http import request
-from odoo.addons.http_routing.models.ir_http import slug
+from flectra import http, fields, tools, _
+from flectra.http import request
+from flectra.addons.http_routing.models.ir_http import slug
 
 
 class MailGroup(http.Controller):

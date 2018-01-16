@@ -3,9 +3,9 @@ import logging
 import pprint
 import werkzeug
 
-from odoo import http
-from odoo.http import request
-from odoo.addons.payment.models.payment_acquirer import ValidationError
+from flectra import http
+from flectra.http import request
+from flectra.addons.payment.models.payment_acquirer import ValidationError
 
 _logger = logging.getLogger(__name__)
 

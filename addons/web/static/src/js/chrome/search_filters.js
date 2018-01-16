@@ -1,4 +1,4 @@
-odoo.define('web.search_filters', function (require) {
+flectra.define('web.search_filters', function (require) {
 "use strict";
 
 var core = require('web.core');

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
-from odoo.exceptions import Warning
+from flectra import api, fields, models, _
+from flectra.exceptions import Warning
 
 
 class l10n_eu_service(models.TransientModel):

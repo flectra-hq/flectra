@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import json
 
 import requests
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import UserError
+from flectra import api, fields, models, tools, _
+from flectra.exceptions import UserError
 
 
 def geo_find(addr):

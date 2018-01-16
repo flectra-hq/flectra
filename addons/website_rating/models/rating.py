@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models
+from flectra import fields, models
 
 
 class Rating(models.Model):

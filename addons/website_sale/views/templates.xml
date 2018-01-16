@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<flectra>
     <!-- Layout and common templates -->
     <template id="assets_backend" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
@@ -503,7 +503,7 @@
 
     <template inherit_id='website_sale.product' id="product_picture_magnify" customize_show="True" name="Activate Magnify">
         <xpath expr='//div[hasclass("js_sale")]' position='attributes'>
-            <attribute name="class" separator=" " add="ecom-zoomable zoomodoo-hover" />
+            <attribute name="class" separator=" " add="ecom-zoomable zoomflectra-hover" />
         </xpath>
     </template>
 
@@ -1583,8 +1583,8 @@
         <xpath expr="//footer" position="inside">
             <div class="container mt16 mb8">
                 <div class="pull-right" t-ignore="true" t-if="not editable">
-                                                      Powered by <a target="_blank" class="label label-danger" href="http://www.odoo.com/page/website-builder">Odoo</a>,
-                                                      the #1 <a target="_blank" href="http://www.odoo.com/page/e-commerce">Open Source eCommerce</a>.
+                                                      Powered by <a target="_blank" class="label label-danger" href="http://www.flectra.com/page/website-builder">Flectra</a>,
+                                                      the #1 <a target="_blank" href="http://www.flectra.com/page/e-commerce">Open Source eCommerce</a>.
                                                     </div>
                 <div class="pull-left text-muted">
                                                       Copyright &amp;copy; <span t-field="res_company.name">Company name</span></div>
@@ -1654,4 +1654,4 @@
         </t>
     </template>
 
-</odoo>
+</flectra>

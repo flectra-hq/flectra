@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 
 {
@@ -20,7 +20,7 @@ With this module:
 -----------------
     A + B + C -> D + E
     """,
-    'website': 'https://www.odoo.com/page/manufacturing',
+    'website': 'https://flectrahq.com/page/manufacturing',
     'depends': ['base', 'mrp'],
     'data': [
         'security/ir.model.access.csv',

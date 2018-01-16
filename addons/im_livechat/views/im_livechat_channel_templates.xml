@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<flectra>
     <data>
 
         <!--
@@ -83,14 +83,14 @@
                 <body>
                      <div class="main" style="opacity: 1;">
                         <h1 class="channel_name"><t t-esc="channel.name"/></h1>
-                        <div>Website Live Chat Powered by <strong>Odoo</strong>.</div>
+                        <div>Website Live Chat Powered by <strong>Flectra</strong>.</div>
                     </div>
                 </body>
             </html>
         </template>
 
         <!--
-            Template rendering all the scripts required to execute the Livechat from an external page (which not contain Odoo)
+            Template rendering all the scripts required to execute the Livechat from an external page (which not contain Flectra)
         -->
         <template id="external_loader" name="Livechat : external_script field of livechat channel">
             <!-- css style -->
@@ -103,12 +103,12 @@
 
 
         <!--
-            Bundle of External Librairies of the Livechat (Odoo + required modules)
+            Bundle of External Librairies of the Livechat (Flectra + required modules)
         -->
         <template id="external_lib" name="Livechat : External Librairies of the Livechat, required to make it work">
             <!-- Momentjs -->
             <script type="text/javascript" src="/web/static/lib/moment/moment.js"></script>
-            <!-- Odoo minimal lib -->
+            <!-- Flectra minimal lib -->
             <script type="text/javascript" src="/web/static/lib/underscore/underscore.js"></script>
             <script type="text/javascript" src="/web/static/lib/underscore.string/lib/underscore.string.js"></script>
             <!-- jQuery -->
@@ -118,7 +118,7 @@
             <script type="text/javascript" src="/web/static/lib/jquery.ba-bbq/jquery.ba-bbq.js"></script>
             <!-- Qweb2 lib -->
             <script type="text/javascript" src="/web/static/lib/qweb/qweb2.js"></script>
-            <!-- Odoo JS Framework -->
+            <!-- Flectra JS Framework -->
             <script type="text/javascript" src="/web/static/src/js/boot.js"></script>
             <script type="text/javascript" src="/web/static/src/js/services/config.js"></script>
             <script type="text/javascript" src="/web/static/src/js/core/abstract_service.js"></script>
@@ -161,14 +161,14 @@
             </t>
                 document.addEventListener("DOMContentLoaded", function(event) {
                     <t t-if="web_session_required">
-                    odoo.define('web.session', function (require) {
+                    flectra.define('web.session', function (require) {
                         var Session = require('web.Session');
-                        var modules = odoo._modules;
+                        var modules = flectra._modules;
                         return new Session(undefined, "<t t-esc="info['server_url']"/>", {modules:modules, use_cors: false});
                     });
                     </t>
 
-                    odoo.define('im_livechat.livesupport', function (require) {
+                    flectra.define('im_livechat.livesupport', function (require) {
             <t t-if="info['available']" t-translation="off">
                         var im_livechat = require('im_livechat.im_livechat');
                         var button = new im_livechat.LivechatButton(
@@ -186,4 +186,4 @@
 
 
     </data>
-</odoo>
+</flectra>

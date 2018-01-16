@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from .common import TestCrmCases
-from odoo.modules.module import get_module_resource
+from flectra.modules.module import get_module_resource
 
 
 class TestCRMLead(TestCrmCases):

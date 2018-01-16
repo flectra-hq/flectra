@@ -370,7 +370,7 @@ define([
        * delete contents on range
        * @return {WrappedRange}
        */
-      if(_.isUndefined(this.deleteContents)) // ODOO: ability to override by prototype
+      if(_.isUndefined(this.deleteContents)) // FLECTRA: ability to override by prototype
       this.deleteContents = function () {
         if (this.isCollapsed()) {
           return this;
@@ -469,7 +469,7 @@ define([
           return rng;
         }
 
-        // ODOO: insert a p tag when try to insert a br with insertNode method, if the editor is inside a p, li, h1... (start_modification
+        // FLECTRA: insert a p tag when try to insert a br with insertNode method, if the editor is inside a p, li, h1... (start_modification
         // if apply the editor to a P, LI... or inside a P, LI...
         if (dom.isText(sc)) {
           var node = sc;
@@ -480,7 +480,7 @@ define([
             }
           }
         }
-        // ODOO: end_modification)
+        // FLECTRA: end_modification)
 
         // find inline top ancestor
         var topAncestor;
@@ -515,7 +515,7 @@ define([
        */
       this.insertNode = function (node) {
         var rng = this.wrapBodyInlineWithPara().deleteContents();
-        // ODOO: override to not split world for inserting inline
+        // FLECTRA: override to not split world for inserting inline
         // original: var info = dom.splitPoint(rng.getStartPoint(), dom.isInline(node));
         var info = dom.splitPoint(rng.getStartPoint(), !dom.isBodyContainer(dom.ancestor(rng.sc, function(node) { return dom.isBodyContainer(node) || dom.isPara(node) })));
 
@@ -642,7 +642,7 @@ define([
    * @alternateClassName range
    */
     return {
-      WrappedRange: WrappedRange, // ODOO: give access to WrappedRange
+      WrappedRange: WrappedRange, // FLECTRA: give access to WrappedRange
       /**
        * @method
        * 

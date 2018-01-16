@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import werkzeug
 
-from odoo import exceptions, fields, http, _
-from odoo.http import request
-from odoo.addons.portal.controllers.portal import CustomerPortal, get_records_pager
-from odoo.addons.portal.controllers.mail import _message_post_helper
+from flectra import exceptions, fields, http, _
+from flectra.http import request
+from flectra.addons.portal.controllers.portal import CustomerPortal, get_records_pager
+from flectra.addons.portal.controllers.mail import _message_post_helper
 
 
 class CustomerPortal(CustomerPortal):

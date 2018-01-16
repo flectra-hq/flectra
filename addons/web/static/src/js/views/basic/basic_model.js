@@ -1,4 +1,4 @@
-odoo.define('web.BasicModel', function (require) {
+flectra.define('web.BasicModel', function (require) {
 "use strict";
 
 /**
@@ -64,7 +64,7 @@ odoo.define('web.BasicModel', function (require) {
  * - count is basically the number of records being manipulated.  We can't use
  *     res_ids, because we might have a very large number of records, or a
  *     domain, and the res_ids would be the current page, not the full set.
- * - model is the actual name of a (odoo) model, such as 'res.partner'
+ * - model is the actual name of a (flectra) model, such as 'res.partner'
  * - fields contains the description of all the fields from the model.  Note that
  *     these properties might have been modified by a view (for example, with
  *     required=true.  So, the fields kind of depends of the context of the

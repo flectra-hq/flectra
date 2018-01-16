@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo.exceptions import AccessDenied
+from flectra.exceptions import AccessDenied
 
-from odoo import api, models, registry, SUPERUSER_ID
+from flectra import api, models, registry, SUPERUSER_ID
 
 
 class Users(models.Model):

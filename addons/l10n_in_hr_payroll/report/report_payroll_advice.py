@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import time
 from datetime import datetime
 
-from odoo import api, models
+from flectra import api, models
 
 
 class payroll_advice_report(models.AbstractModel):

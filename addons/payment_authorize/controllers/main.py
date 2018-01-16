@@ -3,8 +3,8 @@ import pprint
 import logging
 from werkzeug import urls, utils
 
-from odoo import http
-from odoo.http import request
+from flectra import http
+from flectra.http import request
 
 _logger = logging.getLogger(__name__)
 

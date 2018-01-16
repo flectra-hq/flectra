@@ -1,4 +1,4 @@
-odoo.define('web.KanbanController', function (require) {
+flectra.define('web.KanbanController', function (require) {
 "use strict";
 
 /**
@@ -150,7 +150,7 @@ var KanbanController = BasicController.extend({
      * a group and to update the renderer
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onAddColumn: function (event) {
         var self = this;
@@ -163,7 +163,7 @@ var KanbanController = BasicController.extend({
     },
     /**
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onAddRecordToColumn: function (event) {
         var self = this;
@@ -185,7 +185,7 @@ var KanbanController = BasicController.extend({
      * what this handler is for.
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onArchiveRecords: function (event) {
         var self = this;
@@ -204,7 +204,7 @@ var KanbanController = BasicController.extend({
     },
     /**
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onButtonClicked: function (event) {
         var self = this;
@@ -260,14 +260,14 @@ var KanbanController = BasicController.extend({
     },
     /**
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onColumnResequence: function (event) {
         this._resequenceRecords(event.target.db_id, event.data.ids);
     },
     /**
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onDeleteColumn: function (event) {
         var self = this;
@@ -290,7 +290,7 @@ var KanbanController = BasicController.extend({
      * lazy loaded)
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onLoadColumnRecords: function (event) {
         var self = this;
@@ -305,7 +305,7 @@ var KanbanController = BasicController.extend({
     },
     /**
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onLoadMore: function (event) {
         var self = this;
@@ -318,7 +318,7 @@ var KanbanController = BasicController.extend({
     },
     /**
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onQuickCreateRecord: function (event) {
         var self = this;
@@ -368,14 +368,14 @@ var KanbanController = BasicController.extend({
     },
     /**
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onRecordDelete: function (event) {
         this._deleteRecords([event.data.id]);
     },
     /**
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onResequenceColumn: function (event) {
         var self = this;
@@ -387,7 +387,7 @@ var KanbanController = BasicController.extend({
     },
     /**
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onToggleColumn: function (event) {
         var self = this;
@@ -402,7 +402,7 @@ var KanbanController = BasicController.extend({
      * @todo should simply use field_changed event...
      *
      * @private
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      */
     _onUpdateRecord: function (ev) {
         var changes = _.clone(ev.data);

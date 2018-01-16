@@ -1,4 +1,4 @@
-odoo.define('web.LocalStorageService', function (require) {
+flectra.define('web.LocalStorageService', function (require) {
 'use strict';
 
 var AbstractService = require('web.AbstractService');

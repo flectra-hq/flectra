@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Memos pad',
@@ -12,7 +12,7 @@ This module update memos inside Odoo for using an external pad
 Use for update your text memo in real time with the following user that you invite.
 
 """,
-    'website': 'https://www.odoo.com/page/notes',
+    'website': 'https://flectrahq.com/page/notes',
     'summary': 'Sticky memos, Collaborative',
     'depends': [
         'mail',

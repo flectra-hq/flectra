@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import models
+from flectra import models
 
 
 class Event(models.Model):
@@ -20,4 +20,4 @@ class Event(models.Model):
                 default_mailing_domain="[('event_id', 'in', %s)]" % self.ids,  # , ('state', 'in', ['draft', 'open', 'done'])
             ),
         )
-        return mass_mailing_action
+        return mass_mailing_action        

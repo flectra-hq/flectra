@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Recruitment Process',
@@ -8,7 +8,7 @@
     'sequence': 90,
     'summary': 'Jobs, Recruitment, Applications, Job Interviews',
     'description': "",
-    'website': 'https://www.odoo.com/page/recruitment',
+    'website': 'https://flectrahq.com/page/recruitment',
     'depends': [
         'hr',
         'calendar',

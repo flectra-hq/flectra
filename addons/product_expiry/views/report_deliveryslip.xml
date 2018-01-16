@@ -1,4 +1,4 @@
-<odoo>
+<flectra>
     <template id="report_delivery_document_inherit_product_expiry" inherit_id="stock.report_delivery_document">
         <xpath expr="//th[@name='lot_serial']" position="inside">
             <t t-if="any([move_lines.lot_id.use_date for move_lines in o.move_line_ids])">
@@ -11,4 +11,4 @@
             </td>
         </xpath>
     </template>
-</odoo>
+</flectra>

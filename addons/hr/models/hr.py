@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import base64
 import logging
 
-from odoo import api, fields, models
-from odoo import tools, _
-from odoo.exceptions import ValidationError
-from odoo.modules.module import get_module_resource
+from flectra import api, fields, models
+from flectra import tools, _
+from flectra.exceptions import ValidationError
+from flectra.modules.module import get_module_resource
 
 _logger = logging.getLogger(__name__)
 

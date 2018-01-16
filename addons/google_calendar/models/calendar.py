@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
+from flectra import api, fields, models
 
 
 class Meeting(models.Model):
 
     _inherit = "calendar.event"
 
-    oe_update_date = fields.Datetime('Odoo Update Date')
+    oe_update_date = fields.Datetime('Flectra Update Date')
 
     @api.model
     def get_fields_need_update_google(self):
@@ -45,7 +45,7 @@ class Attendee(models.Model):
     _inherit = 'calendar.attendee'
 
     google_internal_event_id = fields.Char('Google Calendar Event Id')
-    oe_synchro_date = fields.Datetime('Odoo Synchro Date')
+    oe_synchro_date = fields.Datetime('Flectra Synchro Date')
 
     _sql_constraints = [
         ('google_id_uniq', 'unique(google_internal_event_id,partner_id,event_id)', 'Google ID should be unique!')

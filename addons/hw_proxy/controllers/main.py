@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from __future__ import print_function
 import logging
@@ -9,8 +9,8 @@ import subprocess
 from threading import Lock
 
 
-from odoo import http
-from odoo.http import request
+from flectra import http
+from flectra.http import request
 
 _logger = logging.getLogger(__name__)
 
@@ -55,7 +55,7 @@ class Proxy(http.Controller):
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Odoo's PosBox</title>
+        <title>Flectra's PosBox</title>
         <style>
         body {
             width: 480px;

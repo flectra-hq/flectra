@@ -1,4 +1,4 @@
-odoo.define('account.ReconciliationRenderer', function (require) {
+flectra.define('account.ReconciliationRenderer', function (require) {
 "use strict";
 
 var Widget = require('web.Widget');
@@ -575,7 +575,7 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
     },
     /**
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onFieldChanged: function (event) {
         event.stopPropagation();

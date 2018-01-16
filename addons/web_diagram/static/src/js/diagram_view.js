@@ -1,4 +1,4 @@
-odoo.define('web_diagram.DiagramView', function (require) {
+flectra.define('web_diagram.DiagramView', function (require) {
 "use strict";
 
 var BasicView = require('web.BasicView');

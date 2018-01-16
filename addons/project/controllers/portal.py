@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from collections import OrderedDict
 
-from odoo import http, _
-from odoo.http import request
-from odoo.addons.portal.controllers.portal import get_records_pager, CustomerPortal, pager as portal_pager
+from flectra import http, _
+from flectra.http import request
+from flectra.addons.portal.controllers.portal import get_records_pager, CustomerPortal, pager as portal_pager
 
-from odoo.osv.expression import OR
+from flectra.osv.expression import OR
 
 
 class CustomerPortal(CustomerPortal):

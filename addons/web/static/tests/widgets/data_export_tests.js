@@ -1,4 +1,4 @@
-odoo.define('web.data_export_tests', function (require) {
+flectra.define('web.data_export_tests', function (require) {
 "use strict";
 
 var framework = require('web.framework');

@@ -1,4 +1,4 @@
-odoo.define('web.PivotRenderer', function (require) {
+flectra.define('web.PivotRenderer', function (require) {
 "use strict";
 
 var AbstractRenderer = require('web.AbstractRenderer');

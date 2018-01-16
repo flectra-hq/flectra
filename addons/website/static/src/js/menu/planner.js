@@ -1,4 +1,4 @@
-odoo.define('website.planner', function (require) {
+flectra.define('website.planner', function (require) {
 'use strict';
 
 var session = require('web.session');

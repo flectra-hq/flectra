@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo.api import Environment
-import odoo.tests
+from flectra.api import Environment
+import flectra.tests
 
-@odoo.tests.common.at_install(False)
-@odoo.tests.common.post_install(True)
-class TestWebsiteHrRecruitmentForm(odoo.tests.HttpCase):
+@flectra.tests.common.at_install(False)
+@flectra.tests.common.post_install(True)
+class TestWebsiteHrRecruitmentForm(flectra.tests.HttpCase):
     def test_tour(self):
-        self.phantom_js("/", "odoo.__DEBUG__.services['web_tour.tour'].run('website_hr_recruitment_tour')", "odoo.__DEBUG__.services['web_tour.tour'].tours.website_hr_recruitment_tour.ready")
+        self.phantom_js("/", "flectra.__DEBUG__.services['web_tour.tour'].run('website_hr_recruitment_tour')", "flectra.__DEBUG__.services['web_tour.tour'].tours.website_hr_recruitment_tour.ready")
 
         # get test cursor to read from same transaction browser is writing to
         cr = self.registry.cursor()

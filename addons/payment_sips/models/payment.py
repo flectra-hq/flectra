@@ -8,11 +8,11 @@ from hashlib import sha256
 
 from werkzeug import urls
 
-from odoo import models, fields, api
-from odoo.tools.float_utils import float_compare
-from odoo.tools.translate import _
-from odoo.addons.payment.models.payment_acquirer import ValidationError
-from odoo.addons.payment_sips.controllers.main import SipsController
+from flectra import models, fields, api
+from flectra.tools.float_utils import float_compare
+from flectra.tools.translate import _
+from flectra.addons.payment.models.payment_acquirer import ValidationError
+from flectra.addons.payment_sips.controllers.main import SipsController
 
 _logger = logging.getLogger(__name__)
 

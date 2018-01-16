@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import babel
 import base64
@@ -12,9 +12,9 @@ import functools
 import lxml
 from werkzeug import urls
 
-from odoo import _, api, fields, models, tools
-from odoo.exceptions import UserError
-from odoo.tools import pycompat
+from flectra import _, api, fields, models, tools
+from flectra.exceptions import UserError
+from flectra.tools import pycompat
 
 _logger = logging.getLogger(__name__)
 

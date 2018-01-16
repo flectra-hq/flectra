@@ -1,4 +1,4 @@
-odoo.define('mail.Chatter', function (require) {
+flectra.define('mail.Chatter', function (require) {
 "use strict";
 
 var Activity = require('mail.Activity');

@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Survey',
@@ -16,7 +16,7 @@ answers of question and according to that survey is done. Partners are also
 sent mails with personal token for the invitation of the survey.
     """,
     'summary': 'Create surveys, collect answers and print statistics',
-    'website': 'https://www.odoo.com/page/survey',
+    'website': 'https://flectrahq.com/page/survey',
     'depends': ['mail', 'website'],
     'data': [
         'security/survey_security.xml',

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 
 {
@@ -21,7 +21,7 @@ will take into account the expected date and the priority.
 If this automatic reservation would reserve too much, you can
 still unreserve a picking.
     """,
-    'website': 'https://www.odoo.com/page/manufacturing',
+    'website': 'https://flectrahq.com/page/manufacturing',
     'depends': ['sale_stock'],
     'data': [],
     'demo': [],

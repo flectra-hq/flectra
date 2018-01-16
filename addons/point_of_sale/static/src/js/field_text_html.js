@@ -1,4 +1,4 @@
-odoo.define('point_of_sale.fieldtexthtml', function (require) {
+flectra.define('point_of_sale.fieldtexthtml', function (require) {
     'use strict';
 
     var FieldTextHtml = require('web_editor.backend').FieldTextHtml;

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name' : 'Sale & Purchase Vouchers',
@@ -25,7 +25,7 @@ This module manages:
     """,
     'category': 'Accounting',
     'sequence': 20,
-    'website' : 'https://www.odoo.com/page/billing',
+    'website' : 'https://flectrahq.com/page/billing',
     'depends' : ['account'],
     'demo' : [],
     'data' : [

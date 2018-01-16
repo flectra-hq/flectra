@@ -1,4 +1,4 @@
-odoo.define('web.test_utils', function (require) {
+flectra.define('web.test_utils', function (require) {
 "use strict";
 
 /**
@@ -30,7 +30,7 @@ var DebouncedField = basic_fields.DebouncedField;
  * It will not be propagated further, and even the handlers on the target will
  * not fire.
  *
- * @param {Widget} widget the target widget (any Odoo widget)
+ * @param {Widget} widget the target widget (any Flectra widget)
  * @param {string} eventName description of the event
  * @param {function} fn callback executed when the even is intercepted
  * @param {boolean} [propagate=false]
@@ -100,7 +100,7 @@ function createView(params) {
  * @param {any[]} [params.domain] the initial domain for the view
  * @param {Object} [params.context] the initial context for the view
  * @param {Object} [params.debug=false] if true, the widget will be appended in
- *   the DOM. Also, the logLevel will be forced to 2 and the uncaught OdooEvent
+ *   the DOM. Also, the logLevel will be forced to 2 and the uncaught FlectraEvent
  *   will be logged
  * @param {string[]} [params.groupBy] the initial groupBy for the view
  * @param {integer} [params.fieldDebounce=0] the debounce value to use for the
@@ -164,7 +164,7 @@ function createAsyncView(params) {
     var $content = $('<div>').addClass('o_content').appendTo($web_client);
     var $view_manager = $('<div>').addClass('o_view_manager_content').appendTo($content);
 
-    // make sure all Odoo events bubbling up are intercepted
+    // make sure all Flectra events bubbling up are intercepted
     if (params.intercepts) {
         _.each(params.intercepts, function (cb, name) {
             intercept(widget, name, cb);
@@ -231,7 +231,7 @@ function createAsyncView(params) {
  * @param {string} [params.currentDate] a string representation of the current
  *   date. It is given to the mock server.
  * @param {Object} params.data the data given to the created mock server. It is
- *   used to generate mock answers for every kind of routes supported by odoo
+ *   used to generate mock answers for every kind of routes supported by flectra
  * @param {number} [params.logLevel] the log level. If it is 0, no logging is
  *   done, if 1, some light logging is done, if 2, detailed logs will be
  *   displayed for all rpcs.  Most of the time, when working on a test, it is

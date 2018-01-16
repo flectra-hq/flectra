@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Twitter Roller',
     'category': 'Website',
     'summary': 'Add twitter scroller snippet in website builder',
-    'website': 'https://www.odoo.com/page/website-builder',
+    'website': 'https://flectrahq.com/page/website-builder',
     'version': '1.0',
     'description': """
 Display best tweets

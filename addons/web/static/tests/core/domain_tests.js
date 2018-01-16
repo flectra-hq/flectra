@@ -1,4 +1,4 @@
-odoo.define('web.domain_tests', function (require) {
+flectra.define('web.domain_tests', function (require) {
 "use strict";
 
 var Domain = require('web.Domain');

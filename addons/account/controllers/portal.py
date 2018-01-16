@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import http, _
-from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
-from odoo.exceptions import AccessError
-from odoo.http import request
-from odoo.tools import consteq
+from flectra import http, _
+from flectra.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
+from flectra.exceptions import AccessError
+from flectra.http import request
+from flectra.tools import consteq
 
 
 class PortalAccount(CustomerPortal):

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 
 {
@@ -19,7 +19,7 @@ Lots of reporting on time and employee tracking are provided.
 It is completely integrated with the cost accounting module. It allows you to set
 up a management by affair.
     """,
-    'website': 'https://www.odoo.com/page/employees',
+    'website': 'https://flectrahq.com/page/employees',
     'depends': ['hr', 'project'],
     'data': [
         'security/hr_timesheet_security.xml',

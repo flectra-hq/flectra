@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import base64
 import re
 
-from odoo import _, api, fields, models, SUPERUSER_ID, tools
-from odoo.tools import pycompat
-from odoo.tools.safe_eval import safe_eval
+from flectra import _, api, fields, models, SUPERUSER_ID, tools
+from flectra.tools import pycompat
+from flectra.tools.safe_eval import safe_eval
 
 
 # main mako-like expression pattern

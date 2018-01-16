@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo.addons.account.tests.account_test_classes import AccountingTestCase
+from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from flectra.addons.account.tests.account_test_classes import AccountingTestCase
 
 
 class TestPurchaseOrder(AccountingTestCase):
@@ -156,4 +156,4 @@ class TestPurchaseOrder(AccountingTestCase):
         self.invoice.invoice_line_ids[0].quantity = 2.0
         self.invoice.invoice_line_ids[1].quantity = 2.0
         self.invoice.invoice_validate()
-        self.assertEqual(self.po.order_line.mapped('qty_invoiced'), [3.0, 3.0], 'Purchase: Billed quantity should be 3.0')
+        self.assertEqual(self.po.order_line.mapped('qty_invoiced'), [3.0, 3.0], 'Purchase: Billed quantity should be 3.0')        

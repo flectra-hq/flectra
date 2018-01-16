@@ -1,4 +1,4 @@
-odoo.define('web_editor.iframe', function (require) {
+flectra.define('web_editor.iframe', function (require) {
 'use strict';
 
 var core = require('web.core');
@@ -7,7 +7,7 @@ var translator = require('web_editor.translate');
 var rte = require('web_editor.rte');
 
 var callback = window ? window['callback'] : undefined;
-window.top.odoo[callback + '_updown'] = function (value, fields_values, field_name) {
+window.top.flectra[callback + '_updown'] = function (value, fields_values, field_name) {
     var $editable = $('#editable_area');
     if (value === $editable.prop('innerHTML')) {
         return;
@@ -32,8 +32,8 @@ editor.Class.include({
         this.on('rte:start', this, function () {
             this.$('form').hide();
 
-            if (window.top.odoo[callback + '_editor']) {
-                window.top.odoo[callback + '_editor'](this);
+            if (window.top.flectra[callback + '_editor']) {
+                window.top.flectra[callback + '_editor'](this);
             }
 
             var $editable = $('#editable_area');
@@ -43,8 +43,8 @@ editor.Class.include({
             },0);
 
             $editable.on('content_changed', this, function () {
-                if (window.top.odoo[callback + '_downup']) {
-                    window.top.odoo[callback + '_downup']($editable.prop('innerHTML'));
+                if (window.top.flectra[callback + '_downup']) {
+                    window.top.flectra[callback + '_downup']($editable.prop('innerHTML'));
                 }
             });
         });
@@ -72,8 +72,8 @@ translator.Class.include({
     start: function () {
         var res = this._super.apply(this, arguments);
         $('button[data-action=save]').hide();
-        if (window.top.odoo[callback + '_editor']) {
-            window.top.odoo[callback + '_editor'](this);
+        if (window.top.flectra[callback + '_editor']) {
+            window.top.flectra[callback + '_editor'](this);
         }
         return res;
     },
@@ -82,7 +82,7 @@ translator.Class.include({
 
 //==============================================================================
 
-odoo.define('web_editor.IframeRoot.instance', function (require) {
+flectra.define('web_editor.IframeRoot.instance', function (require) {
 'use strict';
 
 require('web.dom_ready');
@@ -96,7 +96,7 @@ return iframeRoot.attachTo(document.body).then(function () {
 
 //==============================================================================
 
-odoo.define('web_editor.IframeRoot', function (require) {
+flectra.define('web_editor.IframeRoot', function (require) {
 'use strict';
 
 var BodyManager = require('web_editor.BodyManager');

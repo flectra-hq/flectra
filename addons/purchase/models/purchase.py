@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, SUPERUSER_ID, _
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo.tools.float_utils import float_is_zero, float_compare
-from odoo.exceptions import UserError, AccessError
-from odoo.tools.misc import formatLang
-from odoo.addons.base.res.res_partner import WARNING_MESSAGE, WARNING_HELP
-from odoo.addons import decimal_precision as dp
+from flectra import api, fields, models, SUPERUSER_ID, _
+from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from flectra.tools.float_utils import float_is_zero, float_compare
+from flectra.exceptions import UserError, AccessError
+from flectra.tools.misc import formatLang
+from flectra.addons.base.res.res_partner import WARNING_MESSAGE, WARNING_HELP
+from flectra.addons import decimal_precision as dp
 
 
 class PurchaseOrder(models.Model):

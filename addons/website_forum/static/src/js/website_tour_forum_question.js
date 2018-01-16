@@ -1,4 +1,4 @@
-odoo.define('website_forum.tour_forum_question', function (require) {
+flectra.define('website_forum.tour_forum_question', function (require) {
     'use strict';
 
     var tour = require("web_tour.tour");

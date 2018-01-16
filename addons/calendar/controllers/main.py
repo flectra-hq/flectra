@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import werkzeug
 
-from odoo.api import Environment
-import odoo.http as http
+from flectra.api import Environment
+import flectra.http as http
 
-from odoo.http import request
-from odoo import SUPERUSER_ID
-from odoo import registry as registry_get
+from flectra.http import request
+from flectra import SUPERUSER_ID
+from flectra import registry as registry_get
 
 
 class CalendarController(http.Controller):

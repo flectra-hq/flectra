@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import requests
 
-from odoo.api import Environment
-from odoo.tests import common
-from odoo.tools.misc import mute_logger, ustr
+from flectra.api import Environment
+from flectra.tests import common
+from flectra.tools.misc import mute_logger, ustr
 
 
 class TestConfirmUnsubscribe(common.HttpCase):
@@ -29,7 +29,7 @@ class TestConfirmUnsubscribe(common.HttpCase):
 
         self._unsubscribe_check("The address %s is already unsubscribed" % self.partner.email)
 
-    @mute_logger('odoo.addons.website.models.ir_ui_view')
+    @mute_logger('flectra.addons.website.models.ir_ui_view')
     def test_not_subscribed_no_template(self):
         """ Test warning works on db without template (code update w/o module update) """
         self.env2.ref('website_mail_channel.not_subscribed').unlink()

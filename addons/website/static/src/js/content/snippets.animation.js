@@ -1,4 +1,4 @@
-odoo.define('website.content.snippets.animation', function (require) {
+flectra.define('website.content.snippets.animation', function (require) {
 'use strict';
 
 /**
@@ -591,7 +591,7 @@ registry.mediaVideo = Animation.extend({
      */
     start: function () {
         // TODO: this code should be refactored to make more sense and be better
-        // integrated with Odoo (this refactoring should be done in master).
+        // integrated with Flectra (this refactoring should be done in master).
 
         var def = this._super.apply(this, arguments);
         if (this.$target.children('iframe').length) {
@@ -894,7 +894,7 @@ registry.socialShare = Animation.extend({
  * Unfortunatly one snippet uses a <div/> tag instead. The fix forces an empty
  * click handler on these div, which allows standard bootstrap to work.
  *
- * This should be removed in a future odoo snippets refactoring.
+ * This should be removed in a future flectra snippets refactoring.
  */
 registry._fixAppleCollapse = Animation.extend({
     selector: '.s_faq_collapse [data-toggle="collapse"]',

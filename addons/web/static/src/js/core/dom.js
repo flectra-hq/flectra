@@ -1,4 +1,4 @@
-odoo.define('web.dom_ready', function (require) {
+flectra.define('web.dom_ready', function (require) {
 'use strict';
 
 var def = $.Deferred();
@@ -8,14 +8,14 @@ return def;
 
 //==============================================================================
 
-odoo.define('web.dom', function (require) {
+flectra.define('web.dom', function (require) {
 "use strict";
 
 /**
  * DOM Utility helpers
  *
  * We collect in this file some helpers to help integrate various DOM
- * functionalities with the odoo framework.  A common theme in these functions
+ * functionalities with the flectra framework.  A common theme in these functions
  * is the use of the main core.bus, which helps the framework react when
  * something happens in the DOM.
  */
@@ -201,7 +201,7 @@ return {
         }
     },
     /**
-     * Renders a button with standard odoo template. This does not use any xml
+     * Renders a button with standard flectra template. This does not use any xml
      * template to avoid forcing the frontend part to lazy load a xml file for
      * each widget which might want to create a simple button.
      *
@@ -242,7 +242,7 @@ return {
         return $button;
     },
     /**
-     * Renders a checkbox with standard odoo template. This does not use any xml
+     * Renders a checkbox with standard flectra template. This does not use any xml
      * template to avoid forcing the frontend part to lazy load a xml file for
      * each widget which might want to create a simple checkbox.
      *

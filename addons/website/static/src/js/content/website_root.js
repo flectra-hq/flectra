@@ -1,4 +1,4 @@
-odoo.define('website.WebsiteRoot.instance', function (require) {
+flectra.define('website.WebsiteRoot.instance', function (require) {
 'use strict';
 
 require('web.dom_ready');
@@ -12,7 +12,7 @@ return websiteRoot.attachTo(document.body).then(function () {
 
 //==============================================================================
 
-odoo.define('website.WebsiteRoot', function (require) {
+flectra.define('website.WebsiteRoot', function (require) {
 'use strict';
 
 var ajax = require('web.ajax');
@@ -23,7 +23,7 @@ var BodyManager = require('web_editor.BodyManager');
 var weContext = require('web_editor.context');
 var rootWidget = require('web_editor.root_widget');
 var sAnimation = require('website.content.snippets.animation');
-require("website.content.zoomodoo");
+require("website.content.zoomflectra");
 
 var _t = core._t;
 
@@ -84,7 +84,7 @@ var WebsiteRoot = BodyManager.extend({
         });
 
         // Enable magnify on zommable img
-        this.$('.zoomable img[data-zoom]').zoomOdoo();
+        this.$('.zoomable img[data-zoom]').zoomFlectra();
 
         // Auto scroll
         if (window.location.hash.indexOf("scrollTop=") > -1) {
@@ -158,7 +158,7 @@ var WebsiteRoot = BodyManager.extend({
      * (re)started.
      *
      * @private
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      */
     _onAnimationStartDemand: function (ev) {
         this._startAnimations(ev.data.editableMode, ev.data.$target)
@@ -209,7 +209,7 @@ var WebsiteRoot = BodyManager.extend({
                     html: (data.data ? data.data.arguments[1] : data.statusText)
                         + '<br/>'
                         + _.str.sprintf(
-                            _t('It might be possible to edit the relevant items or fix the issue in <a href="%s">the classic Odoo interface</a>'),
+                            _t('It might be possible to edit the relevant items or fix the issue in <a href="%s">the classic Flectra interface</a>'),
                             '/web#return_label=Website&model=' + $data.data('object') + '&id=' + $data.data('id')
                         ),
                 }),

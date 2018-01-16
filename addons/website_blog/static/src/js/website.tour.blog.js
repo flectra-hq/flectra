@@ -1,4 +1,4 @@
-odoo.define("website_blog.tour", function (require) {
+flectra.define("website_blog.tour", function (require) {
     "use strict";
 
     var core = require("web.core");

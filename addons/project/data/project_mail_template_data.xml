@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<flectra>
     <data noupdate="1">
         <!-- notify to admin of module installation -->
         <record id="mail_template_data_module_install_project" model="mail.template">
             <field name="name">project module install then send email</field>
-            <field name="subject">Your Odoo Project application is up and running</field>
-            <field name="email_from">help@odoo.com</field>
+            <field name="subject">Your Flectra Project application is up and running</field>
+            <field name="email_from">help@flectra.com</field>
             <field name="email_to">${user.email|safe}</field>
             <field name="lang">${user.lang}</field>
             <field name="model_id" ref="base.model_ir_module_module"/>
@@ -31,7 +31,7 @@
                     <tr>
                         <td style="padding:15px 10px;font-size:20px">
                             <p dir="ltr" style="font-size:15px;margin-top:0pt;margin-bottom:0pt;">
-                                <span>Your Odoo Project application is up and running</span></p><br>
+                                <span>Your Flectra Project application is up and running</span></p><br>
                             <p dir="ltr" style="margin-top:0pt;margin-bottom:8pt;">
                                 <span style="font-size:13px;font-weight:bold;">What’s next?</span></p>
                             <ul style="margin-top:0pt;margin-bottom:0pt;font-size:13px;list-style-type:disc;">
@@ -94,22 +94,22 @@
                             </p>
                             <p dir="ltr" style="font-size:13px;margin-top:0pt;margin-bottom:8pt;">
                                 <span>We would be delighted to assist you along the way. Contact us through our
-                                <a href="https://www.odoo.com/help">support form</a> if you have any question.
-                                You can also discover how to get the best out of Odoo Project with our </span>
-                                <a target="_blank" href="https://www.odoo.com/documentation/user/11.0/project.html">
+                                <a href="https://www.flectra.com/help">support form</a> if you have any question.
+                                You can also discover how to get the best out of Flectra Project with our </span>
+                                <a target="_blank" href="https://www.flectra.com/documentation/user/11.0/project.html">
                                 <span style="text-decoration:underline;">User Documentation</span></a>
                                 </span><span> or with our </span>
-                                <a target="_blank" href="https://www.odoo.com/documentation">
+                                <a target="_blank" href="https://www.flectra.com/documentation">
                                 <span style="text-decoration:underline;">API Documentation</span></a>
                             </p>
                             <br>
-                            <p dir="ltr" style="font-size:13px;margin-top:0pt;margin-bottom:8pt;"><span>Enjoy your Odoo experience,</span></p>
+                            <p dir="ltr" style="font-size:13px;margin-top:0pt;margin-bottom:8pt;"><span>Enjoy your Flectra experience,</span></p>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div dir="ltr" style="font-size:13px;margin-top:0pt;margin-bottom:8pt;color:grey">
-                <span><br/>-- <br/>The Odoo Team<br/>PS: People love Odoo, check </span><a target="_blank" href="https://twitter.com/odoo/favorites"><span style="text-decoration:underline;">what they say about it.</span></a></span>
+                <span><br/>-- <br/>The Flectra Team<br/>PS: People love Flectra, check </span><a target="_blank" href="https://twitter.com/flectra/favorites"><span style="text-decoration:underline;">what they say about it.</span></a></span>
             </div>
         </div>]]></field>
         </record>
@@ -120,4 +120,4 @@
             name="send_mail"
             eval="[ref('mail_template_data_module_install_project'), ref('base.module_project')]"/>
     </data>
-</odoo>
+</flectra>

@@ -1,4 +1,4 @@
-odoo.define('web.UserMenu', function (require) {
+flectra.define('web.UserMenu', function (require) {
 "use strict";
 
 /**
@@ -65,7 +65,7 @@ var UserMenu = Widget.extend({
                     })
                     .fail(function (result, ev){
                         ev.preventDefault();
-                        framework.redirect('https://accounts.odoo.com/account');
+                        framework.redirect('https://accounts.flectra.com/account');
                     });
             },
         });
@@ -74,7 +74,7 @@ var UserMenu = Widget.extend({
      * @private
      */
     _onMenuDocumentation: function () {
-        window.open('https://www.odoo.com/documentation/user', '_blank');
+        window.open('https://www.flectra.com/documentation/user', '_blank');
     },
     /**
      * @private
@@ -109,7 +109,7 @@ var UserMenu = Widget.extend({
      * @private
      */
     _onMenuSupport: function () {
-        window.open('https://www.odoo.com/buy', '_blank');
+        window.open('https://www.flectra.com/buy', '_blank');
     },
 });
 

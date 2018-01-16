@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.mail.tests.common import TestMail
-from odoo.tools.misc import mute_logger
+from flectra.addons.mail.tests.common import TestMail
+from flectra.tools.misc import mute_logger
 
 
 class TestPortal(TestMail):
@@ -36,7 +36,7 @@ class TestPortal(TestMail):
             'body': 'Body text'})
         compose.send_mail()
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('flectra.addons.mail.models.mail_mail')
     def test_invite_email_portal(self):
         test_record = self.env['mail.test'].create({'name': 'Pigs'})
 

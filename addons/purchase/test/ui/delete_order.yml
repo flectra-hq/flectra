@@ -17,7 +17,7 @@
   I delete a cancelled order.
 -
   !python {model: purchase.order, id: purchase_order_7}: |
-    from odoo.exceptions import UserError
+    from flectra.exceptions import UserError
     try:
         self.unlink()
     except UserError:

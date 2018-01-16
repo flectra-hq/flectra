@@ -1,4 +1,4 @@
-odoo.define('web.list_benchmarks', function (require) {
+flectra.define('web.list_benchmarks', function (require) {
 "use strict";
 
 var FormView = require('web.FormView');
@@ -92,4 +92,4 @@ QUnit.module('Form View', {
     });
 });
 
-});
+});                                

@@ -1,4 +1,4 @@
-odoo.define('iap.CrashManager', function (require) {
+flectra.define('iap.CrashManager', function (require) {
 "use strict";
 
 var ajax = require('web.ajax');
@@ -14,7 +14,7 @@ CrashManager.include({
      * @override
      */
     rpc_error: function (error) {
-        if (error.data.name === "odoo.addons.iap.models.iap.InsufficientCreditError") {
+        if (error.data.name === "flectra.addons.iap.models.iap.InsufficientCreditError") {
             var error_data = JSON.parse(error.data.message);
             ajax.jsonRpc('/web/dataset/call_kw', 'call', {
                 model:  'iap.account',
@@ -26,7 +26,7 @@ CrashManager.include({
                     credit: error_data.credit,
                 }
             }).then(function (url) {
-                var content = $(QWeb.render('iap.redirect_to_odoo_credit', {
+                var content = $(QWeb.render('iap.redirect_to_flectra_credit', {
                         data: error_data,
                     }))
                 if (error_data.body) {
@@ -37,7 +37,7 @@ CrashManager.include({
                     title: error_data.title || _t("Insufficient Balance"),
                     $content: content,
                     buttons: [
-                        {text: _t('Buy credits at Odoo'), classes : "btn-primary", click: function() {
+                        {text: _t('Buy credits at Flectra'), classes : "btn-primary", click: function() {
                             window.open(url, '_blank');
                         }, close:true},
                         {text: _t("Cancel"), close: true}

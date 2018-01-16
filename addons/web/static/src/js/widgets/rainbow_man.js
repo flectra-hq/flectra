@@ -1,4 +1,4 @@
-odoo.define('web.rainbow_man', function (require) {
+flectra.define('web.rainbow_man', function (require) {
 "use strict";
 
 var ajax = require("web.ajax");

@@ -1,4 +1,4 @@
-odoo.define('web.relational_fields_tests', function (require) {
+flectra.define('web.relational_fields_tests', function (require) {
 "use strict";
 
 var AbstractField = require('web.AbstractField');

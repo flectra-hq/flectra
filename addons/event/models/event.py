@@ -2,10 +2,10 @@
 
 import pytz
 
-from odoo import _, api, fields, models
-from odoo.addons.mail.models.mail_template import format_tz
-from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.tools.translate import html_translate
+from flectra import _, api, fields, models
+from flectra.addons.mail.models.mail_template import format_tz
+from flectra.exceptions import AccessError, UserError, ValidationError
+from flectra.tools.translate import html_translate
 
 from dateutil.relativedelta import relativedelta
 

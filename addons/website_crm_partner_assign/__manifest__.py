@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Resellers',
     'category': 'Sales',
-    'website': 'https://www.odoo.com/page/website-builder',
+    'website': 'https://flectrahq.com/page/website-builder',
     'summary': 'Publish Your Channel of Resellers',
     'version': '1.0',
     'description': """

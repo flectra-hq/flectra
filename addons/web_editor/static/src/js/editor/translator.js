@@ -1,4 +1,4 @@
-odoo.define('web_editor.translate', function (require) {
+flectra.define('web_editor.translate', function (require) {
 'use strict';
 
 var core = require('web.core');
@@ -239,7 +239,7 @@ var TranslatorMenuBar = Widget.extend({
             ],
             styleWithSpan: false,
             inlinemedia : ['p'],
-            lang: 'odoo',
+            lang: 'flectra',
             onChange: function (html, $editable) {
                 $editable.trigger('content_changed');
             },
@@ -344,7 +344,7 @@ var TranslatorMenuBar = Widget.extend({
      * the element as dirty.
      *
      * @private
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      */
     _onRTEChange: function (ev) {
         var $node = $(ev.data.target);

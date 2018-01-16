@@ -1,4 +1,4 @@
-odoo.define("website.tour.banner", function (require) {
+flectra.define("website.tour.banner", function (require) {
 "use strict";
 
 var core = require("web.core");
@@ -58,7 +58,7 @@ tour.register("banner", {
 
 //==============================================================================
 
-odoo.define("website.tour.contact", function (require) {
+flectra.define("website.tour.contact", function (require) {
 "use strict";
 
 var core = require("web.core");

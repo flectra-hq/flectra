@@ -1,4 +1,4 @@
-odoo.define('base_calendar.base_calendar', function (require) {
+flectra.define('base_calendar.base_calendar', function (require) {
 "use strict";
 
 var bus = require('bus.bus').bus;

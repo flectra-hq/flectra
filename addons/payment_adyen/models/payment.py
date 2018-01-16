@@ -11,9 +11,9 @@ from itertools import chain
 
 from werkzeug import urls
 
-from odoo import api, fields, models, tools, _
-from odoo.addons.payment.models.payment_acquirer import ValidationError
-from odoo.addons.payment_adyen.controllers.main import AdyenController
+from flectra import api, fields, models, tools, _
+from flectra.addons.payment.models.payment_acquirer import ValidationError
+from flectra.addons.payment_adyen.controllers.main import AdyenController
 
 _logger = logging.getLogger(__name__)
 
@@ -38,8 +38,8 @@ class AcquirerAdyen(models.Model):
         """ Generate the shasign for incoming or outgoing communications., when using the SHA-256
         signature.
 
-        :param string inout: 'in' (odoo contacting ogone) or 'out' (adyen
-                             contacting odoo). In this last case only some
+        :param string inout: 'in' (flectra contacting ogone) or 'out' (adyen
+                             contacting flectra). In this last case only some
                              fields should be contained (see e-Commerce basic)
         :param dict values: transaction values
         :return string: shasign
@@ -88,8 +88,8 @@ class AcquirerAdyen(models.Model):
         """ Generate the shasign for incoming or outgoing communications, when using the SHA-1
         signature (deprecated by Adyen).
 
-        :param string inout: 'in' (odoo contacting ogone) or 'out' (adyen
-                             contacting odoo). In this last case only some
+        :param string inout: 'in' (flectra contacting ogone) or 'out' (adyen
+                             contacting flectra). In this last case only some
                              fields should be contained (see e-Commerce basic)
         :param dict values: transaction values
 

@@ -1,4 +1,4 @@
-odoo.define('hr_org_chart.tests', function (require) {
+flectra.define('hr_org_chart.tests', function (require) {
 "use strict";
 
 var FormView = require('web.FormView');
@@ -161,4 +161,4 @@ QUnit.module('hr_org_chart', {
     });
 });
 
-});
+});                

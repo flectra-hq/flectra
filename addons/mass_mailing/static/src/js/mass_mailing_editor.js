@@ -1,4 +1,4 @@
-odoo.define('mass_mailing.editor', function (require) {
+flectra.define('mass_mailing.editor', function (require) {
 "use strict";
 
 require('web.dom_ready');
@@ -9,7 +9,7 @@ var options = require('web_editor.snippets.options');
 var snippets_editor = require('web_editor.snippet.editor');
 
 var $editable_area = $('#editable_area');
-var odoo_top = window.top.odoo;
+var flectra_top = window.top.flectra;
 
 // Snippet option for resizing  image and column width inline like excel
 options.registry["width-x"] = options.Class.extend({
@@ -196,7 +196,7 @@ snippets_editor.Class.include({
         $mail_themes_upgrade.on("click", "> a", function (e) {
             e.stopImmediatePropagation();
             e.preventDefault();
-            odoo_top[window.callback+"_do_action"]("mass_mailing.action_mass_mailing_configuration");
+            flectra_top[window.callback+"_do_action"]("mass_mailing.action_mass_mailing_configuration");
         });
 
         /**
@@ -229,7 +229,7 @@ snippets_editor.Class.include({
             selected_theme = theme_params;
 
             // Notify form view
-            odoo_top[window.callback+"_downup"]($editable_area.addClass("o_dirty").html());
+            flectra_top[window.callback+"_downup"]($editable_area.addClass("o_dirty").html());
         });
 
         /**
@@ -364,9 +364,9 @@ snippets_editor.Class.include({
 });
 
 var callback = window ? window["callback"] : undefined;
-odoo_top[callback+"_updown"] = function (value, fields_values, field_name) {
+flectra_top[callback+"_updown"] = function (value, fields_values, field_name) {
     if (!window || window.closed) {
-        delete odoo_top[callback+"_updown"];
+        delete flectra_top[callback+"_updown"];
         return;
     }
 
@@ -396,7 +396,7 @@ odoo_top[callback+"_updown"] = function (value, fields_values, field_name) {
 
     if (fields_values.mailing_model && editor_enable) {
         if (value.indexOf('on_change_model_and_list') !== -1) {
-            odoo_top[callback+"_downup"](_val);
+            flectra_top[callback+"_downup"](_val);
         }
     }
 };

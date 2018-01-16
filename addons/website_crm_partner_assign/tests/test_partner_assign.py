@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 try:
     from unittest.mock import patch
 except ImportError:
     from mock import patch
-from odoo.exceptions import AccessError
+from flectra.exceptions import AccessError
 
-from odoo.tests.common import TransactionCase
-from odoo.addons.crm.tests.common import TestCrmCases
+from flectra.tests.common import TransactionCase
+from flectra.addons.crm.tests.common import TestCrmCases
 
 
 class TestPartnerAssign(TransactionCase):
@@ -22,11 +22,11 @@ class TestPartnerAssign(TransactionCase):
                 'Cannon Hill Park, B46 3AG Birmingham, United Kingdom': (52.45216, -1.898578),
             }.get(addr)
 
-        patcher = patch('odoo.addons.base_geolocalize.models.res_partner.geo_find', wraps=geo_find)
+        patcher = patch('flectra.addons.base_geolocalize.models.res_partner.geo_find', wraps=geo_find)
         patcher.start()
         self.addCleanup(patcher.stop)
 
-        patcher = patch('odoo.addons.website_crm_partner_assign.models.crm_lead.geo_find',
+        patcher = patch('flectra.addons.website_crm_partner_assign.models.crm_lead.geo_find',
                         wraps=geo_find)
         patcher.start()
         self.addCleanup(patcher.stop)
@@ -73,7 +73,7 @@ class TestPartnerLeadPortal(TestCrmCases):
         })
         # Integrating user/partner, having a salesman
         self.portal_user = self.env['res.users'].with_context({'no_reset_password': True, 'mail_notrack': True}).create({
-            'name': 'Super Customer Odoo Intregrating Partner',
+            'name': 'Super Customer Flectra Intregrating Partner',
             'email': 'super.partner@ododo.com',
             'login': 'superpartner',
             'groups_id': [(4, self.env.ref('base.group_portal').id)],

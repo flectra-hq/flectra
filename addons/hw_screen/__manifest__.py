@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Screen Driver',
     'version': '1.0',
     'category': 'Hardware Drivers',
     'sequence': 6,
     'summary': 'Provides support for customer facing displays',
-    'website': 'https://www.odoo.com/page/point-of-sale',
+    'website': 'https://flectrahq.com/page/point-of-sale',
     'description': """
 Screen Driver
 =============

@@ -1,4 +1,4 @@
-odoo.define('web.AbstractModel', function (require) {
+flectra.define('web.AbstractModel', function (require) {
 "use strict";
 
 /**

@@ -1,4 +1,4 @@
-odoo.define('web.GraphModel', function (require) {
+flectra.define('web.GraphModel', function (require) {
 "use strict";
 
 /**

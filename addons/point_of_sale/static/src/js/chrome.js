@@ -1,4 +1,4 @@
-odoo.define('point_of_sale.chrome', function (require) {
+flectra.define('point_of_sale.chrome', function (require) {
 "use strict";
 
 var PosBaseWidget = require('point_of_sale.BaseWidget');

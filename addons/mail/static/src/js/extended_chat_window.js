@@ -1,4 +1,4 @@
-odoo.define('mail.ExtendedChatWindow', function (require) {
+flectra.define('mail.ExtendedChatWindow', function (require) {
 "use strict";
 
 var core = require('web.core');

@@ -1,4 +1,4 @@
-odoo.define('web.DebugManager', function (require) {
+flectra.define('web.DebugManager', function (require) {
 "use strict";
 
 var ActionManager = require('web.ActionManager');

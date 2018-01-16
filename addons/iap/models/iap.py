@@ -7,12 +7,12 @@ import uuid
 import werkzeug.urls
 import requests
 
-from odoo import api, fields, models, exceptions
-from odoo.tools import pycompat
+from flectra import api, fields, models, exceptions
+from flectra.tools import pycompat
 
 _logger = logging.getLogger(__name__)
 
-DEFAULT_ENDPOINT = 'https://iap.odoo.com'
+DEFAULT_ENDPOINT = 'https://iap.flectra.com'
 
 
 #----------------------------------------------------------

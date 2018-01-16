@@ -1,4 +1,4 @@
-odoo.define('mail.systray_tests', function (require) {
+flectra.define('mail.systray_tests', function (require) {
 "use strict";
 
 var systray = require('mail.systray');

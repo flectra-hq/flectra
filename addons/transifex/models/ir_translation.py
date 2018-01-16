@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 try:
     from configparser import ConfigParser
@@ -10,8 +10,8 @@ from os.path import join as opj
 import os
 import werkzeug
 
-from odoo import models, fields
-from odoo.modules.module import ad_paths
+from flectra import models, fields
+from flectra.modules.module import ad_paths
 
 
 class IrTranslation(models.Model):
@@ -22,7 +22,7 @@ class IrTranslation(models.Model):
 
     def _get_transifex_url(self):
         """ Construct transifex URL based on the module on configuration """
-        # e.g. 'https://www.transifex.com/odoo/'
+        # e.g. 'https://www.transifex.com/flectra/'
         base_url = self.env['ir.config_parameter'].sudo().get_param('transifex.project_url')
 
         tx_config_file = ConfigParser()
@@ -31,10 +31,10 @@ class IrTranslation(models.Model):
             tx_path = opj(addon_path, '.tx', 'config')
             if os.path.isfile(tx_path):
                 tx_config_file.read(tx_path)
-                # first section is [main], after [odoo-11.sale]
+                # first section is [main], after [flectra-11.sale]
                 tx_sections.extend(tx_config_file.sections()[1:])
 
-            # parent directory ad .tx/config is root directory in odoo/odoo
+            # parent directory ad .tx/config is root directory in flectra/flectra
             tx_path = opj(addon_path, os.pardir, '.tx', 'config')
             if os.path.isfile(tx_path):
                 tx_config_file.read(tx_path)
@@ -53,7 +53,7 @@ class IrTranslation(models.Model):
             language_codes = dict((l.code, l.iso_code) for l in languages)
 
             # .tx/config files contains the project reference
-            # using ini files like '[odoo-master.website_sale]'
+            # using ini files like '[flectra-master.website_sale]'
             translation_modules = set(self.mapped('module'))
             project_modules = {}
             for module in translation_modules:
@@ -78,7 +78,7 @@ class IrTranslation(models.Model):
                     translation.transifex_url = False
                     continue
 
-                # e.g. 'https://www.transifex.com/odoo/odoo-10/translate/#fr/sale/42?q=Sale+Order'
+                # e.g. 'https://www.transifex.com/flectra/flectra-10/translate/#fr/sale/42?q=Sale+Order'
                 translation.transifex_url = "%(url)s/%(project)s/translate/#%(lang)s/%(module)s/42?q=%(src)s" % {
                     'url': base_url,
                     'project': project,

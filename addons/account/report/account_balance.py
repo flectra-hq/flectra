@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import time
-from odoo import api, models, _
-from odoo.exceptions import UserError
+from flectra import api, models, _
+from flectra.exceptions import UserError
 
 
 class ReportTrialBalance(models.AbstractModel):

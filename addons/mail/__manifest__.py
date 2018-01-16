@@ -7,7 +7,7 @@
     'sequence': 25,
     'summary': 'Discussions, Mailing Lists, News',
     'description': "",
-    'website': 'https://www.odoo.com/page/enterprise-social-network',
+    'website': 'https://flectrahq.com/page/enterprise-social-network',
     'depends': ['base', 'base_setup', 'bus', 'web_tour'],
     'data': [
         'wizard/invite_view.xml',

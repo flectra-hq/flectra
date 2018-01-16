@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 import time
 from datetime import date, datetime, timedelta
 
-from odoo import api, fields, models, _, exceptions
-from odoo.osv import expression
-from odoo.tools import pycompat
-from odoo.tools.safe_eval import safe_eval
+from flectra import api, fields, models, _, exceptions
+from flectra.osv import expression
+from flectra.tools import pycompat
+from flectra.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 

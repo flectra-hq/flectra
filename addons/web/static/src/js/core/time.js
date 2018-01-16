@@ -1,4 +1,4 @@
-odoo.define('web.time', function (require) {
+flectra.define('web.time', function (require) {
 "use strict";
 
 var translation = require('web.translation');

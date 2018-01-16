@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import http, _
-from odoo.http import request
-from odoo.osv import expression
+from flectra import http, _
+from flectra.http import request
+from flectra.osv import expression
 
-from odoo.tools import float_round
+from flectra.tools import float_round
 
 
 class SaleTimesheetController(http.Controller):

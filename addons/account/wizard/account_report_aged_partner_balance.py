@@ -3,8 +3,8 @@
 import time
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from flectra import api, fields, models, _
+from flectra.exceptions import UserError
 
 
 class AccountAgedTrialBalance(models.TransientModel):

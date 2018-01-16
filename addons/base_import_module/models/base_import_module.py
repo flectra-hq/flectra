@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import base64
 from io import BytesIO
-from odoo import api, fields, models
+from flectra import api, fields, models
 
 
 class BaseImportModule(models.TransientModel):

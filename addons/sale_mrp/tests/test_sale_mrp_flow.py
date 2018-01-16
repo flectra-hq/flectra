@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 
-from odoo.tests import common
-from odoo.exceptions import UserError
+from flectra.tests import common
+from flectra.exceptions import UserError
 
 
 class TestSaleMrpFlow(common.TransactionCase):

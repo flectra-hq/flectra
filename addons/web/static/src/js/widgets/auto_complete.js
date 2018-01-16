@@ -1,4 +1,4 @@
-odoo.define('web.AutoComplete', function (require) {
+flectra.define('web.AutoComplete', function (require) {
 "use strict";
 
 var Widget = require('web.Widget');

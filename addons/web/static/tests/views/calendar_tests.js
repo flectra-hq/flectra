@@ -1,4 +1,4 @@
-odoo.define('web.calendar_tests', function (require) {
+flectra.define('web.calendar_tests', function (require) {
 "use strict";
 
 var CalendarView = require('web.CalendarView');
@@ -386,7 +386,7 @@ QUnit.module('Views', {
                     return $.Deferred().reject({
                         code: 200,
                         data: {},
-                        message: "Odoo server error",
+                        message: "Flectra server error",
                     }, event);
                 }
                 return this._super(route, args);

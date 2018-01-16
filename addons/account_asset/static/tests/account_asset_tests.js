@@ -1,4 +1,4 @@
-odoo.define('account_asset.widget_tests', function (require) {
+flectra.define('account_asset.widget_tests', function (require) {
 "use strict";
 
 var FormView = require('web.FormView');

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 
-from odoo import models, fields, api, exceptions, _
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from flectra import models, fields, api, exceptions, _
+from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class HrAttendance(models.Model):

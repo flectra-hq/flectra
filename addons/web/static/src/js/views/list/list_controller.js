@@ -1,4 +1,4 @@
-odoo.define('web.ListController', function (require) {
+flectra.define('web.ListController', function (require) {
 "use strict";
 
 /**
@@ -322,7 +322,7 @@ var ListController = BasicController.extend({
      * Add a record to the list
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onAddRecord: function (event) {
         event.stopPropagation();
@@ -336,7 +336,7 @@ var ListController = BasicController.extend({
      * Handles a click on a button by performing its action.
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onButtonClicked: function (event) {
         event.stopPropagation();
@@ -382,7 +382,7 @@ var ListController = BasicController.extend({
     /**
      * Called when the user asks to edit a row -> Updates the controller buttons
      *
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      */
     _onEditLine: function (ev) {
         var self = this;
@@ -409,7 +409,7 @@ var ListController = BasicController.extend({
      * Called when the renderer displays an editable row and the user tries to
      * leave it -> Saves the record associated to that line.
      *
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      */
     _onSaveLine: function (ev) {
         var recordID = ev.data.recordID;
@@ -421,7 +421,7 @@ var ListController = BasicController.extend({
      * Force a resequence of the records curently on this page.
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onResequence: function (event) {
         var self = this;
@@ -449,7 +449,7 @@ var ListController = BasicController.extend({
      * left), we need to display (or hide) the 'sidebar'.
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onSelectionChanged: function (event) {
         this.selectedRecords = event.data.selection;
@@ -477,7 +477,7 @@ var ListController = BasicController.extend({
      * rerender the view.
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onToggleColumnOrder: function (event) {
         event.stopPropagation();
@@ -496,7 +496,7 @@ var ListController = BasicController.extend({
      * renderer.
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onToggleGroup: function (event) {
         this.model

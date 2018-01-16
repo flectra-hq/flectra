@@ -28,10 +28,10 @@ define([
     var typing = new Typing();
     var bullet = new Bullet();
 
-    this.style = style;   // ODOO: allow access for override
-    this.table = table;   // ODOO: allow access for override
-    this.typing = typing; // ODOO: allow access for override
-    this.bullet = bullet; // ODOO: allow access for override
+    this.style = style;   // FLECTRA: allow access for override
+    this.table = table;   // FLECTRA: allow access for override
+    this.typing = typing; // FLECTRA: allow access for override
+    this.bullet = bullet; // FLECTRA: allow access for override
 
     /**
      * @method createRange
@@ -55,13 +55,13 @@ define([
      * @param {Boolean} [thenCollapse=false]
      */
     this.saveRange = function ($editable, thenCollapse) {
-      // ODOO: scroll to top when click on input in editable m (start_modification
+      // FLECTRA: scroll to top when click on input in editable m (start_modification
       // this.focus($editable);
       var r = range.create();
       if (!r || ($editable[0] !== r.sc && !$.contains($editable[0], r.sc))) {
         $editable.focus();
       }
-      // ODOO: end_modication)
+      // FLECTRA: end_modication)
       $editable.data('range', range.create());
       if (thenCollapse) {
         range.create().collapse().select();
@@ -628,7 +628,7 @@ define([
       }
 
       var anchors = [];
-      // ODOO: adding this branch to modify existing anchor
+      // FLECTRA: adding this branch to modify existing anchor
       var ancestor_anchor = dom.ancestor(rng.sc, dom.isAnchor);
       if(ancestor_anchor) {
           anchors.push($(ancestor_anchor).html(linkText).get(0));
@@ -646,8 +646,8 @@ define([
 
       $.each(anchors, function (idx, anchor) {
         $(anchor).attr('href', linkUrl);
-        $(anchor).attr('class', linkInfo.className || null); // ODOO: addition
-        $(anchor).css(linkInfo.style || {}); // ODOO: addition
+        $(anchor).attr('class', linkInfo.className || null); // FLECTRA: addition
+        $(anchor).css(linkInfo.style || {}); // FLECTRA: addition
         if (isNewWindow) {
           $(anchor).attr('target', '_blank');
         } else {

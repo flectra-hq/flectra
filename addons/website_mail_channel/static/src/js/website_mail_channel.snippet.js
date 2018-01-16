@@ -1,4 +1,4 @@
-odoo.define('website_mail_channel.snippet', function (require) {
+flectra.define('website_mail_channel.snippet', function (require) {
 'use strict';
 
 var sAnimation = require('website.content.snippets.animation');

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api
-from odoo.addons.mail.tests.common import TestMail
+from flectra import api
+from flectra.addons.mail.tests.common import TestMail
 
 
 class TestTracking(TestMail):

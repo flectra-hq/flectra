@@ -1,4 +1,4 @@
-odoo.define('website_rating.thread', function(require) {
+flectra.define('website_rating.thread', function(require) {
     'use strict';
 
     var ajax = require('web.ajax');

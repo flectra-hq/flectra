@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Budgets Management',
@@ -27,7 +27,7 @@ Three reports are available:
     3. The last one is available from the Analytic Chart of Accounts. It gives
        the spreading, for the selected Analytic Accounts of Budgets.
 """,
-    'website': 'https://www.odoo.com/page/accounting',
+    'website': 'https://flectrahq.com/page/accounting',
     'depends': ['account'],
     'data': [
         'security/ir.model.access.csv',

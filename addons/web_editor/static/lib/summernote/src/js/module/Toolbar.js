@@ -11,7 +11,7 @@ define([
   var Toolbar = function () {
     var button = new Button();
 
-    this.button = button; // ODOO: allow access for override
+    this.button = button; // FLECTRA: allow access for override
 
     this.update = function ($toolbar, styleInfo) {
       button.update($toolbar, styleInfo);

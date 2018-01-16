@@ -1,4 +1,4 @@
-odoo.define('website.backend.dashboard', function (require) {
+flectra.define('website.backend.dashboard', function (require) {
 'use strict';
 
 var ajax = require('web.ajax');

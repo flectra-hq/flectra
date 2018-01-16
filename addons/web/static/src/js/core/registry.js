@@ -1,4 +1,4 @@
-odoo.define('web.Registry', function (require) {
+flectra.define('web.Registry', function (require) {
 "use strict";
 
 var Class = require('web.Class');

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-import odoo
-from odoo import models, SUPERUSER_ID
-from odoo.http import request
-from odoo.api import Environment
+import flectra
+from flectra import models, SUPERUSER_ID
+from flectra.http import request
+from flectra.api import Environment
 
 from werkzeug.exceptions import BadRequest
 
@@ -17,7 +17,7 @@ class IrHttp(models.AbstractModel):
         token = request.params['token']
         dbname = request.params['db']
 
-        registry = odoo.registry(dbname)
+        registry = flectra.registry(dbname)
         error_message = False
         with registry.cursor() as cr:
             env = Environment(cr, SUPERUSER_ID, {})

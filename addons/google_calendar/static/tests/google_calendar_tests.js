@@ -1,4 +1,4 @@
-odoo.define('google_calendar.calendar_tests', function (require) {
+flectra.define('google_calendar.calendar_tests', function (require) {
 "use strict";
 
 var CalendarView = require('web.CalendarView');

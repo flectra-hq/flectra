@@ -1,4 +1,4 @@
-odoo.define('web.SwitchCompanyMenu', function(require) {
+flectra.define('web.SwitchCompanyMenu', function(require) {
 "use strict";
 
 var config = require('web.config');

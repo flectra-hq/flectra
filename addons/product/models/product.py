@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import re
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import ValidationError
-from odoo.osv import expression
+from flectra import api, fields, models, tools, _
+from flectra.exceptions import ValidationError
+from flectra.osv import expression
 
-from odoo.addons import decimal_precision as dp
+from flectra.addons import decimal_precision as dp
 
-from odoo.tools import float_compare, pycompat
+from flectra.tools import float_compare, pycompat
 
 
 class ProductCategory(models.Model):

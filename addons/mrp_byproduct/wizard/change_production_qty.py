@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models
+from flectra import api, models
 
 
 class ChangeProductionQty(models.TransientModel):
@@ -20,4 +20,4 @@ class ChangeProductionQty(models.TransientModel):
                 qty1 *= product_uom_factor / prod.bom_id.product_qty
                 move[0].write({'product_uom_qty': qty1})
             else:
-                prod._create_byproduct_move(sub_product_line)
+                prod._create_byproduct_move(sub_product_line)        

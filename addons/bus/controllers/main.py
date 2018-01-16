@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import exceptions
-from odoo.http import Controller, request, route
-from odoo.addons.bus.models.bus import dispatch
+from flectra import exceptions
+from flectra.http import Controller, request, route
+from flectra.addons.bus.models.bus import dispatch
 
-from odoo.tools import pycompat
+from flectra.tools import pycompat
 
 
 class BusController(Controller):

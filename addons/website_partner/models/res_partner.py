@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
-from odoo.addons.http_routing.models.ir_http import slug
+from flectra import api, fields, models
+from flectra.addons.http_routing.models.ir_http import slug
 
 
 class WebsiteResPartner(models.Model):

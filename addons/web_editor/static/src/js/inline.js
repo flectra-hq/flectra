@@ -1,4 +1,4 @@
-odoo.define('web_editor.inline', function (require) {
+flectra.define('web_editor.inline', function (require) {
 'use strict';
 
 var core = require('web.core');
@@ -68,7 +68,7 @@ snippet_editor.Class.include({
 });
 
 var callback = window ? window['callback'] : undefined;
-window.top.odoo[callback + '_updown'] = function (value, fields_values) {
+window.top.flectra[callback + '_updown'] = function (value, fields_values) {
     var $editable = $('#editable_area');
     value = value || '';
     if (value.indexOf('on_change_model_and_list') === -1 && value !== $editable.html()) {

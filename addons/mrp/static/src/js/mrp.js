@@ -1,4 +1,4 @@
-odoo.define('mrp.mrp_state', function (require) {
+flectra.define('mrp.mrp_state', function (require) {
 "use strict";
 
 var AbstractField = require('web.AbstractField');

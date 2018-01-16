@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo.addons.stock.tests import common2
+from flectra.addons.stock.tests import common2
 
 
 class TestMrpCommon(common2.TestStockCommon):

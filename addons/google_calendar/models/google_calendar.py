@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
@@ -11,8 +11,8 @@ import operator
 import pytz
 from werkzeug import urls
 
-from odoo import api, fields, models, tools, _
-from odoo.tools import exception_to_unicode
+from flectra import api, fields, models, tools, _
+from flectra.tools import exception_to_unicode
 
 _logger = logging.getLogger(__name__)
 
@@ -42,7 +42,7 @@ class Meta(type):
 
 Struct = Meta('Struct', (object,), {})
 
-class OdooEvent(Struct):
+class FlectraEvent(Struct):
     event = False
     found = False
     event_id = False
@@ -65,7 +65,7 @@ class GmailEvent(Struct):
 
 class SyncEvent(object):
     def __init__(self):
-        self.OE = OdooEvent()
+        self.OE = FlectraEvent()
         self.GG = GmailEvent()
         self.OP = None
 
@@ -73,7 +73,7 @@ class SyncEvent(object):
         return getattr(self, key)
 
     def compute_OP(self, modeFull=True):
-        #If event are already in Gmail and in Odoo
+        #If event are already in Gmail and in Flectra
         if self.OE.found and self.GG.found:
             is_owner = self.OE.event.env.user.id == self.OE.event.user_id.id
             #If the event has been deleted from one side, we delete on other side !
@@ -107,15 +107,15 @@ class SyncEvent(object):
             else:
                 self.OP = NothingToDo("", "Both are already deleted")
 
-        # New in Odoo...  Create on create_events of synchronize function
+        # New in Flectra...  Create on create_events of synchronize function
         elif self.OE.found and not self.GG.found:
             if self.OE.status:
                 self.OP = Delete('OE', 'Update or delete from GOOGLE')
             else:
                 if not modeFull:
-                    self.OP = Delete('GG', 'Deleted from Odoo, need to delete it from Gmail if already created')
+                    self.OP = Delete('GG', 'Deleted from Flectra, need to delete it from Gmail if already created')
                 else:
-                    self.OP = NothingToDo("", "Already Deleted in gmail and unlinked in Odoo")
+                    self.OP = NothingToDo("", "Already Deleted in gmail and unlinked in Flectra")
         elif self.GG.found and not self.OE.found:
             tmpSrc = 'GG'
             if not self.GG.status and not self.GG.isInstance:
@@ -254,7 +254,7 @@ class GoogleCalendar(models.AbstractModel):
         return data
 
     def create_an_event(self, event):
-        """ Create a new event in google calendar from the given event in Odoo.
+        """ Create a new event in google calendar from the given event in Flectra.
             :param event : record of calendar.event to export to google calendar
         """
         data = self.generate_data(event, isCreating=True)
@@ -416,7 +416,7 @@ class GoogleCalendar(models.AbstractModel):
         return event
 
     def update_from_google(self, event, single_event_dict, type):
-        """ Update an event in Odoo with information from google calendar
+        """ Update an event in Flectra with information from google calendar
             :param event : record od calendar.event to update
             :param single_event_dict : dict of google cal event data
         """
@@ -693,18 +693,18 @@ class GoogleCalendar(models.AbstractModel):
             ])
             my_google_att_ids = my_google_attendees.ids
 
-            my_odoo_attendees = CalendarAttendee.with_context(context_novirtual).search([
+            my_flectra_attendees = CalendarAttendee.with_context(context_novirtual).search([
                 ('partner_id', '=', my_partner_id),
                 ('event_id.oe_update_date', '>', lastSync and fields.Datetime.to_string(lastSync) or self.get_minTime().fields.Datetime.to_string()),
                 ('google_internal_event_id', '!=', False),
             ])
 
-            my_odoo_googleinternal_records = my_odoo_attendees.read(['google_internal_event_id', 'event_id'])
+            my_flectra_googleinternal_records = my_flectra_attendees.read(['google_internal_event_id', 'event_id'])
 
             if self.get_print_log():
-                _logger.info("Calendar Synchro -  \n\nUPDATE IN GOOGLE\n%s\n\nRETRIEVE FROM OE\n%s\n\nUPDATE IN OE\n%s\n\nRETRIEVE FROM GG\n%s\n\n", all_event_from_google, my_google_att_ids, my_odoo_attendees.ids, my_odoo_googleinternal_records)
+                _logger.info("Calendar Synchro -  \n\nUPDATE IN GOOGLE\n%s\n\nRETRIEVE FROM OE\n%s\n\nUPDATE IN OE\n%s\n\nRETRIEVE FROM GG\n%s\n\n", all_event_from_google, my_google_att_ids, my_flectra_attendees.ids, my_flectra_googleinternal_records)
 
-            for gi_record in my_odoo_googleinternal_records:
+            for gi_record in my_flectra_googleinternal_records:
                 active = True  # if not sure, we request google
                 if gi_record.get('event_id'):
                     active = CalendarEvent.with_context(context_novirtual).browse(int(gi_record.get('event_id')[0])).active
@@ -714,7 +714,7 @@ class GoogleCalendar(models.AbstractModel):
                     if one_event:
                         all_event_from_google[one_event['id']] = one_event
 
-            my_attendees = (my_google_attendees | my_odoo_attendees)
+            my_attendees = (my_google_attendees | my_flectra_attendees)
 
         else:
             domain = [
@@ -725,7 +725,7 @@ class GoogleCalendar(models.AbstractModel):
                 ('event_id.final_date', '>', fields.Datetime.to_string(self.get_minTime())),
             ]
 
-            # Select all events from Odoo which have been already synchronized in gmail
+            # Select all events from Flectra which have been already synchronized in gmail
             my_attendees = CalendarAttendee.with_context(context_novirtual).search(domain)
             all_event_from_google = self.get_event_synchro_dict(lastSync=False)
 
@@ -901,7 +901,7 @@ class GoogleCalendar(models.AbstractModel):
         readonly = '.readonly' if RO else ''
         return 'https://www.googleapis.com/auth/calendar%s' % (readonly)
 
-    def authorize_google_uri(self, from_url='http://www.odoo.com'):
+    def authorize_google_uri(self, from_url='http://www.flectra.com'):
         url = self.env['google.service']._get_authorize_uri(from_url, self.STR_SERVICE, scope=self.get_calendar_scope())
         return url
 

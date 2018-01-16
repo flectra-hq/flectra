@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, _
-from odoo.osv import expression
-from odoo.tools import float_is_zero, pycompat
-from odoo.tools import float_compare, float_round, float_repr
-from odoo.tools.misc import formatLang
-from odoo.exceptions import UserError, ValidationError
+from flectra import api, fields, models, _
+from flectra.osv import expression
+from flectra.tools import float_is_zero, pycompat
+from flectra.tools import float_compare, float_round, float_repr
+from flectra.tools.misc import formatLang
+from flectra.exceptions import UserError, ValidationError
 
 import time
 import math
@@ -378,7 +378,7 @@ class AccountBankStatementLine(models.Model):
     @api.constrains('amount')
     def _check_amount(self):
         # Allow to enter bank statement line with an amount of 0,
-        # so that user can enter/import the exact bank statement they have received from their bank in Odoo
+        # so that user can enter/import the exact bank statement they have received from their bank in Flectra
         if self.journal_id.type != 'bank' and self.currency_id.is_zero(self.amount):
             raise ValidationError(_('A Cash transaction can\'t have a 0 amount.'))
 

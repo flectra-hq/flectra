@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import unittest
-import odoo
-from odoo import fields
-from odoo.addons.payment.tests.common import PaymentAcquirerCommon
-from odoo.tools import mute_logger
+import flectra
+from flectra import fields
+from flectra.addons.payment.tests.common import PaymentAcquirerCommon
+from flectra.tools import mute_logger
 
 
-@odoo.tests.common.at_install(False)
-@odoo.tests.common.post_install(True)
+@flectra.tests.common.at_install(False)
+@flectra.tests.common.post_install(True)
 class StripeCommon(PaymentAcquirerCommon):
 
     def setUp(self):
@@ -15,8 +15,8 @@ class StripeCommon(PaymentAcquirerCommon):
         self.stripe = self.env.ref('payment.payment_acquirer_stripe')
 
 
-@odoo.tests.common.at_install(False)
-@odoo.tests.common.post_install(True)
+@flectra.tests.common.at_install(False)
+@flectra.tests.common.post_install(True)
 class StripeTest(StripeCommon):
 
     @unittest.skip("Stripe test disabled: We do not want to overload Stripe with runbot's requests")
@@ -166,7 +166,7 @@ class StripeTest(StripeCommon):
         # simulate an error
         stripe_post_data['status'] = 'error'
         stripe_post_data.update({u'error': {u'message': u"Your card's expiration year is invalid.", u'code': u'invalid_expiry_year', u'type': u'card_error', u'param': u'exp_year'}})
-        with mute_logger('odoo.addons.payment_stripe.models.payment'):
+        with mute_logger('flectra.addons.payment_stripe.models.payment'):
             tx.form_feedback(stripe_post_data, 'stripe')
         # check state
         self.assertEqual(tx.state, 'error', 'Stipe: erroneous validation did not put tx into error state')

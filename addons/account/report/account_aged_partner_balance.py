@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import time
-from odoo import api, models, _
-from odoo.exceptions import UserError
-from odoo.tools import float_is_zero
+from flectra import api, models, _
+from flectra.exceptions import UserError
+from flectra.tools import float_is_zero
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from odoo import api, fields, models
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
+from flectra import api, fields, models
+from flectra.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
-from odoo.addons import decimal_precision as dp
+from flectra.addons import decimal_precision as dp
 
 
 class AccountInvoice(models.Model):

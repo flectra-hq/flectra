@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Employee Contracts',
@@ -16,7 +16,7 @@ Add all information on the employee form to manage contracts.
 
 You can assign several contracts per employee.
     """,
-    'website': 'https://www.odoo.com/page/employees',
+    'website': 'https://flectrahq.com/page/employees',
     'depends': ['hr'],
     'data': [
         'security/ir.model.access.csv',

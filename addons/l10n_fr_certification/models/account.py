@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from hashlib import sha256
 from json import dumps
 
-from odoo import models, api, fields
-from odoo.tools.translate import _
-from odoo.exceptions import UserError
+from flectra import models, api, fields
+from flectra.tools.translate import _
+from flectra.exceptions import UserError
 
 
 #forbidden fields
@@ -141,7 +141,7 @@ class AccountMove(models.Model):
                          From: %(start_move_name)s %(start_move_ref)s
                          To: %(end_move_name)s %(end_move_ref)s
 
-                         For this report to be legally meaningful, please download your certification from your customer account on Odoo.com (Only for Odoo Enterprise users).'''
+                         For this report to be legally meaningful, please download your certification from your customer account on Flectra.com (Only for Flectra Enterprise users).'''
                          ) % report_dict)
 
 

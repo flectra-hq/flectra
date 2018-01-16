@@ -1,4 +1,4 @@
-odoo.define('web.search_inputs', function (require) {
+flectra.define('web.search_inputs', function (require) {
 "use strict";
 
 var Context = require('web.Context');

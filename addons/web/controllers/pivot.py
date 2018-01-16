@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from collections import deque
 import json
 
-from odoo import http
-from odoo.http import request
-from odoo.tools import ustr
-from odoo.tools.misc import xlwt
+from flectra import http
+from flectra.http import request
+from flectra.tools import ustr
+from flectra.tools.misc import xlwt
 
 
 class TableExporter(http.Controller):

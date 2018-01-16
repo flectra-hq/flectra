@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.account.tests.account_test_classes import AccountingTestCase
+from flectra.addons.account.tests.account_test_classes import AccountingTestCase
 
 import time
 
@@ -10,7 +10,7 @@ class TestAccountBudgetCommon(AccountingTestCase):
 
     def setUp(self):
         super(TestAccountBudgetCommon, self).setUp()
-        # In order to check account budget module in Odoo I created a budget with few budget positions
+        # In order to check account budget module in Flectra I created a budget with few budget positions
         # Checking if the budgetary positions have accounts or not
         account_ids = self.env['account.account'].search([
             ('user_type_id', '=', self.ref('account.data_account_type_revenue')),

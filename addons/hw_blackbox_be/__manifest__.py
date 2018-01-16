@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Blackbox Hardware Driver',
     'category': 'Point of Sale',
     'sequence': 6,
     'summary': 'Hardware Driver for Belgian Fiscal Data Modules',
-    'website': 'https://www.odoo.com/page/point-of-sale',
+    'website': 'https://flectrahq.com/page/point-of-sale',
     'description': """
 Fiscal Data Module Hardware Driver
 ==================================

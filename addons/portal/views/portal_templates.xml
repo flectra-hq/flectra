@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<flectra>
     <template id="frontend_layout" name="Main Frontend Layout">
         <t t-call="web.layout">
             <t t-set="head_website">
                 <script type="text/javascript">
-                    odoo.session_info = {
+                    flectra.session_info = {
                         is_superuser: <t t-esc="json.dumps(request.env.user._is_superuser())"/>,
                         is_system: <t t-esc="json.dumps(request.env.user._is_system())"/>,
                         is_website_user: <t t-esc="json.dumps(request.env.user._is_public())"/>,
@@ -372,4 +372,4 @@
             t-att-data-sign-label="signLabel"
             t-att-data-access-token="accessToken"/>
     </template>
-</odoo>
+</flectra>

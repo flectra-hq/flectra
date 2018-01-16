@@ -1,4 +1,4 @@
-odoo.define('im_livechat.copy_clipboard_tests', function (require) {
+flectra.define('im_livechat.copy_clipboard_tests', function (require) {
 "use strict";
 
 var FormView = require('web.FormView');

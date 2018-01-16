@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Purchase Management',
@@ -8,7 +8,7 @@
     'sequence': 60,
     'summary': 'Purchase Orders, Receipts, Vendor Bills',
     'description': "",
-    'website': 'https://www.odoo.com/page/purchase',
+    'website': 'https://flectrahq.com/page/purchase',
     'depends': ['stock_account'],
     'data': [
         'security/purchase_security.xml',

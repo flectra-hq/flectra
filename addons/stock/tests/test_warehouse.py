@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo.addons.stock.tests.common2 import TestStockCommon
+from flectra.addons.stock.tests.common2 import TestStockCommon
 
 
 class TestWarehouse(TestStockCommon):
@@ -249,4 +249,4 @@ class TestResupply(TestStockCommon):
             'product_min_qty': 10,
             'product_max_qty': 100,
             'product_uom': self.uom_unit.id,
-        })
+        })        

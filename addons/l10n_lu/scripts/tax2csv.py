@@ -1,7 +1,7 @@
 from collections import OrderedDict
 
 import xlrd
-from odoo.tools import pycompat
+from flectra.tools import pycompat
 
 def _is_true(s):
     return s not in ('F', 'False', 0, '', None, False)

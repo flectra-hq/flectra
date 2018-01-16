@@ -1,4 +1,4 @@
-odoo.define('website_links.code_editor', function (require) {
+flectra.define('website_links.code_editor', function (require) {
 'use strict';
 
 require('web.dom_ready');

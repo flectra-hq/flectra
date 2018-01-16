@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import math
 
 from werkzeug import urls
 
-from odoo import fields as odoo_fields, tools, _
-from odoo.exceptions import ValidationError
-from odoo.http import Controller, request, route
+from flectra import fields as flectra_fields, tools, _
+from flectra.exceptions import ValidationError
+from flectra.http import Controller, request, route
 
 # --------------------------------------------------
 # Misc tools
@@ -120,8 +120,8 @@ class CustomerPortal(Controller):
             dates, label = group[groupby]
             date_begin, date_end = dates.split('/')
             groups.append({
-                'date_begin': odoo_fields.Date.to_string(odoo_fields.Date.from_string(date_begin)),
-                'date_end': odoo_fields.Date.to_string(odoo_fields.Date.from_string(date_end)),
+                'date_begin': flectra_fields.Date.to_string(flectra_fields.Date.from_string(date_begin)),
+                'date_end': flectra_fields.Date.to_string(flectra_fields.Date.from_string(date_end)),
                 'name': label,
                 'item_count': group[groupby + '_count']
             })

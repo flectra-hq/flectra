@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from random import choice
 from string import digits
 
-from odoo import models, fields, api, exceptions, _, SUPERUSER_ID
+from flectra import models, fields, api, exceptions, _, SUPERUSER_ID
 
 
 class HrEmployee(models.Model):

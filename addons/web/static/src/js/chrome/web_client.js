@@ -1,4 +1,4 @@
-odoo.define('web.WebClient', function (require) {
+flectra.define('web.WebClient', function (require) {
 "use strict";
 
 var AbstractWebClient = require('web.AbstractWebClient');

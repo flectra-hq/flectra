@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.project.tests.test_access_rights import TestPortalProjectBase
-from odoo.exceptions import AccessError
-from odoo.tools import mute_logger
+from flectra.addons.project.tests.test_access_rights import TestPortalProjectBase
+from flectra.exceptions import AccessError
+from flectra.tools import mute_logger
 
 
 class TestPortalProject(TestPortalProjectBase):
-    @mute_logger('odoo.addons.base.ir.ir_model')
+    @mute_logger('flectra.addons.base.ir.ir_model')
     def test_portal_project_access_rights(self):
         pigs = self.project_pigs
         pigs.write({'privacy_visibility': 'portal'})

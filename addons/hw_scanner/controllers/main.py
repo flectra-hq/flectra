@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 import time
@@ -12,16 +12,16 @@ except ImportError:
 from select import select
 from threading import Thread, Lock
 
-from odoo import http
+from flectra import http
 
-from odoo.addons.hw_proxy.controllers import main as hw_proxy
+from flectra.addons.hw_proxy.controllers import main as hw_proxy
 
 _logger = logging.getLogger(__name__)
 
 try:
     import evdev
 except ImportError:
-    _logger.error('Odoo module hw_scanner depends on the evdev python module')
+    _logger.error('Flectra module hw_scanner depends on the evdev python module')
     evdev = None
 
 class ScannerDevice():

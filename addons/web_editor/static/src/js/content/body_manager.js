@@ -1,4 +1,4 @@
-odoo.define('web_editor.BodyManager', function (require) {
+flectra.define('web_editor.BodyManager', function (require) {
 'use strict';
 
 var mixins = require('web.mixins');

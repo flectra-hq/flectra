@@ -1,4 +1,4 @@
-odoo.define('web.Dialog', function (require) {
+flectra.define('web.Dialog', function (require) {
 "use strict";
 
 var core = require('web.core');
@@ -22,7 +22,7 @@ var Dialog = Widget.extend({
     /**
      * @param {Widget} parent
      * @param {Object} [options]
-     * @param {string} [options.title=Odoo]
+     * @param {string} [options.title=Flectra]
      * @param {string} [options.subtitle]
      * @param {string} [options.size=large] - 'large', 'medium' or 'small'
      * @param {string} [options.dialogClass] - class to add to the modal-body
@@ -48,7 +48,7 @@ var Dialog = Widget.extend({
         this._opened = $.Deferred();
 
         options = _.defaults(options || {}, {
-            title: _t('Odoo'), subtitle: '',
+            title: _t('Flectra'), subtitle: '',
             size: 'large',
             dialogClass: '',
             $content: false,

@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Belgium - Payroll',
@@ -20,7 +20,7 @@ Belgian Payroll Rules.
     * Salary Maj, ONSS, Withholding Tax, Child Allowance, ...
     """,
 
-    'website': 'https://www.odoo.com/page/accounting',
+    'website': 'https://flectrahq.com/page/accounting',
     'data': [
         'views/l10n_be_hr_payroll_view.xml',
         'data/l10n_be_hr_payroll_data.xml',

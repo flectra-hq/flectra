@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import re
-from odoo import models, api, fields, _
+from flectra import models, api, fields, _
 
 
 class AccountJournal(models.Model):

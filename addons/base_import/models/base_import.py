@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import datetime
 import io
@@ -10,11 +10,11 @@ import operator
 import os
 import re
 
-from odoo import api, fields, models
-from odoo.tools.translate import _
-from odoo.tools.mimetypes import guess_mimetype
-from odoo.tools.misc import ustr
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT, pycompat
+from flectra import api, fields, models
+from flectra.tools.translate import _
+from flectra.tools.mimetypes import guess_mimetype
+from flectra.tools.misc import ustr
+from flectra.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT, pycompat
 
 FIELDS_RECURSION_LIMIT = 2
 ERROR_PREVIEW_BYTES = 200
@@ -77,7 +77,7 @@ class Import(models.TransientModel):
 
             .. attribute:: name (str)
 
-                The field's logical (Odoo) name within the scope of
+                The field's logical (Flectra) name within the scope of
                 its parent.
 
             .. attribute:: string (str)

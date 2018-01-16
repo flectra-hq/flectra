@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import socket
 
-from odoo.addons.mail.tests.common import TestMail
-from odoo.tools import mute_logger
+from flectra.addons.mail.tests.common import TestMail
+from flectra.tools import mute_logger
 
 
 MAIL_TEMPLATE = """Return-Path: <whatever-2a840@postmaster.twitter.com>
@@ -330,7 +330,7 @@ class TestMailgateway(TestMail):
             'message_id': '<123456-openerp-%s-mail.test@%s>' % (self.test_public.id, socket.gethostname()),
         })
 
-    @mute_logger('odoo.addons.mail.models.mail_thread')
+    @mute_logger('flectra.addons.mail.models.mail_thread')
     def test_message_parse(self):
         """ Test parsing of various scenarios of incoming emails """
         res = self.env['mail.thread'].message_parse(MAIL_TEMPLATE_PLAINTEXT)
@@ -366,14 +366,14 @@ class TestMailgateway(TestMail):
         self.assertEqual(res['body'], '')
         self.assertEqual(res['attachments'][0][0], 'thetruth.pdf')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread')
+    @mute_logger('flectra.addons.mail.models.mail_thread')
     def test_message_process_cid(self):
         new_groups = self.format_and_process(MAIL_MULTIPART_IMAGE, subject='My Frogs', to='groups@example.com')
         message = new_groups.message_ids[0]
         for attachment in message.attachment_ids:
             self.assertIn('/web/image/%s' % attachment.id, message.body)
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_alias_basic(self):
         """ Incoming email on an alias creating a new record + message_new + message details """
         new_groups = self.format_and_process(MAIL_TEMPLATE, subject='My Frogs', to='groups@example.com, other@gmail.com')
@@ -401,7 +401,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(len(self._mails), 0,
                          'message_process: should create emails without any follower added')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_alias_user_id(self):
         """ Test alias ownership """
         self.alias.write({'alias_user_id': self.user_employee.id})
@@ -413,7 +413,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(res[0], self.user_employee.id,
                          'message_process: group should have been created by alias_user_id')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_email_email_from(self):
         """ Incoming email: not recognized author: email_from, no author_id, no followers """
         new_groups = self.format_and_process(MAIL_TEMPLATE, to='groups@example.com, other@gmail.com')
@@ -426,7 +426,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(len(new_groups.message_partner_ids), 0,
                          'message_process: newly create group should not have any follower')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_email_author(self):
         """ Incoming email: recognized author: email_from, author_id, added as follower """
         new_groups = self.format_and_process(MAIL_TEMPLATE, email_from='Valid Lelitre <valid.lelitre@agrolait.com>', to='groups@example.com, valid.other@gmail.com')
@@ -444,7 +444,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(len(self._mails), 0,
                          'message_process: no bounce or notificatoin email should be sent with follower = author')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models', 'odoo.addons.mail.models.mail_mail')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models', 'flectra.addons.mail.models.mail_mail')
     def test_message_process_alias_partners_bounce(self):
         """ Incoming email from an unknown partner on a Partners only alias -> bounce """
         self.alias.write({'alias_contact': 'partners'})
@@ -459,7 +459,7 @@ class TestMailgateway(TestMail):
         self.assertIn('whatever-2a840@postmaster.twitter.com', self._mails[0].get('email_to'),
                       'message_process: bounce email on Partners alias should go to Return-Path address')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models', 'odoo.addons.mail.models.mail_mail')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models', 'flectra.addons.mail.models.mail_mail')
     def test_message_process_alias_followers_bounce(self):
         """ Incoming email from unknown partner / not follower partner on a Followers only alias -> bounce """
         self.alias.write({
@@ -480,7 +480,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(len(self._mails), 1,
                          'message_process: incoming email on Followers alias should send a bounce email')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_alias_partner(self):
         """ Incoming email from a known partner on a Partners alias -> ok (+ test on alias.user_id) """
         self.alias.write({'alias_contact': 'partners'})
@@ -493,7 +493,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(len(new_groups.message_ids), 1,
                          'message_process: newly created group should have the incoming email in message_ids')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_alias_followers(self):
         """ Incoming email from a parent document follower on a Followers only alias -> ok """
         self.alias.write({
@@ -506,7 +506,7 @@ class TestMailgateway(TestMail):
         # Test: one group created by Raoul (or Sylvie maybe, if we implement it)
         self.assertEqual(len(new_groups), 1, 'message_process: a new mail.test should have been created')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models', 'odoo.addons.mail.models.mail_mail')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models', 'flectra.addons.mail.models.mail_mail')
     def test_message_process_alias_update(self):
         """ Incoming email update discussion + notification email """
         self.alias.write({'alias_force_thread_id': self.test_public.id})
@@ -536,7 +536,7 @@ class TestMailgateway(TestMail):
         # self.assertEqual(self.test_public.message_channel_ids, self.env['mail.test'],
         #                  'message_process: after reply, group should have 2 followers (0 channels)')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_in_reply_to(self):
         """ Incoming email using in-rely-to should go into the right destination even with a wrong destination """
         self.format_and_process(
@@ -548,7 +548,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(len(self.test_public.message_ids), 2, 'message_process: group should contain one new message')
         self.assertEqual(len(self.fake_email.child_ids), 1, 'message_process: new message should be children of the existing one')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_references(self):
         """ Incoming email using references should go into the right destination even with a wrong destination """
         self.format_and_process(
@@ -560,7 +560,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(len(self.fake_email.child_ids), 1, 'message_process: new message should be children of the existing one')
 
     def test_message_process_references_external(self):
-        """ Incoming email being a reply to an external email processed by odoo should update thread accordingly """
+        """ Incoming email being a reply to an external email processed by flectra should update thread accordingly """
         new_message_id = '<ThisIsTooMuchFake.MonsterEmail.789@agrolait.com>'
         self.fake_email.write({
             'message_id': new_message_id
@@ -573,7 +573,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(len(self.test_public.message_ids), 2, 'message_process: group should contain one new message')
         self.assertEqual(len(self.fake_email.child_ids), 1, 'message_process: new message should be children of the existing one')
 
-    # @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    # @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_references_forward(self):
         """ Incoming email using references but with alias forward should not go into references destination """
         res_test = self.format_and_process(
@@ -588,7 +588,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(res_test.name, 'My Dear Forward')
         self.assertEqual(len(res_test.message_ids), 1)
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_references_forward_cc(self):
         """ Incoming email using references but with alias forward should not go into references destination """
         self.format_and_process(
@@ -601,7 +601,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(len(self.test_public.message_ids), 2, 'message_process: group should contain one new message')
         self.assertEqual(len(self.fake_email.child_ids), 1, 'message_process: new message should be children of the existing one')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_model_res_id(self):
         """ Incoming email with ref holding model / res_id but that does not match any message in the thread: must raise since OpenERP saas-3 """
         self.assertRaises(ValueError,
@@ -612,7 +612,7 @@ class TestMailgateway(TestMail):
                           msg_id='<1198923581.41972151344608186802.JavaMail.diff1@agrolait.com>')
 
         # when 6.1 messages are present, compat mode is available
-        # Odoo 10 update: compat mode has been removed and should not work anymore
+        # Flectra 10 update: compat mode has been removed and should not work anymore
         self.fake_email.write({'message_id': False})
         # Do: compat mode accepts partial-matching emails
         self.assertRaises(
@@ -624,7 +624,7 @@ class TestMailgateway(TestMail):
             extra='In-Reply-To: <12321321-openerp-%d-mail.test@%s>' % (self.test_public.id, socket.gethostname()))
 
         # 3''. 6.1 compat mode should not work if hostname does not match!
-        # Odoo 10 update: compat mode has been removed and should not work anymore and does not depend from hostname
+        # Flectra 10 update: compat mode has been removed and should not work anymore and does not depend from hostname
         self.assertRaises(ValueError,
                           self.format_and_process,
                           MAIL_TEMPLATE, email_from='other5@gmail.com',
@@ -636,7 +636,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(len(self.test_public.message_ids), 1)
         self.assertEqual(len(self.test_public.message_ids[0].child_ids), 0)
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_duplicate(self):
         """ Duplicate emails (same message_id) are not processed """
         self.alias.write({'alias_force_thread_id': self.test_public.id,})
@@ -663,7 +663,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(no_of_msg, 1,
                          'message_process: message with already existing message_id should not have been duplicated')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_partner_find(self):
         """ Finding the partner based on email, based on partner / user / follower """
         from_1 = self.env['res.partner'].create({'name': 'A', 'email': 'from.test@example.com'})
@@ -684,7 +684,7 @@ class TestMailgateway(TestMail):
         self.format_and_process(MAIL_TEMPLATE, to='public@example.com', msg_id='<3>', email_from='Brice Denisse <from.test@example.com>')
         self.assertEqual(self.test_public.message_ids[0].author_id, from_3, 'message_process: email_from -> author_id wrong')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_crash_wrong_model(self):
         """ Incoming email with model that does not accepts incoming emails must raise """
         self.assertRaises(ValueError,
@@ -693,7 +693,7 @@ class TestMailgateway(TestMail):
                           to='noone@example.com', subject='spam', extra='', model='res.country',
                           msg_id='<1198923581.41972151344608186760.JavaMail.new4@agrolait.com>')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_crash_no_data(self):
         """ Incoming email without model and without alias must raise """
         self.assertRaises(ValueError,
@@ -702,7 +702,7 @@ class TestMailgateway(TestMail):
                           to='noone@example.com', subject='spam', extra='',
                           msg_id='<1198923581.41972151344608186760.JavaMail.new5@agrolait.com>')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_fallback(self):
         """ Incoming email with model that accepting incoming emails as fallback """
         frog_groups = self.format_and_process(
@@ -711,7 +711,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(len(frog_groups), 1,
                          'message_process: erroneous email but with a fallback model should have created a new mail.test')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_plain_text(self):
         """ Incoming email in plaintext should be stored as html """
         frog_groups = self.format_and_process(
@@ -723,7 +723,7 @@ class TestMailgateway(TestMail):
         self.assertIn('<pre>\nPlease call me as soon as possible this afternoon!\n<span data-o-mail-quote="1">\n--\nSylvie\n</span></pre>', msg.body,
                       'message_process: plaintext incoming email incorrectly parsed')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models', 'odoo.addons.mail.models.mail_mail')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models', 'flectra.addons.mail.models.mail_mail')
     def test_private_discussion(self):
         """ Testing private discussion between partners. """
         msg1_pids = [self.env.user.partner_id.id, self.partner_1.id]
@@ -765,7 +765,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(msg.needaction_partner_ids, self.user_employee.partner_id | self.env.user.partner_id,
                          'message_post: private discussion: incorrect notified recipients when replying')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models', 'odoo.addons.mail.models.mail_mail')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models', 'flectra.addons.mail.models.mail_mail')
     def test_forward_parent_id(self):
         msg = self.test_pigs.sudo(self.user_employee).message_post(no_auto_thread=True, subtype='mail.mt_comment')
         self.assertNotIn(msg.model, msg.message_id)
@@ -790,7 +790,7 @@ class TestMailgateway(TestMail):
         self.assertTrue(msg_fw.res_id == channel.id)
 
         # tmp
-        from odoo.addons.mail.tests.test_mail_model import MailTest
+        from flectra.addons.mail.tests.test_mail_model import MailTest
         MailTest._mail_flat_thread = False
 
         fw_msg_id = '<THIS.IS.A.FW.MESSAGE.2@bert.fr>'

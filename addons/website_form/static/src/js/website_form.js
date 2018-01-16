@@ -1,4 +1,4 @@
-odoo.define('website_form.animation', function (require) {
+flectra.define('website_form.animation', function (require) {
 'use strict';
 
     var core = require('web.core');

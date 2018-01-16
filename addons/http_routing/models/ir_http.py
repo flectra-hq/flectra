@@ -12,17 +12,17 @@ try:
 except ImportError:
     slugify_lib = None
 
-import odoo
-from odoo import api, models
-from odoo.addons.base.ir.ir_http import RequestUID, ModelConverter
-from odoo.http import request
-from odoo.tools import config, ustr, pycompat
+import flectra
+from flectra import api, models
+from flectra.addons.base.ir.ir_http import RequestUID, ModelConverter
+from flectra.http import request
+from flectra.tools import config, ustr, pycompat
 
 _logger = logging.getLogger(__name__)
 
 # global resolver (GeoIP API is thread-safe, for multithreaded workers)
 # This avoids blowing up open files limit
-odoo._geoip_resolver = None
+flectra._geoip_resolver = None
 
 
 # ------------------------------------------------------------
@@ -166,7 +166,7 @@ def is_multilang_url(local_url, langs=None):
         path = url[0]
         query_string = url[1] if len(url) > 1 else None
         router = request.httprequest.app.get_db_router(request.db).bind('')
-        # Force to check method to POST. Odoo uses methods : ['POST'] and ['GET', 'POST']
+        # Force to check method to POST. Flectra uses methods : ['POST'] and ['GET', 'POST']
         func = router.match(path, method='POST', query_args=query_string)[0]
         return (func.routing.get('website', False) and
                 func.routing.get('multilang', func.routing['type'] == 'http'))
@@ -256,7 +256,7 @@ class IrHttp(models.AbstractModel):
     @classmethod
     def _geoip_setup_resolver(cls):
         # Lazy init of GeoIP resolver
-        if odoo._geoip_resolver is not None:
+        if flectra._geoip_resolver is not None:
             return
         try:
             import GeoIP
@@ -264,19 +264,19 @@ class IrHttp(models.AbstractModel):
             # http://dev.maxmind.com/geoip/legacy/install/city/
             geofile = config.get('geoip_database')
             if os.path.exists(geofile):
-                odoo._geoip_resolver = GeoIP.open(geofile, GeoIP.GEOIP_STANDARD)
+                flectra._geoip_resolver = GeoIP.open(geofile, GeoIP.GEOIP_STANDARD)
             else:
-                odoo._geoip_resolver = False
+                flectra._geoip_resolver = False
                 _logger.warning('GeoIP database file %r does not exists, apt-get install geoip-database-contrib or download it from http://dev.maxmind.com/geoip/legacy/install/city/', geofile)
         except ImportError:
-            odoo._geoip_resolver = False
+            flectra._geoip_resolver = False
 
     @classmethod
     def _geoip_resolve(cls):
         if 'geoip' not in request.session:
             record = {}
-            if odoo._geoip_resolver and request.httprequest.remote_addr:
-                record = odoo._geoip_resolver.record_by_addr(request.httprequest.remote_addr) or {}
+            if flectra._geoip_resolver and request.httprequest.remote_addr:
+                record = flectra._geoip_resolver.record_by_addr(request.httprequest.remote_addr) or {}
             request.session['geoip'] = record
 
     @classmethod

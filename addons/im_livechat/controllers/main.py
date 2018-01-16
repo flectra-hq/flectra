@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import base64
 
-from odoo import http, _
-from odoo.http import request
-from odoo.addons.base.ir.ir_qweb import AssetsBundle
-from odoo.addons.web.controllers.main import binary_content
+from flectra import http, _
+from flectra.http import request
+from flectra.addons.base.ir.ir_qweb import AssetsBundle
+from flectra.addons.web.controllers.main import binary_content
 
 
 class LivechatController(http.Controller):

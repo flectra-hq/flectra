@@ -1,4 +1,4 @@
-odoo.define('mail.ThreadField', function (require) {
+flectra.define('mail.ThreadField', function (require) {
 "use strict";
 
 var chat_mixin = require('mail.chat_mixin');

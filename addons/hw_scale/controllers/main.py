@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 import os
@@ -10,9 +10,9 @@ from collections import namedtuple
 from os import listdir
 from threading import Thread, Lock
 
-from odoo import http
+from flectra import http
 
-from odoo.addons.hw_proxy.controllers import main as hw_proxy
+from flectra.addons.hw_proxy.controllers import main as hw_proxy
 
 _logger = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ DRIVER_NAME = 'scale'
 try:
     import serial
 except ImportError:
-    _logger.error('Odoo module hw_scale depends on the pyserial python module')
+    _logger.error('Flectra module hw_scale depends on the pyserial python module')
     serial = None
 
 

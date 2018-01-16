@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Leave Management',
@@ -7,7 +7,7 @@
     'category': 'Human Resources',
     'sequence': 27,
     'summary': 'Leave allocations and leave requests',
-    'website': 'https://www.odoo.com/page/employees',
+    'website': 'https://flectrahq.com/page/employees',
     'description': """
 Manage leave requests and allocations
 =====================================

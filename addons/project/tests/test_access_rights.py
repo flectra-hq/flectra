@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.project.tests.test_project_base import TestProjectBase
-from odoo.exceptions import AccessError
-from odoo.tools import mute_logger
+from flectra.addons.project.tests.test_project_base import TestProjectBase
+from flectra.exceptions import AccessError
+from flectra.tools import mute_logger
 
 
 class TestPortalProjectBase(TestProjectBase):
@@ -30,7 +30,7 @@ class TestPortalProjectBase(TestProjectBase):
 
 class TestPortalProject(TestPortalProjectBase):
 
-    @mute_logger('odoo.addons.base.ir.ir_model')
+    @mute_logger('flectra.addons.base.ir.ir_model')
     def test_employee_project_access_rights(self):
         pigs = self.project_pigs
 
@@ -52,7 +52,7 @@ class TestPortalProject(TestPortalProjectBase):
             'project_id': pigs.id})
         tmp_task.sudo(self.user_projectuser).unlink()
 
-    @mute_logger('odoo.addons.base.ir.ir_model')
+    @mute_logger('flectra.addons.base.ir.ir_model')
     def test_followers_project_access_rights(self):
         pigs = self.project_pigs
         pigs.write({'privacy_visibility': 'followers'})

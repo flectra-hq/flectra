@@ -2,7 +2,7 @@ function initialize_map() {
     'use strict';
 
     // MAP CONFIG AND LOADING
-    var map = new google.maps.Map(document.getElementById('odoo-google-map'), {
+    var map = new google.maps.Map(document.getElementById('flectra-google-map'), {
         zoom: 1,
         center: {lat: 0.0, lng: 0.0},
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -74,9 +74,9 @@ function initialize_map() {
     };
 
     // Create the markers and cluster them on the map
-    if (odoo_partner_data){ /* odoo_partner_data special variable should have been defined in google_map.xml */
-        for (var i = 0; i < odoo_partner_data.counter; i++) {
-            set_marker(odoo_partner_data.partners[i]);
+    if (flectra_partner_data){ /* flectra_partner_data special variable should have been defined in google_map.xml */
+        for (var i = 0; i < flectra_partner_data.counter; i++) {
+            set_marker(flectra_partner_data.partners[i]);
         }
         var markerCluster = new MarkerClusterer(map, markers, options);
     }

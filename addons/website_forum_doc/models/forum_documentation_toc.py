@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
+from flectra import api, fields, models, _
+from flectra.exceptions import ValidationError
 
 
 class Documentation(models.Model):

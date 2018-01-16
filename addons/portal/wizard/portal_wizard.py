@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 
-from odoo.tools.translate import _
-from odoo.tools import email_split
-from odoo.exceptions import UserError
+from flectra.tools.translate import _
+from flectra.tools import email_split
+from flectra.exceptions import UserError
 
-from odoo import api, fields, models
+from flectra import api, fields, models
 
 
 _logger = logging.getLogger(__name__)

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from lxml import etree
 
-from odoo import models, api
-from odoo.tools.translate import encode, xml_translate, html_translate
+from flectra import models, api
+from flectra.tools.translate import encode, xml_translate, html_translate
 
 
 def edit_translation_mapping(data):

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import http
-from odoo.http import request
+from flectra import http
+from flectra.http import request
 
 
 class WebsiteBackend(http.Controller):

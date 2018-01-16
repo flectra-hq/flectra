@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 
-from odoo.addons.mail.tests.common import TestMail
-from odoo.tools import mute_logger
+from flectra.addons.mail.tests.common import TestMail
+from flectra.tools import mute_logger
 
 
 class TestSale(TestMail):
-    @mute_logger('odoo.addons.base.ir.ir_model', 'odoo.osv.orm')
+    @mute_logger('flectra.addons.base.ir.ir_model', 'flectra.osv.orm')
     def setUp(self):
         super(TestSale, self).setUp()
 

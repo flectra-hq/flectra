@@ -1,4 +1,4 @@
-odoo.define('mail.ChatThread', function (require) {
+flectra.define('mail.ChatThread', function (require) {
 "use strict";
 
 var core = require('web.core');

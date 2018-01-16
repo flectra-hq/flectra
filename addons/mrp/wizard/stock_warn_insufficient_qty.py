@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
+from flectra import api, fields, models
 
 
 class StockWarnInsufficientQtyUnbuild(models.TransientModel):
@@ -12,4 +12,4 @@ class StockWarnInsufficientQtyUnbuild(models.TransientModel):
 
     def action_done(self):
         self.ensure_one()
-        return self.unbuild_id.action_unbuild()
+        return self.unbuild_id.action_unbuild()        

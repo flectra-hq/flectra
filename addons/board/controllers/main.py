@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from lxml import etree as ElementTree
 
-from odoo.http import Controller, route, request
+from flectra.http import Controller, route, request
 
 
 class Board(Controller):

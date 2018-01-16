@@ -1,4 +1,4 @@
-odoo.define('website.navbar', function (require) {
+flectra.define('website.navbar', function (require) {
 'use strict';
 
 var rootWidget = require('web_editor.root_widget');

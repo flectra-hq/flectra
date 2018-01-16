@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 import os
 import subprocess
 import werkzeug
 
-import odoo
-from odoo import http
-from odoo.tools import misc
+import flectra
+from flectra import http
+from flectra.tools import misc
 
 _logger = logging.getLogger(__name__)
 
@@ -30,21 +30,21 @@ index_template = """
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Odoo's PosBox</title>
+        <title>Flectra's PosBox</title>
 """ + index_style + """
     </head>
     <body>
         <h1>Your PosBox is up and running</h1>
         <p>
         The PosBox is a hardware adapter that allows you to use
-        receipt printers and barcode scanners with Odoo's Point of
-        Sale, <b>version 8.0 or later</b>. You can start an <a href='https://www.odoo.com/start'>online free trial</a>,
-        or <a href='https://www.odoo.com/page/download'>download and install</a> it yourself.
+        receipt printers and barcode scanners with Flectra's Point of
+        Sale, <b>version 8.0 or later</b>. You can start an <a href='https://www.flectra.com/start'>online free trial</a>,
+        or <a href='https://www.flectra.com/page/download'>download and install</a> it yourself.
         </p>
         <p>
         For more information on how to setup the Point of Sale with
         the PosBox, please refer to
-        <a href='https://www.odoo.com/documentation/user/point_of_sale/posbox/index.html'>the manual</a>.
+        <a href='https://www.flectra.com/documentation/user/point_of_sale/posbox/index.html'>the manual</a>.
         </p>
         <p>
         To see the status of the connected hardware, please refer 
@@ -59,10 +59,10 @@ index_template = """
         %s
         <p>
         The PosBox software installed on this posbox is <b>version 16</b>,
-        the posbox version number is independent from Odoo. You can upgrade
+        the posbox version number is independent from Flectra. You can upgrade
         the software on the <a href='/hw_proxy/upgrade/'>upgrade page</a>.
         </p>
-        <p>For any other question, please contact the Odoo support at <a href='http://www.odoo.com/help'>www.odoo.com/help</a>
+        <p>For any other question, please contact the Flectra support at <a href='http://www.flectra.com/help'>www.flectra.com/help</a>
         </p>
     </body>
 </html>
@@ -70,15 +70,15 @@ index_template = """
 """
 
 
-class PosboxHomepage(odoo.addons.web.controllers.main.Home):
+class PosboxHomepage(flectra.addons.web.controllers.main.Home):
 
     def get_hw_screen_message(self):
         return """
 <p>
     The activate the customer display feature, you will need to reinstall the PosBox software.
-    You can find the latest images on the <a href="http://nightly.odoo.com/master/posbox/">Odoo Nightly builds</a> website.
+    You can find the latest images on the <a href="http://nightly.flectra.com/master/posbox/">Flectra Nightly builds</a> website.
     Make sure to download at least the version 16.<br/>
-    Odoo version 11, or above, is required to use the customer display feature.
+    Flectra version 11, or above, is required to use the customer display feature.
 </p>
 """
 
@@ -168,12 +168,12 @@ class PosboxHomepage(odoo.addons.web.controllers.main.Home):
         else:
                 persistent = ""
 
-        subprocess.call(['/home/pi/odoo/addons/point_of_sale/tools/posbox/configuration/connect_to_wifi.sh', essid, password, persistent])
+        subprocess.call(['/home/pi/flectra/addons/point_of_sale/tools/posbox/configuration/connect_to_wifi.sh', essid, password, persistent])
         return "connecting to " + essid
 
     @http.route('/wifi_clear', type='http', auth='none', cors='*')
     def clear_wifi_configuration(self):
-        os.system('/home/pi/odoo/addons/point_of_sale/tools/posbox/configuration/clear_wifi_configuration.sh')
+        os.system('/home/pi/flectra/addons/point_of_sale/tools/posbox/configuration/clear_wifi_configuration.sh')
         return "configuration cleared"
 
     @http.route('/remote_connect', type='http', auth='none', cors='*')

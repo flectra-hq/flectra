@@ -14,7 +14,7 @@
 -
   !python {model: account.invoice, id: False}: |
     import os
-    from odoo import tools
+    from flectra import tools
     data, format = ref('account.report_invoice').render(ref('account.account_invoice_customer0'))
     if tools.config['test_report_directory']:
         open(os.path.join(tools.config['test_report_directory'], 'account-invoice.'+format), 'wb+').write(data)
@@ -23,7 +23,7 @@
 -
   !python {model: res.partner, id: False}: |
     import os
-    from odoo import tools
+    from flectra import tools
     data, format = ref('account.report_overdue').render([ref('base.res_partner_1'),ref('base.res_partner_2'),ref('base.res_partner_12')])
     if tools.config['test_report_directory']:
         open(os.path.join(tools.config['test_report_directory'], 'account-report_overdue.'+format), 'wb+').write(data)
@@ -33,7 +33,7 @@
   !python {model: account.account, id: False}: |
     ctx={}
     data_dict = {'chart_account_id':ref('account.chart0')}
-    from odoo.tools import test_reports
+    from flectra.tools import test_reports
     test_reports.try_report_action(self.env.cr, self.env.uid, 'action_account_aged_balance_view',wiz_data=data_dict, context=ctx, our_module='account')
 -
   Print the Account Balance Sheet in Normal mode
@@ -41,7 +41,7 @@
   !python {model: account.account, id: False}: |
     ctx={}
     data_dict = {'chart_account_id':ref('account.chart0'), 'account_report_id': ref('account_financial_report_balancesheet0')}
-    from odoo.tools import test_reports
+    from flectra.tools import test_reports
     test_reports.try_report_action(self.env.cr, self.env.uid, 'action_account_report',wiz_data=data_dict, context=ctx, our_module='account')
 -
   Print the Account Balance Report in Normal mode through the wizard - From Account Chart
@@ -49,7 +49,7 @@
   !python {model: account.account, id: False}: |
     ctx={}
     data_dict = {'chart_account_id':ref('account.chart0')}
-    from odoo.tools import test_reports
+    from flectra.tools import test_reports
     test_reports.try_report_action(self.env.cr, self.env.uid, 'action_account_balance_menu',wiz_data=data_dict, context=ctx, our_module='account')
 -
   Print the General Ledger Report (in Landscape Mode)
@@ -57,7 +57,7 @@
   !python {model: account.account, id: False}: |
     ctx={}
     data_dict = {'chart_account_id':ref('account.chart0')}
-    from odoo.tools import test_reports
+    from flectra.tools import test_reports
     test_reports.try_report_action(self.env.cr, self.env.uid, 'action_account_general_ledger_menu',wiz_data=data_dict, context=ctx, our_module='account')
 -
   Print the Profit-Loss Report in Normal Mode
@@ -65,5 +65,5 @@
   !python {model: account.account, id: False}: |
     ctx={}
     data_dict = {'chart_account_id':ref('account.chart0'), 'target_move': 'all', 'account_report_id': ref('account_financial_report_balancesheet0')}
-    from odoo.tools import test_reports
+    from flectra.tools import test_reports
     test_reports.try_report_action(self.env.cr, self.env.uid, 'action_account_report',wiz_data=data_dict, context=ctx, our_module='account')

@@ -1,13 +1,13 @@
 @nb-calendar-colors: 24;
 
 @keyframes backgroundfade {
-    from {background-color: fade(@odoo-brand-primary, 50%);}
+    from {background-color: fade(@flectra-brand-primary, 50%);}
     to {background-color: #f5f5f5;}
 }
 
 .o_calendar_container {
     height: 100%;
-    .o-webclient-padding(@top: @odoo-horizontal-padding/2, @bottom: @odoo-horizontal-padding/2);
+    .o-webclient-padding(@top: @flectra-horizontal-padding/2, @bottom: @flectra-horizontal-padding/2);
     .o-flex-display();
 
     .calendar_color_loop(@index) when (@index < @nb-calendar-colors+1) {
@@ -42,12 +42,12 @@
 
         .o_calendar_widget {
             height: 100%;
-            background-color: @odoo-view-background-color;
+            background-color: @flectra-view-background-color;
             * {
                 z-index: 0; // FIXME
             }
             .fc-week-number, .fc-widget-header {
-                background-color: lighten(@odoo-brand-secondary, 30%);
+                background-color: lighten(@flectra-brand-secondary, 30%);
             }
             .o_avatar_square {
                 border-radius: 5px;
@@ -73,20 +73,20 @@
         }
 
         .o_target_date:not(.fc-today) {
-            background-color: @odoo-brand-primary;
+            background-color: @flectra-brand-primary;
             opacity: 0.1;
         }
     }
 
     .o_calendar_sidebar_container {
-        .o-flex(0, 0, @odoo-horizontal-padding);
+        .o-flex(0, 0, @flectra-horizontal-padding);
         position: relative;
 
         &.o_sidebar_hidden {
-            margin-right: -@odoo-horizontal-padding; // hack to display the toggler in the gutter
+            margin-right: -@flectra-horizontal-padding; // hack to display the toggler in the gutter
             .o_calendar_sidebar_toggler {
                 padding: 4px;
-                color: darken(@odoo-webclient-background-color, 30%);
+                color: darken(@flectra-webclient-background-color, 30%);
             }
         }
 
@@ -103,7 +103,7 @@
         .o_calendar_sidebar {
             width: 250px;
             margin-left: 8px;
-            background: @odoo-view-background-color;
+            background: @flectra-view-background-color;
         }
 
         .ui-datepicker {
@@ -116,7 +116,7 @@
             .ui-widget-header {
                 .o-flex-display();
                 background: none;
-                background-color: lighten(@odoo-brand-secondary, 30%);
+                background-color: lighten(@flectra-brand-secondary, 30%);
                 border-radius: 0;
 
                 .ui-datepicker-prev, .ui-datepicker-next {
@@ -125,7 +125,7 @@
                     cursor: pointer;
                     padding: 2px;
                     text-align: center;
-                    color: @odoo-main-text-color;
+                    color: @flectra-main-text-color;
                     &.ui-state-hover {
                         background: none;
                         border: none;
@@ -159,31 +159,31 @@
             table {
                 td {
                     padding: 0 2px 2px 0;
-                    background-color: @odoo-view-background-color;
+                    background-color: @flectra-view-background-color;
                     a {
                         border: none;
                         background: none;
-                        background-color: lighten(@odoo-brand-secondary, 40%);
+                        background-color: lighten(@flectra-brand-secondary, 40%);
                         text-align: center;
                     }
                 }
                 .ui-state-default {
-                    color: @odoo-brand-primary;
+                    color: @flectra-brand-primary;
                     &:hover {
                         background: none;
-                        background-color: fade(@odoo-brand-primary, 50%);
-                        border-color: @odoo-brand-primary;
-                        color: @odoo-view-background-color;
+                        background-color: fade(@flectra-brand-primary, 50%);
+                        border-color: @flectra-brand-primary;
+                        color: @flectra-view-background-color;
                     };
                 }
                 .ui-state-active {
                     background: none;
-                    background-color: @odoo-brand-primary;
-                    color: @odoo-view-background-color;
+                    background-color: @flectra-brand-primary;
+                    color: @flectra-view-background-color;
                 }
                 .o_selected_range.o_color {
                     background: none;
-                    background-color: @odoo-brand-primary;
+                    background-color: @flectra-brand-primary;
                     animation: backgroundfade 3s forwards;
                 }
             }

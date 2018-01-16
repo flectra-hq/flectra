@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from dateutil import relativedelta
-from odoo import fields, models, api
+from flectra import fields, models, api
 
 
 class LeadTest(models.Model):

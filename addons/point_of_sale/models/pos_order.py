@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import logging
 from datetime import timedelta
 from functools import partial
@@ -7,11 +7,11 @@ from functools import partial
 import psycopg2
 import pytz
 
-from odoo import api, fields, models, tools, _
-from odoo.tools import float_is_zero
-from odoo.exceptions import UserError
-from odoo.http import request
-from odoo.addons import decimal_precision as dp
+from flectra import api, fields, models, tools, _
+from flectra.tools import float_is_zero
+from flectra.exceptions import UserError
+from flectra.http import request
+from flectra.addons import decimal_precision as dp
 
 _logger = logging.getLogger(__name__)
 

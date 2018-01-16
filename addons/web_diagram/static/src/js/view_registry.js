@@ -1,4 +1,4 @@
-odoo.define('web_diagram.view_registry', function (require) {
+flectra.define('web_diagram.view_registry', function (require) {
 "use strict";
 
 var view_registry = require('web.view_registry');

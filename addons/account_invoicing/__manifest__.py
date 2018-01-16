@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Invoicing Management',
@@ -14,7 +14,7 @@ The specific and easy-to-use Invoicing system in Odoo allows you to keep track o
 You could use this simplified accounting in case you work with an (external) account to keep your books, and you still want to keep track of payments. This module also offers you an easy method of registering payments, without having to encode complete abstracts of account.
     """,
     'category': 'Invoicing Management',
-    'website': 'https://www.odoo.com/page/billing',
+    'website': 'https://flectrahq.com/page/billing',
     'depends': ['account'],
     'data': [
         'views/account_menuitem_views.xml',

@@ -1,4 +1,4 @@
-odoo.define('web.search_tests', function (require) {
+flectra.define('web.search_tests', function (require) {
 "use strict";
 
 var SearchView = require('web.SearchView');

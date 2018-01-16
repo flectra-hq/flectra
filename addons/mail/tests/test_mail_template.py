@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import base64
 import datetime
 
-from odoo.addons.mail.tests.common import TestMail
-from odoo.tools import mute_logger
+from flectra.addons.mail.tests.common import TestMail
+from flectra.tools import mute_logger
 
 
 class TestMailTemplate(TestMail):
@@ -67,7 +67,7 @@ class TestMailTemplate(TestMail):
         self.assertEqual(set(attachments.mapped('res_model')), set(['res.partner']))
         self.assertEqual(set(attachments.mapped('res_id')), set([self.user_admin.partner_id.id]))
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('flectra.addons.mail.models.mail_mail')
     def test_composer_template_send(self):
         self.test_pigs.with_context(use_template=False).message_post_with_template(self.email_template.id, composition_mode='comment')
 
@@ -81,7 +81,7 @@ class TestMailTemplate(TestMail):
         # self.assertIn((attach.datas_fname, base64.b64decode(attach.datas)), _attachments_test,
         #     'mail.message attachment name / data incorrect')
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('flectra.addons.mail.models.mail_mail')
     def test_composer_template_mass_mailing(self):
         composer = self.env['mail.compose.message'].with_context({
             'default_composition_mode': 'mass_mail',

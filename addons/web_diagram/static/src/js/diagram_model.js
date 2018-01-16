@@ -1,4 +1,4 @@
-odoo.define('web_diagram.DiagramModel', function (require) {
+flectra.define('web_diagram.DiagramModel', function (require) {
 "use strict";
 
 var AbstractModel = require('web.AbstractModel');

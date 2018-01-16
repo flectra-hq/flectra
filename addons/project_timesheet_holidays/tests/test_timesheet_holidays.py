@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-from odoo import fields
+from flectra import fields
 
-from odoo.tests import common
-from odoo.addons.hr_timesheet.tests.test_timesheet import TestTimesheet
+from flectra.tests import common
+from flectra.addons.hr_timesheet.tests.test_timesheet import TestTimesheet
 
 
 class TestTimesheetHolidaysCreate(common.TransactionCase):

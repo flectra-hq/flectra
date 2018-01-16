@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import datetime
 
 from datetime import datetime, timedelta
 
-from odoo import fields
-from odoo.tests.common import TransactionCase
+from flectra import fields
+from flectra.tests.common import TransactionCase
 
 
 class TestCalendar(TransactionCase):
@@ -19,9 +19,9 @@ class TestCalendar(TransactionCase):
             'privacy': 'private',
             'start': '2011-04-30 16:00:00',
             'stop': '2011-04-30 18:30:00',
-            'description': 'The Technical Presentation will cover following topics:\n* Creating Odoo class\n* Views\n* Wizards\n* Workflows',
+            'description': 'The Technical Presentation will cover following topics:\n* Creating Flectra class\n* Views\n* Wizards\n* Workflows',
             'duration': 2.5,
-            'location': 'Odoo S.A.',
+            'location': 'Flectra S.A.',
             'name': 'Technical Presentation'
         })
 

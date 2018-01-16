@@ -1,4 +1,4 @@
-define([], function () { // ODOO: remove error from Odoo define
+define([], function () { // FLECTRA: remove error from Flectra define
   var Fullscreen = function (handler) {
     var $window = $(window);
     var $scrollbar = $('html, body');

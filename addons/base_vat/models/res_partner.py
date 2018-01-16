@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import datetime
 import logging
@@ -14,9 +14,9 @@ except ImportError:
                     "Install it to support more countries, for example with `easy_install vatnumber`.")
     vatnumber = None
 
-from odoo import api, models, _
-from odoo.tools.misc import ustr
-from odoo.exceptions import ValidationError
+from flectra import api, models, _
+from flectra.tools.misc import ustr
+from flectra.exceptions import ValidationError
 
 _eu_country_vat = {
     'GR': 'EL'

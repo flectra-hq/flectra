@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Warehouse Management: Batch Picking',
@@ -9,7 +9,7 @@
 This module adds the batch picking option in warehouse management
 =================================================================
     """,
-    'website': 'https://www.odoo.com/page/warehouse',
+    'website': 'https://flectrahq.com/page/warehouse',
     'depends': ['stock'],
     'data': [
         'security/ir.model.access.csv',

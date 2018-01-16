@@ -1,4 +1,4 @@
-odoo.define('mass_mailing.website_integration', function (require) {
+flectra.define('mass_mailing.website_integration', function (require) {
 "use strict";
 
 var utils = require('web.utils');
@@ -134,7 +134,7 @@ sAnimation.registry.newsletter_popup = sAnimation.Class.extend({
 
 //==============================================================================
 
-odoo.define('mass_mailing.unsubscribe', function (require) {
+flectra.define('mass_mailing.unsubscribe', function (require) {
     'use strict';
 
     var ajax = require('web.ajax');

@@ -1,4 +1,4 @@
-odoo.define('web.widget_registry', function (require) {
+flectra.define('web.widget_registry', function (require) {
     "use strict";
 
     // This registry is supposed to contain all custom widgets that will be

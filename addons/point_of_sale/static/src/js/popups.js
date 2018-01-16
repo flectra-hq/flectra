@@ -1,4 +1,4 @@
-odoo.define('point_of_sale.popups', function (require) {
+flectra.define('point_of_sale.popups', function (require) {
 "use strict";
 
 // This file contains the Popups.
@@ -112,7 +112,7 @@ var ErrorTracebackPopupWidget = ErrorPopupWidget.extend({
 
         this.$('.email').off('click').click(function(){
             self.gui.send_email( self.pos.company.email,
-                _t('IMPORTANT: Bug Report From Odoo Point Of Sale'),
+                _t('IMPORTANT: Bug Report From Flectra Point Of Sale'),
                 self.options.body);
         });
     }

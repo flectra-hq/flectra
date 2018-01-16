@@ -1,4 +1,4 @@
-odoo.define('web.kanban_tests', function (require) {
+flectra.define('web.kanban_tests', function (require) {
 "use strict";
 
 var core = require('web.core');
@@ -570,7 +570,7 @@ QUnit.module('Views', {
                     return $.Deferred().reject({
                         code: 200,
                         data: {},
-                        message: "Odoo server error",
+                        message: "Flectra server error",
                     }, $.Event());
                 }
                 return this._super.apply(this, arguments);

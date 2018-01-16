@@ -1,4 +1,4 @@
-odoo.define('stock.stock_report_generic', function (require) {
+flectra.define('stock.stock_report_generic', function (require) {
 'use strict';
 
 var core = require('web.core');

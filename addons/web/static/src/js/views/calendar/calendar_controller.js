@@ -1,4 +1,4 @@
-odoo.define('web.CalendarController', function (require) {
+flectra.define('web.CalendarController', function (require) {
 "use strict";
 
 /**
@@ -111,7 +111,7 @@ var CalendarController = AbstractController.extend({
     //--------------------------------------------------------------------------
 
     /**
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onChangeDate: function (event) {
         var modelData = this.model.get();
@@ -133,7 +133,7 @@ var CalendarController = AbstractController.extend({
         this.reload();
     },
     /**
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onChangeFilter: function (event) {
         if (this.model.changeFilter(event.data) && !event.data.no_reload) {
@@ -141,7 +141,7 @@ var CalendarController = AbstractController.extend({
         }
     },
     /**
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onDropRecord: function (event) {
         this._updateRecord(event.data);
@@ -150,7 +150,7 @@ var CalendarController = AbstractController.extend({
      * Handles saving data coming from quick create box
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onQuickCreate: function (event) {
         var self = this;
@@ -177,7 +177,7 @@ var CalendarController = AbstractController.extend({
             });
     },
     /**
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onOpenCreate: function (event) {
         var self = this;
@@ -247,7 +247,7 @@ var CalendarController = AbstractController.extend({
         }
     },
     /**
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onOpenEvent: function (event) {
         var self = this;
@@ -329,7 +329,7 @@ var CalendarController = AbstractController.extend({
         this.reload();
     },
     /**
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onUpdateRecord: function (event) {
         this._updateRecord(event.data);
@@ -338,7 +338,7 @@ var CalendarController = AbstractController.extend({
      * The internal state of the calendar (mode, period displayed) has changed,
      * so update the control panel buttons and breadcrumbs accordingly.
      *
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onViewUpdated: function (event) {
         this.mode = event.data.mode;

@@ -1,5 +1,5 @@
-from odoo import models, fields, api, _
-from odoo.tools.float_utils import float_round
+from flectra import models, fields, api, _
+from flectra.tools.float_utils import float_round
 
 
 class AccountMoveLineReconcile(models.TransientModel):

@@ -1,4 +1,4 @@
-odoo.define('pad.pad', function (require) {
+flectra.define('pad.pad', function (require) {
 "use strict";
 
 var AbstractField = require('web.AbstractField');

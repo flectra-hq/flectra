@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from ast import literal_eval
 
-from odoo import api, models, fields
+from flectra import api, models, fields
 
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'

@@ -2,8 +2,8 @@
 
 from datetime import datetime, timedelta
 
-from odoo import fields
-from odoo.tests import common
+from flectra import fields
+from flectra.tests import common
 
 
 class TestEventCommon(common.TransactionCase):

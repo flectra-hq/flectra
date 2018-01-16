@@ -1,4 +1,4 @@
-odoo.define('web.list_benchmarks', function (require) {
+flectra.define('web.list_benchmarks', function (require) {
 "use strict";
 
 var ListView = require('web.ListView');

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Account Analytic Defaults',
+    "author":"Odoo S.A",
     'version': '1.0',
     'category': 'Accounting',
     'description': """
@@ -17,7 +18,7 @@ Allows to automatically select analytic accounts based on criterions:
     * Company
     * Date
     """,
-    'website': 'https://www.odoo.com/page/accounting',
+    'website': 'https://flectrahq.com/page/accounting',
     'depends': ['sale_stock'],
     'data': [
         'security/ir.model.access.csv',

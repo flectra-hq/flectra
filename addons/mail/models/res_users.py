@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, exceptions, fields, models, modules
-from odoo.tools import pycompat
-from odoo.addons.base.res.res_users import is_selection_groups
+from flectra import _, api, exceptions, fields, models, modules
+from flectra.tools import pycompat
+from flectra.addons.base.res.res_users import is_selection_groups
 
 
 class Users(models.Model):
@@ -27,11 +27,11 @@ class Users(models.Model):
         ('followers', 'Followers only')], string='Alias Contact Security', related='alias_id.alias_contact')
     notification_type = fields.Selection([
         ('email', 'Handle by Emails'),
-        ('inbox', 'Handle in Odoo')],
+        ('inbox', 'Handle in Flectra')],
         'Notification Management', required=True, default='email',
         help="Policy on how to handle Chatter notifications:\n"
              "- Emails: notifications are sent to your email\n"
-             "- Odoo: notifications appear in your Odoo Inbox")
+             "- Flectra: notifications appear in your Flectra Inbox")
 
     def __init__(self, pool, cr):
         """ Override of __init__ to add access rights on notification_email_send

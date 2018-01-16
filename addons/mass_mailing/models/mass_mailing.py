@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import hashlib
 import hmac
@@ -8,10 +8,10 @@ import logging
 import random
 import threading
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import UserError
-from odoo.tools.safe_eval import safe_eval
-from odoo.tools.translate import html_translate
+from flectra import api, fields, models, tools, _
+from flectra.exceptions import UserError
+from flectra.tools.safe_eval import safe_eval
+from flectra.tools.translate import html_translate
 
 _logger = logging.getLogger(__name__)
 

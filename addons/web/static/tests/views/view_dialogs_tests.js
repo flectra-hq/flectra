@@ -1,4 +1,4 @@
-odoo.define('web.view_dialogs_tests', function (require) {
+flectra.define('web.view_dialogs_tests', function (require) {
 "use strict";
 
 var testUtils = require('web.test_utils');

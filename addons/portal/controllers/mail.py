@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from werkzeug.exceptions import NotFound, Forbidden
 
-from odoo import http
-from odoo.http import request
-from odoo.tools import consteq
+from flectra import http
+from flectra.http import request
+from flectra.tools import consteq
 
 
 def _has_token_access(res_model, res_id, token=''):

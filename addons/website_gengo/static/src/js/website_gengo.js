@@ -1,4 +1,4 @@
-odoo.define('website_gengo.website_gengo', function (require) {
+flectra.define('website_gengo.website_gengo', function (require) {
 'use strict';
 
 var ajax = require('web.ajax');

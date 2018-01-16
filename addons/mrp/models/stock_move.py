@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, exceptions, fields, models, _
-from odoo.exceptions import UserError
-from odoo.tools import float_compare, float_round
-from odoo.addons import decimal_precision as dp
+from flectra import api, exceptions, fields, models, _
+from flectra.exceptions import UserError
+from flectra.tools import float_compare, float_round
+from flectra.addons import decimal_precision as dp
 
 
 class StockMoveLine(models.Model):

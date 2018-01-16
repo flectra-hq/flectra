@@ -1,4 +1,4 @@
-odoo.define('point_of_sale.models', function (require) {
+flectra.define('point_of_sale.models', function (require) {
 "use strict";
 
 var ajax = require('web.ajax');

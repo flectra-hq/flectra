@@ -1,4 +1,4 @@
-odoo.define('hr_attendance.my_attendances', function (require) {
+flectra.define('hr_attendance.my_attendances', function (require) {
 "use strict";
 
 var core = require('web.core');

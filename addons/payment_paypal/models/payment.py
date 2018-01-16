@@ -7,10 +7,10 @@ import dateutil.parser
 import pytz
 from werkzeug import urls
 
-from odoo import api, fields, models, _
-from odoo.addons.payment.models.payment_acquirer import ValidationError
-from odoo.addons.payment_paypal.controllers.main import PaypalController
-from odoo.tools.float_utils import float_compare
+from flectra import api, fields, models, _
+from flectra.addons.payment.models.payment_acquirer import ValidationError
+from flectra.addons.payment_paypal.controllers.main import PaypalController
+from flectra.tools.float_utils import float_compare
 
 
 _logger = logging.getLogger(__name__)
@@ -179,9 +179,9 @@ class TxPaypal(models.Model):
         if not data.get('receiver_id') or not self.acquirer_id.paypal_seller_account:
             # Check receiver_email only if receiver_id was not checked.
             # In Paypal, this is possible to configure as receiver_email a different email than the business email (the login email)
-            # In Odoo, there is only one field for the Paypal email: the business email. This isn't possible to set a receiver_email
+            # In Flectra, there is only one field for the Paypal email: the business email. This isn't possible to set a receiver_email
             # different than the business email. Therefore, if you want such a configuration in your Paypal, you are then obliged to fill
-            # the Merchant ID in the Paypal payment acquirer in Odoo, so the check is performed on this variable instead of the receiver_email.
+            # the Merchant ID in the Paypal payment acquirer in Flectra, so the check is performed on this variable instead of the receiver_email.
             # At least one of the two checks must be done, to avoid fraudsters.
             if data.get('receiver_email') != self.acquirer_id.paypal_email_account:
                 invalid_parameters.append(('receiver_email', data.get('receiver_email'), self.acquirer_id.paypal_email_account))

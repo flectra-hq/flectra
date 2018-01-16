@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from odoo.addons.stock.tests.common import TestStockCommon
-from odoo.tools import mute_logger, float_round
-from odoo.exceptions import UserError
+from flectra.addons.stock.tests.common import TestStockCommon
+from flectra.tools import mute_logger, float_round
+from flectra.exceptions import UserError
 
 class TestStockFlow(TestStockCommon):
 
-    @mute_logger('odoo.addons.base.ir.ir_model', 'odoo.models')
+    @mute_logger('flectra.addons.base.ir.ir_model', 'flectra.models')
     def test_00_picking_create_and_transfer_quantity(self):
         """ Basic stock operation on incoming and outgoing shipment. """
         LotObj = self.env['stock.production.lot']

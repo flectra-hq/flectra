@@ -1,4 +1,4 @@
-odoo.define('website_sale.add_product', function (require) {
+flectra.define('website_sale.add_product', function (require) {
 'use strict';
 
 var core = require('web.core');
@@ -48,7 +48,7 @@ WebsiteNewMenu.include({
 
 //==============================================================================
 
-odoo.define('website_sale.editor', function (require) {
+flectra.define('website_sale.editor', function (require) {
 'use strict';
 
 require('web.dom_ready');

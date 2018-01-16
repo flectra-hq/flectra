@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 import time
 
-import odoo
-from odoo import fields
-from odoo.tools import float_compare, mute_logger, test_reports
-from odoo.addons.point_of_sale.tests.common import TestPointOfSaleCommon
+import flectra
+from flectra import fields
+from flectra.tools import float_compare, mute_logger, test_reports
+from flectra.addons.point_of_sale.tests.common import TestPointOfSaleCommon
 
 
-@odoo.tests.common.at_install(False)
-@odoo.tests.common.post_install(True)
+@flectra.tests.common.at_install(False)
+@flectra.tests.common.post_install(True)
 class TestPointOfSaleFlow(TestPointOfSaleCommon):
 
     def test_register_open(self):
@@ -589,7 +589,7 @@ class TestPointOfSaleFlow(TestPointOfSaleCommon):
         self.assertFalse(self.pos_config.current_session_id, "Current session not properly recomputed")
 
         # I keep selling after the session is closed
-        with mute_logger('odoo.addons.point_of_sale.models.pos_order'):
+        with mute_logger('flectra.addons.point_of_sale.models.pos_order'):
             self.PosOrder.create_from_ui([zucchini_order, onions_order])
         rescue_session = self.PosSession.search([
             ('config_id', '=', self.pos_config.id),

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 from datetime import datetime, timedelta
 from hashlib import sha256
 from json import dumps
 import pytz
 
-from odoo import models, api, fields
-from odoo.fields import Datetime
-from odoo.tools.translate import _
-from odoo.exceptions import UserError
+from flectra import models, api, fields
+from flectra.fields import Datetime
+from flectra.tools.translate import _
+from flectra.exceptions import UserError
 
 
 def ctx_tz(record, field):
@@ -180,7 +180,7 @@ class pos_order(models.Model):
                          From: %(start_order_name)s %(start_order_ref)s recorded on %(start_order_date)s
                          To: %(end_order_name)s %(end_order_ref)s recorded on %(end_order_date)s
 
-                         For this report to be legally meaningful, please download your certification from your customer account on Odoo.com (Only for Odoo Enterprise users).'''
+                         For this report to be legally meaningful, please download your certification from your customer account on Flectra.com (Only for Flectra Enterprise users).'''
                          ) % report_dict)
 
 

@@ -1,4 +1,4 @@
-odoo.define('web.Session', function (require) {
+flectra.define('web.Session', function (require) {
 "use strict";
 
 var ajax = require('web.ajax');
@@ -30,7 +30,7 @@ var Session = core.Class.extend(mixins.EventDispatcherMixin, {
     init: function (parent, origin, options) {
         mixins.EventDispatcherMixin.init.call(this, parent);
         options = options || {};
-        this.module_list = (options.modules && options.modules.slice()) || (window.odoo._modules && window.odoo._modules.slice()) || [];
+        this.module_list = (options.modules && options.modules.slice()) || (window.flectra._modules && window.flectra._modules.slice()) || [];
         this.server = null;
         this.session_id = options.session_id || null;
         this.override_session = options.override_session || !!options.session_id || false;
@@ -196,7 +196,7 @@ var Session = core.Class.extend(mixins.EventDispatcherMixin, {
      */
     load_modules: function () {
         var self = this;
-        var modules = odoo._modules;
+        var modules = flectra._modules;
         var all_modules = _.uniq(self.module_list.concat(modules));
         var to_load = _.difference(modules, self.module_list).join(',');
         this.module_list = all_modules;
@@ -287,7 +287,7 @@ var Session = core.Class.extend(mixins.EventDispatcherMixin, {
      * @returns {$.Deferred} deferred indicating the session is done reloading
      */
     session_reload: function () {
-        var result = _.extend({}, window.odoo.session_info);
+        var result = _.extend({}, window.flectra.session_info);
         delete result.session_id;
         _.extend(this, result);
         return $.when();
@@ -328,7 +328,7 @@ var Session = core.Class.extend(mixins.EventDispatcherMixin, {
         options = _.clone(options || {});
         var shadow = options.shadow || false;
         options.headers = _.extend({}, options.headers);
-        if (odoo.debug) {
+        if (flectra.debug) {
             options.headers["X-Debug-Mode"] = $.deparam($.param.querystring()).debug;
         }
 

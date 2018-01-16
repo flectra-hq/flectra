@@ -1,4 +1,4 @@
-odoo.define('auth_signup.signup', function (require) {
+flectra.define('auth_signup.signup', function (require) {
     'use strict';
 
 var base = require('web_editor.base');

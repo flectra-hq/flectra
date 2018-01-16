@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import base64
 from email.utils import formataddr
 
 import re
 import uuid
 
-from odoo import _, api, fields, models, modules, tools
-from odoo.exceptions import UserError
-from odoo.osv import expression
-from odoo.tools import ormcache
-from odoo.tools.safe_eval import safe_eval
+from flectra import _, api, fields, models, modules, tools
+from flectra.exceptions import UserError
+from flectra.osv import expression
+from flectra.tools import ormcache
+from flectra.tools.safe_eval import safe_eval
 
 
 class ChannelPartner(models.Model):

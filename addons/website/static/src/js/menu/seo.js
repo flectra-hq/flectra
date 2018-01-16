@@ -1,4 +1,4 @@
-odoo.define('website.seo', function (require) {
+flectra.define('website.seo', function (require) {
 'use strict';
 
 var core = require('web.core');

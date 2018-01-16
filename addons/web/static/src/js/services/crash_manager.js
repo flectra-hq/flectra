@@ -1,4 +1,4 @@
-odoo.define('web.CrashManager', function (require) {
+flectra.define('web.CrashManager', function (require) {
 "use strict";
 
 var ajax = require('web.ajax');
@@ -54,8 +54,8 @@ var CrashManager = core.Class.extend({
             new (handler)(this, error).display();
             return;
         }
-        if (error.data.name === "odoo.http.SessionExpiredException" || error.data.name === "werkzeug.exceptions.Forbidden") {
-            this.show_warning({type: _t("Odoo Session Expired"), data: {message: _t("Your Odoo session expired. Please refresh the current web page.")}});
+        if (error.data.name === "flectra.http.SessionExpiredException" || error.data.name === "werkzeug.exceptions.Forbidden") {
+            this.show_warning({type: _t("Flectra Session Expired"), data: {message: _t("Your Flectra session expired. Please refresh the current web page.")}});
             return;
         }
         if (_.has(map_title, error.data.exception_type)) {
@@ -105,7 +105,7 @@ var CrashManager = core.Class.extend({
         }
         new Dialog(this, {
             size: 'medium',
-            title: _.str.capitalize(error.type || error.message) || _t("Odoo Warning"),
+            title: _.str.capitalize(error.type || error.message) || _t("Flectra Warning"),
             subtitle: error.data.title,
             $content: $(QWeb.render('CrashManager.warning', {error: error}))
         }).open();
@@ -115,7 +115,7 @@ var CrashManager = core.Class.extend({
             return;
         }
         var dialog = new Dialog(this, {
-            title: _.str.capitalize(error.type || error.message) || _t("Odoo Error"),
+            title: _.str.capitalize(error.type || error.message) || _t("Flectra Error"),
             $content: $(QWeb.render('CrashManager.error', {error: error}))
         });
 
@@ -153,7 +153,7 @@ var CrashManager = core.Class.extend({
     },
     show_message: function(exception) {
         this.show_error({
-            type: _t("Odoo Client Error"),
+            type: _t("Flectra Client Error"),
             message: exception,
             data: {debug: ""}
         });
@@ -194,7 +194,7 @@ var RedirectWarningHandler = Dialog.extend(ExceptionHandler, {
 
         new Dialog(this, {
             size: 'medium',
-            title: _.str.capitalize(error.type) || _t("Odoo Warning"),
+            title: _.str.capitalize(error.type) || _t("Flectra Warning"),
             buttons: [
                 {text: error.data.arguments[2], classes : "btn-primary", click: function() {
                     window.location.href = '#action='+error.data.arguments[1];
@@ -207,12 +207,12 @@ var RedirectWarningHandler = Dialog.extend(ExceptionHandler, {
     }
 });
 
-core.crash_registry.add('odoo.exceptions.RedirectWarning', RedirectWarningHandler);
+core.crash_registry.add('flectra.exceptions.RedirectWarning', RedirectWarningHandler);
 
 return CrashManager;
 });
 
-odoo.define('web.crash_manager', function (require) {
+flectra.define('web.crash_manager', function (require) {
 "use strict";
 
 var CrashManager = require('web.CrashManager');

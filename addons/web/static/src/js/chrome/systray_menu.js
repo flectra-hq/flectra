@@ -1,4 +1,4 @@
-odoo.define('web.SystrayMenu', function (require) {
+flectra.define('web.SystrayMenu', function (require) {
 "use strict";
 
 var Widget = require('web.Widget');

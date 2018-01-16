@@ -1,4 +1,4 @@
-odoo.define('payment.website_payment', function (require) {
+flectra.define('payment.website_payment', function (require) {
 "use strict";
 
 require('web.dom_ready');

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from itertools import groupby
 from operator import itemgetter
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.tools import pycompat
+from flectra import api, fields, models, _
+from flectra.exceptions import UserError
+from flectra.tools import pycompat
 
 FIELD_STATES = [('clear', 'Clear'), ('anonymized', 'Anonymized'), ('not_existing', 'Not Existing'), ('new', 'New')]
 ANONYMIZATION_HISTORY_STATE = [('started', 'Started'), ('done', 'Done'), ('in_exception', 'Exception occured')]

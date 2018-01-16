@@ -1,4 +1,4 @@
-odoo.define('web_editor.root_widget', function (require) {
+flectra.define('web_editor.root_widget', function (require) {
 'use strict';
 
 var Class = require('web.Class');
@@ -101,7 +101,7 @@ var RootWidget = Widget.extend({
      * Called when the linked registry is updated after this `RootWidget`
      *
      * @private
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      */
     _onRegistryUpdate: function (ev) {
         ev.stopPropagation();

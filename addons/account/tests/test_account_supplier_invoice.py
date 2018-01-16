@@ -1,5 +1,5 @@
-from odoo.addons.account.tests.account_test_classes import AccountingTestCase
-from odoo.exceptions import Warning
+from flectra.addons.account.tests.account_test_classes import AccountingTestCase
+from flectra.exceptions import Warning
 
 class TestAccountSupplierInvoice(AccountingTestCase):
 

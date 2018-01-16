@@ -1,4 +1,4 @@
-odoo.define('report.utils', function (require) {
+flectra.define('report.utils', function (require) {
 'use strict';
 
 function get_protocol_from_url (url) {

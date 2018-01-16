@@ -1,4 +1,4 @@
-odoo.define('project_timesheet.project_plan', function (require) {
+flectra.define('project_timesheet.project_plan', function (require) {
 'use strict';
 
 var ajax = require('web.ajax');

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import hashlib
 
-from odoo import api, models
-from odoo.tools import pycompat
-from odoo.tools import html_escape as escape
+from flectra import api, models
+from flectra.tools import pycompat
+from flectra.tools import html_escape as escape
 
 
 class Image(models.AbstractModel):

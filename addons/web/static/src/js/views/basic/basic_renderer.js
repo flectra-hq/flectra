@@ -1,4 +1,4 @@
-odoo.define('web.BasicRenderer', function (require) {
+flectra.define('web.BasicRenderer', function (require) {
 "use strict";
 
 /**
@@ -83,7 +83,7 @@ var BasicRenderer = AbstractRenderer.extend({
      * @param {Object} state
      * @param {string} id
      * @param {string[]} fields
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      * @returns {Deferred<AbstractField[]>} resolved with the list of widgets
      *                                      that have been reset
      */
@@ -677,11 +677,11 @@ var BasicRenderer = AbstractRenderer.extend({
     /**
      * When someone presses the TAB/UP/DOWN/... key in a widget, it is nice to
      * be able to navigate in the view (default browser behaviors are disabled
-     * by Odoo).
+     * by Flectra).
      *
      * @abstract
      * @private
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      */
     _onNavigationMove: function (ev) {},
 });

@@ -1,5 +1,5 @@
 
-odoo.define('hr_attendance.employee_kanban_view_handler', function(require) {
+flectra.define('hr_attendance.employee_kanban_view_handler', function(require) {
 "use strict";
 
 var KanbanRecord = require('web.KanbanRecord');

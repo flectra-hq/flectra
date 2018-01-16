@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models
+from flectra import api, models
 
 
 class AccountInvoice(models.Model):

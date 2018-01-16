@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo.tests import common
-from odoo.tools import float_compare
+from flectra.tests import common
+from flectra.tools import float_compare
 
 
 @common.at_install(False)

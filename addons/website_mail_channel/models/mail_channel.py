@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import hmac
 
 from werkzeug import urls
 
-from odoo import api, models
-from odoo.tools.safe_eval import safe_eval
-from odoo.addons.http_routing.models.ir_http import slug
+from flectra import api, models
+from flectra.tools.safe_eval import safe_eval
+from flectra.addons.http_routing.models.ir_http import slug
 
 
 class MailGroup(models.Model):

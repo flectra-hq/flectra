@@ -1,4 +1,4 @@
-odoo.define('pos_restaurant.multiprint', function (require) {
+flectra.define('pos_restaurant.multiprint', function (require) {
 "use strict";
 
 var models = require('point_of_sale.models');
@@ -13,7 +13,7 @@ var Printer = core.Class.extend(mixins.PropertiesMixin,{
     init: function(parent,options){
         mixins.PropertiesMixin.init.call(this,parent);
         options = options || {};
-        var url = options.url || 'http://localhost:8069';
+        var url = options.url || 'http://localhost:7073';
         this.connection = new Session(undefined,url, { use_cors: true});
         this.host       = url;
         this.receipt_queue = [];
@@ -59,7 +59,7 @@ models.load_models({
                     url = 'http://'+url;
                 }
                 if(url.indexOf(':',url.indexOf('//')+2) < 0){
-                    url = url+':8069';
+                    url = url+':7073';
                 }
                 var printer = new Printer(self,{url:url});
                 printer.config = printers[i];

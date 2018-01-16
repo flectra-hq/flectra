@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
 
-from odoo import api, fields, models
-from odoo.tools import float_utils
+from flectra import api, fields, models
+from flectra.tools import float_utils
 
 class ResourceMixin(models.AbstractModel):
     _name = "resource.mixin"

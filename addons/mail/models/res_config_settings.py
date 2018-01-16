@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import datetime
 
 from werkzeug import urls
 
-from odoo import api, fields, models, tools
+from flectra import api, fields, models, tools
 
 
 class ResConfigSettings(models.TransientModel):
@@ -15,7 +15,7 @@ class ResConfigSettings(models.TransientModel):
 
     fail_counter = fields.Integer('Fail Mail', readonly=True)
     alias_domain = fields.Char('Alias Domain', help="If you have setup a catch-all email domain redirected to "
-                               "the Odoo server, enter the domain name here.")
+                               "the Flectra server, enter the domain name here.")
 
     @api.model
     def get_values(self):

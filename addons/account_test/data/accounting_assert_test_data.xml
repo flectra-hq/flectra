@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<flectra>
 
     <record model="accounting.assert.test" id="account_test_01">
         <field name="sequence">1</field>
@@ -100,7 +100,7 @@ if res:
         <field name="name">Test 6 : Invoices status</field>
         <field name="desc">Check that paid/reconciled invoices are not in 'Open' state</field>
         <field name="code_exec"><![CDATA[
-from odoo import _
+from flectra import _
 res = []
 column_order = ['number','id','name','state']
 if reconciled_inv():
@@ -137,4 +137,4 @@ if result:
   result.insert(0,_('* Here is the list of inactive partners and movement lines that are not correct: '))
 ]]></field>
     </record> -->
-</odoo>
+</flectra>

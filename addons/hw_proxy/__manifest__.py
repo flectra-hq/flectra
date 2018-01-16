@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Hardware Proxy',
     'category': 'Point Of Sale',
     'sequence': 6,
     'summary': 'Connect the Web Client to Hardware Peripherals',
-    'website': 'https://www.odoo.com/page/point-of-sale',
+    'website': 'https://flectrahq.com/page/point-of-sale',
     'description': """
 Hardware Poxy
 =============

@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import base64
 import logging
 import werkzeug
 
-from odoo import http, _
-from odoo.exceptions import AccessError, UserError
-from odoo.http import request
-from odoo.addons.http_routing.models.ir_http import slug
-from odoo.addons.website.models.ir_http import sitemap_qs2dom
+from flectra import http, _
+from flectra.exceptions import AccessError, UserError
+from flectra.http import request
+from flectra.addons.http_routing.models.ir_http import slug
+from flectra.addons.website.models.ir_http import sitemap_qs2dom
 
 _logger = logging.getLogger(__name__)
 

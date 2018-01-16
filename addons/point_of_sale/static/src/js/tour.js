@@ -1,4 +1,4 @@
-odoo.define('point_of_sale.tour', function(require) {
+flectra.define('point_of_sale.tour', function(require) {
 "use strict";
 
 var core = require('web.core');

@@ -1,4 +1,4 @@
-odoo.define('lunch.tests', function (require) {
+flectra.define('lunch.tests', function (require) {
 "use strict";
 
 var FormView = require('web.FormView');

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 import json
@@ -8,9 +8,9 @@ import logging
 import requests
 from werkzeug import urls
 
-from odoo import api, fields, models, registry, _
-from odoo.exceptions import UserError
-from odoo.http import request
+from flectra import api, fields, models, registry, _
+from flectra.exceptions import UserError
+from flectra.http import request
 
 
 _logger = logging.getLogger(__name__)
@@ -70,7 +70,7 @@ class GoogleService(models.TransientModel):
 
     @api.model
     def _get_authorize_uri(self, from_url, service, scope=False):
-        """ This method return the url needed to allow this instance of Odoo to access to the scope
+        """ This method return the url needed to allow this instance of Flectra to access to the scope
             of gmail specified as parameters
         """
         state = {
@@ -80,7 +80,7 @@ class GoogleService(models.TransientModel):
         }
 
         get_param = self.env['ir.config_parameter'].sudo().get_param
-        base_url = get_param('web.base.url', default='http://www.odoo.com?NoBaseUrl')
+        base_url = get_param('web.base.url', default='http://www.flectra.com?NoBaseUrl')
         client_id = get_param('google_%s_client_id' % (service,), default=False)
 
         encoded_params = urls.url_encode({
@@ -100,7 +100,7 @@ class GoogleService(models.TransientModel):
             not be redirected.
         """
         get_param = self.env['ir.config_parameter'].sudo().get_param
-        base_url = get_param('web.base.url', default='http://www.odoo.com?NoBaseUrl')
+        base_url = get_param('web.base.url', default='http://www.flectra.com?NoBaseUrl')
         client_id = get_param('google_%s_client_id' % (service,), default=False)
         client_secret = get_param('google_%s_client_secret' % (service,), default=False)
 

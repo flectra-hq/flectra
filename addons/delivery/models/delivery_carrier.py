@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 import psycopg2
 
-from odoo import api, fields, models, registry, SUPERUSER_ID, _
+from flectra import api, fields, models, registry, SUPERUSER_ID, _
 
 _logger = logging.getLogger(__name__)
 
@@ -74,7 +74,7 @@ class DeliveryCarrier(models.Model):
             'domain': [['name', 'ilike', 'delivery_']],
             'type': 'ir.actions.act_window',
             'help': _('''<p class="oe_view_nocontent">
-                    Buy Odoo Enterprise now to get more providers.
+                    Buy Flectra Enterprise now to get more providers.
                 </p>'''),
         }
 

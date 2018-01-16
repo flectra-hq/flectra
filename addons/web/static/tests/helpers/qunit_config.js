@@ -4,12 +4,12 @@
 /**
  * QUnit Config
  *
- * The Odoo javascript test framework is based on QUnit (http://qunitjs.com/).
+ * The Flectra javascript test framework is based on QUnit (http://qunitjs.com/).
  * This file is necessary to setup Qunit and to prepare its interactions with
- * Odoo.  It has to be loaded before any tests are defined.
+ * Flectra.  It has to be loaded before any tests are defined.
  *
- * Note that it is not an Odoo module, because we want this code to be executed
- * as soon as possible, not whenever the Odoo module system feels like it.
+ * Note that it is not an Flectra module, because we want this code to be executed
+ * as soon as possible, not whenever the Flectra module system feels like it.
  */
 
 
@@ -23,7 +23,7 @@ QUnit.config.requireExpects = true;
 /**
  * not important in normal mode, but in debug=assets, the files are loaded
  * asynchroneously, which can lead to various issues with QUnit... Notice that
- * this is done outside of odoo modules, otherwise the setting would not take
+ * this is done outside of flectra modules, otherwise the setting would not take
  * effect on time.
  */
 QUnit.config.autostart = false;

@@ -1,4 +1,4 @@
-odoo.define('web_editor.ace', function (require) {
+flectra.define('web_editor.ace', function (require) {
 'use strict';
 
 var ajax = require('web.ajax');
@@ -113,7 +113,7 @@ var ViewEditor = Widget.extend({
     template: 'web_editor.ace_view_editor',
     xmlDependencies: ['/web_editor/static/src/xml/ace.xml'],
     jsLibs: [
-        '/web/static/lib/ace/ace.odoo-custom.js',
+        '/web/static/lib/ace/ace.flectra-custom.js',
         [
             '/web/static/lib/ace/mode-xml.js',
             '/web/static/lib/ace/mode-less.js',
@@ -818,7 +818,7 @@ var ViewEditor = Widget.extend({
     },
     /**
      * Called when the reset button is clicked -> resets the resources to its
-     * original standard odoo state.
+     * original standard flectra state.
      *
      * @private
      */

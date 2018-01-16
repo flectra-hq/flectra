@@ -1,4 +1,4 @@
-odoo.define('website.website', function (require) {
+flectra.define('website.website', function (require) {
 'use strict';
 
 var weContext = require('web_editor.context');

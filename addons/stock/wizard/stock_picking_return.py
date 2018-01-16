@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See ICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See ICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
-from odoo.addons import decimal_precision as dp
-from odoo.exceptions import UserError
-from odoo.tools.float_utils import float_round
+from flectra import api, fields, models, _
+from flectra.addons import decimal_precision as dp
+from flectra.exceptions import UserError
+from flectra.tools.float_utils import float_round
 
 
 class ReturnPickingLine(models.TransientModel):

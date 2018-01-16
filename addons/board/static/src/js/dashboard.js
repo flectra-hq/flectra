@@ -1,4 +1,4 @@
-odoo.define('board.dashboard', function (require) {
+flectra.define('board.dashboard', function (require) {
 "use strict";
 
 var Context = require('web.Context');
@@ -77,7 +77,7 @@ FormController.include({
 
     /**
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onChangeLayout: function (event) {
         var self = this;
@@ -110,7 +110,7 @@ FormController.include({
      * record in a different breadcrumb)
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onSwitchView: function (event) {
         event.stopPropagation();

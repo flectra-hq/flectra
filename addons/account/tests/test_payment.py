@@ -1,4 +1,4 @@
-from odoo.addons.account.tests.account_test_classes import AccountingTestCase
+from flectra.addons.account.tests.account_test_classes import AccountingTestCase
 import time
 
 class TestPayment(AccountingTestCase):

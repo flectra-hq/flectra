@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo.tests.common import HttpCase
-from odoo.exceptions import ValidationError
+from flectra.tests.common import HttpCase
+from flectra.exceptions import ValidationError
 
 class AccountingTestCase(HttpCase):
     """ This class extends the base TransactionCase, in order to test the

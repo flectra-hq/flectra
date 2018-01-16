@@ -1,4 +1,4 @@
-odoo.define('web.base_import_tests', function (require) {
+flectra.define('web.base_import_tests', function (require) {
 "use strict";
 
 var KanbanView = require('web.KanbanView');
@@ -106,4 +106,4 @@ QUnit.test('kanban without import button', function(assert) {
     kanban.destroy();
 });
 
-});
+});                

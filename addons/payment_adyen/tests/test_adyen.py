@@ -2,8 +2,8 @@
 
 from lxml import objectify
 
-from odoo.addons.payment.tests.common import PaymentAcquirerCommon
-from odoo.addons.payment_adyen.controllers.main import AdyenController
+from flectra.addons.payment.tests.common import PaymentAcquirerCommon
+from flectra.addons.payment_adyen.controllers.main import AdyenController
 from werkzeug import urls
 
 

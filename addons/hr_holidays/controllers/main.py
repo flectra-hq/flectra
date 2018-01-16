@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.mail.controllers.main import MailController
-from odoo import http
+from flectra.addons.mail.controllers.main import MailController
+from flectra import http
 
 
 class HrHolidaysController(http.Controller):

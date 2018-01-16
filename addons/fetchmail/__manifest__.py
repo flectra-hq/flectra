@@ -1,5 +1,5 @@
 #-*- coding:utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Email Gateway',
@@ -34,7 +34,7 @@ same *conversation* document.
 For more specific needs, you may also assign custom-defined actions
 (technically: Server Actions) to be triggered for each incoming mail.
     """,
-    'website': 'https://www.odoo.com/page/mailing',
+    'website': 'https://flectrahq.com/page/mailing',
     'data': [
         'data/fetchmail_data.xml',
         'security/ir.model.access.csv',

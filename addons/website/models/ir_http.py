@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 import traceback
@@ -10,16 +10,16 @@ import werkzeug
 import werkzeug.routing
 import werkzeug.utils
 
-import odoo
-from odoo import api, models
-from odoo import SUPERUSER_ID
-from odoo.http import request
-from odoo.tools import config
-from odoo.exceptions import QWebException
-from odoo.tools.safe_eval import safe_eval
-from odoo.osv.expression import FALSE_DOMAIN
+import flectra
+from flectra import api, models
+from flectra import SUPERUSER_ID
+from flectra.http import request
+from flectra.tools import config
+from flectra.exceptions import QWebException
+from flectra.tools.safe_eval import safe_eval
+from flectra.osv.expression import FALSE_DOMAIN
 
-from odoo.addons.http_routing.models.ir_http import ModelConverter, _guess_mimetype
+from flectra.addons.http_routing.models.ir_http import ModelConverter, _guess_mimetype
 
 logger = logging.getLogger(__name__)
 
@@ -189,12 +189,12 @@ class Http(models.AbstractModel):
                 else:
                     code = exception.code
 
-            if isinstance(exception, odoo.exceptions.AccessError):
+            if isinstance(exception, flectra.exceptions.AccessError):
                 code = 403
 
             if isinstance(exception, QWebException):
                 values.update(qweb_exception=exception)
-                if isinstance(exception.qweb.get('cause'), odoo.exceptions.AccessError):
+                if isinstance(exception.qweb.get('cause'), flectra.exceptions.AccessError):
                     code = 403
 
             if code == 500:

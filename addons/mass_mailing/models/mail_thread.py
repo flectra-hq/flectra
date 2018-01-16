@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 import re
 
-from odoo import api, models, tools
-from odoo.tools import decode_smtp_header, decode_message_header
+from flectra import api, models, tools
+from flectra.tools import decode_smtp_header, decode_message_header
 
 _logger = logging.getLogger(__name__)
 

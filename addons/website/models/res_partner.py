@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import werkzeug
 
-from odoo import api, models
+from flectra import api, models
 
 
 def urlplus(url, params):

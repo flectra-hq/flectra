@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import uuid
 
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
+from flectra import api, fields, models, _
+from flectra.exceptions import ValidationError
 
 
 class AccountCashboxLine(models.Model):
@@ -113,10 +113,10 @@ class PosConfig(models.Model):
     uuid = fields.Char(readonly=True, default=lambda self: str(uuid.uuid4()),
         help='A globally unique identifier for this pos configuration, used to prevent conflicts in client-generated data.')
     sequence_id = fields.Many2one('ir.sequence', string='Order IDs Sequence', readonly=True,
-        help="This sequence is automatically created by Odoo but you can change it "
+        help="This sequence is automatically created by Flectra but you can change it "
         "to customize the reference numbers of your orders.", copy=False)
     sequence_line_id = fields.Many2one('ir.sequence', string='Order Line IDs Sequence', readonly=True,
-        help="This sequence is automatically created by Odoo but you can change it "
+        help="This sequence is automatically created by Flectra but you can change it "
         "to customize the reference numbers of your orders lines.", copy=False)
     session_ids = fields.One2many('pos.session', 'config_id', string='Sessions')
     current_session_id = fields.Many2one('pos.session', compute='_compute_current_session', string="Current Session")

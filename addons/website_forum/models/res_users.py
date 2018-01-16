@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import hashlib
 
@@ -7,7 +7,7 @@ from datetime import datetime
 
 from werkzeug import urls
 
-from odoo import api, fields, models
+from flectra import api, fields, models
 
 
 class Users(models.Model):

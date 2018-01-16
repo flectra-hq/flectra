@@ -1,4 +1,4 @@
-odoo.define('website_forum.website_forum', function (require) {
+flectra.define('website_forum.website_forum', function (require) {
     'use strict';
 
     require('web.dom_ready');
@@ -271,7 +271,7 @@ odoo.define('website_forum.website_forum', function (require) {
         var display_error = function(){
             var $warning = $('<div class="alert alert-danger alert-dismissable" style="position:absolute; margin-top: -180px; margin-left: 90px;">'+
                 '<button type="button" class="close notification_close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
-                'Please enter valid URL. Example: http://www.odoo.com'+
+                'Please enter valid URL. Example: http://www.flectra.com'+
                 '</div>');
             $link.parent().append($warning);
             $link.parents('form').find('button')[0].disabled = true;

@@ -1,4 +1,4 @@
-odoo.define('point_of_sale.tour.pricelist', function (require) {
+flectra.define('point_of_sale.tour.pricelist', function (require) {
     "use strict";
 
     var Tour = require('web_tour.tour');
@@ -205,7 +205,7 @@ odoo.define('point_of_sale.tour.pricelist', function (require) {
     Tour.register('pos_pricelist', { test: true, url: '/pos/web' }, steps);
 });
 
-odoo.define('point_of_sale.tour.acceptance', function (require) {
+flectra.define('point_of_sale.tour.acceptance', function (require) {
     "use strict";
 
     var Tour = require("web_tour.tour");

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from collections import OrderedDict
 
-from odoo import fields, models, _
+from flectra import fields, models, _
 
 
 class ProductAttributeCategory(models.Model):

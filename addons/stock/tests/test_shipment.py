@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo.addons.stock.tests.common2 import TestStockCommon
+from flectra.addons.stock.tests.common2 import TestStockCommon
 
 
 class TestInventory(TestStockCommon):

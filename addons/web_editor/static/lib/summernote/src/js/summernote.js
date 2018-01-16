@@ -6,7 +6,7 @@ define([
   'summernote/defaults',
   'summernote/EventHandler',
   'summernote/Renderer',
-  'summernote/core/key' // ODOO: change for override
+  'summernote/core/key' // FLECTRA: change for override
 ], function (agent, list, dom, range,
              defaults, EventHandler, Renderer, key) {
 
@@ -47,7 +47,7 @@ define([
       list : list,
       dom: dom,
       range: range,
-      key: key // ODOO: change for override
+      key: key // FLECTRA: change for override
     },
     /** 
      * @property {Object} 

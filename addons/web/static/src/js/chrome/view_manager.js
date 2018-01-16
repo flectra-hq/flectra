@@ -1,4 +1,4 @@
-odoo.define('web.ViewManager', function (require) {
+flectra.define('web.ViewManager', function (require) {
 "use strict";
 
 var Context = require('web.Context');

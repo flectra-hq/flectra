@@ -1,4 +1,4 @@
-odoo.define('barcodes.BarcodeParser', function (require) {
+flectra.define('barcodes.BarcodeParser', function (require) {
 "use strict";
 
 var Class = require('web.Class');

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models
+from flectra import api, models
 
 # !! Attention, this is a hack of a hack, do not try this at home !!
 # This is done because website_sale defines the website_description
@@ -17,7 +17,7 @@ from odoo import api, models
 # This is hotfixed by overriding the unlink method so as to not delete
 # the website_description field if website_sale is uninstalled, it's
 # an ugly hack but it works and big changes can't be done to the ORM
-# in stable versions, Odoo v12+ will properly fix this
+# in stable versions, Flectra v12+ will properly fix this
 
 
 class IrModelFields(models.Model):

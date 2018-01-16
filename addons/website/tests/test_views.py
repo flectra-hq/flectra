@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 try:
     from itertools import zip_longest
@@ -10,7 +10,7 @@ import unittest
 from lxml import etree as ET, html
 from lxml.html import builder as h
 
-from odoo.tests import common
+from flectra.tests import common
 
 
 def attrs(**kwargs):

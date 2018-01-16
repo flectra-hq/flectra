@@ -1,4 +1,4 @@
-odoo.define('web.QWeb', function (require) {
+flectra.define('web.QWeb', function (require) {
 "use strict";
 
 var translation = require('web.translation');
@@ -24,7 +24,7 @@ function QWeb(debug, default_dict, enableTranslation) {
         '_t' : translation._t,
         '__debug__': debug,
         'moment': function(date) { return new moment(date); },
-        'csrf_token': odoo.csrf_token,
+        'csrf_token': flectra.csrf_token,
     });
     qweb.debug = debug;
     qweb.preprocess_node = enableTranslation ? preprocess_node : function () {};

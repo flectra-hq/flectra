@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import werkzeug.urls
 
-from odoo import fields
+from flectra import fields
 
-from odoo import http
-from odoo.http import request
-from odoo.addons.http_routing.models.ir_http import unslug
-from odoo.tools.translate import _
+from flectra import http
+from flectra.http import request
+from flectra.addons.http_routing.models.ir_http import unslug
+from flectra.tools.translate import _
 
 
 class WebsiteMembership(http.Controller):

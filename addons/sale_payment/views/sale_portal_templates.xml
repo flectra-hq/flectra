@@ -1,4 +1,4 @@
-<odoo>
+<flectra>
     <template id="portal_my_orders_payment" name="Payment on my orders" inherit_id="sale.portal_order_page">
         <xpath expr="//t[@name='portal_confirmation_sign']" position="after">
             <t t-if="not invoices and order.state in ('sent', 'sale') and portal_confirmation == 'pay' and order.payment_tx_id.state != 'done'" name="portal_confirmation_pay">
@@ -105,4 +105,4 @@
             </t>
         </xpath>
     </template>
-</odoo>
+</flectra>

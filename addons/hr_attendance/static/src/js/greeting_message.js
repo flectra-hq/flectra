@@ -1,4 +1,4 @@
-odoo.define('hr_attendance.greeting_message', function (require) {
+flectra.define('hr_attendance.greeting_message', function (require) {
 "use strict";
 
 var core = require('web.core');

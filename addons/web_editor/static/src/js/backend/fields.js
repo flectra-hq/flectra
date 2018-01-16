@@ -1,4 +1,4 @@
-odoo.define('web_editor.backend', function (require) {
+flectra.define('web_editor.backend', function (require) {
 'use strict';
 
 var AbstractField = require('web.AbstractField');
@@ -19,7 +19,7 @@ var _t = core._t;
 /**
  * FieldTextHtmlSimple Widget
  * Intended to display HTML content. This widget uses the summernote editor
- * improved by odoo.
+ * improved by flectra.
  *
  */
 var FieldTextHtmlSimple = basic_fields.DebouncedField.extend(TranslatableFieldMixin, {
@@ -104,7 +104,7 @@ var FieldTextHtmlSimple = basic_fields.DebouncedField.extend(TranslatableFieldMi
             prettifyHtml: false,
             styleWithSpan: false,
             inlinemedia: ['p'],
-            lang: "odoo",
+            lang: "flectra",
             onChange: this._doDebouncedAction.bind(this),
         };
         if (config.debug) {
@@ -224,16 +224,16 @@ var FieldTextHtml = AbstractField.extend({
         this.editorLoadedDeferred = $.Deferred();
         this.contentLoadedDeferred = $.Deferred();
         this.callback = _.uniqueId('FieldTextHtml_');
-        window.odoo[this.callback+"_editor"] = function (EditorBar) {
+        window.flectra[this.callback+"_editor"] = function (EditorBar) {
             setTimeout(function () {
                 self.on_editor_loaded(EditorBar);
             },0);
         };
-        window.odoo[this.callback+"_content"] = function () {
+        window.flectra[this.callback+"_content"] = function () {
             self.on_content_loaded();
         };
-        window.odoo[this.callback+"_updown"] = null;
-        window.odoo[this.callback+"_downup"] = function () {
+        window.flectra[this.callback+"_updown"] = null;
+        window.flectra[this.callback+"_downup"] = function () {
             self.resize();
         };
 
@@ -317,7 +317,7 @@ var FieldTextHtml = AbstractField.extend({
         this.$body = $();
         this.$content = $();
         this.editor = false;
-        window.odoo[this.callback+"_updown"] = null;
+        window.flectra[this.callback+"_updown"] = null;
         this.$iframe.attr("src", this.get_url());
     },
     on_content_loaded: function () {
@@ -333,7 +333,7 @@ var FieldTextHtml = AbstractField.extend({
     on_editor_loaded: function (EditorBar) {
         var self = this;
         this.editor = EditorBar;
-        if (this.value && window.odoo[self.callback+"_updown"] && !(this.$content.html()||"").length) {
+        if (this.value && window.flectra[self.callback+"_updown"] && !(this.$content.html()||"").length) {
             this.render();
         }
         this.editorLoadedDeferred.resolve();
@@ -365,9 +365,9 @@ var FieldTextHtml = AbstractField.extend({
             return;
         }
         if (this.mode === "edit") {
-            if (window.odoo[this.callback+"_updown"]) {
+            if (window.flectra[this.callback+"_updown"]) {
                 // FIXME
-                // window.odoo[this.callback+"_updown"](value, this.view.get_fields_values(), this.name);
+                // window.flectra[this.callback+"_updown"](value, this.view.get_fields_values(), this.name);
                 this.resize();
             }
         } else {
@@ -382,10 +382,10 @@ var FieldTextHtml = AbstractField.extend({
     },
     destroy: function () {
         $(window).off('resize', this.resize);
-        delete window.odoo[this.callback+"_editor"];
-        delete window.odoo[this.callback+"_content"];
-        delete window.odoo[this.callback+"_updown"];
-        delete window.odoo[this.callback+"_downup"];
+        delete window.flectra[this.callback+"_editor"];
+        delete window.flectra[this.callback+"_content"];
+        delete window.flectra[this.callback+"_updown"];
+        delete window.flectra[this.callback+"_downup"];
     },
 
     //--------------------------------------------------------------------------

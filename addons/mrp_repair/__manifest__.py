@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 
 {
@@ -22,7 +22,7 @@ The following topics are covered by this module:
     * Notes for the technician and for the final customer
 """,
     'depends': ['stock', 'sale_management', 'account'],
-    'website': 'https://www.odoo.com/page/manufacturing',
+    'website': 'https://flectrahq.com/page/manufacturing',
     'data': [
         'security/ir.model.access.csv',
         'security/mrp_repair_security.xml',

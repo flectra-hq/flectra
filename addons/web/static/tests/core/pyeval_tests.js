@@ -1,4 +1,4 @@
-odoo.define('web.pyEval_tests', function(require) {
+flectra.define('web.pyEval_tests', function(require) {
 "use strict";
 
 var Context = require('web.Context');

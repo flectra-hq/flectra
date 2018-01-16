@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Cancel Journal Entries',
@@ -21,7 +21,7 @@ It also operates on invoices, bank statements, payments ...
 
 Be careful with this module as it has audit implications. Cancelling accounting entries is not authorized in all countries.
 """,
-    'website': 'https://www.odoo.com/page/accounting',
+    'website': 'https://flectrahq.com/page/accounting',
     'depends': ['account'],
     'data': ['views/account_views.xml'],
     'demo': [],

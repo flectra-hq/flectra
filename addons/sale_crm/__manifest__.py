@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Opportunity to Quotation',
@@ -16,7 +16,7 @@ The case is then closed and linked to the generated sales order.
 We suggest you to install this module, if you installed both the sale and the crm
 modules.
     """,
-    'website': 'https://www.odoo.com/page/crm',
+    'website': 'https://flectrahq.com/page/crm',
     'depends': ['sale_management', 'crm'],
     'data': [
         'security/ir.model.access.csv',

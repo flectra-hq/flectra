@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Sales Management',
@@ -40,7 +40,7 @@ The Dashboard for the Sales Manager will include
 * My Quotations
 * Monthly Turnover (Graph)
     """,
-    'website': 'https://www.odoo.com/page/sales',
+    'website': 'https://flectrahq.com/page/sales',
     'depends': ['sale', 'account_invoicing'],
     'data': [
         'views/sale_management_views.xml',

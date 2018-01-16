@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 # Copyright (C) Quartile Limited
 
@@ -23,11 +23,11 @@ Note:
 requirements which might arise from POS implementation. [1]  You may not \
 need to use these at all under normal circumstances.
 
-[1] See https://github.com/odoo/odoo/pull/6470 for detail.
+[1] See https://github.com/flectra/flectra/pull/6470 for detail.
 
     """,
     'author': 'Quartile Limited',
-    'website': 'https://www.odoo-asia.com/',
+    'website': 'https://www.flectra-asia.com/',
     'depends': ['account'],
     'data': [
         'data/l10n_jp_chart_data.xml',

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<flectra>
         <record id="action_partner_deduplicate" model="ir.actions.act_window">
             <field name="name">Deduplicate Contacts</field>
             <field name="res_model">base.partner.merge.automatic.wizard</field>
@@ -22,7 +22,7 @@
                         <p class="oe_grey" attrs="{'invisible': [('state', '!=', ('option'))]}">
                             Select the list of fields used to search for
                             duplicated records. If you select several fields,
-                            Odoo will propose you to merge only those having
+                            Flectra will propose you to merge only those having
                             all these fields in common. (not one of the fields).
                         </p>
                         <group attrs="{'invisible': ['|', ('state', 'not in', ('selection', 'finished')), ('number_group', '=', 0)]}">
@@ -108,4 +108,4 @@
             key2="client_action_multi"
             view_mode="form"
             name="Merge Selected Contacts"/>
-</odoo>
+</flectra>

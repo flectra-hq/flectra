@@ -3,7 +3,7 @@
 #web_editor-top-edit {
     .o-position-absolute(0, 0, auto, 0);
     position: fixed;
-    height: @odoo-navbar-height;
+    height: @flectra-navbar-height;
     z-index: 1003;
 
     background-color: rgba(0,0,0,0);
@@ -44,7 +44,7 @@
             }
 
             &.btn-primary {
-                .button-variant(white, @odoo-brand-primary, @odoo-brand-primary);
+                .button-variant(white, @flectra-brand-primary, @flectra-brand-primary);
             }
             &.btn-default {
                 .button-variant(white, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
@@ -103,8 +103,8 @@ html[lang] > body.editor_enable [data-oe-translation-state] {
 
     #snippets_menu {
         .o-flex(0, 0, auto);
-        height: @odoo-navbar-height;
-        line-height: @odoo-navbar-height;
+        height: @flectra-navbar-height;
+        line-height: @flectra-navbar-height;
         margin: 0;
         padding: 0;
         background: @o-we-color-dark;
@@ -239,33 +239,33 @@ html[lang] > body.editor_enable [data-oe-translation-state] {
 // DROPZONES
 @-webkit-keyframes dropZoneInsert {
     to {
-        background-color: fade(@odoo-brand-primary, 20%);
+        background-color: fade(@flectra-brand-primary, 20%);
     }
 }
 @keyframes dropZoneInsert {
     to {
-        background-color: fade(@odoo-brand-primary, 20%);
+        background-color: fade(@flectra-brand-primary, 20%);
     }
 }
 #wrapwrap .oe_drop_zone {
-    background-color: fade(@odoo-brand-primary, 5%);
+    background-color: fade(@flectra-brand-primary, 5%);
     .o-animation(dropZoneInsert, 1s, linear, 0s, infinite, alternate);
 
     &.oe_insert {
-        @odoo-dropzone-size: 40px;
-        @odoo-dropzone-border-width: 2px;
-        @odoo-dropzone-border: @odoo-dropzone-border-width dashed @odoo-brand-primary;
+        @flectra-dropzone-size: 40px;
+        @flectra-dropzone-border-width: 2px;
+        @flectra-dropzone-border: @flectra-dropzone-border-width dashed @flectra-brand-primary;
 
         z-index: 999;
 
-        border: @odoo-dropzone-border;
+        border: @flectra-dropzone-border;
         border-top: none;
         border-bottom: none;
 
         position: relative;
         width: 100%;
-        height: @odoo-dropzone-size;
-        margin: -@odoo-dropzone-size/2 0;
+        height: @flectra-dropzone-size;
+        margin: -@flectra-dropzone-size/2 0;
 
         .o-transition(margin, 400ms, linear);
 
@@ -274,24 +274,24 @@ html[lang] > body.editor_enable [data-oe-translation-state] {
             display: block;
             width: 100%;
             height: 50%;
-            border-bottom: @odoo-dropzone-border;
+            border-bottom: @flectra-dropzone-border;
             box-sizing: content-box;
         }
 
         &.oe_vertical {
-            border: 2px dashed @odoo-brand-primary;
+            border: 2px dashed @flectra-brand-primary;
             border-left: none;
             border-right: none;
 
-            width: @odoo-dropzone-size;
+            width: @flectra-dropzone-size;
             float: left;
-            margin: 0 -@odoo-dropzone-size/2;
+            margin: 0 -@flectra-dropzone-size/2;
 
             &:after {
                 width: 50%;
                 height: 100%;
                 border-bottom: none;
-                border-right: @odoo-dropzone-border;
+                border-right: @flectra-dropzone-border;
             }
         }
     }
@@ -299,8 +299,8 @@ html[lang] > body.editor_enable [data-oe-translation-state] {
 
 // MANIPULATORS
 #oe_manipulators {
-    @odoo-handle-edge-size: 1px;
-    @odoo-handle-border-width: 1px;
+    @flectra-handle-edge-size: 1px;
+    @flectra-handle-border-width: 1px;
 
     position: relative;
 
@@ -475,7 +475,7 @@ html[lang] > body.editor_enable [data-oe-translation-state] {
                                     .o-position-absolute(@top: 5px, @left: 5px);
                                     content: "\f00c";
                                     font-family: "FontAwesome";
-                                    color: @odoo-brand-optional;
+                                    color: @flectra-brand-optional;
                                 }
                             }
                             &.dropdown-header {
@@ -534,8 +534,8 @@ html[lang] > body.editor_enable [data-oe-translation-state] {
 
         &.o_top_cover > .oe_overlay_options {
             bottom: auto;
-            top: @odoo-handle-border-width;
-            right: @odoo-handle-border-width;
+            top: @flectra-handle-border-width;
+            right: @flectra-handle-border-width;
         }
 
         // HANDLES
@@ -621,10 +621,10 @@ html[lang] > body.editor_enable [data-oe-translation-state] {
                 }
 
                 &.w {
-                    border-width: @odoo-handle-border-width;
+                    border-width: @flectra-handle-border-width;
                     border-right-width: 0;
                     cursor: e-resize;
-                    width: @odoo-handle-edge-size;
+                    width: @flectra-handle-edge-size;
                     .o-position-absolute(@o-handles-offset-to-hide, auto, -@o-handles-offset-to-hide, 0);
 
                     &:after {
@@ -636,18 +636,18 @@ html[lang] > body.editor_enable [data-oe-translation-state] {
                     }
                 }
                 &.e {
-                    border-right-width: @odoo-handle-border-width;
+                    border-right-width: @flectra-handle-border-width;
                     cursor: w-resize;
-                    width: @odoo-handle-edge-size;
+                    width: @flectra-handle-edge-size;
                     .o-position-absolute(@o-handles-offset-to-hide, 0, -@o-handles-offset-to-hide, auto);
 
                     &:after {
-                        .o-position-absolute(@top: 50%, @right: -@odoo-handle-border-width);
+                        .o-position-absolute(@top: 50%, @right: -@flectra-handle-border-width);
                         margin-top: -@o-handle-btn-size/2;
                     }
                 }
                 &.n {
-                    border-top-width: @odoo-handle-border-width;
+                    border-top-width: @flectra-handle-border-width;
                     .o-position-absolute(@o-handles-offset-to-hide, 0, auto, 0);
 
                     &:after {
@@ -656,7 +656,7 @@ html[lang] > body.editor_enable [data-oe-translation-state] {
                     }
                 }
                 &.s {
-                    border-bottom-width: @odoo-handle-border-width;
+                    border-bottom-width: @flectra-handle-border-width;
                     .o-position-absolute(auto, 0, -@o-handles-offset-to-hide, 0);
 
                     &:after {
@@ -709,7 +709,7 @@ html[lang] > body.editor_enable [data-oe-translation-state] {
                         &.active:before {
                             content: "\f00c";
                             font-family: "FontAwesome";
-                            color: @odoo-brand-optional;
+                            color: @flectra-brand-optional;
                             .o-position-absolute(@top: 0, @left: 3px);
                             font-size: 11px;
                         }
@@ -792,7 +792,7 @@ html[lang] > body.editor_enable [data-oe-translation-state] {
 
 // NOTE EDITOR
 .note-popover .popover {
-    height: @odoo-navbar-height;
+    height: @flectra-navbar-height;
     top: 0 !important;
     left: 0 !important;
     padding: 0;
@@ -805,7 +805,7 @@ html[lang] > body.editor_enable [data-oe-translation-state] {
     box-shadow: none;
 
     .popover-content {
-        height: @odoo-navbar-height;
+        height: @flectra-navbar-height;
         white-space: nowrap;
         font-family: @o-we-font-family;
 
@@ -814,7 +814,7 @@ html[lang] > body.editor_enable [data-oe-translation-state] {
         }
 
         .btn {
-            height: @odoo-navbar-height;
+            height: @flectra-navbar-height;
             border: none;
             border-radius: 0;
             padding: @padding-base-vertical @padding-base-horizontal; // force this because of themes
@@ -1126,7 +1126,7 @@ table.colorpicker {
 
 // ENTER IN EDIT MODE
 body.editor_enable {
-    padding-top: @odoo-navbar-height!important;
+    padding-top: @flectra-navbar-height!important;
 
     #web_editor-top-edit {
         background-color: @o-we-color-dark;
@@ -1146,7 +1146,7 @@ body.editor_enable {
 }
 
 #web_editor_inside_iframe {
-    background-color: @odoo-brand-secondary;
+    background-color: @flectra-brand-secondary;
 
     #wrapwrap {
         position: relative;

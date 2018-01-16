@@ -1,4 +1,4 @@
-odoo.define('web_diagram.DiagramController', function (require) {
+flectra.define('web_diagram.DiagramController', function (require) {
 "use strict";
 
 var AbstractController = require('web.AbstractController');
@@ -98,7 +98,7 @@ var DiagramController = AbstractController.extend({
      * and dest nodes.
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onAddEdge: function (event) {
         var self = this;
@@ -132,7 +132,7 @@ var DiagramController = AbstractController.extend({
      * Custom event handler that opens a popup to edit an edge given its id
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onEditEdge: function (event) {
         var state = this.model.get();
@@ -149,7 +149,7 @@ var DiagramController = AbstractController.extend({
      * given its id
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onEditNode: function (event) {
         var state = this.model.get();
@@ -165,7 +165,7 @@ var DiagramController = AbstractController.extend({
      * Custom event handler that removes an edge given its id
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onRemoveEdge: function (event) {
         var self = this;
@@ -185,7 +185,7 @@ var DiagramController = AbstractController.extend({
      * Custom event handler that removes a node given its id
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onRemoveNode: function (event) {
         var self = this;

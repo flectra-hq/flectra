@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 import serial
@@ -8,9 +8,9 @@ from os.path import isfile
 from os import listdir
 from threading import Thread, Lock
 
-from odoo import http
+from flectra import http
 
-from odoo.addons.hw_proxy.controllers import main as hw_proxy
+from flectra.addons.hw_proxy.controllers import main as hw_proxy
 
 _logger = logging.getLogger(__name__)
 

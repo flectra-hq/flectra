@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import logging
 import werkzeug
 
-from odoo import http, _
-from odoo.addons.auth_signup.models.res_users import SignupError
-from odoo.addons.web.controllers.main import ensure_db, Home
-from odoo.exceptions import UserError
-from odoo.http import request
+from flectra import http, _
+from flectra.addons.auth_signup.models.res_users import SignupError
+from flectra.addons.web.controllers.main import ensure_db, Home
+from flectra.exceptions import UserError
+from flectra.http import request
 
 _logger = logging.getLogger(__name__)
 

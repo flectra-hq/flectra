@@ -46,7 +46,7 @@
     Check a quotation was created to a certain vendor and confirm so it becomes a confirmed purchase order
 -
     !python {model: purchase.order, id: False}: |
-        from odoo import netsvc
+        from flectra import netsvc
         sale_record = self.env["sale.order"].browse(ref('sale_order_drp_shpng'))
         purchase = self.env['purchase.order'].search([('partner_id', '=', ref('supplier_dropship'))])
         purchase.button_confirm()

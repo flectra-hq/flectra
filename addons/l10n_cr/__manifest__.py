@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 ##############################################################################
 #
@@ -35,7 +35,7 @@
 
 {
     'name': 'Costa Rica - Accounting',
-    'url': 'https://github.com/CLEARCORP/odoo-costa-rica',
+    'url': 'https://github.com/CLEARCORP/flectra-costa-rica',
     'author': 'ClearCorp S.A.',
     'website': 'http://clearcorp.co.cr',
     'category': 'Localization',

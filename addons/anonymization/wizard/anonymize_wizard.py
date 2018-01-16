@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import base64
 import json
@@ -9,12 +9,12 @@ import random
 from lxml import etree
 from operator import itemgetter
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.release import version_info
-from odoo.tools import pickle
-from odoo.tools.safe_eval import safe_eval
-from odoo.addons.anonymization.models.anonymization import group
+from flectra import api, fields, models, _
+from flectra.exceptions import UserError
+from flectra.release import version_info
+from flectra.tools import pickle
+from flectra.tools.safe_eval import safe_eval
+from flectra.addons.anonymization.models.anonymization import group
 
 WIZARD_ANONYMIZATION_STATES = [('clear', 'Clear'), ('anonymized', 'Anonymized'), ('unstable', 'Unstable')]
 

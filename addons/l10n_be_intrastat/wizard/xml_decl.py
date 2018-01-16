@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import base64
 from xml.etree import ElementTree as ET
 from collections import namedtuple
 
-from odoo import api, exceptions, fields, models, _
-from odoo.tools.pycompat import text_type
+from flectra import api, exceptions, fields, models, _
+from flectra.tools.pycompat import text_type
 
 INTRASTAT_XMLNS = 'http://www.onegate.eu/2010-01-01'
 

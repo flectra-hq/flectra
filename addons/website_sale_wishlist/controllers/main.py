@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from odoo import http
-from odoo.http import request
-from odoo.addons.website_sale.controllers.main import WebsiteSale
+from flectra import http
+from flectra.http import request
+from flectra.addons.website_sale.controllers.main import WebsiteSale
 import json
 
 

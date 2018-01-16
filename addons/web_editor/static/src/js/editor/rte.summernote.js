@@ -1,4 +1,4 @@
-odoo.define('web_editor.rte.summernote', function (require) {
+flectra.define('web_editor.rte.summernote', function (require) {
 'use strict';
 
 var ajax = require('web.ajax');
@@ -880,8 +880,8 @@ eventHandler.detach = function (oLayoutInfo, options) {
     $(document).off("keyup", reRangeSelectKey);
 };
 
-// Translation for odoo
-$.summernote.lang.odoo = {
+// Translation for flectra
+$.summernote.lang.flectra = {
     font: {
       bold: _t('Bold'),
       italic: _t('Italic'),

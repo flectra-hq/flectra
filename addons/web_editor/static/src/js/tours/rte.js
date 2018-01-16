@@ -1,4 +1,4 @@
-odoo.define('web_editor.tour', function (require) {
+flectra.define('web_editor.tour', function (require) {
 'use strict';
 
 var core = require('web.core');
@@ -37,7 +37,7 @@ tour.register('rte', {
             '<p>Harum trium sententiarum nulli prorsus assentior.</p>\n'+
             '        </div>\n'+
             '        <div class="col-md-6 mt16">\n'+
-            '            <img class="img img-responsive shadow mb16" src="/web/static/src/img/logo.png" alt="Odoo text and image block">\n'+
+            '            <img class="img img-responsive shadow mb16" src="/web/static/src/img/logo.png" alt="Flectra text and image block">\n'+
             '        </div>\n'+
             '    </div>\n'+
             '</section>\n';
@@ -178,7 +178,7 @@ tour.register('rte', {
     content: "insert a link url",
     trigger: '#o_link_dialog_url_input',
     extra_trigger: 'a#link-preview.btn',
-    run: "text http://www.odoo.com",
+    run: "text http://www.flectra.com",
 }, {
     content: "change text label",
     trigger: '#o_link_dialog_label_input',
@@ -297,7 +297,7 @@ tour.register('rte_inline', {
             '          <img src="/logo.png" alt="Your Logo" class="img-circle img-thumbnail">\n'+
             '        </td>\n'+
             '        <td valign="center" width="270">\n'+
-            '          <a href="https://www.facebook.com/Odoo"><span class="fa fa-facebook-square fa-2x text-primary"></span></a>\n'+
+            '          <a href="https://www.facebook.com/Flectra"><span class="fa fa-facebook-square fa-2x text-primary"></span></a>\n'+
             '          <span style="color: rgb(255, 0, 0);" class="fa fa-4x fa-google-plus-square pull-right"></span>\n'+
             '        </td>\n'+
             '      </tr>\n'+

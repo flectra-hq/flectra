@@ -1,4 +1,4 @@
-odoo.define('account.reconciliation_tests.data', function () {
+flectra.define('account.reconciliation_tests.data', function () {
 "use strict";
 
 var Datas = {};
@@ -502,7 +502,7 @@ Datas.getParams = function () {
 return Datas;
 });
 
-odoo.define('account.reconciliation_tests', function (require) {
+flectra.define('account.reconciliation_tests', function (require) {
 "use strict";
 
 var ReconciliationClientAction = require('account.ReconciliationClientAction');
@@ -663,7 +663,7 @@ QUnit.module('account', {
 
     QUnit.test('Reconciliation validate without proposition', function (assert) {
         assert.expect(1);
-        // Test added to prevent this issue happening again: https://github.com/odoo/odoo/commit/3549688b21eb65e16b9c3f2b6462eb8d8b52cd47
+        // Test added to prevent this issue happening again: https://github.com/flectra/flectra/commit/3549688b21eb65e16b9c3f2b6462eb8d8b52cd47
         var clientAction = new ReconciliationClientAction.StatementAction(null, this.params.options);
         testUtils.addMockEnvironment(clientAction, {
             data: this.params.data,
@@ -703,7 +703,7 @@ QUnit.module('account', {
 
     QUnit.test('Reconciliation validate with proposition', function (assert) {
         assert.expect(1);
-        // Test added to check this functionality: https://github.com/odoo/odoo/commit/2f3b469dee6f18cbccce1cdf2a81cfe57960c533
+        // Test added to check this functionality: https://github.com/flectra/flectra/commit/2f3b469dee6f18cbccce1cdf2a81cfe57960c533
         var clientAction = new ReconciliationClientAction.StatementAction(null, this.params.options);
         testUtils.addMockEnvironment(clientAction, {
             data: this.params.data,

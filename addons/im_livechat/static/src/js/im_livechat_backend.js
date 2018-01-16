@@ -1,4 +1,4 @@
-odoo.define('im_livechat.chat_client_action', function (require) {
+flectra.define('im_livechat.chat_client_action', function (require) {
 "use strict";
 
 require('mail.chat_client_action');
@@ -28,4 +28,4 @@ chat_manager.bus.on('new_message', null, function (msg) {
     });
 });
 
-});
+});                                

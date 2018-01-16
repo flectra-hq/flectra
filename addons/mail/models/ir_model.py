@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
-from odoo.tools import pycompat
+from flectra import _, api, fields, models
+from flectra.exceptions import UserError
+from flectra.tools import pycompat
 
 
 class IrModel(models.Model):

@@ -1,4 +1,4 @@
-odoo.define('website_event.registration_form.instance', function (require) {
+flectra.define('website_event.registration_form.instance', function (require) {
 'use strict';
 
 require('web_editor.ready');
@@ -17,7 +17,7 @@ return instance.appendTo($form).then(function () {
 
 //==============================================================================
 
-odoo.define('website_event.website_event', function (require) {
+flectra.define('website_event.website_event', function (require) {
 
 var ajax = require('web.ajax');
 var Widget = require('web.Widget');

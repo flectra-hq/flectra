@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models
-from odoo.tools.translate import _
-from odoo.exceptions import UserError
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+from flectra import models
+from flectra.tools.translate import _
+from flectra.exceptions import UserError
 
 
 class AccountBankStatement(models.Model):

@@ -1,4 +1,4 @@
-odoo.define('web.ChangePassword', function (require) {
+flectra.define('web.ChangePassword', function (require) {
 "use strict";
 
 /**

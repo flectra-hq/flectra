@@ -1,4 +1,4 @@
-from odoo import fields, models
+from flectra import fields, models
 
 class AccountTaxTemplate(models.Model):
     _inherit = 'account.tax.template'

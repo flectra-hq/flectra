@@ -1,4 +1,4 @@
-odoo.define('web.rpc', function (require) {
+flectra.define('web.rpc', function (require) {
 "use strict";
 
 var ajax = require('web.ajax');

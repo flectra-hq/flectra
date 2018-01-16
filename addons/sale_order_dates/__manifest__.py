@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 
 {
@@ -16,7 +16,7 @@ You can add the following additional dates to a sales order:
     * Commitment Date
     * Effective Date
 """,
-    'website': 'https://www.odoo.com/page/crm',
+    'website': 'https://flectrahq.com/page/crm',
     'depends': ['sale_stock'],
     'data': ['views/sale_order_views.xml'],
 }

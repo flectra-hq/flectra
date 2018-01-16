@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import datetime
 import logging
@@ -10,10 +10,10 @@ from collections import defaultdict
 import dateutil
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, SUPERUSER_ID
-from odoo.modules.registry import Registry
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo.tools.safe_eval import safe_eval
+from flectra import api, fields, models, SUPERUSER_ID
+from flectra.modules.registry import Registry
+from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from flectra.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 

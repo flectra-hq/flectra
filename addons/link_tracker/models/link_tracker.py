@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import base64
 import datetime
 import random
@@ -11,8 +11,8 @@ from lxml import html
 from werkzeug import urls, utils
 
 
-from odoo import models, fields, api, _
-from odoo.tools import ustr
+from flectra import models, fields, api, _
+from flectra.tools import ustr
 
 URL_REGEX = r'(\bhref=[\'"](?!mailto:|tel:|sms:)([^\'"]+)[\'"])'
 

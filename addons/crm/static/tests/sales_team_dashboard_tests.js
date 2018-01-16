@@ -1,4 +1,4 @@
-odoo.define('crm.dashboard_tests', function (require) {
+flectra.define('crm.dashboard_tests', function (require) {
 "use strict";
 
 var testUtils = require('web.test_utils');

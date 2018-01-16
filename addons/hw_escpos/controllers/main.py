@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from __future__ import print_function
 import logging
@@ -28,9 +28,9 @@ try:
 except ImportError:
     usb = None
 
-from odoo import http, _
+from flectra import http, _
 
-from odoo.addons.hw_proxy.controllers import main as hw_proxy
+from flectra.addons.hw_proxy.controllers import main as hw_proxy
 
 _logger = logging.getLogger(__name__)
 
@@ -222,7 +222,7 @@ class EscposDriver(Thread):
 
         if len(ips) >= 1:
             eprint.text('\nMAC Address:\n' + mac + '\n')
-            eprint.text('\nHomepage:\nhttp://'+ips[0]+':8069\n')
+            eprint.text('\nHomepage:\nhttp://'+ips[0]+':7073\n')
 
         eprint.text('\n\n')
         eprint.cut()

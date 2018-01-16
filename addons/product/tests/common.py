@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo.tests import common
+from flectra.tests import common
 
 
 class TestProductCommon(common.SavepointCase):

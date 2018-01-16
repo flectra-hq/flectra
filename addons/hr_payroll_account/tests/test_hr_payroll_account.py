@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import time
 
 from datetime import datetime, timedelta
 from dateutil import relativedelta
 
-from odoo import fields, tools
-from odoo.modules.module import get_module_resource
-from odoo.tests import common
+from flectra import fields, tools
+from flectra.modules.module import get_module_resource
+from flectra.tests import common
 
 
 class TestHrPayrollAccount(common.TransactionCase):

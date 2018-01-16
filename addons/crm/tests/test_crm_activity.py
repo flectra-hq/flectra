@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from .common import TestCrmCases
-from odoo import fields
+from flectra import fields
 from datetime import datetime, timedelta
 
 

@@ -1,4 +1,4 @@
-odoo.define('web.ajax', function (require) {
+flectra.define('web.ajax', function (require) {
 "use strict";
 
 var core = require('web.core');

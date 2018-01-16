@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from .common import TestAccountBudgetCommon
 try:
@@ -7,7 +7,7 @@ try:
 except ImportError:
     from mock import patch
 
-from odoo.fields import Datetime
+from flectra.fields import Datetime
 
 # ---------------------------------------------------------
 # Tests
@@ -41,7 +41,7 @@ class TestTheoreticalAmount(TestAccountBudgetCommon):
             'planned_amount': -364,
         })
 
-        self.patcher = patch('odoo.addons.account_budget.models.account_budget.fields.Datetime', wraps=Datetime)
+        self.patcher = patch('flectra.addons.account_budget.models.account_budget.fields.Datetime', wraps=Datetime)
         self.mock_datetime = self.patcher.start()
 
     def test_01(self):

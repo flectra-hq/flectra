@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import json
 from werkzeug.utils import redirect
 
-from odoo import http, registry
-from odoo.http import request
+from flectra import http, registry
+from flectra.http import request
 
 
 class GoogleAuth(http.Controller):

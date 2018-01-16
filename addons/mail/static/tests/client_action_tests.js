@@ -1,4 +1,4 @@
-odoo.define('mail.client_action_test', function (require) {
+flectra.define('mail.client_action_test', function (require) {
 "use strict";
 
 var testUtils = require('web.test_utils');

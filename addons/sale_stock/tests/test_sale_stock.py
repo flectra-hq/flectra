@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.sale.tests.test_sale_common import TestSale
-from odoo.exceptions import UserError
+from flectra.addons.sale.tests.test_sale_common import TestSale
+from flectra.exceptions import UserError
 
 
 class TestSaleStock(TestSale):

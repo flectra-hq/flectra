@@ -1,4 +1,4 @@
-odoo.define('mail.chat_mixin', function() {
+flectra.define('mail.chat_mixin', function() {
 "use strict";
 
 
@@ -81,7 +81,7 @@ return ChatMixin;
 
 });
 
-odoo.define('mail.chat_service', function (require) {
+flectra.define('mail.chat_service', function (require) {
 "use strict";
 
 var chat_manager = require('mail.chat_manager');
@@ -127,4 +127,4 @@ web_client.on('get_mention_partner_suggestions', web_client, function(event) {
     event.data.callback(chat_manager.get_mention_partner_suggestions(event.data.channel_id));
 });
 
-});
+});                                

@@ -1,4 +1,4 @@
-odoo.define('mail.utils', function (require) {
+flectra.define('mail.utils', function (require) {
 "use strict";
 
 var bus = require('bus.bus').bus;
@@ -17,7 +17,7 @@ function send_notification(widget, title, content) {
     }
 }
 function _send_native_notification(title, content) {
-    var notification = new Notification(title, {body: content, icon: "/mail/static/src/img/odoo_o.png"});
+    var notification = new Notification(title, {body: content, icon: "/mail/static/src/img/flectra_o.png"});
     notification.onclick = function () {
         window.focus();
         if (this.cancel) {

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import textwrap
 import unittest
@@ -7,8 +7,8 @@ import unittest
 from lxml import etree, html
 from lxml.builder import E
 
-from odoo.tests import common
-from odoo.addons.web_editor.models.ir_qweb import html_to_text
+from flectra.tests import common
+from flectra.addons.web_editor.models.ir_qweb import html_to_text
 
 
 class TestHTMLToText(unittest.TestCase):

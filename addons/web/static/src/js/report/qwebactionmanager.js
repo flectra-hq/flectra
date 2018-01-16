@@ -1,4 +1,4 @@
-odoo.define('report.report', function (require) {
+flectra.define('report.report', function (require) {
 'use strict';
 
 var ActionManager = require('web.ActionManager');

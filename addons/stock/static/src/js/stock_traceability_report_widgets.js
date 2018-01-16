@@ -1,4 +1,4 @@
-odoo.define('stock.ReportWidget', function (require) {
+flectra.define('stock.ReportWidget', function (require) {
 'use strict';
 
 var core = require('web.core');

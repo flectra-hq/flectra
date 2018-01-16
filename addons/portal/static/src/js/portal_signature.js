@@ -1,4 +1,4 @@
-odoo.define('portal.signature_form', function (require){
+flectra.define('portal.signature_form', function (require){
     "use strict";
 
     require('web_editor.ready');
@@ -22,7 +22,7 @@ odoo.define('portal.signature_form', function (require){
         init: function(parent, options) {
             this._super.apply(this, arguments);
             this.options = _.extend(options || {}, {
-                csrf_token: odoo.csrf_token,
+                csrf_token: flectra.csrf_token,
             });
         },
 

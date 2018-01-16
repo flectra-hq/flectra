@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import date
 
-from odoo import api, fields, models, _
+from flectra import api, fields, models, _
 
 
 class CrmTeam(models.Model):

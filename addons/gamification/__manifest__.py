@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Gamification',
     'version': '1.0',
     'sequence': 160,
     'category': 'Human Resources',
-    'website' : 'https://www.odoo.com/page/gamification',
+    'website' : 'https://flectrahq.com/page/gamification',
     'depends': ['mail', 'web_kanban_gauge'],
     'description': """
 Gamification process
 ====================
-The Gamification module provides ways to evaluate and motivate the users of Odoo.
+The Gamification module provides ways to evaluate and motivate the users of Odoo, Flectra.
 
 The users can be evaluated using goals and numerical objectives to reach.
 **Goals** are assigned through **challenges** to evaluate and compare members of a team with each others and through time.

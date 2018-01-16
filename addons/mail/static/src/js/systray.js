@@ -1,4 +1,4 @@
-odoo.define('mail.systray', function (require) {
+flectra.define('mail.systray', function (require) {
 "use strict";
 
 var config = require('web.config');

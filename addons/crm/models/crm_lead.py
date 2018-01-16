@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, tools, SUPERUSER_ID
-from odoo.tools.translate import _
-from odoo.tools import email_re, email_split
-from odoo.exceptions import UserError, AccessError
+from flectra import api, fields, models, tools, SUPERUSER_ID
+from flectra.tools.translate import _
+from flectra.tools import email_re, email_split
+from flectra.exceptions import UserError, AccessError
 
 from . import crm_stage
 

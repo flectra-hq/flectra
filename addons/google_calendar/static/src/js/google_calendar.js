@@ -1,4 +1,4 @@
-odoo.define('google_calendar.google_calendar', function (require) {
+flectra.define('google_calendar.google_calendar', function (require) {
 "use strict";
 
 var core = require('web.core');
@@ -24,7 +24,7 @@ CalendarController.include({
      * mean of a dialog.
      *
      * @private
-     * @returns {OdooEvent} event
+     * @returns {FlectraEvent} event
      */
     _onSyncCalendar: function (event) {
         var self = this;

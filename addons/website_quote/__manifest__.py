@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Online Proposals',
     'category': 'Website',
     'summary': 'Sales',
-    'website': 'https://www.odoo.com/page/quote-builder',
+    'website': 'https://flectrahq.com/page/quote-builder',
     'version': '1.0',
     'description': "",
     'depends': ['website', 'sale_management', 'mail', 'payment', 'website_mail'],

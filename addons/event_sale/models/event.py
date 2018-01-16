@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError, UserError
+from flectra import api, fields, models, _
+from flectra.exceptions import ValidationError, UserError
 
-from odoo.addons import decimal_precision as dp
-from odoo.tools import float_is_zero
+from flectra.addons import decimal_precision as dp
+from flectra.tools import float_is_zero
 
 
 class EventType(models.Model):

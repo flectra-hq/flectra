@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<flectra>
     <!-- Assets for reports -->
 
     <template id="report_assets_common">
@@ -54,7 +54,7 @@
             <head>
                 <meta charset="utf-8" />
                 <meta name="viewport" content="initial-scale=1"/>
-                <title><t t-esc="title or 'Odoo Report'"/></title>
+                <title><t t-esc="title or 'Flectra Report'"/></title>
                 <t t-call-assets="web.assets_common" t-js="false"/>
                 <t t-call-assets="web.report_assets_common" t-js="false"/>
                 <t t-if="editable">
@@ -401,4 +401,4 @@
         file="web.preview_externalreport"
         string="Preview External Report"
         report_type="qweb-pdf"/>
-</odoo>
+</flectra>

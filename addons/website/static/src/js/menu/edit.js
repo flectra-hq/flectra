@@ -1,4 +1,4 @@
-odoo.define('website.editMenu', function (require) {
+flectra.define('website.editMenu', function (require) {
 'use strict';
 
 var core = require('web.core');
@@ -88,7 +88,7 @@ var EditPageMenu = websiteNavbarData.WebsiteNavbarActionWidget.extend({
      * that is should start the animations for this snippet.
      *
      * @private
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      */
     _onSnippetDropped: function (ev) {
         this.trigger_up('animation_start_demand', {

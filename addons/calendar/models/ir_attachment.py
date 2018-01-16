@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models
+from flectra import api, models
 
-from odoo.addons.calendar.models.calendar import get_real_ids
+from flectra.addons.calendar.models.calendar import get_real_ids
 
-from odoo.tools import pycompat
+from flectra.tools import pycompat
 
 
 class Attachment(models.Model):

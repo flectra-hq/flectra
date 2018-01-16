@@ -1,9 +1,9 @@
 #-*- coding:utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.tools import float_compare, float_is_zero
+from flectra import api, fields, models, _
+from flectra.exceptions import UserError
+from flectra.tools import float_compare, float_is_zero
 
 
 class HrPayslipLine(models.Model):

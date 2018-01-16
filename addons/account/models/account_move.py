@@ -2,13 +2,13 @@
 
 import time
 from collections import OrderedDict
-from odoo import api, fields, models, _
-from odoo.osv import expression
-from odoo.exceptions import RedirectWarning, UserError, ValidationError
-from odoo.tools.misc import formatLang
-from odoo.tools import float_is_zero, float_compare
-from odoo.tools.safe_eval import safe_eval
-from odoo.addons import decimal_precision as dp
+from flectra import api, fields, models, _
+from flectra.osv import expression
+from flectra.exceptions import RedirectWarning, UserError, ValidationError
+from flectra.tools.misc import formatLang
+from flectra.tools import float_is_zero, float_compare
+from flectra.tools.safe_eval import safe_eval
+from flectra.addons import decimal_precision as dp
 from lxml import etree
 
 #----------------------------------------------------------
@@ -1239,7 +1239,7 @@ class AccountMoveLine(models.Model):
         # Create tax lines
         tax_lines_vals = []
         if context.get('apply_taxes') and vals.get('tax_ids'):
-            # Get ids from triplets : https://www.odoo.com/documentation/10.0/reference/orm.html#odoo.models.Model.write
+            # Get ids from triplets : https://www.flectra.com/documentation/10.0/reference/orm.html#flectra.models.Model.write
             tax_ids = [tax['id'] for tax in self.resolve_2many_commands('tax_ids', vals['tax_ids']) if tax.get('id')]
             # Since create() receives ids instead of recordset, let's just use the old-api bridge
             taxes = self.env['account.tax'].browse(tax_ids)

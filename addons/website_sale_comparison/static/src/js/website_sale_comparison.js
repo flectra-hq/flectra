@@ -1,4 +1,4 @@
-odoo.define('website_sale_comparison.comparison', function (require) {
+flectra.define('website_sale_comparison.comparison', function (require) {
 "use strict";
 
 require('web.dom_ready')

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import babel.dates
 
@@ -8,9 +8,9 @@ from datetime import datetime, timedelta, date, time
 from dateutil import rrule
 from dateutil.relativedelta import relativedelta
 
-from odoo.fields import Date, Datetime
-from odoo.addons.resource.models.resource import to_naive_utc, to_naive_user_tz
-from odoo.addons.resource.tests.common import TestResourceCommon
+from flectra.fields import Date, Datetime
+from flectra.addons.resource.models.resource import to_naive_utc, to_naive_user_tz
+from flectra.addons.resource.tests.common import TestResourceCommon
 
 
 class TestIntervals(TestResourceCommon):

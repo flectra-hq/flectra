@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import re
 
-from odoo import api, fields, models
-from odoo.tools.misc import mod10r
+from flectra import api, fields, models
+from flectra.tools.misc import mod10r
 
 
 def _is_l10n_ch_postal(account_ref):

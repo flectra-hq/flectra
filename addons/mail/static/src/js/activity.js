@@ -1,4 +1,4 @@
-odoo.define('mail.Activity', function (require) {
+flectra.define('mail.Activity', function (require) {
 "use strict";
 
 var AbstractField = require('web.AbstractField');

@@ -1,4 +1,4 @@
-odoo.define('sale.sales_team_dashboard', function (require) {
+flectra.define('sale.sales_team_dashboard', function (require) {
 "use strict";
 
 var core = require('web.core');

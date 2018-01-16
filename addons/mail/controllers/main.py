@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import base64
 import logging
@@ -8,11 +8,11 @@ import werkzeug
 
 from werkzeug import url_encode
 
-from odoo import api, http, registry, SUPERUSER_ID, _
-from odoo.addons.web.controllers.main import binary_content
-from odoo.exceptions import AccessError
-from odoo.http import request
-from odoo.tools import consteq, pycompat
+from flectra import api, http, registry, SUPERUSER_ID, _
+from flectra.addons.web.controllers.main import binary_content
+from flectra.exceptions import AccessError
+from flectra.http import request
+from flectra.tools import consteq, pycompat
 
 _logger = logging.getLogger(__name__)
 

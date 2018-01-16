@@ -1,4 +1,4 @@
-odoo.define('account.ReconciliationClientAction', function (require) {
+flectra.define('account.ReconciliationClientAction', function (require) {
 "use strict";
 
 var ReconciliationModel = require('account.ReconciliationModel');
@@ -207,7 +207,7 @@ var StatementAction = Widget.extend(ControlPanelMixin, {
      * to 'create' or 'match', the other lines switch to 'inactive' mode
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onAction: function (event) {
         var self = this;
@@ -234,7 +234,7 @@ var StatementAction = Widget.extend(ControlPanelMixin, {
      * call 'changeName' model method
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onChangeName: function (event) {
         var self = this;
@@ -253,7 +253,7 @@ var StatementAction = Widget.extend(ControlPanelMixin, {
      * call 'closeStatement' model method
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onCloseStatement: function (event) {
         var self = this;
@@ -272,7 +272,7 @@ var StatementAction = Widget.extend(ControlPanelMixin, {
     /**
      * Load more statement and render them
      *
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onLoadMore: function (event) {
         return this._loadMore(this.model.defaultDisplayQty);
@@ -283,7 +283,7 @@ var StatementAction = Widget.extend(ControlPanelMixin, {
      * values and notifications then open the first available line
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onValidate: function (event) {
         var self = this;
@@ -340,7 +340,7 @@ var ManualAction = StatementAction.extend({
      * first available line
      *
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onValidate: function (event) {
         var self = this;

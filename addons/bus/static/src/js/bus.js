@@ -1,4 +1,4 @@
-odoo.define('bus.bus', function (require) {
+flectra.define('bus.bus', function (require) {
 "use strict";
 
 var local_storage = require('web.local_storage');
@@ -109,7 +109,7 @@ bus.Bus = Widget.extend({
     focus_change: function(focus) {
         this.set("window_focus", focus);
     },
-    is_odoo_focused: function () {
+    is_flectra_focused: function () {
         return this.get("window_focus");
     },
     get_last_presence: function () {

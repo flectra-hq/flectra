@@ -6,7 +6,7 @@
       company_obj = self.env['res.company']
       company_ids = company_obj.search([('chart_template_id', '!=', False)]).ids
       for company_id in company_ids:
-          from odoo.tools.translate import _
+          from flectra.tools.translate import _
 
           #Check if property exists for stock account journal exists
           PropertyObj = self.env['ir.property']

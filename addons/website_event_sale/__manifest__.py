@@ -4,7 +4,7 @@
     'name': "Online Event's Tickets",
     'category': 'Marketing',
     'summary': "Manage Events and Sell Tickets Online",
-    'website': 'https://www.odoo.com/page/events',
+    'website': 'https://flectrahq.com/page/events',
     'description': """
 Online Event's Tickets
 ======================

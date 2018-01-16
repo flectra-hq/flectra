@@ -1,5 +1,5 @@
-@o-kanban-record-margin: @odoo-horizontal-padding/2;
-@o-kanban-group-padding: @odoo-horizontal-padding; // Cannot be higher than this
+@o-kanban-record-margin: @flectra-horizontal-padding/2;
+@o-kanban-group-padding: @flectra-horizontal-padding; // Cannot be higher than this
 
 @o-kanban-default-record-width: 300px;
 @o-kanban-small-record-width: 240px;
@@ -10,7 +10,7 @@
 @o-kanban-inside-vgutter: 8px;
 @o-kanban-inside-hgutter: 8px;
 @o-kanban-color-border-width: 3px;
-@o-kanban-inside-hgutter-mobile: @odoo-horizontal-padding;
+@o-kanban-inside-hgutter-mobile: @flectra-horizontal-padding;
 @o-kanban-inner-hmargin: 5px;
 @o-kanban-progressbar-height: 20px;
 
@@ -19,23 +19,23 @@
     display: block;
     line-height: @o-kanban-header-title-height;
     text-align: center;
-    color: @odoo-main-text-color;
+    color: @flectra-main-text-color;
     font-size: @font-size-small;
     cursor: pointer;
     .o-hover-opacity(@base-opacity);
 }
-.o-kanban-tag-color(@size: 0) when (@size < @odoo-nb-ui-color) {
+.o-kanban-tag-color(@size: 0) when (@size < @flectra-nb-ui-color) {
     // Note: the 0 color is supposed to be invisible if there is a color field
     // but it is used as a default color when there is no color field
     &.o_tag_color_@{size} span {
-        background-color: ~"@{odoo-color-@{size}}";
+        background-color: ~"@{flectra-color-@{size}}";
     }
     .o-kanban-tag-color(@size + 1);
 }
-.o-kanban-record-color(@size: 1) when (@size < @odoo-nb-ui-color) {
+.o-kanban-record-color(@size: 1) when (@size < @flectra-nb-ui-color) {
     // Note: the 0 color is not defined as it is the 'no color' for kanban
     .oe_kanban_color_@{size}::after {
-        background-color: ~"@{odoo-color-@{size}}";
+        background-color: ~"@{flectra-color-@{size}}";
     }
     .o-kanban-record-color(@size + 1);
 }
@@ -98,7 +98,7 @@
 }
 .o-kanban-colorpicker() {
     max-width: 150px;
-    padding: 3px (@odoo-dropdown-hpadding - @o-kanban-inner-hmargin) 3px @odoo-dropdown-hpadding;
+    padding: 3px (@flectra-dropdown-hpadding - @o-kanban-inner-hmargin) 3px @flectra-dropdown-hpadding;
 
     > li {
         display: inline-block;
@@ -500,7 +500,7 @@
         }
 
         &.o_kanban_dragged {
-            background-color: @odoo-main-text-color;
+            background-color: @flectra-main-text-color;
 
             .o_kanban_record {
                 visibility: hidden;
@@ -593,7 +593,7 @@
         .o-flex-flow(row, wrap);
         .o-justify-content(flex-start);
 
-        padding: @o-kanban-record-margin (@odoo-horizontal-padding - @o-kanban-record-margin);
+        padding: @o-kanban-record-margin (@flectra-horizontal-padding - @o-kanban-record-margin);
 
         .o_kanban_record {
             .o-flex(1, 1, auto);

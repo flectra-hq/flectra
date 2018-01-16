@@ -3,10 +3,10 @@
 import logging
 from passlib.context import CryptContext
 
-import odoo
-from odoo import api, fields, models
+import flectra
+from flectra import api, fields, models
 
-from odoo.addons.base.res import res_users
+from flectra.addons.base.res import res_users
 res_users.USER_PRIVATE_FIELDS.append('password_crypt')
 
 _logger = logging.getLogger(__name__)
@@ -61,7 +61,7 @@ class ResUsers(models.Model):
                 self.invalidate_cache()
         try:
             return super(ResUsers, self).check_credentials(password)
-        except odoo.exceptions.AccessDenied:
+        except flectra.exceptions.AccessDenied:
             if encrypted:
                 valid_pass, replacement = user._crypt_context()\
                         .verify_and_update(password, encrypted)

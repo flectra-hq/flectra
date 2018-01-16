@@ -1,4 +1,4 @@
-odoo.define('report.client_action', function (require) {
+flectra.define('report.client_action', function (require) {
 'use strict';
 
 var core = require('web.core');

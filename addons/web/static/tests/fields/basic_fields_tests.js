@@ -1,4 +1,4 @@
-odoo.define('web.basic_fields_tests', function (require) {
+flectra.define('web.basic_fields_tests', function (require) {
 "use strict";
 
 var basicFields = require('web.basic_fields');
@@ -3039,7 +3039,7 @@ QUnit.module('basic_fields', {
         // The behavior of this widget is completely altered by voip so this
         // test is irrelevant and fails if voip is installed. The enterprise
         // module is responsible for testing its own behavior in its own tests.
-        if ('voip.user_agent' in odoo.__DEBUG__.services) {
+        if ('voip.user_agent' in flectra.__DEBUG__.services) {
             assert.expect(0);
             return;
         }
@@ -3094,7 +3094,7 @@ QUnit.module('basic_fields', {
         // The behavior of this widget is completely altered by voip so this
         // test is irrelevant and fails if voip is installed. The enterprise
         // module is responsible for testing its own behavior in its own tests.
-        if ('voip.user_agent' in odoo.__DEBUG__.services) {
+        if ('voip.user_agent' in flectra.__DEBUG__.services) {
             assert.expect(0);
             return;
         }

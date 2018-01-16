@@ -3,11 +3,11 @@
 import time
 import math
 
-from odoo.osv import expression
-from odoo.tools.float_utils import float_round as round
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo.exceptions import UserError, ValidationError
-from odoo import api, fields, models, _
+from flectra.osv import expression
+from flectra.tools.float_utils import float_round as round
+from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from flectra.exceptions import UserError, ValidationError
+from flectra import api, fields, models, _
 
 
 class AccountAccountType(models.Model):
@@ -362,13 +362,13 @@ class AccountJournal(models.Model):
 
     inbound_payment_method_ids = fields.Many2many('account.payment.method', 'account_journal_inbound_payment_method_rel', 'journal_id', 'inbound_payment_method',
         domain=[('payment_type', '=', 'inbound')], string='Debit Methods', default=lambda self: self._default_inbound_payment_methods(),
-        help="Manual: Get paid by cash, check or any other method outside of Odoo.\n"\
+        help="Manual: Get paid by cash, check or any other method outside of Flectra.\n"\
              "Electronic: Get paid automatically through a payment acquirer by requesting a transaction on a card saved by the customer when buying or subscribing online (payment token).\n"\
-             "Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Odoo,you are suggested to reconcile the transaction with the batch deposit. Enable this option from the settings.")
+             "Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Flectra,you are suggested to reconcile the transaction with the batch deposit. Enable this option from the settings.")
     outbound_payment_method_ids = fields.Many2many('account.payment.method', 'account_journal_outbound_payment_method_rel', 'journal_id', 'outbound_payment_method',
         domain=[('payment_type', '=', 'outbound')], string='Payment Methods', default=lambda self: self._default_outbound_payment_methods(),
-        help="Manual:Pay bill by cash or any other method outside of Odoo.\n"\
-             "Check:Pay bill by check and print it from Odoo.\n"\
+        help="Manual:Pay bill by cash or any other method outside of Flectra.\n"\
+             "Check:Pay bill by check and print it from Flectra.\n"\
              "SEPA Credit Transfer: Pay bill from a SEPA Credit Transfer file you submit to your bank. Enable this option from the settings.")
     at_least_one_inbound = fields.Boolean(compute='_methods_compute', store=True)
     at_least_one_outbound = fields.Boolean(compute='_methods_compute', store=True)

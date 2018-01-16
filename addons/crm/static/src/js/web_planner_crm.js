@@ -1,4 +1,4 @@
-odoo.define('planner_crm.planner', function (require) {
+flectra.define('planner_crm.planner', function (require) {
 "use strict";
 
 var planner = require('web.planner.common');
@@ -29,7 +29,7 @@ planner.PlannerDialog.include({
                     _t('Close opportunity if: "pre-sales days * $500" < "expected revenue" * probability'),
                     _t('GAP analysis with customer'), _t('Create a Proof of Concept with consultants'),
                     _t('POC demonstration to the customer'), _t('Final Proposal sent'), ''],
-                'odoo_default': [
+                'flectra_default': [
                     _t('New'), _t('Qualified'), _t('Proposition'), _t('Negotiation'), _t('Won'), _t('Lost'), '',
                     '', '', '', '', '', '', '']
             };

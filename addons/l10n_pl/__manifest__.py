@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 # Copyright (C) 2009 - now Grzegorz Grzelak grzegorz.grzelak@openglobe.pl
 
@@ -10,14 +10,14 @@
     'website': 'http://www.openglobe.pl',
     'category': 'Localization',
     'description': """
-This is the module to manage the accounting chart and taxes for Poland in Odoo.
+This is the module to manage the accounting chart and taxes for Poland in Odoo, Flectra.
 ==================================================================================
 
 To jest moduł do tworzenia wzorcowego planu kont, podatków, obszarów podatkowych i
 rejestrów podatkowych. Moduł ustawia też konta do kupna i sprzedaży towarów
 zakładając, że wszystkie towary są w obrocie hurtowym.
 
-Niniejszy moduł jest przeznaczony dla odoo 8.0.
+Niniejszy moduł jest przeznaczony dla flectra 8.0.
 Wewnętrzny numer wersji OpenGLOBE 1.02
     """,
     'depends' : [

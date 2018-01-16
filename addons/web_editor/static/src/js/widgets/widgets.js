@@ -1,4 +1,4 @@
-odoo.define('web_editor.widget', function (require) {
+flectra.define('web_editor.widget', function (require) {
 'use strict';
 
 var core = require('web.core');
@@ -80,7 +80,7 @@ function click_event(el, type) {
 
 /**
  * ImageDialog widget. Let users change an image, including uploading a
- * new image in odoo or selecting the image style (if supported by
+ * new image in flectra or selecting the image style (if supported by
  * the caller).
  */
 var ImageDialog = Widget.extend({

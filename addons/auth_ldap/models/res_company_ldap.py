@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import ldap
 import logging
 from ldap.filter import filter_format
 
-from odoo import api, fields, models, tools
-from odoo.tools.pycompat import to_native
+from flectra import api, fields, models, tools
+from flectra.tools.pycompat import to_native
 
 _logger = logging.getLogger(__name__)
 
@@ -192,7 +192,7 @@ class CompanyLDAP(models.Model):
             if res[1]:
                 user_id = res[0]
         elif conf['create_user']:
-            _logger.debug("Creating new Odoo user \"%s\" from LDAP" % login)
+            _logger.debug("Creating new Flectra user \"%s\" from LDAP" % login)
             values = self.map_ldap_attributes(conf, login, ldap_entry)
             SudoUser = self.env['res.users'].sudo()
             if conf['user']:

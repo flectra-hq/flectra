@@ -1,4 +1,4 @@
-odoo.define('website.backend.button', function (require) {
+flectra.define('website.backend.button', function (require) {
 'use strict';
 
 var AbstractField = require('web.AbstractField');

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo.api import Environment
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
+from flectra.api import Environment
+from flectra.tools import DEFAULT_SERVER_DATE_FORMAT
 from datetime import date, timedelta
 
-import odoo.tests
+import flectra.tests
 
 
-class TestUi(odoo.tests.HttpCase):
+class TestUi(flectra.tests.HttpCase):
     def test_01_pos_basic_order(self):
         cr = self.registry.cursor()
         assert cr == self.registry.test_cr
@@ -297,13 +297,13 @@ class TestUi(odoo.tests.HttpCase):
         cr.release()
 
         self.phantom_js("/pos/web",
-                        "odoo.__DEBUG__.services['web_tour.tour'].run('pos_pricelist')",
-                        "odoo.__DEBUG__.services['web_tour.tour'].tours.pos_pricelist.ready",
+                        "flectra.__DEBUG__.services['web_tour.tour'].run('pos_pricelist')",
+                        "flectra.__DEBUG__.services['web_tour.tour'].tours.pos_pricelist.ready",
                         login="admin")
 
         self.phantom_js("/pos/web",
-                        "odoo.__DEBUG__.services['web_tour.tour'].run('pos_basic_order')",
-                        "odoo.__DEBUG__.services['web_tour.tour'].tours.pos_basic_order.ready",
+                        "flectra.__DEBUG__.services['web_tour.tour'].run('pos_basic_order')",
+                        "flectra.__DEBUG__.services['web_tour.tour'].tours.pos_basic_order.ready",
                         login="admin")
 
         for order in env['pos.order'].search([]):

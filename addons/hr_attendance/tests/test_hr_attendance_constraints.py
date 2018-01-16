@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo.tests.common import TransactionCase
+from flectra.tests.common import TransactionCase
 import time
 
 

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from . import common
-from odoo.exceptions import except_orm
+from flectra.exceptions import except_orm
 
 
 class TestWarehouse(common.TestMrpCommon):

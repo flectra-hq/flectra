@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import UserError
-from odoo.tools import float_is_zero, pycompat
-from odoo.addons import decimal_precision as dp
+from flectra import api, fields, models, tools, _
+from flectra.exceptions import UserError
+from flectra.tools import float_is_zero, pycompat
+from flectra.addons import decimal_precision as dp
 
 
 

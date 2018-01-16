@@ -7,9 +7,9 @@ import select
 import threading
 import time
 
-import odoo
-from odoo import api, fields, models, SUPERUSER_ID
-from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
+import flectra
+from flectra import api, fields, models, SUPERUSER_ID
+from flectra.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
 
 _logger = logging.getLogger(__name__)
 
@@ -61,7 +61,7 @@ class ImBus(models.Model):
             # transaction is not commited yet, there will be nothing to fetch,
             # and the longpolling will return no notification.
             def notify():
-                with odoo.sql_db.db_connect('postgres').cursor() as cr:
+                with flectra.sql_db.db_connect('postgres').cursor() as cr:
                     cr.execute("notify imbus, %s", (json_dump(list(channels)),))
             self._cr.after('commit', notify)
 
@@ -116,14 +116,14 @@ class ImDispatch(object):
         # Dont hang ctrl-c for a poll request, we need to bypass private
         # attribute access because we dont know before starting the thread that
         # it will handle a longpolling request
-        if not odoo.evented:
+        if not flectra.evented:
             current = threading.current_thread()
             current._Thread__daemonic = True # PY2
             current._daemonic = True         # PY3
             # rename the thread to avoid tests waiting for a longpolling
             current.setName("openerp.longpolling.request.%s" % current.ident)
 
-        registry = odoo.registry(dbname)
+        registry = flectra.registry(dbname)
 
         # immediatly returns if past notifications exist
         with registry.cursor() as cr:
@@ -156,7 +156,7 @@ class ImDispatch(object):
     def loop(self):
         """ Dispatch postgres notifications to the relevant polling threads/greenlets """
         _logger.info("Bus.loop listen imbus on db postgres")
-        with odoo.sql_db.db_connect('postgres').cursor() as cr:
+        with flectra.sql_db.db_connect('postgres').cursor() as cr:
             conn = cr._cnx
             cr.execute("listen imbus")
             cr.commit();
@@ -184,7 +184,7 @@ class ImDispatch(object):
                 time.sleep(TIMEOUT)
 
     def start(self):
-        if odoo.evented:
+        if flectra.evented:
             # gevent mode
             import gevent
             self.Event = gevent.event.Event
@@ -199,6 +199,6 @@ class ImDispatch(object):
         return self
 
 dispatch = None
-if not odoo.multi_process or odoo.evented:
+if not flectra.multi_process or flectra.evented:
     # We only use the event dispatcher in threaded and gevent mode
     dispatch = ImDispatch()

@@ -1,4 +1,4 @@
-odoo.define('crm.partner_assign', function (require) {
+flectra.define('crm.partner_assign', function (require) {
 'use strict';
 
 var rpc = require('web.rpc');

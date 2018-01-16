@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<flectra>
     <data noupdate="1">
         <!-- User Feedback Form -->
         <record model="survey.survey" id="feedback_form">
@@ -12,7 +12,7 @@
         </record>
         <!-- Page 1 -->
         <record model="survey.page" id="feedback_1">
-            <field name="title">About your Odoo usage</field>
+            <field name="title">About your Flectra usage</field>
             <field name="survey_id" ref="feedback_form" />
             <field name="sequence">1</field>
             <field name="description">&lt;p&gt;&lt;/p&gt;</field>
@@ -20,7 +20,7 @@
         <record model="survey.question" id="feedback_1_1">
             <field name="page_id" ref="feedback_1" />
             <field name="sequence">1</field>
-            <field name="question">Are you using Odoo on a daily basis?</field>
+            <field name="question">Are you using Flectra on a daily basis?</field>
             <field name="type">simple_choice</field>
             <field name="display_mode">dropdown</field>
             <field name="constr_mandatory" eval="True" />
@@ -38,7 +38,7 @@
                 <record model="survey.label" id="choice_1_1_3">
                     <field name="question_id" ref="feedback_1_1"/>
                     <field name="sequence">3</field>
-                    <field name="value">Yes, I use the online version of Odoo</field>
+                    <field name="value">Yes, I use the online version of Flectra</field>
                 </record>
                 <record model="survey.label" id="choice_1_1_4">
                     <field name="question_id" ref="feedback_1_1"/>
@@ -88,13 +88,13 @@
             <field name="title">Ergonomy and ease of use</field>
             <field name="survey_id" ref="feedback_form" />
             <field name="sequence">2</field>
-            <field name="description">&lt;p&gt;These questions relate to the ergonomy and ease of use of Odoo. Try to remind your firsts days on Odoo and
+            <field name="description">&lt;p&gt;These questions relate to the ergonomy and ease of use of Flectra. Try to remind your firsts days on Flectra and
 what have been your difficulties.&lt;/p&gt;</field>
         </record>
         <record model="survey.question" id="feedback_2_1">
             <field name="page_id" ref="feedback_2" />
             <field name="sequence">1</field>
-            <field name="question">What do you think about the documentation available on doc.odoo.com?</field>
+            <field name="question">What do you think about the documentation available on doc.flectra.com?</field>
             <field name="type">matrix</field>
             <field name="matrix_subtype">simple</field>
             <field name="constr_mandatory" eval="True" />
@@ -132,7 +132,7 @@ what have been your difficulties.&lt;/p&gt;</field>
                 <record model="survey.label" id="frow_2_1_3">
                     <field name="question_id_2" ref="feedback_2_1"/>
                     <field name="sequence">3</field>
-                    <field name="value">I use the contextual help in Odoo</field>
+                    <field name="value">I use the contextual help in Flectra</field>
                 </record>
                 <record model="survey.label" id="frow_2_1_4">
                     <field name="question_id_2" ref="feedback_2_1"/>
@@ -147,7 +147,7 @@ what have been your difficulties.&lt;/p&gt;</field>
         <record model="survey.question" id="feedback_2_2">
             <field name="page_id" ref="feedback_2" />
             <field name="sequence">2</field>
-            <field name="question">What do you think about the process views of Odoo, available in the web client ?</field>
+            <field name="question">What do you think about the process views of Flectra, available in the web client ?</field>
             <field name="type">matrix</field>
             <field name="matrix_subtype">simple</field>
             <field name="constr_mandatory" eval="True" />
@@ -175,7 +175,7 @@ what have been your difficulties.&lt;/p&gt;</field>
                 <record model="survey.label" id="frow_2_2_1">
                     <field name="question_id_2" ref="feedback_2_2"/>
                     <field name="sequence">1</field>
-                    <field name="value">They help new users to understand Odoo</field>
+                    <field name="value">They help new users to understand Flectra</field>
                 </record>
                 <record model="survey.label" id="frow_2_2_2">
                     <field name="question_id_2" ref="feedback_2_2"/>
@@ -361,7 +361,7 @@ what have been your difficulties.&lt;/p&gt;</field>
         <record model="survey.question" id="feedback_3_1">
             <field name="page_id" ref="feedback_3" />
             <field name="sequence">1</field>
-            <field name="question">How do you contribute or plan to contribute to Odoo?</field>
+            <field name="question">How do you contribute or plan to contribute to Flectra?</field>
             <field name="type">multiple_choice</field>
             <field name="column_nb">6</field>
             <field name="constr_mandatory" eval="True" />
@@ -408,7 +408,7 @@ what have been your difficulties.&lt;/p&gt;</field>
             <field name="title">Questions for developers</field>
             <field name="survey_id" ref="feedback_form" />
             <field name="sequence">4</field>
-            <field name="description">&lt;p&gt;If you do not contribute or develop in Odoo, skip this page.&lt;/p&gt;</field>
+            <field name="description">&lt;p&gt;If you do not contribute or develop in Flectra, skip this page.&lt;/p&gt;</field>
         </record>
         <record model="survey.question" id="feedback_4_1">
             <field name="page_id" ref="feedback_4" />
@@ -420,7 +420,7 @@ what have been your difficulties.&lt;/p&gt;</field>
                 <record model="survey.label" id="choice_4_1_1">
                     <field name="question_id" ref="feedback_4_1"/>
                     <field name="sequence">1</field>
-                    <field name="value">I use Github, like all official Odoo projects</field>
+                    <field name="value">I use Github, like all official Flectra projects</field>
                 </record>
                 <record model="survey.label" id="choice_4_1_2">
                     <field name="question_id" ref="feedback_4_1"/>
@@ -438,4 +438,4 @@ what have been your difficulties.&lt;/p&gt;</field>
                     <field name="value">I do not publish my developments</field>
                 </record>
     </data>
-</odoo>
+</flectra>

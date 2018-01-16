@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 import poplib
 from imaplib import IMAP4, IMAP4_SSL
 from poplib import POP3, POP3_SSL
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import UserError
+from flectra import api, fields, models, tools, _
+from flectra.exceptions import UserError
 
 
 _logger = logging.getLogger(__name__)

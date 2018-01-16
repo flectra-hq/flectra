@@ -2,7 +2,7 @@
     'name': 'Contact Form',
     'category': 'Website',
     'sequence': 54,
-    'website': 'https://www.odoo.com/page/website-builder',
+    'website': 'https://flectrahq.com/page/website-builder',
     'summary': 'Create Leads From Contact Form',
     'version': '2.0',
     'description': "",

@@ -1,4 +1,4 @@
-odoo.define('portal.portal', function (require) {
+flectra.define('portal.portal', function (require) {
 'use strict';
 
     require('web.dom_ready');

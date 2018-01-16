@@ -1,4 +1,4 @@
-odoo.define('website_mail.thread', function(require) {
+flectra.define('website_mail.thread', function(require) {
 'use strict';
 
 var ajax = require('web.ajax');

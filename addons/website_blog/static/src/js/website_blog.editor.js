@@ -1,4 +1,4 @@
-odoo.define('website_blog.new_blog_post', function (require) {
+flectra.define('website_blog.new_blog_post', function (require) {
 'use strict';
 
 var core = require('web.core');
@@ -50,7 +50,7 @@ WebsiteNewMenu.include({
 
 //==============================================================================
 
-odoo.define('website_blog.editor', function (require) {
+flectra.define('website_blog.editor', function (require) {
 'use strict';
 
 require('web.dom_ready');

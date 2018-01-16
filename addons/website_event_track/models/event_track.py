@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
-from odoo.tools.translate import _, html_translate
-from odoo.addons.http_routing.models.ir_http import slug
+from flectra import api, fields, models
+from flectra.tools.translate import _, html_translate
+from flectra.addons.http_routing.models.ir_http import slug
 
 
 class TrackTag(models.Model):

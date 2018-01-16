@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields
-from odoo.tools.translate import _
+from flectra import models, fields
+from flectra.tools.translate import _
 
 
 class BarcodeRule(models.Model):

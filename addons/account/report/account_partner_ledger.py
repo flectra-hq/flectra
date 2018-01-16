@@ -2,9 +2,9 @@
 
 from datetime import datetime
 import time
-from odoo import api, models, _
-from odoo.exceptions import UserError
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
+from flectra import api, models, _
+from flectra.exceptions import UserError
+from flectra.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
 class ReportPartnerLedger(models.AbstractModel):

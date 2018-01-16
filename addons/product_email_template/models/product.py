@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models
+from flectra import fields, models
 
 
 class ProductTemplate(models.Model):

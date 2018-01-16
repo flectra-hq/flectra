@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<flectra>
 <template id="summernote" name="Summernote">
     <script type="text/javascript">
         (function () {
             "use strict";
-            odoo.define('jquery', function () {return $;});
+            flectra.define('jquery', function () {return $;});
 
             var uniqId = 0;
-            odoo.__define__ = window.define;
+            flectra.__define__ = window.define;
             window.define = function (id) {
                 var args = Array.prototype.slice.call(arguments);
                 var factorie = args.pop();
@@ -15,10 +15,10 @@
 
                 if (id instanceof Array) {
                     var name = "summernote_factorie_" + (++uniqId);
-                    odoo[name] = factorie;
+                    flectra[name] = factorie;
 
                     var head = '';
-                    var fn = 'var fn = odoo.'+name+';\ndelete odoo.'+name+';\n';
+                    var fn = 'var fn = flectra.'+name+';\ndelete flectra.'+name+';\n';
                     fn += 'return fn(';
                     for (var k=0; k&lt;id.length; k++) {
                         head += 'var a'+(++uniqId)+' = require("'+id[k]+'");\n';
@@ -26,9 +26,9 @@
                     }
                     fn += 'null);';
 
-                    odoo.define(odoo.website_next_define, new Function('require', head + fn));
+                    flectra.define(flectra.website_next_define, new Function('require', head + fn));
                 } else {
-                    odoo.define(id, factorie);
+                    flectra.define(id, factorie);
                 }
             };
         })();
@@ -40,14 +40,14 @@
         'module/HelpDialog', 'module/ImageDialog', 'module/LinkDialog', 'module/Popover',
         'module/Statusbar', 'module/Toolbar', 'Renderer', 'EventHandler', 'defaults', 'summernote']" />
     <t t-foreach="summer_js_files" t-as="file">
-        <script>odoo.website_next_define = 'summernote/<t t-esc="file" />';</script>
+        <script>flectra.website_next_define = 'summernote/<t t-esc="file" />';</script>
         <script type="text/javascript" t-attf-src="/web_editor/static/lib/summernote/src/js/{{ file }}.js"></script>
     </t>
     <script type="text/javascript" src="/web_editor/static/src/js/editor/summernote.js" />
     <script type="text/javascript">
-        window.define = odoo.__define__;
-        delete odoo.__define__;
-        delete odoo.website_next_define;
+        window.define = flectra.__define__;
+        delete flectra.__define__;
+        delete flectra.website_next_define;
     </script>
     <link rel="stylesheet" type="text/less" href="/web_editor/static/lib/summernote/src/less/summernote.less"/>
 </template>
@@ -76,7 +76,7 @@
     </xpath>
 </template>
 
-<template id="assets_frontend" inherit_id="web.assets_frontend" name="Web Editor Frontend Assets (used in public odoo)" priority="15">
+<template id="assets_frontend" inherit_id="web.assets_frontend" name="Web Editor Frontend Assets (used in public flectra)" priority="15">
     <xpath expr="//link[last()]" position="after">
         <link rel="stylesheet" type="text/less" href="/web_editor/static/src/less/web_editor.common.less"/> <!-- not in common because compiled differently with context -->
     </xpath>
@@ -175,4 +175,4 @@
         </div>
     </colorpicker>
 </template>
-</odoo>
+</flectra>

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.website_form.controllers.main import WebsiteForm
-from odoo.http import request, route
+from flectra.addons.website_form.controllers.main import WebsiteForm
+from flectra.http import request, route
 
 import json
 

@@ -1,4 +1,4 @@
-odoo.define('web.data', function (require) {
+flectra.define('web.data', function (require) {
 "use strict";
 
 var Class = require('web.Class');
@@ -579,7 +579,7 @@ var DataSet =  Class.extend(mixins.PropertiesMixin, {
      * Set the sort criteria on the dataset.
      *
      * @param {Array} fields_list: list of fields order descriptors, as used by
-     * Odoo's ORM (such as 'name desc', 'product_id', 'order_date asc')
+     * Flectra's ORM (such as 'name desc', 'product_id', 'order_date asc')
      */
     set_sort: function (fields_list) {
         this._sort = deserialize_sort(fields_list);

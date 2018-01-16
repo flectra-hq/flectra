@@ -1,4 +1,4 @@
-odoo.define('hr_expense.tour', function(require) {
+flectra.define('hr_expense.tour', function(require) {
 "use strict";
 
 var core = require('web.core');

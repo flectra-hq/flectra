@@ -1,4 +1,4 @@
-odoo.define('web.jquery.extensions', function () {
+flectra.define('web.jquery.extensions', function () {
 'use strict';
 
 /**
@@ -85,9 +85,9 @@ $.fn.extend({
         return o;
     },
     /**
-     * Makes DOM elements bounce the way Odoo decided it.
+     * Makes DOM elements bounce the way Flectra decided it.
      */
-    odooBounce: function () {
+    flectraBounce: function () {
         return this.each(function () {
             $(this).css('box-sizing', 'content-box')
                    .effect('bounce', {distance: 18, times: 5}, 250);

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 import random
@@ -8,9 +8,9 @@ import string
 
 import requests
 
-from odoo import api, models, _
-from odoo.exceptions import UserError
-from odoo.tools import html2plaintext
+from flectra import api, models, _
+from flectra.exceptions import UserError
+from flectra.tools import html2plaintext
 
 from ..py_etherpad import EtherpadLiteClient
 

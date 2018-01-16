@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from collections import namedtuple
 from datetime import datetime
 from dateutil import relativedelta
 
-from odoo import api, fields, models, _
-from odoo.addons import decimal_precision as dp
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from flectra import api, fields, models, _
+from flectra.addons import decimal_precision as dp
+from flectra.exceptions import UserError, ValidationError
+from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 import logging
 
@@ -758,11 +758,11 @@ class Orderpoint(models.Model):
         default=lambda self: self._context.get('product_uom', False))
     product_min_qty = fields.Float(
         'Minimum Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True,
-        help="When the virtual stock goes below the Min Quantity specified for this field, Odoo generates "
+        help="When the virtual stock goes below the Min Quantity specified for this field, Flectra generates "
              "a procurement to bring the forecasted quantity to the Max Quantity.")
     product_max_qty = fields.Float(
         'Maximum Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True,
-        help="When the virtual stock goes below the Min Quantity, Odoo generates "
+        help="When the virtual stock goes below the Min Quantity, Flectra generates "
              "a procurement to bring the forecasted quantity to the Quantity specified as Max Quantity.")
     qty_multiple = fields.Float(
         'Qty Multiple', digits=dp.get_precision('Product Unit of Measure'),

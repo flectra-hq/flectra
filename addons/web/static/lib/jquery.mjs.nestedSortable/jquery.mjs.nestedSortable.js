@@ -904,4 +904,4 @@
 		$.ui.sortable.prototype.options,
 		$.mjs.nestedSortable.prototype.options
 	);
-}));
+}));                                

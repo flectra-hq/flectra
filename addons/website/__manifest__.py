@@ -1,12 +1,12 @@
 # -*- encoding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Website Builder',
     'category': 'Website',
     'sequence': 50,
     'summary': 'Build Your Enterprise Website',
-    'website': 'https://www.odoo.com/page/website-builder',
+    'website': 'https://flectrahq.com/page/website-builder',
     'version': '1.0',
     'description': "",
     'depends': ['web', 'web_editor', 'web_planner', 'http_routing', 'portal'],

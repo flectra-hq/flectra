@@ -1,4 +1,4 @@
-odoo.define('mail.form_renderer', function (require) {
+flectra.define('mail.form_renderer', function (require) {
 "use strict";
 
 var BasicModel = require('web.BasicModel');
@@ -100,7 +100,7 @@ FormController.include({
 
     /**
      * @private
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      * @param {string} event.data.id datapointID
      * @param {integer[]} event.data.msgIDs list of message ids
      */

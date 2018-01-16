@@ -61,7 +61,7 @@ define([
 
       // air mode
       if ($editor.hasClass('note-air-editor')) {
-        // ODOO: editor on [data-note-id] attribute
+        // FLECTRA: editor on [data-note-id] attribute
         // var id = list.last($editor.attr('id').split('-'));
         var id = list.last($editor.attr('data-note-id').split('-'));
         makeFinder = function (sIdPrefix) {
@@ -120,7 +120,7 @@ define([
       if ($target.is('.note-editor, .note-air-editor')) {
         $editor = $target;
       } else {
-        // ODOO: editor on [data-note-id] attribute
+        // FLECTRA: editor on [data-note-id] attribute
         // $editor = $('#note-editor-' + list.last($target.attr('id').split('-')));
         $editor = $('[data-note-id="' + list.last($target.attr('id')) + '"]');
       }

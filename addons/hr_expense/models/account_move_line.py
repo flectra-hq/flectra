@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
-from odoo.tools import float_compare
+from flectra import api, fields, models
+from flectra.tools import float_compare
 
 
 class AccountMoveLine(models.Model):

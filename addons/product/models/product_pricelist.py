@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from itertools import chain
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import UserError, ValidationError
+from flectra import api, fields, models, tools, _
+from flectra.exceptions import UserError, ValidationError
 
-from odoo.addons import decimal_precision as dp
+from flectra.addons import decimal_precision as dp
 
-from odoo.tools import pycompat
+from flectra.tools import pycompat
 
 
 class Pricelist(models.Model):

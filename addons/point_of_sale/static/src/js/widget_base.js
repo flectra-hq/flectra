@@ -1,4 +1,4 @@
-odoo.define('point_of_sale.BaseWidget', function (require) {
+flectra.define('point_of_sale.BaseWidget', function (require) {
 "use strict";
 
 var field_utils = require('web.field_utils');

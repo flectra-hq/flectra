@@ -421,11 +421,11 @@
                     element.children().first().after(widget);
                 }
 
-                // !! ODOO FIX START !!
+                // !! FLECTRA FIX START !!
                 var parentOffset = parent.offset();
                 position.top = offset.top - parentOffset.top;
                 position.left = offset.left - parentOffset.left;
-                // !! ODOO FIX END !!
+                // !! FLECTRA FIX END !!
 
                 // Top and bottom logic
                 if (vertical === 'auto') {

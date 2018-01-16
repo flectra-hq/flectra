@@ -1,4 +1,4 @@
-odoo.define('web_editor.web_editor_tests', function (require) {
+flectra.define('web_editor.web_editor_tests', function (require) {
 "use strict";
 
 var FormView = require('web.FormView');
@@ -211,7 +211,7 @@ QUnit.test('html_frame does not crash when saving in readonly', function (assert
             if (_.str.startsWith(route, '/test')) {
                 // manually call the callback to simulate that the iframe has
                 // been loaded (note: just the content, not the editor)
-                window.odoo[$.deparam(route).callback + '_content'].call();
+                window.flectra[$.deparam(route).callback + '_content'].call();
                 return $.when();
             }
             return this._super.apply(this, arguments);
@@ -248,7 +248,7 @@ QUnit.test('html_frame does not crash when saving in edit mode (editor not loade
             if (_.str.startsWith(route, '/test')) {
                 // manually call the callback to simulate that the iframe has
                 // been partially loaded (just the content, not the editor)
-                window.odoo[$.deparam(route).callback + '_content']();
+                window.flectra[$.deparam(route).callback + '_content']();
                 return $.when();
             }
             return this._super.apply(this, arguments);
@@ -295,8 +295,8 @@ QUnit.test('html_frame saving in edit mode (editor and content fully loaded)', f
                 // been fully loaded (content + editor)
                 var callback = $.deparam(route).callback;
                 return loadDeferred.then(function () {
-                    var contentCallback = window.odoo[callback + '_content'];
-                    var editorCallback = window.odoo[callback + '_editor'];
+                    var contentCallback = window.flectra[callback + '_content'];
+                    var editorCallback = window.flectra[callback + '_editor'];
                     if (editorCallback && contentCallback) {
                         contentCallback();
                         editorCallback(editorBar);

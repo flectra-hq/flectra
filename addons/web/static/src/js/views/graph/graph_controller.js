@@ -1,7 +1,7 @@
-odoo.define('web.GraphController', function (require) {
+flectra.define('web.GraphController', function (require) {
 "use strict";
 /*---------------------------------------------------------
- * Odoo Graph view
+ * Flectra Graph view
  *---------------------------------------------------------*/
 
 var AbstractController = require('web.AbstractController');

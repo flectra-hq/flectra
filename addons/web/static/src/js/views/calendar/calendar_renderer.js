@@ -1,4 +1,4 @@
-odoo.define('web.CalendarRenderer', function (require) {
+flectra.define('web.CalendarRenderer', function (require) {
 "use strict";
 
 var AbstractRenderer = require('web.AbstractRenderer');
@@ -96,7 +96,7 @@ var SidebarFilter = Widget.extend(FieldManagerMixin, {
     //--------------------------------------------------------------------------
 
     /**
-     * @param {OdooEvent} event
+     * @param {FlectraEvent} event
      */
     _onFieldChanged: function (event) {
         var self = this;

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import base64
 
 import werkzeug
 
-from odoo import _, exceptions, http
-from odoo.http import request
-from odoo.tools import consteq
+from flectra import _, exceptions, http
+from flectra.http import request
+from flectra.tools import consteq
 
 
 class MassMailController(http.Controller):

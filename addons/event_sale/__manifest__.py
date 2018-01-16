@@ -4,7 +4,7 @@
     'name': 'Events Sales',
     'version': '1.1',
     'category': 'Marketing',
-    'website': 'https://www.odoo.com/page/events',
+    'website': 'https://flectrahq.com/page/events',
     'description': """
 Creating registration with sales orders.
 ========================================

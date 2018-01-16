@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import date
 
-from odoo import api, models, _
-from odoo.exceptions import UserError
+from flectra import api, models, _
+from flectra.exceptions import UserError
 
 class EmployeesYearlySalaryReport(models.AbstractModel):
     _name = 'report.l10n_in_hr_payroll.report_hryearlysalary'

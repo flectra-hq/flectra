@@ -1,4 +1,4 @@
-odoo.define('website.contentMenu', function (require) {
+flectra.define('website.contentMenu', function (require) {
 'use strict';
 
 var core = require('web.core');

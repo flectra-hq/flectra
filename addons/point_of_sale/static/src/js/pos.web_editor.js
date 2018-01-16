@@ -1,4 +1,4 @@
-odoo.define('point_of_sale.editor', function (require) {
+flectra.define('point_of_sale.editor', function (require) {
     'use strict';
 
     var s_options = require('web_editor.snippets.options');

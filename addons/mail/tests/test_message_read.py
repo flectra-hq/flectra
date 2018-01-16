@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.mail.tests.common import TestMail
-from odoo.tools import mute_logger
+from flectra.addons.mail.tests.common import TestMail
+from flectra.tools import mute_logger
 
 
 class TestMessageRead(TestMail):
 
-    @mute_logger('odoo.addons.mail.models.mail_mail')
+    @mute_logger('flectra.addons.mail.models.mail_mail')
     def setUp(self):
         super(TestMessageRead, self).setUp()
         self.user_employee.write({'notification_type': 'inbox'})

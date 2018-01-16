@@ -1,4 +1,4 @@
-odoo.define('barcodes.tests', function (require) {
+flectra.define('barcodes.tests', function (require) {
 "use strict";
 
 var barcodeEvents = require('barcodes.BarcodeEvents');

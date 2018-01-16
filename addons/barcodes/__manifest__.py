@@ -8,7 +8,7 @@ This module adds support for barcode scanning and parsing.
 
 Scanning
 --------
-Use a USB scanner (that mimics keyboard inputs) in order to work with barcodes in Odoo.
+Use a USB scanner (that mimics keyboard inputs) in order to work with barcodes in Odoo, Flectra.
 The scanner must be configured to use no prefix and a carriage return or tab as suffix.
 The delay between each character input must be less than or equal to 50 milliseconds.
 Most barcode scanners will work out of the box.

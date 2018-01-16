@@ -91,10 +91,10 @@
         .o-flex-flow(row, wrap);
         .o-align-items(baseline);
 
-        .o-tag-color(@size: 0) when (@size < @odoo-nb-ui-color) {
+        .o-tag-color(@size: 0) when (@size < @flectra-nb-ui-color) {
             .o_tag_color_@{size} {
                 &, &::after {
-                    background-color: ~"@{odoo-color-@{size}}";
+                    background-color: ~"@{flectra-color-@{size}}";
                 }
             }
             .o-tag-color(@size + 1);
@@ -149,7 +149,7 @@
             }
 
             &.fa-star-o {
-                color: @odoo-main-color-muted;
+                color: @flectra-main-color-muted;
             }
             &.fa-star {
                 color: gold;
@@ -163,7 +163,7 @@
             font-size: 16px;
         }
         i.fa-star-o {
-            color: @odoo-main-color-muted;
+            color: @flectra-main-color-muted;
             &:hover {
                 color: gold;
             }
@@ -196,7 +196,7 @@
 
             > input {
                 .o-flex(0, 0, auto);
-                margin: 0 @odoo-form-spacing-unit 0 0;
+                margin: 0 @flectra-form-spacing-unit 0 0;
             }
             > label {
                 margin: 0;
@@ -205,14 +205,14 @@
 
         &.o_horizontal {
             .o_radio_item {
-                margin-right: @odoo-form-spacing-unit * 2;
+                margin-right: @flectra-form-spacing-unit * 2;
             }
         }
 
         &.o_vertical {
             .o-flex-flow(column, nowrap);
             .o_radio_item {
-                margin-bottom: @odoo-form-spacing-unit;
+                margin-bottom: @flectra-form-spacing-unit;
             }
         }
     }
@@ -226,7 +226,7 @@
             margin-right: 10px;
             border-radius: 100%;
             overflow: hidden;
-            background-color: @odoo-brand-optional;
+            background-color: @flectra-brand-optional;
 
             &:after { // Outside pie border to go over border-radius irregularities
                 content: " ";
@@ -241,7 +241,7 @@
                 .o-transform-origin(0);
                 width: 50%;
                 height: 100%;
-                background-color: @odoo-view-background-color;
+                background-color: @flectra-view-background-color;
                 &.o_full {
                     background-color: inherit;
                 }
@@ -255,7 +255,7 @@
                 border-radius: 100%;
 
                 font-weight: 700;
-                color: @odoo-brand-primary;
+                color: @flectra-brand-primary;
             }
         }
     }
@@ -278,7 +278,7 @@
             width: 100%;
 
             color: white;
-            background-color: @odoo-brand-optional;
+            background-color: @flectra-brand-optional;
             opacity: 0;
             transition: opacity ease 400ms;
 
@@ -297,7 +297,7 @@
                     margin: 0px;
                     text-align: center;
                     &.o_select_file_button{
-                        background: @odoo-brand-optional;
+                        background: @flectra-brand-optional;
                     }
                     &.o_clear_file_button{
                         background: @brand-danger;

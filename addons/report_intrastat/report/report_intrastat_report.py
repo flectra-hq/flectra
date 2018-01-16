@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models
-from odoo.tools.sql import drop_view_if_exists
+from flectra import fields, models
+from flectra.tools.sql import drop_view_if_exists
 
 class ReportIntrastat(models.Model):
     _name = "report.intrastat"

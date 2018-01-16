@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import re
-import odoo.tests
+import flectra.tests
 
 RE_ONLY = re.compile('QUnit\.only\(')
 
-class WebSuite(odoo.tests.HttpCase):
+class WebSuite(flectra.tests.HttpCase):
 
     post_install = True
     at_install = False

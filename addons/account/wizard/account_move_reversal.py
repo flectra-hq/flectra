@@ -1,5 +1,5 @@
-from odoo import models, fields, api
-from odoo.tools.translate import _
+from flectra import models, fields, api
+from flectra.tools.translate import _
 
 class AccountMoveReversal(models.TransientModel):
     """

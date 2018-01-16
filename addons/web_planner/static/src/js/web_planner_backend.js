@@ -1,4 +1,4 @@
-odoo.define('web.planner', function (require) {
+flectra.define('web.planner', function (require) {
 "use strict";
 
 var core = require('web.core');

@@ -1,4 +1,4 @@
-odoo.define('mail.chat_window_test', function (require) {
+flectra.define('mail.chat_window_test', function (require) {
 "use strict";
 
 var framework = require('web.framework');

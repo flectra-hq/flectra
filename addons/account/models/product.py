@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from flectra import api, fields, models, _
+from flectra.exceptions import UserError
 
 
 class ProductCategory(models.Model):

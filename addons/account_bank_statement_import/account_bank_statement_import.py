@@ -2,9 +2,9 @@
 
 import base64
 
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-from odoo.addons.base.res.res_bank import sanitize_account_number
+from flectra import api, fields, models, _
+from flectra.exceptions import UserError
+from flectra.addons.base.res.res_bank import sanitize_account_number
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -37,7 +37,7 @@ class AccountBankStatementImport(models.TransientModel):
         currency_code, account_number, stmts_vals = self.with_context(active_id=self.ids[0])._parse_file(base64.b64decode(self.data_file))
         # Check raw data
         self._check_parsed_data(stmts_vals)
-        # Try to find the currency and journal in odoo
+        # Try to find the currency and journal in flectra
         currency, journal = self._find_additional_data(currency_code, account_number)
         # If no journal found, ask the user about creating one
         if not journal:
@@ -100,7 +100,7 @@ class AccountBankStatementImport(models.TransientModel):
                         - 'amount': float
                         - 'unique_import_id': string
                         -o 'account_number': string
-                            Will be used to find/create the res.partner.bank in odoo
+                            Will be used to find/create the res.partner.bank in flectra
                         -o 'note': string
                         -o 'partner_name': string
                         -o 'ref': string

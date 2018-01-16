@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 from __future__ import print_function
 import logging
 import optparse
@@ -27,7 +27,7 @@ from tempfile import NamedTemporaryFile
 #----------------------------------------------------------
 # Utils
 #----------------------------------------------------------
-exec(open(join(dirname(__file__), '..', 'odoo', 'release.py'), 'rb').read())
+exec(open(join(dirname(__file__), '..', 'flectra', 'release.py'), 'rb').read())
 version = version.split('-')[0].replace('saas~','')
 docker_version = version.replace('+', '')
 timestamp = time.strftime("%Y%m%d", time.gmtime())
@@ -73,7 +73,7 @@ def system(l, chdir=None):
         os.chdir(cwd)
     return rc
 
-def _rpc_count_modules(addr='http://127.0.0.1', port=8069, dbname='mycompany'):
+def _rpc_count_modules(addr='http://127.0.0.1', port=7073, dbname='mycompany'):
     time.sleep(5)
     modules = xmlrpclib.ServerProxy('%s:%s/xmlrpc/object' % (addr, port)).execute(
         dbname, 1, 'admin', 'ir.module.module', 'search', [('state', '=', 'installed')]
@@ -116,15 +116,15 @@ def publish(o, type, extensions):
 
     published = []
     for extension in extensions:
-        release = glob("%s/odoo_*.%s" % (o.build_dir, extension))
+        release = glob("%s/flectra_*.%s" % (o.build_dir, extension))
         if release:
             published.append(_publish(o, release[0]))
     return published
 
-class OdooDocker(object):
+class FlectraDocker(object):
     def __init__(self):
         self.log_file = NamedTemporaryFile(mode='w+b', prefix="bash", suffix=".txt", delete=False)
-        self.port = 8069  # TODO sle: reliable way to get a free port?
+        self.port = 7073  # TODO sle: reliable way to get a free port?
         self.prompt_re = '[root@nightly-tests] # '
         self.timeout = 600
 
@@ -137,7 +137,7 @@ class OdooDocker(object):
         self.pub_dir = pub_dir
 
         self.docker = pexpect.spawn(
-            'docker run -v %s:/opt/release -p 127.0.0.1:%s:8069'
+            'docker run -v %s:/opt/release -p 127.0.0.1:%s:7073'
             ' -t -i %s /bin/bash --noediting' % (self.build_dir, self.port, docker_image),
             timeout=self.timeout,
             searchwindowsize=len(self.prompt_re) + 1,
@@ -163,7 +163,7 @@ class OdooDocker(object):
 
 @contextmanager
 def docker(docker_image, build_dir, pub_dir):
-    _docker = OdooDocker()
+    _docker = FlectraDocker()
     try:
         _docker.start(docker_image, build_dir, pub_dir)
         try:
@@ -185,7 +185,7 @@ class KVM(object):
         os.kill(self.pid,15)
 
     def start(self):
-        l="kvm -cpu core2duo -smp 2,sockets=2,cores=1,threads=1 -net nic,model=rtl8139 -net user,hostfwd=tcp:127.0.0.1:10022-:22,hostfwd=tcp:127.0.0.1:18069-:8069,hostfwd=tcp:127.0.0.1:15432-:5432 -m 1024 -drive".split(" ")
+        l="kvm -cpu core2duo -smp 2,sockets=2,cores=1,threads=1 -net nic,model=rtl8139 -net user,hostfwd=tcp:127.0.0.1:10022-:22,hostfwd=tcp:127.0.0.1:17073-:7073,hostfwd=tcp:127.0.0.1:15432-:5432 -m 1024 -drive".split(" ")
         #l.append('file=%s,if=virtio,index=0,boot=on,snapshot=on'%self.image)
         l.append('file=%s,snapshot=on'%self.image)
         #l.extend(['-vnc','127.0.0.1:1'])
@@ -222,10 +222,10 @@ class KVMWinBuildExe(KVM):
         with open(join(self.o.build_dir, 'setup/win32/Makefile.servicename'), 'w') as f:
             f.write("SERVICENAME=%s\n" % nt_service_name)
 
-        remote_build_dir = '/cygdrive/c/odoobuild/server/'
+        remote_build_dir = '/cygdrive/c/flectrabuild/server/'
 
         self.ssh("mkdir -p build")
-        logging.info("Syncing Odoo files to virtual machine...")
+        logging.info("Syncing Flectra files to virtual machine...")
         self.rsync('%s/ %s@127.0.0.1:%s' % (self.o.build_dir, self.login, remote_build_dir))
         self.ssh("cd {}setup/win32;time make allinone;".format(remote_build_dir))
         self.rsync('%s@127.0.0.1:%ssetup/win32/release/ %s/' % (self.login, remote_build_dir, self.o.build_dir), '')
@@ -239,10 +239,10 @@ class KVMWinTestExe(KVM):
 
         self.rsync('"%s" %s@127.0.0.1:' % (setuppath, self.login))
         self.ssh("TEMP=/tmp ./%s /S" % setupfile)
-        self.ssh('PGPASSWORD=openpgpwd /cygdrive/c/"Program Files"/"Odoo %s"/PostgreSQL/bin/createdb.exe -e -U openpg mycompany' % setupversion)
+        self.ssh('PGPASSWORD=openpgpwd /cygdrive/c/"Program Files"/"Flectra %s"/PostgreSQL/bin/createdb.exe -e -U openpg mycompany' % setupversion)
         self.ssh('netsh advfirewall set publicprofile state off')
-        self.ssh('/cygdrive/c/"Program Files"/"Odoo {sv}"/python/python.exe \'c:\\Program Files\\Odoo {sv}\\server\\odoo-bin\' -d mycompany -i base --stop-after-init'.format(sv=setupversion))
-        _rpc_count_modules(port=18069)
+        self.ssh('/cygdrive/c/"Program Files"/"Flectra {sv}"/python/python.exe \'c:\\Program Files\\Flectra {sv}\\server\\flectra-bin\' -d mycompany -i base --stop-after-init'.format(sv=setupversion))
+        _rpc_count_modules(port=17073)
 
 #----------------------------------------------------------
 # Stage: building
@@ -252,13 +252,13 @@ def _prepare_build_dir(o, win32=False):
     cmd = ['rsync', '-a', '--exclude', '.git', '--exclude', '*.pyc', '--exclude', '*.pyo']
     if not win32:
         cmd += ['--exclude', 'setup/win32']
-    system(cmd + ['%s/' % o.odoo_dir, o.build_dir])
+    system(cmd + ['%s/' % o.flectra_dir, o.build_dir])
     for addon_path in glob(join(o.build_dir, 'addons/*')):
         if addon_path.split(os.path.sep)[-1] not in ADDONS_NOT_TO_PUBLISH:
             try:
-                shutil.move(addon_path, join(o.build_dir, 'odoo/addons'))
+                shutil.move(addon_path, join(o.build_dir, 'flectra/addons'))
             except shutil.Error as e:
-                # Thrown when the add-on is already in odoo/addons (if _prepare_build_dir
+                # Thrown when the add-on is already in flectra/addons (if _prepare_build_dir
                 # has already been called once)
                 logging.warning("Warning '{}' while moving addon '{}'".format(e,addon_path))
                 if addon_path.startswith(o.build_dir) and os.path.isdir(addon_path):
@@ -270,12 +270,12 @@ def _prepare_build_dir(o, win32=False):
 
 def build_tgz(o):
     system(['python3', 'setup.py', 'sdist', '--quiet', '--formats=gztar,zip'], o.build_dir)
-    system(['mv', glob('%s/dist/odoo-*.tar.gz' % o.build_dir)[0], '%s/odoo_%s.%s.tar.gz' % (o.build_dir, version, timestamp)])
-    system(['mv', glob('%s/dist/odoo-*.zip' % o.build_dir)[0], '%s/odoo_%s.%s.zip' % (o.build_dir, version, timestamp)])
+    system(['mv', glob('%s/dist/flectra-*.tar.gz' % o.build_dir)[0], '%s/flectra_%s.%s.tar.gz' % (o.build_dir, version, timestamp)])
+    system(['mv', glob('%s/dist/flectra-*.zip' % o.build_dir)[0], '%s/flectra_%s.%s.zip' % (o.build_dir, version, timestamp)])
 
 def build_deb(o):
     # Append timestamp to version for the .dsc to refer the right .tar.gz
-    cmd=['sed', '-i', '1s/^.*$/odoo (%s.%s) stable; urgency=low/'%(version,timestamp), 'debian/changelog']
+    cmd=['sed', '-i', '1s/^.*$/flectra (%s.%s) stable; urgency=low/'%(version,timestamp), 'debian/changelog']
     subprocess.call(cmd, cwd=o.build_dir)
     if not o.no_debsign:
         deb = pexpect.spawn('dpkg-buildpackage -rfakeroot -k%s' % GPGID, cwd=o.build_dir)
@@ -290,16 +290,16 @@ def build_deb(o):
         subprocess.call(['dpkg-buildpackage', '-rfakeroot', '-uc', '-us'], cwd=o.build_dir)
     # As the packages are built in the parent of the buildir, we move them back to build_dir
     build_dir_parent = '{}/../'.format(o.build_dir)
-    wildcards = ['odoo_{}'.format(wc) for wc in ('*.deb', '*.dsc', '*_amd64.changes', '*.tar.gz', '*.tar.xz')]
+    wildcards = ['flectra_{}'.format(wc) for wc in ('*.deb', '*.dsc', '*_amd64.changes', '*.tar.gz', '*.tar.xz')]
     move_glob(build_dir_parent, wildcards, o.build_dir)
 
 def build_rpm(o):
     system(['python3', 'setup.py', '--quiet', 'bdist_rpm'], o.build_dir)
-    system(['mv', glob('%s/dist/odoo-*.noarch.rpm' % o.build_dir)[0], '%s/odoo_%s.%s.noarch.rpm' % (o.build_dir, version, timestamp)])
+    system(['mv', glob('%s/dist/flectra-*.noarch.rpm' % o.build_dir)[0], '%s/flectra_%s.%s.noarch.rpm' % (o.build_dir, version, timestamp)])
 
 def build_exe(o):
     KVMWinBuildExe(o, o.vm_winxp_image, o.vm_winxp_ssh_key, o.vm_winxp_login).start()
-    system(['cp', glob('%s/openerp*.exe' % o.build_dir)[0], '%s/odoo_%s.%s.exe' % (o.build_dir, version, timestamp)])
+    system(['cp', glob('%s/openerp*.exe' % o.build_dir)[0], '%s/flectra_%s.%s.exe' % (o.build_dir, version, timestamp)])
 
 #----------------------------------------------------------
 # Stage: testing
@@ -310,67 +310,67 @@ def _prepare_testing(o):
         logging.info('Preparing docker container instance for tarball')
         subprocess.call(["mkdir", "docker_src"], cwd=o.build_dir)
         subprocess.call(["cp", "package.dfsrc", os.path.join(o.build_dir, "docker_src", "Dockerfile")],
-                        cwd=os.path.join(o.odoo_dir, "setup"))
+                        cwd=os.path.join(o.flectra_dir, "setup"))
         # Use rsync to copy requirements.txt in order to keep original permissions
         subprocess.call(["rsync", "-a", "requirements.txt", os.path.join(o.build_dir, "docker_src")],
-                        cwd=os.path.join(o.odoo_dir))
-        subprocess.call(["docker", "build", "-t", "odoo-%s-src-nightly-tests" % docker_version, "."],
+                        cwd=os.path.join(o.flectra_dir))
+        subprocess.call(["docker", "build", "-t", "flectra-%s-src-nightly-tests" % docker_version, "."],
                         cwd=os.path.join(o.build_dir, "docker_src"))
     if not o.no_debian:
         logging.info('Preparing docker container instance for debian')
         subprocess.call(["mkdir", "docker_debian"], cwd=o.build_dir)
         subprocess.call(["cp", "package.dfdebian", os.path.join(o.build_dir, "docker_debian", "Dockerfile")],
-                        cwd=os.path.join(o.odoo_dir, "setup"))
+                        cwd=os.path.join(o.flectra_dir, "setup"))
         # Use rsync to copy requirements.txt in order to keep original permissions
         subprocess.call(["rsync", "-a", "requirements.txt", os.path.join(o.build_dir, "docker_debian")],
-                        cwd=os.path.join(o.odoo_dir))
-        subprocess.call(["docker", "build", "-t", "odoo-%s-debian-nightly-tests" % docker_version, "."],
+                        cwd=os.path.join(o.flectra_dir))
+        subprocess.call(["docker", "build", "-t", "flectra-%s-debian-nightly-tests" % docker_version, "."],
                         cwd=os.path.join(o.build_dir, "docker_debian"))
     if not o.no_rpm:
         logging.info('Preparing docker container instance for RPM') 
         subprocess.call(["mkdir", "docker_fedora"], cwd=o.build_dir)
         subprocess.call(["cp", "package.dffedora", os.path.join(o.build_dir, "docker_fedora", "Dockerfile")],
-                        cwd=os.path.join(o.odoo_dir, "setup"))
-        subprocess.call(["docker", "build", "-t", "odoo-%s-fedora-nightly-tests" % docker_version, "."],
+                        cwd=os.path.join(o.flectra_dir, "setup"))
+        subprocess.call(["docker", "build", "-t", "flectra-%s-fedora-nightly-tests" % docker_version, "."],
                         cwd=os.path.join(o.build_dir, "docker_fedora"))
 
 def test_tgz(o):
     logging.info('Testing tarball in docker')
-    with docker('odoo-%s-src-nightly-tests' % docker_version, o.build_dir, o.pub) as wheezy:
+    with docker('flectra-%s-src-nightly-tests' % docker_version, o.build_dir, o.pub) as wheezy:
         wheezy.release = '*.tar.gz'
         wheezy.system("service postgresql start")
         wheezy.system('pip3 install /opt/release/%s' % wheezy.release)
-        wheezy.system("useradd --system --no-create-home odoo")
-        wheezy.system('su postgres -s /bin/bash -c "createuser -s odoo"')
+        wheezy.system("useradd --system --no-create-home flectra")
+        wheezy.system('su postgres -s /bin/bash -c "createuser -s flectra"')
         wheezy.system('su postgres -s /bin/bash -c "createdb mycompany"')
-        wheezy.system('mkdir /var/lib/odoo')
-        wheezy.system('chown odoo:odoo /var/lib/odoo')
-        wheezy.system('su odoo -s /bin/bash -c "odoo -d mycompany -i base --stop-after-init"')
-        wheezy.system('su odoo -s /bin/bash -c "odoo -d mycompany &"')
+        wheezy.system('mkdir /var/lib/flectra')
+        wheezy.system('chown flectra:flectra /var/lib/flectra')
+        wheezy.system('su flectra -s /bin/bash -c "flectra -d mycompany -i base --stop-after-init"')
+        wheezy.system('su flectra -s /bin/bash -c "flectra -d mycompany &"')
 
 def test_deb(o):
     logging.info('Testing deb package in docker')
-    with docker('odoo-%s-debian-nightly-tests' % docker_version, o.build_dir, o.pub) as wheezy:
+    with docker('flectra-%s-debian-nightly-tests' % docker_version, o.build_dir, o.pub) as wheezy:
         wheezy.release = '*.deb'
         wheezy.system("service postgresql start")
         wheezy.system('su postgres -s /bin/bash -c "createdb mycompany"')
         wheezy.system('/usr/bin/dpkg -i /opt/release/%s' % wheezy.release)
         wheezy.system('/usr/bin/apt-get install -f -y')
-        wheezy.system('su odoo -s /bin/bash -c "odoo -c /etc/odoo/odoo.conf -d mycompany -i base --stop-after-init"')
-        wheezy.system('su odoo -s /bin/bash -c "odoo -c /etc/odoo/odoo.conf -d mycompany &"')
+        wheezy.system('su flectra -s /bin/bash -c "flectra -c /etc/flectra/flectra.conf -d mycompany -i base --stop-after-init"')
+        wheezy.system('su flectra -s /bin/bash -c "flectra -c /etc/flectra/flectra.conf -d mycompany &"')
 
 def test_rpm(o):
     logging.info('Testing rpm in docker')
-    with docker('odoo-%s-fedora-nightly-tests' % docker_version, o.build_dir, o.pub) as fedora24:
+    with docker('flectra-%s-fedora-nightly-tests' % docker_version, o.build_dir, o.pub) as fedora24:
         fedora24.release = '*.noarch.rpm'
         # Start postgresql
         fedora24.system('su postgres -c "/usr/bin/pg_ctl -D /var/lib/postgres/data start"')
         fedora24.system('sleep 5')
         fedora24.system('su postgres -c "createdb mycompany"')
-        # Odoo install
+        # Flectra install
         fedora24.system('dnf install -d 0 -e 0 /opt/release/%s -y' % fedora24.release)
-        fedora24.system('su odoo -s /bin/bash -c "odoo -c /etc/odoo/odoo.conf -d mycompany -i base --stop-after-init"')
-        fedora24.system('su odoo -s /bin/bash -c "odoo -c /etc/odoo/odoo.conf -d mycompany &"')
+        fedora24.system('su flectra -s /bin/bash -c "flectra -c /etc/flectra/flectra.conf -d mycompany -i base --stop-after-init"')
+        fedora24.system('su flectra -s /bin/bash -c "flectra -c /etc/flectra/flectra.conf -d mycompany &"')
 
 def test_exe(o):
     logging.info('Testng windows installer in KVM')
@@ -454,8 +454,8 @@ def options():
     op.add_option("", "--no-windows", action="store_true", help="don't build the windows package")
 
     # Windows VM
-    op.add_option("", "--vm-winxp-image", default='/home/odoo/vm/win1036/win10_winpy36.qcow2', help="%default")
-    op.add_option("", "--vm-winxp-ssh-key", default='/home/odoo/vm/win1036/id_rsa', help="%default")
+    op.add_option("", "--vm-winxp-image", default='/home/flectra/vm/win1036/win10_winpy36.qcow2', help="%default")
+    op.add_option("", "--vm-winxp-ssh-key", default='/home/flectra/vm/win1036/id_rsa', help="%default")
     op.add_option("", "--vm-winxp-login", default='Naresh', help="Windows login (%default)")
     op.add_option("", "--vm-winxp-python-version", default='3.6', help="Windows Python version installed in the VM (default: %default)")
     
@@ -465,10 +465,10 @@ def options():
     (o, args) = op.parse_args()
     logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %I:%M:%S', level=log_levels[o.logging])
     # derive other options
-    o.odoo_dir = root
+    o.flectra_dir = root
     o.pkg = join(o.build_dir, 'pkg')
     o.work = join(o.build_dir, 'openerp-%s' % version)
-    o.work_addons = join(o.work, 'odoo', 'addons')
+    o.work_addons = join(o.work, 'flectra', 'addons')
 
     return o
 

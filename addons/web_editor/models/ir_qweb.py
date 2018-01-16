@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 """
 Web_editor-context rendering needs to add some metadata to rendered and allow to edit fields,
 as well as render a few fields differently.
 
-Also, adds methods to convert values back to Odoo models.
+Also, adds methods to convert values back to Flectra models.
 """
 
 import ast
@@ -25,12 +25,12 @@ from lxml import etree, html
 from PIL import Image as I
 from werkzeug import urls
 
-import odoo.modules
+import flectra.modules
 
-from odoo import api, models, fields
-from odoo.tools import ustr, pycompat
-from odoo.tools import html_escape as escape
-from odoo.addons.base.ir import ir_qweb
+from flectra import api, models, fields
+from flectra.tools import ustr, pycompat
+from flectra.tools import html_escape as escape
+from flectra.addons.base.ir import ir_qweb
 
 REMOTE_CONNECTION_TIMEOUT = 2.5
 
@@ -332,7 +332,7 @@ class Image(models.AbstractModel):
             if sep and sep != '/':
                 rest.replace(sep, '/')
 
-        path = odoo.modules.get_module_resource(
+        path = flectra.modules.get_module_resource(
             match.group('module'), 'static', *(rest.split('/')))
 
         if not path:

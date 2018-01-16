@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo.http import request
-from odoo import models
+from flectra.http import request
+from flectra import models
 
 
 class IrHttp(models.AbstractModel):

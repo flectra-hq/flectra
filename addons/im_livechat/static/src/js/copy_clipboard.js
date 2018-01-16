@@ -1,4 +1,4 @@
-odoo.define('im_livechat.copy_clipboard', function (require) {
+flectra.define('im_livechat.copy_clipboard', function (require) {
 "use strict";
 
 var core = require('web.core');

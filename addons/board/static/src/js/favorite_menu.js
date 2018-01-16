@@ -1,4 +1,4 @@
-odoo.define('board.favorite_menu', function (require) {
+flectra.define('board.favorite_menu', function (require) {
 "use strict";
 
 var ActionManager = require('web.ActionManager');

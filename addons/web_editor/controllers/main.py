@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import base64
 import io
 import json
@@ -11,10 +11,10 @@ import werkzeug.wrappers
 from PIL import Image, ImageFont, ImageDraw
 from lxml import etree, html
 
-from odoo.http import request
-from odoo import http, tools
-from odoo.tools import pycompat
-from odoo.modules.module import get_resource_path, get_module_path
+from flectra.http import request
+from flectra import http, tools
+from flectra.tools import pycompat
+from flectra.modules.module import get_resource_path, get_module_path
 
 logger = logging.getLogger(__name__)
 

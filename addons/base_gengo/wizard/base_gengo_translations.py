@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 import re
 import time
 import uuid
 
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import UserError, ValidationError
+from flectra import api, fields, models, tools, _
+from flectra.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -123,7 +123,7 @@ class BaseGengoTranslations(models.TransientModel):
         """
         This method will be called by cron services to get translations from
         Gengo. It will read translated terms and comments from Gengo and will
-        update respective ir.translation in Odoo.
+        update respective ir.translation in Flectra.
         """
         IrTranslation = self.env['ir.translation']
         flag, gengo = self.gengo_authentication()
@@ -255,7 +255,7 @@ class BaseGengoTranslations(models.TransientModel):
 
         A special key 'gengo_language' can be passed in the context in order to
         request only translations of that language only. Its value is the language
-        ID in Odoo.
+        ID in Flectra.
         """
         domain = [
             ('state', '=', 'to_translate'),

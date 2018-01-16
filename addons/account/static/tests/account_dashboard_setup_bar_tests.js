@@ -1,4 +1,4 @@
-odoo.define('account.setup_bar_tests', function (require) {
+flectra.define('account.setup_bar_tests', function (require) {
 "use strict";
 
 var testUtils = require('web.test_utils');

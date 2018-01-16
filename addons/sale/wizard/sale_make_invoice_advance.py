@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import time
 
-from odoo import api, fields, models, _
-from odoo.addons import decimal_precision as dp
-from odoo.exceptions import UserError
+from flectra import api, fields, models, _
+from flectra.addons import decimal_precision as dp
+from flectra.exceptions import UserError
 
 
 class SaleAdvancePaymentInv(models.TransientModel):

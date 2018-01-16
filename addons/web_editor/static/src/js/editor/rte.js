@@ -1,4 +1,4 @@
-odoo.define('web_editor.rte', function (require) {
+flectra.define('web_editor.rte', function (require) {
 'use strict';
 
 var concurrency = require('web.concurrency');
@@ -496,7 +496,7 @@ var RTEWidget = Widget.extend({
             ],
             'styleWithSpan': false,
             'inlinemedia' : ['p'],
-            'lang': 'odoo',
+            'lang': 'flectra',
             'onChange': function (html, $editable) {
                 $editable.trigger('content_changed');
             }

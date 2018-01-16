@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.account.tests.account_test_classes import AccountingTestCase
+from flectra.addons.account.tests.account_test_classes import AccountingTestCase
 
 class TestSetupBar(AccountingTestCase):
 

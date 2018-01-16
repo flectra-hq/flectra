@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
 
-from odoo import api, fields, models, tools, SUPERUSER_ID
-from odoo.tools.translate import _
-from odoo.exceptions import UserError
+from flectra import api, fields, models, tools, SUPERUSER_ID
+from flectra.tools.translate import _
+from flectra.exceptions import UserError
 
 AVAILABLE_PRIORITIES = [
     ('0', 'Normal'),

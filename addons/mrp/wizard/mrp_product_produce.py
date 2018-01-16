@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from collections import Counter
 from datetime import datetime
 
-from odoo import api, fields, models, _
-from odoo.addons import decimal_precision as dp
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import float_compare, float_round
+from flectra import api, fields, models, _
+from flectra.addons import decimal_precision as dp
+from flectra.exceptions import UserError, ValidationError
+from flectra.tools import float_compare, float_round
 
 class MrpProductProduce(models.TransientModel):
     _name = "mrp.product.produce"

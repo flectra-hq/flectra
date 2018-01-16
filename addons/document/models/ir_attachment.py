@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import io
 import logging
 import PyPDF2
 import xml.dom.minidom
 import zipfile
 
-from odoo import api, models
+from flectra import api, models
 
 _logger = logging.getLogger(__name__)
 FTYPES = ['docx', 'pptx', 'xlsx', 'opendoc', 'pdf']

@@ -1,4 +1,4 @@
-odoo.define('web.FavoriteMenu', function (require) {
+flectra.define('web.FavoriteMenu', function (require) {
 "use strict";
 
 var core = require('web.core');
@@ -280,7 +280,7 @@ return Widget.extend({
 
 });
 
-odoo.define('web.FilterMenu', function (require) {
+flectra.define('web.FilterMenu', function (require) {
 "use strict";
 
 var search_filters = require('web.search_filters');
@@ -384,7 +384,7 @@ return Widget.extend({
 
 });
 
-odoo.define('web.GroupByMenu', function (require) {
+flectra.define('web.GroupByMenu', function (require) {
 "use strict";
 
 var core = require('web.core');

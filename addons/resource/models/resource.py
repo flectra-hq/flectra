@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import datetime
 import math
@@ -11,10 +11,10 @@ from dateutil import rrule
 from dateutil.relativedelta import relativedelta
 from operator import itemgetter
 
-from odoo import api, fields, models, _
-from odoo.addons.base.res.res_partner import _tz_get
-from odoo.exceptions import ValidationError
-from odoo.tools.float_utils import float_compare
+from flectra import api, fields, models, _
+from flectra.addons.base.res.res_partner import _tz_get
+from flectra.exceptions import ValidationError
+from flectra.tools.float_utils import float_compare
 
 
 def float_to_time(float_hour):

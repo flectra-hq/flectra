@@ -11,13 +11,13 @@ import requests
 from lxml import etree, objectify
 from werkzeug import urls, url_encode
 
-from odoo import api, fields, models, _
-from odoo.addons.payment.models.payment_acquirer import ValidationError
-from odoo.addons.payment_ogone.controllers.main import OgoneController
-from odoo.addons.payment_ogone.data import ogone
-from odoo.tools import float_round, DEFAULT_SERVER_DATE_FORMAT
-from odoo.tools.float_utils import float_compare, float_repr
-from odoo.tools.safe_eval import safe_eval
+from flectra import api, fields, models, _
+from flectra.addons.payment.models.payment_acquirer import ValidationError
+from flectra.addons.payment_ogone.controllers.main import OgoneController
+from flectra.addons.payment_ogone.data import ogone
+from flectra.tools import float_round, DEFAULT_SERVER_DATE_FORMAT
+from flectra.tools.float_utils import float_compare, float_repr
+from flectra.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 
@@ -64,8 +64,8 @@ class PaymentAcquirerOgone(models.Model):
     def _ogone_generate_shasign(self, inout, values):
         """ Generate the shasign for incoming or outgoing communications.
 
-        :param string inout: 'in' (odoo contacting ogone) or 'out' (ogone
-                             contacting odoo). In this last case only some
+        :param string inout: 'in' (flectra contacting ogone) or 'out' (ogone
+                             contacting flectra). In this last case only some
                              fields should be contained (see e-Commerce basic)
         :param dict values: transaction values
 
@@ -172,7 +172,7 @@ class PaymentAcquirerOgone(models.Model):
         }
         if self.save_token in ['ask', 'always']:
             temp_ogone_tx_values.update({
-                'ALIAS': 'ODOO-NEW-ALIAS-%s' % time.time(),    # something unique,
+                'ALIAS': 'FLECTRA-NEW-ALIAS-%s' % time.time(),    # something unique,
                 'ALIASUSAGE': values.get('alias_usage') or self.ogone_alias_usage,
             })
         shasign = self._ogone_generate_shasign('in', temp_ogone_tx_values)
@@ -341,7 +341,7 @@ class PaymentTxOgone(models.Model):
     def ogone_s2s_do_transaction(self, **kwargs):
         # TODO: create tx with s2s type
         account = self.acquirer_id
-        reference = self.reference or "ODOO-%s-%s" % (datetime.datetime.now().strftime('%y%m%d_%H%M%S'), self.partner_id.id)
+        reference = self.reference or "FLECTRA-%s-%s" % (datetime.datetime.now().strftime('%y%m%d_%H%M%S'), self.partner_id.id)
 
         param_plus = {
             'return_url': kwargs.get('return_url', False)
@@ -399,7 +399,7 @@ class PaymentTxOgone(models.Model):
 
         self.state = 'refunding'
         account = self.acquirer_id
-        reference = self.reference or "ODOO-%s-%s" % (datetime.datetime.now().strftime('%y%m%d_%H%M%S'), self.partner_id.id)
+        reference = self.reference or "FLECTRA-%s-%s" % (datetime.datetime.now().strftime('%y%m%d_%H%M%S'), self.partner_id.id)
 
         data = {
             'PSPID': account.ogone_pspid,
@@ -493,7 +493,7 @@ class PaymentTxOgone(models.Model):
 
     def _ogone_s2s_get_tx_status(self):
         account = self.acquirer_id
-        #reference = tx.reference or "ODOO-%s-%s" % (datetime.datetime.now().strftime('%Y%m%d_%H%M%S'), tx.partner_id.id)
+        #reference = tx.reference or "FLECTRA-%s-%s" % (datetime.datetime.now().strftime('%Y%m%d_%H%M%S'), tx.partner_id.id)
 
         data = {
             'PAYID': self.acquirer_reference,
@@ -526,7 +526,7 @@ class PaymentToken(models.Model):
             # create a alias via batch
             values['cc_number'] = values['cc_number'].replace(' ', '')
             acquirer = self.env['payment.acquirer'].browse(values['acquirer_id'])
-            alias = 'ODOO-NEW-ALIAS-%s' % time.time()
+            alias = 'FLECTRA-NEW-ALIAS-%s' % time.time()
 
             expiry = str(values['cc_expiry'][:2]) + str(values['cc_expiry'][-2:])
             line = 'ADDALIAS;%(alias)s;%(cc_holder_name)s;%(cc_number)s;%(expiry)s;%(cc_brand)s;%(pspid)s'
@@ -575,4 +575,4 @@ class PaymentToken(models.Model):
                 'acquirer_ref': alias,
                 'name': 'XXXXXXXXXXXX%s - %s' % (values['cc_number'][-4:], values['cc_holder_name'])
             }
-        return {}
+        return {}        

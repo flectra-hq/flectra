@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Email Marketing',
@@ -7,7 +7,7 @@
     'description': "",
     'version': '2.0',
     'sequence': 110,
-    'website': 'https://www.odoo.com/page/mailing',
+    'website': 'https://flectrahq.com/page/mailing',
     'category': 'Marketing',
     'depends': [
         'mail',

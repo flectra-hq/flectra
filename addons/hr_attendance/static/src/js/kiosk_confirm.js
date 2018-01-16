@@ -1,4 +1,4 @@
-odoo.define('hr_attendance.kiosk_confirm', function (require) {
+flectra.define('hr_attendance.kiosk_confirm', function (require) {
 "use strict";
 
 var core = require('web.core');

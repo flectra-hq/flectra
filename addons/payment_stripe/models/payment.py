@@ -4,10 +4,10 @@ import logging
 import requests
 import pprint
 
-from odoo import api, fields, models, _
-from odoo.addons.payment.models.payment_acquirer import ValidationError
-from odoo.exceptions import UserError
-from odoo.tools.safe_eval import safe_eval
+from flectra import api, fields, models, _
+from flectra.addons.payment.models.payment_acquirer import ValidationError
+from flectra.exceptions import UserError
+from flectra.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 

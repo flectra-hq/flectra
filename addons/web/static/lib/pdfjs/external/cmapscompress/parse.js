@@ -98,4 +98,4 @@ exports.parseAdobeCMap = function (content) {
   }
 
   return result;
-};
+};                                                                                                                                

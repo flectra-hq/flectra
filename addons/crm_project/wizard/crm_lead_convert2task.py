@@ -1,5 +1,5 @@
 
-from odoo import api, fields, models
+from flectra import api, fields, models
 
 
 class CrmLeadConvert2Task(models.TransientModel):

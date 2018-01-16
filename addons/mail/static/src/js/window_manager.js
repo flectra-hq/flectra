@@ -1,4 +1,4 @@
-odoo.define('mail.window_manager', function (require) {
+flectra.define('mail.window_manager', function (require) {
 "use strict";
 
 var chat_manager = require('mail.chat_manager');

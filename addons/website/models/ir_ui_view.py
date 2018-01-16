@@ -1,14 +1,14 @@
 # -*- coding: ascii -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 from itertools import groupby
 
-from odoo import api, fields, models
-from odoo import tools
-from odoo.addons.http_routing.models.ir_http import url_for
-from odoo.http import request
-from odoo.tools import pycompat
+from flectra import api, fields, models
+from flectra import tools
+from flectra.addons.http_routing.models.ir_http import url_for
+from flectra.http import request
+from flectra.tools import pycompat
 
 _logger = logging.getLogger(__name__)
 

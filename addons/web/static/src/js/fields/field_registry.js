@@ -1,4 +1,4 @@
-odoo.define('web.field_registry', function (require) {
+flectra.define('web.field_registry', function (require) {
 "use strict";
 
 var Registry = require('web.Registry');
@@ -6,7 +6,7 @@ var Registry = require('web.Registry');
 return new Registry();
 });
 
-odoo.define('web._field_registry', function(require) {
+flectra.define('web._field_registry', function(require) {
 "use strict";
 
 var AbstractField = require('web.AbstractField');

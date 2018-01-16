@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from . import models
 
-from odoo import api, SUPERUSER_ID
+from flectra import api, SUPERUSER_ID
 
 
 def load_translations(env):

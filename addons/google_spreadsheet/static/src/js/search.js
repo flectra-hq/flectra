@@ -1,4 +1,4 @@
-odoo.define('google_spreadsheet.google.spreadsheet', function (require) {
+flectra.define('google_spreadsheet.google.spreadsheet', function (require) {
 "use strict";
 
 var ActionManager = require('web.ActionManager');

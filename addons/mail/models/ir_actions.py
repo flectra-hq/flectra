@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from flectra import _, api, fields, models
+from flectra.exceptions import UserError, ValidationError
 
 
 class ServerActions(models.Model):

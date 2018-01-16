@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models
+from flectra import models
 
 
 class PlannerInventory(models.Model):

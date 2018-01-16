@@ -1,4 +1,4 @@
-define([], function () { // ODOO: remove error from Odoo define
+define([], function () { // FLECTRA: remove error from Flectra define
   var HelpDialog = function (handler) {
     /**
      * show help dialog

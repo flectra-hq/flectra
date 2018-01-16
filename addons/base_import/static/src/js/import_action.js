@@ -1,4 +1,4 @@
-odoo.define('base_import.import', function (require) {
+flectra.define('base_import.import', function (require) {
 "use strict";
 
 var ControlPanelMixin = require('web.ControlPanelMixin');

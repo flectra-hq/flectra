@@ -6,7 +6,7 @@
     'description': """
 This module Allows a customer to give rating on Project.
 """,
-    'website': 'http://odoo.com',
+    'website': 'http://flectra.com',
     'depends': [
         'rating',
         'project'

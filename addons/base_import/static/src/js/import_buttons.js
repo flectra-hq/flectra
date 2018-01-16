@@ -1,4 +1,4 @@
-odoo.define('base_import.import_buttons', function (require) {
+flectra.define('base_import.import_buttons', function (require) {
 "use strict";
 
 var KanbanController = require('web.KanbanController');

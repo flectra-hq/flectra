@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import datetime
 import logging
@@ -9,11 +9,11 @@ import werkzeug.urls
 
 from ast import literal_eval
 
-from odoo import api, release, SUPERUSER_ID
-from odoo.exceptions import UserError
-from odoo.models import AbstractModel
-from odoo.tools.translate import _
-from odoo.tools import config, misc, ustr
+from flectra import api, release, SUPERUSER_ID
+from flectra.exceptions import UserError
+from flectra.models import AbstractModel
+from flectra.tools.translate import _
+from flectra.tools import config, misc, ustr
 
 _logger = logging.getLogger(__name__)
 
@@ -81,7 +81,7 @@ class PublisherWarrantyContract(AbstractModel):
     @api.multi
     def update_notification(self, cron_mode=True):
         """
-        Send a message to Odoo's publisher warranty server to check the
+        Send a message to Flectra's publisher warranty server to check the
         validity of the contracts, get notifications, etc...
 
         @param cron_mode: If true, catch all exceptions (appropriate for usage in a cron).

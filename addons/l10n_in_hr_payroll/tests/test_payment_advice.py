@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import os
 
-from odoo.tools import config
-from odoo.addons.l10n_in_hr_payroll.tests.common import TestPaymentAdviceBase
+from flectra.tools import config
+from flectra.addons.l10n_in_hr_payroll.tests.common import TestPaymentAdviceBase
 
 
 class TestPaymentAdvice(TestPaymentAdviceBase):

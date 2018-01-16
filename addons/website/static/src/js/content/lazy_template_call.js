@@ -1,4 +1,4 @@
-odoo.define('website.content.lazy_template_call', function (require) {
+flectra.define('website.content.lazy_template_call', function (require) {
 'use strict';
 
 var Widget = require('web.Widget');

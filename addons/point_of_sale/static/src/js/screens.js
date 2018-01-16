@@ -1,4 +1,4 @@
-odoo.define('point_of_sale.screens', function (require) {
+flectra.define('point_of_sale.screens', function (require) {
 "use strict";
 // This file contains the Screens definitions. Screens are the
 // content of the right pane of the pos, containing the main functionalities. 

@@ -1,4 +1,4 @@
-odoo.define('web.StandaloneFieldManagerMixin', function (require) {
+flectra.define('web.StandaloneFieldManagerMixin', function (require) {
 "use strict";
 
 
@@ -37,7 +37,7 @@ var StandaloneFieldManagerMixin = _.extend({}, FieldManagerMixin, {
      * @private
      * @param {string} id basicModel Id for the changed record
      * @param {string[]} fields the fields (names) that have been changed
-     * @param {OdooEvent} event the event that triggered the change
+     * @param {FlectraEvent} event the event that triggered the change
      * @returns {Deferred}
      */
     _confirmChange: function (id, fields, event) {

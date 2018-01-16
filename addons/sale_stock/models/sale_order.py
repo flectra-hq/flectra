@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
-from odoo import api, fields, models, _
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_compare
-from odoo.exceptions import UserError
+from flectra import api, fields, models, _
+from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_compare
+from flectra.exceptions import UserError
 
 
 class SaleOrder(models.Model):

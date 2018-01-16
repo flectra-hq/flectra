@@ -1,4 +1,4 @@
-odoo.define('mail.chat_client_action_mobile', function (require) {
+flectra.define('mail.chat_client_action_mobile', function (require) {
 "use strict";
 
 var ChatAction = require('mail.chat_client_action');

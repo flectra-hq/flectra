@@ -1,4 +1,4 @@
-odoo.define('hr_attendance.kiosk_mode', function (require) {
+flectra.define('hr_attendance.kiosk_mode', function (require) {
 "use strict";
 
 var core = require('web.core');

@@ -1,4 +1,4 @@
-odoo.define('web_editor.snippet.editor', function (require) {
+flectra.define('web_editor.snippet.editor', function (require) {
 'use strict';
 
 var core = require('web.core');
@@ -445,7 +445,7 @@ var SnippetEditor = Widget.extend({
      * specific action/react to a specific event.
      *
      * @private
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      */
     _onOptionUpdate: function (ev) {
         // If multiple option names are given, we suppose it should not be
@@ -1128,7 +1128,7 @@ var SnippetsMenu = Widget.extend({
      * @returns {string}
      */
     _getSnippetURL: function () {
-        return odoo.snippetsURL || '/web_editor/snippets';
+        return flectra.snippetsURL || '/web_editor/snippets';
     },
     /**
      * Make given snippets be draggable/droppable thanks to their thumbnail.
@@ -1284,7 +1284,7 @@ var SnippetsMenu = Widget.extend({
      * Called when a child editor asks for insertion zones to be enabled.
      *
      * @private
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      */
     _onActivateInsertionZones: function (ev) {
         this._activateInsertionZones(ev.data.$selectorSiblings, ev.data.$selectorChildren);
@@ -1294,7 +1294,7 @@ var SnippetsMenu = Widget.extend({
      * snippet of a DOM element.
      *
      * @private
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      */
     _onCallForEachChildSnippet: function (ev) {
         this._callForEachChildSnippet(ev.data.$snippet, ev.data.callback);
@@ -1326,7 +1326,7 @@ var SnippetsMenu = Widget.extend({
      * so we might not want to do this as it would slow the editor.
      *
      * @private
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      */
     _onDragAndDropStop: function (ev) {
         this._activateSnippet(ev.data.$snippet);
@@ -1336,7 +1336,7 @@ var SnippetsMenu = Widget.extend({
      * parent instead.
      *
      * @private
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      */
     _onGoToParent: function (ev) {
         ev.stopPropagation();

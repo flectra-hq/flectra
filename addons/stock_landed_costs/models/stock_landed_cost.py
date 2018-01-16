@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 
-from odoo import api, fields, models, tools, _
-from odoo.addons import decimal_precision as dp
-from odoo.addons.stock_landed_costs.models import product
-from odoo.exceptions import UserError
+from flectra import api, fields, models, tools, _
+from flectra.addons import decimal_precision as dp
+from flectra.addons.stock_landed_costs.models import product
+from flectra.exceptions import UserError
 
 
 class StockMove(models.Model):

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Calendar',
@@ -19,7 +19,7 @@ It supports:
 If you need to manage your meetings, you should install the CRM module.
     """,
     'category': 'Extra Tools',
-    'website': 'https://www.odoo.com/page/crm',
+    'website': 'https://flectrahq.com/page/crm',
     'demo': [
         'data/calendar_demo.xml'
     ],

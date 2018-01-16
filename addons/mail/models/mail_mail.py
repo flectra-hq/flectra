@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import base64
 import datetime
@@ -10,10 +10,10 @@ import threading
 from collections import defaultdict
 from email.utils import formataddr
 
-from odoo import _, api, fields, models
-from odoo import tools
-from odoo.addons.base.ir.ir_mail_server import MailDeliveryException
-from odoo.tools.safe_eval import safe_eval
+from flectra import _, api, fields, models
+from flectra import tools
+from flectra.addons.base.ir.ir_mail_server import MailDeliveryException
+from flectra.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 
@@ -231,7 +231,7 @@ class MailMail(models.Model):
             except Exception as exc:
                 if raise_exception:
                     # To be consistent and backward compatible with mail_mail.send() raised
-                    # exceptions, it is encapsulated into an Odoo MailDeliveryException
+                    # exceptions, it is encapsulated into an Flectra MailDeliveryException
                     raise MailDeliveryException(_('Unable to connect to SMTP Server'), exc)
                 else:
                     self.browse(batch_ids).write({'state': 'exception', 'failure_reason': exc})

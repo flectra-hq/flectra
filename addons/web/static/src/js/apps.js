@@ -1,4 +1,4 @@
-odoo.define('web.Apps', function (require) {
+flectra.define('web.Apps', function (require) {
 "use strict";
 
 var core = require('web.core');
@@ -145,7 +145,7 @@ var Apps = Widget.extend({
 
             def.resolve();
         }, function() {
-            self.do_warn(_t('Odoo Apps will be available soon'), _t('Showing locally available modules'), true);
+            self.do_warn(_t('Flectra Apps will be available soon'), _t('Showing locally available modules'), true);
             return self._rpc({
                 route: '/web/action/load',
                 params: {action_id: self.failback_action_id},

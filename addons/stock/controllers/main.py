@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from odoo import http
-from odoo.http import request
-from odoo.addons.web.controllers.main import _serialize_exception
-from odoo.tools import html_escape
+from flectra import http
+from flectra.http import request
+from flectra.addons.web.controllers.main import _serialize_exception
+from flectra.tools import html_escape
 
 import json
 
@@ -40,7 +40,7 @@ class StockReportController(http.Controller):
             se = _serialize_exception(e)
             error = {
                 'code': 200,
-                'message': 'Odoo Server Error',
+                'message': 'Flectra Server Error',
                 'data': se
             }
             return request.make_response(html_escape(json.dumps(error)))

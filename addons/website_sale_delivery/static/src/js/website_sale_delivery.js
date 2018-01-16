@@ -1,5 +1,5 @@
 'use strict';
-odoo.define('website_sale_delivery.checkout', function (require) {
+flectra.define('website_sale_delivery.checkout', function (require) {
 
     require('web.dom_ready');
     var ajax = require('web.ajax');

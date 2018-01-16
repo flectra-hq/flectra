@@ -1,4 +1,4 @@
-odoo.define('web.AbstractWebClient', function (require) {
+flectra.define('web.AbstractWebClient', function (require) {
 "use strict";
 
 /**
@@ -93,7 +93,7 @@ var AbstractWebClient = Widget.extend(mixins.ServiceProvider, {
         this._current_state = null;
         this.menu_dm = new concurrency.DropMisordered();
         this.action_mutex = new concurrency.Mutex();
-        this.set('title_part', {"zopenerp": "Odoo"});
+        this.set('title_part', {"zopenerp": "Flectra"});
     },
     start: function () {
         var self = this;
@@ -183,7 +183,7 @@ var AbstractWebClient = Widget.extend(mixins.ServiceProvider, {
                     delete window.onOriginError;
                 } else {
                     crash_manager.show_error({
-                        type: _t("Odoo Client Error"),
+                        type: _t("Flectra Client Error"),
                         message: _t("Unknown CORS error"),
                         data: {debug: _t("An unknown CORS error occured. The error probably originates from a JavaScript file served from a different origin.")},
                     });
@@ -191,7 +191,7 @@ var AbstractWebClient = Widget.extend(mixins.ServiceProvider, {
             } else {
                 var traceback = error ? error.stack : '';
                 crash_manager.show_error({
-                    type: _t("Odoo Client Error"),
+                    type: _t("Flectra Client Error"),
                     message: message,
                     data: {debug: file + ':' + line + "\n" + _t('Traceback:') + "\n" + traceback},
                 });
@@ -327,7 +327,7 @@ var AbstractWebClient = Widget.extend(mixins.ServiceProvider, {
      * Displays a warning in a dialog of with the NotificationManager
      *
      * @private
-     * @param {OdooEvent} e
+     * @param {FlectraEvent} e
      * @param {string} e.data.message the warning's message
      * @param {string} e.data.title the warning's title
      * @param {string} [e.data.type] 'dialog' to display in a dialog
@@ -350,7 +350,7 @@ var AbstractWebClient = Widget.extend(mixins.ServiceProvider, {
      * Displays a visual effect (for example, a rainbowman0
      *
      * @private
-     * @param {OdooEvent} e
+     * @param {FlectraEvent} e
      * @param {Object} [e.data] - key-value options to decide rainbowman
      *   behavior / appearance
      */

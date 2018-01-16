@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import werkzeug
 
-from odoo.addons.mail.controllers.main import MailController
-from odoo.exceptions import AccessError
-from odoo.http import request
-from odoo.tools.misc import consteq
+from flectra.addons.mail.controllers.main import MailController
+from flectra.exceptions import AccessError
+from flectra.http import request
+from flectra.tools.misc import consteq
 
 
 class MailController(MailController):

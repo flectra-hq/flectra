@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import base64
 
-from odoo import http, _
-from odoo.exceptions import AccessError
-from odoo.http import request
-from odoo.tools import consteq
-from odoo.addons.portal.controllers.mail import _message_post_helper
-from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager, get_records_pager
+from flectra import http, _
+from flectra.exceptions import AccessError
+from flectra.http import request
+from flectra.tools import consteq
+from flectra.addons.portal.controllers.mail import _message_post_helper
+from flectra.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager, get_records_pager
 
 
 class CustomerPortal(CustomerPortal):

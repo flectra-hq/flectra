@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models
-from odoo.tools import float_round
+from flectra import api, models
+from flectra.tools import float_round
 
 
 class report_product_pricelist(models.AbstractModel):

@@ -1,4 +1,4 @@
-odoo.define('website_sale_stock.website_sale', function(require) {
+flectra.define('website_sale_stock.website_sale', function(require) {
 'use strict';
 
 require('web.dom_ready');

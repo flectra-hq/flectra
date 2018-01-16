@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import requests
 from PIL import Image
 
@@ -11,11 +11,11 @@ import re
 
 from werkzeug import urls
 
-from odoo import api, fields, models, SUPERUSER_ID, _
-from odoo.addons.http_routing.models.ir_http import slug
-from odoo.tools import image
-from odoo.tools.translate import html_translate
-from odoo.exceptions import Warning
+from flectra import api, fields, models, SUPERUSER_ID, _
+from flectra.addons.http_routing.models.ir_http import slug
+from flectra.tools import image
+from flectra.tools.translate import html_translate
+from flectra.exceptions import Warning
 
 
 class Channel(models.Model):

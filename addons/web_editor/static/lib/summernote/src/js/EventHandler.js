@@ -205,12 +205,12 @@ define([
       // delay for range after mouseup
       setTimeout(function () {
         var layoutInfo = dom.makeLayoutInfo(target);
-        /* ODOO: (start_modification */
+        /* FLECTRA: (start_modification */
         var $editable = layoutInfo.editable();
         if (!event.isDefaultPrevented()) {
           modules.editor.saveRange($editable);
         }
-        /* ODOO: end_modification) */
+        /* FLECTRA: end_modification) */
         var styleInfo = modules.editor.currentStyle(target);
         self.updateStyleInfo(styleInfo, layoutInfo);
       }, 0);
@@ -349,8 +349,8 @@ define([
         var keyString = keys.join('+');
         var eventName = keyMap[keyString];
 
-        // ODOO: (start_modification
-        // odoo change: add visible event to overwrite the browser comportment
+        // FLECTRA: (start_modification
+        // flectra change: add visible event to overwrite the browser comportment
         var keycode = event.keyCode;
         if (!eventName &&
             !event.ctrlKey && !event.metaKey && ( // special code/command
@@ -364,7 +364,7 @@ define([
         } else if (!keycode) {
           self.invoke('restoreRange', $editable);
         }
-        // ODOO: end_modification)
+        // FLECTRA: end_modification)
 
         if (eventName) {
           // FIXME Summernote doesn't support event pipeline yet.

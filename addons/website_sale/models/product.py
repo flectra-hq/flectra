@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import api, fields, models, tools, _
-from odoo.addons import decimal_precision as dp
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+from flectra import api, fields, models, tools, _
+from flectra.addons import decimal_precision as dp
 
-from odoo.tools import pycompat
-from odoo.tools.translate import html_translate
-from odoo.tools import float_is_zero
+from flectra.tools import pycompat
+from flectra.tools.translate import html_translate
+from flectra.tools import float_is_zero
 
 
 class ProductStyle(models.Model):

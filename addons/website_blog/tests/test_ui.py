@@ -1,10 +1,10 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-import odoo.tests
+import flectra.tests
 
 
-@odoo.tests.common.at_install(False)
-@odoo.tests.common.post_install(True)
-class TestUi(odoo.tests.HttpCase):
+@flectra.tests.common.at_install(False)
+@flectra.tests.common.post_install(True)
+class TestUi(flectra.tests.HttpCase):
     def test_admin(self):
-        self.phantom_js("/", "odoo.__DEBUG__.services['web_tour.tour'].run('blog')", "odoo.__DEBUG__.services['web_tour.tour'].tours.blog.ready", login='admin')
+        self.phantom_js("/", "flectra.__DEBUG__.services['web_tour.tour'].run('blog')", "flectra.__DEBUG__.services['web_tour.tour'].tours.blog.ready", login='admin')

@@ -1,5 +1,5 @@
 /*global $, _, PDFJS */
-odoo.define('website_slides.slides', function (require) {
+flectra.define('website_slides.slides', function (require) {
 "use strict";
 
 var ajax = require('web.ajax');

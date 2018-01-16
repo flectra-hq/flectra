@@ -1,4 +1,4 @@
-odoo.define('portal.chatter', function(require) {
+flectra.define('portal.chatter', function(require) {
 'use strict';
 
 var base = require('web_editor.base');
@@ -28,7 +28,7 @@ var PortalChatter = Widget.extend({
         this.options = _.defaults(options || {}, {
             'allow_composer': true,
             'display_composer': false,
-            'csrf_token': odoo.csrf_token,
+            'csrf_token': flectra.csrf_token,
             'message_count': 0,
             'pager_step': 10,
             'pager_scope': 5,

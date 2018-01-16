@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields, api, _
-from odoo.exceptions import UserError
+from flectra import models, fields, api, _
+from flectra.exceptions import UserError
 
 
 class Project(models.Model):
@@ -58,4 +58,4 @@ class Task(models.Model):
         if context.get('default_parent_id', False):
             vals['parent_id'] = context.pop('default_parent_id', None)
         task = super(Task, self.with_context(context)).create(vals)
-        return task
+        return task        

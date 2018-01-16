@@ -1,4 +1,4 @@
-odoo.define('web_diagram.DiagramRenderer', function (require) {
+flectra.define('web_diagram.DiagramRenderer', function (require) {
 "use strict";
 
 var AbstractRenderer = require('web.AbstractRenderer');

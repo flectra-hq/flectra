@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime, timedelta
 
-from odoo import api, fields, models, _
-from odoo.tools.translate import html_translate
-from odoo.addons import decimal_precision as dp
+from flectra import api, fields, models, _
+from flectra.tools.translate import html_translate
+from flectra.addons import decimal_precision as dp
 
 from werkzeug.urls import url_encode
 

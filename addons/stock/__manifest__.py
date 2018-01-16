@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Inventory Management',
     'version': '1.1',
     'summary': 'Inventory, Logistics, Warehousing',
     'description': "",
-    'website': 'https://www.odoo.com/page/warehouse',
+    'website': 'https://flectrahq.com/page/warehouse',
     'depends': ['product', 'barcodes', 'web_planner'],
     'category': 'Warehouse',
     'sequence': 13,

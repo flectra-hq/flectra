@@ -1,4 +1,4 @@
-odoo.define('web.pyeval', function (require) {
+flectra.define('web.pyeval', function (require) {
 "use strict";
 
 var core = require('web.core');
