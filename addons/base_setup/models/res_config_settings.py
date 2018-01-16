@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from flectra import api, fields, models, _
+import json
 
 
 class ResConfigSettings(models.TransientModel):
@@ -35,17 +36,26 @@ class ResConfigSettings(models.TransientModel):
             help="Allows to work in a multi currency environment")
     paperformat_id = fields.Many2one(related="company_id.paperformat_id", string='Paper format')
     external_report_layout = fields.Selection(related="company_id.external_report_layout")
+    send_statistics = fields.Boolean(
+        "Send Statistics")
 
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()
         params = self.env['ir.config_parameter'].sudo()
         default_external_email_server = params.get_param('base_setup.default_external_email_server', default=False)
+        send_statistics = params._get_param(
+            'base_setup.send_statistics')
+        if send_statistics is None:
+            send_statistics = 'true'
+        if send_statistics in ['true', 'false']:
+            send_statistics = json.loads(send_statistics)
         default_user_rights = params.get_param('base_setup.default_user_rights', default=False)
         default_custom_report_footer = params.get_param('base_setup.default_custom_report_footer', default=False)
         res.update(
             default_external_email_server=default_external_email_server,
             default_user_rights=default_user_rights,
+            send_statistics=send_statistics,
             default_custom_report_footer=default_custom_report_footer,
             company_share_partner=not self.env.ref('base.res_partner_rule').active,
         )
@@ -57,6 +67,11 @@ class ResConfigSettings(models.TransientModel):
         self.env['ir.config_parameter'].sudo().set_param("base_setup.default_external_email_server", self.default_external_email_server)
         self.env['ir.config_parameter'].sudo().set_param("base_setup.default_user_rights", self.default_user_rights)
         self.env['ir.config_parameter'].sudo().set_param("base_setup.default_custom_report_footer", self.default_custom_report_footer)
+        send_statistics = 'true'
+        if not self.send_statistics:
+            send_statistics = 'false'
+        self.env['ir.config_parameter'].sudo().set_param(
+            "base_setup.send_statistics", send_statistics)
         self.env.ref('base.res_partner_rule').write({'active': not self.company_share_partner})
 
     @api.multi

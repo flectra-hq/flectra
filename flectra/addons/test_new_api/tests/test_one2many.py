@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp.tests.common import TransactionCase
+from flectra.tests.common import TransactionCase
 
 
 class One2manyCase(TransactionCase):

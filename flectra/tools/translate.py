@@ -26,7 +26,7 @@ from .osutil import walksymlinks
 _logger = logging.getLogger(__name__)
 
 # used to notify web client that these translations should be loaded in the UI
-WEB_TRANSLATION_COMMENT = "openerp-web"
+WEB_TRANSLATION_COMMENT = "flectra-web"
 
 SKIPPED_ELEMENTS = ('script', 'style', 'title')
 

@@ -36,6 +36,7 @@
         'views/ir_actions_views.xml',
         'views/ir_model_views.xml',
         'views/res_partner_views.xml',
+        'wizard/mass_mail.xml',
     ],
     'demo': [
         'data/mail_demo.xml',

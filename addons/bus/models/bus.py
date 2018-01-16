@@ -121,7 +121,7 @@ class ImDispatch(object):
             current._Thread__daemonic = True # PY2
             current._daemonic = True         # PY3
             # rename the thread to avoid tests waiting for a longpolling
-            current.setName("openerp.longpolling.request.%s" % current.ident)
+            current.setName("flectra.longpolling.request.%s" % current.ident)
 
         registry = flectra.registry(dbname)
 
