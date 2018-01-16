@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Attachments List and Document Indexation',
+    'author' : 'Odoo S.A',
     'version': '2.1',
     'category': 'Document Management',
     'description': """

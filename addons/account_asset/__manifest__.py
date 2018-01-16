@@ -3,7 +3,7 @@
 
 {
     'name': 'Assets Management',
-    "author":"Odoo S.A",
+    'author': 'Odoo S.A',
     'depends': ['account'],
     'description': """
 Assets management

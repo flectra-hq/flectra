@@ -4,6 +4,7 @@
 
 {
     'name': 'Expense Tracker',
+    'author' : 'Odoo S.A',
     'version': '2.0',
     'category': 'Human Resources',
     'sequence': 95,

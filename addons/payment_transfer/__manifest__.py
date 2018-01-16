@@ -2,6 +2,7 @@
 
 {
     'name': 'Transfer Payment Acquirer',
+    'author' : 'Odoo S.A',
     'category': 'Accounting',
     'summary': 'Payment Acquirer: Transfer Implementation',
     'version': '1.0',

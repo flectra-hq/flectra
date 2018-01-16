@@ -3,6 +3,7 @@
 
 {
     'name': 'CRM Livechat',
+    'author' : 'Odoo S.A',
     'category': 'crm',
     'summary': 'Create lead from livechat conversation',
     'depends': [

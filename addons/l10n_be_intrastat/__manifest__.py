@@ -3,6 +3,7 @@
 
 {
     'name': 'Belgian Intrastat Declaration',
+    'author' : 'Odoo S.A',
     'category': 'Localization',
     'description': """
 Generates Intrastat XML report for declaration

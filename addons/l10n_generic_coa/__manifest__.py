@@ -3,6 +3,7 @@
 
 {
     'name': 'Generic - Accounting',
+    'author' : 'Odoo S.A',
     'version': '1.1',
     'category': 'Localization',
     'description': """

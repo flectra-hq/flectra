@@ -1,5 +1,6 @@
 {
     'name': 'Base import',
+    'author' : 'Odoo S.A',
     'description': """
 New extensible file import for Odoo
 ======================================

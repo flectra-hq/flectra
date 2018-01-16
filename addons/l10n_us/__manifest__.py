@@ -3,6 +3,7 @@
 
 {
     'name': 'United States - Accounting',
+    'author' : 'Odoo S.A',
     'version': '1.1',
     'category': 'Localization',
     'description': """

@@ -2,6 +2,7 @@
 
 {
     'name' : 'Authentication via LDAP',
+    'author' : 'Odoo S.A',
     'depends' : ['base', 'base_setup'],
     #'description': < auto-loaded from README file
     'category' : 'Extra Tools',

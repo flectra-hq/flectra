@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Check Printing in Expenses",
+    'author' : 'Odoo S.A',
     'summary': """Print amount in words on checks issued for expenses""",
     'category': 'Accounting',
     'description': """

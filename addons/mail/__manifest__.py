@@ -2,6 +2,7 @@
 
 {
     'name': 'Discuss',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Discuss',
     'sequence': 25,

@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Automated Translations through Gengo API',
+    'author' : 'Odoo S.A',
     'category': 'Tools',
     'description': """
 Automated Translations through Gengo API

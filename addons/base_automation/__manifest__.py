@@ -3,6 +3,7 @@
 
 {
     'name': 'Automated Action Rules',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Sales',
     'description': """

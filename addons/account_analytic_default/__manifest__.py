@@ -3,7 +3,7 @@
 
 {
     'name': 'Account Analytic Defaults',
-    "author":"Odoo S.A",
+    'author': 'Odoo S.A',
     'version': '1.0',
     'category': 'Accounting',
     'description': """

@@ -3,6 +3,7 @@
 
 {
     'name': 'Web Routing',
+    'author' : 'Odoo S.A',
     'summary': 'Web Routing',
     'sequence': '9100',
     'category': 'Hidden',

@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'City Addresses',
+    'author' : 'Odoo S.A',
     'summary': 'Add a many2one field city on addresses',
     'sequence': '19',
     'category': 'Base',

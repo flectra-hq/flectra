@@ -3,6 +3,7 @@
 
 {
     'name': 'Mass mailing on track speakers',
+    'author' : 'Odoo S.A',
     'category': 'Hidden',
     'version': '1.0',
     'description':

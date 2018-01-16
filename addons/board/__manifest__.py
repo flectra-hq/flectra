@@ -3,6 +3,7 @@
 
 {
     'name': 'Dashboards',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Extra Tools',
     'summary': 'Create your custom dashboard',

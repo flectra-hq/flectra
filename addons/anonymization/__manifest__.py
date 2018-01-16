@@ -4,6 +4,7 @@
 
 {
     'name': 'Database Anonymization',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Extra Tools',
     'description': """

@@ -1,5 +1,6 @@
 {
     'name': 'Link Tracker',
+    'author' : 'Odoo S.A',
     'category': 'Marketing',
     'description': """
 Create short and trackable URLs.

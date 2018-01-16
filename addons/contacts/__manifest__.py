@@ -4,6 +4,7 @@
 
 {
     'name': 'Contacts Directory',
+    'author' : 'Odoo S.A',
     'category': 'Tools',
     'summary': 'Customers, Vendors, Partners,...',
     'description': """

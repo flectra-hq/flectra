@@ -3,6 +3,7 @@
 
 {
     'name': "Timesheets/attendances reporting",
+    'author' : 'Odoo S.A',
     'description': """
     Module linking the attendance module to the timesheet app.
     """,

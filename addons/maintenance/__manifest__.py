@@ -2,6 +2,7 @@
 
 {
     'name': 'Equipments',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'sequence': 125,
     'category': 'Human Resources',

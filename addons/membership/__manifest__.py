@@ -4,6 +4,7 @@
 
 {
     'name': 'Membership Management',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Sales',
     'description': """

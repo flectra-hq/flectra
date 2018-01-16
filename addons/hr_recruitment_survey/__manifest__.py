@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Hr Recruitment Interview Forms",
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Human Resources Survey',
     'summary': 'Surveys',

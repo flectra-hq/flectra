@@ -3,6 +3,7 @@
 
 {
     'name': 'Multi Language Chart of Accounts',
+    'author' : 'Odoo S.A',
     'version': '1.1',
     'category': 'Localization',
     'description': """

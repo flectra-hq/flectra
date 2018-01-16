@@ -3,6 +3,7 @@
 
 {
     'name': 'Decimal Precision Configuration',
+    'author' : 'Odoo S.A',
     'description': """
 Configure the price accuracy you need for different kinds of usage: accounting, sales, purchases.
 =================================================================================================

@@ -2,6 +2,7 @@
 
 {
     'name': 'Paypal Payment Acquirer',
+    'author' : 'Odoo S.A',
     'category': 'Accounting',
     'summary': 'Payment Acquirer: Paypal Implementation',
     'version': '1.0',

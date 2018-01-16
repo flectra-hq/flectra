@@ -3,6 +3,7 @@
 
 {
     'name': 'France - VAT Anti-Fraud Certification for Point of Sale (CGI 286 I-3 bis)',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Localization',
     'description': """

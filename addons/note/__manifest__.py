@@ -3,6 +3,7 @@
 
 {
     'name': 'Productivity',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Tools',
     'description': "",

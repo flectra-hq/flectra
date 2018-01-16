@@ -3,6 +3,7 @@
 
 {
     'name': 'France - VAT Anti-Fraud Certification (CGI 286 I-3 bis) - Sale Closings',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Localization',
     'description': """

@@ -3,6 +3,7 @@
 
 {
     'name': 'Email Gateway',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'depends': ['mail'],
     'category': 'Extra Tools',

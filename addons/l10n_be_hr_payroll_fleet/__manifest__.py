@@ -3,6 +3,7 @@
 
 {
     'name': 'Belgium - Payroll - Fleet',
+    'author' : 'Odoo S.A',
     'category': 'Localization',
     'depends': ['l10n_be_hr_payroll', 'fleet'],
     'description': """

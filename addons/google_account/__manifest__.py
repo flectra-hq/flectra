@@ -3,6 +3,7 @@
 
 {
     'name': 'Google Users',
+    'author' : 'Odoo S.A',
     'category': 'Extra Tools',
     'description': """
 The module adds google user in res user.

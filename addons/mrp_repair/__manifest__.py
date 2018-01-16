@@ -4,6 +4,7 @@
 
 {
     'name': 'Repairs Management',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'sequence': 200,
     'category': 'Manufacturing',

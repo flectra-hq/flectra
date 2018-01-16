@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Payroll Accounting',
+    'author' : 'Odoo S.A',
     'category': 'Human Resources',
     'description': """
 Generic Payroll system Integrated with Accounting.

@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'CRM Gamification',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Sales',
     'depends': ['gamification', 'sale_crm'],

@@ -3,6 +3,7 @@
 
 {
     'name': 'Memos pad',
+    'author' : 'Odoo S.A',
     'version': '0.1',
     'category': 'Productivity',
     'description': """

@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Extended Addresses',
+    'author' : 'Odoo S.A',
     'summary': 'Add extra fields on addresses',
     'sequence': '19',
     'category': 'Base',

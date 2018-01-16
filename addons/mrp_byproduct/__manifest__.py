@@ -4,6 +4,7 @@
 
 {
     'name': 'MRP Byproducts',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Manufacturing',
     'description': """

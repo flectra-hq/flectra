@@ -3,6 +3,7 @@
 
 {
     'name': 'Collaborative Pads',
+    'author' : 'Odoo S.A',
     'version': '2.0',
     'category': 'Extra Tools',
     'description': """

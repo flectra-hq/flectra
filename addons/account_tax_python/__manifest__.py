@@ -3,6 +3,7 @@
 
 {
     'name': "Define Taxes as Python Code",
+    'author': 'Odoo S.A',
     'summary': """
         Allows to use python code to define taxes""",
     'description': """

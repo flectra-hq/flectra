@@ -3,6 +3,7 @@
 
 {
     'name': 'PosBox Software Upgrader',
+    'author' : 'Odoo S.A',
     'category': 'Point of Sale',
     'website': 'https://flectrahq.com/page/point-of-sale',
     'sequence': 6,

@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Gamification',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'sequence': 160,
     'category': 'Human Resources',

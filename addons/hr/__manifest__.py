@@ -3,6 +3,7 @@
 
 {
     'name': 'Employee Directory',
+    'author' : 'Odoo S.A',
     'version': '1.1',
     'category': 'Human Resources',
     'sequence': 75,

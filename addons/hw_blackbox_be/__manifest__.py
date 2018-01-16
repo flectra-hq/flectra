@@ -3,6 +3,7 @@
 
 {
     'name': 'Blackbox Hardware Driver',
+    'author' : 'Odoo S.A',
     'category': 'Point of Sale',
     'sequence': 6,
     'summary': 'Hardware Driver for Belgian Fiscal Data Modules',

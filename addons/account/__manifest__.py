@@ -2,7 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name' : 'Invoicing',
-    "author":"Odoo S.A",
+    'author': 'Odoo S.A',
     'version' : '1.1',
     'summary': 'Send Invoices and Track Payments',
     'sequence': 30,

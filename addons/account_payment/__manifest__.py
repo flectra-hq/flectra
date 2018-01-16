@@ -2,6 +2,7 @@
 
 {
     'name': 'Payment - Account',
+    'author': 'Odoo S.A',
     'category': 'Accounting',
     'summary': 'Account and Payment Link and Portal',
     'version': '1.0',

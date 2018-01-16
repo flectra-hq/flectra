@@ -3,6 +3,7 @@
 
 {
     'name': "Calendar SMS",
+    'author' : 'Odoo S.A',
     'summary': 'Send text messages as event reminders',
     'description': "Send text messages as event reminders",
     'category': 'Hidden',

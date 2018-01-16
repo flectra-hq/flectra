@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Screen Driver',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Hardware Drivers',
     'sequence': 6,

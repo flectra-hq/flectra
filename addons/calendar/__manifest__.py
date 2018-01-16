@@ -3,6 +3,7 @@
 
 {
     'name': 'Calendar',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'sequence': 130,
     'depends': ['base', 'mail'],

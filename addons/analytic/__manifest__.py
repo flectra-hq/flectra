@@ -3,6 +3,7 @@
 
 {
     'name' : 'Analytic Accounting',
+    'author' : 'Odoo S.A',
     'version': '1.1',
     'website' : 'https://flectrahq.com/page/accounting',
     'category': 'Hidden/Dependency',

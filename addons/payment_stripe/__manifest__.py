@@ -2,6 +2,7 @@
 
 {
     'name': 'Stripe Payment Acquirer',
+    'author' : 'Odoo S.A',
     'category': 'Hidden',
     'summary': 'Payment Acquirer: Stripe Implementation',
     'version': '1.0',

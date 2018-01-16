@@ -3,6 +3,7 @@
 
 {
     'name': 'Pad on tasks',
+    'author' : 'Odoo S.A',
     'category': 'Project',
     'description': """
 This module adds a PAD in all project form views.

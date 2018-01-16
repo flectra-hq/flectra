@@ -3,6 +3,7 @@
 
 {
     'name': 'PosBox Homepage',
+    'author' : 'Odoo S.A',
     'category': 'Point of Sale',
     'sequence': 6,
     'website': 'https://flectrahq.com/page/point-of-sale',

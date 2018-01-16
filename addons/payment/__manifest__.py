@@ -2,6 +2,7 @@
 
 {
     'name': 'Payment Acquirer',
+    'author' : 'Odoo S.A',
     'category': 'Accounting',
     'summary': 'Payment Acquirer Base Module',
     'version': '1.0',

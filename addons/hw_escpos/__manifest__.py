@@ -3,6 +3,7 @@
 
 {
     'name': 'ESC/POS Hardware Driver',
+    'author' : 'Odoo S.A',
     'category': 'Point of Sale',
     'sequence': 6,
     'website': 'https://flectrahq.com/page/point-of-sale',

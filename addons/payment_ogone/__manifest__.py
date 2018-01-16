@@ -2,6 +2,7 @@
 
 {
     'name': 'Ogone Payment Acquirer',
+    'author' : 'Odoo S.A',
     'category': 'Accounting',
     'summary': 'Payment Acquirer: Ogone Implementation',
     'version': '1.0',

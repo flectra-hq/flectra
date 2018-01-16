@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Sparse Fields",
+    'author' : 'Odoo S.A',
     'summary': """Implementation of sparse fields.""",
     'description': """
         The purpose of this module is to implement "sparse" fields, i.e., fields

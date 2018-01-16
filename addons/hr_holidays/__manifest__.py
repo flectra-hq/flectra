@@ -3,6 +3,7 @@
 
 {
     'name': 'Leave Management',
+    'author' : 'Odoo S.A',
     'version': '1.5',
     'category': 'Human Resources',
     'sequence': 27,

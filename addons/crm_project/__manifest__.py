@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Lead to Tasks',
+    'author' : 'Odoo S.A',
     'summary': 'Create Tasks from Leads',
     'sequence': '19',
     'category': 'Project',

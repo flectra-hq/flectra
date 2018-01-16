@@ -3,6 +3,7 @@
 
 {
     'name': 'Employee Contracts',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Human Resources',
     'description': """

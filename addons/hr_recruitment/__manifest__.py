@@ -3,6 +3,7 @@
 
 {
     'name': 'Recruitment Process',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Human Resources',
     'sequence': 90,

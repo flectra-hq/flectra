@@ -3,6 +3,7 @@
 
 {
     'name': 'EU Mini One Stop Shop (MOSS)',
+    'author' : 'Odoo S.A',
     'category': 'Localization',
     'description': """
 EU Mini One Stop Shop (MOSS) VAT for telecommunications, broadcasting and electronic services

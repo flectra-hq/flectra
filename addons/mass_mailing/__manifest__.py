@@ -3,6 +3,7 @@
 
 {
     'name': 'Email Marketing',
+    'author' : 'Odoo S.A',
     'summary': 'Design, send and track emails',
     'description': "",
     'version': '2.0',

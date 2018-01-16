@@ -3,6 +3,7 @@
 
 {
     'name': 'Check Printing Base',
+    'author': 'Odoo S.A',
     'version': '1.0',
     'category': 'Accounting',
     'summary': 'Check printing commons',

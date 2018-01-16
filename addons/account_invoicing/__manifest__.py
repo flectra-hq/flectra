@@ -3,6 +3,7 @@
 
 {
     'name': 'Invoicing Management',
+    'author': 'Odoo S.A',
     'version': '1.0',
     'summary': 'Send Invoices and Track Payments',
     'sequence': 30,

@@ -3,6 +3,7 @@
 
 {
     'name': 'Google Calendar',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Extra Tools',
     'description': "",

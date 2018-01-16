@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Base import module',
+    'author' : 'Odoo S.A',
     'description': """
 Import a custom data module
 ===========================

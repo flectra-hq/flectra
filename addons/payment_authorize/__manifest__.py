@@ -2,6 +2,7 @@
 
 {
     'name': 'Authorize.Net Payment Acquirer',
+    'author' : 'Odoo S.A',
     'category': 'Accounting',
     'summary': 'Payment Acquirer: Authorize.net Implementation',
     'version': '1.0',

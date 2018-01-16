@@ -3,6 +3,7 @@
 
 {
     'name' : 'Sale & Purchase Vouchers',
+    'author' : 'Odoo S.A',
     'version' : '1.0',
     'summary': 'Manage your debts and credits thanks to simple sale/purchase receipts',
     'description': """

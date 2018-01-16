@@ -3,6 +3,7 @@
 
 {
     'name': 'Budgets Management',
+    'author': 'Odoo S.A',
     'category': 'Accounting',
     'description': """
 This module allows accountants to manage analytic and crossovered budgets.

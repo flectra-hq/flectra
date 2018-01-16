@@ -3,6 +3,7 @@
 
 {
     'name': 'Phone Numbers Validation',
+    'author' : 'Odoo S.A',
     'summary': 'Validate and format phone numbers',
     'sequence': '9999',
     'category': 'Hidden',

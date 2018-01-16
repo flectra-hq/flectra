@@ -3,6 +3,7 @@
 
 {
     'name': 'OAuth2 Authentication',
+    'author' : 'Odoo S.A',
     'category': 'Tools',
     'description': """
 Allow users to login through OAuth2 Provider.

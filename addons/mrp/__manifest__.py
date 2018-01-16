@@ -4,6 +4,7 @@
 
 {
     'name': 'Manufacturing',
+    'author' : 'Odoo S.A',
     'version': '2.0',
     'website': 'https://flectrahq.com/page/manufacturing',
     'category': 'Manufacturing',

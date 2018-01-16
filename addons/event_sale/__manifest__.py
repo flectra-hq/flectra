@@ -2,6 +2,7 @@
 
 {
     'name': 'Events Sales',
+    'author' : 'Odoo S.A',
     'version': '1.1',
     'category': 'Marketing',
     'website': 'https://flectrahq.com/page/events',

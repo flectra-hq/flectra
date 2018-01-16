@@ -3,6 +3,7 @@
 
 {
     'name': 'Indian - Purchase Report(GST)',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'description': """GST Purchase Report""",
     'category': 'Localization',

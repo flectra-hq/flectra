@@ -4,6 +4,7 @@
 
 {
     'name': 'In-App Purchases',
+    'author' : 'Odoo S.A',
     'category': 'Tools',
     'summary': 'Basic models and helpers to support In-App purchases.',
     'description': """
@@ -19,5 +20,5 @@ This module provides standard tools (account model, context manager and helpers)
     'qweb': [
         'static/src/xml/iap_templates.xml',
     ],
-    'auto_install': True,
+    'auto_install': False,
 }

@@ -3,6 +3,7 @@
 
 {
     'name': 'Crm Phone Numbers Validation',
+    'author' : 'Odoo S.A',
     'summary': 'Validate and format phone numbers for leads and contacts',
     'sequence': '9999',
     'category': 'Hidden',

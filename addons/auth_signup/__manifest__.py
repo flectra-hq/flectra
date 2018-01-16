@@ -3,6 +3,7 @@
 
 {
     'name': 'Signup',
+    'author' : 'Odoo S.A',
     'description': """
 Allow users to sign up and reset their password
 ===============================================

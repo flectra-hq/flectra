@@ -3,6 +3,7 @@
 
 {
     'name': 'Indian Payroll',
+    'author' : 'Odoo S.A',
     'category': 'Localization',
     'depends': ['hr_payroll'],
     'description': """

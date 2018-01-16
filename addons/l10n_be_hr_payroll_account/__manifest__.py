@@ -3,6 +3,7 @@
 
 {
     'name': 'Belgium - Payroll with Accounting',
+    'author' : 'Odoo S.A',
     'category': 'Localization',
     'depends': ['l10n_be_hr_payroll', 'hr_payroll_account', 'l10n_be'],
     'description': """

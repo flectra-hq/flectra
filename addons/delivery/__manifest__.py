@@ -4,6 +4,7 @@
 
 {
     'name': 'Delivery Costs',
+    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Stock',
     'description': """

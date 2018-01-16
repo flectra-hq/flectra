@@ -2,6 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name' : 'Fleet Management',
+    'author' : 'Odoo S.A',
     'version' : '0.1',
     'sequence': 165,
     'category': 'Human Resources',

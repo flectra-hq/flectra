@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 {
     'name': 'Account Bank Statement Import',
+    'author': 'Odoo S.A',
     'category': 'Accounting',
     'version': '1.0',
     'depends': ['account'],
