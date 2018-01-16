@@ -31,4 +31,4 @@ allinone: server_clean
 	#(cd $(SERVER_DIRECTORY) && $(LAUNCH_PY2EXE))
 	(cd $(SERVER_DIRECTORY)/setup/win32 && $(LAUNCH_MAKENSIS))
 	(cd $(SERVER_DIRECTORY)/setup/win32 && mkdir -p $(FILES_DIRECTORY))
-	(cd $(SERVER_DIRECTORY)/setup/win32 && cp openerp-*.exe $(FILES_DIRECTORY)/openerp-server-setup-$(VERSION).exe)
+	(cd $(SERVER_DIRECTORY)/setup/win32 && cp flectra-*.exe $(FILES_DIRECTORY)/flectra-server-setup-$(VERSION).exe)

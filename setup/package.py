@@ -174,7 +174,7 @@ def docker(docker_image, build_dir, pub_dir):
         _docker.end()
 
 class KVM(object):
-    def __init__(self, o, image, ssh_key='', login='openerp'):
+    def __init__(self, o, image, ssh_key='', login='flectra'):
         self.o = o
         self.image = image
         self.ssh_key = ssh_key
@@ -233,9 +233,9 @@ class KVMWinBuildExe(KVM):
 
 class KVMWinTestExe(KVM):
     def run(self):
-        setuppath = glob("%s/openerp-server-setup-*.exe" % self.o.build_dir)[0]
+        setuppath = glob("%s/flectra-server-setup-*.exe" % self.o.build_dir)[0]
         setupfile = setuppath.split('/')[-1]
-        setupversion = setupfile.split('openerp-server-setup-')[1].split('.exe')[0]
+        setupversion = setupfile.split('flectra-server-setup-')[1].split('.exe')[0]
 
         self.rsync('"%s" %s@127.0.0.1:' % (setuppath, self.login))
         self.ssh("TEMP=/tmp ./%s /S" % setupfile)
@@ -299,7 +299,7 @@ def build_rpm(o):
 
 def build_exe(o):
     KVMWinBuildExe(o, o.vm_winxp_image, o.vm_winxp_ssh_key, o.vm_winxp_login).start()
-    system(['cp', glob('%s/openerp*.exe' % o.build_dir)[0], '%s/flectra_%s.%s.exe' % (o.build_dir, version, timestamp)])
+    system(['cp', glob('%s/flectra*.exe' % o.build_dir)[0], '%s/flectra_%s.%s.exe' % (o.build_dir, version, timestamp)])
 
 #----------------------------------------------------------
 # Stage: testing
@@ -467,7 +467,7 @@ def options():
     # derive other options
     o.flectra_dir = root
     o.pkg = join(o.build_dir, 'pkg')
-    o.work = join(o.build_dir, 'openerp-%s' % version)
+    o.work = join(o.build_dir, 'flectra-%s' % version)
     o.work_addons = join(o.work, 'flectra', 'addons')
 
     return o
