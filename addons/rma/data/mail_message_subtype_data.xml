@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="mt_request_create" model="mail.message.subtype">
+        <field name="name">Request Created</field>
+        <field name="hidden" eval="True"/>
+        <field name="res_model">rma.request</field>
+        <field name="default" eval="False"/>
+        <field name="description">Replacement Request is Created</field>
+    </record>
+    <record id="mt_salesteam_request" model="mail.message.subtype">
+        <field name="name">Request Created</field>
+        <field name="sequence">10</field>
+        <field name="res_model">rma.request</field>
+        <field name="default" eval="False"/>
+        <field name="parent_id" eval="ref('mt_request_create')"/>
+        <field name="relation_field">team_id</field>
+    </record>
+
+    <record id="mt_request_confirm" model="mail.message.subtype">
+        <field name="name">Request Confirmed</field>
+        <field name="hidden" eval="True"/>
+        <field name="res_model">rma.request</field>
+        <field name="default" eval="False"/>
+        <field name="description">Replacement Request has been
+            Confirmed</field>
+    </record>
+    <record id="mt_salesteam_request_confirm" model="mail.message.subtype">
+        <field name="name">Request Confirmed</field>
+        <field name="sequence">11</field>
+        <field name="res_model">rma.request</field>
+        <field name="default" eval="False"/>
+        <field name="parent_id" eval="ref('mt_request_confirm')"/>
+        <field name="relation_field">team_id</field>
+    </record>
+
+    <record id="mt_request_replaced" model="mail.message.subtype">
+        <field name="name">Replacement created</field>
+        <field name="hidden" eval="True"/>
+        <field name="res_model">rma.request</field>
+        <field name="default" eval="False"/>
+        <field name="description">Products have been replaced</field>
+    </record>
+    <record id="mt_salesteam_request_replaced" model="mail.message.subtype">
+        <field name="name">Replacement created</field>
+        <field name="sequence">12</field>
+        <field name="res_model">rma.request</field>
+        <field name="default" eval="False"/>
+        <field name="parent_id" eval="ref('mt_request_replaced')"/>
+        <field name="relation_field">team_id</field>
+    </record>
+</flectra>

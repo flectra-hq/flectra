@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+        <record id="view_replacement_reason_tree" model="ir.ui.view">
+            <field name="name">replacement.reason.tree</field>
+            <field name="model">replacement.reason</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_replacement_reason_form" model="ir.ui.view">
+            <field name="name">replacement.reason.form</field>
+            <field name="model">replacement.reason</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Reason">
+                    <sheet>
+                        <group>
+                          <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window"
+                id="act_open_replacement_reason_view">
+            <field name="name">Replacement Reason</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">replacement.reason</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+</flectra>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="crm_team_replacement_teams_view_form" model="ir.ui.view">
+        <field name="name">replacement.team.form</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options_active']" position="inside">
+                <div class="o_row" style="display:inherit">
+                    <field name="use_replacement"/>
+                    <label for="use_replacement"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="crm_team_replacement_teams_view_kanban" model="ir.ui.view">
+        <field name="name">replacement.team.kanban</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id"
+               ref="sale.crm_team_salesteams_view_kanban"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//div[hasclass('o_kanban_primary_left')]"
+                       position="inside">
+                    <div>
+                        <button name="%(rma.action_open_rma_request_replacementteam)d"
+                                type="action"
+                                class="btn btn-primary mt8">Replacements
+                        </button>
+                    </div>
+                </xpath>
+                <xpath expr="//t[@name='second_options']"
+                       position="after">
+                    <div class="row" t-if="record.replacements_count.raw_value">
+                        <div class="col-xs-8">
+                            <a name="%(rma.action_open_rma_request_replacementteam)d"
+                               type="action">
+                                <field name="replacements_count"/>
+                                <t t-if="record.replacements_count.raw_value == 1">
+                                    Replacement
+                                </t>
+                                <t t-else="">Replacements</t>
+                            </a>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//div[hasclass('o_kanban_manage_view')]"
+                       position="inside">
+                    <div>
+                        <a name="%(rma.action_open_rma_request_replacementteam)d"
+                           type="action">Replacements
+                        </a>
+                    </div>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="replacement_view_kanban" model="ir.ui.view">
+        <field name="name">replacement.kanban</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id"
+               ref="sales_team.crm_team_salesteams_view_kanban"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//div[hasclass('o_kanban_manage_reports')]"
+                       position="inside">
+                    <div name="replacement_report">
+                        <a name="%(rma.replacement_request_action_reports)d"
+                           type="action" context="{'search_default_team_id': active_id}">
+                            Replacement
+                        </a>
+                    </div>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</flectra>

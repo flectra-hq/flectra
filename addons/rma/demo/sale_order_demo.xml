@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra noupdate="1">
+       <record id="demo_sale_order_rma_request1" model="sale.order">
+            <field name="partner_id" ref="base.res_partner_4"/>
+            <field name="partner_invoice_id" ref="base.res_partner_address_13"/>
+            <field name="partner_shipping_id" ref="base.res_partner_address_13"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="pricelist_id" ref="product.list0"/>
+            <field name="team_id" ref="sales_team.team_sales_department"/>
+            <field name="date_order" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
+        </record>
+
+        <record id="demo_sale_order_rma_request1_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="demo_sale_order_rma_request1"/>
+            <field name="name">Demo Product1</field>
+            <field name="product_id" ref="rma.demo_product_1"/>
+            <field name="product_uom_qty">5</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">150.00</field>
+        </record>
+
+        <record id="demo_sale_order_rma_request2" model="sale.order">
+            <field name="partner_id" ref="base.res_partner_4"/>
+            <field name="partner_invoice_id" ref="base.res_partner_address_13"/>
+            <field name="partner_shipping_id" ref="base.res_partner_address_13"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="pricelist_id" ref="product.list0"/>
+            <field name="team_id" ref="sales_team.team_sales_department"/>
+            <field name="date_order" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
+        </record>
+
+        <record id="demo_sale_order_rma_request2_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="demo_sale_order_rma_request2"/>
+            <field name="name">Demo Product1</field>
+            <field name="product_id" ref="rma.demo_product_1"/>
+            <field name="product_uom_qty">5</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">150.00</field>
+        </record>
+
+        <record id="demo_sale_order_rma_request2_line_2"
+                model="sale.order.line">
+            <field name="order_id" ref="demo_sale_order_rma_request2"/>
+            <field name="name">Demo Product2</field>
+            <field name="product_id" ref="rma.demo_product_2"/>
+            <field name="product_uom_qty">10</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">200.00</field>
+        </record>
+</flectra>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+    <record id="email_template_notify_warranty_new" model="mail.template">
+        <field name="name">Warranty: Product Warranty email</field>
+        <field name="email_from">
+            ${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}
+        </field>
+        <field name="subject">${object.name or 'n/a'}</field>
+        <field name="partner_to">${object.partner_id.id}</field>
+        <field name="model_id" ref="rma.model_rma_request"/>
+        <field name="auto_delete" eval="True"/>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="body_html"><![CDATA[
+                % if object.warranty_expire_line:
+                    <div>
+                        <p>Dear ${object.partner_id.name}</p>
+                        <p>We are sorry to hear about the problem you have had
+                            with your product.
+                        </p>
+                        <p> We would like to be able to make the necessary
+                            adjustment at no charge to you,
+                            but unfortunately the warranty is expired of
+                            following products:
+                        </p>
+                    </div>
+
+                    <table border="1" width="100%">
+                       <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Lot</th>
+                                <th>Quantity</th>
+                                <th>Warranty Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            % for line in object.warranty_expire_line:
+                            <tr>
+                                <td>${line.product_id.name}</td>
+                                <td>${line.lot_id.name}</td>
+                                <td>${line.qty_expired}</td>
+                                <td>${line.warranty_date}</td>
+                            </tr>
+                            % endfor
+                           </tbody>
+                    </table>
+                % else:
+                    <div>
+                        <p>Dear ${object.partner_id.name}</p>
+                        <p>We are sorry to hear about the problem you have had
+                            with your product.</p>
+                        <p>We would like to be able to make the necessary
+                            adjustment at no charge to you, We are going to
+                            replace your product. We will deliver it to
+                            you as possible.
+                        </p>
+                    </div>
+                % endif
+]]>
+        </field>
+    </record>
+</flectra>
