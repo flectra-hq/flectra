@@ -1155,6 +1155,7 @@
                                         <field name="move_id" attrs="{'readonly':[('parent_state','=','posted')]}"/>
                                         <field name="statement_id" readonly="True" attrs="{'invisible': [('statement_id','=',False)]}"/>
                                         <field name="invoice_id" attrs="{'invisible': [('invoice_id','=',False)]}"/>
+                                        <field name="branch_id"/>
                                     </group>
                                     <group string="Dates">
                                         <field name="date_maturity"/>
@@ -1227,6 +1228,7 @@
                     <field name="partner_id"/>
                     <field name="account_id" options='{"no_open":True}' domain="[('company_id', '=', company_id)]" groups="account.group_account_user"/>
                     <field name="analytic_account_id" groups="account.group_account_user"/>
+                    <field name="branch_id"/>
                     <field name="reconciled" invisible="1"/>
                     <field name="full_reconcile_id"/>
                     <field name="debit" sum="Total Debit"/>
@@ -1304,6 +1306,7 @@
                     <field name="move_id" string="Number (Move)"/>
                     <field name="tax_line_id"/>
                     <field name="tax_ids" />
+                    <field name="branch_id"/>
                     <group expand="0" string="Group By">
                         <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
                         <filter string="Journal" domain="[]" context="{'group_by':'journal_id'}"/>
@@ -1371,6 +1374,7 @@
                     <field name="partner_id"/>
                     <field name="ref"/>
                     <field name="journal_id"/>
+                    <field name="branch_id"/>
                     <field name="amount" sum="Total Amount"/>
                     <field name="state"/>
                     <field name="currency_id" invisible="1"/>
@@ -1452,6 +1456,7 @@
                         <group>
                             <field name="journal_id" options="{'no_open': True, 'no_create': True}"/>
                             <field name="company_id" required="1" groups="base.group_multi_company"/>
+                            <field name="branch_id" options="{'no_create': True}"/>
                             <field name="amount" invisible="1"/>
                             <field name="currency_id" invisible="1"/>
                         </group>
@@ -1465,6 +1470,7 @@
                                     <field name="partner_id"
                                         domain="['|', ('parent_id', '=', False), ('is_company', '=', True)]"/>
                                     <field name="name"/>
+                                    <field name="branch_id"/>
                                     <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
                                     <field name="analytic_tag_ids" groups="analytic.group_analytic_accounting"/>
                                     <field name="amount_currency" groups="base.group_multi_currency"/>

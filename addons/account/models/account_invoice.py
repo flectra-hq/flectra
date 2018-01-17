@@ -41,7 +41,8 @@ MAGIC_COLUMNS = ('id', 'create_uid', 'create_date', 'write_uid', 'write_date')
 
 class AccountInvoice(models.Model):
     _name = "account.invoice"
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin',
+                'ir.branch.company.mixin']
     _description = "Invoice"
     _order = "date_invoice desc, number desc, id desc"
 
@@ -382,6 +383,18 @@ class AccountInvoice(models.Model):
             domain += [('id', '<>', self.id)]
         domain += [('journal_id', '=', self.journal_id.id), ('state', 'not in', ['draft', 'cancel'])]
         return journal_sequence, domain
+
+    @api.constrains('company_id', 'branch_id')
+    def _check_company(self):
+        for order in self:
+            if order.branch_id and order.company_id != order.branch_id.company_id:
+                raise ValidationError(
+                    _('Configuration Error of Company:\n'
+                      'The Invoice Company (%s) and '
+                      'the Company (%s) of Branch must '
+                      'be the same company!') % (order.company_id.name,
+                                                order.branch_id.company_id.name)
+                    )
 
     def _compute_portal_url(self):
         super(AccountInvoice, self)._compute_portal_url()
@@ -1131,6 +1144,7 @@ class AccountInvoice(models.Model):
             date = inv.date or inv.date_invoice
             move_vals = {
                 'ref': inv.reference,
+                'branch_id': inv.branch_id and inv.branch_id.id,
                 'line_ids': line,
                 'journal_id': journal.id,
                 'date': date,
@@ -1493,6 +1507,9 @@ class AccountInvoiceLine(models.Model):
     analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Analytic Tags')
     company_id = fields.Many2one('res.company', string='Company',
         related='invoice_id.company_id', store=True, readonly=True, related_sudo=False)
+    branch_id = fields.Many2one(string='Company',
+                                related='invoice_id.branch_id', store=True,
+                                readonly=True, related_sudo=False)
     partner_id = fields.Many2one('res.partner', string='Partner',
         related='invoice_id.partner_id', store=True, readonly=True, related_sudo=False)
     currency_id = fields.Many2one('res.currency', related='invoice_id.currency_id', store=True, related_sudo=False)
@@ -1676,6 +1693,9 @@ class AccountInvoiceTax(models.Model):
     manual = fields.Boolean(default=True)
     sequence = fields.Integer(help="Gives the sequence order when displaying a list of invoice tax.")
     company_id = fields.Many2one('res.company', string='Company', related='account_id.company_id', store=True, readonly=True)
+    branch_id = fields.Many2one(string='Branch',
+                                related='account_id.branch_id', store=True,
+                                readonly=True)
     currency_id = fields.Many2one('res.currency', related='invoice_id.currency_id', store=True, readonly=True)
     base = fields.Monetary(string='Base', compute='_compute_base_amount', store=True)
 
@@ -1687,6 +1707,7 @@ class AccountInvoiceTax(models.Model):
 
 class AccountPaymentTerm(models.Model):
     _name = "account.payment.term"
+    _inherit = ['ir.branch.company.mixin']
     _description = "Payment Terms"
     _order = "sequence, id"
 

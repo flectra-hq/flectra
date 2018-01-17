@@ -4,7 +4,7 @@
 
 from flectra import fields, models, api, _
 from flectra.addons import decimal_precision as dp
-from flectra.exceptions import UserError
+from flectra.exceptions import UserError, ValidationError
 
 
 class AccountVoucher(models.Model):
@@ -46,7 +46,7 @@ class AccountVoucher(models.Model):
     narration = fields.Text('Notes', readonly=True, states={'draft': [('readonly', False)]})
     currency_id = fields.Many2one('res.currency', compute='_get_journal_currency',
         string='Currency', readonly=True, required=True, default=lambda self: self._get_currency())
-    company_id = fields.Many2one('res.company', 'Company',
+    company_id = fields.Many2one('res.company', 'Company', store=True,
         required=True, readonly=True, states={'draft': [('readonly', False)]},
         related='journal_id.company_id', default=lambda self: self._get_company())
     state = fields.Selection([
@@ -74,6 +74,20 @@ class AccountVoucher(models.Model):
             ('pay_later', 'Pay Later'),
         ], 'Payment', index=True, readonly=True, states={'draft': [('readonly', False)]}, default='pay_later')
     date_due = fields.Date('Due Date', readonly=True, index=True, states={'draft': [('readonly', False)]})
+    branch_id = fields.Many2one('res.branch', 'Branch', ondelete="restrict",
+        default=lambda self: self.env['res.users']._get_default_branch())
+
+    @api.constrains('company_id', 'branch_id')
+    def _check_company_branch(self):
+        for record in self:
+            if record.branch_id and record.company_id != record.branch_id.company_id:
+                raise ValidationError(
+                    _('Configuration Error of Company:\n'
+                      'The Company (%s) in the voucher and '
+                      'the Company (%s) of Branch must '
+                      'be the same company!') % (record.company_id.name,
+                                                record.branch_id.company_id.name)
+                    )
 
     @api.one
     @api.depends('move_id.line_ids.reconciled', 'move_id.line_ids.account_id.internal_type')
@@ -186,6 +200,7 @@ class AccountVoucher(models.Model):
                 'date': self.account_date,
                 'date_maturity': self.date_due,
                 'payment_id': self._context.get('payment_id'),
+                'branch_id': self.branch_id.id,
             }
         return move_line
 
@@ -199,13 +214,13 @@ class AccountVoucher(models.Model):
             name = self.journal_id.sequence_id.with_context(ir_sequence_date=self.date).next_by_id()
         else:
             raise UserError(_('Please define a sequence on the journal.'))
-
         move = {
             'name': name,
             'journal_id': self.journal_id.id,
             'narration': self.narration,
             'date': self.account_date,
             'ref': self.reference,
+            'branch_id': self.branch_id.id
         }
         return move
 
@@ -361,6 +376,10 @@ class AccountVoucherLine(models.Model):
     company_id = fields.Many2one('res.company', related='voucher_id.company_id', string='Company', store=True, readonly=True)
     tax_ids = fields.Many2many('account.tax', string='Tax', help="Only for tax excluded from price")
     currency_id = fields.Many2one('res.currency', related='voucher_id.currency_id')
+    branch_id = fields.Many2one('res.branch',
+                                related='voucher_id.branch_id',
+                                string='Branch',
+                                readonly=True, store=True)
 
     @api.one
     @api.depends('price_unit', 'tax_ids', 'quantity', 'product_id', 'voucher_id.currency_id')

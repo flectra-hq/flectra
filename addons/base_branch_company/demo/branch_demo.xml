@@ -38,5 +38,10 @@
             <field name="branch_ids" eval="[(6,0,[ref('data_branch_1'),])]"/>
             <field name='default_branch_id' ref='data_branch_1'/>
         </record>
+
+        <record id="base.user_demo" model="res.users">
+            <field name="branch_ids" eval="[(6,0,[ref('data_branch_1'),ref('data_branch_2'),ref('data_branch_3')])]"/>
+            <field name='default_branch_id' ref='data_branch_1'/>
+        </record>
     </data>
 </flectra>

@@ -24,6 +24,10 @@
                             <p t-if="data['form']['target_move'] == 'all'">All Entries</p>
                             <p t-if="data['form']['target_move'] == 'posted'">All Posted Entries</p>
                         </div>
+                        <div class="col-xs-3">
+                            <strong>Branch:</strong>
+                            <p t-if="data['form']['branch_id']"><span t-esc="data['form']['branch_id'][1]"/></p>
+                        </div>
                     </div>
 
                     <table class="table table-condensed">

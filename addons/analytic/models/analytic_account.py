@@ -14,7 +14,7 @@ class AccountAnalyticTag(models.Model):
 
 class AccountAnalyticAccount(models.Model):
     _name = 'account.analytic.account'
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'ir.branch.company.mixin']
     _description = 'Analytic Account'
     _order = 'code, name asc'
 
@@ -105,4 +105,6 @@ class AccountAnalyticLine(models.Model):
     tag_ids = fields.Many2many('account.analytic.tag', 'account_analytic_line_tag_rel', 'line_id', 'tag_id', string='Tags', copy=True)
 
     company_id = fields.Many2one(related='account_id.company_id', string='Company', store=True, readonly=True)
+    branch_id = fields.Many2one(related='account_id.branch_id',
+                                 string='Branch', store=True, readonly=True)
     currency_id = fields.Many2one(related="company_id.currency_id", string="Currency", readonly=True)

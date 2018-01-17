@@ -29,6 +29,10 @@ class ReportAgedPartnerBalance(models.AbstractModel):
         cr = self.env.cr
         user_company = self.env.user.company_id.id
         move_state = ['draft', 'posted']
+        branch_id = data['form'].get('branch_id', False)
+        branch = ''
+        if branch_id:
+            branch = 'AND (l.branch_id =' + str(branch_id[0]) + ')'
         if target_move == 'posted':
             move_state = ['posted']
         arg_list = (tuple(move_state), tuple(account_type))
@@ -49,7 +53,7 @@ class ReportAgedPartnerBalance(models.AbstractModel):
                 AND (l.move_id = am.id)
                 AND (am.state IN %s)
                 AND (account_account.internal_type IN %s)
-                AND ''' + reconciliation_clause + '''
+                AND ''' + reconciliation_clause + branch +'''
                 AND (l.date <= %s)
                 AND l.company_id = %s
             ORDER BY UPPER(res_partner.name)'''
@@ -75,7 +79,7 @@ class ReportAgedPartnerBalance(models.AbstractModel):
                     AND (account_account.internal_type IN %s)
                     AND (COALESCE(l.date_maturity,l.date) > %s)\
                     AND ((l.partner_id IN %s) OR (l.partner_id IS NULL))
-                AND (l.date <= %s)
+                AND (l.date <= %s) ''' + branch + '''
                 AND l.company_id = %s'''
         cr.execute(query, (tuple(move_state), tuple(account_type), date_from, tuple(partner_ids), date_from, user_company))
         aml_ids = cr.fetchall()
@@ -125,7 +129,7 @@ class ReportAgedPartnerBalance(models.AbstractModel):
                         AND (am.state IN %s)
                         AND (account_account.internal_type IN %s)
                         AND ((l.partner_id IN %s) OR (l.partner_id IS NULL))
-                        AND ''' + dates_query + '''
+                        AND ''' + dates_query + branch +'''
                     AND (l.date <= %s)
                     AND l.company_id = %s'''
             cr.execute(query, args_list)

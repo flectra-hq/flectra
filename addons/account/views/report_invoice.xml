@@ -48,6 +48,10 @@
                             <strong>Reference:</strong>
                             <p t-field="o.reference"/>
                         </div>
+                        <div name="branch" class="col-xs-2" t-if="o.branch_id">
+                            <strong>Branch:</strong>
+                            <p t-field="o.branch_id.name"/>
+                        </div>
                     </div>
 
                     <!-- Is there a discount on at least one line? -->

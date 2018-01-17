@@ -7,6 +7,7 @@ from flectra import api, fields, models
 
 class SaleReport(models.Model):
     _name = "sale.report"
+    _inherit = ['ir.branch.company.mixin']
     _description = "Sales Orders Statistics"
     _auto = False
     _rec_name = 'date'
@@ -68,6 +69,7 @@ class SaleReport(models.Model):
                     s.partner_id as partner_id,
                     s.user_id as user_id,
                     s.company_id as company_id,
+                    s.branch_id as branch_id,
                     extract(epoch from avg(date_trunc('day',s.date_order)-date_trunc('day',s.create_date)))/(24*60*60)::decimal(16,2) as delay,
                     t.categ_id as categ_id,
                     s.pricelist_id as pricelist_id,
@@ -111,6 +113,7 @@ class SaleReport(models.Model):
                     s.user_id,
                     s.state,
                     s.company_id,
+                    s.branch_id,
                     s.pricelist_id,
                     s.analytic_account_id,
                     s.team_id,

@@ -13,13 +13,14 @@ from flectra.osv import expression
 from flectra.tools import float_is_zero, float_compare, DEFAULT_SERVER_DATETIME_FORMAT
 
 from flectra.tools.misc import formatLang
-
+from flectra.exceptions import ValidationError
 from flectra.addons import decimal_precision as dp
 
 
 class SaleOrder(models.Model):
     _name = "sale.order"
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin',
+                'ir.branch.company.mixin']
     _description = "Quotation"
     _order = 'date_order desc, id desc'
 
@@ -163,6 +164,17 @@ class SaleOrder(models.Model):
     team_id = fields.Many2one('crm.team', 'Sales Channel', change_default=True, default=_get_default_team, oldname='section_id')
 
     product_id = fields.Many2one('product.product', related='order_line.product_id', string='Product')
+
+    @api.multi
+    @api.constrains('branch_id', 'company_id')
+    def _check_company_branch(self):
+        for order in self:
+            if order.branch_id and  order.company_id != order.branch_id.company_id:
+                raise ValidationError(_(
+                    'Configuration Error of Company:\n'
+                    'The Sales Order Company (%s) and the Company (%s) of '
+                    'Branch must be the same!') % (
+                    order.company_id.name, order.branch_id.company_id.name))
 
     def _compute_portal_url(self):
         super(SaleOrder, self)._compute_portal_url()
@@ -354,6 +366,7 @@ class SaleOrder(models.Model):
         invoice_vals = {
             'name': self.client_order_ref or '',
             'origin': self.name,
+            'branch_id': self.branch_id and self.branch_id.id,
             'type': 'out_invoice',
             'account_id': self.partner_invoice_id.property_account_receivable_id.id,
             'partner_id': self.partner_invoice_id.id,
@@ -548,6 +561,7 @@ class SaleOrder(models.Model):
             analytic = self.env['account.analytic.account'].create({
                 'name': name,
                 'code': order.client_order_ref,
+                'branch_id': order.branch_id and order.branch_id.id,
                 'company_id': order.company_id.id,
                 'partner_id': order.partner_id.id
             })
@@ -907,6 +921,8 @@ class SaleOrderLine(models.Model):
     salesman_id = fields.Many2one(related='order_id.user_id', store=True, string='Salesperson', readonly=True)
     currency_id = fields.Many2one(related='order_id.currency_id', store=True, string='Currency', readonly=True)
     company_id = fields.Many2one(related='order_id.company_id', string='Company', store=True, readonly=True)
+    branch_id = fields.Many2one(related='order_id.branch_id',
+                                string='Branch', store=True, readonly=True)
     order_partner_id = fields.Many2one(related='order_id.partner_id', store=True, string='Customer')
     analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Analytic Tags')
     is_downpayment = fields.Boolean(
@@ -953,6 +969,7 @@ class SaleOrderLine(models.Model):
             'name': self.name,
             'sequence': self.sequence,
             'origin': self.order_id.name,
+            'branch_id': self.branch_id and self.branch_id.id,
             'account_id': account.id,
             'price_unit': self.price_unit,
             'quantity': qty,

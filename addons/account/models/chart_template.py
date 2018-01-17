@@ -57,6 +57,7 @@ def preserve_existing_tags_on_taxes(cr, registry, module):
 class AccountAccountTemplate(models.Model):
     _name = "account.account.template"
     _description = 'Templates for Accounts'
+    _inherit = ['ir.branch.company.mixin']
     _order = "code"
 
     name = fields.Char(required=True, index=True)
@@ -498,6 +499,7 @@ class AccountChartTemplate(models.Model):
 
 class AccountTaxTemplate(models.Model):
     _name = 'account.tax.template'
+    _inherit = ['ir.branch.company.mixin']
     _description = 'Templates for Taxes'
     _order = 'id'
 
@@ -621,6 +623,7 @@ class AccountTaxTemplate(models.Model):
 
 class AccountFiscalPositionTemplate(models.Model):
     _name = 'account.fiscal.position.template'
+    _inherit = ['ir.branch.company.mixin']
     _description = 'Template for Fiscal Position'
 
     sequence = fields.Integer()
@@ -642,6 +645,7 @@ class AccountFiscalPositionTemplate(models.Model):
 
 class AccountFiscalPositionTaxTemplate(models.Model):
     _name = 'account.fiscal.position.tax.template'
+    _inherit = ['ir.branch.company.mixin']
     _description = 'Template Tax Fiscal Position'
     _rec_name = 'position_id'
 
@@ -653,6 +657,7 @@ class AccountFiscalPositionTaxTemplate(models.Model):
 class AccountFiscalPositionAccountTemplate(models.Model):
     _name = 'account.fiscal.position.account.template'
     _description = 'Template Account Fiscal Mapping'
+    _inherit = ['ir.branch.company.mixin']
     _rec_name = 'position_id'
 
     position_id = fields.Many2one('account.fiscal.position.template', string='Fiscal Mapping', required=True, ondelete='cascade')
@@ -961,6 +966,7 @@ class AccountBankAccountsWizard(models.TransientModel):
 
 class AccountReconcileModelTemplate(models.Model):
     _name = "account.reconcile.model.template"
+    _inherit = ['ir.branch.company.mixin']
 
     chart_template_id = fields.Many2one('account.chart.template', string='Chart Template', required=True)
     name = fields.Char(string='Button Label', required=True)

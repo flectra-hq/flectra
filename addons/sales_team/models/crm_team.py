@@ -84,7 +84,7 @@ class CrmTeam(models.Model):
     @api.constrains('company_id', 'branch_id')
     def _check_company_branch(self):
         for record in self:
-            if record.company_id and record.company_id != record.branch_id.company_id:
+            if record.branch_id and record.company_id and record.company_id != record.branch_id.company_id:
                 raise ValidationError(
                     _('Configuration Error of Company:\n'
                       'The Company (%s) in the Team and '

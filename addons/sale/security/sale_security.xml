@@ -84,6 +84,30 @@
         <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
     </record>
 
+
+    <!-- Multi - Branch Rules -->
+
+    <record model="ir.rule" id="sale_order_multi_branch_rule">
+        <field name="name">Sales Order multi-branch</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('branch_id','=', False),'|',('branch_id','=',user.default_branch_id.id), ('branch_id','in', [b.id for b in user.branch_ids])]</field>
+    </record>
+
+    <record model="ir.rule" id="sale_order_line_multi_branch_rule">
+        <field name="name">Sales Order Line multi-branch</field>
+        <field name="model_id" ref="model_sale_order_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('branch_id','=', False),'|',('branch_id','=',user.default_branch_id.id), ('branch_id','in', [b.id for b in user.branch_ids])]</field>
+    </record>
+
+    <record model="ir.rule" id="sale_order_report_multi_branch_rule">
+        <field name="name">Sales Order Analysis multi-branch</field>
+        <field name="model_id" ref="model_sale_report"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('branch_id','=', False),'|',('branch_id','=',user.default_branch_id.id), ('branch_id','in', [b.id for b in user.branch_ids])]</field>
+    </record>
+
     <!-- Portal Access Rules -->
     <record id="sale_order_rule_portal" model="ir.rule">
         <field name="name">Portal Personal Quotations/Sales Orders</field>

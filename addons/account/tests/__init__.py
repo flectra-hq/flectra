@@ -18,3 +18,8 @@ from . import test_search
 from . import test_setup_bar
 from . import test_tax
 from . import test_templates_consistency
+from . import test_account_branch
+from . import test_invoice_branch
+from . import test_journal_entries_branch
+from . import test_branch_moves
+from . import test_payment_branch

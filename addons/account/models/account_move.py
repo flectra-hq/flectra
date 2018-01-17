@@ -19,6 +19,7 @@ class AccountMove(models.Model):
     _name = "account.move"
     _description = "Account Entry"
     _order = 'date desc, id desc'
+    _inherit = ['ir.branch.company.mixin']
 
     @api.multi
     @api.depends('name', 'state')
@@ -445,6 +446,8 @@ class AccountMoveLine(models.Model):
     analytic_account_id = fields.Many2one('account.analytic.account', string='Analytic Account')
     analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Analytic tags')
     company_id = fields.Many2one('res.company', related='account_id.company_id', string='Company', store=True)
+    branch_id = fields.Many2one(related='move_id.branch_id', string='Branch',
+                                store=True)
     counterpart = fields.Char("Counterpart", compute='_get_counterpart', help="Compute the counter part accounts of this journal item for this journal entry. This can be needed in reports.")
 
     # TODO: put the invoice link and partner_id on the account_move
@@ -462,6 +465,31 @@ class AccountMoveLine(models.Model):
         ('credit_debit1', 'CHECK (credit*debit=0)', 'Wrong credit or debit value in accounting entry !'),
         ('credit_debit2', 'CHECK (credit+debit>=0)', 'Wrong credit or debit value in accounting entry !'),
     ]
+
+    @api.constrains('move_id', 'branch_id')
+    def _check_branch(self):
+        for order in self:
+            move_branch_id = order.move_id.branch_id
+            if order.branch_id and move_branch_id != order.branch_id:
+                raise ValidationError(
+                    _('Configuration Error of Branch:\n'
+                      'The Move Line Branch (%s) and '
+                      'the Branch (%s) of Journal Entry must '
+                      'be the same branch!') % (order.branch_id.name,
+                                                move_branch_id.name)
+                )
+
+    @api.constrains('company_id', 'branch_id')
+    def _check_company(self):
+        for order in self:
+            if order.branch_id and order.company_id != order.branch_id.company_id:
+                raise ValidationError(
+                    _('Configuration Error of Company:\n'
+                      'The Move Line Company (%s) and '
+                      'the Company (%s) of Branch must '
+                      'be the same company!') % (order.company_id.name,
+                                                order.branch_id.company_id.name)
+                )
 
     @api.model
     def default_get(self, fields):
@@ -1446,6 +1474,7 @@ class AccountMoveLine(models.Model):
         return {
             'name': self.name,
             'date': self.date,
+            'branch_id': self.branch_id and self.branch_id.id,
             'account_id': self.analytic_account_id.id,
             'tag_ids': [(6, 0, self.analytic_tag_ids.ids)],
             'unit_amount': self.quantity,
@@ -1538,6 +1567,8 @@ class AccountPartialReconcile(models.Model):
     company_currency_id = fields.Many2one('res.currency', related='company_id.currency_id', readonly=True,
         help='Utility field to express amount currency')
     company_id = fields.Many2one('res.company', related='debit_move_id.company_id', store=True, string='Currency')
+    branch_id = fields.Many2one(related='debit_move_id.branch_id', store=True,
+                                 string='Branch')
     full_reconcile_id = fields.Many2one('account.full.reconcile', string="Full Reconcile", copy=False)
     max_date = fields.Date(string='Max Date of Matched Lines', compute='_compute_max_date',
         readonly=True, copy=False, store=True,

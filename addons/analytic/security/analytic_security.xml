@@ -15,6 +15,14 @@
         <field eval="True" name="global"/>
         <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
     </record>
+
+    <record id="account_analytic_account_multi_branch_rule" model="ir.rule">
+        <field name="name">Analytic Multi Branch</field>
+        <field name="model_id" ref="model_account_analytic_account"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('branch_id','=', False),'|',('branch_id','=',user.default_branch_id.id), ('branch_id','in', [b.id for b in user.branch_ids])]</field>
+    </record>
+
 </data>
 <data noupdate="0">
 

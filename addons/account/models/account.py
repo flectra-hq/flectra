@@ -45,6 +45,7 @@ class AccountAccountTag(models.Model):
 class AccountAccount(models.Model):
     _name = "account.account"
     _description = "Account"
+    _inherit = ['ir.branch.company.mixin']
     _order = "code"
 
     @api.multi
@@ -83,6 +84,17 @@ class AccountAccount(models.Model):
     _sql_constraints = [
         ('code_company_uniq', 'unique (code,company_id)', 'The code of the account must be unique per company !')
     ]
+
+    @api.multi
+    @api.constrains('branch_id', 'company_id')
+    def _check_company_branch(self):
+        for record in self:
+            if record.branch_id and record.company_id != record.branch_id.company_id:
+                raise ValidationError(_(
+                    'Configuration Error of Company:\n'
+                    'The Account Company (%s) and the Company (%s) of '
+                    'Branch must be the same!') % (
+                    record.company_id.name, record.branch_id.company_id.name))
 
     def _compute_opening_debit_credit(self):
         for record in self:
@@ -305,6 +317,7 @@ class AccountGroup(models.Model):
 
 class AccountJournal(models.Model):
     _name = "account.journal"
+    _inherit = ['ir.branch.company.mixin']
     _description = "Journal"
     _order = 'sequence, type, code'
 
@@ -386,6 +399,17 @@ class AccountJournal(models.Model):
     _sql_constraints = [
         ('code_company_uniq', 'unique (code, name, company_id)', 'The code and name of the journal must be unique per company !'),
     ]
+
+    @api.multi
+    @api.constrains('branch_id', 'company_id')
+    def _check_company_branch(self):
+        for record in self:
+            if record.branch_id and record.company_id != record.branch_id.company_id:
+                raise ValidationError(_(
+                    'Configuration Error of Company:\n'
+                    'The Account Company (%s) and the Company (%s) of '
+                    'Branch must be the same!') % (
+                    record.company_id.name, record.branch_id.company_id.name))
 
     @api.multi
     # do not depend on 'sequence_id.date_range_ids', because
@@ -720,6 +744,7 @@ class AccountTaxGroup(models.Model):
 
 class AccountTax(models.Model):
     _name = 'account.tax'
+    _inherit = ['ir.branch.company.mixin']
     _description = 'Tax'
     _order = 'sequence,id'
 
@@ -1008,6 +1033,7 @@ class AccountTax(models.Model):
 
 class AccountReconcileModel(models.Model):
     _name = "account.reconcile.model"
+    _inherit = ['ir.branch.company.mixin']
     _description = "Preset to create journal entries during a invoices and payments matching"
 
     name = fields.Char(string='Button Label', required=True)

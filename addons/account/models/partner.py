@@ -11,6 +11,7 @@ from flectra.addons.base.res.res_partner import WARNING_MESSAGE, WARNING_HELP
 
 class AccountFiscalPosition(models.Model):
     _name = 'account.fiscal.position'
+    _inherit = ['ir.branch.company.mixin']
     _description = 'Fiscal Position'
     _order = 'sequence'
 
@@ -164,6 +165,7 @@ class AccountFiscalPosition(models.Model):
 
 class AccountFiscalPositionTax(models.Model):
     _name = 'account.fiscal.position.tax'
+    _inherit = ['ir.branch.company.mixin']
     _description = 'Taxes Fiscal Position'
     _rec_name = 'position_id'
 
@@ -182,6 +184,7 @@ class AccountFiscalPositionTax(models.Model):
 class AccountFiscalPositionAccount(models.Model):
     _name = 'account.fiscal.position.account'
     _description = 'Accounts Fiscal Position'
+    _inherit = ['ir.branch.company.mixin']
     _rec_name = 'position_id'
 
     position_id = fields.Many2one('account.fiscal.position', string='Fiscal Position',

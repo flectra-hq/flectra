@@ -13,5 +13,20 @@
             <field eval="True" name="global"/>
             <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
         </record>
+        <record id="ir_rule_voucher_branch"
+            model="ir.rule">
+            <field name="model_id" ref="account_voucher.model_account_voucher"/>
+            <field name="domain_force">['|',('branch_id','=', False),'|',('branch_id','=',user.default_branch_id.id), ('branch_id','in', [b.id for b in user.branch_ids])]</field>
+            <field name="name">Vouchers Branch</field>
+            <field name="global" eval="True"/>
+        </record>
+        <record id="ir_rule_voucher_line_branch"
+                model="ir.rule">
+            <field name="model_id"
+                   ref="account_voucher.model_account_voucher_line"/>
+            <field name="domain_force">['|',('branch_id','=', False),'|',('branch_id','=',user.default_branch_id.id), ('branch_id','in', [b.id for b in user.branch_ids])]</field>
+            <field name="name">Voucher lines branch</field>
+            <field name="global" eval="True"/>
+        </record>
     </data>
 </flectra>
