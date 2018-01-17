@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="view_project_sprint_form" model="ir.ui.view">
+        <field name="name">project.sprint</field>
+        <field name="model">project.sprint</field>
+        <field name="arch" type="xml">
+            <form string="Project Sprint">
+                <header>
+                    <button name="set_state_open" string="Open" type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="set_state_cancel" string="Cancel"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', 'in', ('done', 'cancel'))]}"/>
+                    <button name="set_state_pending" string="Pending"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', 'not in', ('in_progress', 'draft'))]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="task_button_box">
+                        <button name="action_view_tasks" string="Tasks"
+                                type="object" class="oe_stat_button"
+                                icon="fa-tasks"/>
+                        <button name="action_view_stories" string="Stories"
+                                type="object" class="oe_stat_button"
+                                icon="fa-pencil"/>
+                        <button name="action_view_release_planning"
+                                string="Release Planning"
+                                type="object" class="oe_stat_button"
+                                icon="fa-rocket"/>
+                        <button name="action_view_retrospective"
+                                string="Retrospectives"
+                                type="object" class="oe_stat_button"
+                                icon="fa-backward"/>
+                    </div>
+                    <div class="oe_title">
+                        <h1 class="o_row">
+                            <field name="name" placeholder="Sprint Name"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </h1>
+                    </div>
+                    <div col="2">
+                        <br/>
+                        <h2 class="o_row">
+                            <field name="sprint_seq" nolabel="1" readonly="1"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group col="2">
+                            <field name="project_id"
+                                   options="{'no_create': True, 'no_create_edit': True}"
+                                   required="1"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="start_date" required="1"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="meeting_date"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="team_id"
+                                   options="{'no_create': True, 'no_create_edit': True}"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="end_date"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="goal_of_sprint"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="branch_id"
+                                   options="{'no_create': True, 'no_create_edit': True}"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="duration"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <label for="hour" string="Daily Scrum Time"/>
+                            <div class="o_address_format">
+                                <field name="hour" widget="float_time"
+                                       class="o_address_city"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="time_zone" class="o_address_city"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            </div>
+                            <field name="estimated_velocity"/>
+                            <field name="actual_velocity"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Sprint Planning">
+                            <group name="sprint_planning" col="4">
+                                <field name="working_days"/>
+                                <field name="productivity_hours"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="holiday_type"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="productivity_per"/>
+                                <field name="holiday_count"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="holiday_days"
+                                       attrs="{'invisible': [('holiday_type', '=', 'hours')]}"/>
+                            </group>
+                            <field name="sprint_planning_line" nolabel="1"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="user_id"
+                                           options="{'no_create': True, 'no_create_edit': True}"
+                                           required="1"/>
+                                    <field name="role_id"/>
+                                    <field name="available_per"/>
+                                    <field name="productivity_hours"/>
+                                    <field name="sprint_hours"/>
+                                    <field name="off_hours"/>
+                                    <field name="total_hours"
+                                           sum="Total Capacity"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_project_sprint_tree" model="ir.ui.view">
+        <field name="name">project.sprint.tree</field>
+        <field name="model">project.sprint</field>
+        <field name="arch" type="xml">
+            <tree string="Project Sprint">
+                <field name="sprint_seq"/>
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="branch_id"/>
+                <field name="goal_of_sprint"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sprint_search" model="ir.ui.view">
+        <field name="name">project.sprint.search</field>
+        <field name="model">project.sprint</field>
+        <field name="arch" type="xml">
+            <search string="Sprints">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="branch_id"/>
+                <filter string="Draft" name="filter_draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="In Progress" name="filter_progress"
+                        domain="[('state', '=', 'in_progress')]"/>
+                <filter string="Done" name="filter_done"
+                        domain="[('state', '=', 'done')]"/>
+                <filter string="Cancel" name="filter_cancel"
+                        domain="[('state', '=', 'cancel')]"/>
+                <filter string="Project" name="group_by_project"
+                        context="{'group_by': 'project_id'}"/>
+                <filter string="Branch" name="group_by_branch"
+                        context="{'group_by': 'branch_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!--
+        Sprint Kanban View
+    -->
+    <record id="view_project_sprint_kanban" model="ir.ui.view">
+        <field name="name">project.sprint.kanban</field>
+        <field name="model">project.sprint</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard o_kanban_mobile" js_class="scrum_dashboard">
+                <field name="name"/>
+                <field name="id"/>
+                <field name="color"/>
+                <field name="number_of_tasks"/>
+                <field name="tasks_json"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click sprint_kanban">
+                            <div class="o_project_kanban_main">
+                                <div class="o_kanban_card_content o_visible">
+                                    <div class="o_kanban_primary_left">
+                                        <div class="o_primary">
+                                            <span class="col-md-12 bold">
+                                                <t t-esc="record.name.value"/>
+                                                <t t-if="record.tasks_json.raw_value">
+                                                    <t t-value="record.tasks_json.raw_value"
+                                                       t-set="data"/>
+                                                </t>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="container o_kanban_card_content o_visible mt16">
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-3 col-xs-3">
+                                            <div class="chart">
+                                                <canvas
+                                                        t-att-id="'pie_chart_' + (record.id.value)"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9 col-md-9 col-xs-9">
+                                            <ul
+                                                    t-att-id="'pie_list_' + (record.id.value)"
+                                                style="list-style-type: none; margin: 10px 0 0 80px;"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-3 col-xs-3">
+                                            <div class="chart">
+                                                <canvas
+                                                        t-att-id="'burndown_chart_' + (record.id.value)"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script type="text/javascript" t-raw="init">
+                                    Chart.defaults.global.showTooltips = true;
+                                    var data = JSON.parse("<t t-esc='data'/>".replace(/u'/g,'"').replace(/'/g,'"'));
+                                    var data_id = "<t t-esc='record.id.value'/>";
+                                    var pie_data = [];
+                                    var li = "";
+                                    var colors = ['#A1887F', '#8BC34A', '#5C6BC0', '#9C27B0', '#006064', '#76FF03', '#5D4037'];
+                                    for(var i in data) {
+                                      pie_data.push({
+                                            value: data[i].per,
+                                            label: data[i].task,
+                                            color: colors[i],
+                                        });
+                                        li += '<li><span class="list-color" style="margin-top: 2px;background-color:'+ colors[i] +'"></span>' + data[i].task + ' - ' + data[i].per + '%' + '</li>';
+                                    }
+                                    $('#pie_list_' + data_id).html(li);
+                                    var context_pie = document.getElementById('pie_chart_' + data_id).getContext('2d');
+                                    context_pie.canvas.width = 110;
+                                    context_pie.canvas.height = 110;
+                                    new Chart(context_pie).Pie(pie_data);
+                                    var context_burndown = document.getElementById('burndown_chart_' + data_id).getContext('2d');
+                                   context_burndown.canvas.width = 475;
+                                   context_burndown.canvas.height = 100;
+                                    var task_labels = [], velocities = [], per = [];
+                                    for(var key in data) {
+                                        if(data[key]) {
+                                            velocities.push(data[key].velocity);
+                                         task_labels.push(data[key].task);
+                                         per.push(data[key].per);
+                                     }
+                                 }
+                                 var sprint_chart_data = {
+                                     labels: task_labels,
+                                        datasets: [
+                                         {
+                                             label: "Success (%)",
+                                             fillColor: "rgb(243, 156, 18)",
+                                             strokeColor: "rgb(243, 156, 18)",
+                                             pointColor: "rgb(243, 156, 18)",
+                                             pointStrokeColor: "#c1c7d1",
+                                             pointHighlightFill: "#fff",
+                                             pointHighlightStroke:"rgb(243, 156, 18)",
+                                             data: per
+                                         },
+                                        {
+                                            label: "Velocity",
+                                            fillColor: "rgba(60,141,188,0.9)",
+                                            strokeColor: "rgba(60,141,188,0.9)",
+                                            pointColor: "rgba(60,141,188,0.9)",
+                                            pointStrokeColor: "#c1c7d1",
+                                            pointHighlightFill: "#fff",
+                                            pointHighlightStroke: "rgba(60,141,188,0.9)",
+                                            data: velocities
+                                        }
+                                       ]
+                               };
+                                    new Chart(context_burndown).Line(sprint_chart_data);
+                               </script>
+                                <div class="o_kanban_card_manage_pane o_invisible">
+                                    <div class="o_kanban_card_manage_section o_kanban_manage_reports">
+                                        <div groups="project.group_project_manager">
+                                            <a type="edit">Edit</a>
+                                        </div>
+                                    </div>
+                                    <div t-if="widget.editable"
+                                         class="o_project_kanban_colorpicker">
+                                        <ul class="oe_kanban_colorpicker"
+                                            data-field="color"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_project_kanban_boxes"
+                                 style="background-color: #7c7bad; padding: 20px;">
+                                <div class="o_project_kanban_box text-center">
+                                    <a name="%(action_inherited_task)d"
+                                       type="action" class="text-white bold">
+                                        <span class="o_value">
+                                            <t t-esc="record.number_of_tasks.value"/>
+                                        </span>
+                                        <span class="o_label">Tasks</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!--
+        Sprint Calendar View
+    -->
+    <record id="view_project_sprint_calendar" model="ir.ui.view">
+        <field name="name">project.sprint.calendar</field>
+        <field name="model">project.sprint</field>
+        <field name="arch" type="xml">
+            <calendar string="Project Sprint" color="project_id"
+                      date_start="meeting_date">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="start_date"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_project_sprint" model="ir.actions.act_window">
+        <field name="name">Sprint</field>
+        <field name="res_model">project.sprint</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,form,tree,calendar</field>
+        <field name="view_id" ref="view_project_sprint_kanban"/>
+        <field name="search_view_id" ref="view_sprint_search"/>
+    </record>
+
+    <menuitem name="Scrum" id="menu_scrum" parent="project.menu_main_pm"
+              sequence="1"/>
+
+    <menuitem
+            id="menu_sprint"
+            parent="menu_scrum"
+            action="action_project_sprint"
+            sequence="1"
+    />
+
+    <!-- User Role views -->
+
+    <record id="view_user_role_tree" model="ir.ui.view">
+        <field name="name">user.role</field>
+        <field name="model">user.role</field>
+        <field name="arch" type="xml">
+            <tree string="User Role">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_user_role_form" model="ir.ui.view">
+        <field name="name">user.role</field>
+        <field name="model">user.role</field>
+        <field name="arch" type="xml">
+            <form string="User Role">
+                <sheet>
+                    <group col="4">
+                        <field name="name" required="1"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_user_role" model="ir.actions.act_window">
+        <field name="name">Roles</field>
+        <field name="res_model">user.role</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="view_user_role_tree"/>
+    </record>
+
+    <menuitem
+            id="menu_user_role"
+            parent="base.menu_users"
+            action="action_user_role"
+            sequence="2"
+    />
+
+    <record id="mail_followers_inherit_id" model="ir.ui.view">
+        <field name="name">mail.followers</field>
+        <field name="model">mail.followers</field>
+        <field name="inherit_id" ref="mail.view_mail_subscription_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='subtype_ids']" position="after">
+                <field name="team_id" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</flectra>

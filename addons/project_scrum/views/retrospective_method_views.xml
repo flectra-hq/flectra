@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="retrospective_method_form_view" model="ir.ui.view">
+        <field name="name">Retrospective Method</field>
+        <field name="model">retrospective.method</field>
+        <field name="arch" type="xml">
+            <form string="Retrospective Method">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+	            <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="retrospective_method_tree_view" model="ir.ui.view">
+        <field name="name">Retrospective Method</field>
+        <field name="model">retrospective.method</field>
+        <field name="arch" type="xml">
+            <tree string="Retrospective Methods">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_retrospective_method_tree_view" model="ir.actions.act_window">
+        <field name="name">Retrospective Method</field>
+        <field name="res_model">retrospective.method</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="retrospective_method_tree_view"/>
+    </record>
+
+    <menuitem name="Retrospective" id="retrospective_menu_id" parent="project.menu_main_pm" sequence="1"/>
+
+    <menuitem
+        id="retrospective_method"
+        parent="retrospective_menu_id"
+        groups="project.group_project_manager"
+        action="action_retrospective_method_tree_view"
+        sequence="5"
+    />
+
+</flectra>

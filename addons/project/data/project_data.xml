@@ -18,6 +18,16 @@
             <field name="object">project.task</field>
         </record>
 
+
+        <record id="seq_tasks" model="ir.sequence">
+            <field name="name">Tasks</field>
+            <field name="code">project.task</field>
+            <field name="prefix">TSK</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+
         <!-- sale_timesheet and project define the same field without depending on each, which causes the field to be deleted when the module that created it
         is deleted. To avoid this, we create xmlids manually for this field in both modules to prevent accidental deletion. To fix in saas-7 by moving the field definition-->
         <record id="duplicate_field_xmlid" model="ir.model.data">
@@ -127,7 +137,7 @@
         <record forcecreate="False" id="project_task_data_0" model="project.task">
             <field name="sequence">1</field>
             <field name="user_id" ref="base.user_root"/>
-            <field name="priority">0</field>
+            <field name="priority">l</field>
             <field name="project_id" ref="project.project_project_data"/>
             <field name="active" eval="False"/>
             <field name="name">Welcome to Flectra</field>
@@ -139,7 +149,7 @@
         <record forcecreate="False" id="project_task_data_1" model="project.task">
             <field name="sequence">2</field>
             <field name="user_id" ref="base.user_root"/>
-            <field name="priority">0</field>
+            <field name="priority">l</field>
             <field name="project_id" ref="project.project_project_data"/>
             <field name="active" eval="False"/>
             <field name="name">Try to play with the search bar. Use the filters</field>
@@ -150,7 +160,7 @@
         <record forcecreate="False" id="project_task_data_5" model="project.task">
             <field name="sequence">3</field>
             <field name="user_id" ref="base.user_root"/>
-            <field name="priority">0</field>
+            <field name="priority">l</field>
             <field name="project_id" ref="project.project_project_data"/>
             <field name="active" eval="False"/>
             <field name="name">Try to drag a task wherever your want</field>
@@ -161,7 +171,7 @@
         <record forcecreate="False" id="project_task_data_2" model="project.task">
             <field name="sequence">4</field>
             <field name="user_id" ref="base.user_root"/>
-            <field name="priority">0</field>
+            <field name="priority">l</field>
             <field name="project_id" ref="project.project_project_data"/>
             <field name="active" eval="False"/>
             <field name="name">Guess what happens if you set this task as favorite?</field>
@@ -171,7 +181,7 @@
 
         <record forcecreate="False" id="project_task_data_4" model="project.task">
             <field name="user_id" ref="base.user_root"/>
-            <field name="priority">0</field>
+            <field name="priority">l</field>
             <field name="project_id" ref="project.project_project_data"/>
             <field name="active" eval="False"/>
             <field name="name">Use the chatter to collaborate with your members</field>
@@ -197,7 +207,7 @@
         <record forcecreate="False" id="project_task_data_6" model="project.task">
             <field name="sequence">3</field>
             <field name="user_id" ref="base.user_root"/>
-            <field name="priority">0</field>
+            <field name="priority">l</field>
             <field name="project_id" ref="project.project_project_data"/>
             <field name="active" eval="False"/>
             <field name="name">Use tags to organize your tasks</field>
@@ -210,7 +220,7 @@
         <record forcecreate="False" id="project_task_data_12" model="project.task">
             <field name="sequence">4</field>
             <field name="user_id" ref="base.user_root"/>
-            <field name="priority">0</field>
+            <field name="priority">l</field>
             <field name="project_id" ref="project.project_project_data"/>
             <field name="active" eval="False"/>
             <field name="color">3</field>
@@ -222,7 +232,7 @@
         <record forcecreate="False" id="project_task_data_13" model="project.task">
             <field name="sequence">5</field>
             <field name="user_id" ref="base.user_root"/>
-            <field name="priority">0</field>
+            <field name="priority">l</field>
             <field name="project_id" ref="project.project_project_data"/>
             <field name="active" eval="False"/>
             <field name="name">Set this task as 'Ready for next stage' to proceed further in the process</field>
@@ -232,7 +242,7 @@
 
         <record forcecreate="False" id="project_task_data_8" model="project.task">
             <field name="user_id" ref="base.user_root"/>
-            <field name="priority">0</field>
+            <field name="priority">l</field>
             <field name="project_id" ref="project.project_project_data"/>
             <field name="active" eval="False"/>
             <field name="name">Do you want to learn more? Try our implementation guide!</field>
@@ -265,7 +275,7 @@
 
         <record forcecreate="False" id="project_task_data_7" model="project.task">
             <field name="user_id" ref="base.user_root"/>
-            <field name="priority">0</field>
+            <field name="priority">l</field>
             <field name="project_id" ref="project.project_project_data"/>
             <field name="active" eval="False"/>
             <field name="name">Finished with this stage? Archive it !</field>
@@ -275,7 +285,7 @@
 
         <record forcecreate="False" id="project_task_data_9" model="project.task">
             <field name="user_id" ref="base.user_root"/>
-            <field name="priority">0</field>
+            <field name="priority">l</field>
             <field name="project_id" ref="project.project_project_data"/>
             <field name="active" eval="False"/>
             <field name="name">You want to add a stage? Add a new column !</field>
@@ -285,7 +295,7 @@
 
         <record forcecreate="False" id="project_task_data_11" model="project.task">
             <field name="user_id" ref="base.user_root"/>
-            <field name="priority">0</field>
+            <field name="priority">l</field>
             <field name="project_id" ref="project.project_project_data"/>
             <field name="active" eval="False"/>
             <field name="name">You can set a deadline on a task</field>
@@ -295,7 +305,7 @@
 
         <record forcecreate="False" id="project_task_data_14" model="project.task">
             <field name="user_id" ref="base.user_root"/>
-            <field name="priority">0</field>
+            <field name="priority">l</field>
             <field name="project_id" ref="project.project_project_data"/>
             <field name="active" eval="False"/>
             <field name="name">Send a message with a picture as attachment, and see what happens!</field>

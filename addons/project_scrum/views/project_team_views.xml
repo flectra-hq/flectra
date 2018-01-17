@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="view_project_team_form" model="ir.ui.view">
+        <field name="name">project.team</field>
+        <field name="model">project.team</field>
+        <field name="arch" type="xml">
+            <form string="Project Team">
+                <sheet>
+                    <div class="oe_title">
+                        <h1 class="o_row">
+                            <field name="name" placeholder="Team Name"/>
+                        </h1>
+                    </div>
+                    <group col="4">
+                        <field name="project_id" options="{'no_create': True, 'no_create_edit': True}" required="1"/>
+                        <field name="member_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="master_id" options="{'no_create': True, 'no_create_edit': True}"
+                            domain="[('id', 'in', member_ids)]"/>
+	                    <field name="branch_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                    </group>
+                    <group col="2">
+                        <field name="strength"/>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_project_team_tree" model="ir.ui.view">
+        <field name="name">project.team</field>
+        <field name="model">project.team</field>
+        <field name="arch" type="xml">
+            <tree string="Project Team">
+                <field name="name"/>
+	            <field name="branch_id"/>
+	            <field name="master_id"/>
+	            <field name="strength"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_project_team" model="ir.actions.act_window">
+        <field name="name">Project Team</field>
+        <field name="res_model">project.team</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="view_project_team_tree"/>
+    </record>
+
+    <menuitem name="Team" id="menu_team" parent="menu_scrum" action="action_project_team" sequence="10"/>
+
+</flectra>

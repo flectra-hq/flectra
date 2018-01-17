@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+	<div t-name="ScrumDashboard" class="custom-bg mb8">
+		<div class="container">
+			<div class="row mt32 mb32 mr0 ml0">
+				<div class="col-md-3">
+					<div class="panel panel-blue">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-3">
+									<i class="fa fa-pencil-square fa-5x"></i>
+								</div>
+								<div class="col-xs-9 text-center total-projects">
+									<div class="myFont big">Total Projects</div>
+									<div id="total_projects" class="myFont"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="panel panel-green">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-3">
+									<i class="fa fa-list-ol fa-5x"></i>
+								</div>
+								<div class="col-xs-9 text-center total-sprints">
+									<div class="myFont big">Total Sprints</div>
+									<div id="total_sprints" class="myFont"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="panel panel-orange">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-3">
+									<i class="fa fa-file-text fa-5x"></i>
+								</div>
+								<div class="col-xs-9 text-center total-stories">
+									<div class="myFont big">Total Stories</div>
+									<div id="total_stories" class="myFont"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="panel panel-red">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-3">
+									<i class="fa fa-tasks fa-5x"></i>
+								</div>
+								<div class="col-xs-9 text-center total-tasks">
+									<div class="myFont big">Total Tasks</div>
+									<div id="total_tasks" class="myFont"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<h2 class="text-center myFont"><b>Sprint Burn Down Chart</b></h2>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="velocity-div orange ml48 mb8">
+						<span class="text-right myFont ml8">Success (%)</span>
+					</div>
+					<div class="velocity-div blue ml48">
+						<span class="text-right myFont ml8">Velocity</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div id="sprint_chart">
+						<div class="chart">
+							<canvas id="scrum_chart" style="padding: 25px;"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

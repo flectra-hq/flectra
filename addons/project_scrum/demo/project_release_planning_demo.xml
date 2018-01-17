@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+    <data noupdate="1">
+        <!--
+            release.planning Demo Data
+        -->
+        <record id="release_planning_1" model="release.planning">
+            <field name="name">Release of Development</field>
+            <field name="release_date" eval="DateTime.today() - relativedelta(days=5,hours=20,minutes=2,seconds=10)"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_1"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+        </record>
+
+        <record id="release_planning_2" model="release.planning">
+            <field name="name">Release of Design &amp; Documentation</field>
+            <field name="release_date" eval="DateTime.today() - relativedelta(days=3,hours=21,minutes=4,seconds=19)"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_1"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+        </record>
+
+        <record id="release_planning_3" model="release.planning">
+            <field name="name">Release Access Rights Allocation</field>
+            <field name="release_date" eval="DateTime.today() + relativedelta(days=5,hours=22,minutes=5,seconds=25)"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_2"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+        </record>
+
+        <record id="release_planning_4" model="release.planning">
+            <field name="name">Release Mail Configuration &amp; Improved Dashboard</field>
+            <field name="release_date" eval="DateTime.today() - relativedelta(days=25,hours=23,minutes=6,seconds=34)"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_3"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+        </record>
+
+        <record id="release_planning_5" model="release.planning">
+            <field name="name">Scrum Updates</field>
+            <field name="release_date" eval="DateTime.today() - relativedelta(days=6,hours=24,minutes=8,seconds=55)"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_3"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+        </record>
+    </data>
+</flectra>

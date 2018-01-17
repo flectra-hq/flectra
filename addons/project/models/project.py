@@ -6,6 +6,7 @@ from lxml import etree
 from flectra import api, fields, models, tools, SUPERUSER_ID, _
 from flectra.exceptions import UserError, AccessError
 from flectra.tools.safe_eval import safe_eval
+from datetime import timedelta, date
 
 
 class ProjectTaskType(models.Model):
@@ -46,7 +47,7 @@ class ProjectTaskType(models.Model):
 class Project(models.Model):
     _name = "project.project"
     _description = "Project"
-    _inherit = ['mail.alias.mixin', 'mail.thread', 'portal.mixin']
+    _inherit = ['mail.alias.mixin', 'mail.thread', 'portal.mixin', 'ir.branch.company.mixin']
     _inherits = {'account.analytic.account': "analytic_account_id"}
     _order = "sequence, name, id"
     _period_number = 5
@@ -214,6 +215,9 @@ class Project(models.Model):
     date = fields.Date(string='Expiration Date', index=True, track_visibility='onchange')
     subtask_project_id = fields.Many2one('project.project', string='Sub-task Project', ondelete="restrict",
         help="Choosing a sub-tasks project will both enable sub-tasks and set their default project (possibly the project itself)")
+    low = fields.Integer("No of Days for Low priority")
+    medium = fields.Integer("No of Days for Medium priority")
+    high = fields.Integer("No of Days for High priority")
 
     _sql_constraints = [
         ('project_date_greater', 'check(date >= date_start)', 'Error! project start-date must be lower than project end-date.')
@@ -361,7 +365,7 @@ class Task(models.Model):
     _name = "project.task"
     _description = "Task"
     _date_name = "date_start"
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin', 'ir.branch.company.mixin']
     _mail_post_access = 'read'
     _order = "priority desc, sequence, date_start, name, id"
 
@@ -385,6 +389,12 @@ class Task(models.Model):
 
         stage_ids = stages._search(search_domain, order=order, access_rights_uid=SUPERUSER_ID)
         return stages.browse(stage_ids)
+
+    @api.one
+    @api.depends('stage_id')
+    def calculate_actual_end_date(self):
+        if self.stage_id.name == 'Done':
+            self.actual_end_date = date.today()
 
     active = fields.Boolean(default=True)
     name = fields.Char(string='Task Title', track_visibility='always', required=True, index=True)
@@ -463,6 +473,39 @@ class Task(models.Model):
     working_hours_close = fields.Float(compute='_compute_elapsed', string='Working hours to close', store=True, group_operator="avg")
     working_days_open = fields.Float(compute='_compute_elapsed', string='Working days to assign', store=True, group_operator="avg")
     working_days_close = fields.Float(compute='_compute_elapsed', string='Working days to close', store=True, group_operator="avg")
+
+    task_seq = fields.Char(
+        string="Reference", track_visibility='onchange',
+        default=lambda self: self.env['ir.sequence'].next_by_code(
+            'project.task') or '/')
+    priority = fields.Selection([
+        ('l', 'Low'), ('m', 'Medium'), ('h', 'High'), ],
+        string="Priority", default='l')
+    start_date = fields.Date(string="Start Date", track_visibility='onchange')
+    end_date = fields.Date(string="End Date", track_visibility='onchange')
+    actual_end_date = fields.Date(
+        compute='calculate_actual_end_date', string="Actual End Date",
+        store=True, track_visibility='onchange'
+    )
+
+    @api.onchange('priority', 'project_id')
+    def task_deadline(self):
+        if self.project_id and self.priority:
+            days = 0
+            if self.priority == "l":
+                days = int(self.project_id.low)
+            elif self.priority == "m":
+                days = int(self.project_id.medium)
+            else:
+                days = int(self.project_id.high)
+
+            self.update({
+                'date_deadline': date.today() + timedelta(days)
+            })
+        else:
+            self.update({
+                'date_deadline': date.today()
+            })
 
     def _compute_attachment_ids(self):
         for task in self:

@@ -136,9 +136,16 @@
                             <group>
                                 <field name="user_id" string="Project Manager"
                                         attrs="{'readonly':[('active','=',False)]}"/>
+                                <field name="company_id"/>
+                                <field name="branch_id"/>
                                 <field name="subtask_project_id" groups="project.group_subtask_project"/>
                                 <field name="privacy_visibility" widget="radio"/>
                                 <field name="partner_id" string="Customer"/>
+                            </group>
+                            <group col="6">
+                                <field name="low"/>
+                                <field name="medium"/>
+                                <field name="high"/>
                             </group>
                             <group name="misc">
                                 <group string="Configuration" groups="base.group_no_one">
@@ -427,6 +434,10 @@
                             <field name="user_id"
                                 class="o_task_user_field"
                                 options='{"no_open": True}'/>
+                            <field name="company_id"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="actual_end_date"/>
                             <field name="legend_blocked" invisible="1"/>
                             <field name="legend_normal" invisible="1"/>
                             <field name="legend_done" invisible="1"/>
@@ -434,6 +445,9 @@
                         <group>
                             <field name="date_deadline"/>
                             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                            <field name="task_seq" readonly="1"/>
+                            <field name="branch_id"/>
+                            <field name="priority"/>
                         </group>
                     </group>
                     <notebook>
@@ -905,5 +919,86 @@
             action="project.action_project_task_user_tree"
             parent="menu_project_report"
             sequence="10"/>
+
+        <!-- Priority Tasks Kanban -->
+        <record id="view_priority_task_kanban" model="ir.ui.view">
+            <field name="name">project.task.kanban</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column o_opportunity_kanban">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span style="font-weight:bold;">
+                                            <field name="name"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <span>
+                                            <field name="user_id"/>
+                                            <br/>
+                                            <field name="date_deadline"/>
+                                            <br/>
+                                            <field name="branch_id"/>
+                                            <br/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <img t-att-src="kanban_image('res.users', 'image_small', record.user_id.raw_value)"
+                                         t-att-title="record.user_id.value" width="25" height="25"
+                                         class="oe_kanban_avatar pull-right"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Priority tasks Search view -->
+        <record id="view_priority_tasks_search" model="ir.ui.view">
+            <field name="name">project.task.search</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+                <search string="Priority Tasks">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="project_id"/>
+                    <field name="company_id"/>
+                    <filter string="Low" domain="[('priority', '=', 'l')]"/>
+                    <filter string="Medium" domain="[('priority', '=', 'm')]"/>
+                    <filter string="High" domain="[('priority', '=', 'h')]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Priority" name="priority" context="{'group_by': 'priority'}"/>
+                        <filter string="Assigned To" name='user_id' context="{'group_by': 'user_id'}"/>
+                        <filter string="Stage" name='stage_id' context="{'group_by': 'stage_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Priority Tasks Action -->
+        <record id="action_priority_tasks" model="ir.actions.act_window">
+            <field name="name">Priority Tasks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">kanban,form,tree</field>
+            <field name="view_id" ref="view_priority_task_kanban"/>
+            <field name="search_view_id" ref="view_priority_tasks_search"/>
+            <field name="context">{'search_default_priority': 1}</field>
+        </record>
+
+        <!-- Priority Tasks Menu -->
+        <menuitem
+                id="menu_priority_tasks"
+                parent="project.menu_project_management"
+                action="action_priority_tasks"
+                sequence="4"
+        />
 
 </flectra>

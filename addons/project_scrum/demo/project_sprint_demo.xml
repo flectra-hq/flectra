@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+    <data noupdate="1">
+
+        <record id="resource.resource_calendar_std" model="resource.calendar">
+            <field name="no_of_hours">8</field>
+            <field name="no_of_days">5</field>
+        </record>
+
+        <record id="resource.resource_calendar_std_35h" model="resource.calendar">
+            <field name="no_of_hours">7</field>
+            <field name="no_of_days">5</field>
+        </record>
+
+        <!--
+            user.role Demo Data
+        -->
+        <record id="user_role_1" model="user.role">
+            <field name="name">Manager</field>
+            <field name="code">M</field>
+        </record>
+
+        <record id="user_role_2" model="user.role">
+            <field name="name">Developer</field>
+            <field name="code">D</field>
+        </record>
+
+        <record id="user_role_3" model="user.role">
+            <field name="name">Tester</field>
+            <field name="code">T</field>
+        </record>
+
+        <!--
+            project.sprint Demo Data
+        -->
+        <record id="project_sprint_1" model="project.sprint">
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="name">Module Development</field>
+            <field name="state">draft</field>
+            <field name="team_id" ref="project_scrum.project_team_1"/>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(days=8))"/>
+            <field name="end_date" eval="(DateTime.today() + relativedelta(days=8))"/>
+            <field name="goal_of_sprint">Develop Module with Documentation</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="hour">11</field>
+            <field name="time_zone">am</field>
+            <field name="meeting_date" eval="(DateTime.today() - relativedelta(days=8))"/>
+            <field name="productivity_hours">8.00</field>
+            <field name="holiday_type">hours</field>
+            <field name="holiday_count">1.00</field>
+        </record>
+
+        <record id="project_sprint_2" model="project.sprint">
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="name">Access Rights &amp; Testing</field>
+            <field name="state">in_progress</field>
+            <field name="team_id" ref="project_scrum.project_team_2"/>
+            <field name="start_date" eval="(DateTime.today() + relativedelta(days=8))"/>
+            <field name="end_date" eval="(DateTime.today() + relativedelta(days=22))"/>
+            <field name="goal_of_sprint">Access Rights Allocation</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="hour">15</field>
+            <field name="time_zone">pm</field>
+            <field name="meeting_date" eval="(DateTime.today() + relativedelta(days=8))"/>
+            <field name="productivity_hours">7.00</field>
+            <field name="holiday_type">hours</field>
+            <field name="holiday_count">1.00</field>
+        </record>
+
+        <record id="project_sprint_3" model="project.sprint">
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="name">Implement Mailing Functionality </field>
+            <field name="state">cancel</field>
+            <field name="team_id" ref="project_scrum.project_team_3"/>
+            <field name="start_date" eval="(DateTime.today() + relativedelta(days=22))"/>
+            <field name="end_date" eval="(DateTime.today() + relativedelta(days=36))"/>
+            <field name="goal_of_sprint">Mailing and Workflow</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="hour">15</field>
+            <field name="time_zone">pm</field>
+            <field name="meeting_date" eval="(DateTime.today() + relativedelta(days=22))"/>
+            <field name="productivity_hours">7.00</field>
+            <field name="holiday_type">hours</field>
+            <field name="holiday_count">1.00</field>
+        </record>
+
+        <record id="project_sprint_4" model="project.sprint">
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="name">Dashboard Improvements</field>
+            <field name="state">in_progress</field>
+            <field name="team_id" ref="project_scrum.project_team_3"/>
+            <field name="start_date" eval="(DateTime.today() + relativedelta(days=38))"/>
+            <field name="end_date" eval="(DateTime.today() + relativedelta(days=52))"/>
+            <field name="goal_of_sprint">Exclusive Dashboard</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="hour">10</field>
+            <field name="time_zone">am</field>
+            <field name="meeting_date" eval="(DateTime.today() + relativedelta(days=38))"/>
+            <field name="productivity_hours">7.00</field>
+            <field name="holiday_type">hours</field>
+            <field name="holiday_count">1.00</field>
+        </record>
+
+        <record id="project_sprint_5" model="project.sprint">
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="name">Project Integration</field>
+            <field name="state">pending</field>
+            <field name="team_id" ref="project_scrum.project_team_1"/>
+            <field name="start_date" eval="(DateTime.today() + relativedelta(days=52))"/>
+            <field name="end_date" eval="(DateTime.today() + relativedelta(days=66))"/>
+            <field name="goal_of_sprint">Integrating Project</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="hour">12</field>
+            <field name="time_zone">pm</field>
+            <field name="meeting_date"  eval="(DateTime.today() + relativedelta(days=52))"/>
+            <field name="productivity_hours">7.00</field>
+            <field name="holiday_type">hours</field>
+            <field name="holiday_count">1.00</field>
+        </record>
+        <!--
+            sprint.planning.line Demo Data
+        -->
+        <record id="sprint_planning_line_1" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_1"/>
+            <field name="role_id" ref="project_scrum.user_role_1"/>
+            <field name="available_per">100</field>
+            <field name="off_hours">10.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_1"/>
+        </record>
+
+        <record id="sprint_planning_line_2" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_2"/>
+            <field name="role_id" ref="project_scrum.user_role_2"/>
+            <field name="available_per">80</field>
+            <field name="off_hours">8.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_1"/>
+        </record>
+
+        <record id="sprint_planning_line_3" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_3"/>
+            <field name="role_id" ref="project_scrum.user_role_2"/>
+            <field name="available_per">40</field>
+            <field name="off_hours">4.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_1"/>
+        </record>
+
+        <record id="sprint_planning_line_4" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_1"/>
+            <field name="role_id" ref="project_scrum.user_role_3"/>
+            <field name="available_per">95</field>
+            <field name="off_hours">1.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_2"/>
+        </record>
+
+        <record id="sprint_planning_line_5" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_2"/>
+            <field name="role_id" ref="project_scrum.user_role_2"/>
+            <field name="available_per">90</field>
+            <field name="off_hours">1.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_2"/>
+        </record>
+
+        <record id="sprint_planning_line_6" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_3"/>
+            <field name="role_id" ref="project_scrum.user_role_2"/>
+            <field name="available_per">90</field>
+            <field name="off_hours">1.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_2"/>
+        </record>
+
+        <record id="sprint_planning_line_7" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_1"/>
+            <field name="role_id" ref="project_scrum.user_role_1"/>
+            <field name="available_per">80</field>
+            <field name="off_hours">2.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_3"/>
+        </record>
+
+        <record id="sprint_planning_line_8" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_2"/>
+            <field name="role_id" ref="project_scrum.user_role_2"/>
+            <field name="available_per">80</field>
+            <field name="off_hours">1.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_3"/>
+        </record>
+
+        <record id="sprint_planning_line_9" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_3"/>
+            <field name="role_id" ref="project_scrum.user_role_3"/>
+            <field name="available_per">90</field>
+            <field name="off_hours">1.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_3"/>
+        </record>
+
+        <record id="sprint_planning_line_10" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_1"/>
+            <field name="role_id" ref="project_scrum.user_role_1"/>
+            <field name="available_per">90</field>
+            <field name="off_hours">1.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_4"/>
+        </record>
+
+        <record id="sprint_planning_line_11" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_2"/>
+            <field name="role_id" ref="project_scrum.user_role_2"/>
+            <field name="available_per">100</field>
+            <field name="off_hours">1.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_4"/>
+        </record>
+
+        <record id="sprint_planning_line_12" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_3"/>
+            <field name="role_id" ref="project_scrum.user_role_3"/>
+            <field name="available_per">80</field>
+            <field name="off_hours">2.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_4"/>
+        </record>
+
+        <record id="sprint_planning_line_13" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_1"/>
+            <field name="role_id" ref="project_scrum.user_role_1"/>
+            <field name="available_per">90</field>
+            <field name="off_hours">2.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_5"/>
+        </record>
+
+        <record id="sprint_planning_line_14" model="sprint.planning.line">
+            <field name="user_id" ref="project_scrum.user_3"/>
+            <field name="role_id" ref="project_scrum.user_role_3"/>
+            <field name="available_per">90</field>
+            <field name="off_hours">1.00</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_5"/>
+        </record>
+    </data>
+</flectra>

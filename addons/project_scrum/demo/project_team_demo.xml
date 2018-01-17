@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+
+    <data noupdate="1">
+        <!--
+            res.users Demo Data
+        -->
+        <record id="user_1" model="res.users">
+            <field name="name">Chris Gardner</field>
+            <field name="login">chris@demo.com</field>
+        </record>
+
+        <record id="user_2" model="res.users">
+            <field name="name">Oskar Schindler</field>
+            <field name="login">oskar@demo.com</field>
+        </record>
+
+        <record id="user_3" model="res.users">
+            <field name="name">Andy Dufresne</field>
+            <field name="login">andy@demo.com</field>
+        </record>
+
+        <!-- Project -->
+
+        <record id="demo_project_1" model="project.project">
+            <field name="name">Project Scrum</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="privacy_visibility">employees</field>
+            <field name="partner_id">1</field>
+            <field name="sequence">10</field>
+            <field name="resource_calendar_id">1</field>
+            <field name="type_ids"
+                   eval="[(6, 0, [ref('project.project_stage_0'),
+                   ref('project.project_stage_1'),
+                   ref('project.project_stage_3'), ref('project.project_stage_2')])]"/>
+        </record>
+
+        <!--
+            project.team Demo Data
+        -->
+        <record id="project_team_1" model="project.team">
+            <field name="name">Project Module Team</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="member_ids" eval="[(6, 0, [ref('project_scrum.user_1'), ref('project_scrum.user_2')])]"/>
+            <field name="master_id" ref="project_scrum.user_1"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="strength">Technical, Functional</field>
+            <field name="description">Description for the Project team...</field>
+        </record>
+
+        <record id="project_team_2" model="project.team">
+            <field name="name">Sales Team</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="member_ids"
+                   eval="[(6, 0, [ref('project_scrum.user_1'), ref('project_scrum.user_2'), ref('project_scrum.user_3')])]"/>
+            <field name="master_id" ref="project_scrum.user_2"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="strength">Functional</field>
+            <field name="description">Description for the Sales team...</field>
+        </record>
+
+        <record id="project_team_3" model="project.team">
+            <field name="name">Sales and Purchase Team</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="member_ids"
+                   eval="[(6, 0, [ref('project_scrum.user_1'), ref('project_scrum.user_2'), ref('project_scrum.user_3')])]"/>
+            <field name="master_id" ref="project_scrum.user_3"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="strength">Technical, Functional</field>
+            <field name="description">Description for the team...</field>
+        </record>
+    </data>
+</flectra>

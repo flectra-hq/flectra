@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+    <data noupdate="1">
+        <!--
+            retrospective.method Demo Data
+        -->
+        <record id="retrospective_method_1" model="retrospective.method">
+            <field name="name">Went Well</field>
+            <field name="description">Whatever we developed or improved, it went well</field>
+        </record>
+        <record id="retrospective_method_2" model="retrospective.method">
+            <field name="name">Needs Improvement</field>
+            <field name="description">We have found some some tasks or ideas, which needs improvements</field>
+        </record>
+        <record id="retrospective_method_3" model="retrospective.method">
+            <field name="name">Stop</field>
+            <field name="description">Now Stop Working of worthless task and go through new ideas we found.</field>
+        </record>
+
+        <!--
+            retrospective Demo Data
+        -->
+        <record id="retrospective_1" model="retrospective">
+            <field name="name">Sprint Module Retrospective</field>
+            <field name="retrospective_method_id" ref="project_scrum.retrospective_method_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_1"/>
+        </record>
+
+        <record id="retrospective_2" model="retrospective">
+            <field name="name">Scrum Documentation Retrospective</field>
+            <field name="retrospective_method_id" ref="project_scrum.retrospective_method_2"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_1"/>
+        </record>
+
+        <record id="retrospective_3" model="retrospective">
+            <field name="name">Access Right Retrospective</field>
+            <field name="retrospective_method_id" ref="project_scrum.retrospective_method_2"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_2"/>
+        </record>
+
+
+        <!--
+            retrospective.lines Demo Data
+        -->
+        <record id="retrospective_line_1" model="retrospective.lines">
+            <field name="message">Tasks have been done well.</field>
+            <field name="retrospective_id" ref="project_scrum.retrospective_1"/>
+        </record>
+
+        <record id="retrospective_line_2" model="retrospective.lines">
+            <field name="message">Add new description as per new added modules.</field>
+            <field name="retrospective_id" ref="project_scrum.retrospective_2"/>
+        </record>
+
+        <record id="retrospective_line_3" model="retrospective.lines">
+            <field name="message">Implement New Access Rights according to the new modules added</field>
+            <field name="retrospective_id" ref="project_scrum.retrospective_3"/>
+        </record>
+    </data>
+</flectra>

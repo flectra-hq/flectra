@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+    <data noupdate="1">
+        <!--
+            story.priority Demo Data
+        -->
+        <record id="story_priority_1" model="story.priority">
+            <field name="name">High</field>
+            <field name="code">HIGH</field>
+        </record>
+
+        <record id="story_priority_2" model="story.priority">
+            <field name="name">Medium</field>
+            <field name="code">MEDIUM</field>
+        </record>
+
+        <record id="story_priority_3" model="story.priority">
+            <field name="name">Low</field>
+            <field name="code">LOW</field>
+        </record>
+
+        <!--
+            story.type Demo Data
+        -->
+        <record id="story_type_1" model="story.type">
+            <field name="name">Descriptive Story</field>
+            <field name="code">Desc</field>
+        </record>
+
+        <record id="story_type_2" model="story.type">
+            <field name="name">Brief Story</field>
+            <field name="code">Brief</field>
+        </record>
+
+        <!--
+            project.story Demo Data
+        -->
+        <record id="project_story_1" model="project.story">
+            <field name="name">Development</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_1"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="priority_id" ref="project_scrum.story_priority_2"/>
+            <field name="story_type_id" ref="project_scrum.story_type_2"/>
+            <field name="description">Begin development...</field>
+        </record>
+
+        <record id="project_story_2" model="project.story">
+            <field name="name">Designing</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_1"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="priority_id" ref="project_scrum.story_priority_2"/>
+            <field name="story_type_id" ref="project_scrum.story_type_1"/>
+            <field name="description">Begin Designing...</field>
+        </record>
+
+        <record id="project_story_3" model="project.story">
+            <field name="name">Testing Workflow</field>
+            <field name="sprint_id" ref="project_scrum.project_sprint_2"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="priority_id" ref="project_scrum.story_priority_1"/>
+            <field name="story_type_id" ref="project_scrum.story_type_2"/>
+            <field name="description">Workflow testing...</field>
+        </record>
+    </data>
+</flectra>

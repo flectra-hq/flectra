@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="view_release_planning_form" model="ir.ui.view">
+        <field name="name">release.planning.form</field>
+        <field name="model">release.planning</field>
+        <field name="arch" type="xml">
+            <form string="Release Planning">
+                <sheet>
+                    <group col="4">
+                        <field name="name" required="1"/>
+                        <field name="release_date"/>
+                        <field name="sprint_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="branch_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="priority"/>
+                        <field name="velocity"/>
+                    </group>
+                    <notebook>
+                        <page string="Tasks">
+                            <field name="task_id" widget="one2many_list"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_release_planning_tree" model="ir.ui.view">
+        <field name="name">release.planning.tree</field>
+        <field name="model">release.planning</field>
+        <field name="arch" type="xml">
+            <tree string="Release Planning">
+                <field name="name" required="1"/>
+                <field name="release_date"/>
+                <field name="sprint_id"/>
+                <field name="branch_id"/>
+                <field name="priority"/>
+                <field name="velocity"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_release_planning_calendar" model="ir.ui.view">
+        <field name="name">release.planning.calendar</field>
+        <field name="model">release.planning</field>
+        <field name="arch" type="xml">
+            <calendar string="Release Planning" color="sprint_id" date_start="release_date">
+                <field name="sprint_id"/>
+                <field name="release_date"/>
+                <field name="priority"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_release_planning" model="ir.actions.act_window">
+        <field name="name">Release Planning</field>
+        <field name="res_model">release.planning</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_id" ref="view_release_planning_tree"/>
+    </record>
+
+    <menuitem
+            id="menu_release_planning"
+            parent="menu_scrum"
+            action="action_release_planning"
+            sequence="5"
+    />
+
+</flectra>

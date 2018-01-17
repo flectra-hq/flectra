@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+    <data>
+        <!--
+            project.task Demo Data
+        -->
+        <record id="project_task_1" model="project.task">
+            <field name="name">Creating Objects</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="priority">m</field>
+            <field name="date_deadline" eval="DateTime.today() + relativedelta(days=5)"/>
+            <field name="company_id">1</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_1"/>
+            <field name="start_date" eval="DateTime.today() - relativedelta(days=5)"/>
+            <field name="end_date" eval="DateTime.today() - relativedelta(days=2)"/>
+            <field name="story_id" ref="project_scrum.project_story_2"/>
+            <field name="velocity">30</field>
+            <field name="release_planning_id" ref="project_scrum.release_planning_1"/>
+            <field name="description">Creating necessary objects...</field>
+            <field name="sequence">11</field>
+            <field name="partner_id">1</field>
+        </record>
+
+        <record id="project_task_2" model="project.task">
+            <field name="name">Creating Views</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="priority">h</field>
+            <field name="date_deadline" eval="DateTime.today()"/>
+            <field name="company_id">1</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_1"/>
+            <field name="start_date" eval="DateTime.today() - relativedelta(days=2)"/>
+            <field name="end_date" eval="DateTime.today()"/>
+            <field name="story_id" ref="project_scrum.project_story_1"/>
+            <field name="velocity">20</field>
+            <field name="release_planning_id" ref="project_scrum.release_planning_2"/>
+            <field name="description">Creating view for objects...</field>
+            <field name="sequence">12</field>
+            <field name="partner_id">1</field>
+            <field name="stage_id" ref="project.project_stage_2"/>
+        </record>
+
+        <record id="project_task_3" model="project.task">
+            <field name="name">Access Rights</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="priority">l</field>
+            <field name="date_deadline" eval="DateTime.today() + relativedelta(days=15)"/>
+            <field name="company_id">1</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_2"/>
+            <field name="start_date" eval="DateTime.today() + relativedelta(days=10)"/>
+            <field name="end_date" eval="DateTime.today() + relativedelta(days=13)"/>
+            <field name="story_id" ref="project_scrum.project_story_3"/>
+            <field name="velocity">15</field>
+            <field name="release_planning_id" ref="project_scrum.release_planning_3"/>
+            <field name="description">Necessary rights for different objects...</field>
+            <field name="sequence">13</field>
+            <field name="partner_id">1</field>
+            <field name="stage_id" ref="project.project_stage_2"/>
+        </record>
+
+        <record id="project_task_4" model="project.task">
+            <field name="name">Creating Mail Templates</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="priority">m</field>
+            <field name="date_deadline" eval="DateTime.today() + relativedelta(days=27)"/>
+            <field name="company_id">1</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_3"/>
+            <field name="start_date" eval="DateTime.today() + relativedelta(days=25)"/>
+            <field name="end_date" eval="DateTime.today() + relativedelta(days=27)"/>
+            <field name="story_id" ref="project_scrum.project_story_3"/>
+            <field name="velocity">15</field>
+            <field name="release_planning_id" ref="project_scrum.release_planning_4"/>
+            <field name="description">Create different mail templates...</field>
+            <field name="sequence">13</field>
+            <field name="partner_id">1</field>
+            <field name="stage_id" ref="project.project_stage_2"/>
+        </record>
+
+        <record id="project_task_6" model="project.task">
+            <field name="name">Mailing Functionality</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="priority">m</field>
+            <field name="date_deadline" eval="DateTime.today() + relativedelta(days=31)"/>
+            <field name="company_id">1</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_3"/>
+            <field name="start_date" eval="DateTime.today() + relativedelta(days=29)"/>
+            <field name="end_date" eval="DateTime.today() + relativedelta(days=31)"/>
+            <field name="story_id" ref="project_scrum.project_story_3"/>
+            <field name="velocity">20</field>
+            <field name="release_planning_id" ref="project_scrum.release_planning_5"/>
+            <field name="description">Send Mails....</field>
+            <field name="sequence">13</field>
+            <field name="partner_id">1</field>
+        </record>
+
+        <record id="project_task_7" model="project.task">
+            <field name="name">Rights division for different modules</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="priority">m</field>
+            <field name="date_deadline" eval="DateTime.today() + relativedelta(days=4)"/>
+            <field name="company_id">1</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_1"/>
+            <field name="start_date" eval="DateTime.today() + relativedelta(days=1)"/>
+            <field name="end_date" eval="DateTime.today() + relativedelta(days=4)"/>
+            <field name="story_id" ref="project_scrum.project_story_3"/>
+            <field name="velocity">25</field>
+            <field name="release_planning_id" ref="project_scrum.release_planning_5"/>
+            <field name="description">Rights division...</field>
+            <field name="sequence">13</field>
+            <field name="partner_id">1</field>
+        </record>
+
+        <record id="project_task_8" model="project.task">
+            <field name="name">Rights allocation</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="priority">m</field>
+            <field name="date_deadline" eval="DateTime.today() + relativedelta(days=15)"/>
+            <field name="company_id">1</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_2"/>
+            <field name="start_date" eval="DateTime.today() + relativedelta(days=13)"/>
+            <field name="end_date" eval="DateTime.today() + relativedelta(days=15)"/>
+            <field name="story_id" ref="project_scrum.project_story_3"/>
+            <field name="velocity">30</field>
+            <field name="release_planning_id" ref="project_scrum.release_planning_1"/>
+            <field name="description">Rights Allocation...</field>
+            <field name="sequence">13</field>
+            <field name="partner_id">1</field>
+        </record>
+
+        <record id="project_task_9" model="project.task">
+            <field name="name">Testing with different Users</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="priority">m</field>
+            <field name="date_deadline" eval="DateTime.today() + relativedelta(days=18)"/>
+            <field name="company_id">1</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_2"/>
+            <field name="start_date" eval="DateTime.today() + relativedelta(days=16)"/>
+            <field name="end_date" eval="DateTime.today() + relativedelta(days=18)"/>
+            <field name="story_id" ref="project_scrum.project_story_3"/>
+            <field name="velocity">25</field>
+            <field name="release_planning_id" ref="project_scrum.release_planning_2"/>
+            <field name="description">Testing with different users to ensure users have got the necessary access...</field>
+            <field name="sequence">13</field>
+            <field name="partner_id">1</field>
+            <field name="stage_id" ref="project.project_stage_2"/>
+        </record>
+
+        <record id="project_task_10" model="project.task">
+            <field name="name">Dashboard Design</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="priority">m</field>
+            <field name="date_deadline" eval="DateTime.today() + relativedelta(days=43)"/>
+            <field name="company_id">1</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_4"/>
+            <field name="start_date" eval="DateTime.today() + relativedelta(days=40)"/>
+            <field name="end_date" eval="DateTime.today() + relativedelta(days=43)"/>
+            <field name="story_id" ref="project_scrum.project_story_3"/>
+            <field name="velocity">35</field>
+            <field name="release_planning_id" ref="project_scrum.release_planning_3"/>
+            <field name="description">Design for dashboard...</field>
+            <field name="sequence">13</field>
+            <field name="partner_id">1</field>
+        </record>
+
+        <record id="project_task_11" model="project.task">
+            <field name="name">View Rendering</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="priority">m</field>
+            <field name="date_deadline" eval="DateTime.today() + relativedelta(days=47)"/>
+            <field name="company_id">1</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_4"/>
+            <field name="start_date" eval="DateTime.today() + relativedelta(days=43)"/>
+            <field name="end_date" eval="DateTime.today() + relativedelta(days=47)"/>
+            <field name="story_id" ref="project_scrum.project_story_3"/>
+            <field name="velocity">20</field>
+            <field name="release_planning_id" ref="project_scrum.release_planning_4"/>
+            <field name="description">Render views...</field>
+            <field name="sequence">13</field>
+            <field name="partner_id">1</field>
+            <field name="stage_id" ref="project.project_stage_2"/>
+
+        </record>
+
+        <record id="project_task_12" model="project.task">
+            <field name="name">Enhancements</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="priority">m</field>
+            <field name="date_deadline" eval="DateTime.today() + relativedelta(days=51)"/>
+            <field name="company_id">1</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_4"/>
+            <field name="start_date" eval="DateTime.today() + relativedelta(days=48)"/>
+            <field name="end_date" eval="DateTime.today() + relativedelta(days=51)"/>
+            <field name="story_id" ref="project_scrum.project_story_3"/>
+            <field name="velocity">25</field>
+            <field name="release_planning_id" ref="project_scrum.release_planning_5"/>
+            <field name="description">Improvements for dashboard....</field>
+            <field name="sequence">13</field>
+            <field name="partner_id">1</field>
+            <field name="stage_id" ref="project.project_stage_2"/>
+        </record>
+
+        <record id="project_task_13" model="project.task">
+            <field name="name">Objects Integration</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="priority">m</field>
+            <field name="date_deadline" eval="DateTime.today() + relativedelta(days=55)"/>
+            <field name="company_id">1</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_5"/>
+            <field name="start_date" eval="DateTime.today() + relativedelta(days=53)"/>
+            <field name="end_date" eval="DateTime.today() + relativedelta(days=55)"/>
+            <field name="story_id" ref="project_scrum.project_story_3"/>
+            <field name="velocity">25</field>
+            <field name="release_planning_id" ref="project_scrum.release_planning_1"/>
+            <field name="description">Integrate objects....</field>
+            <field name="sequence">13</field>
+            <field name="partner_id">1</field>
+        </record>
+
+        <record id="project_task_14" model="project.task">
+            <field name="name">View Enhancements</field>
+            <field name="project_id" ref="demo_project_1"/>
+            <field name="priority">m</field>
+            <field name="date_deadline" eval="DateTime.today() + relativedelta(days=58)"/>
+            <field name="company_id">1</field>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+            <field name="sprint_id" ref="project_scrum.project_sprint_5"/>
+            <field name="start_date" eval="DateTime.today() + relativedelta(days=56)"/>
+            <field name="end_date" eval="DateTime.today() + relativedelta(days=58)"/>
+            <field name="story_id" ref="project_scrum.project_story_3"/>
+            <field name="velocity">20</field>
+            <field name="release_planning_id" ref="project_scrum.release_planning_2"/>
+            <field name="description">View Enhancements...</field>
+            <field name="sequence">13</field>
+            <field name="partner_id">1</field>
+            <field name="stage_id" ref="project.project_stage_2"/>
+        </record>
+
+    </data>
+</flectra>

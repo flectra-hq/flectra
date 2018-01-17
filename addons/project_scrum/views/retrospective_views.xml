@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="retrospective_form_view_id" model="ir.ui.view">
+        <field name="name">Retrospective</field>
+        <field name="model">retrospective</field>
+        <field name="arch" type="xml">
+            <form string="Retrospective">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="retrospective_method_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="sprint_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="scrum_master" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="branch_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Retrospective Lines">
+                            <field name="retrospective_line_ids" widget="one2many_list"/>
+                        </page>
+                    </notebook>
+                </sheet>
+	            <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="retrospective_tree_view_id" model="ir.ui.view">
+        <field name="name">Retrospective</field>
+        <field name="model">retrospective</field>
+        <field name="arch" type="xml">
+            <tree string="Retrospectives">
+                <field name="retrospective_method_id"/>
+                <field name="scrum_master"/>
+                <field name="sprint_id"/>
+                <field name="branch_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_retrospective_tree_view_id" model="ir.actions.act_window">
+        <field name="name">Retrospective</field>
+        <field name="res_model">retrospective</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="retrospective_tree_view_id"/>
+    </record>
+
+    <record id="retrospective_lines_tree_view_id" model="ir.ui.view">
+        <field name="name">Retrospective Line</field>
+        <field name="model">retrospective.lines</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="user_id"/>
+                <field name="message"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem
+	    name="Retrospective"
+	    id="retrospective_id"
+	    parent="retrospective_menu_id"
+	    action="action_retrospective_tree_view_id"
+	    sequence="1"
+    />
+</flectra>

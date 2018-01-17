@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data noupdate="1">
+        <record id="rule_project_sprint" model="ir.rule">
+            <field name="name">Sprint: multi-company &amp; branch</field>
+            <field name="model_id" ref="project_scrum.model_project_sprint"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|','|', ('company_id', '=', False), ('company_id', 'child_of', [user.company_id.id]), ('company_id', 'in', user.company_ids.ids), '|', '|', ('branch_id', '=', False),
+            ('branch_id', '=', user.default_branch_id.id), ('branch_id', 'in', user.branch_ids.ids)]
+            </field>
+        </record>
+    </data>
+</flectra>
