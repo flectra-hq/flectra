@@ -636,7 +636,7 @@ var ListRenderer = BasicRenderer.extend({
             return this._super();
         }
 
-        var $table = $('<table>').addClass('o_list_view table table-condensed table-striped');
+        var $table = $('<table>').addClass('o_list_view table table-condensed table-hover');
         this.$el
             .addClass('table-responsive')
             .append($table);

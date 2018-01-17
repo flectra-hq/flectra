@@ -838,6 +838,7 @@ var FormRenderer = BasicRenderer.extend({
                 widget.renderWithLabel($label);
             }
         });
+	    this.$el.find('.o_notebook ul.nav-tabs').tabCollapse();
     },
     /**
      * Sets id attribute of given widget to idForLabel

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!--Customize Model-->
+    <t t-name="web.customize_menu">
+        <li id="theme_customize_backend" class="hidden-sm hidden-xs">
+            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#" title="Theme Customizer">
+                <i class="fa fa-cogs"/>
+            </a>
+            <ul class="dropdown-menu" role="menu"/>
+        </li>
+    </t>
+
+    <t t-name="web.theme_customize_backend">
+        <li>
+            <div class="backend_theme_customizer_content">
+                <div class="color_box">
+                    <div class="color_box_header">
+                        <h3>Colors</h3>
+                    </div>
+                    <div class="color_box_content">
+                        <div class="color_radio scheme_color_muddy_rainbow">
+                            <input id="scheme_color_muddy_rainbow"
+                                   type="radio"
+                                   name="scheme_color_var"
+                                   data-xmlid="web.color_muddy_rainbow"
+                                   active="True"/>
+                            <label for="scheme_color_muddy_rainbow" class="muddy-rainbow-primary" title="Muddy Rainbow"/>
+                        </div>
+                        <div class="color_radio scheme_color_dark_nostalgia">
+                            <input id="scheme_color_dark_nostalgia"
+                                   type="radio"
+                                   name="scheme_color_var"
+                                   data-xmlid="web.color_dark_nostalgia"/>
+                            <label for="scheme_color_dark_nostalgia" class="dark-nostalgia-primary" title="Dark Nostalgia"/>
+                        </div>
+                        <div class="color_radio scheme_color_warm_sunset">
+                            <input id="scheme_color_warm_sunset"
+                                   type="radio"
+                                   name="scheme_color_var"
+                                   data-xmlid="web.color_warm_sunset"/>
+                            <label for="scheme_color_warm_sunset" class="warm-sunset-primary" title="Warm Sunset"/>
+                        </div>
+
+                        <div class="color_radio scheme_color_peaches_plums">
+                            <input id="scheme_color_peaches_plums"
+                                   type="radio"
+                                   name="scheme_color_var"
+                                   data-xmlid="web.color_peaches_plums"/>
+                            <label for="scheme_color_peaches_plums" class="peaches-plums-primary" title="Peaches and plums"/>
+                        </div>
+
+                        <div class="color_radio scheme_color_lapine">
+                            <input id="scheme_color_lapine"
+                                   type="radio"
+                                   name="scheme_color_var"
+                                   data-xmlid="web.color_lapine"/>
+                            <label for="scheme_color_lapine" class="lapine-primary" title="Lapine"/>
+                        </div>
+
+                        <div class="color_radio scheme_color_sunset_dunes">
+                            <input id="scheme_color_sunset_dunes"
+                                   type="radio"
+                                   name="scheme_color_var"
+                                   data-xmlid="web.color_sunset_dunes"/>
+                            <label for="scheme_color_sunset_dunes" class="sunset-dunes-primary" title="Sunset Dunes"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="font_box">
+                    <div class="font_box_header">
+                        <h3>Fonts</h3>
+                    </div>
+                    <div class="font_box_content">
+                        <div class="font_radio">
+                            <input name="font_var"
+                                   type="radio"
+                                   id="font_work_sans"
+                                   data-xmlid="web.font_work_sans"
+                                   active="True"/>
+                            <label for="font_work_sans" style="font-family: 'Work Sans';" title="Work Sans">Work Sans</label>
+                        </div>
+                        <div class="font_radio">
+                            <input name="font_var"
+                                   type="radio"
+                                   id="font_expletus_sans"
+                                   data-xmlid="web.font_expletus_sans"/>
+                            <label for="font_expletus_sans" style="font-family: 'Expletus Sans';" title="Expletus Sans">Expletus Sans</label>
+                        </div>
+                        <div class="font_radio">
+                            <input name="font_var"
+                                   type="radio"
+                                   id="font_philosopher"
+                                   data-xmlid="web.font_philosopher"/>
+                            <label for="font_philosopher" style="font-family: 'Philosopher';" title="Philosopher">Philosopher</label>
+                        </div>
+                        <div class="font_radio">
+                            <input name="font_var"
+                                   type="radio"
+                                   id="font_titillium_web"
+                                   data-xmlid="web.font_titillium_web"/>
+                            <label for="font_titillium_web" style="font-family: 'Titillium Web';" title="Titillium Web">Titillium Web</label>
+                        </div>
+                        <div class="font_radio">
+                            <input name="font_var"
+                                   type="radio"
+                                   id="font_averia_libre"
+                                   data-xmlid="web.font_averia_libre"/>
+                            <label for="font_averia_libre" style="font-family: 'Averia Libre';" title="Averia Libr">Averia Libre</label>
+                        </div>
+                        <div class="font_radio">
+                            <input name="font_var"
+                                   type="radio"
+                                   id="font_tillana"
+                                   data-xmlid="web.font_tillana"/>
+                            <label for="font_tillana" style="font-family: 'Tillana'" title="Tillana">Tillana</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </t>
+    <t t-name="web.color_palette_loading">
+        <div class="f_color_palette_loading">
+            <div style="left: 50%; top: 40%; position: absolute;">
+                <img class="img img-responsive" src="/web/static/src/img/gears.svg"/>
+                <span style="color: #ffffff; font-size: 20px;">Loading...</span>
+            </div>
+        </div>
+    </t>
+</templates>

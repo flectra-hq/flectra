@@ -1,0 +1,46 @@
+.o_control_panel {
+    > .o_cp_searchview {
+        .f-search-view();
+    }
+    > .o_cp_right {
+        .o_cp_switch_buttons {
+            .btn {
+                color: @flectra-main-text-color;
+                background-color: transparent;
+                .box-shadow(none);
+                padding: 3px 6px;
+                &.active {
+                    color: @brand-primary;
+                }
+            }
+        }
+        > .o_cp_pager {
+            .btn {
+                color: @brand-primary;
+                background-color: transparent;
+            }
+        }
+    }
+
+    > .o_cp_left {
+        > .o_cp_sidebar {
+            .o_hidden_input_file {
+                .o_form_binary_form span {
+                    color: @flectra-brand-primary;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: @screen-xs-max) {
+    .o_control_panel {
+        > .o_cp_searchview, > .breadcrumb, > .o_cp_left, > .o_cp_right {
+            width: 100%;
+        }
+        .o_cp_left .o_cp_sidebar ul.dropdown-menu {
+            left: unset;
+            right: 0;
+        }
+    }
+}

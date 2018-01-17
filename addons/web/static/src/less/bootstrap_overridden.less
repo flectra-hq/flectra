@@ -6,8 +6,13 @@
 @grid-gutter-width: @flectra-horizontal-padding*2;
 
 //== Colors
-@brand-primary: @flectra-brand-primary;
 @gray-lighter: @flectra-color-silver;
+
+@brand-primary: #009efb;
+@brand-success: #5cb85c;
+@brand-info: #31708f;
+@brand-warning: orange;
+@brand-danger: #d9534f;
 
 //== Titles
 @font-size-h1: @flectra-font-size-base + 13px;
@@ -37,6 +42,9 @@
 @badge-color: white;
 @badge-line-height: @line-height-base;
 @badge-font-weight: normal;
+
+//== Control Panel
+@flectra-control-panel-background-color: @flectra-color-silver;
 
 //== Breadcrumbs
 @breadcrumb-active-color: #777777;
@@ -96,16 +104,20 @@
 @nav-tabs-active-link-hover-bg: white;
 
 //== Navbar
-@navbar-height: @flectra-navbar-height - 2;
+@navbar-height: @flectra-navbar-height + 28;
 @navbar-margin-bottom: 0;
-@navbar-inverse-bg: #222222;
-@navbar-inverse-link-color: #9d9d9d;
-@navbar-inverse-link-hover-bg: #222222;
+@navbar-inverse-bg: @brand-primary;
+@navbar-inverse-link-color: #ffffff;
+@navbar-inverse-link-hover-bg: darken(@brand-primary, 5%);
 @navbar-inverse-toggle-hover-bg: #222222;
 @navbar-border-radius: 0;
 
 //== Tables
 @table-bg-accent: #efeff8; // FIXME: expose
+
+//== menu launcher
+@launcher-menu-bg : #f7f9fa;
+@launcher-menu-border : #eaeaea;
 
 // ------------------------------------------------------------------
 // Bootstrap components rules (non exposed features variables)
@@ -163,3 +175,27 @@
         overflow-x: initial;
     }
 }
+
+@btn-default-color: #fff;
+@btn-default-bg: @gray-light;
+@btn-default-border: transparent;
+
+@btn-primary-color: #fff;
+@btn-primary-bg: @brand-success;
+@btn-primary-border: transparent;
+
+@btn-success-color: #fff;
+@btn-success-bg: @brand-success;
+@btn-success-border: transparent;
+
+@btn-info-color: #fff;
+@btn-info-bg: @brand-info;
+@btn-info-border: transparent;
+
+@btn-warning-color: #fff;
+@btn-warning-bg: @brand-warning;
+@btn-warning-border: transparent;
+
+@btn-danger-color: #fff;
+@btn-danger-bg: @brand-danger;
+@btn-danger-border: transparent;

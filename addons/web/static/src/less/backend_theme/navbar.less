@@ -1,0 +1,143 @@
+nav#oe_main_menu_navbar {
+    background-color: transparent;
+    border-bottom: 1px solid @launcher-menu-border;
+    @media (max-width: @screen-xs-max) {
+        display: flex;
+    }
+    .color-line {
+        width: 100%;
+        display: flex;
+        @media (max-width: @screen-xs-max) {
+            position: absolute;
+        }
+        .color {
+            width: 20%;
+            height: 5px;
+        }
+        .color-1 {
+            background-color: @brand-primary;
+        }
+        .color-2 {
+            background-color: @brand-success;
+        }
+        .color-3 {
+            background-color: @brand-info;
+        }
+        .color-4 {
+            background-color: @brand-warning;
+        }
+        .color-5 {
+            background-color: @brand-danger;
+        }
+    }
+    .f_menu_systray {
+        width: 100%;
+        > ul {
+            @media (max-width: @screen-xs-max) {
+                display: flex;
+                margin: 0;
+                margin-top: 5px;
+                > li.open .dropdown-menu {
+                    top: 62px;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                    position: fixed;
+                    width: auto;
+                    background-color: #ffffff;
+                }
+
+                ul.dropdown-menu > li > a {
+                    color: @flectra-main-text-color;
+                }
+            }
+            > li {
+                > a {
+                    padding: 15px 20px;
+                    font-size: 20px;
+                    height: 56px;
+                    margin: 0;
+                    color: lighten(@flectra-main-text-color, 30%);
+                    > .badge {
+                        top: 5px;
+                        right: 5px;
+                        padding: 2px 5px;
+                        font-size: 11px;
+                        font-weight: bold;
+                    }
+                    &:hover, &:focus {
+                        background-color: lighten(@flectra-main-text-color, 65%);
+                    }
+                }
+                > ul {
+                    left: auto;
+                    right: 0;
+                }
+            }
+        }
+    }
+    .f_toggle_buttons {
+        > ul {
+            @media (max-width: @screen-xs-max) {
+                display: flex;
+                margin: 0;
+                margin-top: 5px;
+            }
+            > li > a {
+                padding: 17px 24px;
+                font-size: 20px;
+                height: 56px;
+                color: @flectra-main-text-color;
+                margin: 0;
+                border-right: 1px solid @launcher-menu-border;
+                background-color: @launcher-menu-bg;
+                &:hover {
+                    background-color: darken(@launcher-menu-bg, 1%);
+                }
+            }
+        }
+        > ul > li.f_company_name {
+            width: 201px;
+            > a {
+                padding: 3px;
+                text-align: center;
+                img {
+                    max-height: 50px;
+                    max-width: 100%;
+
+                }
+            }
+        }
+    }
+    @media (max-width: 480px) {
+        min-height: 45px;
+        .f_menu_systray {
+            > ul {
+                > li.open .dropdown-menu {
+                    top: 46px;
+                }
+                > li {
+                    > a {
+                        padding: 10px 15px;
+                        font-size: 15px;
+                        height: 40px;
+                        > .badge {
+                            padding: 1px 3px;
+                            font-size: 9px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .f_toggle_buttons {
+            > ul > li {
+                > a {
+                    padding: 10px 15px;
+                    font-size: 10px;
+                    height: 40px;
+                }
+            }
+        }
+    }
+}

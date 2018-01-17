@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+<div t-name="AppsLauncher" class="f_search_launcher">
+    <div class="f_search_launcher_content">
+        <div class="f_apps_search_box col-md-12 col-sm-12 col-xs-12">
+            <span><i class="fa fa-search f_apps_search_icon"/></span>
+            <input type="text" placeholder="Search..." class="f_apps_search_input"/>
+            <span><i class="fa fa-times-circle f_apps_search_icon" id="f_clear_apps_search"/></span>
+        </div>
+        <div class="f_apps_container">
+            <div class="f_apps_content">
+                <t t-call="AppsLauncher.Menus"/>
+            </div>
+            <div class="f_app_footer">
+                <img src="/web/static/src/img/logo.png"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<t t-name="AppsLauncher.Menus">
+    <t t-if="dashboard_apps">
+        <t t-foreach="dashboard_apps" t-as="dashboard_app">
+            <a class="f_app"
+               t-att-href="dashboard_app.href ? dashboard_app.href : ('#menu_id=' + dashboard_app.id + '&amp;action=' + dashboard_app.action.split(',')[1])"
+               t-att-data-menu="dashboard_app.id"
+               t-att-data-action-id="dashboard_app.action">
+                <img class="f_app_icon" t-att-src="dashboard_app.web_icon_data ? 'data:image/png;base64,' + dashboard_app.web_icon_data : '/base/static/description/icon.png'"/>
+                <div class="f_app_label"><t t-esc="dashboard_app.name"/></div>
+            </a>
+        </t>
+    </t>
+    <div class="text-center" t-if="dashboard_apps == ''">
+        <div class="mt8" style="font-size: 22px;">Sorry, unable to find your content!</div>
+    </div>
+</t>
+</templates>

@@ -450,6 +450,9 @@ class Home(http.Controller):
         request.uid = request.session.uid
         try:
             context = request.env['ir.http'].webclient_rendering_context()
+            res_company = request.env['res.company'].sudo().search(
+                [('id', '=', json.loads(context['session_info'])['company_id'])])
+            context.update({'company_name': res_company.name})
             response = request.render('web.webclient_bootstrap', qcontext=context)
             response.headers['X-Frame-Options'] = 'DENY'
             return response
@@ -501,6 +504,49 @@ class Home(http.Controller):
         response = request.render('web.login', values)
         response.headers['X-Frame-Options'] = 'DENY'
         return response
+
+    def get_view_ids(self, xml_ids):
+        ids = []
+        for xml_id in xml_ids:
+            if "." in xml_id:
+                record_id = request.env.ref(xml_id).id
+            else:
+                record_id = int(xml_id)
+            ids.append(record_id)
+        return ids
+
+    @http.route(['/web/theme_customize_backend_get'], type='json', website=True, auth="public")
+    def theme_customize_backend_get(self, xml_ids):
+        enable = []
+        disable = []
+        ids = self.get_view_ids(xml_ids)
+        for view in request.env['ir.ui.view'].with_context(
+                active_test=True).browse(ids):
+            if view.active:
+                enable.append(view.xml_id)
+            else:
+                disable.append(view.xml_id)
+        return [enable, disable]
+
+    @http.route(['/web/theme_customize_backend'], type='json', website=True, auth="public")
+    def theme_customize_backend(self, enable, disable, get_bundle=False):
+        """ enable or Disable lists of ``xml_id`` of the inherit templates """
+
+        def set_active(ids, active):
+            if ids:
+                real_ids = self.get_view_ids(ids)
+                request.env['ir.ui.view'].with_context(
+                    active_test=True).browse(real_ids).write(
+                    {'active': active})
+
+        set_active(disable, False)
+        set_active(enable, True)
+
+        if get_bundle:
+            context = dict(request.context, active_test=True)
+            return request.env["ir.qweb"]._get_asset('web.assets_backend',
+                                                     options=context)
+        return True
 
 
 

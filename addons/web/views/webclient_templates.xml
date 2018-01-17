@@ -143,6 +143,7 @@
         <script type="text/javascript" src="/web/static/lib/py.js/lib/py.js"></script>
         <!-- Special case: core.js declares $.browser needed by ba-bbq -->
         <script type="text/javascript" src="/web/static/lib/jquery.ba-bbq/jquery.ba-bbq.js"></script>
+        <script type="text/javascript" src="/web/static/lib/jquery.nav-tabs-to-accordion/jquery.nav-tabs-to-accordion.js"></script>
 
         <script type="text/javascript" src="/web/static/src/js/core/domain.js"></script>
         <script type="text/javascript" src="/web/static/src/js/core/pyeval.js"></script>
@@ -159,6 +160,7 @@
         <script type="text/javascript" src="/web/static/src/js/services/session.js"></script>
         <script type="text/javascript" src="/web/static/src/js/widgets/auto_complete.js"></script>
         <script type="text/javascript" src="/web/static/src/js/widgets/change_password.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/user_logout.js"></script>
         <script type="text/javascript" src="/web/static/src/js/widgets/debug_manager.js"></script>
         <script type="text/javascript" src="/web/static/src/js/widgets/data_export.js"></script>
         <script type="text/javascript" src="/web/static/src/js/widgets/date_picker.js"></script>
@@ -174,6 +176,7 @@
         <script type="text/javascript" src="/web/static/src/js/widgets/switch_company_menu.js"></script>
         <script type="text/javascript" src="/web/static/src/js/chrome/user_menu.js"></script>
         <script type="text/javascript" src="/web/static/src/js/chrome/menu.js"></script>
+        <script type="text/javascript" src="/web/static/src/js/chrome/apps.js"></script>
         <script type="text/javascript" src="/web/static/src/js/chrome/search_view.js"></script>
         <script type="text/javascript" src="/web/static/src/js/chrome/search_filters.js"></script>
         <script type="text/javascript" src="/web/static/src/js/chrome/search_inputs.js"></script>
@@ -248,12 +251,104 @@
         <script type="text/javascript" src="/web/static/src/js/views/gantt/gantt_view.js"/>
         <!-- @Flectra: Gantt View Assets ::: End -->
 
+        <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme/bootswatch_dark.less"/>
+        <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme/menu_launcher.less"/>
+        <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme/navbar.less"/>
+        <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme/flectra_style.less"/>
+        <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme/search_view.less"/>
+        <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme/form_view.less"/>
+        <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme/list_view.less"/>
+        <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme/control_panel.less"/>
+
+        <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/colors.less"/>
+        <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/customize_model.less"/>
+        <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/variables.less"/>
+        <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/font.less"/>
+
+        <script type="text/javascript" src="/web/static/src/js/backend_theme_customizer/backend_theme_customizer.js"/>
+        <script type="text/javascript" src="/web/static/src/js/backend_theme_customizer/customize_switcher.js"/>
+
+    </template>
+
+    <!-- Backend Theme Customizer Main Color -->
+    <template id="color_muddy_rainbow" name="option_color_muddy_rainbow" inherit_id="web.assets_backend" active="True" >
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/color_options/muddy_rainbow.less"/>
+        </xpath>
+    </template>
+
+    <template id="color_dark_nostalgia" name="option_color_dark_nostalgia" inherit_id="web.assets_backend" active="False" >
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/color_options/dark_nostalgia.less"/>
+        </xpath>
+    </template>
+
+    <template id="color_warm_sunset" name="option_color_warm_sunset" inherit_id="web.assets_backend" active="False" >
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/color_options/warm_sunset.less"/>
+        </xpath>
+    </template>
+
+    <template id="color_peaches_plums" name="option_color_peaches_plums" inherit_id="web.assets_backend" active="False" >
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/color_options/peaches_plums.less"/>
+        </xpath>
+    </template>
+
+    <template id="color_lapine" name="option_color_lapine" inherit_id="web.assets_backend" active="False" >
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/color_options/lapine.less"/>
+        </xpath>
+    </template>
+
+    <template id="color_sunset_dunes" name="option_color_sunset_dunes" inherit_id="web.assets_backend" active="False" >
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/color_options/sunset_dunes.less"/>
+        </xpath>
+    </template>
+
+    <!-- Backend Theme Customizer Font -->
+    <template id="font_work_sans" name="font_work_sans" inherit_id="web.assets_backend" active="True" >
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/font_options/work_sans.less"/>
+        </xpath>
+    </template>
+
+    <template id="font_expletus_sans" name="font_expletus_sans" inherit_id="web.assets_backend" active="False" >
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/font_options/expletus_sans.less"/>
+        </xpath>
+    </template>
+
+    <template id="font_philosopher" name="font_philosopher" inherit_id="web.assets_backend" active="False" >
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/font_options/philosopher.less"/>
+        </xpath>
+    </template>
+
+    <template id="font_titillium_web" name="font_titillium_web" inherit_id="web.assets_backend" active="False" >
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/font_options/titillium_web.less"/>
+        </xpath>
+    </template>
+
+    <template id="font_averia_libre" name="font_averia_libre" inherit_id="web.assets_backend" active="False" >
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/font_options/averia_libre.less"/>
+        </xpath>
+    </template>
+
+    <template id="font_tillana" name="font_tillana" inherit_id="web.assets_backend" active="False" >
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme_customizer/font_options/tillana.less"/>
+        </xpath>
     </template>
 
     <template id="web.assets_frontend" name="Website Assets">
         <t t-call="web.less_helpers"/>
 
         <link rel="stylesheet" type="text/less" href="/web/static/src/less/import_bootstrap.less"/>
+        <link rel="stylesheet" type="text/less" href="/web/static/src/less/backend_theme/login_form.less"/>
 
         <script type="text/javascript" src="/web/static/src/js/services/session.js"></script>
     </template>
@@ -295,7 +390,7 @@
 
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 o_database_list">
-                    <div class="text-center">
+                    <div class="text-center mt32">
                         <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}"/>
                     </div>
                     <t t-raw="0"/>
@@ -351,25 +446,74 @@
     </template>
 
     <template id="web.menu">
-        <ul class="nav navbar-nav navbar-left oe_application_menu_placeholder" style="display: none;">
-            <li t-foreach="menu_data['children']" t-as="menu">
-                <t t-call="web.menu_link"/>
-            </li>
-            <li id="menu_more_container" class="dropdown" style="display: none;">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
-                <ul id="menu_more" class="dropdown-menu"></ul>
-            </li>
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right oe_user_menu_placeholder" style="display: none;"/>
-        <ul class="nav navbar-nav navbar-right oe_systray" style="display: none;"/>
+        <ul class="nav navbar-nav pull-right oe_systray" style="display: none;"/>
+    </template>
+    <template id="web.menu_launcher">
+        <div class="f_launcher_content">
+            <ul style="display: none;" class="oe_application_menu_placeholder hidden">
+                <li t-foreach="menu_data['children']" t-as="menu">
+                    <t t-call="web.menu_link"/>
+                </li>
+            </ul>
+            <ul id="menu_launcher">
+                <li t-foreach="menu_data['children']" t-as="menu" class="panel">
+                    <div class="oe_main_menu_container"
+                         data-toggle="tooltip"
+                         data-placement="right"
+                         t-att-title="menu['name']">
+                        <a t-att-href="'#menu_id=%s&amp;action=%s' % (menu['id'], menu['action'] and menu['action'].split(',')[1] or '')"
+                            class="oe_main_menu"
+                            t-att-data-menu="menu['id']"
+                            t-att-data-menu-xmlid="menu.get('xmlid')"
+                            t-att-data-action-model="menu['action'] and menu['action'].split(',')[0] or None"
+                            t-att-data-action-id="menu['action'] and menu['action'].split(',')[1] or None">
+                                <div class="app_icon">
+                                    <t t-if="menu['web_icon_data']">
+                                        <img t-att-src="'data:image/png;base64,%s' % (menu['web_icon_data'].decode('utf-8'))"/>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-if="menu['web_icon']">
+                                            <t t-set="web_icon_data" t-value="menu['web_icon'].split(',')"/>
+                                            <div class="material-icons" t-att-style="'color: %s; background-color: %s; font-size: 27px;' % (web_icon_data[0], web_icon_data[1])">
+                                                <t t-esc="web_icon_data[2]"/>
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <img src="/base/static/description/icon.png"/>
+                                        </t>
+                                    </t>
+                                </div>
+                                <div class="app_name">
+                                    <span class="oe_menu_text">
+                                        <t t-esc="menu['name']"/>
+                                    </span>
+                                </div>
+                        </a>
+                        <div class="more-less">
+                            <a data-toggle="collapse" data-parent="#menu_launcher" t-att-href="'#collapse-%s' %(menu['id'])">
+                                <i t-att-class="'fa fa-chevron-down' if menu['children'] else 'hidden'"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div t-att-id="'collapse-%s' % ( menu['id'] )" class="oe_secondary_menu collapse" t-att-data-menu-parent="menu['id']">
+                        <t t-foreach="menu['children']" t-as="menu">
+                            <div class="oe_secondary_menu_section" t-att-data-menu-xmlid="menu.get('xmlid')">
+                                <t t-if="menu['children']">
+                                    <t t-esc="menu['name']"/>
+                                </t>
+                                <t t-if="not menu['children']">
+                                    <t t-call="web.menu_link"/>
+                                </t>
+                            </div>
+                            <t t-call="web.menu_secondary_submenu"/>
+                        </t>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </template>
     <template id="web.menu_secondary">
-        <a class="o_sub_menu_logo" t-att-href="'/web/?debug' if debug else '/web'">
-            <span class="oe_logo_edit">Edit Company data</span>
-            <img src='/web/binary/company_logo'/>
-        </a>
-        <div class="o_sub_menu_content">
+        <div class="o_menu_content">
             <t t-foreach="menu_data['children']" t-as="menu">
                 <div style="display: none" class="oe_secondary_menu" t-att-data-menu-parent="menu['id']">
                     <t t-foreach="menu['children']" t-as="menu">
@@ -637,20 +781,38 @@
             <t t-set="body_classname" t-value="'o_web_client'"/>
 
             <nav id="oe_main_menu_navbar" class="navbar navbar-inverse" groups="base.group_user,base.group_portal">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                <div class="color-line">
+                    <div class="color color-1"/>
+                    <div class="color color-2"/>
+                    <div class="color color-3"/>
+                    <div class="color color-4"/>
+                    <div class="color color-5"/>
                 </div>
-                <div class="navbar-collapse collapse">
+                <div class="f_toggle_buttons">
+                    <ul class="nav navbar-nav">
+                        <li class="f_company_name hidden-xs">
+                            <a class="o_sub_menu_logo" t-att-href="'/web/?debug' if debug else '/web'">
+                                <img src='/web/binary/company_logo'/>
+                            </a>
+                        </li>
+                        <li id="f_menu_toggle">
+                            <a href="#"><i class="fa fa-bars"/></a>
+                        </li>
+                        <li id="f_user_toggle">
+                            <a href="#"><i class="fa fa-user"/></a>
+                        </li>
+                        <li id="f_apps_search" class="hidden-xs">
+                            <a href="#"><i class="fa fa-search"/></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="f_menu_systray">
                     <t t-call="web.menu"/>
                 </div>
             </nav>
             <div class="o_main">
-                <div class="o_sub_menu" groups="base.group_user,base.group_portal">
-                    <t t-call="web.menu_secondary"/>
+                <div class="f_launcher">
+                    <t t-call="web.menu_launcher"/>
                 </div>
                 <div class="o_main_content"/>
             </div>

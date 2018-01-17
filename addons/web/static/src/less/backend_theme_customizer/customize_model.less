@@ -1,0 +1,109 @@
+/* CUSTOMIZE THEME - MODAL */
+
+#theme_customize_backend {
+    .backend_theme_customizer_content {
+        background-color: #333333;
+        padding: 10px;
+        width: 220px;
+        .color_box {
+            input[type="radio"] {
+                display: none;
+            }
+
+            input[type="radio"] + label {
+                cursor: pointer;
+                display: block;
+            }
+
+            input[type="radio"] + label {
+                display: inline-block;
+                width: 25px;
+                height: 25px;
+                vertical-align: middle;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            input[type="radio"]:checked + label {
+                border: 3px solid mix(@brand-primary, #ffffff, 30%);
+            }
+            .color_box_header {
+                color: mix(@brand-primary, #ffffff, 30%);
+            }
+            .color_box_content {
+                display: flex;
+                .color_radio {
+                    padding: 4px;
+                }
+            }
+        }
+        .font_box {
+            .font_box_header {
+                color: mix(@brand-primary, #ffffff, 30%);
+            }
+            .font_box_content {
+                .font_radio {
+                    padding: 0 5px;
+                    color: mix(@brand-primary, #ffffff, 30%);
+                    display: inline-block;
+                    width: 45%;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    > * {
+                        cursor: pointer;
+                    }
+                    &:hover, &:focus {
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+    }
+
+    //Custom Color Settings
+
+    /* Muddy Rainbow */
+    .muddy-rainbow-primary {
+        background-color: @muddy-rainbow-primary;
+    }
+
+    /* Dark Nostalgia */
+    .dark-nostalgia-primary {
+        background-color: @dark-nostalgia-primary;
+    }
+
+    /* Warm Sunset */
+    .warm-sunset-primary {
+        background-color: @warm-sunset-primary;
+    }
+
+    /* Peaches And Plums */
+    .peaches-plums-primary {
+        background-color: @peaches-plums-primary;
+    }
+
+    /* Lapine */
+    .lapine-primary {
+        background-color: @lapine-primary;
+    }
+
+    /* Sunset Dunes */
+    .sunset-dunes-primary {
+        background-color: @sunset-dunes-primary;
+    }
+
+    .dropdown-menu {
+        padding: 0;
+    }
+}
+
+.f_color_palette_loading {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1060;
+}

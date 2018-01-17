@@ -116,3 +116,113 @@ var UserMenu = Widget.extend({
 return UserMenu;
 
 });
+
+flectra.define('web.UserProfile', function (require) {
+"use strict";
+
+var framework = require('web.framework');
+var Widget = require('web.Widget');
+
+var UserProfile = Widget.extend({
+    template: 'UserProfile',
+
+    /**
+     * @override
+     * @returns {Deferred}
+     */
+    start: function () {
+        var self = this;
+        var session = this.getSession();
+        this.$el.on('click', 'li a[data-menu]', function (ev) {
+            ev.preventDefault();
+            var menu = $(this).data('menu');
+            self['_onMenu' + menu.charAt(0).toUpperCase() + menu.slice(1)]();
+        });
+        return this._super.apply(this, arguments).then(function () {
+            var $avatar = self.$('.profile_pic img');
+            if (!session.uid) {
+                $avatar.attr('src', $avatar.data('default-src'));
+                return $.when();
+            }
+            self.$('.profile_name').text(session.name);
+            if (session.debug) {
+                self.$el.addClass('debug')
+                self.$('.db_name').text('(' + session.db + ')');
+            }
+            var avatar_src = session.url('/web/image', {
+                model:'res.users',
+                field: 'image_small',
+                id: session.uid,
+            });
+            $avatar.attr('src', avatar_src);
+        });
+    },
+
+    //--------------------------------------------------------------------------
+    // Handlers
+    //--------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    _onMenuAccount: function () {
+        var self = this;
+        this.trigger_up('clear_uncommitted_changes', {
+            callback: function () {
+                self._rpc({route: '/web/session/account'})
+                    .then(function (url) {
+                        framework.redirect(url);
+                    })
+                    .fail(function (result, ev){
+                        ev.preventDefault();
+                        framework.redirect('https://accounts.flectrahq.com/account');
+                    });
+            },
+        });
+    },
+    /**
+     * @private
+     */
+    _onMenuDocumentation: function () {
+        window.open('https://www.flectrahq.com/documentation/user', '_blank');
+    },
+    /**
+     * @private
+     */
+    _onMenuLogout: function () {
+        this.trigger_up('clear_uncommitted_changes', {
+            callback: this.do_action.bind(this, 'logout'),
+        });
+    },
+    /**
+     * @private
+     */
+    _onMenuSettings: function () {
+        var self = this;
+        var session = this.getSession();
+        this.trigger_up('clear_uncommitted_changes', {
+            callback: function () {
+                self._rpc({
+                        route: "/web/action/load",
+                        params: {
+                            action_id: "base.action_res_users_my",
+                        },
+                    })
+                    .done(function (result) {
+                        result.res_id = session.uid;
+                        self.do_action(result);
+                    });
+            },
+        });
+    },
+    /**
+     * @private
+     */
+    _onMenuSupport: function () {
+        window.open('https://www.flectrahq.com/buy', '_blank');
+    },
+});
+
+return UserProfile;
+
+});

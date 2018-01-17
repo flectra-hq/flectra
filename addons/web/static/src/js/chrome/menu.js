@@ -4,16 +4,22 @@ flectra.define('web.Menu', function (require) {
 var core = require('web.core');
 var session = require('web.session');
 var Widget = require('web.Widget');
+var config = require('web.config');
+var Apps = require('web.AppsLauncher');
 
 var Menu = Widget.extend({
     init: function() {
         this._super.apply(this, arguments);
         this.is_bound = $.Deferred();
+        this._isMainMenuClick = false;
         this.data = {data:{children:[]}};
+        this.isLoadflag = true;
         core.bus.on('change_menu_section', this, this.on_change_top_menu);
     },
     start: function() {
         this._super.apply(this, arguments);
+        this.apps = new Apps(this);
+        this.apps.appendTo(this.$el.parents().find('.o_main'));
         return this.bind_menu();
     },
     do_reload: function() {
@@ -22,12 +28,63 @@ var Menu = Widget.extend({
     },
     bind_menu: function() {
         var self = this;
-        this.$secondary_menus = this.$el.parents().find('.o_sub_menu');
+        this.$secondary_menus = this.$el.parents().find('.f_launcher');
         this.$secondary_menus.on('click', 'a[data-menu]', this.on_menu_click);
         this.$el.on('click', 'a[data-menu]', function (event) {
             event.preventDefault();
             var menu_id = $(event.currentTarget).data('menu');
             core.bus.trigger('change_menu_section', menu_id);
+        });
+
+        function toggleIcon(e) {
+            $(e.target).prev().find('.more-less i').toggleClass('fa-chevron-down fa-chevron-up');
+        }
+
+        this.$secondary_menus.find('[data-toggle="tooltip"]').tooltip({
+            trigger: "hover",
+            delay: "500ms"
+        });
+
+        this.$secondary_menus.find('#menu_launcher')
+            .on('hidden.bs.collapse', toggleIcon)
+            .on('shown.bs.collapse', toggleIcon);
+
+        this.$el.parents().find('li#f_menu_toggle a').click(function (event) {
+            event.preventDefault();
+            if (self.is_menus_lite_mode) {
+                window.sessionStorage.removeItem('menus_lite_mode');
+            } else {
+                window.sessionStorage.setItem('menus_lite_mode', true);
+            }
+            if (config.device.size_class < config.device.SIZES.SM) {
+                self.$secondary_menus.toggleClass('f_hide');
+            } else {
+                self.$secondary_menus.toggleClass('f_launcher_close');
+            }
+            self.is_menus_lite_mode = !self.is_menus_lite_mode;
+        });
+
+        this.$el.parents().find('li#f_apps_search a').click(function (event) {
+            event.preventDefault();
+            $(this).find('i').toggleClass('fa-search fa-times');
+            self.$el.parents().find('.f_search_launcher').toggleClass('launcher_opened');
+            self.$el.parents().find('.f_search_launcher .f_apps_search_input').focus();
+        });
+
+        this.$el.parents().find('li#f_user_toggle a').click(function (event) {
+            event.preventDefault();
+            if (self.$el.parents().find('.user_profile.close_profile').length) {
+                self.$el.parents().find('.f_launcher_content').animate({
+                    scrollTop: 0
+                }, 300);
+            }
+            self.$el.parents().find('.user_profile').toggleClass('close_profile');
+            if (self.$el.parents().find('.f_launcher_close').length || self.$el.parents().find('.f_launcher.f_hide').length) {
+                self.$el.parents().find('.f_launcher').removeClass('f_launcher_close').removeClass('f_hide');
+                self.$el.parents().find('.user_profile').removeClass('close_profile');
+                window.sessionStorage.removeItem('menus_lite_mode');
+                self.is_menus_lite_mode = false;
+            }
         });
 
         // Hide second level submenus
@@ -41,8 +98,15 @@ var Menu = Widget.extend({
         core.bus.on('resize', this, function() {
             if ($(window).width() < 768 ) {
                 lazyreflow('all_outside');
+                self.$secondary_menus.addClass('f_hide').removeClass('f_launcher_close');
+                self.is_menus_lite_mode = false;
             } else {
                 lazyreflow();
+                self.$secondary_menus.removeClass('f_hide');
+                self.is_menus_lite_mode = 'menus_lite_mode' in window.sessionStorage ? true : false;
+                if (self.is_menus_lite_mode) {
+                    self.$secondary_menus.addClass('f_launcher_close');
+                }
             }
         });
         core.bus.trigger('resize');
@@ -122,9 +186,41 @@ var Menu = Widget.extend({
         this.$el.find('.active').removeClass('active');
         $main_menu.parent().addClass('active');
 
-        // Show current sub menu
-        this.$secondary_menus.find('.oe_secondary_menu').hide();
-        $sub_menu.show();
+        if(this._isMainMenuClick || this.isLoadflag) {
+            var href_id = $sub_menu.attr('id');
+            if (href_id && $sub_menu.attr('class').indexOf('in') === -1) {
+                window.sessionStorage.removeItem('menus_lite_mode');
+                this.is_menus_lite_mode = false;
+                if (!this.is_menus_lite_mode) {
+                    this.$secondary_menus.find("a[href='#" + href_id + "']").trigger('click');
+                }
+                this.$secondary_menus.find("a[href='#" + href_id + " i']")
+                    .addClass('fa-chevron-up')
+                    .removeClass('fa-chevron-down');
+            } else {
+                if (!this.is_menus_lite_mode) {
+                    $clicked_menu.parents('li.panel').find('.oe_main_menu_container .more-less a').trigger('click');
+                }
+                this.$secondary_menus.find("a[href='#" + href_id + " i']")
+                    .addClass('fa-chevron-down')
+                    .removeClass('fa-chevron-up');
+            }
+            this.$el.parents().find('.f_search_launcher').removeClass('launcher_opened');
+            this.$el.parents().find('#f_apps_search').find('i').addClass('fa-search').removeClass('fa-times');
+        }
+
+        if (config.device.size_class < config.device.SIZES.SM) {
+            if(this._isMainMenuClick || !this._isActionId){
+                this.$secondary_menus.removeClass('f_hide');
+            }else{
+                this.$secondary_menus.addClass('f_hide');
+            }
+            if(this.isLoadflag){
+                this.$secondary_menus.addClass('f_hide');
+            }
+        } else {
+            this.$secondary_menus.removeClass('f_hide');
+        }
 
         // Hide/Show the leftbar menu depending of the presence of sub-items
         this.$secondary_menus.toggleClass('o_hidden', !$sub_menu.children().length);
@@ -138,11 +234,14 @@ var Menu = Widget.extend({
             } else {
                 $clicked_menu.parent().addClass('active');
             }
+            this.$secondary_menus.find('.oe_main_menu_container').removeClass('active');
+            $clicked_menu.parents('li.panel').find('.oe_main_menu_container').addClass('active');
         }
         // add a tooltip to cropped menu items
         this.$secondary_menus.find('.oe_secondary_submenu li a span').each(function() {
             $(this).tooltip(this.scrollWidth > this.clientWidth ? {title: $(this).text().trim(), placement: 'right'} :'destroy');
-       });
+        });
+        this.isLoadflag = false;
     },
     /**
      * Call open_menu with the first menu_item matching an action_id
@@ -190,6 +289,7 @@ var Menu = Widget.extend({
         } else {
             console.log('Menu no action found web test 04 will fail');
         }
+        this._isActionId = action_id === undefined ? false : true;
         this.open_menu(id);
     },
 
@@ -204,6 +304,8 @@ var Menu = Widget.extend({
     },
     on_menu_click: function(ev) {
         ev.preventDefault();
+        if(!parseInt($(ev.currentTarget).data('menu'))) return;
+        this._isMainMenuClick = $(ev.currentTarget).attr('class').indexOf('oe_main_menu') !== -1 ? true : false;
         this.menu_click($(ev.currentTarget).data('menu'));
     },
 });

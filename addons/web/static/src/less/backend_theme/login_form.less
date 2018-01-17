@@ -1,0 +1,85 @@
+.oe_website_login_container {
+    vertical-align: middle;
+    position: relative;
+    height: 100%;
+}
+
+.oe_login_form {
+    vertical-align: middle;
+    padding: 50px !important;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    background-color: #FFF;
+    opacity: 0.9;
+    margin: 40px auto !important;
+    top: 20%;
+    min-width: 40%;
+    position: static !important;
+
+    .flectra-button(@color, @color-bg) {
+        border-radius: 0;
+        font-weight: bold;
+        color: @color-bg;
+        background-color: @color;
+        border-color: @color-bg;
+
+        &:hover, &:focus {
+            color: @color;
+            background-color: @color-bg;
+            border-color: darken(@color-bg, 30%);
+        }
+    }
+
+    .btn-default {
+        .flectra-button(@btn-default-bg, @btn-default-color);
+    }
+
+    .btn-primary {
+        .flectra-button(@btn-primary-color, @btn-primary-bg);
+    }
+
+    .btn-success {
+        .flectra-button(@btn-success-color, @btn-success-bg);
+    }
+
+    .btn-info {
+        .flectra-button(@btn-info-color, @btn-info-bg);
+    }
+
+    .btn-warning {
+        .flectra-button(@btn-warning-color, @btn-warning-bg);
+    }
+
+    .btn-danger {
+        .flectra-button(@btn-danger-color, @btn-danger-bg);
+    }
+
+    .field-db {
+        .input-group {
+            border-bottom: 1px solid #CCC;
+            input#db {
+                border: none;
+            }
+        }
+    }
+    input,
+    select {
+        background-color: transparent !important;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 1px solid #CCC;
+        border-radius: 0;
+        color: @brand-primary;
+        font-size: 18px;
+        font-weight: 300;
+        transition: border-color 0.7s ease;
+        box-shadow: none !important;
+    }
+
+    input:focus,
+    select:focus {
+        border-bottom: 1px solid @brand-primary;
+        outline: 0 none;
+    }
+}
