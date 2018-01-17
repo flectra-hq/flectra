@@ -18,6 +18,7 @@ var FormController = BasicController.extend({
         open_one2many_record: '_onOpenOne2ManyRecord',
         open_record: '_onOpenRecord',
         toggle_column_order: '_onToggleColumnOrder',
+        update_sidebar_attachments: '_updateSidebarAttachments',
     }),
     /**
      * @override
@@ -349,6 +350,12 @@ var FormController = BasicController.extend({
     _updateSidebar: function () {
         if (this.sidebar) {
             this.sidebar.do_toggle(this.mode === 'readonly');
+        }
+    },
+    _updateSidebarAttachments: function (attachments) {
+        if (this.sidebar) {
+            this.sidebar.items.files = attachments.data.files;
+            this.sidebar._redraw();
         }
     },
 

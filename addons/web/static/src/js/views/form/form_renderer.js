@@ -5,6 +5,8 @@ var BasicRenderer = require('web.BasicRenderer');
 var config = require('web.config');
 var core = require('web.core');
 var dom = require('web.dom');
+var framework = require('web.framework');
+var field_utils = require('web.field_utils');
 
 var _t = core._t;
 var qweb = core.qweb;
@@ -14,6 +16,10 @@ var FormRenderer = BasicRenderer.extend({
     events: _.extend({}, BasicRenderer.prototype.events, {
         'click .o_notification_box .oe_field_translate': '_onTranslate',
         'click .oe_title, .o_inner_group': '_onClick',
+        'change .o_input_file': '_onChangeInputFile',
+        'dragover .o_form_sheet_bg': '_onDragEnterForm',
+        'dragleave .o_input_file': '_onDragLeaveForm',
+        'drop .o_input_file': '_onDropFile',
     }),
     /**
      * @override
@@ -21,6 +27,10 @@ var FormRenderer = BasicRenderer.extend({
     init: function (parent, state, params) {
         this._super.apply(this, arguments);
         this.idsForLabels = {};
+        if (this.activeActions && this.activeActions.edit) {
+            this.fileuploadId = _.uniqueId('oe_fileupload');
+            $(window).on(this.fileuploadId, this._onFileUploaded.bind(this));
+        }
     },
 
     //--------------------------------------------------------------------------
@@ -838,7 +848,102 @@ var FormRenderer = BasicRenderer.extend({
                 widget.renderWithLabel($label);
             }
         });
-	    this.$el.find('.o_notebook ul.nav-tabs').tabCollapse();
+        this.$el.find('.o_notebook ul.nav-tabs').tabCollapse();
+        // for Drag and Drop Attachment(s)
+        if (this.activeActions.edit) {
+            this.$attach_form = $(qweb.render('DragAndDropAttachment', {widget: this}));
+            this.$el.find('.o_form_sheet_bg').prepend(this.$attach_form);
+            this.$el.find('.o_form_sheet_bg .o_input_file').addClass('hide');
+        }
+    },
+    _onChangeInputFile: function (event) {
+        if (!this.activeActions.edit) return;
+        var $event = $(event.target);
+        if ($event.val() !== '') {
+            var $binaryForm = this.$el.find('.o_form_sheet_bg form.o_form_binary_form');
+            $binaryForm.submit();
+            framework.blockUI();
+        }
+    },
+    _onDragEnterForm: function (e) {
+        if (!this.activeActions.edit) return;
+        var $input = this.$el.find('.o_form_sheet_bg .o_input_file');
+        $input.removeClass('hide').addClass('f_attachment_input');
+        $input.parent().parent().addClass('f_attachment')
+    },
+    _onDragLeaveForm: function (e) {
+        if (!this.activeActions.edit) return;
+        var $input = this.$el.find('.o_form_sheet_bg .o_input_file');
+        $input.addClass('hide').removeClass('f_attachment_input');
+        $input.parent().parent().removeClass('f_attachment')
+    },
+    _onDropFile: function (event) {
+        if (!this.activeActions.edit) return;
+        var $event = $(event.target);
+        if ($event.val() !== '') {
+            var $binaryForm = this.$el.find('.o_form_sheet_bg form.o_form_binary_form');
+            $binaryForm.submit();
+            framework.blockUI();
+        }
+    },
+    _onFileUploaded: function () {
+        var self = this;
+        var attachments = Array.prototype.slice.call(arguments, 1);
+        var uploadErrors = _.filter(attachments, function (attachment) {
+            return attachment.error;
+        });
+        if (uploadErrors.length) {
+            this.do_warn(_t('Uploading Error'), uploadErrors[0].error);
+        }
+        framework.unblockUI();
+        this._getAttachments().then(function (attachments) {
+            self.trigger_up('update_sidebar_attachments', {files: attachments});
+            var $input = self.$el.find('.o_form_sheet_bg .o_input_file');
+            $input.addClass('hide').removeClass('f_attachment_input');
+            $input.parent().parent().removeClass('f_attachment')
+        });
+    },
+    _processAttachments: function (attachments) {
+        //to display number in name if more then one attachment which has same name.
+        var self = this;
+        _.chain(attachments)
+            .groupBy(function (attachment) {
+                return attachment.name;
+            })
+            .each(function (attachment) {
+                if (attachment.length > 1) {
+                    _.map(attachment, function (attachment, i) {
+                        attachment.name = _.str.sprintf(_t("%s (%s)"), attachment.name, i + 1);
+                    });
+                }
+            });
+        _.each(attachments, function (a) {
+            a.label = a.name;
+            if (a.type === "binary") {
+                a.url = '/web/content/' + a.id + '?download=true';
+            }
+            a.create_date = field_utils.parse.datetime(a.create_date, 'create_date', {isUTC: true});
+            a.create_date_string = field_utils.format.datetime(a.create_date, 'create_date', self.state.context.params);
+            a.write_date = field_utils.parse.datetime(a.write_date, 'write_date', {isUTC: true});
+            a.write_date_string = field_utils.format.datetime(a.write_date, 'write_date', self.state.context.params);
+        });
+        return attachments;
+    },
+    _getAttachments: function () {
+        var domain = [
+            ['res_model', '=', this.state.model],
+            ['res_id', '=', this.state.res_id],
+            ['type', 'in', ['binary', 'url']]
+        ];
+        var fields = ['name', 'url', 'type',
+            'create_uid', 'create_date', 'write_uid', 'write_date'];
+        return this._rpc({
+            model: 'ir.attachment',
+            method: 'search_read',
+            context: this.state.context,
+            domain: domain,
+            fields: fields,
+        }).then(this._processAttachments.bind(this));
     },
     /**
      * Sets id attribute of given widget to idForLabel
