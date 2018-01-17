@@ -55,7 +55,7 @@
         </div>
 
         <div class="container mt16 website_forum">
-            <div class="navbar navbar-default">
+            <div class="navbar navbar-default" id="forum-menu">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#oe-help-navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -1383,11 +1383,11 @@
             <span t-field="user.name"/>
             <small>profile</small>
         </h1>
-        <div class="row">
-            <div class="col-sm-2">
+        <div class="row mb32" id="user-details">
+            <div class="col-sm-2" id="user-avtar">
                 <img class="img img-responsive img-circle" t-attf-src="/forum/user/#{user.id}/avatar"/>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-10" id="user-table">
                 <table class="table table-condensed">
                 <tr>
                     <td rowspan="4" valign="top"><span class="text-muted">stats</span></td>
@@ -1439,7 +1439,7 @@
             </div>
         </div>
 
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs" id="user-activity">
             <li class="active">
                 <a href="#questions" data-toggle="tab"><t t-esc="count_questions"/> Questions</a>
             </li>
