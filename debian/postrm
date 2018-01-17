@@ -2,22 +2,22 @@
 
 set -e
 
-ODOO_LIB_DIR=/var/lib/odoo
-ODOO_USER="odoo"
-ODOO_GROUP="odoo"
+FLECTRA_LIB_DIR=/var/lib/flectra
+FLECTRA_USER="flectra"
+FLECTRA_GROUP="flectra"
 
 case "${1}" in
     remove)
-        deluser --quiet --system $ODOO_USER || true
-        delgroup --quiet --system --only-if-empty $ODOO_GROUP || true
-        if [ -d "$ODOO_LIB_DIR" ]; then
-            rm -rf $ODOO_LIB_DIR
+        deluser --quiet --system $FLECTRA_USER || true
+        delgroup --quiet --system --only-if-empty $FLECTRA_GROUP || true
+        if [ -d "$FLECTRA_LIB_DIR" ]; then
+            rm -rf $FLECTRA_LIB_DIR
         fi
         ;;
 
     purge)
-        if [ -d "$ODOO_LIB_DIR" ]; then
-            rm -rf $ODOO_LIB_DIR
+        if [ -d "$FLECTRA_LIB_DIR" ]; then
+            rm -rf $FLECTRA_LIB_DIR
         fi
         ;;
 
