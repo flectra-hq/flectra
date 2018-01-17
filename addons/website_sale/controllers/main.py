@@ -254,7 +254,7 @@ class WebsiteSale(http.Controller):
         if attrib_list:
             post['attrib'] = attrib_list
 
-        categs = request.env['product.public.category'].search([('parent_id', '=', False), '|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id)])
+        categs = request.env['product.public.category'].search([('parent_id', '=', False), ('website_ids', 'in', request.website.id)])
         Product = request.env['product.template']
 
         parent_category_ids = []
@@ -790,7 +790,7 @@ class WebsiteSale(http.Controller):
         )
 
         acquirers = request.env['payment.acquirer'].search(
-            [('website_published', '=', True), ('company_id', '=', order.company_id.id)]
+            [('website_published', '=', True), ('company_id', '=', order.company_id.id), '|', ('website_id', '=', False), ('website_id', '=', request.website.id)]
         )
 
         values['access_token'] = order.access_token

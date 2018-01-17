@@ -60,6 +60,8 @@ class PaymentAcquirerAuthorize(models.Model):
     def authorize_form_generate_values(self, values):
         self.ensure_one()
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        if self.env.ref('base.module_website').state == 'installed':
+            base_url = "http://" + self.env['website'].get_current_website().domain
         authorize_tx_values = dict(values)
         temp_authorize_tx_values = {
             'x_login': self.authorize_login,

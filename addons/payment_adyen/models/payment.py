@@ -115,6 +115,8 @@ class AcquirerAdyen(models.Model):
     @api.multi
     def adyen_form_generate_values(self, values):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        if self.env.ref('base.module_website').state == 'installed':
+            base_url = "http://" + self.env['website'].get_current_website().domain
         # tmp
         import datetime
         from dateutil import relativedelta

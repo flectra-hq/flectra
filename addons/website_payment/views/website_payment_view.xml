@@ -18,5 +18,28 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="website_acquirer_form" model="ir.ui.view">
+            <field name="name">payment.acquirer.form</field>
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment.acquirer_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='provider']" position='after'>
+                    <field name="website_id" widget="many2many_tags"/>
+                </xpath>
+                <xpath expr="//group[@name='acquirer_left']" position="after">
+                    <group nama="acquirer_right">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <span>
+                                    Website is required in order to use payment gateway in e-commerce store.
+                                </span>
+                            </div>
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </flectra>

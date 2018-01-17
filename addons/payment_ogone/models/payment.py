@@ -150,6 +150,8 @@ class PaymentAcquirerOgone(models.Model):
 
     def ogone_form_generate_values(self, values):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        if self.env.ref('base.module_website').state == 'installed':
+            base_url = "http://" + self.env['website'].get_current_website().domain
         ogone_tx_values = dict(values)
         temp_ogone_tx_values = {
             'PSPID': self.ogone_pspid,

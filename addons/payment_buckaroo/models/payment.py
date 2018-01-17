@@ -84,6 +84,8 @@ class AcquirerBuckaroo(models.Model):
     @api.multi
     def buckaroo_form_generate_values(self, values):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        if self.env.ref('base.module_website').state == 'installed':
+            base_url = "http://" + self.env['website'].get_current_website().domain
         buckaroo_tx_values = dict(values)
         buckaroo_tx_values.update({
             'Brq_websitekey': self.brq_websitekey,
