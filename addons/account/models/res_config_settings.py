@@ -24,35 +24,18 @@ class ResConfigSettings(models.TransientModel):
         ('round_per_line', 'Round calculation of taxes per line'),
         ('round_globally', 'Round globally calculation of taxes '),
         ], related='company_id.tax_calculation_rounding_method', string='Tax calculation rounding method')
-    module_account_accountant = fields.Boolean(string='Accounting')
     group_analytic_accounting = fields.Boolean(string='Analytic Accounting',
         implied_group='analytic.group_analytic_accounting')
     group_warning_account = fields.Boolean(string="Warnings", implied_group='account.group_warning_account')
     group_cash_rounding = fields.Boolean(string="Cash Rounding", implied_group='account.group_cash_rounding')
     module_account_asset = fields.Boolean(string='Assets Management')
-    module_account_deferred_revenue = fields.Boolean(string="Revenue Recognition")
     module_account_budget = fields.Boolean(string='Budget Management')
     module_account_payment = fields.Boolean(string='Online Payment')
-    module_account_reports = fields.Boolean("Dynamic Reports")
-    module_account_reports_followup = fields.Boolean("Enable payment followup management")
     default_sale_tax_id = fields.Many2one('account.tax', string="Default Sale Tax",
         company_dependent=True, oldname="default_sale_tax")
     default_purchase_tax_id = fields.Many2one('account.tax', string="Default Purchase Tax",
         company_dependent=True, oldname="default_purchase_tax")
-    module_l10n_us_check_printing = fields.Boolean("Allow check printing and deposits")
-    module_account_batch_deposit = fields.Boolean(string='Use batch deposit',
-        help='This allows you to group received checks before you deposit them to the bank.\n'
-             '-This installs the module account_batch_deposit.')
-    module_account_sepa = fields.Boolean(string='Use SEPA payments')
-    module_account_sepa_direct_debit = fields.Boolean(string='Use SEPA Direct Debit')
     module_account_plaid = fields.Boolean(string="Plaid Connector")
-    module_account_yodlee = fields.Boolean("Bank Interface - Sync your bank feeds automatically")
-    module_account_bank_statement_import_qif = fields.Boolean("Import .qif files")
-    module_account_bank_statement_import_ofx = fields.Boolean("Import in .ofx format")
-    module_account_bank_statement_import_csv = fields.Boolean("Import in .csv format")
-    module_account_bank_statement_import_camt = fields.Boolean("Import in CAMT.053 format")
-    module_currency_rate_live = fields.Boolean(string="Allow Currency Rate Live")
-    module_print_docsaway = fields.Boolean(string="Docsaway")
     module_product_margin = fields.Boolean(string="Allow Product Margin")
     module_l10n_eu_service = fields.Boolean(string="EU Digital Goods VAT")
     module_account_taxcloud = fields.Boolean(string="Account TaxCloud")
@@ -104,11 +87,6 @@ class ResConfigSettings(models.TransientModel):
         self.has_chart_of_accounts = bool(self.company_id.chart_template_id)
         self.chart_template_id = self.company_id.chart_template_id or False
         self.has_accounting_entries = self.env['wizard.multi.charts.accounts'].existing_accounting(self.company_id)
-
-    @api.onchange('group_analytic_accounting')
-    def onchange_analytic_accounting(self):
-        if self.group_analytic_accounting:
-            self.module_account_accountant = True
 
     @api.onchange('module_account_budget')
     def onchange_module_account_budget(self):
