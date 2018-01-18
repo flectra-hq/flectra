@@ -594,7 +594,7 @@ class YamlInterpreter(object):
             'uid': self.uid,
             'log': self._log,
             'context': self.context,
-            'openerp': flectra,
+            'flectra': flectra,
         }
         try:
             code_obj = compile(statements, self.filename, 'exec')

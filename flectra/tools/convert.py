@@ -730,9 +730,9 @@ form: module.record_id""" % (xml_id,)
         return self.env['ir.model.data'].xmlid_to_res_model_res_id(id_str, raise_if_not_found=raise_if_not_found)
 
     def parse(self, de, mode=None):
-        roots = ['openerp','data','flectra']
+        roots = ['flectra','data','flectra']
         if de.tag not in roots:
-            raise Exception("Root xml tag must be <openerp>, <flectra> or <data>.")
+            raise Exception("Root xml tag must be <flectra>, <flectra> or <data>.")
         for rec in de:
             if rec.tag in roots:
                 self.parse(rec, mode)

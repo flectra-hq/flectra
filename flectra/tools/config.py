@@ -104,7 +104,7 @@ class configmanager(object):
         group = optparse.OptionGroup(parser, "Common options")
         group.add_option("-c", "--config", dest="config", help="specify alternate config file")
         group.add_option("-s", "--save", action="store_true", dest="save", default=False,
-                          help="save configuration to ~/.flectrarc (or to ~/.openerp_serverrc if it exists)")
+                          help="save configuration to ~/.flectrarc (or to ~/.flectra_serverrc if it exists)")
         group.add_option("-i", "--init", dest="init", help="install one or more modules (comma-separated list, use \"all\" for all modules), requires -d")
         group.add_option("-u", "--update", dest="update",
                           help="update one or more modules (comma-separated list, use \"all\" for all modules). Requires -d.")
@@ -322,7 +322,7 @@ class configmanager(object):
         """ Parse the configuration file (if any) and the command-line
         arguments.
 
-        This method initializes flectra.tools.config and openerp.conf (the
+        This method initializes flectra.tools.config and flectra.conf (the
         former should be removed in the furture) with library-wide
         configuration values.
 
@@ -375,10 +375,10 @@ class configmanager(object):
             rcfilepath = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), 'flectra.conf')
         else:
             rcfilepath = os.path.expanduser('~/.flectrarc')
-            old_rcfilepath = os.path.expanduser('~/.openerp_serverrc')
+            old_rcfilepath = os.path.expanduser('~/.flectra_serverrc')
 
             die(os.path.isfile(rcfilepath) and os.path.isfile(old_rcfilepath),
-                "Found '.flectrarc' and '.openerp_serverrc' in your path. Please keep only one of "\
+                "Found '.flectrarc' and '.flectra_serverrc' in your path. Please keep only one of "\
                 "them, preferrably '.flectrarc'.")
 
             if not os.path.isfile(rcfilepath) and os.path.isfile(old_rcfilepath):

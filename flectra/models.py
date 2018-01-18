@@ -2934,7 +2934,7 @@ class BaseModel(MetaModel('DummyModel', (object,), {'_register': False})):
               UTC-only and formatted according to
               :const:`flectra.tools.misc.DEFAULT_SERVER_DATE_FORMAT` and
               :const:`flectra.tools.misc.DEFAULT_SERVER_DATETIME_FORMAT`
-        * .. _openerp/models/relationals/format:
+        * .. _flectra/models/relationals/format:
 
           :class:`~flectra.fields.One2many` and
           :class:`~flectra.fields.Many2many` use a special "commands" format to
