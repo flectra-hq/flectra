@@ -93,11 +93,6 @@ class ResConfigSettings(models.TransientModel):
         if self.module_account_budget:
             self.group_analytic_accounting = True
 
-    @api.onchange('module_account_yodlee')
-    def onchange_account_yodlee(self):
-        if self.module_account_yodlee:
-            self.module_account_plaid = True
-
     @api.onchange('tax_exigibility')
     def _onchange_tax_exigibility(self):
         res = {}
