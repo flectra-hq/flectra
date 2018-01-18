@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="view_users_form_inherit" model="ir.ui.view">
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page" position="inside">
+                <field name="token_ids">
+                    <tree create="false">
+                        <field name="token"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</flectra>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="view_model_form_inherit" model="ir.ui.view">
+        <field name="model">ir.model</field>
+        <field name="inherit_id" ref="base.view_model_form"/>
+        <field name="arch" type="xml">
+            <field name="transient" position="after">
+                <field name="rest_api"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_model_tree_inherit" model="ir.ui.view">
+        <field name="model">ir.model</field>
+        <field name="inherit_id" ref="base.view_model_tree"/>
+        <field name="arch" type="xml">
+            <field name="transient" position="after">
+                <field name="rest_api"/>
+            </field>
+        </field>
+    </record>
+</flectra>
