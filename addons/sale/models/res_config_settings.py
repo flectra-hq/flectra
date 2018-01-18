@@ -69,15 +69,8 @@ class ResConfigSettings(models.TransientModel):
     ], string='Customer Account')
 
     module_delivery = fields.Boolean("Shipping Costs")
-    module_delivery_dhl = fields.Boolean("DHL")
-    module_delivery_fedex = fields.Boolean("FedEx")
-    module_delivery_ups = fields.Boolean("UPS")
-    module_delivery_usps = fields.Boolean("USPS")
-    module_delivery_bpost = fields.Boolean("bpost")
-
     module_product_email_template = fields.Boolean("Specific Email")
-    module_sale_coupon = fields.Boolean("Coupons & Promotions")
-
+    
     @api.onchange('multi_sales_price', 'multi_sales_price_method')
     def _onchange_sale_price(self):
         if self.multi_sales_price and not self.multi_sales_price_method:

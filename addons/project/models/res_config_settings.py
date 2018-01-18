@@ -9,5 +9,4 @@ class ResConfigSettings(models.TransientModel):
 
     module_hr_timesheet = fields.Boolean("Timesheets")
     module_rating_project = fields.Boolean(string="Rating on Tasks")
-    module_project_forecast = fields.Boolean(string="Forecasts")
     group_subtask_project = fields.Boolean("Sub-tasks", implied_group="project.group_subtask_project")
