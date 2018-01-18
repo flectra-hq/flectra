@@ -36,6 +36,11 @@
                                     <field name="global_discount_percentage_invoice" attrs="{'required': [('global_discount_invoice_apply', '=', True)]}"/>
                                 </div>
                             </div>
+                            <div class="content-group" attrs="{'invisible': [('global_discount_invoice_apply','=',False)]}">
+                                <div class="mt16">
+                                    <button name="%(account_discount.action_account_discount_config)d" icon="fa-arrow-right" type="action" string="Group Leval Discount Configuration" class="btn-link"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

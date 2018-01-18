@@ -20,11 +20,52 @@ class TestDiscountCommon(TransactionCase):
             'fix_amount': 3000.0,
             'percentage': 20.0,
         })
-        self.partner_id = self.env.ref('base.res_partner_3')
-        self.partner_invoice_id = self.env.ref('base.res_partner_address_11')
+        journal_obj = self.env['account.journal']
+        ir_model_data_obj = self.env['ir.model.data']
         self.user_id = self.env.ref('base.user_root')
-        self.partner_shipping_id = self.env.ref('base.res_partner_address_11')
         self.pricelist_id = self.env.ref('product.list0')
-        self.product_1 = self.env.ref('product.product_delivery_01')
+        self.product_1 = \
+            self.env.ref('product.product_order_01').product_tmpl_id
         self.product_uom = self.env.ref('product.product_uom_unit')
-        self.product_2 = self.env.ref('product.product_product_25')
+        self.product_2 = \
+            self.env.ref('product.service_order_01').product_tmpl_id
+        self.SaleOrderLine = self.env['sale.order.line']
+        self.SaleOrder = self.env['sale.order']
+        account_acccount_obj = self.env['account.account']
+        company_id = \
+            ir_model_data_obj.xmlid_to_res_id('base.main_company') or False
+        user_type_payable_id = ir_model_data_obj.xmlid_to_res_id(
+            'account.data_account_type_payable')
+        user_type_receivable_id = ir_model_data_obj.xmlid_to_res_id(
+            'account.data_account_type_receivable')
+        self.user_type_revenue_id = ir_model_data_obj.xmlid_to_res_id(
+            'account.data_account_type_revenue')
+
+        self.account_type_payable_id = account_acccount_obj.create({
+            'name': 'Test Payable Account',
+            'code': 'TestPA',
+            'reconcile': True,
+            'user_type_id': user_type_payable_id})
+
+        self.account_type_receivable_id = account_acccount_obj.create({
+            'name': 'Test Reiceivable Account',
+            'code': 'TestRA',
+            'reconcile': True,
+            'user_type_id': user_type_receivable_id})
+
+        self.partner_id = self.env['res.partner'].create({
+            'name': 'Test Partner',
+            'property_account_receivable_id':
+                self.account_type_receivable_id.id,
+            'email': 'testpartner@test.com',
+        })
+        self.journal_id = journal_obj.create({
+            'name': 'Test Sales Discount Journal ',
+            'code': 'JournalSD',
+            'type': 'sale',
+            'company_id': company_id
+        })
+        self.product_1.write({
+            'property_account_income_id': self.account_type_receivable_id.id})
+        self.product_2.write({
+            'property_account_income_id': self.account_type_receivable_id.id})

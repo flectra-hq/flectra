@@ -3,6 +3,7 @@
 from .test_01_account_discount import TestInvoiceDiscount
 import logging
 
+
 class TestDiscountInvoice(TestInvoiceDiscount):
     def setUp(self):
         super(TestDiscountInvoice, self).setUp()

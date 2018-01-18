@@ -15,14 +15,14 @@
         'security/ir.model.access.csv',
         'data/account_discount_data.xml',
         'views/account_invoice_views.xml',
-        'views/res_config_settings_views.xml',
         'views/discount_config_view.xml',
+        'views/res_config_settings_views.xml',
         'report/report_menu.xml',
         'report/custom_invoice_report.xml',
     ],
-    'demo':[
+    'demo': [
         'demo/discount_config_demo.xml',
     ],
     'installable': True,
-    'auto_install': False,
+    'auto_install': True,
 }

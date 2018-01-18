@@ -4,24 +4,27 @@ from .discount_common import TestDiscountCommon
 import logging
 import time
 
+
 class TestInvoiceDiscount(TestDiscountCommon):
     def setUp(self):
         super(TestInvoiceDiscount, self).setUp()
 
     def discount_01_set_fixamount(self):
+
         self.account_id = self.env['account.account'].create({
             'name': 'Test',
             'code': 'DA',
-            'user_type_id':self.env.ref("account.data_account_type_revenue").id,
+            'user_type_id': self.user_type_revenue_id,
             })
 
         invoice_id = self.env['account.invoice'].create({
             'name': 'Discount Invoice Test Fixed',
-            'partner_id': self.env.ref("base.res_partner_4").id,
+            'partner_id': self.partner_id.id,
             'currency_id': self.env.ref('base.USD').id,
             'account_id': self.account_id.id,
             'type': 'out_invoice',
             'date_invoice': time.strftime('%Y') + '-03-12',
+            'journal_id': self.journal_id.id,
         })
         invoice_id.onchange_discount_method()
         invoice_id.write({
@@ -56,17 +59,18 @@ class TestInvoiceDiscount(TestDiscountCommon):
         self.account_id = self.env['account.account'].create({
             'name': 'Test',
             'code': 'DA',
-            'user_type_id':self.env.ref("account.data_account_type_revenue").id,
+            'user_type_id': self.user_type_revenue_id,
             })
         invoice_id = self.env['account.invoice'].create({
             'name': 'Discount Invoice Test',
-            'partner_id': self.env.ref("base.res_partner_4").id,
+            'partner_id': self.partner_id.id,
             'currency_id': self.env.ref('base.USD').id,
             'account_id': self.account_id.id,
             'type': 'out_invoice',
             'discount_method': 'per',
             'discount_per': 10,
             'date_invoice': time.strftime('%Y') + '-03-12',
+            'journal_id': self.journal_id.id,
         })
         self.env['account.invoice.line'].create({
             'product_id': self.env.ref("product.product_product_10").id,

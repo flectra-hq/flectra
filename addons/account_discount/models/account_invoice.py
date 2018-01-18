@@ -103,13 +103,15 @@ class AccountInvoice(models.Model):
         config_id = self.env[
             'res.config.settings'].search([], order='id desc', limit=1)
         if config_id and config_id.global_discount_invoice_apply:
-            if config_id.global_discount_percentage_invoice < self.discount_per:
+            global_percentage = config_id.global_discount_percentage_invoice
+            if global_percentage < self.discount_per:
                 raise Warning(_("You are not allowed to apply Discount "
                                 "Percentage(%s) more than configured Discount"
                                 " Percentage (%s) in configuration setting!"
                                 ) % (
                     formatLang(self.env, self.discount_per, digits=2),
-                    formatLang(self.env, config_id.global_discount_percentage_invoice,
+                    formatLang(self.env,
+                               config_id.global_discount_percentage_invoice,
                                digits=2)))
 
     @api.onchange('discount_amount')
@@ -134,10 +136,12 @@ class AccountInvoice(models.Model):
         config_id = self.env[
             'res.config.settings'].search([], order='id desc', limit=1)
         if config_id and config_id.global_discount_invoice_apply:
-            if config_id.global_discount_fix_invoice_amount < self.discount_amount:
+            fix_amount = config_id.global_discount_fix_invoice_amount
+            if fix_amount < self.discount_amount:
                 raise Warning(_("You're not allowed to apply this amount of"
                                 " discount as discount Amount (%s) is greater"
                                 " than Configuration Amount (%s).") % (
                     formatLang(self.env, self.discount, digits=2),
-                    formatLang(self.env, config_id.global_discount_fix_invoice_amount,
+                    formatLang(self.env,
+                               config_id.global_discount_fix_invoice_amount,
                                digits=2)))
