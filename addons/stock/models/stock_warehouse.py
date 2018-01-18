@@ -69,6 +69,7 @@ class Warehouse(models.Model):
     default_resupply_wh_id = fields.Many2one(
         'stock.warehouse', 'Default Resupply Warehouse',
         help="Goods will always be resupplied from this warehouse")
+    branch_id = fields.Many2one('res.branch', 'Branch', ondelete="restrict")
 
     _sql_constraints = [
         ('warehouse_name_uniq', 'unique(name, company_id)', 'The name of the warehouse must be unique per company!'),
@@ -79,6 +80,18 @@ class Warehouse(models.Model):
     def onchange_resupply_warehouses(self):
         # If we are removing the default resupply, we don't have default_resupply_wh_id # TDE note: and we want one
         self.resupply_wh_ids |= self.default_resupply_wh_id
+
+    @api.constrains('company_id', 'branch_id')
+    def _check_company_branch(self):
+        for record in self:
+            if record.branch_id and record.company_id != record.branch_id.company_id:
+                raise ValidationError(
+                    _('Configuration Error of Company:\n'
+                      'The Company (%s) in the Warehouse and '
+                      'the Company (%s) of Branch must '
+                      'be the same company!') % (record.company_id.name,
+                                                record.branch_id.company_id.name)
+                    )
 
     @api.model
     def create(self, vals):
@@ -749,6 +762,9 @@ class Orderpoint(models.Model):
     location_id = fields.Many2one(
         'stock.location', 'Location',
         ondelete="cascade", required=True)
+    branch_id = fields.Many2one('res.branch', 'Branch',
+                                related='location_id.branch_id', index=True,
+                                readonly=True, store=True)
     product_id = fields.Many2one(
         'product.product', 'Product',
         domain=[('type', '=', 'product')], ondelete='cascade', required=True)

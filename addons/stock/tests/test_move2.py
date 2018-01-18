@@ -1468,8 +1468,9 @@ class TestSinglePicking(TestStockCommon):
                         Move Input-> QC - Move QC -> Stock
         Move receipt 2 /
         """
+        branch_id = self.env.ref('base_branch_company.data_branch_1')
         warehouse = self.env['stock.warehouse'].create({
-            'name': 'TEST WAREHOUSE',
+            'name': 'TEST WAREHOUSE', 'branch_id': branch_id.id,
             'code': 'TEST1',
             'reception_steps': 'three_steps',
         })
@@ -1478,6 +1479,7 @@ class TestSinglePicking(TestStockCommon):
             'location_dest_id': warehouse.wh_input_stock_loc_id.id,
             'partner_id': self.partner_delta_id,
             'picking_type_id': warehouse.in_type_id.id,
+            'branch_id': branch_id.id
         })
         move_receipt_1 = self.MoveObj.create({
             'name': self.productA.name,

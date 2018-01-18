@@ -158,6 +158,35 @@ class StockMove(models.Model):
     is_initial_demand_editable = fields.Boolean('Is initial demand editable', compute='_compute_is_initial_demand_editable')
     is_quantity_done_editable = fields.Boolean('Is quantity done editable', compute='_compute_is_quantity_done_editable')
     reference = fields.Char(compute='_compute_reference', string="Reference", store=True)
+    branch_id = fields.Many2one(
+        related='location_id.branch_id', store=True,
+        string='Source Location Branch',
+    )
+    branch_dest_id = fields.Many2one(
+        related='location_dest_id.branch_id', store=True,
+        string='Dest. Location Branch',
+    )
+
+    @api.multi
+    @api.constrains('branch_id', 'location_id', 'picking_id',
+                    'branch_dest_id', 'location_dest_id')
+    def _check_stock_move_branch(self):
+        for record in self:
+            if not record.branch_id:
+                return True
+            if (record.location_id and
+                record.location_id.branch_id and
+                record.picking_id and record.branch_id != record.picking_id.branch_id
+                ) and (
+                record.location_dest_id and
+                record.location_dest_id.branch_id and
+                record.picking_id and record.branch_dest_id != record.picking_id.branch_id
+            ):
+                raise UserError(
+                    _('Configuration error of Branch:\nThe Stock moves must '
+                      'be related to a source or destination location '
+                      'that belongs to the requesting Branch.')
+                )
 
     @api.depends('picking_id.is_locked')
     def _compute_is_locked(self):

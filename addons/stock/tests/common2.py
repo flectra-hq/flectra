@@ -69,9 +69,11 @@ class TestStockCommon(common.TestProductCommon):
             'groups_id': [(6, 0, [user_group_stock_manager.id])]})
 
         # Warehouses
+        branch_id = cls.env.ref('base_branch_company.data_branch_1')
         cls.warehouse_1 = cls.env['stock.warehouse'].create({
             'name': 'Base Warehouse',
             'reception_steps': 'one_step',
+            'branch_id': branch_id.id,
             'delivery_steps': 'ship_only',
             'code': 'BWH'})
 

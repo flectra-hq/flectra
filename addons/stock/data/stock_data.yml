@@ -1,4 +1,10 @@
 -
+  !python {model: stock.warehouse, id: warehouse0}: |
+    warehouse = self.env['stock.warehouse'].browse(ref('warehouse0'))
+    branch_id = self.env['res.branch'].browse(ref('base_branch_company.data_branch_1'))
+    warehouse.write({'branch_id': branch_id.id})
+
+-
   !python {model: res.partner, id: base.main_partner}: |
     main_warehouse = self.env['stock.warehouse'].browse(ref('warehouse0'))
     self.write({'property_stock_customer':main_warehouse.lot_stock_id.id})    
@@ -30,4 +36,15 @@
     companies = self.search([('internal_transit_location_id', '=', False)])
     for company in companies:
         company.create_transit_location()
+-
+  !python {model: stock.location, id: False}: |
+    branch_id = self.env['res.branch'].browse(ref('base_branch_company.data_branch_1'))
+    self.browse([
+        ref('stock_location_stock'),
+        ref('stock_location_output'),
+        ref('stock_location_company'),
+
+    ]).write({'branch_id': branch_id.id})
+
+
 

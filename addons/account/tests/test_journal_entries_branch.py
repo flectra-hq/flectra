@@ -5,27 +5,29 @@ from . import test_account_branch
 class TestJournalEntryBranch(test_account_branch.TestAccountBranch):
 
     def test_journal_entries_branch(self):
-        journal_ids = self.model_account_journal.search([('code', '=', 'MISC')],
-                                                limit=1)
+        self.sale_journal_id = \
+        self.env['account.journal'].search([('type', '=', 'sale')])[0]
+        self.account_id = self.env['account.account'].search(
+            [('internal_type', '=', 'receivable')])[0]
         move_vals = self.env['account.move'].default_get([])
         lines = [
             (0, 0, {
                 'name': 'Test',
-                'account_id': self.asset_account.id,
+                'account_id': self.account_id.id,
                 'debit': 0,
                 'credit': 100,
                 'branch_id': self.branch_1.id,
                 }),
             (0, 0, {
                 'name': 'Test',
-                'account_id': self.asset_account.id,
+                'account_id': self.account_id.id,
                 'debit': 100,
                 'credit': 0,
                 'branch_id': self.branch_1.id,
             })
         ]
         move_vals.update({
-            'journal_id': journal_ids and journal_ids.id,
+            'journal_id': self.sale_journal_id.id,
             'line_ids': lines,
         })
         move = self.env['account.move'].sudo(self.user_id.id).create(move_vals)

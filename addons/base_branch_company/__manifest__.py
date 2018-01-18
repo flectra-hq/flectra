@@ -23,6 +23,7 @@ Main Features
     'website': '',
     'depends': ['base'],
     'data': [
+            'demo/branch_data.xml',
             'security/branch_security.xml',
             'security/ir.model.access.csv',
             'views/res_branch_view.xml',

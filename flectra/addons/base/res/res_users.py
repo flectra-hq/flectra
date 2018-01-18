@@ -376,6 +376,7 @@ class Users(models.Model):
             for id in self.ids:
                 self.__uid_cache[db].pop(id, None)
 
+        self.clear_caches()
         return res
 
     @api.multi

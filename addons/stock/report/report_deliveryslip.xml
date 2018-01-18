@@ -31,6 +31,7 @@
                                 <th name="td_sched_date_h">
                                     <strong>Date</strong>
                                 </th>
+                                <th t-if="o.branch_id"><strong>Branch</strong></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,6 +46,9 @@
                                    <t t-if="o.state != 'done'">
                                         <span t-field="o.scheduled_date"/>
                                    </t>
+                                </td>
+                                <td t-if="o.branch_id">
+                                        <span t-field="o.branch_id"/>
                                 </td>
                             </tr>
                         </tbody>

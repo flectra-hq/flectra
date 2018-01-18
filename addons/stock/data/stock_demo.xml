@@ -167,11 +167,47 @@
             <field name="name">My Company, Chicago</field>
         </record>
 
+        <record id="branch_shop0" model="res.branch">
+            <field name="name">Chicago</field>
+            <field name="code">CH</field>
+            <field name="company_id" ref="stock.res_company_1"/>
+        </record>
+
         <record id="stock_warehouse_shop0" model="stock.warehouse">
             <field name="name">Chicago Warehouse</field>
             <field name="partner_id" ref="res_partner_address_41"/>
             <field name="company_id" ref="res_company_1"/>
+            <field name="branch_id" ref="branch_shop0"/>
             <field name="code">Chic</field>
+        </record>
+
+
+        <!-- Multi Branch -->
+
+        <record id="stock.stock_location_14" model="stock.location">
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+        </record>
+
+        <record id="stock.stock_location_components" model="stock.location">
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+        </record>
+
+        <!--NY-->
+        <record id="stock_warehouse_ny" model="stock.warehouse">
+            <field name="name">New York Warehouse</field>
+            <field name="code">NY</field>
+            <field name="partner_id" ref="base.main_partner"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_1"/>
+        </record>
+
+        <!-- WA -->
+        <record id="stock_warehouse_WW" model="stock.warehouse">
+            <field name="name">Washington Warehouse</field>
+            <field name="code">WA</field>
+            <field name="partner_id" ref="base.main_partner"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="branch_id" ref="base_branch_company.data_branch_2"/>
         </record>
 
     </data>

@@ -3,7 +3,7 @@
 
 from datetime import datetime
 from dateutil import relativedelta
-from flectra.exceptions import UserError
+from flectra.exceptions import UserError, ValidationError
 
 from flectra import api, fields, models, _
 from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
@@ -66,6 +66,7 @@ class Location(models.Model):
     removal_strategy_id = fields.Many2one('product.removal', 'Removal Strategy', help="Defines the default method used for suggesting the exact location (shelf) where to take the products from, which lot etc. for this location. This method can be enforced at the product category level, and a fallback is made on the parent locations if none is set here.")
     putaway_strategy_id = fields.Many2one('product.putaway', 'Put Away Strategy', help="Defines the default method used for suggesting the exact location (shelf) where to store the products. This method can be enforced at the product category level, and a fallback is made on the parent locations if none is set here.")
     barcode = fields.Char('Barcode', copy=False, oldname='loc_barcode')
+    branch_id = fields.Many2one('res.branch', 'Branch', ondelete="restrict")
     quant_ids = fields.One2many('stock.quant', 'location_id')
 
     _sql_constraints = [('barcode_company_uniq', 'unique (barcode,company_id)', 'The barcode for a location must be unique per company !')]
@@ -84,6 +85,60 @@ class Location(models.Model):
             if self.mapped('quant_ids'):
                 raise UserError(_("This location's usage cannot be changed to view as it contains products."))
         return super(Location, self).write(values)
+
+    @api.multi
+    @api.constrains('branch_id', 'location_id')
+    def _check_parent_branch(self):
+        for record in self:
+            if (
+                record.location_id and
+                record.location_id.usage == 'internal' and
+                record.branch_id and record.branch_id != record.location_id.branch_id
+            ):
+                raise UserError(
+                    _('Configuration Error of Branch:\n'
+                      'The Location Branch (%s) and '
+                      'the Branch (%s) of Parent Location must '
+                      'be the same branch!') % (recordord.branch_id.name,
+                                                recordord.location_id.branch_id.name)
+                )
+
+    @api.multi
+    @api.constrains('branch_id')
+    def _check_warehouse_branch(self):
+        for record in self:
+            warehouse_obj = self.env['stock.warehouse']
+            warehouses_ids = warehouse_obj.search(
+                ['|', '|', ('wh_input_stock_loc_id', '=', record.ids[0]),
+                 ('lot_stock_id', 'in', record.ids),
+                 ('wh_output_stock_loc_id', 'in', record.ids)])
+            for warehouse_id in warehouses_ids:
+                if record.branch_id and record.branch_id != warehouse_id.branch_id:
+                    raise ValidationError(
+                        _('Configuration Error of Branch:\n'
+                          'The Location Branch (%s) and '
+                          'the Branch (%s) of Warehouse must '
+                          'be the same branch!') % (record.branch_id.name,
+                                                    warehouse_id.branch_id.name)
+                    )
+            if record.usage != 'internal' and record.branch_id:
+                raise UserError(
+                    _('Configuration error of Branch:\n'
+                      'The branch (%s) should be assigned to internal locations'
+                      ) % (record.branch_id.name))
+
+    @api.multi
+    @api.constrains('company_id', 'branch_id')
+    def _check_company_branch(self):
+        for record in self:
+            if record.branch_id and record.company_id != record.branch_id.company_id:
+                raise UserError(
+                    _('Configuration Error of Company:\n'
+                      'The Company (%s) in the Stock Location and '
+                      'the Company (%s) of Branch must '
+                      'be the same company!') % (record.company_id.name,
+                                                record.branch_id.company_id.name)
+                    )
 
     def name_get(self):
         ret_list = []

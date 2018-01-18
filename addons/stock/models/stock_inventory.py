@@ -54,6 +54,10 @@ class Inventory(models.Model):
         readonly=True, required=True,
         states={'draft': [('readonly', False)]},
         default=_default_location_id)
+
+    branch_id = fields.Many2one('res.branch', 'Branch',
+        related='location_id.branch_id', index=True, readonly=True,
+        store=True)
     product_id = fields.Many2one(
         'product.product', 'Inventoried Product',
         readonly=True,
@@ -295,6 +299,9 @@ class InventoryLine(models.Model):
     inventory_id = fields.Many2one(
         'stock.inventory', 'Inventory',
         index=True, ondelete='cascade')
+    branch_id = fields.Many2one('res.branch', 'Branch',
+                                related='inventory_id.branch_id', index=True,
+                                readonly=True, store=True)
     partner_id = fields.Many2one('res.partner', 'Owner')
     product_id = fields.Many2one(
         'product.product', 'Product',

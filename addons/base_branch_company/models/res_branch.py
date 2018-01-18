@@ -89,17 +89,33 @@ class Users(models.Model):
         return branch_id
 
     @api.model
+    def _get_branch(self):
+        return self.env.user.default_branch_id
+
+    @api.model
     def _get_default_branch(self):
         return self.branch_default_get(self._uid)
+
+    def _branches_count(self):
+        return self.env['res.branch'].sudo().search_count([])
 
     branch_ids = fields.Many2many('res.branch',
                                   'res_branch_users_rel',
                                   'user_id',
                                   'branch_id',
-                                  'Branches')
+                                  'Branches', default=_get_branch,
+                                  domain="[('company_id','=',company_id)]")
     default_branch_id = fields.Many2one('res.branch', 'Default branch',
-                                        default=_get_default_branch,
+                                        default=_get_branch,
                                         domain="[('company_id','=',company_id)"
                                                "]")
+    branches_count = fields.Integer(compute='_compute_branches_count',
+                                     string="Number of Companies",
+                                     default=_branches_count)
 
+    @api.multi
+    def _compute_branches_count(self):
+        branches_count = self._branches_count()
+        for user in self:
+            user.branches_count = branches_count
 

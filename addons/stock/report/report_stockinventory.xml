@@ -13,6 +13,7 @@
                                 <tr>
                                     <th><strong>Inventory</strong></th>
                                     <th><strong>Date</strong></th>
+                                    <th t-if="o.branch_id"><strong>Branch</strong></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -22,6 +23,9 @@
                                     </td>
                                     <td>
                                         <span t-field="o.date"/>
+                                    </td>
+                                    <td t-if="o.branch_id">
+                                        <span t-field="o.branch_id"/>
                                     </td>
                                 </tr>
                             </tbody>

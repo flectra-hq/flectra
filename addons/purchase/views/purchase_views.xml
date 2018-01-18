@@ -284,6 +284,7 @@
                                     <field name="dest_address_id" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('default_location_dest_id_usage', '!=', 'customer')], 'required': [('default_location_dest_id_usage', '=', 'customer')]}"/>
                                     <field name="default_location_dest_id_usage" invisible="1"/>
                                     <field name="incoterm_id"/>
+                                    <field name="branch_id" options="{'no_create': True, 'no_create_edit': True}"/>
                                 </group>
                                 <group>
                                     <field name="invoice_status"/>
@@ -336,6 +337,7 @@
                         <filter string="Vendor" domain="[]" context="{'group_by':'partner_id'}"/>
                         <filter string="Order Date" domain="[]" context="{'group_by':'date_order'}"/>
                         <filter string="Expected Date" domain="[]" context="{'group_by':'date_planned'}"/>
+                        <filter name="groupby_branch" string="Branch" domain="[]" context="{'group_by': 'branch_id'}"/>
                     </group>
                 </search>
             </field>
@@ -388,6 +390,7 @@
                     <field name="date_order" />
                     <field name="partner_id"/>
                     <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                    <field name="branch_id"/>
                     <field name="date_planned" invisible="context.get('quotation_only', False)"/>
                     <field name="origin"/>
                     <field name="amount_untaxed" sum="Total Untaxed amount" string="Untaxed" widget="monetary"/>

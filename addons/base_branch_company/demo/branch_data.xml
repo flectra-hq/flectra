@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data noupdate="1">
+
+        <record id="data_branch_1" model="res.branch">
+            <field name="name">your company</field>
+            <field name="code">YC</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="street">80 Broad St</field>
+            <field name="city">Scranton</field>
+            <field name="zip">10004</field>
+            <field name='country_id' ref='base.us'/>
+            <field name='state_id' ref='base.state_us_27'/>
+            <field name="phone">+1 485 123 8989</field>
+        </record>
+
+
+        <record id="base.user_root" model="res.users">
+            <field name="branch_ids" eval="[(6,0,[ref('data_branch_1'),])]"/>
+            <field name='default_branch_id' ref='data_branch_1'/>
+        </record>
+
+    </data>
+</flectra>

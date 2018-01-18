@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 from flectra import api, fields, models, SUPERUSER_ID, _
 from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from flectra.tools.float_utils import float_is_zero, float_compare
-from flectra.exceptions import UserError, AccessError
+from flectra.exceptions import UserError, AccessError, ValidationError
 from flectra.tools.misc import formatLang
 from flectra.addons.base.res.res_partner import WARNING_MESSAGE, WARNING_HELP
 from flectra.addons import decimal_precision as dp
@@ -15,7 +15,7 @@ from flectra.addons import decimal_precision as dp
 
 class PurchaseOrder(models.Model):
     _name = "purchase.order"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'ir.branch.company.mixin']
     _description = "Purchase Order"
     _order = 'date_order desc, id desc'
 
@@ -94,6 +94,31 @@ class PurchaseOrder(models.Model):
         for order in self:
             if order.picking_ids and all([x.state == 'done' for x in order.picking_ids]):
                 order.is_shipped = True
+
+    @api.constrains('picking_type_id', 'branch_id')
+    def _check_branch(self):
+        for order in self:
+            warehouse_branch_id = order.picking_type_id.warehouse_id.branch_id
+            if order.branch_id and warehouse_branch_id != order.branch_id:
+                raise ValidationError(
+                    _('Configuration Error of Branch:\n'
+                      'The Purchase Order Branch (%s) and '
+                      'the Warehouse Branch (%s) of Deliver To must '
+                      'be the same branch!') % (order.branch_id.name,
+                                                warehouse_branch_id.name)
+                )
+
+    @api.constrains('company_id', 'branch_id')
+    def _check_company(self):
+        for order in self:
+            if order.branch_id and order.company_id != order.branch_id.company_id:
+                raise ValidationError(
+                    _('Configuration Error of Company:\n'
+                      'The Purchase Order Company (%s) and '
+                      'the Company (%s) of Branch must '
+                      'be the same company!') % (order.company_id.name,
+                                                order.branch_id.company_id.name)
+                )
 
     READONLY_STATES = {
         'purchase': [('readonly', True)],
@@ -493,7 +518,11 @@ class PurchaseOrder(models.Model):
         result = action.read()[0]
 
         #override the context to get rid of the default filtering
-        result['context'] = {'type': 'in_invoice', 'default_purchase_id': self.id}
+        result['context'] = {
+            'type': 'in_invoice',
+            'default_purchase_id': self.id,
+            'default_branch_id': self.branch_id.id
+        }
 
         if not self.invoice_ids:
             # Choose a default account journal in the same currency in case a new invoice is created
@@ -640,6 +669,10 @@ class PurchaseOrderLine(models.Model):
 
     orderpoint_id = fields.Many2one('stock.warehouse.orderpoint', 'Orderpoint')
     move_dest_ids = fields.One2many('stock.move', 'created_purchase_line_id', 'Downstream Moves')
+    branch_id = fields.Many2one(
+        related='order_id.branch_id', string='Branch', store=True,
+        readonly=True
+    )
 
     @api.multi
     def _create_or_update_picking(self):

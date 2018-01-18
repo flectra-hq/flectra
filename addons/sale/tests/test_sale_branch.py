@@ -12,17 +12,49 @@ class TestSaleBranch(common.TransactionCase):
 
         self.payment_model_obj = self.env['sale.advance.payment.inv']
 
+        IrModelData = self.env['ir.model.data']
+        journal_obj = self.env['account.journal']
+        account_obj = self.env['account.account']
+
+        user_type_id = IrModelData.xmlid_to_res_id(
+            'account.data_account_type_revenue')
+        account_rev_id = account_obj.create(
+            {'code': 'X2020', 'name': 'Sales - Test Sales Account',
+             'user_type_id': user_type_id, 'reconcile': True})
+        user_type_id = IrModelData.xmlid_to_res_id(
+            'account.data_account_type_receivable')
+        account_recv_id = account_obj.create(
+            {'code': 'X1012', 'name': 'Sales - Test Reicv Account',
+             'user_type_id': user_type_id, 'reconcile': True})
+
+        self.apple_product = self.env.ref('product.product_product_7')
+        self.apple_product.write({'invoice_policy': 'order'})
+
+        # Add account to product
+        product_template_id = self.apple_product.product_tmpl_id
+        product_template_id.write(
+            {'property_account_income_id': account_rev_id})
+
+        self.sale_customer = self.env.ref('base.res_partner_2')
+        self.sale_pricelist = self.env.ref('product.list0')
+
+        # Create Sales Journal
+        company_id = IrModelData.xmlid_to_res_id('base.main_company') or False
+        journal_obj.create(
+            {'name': 'Sales Journal - Test', 'code': 'STSJ', 'type': 'sale',
+             'company_id': company_id})
+        self.sale_customer.write({'property_account_receivable_id': account_recv_id})
+
         self.sale_user_group = self.env.ref('sales_team.group_sale_manager')
         self.account_user_group = self.env.ref('account.group_account_invoice')
         self.branch_1 = self.env.ref('base_branch_company.data_branch_1')
         self.branch_2 = self.env.ref('base_branch_company.data_branch_2')
         self.branch_3 = self.env.ref('base_branch_company.data_branch_3')
 
-        self.sale_customer = self.env.ref('base.res_partner_2')
-        self.sale_pricelist = self.env.ref('product.list0')
 
-        self.apple_product = self.env.ref('product.product_product_7')
-        self.apple_product.write({'invoice_policy': 'order'})
+
+        # self.apple_product = self.env.ref('product.product_product_7')
+        # self.apple_product.write({'invoice_policy': 'order'})
 
         self.user_1 = self.create_sale_user(
             self.main_company, 'user_1', self.branch_1,

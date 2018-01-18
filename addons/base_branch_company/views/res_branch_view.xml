@@ -87,16 +87,12 @@
         <field name="model">res.users</field>
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='access_rights']/group[1]" position="replace">
+            <xpath expr="//page[@name='access_rights']/group[1]" position="after">
                 <group>
-                    <group string="Multi Companies" attrs="{'invisible': [('companies_count', '&lt;=', 1)]}">
-                        <field string="Allowed Companies" name="company_ids" widget="many2many_tags"/>
-                        <field string="Current Company" name="company_id" context="{'user_preference': 0}"/>
-                        <field string="Companies count" name="companies_count" invisible="1"/>
-                    </group>
-                    <group string="Allowed Branches">
-                            <field name="default_branch_id" domain="[('company_id','=',company_id)]"/>
-                            <field name="branch_ids" widget="many2many_tags" domain="[('company_id','=',company_id)]"/>
+                    <group string="Allowed Branches" attrs="{'invisible': [('branches_count', '&lt;=', 1)]}">
+                            <field name="default_branch_id"/>
+                            <field name="branch_ids" widget="many2many_tags"/>
+                            <field string="Branches count" name="branches_count" invisible="1"/>
                     </group>
                 </group>
             </xpath>

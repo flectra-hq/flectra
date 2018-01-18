@@ -13,6 +13,9 @@ class TestPurchaseLeadTime(TestPurchase):
         """ To check dates, set product's Delivery Lead Time
             and company's Purchase Lead Time."""
 
+        self.branch_1 = self.env.ref('base_branch_company.data_branch_1')
+        self.warehouse_1.write({'branch_id': self.branch_1.id})
+
         company = self.env.ref('base.main_company')
 
         # Update company with Purchase Lead Time
@@ -49,6 +52,9 @@ class TestPurchaseLeadTime(TestPurchase):
             and different Delivery Lead Time."""
 
         # Make procurement request from product_1's form view, create procurement and check it's state
+        self.branch_1 = self.env.ref('base_branch_company.data_branch_1')
+        self.warehouse_1.write({'branch_id': self.branch_1.id})
+
         date_planned1 = fields.Datetime.to_string(fields.datetime.now() + timedelta(days=10))
         self._create_make_procurement(self.product_1, 10.00, date_planned=date_planned1)
         purchase1 = self.env['purchase.order.line'].search([('product_id', '=', self.product_1.id)], limit=1).order_id
@@ -96,6 +102,8 @@ class TestPurchaseLeadTime(TestPurchase):
             and warehouse route's delay."""
 
         # Update warehouse_1 with Incoming Shipments 3 steps
+        self.branch_1 = self.env.ref('base_branch_company.data_branch_1')
+        self.warehouse_1.write({'branch_id': self.branch_1.id})
         self.warehouse_1.write({'reception_steps': 'three_steps'})
 
         # Set delay on push rule

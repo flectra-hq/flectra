@@ -9,7 +9,7 @@ from itertools import groupby
 from flectra import api, fields, models, _
 from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from flectra.tools.float_utils import float_compare, float_round
-from flectra.exceptions import UserError
+from flectra.exceptions import UserError, ValidationError
 from flectra.addons.stock.models.stock_move import PROCUREMENT_PRIORITIES
 from operator import itemgetter
 
@@ -263,6 +263,11 @@ class Picking(models.Model):
         index=True, required=True,
         states={'done': [('readonly', True)], 'cancel': [('readonly', True)]})
 
+    branch_id = fields.Many2one('res.branch', 'Branch', ondelete="restrict",
+                                default=lambda self: self.env['res.users']._get_default_branch(),
+                                states={'done': [('readonly', True)],
+                                        'cancel': [('readonly', True)]})
+
     move_line_ids = fields.One2many('stock.move.line', 'picking_id', 'Operations')
 
     move_line_exist = fields.Boolean(
@@ -304,6 +309,31 @@ class Picking(models.Model):
     _sql_constraints = [
         ('name_uniq', 'unique(name, company_id)', 'Reference must be unique per company!'),
     ]
+
+    @api.constrains('picking_type_id', 'branch_id')
+    def _check_picking_type_branch(self):
+        for order in self:
+            warehouse_branch_id = order.picking_type_id.warehouse_id.branch_id
+            if warehouse_branch_id and order.branch_id and warehouse_branch_id != order.branch_id:
+                raise ValidationError(
+                    _('Configuration Error of Branch:\n'
+                      'The Picking Branch (%s) and '
+                      'the Warehouse Branch (%s) of Picking Type must '
+                      'be the same branch!') % (order.branch_id.name,
+                                                warehouse_branch_id.name)
+                )
+
+    @api.constrains('company_id', 'branch_id')
+    def _check_company(self):
+        for order in self:
+            if order.branch_id and order.company_id != order.branch_id.company_id:
+                raise ValidationError(
+                    _('Configuration Error of Company:\n'
+                      'The Stock Picking Company (%s) and '
+                      'the Company (%s) of Branch must '
+                      'be the same company!') % (order.company_id.name,
+                                                order.branch_id.company_id.name)
+                )
 
     @api.depends('picking_type_id.show_operations')
     def _compute_show_operations(self):
@@ -873,7 +903,9 @@ class Picking(models.Model):
             'res_model': 'stock.scrap',
             'view_id': self.env.ref('stock.stock_scrap_form_view2').id,
             'type': 'ir.actions.act_window',
-            'context': {'default_picking_id': self.id, 'product_ids': products.ids},
+            'context': {'default_picking_id': self.id,
+                        'default_branch_id': self.branch_id and self.branch_id.id,
+                        'product_ids': products.ids},
             'target': 'new',
         }
 

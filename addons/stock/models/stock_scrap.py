@@ -9,6 +9,7 @@ from flectra.tools import float_compare
 class StockScrap(models.Model):
     _name = 'stock.scrap'
     _order = 'id desc'
+    _inherit = ['ir.branch.company.mixin']
 
     def _get_default_scrap_location_id(self):
         return self.env['stock.location'].search([('scrap_location', '=', True)], limit=1).id
@@ -76,6 +77,11 @@ class StockScrap(models.Model):
 
     def _prepare_move_values(self):
         self.ensure_one()
+        branch_id = False
+        if self.picking_id.branch_id:
+            branch_id = self.picking_id.branch_id
+        if not branch_id:
+            branch_id = self.location_id.branch_id
         return {
             'name': self.name,
             'origin': self.origin or self.picking_id.name or self.name,
@@ -94,7 +100,8 @@ class StockScrap(models.Model):
                                            'owner_id': self.owner_id.id,
                                            'lot_id': self.lot_id.id, })],
 #             'restrict_partner_id': self.owner_id.id,
-            'picking_id': self.picking_id.id
+            'picking_id': self.picking_id.id,
+            'branch_id': branch_id and branch_id.id
         }
 
     @api.multi

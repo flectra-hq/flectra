@@ -14,10 +14,18 @@
             self.create(xml_record)
         #avoid the xml id and the associated resource being dropped by the orm by manually making a hit on it
         self._update_dummy(xml_record['model'], xml_record['module'], xml_record['name'])
+
+-
+ !python {model: stock.location, id: stock_location_shop0}: |
+    picking = self.env['stock.location'].browse(ref('stock_location_shop0'))
+    branch_id = self.env['res.branch'].browse(ref('branch_shop0'))
+    picking.write({'branch_id': branch_id.id})
+
 -
  !record {model: stock.location, id: location_refrigerator_small}:
     name: Small Refrigerator
     usage: internal
+    branch_id: base_branch_company.data_branch_1
     location_id: stock_location_14
 -
  !record {model: product.product, id: product_icecream}:
@@ -201,6 +209,8 @@
     picking_type_id: chi_picking_type_in
     origin: 'incoming_chicago_warehouse'
     partner_id: base.res_partner_1
+    company_id: stock.res_company_1
+    branch_id: stock.branch_shop0
     location_id: stock.stock_location_suppliers
     location_dest_id: stock.stock_location_shop0
     move_lines:
@@ -215,7 +225,9 @@
  !record {model: stock.picking, id: incomming_chicago_warehouse1}:
     picking_type_id: chi_picking_type_in
     partner_id: base.res_partner_1
+    branch_id: stock.branch_shop0
     location_id: stock.stock_location_suppliers
+    company_id: stock.res_company_1
     location_dest_id: stock.stock_location_shop0
     move_lines:
       - product_id: product.product_delivery_01
@@ -235,6 +247,8 @@
  !record {model: stock.picking, id: incomming_chicago_warehouse2}:
     picking_type_id: chi_picking_type_in
     partner_id: base.res_partner_1
+    branch_id: stock.branch_shop0
+    company_id: stock.res_company_1
     location_id: stock.stock_location_suppliers
     location_dest_id: stock.stock_location_shop0
     move_lines:
@@ -247,6 +261,8 @@
 -
  !record {model: stock.picking, id: incomming_chicago_warehouse3}:
     picking_type_id: chi_picking_type_in
+    branch_id: stock.branch_shop0
+    company_id: stock.res_company_1
     origin: 'chicago_warehouse'
     partner_id: base.res_partner_1
     date: !eval "'%s-%s-2' % ((datetime.now()-timedelta(days=30)).month,(datetime.now()-timedelta(days=30)).month)"
@@ -265,6 +281,8 @@
  !record {model: stock.picking, id: outgoing_chicago_warehouse}:
     picking_type_id: chi_picking_type_out
     origin: 'outgoing_chicago_warehouse'
+    branch_id: stock.branch_shop0
+    company_id: stock.res_company_1
     partner_id: base.res_partner_1
     location_id: stock.stock_location_shop0
     location_dest_id: stock.stock_location_customers
@@ -279,6 +297,8 @@
  !record {model: stock.picking, id: outgoing_chicago_warehouse1}:
     picking_type_id: chi_picking_type_out
     origin: 'outgoing_shipment_chicago_warehouse'
+    company_id: stock.res_company_1
+    branch_id: stock.branch_shop0
     partner_id: base.res_partner_1
     location_id: stock.stock_location_shop0
     location_dest_id: stock.stock_location_customers
@@ -299,6 +319,8 @@
  !record {model: stock.picking, id: outgoing_chicago_warehouse2}:
     picking_type_id: chi_picking_type_out
     origin: 'chicago_warehouse'
+    company_id: stock.res_company_1
+    branch_id: stock.branch_shop0
     partner_id: base.res_partner_1
     location_id: stock.stock_location_shop0
     location_dest_id: stock.stock_location_customers
@@ -312,6 +334,8 @@
 -
  !record {model: stock.picking, id: outgoing_chicago_warehouse3}:
     picking_type_id: chi_picking_type_out
+    company_id: stock.res_company_1
+    branch_id: stock.branch_shop0
     origin: 'outgoing chicago warehouse'
     location_id: stock.stock_location_shop0
     location_dest_id: stock.stock_location_customers

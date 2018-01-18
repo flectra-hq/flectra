@@ -2,7 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
-
+import time
 from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from flectra.addons.account.tests.account_test_classes import AccountingTestCase
 
@@ -19,6 +19,15 @@ class TestPurchaseOrder(AccountingTestCase):
         self.partner_id = self.env.ref('base.res_partner_1')
         self.product_id_1 = self.env.ref('product.product_product_8')
         self.product_id_2 = self.env.ref('product.product_product_11')
+        self.product_id_3 = self.env.ref('product.product_product_9')
+        self.current_time = time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)
+        self.main_company = self.env.ref('base.main_company')
+        self.child_company = self.env.ref('stock.res_company_1')
+        self.purchase_user_group = self.env.ref('purchase.group_purchase_user')
+        self.stock_user_group = self.env.ref('stock.group_stock_user')
+        self.branch_1 = self.env.ref('base_branch_company.data_branch_1')
+        self.branch_2 = self.env.ref('base_branch_company.data_branch_2')
+        self.account = self.env.ref('l10n_generic_coa.conf_a_pay')
 
         (self.product_id_1 | self.product_id_2).write({'purchase_method': 'purchase'})
         self.po_vals = {

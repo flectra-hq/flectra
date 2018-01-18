@@ -12,6 +12,7 @@
     product_qty: 15.0
     product_uom: product.product_uom_unit
     date_planned: !eval time.strftime('%Y-%m-%d')
+    branch_id: base_branch_company.data_branch_2
 -
   !record {model: purchase.order.line, id: purchase_order_line_2}:
     order_id: purchase_order_1
@@ -21,6 +22,7 @@
     product_qty: 5.0
     product_uom: product.product_uom_unit
     date_planned: !eval time.strftime('%Y-%m-%d')
+    branch_id: base_branch_company.data_branch_2
 -
   !record {model: purchase.order.line, id: purchase_order_line_3}:
     order_id: purchase_order_1
@@ -30,11 +32,13 @@
     product_qty: 4.0
     product_uom: product.product_uom_unit
     date_planned: !eval time.strftime('%Y-%m-%d')
+    branch_id: base_branch_company.data_branch_2
 -
   Creating second order
 -
   !record {model: purchase.order, id: purchase_order_2}:
     partner_id: base.res_partner_3
+    branch_id: base_branch_company.data_branch_1
     order_line:
       - product_id: product.product_delivery_02
         name: Multimedia Speakers
@@ -52,6 +56,7 @@
 -
   !record {model: purchase.order, id: purchase_order_3}:
     partner_id: base.res_partner_12
+    branch_id: base_branch_company.data_branch_1
     order_line:
       - product_id: product.product_product_2
         name: Support Services
@@ -63,6 +68,7 @@
 -
   !record {model: purchase.order, id: purchase_order_4}:
     partner_id: base.res_partner_4
+    branch_id: base_branch_company.data_branch_1
     order_line:
       - product_id: product.product_delivery_02
         name: RAM SR2 (kit)
@@ -86,6 +92,7 @@
 -
   !record {model: purchase.order, id: purchase_order_5}:
     partner_id: base.res_partner_2
+    branch_id: base_branch_company.data_branch_1
     order_line:
       - product_id: product.product_product_22
         name: Processor Core i5 2.70 Ghz

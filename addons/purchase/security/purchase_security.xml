@@ -75,5 +75,30 @@
         <field name="domain_force">[('order_id.message_partner_ids','child_of',[user.commercial_partner_id.id])]</field>
         <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
     </record>
+
+    <!-- Multi Branch Rules -->
+    <record id="purchase_order_multi_branch_rule" model="ir.rule">
+        <field name="name">Purchase Order multi-branch</field>
+        <field name="model_id" ref="model_purchase_order"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|', ('branch_id', '=', False), '|', ('branch_id', '=', user.default_branch_id.id),
+            ('branch_id', 'in', user.branch_ids.ids)]</field>
+    </record>
+
+    <record id="purchase_order_line_multi_branch_rule" model="ir.rule">
+        <field name="name">Purchase Order Line multi-branch</field>
+        <field name="model_id" ref="model_purchase_order_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|', ('branch_id', '=', False), '|', ('branch_id', '=', user.default_branch_id.id),
+            ('branch_id', 'in', user.branch_ids.ids)]</field>
+    </record>
+
+    <record id="purchase_order_report_multi_branch_rule" model="ir.rule">
+        <field name="name">Purchase Order Analysis multi-branch</field>
+        <field name="model_id" ref="model_purchase_report"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|', ('branch_id', '=', False), '|', ('branch_id', '=', user.default_branch_id.id),
+            ('branch_id', 'in', user.branch_ids.ids)]</field>
+    </record>
 </data>
 </flectra>

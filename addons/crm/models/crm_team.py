@@ -78,7 +78,7 @@ class Team(models.Model):
         values['alias_defaults'] = defaults = safe_eval(self.alias_defaults or "{}")
         defaults['type'] = 'lead' if has_group_use_lead and self.use_leads else 'opportunity'
         defaults['team_id'] = self.id
-        defaults['branch_id'] = self.branch_id and self.branch_id.id
+        defaults['branch_id'] = self.branch_id.id
         return values
 
     @api.onchange('use_leads', 'use_opportunities')

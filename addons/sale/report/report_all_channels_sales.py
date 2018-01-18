@@ -6,7 +6,6 @@ from flectra import api, fields, models, tools
 
 class PosSaleReport(models.Model):
     _name = "report.all.channels.sales"
-    _inherit = ['ir.branch.company.mixin']
     _description = "All sales orders grouped by sales channels"
     _auto = False
 
@@ -38,7 +37,6 @@ class PosSaleReport(models.Model):
                     so.user_id AS user_id,
                     pt.categ_id AS categ_id,
                     so.company_id AS company_id,
-                    so.branch_id AS branch_id,
                     sol.price_total / COALESCE(cr.rate, 1.0) AS price_total,
                     so.pricelist_id AS pricelist_id,
                     rp.country_id AS country_id,
@@ -77,7 +75,6 @@ class PosSaleReport(models.Model):
                     user_id,
                     categ_id,
                     company_id,
-                    branch_id,
                     price_total,
                     pricelist_id,
                     analytic_account_id,

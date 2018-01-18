@@ -140,6 +140,7 @@
                 <group>
                     <group>
                         <field name="location_id" domain="[('usage','not in', ['supplier','production'])]" groups="stock.group_stock_multi_locations"/>
+                        <field name="branch_id"/>
                         <field name="filter" string="Inventory of" widget='radio' attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                     </group>
                     <group>

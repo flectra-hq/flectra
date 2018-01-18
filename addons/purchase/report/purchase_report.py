@@ -10,6 +10,7 @@ from flectra import api, fields, models, tools
 
 class PurchaseReport(models.Model):
     _name = "purchase.report"
+    _inherit = ['ir.branch.company.mixin']
     _description = "Purchases Orders"
     _auto = False
     _order = 'date_order desc, price_total desc'
@@ -64,6 +65,7 @@ class PurchaseReport(models.Model):
                     s.partner_id as partner_id,
                     s.create_uid as user_id,
                     s.company_id as company_id,
+                    s.branch_id as branch_id,
                     s.fiscal_position_id as fiscal_position_id,
                     l.product_id,
                     p.product_tmpl_id,
@@ -99,6 +101,7 @@ class PurchaseReport(models.Model):
                         (cr.date_end is null or cr.date_end > coalesce(s.date_order, now())))
                 group by
                     s.company_id,
+                    s.branch_id,
                     s.create_uid,
                     s.partner_id,
                     u.factor,
