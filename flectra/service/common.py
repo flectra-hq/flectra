@@ -39,7 +39,7 @@ def exp_about(extended=False):
     @return string if extended is False else tuple
     """
 
-    info = _('See http://openerp.com')
+    info = _('See http://flectrahq.com')
 
     if extended:
         return info, flectra.release.version

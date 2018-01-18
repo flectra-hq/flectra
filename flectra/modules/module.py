@@ -309,7 +309,7 @@ def load_information_from_description_file(module, mod_path=None):
         # default values for descriptor
         info = {
             'application': False,
-            'author': 'Flectra S.A.',
+            'author': 'FlectraHQ',
             'auto_install': False,
             'category': 'Uncategorized',
             'depends': [],
@@ -320,7 +320,7 @@ def load_information_from_description_file(module, mod_path=None):
             'post_load': None,
             'version': '1.0',
             'web': False,
-            'website': 'https://www.flectra.com',
+            'website': 'https://www.flectrahq.com',
             'sequence': 100,
             'summary': '',
         }
