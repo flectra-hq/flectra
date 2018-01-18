@@ -11,7 +11,7 @@
         during the product's warranty period.
     """,
     'category': 'Sales',
-    'depends': ['sale_management', 'stock', 'purchase'],
+    'depends': ['sale_stock', 'purchase'],
     'data': [
         'security/ir.model.access.csv',
         'data/mail_message_subtype_data.xml',
