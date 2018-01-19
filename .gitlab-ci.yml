@@ -1,11 +1,17 @@
 image: ubuntu:xenial
 stages:
   - test
-job_test:
+job_test_base:
   stage: test
   script:
   - apt-get update && apt-get install -y apt-utils locales git
   - git clone https://gitlab.com/flectra-hq/build-tools.git ${CI_PROJECT_DIR}/build-tools && export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH}
   - gitlab_ci_install_flectra
   - su - flectra -c "export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH} && gitlab_test_flectra --build=base"
+job_test_all:
+  stage: test
+  script:
+  - apt-get update && apt-get install -y apt-utils locales git
+  - git clone https://gitlab.com/flectra-hq/build-tools.git ${CI_PROJECT_DIR}/build-tools && export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH}
+  - gitlab_ci_install_flectra
   - su - flectra -c "export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH} && gitlab_test_flectra --build=all"
