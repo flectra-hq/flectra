@@ -121,10 +121,11 @@ class AccountInvoice(models.Model):
         values = self.get_maximum_per_amount()
         if self.discount < 0:
             raise Warning(_("Discount should be less than Gross Amount"))
-        if self.discount > self.gross_amount:
+        discount = self.discount or self.discount_amount
+        if discount > self.gross_amount:
             raise Warning(_("Discount (%s) should be less than "
                             "Gross Amount (%s).") % (
-                formatLang(self.env, self.discount, digits=2),
+                formatLang(self.env, discount, digits=2),
                 formatLang(self.env, self.gross_amount, digits=2)))
         if self.discount > values.get('max_amount', False) \
                 and values.get('check_group', False):
