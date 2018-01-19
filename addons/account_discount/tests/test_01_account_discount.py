@@ -27,10 +27,6 @@ class TestInvoiceDiscount(TestDiscountCommon):
             'journal_id': self.journal_id.id,
         })
         invoice_id.onchange_discount_method()
-        invoice_id.write({
-            'discount_method': 'fixed',
-            'discount_amount': 100,
-            })
         self.env['account.invoice.line'].create({
             'product_id': self.env.ref("product.product_product_10").id,
             'quantity': 10,
@@ -47,6 +43,10 @@ class TestInvoiceDiscount(TestDiscountCommon):
             'name': 'Mouse, Wireless',
             'account_id': self.account_id.id,
         })
+        invoice_id.write({
+            'discount_method': 'fixed',
+            'discount_amount': 100,
+            })
         self.assertTrue(invoice_id, 'Invoice: no invoice created')
         invoice_id._check_constrains()
         invoice_id.onchange_discount_per()
