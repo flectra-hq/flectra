@@ -114,16 +114,6 @@
         </t>
         <t t-set="x_icon" t-value="'/web/image/website/%s/favicon/' % website.id"/>
     </xpath>
-    <xpath expr="//header" position="before">
-        <pre-header>
-            <div id="pre-header" class="oe_structure oe_empty"/>
-        </pre-header>
-    </xpath>
-    <xpath expr="//footer" position="after">
-        <post-footer>
-            <div id="post-footer" class="oe_structure oe_empty"/>
-        </post-footer>
-    </xpath>
     <xpath expr="//t[@t-set='head_website']" position="replace">
         <t t-set="head_website">
             <meta t-if="main_object and 'website_indexed' in main_object
@@ -217,12 +207,12 @@
 <template id="menu_snippets" name="Menu View">
     <nav>
         <div class="container">
-        <div class="navbar-header"/>
-        <ul id="nav_menu" class="nav navbar-nav navbar-right">
-            <t t-foreach="menu.child_id" t-as="submenu">
-                <t t-call="website.recursive_menu_snippets"/>
-            </t>
-        </ul>
+            <div class="navbar-header"/>
+            <ul id="nav_menu" class="nav navbar-nav navbar-right">
+                <t t-foreach="menu.child_id" t-as="submenu">
+                    <t t-call="website.recursive_menu_snippets"/>
+                </t>
+            </ul>
         </div>
     </nav>
 </template>

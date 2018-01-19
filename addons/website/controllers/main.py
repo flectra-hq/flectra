@@ -82,8 +82,7 @@ class Website(Home):
 
     @http.route(['/website/menu/render'], type='json', auth="user", website=True)
     def menu_render(self, **kwargs):
-        menu = request.env['website.menu'].browse(
-            int(kwargs['menu_id']))
+        menu = request.env['website.menu'].browse(int(kwargs['menu_id']))
         value = {
             'menu': menu,
         }

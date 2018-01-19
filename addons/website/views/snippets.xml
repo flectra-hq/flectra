@@ -17,8 +17,10 @@
 <template id="s_menu" name="Menu Snippets">
     <section class="s_menu">
         <div class="container">
-            <div class="row menu_view">
-            <h2 style="color: rgb(193, 191, 177);text-align: center;">Select Top Menu From Option</h2>
+            <div class="row">
+                <div class="menu_view">
+                <h2 style="color: rgb(193, 191, 177);text-align: center;">Select Top Menu From Option</h2>
+                </div>
             </div>
         </div>
     </section>
@@ -693,7 +695,7 @@
                 <div class="o_panel_body">
                     <t t-snippet="website.s_title" t-thumbnail="/website/static/src/img/blocks/block_title.png"/>
                     <t t-snippet="website.s_cover" t-thumbnail="/website/static/src/img/blocks/block_banner.png"/>
-                    <t t-snippet="website.s_menu" t-thumbnail="/website/static/src/img/blocks/block_menu.png"/>
+                    <t t-snippet="website.s_menu" t-thumbnail="/website/static/src/img/blocks/menu-icon.png"/>
                     <t t-snippet="website.s_text_image" t-thumbnail="/website/static/src/img/blocks/block_text_image.png"/>
                     <t t-snippet="website.s_image_text" t-thumbnail="/website/static/src/img/blocks/block_image_text.png"/>
                     <t t-snippet="website.s_big_message" t-thumbnail="/website/static/src/img/blocks/block_jumbotron.png"/>
@@ -774,6 +776,9 @@
                          t-att-data-view="menu.menu_view.key"><a
                             href="#"><span t-esc="menu.name"/></a></li>
                 </t>
+                <li t-if="not top_menu">
+                    <a href="#">None</a>
+                </li>
             </ul>
         </li>
     </div>

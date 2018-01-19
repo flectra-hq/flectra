@@ -5,6 +5,7 @@ var core = require('web.core');
 var Dialog = require('web.Dialog');
 var widgets = require('web_editor.widget');
 var options = require('web_editor.snippets.options');
+var sAnimation = require('website.content.snippets.animation');
 var ajax = require('web.ajax');
 
 var _t = core._t;
@@ -937,21 +938,63 @@ options.registry.gallery_img = options.Class.extend({
     },
 });
 options.registry.js_menu = options.Class.extend({
+    onBuilt: function(){
+        var self = this;
+        this._super.apply(this, arguments);
+        if (!self.$target.data('snippet-view')) {
+            this.$target.data("snippet-view", new sAnimation.registry.js_menu(this.$target));
+        }
+    },
+
+    cleanForSave:function(){
+        if(this.$target.data('menu_template') && this.$target.data('menu_id')){
+            this._super.apply(this, arguments);
+            this.$target.empty();
+        }
+    },
     selected_menu: function (type,value){
-        if(type != true)
-            return
+        if (type != true) return;
         var menu = eval(value);
-        var section=this.$target.find('.menu_view');
-        section.empty();
-        console.info(section)
-        ajax.jsonRpc('/website/menu/render', 'call', {'template': menu[1], 'menu_id':menu[0]}
+        this.$target.attr("data-menu_template", menu[1]);
+        this.$target.attr("data-menu_id", menu[0]);
+        this.$target.data("snippet-view").redraw(true);
+    },
+});
+
+sAnimation.registry.js_menu = sAnimation.Class.extend({
+    selector: ".s_menu",
+
+    start: function() {
+        if(this.$target.data('menu_template') && this.$target.data('menu_id')){
+            this.redraw();
+        }
+    },
+
+    destroy: function () {
+        this.clean();
+        this._super.apply(this, arguments);
+    },
+
+    redraw: function(debug) {
+        this.clean(debug);
+        this.build(debug);
+    },
+
+    clean: function(debug) {
+        if(this.$target.data('menu_template') && this.$target.data('menu_id')){
+            this.$target.empty();
+        }
+    },
+    build: function(){
+        var self = this;
+        ajax.jsonRpc('/website/menu/render', 'call', {'template': this.$target.data('menu_template'), 'menu_id':this.$target.data('menu_id')}
         ).then(function (result) {
-            $(result).appendTo(section);
+            $(result).appendTo(self.$target);
         }).fail(function () {
-                self.$('.o_website_links_code_error').show();
-                self.$('.o_website_links_code_error').html(
-                "<div>ServerError</div><p>We are not able to render template.</p>");
-            }) ;
+            self.$('.o_website_links_code_error').show();
+            self.$('.o_website_links_code_error').html(
+            "<div>ServerError</div><p>We are not able to render template.</p>");
+        }) ;
     },
 });
 });
