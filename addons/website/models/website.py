@@ -90,7 +90,7 @@ class Website(models.Model):
     def _compute_menu(self):
         Menu = self.env['website.menu']
         for website in self:
-            website.menu_id = Menu.search([('parent_id', '=', False), ('website_id', '=', website.id), ('menu_view', '!=', False)], order='id', limit=1).id
+            website.menu_id = Menu.search([('parent_id', '=', False), ('website_id', '=', website.id)], order='id', limit=1).id
 
     # cf. Wizard hack in website_views.xml
     def noop(self, *args, **kwargs):
@@ -675,7 +675,7 @@ class Website(models.Model):
 
     @api.multi
     def get_website_menus(self, website_id):
-        menus = request.env['website.menu'].search([('parent_id', '=', False), ('website_id', '=', website_id)])
+        menus = request.env['website.menu'].search([('parent_id', '=', False), ('website_id', '=', website_id), ('menu_view', '!=', False)])
         if menus:
             return menus
 
