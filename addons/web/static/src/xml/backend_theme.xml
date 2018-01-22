@@ -37,12 +37,14 @@
 </t>
 
 <t t-name="DragAndDropAttachment">
-    <t t-call="HiddenInputFile">
-        <t t-set="fileupload_id" t-value="widget.fileuploadId"/>
-        <t t-set="fileupload_action" t-translation="off">/web/binary/upload_attachment</t>
-        <t t-set="multi_upload" t-value="true"/>
-        <input type="hidden" name="model" t-att-value="widget.state.model"/>
-        <input type="hidden" name="id" t-att-value="widget.state.res_id"/>
-    </t>
+    <div id="multi_attachment">
+        <t t-call="HiddenInputFile">
+            <t t-set="fileupload_id" t-value="widget.fileuploadId"/>
+            <t t-set="fileupload_action" t-translation="off">/web/binary/upload_attachment</t>
+            <t t-set="multi_upload" t-value="true"/>
+            <input type="hidden" name="model" t-att-value="widget.state.model"/>
+            <input type="hidden" name="id" t-att-value="widget.state.res_id"/>
+        </t>
+    </div>
 </t>
 </templates>

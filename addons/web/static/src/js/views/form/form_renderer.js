@@ -16,10 +16,10 @@ var FormRenderer = BasicRenderer.extend({
     events: _.extend({}, BasicRenderer.prototype.events, {
         'click .o_notification_box .oe_field_translate': '_onTranslate',
         'click .oe_title, .o_inner_group': '_onClick',
-        'change .o_input_file': '_onChangeInputFile',
+        'change #multi_attachment .o_input_file': '_onChangeInputFile',
         'dragover .o_form_sheet_bg': '_onDragEnterForm',
-        'dragleave .o_input_file': '_onDragLeaveForm',
-        'drop .o_input_file': '_onDropFile',
+        'dragleave #multi_attachment .o_input_file': '_onDragLeaveForm',
+        'drop #multi_attachment .o_input_file': '_onDropFile',
     }),
     /**
      * @override
@@ -27,7 +27,8 @@ var FormRenderer = BasicRenderer.extend({
     init: function (parent, state, params) {
         this._super.apply(this, arguments);
         this.idsForLabels = {};
-        if (this.activeActions && this.activeActions.edit) {
+        this.is_editable = params.editable;
+        if (this.is_editable) {
             this.fileuploadId = _.uniqueId('oe_fileupload');
             $(window).on(this.fileuploadId, this._onFileUploaded.bind(this));
         }
@@ -850,38 +851,38 @@ var FormRenderer = BasicRenderer.extend({
         });
         this.$el.find('.o_notebook ul.nav-tabs').tabCollapse();
         // for Drag and Drop Attachment(s)
-        if (this.activeActions.edit) {
+        if (this.is_editable) {
             this.$attach_form = $(qweb.render('DragAndDropAttachment', {widget: this}));
             this.$el.find('.o_form_sheet_bg').prepend(this.$attach_form);
-            this.$el.find('.o_form_sheet_bg .o_input_file').addClass('hide');
+            this.$el.find('.o_form_sheet_bg #multi_attachment .o_input_file').addClass('hide');
         }
     },
     _onChangeInputFile: function (event) {
-        if (!this.activeActions.edit) return;
+        if (!this.is_editable) return;
         var $event = $(event.target);
         if ($event.val() !== '') {
-            var $binaryForm = this.$el.find('.o_form_sheet_bg form.o_form_binary_form');
+            var $binaryForm = this.$el.find('.o_form_sheet_bg #multi_attachment form.o_form_binary_form');
             $binaryForm.submit();
             framework.blockUI();
         }
     },
     _onDragEnterForm: function (e) {
-        if (!this.activeActions.edit) return;
-        var $input = this.$el.find('.o_form_sheet_bg .o_input_file');
+        if (!this.is_editable) return;
+        var $input = this.$el.find('.o_form_sheet_bg #multi_attachment .o_input_file');
         $input.removeClass('hide').addClass('f_attachment_input');
         $input.parent().parent().addClass('f_attachment')
     },
     _onDragLeaveForm: function (e) {
-        if (!this.activeActions.edit) return;
-        var $input = this.$el.find('.o_form_sheet_bg .o_input_file');
+        if (!this.is_editable) return;
+        var $input = this.$el.find('.o_form_sheet_bg #multi_attachment .o_input_file');
         $input.addClass('hide').removeClass('f_attachment_input');
         $input.parent().parent().removeClass('f_attachment')
     },
     _onDropFile: function (event) {
-        if (!this.activeActions.edit) return;
+        if (!this.is_editable) return;
         var $event = $(event.target);
         if ($event.val() !== '') {
-            var $binaryForm = this.$el.find('.o_form_sheet_bg form.o_form_binary_form');
+            var $binaryForm = this.$el.find('.o_form_sheet_bg #multi_attachment form.o_form_binary_form');
             $binaryForm.submit();
             framework.blockUI();
         }
@@ -898,7 +899,7 @@ var FormRenderer = BasicRenderer.extend({
         framework.unblockUI();
         this._getAttachments().then(function (attachments) {
             self.trigger_up('update_sidebar_attachments', {files: attachments});
-            var $input = self.$el.find('.o_form_sheet_bg .o_input_file');
+            var $input = self.$el.find('.o_form_sheet_bg #multi_attachment .o_input_file');
             $input.addClass('hide').removeClass('f_attachment_input');
             $input.parent().parent().removeClass('f_attachment')
         });
