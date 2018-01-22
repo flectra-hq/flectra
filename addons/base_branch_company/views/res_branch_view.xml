@@ -4,7 +4,7 @@
         <field name="name">res.branch.form</field>
         <field name="model">res.branch</field>
         <field name="arch" type="xml">
-            <form string="Branch">
+            <form string="Branch" create="false">
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="toggle_active" type="object"
@@ -47,7 +47,7 @@
         <field name="name">res.branch.tree</field>
         <field name="model">res.branch</field>
         <field name="arch" type="xml">
-            <tree string="Branch">
+            <tree string="Branch" create="false">
                 <field name="code"/>
                 <field name="name"/>
                 <field name="company_id" groups="base.group_multi_company"/>
@@ -95,6 +95,31 @@
                             <field string="Branches count" name="branches_count" invisible="1"/>
                     </group>
                 </group>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_res_branch_form_editable" model="ir.ui.view">
+        <field name="name">res.branch.form.editable</field>
+        <field name="model">res.branch</field>
+        <field name="inherit_id" ref="base_branch_company.view_res_branch_form"/>
+        <field name="groups_id" eval="[(4, ref('base_branch_company.group_multi_branch'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">true</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_warehouse_view_tree_editable" model="ir.ui.view">
+        <field name="name">res.branch.tree.editable</field>
+        <field name="model">res.branch</field>
+        <field name="inherit_id" ref="base_branch_company.view_res_branch_tree"/>
+        <field name="groups_id" eval="[(4, ref('base_branch_company.group_multi_branch'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">true</attribute>
             </xpath>
         </field>
     </record>
