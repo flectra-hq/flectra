@@ -180,7 +180,7 @@ class TestMessagePost(TestMail):
         self.assertEqual(msg.parent_id.id, parent_msg.id)
         self.assertEqual(msg.partner_ids, self.partner_1)
         # self.assertEqual(parent_msg.partner_ids, self.partner_1)  # TDE FIXME: to check
-        self.assertTrue(all('openerp-%d-mail.test' % self.test_pigs.id in m['references'] for m in self._mails))
+        self.assertTrue(all('flectra-%d-mail.test' % self.test_pigs.id in m['references'] for m in self._mails))
         new_msg = self.test_pigs.sudo(self.user_employee).message_post(
             body=_body, subject=_subject,
             message_type='comment', subtype='mt_comment', parent_id=msg.id)

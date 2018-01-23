@@ -57,7 +57,7 @@ class TestMailMessage(TestMail):
             'model': 'mail.test',
             'res_id': self.test_pigs.id
         })
-        self.assertIn('-openerp-%d-mail.test' % self.test_pigs.id, msg.message_id, 'mail_message: message_id for a void message should be a "private" one')
+        self.assertIn('-flectra-%d-mail.test' % self.test_pigs.id, msg.message_id, 'mail_message: message_id for a void message should be a "private" one')
         self.assertEqual(msg.reply_to, '%s <%s>' % (self.user_employee.name, self.user_employee.email))
         self.assertEqual(msg.email_from, '%s <%s>' % (self.user_employee.name, self.user_employee.email))
 
@@ -70,7 +70,7 @@ class TestMailMessage(TestMail):
             'model': 'mail.test',
             'res_id': self.test_pigs.id
         })
-        self.assertIn('-openerp-%d-mail.test' % self.test_pigs.id, msg.message_id, 'mail_message: message_id for a void message should be a "private" one')
+        self.assertIn('-flectra-%d-mail.test' % self.test_pigs.id, msg.message_id, 'mail_message: message_id for a void message should be a "private" one')
         self.assertEqual(msg.reply_to, '%s %s <%s@%s>' % (self.env.user.company_id.name, self.test_pigs.name, self.test_pigs.alias_name, alias_domain))
         self.assertEqual(msg.email_from, '%s <%s>' % (self.user_employee.name, self.user_employee.email))
 
@@ -84,7 +84,7 @@ class TestMailMessage(TestMail):
             'model': 'mail.test',
             'res_id': self.test_pigs.id
         })
-        self.assertIn('-openerp-%d-mail.test' % self.test_pigs.id, msg.message_id, 'mail_message: message_id for a void message should be a "private" one')
+        self.assertIn('-flectra-%d-mail.test' % self.test_pigs.id, msg.message_id, 'mail_message: message_id for a void message should be a "private" one')
         self.assertEqual(msg.reply_to, '%s %s <%s@%s>' % (self.env.user.company_id.name, self.test_pigs.name, self.test_pigs.alias_name, alias_domain))
         self.assertEqual(msg.email_from, '%s <%s>' % (self.user_employee.name, self.user_employee.email))
 
