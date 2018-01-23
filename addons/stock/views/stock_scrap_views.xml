@@ -52,7 +52,7 @@
                                 </div>
                             </group>
                             <group>
-                                <field name="branch_id" />
+                                <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                                 <field name="lot_id" attrs="{'invisible': [('tracking', '=', 'none')], 'required': [('tracking', '!=', 'none')]}" groups="stock.group_production_lot"/>
                                 <field name="tracking" invisible="1"/>
                                 <field name="package_id" groups="stock.group_tracking_lot"/>

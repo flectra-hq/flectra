@@ -24,7 +24,7 @@
                     </div>
                     <group name="story_main_fields" col="4">
 	                    <field name="sprint_id" options="{'no_create': True, 'no_create_edit': True}" required="1"/>
-	                    <field name="branch_id" options="{'no_create': True, 'no_create_edit': True}"/>
+	                    <field name="branch_id" groups="base_branch_company.group_multi_branch" options="{'no_create': True, 'no_create_edit': True}"/>
 	                    <field name="priority_id" options="{'no_create': True, 'no_create_edit': True}"/>
 	                    <field name="story_type_id" options="{'no_create': True, 'no_create_edit': True}"/>
 	                    <field name="owner_id" readonly="1"/>
@@ -53,7 +53,7 @@
             <tree string="Project Story">
                 <field name="name"/>
                 <field name="owner_id"/>
-                <field name="branch_id"/>
+                <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                 <field name="sprint_id"/>
                 <field name="priority_id"/>
                 <field name="story_type_id"/>
@@ -69,7 +69,7 @@
 		        <field name="name"/>
 		        <field name="sprint_id"/>
 		        <filter string="Sprint" name="group_by_sprint" context="{'group_by': 'sprint_id'}"/>
-		        <filter string="Branch" name="group_by_branch" context="{'group_by': 'branch_id'}"/>
+		        <filter string="Branch" groups="base_branch_company.group_multi_branch" name="group_by_branch" context="{'group_by': 'branch_id'}"/>
 		        <filter string="Owner" name="group_by_owner" context="{'group_by': 'owner_id'}"/>
 		        <filter string="Priority" name="group_by_priority" context="{'group_by': 'priority'}"/>
 		        <filter string="Type" name="group_by_type" context="{'group_by': 'type'}"/>

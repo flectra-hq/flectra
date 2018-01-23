@@ -233,7 +233,7 @@
                             <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
                             <field name="partner_id" domain="[('customer','=',True)]" string="Customer" context="{'search_default_customer':1, 'show_address': 1}" options='{"always_reload": True}'/>
                             <field name="pay_now" required="1"/>
-                            <field name="branch_id"/>
+                            <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                             <field name="account_id" groups="account.group_account_user"/>
                         </group>
                         <group>
@@ -347,7 +347,7 @@
                             <field name="account_id" groups="account.group_account_user"/>
                             <field name="name" colspan="2" attrs="{'invisible': [('pay_now', '=', 'pay_later')]}"/>
                             <field name="reference"/>
-                            <field name="branch_id"/>
+                            <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                             <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
                         </group>
                         <group>

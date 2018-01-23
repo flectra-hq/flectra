@@ -137,7 +137,7 @@
                                 <field name="user_id" string="Project Manager"
                                         attrs="{'readonly':[('active','=',False)]}"/>
                                 <field name="company_id"/>
-                                <field name="branch_id"/>
+                                <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                                 <field name="subtask_project_id" groups="project.group_subtask_project"/>
                                 <field name="privacy_visibility" widget="radio"/>
                                 <field name="partner_id" string="Customer"/>
@@ -446,7 +446,7 @@
                             <field name="date_deadline"/>
                             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
                             <field name="task_seq" readonly="1"/>
-                            <field name="branch_id"/>
+                            <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                             <field name="priority"/>
                         </group>
                     </group>
@@ -943,7 +943,7 @@
                                             <br/>
                                             <field name="date_deadline"/>
                                             <br/>
-                                            <field name="branch_id"/>
+                                            <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                                             <br/>
                                         </span>
                                     </div>

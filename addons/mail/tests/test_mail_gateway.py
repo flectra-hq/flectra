@@ -51,7 +51,7 @@ Content-Transfer-Encoding: quoted-printable
 
 MAIL_TEMPLATE_PLAINTEXT = """Return-Path: <whatever-2a840@postmaster.twitter.com>
 To: {to}
-Received: by mail1.openerp.com (Postfix, from userid 10002)
+Received: by mail1.flectra.com (Postfix, from userid 10002)
     id 5DF9ABFB2A; Fri, 10 Aug 2012 16:16:39 +0200 (CEST)
 From: Sylvie Lelitre <test.sylvie.lelitre@agrolait.com>
 Subject: {subject}
@@ -78,7 +78,7 @@ X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,FREEMAIL_FROM,
     HTML_MESSAGE,RCVD_IN_DNSWL_LOW autolearn=unavailable version=3.3.1
 Received: from mail-ie0-f173.google.com (mail-ie0-f173.google.com [209.85.223.173])
     by mail1.grosbedon.com (Postfix) with ESMTPS id 9BBD7BFAAA
-    for <raoul@openerp.fr>; Fri, 23 Aug 2013 13:17:55 +0200 (CEST)
+    for <raoul@flectra.fr>; Fri, 23 Aug 2013 13:17:55 +0200 (CEST)
 Received: by mail-ie0-f173.google.com with SMTP id qd12so575130ieb.4
         for <raoul@grosbedon.fr>; Fri, 23 Aug 2013 04:17:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -327,7 +327,7 @@ class TestMailgateway(TestMail):
             'subject': 'Public Discussion',
             'message_type': 'email',
             'author_id': self.partner_1.id,
-            'message_id': '<123456-openerp-%s-mail.test@%s>' % (self.test_public.id, socket.gethostname()),
+            'message_id': '<123456-flectra-%s-mail.test@%s>' % (self.test_public.id, socket.gethostname()),
         })
 
     @mute_logger('flectra.addons.mail.models.mail_thread')
@@ -608,7 +608,7 @@ class TestMailgateway(TestMail):
                           self.format_and_process,
                           MAIL_TEMPLATE, email_from='valid.lelitre@agrolait.com',
                           to='noone@example.com', subject='spam',
-                          extra='In-Reply-To: <12321321-openerp-%d-mail.test@%s>' % (self.test_public.id, socket.gethostname()),
+                          extra='In-Reply-To: <12321321-flectra-%d-mail.test@%s>' % (self.test_public.id, socket.gethostname()),
                           msg_id='<1198923581.41972151344608186802.JavaMail.diff1@agrolait.com>')
 
         # when 6.1 messages are present, compat mode is available
@@ -621,7 +621,7 @@ class TestMailgateway(TestMail):
             MAIL_TEMPLATE, email_from='other5@gmail.com',
             msg_id='<1.2.JavaMail.new@agrolait.com>',
             to='noone@example.com>', subject='spam',
-            extra='In-Reply-To: <12321321-openerp-%d-mail.test@%s>' % (self.test_public.id, socket.gethostname()))
+            extra='In-Reply-To: <12321321-flectra-%d-mail.test@%s>' % (self.test_public.id, socket.gethostname()))
 
         # 3''. 6.1 compat mode should not work if hostname does not match!
         # Flectra 10 update: compat mode has been removed and should not work anymore and does not depend from hostname
@@ -630,7 +630,7 @@ class TestMailgateway(TestMail):
                           MAIL_TEMPLATE, email_from='other5@gmail.com',
                           msg_id='<1.3.JavaMail.new@agrolait.com>',
                           to='noone@example.com>', subject='spam',
-                          extra='In-Reply-To: <12321321-openerp-%d-mail.test@neighbor.com>' % self.test_public.id)
+                          extra='In-Reply-To: <12321321-flectra-%d-mail.test@neighbor.com>' % self.test_public.id)
 
         # Test created messages
         self.assertEqual(len(self.test_public.message_ids), 1)
@@ -740,7 +740,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(msg.model, False,
                          'message_post: private discussion: context key "thread_model" not correctly ignored when having no res_id')
         # Test: message-id
-        self.assertIn('openerp-private', msg.message_id, 'message_post: private discussion: message-id should contain the private keyword')
+        self.assertIn('flectra-private', msg.message_id, 'message_post: private discussion: message-id should contain the private keyword')
 
         # Do: Bert replies through mailgateway (is a customer)
         self.format_and_process(

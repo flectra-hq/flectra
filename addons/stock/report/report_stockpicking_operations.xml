@@ -51,7 +51,7 @@
                                     <th><strong>State</strong></th>
                                     <th><strong>Commitment Date</strong></th>
                                     <th name="td_sched_date_h"><strong>Scheduled Date</strong></th>
-                                    <th t-if="o.branch_id"><strong>Branch</strong></th>
+                                    <th t-if="o.branch_id" groups="base_branch_company.group_multi_branch"><strong>Branch</strong></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,7 +68,7 @@
                                     <td name="td_sched_date">
                                         <span t-field="o.scheduled_date"/>
                                     </td>
-                                    <td t-if="o.branch_id">
+                                    <td t-if="o.branch_id" groups="base_branch_company.group_multi_branch">
                                         <span t-field="o.branch_id"/>
                                     </td>
                                 </tr>

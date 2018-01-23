@@ -44,6 +44,7 @@
     ],
     'installable': True,
     'application': True,
+    'post_init_hook': 'post_init',
     'qweb': [
         'static/src/xml/activity.xml',
         'static/src/xml/client_action.xml',
