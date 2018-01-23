@@ -1,3 +1,6 @@
+[![pipeline status](https://gitlab.com/flectra-hq/flectra/badges/master/pipeline.svg)](https://gitlab.com/flectra-hq/flectra/commits/master)
+
+[![coverage report](https://gitlab.com/flectra-hq/flectra/badges/master/coverage.svg)](https://gitlab.com/flectra-hq/flectra/commits/master)
 
 Flectra
 =======
