@@ -421,8 +421,8 @@ command_re = re.compile("^Set-([a-z]+) *: *(.+)$", re.I + re.UNICODE)
 # Updated in 7.0 to match the model name as well
 # Typical form of references is <timestamp-flectra-record_id-model_name@domain>
 # group(1) = the record ID ; group(2) = the model (if any) ; group(3) = the domain
-reference_re = re.compile("<.*-open(?:object|erp)-(\\d+)(?:-([\w.]+))?[^>]*@([^>]*)>", re.UNICODE)
-discussion_re = re.compile("<.*-open(?:object|erp)-private[^>]*@([^>]*)>", re.UNICODE)
+reference_re = re.compile("<.*-flectra-(\\d+)(?:-([\w.]+))?[^>]*@([^>]*)>", re.UNICODE)
+discussion_re = re.compile("<.*-flectra-private[^>]*@([^>]*)>", re.UNICODE)
 
 mail_header_msgid_re = re.compile('<[^<>]+>')
 

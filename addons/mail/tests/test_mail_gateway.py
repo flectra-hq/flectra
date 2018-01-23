@@ -10,7 +10,7 @@ from flectra.tools import mute_logger
 MAIL_TEMPLATE = """Return-Path: <whatever-2a840@postmaster.twitter.com>
 To: {to}
 cc: {cc}
-Received: by mail1.openerp.com (Postfix, from userid 10002)
+Received: by mail1.flectra.com (Postfix, from userid 10002)
     id 5DF9ABFB2A; Fri, 10 Aug 2012 16:16:39 +0200 (CEST)
 From: {email_from}
 Subject: {subject}
@@ -569,7 +569,6 @@ class TestMailgateway(TestMail):
             MAIL_TEMPLATE, to='erroneous@example.com',
             extra='References: <2233@a.com>\r\n\t<3edss_dsa@b.com> %s' % self.fake_email.message_id,
             msg_id='<1198923581.41972151344608186800.JavaMail.4@agrolait.com>')
-
         self.assertEqual(len(self.test_public.message_ids), 2, 'message_process: group should contain one new message')
         self.assertEqual(len(self.fake_email.child_ids), 1, 'message_process: new message should be children of the existing one')
 
@@ -582,7 +581,6 @@ class TestMailgateway(TestMail):
             extra='References: <2233@a.com>\r\n\t<3edss_dsa@b.com> %s' % self.fake_email.message_id,
             msg_id='<1198923581.41972151344608186800.JavaMail.4@agrolait.com>',
             target_model='mail.channel')
-
         self.assertEqual(len(self.test_public.message_ids), 1, 'message_process: group should not contain new message')
         self.assertEqual(len(self.fake_email.child_ids), 0, 'message_process: original email should not contain childs')
         self.assertEqual(res_test.name, 'My Dear Forward')
