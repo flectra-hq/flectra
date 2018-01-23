@@ -42,7 +42,8 @@ class SaleOrder(models.Model):
         self._check_constrains()
         for line in self.order_line:
             line.write({'discount': 0.0})
-        amount_untaxed = self.amount_untaxed
+        # amount_untaxed = self.amount_untaxed
+        gross_amount = self.gross_amount
         if self.discount_method == 'per':
             for line in self.order_line:
                 line.write({'discount': line.discount + self.discount_per})
@@ -50,7 +51,7 @@ class SaleOrder(models.Model):
             for line in self.order_line:
                 discount_value_ratio = \
                     (self.discount_amount *
-                     line.price_subtotal) / amount_untaxed
+                     line.price_subtotal) / gross_amount
                 discount_per_ratio = \
                     (discount_value_ratio * 100) / line.price_subtotal
                 line.write({'discount': line.discount + discount_per_ratio})
