@@ -88,7 +88,7 @@
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='access_rights']/group[1]" position="after">
-                <group>
+                <group groups="base_branch_company.group_multi_branch">
                     <group string="Allowed Branches" attrs="{'invisible': [('branches_count', '&lt;=', 1)]}">
                             <field name="default_branch_id"/>
                             <field name="branch_ids" widget="many2many_tags"/>

@@ -89,7 +89,7 @@
                             <field name="user_id" domain="[('share', '=', False)]"
                                 context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'sales_team.group_sale_salesman_all_leads'], 'team_id': team_id}"/>
                             <field name="team_id" widget="selection" domain="[('use_leads','=',True)]"/>
-                            <field name="branch_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="branch_id" groups="base_branch_company.group_multi_branch" options="{'no_create': True, 'no_create_edit': True}"/>
                             <field name="type" invisible="1"/>
                         </group>
                         <group>
@@ -493,7 +493,7 @@
                             <group>
                                 <field name="user_id" context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'sales_team.group_sale_salesman_all_leads'], 'team_id': team_id}" domain="[('share', '=', False)]"/>
                                 <field name="team_id" widget="selection"/>
-                                <field name="branch_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="branch_id" groups="base_branch_company.group_multi_branch" options="{'no_create': True, 'no_create_edit': True}"/>
                             </group>
                             <group>
                                 <field name="priority" widget="priority"/>
@@ -652,7 +652,7 @@
                         <filter string="Sales Channel" context="{'group_by':'team_id'}"/>
                         <filter string="Country" context="{'group_by':'country_id'}" />
                         <filter string="Company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
-                        <filter string="Branch" context="{'group_by':'branch_id'}"/>
+                        <filter string="Branch" groups="base_branch_company.group_multi_branch" context="{'group_by':'branch_id'}"/>
                         <filter name="stage" string="Stage" context="{'group_by':'stage_id'}"/>
                         <filter string="Campaign" domain="[]" context="{'group_by':'campaign_id'}"/>
                         <filter string="Medium" domain="[]" context="{'group_by':'medium_id'}"/>

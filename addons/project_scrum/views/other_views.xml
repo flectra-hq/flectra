@@ -13,7 +13,7 @@
                 <field name="company_id" options="{'no_create': True, 'no_create_edit': True}"/>
             </field>
             <field name="branch_id" position="replace">
-                <field name="branch_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                <field name="branch_id" groups="base_branch_company.group_multi_branch" options="{'no_create': True, 'no_create_edit': True}"/>
             </field>
             <field name="partner_id" position="replace">
                 <field name="partner_id" options="{'no_create': True, 'no_create_edit': True}"/>
@@ -81,7 +81,7 @@
                 <field name="company_id" options="{'no_create': True, 'no_create_edit': True}"/>
             </field>
             <field name="branch_id" position="replace">
-                <field name="branch_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                <field name="branch_id" groups="base_branch_company.group_multi_branch" options="{'no_create': True, 'no_create_edit': True}"/>
             </field>
             <field name="partner_id" position="replace">
                 <field name="partner_id" options="{'no_create': True, 'no_create_edit': True}"/>
@@ -123,7 +123,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='date_deadline']" position="after">
                 <field name="sprint_id"/>
-                <field name="branch_id"/>
+                <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
                 <field name="actual_end_date"/>

@@ -16,7 +16,7 @@
                         <group>
                             <field name="sprint_id" options="{'no_create': True, 'no_create_edit': True}"/>
                             <field name="scrum_master" options="{'no_create': True, 'no_create_edit': True}"/>
-                            <field name="branch_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="branch_id" groups="base_branch_company.group_multi_branch" options="{'no_create': True, 'no_create_edit': True}"/>
                         </group>
                     </group>
                     <notebook>
@@ -41,7 +41,7 @@
                 <field name="retrospective_method_id"/>
                 <field name="scrum_master"/>
                 <field name="sprint_id"/>
-                <field name="branch_id"/>
+                <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
             </tree>

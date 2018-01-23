@@ -13,7 +13,7 @@
                                 <tr>
                                     <th><strong>Inventory</strong></th>
                                     <th><strong>Date</strong></th>
-                                    <th t-if="o.branch_id"><strong>Branch</strong></th>
+                                    <th t-if="o.branch_id" groups="base_branch_company.group_multi_branch"><strong>Branch</strong></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -24,7 +24,7 @@
                                     <td>
                                         <span t-field="o.date"/>
                                     </td>
-                                    <td t-if="o.branch_id">
+                                    <td t-if="o.branch_id" groups="base_branch_company.group_multi_branch">
                                         <span t-field="o.branch_id"/>
                                     </td>
                                 </tr>

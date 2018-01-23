@@ -67,7 +67,7 @@
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         </group>
                         <group>
-                            <field name="branch_id"
+                            <field name="branch_id" groups="base_branch_company.group_multi_branch"
                                    options="{'no_create': True, 'no_create_edit': True}"
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="duration"
@@ -135,7 +135,7 @@
                 <field name="sprint_seq"/>
                 <field name="name"/>
                 <field name="project_id"/>
-                <field name="branch_id"/>
+                <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                 <field name="goal_of_sprint"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
@@ -151,7 +151,7 @@
             <search string="Sprints">
                 <field name="name"/>
                 <field name="project_id"/>
-                <field name="branch_id"/>
+                <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                 <filter string="Draft" name="filter_draft"
                         domain="[('state', '=', 'draft')]"/>
                 <filter string="In Progress" name="filter_progress"
@@ -162,7 +162,7 @@
                         domain="[('state', '=', 'cancel')]"/>
                 <filter string="Project" name="group_by_project"
                         context="{'group_by': 'project_id'}"/>
-                <filter string="Branch" name="group_by_branch"
+                <filter string="Branch" groups="base_branch_company.group_multi_branch" name="group_by_branch"
                         context="{'group_by': 'branch_id'}"/>
             </search>
         </field>
