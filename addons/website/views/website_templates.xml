@@ -303,6 +303,7 @@
     </xpath>
 </template>
 
+<!-- @todo Flectra: Add language direction parameter for RTL/LTR feature! -->
 <template id="language_selector">
     <ul class="list-inline js_language_selector mt16" t-if="(request and request.is_frontend_multilang and len(languages) &gt; 1) or (website and (editable or translatable))">
         <li t-foreach="languages" t-as="lg">
@@ -325,6 +326,7 @@
     </ul>
 </template>
 
+<!-- Language Flags Snippet -->
 <template id="language_flags" name="Language Flags">
     <li
         t-if="(request and request.is_frontend_multilang and len(languages) &gt; 1) or (website and (editable or translatable))"
@@ -332,8 +334,8 @@
         <a href="#" class="dropdown-toggle language_flag" data-toggle="dropdown">
             <t t-foreach="website.language_ids" t-as="lg">
                 <t t-if="request.context.get('lang') == lg.code">
-                    <img t-att-src="website.image_url(lg, 'lang_flag')" height="30"
-                        width="30" t-att-title="lg.name" />
+                    <img t-att-src="website.image_url(lg, 'image')" height="18"
+                        width="18" t-att-title="lg.name" />
                 </t>
             </t>
             <span class="caret"></span>
@@ -343,9 +345,9 @@
                 <a
                     t-att-href="url_for(request.httprequest.path + '?' + keep_query(), lang=lg.code)"
                     t-att-data-default-lang="(editable or translatable) and 'true' if website and lg.code == website.default_lang_code else None"
-                    t-att-data-lang="lg.code" t-att-data-lang_dir="lg.direction" class="js_change_lang">
-                <img t-att-src="website.image_url(lg, 'lang_flag')" height="30" width="30" t-att-title="lg.code" />
-                    <t t-esc="lg.name.split('/').pop()"/>
+                    t-att-data-lang="lg.code" t-att-data-lang-dir="lg.direction" class="js_change_lang">
+                <img t-att-src="website.image_url(lg, 'image')" height="18" width="18" t-att-title="lg.code" />
+                    <t t-esc="lg.name"/>
                 </a>
             </li>
         </ul>
