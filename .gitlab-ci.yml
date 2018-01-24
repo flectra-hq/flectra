@@ -19,7 +19,7 @@ job_test_base_100:
   stage: test
   script:
   - apt-get update && apt-get install -y apt-utils locales git
-  - export POSTGRESQL_VERSION=10.0
+  - export POSTGRESQL_VERSION=10
   - git clone https://gitlab.com/flectra-hq/build-tools.git ${CI_PROJECT_DIR}/build-tools && export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH}
   - gitlab_ci_install_flectra
   - su - flectra -c "export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH} && gitlab_test_flectra --build=base"
@@ -27,7 +27,7 @@ job_test_all_100:
   stage: test
   script:
   - apt-get update && apt-get install -y apt-utils locales git
-  - export POSTGRESQL_VERSION=10.0
+  - export POSTGRESQL_VERSION=10
   - git clone https://gitlab.com/flectra-hq/build-tools.git ${CI_PROJECT_DIR}/build-tools && export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH}
   - gitlab_ci_install_flectra
   - su - flectra -c "export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH} && gitlab_test_flectra --build=all"
