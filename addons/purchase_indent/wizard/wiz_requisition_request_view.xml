@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra>
+
+    <record id="view_requisition_request_wizard" model="ir.ui.view">
+        <field name="name">wiz.requisition.request.wizard</field>
+        <field name="model">wiz.requisition.request</field>
+        <field name="arch" type="xml">
+            <form string="Requisition Request">
+                <group col="4">
+                    <field name="partner_id"
+                           attrs="{'invisible': ['|', ('state', '=', 'draft'), ('order_type', '=', 'pa')], 'required': [('state', '=', 'confirm'), ('order_type', '=', 'po')]}"/>
+                    <field name="purchase_indent_id" invisible="1"/>
+                    <field name="category_id"
+                           attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <field name="order_type" required="1"
+                           attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <field name="requisition_type_id"
+                           attrs="{'invisible': ['|', ('order_type', '!=', 'pa'), ('state', '=', 'confirm')], 'required': [('order_type', '=', 'pa')]}"
+                           widget="selection"/>
+                    <field name="state" invisible="1"/>
+                </group>
+                <group attrs="{'invisible': [('state', '!=', 'draft')]}">
+                    <field name="dummy_wiz_indent_line" nolabel="1">
+                        <tree editable="bottom" create="false"
+                              delete="false">
+                            <field name="purchase_indent_id"/>
+                            <field name="partner_id" invisible="1"/>
+                            <field name="indent_requ_date" readonly="1"/>
+                            <field name="product_id"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="name"/>
+                            <field name="product_uom"
+                                   groups="product.group_uom"/>
+                            <field name="expected_date"/>
+                            <field name="product_qty" readonly="1"/>
+                            <field name="dummy_product_qty" invisible="1"/>
+                            <field name="remaining_qty"/>
+                            <field name="requisition_qty"/>
+                            <field name="wizard_indent_id" invisible="1"/>
+                            <field name="purchase_indent_line_id"
+                                   invisible="1"/>
+                        </tree>
+                    </field>
+                </group>
+                <group attrs="{'invisible': [('state', '=', 'draft')]}">
+                    <field name="wiz_indent_line" nolabel="1">
+                        <tree editable="bottom" create="false"
+                              delete="false">
+                            <field name="purchase_indent_ids"
+                                   widget="many2many_tags" readonly="1"/>
+                            <field name="product_id" readonly="1"/>
+                            <field name="name" readonly="1"/>
+                            <field name="product_uom" readonly="1"
+                                   groups="product.group_uom"/>
+                            <field name="product_qty" readonly="1"/>
+                            <field name="order_type" invisible="1"/>
+                            <field name="price_unit"
+                                   invisible="context.get('requisition_type_id', False)"/>
+                            <field name="taxes_id" widget="many2many_tags"
+                                   domain="[('type_tax_use', '=', 'purchase')]"
+                                   invisible="context.get('requisition_type_id', False)"/>
+                            <field name="remaining_qty" invisible="1"/>
+                            <field name="requisition_qty" invisible="1"/>
+                            <field name="purchase_indent_line_id"
+                                   invisible="1"/>
+                            <field name="wizard_indent_id" invisible="1"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button name="act_next" string="Next"
+                            colspan="1" type="object"
+                            context="{'default_state': 'confirm', 'requisition_type_id': requisition_type_id}"
+                            class="btn-primary"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="action_create" string="Create RFQ"
+                            colspan="1" type="object" class="btn-primary"
+                            attrs="{'invisible': ['|', ('state', '=', 'draft'), ('order_type', '=', 'pa')]}"/>
+                    <button name="action_create"
+                            string="Create Purchase Agreement"
+                            colspan="1" type="object" class="btn-primary"
+                            attrs="{'invisible': ['|', ('state', '=', 'draft'), ('order_type', '=', 'po')]}"/>
+                    <button string="Cancel" class="btn-default"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wiz_requisition_request"
+            model="ir.actions.act_window">
+        <field name="name">Requisition Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wiz.requisition.request</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</flectra>

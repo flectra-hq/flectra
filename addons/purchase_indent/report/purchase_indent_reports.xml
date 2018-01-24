@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra>
+
+    <report
+            string="Request for Indent"
+            id="report_purchase_indent"
+            model="purchase.indent"
+            report_type="qweb-pdf"
+            name="purchase_indent.report_purchaseindent"
+            file="purchase_indent.report_purchaseindent"
+    />
+    <record id="report_purchase_indent" model="ir.actions.report">
+        <field name="print_report_name">'Request for Indent'+'-'+(object.name)</field>
+    </record>
+
+</flectra>
