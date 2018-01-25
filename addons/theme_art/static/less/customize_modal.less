@@ -1,0 +1,167 @@
+/* CUSTOMIZE THEME - MODAL
+   ================================================== */
+
+#theme_customize_modal{
+	&.modal.fade:not(.in) .modal-dialog{
+	  .translate3d(50%, 0, 0);
+	}
+	.theme_art_customize_model{
+		text-transform: inherit;
+		.modal-dialog{
+			top: 106px;
+			right: 0;
+			height: 100vh;
+			.modal-content{
+				height: auto;
+				border-top-left-radius: 17px;
+				width: 460px;
+			}
+		}
+		.modal-header,
+		.modal-footer{
+			background-color: #000;
+			color: #fff;
+			border-radius: 15px;
+			height: 10%;
+			min-height: 70px;
+		}
+		.modal-header{
+			.modal-title{
+				line-height: 1.2;
+				font-size: 34px;
+			}
+			.close{
+				width: 32px;
+				height: 32px;
+				line-height: 28px;
+				margin-top: 4px;
+				background-color: #fff;
+				color: @gray-darker;
+				opacity: 0.5;
+				font-size: 1.3em;
+				&:hover{
+					opacity: 1;
+					background-color: @color-primary;
+					color: #fff;
+				}
+			}
+		}
+
+		.modal-body{
+			padding: 16px;
+			height: auto;
+			background-color: #FFFFFF;
+		    }
+
+
+		.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{color: #fff;
+  			background-color: @color-primary;}
+		.icon{
+				text-align: left;
+				clear: both;
+				font-weight: normal;
+			}
+			.icon:before{
+				content: '\f111';
+				font-family: 'FontAwesome';
+				font-size: 18px;
+				margin-right: 8px;
+				margin-bottom: 10px;
+				color: #ccc;
+				float: left;
+			}
+			.icon:hover{
+				color: @gray-darker;
+				cursor: pointer;
+			}
+			.icon:hover:before{
+				content: '\f058';
+				font-family: 'FontAwesome';
+				color: #000;
+			}
+			.icon.checked:before{
+				content: '\f058';
+				font-family: 'FontAwesome';
+				color: @color-primary;
+			}
+			.icon span{
+				float: left;
+				width: 30px;
+				height: 30px;
+			}
+
+			.none{
+				background-image:url('/theme_art/static/img/customize/customize_none.gif');
+				background-position: center;
+				border: 1px solid #000;
+			}
+			/* Grayscale */
+			.white{background-color: #fff;border: 1px solid @gray-darker !important;}
+			.gray-lighter{background-color: @gray-lighter;}
+			.gray-darker{background-color: @gray-darker;}
+			/* mango */
+			.mango-primary{background-color: @mango-primary;}
+			.mango-success{background-color: @mango-success;}
+			.mango-info{background-color: @mango-info;}
+			.mango-warning{background-color: @mango-warning;}
+			.mango-danger{background-color: @mango-danger;}
+			/* moon */
+			.moon-primary{background-color: @moon-primary;}
+			.moon-success{background-color: @moon-success;}
+			.moon-info{background-color: @moon-info;}
+			.moon-warning{background-color: @moon-warning;}
+			.moon-danger{background-color: @moon-danger;}
+			/* cyrus */
+			.cyrus-primary{background-color: @cyrus-primary;}
+			.cyrus-success{background-color: @cyrus-success;}
+			.cyrus-info{background-color: @cyrus-info;}
+			.cyrus-warning{background-color: @cyrus-warning;}
+			.cyrus-danger{background-color: @cyrus-danger;}
+			/* keent */
+			.keent-primary{background-color: @keent-primary;}
+			.keent-success{background-color: @keent-success;}
+			.keent-info{background-color: @keent-info;}
+			.keent-warning{background-color: @keent-warning;}
+			.keent-danger{background-color: @keent-danger;}
+		}
+
+}
+
+/* EDITOR OPTIONS
+   ================================================== */
+
+
+
+
+/* SNIPPETS NAVBAR
+   ================================================== */
+
+#snippet_structure,
+#snippet_content,
+#snippet_feature,
+#snippet_effect{
+	.oe_snippet{
+		width: 90px; 
+		margin-left: 5px;
+		.oe_snippet_thumbnail_title{
+			margin-top: 5px;
+		}
+		.oe_snippet_thumbnail .oe_snippet_thumbnail_img{
+			width: 90px;
+			/* height: 90px; */
+			border: 5px solid inherit;
+		}
+		.oe_snippet_thumbnail:hover .oe_snippet_thumbnail_img{
+			transform: scale(1, 1);
+		}
+		.oe_snippet_thumbnail:hover:before{
+			content: "";
+			position: absolute;
+			right: 0;
+			background-image: url('/theme_art/static/img/customize/add_snippet_hover.png');
+			z-index: 1;
+			width: 30px;
+			height: 30px;
+		}
+	}
+}
