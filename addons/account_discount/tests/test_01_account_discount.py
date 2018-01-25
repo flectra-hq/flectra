@@ -10,14 +10,7 @@ class TestInvoiceDiscount(TestDiscountCommon):
         super(TestInvoiceDiscount, self).setUp()
 
     def discount_01_set_fixamount(self):
-
-        self.account_id = self.env['account.account'].create({
-            'name': 'Test',
-            'code': 'DA',
-            'user_type_id': self.user_type_revenue_id,
-            })
-
-        invoice_id = self.env['account.invoice'].create({
+        invoice_id = self.AccountInvoice.create({
             'name': 'Discount Invoice Test Fixed',
             'partner_id': self.partner_id.id,
             'currency_id': self.env.ref('base.USD').id,
@@ -27,7 +20,7 @@ class TestInvoiceDiscount(TestDiscountCommon):
             'journal_id': self.journal_id.id,
         })
         invoice_id.onchange_discount_method()
-        self.env['account.invoice.line'].create({
+        self.AccountInvoiceLine.create({
             'product_id': self.env.ref("product.product_product_10").id,
             'quantity': 10,
             'price_unit': 400,
@@ -35,7 +28,7 @@ class TestInvoiceDiscount(TestDiscountCommon):
             'name': 'Mouse, Optical',
             'account_id': self.account_id.id,
         })
-        self.env['account.invoice.line'].create({
+        self.AccountInvoiceLine.create({
             'product_id': self.env.ref("product.product_product_12").id,
             'quantity': 30,
             'price_unit': 250,
@@ -56,13 +49,8 @@ class TestInvoiceDiscount(TestDiscountCommon):
         return invoice_id
 
     def discount_02_set_percentages(self):
-        self.account_id = self.env['account.account'].create({
-            'name': 'Test',
-            'code': 'DA',
-            'user_type_id': self.user_type_revenue_id,
-            })
-        invoice_id = self.env['account.invoice'].create({
-            'name': 'Discount Invoice Test',
+        invoice_id = self.AccountInvoice.create({
+            'name': 'Discount Invoice Test Percentage',
             'partner_id': self.partner_id.id,
             'currency_id': self.env.ref('base.USD').id,
             'account_id': self.account_id.id,
@@ -72,7 +60,7 @@ class TestInvoiceDiscount(TestDiscountCommon):
             'date_invoice': time.strftime('%Y') + '-03-12',
             'journal_id': self.journal_id.id,
         })
-        self.env['account.invoice.line'].create({
+        self.AccountInvoiceLine.create({
             'product_id': self.env.ref("product.product_product_10").id,
             'quantity': 10,
             'price_unit': 400,
@@ -81,7 +69,7 @@ class TestInvoiceDiscount(TestDiscountCommon):
             'name': 'Mouse, Optical',
             'account_id': self.account_id.id,
         })
-        self.env['account.invoice.line'].create({
+        self.AccountInvoiceLine.create({
             'product_id': self.env.ref("product.product_product_12").id,
             'quantity': 30,
             'price_unit': 250,
@@ -90,4 +78,52 @@ class TestInvoiceDiscount(TestDiscountCommon):
             'name': 'Mouse, Wireless',
             'account_id': self.account_id.id,
         })
+        return invoice_id
+
+    def account_discount_03_check_include_taxes(self):
+        tax_id = self.env['account.tax'].create({
+            'name': 'Tax 7.7',
+            'amount': 7.7,
+            'amount_type': 'percent',
+            'price_include': True,
+            'include_base_amount': True,
+        })
+
+        invoice_id = self.AccountInvoice.create({
+            'name': 'Discount Invoice Test Tax Included Price',
+            'partner_id': self.partner_id.id,
+            'currency_id': self.env.ref('base.USD').id,
+            'account_id': self.account_id.id,
+            'type': 'out_invoice',
+            'date_invoice': time.strftime('%Y') + '-03-12',
+            'journal_id': self.journal_id.id,
+        })
+        invoice_id.onchange_discount_method()
+        self.AccountInvoiceLine.create({
+            'product_id': self.env.ref("product.product_product_10").id,
+            'quantity': 10,
+            'price_unit': 400,
+            'invoice_id': invoice_id.id,
+            'name': 'Mouse, Optical',
+            'account_id': self.account_id.id,
+            'invoice_line_tax_ids': [(6, 0, [tax_id.id])],
+        })
+        self.AccountInvoiceLine.create({
+            'product_id': self.env.ref("product.product_product_12").id,
+            'quantity': 30,
+            'price_unit': 250,
+            'invoice_id': invoice_id.id,
+            'name': 'Mouse, Wireless',
+            'account_id': self.account_id.id,
+            'invoice_line_tax_ids': [(6, 0, [tax_id.id])],
+        })
+        invoice_id.write({
+            'discount_method': 'fixed',
+            'discount_amount': 10,
+            })
+        self.assertTrue(invoice_id, 'Invoice: no invoice created')
+        invoice_id._check_constrains()
+        invoice_id.onchange_discount_per()
+        invoice_id.onchange_discount_amount()
+        logging.info('Successful: Invoice Created!')
         return invoice_id

@@ -20,10 +20,11 @@ class TestDiscountCommon(TransactionCase):
             'fix_amount': 3000.0,
             'percentage': 20.0,
         })
-
         ir_model_data_obj = self.env['ir.model.data']
-        account_acccount_obj = self.env['account.account']
-        journal_obj = self.env['account.journal']
+        AccountAccount = self.env['account.account']
+        AccountJournal = self.env['account.journal']
+        self.AccountInvoice = self.env['account.invoice']
+        self.AccountInvoiceLine = self.env['account.invoice.line']
         company_id = \
             ir_model_data_obj.xmlid_to_res_id('base.main_company') or False
         user_type_payable_id = ir_model_data_obj.xmlid_to_res_id(
@@ -33,13 +34,13 @@ class TestDiscountCommon(TransactionCase):
         self.user_type_revenue_id = ir_model_data_obj.xmlid_to_res_id(
             'account.data_account_type_revenue')
 
-        self.account_type_payable_id = account_acccount_obj.create({
+        self.account_type_payable_id = AccountAccount.create({
             'name': 'Test Payable Account',
             'code': 'TestPA',
             'reconcile': True,
             'user_type_id': user_type_payable_id})
 
-        self.account_type_receivable_id = account_acccount_obj.create({
+        self.account_type_receivable_id = AccountAccount.create({
             'name': 'Test Reiceivable Account',
             'code': 'TestRA',
             'reconcile': True,
@@ -52,8 +53,14 @@ class TestDiscountCommon(TransactionCase):
             'email': 'testpartner@test.com',
         })
 
-        self.journal_id = journal_obj.create({
+        self.journal_id = AccountJournal.create({
             'name': 'Test Journal',
             'code': 'Journal001',
             'type': 'sale',
             'company_id': company_id})
+
+        self.account_id = AccountAccount.create({
+            'name': 'Test',
+            'code': 'DA',
+            'user_type_id': self.user_type_revenue_id,
+            })
