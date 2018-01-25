@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra noupdate="1">
+
+    <record id="indent_po" model="purchase.indent">
+        <field name="category_id" ref="product.product_category_all"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="indent_line_po" model="purchase.indent.line">
+        <field name="purchase_indent_id" ref="indent_po"/>
+        <field name="name">Whiteboard</field>
+        <field name="product_id" ref="stock.test_quant_product"/>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="product_qty">2</field>
+        <field name="remaining_qty">2.0</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <function model="purchase.indent" name="action_confirm"
+                  eval="[ref('indent_po')]"/>
+
+    <record id="wiz_request_po" model="wiz.requisition.request">
+        <field name="purchase_indent_id" ref="indent_po"/>
+        <field name="order_type">po</field>
+        <field name="partner_id" ref="base.res_partner_1"/>
+    </record>
+
+    <record id="dummy_wiz_indent_line_po1" model="dummy.wiz.indent.line">
+        <field name="purchase_indent_id" ref="indent_po"/>
+        <field name="wizard_indent_id" ref="wiz_request_po"/>
+        <field name="name">Whiteboard</field>
+        <field name="product_id" ref="stock.test_quant_product"/>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="expected_date" eval="DateTime.now()"/>
+        <field name="product_qty">2</field>
+        <field name="remaining_qty">2.0</field>
+        <field name="requisition_qty">2.0</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="wiz_indent_line_po" model="wiz.indent.line">
+        <field name="purchase_indent_ids"
+               eval="[(6,0,[ref('purchase_indent.indent_po')])]"/>
+        <field name="name">Whiteboard</field>
+        <field name="product_id" ref="stock.test_quant_product"/>
+        <field name="expected_date" eval="DateTime.now()"/>
+        <field name="wizard_indent_id" ref="purchase_indent.wiz_request_po"/>
+        <field name="purchase_indent_line_id" ref="purchase_indent.indent_line_po"/>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="product_qty">2</field>
+        <field name="price_unit">100</field>
+    </record>
+
+    <function model="wiz.requisition.request" name="action_create"
+                  eval="[ref('purchase_indent.wiz_request_po')]"/>
+
+</flectra>
