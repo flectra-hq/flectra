@@ -12,7 +12,7 @@ class ReportAgedPartnerBalance(models.AbstractModel):
 
     _name = 'report.account.report_agedpartnerbalance'
 
-    def _get_partner_move_lines(self, account_type, date_from, target_move, period_length):
+    def _get_partner_move_lines(self, account_type, date_from, target_move, period_length, branch_id):
         periods = {}
         start = datetime.strptime(date_from, "%Y-%m-%d")
         for i in range(5)[::-1]:
@@ -29,7 +29,6 @@ class ReportAgedPartnerBalance(models.AbstractModel):
         cr = self.env.cr
         user_company = self.env.user.company_id.id
         move_state = ['draft', 'posted']
-        branch_id = data['form'].get('branch_id', False)
         branch = ''
         if branch_id:
             branch = 'AND (l.branch_id =' + str(branch_id[0]) + ')'
@@ -218,7 +217,7 @@ class ReportAgedPartnerBalance(models.AbstractModel):
         else:
             account_type = ['payable', 'receivable']
 
-        movelines, total, dummy = self._get_partner_move_lines(account_type, date_from, target_move, data['form']['period_length'])
+        movelines, total, dummy = self._get_partner_move_lines(account_type, date_from, target_move, data['form']['period_length'], data['form'].get('branch_id', False))
         return {
             'doc_ids': self.ids,
             'doc_model': model,
