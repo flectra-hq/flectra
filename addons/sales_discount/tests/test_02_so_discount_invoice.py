@@ -25,3 +25,14 @@ class TestSODiscountInvoice(TestSODiscount):
         sale_order.order_line._compute_product_updatable()
         sale_order.action_confirm()
         sale_order.action_invoice_create()
+
+    def test_03_so_fixed_discount_include_taxes(self):
+        sale_order = self.discount_03_check_include_taxes()
+        self.assertTrue(sale_order, 'Sale Order: no sale order created')
+        logging.info('Successful: Sale Order Created!')
+        sale_order.calculate_discount()
+        self.assertEquals(10, round(sale_order.discount),
+                          'Discount Calculation error')
+        sale_order.order_line._compute_product_updatable()
+        sale_order.action_confirm()
+        sale_order.action_invoice_create()

@@ -69,3 +69,7 @@ class TestDiscountCommon(TransactionCase):
             'property_account_income_id': self.account_type_receivable_id.id})
         self.product_2.write({
             'property_account_income_id': self.account_type_receivable_id.id})
+        self.sale_order = self.SaleOrder.create({
+            'partner_id': self.partner_id.id,
+            'pricelist_id': self.pricelist_id.id,
+        })

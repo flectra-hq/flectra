@@ -25,3 +25,10 @@ class TestDiscountInvoice(TestInvoiceDiscount):
         })
         invoice_id.calculate_discount()
         invoice_id.action_invoice_open()
+
+    def test_03_fixed_discount_include_taxes(self):
+        invoice_id = self.account_discount_03_check_include_taxes()
+        invoice_id.calculate_discount()
+        self.assertEquals(10, round(invoice_id.discount),
+                          'Discount Calculation error')
+        invoice_id.action_invoice_open()
