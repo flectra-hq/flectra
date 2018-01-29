@@ -21,8 +21,14 @@
         <field name="model">purchase.requisition</field>
         <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//button[@name='%(purchase_requisition.action_purchase_requisition_to_so)d']" position="replace">
+                <button name="%(purchase_requisition.action_purchase_requisition_to_so)d" type="action"
+                    string="New Quotation" class="btn-primary" context="{'default_branch_id': branch_id}"
+                    attrs="{'invisible': [('state', 'not in', ['in_progress', 'open'])]}"/>
+            </xpath>
             <xpath expr="//field[@name='vendor_id']" position="after">
                 <field name="purchase_indent_ids" widget="many2many_tags" readonly="1"/>
+                <field name='branch_id' readonly="1"/>
             </xpath>
             <xpath expr="//notebook/page/field/tree/field[@name='product_qty']" position="after">
                 <field name="purchase_indent_ids" widget="many2many_tags" readonly="1"/>
@@ -41,6 +47,7 @@
                 <field name="request_date"/>
                 <field name="category_id"/>
                 <field name="company_id"/>
+                <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                 <field name="state"/>
             </tree>
         </field>
@@ -53,7 +60,7 @@
             <form string="Purchase Indent">
                 <header>
                     <button name="action_confirm" states="draft" string="Confirm" type="object" class="oe_highlight"/>
-                    <button name="%(action_wiz_requisition_request)d" states="confirm,requisition" string="Create Requisition" type="action" context="{'default_purchase_indent_id': active_id, 'default_category_id': category_id}" class="oe_highlight" groups="base.group_system,purchase.group_purchase_manager"/>
+                    <button name="%(action_wiz_requisition_request)d" states="confirm,requisition" string="Create Requisition" type="action" context="{'default_purchase_indent_id': active_id, 'default_category_id': category_id, 'default_branch_id': branch_id}" class="oe_highlight" groups="base.group_system,purchase.group_purchase_manager"/>
                     <button name="action_cancel" states="confirm" string="Cancel" type="object"/>
                     <button name="button_draft" states="cancel" string="Set to Draft" type="object"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirm,requisition,done" readonly="1"/>
@@ -73,8 +80,9 @@
                     <group col="4">
                         <field name="category_id" options="{'no_create': True}" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         <field name="request_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                        <field name="company_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}" required="1"/>                        
+                        <field name="company_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}" required="1"/>
                         <field name="user_id"/>
+                        <field name="branch_id" groups="base_branch_company.group_multi_branch" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         <field name="picking_type_id" domain="[('code','=','incoming')]" options="{'no_create': True}" groups="stock.group_stock_multi_locations"/>
                         <field name="dest_address_id" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('default_location_dest_id_usage', '!=', 'customer')], 'required': [('default_location_dest_id_usage', '=', 'customer')]}"/>
                         <field name="default_location_dest_id_usage" invisible="1"/>
@@ -94,7 +102,7 @@
                             </field>
                         </page>
                         <page string="History">
-                            <field name="intend_history_ids" readonly="1">
+                            <field name="indent_history_ids" readonly="1">
                                 <tree editable="bottom">
                                     <field name="product_id"/>
                                     <field name="state"/>
@@ -127,6 +135,7 @@
                 <field name="name" string="Name" filter_domain="[('name','ilike',self)]"/>
                 <field name="category_id" string="Category" filter_domain="[('category_id','ilike',self)]"/>
                 <field name="user_id" string="Requestd By" filter_domain="[('user_id','ilike',self)]"/>
+                <field name="branch_id" string="Branch" filter_domain="[('branch_id','ilike',self)]"/>
                 <field name="state" string="State" filter_domain="[('state','ilike',self)]"/>
                 <filter name="draft" string="Draft" domain="[('state','=', 'draft')]"/>
                 <filter name="confirm" string="Confirm" domain="[('state','=','confirm')]"/>
@@ -135,6 +144,7 @@
                 <filter name="cancel" string="Cancel" domain="[('state', '=', 'cancel')]"/>
                 <group expand="0" string="Group By">
                     <filter string="Category" domain="[]" context="{'group_by':'category_id'}"/>
+                    <filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
                     <filter string="State" domain="[]" context="{'group_by':'state'}"/>
                     <filter string="Requestd By" domain="[]" context="{'group_by':'user_id'}"/>
                     <filter string="Request Date" domain="[]" context="{'group_by':'request_date'}"/>

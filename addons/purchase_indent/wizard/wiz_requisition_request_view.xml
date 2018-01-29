@@ -18,6 +18,7 @@
                     <field name="requisition_type_id"
                            attrs="{'invisible': ['|', ('order_type', '!=', 'pa'), ('state', '=', 'confirm')], 'required': [('order_type', '=', 'pa')]}"
                            widget="selection"/>
+                    <field name="branch_id" invisible="1"/>
                     <field name="state" invisible="1"/>
                 </group>
                 <group attrs="{'invisible': [('state', '!=', 'draft')]}">

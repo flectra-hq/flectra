@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flectra import api, fields, models
+# from flectra.exceptions import ValidationError
 
 
 class Company(models.Model):
@@ -21,6 +22,7 @@ class Company(models.Model):
         branch.write({'partner_id': company.partner_id.id,
                       'company_id': company.id})
         return company
+
 
 class ResBranch(models.Model):
     _name = "res.branch"
@@ -45,7 +47,8 @@ class ResBranch(models.Model):
     phone = fields.Char()
     mobile = fields.Char()
 
-    _sql_constraints = [('branch_code_company_uniq', 'unique (code,company_id)',
+    _sql_constraints = [('branch_code_company_uniq',
+                         'unique (code,company_id)',
                          'The branch code must be unique per company!')]
 
     @api.model
@@ -109,13 +112,23 @@ class Users(models.Model):
                                         default=_get_branch,
                                         domain="[('company_id','=',company_id)"
                                                "]")
-    branches_count = fields.Integer(compute='_compute_branches_count',
-                                     string="Number of Companies",
-                                     default=_branches_count)
+    branches_count = fields.Integer(
+        compute='_compute_branches_count',
+        string="Number of Companies", default=_branches_count)
+
+    # To do : Check with all base module test cases
+    # @api.multi
+    # @api.constrains('default_branch_id', 'branch_ids')
+    # def _check_branches(self):
+    #     for user in self:
+    #         if user.branch_ids \
+    #                 and user.default_branch_id not in user.branch_ids:
+    #             raise ValidationError(_('The selected Default Branch (%s) '
+    #                                     'is not in the Branches!') % (
+    #                 user.default_branch_id.name))
 
     @api.multi
     def _compute_branches_count(self):
         branches_count = self._branches_count()
         for user in self:
             user.branches_count = branches_count
-
