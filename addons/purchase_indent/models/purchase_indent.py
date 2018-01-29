@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from flectra.exceptions import Warning, AccessError
+from flectra.exceptions import Warning, AccessError, ValidationError
 from flectra.tools.misc import formatLang
 
 import flectra.addons.decimal_precision as dp
@@ -167,6 +167,7 @@ class PurchaseRequisition(models.Model):
 
     purchase_indent_ids = fields.Many2many(
         'purchase.indent', string='Purchase Indent')
+    branch_id = fields.Many2one('res.branch', string="Branch")
 
     @api.multi
     def action_draft(self):
@@ -205,18 +206,21 @@ class PurchaseRequisitionLine(models.Model):
         'purchase.indent.line', 'Purchase Indent Line Ref')
     purchase_indent_ids = fields.Many2many(
         'purchase.indent', string='Purchase Indent')
+    branch_id = fields.Many2one(related='requisition_id.branch_id',
+                                string='Branch', store=True)
 
 
 class PurchaseIndent(models.Model):
     _name = 'purchase.indent'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin',
+                'ir.branch.company.mixin']
     _description = "Purchase Indent"
 
     @api.multi
     def _compute_order_count(self):
         po_list = []
         pa_list = []
-        for history_id in self.intend_history_ids:
+        for history_id in self.indent_history_ids:
             if history_id.order_id:
                 po_list.append(history_id.order_id.id)
             elif history_id.purchase_requisition_id:
@@ -260,7 +264,7 @@ class PurchaseIndent(models.Model):
     partner_id = fields.Many2one(
         'res.partner', related='user_id.partner_id',
         string="Partner", track_visibility='onchange')
-    intend_history_ids = fields.One2many(
+    indent_history_ids = fields.One2many(
         'purchase.indent.history', 'purchase_indent_id', 'History')
     purchase_order_count = fields.Integer(
         compute='_compute_order_count', string='# of Purchase Order')
@@ -280,20 +284,34 @@ class PurchaseIndent(models.Model):
         help="Technical field used to display the Drop Ship Address",
         readonly=True)
 
+    @api.constrains('company_id', 'branch_id')
+    def _check_company(self):
+        for order in self:
+            if order.branch_id \
+                    and order.company_id != order.branch_id.company_id:
+                raise ValidationError(
+                    _('Configuration Error of Company:\n'
+                      'The Purchase Indent Company (%s) and '
+                      'the Company (%s) of Branch must '
+                      'be the same company!') % (
+                        order.company_id.name,
+                        order.branch_id.company_id.name)
+                )
+
     @api.multi
     def set_qty_state_cancel(self, purchase_order_id=False,
                              purchase_agreement_id=False):
-        intend_history_ids = []
+        indent_history_ids = []
         indent_line_obj = self.env['purchase.indent.line']
         if purchase_order_id:
-            intend_history_ids = self.env['purchase.indent.history'].search([
+            indent_history_ids = self.env['purchase.indent.history'].search([
                 ('order_id', '=', purchase_order_id.id),
                 ('purchase_requisition_id', '=', False)])
         elif purchase_agreement_id:
-            intend_history_ids = self.env['purchase.indent.history'].search([
+            indent_history_ids = self.env['purchase.indent.history'].search([
                 ('order_id', '=', False),
                 ('purchase_requisition_id', '=', purchase_agreement_id.id)])
-        for history_id in intend_history_ids:
+        for history_id in indent_history_ids:
             indent_line_id = indent_line_obj.sudo().search([
                 ('product_id', '=', history_id.product_id.id),
                 ('purchase_indent_id', '=', history_id.purchase_indent_id.id)])
@@ -307,16 +325,16 @@ class PurchaseIndent(models.Model):
     def set_qty_state_confirm(self, purchase_order_id=False,
                               purchase_agreement_id=False):
         indent_line_obj = self.env['purchase.indent.line']
-        intend_history_ids = []
+        indent_history_ids = []
         if purchase_order_id:
-            intend_history_ids = self.env['purchase.indent.history'].search([
+            indent_history_ids = self.env['purchase.indent.history'].search([
                 ('order_id', '=', purchase_order_id.id),
                 ('state', '=', 'Cancelled')])
         elif purchase_agreement_id:
-            intend_history_ids = self.env['purchase.indent.history'].search([
+            indent_history_ids = self.env['purchase.indent.history'].search([
                 ('purchase_requisition_id', '=', purchase_agreement_id.id),
                 ('state', '=', 'Cancelled')])
-        for history_id in intend_history_ids:
+        for history_id in indent_history_ids:
             indent_line_id = indent_line_obj.sudo().search([
                 ('product_id', '=', history_id.product_id.id),
                 ('purchase_indent_id', '=', history_id.purchase_indent_id.id)])
@@ -442,7 +460,7 @@ class PurchaseIndent(models.Model):
     @api.multi
     def get_purchase_order_list(self):
         order_list = [
-            history_id.order_id.id for history_id in self.intend_history_ids]
+            history_id.order_id.id for history_id in self.indent_history_ids]
         return {
             'name': 'Purchase Orders',
             'type': 'ir.actions.act_window',
@@ -455,7 +473,7 @@ class PurchaseIndent(models.Model):
     @api.multi
     def get_purchase_agreement_list(self):
         pr_list = [history_id.purchase_requisition_id.id
-                   for history_id in self.intend_history_ids]
+                   for history_id in self.indent_history_ids]
         return {
             'name': 'Purchase Agreements',
             'type': 'ir.actions.act_window',
@@ -528,6 +546,8 @@ class PurchaseIndentLine(models.Model):
     company_id = fields.Many2one(
         'res.company', related='purchase_indent_id.company_id',
         string='Company', store=True, readonly=True)
+    branch_id = fields.Many2one(related='purchase_indent_id.branch_id',
+                                string='Branch', store=True)
     requisition_qty = fields.Float(
         string="Requisition Quantity",
         digits=dp.get_precision('Discount'))
@@ -599,6 +619,10 @@ class PurchaseIndentHistory(models.Model):
                     self_id.product_qty - self_id.requisition_qty
 
     purchase_indent_id = fields.Many2one('purchase.indent', 'Purchase Indent')
+    branch_id = fields.Many2one(related='purchase_indent_id.branch_id',
+                                string='Branch', store=True)
+    company_id = fields.Many2one(related='purchase_indent_id.company_id',
+                                 string="Company", store=True)
     product_id = fields.Many2one(
         'product.product', string='Product',
         domain=[('purchase_ok', '=', True)],

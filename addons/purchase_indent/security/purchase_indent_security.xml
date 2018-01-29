@@ -20,4 +20,26 @@
         </field>
     </record>
 
+    <!-- Multi Branch -->
+
+    <record model="ir.rule" id="purchase_indent_multi_branch_rule">
+        <field name="name">Purchase Indent multi-branch</field>
+        <field name="model_id" ref="model_purchase_indent"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('branch_id', '=', False), '|', ('branch_id', '=', user.default_branch_id.id),
+            ('branch_id', 'in', user.branch_ids.ids)]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="purchase_indent_line_multi_branch_rule">
+        <field name="name">Purchase Indent Line multi-branch</field>
+        <field name="model_id" ref="model_purchase_indent_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('branch_id', '=', False), '|', ('branch_id', '=', user.default_branch_id.id),
+            ('branch_id', 'in', user.branch_ids.ids)]
+        </field>
+    </record>
+
 </flectra>

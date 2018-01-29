@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from flectra import api, fields, models
+from flectra import api, models
+
 
 class Partner(models.Model):
     _name = "res.partner"
@@ -17,6 +18,3 @@ class Partner(models.Model):
             self.branch_id.with_context(ctx).write(branch_vals)
         result = super(Partner, self).write(vals)
         return result
-
-
-
