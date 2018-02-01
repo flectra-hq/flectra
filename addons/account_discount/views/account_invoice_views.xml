@@ -7,31 +7,17 @@
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="priority" eval="20"/>
         <field name="arch" type="xml">
-            <xpath expr="/form/sheet/notebook/page/group" position="replace">
+            <xpath expr="//group[@name='left_panel']" position="inside">
+                <separator string="Discount"/>
+                <field name="discount_method" attrs="{'readonly': ['|', ('origin', '!=', False), ('state', '!=', 'draft')]}"/>
+                <field name="discount_amount" attrs="{'readonly': ['|', '|', ('origin', '!=', False), ('state', '!=', 'draft'), ('discount_method', '=', False)], 'invisible': [('discount_method', '=', 'per')]}"/>
+                <field name="discount_per" attrs="{'invisible': ['|', ('discount_method', '=', 'fixed'), ('discount_method', '=', False)], 'readonly': ['|', ('origin', '!=', False), ('state', '!=', 'draft')]}"/>
+                <button name="calculate_discount" type="object" class="oe_edit_only oe_link" string="(Update Discount)" attrs="{'invisible': [('discount_method', '=', False)]}" confirm="If you want to apply global discount other discount methods will be reset."/>
             </xpath>
-            <field name='comment' position="before">
-                <div>
-                    <group>
-                        <group class="pull-left">
-                            <field name="discount_method" attrs="{'readonly': ['|', ('origin', '!=', False), ('state', '!=', 'draft')]}"/>
-                            <field name="discount_amount" attrs="{'readonly': ['|', '|', ('origin', '!=', False), ('state', '!=', 'draft'), ('discount_method', '=', False)], 'invisible': [('discount_method', '=', 'per')]}"/>
-                            <field name="discount_per" attrs="{'invisible': ['|', ('discount_method', '=', 'fixed'), ('discount_method', '=', False)], 'readonly': ['|', ('origin', '!=', False), ('state', '!=', 'draft')]}"/>
-                            <button name="calculate_discount" type="object" class="oe_edit_only oe_link" string="(Update Discount)" attrs="{'invisible': [('discount_method', '=', False)]}" confirm="If you want to apply global discount other discount methods will be reset."/>
-                        </group>
-                        <group class="oe_subtotal_footer oe_right">
-                            <field name="gross_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            <xpath expr="//field[@name='amount_untaxed']" position="before">
+                <field name="gross_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                             <field name="discount" string="Discount"/>
-                            <field name="amount_untaxed" string="Subtotal"/>
-                            <field name="amount_tax"/>
-                            <field name="amount_total" class="oe_subtotal_footer_separator"/>
-                            <field name="payments_widget" colspan="2" nolabel="1" widget="payment"/>
-                            <field name="residual" class="oe_subtotal_footer_separator" attrs="{'invisible': [('state', '=', 'draft')]}"/>
-                            <field name="reconciled" invisible="1"/>
-                            <field name="outstanding_credits_debits_widget" colspan="2" nolabel="1" widget="payment" attrs="{'invisible': [('state', 'not in', 'open')]}"/>
-                        </group>
-                    </group>
-                </div>
-            </field>
+            </xpath>
         </field>
     </record>
 </flectra>
