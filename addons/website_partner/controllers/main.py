@@ -13,6 +13,9 @@ class WebsitePartnerPage(http.Controller):
         _, partner_id = unslug(partner_id)
         if partner_id:
             partner_sudo = request.env['res.partner'].sudo().browse(partner_id)
+            if not request.env.user.has_group('website.group_website_publisher') \
+                    and request.website.id not in partner_sudo.website_ids.ids:
+                return request.render('website.404')
             is_website_publisher = request.env['res.users'].has_group('website.group_website_publisher')
             if partner_sudo.exists() and (partner_sudo.website_published or is_website_publisher):
                 values = {

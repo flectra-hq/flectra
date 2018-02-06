@@ -41,6 +41,10 @@ class Forum(models.Model):
         with misc.file_open('website_forum/data/forum_default_faq.html', 'r') as f:
             return f.read()
 
+    def _default_website(self):
+        default_website_id = self.env.ref('website.default_website')
+        return [default_website_id.id] if default_website_id else None
+
     # description and use
     name = fields.Char('Forum Name', required=True, translate=True)
     active = fields.Boolean(default=True)
@@ -131,8 +135,9 @@ class Forum(models.Model):
     website_ids = fields.Many2many('website', 'website_forum_pub_rel',
                                    'website_id', 'forum_id',
                                    string='Websites', copy=False,
+                                   default=_default_website,
                                    help='List of websites in which '
-                                        'Forum is published.')
+                                        'Forum will published.')
 
     @api.one
     @api.constrains('allow_question', 'allow_discussion', 'allow_link', 'default_post_type')
@@ -276,8 +281,8 @@ class Post(models.Model):
     can_post = fields.Boolean('Can Automatically be Validated', compute='_get_post_karma_rights')
     can_flag = fields.Boolean('Can Flag', compute='_get_post_karma_rights')
     can_moderate = fields.Boolean('Can Moderate', compute='_get_post_karma_rights')
-
-    website_id = fields.Many2one('website', string="Website")
+    website_id = fields.Many2one('website', string="Website",
+                                 default=lambda self: self.env.ref('website.default_website'))
 
     def _search_can_view(self, operator, value):
         if operator not in ('=', '!=', '<>'):

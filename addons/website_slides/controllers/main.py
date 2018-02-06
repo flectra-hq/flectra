@@ -59,7 +59,7 @@ class WebsiteSlides(http.Controller):
         """
         domain = []
         if not request.env.user.has_group('website.group_website_designer'):
-            domain += ['|', ('website_ids', '=', False), ("website_ids", "in", request.website.id)]
+            domain += [("website_ids", "in", request.website.id)]
         channels = request.env['slide.channel'].search(domain, order='sequence, id')
         if not channels:
             return request.render("website_slides.channel_not_found")
@@ -98,7 +98,11 @@ class WebsiteSlides(http.Controller):
     def channel(self, channel, category=None, tag=None, page=1, slide_type=None, sorting='creation', search=None, **kw):
         user = request.env.user
         Slide = request.env['slide.slide']
-        domain = [('channel_id', '=', channel.id)]
+        if not request.env.user.has_group('website.group_website_publisher') \
+                and request.website.id not in channel.website_ids.ids:
+            return request.render('website.404')
+        domain = [('channel_id', '=', channel.id),
+                  ('website_ids', 'in', request.website.id)]
         pager_url = "/slides/%s" % (channel.id)
         pager_args = {}
 

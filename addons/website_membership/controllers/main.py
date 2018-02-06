@@ -43,7 +43,7 @@ class WebsiteMembership(http.Controller):
         # base domain for groupby / searches
         base_line_domain = [
             ("partner.website_published", "=", True), ('state', '=', 'paid'),
-            '|', ('partner.website_ids', '=', False), ('partner.website_ids', 'in', request.website.id),
+            ('partner.website_ids', 'in', request.website.id),
             ('date_to', '>=', today), ('date_from', '<=', today)
         ]
         if membership_id and membership_id != 'free':
@@ -64,7 +64,7 @@ class WebsiteMembership(http.Controller):
         if post_name:
             country_domain += ['|', ('name', 'ilike', post_name), ('website_description', 'ilike', post_name)]
 
-        countries = Partner.sudo().read_group(country_domain + [("website_published", "=", True), '|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id)], ["id", "country_id"], groupby="country_id", orderby="country_id")
+        countries = Partner.sudo().read_group(country_domain + [("website_published", "=", True), ('website_ids', 'in', request.website.id)], ["id", "country_id"], groupby="country_id", orderby="country_id")
         countries_total = sum(country_dict['country_id_count'] for country_dict in countries)
 
         line_domain = list(base_line_domain)
@@ -107,7 +107,7 @@ class WebsiteMembership(http.Controller):
         if request.env.ref('website_membership.opt_index_google_map').customize_show:
             google_map_partner_ids = MembershipLine.search(line_domain).get_published_companies(limit=2000)
 
-        search_domain = [('membership_state', '=', 'free'), ('website_published', '=', True), '|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id),]
+        search_domain = [('membership_state', '=', 'free'), ('website_published', '=', True), ('website_ids', 'in', request.website.id)]
         if post_name:
             search_domain += ['|', ('name', 'ilike', post_name), ('website_description', 'ilike', post_name)]
         if country_id:
@@ -168,7 +168,7 @@ class WebsiteMembership(http.Controller):
         _, partner_id = unslug(partner_id)
         if partner_id:
             partner = request.env['res.partner'].sudo().browse(partner_id)
-            if partner.exists() and partner.website_published and not partner.website_ids or request.website in partner.website_ids:  # TODO should be done with access rules
+            if partner.exists() and partner.website_published and request.website in partner.website_ids:  # TODO should be done with access rules
                 values = {}
                 values['main_object'] = values['partner'] = partner
                 return request.render("website_membership.partner", values)

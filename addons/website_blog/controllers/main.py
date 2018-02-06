@@ -24,7 +24,7 @@ class WebsiteBlog(http.Controller):
         dom = blog and [('blog_id', '=', blog.id)] or []
         if not request.env.user.has_group('website.group_website_designer'):
             dom += [('post_date', '<=', fields.Datetime.now()),
-                    '|', ("website_ids", "in", request.website.id), ('website_ids', '=', False)]
+                    ("website_ids", "in", request.website.id)]
         groups = request.env['blog.post']._read_group_raw(
             dom,
             ['name', 'post_date'],
@@ -64,7 +64,7 @@ class WebsiteBlog(http.Controller):
             page=page,
             step=self._blog_post_per_page,
         )
-        posts = BlogPost.search(['|', ("website_ids", "in", request.website.id), ('website_ids', '=', False)], offset=(page - 1) * self._blog_post_per_page, limit=self._blog_post_per_page)
+        posts = BlogPost.search([('website_ids', 'in', request.website.id)], offset=(page - 1) * self._blog_post_per_page, limit=self._blog_post_per_page)
         blog_url = QueryURL('', ['blog', 'tag'])
         return request.render("website_blog.latest_blogs", {
             'posts': posts,
@@ -114,16 +114,16 @@ class WebsiteBlog(http.Controller):
             domain += [("post_date", ">=", date_begin), ("post_date", "<=", date_end)]
 
         if request.env.user.has_group('website.group_website_designer'):
-            count_domain = domain + [("website_published", "=", True), '|', ("website_ids", "in", request.website.id), ('website_ids', '=', False), ("post_date", "<=", fields.Datetime.now())]
+            count_domain = domain + [("website_published", "=", True), ("website_ids", "in", request.website.id), ("post_date", "<=", fields.Datetime.now())]
             published_count = BlogPost.search_count(count_domain)
             unpublished_count = BlogPost.search_count(domain) - published_count
 
             if state == "published":
-                domain += [("website_published", "=", True), '|', ("website_ids", "in", request.website.id), ('website_ids', '=', False), ("post_date", "<=", fields.Datetime.now())]
+                domain += [("website_published", "=", True), ("website_ids", "in", request.website.id), ("post_date", "<=", fields.Datetime.now())]
             elif state == "unpublished":
-                domain += ['|', ("website_published", "=", False), '|', ("website_ids", "in", request.website.id), ('website_ids', '=', False), ("post_date", ">", fields.Datetime.now())]
+                domain += ['|', ("website_published", "=", False), ("website_ids", "in", request.website.id), ("post_date", ">", fields.Datetime.now())]
         else:
-            domain += [("post_date", "<=", fields.Datetime.now()), '|', ("website_ids", "in", request.website.id), ('website_ids', '=', False)]
+            domain += [("post_date", "<=", fields.Datetime.now()), ("website_ids", "in", request.website.id)]
 
         blog_url = QueryURL('', ['blog', 'tag'], blog=blog, tag=tag, date_begin=date_begin, date_end=date_end)
 
@@ -198,6 +198,10 @@ class WebsiteBlog(http.Controller):
          - 'nav_list': a dict [year][month] for archives navigation
          - 'next_post': next blog post, to direct the user towards the next interesting post
         """
+        if not request.env.user.has_group('website.group_website_publisher') \
+                and request.website.id not in blog_post.website_ids.ids:
+            return request.render('website.404')
+
         BlogPost = request.env['blog.post']
         date_begin, date_end = post.get('date_begin'), post.get('date_end')
 
@@ -225,7 +229,7 @@ class WebsiteBlog(http.Controller):
         tags = request.env['blog.tag'].search([])
 
         # Find next Post
-        all_post = BlogPost.search([('blog_id', '=', blog.id)])
+        all_post = BlogPost.search([('blog_id', '=', blog.id), ("website_published", "=", True), ("website_ids", "in", request.website.id)])
         if not request.env.user.has_group('website.group_website_designer'):
             all_post = all_post.filtered(lambda r: r.post_date <= fields.Datetime.now())
 
@@ -331,7 +335,7 @@ class WebsiteBlog(http.Controller):
         #check current user belongs to website publisher group
         publish = request.env.user.has_group('website.group_website_publisher')
         if not publish:
-            domain.append(('website_published', '=', True), '|', ("website_ids", "in", request.website.id), ('website_ids', '=', False))
+            domain.append(('website_published', '=', True), ("website_ids", "in", request.website.id))
         messages = request.env['mail.message'].sudo().search(domain, count=count)
         if count:
             return messages.ids

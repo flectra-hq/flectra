@@ -127,6 +127,10 @@ class BlogPost(models.Model):
             </section>
         '''
 
+    def _default_website(self):
+        default_website_id = self.env.ref('website.default_website')
+        return [default_website_id.id] if default_website_id else None
+
     name = fields.Char('Title', required=True, translate=True, default='')
     subtitle = fields.Char('Sub Title', translate=True)
     author_id = fields.Many2one('res.partner', 'Author', default=lambda self: self.env.user.partner_id)
@@ -155,9 +159,10 @@ class BlogPost(models.Model):
     ranking = fields.Float(compute='_compute_ranking', string='Ranking')
     website_ids = fields.Many2many('website', 'website_blog_pub_rel',
                                    'website_id', 'blog_id',
+                                   default=_default_website,
                                    string='Websites', copy=False,
                                    help='List of websites in which '
-                                        'Blog Post is published.')
+                                        'Blog Post will published.')
 
     @api.multi
     @api.depends('content', 'teaser_manual')

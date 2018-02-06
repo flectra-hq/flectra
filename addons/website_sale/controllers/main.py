@@ -191,7 +191,7 @@ class WebsiteSale(http.Controller):
             if attrib:
                 domain += [('attribute_line_ids.value_ids', 'in', ids)]
         if not request.env.user.has_group('website.group_website_publisher'):
-            domain += ['|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id)]
+            domain += [('website_ids', 'in', request.website.id)]
 
         if tag_values:
             domain += [('tag_ids', 'in', tag_values)]
@@ -245,10 +245,8 @@ class WebsiteSale(http.Controller):
             post["search"] = search
         if category:
             category = request.env['product.public.category'].browse(int(category))
-            website = []
-            for web in category.website_ids:
-                website.append(web.id)
-            if request.website.id not in website:
+            if not category.website_ids or \
+               request.website.id not in category.website_ids.ids:
                 return request.render('website.404')
             url = "/shop/category/%s" % slug(category)
         if attrib_list:
@@ -320,6 +318,9 @@ class WebsiteSale(http.Controller):
 
     @http.route(['/shop/product/<model("product.template"):product>'], type='http', auth="public", website=True)
     def product(self, product, category='', search='', **kwargs):
+        if not request.env.user.has_group('website.group_website_publisher') \
+                and request.website.id not in product.website_ids.ids:
+            return request.render('website.404')
         product_context = dict(request.env.context,
                                active_id=product.id,
                                partner=request.env.user.partner_id)
@@ -364,7 +365,7 @@ class WebsiteSale(http.Controller):
 
     @http.route(['/shop/change_pricelist/<model("product.pricelist"):pl_id>'], type='http', auth="public", website=True)
     def pricelist_change(self, pl_id, **post):
-        if (pl_id.website_id or pl_id == request.env.user.partner_id.property_product_pricelist) \
+        if (pl_id.selectable or pl_id == request.env.user.partner_id.property_product_pricelist) \
                 and request.website.is_pricelist_available(pl_id.id):
             request.session['website_sale_current_pl'] = pl_id.id
             request.website.sale_get_order(force_pricelist=pl_id.id)
@@ -790,7 +791,7 @@ class WebsiteSale(http.Controller):
         )
 
         acquirers = request.env['payment.acquirer'].search(
-            [('website_published', '=', True), ('company_id', '=', order.company_id.id), '|', ('website_id', '=', False), ('website_id', '=', request.website.id)]
+            [('website_published', '=', True), ('company_id', '=', order.company_id.id), ('website_id', '=', request.website.id)]
         )
 
         values['access_token'] = order.access_token
@@ -798,7 +799,7 @@ class WebsiteSale(http.Controller):
         values['s2s_acquirers'] = [acq for acq in acquirers if acq.payment_flow == 's2s' and acq.registration_view_template_id]
         values['tokens'] = request.env['payment.token'].search(
             [('partner_id', '=', order.partner_id.id),
-            ('acquirer_id', 'in', [acq.id for acq in values['s2s_acquirers']])])
+            ('acquirer_id', 'in', acquirers.ids)])
 
         for acq in values['form_acquirers']:
             acq.form = acq.with_context(submit_class='btn btn-primary', submit_txt=_('Pay Now')).sudo().render(

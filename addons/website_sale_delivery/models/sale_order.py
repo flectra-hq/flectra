@@ -73,8 +73,8 @@ class SaleOrder(models.Model):
 
     def _get_delivery_methods(self):
         address = self.partner_shipping_id
-        domain = self.env['website'].get_current_website()
-        return self.env['delivery.carrier'].sudo().search([('website_published', '=', True), '|', ('website_ids', '=', False), ('website_ids', 'in', domain.id)]).available_carriers(address)
+        website = self.env['website'].get_current_website()
+        return self.env['delivery.carrier'].sudo().search([('website_published', '=', True), ('website_ids', 'in', website.id)]).available_carriers(address)
 
     @api.multi
     def _cart_update(self, product_id=None, line_id=None, add_qty=0, set_qty=0, **kwargs):

@@ -22,6 +22,10 @@ class Tags(models.Model):
         classname = ['default', 'primary', 'success', 'warning', 'danger']
         return [(x, str.title(x)) for x in classname]
 
+    def _default_website(self):
+        default_website_id = self.env.ref('website.default_website')
+        return [default_website_id.id] if default_website_id else None
+
     name = fields.Char('Category Name', required=True, translate=True)
     partner_ids = fields.Many2many('res.partner', 'res_partner_res_partner_tag_rel', 'tag_id', 'partner_id', string='Partners')
     classname = fields.Selection(get_selection_class, 'Class', default='default', help="Bootstrap class to customize the color", required=True)
@@ -30,5 +34,6 @@ class Tags(models.Model):
     website_ids = fields.Many2many('website', 'website_partner_tag_pub_rel',
                                    'website_id', 'partner_tag_id',
                                    string='Websites', copy=False,
+                                   default=_default_website,
                                    help='List of websites in which '
-                                        'Partner Tag is published.')
+                                        'Partner Tag will published.')

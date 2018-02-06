@@ -212,7 +212,7 @@
                             <t t-foreach="products" t-as="product">
                                 <div id="grid_list"
                                     class="col-md-4 oe_product oe_grid oe_product_cart oe-height-4"
-                                    t-attf-data-publish="#{product.website_published &amp; (not product.website_ids or website in product.website_ids) and 'on' or 'off'}">
+                                    t-att-data-publish="product.website_published and website in product.website_ids and 'on' or 'off'">
                                     <t t-call="website_sale.products_item">
                                     </t>
                                 </div>
@@ -481,7 +481,7 @@
     <template id="products_list_view" inherit_id="website_sale.products" name="List View" active="False">
         <xpath expr="//div[@id='products_grid']/t/div[@id='grid_list']" position="replace">
             <div class="oe_product oe_list oe_product_cart"
-                t-attf-data-publish="#{product.website_published &amp; (not product.website_ids or website in product.website_ids) and 'on' or 'off'}">
+                t-att-data-publish="product.website_published and website in product.website_ids and 'on' or 'off'">
                 <t t-call="website_sale.products_item">
                     <t t-set="show_publish" t-value="True" />
                 </t>

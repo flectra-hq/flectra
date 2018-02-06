@@ -83,7 +83,7 @@ class WebsiteEventController(http.Controller):
 
         def dom_without(without):
             domain = [('state', "in", ['draft', 'confirm', 'done'])]
-            domain += ['|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id)] if \
+            domain += [('website_id', '=', request.website.id)] if \
                 not request.env.user.has_group('website.group_website_publisher') else []
             for key, search in domain_search.items():
                 if key != without:
@@ -171,6 +171,9 @@ class WebsiteEventController(http.Controller):
 
     @http.route(['/event/<model("event.event"):event>/register'], type='http', auth="public", website=True, sitemap=False)
     def event_register(self, event, **post):
+        if not request.env.user.has_group('website.group_website_publisher') \
+                and request.website != event.website_id:
+            return request.render('website.404')
         values = {
             'event': event,
             'main_object': event,
@@ -257,7 +260,6 @@ class WebsiteEventController(http.Controller):
 
         for registration in registrations:
             registration['event_id'] = event
-            registration['website_id'] = request.website.id
             Attendees += Attendees.sudo().create(
                 Attendees._prepare_attendee_values(registration))
 
