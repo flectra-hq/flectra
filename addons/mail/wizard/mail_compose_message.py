@@ -117,6 +117,13 @@ class MailComposer(models.TransientModel):
     # mass mode options
     notify = fields.Boolean('Notify followers', help='Notify followers of the document (mass post only)')
     auto_delete = fields.Boolean('Delete Emails', help='Delete sent emails (mass mailing only)')
+    keep_days = fields.Integer('Keep days', default=-1,
+                               help="This value defines the no. of days "
+                                    "the emails should be recorded "
+                                    "in the system: \n -1 = Email will be deleted "
+                                    "immediately once it is send \n greater than 0 = Email "
+                                    "will be deleted after "
+                                    "the no. of days are met.")
     auto_delete_message = fields.Boolean('Delete Message Copy', help='Do not keep a copy of the email in the document communication history (mass mailing only)')
     template_id = fields.Many2one(
         'mail.template', 'Use template', index=True,
@@ -220,7 +227,8 @@ class MailComposer(models.TransientModel):
                 # template user_signature is added when generating body_html
                 # mass mailing: use template auto_delete value -> note, for emails mass mailing only
                 Mail = Mail.with_context(mail_notify_user_signature=False)
-                ActiveModel = ActiveModel.with_context(mail_notify_user_signature=False, mail_auto_delete=wizard.template_id.auto_delete)
+                ActiveModel = ActiveModel.with_context(mail_notify_user_signature=False, mail_auto_delete=wizard.template_id.auto_delete,
+                                                       mail_keep_days=wizard.template_id.keep_days)
             if not hasattr(ActiveModel, 'message_post'):
                 ActiveModel = self.env['mail.thread'].with_context(thread_model=wizard.model)
             if wizard.composition_mode == 'mass_post':
@@ -305,6 +313,8 @@ class MailComposer(models.TransientModel):
                 # auto deletion of mail_mail
                 if self.auto_delete or self.template_id.auto_delete:
                     mail_values['auto_delete'] = True
+                mail_values['keep_days'] = \
+                    self.keep_days or self.template_id.keep_days
                 # rendered values using template
                 email_dict = rendered_values[res_id]
                 mail_values['partner_ids'] += email_dict.pop('partner_ids', [])

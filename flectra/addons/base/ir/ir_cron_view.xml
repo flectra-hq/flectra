@@ -32,6 +32,10 @@
                         <field name="priority"/>
                         <field name="doall"/>
                     </group>
+                    <group>
+                        <field name="fail"/>
+                        <field name="total_fail"/>
+                    </group>
                 </xpath>
             </field>
         </record>
@@ -85,5 +89,54 @@
             <field name="view_id" ref="ir_cron_view_tree"/>
         </record>
         <menuitem id="menu_ir_cron_act" action="ir_cron_act" parent="base.menu_automation"/>
+
+
+        <record id="cronlogs_form_view" model="ir.ui.view">
+            <field name="name">ir.cronjob.logs.form</field>
+            <field name="model">ir.cronjob.logs</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <form string="Logs">
+                    <sheet string="Logs">
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="cron_status"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Error Log">
+                                <field name="log"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="cronjob_tree_view">
+            <field name="name">ir.cronjob.logs.tree</field>
+            <field name="model">ir.cronjob.logs</field>
+            <field name="arch" type="xml">
+                <tree string="Logs">
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="cron_status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="ir_cronjob_act_logs" model="ir.actions.act_window">
+            <field name="name">Scheduled Logs</field>
+            <field name="res_model">ir.cronjob.logs</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="cronjob_tree_view"/>
+        </record>
+
+        <menuitem id="menu_ir_cronjob_logs" action="ir_cronjob_act_logs" parent="base.menu_automation"/>
 
 </flectra>
