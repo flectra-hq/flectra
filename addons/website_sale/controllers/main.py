@@ -316,7 +316,7 @@ class WebsiteSale(http.Controller):
         }
         if category:
             values['main_object'] = category
-        return request.render("website_sale.products", values)
+        return request.render("website_sale.main_shop_page", values)
 
     @http.route(['/shop/product/<model("product.template"):product>'], type='http', auth="public", website=True)
     def product(self, product, category='', search='', **kwargs):
