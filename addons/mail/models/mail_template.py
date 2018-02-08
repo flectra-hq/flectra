@@ -176,6 +176,13 @@ class MailTemplate(models.Model):
                                       help="You may attach files to this template, to be added to all "
                                            "emails created from this template")
     auto_delete = fields.Boolean('Auto Delete', default=True, help="Permanently delete this email after sending it, to save space")
+    keep_days = fields.Integer('Keep days', default=-1,
+                               help="This value defines the no. of days "
+                                    "the emails should be recorded "
+                                    "in the system: \n -1 = Email will be deleted "
+                                    "immediately once it is send \n greater than 0 = Email "
+                                    "will be deleted after "
+                                    "the no. of days are met.")
 
     # Fake fields used to implement the placeholder assistant
     model_object_field = fields.Many2one('ir.model.fields', string="Field",
@@ -200,6 +207,14 @@ class MailTemplate(models.Model):
             self.model = self.model_id.model
         else:
             self.model = False
+
+    @api.onchange('mail_server_id')
+    def onchange_mail_server_id(self):
+        if self.mail_server_id and self.mail_server_id.keep_days > 0 \
+                and self.keep_days < 0:
+            self.keep_days = self.mail_server_id.keep_days
+        else:
+            self.keep_days = -1
 
     def build_expression(self, field_name, sub_field_name, null_value):
         """Returns a placeholder expression for use in a template field,
@@ -493,6 +508,7 @@ class MailTemplate(models.Model):
                 values.update(
                     mail_server_id=template.mail_server_id.id or False,
                     auto_delete=template.auto_delete,
+                    keep_days=template.keep_days,
                     model=template.model,
                     res_id=res_id or False,
                     attachment_ids=[attach.id for attach in template.attachment_ids],

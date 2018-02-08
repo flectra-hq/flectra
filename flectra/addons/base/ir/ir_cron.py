@@ -53,7 +53,9 @@ class ir_cron(models.Model):
     cron_name = fields.Char('Name', related='ir_actions_server_id.name', store=True)
     user_id = fields.Many2one('res.users', string='Scheduler User', default=lambda self: self.env.user, required=True)
     active = fields.Boolean(default=True)
+    fail = fields.Boolean('Failer Log', default=True)
     interval_number = fields.Integer(default=1, help="Repeat every x.")
+    total_fail = fields.Integer('Total Fail')
     interval_type = fields.Selection([('minutes', 'Minutes'),
                                       ('hours', 'Hours'),
                                       ('days', 'Days'),
@@ -76,14 +78,24 @@ class ir_cron(models.Model):
         return True
 
     @api.model
-    def _handle_callback_exception(self, cron_name, server_action_id, job_id, job_exception):
+    def _handle_callback_exception(self, cron_name, server_action_id, job_id, job_exception, cron_cr):
         """ Method called when an exception is raised by a job.
 
         Simply logs the exception and rollback the transaction. """
         self._cr.rollback()
+        cron_id = self.browse(job_id)
+        if cron_id.fail:
+            self.env['ir.cronjob.logs'].create(
+                {'cron_status': 'fail',
+                 'name': cron_id.name + ' - ' + str(datetime.now().date()),
+                 'start_date': datetime.now(),
+                 'log': str(job_exception)})
+            query = """UPDATE ir_cron set total_fail=%s where id=%s""" % (
+                (cron_id.total_fail or 0) + 1, cron_id.id)
+            cron_cr.execute(query)
 
     @api.model
-    def _callback(self, cron_name, server_action_id, job_id):
+    def _callback(self, cron_name, server_action_id, job_id, cron_cr):
         """ Run the method associated to a given job. It takes care of logging
         and exception handling. Note that the user running the server action
         is the user calling this method. """
@@ -107,7 +119,7 @@ class ir_cron(models.Model):
             self.pool.reset_changes()
             _logger.exception("Call from cron %s for server action #%s failed in Job #%s",
                               cron_name, server_action_id, job_id)
-            self._handle_callback_exception(cron_name, server_action_id, job_id, e)
+            self._handle_callback_exception(cron_name, server_action_id, job_id, e, cron_cr)
 
     @classmethod
     def _process_job(cls, job_cr, job, cron_cr):
@@ -134,7 +146,7 @@ class ir_cron(models.Model):
                     if numbercall > 0:
                         numbercall -= 1
                     if not ok or job['doall']:
-                        cron._callback(job['cron_name'], job['ir_actions_server_id'], job['id'])
+                        cron._callback(job['cron_name'], job['ir_actions_server_id'], job['id'], cron_cr)
                     if numbercall:
                         nextcall += _intervalTypes[job['interval_type']](job['interval_number'])
                     ok = True
@@ -309,3 +321,15 @@ class ir_cron(models.Model):
     def toggle(self, model, domain):
         active = bool(self.env[model].search_count(domain))
         return self.try_write({'active': active})
+
+
+class ScheduledLogs(models.Model):
+    _name = 'ir.cronjob.logs'
+
+    name = fields.Char("Name", readonly=True, track_visibility='always')
+    object_name = fields.Char(string="Object", readonly=True, track_visibility='always')
+    start_date = fields.Datetime("Start Date", readonly=True)
+    cron_id = fields.Many2one("ir.cron", "Cron", readonly=True, track_visibility='always')
+    cron_status = fields.Selection([('fail', 'Fail'), ('success', 'Success')],
+                                   'Status', readonly=True)
+    log = fields.Text("Logs", readonly=True, track_visibility='always')

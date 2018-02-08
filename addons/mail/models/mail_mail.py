@@ -50,11 +50,30 @@ class MailMail(models.Model):
     auto_delete = fields.Boolean(
         'Auto Delete',
         help="Permanently delete this email after sending it, to save space")
+    keep_days = fields.Integer('Keep days', default=-1,
+                               help="This value defines the no. of days "
+                                    "the emails should be recorded "
+                                    "in the system: \n -1 = Email will be deleted "
+                                    "immediately once it is send \n greater than 0 = Email "
+                                    "will be deleted after "
+                                    "the no. of days are met.")
+    delete_date = fields.Date(compute='_compute_delete_on_date',
+                                  string='Delete on.', store=True)
     failure_reason = fields.Text(
         'Failure Reason', readonly=1,
         help="Failure reason. This is usually the exception thrown by the email server, stored to ease the debugging of mailing issues.")
     scheduled_date = fields.Char('Scheduled Send Date',
         help="If set, the queue manager will send the email after the date. If not set, the email will be send as soon as possible.")
+
+    @api.depends('keep_days')
+    def _compute_delete_on_date(self):
+        mail_date = fields.Datetime.from_string(self.date)
+        if self.keep_days > 0:
+            delete_on = mail_date + datetime.timedelta(days=self.keep_days)
+            self.delete_date = delete_on
+        else:
+            self.delete_date = mail_date.date()
+
 
     @api.model
     def create(self, values):
@@ -88,6 +107,12 @@ class MailMail(models.Model):
     @api.multi
     def cancel(self):
         return self.write({'state': 'cancel'})
+
+
+    @api.model
+    def process_email_unlink(self):
+        mail_ids = self.sudo().search([('delete_date', '=', datetime.datetime.now().date())])
+        mail_ids.filtered('auto_delete').unlink()
 
     @api.model
     def process_email_queue(self, ids=None):
@@ -146,6 +171,8 @@ class MailMail(models.Model):
                     'email_status': 'exception',
                 })
         if mail_sent:
+            if self.keep_days > 0:
+                return True
             self.sudo().filtered(lambda self: self.auto_delete).unlink()
         return True
 
@@ -254,7 +281,8 @@ class MailMail(models.Model):
             try:
                 mail = self.browse(mail_id)
                 if mail.state != 'outgoing':
-                    if mail.state != 'exception' and mail.auto_delete:
+                    if mail.state != 'exception' and mail.auto_delete and \
+                                    mail.keep_days < 0:
                         mail.sudo().unlink()
                     continue
                 # TDE note: remove me when model_id field is present on mail.message - done here to avoid doing it multiple times in the sub method
