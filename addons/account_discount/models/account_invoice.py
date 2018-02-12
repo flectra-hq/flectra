@@ -121,7 +121,7 @@ class AccountInvoice(models.Model):
         if self.discount < 0:
             raise Warning(_("Discount should be less than Gross Amount"))
         discount = self.discount or self.discount_amount
-        if discount > self.gross_amount:
+        if self.gross_amount and discount > self.gross_amount:
             raise Warning(_("Discount (%s) should be less than "
                             "Gross Amount (%s).") % (
                 formatLang(self.env, discount, digits=2),
