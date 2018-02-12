@@ -375,10 +375,10 @@ Development Guidelines
   name of the component they belong to (creating "informal" namespaces, much
   as in C or Objective-C).
 * Global selectors should be avoided. Because a component may be used several
-  times in a single page (an example in Odoo is dashboards), queries should be
+  times in a single page (an example in Flectra is dashboards), queries should be
   restricted to a given component's scope. Unfiltered selections such as
   ``$(selector)`` or ``document.querySelectorAll(selector)`` will generally
-  lead to unintended or incorrect behavior.  Odoo Web's
+  lead to unintended or incorrect behavior.  Flectra Web's
   :class:`~Widget` has an attribute providing its DOM root
   (:attr:`~Widget.$el`), and a shortcut to select nodes directly
   (:func:`~Widget.$`).
@@ -415,29 +415,29 @@ Development Guidelines
 RPC
 ===
 
-To display and interact with data, calls to the Odoo server are necessary.
+To display and interact with data, calls to the Flectra server are necessary.
 This is performed using :abbr:`RPC <Remote Procedure Call>`.
 
-Odoo Web provides two primary APIs to handle this: a low-level
-JSON-RPC based API communicating with the Python section of Odoo
+Flectra Web provides two primary APIs to handle this: a low-level
+JSON-RPC based API communicating with the Python section of Flectra
 Web (and of your module, if you have a Python part) and a high-level
-API above that allowing your code to talk directly to high-level Odoo models.
+API above that allowing your code to talk directly to high-level Flectra models.
 
 All networking APIs are :ref:`asynchronous <reference/async>`. As a result,
 all of them will return Deferred_ objects (whether they resolve those with
 values or not). Understanding how those work before before moving on is
 probably necessary.
 
-High-level API: calling into Odoo models
+High-level API: calling into Flectra models
 -------------------------------------------
 
-Access to Odoo object methods (made available through XML-RPC from the server)
-is done via :class:`Model`. It maps onto the Odoo server objects via two primary
+Access to Flectra object methods (made available through XML-RPC from the server)
+is done via :class:`Model`. It maps onto the Flectra server objects via two primary
 methods, :func:`~Model.call` (exported in ``web.Model``) and :func:`~Model.query`
 (exported in ``web.DataModel``, only available in the backend client).
 
 :func:`~Model.call` is a direct mapping to the corresponding method of
-the Odoo server object. Its usage is similar to that of the Odoo Model API,
+the Flectra server object. Its usage is similar to that of the Flectra Model API,
 with three differences:
 
 * The interface is :ref:`asynchronous <reference/async>`, so instead of
@@ -460,9 +460,9 @@ with three differences:
     });
 
 :func:`~Model.query` is a shortcut for a builder-style
-interface to searches (``search`` + ``read`` in Odoo RPC terms). It
-returns a :class:`~odoo.web.Query` object which is immutable but
-allows building new :class:`~odoo.web.Query` instances from the
+interface to searches (``search`` + ``read`` in Flectra RPC terms). It
+returns a :class:`~flectra.web.Query` object which is immutable but
+allows building new :class:`~flectra.web.Query` instances from the
 first one, adding new properties or modifiying the parent object's::
 
     Users.query(['name', 'login', 'user_email', 'signature'])
@@ -473,8 +473,8 @@ first one, adding new properties or modifiying the parent object's::
     });
 
 The query is only actually performed when calling one of the query
-serialization methods, :func:`~odoo.web.Query.all` and
-:func:`~odoo.web.Query.first`. These methods will perform a new
+serialization methods, :func:`~flectra.web.Query.all` and
+:func:`~flectra.web.Query.first`. These methods will perform a new
 RPC call every time they are called.
 
 For that reason, it's actually possible to keep "intermediate" queries
@@ -503,38 +503,38 @@ around and use them differently/add new specifications on them.
 
          :param Array<String> fields: list of fields to fetch during
                                       the search
-         :returns: a :class:`~odoo.web.Query` object
+         :returns: a :class:`~flectra.web.Query` object
                    representing the search to perform
 
-.. class:: odoo.web.Query(fields)
+.. class:: flectra.web.Query(fields)
 
     The first set of methods is the "fetching" methods. They perform
     RPC queries using the internal data of the object they're called
     on.
 
-    .. function:: odoo.web.Query.all()
+    .. function:: flectra.web.Query.all()
 
-        Fetches the result of the current :class:`~odoo.web.Query` object's
+        Fetches the result of the current :class:`~flectra.web.Query` object's
         search.
 
         :rtype: Deferred<Array<>>
 
-    .. function:: odoo.web.Query.first()
+    .. function:: flectra.web.Query.first()
 
        Fetches the **first** result of the current
-       :class:`~odoo.web.Query`, or ``null`` if the current
-       :class:`~odoo.web.Query` does have any result.
+       :class:`~flectra.web.Query`, or ``null`` if the current
+       :class:`~flectra.web.Query` does have any result.
 
        :rtype: Deferred<Object | null>
 
-    .. function:: odoo.web.Query.count()
+    .. function:: flectra.web.Query.count()
 
        Fetches the number of records the current
-       :class:`~odoo.web.Query` would retrieve.
+       :class:`~flectra.web.Query` would retrieve.
 
        :rtype: Deferred<Number>
 
-    .. function:: odoo.web.Query.group_by(grouping...)
+    .. function:: flectra.web.Query.group_by(grouping...)
 
        Fetches the groups for the query, using the first specified
        grouping parameter
@@ -543,18 +543,18 @@ around and use them differently/add new specifications on them.
                                       asked of the server. Grouping
                                       can actually be an array or
                                       varargs.
-       :rtype: Deferred<Array<odoo.web.QueryGroup>> | null
+       :rtype: Deferred<Array<flectra.web.QueryGroup>> | null
 
     The second set of methods is the "mutator" methods, they create a
-    **new** :class:`~odoo.web.Query` object with the relevant
+    **new** :class:`~flectra.web.Query` object with the relevant
     (internal) attribute either augmented or replaced.
 
-    .. function:: odoo.web.Query.context(ctx)
+    .. function:: flectra.web.Query.context(ctx)
 
        Adds the provided ``ctx`` to the query, on top of any existing
        context
 
-    .. function:: odoo.web.Query.filter(domain)
+    .. function:: flectra.web.Query.filter(domain)
 
        Adds the provided domain to the query, this domain is
        ``AND``-ed to the existing query domain.
@@ -564,12 +564,12 @@ around and use them differently/add new specifications on them.
        Sets the provided offset on the query. The new offset
        *replaces* the old one.
 
-    .. function:: odoo.web.Query.limit(limit)
+    .. function:: flectra.web.Query.limit(limit)
 
        Sets the provided limit on the query. The new limit *replaces*
        the old one.
 
-    .. function:: odoo.web.Query.order_by(fields…)
+    .. function:: flectra.web.Query.order_by(fields…)
 
        Overrides the model's natural order with the provided field
        specifications. Behaves much like Django's :py:meth:`QuerySet.order_by
@@ -590,14 +590,14 @@ around and use them differently/add new specifications on them.
 Aggregation (grouping)
 ''''''''''''''''''''''
 
-Odoo has powerful grouping capacities, but they are kind-of strange
+Flectra has powerful grouping capacities, but they are kind-of strange
 in that they're recursive, and level n+1 relies on data provided
 directly by the grouping at level n. As a result, while
-:py:meth:`odoo.models.Model.read_group` works it's not a very intuitive
+:py:meth:`flectra.models.Model.read_group` works it's not a very intuitive
 API.
 
-Odoo Web eschews direct calls to :py:meth:`~odoo.models.Model.read_group`
-in favor of calling a method of :class:`~odoo.web.Query`, :py:meth:`much
+Flectra Web eschews direct calls to :py:meth:`~flectra.models.Model.read_group`
+in favor of calling a method of :class:`~flectra.web.Query`, :py:meth:`much
 in the way it is done in SQLAlchemy <sqlalchemy.orm.query.Query.group_by>`
 [#terminal]_::
 
@@ -638,12 +638,12 @@ regular query for records):
           }
       });
 
-The result of a (successful) :func:`~odoo.web.Query.group_by` is
-an array of :class:`~odoo.web.QueryGroup`:
+The result of a (successful) :func:`~flectra.web.Query.group_by` is
+an array of :class:`~flectra.web.QueryGroup`:
 
-.. class:: odoo.web.QueryGroup
+.. class:: flectra.web.QueryGroup
 
-    .. function:: odoo.web.QueryGroup.get(key)
+    .. function:: flectra.web.QueryGroup.get(key)
 
         returns the group's attribute ``key``. Known attributes are:
 
@@ -656,16 +656,16 @@ an array of :class:`~odoo.web.QueryGroup`:
         ``aggregates``
             a {field: value} mapping of aggregations for the group
 
-    .. function:: odoo.web.QueryGroup.query([fields...])
+    .. function:: flectra.web.QueryGroup.query([fields...])
 
         equivalent to :func:`Model.query` but pre-filtered to
         only include the records within this group. Returns a
-        :class:`~odoo.web.Query` which can be further manipulated as
+        :class:`~flectra.web.Query` which can be further manipulated as
         usual.
 
-    .. function:: odoo.web.QueryGroup.subgroups()
+    .. function:: flectra.web.QueryGroup.subgroups()
 
-        returns a deferred to an array of :class:`~odoo.web.QueryGroup`
+        returns a deferred to an array of :class:`~flectra.web.QueryGroup`
         below this one
 
 Low-level API: RPC calls to Python side
@@ -673,7 +673,7 @@ Low-level API: RPC calls to Python side
 
 While the previous section is great for calling core OpenERP code
 (models code), it does not work if you want to call the Python side of
-Odoo Web.
+Flectra Web.
 
 For this, a lower-level API exists on on
 :class:`~Session` objects (the class is exported in ``web.Session``, but
@@ -706,7 +706,7 @@ Javascript module system overview
 ---------------------------------
 
 A new module system (inspired from requirejs) has now been deployed.
-It has many advantages over the Odoo version 8 system.
+It has many advantages over the Flectra version 8 system.
 
 * loading order: dependencies are guaranteed to be loaded first, even if
   files are not loaded in the correct order in the bundle files.
@@ -718,18 +718,18 @@ It has many advantages over the Odoo version 8 system.
 It has also some disadvantages:
 
 * files are required to use the module system if they want to interact 
-  with odoo, since the various objects are only available in the module
+  with flectra, since the various objects are only available in the module
   system, and not in global variables
 * circular dependencies are not supported.  It makes sense, but it means
   that one needs to be careful.
 
 This is obviously a very large change and will require everyone to
-adopt new habits.  For example, the variable odoo does not exist
+adopt new habits.  For example, the variable flectra does not exist
 anymore.  The new way of doing things is to import explicitely the module 
 you need, and declaring explicitely the objects you export.  Here is a
 simple example::
 
-    odoo.define('addon_name.service', function (require) {
+    flectra.define('addon_name.service', function (require) {
         var utils = require('web.utils');
         var Model = require('web.Model');
 
@@ -741,7 +741,7 @@ simple example::
     });
 
 This snippet shows a module named ``addon_name.service``.  It is defined
-with the ``odoo.define`` function.  ``odoo.define`` takes a name and a
+with the ``flectra.define`` function.  ``flectra.define`` takes a name and a
 function for arguments:
 
 * The name is the concatenation of the name of the addon it is defined in
@@ -794,7 +794,7 @@ Here is a description of the current file structure:
   * ``web.Widget`` contains the widget class
   * ``web.Model`` is an abstraction over ``web.ajax`` to make
     calls to the server model methods
-  * ``web.session`` is the former ``odoo.session``
+  * ``web.session`` is the former ``flectra.session``
   * ``web.utils`` for useful code snippets
   * ``web.time`` for every time-related generic functions
 * the ``views/`` folder contains all view definitions
@@ -811,8 +811,8 @@ The ``js/`` folder also contains some important files:
 The two other files are ``tour.js`` for the tours and ``compatibility.js``.
 The latter file is a compatibility layer bridging the old system to the
 new module system.  This is where every module names are exported to the
-global variable ``odoo``.  In theory, our addons should work without
-ever using the variable ``odoo``, and the compatibility module can be
+global variable ``flectra``.  In theory, our addons should work without
+ever using the variable ``flectra``, and the compatibility module can be
 disabled safely.
 
 Javascript conventions
@@ -835,18 +835,18 @@ Here are some basic conventions for the javascript code:
 
 
 
-Testing in Odoo Web Client
+Testing in Flectra Web Client
 ==========================
 
 Javascript Unit Testing
 -----------------------
 
-Odoo Web includes means to unit-test both the core code of
-Odoo Web and your own javascript modules. On the javascript side,
+Flectra Web includes means to unit-test both the core code of
+Flectra Web and your own javascript modules. On the javascript side,
 unit-testing is based on QUnit_ with a number of helpers and
-extensions for better integration with Odoo.
+extensions for better integration with Flectra.
 
-To see what the runner looks like, find (or start) an Odoo server
+To see what the runner looks like, find (or start) an Flectra server
 with the web client enabled, and navigate to ``/web/tests``
 This will show the runner selector, which lists all modules with javascript
 unit tests, and allows starting any of them (or all javascript tests in all
@@ -865,7 +865,7 @@ Writing a test case
 -------------------
 
 The first step is to list the test file(s). This is done through the
-``test`` key of the Odoo manifest, by adding javascript files to it:
+``test`` key of the Flectra manifest, by adding javascript files to it:
 
 .. code-block:: python
 
@@ -892,21 +892,21 @@ and allow running all of its (0 so far) tests:
 
 The next step is to create a test case::
 
-    odoo.testing.section('basic section', function (test) {
+    flectra.testing.section('basic section', function (test) {
         test('my first test', function () {
             ok(false, "this test has run");
         });
     });
 
-All testing helpers and structures live in the ``odoo.testing``
-module. Odoo tests live in a :func:`~odoo.testing.section`,
+All testing helpers and structures live in the ``flectra.testing``
+module. Flectra tests live in a :func:`~flectra.testing.section`,
 which is itself part of a module. The first argument to a section is
 the name of the section, the second one is the section body.
 
-:func:`test <odoo.testing.case>`, provided by the
-:func:`~odoo.testing.section` to the callback, is used to
+:func:`test <flectra.testing.case>`, provided by the
+:func:`~flectra.testing.section` to the callback, is used to
 register a given test case which will be run whenever the test runner
-actually does its job. Odoo Web test case use standard `QUnit
+actually does its job. Flectra Web test case use standard `QUnit
 assertions`_ within them.
 
 Launching the test runner at this point will run the test and display
@@ -925,7 +925,7 @@ will make it pass:
 Assertions
 ----------
 
-As noted above, Odoo Web's tests use `qunit assertions`_. They are
+As noted above, Flectra Web's tests use `qunit assertions`_. They are
 available globally (so they can just be called without references to
 anything). The following list is available:
 
@@ -975,10 +975,10 @@ anything). The following list is available:
 
     inverse operation to :func:`equal`
 
-Getting an Odoo instance
+Getting an Flectra instance
 ------------------------
 
-The Odoo instance is the base through which most Odoo Web
+The Flectra instance is the base through which most Flectra Web
 modules behaviors (functions, objects, …) are accessed. As a result,
 the test framework automatically builds one, and loads the module
 being tested and all of its dependencies inside it. This new instance
@@ -999,7 +999,7 @@ test module:
 ::
 
     // src/js/demo.js
-    odoo.web_tests_demo = function (instance) {
+    flectra.web_tests_demo = function (instance) {
         instance.web_tests_demo = {
             value_true: true,
             SomeType: instance.web.Class.extend({
@@ -1026,7 +1026,7 @@ DOM Scratchpad
 
 As in the wider client, arbitrarily accessing document content is
 strongly discouraged during tests. But DOM access is still needed to
-e.g. fully initialize :class:`widgets <~odoo.Widget>` before
+e.g. fully initialize :class:`widgets <~flectra.Widget>` before
 testing them.
 
 Thus, a test case gets a DOM scratchpad as its second positional
@@ -1058,7 +1058,7 @@ To avoid the corresponding processing costs, by default templates are
 not loaded into QWeb. If you need to render e.g. widgets making use of
 QWeb templates, you can request their loading through the
 :attr:`~TestOptions.templates` option to the :func:`test case
-function <odoo.testing.case>`.
+function <flectra.testing.case>`.
 
 This will automatically load all relevant templates in the instance's
 qweb before running the test case:
@@ -1164,8 +1164,8 @@ To enable mock RPC, set the :attr:`rpc option <TestOptions.rpc>` to
 
     * If it matches the pattern ``model:method`` (if it contains a
       colon, essentially) the call will set up the mocking of an RPC
-      call straight to the Odoo server (through XMLRPC) as
-      performed via e.g. :func:`odoo.web.Model.call`.
+      call straight to the Flectra server (through XMLRPC) as
+      performed via e.g. :func:`flectra.web.Model.call`.
 
       In that case, ``handler`` should be a function taking two
       arguments ``args`` and ``kwargs``, matching the corresponding
@@ -1213,7 +1213,7 @@ To enable mock RPC, set the :attr:`rpc option <TestOptions.rpc>` to
               });
 
               // widget needs that or it blows up
-              instance.webclient = {toggle_bars: odoo.testing.noop};
+              instance.webclient = {toggle_bars: flectra.testing.noop};
               var dbm = new instance.web.DatabaseManager({});
               return dbm.appendTo($s).then(function () {
                   ok(fetched_dbs, "should have fetched databases");
@@ -1232,7 +1232,7 @@ To enable mock RPC, set the :attr:`rpc option <TestOptions.rpc>` to
 Testing API
 -----------
 
-.. function:: odoo.testing.section(name[, options], body)
+.. function:: flectra.testing.section(name[, options], body)
 
     A test section, serves as shared namespace for related tests (for
     constants or values to only set up once). The ``body`` function
@@ -1244,9 +1244,9 @@ Testing API
     :param String name:
     :param TestOptions options:
     :param body:
-    :type body: Function<:func:`~odoo.testing.case`, void>
+    :type body: Function<:func:`~flectra.testing.case`, void>
 
-.. function:: odoo.testing.case(name[, options], callback)
+.. function:: flectra.testing.case(name[, options], callback)
 
     Registers a test case callback in the test runner, the callback
     will only be run once the runner is started (or maybe not at all,
@@ -1260,16 +1260,16 @@ Testing API
 .. class:: TestOptions
 
     the various options which can be passed to
-    :func:`~odoo.testing.section` or
-    :func:`~odoo.testing.case`. Except for
+    :func:`~flectra.testing.section` or
+    :func:`~flectra.testing.case`. Except for
     :attr:`~TestOptions.setup` and
     :attr:`~TestOptions.teardown`, an option on
-    :func:`~odoo.testing.case` will overwrite the corresponding
-    option on :func:`~odoo.testing.section` so
+    :func:`~flectra.testing.case` will overwrite the corresponding
+    option on :func:`~flectra.testing.section` so
     e.g. :attr:`~TestOptions.rpc` can be set for a
-    :func:`~odoo.testing.section` and then differently set for
-    some :func:`~odoo.testing.case` of that
-    :func:`~odoo.testing.section`
+    :func:`~flectra.testing.section` and then differently set for
+    some :func:`~flectra.testing.case` of that
+    :func:`~flectra.testing.section`
 
     .. attribute:: TestOptions.asserts
 
@@ -1369,7 +1369,7 @@ complexities.
 
        For some tests, a source database needs to be duplicated. This
        operation requires that there be no connection to the database
-       being duplicated, but Odoo doesn't currently break
+       being duplicated, but Flectra doesn't currently break
        existing/outstanding connections, so restarting the server is
        the simplest way to ensure everything is in the right state.
 
@@ -1395,7 +1395,7 @@ the OpenERP Web test suite.
 .. note::
 
     Note that this runs all the Python tests for the ``web`` module,
-    but all the web tests for all of Odoo. This can be surprising.
+    but all the web tests for all of Flectra. This can be surprising.
 
 .. _qunit: http://qunitjs.com/
 

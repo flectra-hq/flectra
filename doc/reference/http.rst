@@ -9,28 +9,28 @@ Web Controllers
 Routing
 =======
 
-.. autofunction:: odoo.http.route
+.. autofunction:: flectra.http.route
 
 .. _reference/http/request:
 
 Request
 =======
 
-The request object is automatically set on :data:`odoo.http.request` at
+The request object is automatically set on :data:`flectra.http.request` at
 the start of the request
 
-.. autoclass:: odoo.http.WebRequest
+.. autoclass:: flectra.http.WebRequest
     :members:
     :member-order: bysource
-.. autoclass:: odoo.http.HttpRequest
+.. autoclass:: flectra.http.HttpRequest
     :members:
-.. autoclass:: odoo.http.JsonRequest
+.. autoclass:: flectra.http.JsonRequest
     :members:
 
 Response
 ========
 
-.. autoclass:: odoo.http.Response
+.. autoclass:: flectra.http.Response
     :members:
     :member-order: bysource
 
@@ -44,7 +44,7 @@ Controllers
 ===========
 
 Controllers need to provide extensibility, much like
-:class:`~odoo.models.Model`, but can't use the same mechanism as the
+:class:`~flectra.models.Model`, but can't use the same mechanism as the
 pre-requisites (a database with loaded modules) may not be available yet (e.g.
 no database created, or no database selected).
 
@@ -53,11 +53,11 @@ models:
 
 Controllers are created by :ref:`inheriting <python:tut-inheritance>` from
 
-.. autoclass:: odoo.http.Controller
+.. autoclass:: flectra.http.Controller
 
-and defining methods decorated with :func:`~odoo.http.route`::
+and defining methods decorated with :func:`~flectra.http.route`::
 
-    class MyController(odoo.http.Controller):
+    class MyController(flectra.http.Controller):
         @route('/some_url', auth='public')
         def handler(self):
             return stuff()
@@ -71,7 +71,7 @@ class and override relevant methods, re-exposing them if necessary::
             do_before()
             return super(Extension, self).handler()
 
-* decorating with :func:`~odoo.http.route` is necessary to keep the method
+* decorating with :func:`~flectra.http.route` is necessary to keep the method
   (and route) visible: if the method is redefined without decorating, it
   will be "unpublished"
 * the decorators of all methods are combined, if the overriding method's

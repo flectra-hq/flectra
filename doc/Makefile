@@ -42,13 +42,13 @@ help:
 clean:
 	-rm -rf $(BUILDDIR)/*
 
-STATICS = _extensions/odoo_ext/static
+STATICS = _extensions/flectra_ext/static
 # TODO: add bootstrap files
 LESSFILES = $(wildcard $(STATICS)/*.less)
 $(STATICS)/style.css: $(LESSFILES)
 	$(LESSC) $(STATICS)/style.less $(STATICS)/style.css
 
-html: _extensions/odoo_ext/static/style.css
+html: _extensions/flectra_ext/static/style.css
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."

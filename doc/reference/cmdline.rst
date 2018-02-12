@@ -3,7 +3,7 @@
 .. _reference/cmdline:
 
 ================================
-Command-line interface: odoo-bin
+Command-line interface: flectra-bin
 ================================
 
 .. _reference/cmdline/server:
@@ -11,7 +11,7 @@ Command-line interface: odoo-bin
 Running the server
 ==================
 
-.. program:: odoo-bin
+.. program:: flectra-bin
 
 .. option:: -d <database>, --database <database>
 
@@ -96,7 +96,7 @@ Running the server
 .. option:: -s, --save
 
     saves the server configuration to the current configuration file
-    (:file:`{$HOME}/.odoorc` by default, and can be overridden using
+    (:file:`{$HOME}/.flectrarc` by default, and can be overridden using
     :option:`-c`)
 
 .. option:: --proxy-mode
@@ -158,12 +158,12 @@ database
 
     - ``%h`` is replaced by the whole hostname the request is made on.
     - ``%d`` is replaced by the subdomain the request is made on, with the
-      exception of ``www`` (so domain ``odoo.com`` and ``www.odoo.com`` both
-      match the database ``odoo``).
+      exception of ``www`` (so domain ``flectra.com`` and ``www.flectra.com`` both
+      match the database ``flectra``).
 
       These operations are case sensitive. Add option ``(?i)`` to match all
-      databases (so domain ``odoo.com`` using ``(?i)%d`` matches the database
-      ``Odoo``).
+      databases (so domain ``flectra.com`` using ``(?i)%d`` matches the database
+      ``Flectra``).
 
 .. option:: --db-template <template>
 
@@ -197,12 +197,12 @@ built-in HTTP
 .. option:: --longpolling-port <port>
 
     TCP port for long-polling connections in multiprocessing or gevent mode,
-    defaults to 7072. Not used in default (threaded) mode.
+    defaults to 8072. Not used in default (threaded) mode.
 
 logging
 -------
 
-By default, Odoo displays all logging of level_ ``info`` except for workflow
+By default, Flectra displays all logging of level_ ``info`` except for workflow
 logging (``warning`` only), and log output is sent to ``stdout``. Various
 options are available to redirect logging to other destinations and to
 customize the amount of logging output
@@ -236,7 +236,7 @@ customize the amount of logging output
 .. option:: --log-handler <handler-spec>
 
     :samp:`{LOGGER}:{LEVEL}`, enables ``LOGGER`` at the provided ``LEVEL``
-    e.g. ``odoo.models:DEBUG`` will enable all logging messages at or above
+    e.g. ``flectra.models:DEBUG`` will enable all logging messages at or above
     ``DEBUG`` level in the models.
 
     * The colon ``:`` is mandatory
@@ -247,36 +247,36 @@ customize the amount of logging output
 
     .. code-block:: console
 
-        $ odoo-bin --log-handler :DEBUG --log-handler werkzeug:CRITICAL --log-handler odoo.fields:WARNING
+        $ flectra-bin --log-handler :DEBUG --log-handler werkzeug:CRITICAL --log-handler flectra.fields:WARNING
 
 .. option:: --log-request
 
     enable DEBUG logging for RPC requests, equivalent to
-    ``--log-handler=odoo.http.rpc.request:DEBUG``
+    ``--log-handler=flectra.http.rpc.request:DEBUG``
 
 .. option:: --log-response
 
     enable DEBUG logging for RPC responses, equivalent to
-    ``--log-handler=odoo.http.rpc.response:DEBUG``
+    ``--log-handler=flectra.http.rpc.response:DEBUG``
 
 .. option:: --log-web
 
     enables DEBUG logging of HTTP requests and responses, equivalent to
-    ``--log-handler=odoo.http:DEBUG``
+    ``--log-handler=flectra.http:DEBUG``
 
 .. option:: --log-sql
 
     enables DEBUG logging of SQL querying, equivalent to
-    ``--log-handler=odoo.sql_db:DEBUG``
+    ``--log-handler=flectra.sql_db:DEBUG``
 
 .. option:: --log-level <level>
 
     Shortcut to more easily set predefined levels on specific loggers. "real"
     levels (``critical``, ``error``, ``warn``, ``debug``) are set on the
-    ``odoo`` and ``werkzeug`` loggers (except for ``debug`` which is only
-    set on ``odoo``).
+    ``flectra`` and ``werkzeug`` loggers (except for ``debug`` which is only
+    set on ``flectra``).
 
-    Odoo also provides debugging pseudo-levels which apply to different sets
+    Flectra also provides debugging pseudo-levels which apply to different sets
     of loggers:
 
     ``debug_sql``
@@ -284,11 +284,11 @@ customize the amount of logging output
 
         equivalent to ``--log-sql``
     ``debug_rpc``
-        sets the ``odoo`` and HTTP request loggers to ``debug``
+        sets the ``flectra`` and HTTP request loggers to ``debug``
 
         equivalent to ``--log-level debug --log-request``
     ``debug_rpc_answer``
-        sets the ``odoo`` and HTTP request and response loggers to
+        sets the ``flectra`` and HTTP request and response loggers to
         ``debug``
 
         equivalent to ``--log-level debug --log-request --log-response``
@@ -310,7 +310,7 @@ emails
 
 .. option:: --email-from <address>
 
-    Email address used as <FROM> when Odoo needs to send mails
+    Email address used as <FROM> when Flectra needs to send mails
 
 .. option:: --smtp <server>
 
@@ -320,7 +320,7 @@ emails
 
 .. option:: --smtp-ssl
 
-    If set, odoo should use SSL/STARTSSL SMTP connections
+    If set, flectra should use SSL/STARTSSL SMTP connections
 
 .. option:: --smtp-user <name>
 
@@ -336,14 +336,14 @@ emails
 Scaffolding
 ===========
 
-.. program:: odoo-bin scaffold
+.. program:: flectra-bin scaffold
 
 Scaffolding is the automated creation of a skeleton structure to simplify
-bootstrapping (of new modules, in the case of Odoo). While not necessary it
+bootstrapping (of new modules, in the case of Flectra). While not necessary it
 avoids the tedium of setting up basic structures and looking up what all
 starting requirements are.
 
-Scaffolding is available via the :command:`odoo-bin scaffold` subcommand.
+Scaffolding is available via the :command:`flectra-bin scaffold` subcommand.
 
 .. option:: -t <template>
 
@@ -365,7 +365,7 @@ Scaffolding is available via the :command:`odoo-bin scaffold` subcommand.
 Configuration file
 ==================
 
-.. program:: odoo-bin
+.. program:: flectra-bin
 
 Most of the command-line options can also be specified via a configuration
 file. Most of the time, they use similar names with the prefix ``-`` removed
@@ -384,9 +384,9 @@ Some conversions don't match the pattern:
 * :option:`--i18n-import` and :option:`--i18n-export` aren't available at all
   from configuration files
 
-The default configuration file is :file:`{$HOME}/.odoorc` which
-can be overridden using :option:`--config <odoo-bin -c>`. Specifying
-:option:`--save <odoo-bin -s>` will save the current configuration state back
+The default configuration file is :file:`{$HOME}/.flectrarc` which
+can be overridden using :option:`--config <flectra-bin -c>`. Specifying
+:option:`--save <flectra-bin -s>` will save the current configuration state back
 to that file.
 
 .. _jinja2: http://jinja.pocoo.org

@@ -24,7 +24,7 @@ Notes
 
 * provided ``linkcode_resolve`` only supports Python domain
 * generates https github links
-* explicitly imports ``odoo``, so useless for anyone else
+* explicitly imports ``flectra``, so useless for anyone else
 """
 
 def setup(app):
@@ -65,9 +65,9 @@ def setup(app):
             # obj doesn't have a module, or something
             return None
 
-        import odoo
+        import flectra
         # FIXME: make finding project root project-independent
-        project_root = os.path.join(os.path.dirname(odoo.__file__), '..')
+        project_root = os.path.join(os.path.dirname(flectra.__file__), '..')
         return make_github_link(
             app,
             os.path.relpath(obj_source_path, project_root),

@@ -1,12 +1,13 @@
 :banner: banners/localization.jpg
 
-==========================
-Making my Own Localization
-==========================
+=======================
+Creating a Localization
+=======================
 
 .. warning::
 
-    This tutorial requires knowledges about how to build a module in Odoo.
+    This tutorial requires knowledges about how to build a module in Flectra (see
+    :doc:`../../howtos/backend`).
 
 Building a localization module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -135,7 +136,7 @@ Each ``account.account.template`` is able to create an ``account.account`` for e
 Some of the described fields above deserve a bit more explanation.
 
 The ``user_type_id`` field requires a value of type ``account.account.type``.
-Although some additional types could be created in a localization module, we encourage the usage of the existing types in the `account/data/data_account_type.xml <https://github.com/odoo/odoo/blob/11.0/addons/account/data/data_account_type.xml>`_ file.
+Although some additional types could be created in a localization module, we encourage the usage of the existing types in the `account/data/data_account_type.xml <https://github.com/flectra/flectra/blob/11.0/addons/account/data/data_account_type.xml>`_ file.
 The usage of these generic types ensures the generic reports working correctly in addition to those that you could create in your localization module.
 
 .. warning::
@@ -289,7 +290,7 @@ Adding a new fiscal position to my Chart of Accounts
 ####################################################
 
 .. note::
-    If you need more information about what is a fiscal position and how it works in Odoo, please refer to `How to adapt taxes to my customer status or localization <https://www.odoo.com/documentation/user/online/accounting/others/taxes/application.html>`_.
+    If you need more information about what is a fiscal position and how it works in Flectra, please refer to `How to adapt taxes to my customer status or localization <https://www.flectra.com/documentation/user/online/accounting/others/taxes/application.html>`_.
 
 To create a new fiscal position, simply use the ``account.fiscal.position.template`` model:
 
@@ -315,7 +316,7 @@ This must be done after the creation of accounts before each one must be linked 
 .. code-block:: xml
 
     <?xml version="1.0" encoding="utf-8"?>
-    <odoo>
+    <flectra>
         <record id="l10n_xx_chart_template" model="account.chart.template">
 
             <!-- Define receivable/payable accounts. -->
@@ -340,7 +341,7 @@ This must be done after the creation of accounts before each one must be linked 
             <!-- Define a transfer account. -->
             <field name="transfer_account_id" ref="..."/>
         </record>
-    </odoo>
+    </flectra>
 
 For example, let's come back to the Belgium PCMN. This chart of accounts is override in this way to add some properties.
 
@@ -360,7 +361,7 @@ How to create a new bank operation model?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. note::
-    How a bank operation model works exactly in Odoo? See `Configure model of entries <https://www.odoo.com/documentation/user/online/accounting/bank/reconciliation/configure.html>`_.
+    How a bank operation model works exactly in Flectra? See `Configure model of entries <https://www.flectra.com/documentation/user/online/accounting/bank/reconciliation/configure.html>`_.
 
 Since ``V10``, a new feature is available in the bank statement reconciliation widget: the bank operation model.
 This allows the user to pre-fill some accounting entries with a single click.
@@ -418,4 +419,4 @@ one to bring all the stuff for your localization module and one more, ``account_
 
     'depends': ['l10n_xx', 'account_reports'],
 
-Once it's done, you can start the creation of your report statements. The documentation is available in the following `slides <https://www.odoo.com/slides/slide/how-to-create-custom-accounting-report-415>`_.
+Once it's done, you can start the creation of your report statements. The documentation is available in the following `slides <https://www.flectra.com/slides/slide/how-to-create-custom-accounting-report-415>`_.

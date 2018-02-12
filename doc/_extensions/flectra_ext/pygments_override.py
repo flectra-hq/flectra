@@ -17,7 +17,7 @@ AQUA = "#5bc4bf"
 BLUE = "#06b6ef"
 PURPLE = "#815ba4"
 
-class OdooStyle(Style):
+class FlectraStyle(Style):
     """Modified version of Paraiso Dark style to avoid Pygments version
     annoyances.
 
@@ -120,7 +120,7 @@ class OdooStyle(Style):
 
 import imp
 import sys
-modname = 'pygments.styles.odoo'
+modname = 'pygments.styles.flectra'
 m = imp.new_module(modname)
-m.OdooStyle = OdooStyle
+m.FlectraStyle = FlectraStyle
 sys.modules[modname] = m

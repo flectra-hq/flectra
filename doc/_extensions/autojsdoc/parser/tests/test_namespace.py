@@ -5,7 +5,7 @@ from support import parse, params
 
 def test_empty():
     [mod] = parse("""
-    odoo.define('a.ns', function (r) {
+    flectra.define('a.ns', function (r) {
         return {};
     });
     """)
@@ -14,7 +14,7 @@ def test_empty():
 
 def test_inline():
     [mod] = parse("""
-    odoo.define('a.ns', function (r) {
+    flectra.define('a.ns', function (r) {
         return {
             /**
              * a thing
@@ -31,7 +31,7 @@ def test_inline():
 
 def test_header():
     [mod] = parse("""
-    odoo.define('a.ns', function (r) {
+    flectra.define('a.ns', function (r) {
         /**
          * @property {Boolean} a a thing
          */
@@ -45,7 +45,7 @@ def test_header():
 def test_header_conflict():
     """ should the header or the inline comment take precedence? """
     [mod] = parse("""
-    odoo.define('a.ns', function (r) {
+    flectra.define('a.ns', function (r) {
         /**
          * @property {Boolean} a a thing
          */
@@ -61,7 +61,7 @@ def test_header_conflict():
 
 def test_mixin():
     [mod] = parse("""
-    odoo.define('a.mixin', function (r) {
+    flectra.define('a.mixin', function (r) {
         /**
          * @mixin
          */
@@ -81,7 +81,7 @@ def test_mixin():
 
 def test_literal():
     [mod] = parse("""
-    odoo.define('a.ns', function (r) {
+    flectra.define('a.ns', function (r) {
         /** whop whop */
         return {
             'a': 1,
@@ -97,7 +97,7 @@ def test_literal():
 
 def test_fill_ns():
     [mod] = parse("""
-    odoo.define('a.ns', function (r) {
+    flectra.define('a.ns', function (r) {
         var Class = r('Class');
         var ns = {};
         /** ok */
@@ -120,14 +120,14 @@ def test_fill_ns():
 
 def test_extend_other():
     [o, b] = parse("""
-    odoo.define('a.ns', function () {
+    flectra.define('a.ns', function () {
         /** @name outer */
         return {
             /** @name inner */
             a: {}
         };
     });
-    odoo.define('b', function (r) {
+    flectra.define('b', function (r) {
         var o = r('a.ns');
         var Class = r('Class');
         /** Class 1 */
@@ -151,7 +151,7 @@ def test_extend_other():
 
 def test_ns_variables():
     [mod] = parse("""
-    odoo.define('A', function (r) {
+    flectra.define('A', function (r) {
         var Class = r('Class');
         var Thing = Class.extend({});
         return {
@@ -166,7 +166,7 @@ def test_diff():
     """ Have the NS key and the underlying object differ
     """
     [mod] = parse("""
-    odoo.define('mod', function (r) {
+    flectra.define('mod', function (r) {
         var Class = r('Class');
         var Foo = Class.extend({});
         return { Class: Foo };
