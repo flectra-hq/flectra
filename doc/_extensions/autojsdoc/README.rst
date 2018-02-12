@@ -1,7 +1,7 @@
 :orphan:
 
 ======================================
-JSDoc parser/Sphinx extension for Odoo
+JSDoc parser/Sphinx extension for Flectra
 ======================================
 
 Why?
@@ -28,7 +28,7 @@ What?
 
 If it were possible to generate JSDoc annotations from our relatively
 well-defined code structures, it was obviously possible to extract documentary
-information directly from it, hence this Odoo-specific package/extension
+information directly from it, hence this Flectra-specific package/extension
 trying to do exactly that.
 
 This package should eventually provide:

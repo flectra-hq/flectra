@@ -13,9 +13,9 @@ DECLARATOR_INIT_TO_REF = ('Literal', 'Identifier', 'MemberExpression')
 class ModuleMatcher(Visitor):
     """Looks for structures of the form::
 
-        odoo.define($string, function ($name) {
+        flectra.define($string, function ($name) {
 
-    These are *Odoo module definitions*, upon encountering one the
+    These are *Flectra module definitions*, upon encountering one the
     matcher:
 
     * creates a module entry, optionally associated with the module comment
@@ -32,7 +32,7 @@ class ModuleMatcher(Visitor):
         # we're interested in expression statements (toplevel call)
         if utils.match(node, {'expression': {
             'callee': {
-                'object': {'name': 'odoo'},
+                'object': {'name': 'flectra'},
                 'property': {'name': 'define'},
             },
         }}):
@@ -191,9 +191,9 @@ BASE_SCOPE = BaseScope(None, {
             })),
         ]
     }),
-    'odoo': jsdoc.UnknownNS({
-        'name': u'odoo',
-        'doc': u"Odoo",
+    'flectra': jsdoc.UnknownNS({
+        'name': u'flectra',
+        'doc': u"Flectra",
         '_members': [
             ('name', jsdoc.PropertyDoc({'name': u'csrf_token', 'type': u'{String}'})),
         ]

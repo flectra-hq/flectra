@@ -6,7 +6,7 @@
 Data Files
 ==========
 
-Odoo is greatly data-driven, and a big part of modules definition is thus
+Flectra is greatly data-driven, and a big part of modules definition is thus
 the definition of the various records it manages: UI (menus and views),
 security (access rights and access rules), reports and plain data are all
 defined via records.
@@ -14,18 +14,18 @@ defined via records.
 Structure
 =========
 
-The main way to define data in Odoo is via XML data files: The broad structure
+The main way to define data in Flectra is via XML data files: The broad structure
 of an XML data file is the following:
 
-* Any number of operation elements within the root element ``odoo``
+* Any number of operation elements within the root element ``flectra``
 
 .. code-block:: xml
 
     <!-- the root elements of the data file -->
-    <odoo>
+    <flectra>
       <operation/>
       ...
-    </odoo>
+    </flectra>
 
 Data files are executed sequentially, operations can only refer to the result
 of operations defined previously
@@ -77,13 +77,13 @@ Nothing
 
     Will evaluate the domain, search the field's model using it and set the
     search's result as the field's value. Will only use the first result if
-    the field is a :class:`~odoo.fields.Many2one`
+    the field is a :class:`~flectra.fields.Many2one`
 ``ref``
     if a ``ref`` attribute is provided, its value must be a valid
     :term:`external id`, which will be looked up and set as the field's value.
 
-    Mostly for :class:`~odoo.fields.Many2one` and
-    :class:`~odoo.fields.Reference` fields
+    Mostly for :class:`~flectra.fields.Many2one` and
+    :class:`~flectra.fields.Reference` fields
 ``type``
     if a ``type`` attribute is provided, it is used to interpret and convert
     the field's content. The field's content can be provided through an
@@ -157,7 +157,7 @@ values).
 Shortcuts
 =========
 
-Because some important structural models of Odoo are complex and involved,
+Because some important structural models of Flectra are complex and involved,
 data files provide shorter alternatives to defining them using
 :ref:`record tags <reference/data/record>`:
 
@@ -243,14 +243,14 @@ For this case, data files can also use csv_, this is often the case for
 Here's the first lines of the data file defining US states
 ``res.country.state.csv``
 
-.. literalinclude:: ../../odoo/addons/base/res/res.country.state.csv
+.. literalinclude:: ../../flectra/addons/base/res/res.country.state.csv
     :language: text
     :lines: 1-15
 
 rendered in a more readable format:
 
 .. csv-table::
-    :file: ../../odoo/addons/base/res/res.country.state.csv
+    :file: ../../flectra/addons/base/res/res.country.state.csv
     :header-rows: 1
     :class: table-striped table-hover table-condensed
 

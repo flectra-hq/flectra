@@ -9,7 +9,7 @@ def test_single():
     /**
      * This is a super module!
      */
-    odoo.define('supermodule', function (req) {
+    flectra.define('supermodule', function (req) {
         var other = req('other');
     });
     """)
@@ -22,13 +22,13 @@ def test_single():
 
 def test_multiple():
     [mod1, mod2, mod3] = parse("""
-    odoo.define('module1', function (req) {
+    flectra.define('module1', function (req) {
         return 1;
     });
-    odoo.define('module2', function (req) {
+    flectra.define('module2', function (req) {
         return req('dep2');
     });
-    odoo.define('module3', function (req) {
+    flectra.define('module3', function (req) {
         var r = req('dep3');
         return r;
     });
@@ -54,7 +54,7 @@ def test_multiple():
 
 def test_func():
     [mod] = parse("""
-    odoo.define('module', function (d) {
+    flectra.define('module', function (d) {
         /**
          * @param {Foo} bar this is a bar
          * @param {Baz} qux this is a qux
@@ -78,7 +78,7 @@ def test_func():
 
 def test_hoist():
     [mod] = parse("""
-    odoo.define('module', function() {
+    flectra.define('module', function() {
         return foo;
         /**
          * @param a_thing
@@ -95,7 +95,7 @@ def test_hoist():
 
 def test_export_instance():
     [mod] = parse("""
-    odoo.define('module', function (require) {
+    flectra.define('module', function (require) {
         var Class = require('Class');
         /**
          * Provides an instance of Class
@@ -109,13 +109,13 @@ def test_export_instance():
 
 def test_bounce():
     [m2, m1] = parse("""
-    odoo.define('m2', function (require) {
+    flectra.define('m2', function (require) {
         var Item = require('m1');
         return {
             Item: Item
         };
     });
-    odoo.define('m1', function (require) {
+    flectra.define('m1', function (require) {
         var Class = require('Class');
         var Item = Class.extend({});
         return Item;
@@ -129,7 +129,7 @@ def test_bounce():
 
 def test_reassign():
     [m] = parse("""
-    odoo.define('m', function (require) {
+    flectra.define('m', function (require) {
         var Class = require('Class');
         /** local class */
         var Class = Class.extend({});
@@ -142,12 +142,12 @@ def test_reassign():
 
 def test_attr():
     [m1, m2] = parse("""
-    odoo.define('m1', function (require) {
+    flectra.define('m1', function (require) {
         var Class = require('Class');
         var Item = Class.extend({});
         return {Item: Item};
     });
-    odoo.define('m2', function (require) {
+    flectra.define('m2', function (require) {
         var Item = require('m1').Item;
         Item.include({});
         return Item.extend({});
@@ -159,14 +159,14 @@ def test_attr():
 
 def test_nothing_implicit():
     [m] = parse("""
-    odoo.define('m', function () {
+    flectra.define('m', function () {
     });
     """)
     assert m.exports is None
 
 def test_nothing_explicit():
     [m] = parse("""
-    odoo.define('m', function () {
+    flectra.define('m', function () {
         return;
     });
     """)

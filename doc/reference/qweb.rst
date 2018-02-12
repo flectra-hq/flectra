@@ -8,7 +8,7 @@
 QWeb
 ====
 
-QWeb is the primary templating_ engine used by Odoo\ [#othertemplates]_. It
+QWeb is the primary templating_ engine used by Flectra\ [#othertemplates]_. It
 is an XML templating engine\ [#genshif]_ and used mostly to generate HTML_
 fragments and pages.
 
@@ -367,7 +367,7 @@ Request-based
 Most Python-side uses of QWeb are in controllers (and during HTTP requests),
 in which case templates stored in the database (as
 :ref:`views <reference/views/qweb>`) can be trivially rendered by calling
-:meth:`odoo.http.HttpRequest.render`:
+:meth:`flectra.http.HttpRequest.render`:
 
 .. code-block:: python
 
@@ -375,7 +375,7 @@ in which case templates stored in the database (as
         'context_value': 42
     })
 
-This automatically creates a :class:`~odoo.http.Response` object which can
+This automatically creates a :class:`~flectra.http.Response` object which can
 be returned from the controller (or further customized to suit).
 
 View-based
@@ -392,7 +392,7 @@ At a deeper level than the previous helper is the ``render`` method on
     Sets up a number of default values in the rendering context:
 
     ``request``
-        the current :class:`~odoo.http.WebRequest` object, if any
+        the current :class:`~flectra.http.WebRequest` object, if any
     ``debug``
         whether the current request (if any) is in ``debug`` mode
     :func:`quote_plus <werkzeug.urls.url_quote_plus>`
@@ -409,7 +409,7 @@ At a deeper level than the previous helper is the ``render`` method on
         the ``keep_query`` helper function
 
     :param values: context values to pass to QWeb for rendering
-    :param str engine: name of the Odoo model to use for rendering, can be
+    :param str engine: name of the Flectra model to use for rendering, can be
                        used to expand or customize QWeb locally (by creating
                        a "new" qweb based on ``ir.qweb`` with alterations)
 
@@ -423,7 +423,7 @@ At a deeper level than the previous helper is the ``render`` method on
 .. It is also possible to use the ``ir.qweb`` model directly (and extend it, and
 .. inherit from it):
 
-.. .. automodule:: odoo.addons.base.ir.ir_qweb
+.. .. automodule:: flectra.addons.base.ir.ir_qweb
 ..     :members: QWeb, QWebContext, FieldConverter, QwebWidget
 
 Javascript
@@ -622,7 +622,7 @@ API
 
 .. [#othertemplates] although it uses a few others, either for historical
                      reasons or because they remain better fits for the
-                     use case. Odoo 9.0 still depends on Jinja_ and Mako_.
+                     use case. Flectra 9.0 still depends on Jinja_ and Mako_.
 
 .. _templating:
     http://en.wikipedia.org/wiki/Template_processor

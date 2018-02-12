@@ -1,12 +1,12 @@
-:banner: banners/odoo_guideline.jpg
+:banner: banners/flectra_guideline.jpg
 
 .. highlight:: python
 
 ===============
-Odoo Guidelines
+Flectra Guidelines
 ===============
 
-This page introduces the new Odoo Coding Guidelines. Those aim to improve the quality of the code (e.g. better readability of source) and Odoo Apps. Indeed, proper code eases maintenance, aids debugging, lowers complexity and promotes reliability.
+This page introduces the new Flectra Coding Guidelines. Those aim to improve the quality of the code (e.g. better readability of source) and Flectra Apps. Indeed, proper code eases maintenance, aids debugging, lowers complexity and promotes reliability.
 
 These guidelines should be applied to every new module, and new development.
 
@@ -16,7 +16,7 @@ These guidelines should be applied to every new module, and new development.
     modifying existing files, the original style of the file strictly supersedes
     any other style guidelines. In other words, never modify existing files in
     order to apply these guidelines, to avoid disrupting the revision history of
-    each line. For more details, see our `pull request guide <https://odoo.com/submit-pr>`_.
+    each line. For more details, see our `pull request guide <https://flectra.com/submit-pr>`_.
 
 Module structure
 ================
@@ -65,7 +65,7 @@ For *controllers*, the only file should be named *main.py*. Otherwise, if you ne
 
 For *static files*, since the resources can be used in different contexts (frontend, backend, both), they will be included in only one bundle. So, CSS/Less, JavaScript and XML files should be suffixed with the name of the bundle type. i.e.: *im_chat_common.css*, *im_chat_common.js* for 'assets_common' bundle, and *im_chat_backend.css*, *im_chat_backend.js* for 'assets_backend' bundle.
 If the module owns only one file, the convention will be *<module_name>.ext* (i.e.: *project.js*).
-Don't link data (image, libraries) outside Odoo: do not use an
+Don't link data (image, libraries) outside Flectra: do not use an
 URL to an image but copy it in our codebase instead.
 
 Regarding *data*, split them by purpose: data or demo. The filename will be
@@ -165,7 +165,7 @@ To declare a record in XML, the **record** notation (using *<record>*) is recomm
 - Use naming convention defined at the next point
 - The tag *<data>* is only used to set not-updatable data with ``noupdate=1``.
   If there is only not-updatable data in the file, the ``noupdate=1`` can be
-  set on the ``<odoo>`` tag and do not set a ``<data>`` tag.
+  set on the ``<flectra>`` tag and do not set a ``<data>`` tag.
 
 .. code-block:: xml
 
@@ -181,7 +181,7 @@ To declare a record in XML, the **record** notation (using *<record>*) is recomm
         </field>
     </record>
 
-Odoo supports custom tags acting as syntactic sugar:
+Flectra supports custom tags acting as syntactic sugar:
 
 - menuitem: use it as a shortcut to declare a ``ir.ui.menu``
 - template: use it to declare a QWeb View requiring only the ``arch`` section of the view.
@@ -291,7 +291,7 @@ Python
 PEP8 options
 ------------
 
-Using a linter can help show syntax and semantic warnings or errors. Odoo
+Using a linter can help show syntax and semantic warnings or errors. Flectra
 source code tries to respect Python standard, but some of them can be ignored.
 
 - E501: line too long
@@ -308,8 +308,8 @@ Imports
 The imports are ordered as
 
 #. External libraries (one per line sorted and split in python stdlib)
-#. Imports of ``odoo``
-#. Imports from Odoo modules (rarely, and only if necessary)
+#. Imports of ``flectra``
+#. Imports from Flectra modules (rarely, and only if necessary)
 
 Inside these 3 groups, the imported lines are alphabetically sorted.
 
@@ -320,14 +320,14 @@ Inside these 3 groups, the imported lines are alphabetically sorted.
     import re
     import time
     from datetime import datetime
-    # 2 :  imports of odoo
-    import odoo
-    from odoo import api, fields, models # alphabetically ordered
-    from odoo.tools.safe_eval import safe_eval as eval
-    from odoo.tools.translate import _
-    # 3 :  imports from odoo modules
-    from odoo.addons.website.models.website import slug
-    from odoo.addons.web.controllers.main import login_redirect
+    # 2 :  imports of flectra
+    import flectra
+    from flectra import api, fields, models # alphabetically ordered
+    from flectra.tools.safe_eval import safe_eval as eval
+    from flectra.tools.translate import _
+    # 3 :  imports from flectra modules
+    from flectra.addons.website.models.website import slug
+    from flectra.addons.web.controllers.main import login_redirect
 
 
 Idiomatics Python Programming
@@ -478,11 +478,11 @@ So, you can write ``if some_collection:`` instead of ``if len(some_collection):`
   interesting: http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html
   (a little bit outdated, but quite relevant)
 
-Programming in Odoo
+Programming in Flectra
 -------------------
 
 - Avoid to create generators and decorators: only use the ones provided by
-  the Odoo API.
+  the Flectra API.
 - As in python, use ``filtered``, ``mapped``, ``sorted``, ... methods to
   ease code reading and performance.
 
@@ -624,7 +624,7 @@ This recommendation is also relevant for classes, files, modules and packages. (
 
 Never commit the transaction
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The Odoo framework is in charge of providing the transactional context for
+The Flectra framework is in charge of providing the transactional context for
 all RPC calls. The principle is that a new database cursor is opened at the
 beginning of each RPC call, and committed when the call has returned, just
 before transmitting the answer to the RPC client, approximately like this:
@@ -693,14 +693,14 @@ they can and will be removed !
 Use translation method correctly
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Odoo uses a GetText-like method named "underscore" ``_( )`` to indicate that
+Flectra uses a GetText-like method named "underscore" ``_( )`` to indicate that
 a static string used in the code needs to be translated at runtime using the
 language of the context. This pseudo-method is accessed within your code by
 importing as follows:
 
 .. code-block:: python
 
-    from odoo.tools.translate import _
+    from flectra.tools.translate import _
 
 A few very important rules must be followed when using it, in order for it to
 work and to avoid filling the translations with useless junk.
@@ -769,7 +769,7 @@ to be preserved, but it's important to use these in a sensible and obvious manne
     error = _("Answer to question %s is not valid.\n" \
               "Please enter an integer value.") % question
 
-In general in Odoo, when manipulating strings, prefer ``%`` over ``.format()``
+In general in Flectra, when manipulating strings, prefer ``%`` over ``.format()``
 (when only one variable to replace in a string), and prefer ``%(varname)`` instead
 of position (when multiple variables have to be replaced). This makes the
 translation easier for the community translators.
@@ -779,16 +779,16 @@ Symbols and Conventions
 -----------------------
 
 - Model name (using the dot notation, prefix by the module name) :
-    - When defining an Odoo Model : use singular form of the name (*res.partner*
+    - When defining an Flectra Model : use singular form of the name (*res.partner*
       and *sale.order* instead of *res.partnerS* and *saleS.orderS*)
-    - When defining an Odoo Transient (wizard) : use ``<related_base_model>.<action>``
+    - When defining an Flectra Transient (wizard) : use ``<related_base_model>.<action>``
       where *related_base_model* is the base model (defined in *models/*) related
       to the transient, and *action* is the short name of what the transient do.
       For instance : ``account.invoice.make``, ``project.task.delegate.batch``, ...
     - When defining *report* model (SQL views e.i.) : use
       ``<related_base_model>.report.<action>``, based on the Transient convention.
 
-- Odoo Python Class : use camelcase for code.
+- Flectra Python Class : use camelcase for code.
 
 
 .. code-block:: python
@@ -799,7 +799,7 @@ Symbols and Conventions
 - Variable name :
     - use camelcase for model variable
     - use underscore lowercase notation for common variable.
-    - Odoo works with a record or a recordset, don't suffix variable names with
+    - Flectra works with a record or a recordset, don't suffix variable names with
       *_id* or *_ids* if they don't contain an id or a list of ids.
 
 .. code-block:: python
@@ -894,7 +894,7 @@ Javascript and CSS
 
 .. code-block:: javascript
 
-    odoo.website.if_dom_contains('.jquery_class_selector', function () {
+    flectra.website.if_dom_contains('.jquery_class_selector', function () {
         /*your code here*/
     });
 
@@ -927,7 +927,7 @@ Prefix your commit with
   Git will loose track, and the history will be lost !), or simply moving code
   from a file to another one.
 - **[MERGE]** for merge commits (only for forward/back-port)
-- **[CLA]** for signing the Odoo Individual Contributor License
+- **[CLA]** for signing the Flectra Individual Contributor License
 
 Then, in the message itself, specify the part of the code impacted by
 your changes (module name, lib, transversal object, ...) and a description

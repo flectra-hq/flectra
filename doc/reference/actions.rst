@@ -52,7 +52,7 @@ Its fields are:
     an optional database id (or ``False``). If no id is provided, the client
     should fetch the default view of the specified type for the requested
     model (this is automatically done by
-    :meth:`~odoo.models.Model.fields_view_get`). The first type of the
+    :meth:`~flectra.models.Model.fields_view_get`). The first type of the
     list is the default view type and will be open by default when the action
     is executed. Each view type should be present at most once in the list
 ``res_id`` (optional)
@@ -147,7 +147,7 @@ The server-side composition of the ``views`` sequence is the following:
 URL Actions (``ir.actions.act_url``)
 ====================================
 
-Allow opening a URL (website/web page) via an Odoo action. Can be customized
+Allow opening a URL (website/web page) via an Flectra action. Can be customized
 via two fields:
 
 ``url``
@@ -160,11 +160,11 @@ via two fields:
 
     {
         "type": "ir.actions.act_url",
-        "url": "http://odoo.com",
+        "url": "http://flectra.com",
         "target": "self",
     }
 
-will replace the current content section by the Odoo home page.
+will replace the current content section by the Flectra home page.
 
 .. _reference/actions/server:
 
@@ -184,7 +184,7 @@ specific or generic actions based on their ``state``. Some fields (and
 corresponding behaviors) are shared between states:
 
 ``model_id``
-    Odoo model linked to the action, made available in
+    Flectra model linked to the action, made available in
     :ref:`evaluation contexts <reference/actions/server/context>`
 ``condition`` (optional)
     evaluated as Python code using the server action's
@@ -248,8 +248,8 @@ from the UI, but not from :ref:`data files <reference/data>`.
 ``object_create``
 -----------------
 
-Creates a new record, from scratch (via :meth:`~odoo.models.Model.create`)
-or by copying an existing record (via :meth:`~odoo.models.Model.copy`)
+Creates a new record, from scratch (via :meth:`~flectra.models.Model.create`)
+or by copying an existing record (via :meth:`~flectra.models.Model.copy`)
 
 ``use_create``
     the creation policy, one of:
@@ -264,7 +264,7 @@ or by copying an existing record (via :meth:`~odoo.models.Model.copy`)
         copies an other record, obtained via ``ref_object``
 ``fields_lines``
     fields to override when creating or copying the record.
-    :class:`~odoo.fields.One2many` with the fields:
+    :class:`~flectra.fields.One2many` with the fields:
 
     ``col1``
         ``ir.model.fields`` to set in the model implied by ``use_create``
@@ -278,7 +278,7 @@ or by copying an existing record (via :meth:`~odoo.models.Model.copy`)
     model in which to create a new record, if ``use_create`` is set to
     ``new_other``
 ``ref_object``
-    :class:`~odoo.fields.Reference` to an arbitrary record to copy, used if
+    :class:`~flectra.fields.Reference` to an arbitrary record to copy, used if
     ``use_create`` is set to ``copy_other``
 ``link_new_record``
     boolean flag linking the newly created record to the current one via a
@@ -373,10 +373,10 @@ Triggers the printing of a report
 ``report_name``
     the name of your report (which will be the name of the PDF output)
 ``groups_id``
-    :class:`~odoo.fields.Many2many` field to the groups allowed to view/use
+    :class:`~flectra.fields.Many2many` field to the groups allowed to view/use
     the current report
 ``paperformat_id``
-    :class:`~odoo.fields.Many2one` field to the paper format you wish to
+    :class:`~flectra.fields.Many2one` field to the paper format you wish to
     use for this report (if not specified, the company format will be used)
 ``attachment_use``
     if set to ``True``, the report is only generated once the first time it is

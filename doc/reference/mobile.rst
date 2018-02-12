@@ -10,18 +10,18 @@ Mobile JavaScript
 Introduction
 ============
 
-In Odoo 10.0 we released a mobile app which allows you to access all **Odoo apps**
+In Flectra 10.0 we released a mobile app which allows you to access all **Flectra apps**
 (even your customized modules). 
 
-The application is a combination of **Odoo Web** and **Native Mobile
-components**. In other words it is a Odoo Web instance loaded inside a native, mobile, WebView container.
+The application is a combination of **Flectra Web** and **Native Mobile
+components**. In other words it is a Flectra Web instance loaded inside a native, mobile, WebView container.
 
 This page documents how you can access mobile native components like Camera,
-Vibration, Notification and Toast through Odoo Web (via JavaScript). For this, you
-do not need to be a mobile developer, if you know Odoo JavaScript API you can
+Vibration, Notification and Toast through Flectra Web (via JavaScript). For this, you
+do not need to be a mobile developer, if you know Flectra JavaScript API you can
 access all available mobile features.
 
-.. warning:: This features works with **Odoo Enterprise 10.0+** only
+.. warning:: This features works with **Flectra Enterprise 10.0+** only
 
 How does it work? 
 =================
@@ -34,8 +34,8 @@ Of course, it is a web page that loads on a Mobile Native Web container. But it
 is integrated in such a way that you can access native resources from your web
 JavaScript.
 
-WebPages (Odoo Web) is on the top of each layer, where the second layer is a Bridge
-between Odoo Web (JS) and the native mobile components.
+WebPages (Flectra Web) is on the top of each layer, where the second layer is a Bridge
+between Flectra Web (JS) and the native mobile components.
 
 When any call from JavaScript is triggered it passes through Bridge and Bridge
 passes it to the native invoker to perform that action.
@@ -49,10 +49,10 @@ from the Native resources. For example the Camera or GPS Location.
 How to use it?
 ==============
 
-Just like the Odoo Web Framework, the Mobile API can be used anywhere by getting the object from
+Just like the Flectra Web Framework, the Mobile API can be used anywhere by getting the object from
 **web_mobile.rpc**
 
-.. image:: images/odoo_mobile_api.png
+.. image:: images/flectra_mobile_api.png
 
 The mobile RPC object provides a list of methods that are available (this only works with the mobile
 app). 

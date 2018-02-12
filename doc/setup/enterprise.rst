@@ -20,7 +20,7 @@ In any case the basic guidelines are:
 
 * Restart your server
 
-* Enter your Odoo Enterprise Subscription code
+* Enter your Flectra Enterprise Subscription code
 
 .. image:: enterprise/enterprise_code.png
   :class: img-responsive
@@ -30,11 +30,11 @@ On Linux, using an installer
 
 * Backup your community database
 
-* Stop the odoo service
+* Stop the flectra service
 
   .. code-block:: console
 
-    $ sudo service odoo stop
+    $ sudo service flectra stop
 
 * Install the enterprise .deb (it should install over the community package)
 
@@ -46,10 +46,10 @@ On Linux, using an installer
 
   .. code-block:: console
 
-    $ python3 /usr/bin/odoo.py -d <database_name> -i web_enterprise --stop-after-init
+    $ python3 /usr/bin/flectra.py -d <database_name> -i web_enterprise --stop-after-init
 
-* You should be able to connect to your Odoo Enterprise instance using your usual mean of identification.
-  You can then link your database with your Odoo Enterprise Subscription by entering the code you received
+* You should be able to connect to your Flectra Enterprise instance using your usual mean of identification.
+  You can then link your database with your Flectra Enterprise Subscription by entering the code you received
   by e-mail in the form input
 
 
@@ -72,35 +72,35 @@ have your own favourite. You may need to adapt sections to your usual workflow.
 
 * Restart your server with the updated addons path of point 3.
   You should be able to connect to your instance. You can then link your database with your
-  Odoo Enterprise Subscription by entering the code you received by e-mail in the form input
+  Flectra Enterprise Subscription by entering the code you received by e-mail in the form input
 
 On Windows
 ==========
 
 * Backup your community database
 
-* Uninstall Odoo Community (using the Uninstall executable in the installation folder) -
+* Uninstall Flectra Community (using the Uninstall executable in the installation folder) -
   PostgreSQL will remain installed
 
   .. image:: enterprise/windows_uninstall.png
     :class: img-responsive
 
-* Launch the Odoo Enterprise Installer and follow the steps normally. When choosing
+* Launch the Flectra Enterprise Installer and follow the steps normally. When choosing
   the installation path, you can set the folder of the Community installation
   (this folder still contains the PostgreSQL installation).
-  Uncheck ``Start Odoo`` at the end of the installation
+  Uncheck ``Start Flectra`` at the end of the installation
 
   .. image:: enterprise/windows_setup.png
    :class: img-responsive
 
-* Using a command window, update your Odoo Database using this command (from the Odoo
+* Using a command window, update your Flectra Database using this command (from the Flectra
   installation path, in the server subfolder)
 
   .. code-block:: console
 
-    $ odoo.exe -d <database_name> -i web_enterprise --stop-after-init
+    $ flectra.exe -d <database_name> -i web_enterprise --stop-after-init
 
 * No need to manually launch the server, the service is running.
-  You should be able to connect to your Odoo Enterprise instance using your usual
-  mean of identification. You can then link your database with your Odoo Enterprise
+  You should be able to connect to your Flectra Enterprise instance using your usual
+  mean of identification. You can then link your database with your Flectra Enterprise
   Subscription by entering the code you received by e-mail in the form input

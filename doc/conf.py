@@ -27,7 +27,7 @@ extensions = [
     'sphinx.ext.linkcode',
     'autojsdoc.ext',
     'github_link',
-    'odoo_ext',
+    'flectra_ext',
     'html_domain',
     'exercise_admonition',
     'patchqueue'
@@ -46,17 +46,17 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'odoo'
-copyright = u'Odoo S.A.'
+project = u'flectra'
+copyright = u'Flectra S.A.'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = '11.0'
+version = '1.0'
 # The full version, including alpha/beta/rc tags.
-release = '11.0'
+release = '1.0'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -84,7 +84,7 @@ add_function_parentheses = True
 #show_authors = False
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'odoo'
+pygments_style = 'flectra'
 
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
@@ -93,9 +93,9 @@ pygments_style = 'odoo'
 # -- Options for HTML output ---------------------------------------------------
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'odoo_ext'
+html_theme = 'flectra_ext'
 
-odoo_cover_default = 'banners/installing_odoo.jpg'
+flectra_cover_default = 'banners/installing_flectra.jpg'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -184,8 +184,8 @@ intersphinx_mapping = {
     'django': ('https://django.readthedocs.org/en/latest/', None),
 }
 
-github_user = 'odoo'
-github_project = 'odoo'
+github_user = 'flectra'
+github_project = 'flectra'
 
 # monkeypatch PHP lexer to not require <?php
 from sphinx.highlighting import lexers

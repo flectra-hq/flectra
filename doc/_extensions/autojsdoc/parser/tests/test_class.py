@@ -6,7 +6,7 @@ from support import params, parse
 
 def test_classvar():
     [mod] = parse("""
-    odoo.define('a.A', function(require) {
+    flectra.define('a.A', function(require) {
         var Class = require('Class');
         /**
          * This is my class-kai
@@ -28,7 +28,7 @@ def test_classvar():
 
 def test_classret():
     [mod] = parse("""
-    odoo.define('a.A', function(require) {
+    flectra.define('a.A', function(require) {
         var Class = require('Class');
         /**
          * This is my class-kai
@@ -46,7 +46,7 @@ def test_classret():
 
 def test_methods():
     [mod] = parse("""
-    odoo.define('a.A', function(require) {
+    flectra.define('a.A', function(require) {
         var Class = require('Class');
         return Class.extend({
             /**
@@ -92,7 +92,7 @@ def test_methods():
 
 def test_mixin_explicit():
     [mod] = parse("""
-    odoo.define('a.A', function (require) {
+    flectra.define('a.A', function (require) {
         var Class = require('Class');
         var mixins = require('mixins');
         /**
@@ -108,7 +108,7 @@ def test_mixin_explicit():
 
 def test_mixin_implicit():
     [mod] = parse("""
-    odoo.define('a.A', function(require) {
+    flectra.define('a.A', function(require) {
         var Class = require('Class');
         var Mixin = require('Mixin');
         /**
@@ -127,7 +127,7 @@ def test_mixin_implicit():
 
 def test_instanciation():
     [A, a] = parse("""
-    odoo.define('A', function (r) {
+    flectra.define('A', function (r) {
         var Class = r('Class');
         /**
          * @class A
@@ -136,7 +136,7 @@ def test_instanciation():
             foo: function () {}
         });
     });
-    odoo.define('a', function (r) {
+    flectra.define('a', function (r) {
         var A = r('A');
         var a = new A;
         return a;
@@ -147,7 +147,7 @@ def test_instanciation():
 
 def test_non_function_properties():
     [A] = parse("""
-    odoo.define('A', function (r) {
+    flectra.define('A', function (r) {
         var Class = r('Class');
         return Class.extend({
             template: 'thing',
@@ -163,7 +163,7 @@ def test_non_function_properties():
 
 def test_non_extend_classes():
     [mod] = parse("""
-    odoo.define('A', function () {
+    flectra.define('A', function () {
         /**
          * @class
          */
@@ -175,11 +175,11 @@ def test_non_extend_classes():
 
 def test_extend():
     [a, _] = parse("""
-    odoo.define('A', function (require) {
+    flectra.define('A', function (require) {
         var Class = require('Class');
         return Class.extend({});
     });
-    odoo.define('B', function (require) {
+    flectra.define('B', function (require) {
         var A = require('A');
         A.include({
             /** A property */
@@ -203,7 +203,7 @@ def test_extend():
 @pytest.mark.skip(reason="Need to implement member/var-parsing?")
 def test_members():
     [mod] = parse("""
-    odoo.define('A', function (r) {
+    flectra.define('A', function (r) {
         var Class = r('Class');
         return Class.extend({
             init: function () {
