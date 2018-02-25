@@ -12,6 +12,7 @@ Purchase Management and many more.
 Flectra Apps can be used as stand-alone applications, but they also integrate seamlessly so you get
 a full-featured <a href="https://flectrahq.com">Open Source ERP</a> when you install several Apps.
 
+Additional Apps for Flectra are available here : https://gitlab.com/flectra-hq/extra-addons
 
 Getting started with Flectra
 ----------------------------
