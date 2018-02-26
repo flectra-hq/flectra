@@ -2,6 +2,10 @@
 <templates id="template" xml:space="preserve">
     <div t-name="website.homepage_editor_welcome_message" class="container text-center o_homepage_editor_welcome_message">
         <h2 class="mt0">Welcome to your <b>Homepage</b>!</h2>
+        <t t-if="website_domain">
+            <h4>of</h4>
+            <h3 class="mt0"><u><t t-esc="website_domain"/></u></h3>
+        </t>
         <p class="lead hidden-xs">Let's start designing.</p>
         <div class="o_tooltip_container hidden-xs">Follow all the <div class="o_tooltip bottom"/> signs to get your website ready in no time.</div>
     </div>

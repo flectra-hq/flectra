@@ -9,6 +9,10 @@ class ResPartnerGrade(models.Model):
     _name = 'res.partner.grade'
     _inherit = ['website.published.mixin']
 
+    def _default_website(self):
+        default_website_id = self.env.ref('website.default_website')
+        return [default_website_id.id] if default_website_id else None
+
     website_published = fields.Boolean(default=True)
     sequence = fields.Integer('Sequence')
     active = fields.Boolean('Active', default=lambda *args: 1)
@@ -18,8 +22,9 @@ class ResPartnerGrade(models.Model):
     website_ids = fields.Many2many('website', 'website_partner_grade_pub_rel',
                                    'website_id', 'partner_grade_id',
                                    string='Websites', copy=False,
+                                   default=_default_website,
                                    help='List of websites in which '
-                                        'Partner Grade is published.')
+                                        'Partner Grade will published.')
 
     @api.multi
     def _compute_website_url(self):

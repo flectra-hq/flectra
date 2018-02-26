@@ -45,7 +45,7 @@ var EditPageMenu = websiteNavbarData.WebsiteNavbarActionWidget.extend({
         }
 
         // If readonly empty page, show the welcome message
-        this.$welcomeMessage = $(core.qweb.render('website.homepage_editor_welcome_message'));
+        this.$welcomeMessage = $(core.qweb.render('website.homepage_editor_welcome_message', {'website_domain': $('#wrapwrap.homepage #wrap').attr('data-website-domain')}));
         this.$welcomeMessage.css('min-height', $wrap.parent('main').height() - ($wrap.outerHeight(true) - $wrap.height()));
         $wrap.empty().append(this.$welcomeMessage);
 

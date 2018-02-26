@@ -10,6 +10,7 @@
                     <field name="payment_date"/>
                     <field name="name"/>
                     <field name="journal_id"/>
+                    <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                     <field name="payment_method_id"/>
                     <field name="partner_id" string="Customer"/>
                     <field name="amount" sum="Amount"/>
@@ -29,6 +30,7 @@
                     <field name="payment_date"/>
                     <field name="name"/>
                     <field name="journal_id"/>
+                    <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                     <field name="payment_method_id"/>
                     <field name="partner_id" string="Vendor"/>
                     <field name="amount" sum="Amount"/>
@@ -152,6 +154,7 @@
                                     <field name="currency_id" options="{'no_create': True, 'no_open': True}" groups="base.group_multi_currency" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                 </div>
                                 <field name="journal_id" widget="selection" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="branch_id" groups="base_branch_company.group_multi_branch"/>
                                 <field name="destination_journal_id" widget="selection" attrs="{'required': [('payment_type', '=', 'transfer')], 'invisible': [('payment_type', '!=', 'transfer')], 'readonly': [('state', '!=', 'draft')]}"/>
                                 <field name="hide_payment_method" invisible="1"/>
                                 <field name="payment_method_id" string=" " widget="radio" attrs="{'invisible': [('hide_payment_method', '=', True)], 'readonly': [('state', '!=', 'draft')]}"/>

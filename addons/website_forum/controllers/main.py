@@ -83,7 +83,7 @@ class WebsiteForum(http.Controller):
     def forum(self, **kwargs):
         domain = []
         if not request.env.user.has_group('website.group_website_designer'):
-            domain += ['|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id)]
+            domain += [('website_ids', 'in', request.website.id)]
         forums = request.env['forum.forum'].search(domain)
         return request.render("website_forum.forum_all", {'forums': forums})
 
@@ -119,8 +119,10 @@ class WebsiteForum(http.Controller):
                  ], type='http', auth="public", website=True, sitemap=sitemap_forum)
     def questions(self, forum, tag=None, page=1, filters='all', sorting=None, search='', post_type=None, **post):
         Post = request.env['forum.post']
-
-        domain = [('forum_id', '=', forum.id), ('parent_id', '=', False), ('state', '=', 'active'), '|', ('website_id', '=', request.website.id), ('website_id', '=', False)]
+        if not request.env.user.has_group('website.group_website_publisher') \
+                and request.website.id not in forum.website_ids.ids:
+            return request.render('website.404')
+        domain = [('forum_id', '=', forum.id), ('parent_id', '=', False), ('state', '=', 'active'), ('website_id', '=', request.website.id)]
         if search:
             domain += ['|', ('name', 'ilike', search), ('content', 'ilike', search)]
         if tag:
@@ -237,6 +239,10 @@ class WebsiteForum(http.Controller):
 
     @http.route(['''/forum/<model("forum.forum"):forum>/question/<model("forum.post", "[('forum_id','=',forum[0]),('parent_id','=',False),('can_view', '=', True)]"):question>'''], type='http', auth="public", website=True)
     def question(self, forum, question, **post):
+        if not request.env.user.has_group('website.group_website_publisher') \
+                and request.website != question.website_id:
+            return request.render('website.404')
+
         # Hide posts from abusers (negative karma), except for moderators
         if not question.can_view:
             raise werkzeug.exceptions.NotFound()
@@ -411,7 +417,7 @@ class WebsiteForum(http.Controller):
             'name': kwargs.get('post_name'),
             'content': kwargs.get('content'),
             'content_link': kwargs.get('content_link'),
-            'website_id': request.website.id,
+            'website_id': request.website and request.website.id,
         }
         post.write(vals)
         question = post.parent_id if post.parent_id else post
@@ -555,9 +561,9 @@ class WebsiteForum(http.Controller):
     def users(self, forum, page=1, **searches):
         User = request.env['res.users']
         step = 30
-        tag_count = User.sudo().search_count([('karma', '>', 1), ('website_published', '=', True), '|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id)])
+        tag_count = User.sudo().search_count([('karma', '>', 1), ('website_published', '=', True), ('website_ids', 'in', request.website.id)])
         pager = request.website.pager(url="/forum/%s/users" % slug(forum), total=tag_count, page=page, step=step, scope=30)
-        user_obj = User.sudo().search([('karma', '>', 1), ('website_published', '=', True), '|', ('website_ids', '=', False), ('website_ids', 'in', request.website.id)], limit=step, offset=pager['offset'], order='karma DESC')
+        user_obj = User.sudo().search([('karma', '>', 1), ('website_published', '=', True), ('website_ids', 'in', request.website.id)], limit=step, offset=pager['offset'], order='karma DESC')
         # put the users in block of 3 to display them as a table
         users = [[] for i in range(len(user_obj) // 3 + 1)]
         for index, user in enumerate(user_obj):

@@ -102,7 +102,7 @@ class account_abstract_payment(models.AbstractModel):
 
 class account_register_payments(models.TransientModel):
     _name = "account.register.payments"
-    _inherit = 'account.abstract.payment'
+    _inherit = ['account.abstract.payment']
     _description = "Register payments on multiple invoices"
 
     invoice_ids = fields.Many2many('account.invoice', string='Invoices', copy=False)
@@ -240,7 +240,7 @@ class account_register_payments(models.TransientModel):
 
 class account_payment(models.Model):
     _name = "account.payment"
-    _inherit = ['mail.thread', 'account.abstract.payment', 'ir.branch.company.mixin']
+    _inherit = ['mail.thread', 'account.abstract.payment']
     _description = "Payments"
     _order = "payment_date desc, name desc"
 
@@ -268,6 +268,15 @@ class account_payment(models.Model):
             self.payment_difference = self.amount - self._compute_total_invoices_amount()
         else:
             self.payment_difference = self._compute_total_invoices_amount() - self.amount
+
+
+    @api.depends('journal_id')
+    def _compute_branch(self):
+        for payment in self:
+            if payment.journal_id:
+                payment.branch_id = \
+                    payment.journal_id.branch_id
+
 
     company_id = fields.Many2one(store=True)
     name = fields.Char(readonly=True, copy=False, default="Draft Payment") # The name is attributed upon post()
@@ -297,6 +306,8 @@ class account_payment(models.Model):
     # FIXME: ondelete='restrict' not working (eg. cancel a bank statement reconciliation with a payment)
     move_line_ids = fields.One2many('account.move.line', 'payment_id', readonly=True, copy=False, ondelete='restrict')
     move_reconciled = fields.Boolean(compute="_get_move_reconciled", readonly=True)
+    branch_id = fields.Many2one('res.branch', 'Branch',
+                                compute='_compute_branch', readonly=True, store=True)
 
     def open_payment_matching_screen(self):
         # Open reconciliation view for customers/suppliers
@@ -461,7 +472,6 @@ class account_payment(models.Model):
             If the payment is a transfer, a second journal entry is created in the destination journal to receive money from the transfer account.
         """
         for rec in self:
-
             if rec.state != 'draft':
                 raise UserError(_("Only a draft payment can be posted."))
 
@@ -524,9 +534,7 @@ class account_payment(models.Model):
             #if all the invoices selected share the same currency, record the paiement in that currency too
             invoice_currency = self.invoice_ids[0].currency_id
         debit, credit, amount_currency, currency_id = aml_obj.with_context(date=self.payment_date).compute_amount_fields(amount, self.currency_id, self.company_id.currency_id, invoice_currency)
-
         move = self.env['account.move'].create(self._get_move_vals())
-
         #Write line corresponding to invoice payment
         counterpart_aml_dict = self._get_shared_move_line_vals(debit, credit, amount_currency, move.id, False)
         counterpart_aml_dict.update(self._get_counterpart_move_line_vals(self.invoice_ids))
@@ -598,6 +606,7 @@ class account_payment(models.Model):
         dst_liquidity_aml_dict.update({
             'name': _('Transfer from %s') % self.journal_id.name,
             'account_id': self.destination_journal_id.default_credit_account_id.id,
+            'branch_id': self.destination_journal_id.branch_id.id or False,
             'currency_id': self.destination_journal_id.currency_id.id,
             'journal_id': self.destination_journal_id.id})
         aml_obj.create(dst_liquidity_aml_dict)
@@ -606,6 +615,7 @@ class account_payment(models.Model):
         transfer_debit_aml_dict.update({
             'name': self.name,
             'account_id': self.company_id.transfer_account_id.id,
+            'branch_id': self.journal_id.branch_id.id or False,
             'journal_id': self.destination_journal_id.id})
         if self.currency_id != self.company_id.currency_id:
             transfer_debit_aml_dict.update({
@@ -666,10 +676,15 @@ class account_payment(models.Model):
                 for inv in invoice:
                     if inv.move_id:
                         name += inv.number + ', '
-                name = name[:len(name)-2] 
+                name = name[:len(name)-2]
+        if len(invoice) == 1:
+            branch_id = invoice.branch_id.id or False
+        else:
+            branch_id = self.branch_id.id or False
         return {
             'name': name,
             'account_id': self.destination_account_id.id,
+            'branch_id': branch_id,
             'journal_id': self.journal_id.id,
             'currency_id': self.currency_id != self.company_id.currency_id and self.currency_id.id or False,
         }
@@ -693,5 +708,5 @@ class account_payment(models.Model):
                 'amount_currency': amount_currency,
                 'currency_id': self.journal_id.currency_id.id,
             })
-
+        vals['branch_id'] = self.journal_id.branch_id.id or False
         return vals

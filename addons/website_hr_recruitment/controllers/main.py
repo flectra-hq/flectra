@@ -30,7 +30,7 @@ class WebsiteHrRecruitment(http.Controller):
         # List jobs available to current UID
         job_ids = Jobs.search([], order="website_published desc,no_of_recruitment desc").ids
         if not request.env['res.users'].has_group('website.group_website_publisher'):
-            job_ids = Jobs.search(['|',('website_ids', '=', False), ('website_ids', 'in', request.website.id)], order="website_published desc, no_of_recruitment desc").ids
+            job_ids = Jobs.search([('website_ids', 'in', request.website.id)], order="website_published desc, no_of_recruitment desc").ids
         # Browse jobs as superuser, because address is restricted
         jobs = Jobs.sudo().browse(job_ids)
 
@@ -81,6 +81,9 @@ class WebsiteHrRecruitment(http.Controller):
 
     @http.route('/jobs/detail/<model("hr.job"):job>', type='http', auth="public", website=True)
     def jobs_detail(self, job, **kwargs):
+        if not request.env.user.has_group('website.group_website_publisher') \
+                and request.website.id not in job.website_ids.ids:
+            return request.render('website.404')
         return request.render("website_hr_recruitment.detail", {
             'job': job,
             'main_object': job,

@@ -105,6 +105,7 @@ class Partner(models.Model):
             'mail_message_id': message.id,
             'mail_server_id': message.mail_server_id.id,
             'auto_delete': self._context.get('mail_auto_delete', True),
+            'keep_days': self._context.get('mail_keep_days', -1),
             'references': references,
         }
         mail_values.update(custom_values)

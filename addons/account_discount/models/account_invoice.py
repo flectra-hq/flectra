@@ -117,13 +117,11 @@ class AccountInvoice(models.Model):
 
     @api.onchange('discount_amount')
     def onchange_discount_amount(self):
-        if self.discount_method == 'per':
-            return True
         values = self.get_maximum_per_amount()
         if self.discount < 0:
             raise Warning(_("Discount should be less than Gross Amount"))
         discount = self.discount or self.discount_amount
-        if discount > self.gross_amount:
+        if self.gross_amount and discount > self.gross_amount:
             raise Warning(_("Discount (%s) should be less than "
                             "Gross Amount (%s).") % (
                 formatLang(self.env, discount, digits=2),

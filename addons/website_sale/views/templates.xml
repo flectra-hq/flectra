@@ -184,6 +184,11 @@
         </div>
     </template>
 
+    <!-- /shop Main Template -->
+    <template id="main_shop_page" name="Shop Page Variants (Use Any One)">
+        <t t-call="website_sale.products"/>
+    </template>
+
     <!-- /shop product listing -->
     <template id="products" name="Products">
         <t t-call="website.layout">
@@ -207,7 +212,7 @@
                             <t t-foreach="products" t-as="product">
                                 <div id="grid_list"
                                     class="col-md-4 oe_product oe_grid oe_product_cart oe-height-4"
-                                    t-attf-data-publish="#{product.website_published &amp; (not product.website_ids or website in product.website_ids) and 'on' or 'off'}">
+                                    t-att-data-publish="product.website_published and website in product.website_ids and 'on' or 'off'">
                                     <t t-call="website_sale.products_item">
                                     </t>
                                 </div>
@@ -227,6 +232,71 @@
                 <div class="oe_structure mb32" />
             </div>
         </t>
+    </template>
+
+    <!-- /shop blank page (design your own shop page) -->
+    <template id="blank_shop_page" inherit_id="website_sale.main_shop_page"
+              name="Blank Shop Page" active="False" customize_show="True">
+        <xpath expr="//t[@t-call='website_sale.products']" position="replace">
+            <t t-if="category">
+                <t t-call="website_sale.products"/>
+            </t>
+            <t t-else="">
+                <t t-call="website.layout">
+                    <t t-set="additional_title">Shop</t>
+                    <div id="wrap" class="oe_structure oe_empty"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- /shop category listing,
+         Supported to level-1 (Main Category & Child Category) -->
+    <template id="categorized_shop_page" inherit_id="website_sale.main_shop_page"
+              name="Categorized Shop Page" active="False" customize_show="True">
+        <xpath expr="//t[@t-call='website_sale.products']" position="replace">
+            <t t-if="category">
+                <t t-call="website_sale.products"/>
+            </t>
+            <t t-else="">
+                <t t-call="website.layout">
+                    <t t-set="additional_title">Shop</t>
+                    <div id="wrap">
+                        <div class="oe_structure" />
+                        <div class="container mt32 mb32 s_product_categories">
+                            <div class="col-md-12" id="filter-cm">
+                                <t t-foreach="categories" t-as="c">
+                                    <t t-call="website_sale.categories_recursive_snippet"/>
+                                </t>
+                            </div>
+                        </div>
+                       <div class="oe_structure" />
+                    </div>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- /shop category listing: Parent Category -->
+    <template id="categories_recursive_snippet" name="Category list">
+        <div class="col-md-6 mb16" t-if="website in c.website_ids or not c.website_ids">
+            <a t-att-href="keep('/shop/category/' + slug(c), category=0)" class="main-categ">
+                <span t-field="c.name"/>
+                <i class="fa fa-caret-right"/>
+            </a>
+            <div t-if="c.child_id">
+                <t t-foreach="c.child_id" t-as="c">
+                    <t t-call="website_sale.categories_recursive_snippet_child"/>
+                </t>
+            </div>
+        </div>
+    </template>
+
+    <!-- /shop category listing: Child Category -->
+    <template id="categories_recursive_snippet_child" name="Category list">
+        <div class="col-md-6 child-categ" t-if="website in c.website_ids or not c.website_ids">
+            <a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"/>
+        </div>
     </template>
 
     <template id="sort" inherit_id="website_sale.products" active="True" customize_show="True" name="Show Sort by">
@@ -411,7 +481,7 @@
     <template id="products_list_view" inherit_id="website_sale.products" name="List View" active="False">
         <xpath expr="//div[@id='products_grid']/t/div[@id='grid_list']" position="replace">
             <div class="oe_product oe_list oe_product_cart"
-                t-attf-data-publish="#{product.website_published &amp; (not product.website_ids or website in product.website_ids) and 'on' or 'off'}">
+                t-att-data-publish="product.website_published and website in product.website_ids and 'on' or 'off'">
                 <t t-call="website_sale.products_item">
                     <t t-set="show_publish" t-value="True" />
                 </t>

@@ -29,6 +29,7 @@ class RecruitmentSource(models.Model):
 class Applicant(models.Model):
 
     _inherit = 'hr.applicant'
+
     website_id = fields.Many2one('website', string="Website")
 
     def website_form_input_filter(self, request, values):
@@ -46,11 +47,17 @@ class Job(models.Model):
         default_description = self.env["ir.model.data"].xmlid_to_object("website_hr_recruitment.default_website_description")
         return (default_description.render() if default_description else "")
 
+    def _default_website(self):
+        default_website_id = self.env.ref('website.default_website')
+        return [default_website_id.id] if default_website_id else None
+
     website_description = fields.Html('Website description', translate=html_translate, sanitize_attributes=False, default=_get_default_website_description)
     website_ids = fields.Many2many('website', 'website_hr_job_pub_rel',
                                    'website_id', 'job_id',
+                                   default=_default_website,
                                    string='Websites', copy=False,
-                                   help='List of websites in which Job is published.')
+                                   help='List of websites in which Job '
+                                        'will published.')
 
     @api.multi
     def _compute_website_url(self):
