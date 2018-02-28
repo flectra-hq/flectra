@@ -5,7 +5,19 @@
             <field name="model">stock.production.lot</field>
             <field name="inherit_id" ref="stock.view_production_lot_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='ref']" position="after">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="warranty_date" groups="stock.group_stock_manager"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_production_lot_form_simple_inherited"
+                model="ir.ui.view">
+            <field name="name">stock.production.lot.form.simple.inherit</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form_simple"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
                     <field name="warranty_date" groups="stock.group_stock_manager"/>
                 </xpath>
             </field>
