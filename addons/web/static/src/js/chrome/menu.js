@@ -6,6 +6,7 @@ var session = require('web.session');
 var Widget = require('web.Widget');
 var config = require('web.config');
 var Apps = require('web.AppsLauncher');
+var rpc = require('web.rpc');
 
 var Menu = Widget.extend({
     init: function() {
@@ -168,6 +169,7 @@ var Menu = Widget.extend({
      * @param {Number} id database id of the terminal menu to select
      */
     open_menu: function (id) {
+        var self = this;
         this.current_menu = id;
         session.active_id = id;
         var $clicked_menu, $sub_menu, $main_menu;
@@ -241,6 +243,19 @@ var Menu = Widget.extend({
         this.$secondary_menus.find('.oe_secondary_submenu li a span').each(function() {
             $(this).tooltip(this.scrollWidth > this.clientWidth ? {title: $(this).text().trim(), placement: 'right'} :'destroy');
         });
+        if(this._isActionId || this.isLoadflag) {
+            rpc.query({
+                model: 'menu.bookmark',
+                method: 'is_bookmark',
+                args: ['', id]
+            }).then(function (rec) {
+                if (rec) {
+                    self.$el.parents().find('.o_user_bookmark_menu > a').addClass('active');
+                } else {
+                    self.$el.parents().find('.o_user_bookmark_menu > a').removeClass('active');
+                }
+            });
+        }
         this.isLoadflag = false;
     },
     /**

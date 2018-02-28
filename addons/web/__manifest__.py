@@ -16,6 +16,8 @@ This module provides the core of the Odoo Web Client.
     'depends': ['base'],
     'auto_install': True,
     'data': [
+        'security/ir.model.access.csv',
+        'views/res_users_views.xml',
         'views/webclient_templates.xml',
         'views/report_templates.xml',
     ],

@@ -9,8 +9,8 @@
             <span><i class="fa fa-times-circle f_apps_search_icon" id="f_clear_apps_search"/></span>
         </div>
         <div class="f_apps_container">
-            <div class="f_apps_content">
-                <t t-call="AppsLauncher.Menus"/>
+            <div class="f_apps_contents">
+                <t t-call="FlectraMenuContent"/>
             </div>
             <div class="f_app_footer">
                 <img src="/web/static/src/img/logo.png"/>
@@ -19,21 +19,64 @@
     </div>
 </div>
 
+<t t-name="FlectraMenuContent">
+    <h5>Bookmark</h5>
+    <div class="f_apps_content bookmark_menus">
+        <t t-call="Bookmark.Menus"/>
+    </div>
+    <h5>All Apps</h5>
+    <div class="f_apps_content all_apps">
+        <t t-call="AppsLauncher.Menus"/>
+    </div>
+    <h5 t-if="sub_menus">Menu</h5>
+    <div class="f_apps_content sub_menu">
+        <t t-call="AppsLauncher.SubMenus"/>
+    </div>
+</t>
+
+<t t-name="Bookmark.Menus">
+    <t t-if="bookmark_menus">
+        <t t-foreach="bookmark_menus" t-as="bookmark_menu">
+            <a class="f_app"
+               t-att-href="bookmark_menu.href ? bookmark_menu.href : ('#menu_id=' + bookmark_menu.id + '&amp;action=' + (bookmark_menu.action != '' ? bookmark_menu.action.split(',')[1] : ''))"
+               t-att-data-menu="bookmark_menu.id"
+               t-att-title="bookmark_menu.name"
+               t-att-data-action-id="bookmark_menu.action">
+                <div class="f_remove_bookmark"><i t-att-data-id="bookmark_menu.id" class="fa fa-times-circle"/></div>
+                <div class="f_bm_icon"><t t-esc="bookmark_menu.short_name"/></div>
+                <div class="f_app_label"><t t-esc="bookmark_menu.name"/></div>
+            </a>
+        </t>
+    </t>
+</t>
+
 <t t-name="AppsLauncher.Menus">
     <t t-if="dashboard_apps">
         <t t-foreach="dashboard_apps" t-as="dashboard_app">
             <a class="f_app"
-               t-att-href="dashboard_app.href ? dashboard_app.href : ('#menu_id=' + dashboard_app.id + '&amp;action=' + dashboard_app.action.split(',')[1])"
+               t-att-href="dashboard_app.href ? dashboard_app.href : ('#menu_id=' + dashboard_app.id + '&amp;action=' + dashboard_app.action)"
                t-att-data-menu="dashboard_app.id"
+               t-att-title="dashboard_app.label"
                t-att-data-action-id="dashboard_app.action">
-                <img class="f_app_icon" t-att-src="dashboard_app.web_icon_data ? 'data:image/png;base64,' + dashboard_app.web_icon_data : '/base/static/description/icon.png'"/>
-                <div class="f_app_label"><t t-esc="dashboard_app.name"/></div>
+                <img class="f_app_icon" t-att-src="dashboard_app.web_icon_data"/>
+                <div class="f_app_label"><t t-esc="dashboard_app.label"/></div>
             </a>
         </t>
     </t>
-    <div class="text-center" t-if="dashboard_apps == ''">
-        <div class="mt8" style="font-size: 22px;">Sorry, unable to find your content!</div>
-    </div>
+</t>
+
+<t t-name="AppsLauncher.SubMenus">
+    <t t-if="sub_menus">
+        <t t-foreach="sub_menus" t-as="sub_menu">
+            <a class="f_sub_menu"
+               t-att-href="sub_menu.href ? sub_menu.href : ('#menu_id=' + sub_menu.id + '&amp;action=' + sub_menu.action)"
+               t-att-data-menu="sub_menu.id"
+               t-att-title="sub_menu.label"
+               t-att-data-action-id="sub_menu.action">
+                <div class="f_sub_menu_label"><t t-esc="sub_menu.label"/></div>
+            </a>
+        </t>
+    </t>
 </t>
 
 <t t-name="DragAndDropAttachment">
@@ -47,4 +90,10 @@
         </t>
     </div>
 </t>
+
+
+<t t-name="Bookmark.Menu">
+    <li class="o_user_bookmark_menu" ><a href="#" title="Bookmark"><i class="fa fa-bookmark"/></a></li>
+</t>
+
 </templates>

@@ -247,6 +247,7 @@
             .f_search_launcher_content {
                 position: relative;
                 width: 100%;
+                height: calc(~"100% - 118px");
                 .f_apps_search_box {
                     align-items: center;
                     display: flex;
@@ -299,52 +300,99 @@
                     .o-align-items(center);
                     .o-flex(1, 0, auto);
                     width: 100%;
-                    overflow-y: auto;
-                    .f_apps_content {
-                        .o-flex(0, 0, auto);
+                    .f_apps_contents {
                         width: 100%;
-                        .clearfix();
-                        margin: 10px 0;
-                        .f_app {
-                            width: 25%;
-                            text-align: center;
-                            padding: 20px;
-                            float: left;
-                            @media (min-width: @screen-xs-min) {
+                        height: 100%;
+                        overflow-y: auto;
+                        > h5 {
+                            background-color: @flectra-brand-primary;
+                            padding: 5px;
+                            color: #ffffff;
+                        }
+                        .f_apps_content {
+                            .o-flex(0, 0, auto);
+                            width: 100%;
+                            .clearfix();
+                            margin: 10px 0;
+                            .f_app {
                                 width: 25%;
-                            }
-                            @media (max-width: @screen-xs-max) {
-                                padding: 10px;
+                                text-align: center;
+                                padding: 20px;
+                                float: left;
+                                @media (min-width: @screen-xs-min) {
+                                    width: 25%;
+                                }
+                                @media (max-width: @screen-xs-max) {
+                                    padding: 10px;
+                                    .f_app_label {
+                                        font-size: small;
+                                    }
+                                }
+                                @media (min-width: 882px) {
+                                    width: 20%;
+                                }
+                                @media (min-width: @screen-md-min) {
+                                    width: 16.66%;
+                                }
+                                @media (min-width: @screen-lg-min) {
+                                    width: 12.5%;
+                                }
+                                @media (min-width: 1440px) {
+                                    width: 10%;
+                                }
+                                .f_app_icon {
+                                    max-width: 45px;
+                                    max-height: 100%;
+                                    width: 100%;
+                                }
                                 .f_app_label {
-                                    font-size: small;
+                                    color: #000000;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    padding-top: 5px;
+                                }
+                                &:hover {
+                                    background-color: fade(@brand-primary, 60%);
                                 }
                             }
-                            @media (min-width: 882px) {
-                                width: 20%;
-                            }
-                            @media (min-width: @screen-md-min) {
-                                width: 16.66%;
-                            }
-                            @media (min-width: @screen-lg-min) {
-                                width: 12.5%;
-                            }
-                            @media (min-width: 1440px) {
-                                width: 10%;
-                            }
-                            .f_app_icon {
-                                max-width: 45px;
-                                max-height: 100%;
+                            .f_sub_menu {
                                 width: 100%;
+                                text-align: left;
+                                .f_sub_menu_label {
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    padding: 5px 20px;
+                                    font-weight: bold;
+                                    color: @flectra-main-text-color;
+                                    &:hover {
+                                        background-color: fade(@brand-primary, 60%);
+                                    }
+                                }
                             }
-                            .f_app_label {
-                                color: #000000;
-                                white-space: nowrap;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                padding-top: 5px;
+                        }
+                    }
+                    .bookmark_menus {
+                        .f_app {
+                            padding-top: 0 !important;
+                            .f_remove_bookmark {
+                                text-align: right;
+                                margin-right: -16px;
+                                font-size: 20px;
+                                @media (max-width: @screen-xs-max) {
+                                    margin-right: -5px;
+                                }
                             }
-                            &:hover {
-                                background-color: fade(@brand-primary, 60%);
+                            .f_bm_icon {
+                                height: 45px;
+                                width: 45px;
+                                margin: auto;
+                                background: @flectra-brand-primary;
+                                border-radius: 22px;
+                                line-height: 45px;
+                                font-size: 20px;
+                                color: #ffffff;
                             }
                         }
                     }
@@ -362,9 +410,9 @@
             &.launcher_opened {
                 border: 1px solid @launcher-menu-border;
                 border-top: 0;
-                height: 356px;
+                height: 100%;
                 .f_apps_container {
-                    height: 300px;
+                    height: 100%;
                 }
                 @media (max-width: @screen-xs-max) {
                     height: 100%;
