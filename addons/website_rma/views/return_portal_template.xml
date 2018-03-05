@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <template id="portal_my_home_menu_request"
+              inherit_id="portal.portal_layout">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li
+                    t-if="page_name == 'return_request' or req">
+                <a t-if="req"
+                   t-attf-href="/my/request?{{ keep_query() }}">Return Requests
+                </a>
+                <t t-else="">Return Requests</t>
+            </li>
+            <li t-if="req">
+                <t t-esc="req.name"/>
+            </li>
+        </xpath>
+    </template>
+    <template id="portal_my_home_menu_return_request"
+              inherit_id="portal.portal_my_home">
+        <xpath expr="//ul[hasclass('o_portal_docs')]" position="inside">
+            <li t-if="request_count" class="list-group-item">
+                <span class="badge" t-esc="request_count"/>
+                <a href="/my/request">Returns</a>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_my_requests" name="My Return Requests">
+        <t t-call="portal.portal_layout">
+            <h3>Return Requests
+                <t t-call="portal.portal_searchbar"/>
+            </h3>
+            <t t-if="not requests">
+                <p>There are currently no requests for your account.</p>
+            </t>
+            <div t-if="requests" class="panel panel-default">
+                <div class="table-responsive">
+                    <table class="table table-hover o_portal_my_doc_table">
+                        <thead>
+                            <tr class="active">
+                                <th>
+                                    <span class='hidden-xs'>Return Reuqest #
+                                    </span>
+                                </th>
+                                <th>Request Date</th>
+                                <th></th>
+                                <th>Sale Order #</th>
+                            </tr>
+                        </thead>
+                        <t t-foreach="requests" t-as="req">
+                            <tr>
+                                <td>
+                                    <a
+                                            t-attf-href="/my/request/{{req.id}}?{{keep_query()}}">
+                                        <t t-esc="req.name"/>
+                                    </a>
+                                </td>
+                                <td>
+                                    <span t-field="req.date"
+                                          t-options="{'widget': 'date'}"/>&amp;nbsp;
+                                </td>
+                                <td>
+                                    <t
+                                            t-if="req.state == 'draft'">
+                                        <span
+                                                class="label label-default hidden-xs">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                            <span class="hidden-xs">Draft
+                                            </span>
+                                        </span>
+                                    </t>
+                                    <t t-if="req.state == 'confirmed'">
+                                        <span class="label label-info">
+                                            <i
+                                                    class="fa fa-fw fa-clock-o"></i>
+                                            <span class="hidden-xs">Confirmed
+                                            </span>
+                                        </span>
+                                    </t>
+                                    <t
+                                            t-if="req.state == 'rma_created'">
+                                        <span
+                                                class="label label-primary hidden-xs">
+                                            <i class="fa fa-fw fa-check"></i>
+                                            <span class="hidden-xs">RMA
+                                                Request
+                                                Created
+                                            </span>
+                                        </span>
+                                    </t>
+                                    <t
+                                            t-if="req.state == 'replacement_created'">
+                                        <span
+                                                class="label label-primary hidden-xs">
+                                            <i class="fa fa-arrows-h"></i>
+                                            <span
+                                                    class="hidden-xs">Replacement Created
+                                            </span>
+                                        </span>
+                                    </t>
+                                </td>
+                                <td>
+                                    <a t-attf-href="/my/orders/{{req.sale_order_id.id}}?{{keep_query()}}">
+                                        <t
+                                                t-esc="req.sale_order_id.name"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                </div>
+                <div t-if="pager" class="o_portal_pager text-center">
+                    <t t-call="portal.pager"/>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_request_page" name="Return Request">
+        <t t-call="portal.portal_layout">
+            <t t-set="req" t-value="return_request"/>
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-9 col-sm-9">
+                                <h4>
+                                    <t t-call='portal.record_pager'/>
+                                    <t t-esc="RMA"/>
+                                    <span t-esc="req.name"/>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="mb8">
+                            <strong>Date:</strong>
+                            <span t-field="req.date"
+                                  t-options='{"widget": "date"}'/>
+                        </div>
+                        <div class='row'>
+                            <div class="col-md-6">
+                                <div>
+                                    <strong>Invoicing Address</strong>
+                                </div>
+                                <div>
+                                    <address
+                                            t-field="req.sale_order_id.partner_invoice_id"
+                                            t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                                </div>
+                            </div>
+                            <div id="shipping_address" class="col-md-6"
+                                 groups="sale.group_delivery_invoice_address">
+                                <div>
+                                    <strong>Shipping/Picking Address</strong>
+                                </div>
+                                <div>
+                                    <address
+                                            t-field="req.sale_order_id.partner_shipping_id"
+                                            t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <t t-if="req.sale_order_id">
+                                     <t t-set="sale_report_url"
+                                               t-value="'/sale/order/pdf/%s?%s' % (req.sale_order_id.id, keep_query())"/>
+                                    <div>
+                                        <strong>Order</strong>
+                                    </div>
+                                    <div>
+                                        <a t-att-href="sale_report_url"><span class="fa fa-download"/></a>
+                                        <a
+                                                t-att-href="sale_report_url"><span t-esc="req.sale_order_id.name"/></a>
+                                        <span class="text-muted"
+                                              t-field="req.sale_order_id.create_date"/>
+                                    </div>
+                                </t>
+                            </div>
+                            <div class="col-md-6">
+                                <div>
+                                    <strong>State</strong>
+                                </div>
+                                <div>
+                                    <t t-if="req.state == 'draft'">
+                                        <span class="label label-success label-text-align">
+                                            <i class="fa fa-pencil-square-o"/>
+                                            Draft
+                                        </span>
+                                    </t>
+                                    <t t-if="req.state == 'confirmed'">
+                                        <span class="label label-success label-text-align">
+                                            <i class="fa fa-check"/>
+                                            Confirm
+                                        </span>
+                                    </t>
+                                    <t
+                                            t-if="req.state == 'rma_created'">
+                                        <span class="label label-success label-text-align">
+                                            <i class="fa fa-exchange"/>
+                                            RMA Request created
+                                        </span>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <t t-if="req.picking_ids">
+                                    <div>
+                                        <strong>Delivery Order</strong>
+                                    </div>
+                                    <div>
+                                        <t
+                                                t-foreach="req.picking_ids.filtered(lambda picking: picking.picking_type_id.code != 'internal')"
+                                                t-as="i">
+                                            <t t-set="report_url" t-value="'/my/picking/pdf/%s?%s' % (i.id, keep_query())"/>
+                                            <div id='picking_info'>
+                                                <a t-att-href="report_url"><span class="fa fa-download"/></a>
+                                                <a
+                                                        t-att-href="report_url"><span t-esc="i.name"/></a>
+                                                <span class="text-muted"
+                                                      t-field="i.date"
+                                                      t-options='{"widget": "date"}'/>
+                                                <t t-if="i.state == 'done'">
+                                                    <span class="label label-success label-text-align">
+                                                        <i class="fa fa-fw fa-truck"/>
+                                                        Shipped
+                                                    </span>
+                                                </t>
+                                                <t t-if="i.state == 'partially_available'">
+                                                    <span class="label label-warning label-text-align">
+                                                        <i class="fa fa-fw fa-clock-o"/>
+                                                        Partially Available
+                                                    </span>
+                                                </t>
+                                                <t t-if="i.state == 'cancel'">
+                                                    <span class="label label-danger label-text-align">
+                                                        <i class="fa fa-fw fa-times"/>
+                                                        Cancelled
+                                                    </span>
+                                                </t>
+                                                <t t-if="i.state in ['draft', 'waiting', 'confirmed', 'assigned']">
+                                                    <span class="label label-info label-text-align">
+                                                        <i class="fa fa-fw fa-clock-o"/>
+                                                        Preparation
+                                                    </span>
+                                                </t>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Product</strong>
+                            </div>
+                            <div class="hidden-sm hidden-xs col-md-2 text-right">
+                                <strong>UOM</strong>
+                            </div>
+                            <div class="hidden-sm hidden-xs col-md-2 text-right">
+                                <strong>Delivered Quantity</strong>
+                            </div>
+                            <div class="hidden-sm hidden-xs col-md-2 text-right">
+                                <strong>Return Quantity</strong>
+                            </div>
+                        </div>
+                        <t t-foreach="req.rma_line" t-as="rl">
+                            <div class="row orders_vertical_align">
+                                <div id='product_name'
+                                     class="col-lg-5 col-sm-6 col-xs-3">
+                                    <span t-esc="rl.product_id.name"/>
+                                </div>
+                                <div class="col-xs-3 text-right">
+                                    <span t-field="rl.uom_id"/>
+                                </div>
+                                <div class="col-xs-2 text-right">
+                                    <span t-esc="rl.qty_delivered"/>
+                                </div>
+                                <div class="col-sm-2 col-xs-4 text-right">
+                                    <span t-field="rl.qty_return"/>
+                                </div>
+                            </div>
+                        </t>
+
+                        <hr/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_return_page_button"
+              inherit_id="sale.portal_order_page">
+        <xpath expr="//t[@t-if='invoices']" position="after">
+            <t t-if="return_ids">
+                <div>
+                    <strong>Return Requests</strong>
+                </div>
+                <div>
+                    <t t-foreach="return_ids" t-as="return_id">
+                        <a
+                                t-attf-href="/my/request/{{return_id.id}}?{{keep_query()}}">
+                            <t
+                                    t-esc="return_id.name"/>
+                        </a>
+                    </t>
+                </div>
+
+            </t>
+
+        </xpath>
+        <xpath
+                expr="//div[hasclass('panel-body')]/div[4]//div[hasclass('col-md-6')]"
+                position="attributes">
+            <attribute name="class">col-md-4</attribute>
+        </xpath>
+        <xpath
+                expr="//div[@id='product_name']"
+                position="attributes">
+            <attribute name="id">product_name</attribute>
+            <attribute name="class">col-lg-2 col-sm-6 col-xs-3</attribute>
+
+        </xpath>
+        <xpath expr="//t[@t-foreach='order.order_line']/div/div[5]"
+               position="after">
+            <div class="col-sm-2 col-xs-4" id="order_line_return">
+                <t t-set="return_res"
+                   t-value="ol.get_return_qty(order.id,ol.id)"/>
+                <t
+                        t-if="order.picking_ids and order.picking_ids.sorted(key=lambda pick: pick.id)[0].state == 'done'">
+                    <t t-if="not return_res">
+                        <a
+                                t-attf-href="##{ol.id}"
+                                data-toggle="modal"
+                                type="action"
+                                class="btn btn-primary mt8 pull-right">Return/Replace
+                        </a>
+                    </t>
+                    <t t-else="return_res">
+                        <a
+                                t-if="((ol.product_uom_qty - return_res[0]['return_qty']) != 0)"
+                                t-attf-href="##{ol.id}"
+                                data-toggle="modal"
+                                type="action"
+                                class="btn btn-primary mt8 pull-right">Return/Replace
+                        </a>
+                    </t>
+
+                </t>
+            </div>
+            <div class="modal fade" t-attf-id="#{ol.id}" tabindex="-1"
+                 role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="close"
+                                    data-dismiss="modal">
+                                <span aria-hidden="true">&amp;times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                Return Product
+                            </h4>
+                        </div>
+                        <!-- Modal Body -->
+                        <div class="modal-body" id="return_form">
+                            <form action="/return/request" method="POST" t-if="reasons">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 mt8 mb8">
+                                            <lable>
+                                                <strong>Partner</strong>
+                                            </lable>
+                                            <input type="hidden"
+                                                   name="partner_id"
+                                                   id="partner_id"
+                                                   t-attf-value="#{order.partner_id.id}"/>
+                                            <input type="text"
+                                                   name="partner_id"
+                                                   class="form-control"
+                                                   t-attf-value="#{order.partner_id.name}"
+                                                   readonly="True"
+                                            >
+                                            </input>
+                                        </div>
+                                        <div class="col-md-6 mt8 mb8">
+                                            <lable>
+                                                <strong>Sale Order</strong>
+                                            </lable>
+                                            <input type="hidden"
+                                                   name="order_id"
+                                                   id="order_id"
+                                                   t-attf-value="#{order.id}"/>
+                                            <input type="text"
+                                                   name="order_id"
+                                                   class="form-control"
+                                                   t-attf-value="#{order.name}"
+                                                   readonly="True">
+                                            </input>
+                                        </div>
+
+                                        <div class="col-md-6 mt8 mb8">
+                                            <lable>
+                                                <strong>Product to Return
+                                                </strong>
+                                            </lable>
+                                            <input type="hidden"
+                                                   name="product_id"
+                                                   id="product_id"
+                                                   t-attf-value="#{ol.product_id.id}"/>
+                                            <input type="hidden"
+                                                   name="uom_id"
+                                                   id="uom_id"
+                                                   t-attf-value="#{ol.product_uom.id}"/>
+                                            <input type="hidden"
+                                                   name="qty_delivered"
+                                                   id="qty_delivered"
+                                                   t-attf-value="#{ol.qty_delivered}"/>
+                                            <input type="text"
+                                                   name="product_name"
+                                                   class="form-control"
+                                                   t-attf-value="#{ol.product_id.name}"
+                                                   readonly="True">
+                                            </input>
+                                        </div>
+
+                                        <div class="col-md-6 mt8 mb8">
+                                            <lable>
+                                                <strong>Quantity</strong>
+                                            </lable>
+                                            <t t-esc="return_result"/>
+                                            <t t-set="return_res"
+                                               t-value="ol.get_return_qty(order.id,ol.id)"/>
+                                            <t t-if="return_res">
+                                                <input type="number"
+                                                       name="quantity"
+                                                       class="form-control"
+                                                       t-attf-value="#{ol.product_uom_qty - return_res[0]['return_qty']}"
+                                                       min="1"
+                                                       t-attf-max="#{ol.product_uom_qty - return_res[0]['return_qty']}"
+                                                       onkeydown="return false"
+                                                       autocomplete="off"
+                                                />
+                                            </t>
+                                            <t t-else="not return_res">
+                                                <input type="number"
+                                                       name="quantity"
+                                                       class="form-control"
+                                                       t-attf-value="#{ol.product_uom_qty}"
+                                                       min="1"
+                                                       t-attf-max="#{ol.product_uom_qty}"
+                                                       onkeydown="return false"
+                                                />
+                                            </t>
+
+                                        </div>
+                                        <div class="col-md-6 mt8 mb8">
+                                        <lable>
+                                            <strong>Reason</strong>
+                                        </lable>
+                                        <select class="form-control"
+                                                name="reason" required="True">
+
+                                            <t t-set="reason_id"
+                                               t-value="reasons"/>
+                                            <option
+                                                    t-foreach="reason_id"
+                                                    t-as="res"
+                                                    t-att-value="res.id or ''"
+                                                    t-att-selected="res.id == (res and res.id or -1)">
+                                                <t t-esc="res.name"/>
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mt32 mb8">
+                                        <lable>
+                                            <strong>Replacement?</strong>
+                                        </lable>
+                                        <input type="checkbox"
+                                                   name="is_replacement_check"
+                                                    class="ml8">
+                                            </input>
+
+                                    </div>
+                                    </div>
+
+                                    <div class="row mt16 mb16 col-lg-12 col-md-12 col-sm-12 ">
+                                        <label>Remark</label>
+                                        <textarea
+                                                style="resize:vertical;"
+                                                class="form-control"
+                                                placeholder="remark(optional)"
+                                                rows="4" name="remark"
+                                        ></textarea>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit"
+                                            class="btn btn-primary"
+                                            id="prod_return">
+                                        Return
+                                    </button>
+                                    <button type="button"
+                                            class="btn btn-default"
+                                            data-dismiss="modal">
+                                        Close
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="return_confirmation">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h1 class="mb32"><span>Return Request</span> <em
+                                    t-field="return_req_id.name" /> <span>
+            Confirmed</span></h1>
+                            <div class="thanks_msg">
+                                <h2>Return request will be
+                                    processed soon.
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</flectra>

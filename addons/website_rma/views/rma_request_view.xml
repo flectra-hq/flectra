@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="view_rma_request_form_inherit" model="ir.ui.view">
+        <field name="name">rma.request.form.inherit</field>
+        <field name="model">rma.request</field>
+        <field name="inherit_id" ref="rma.view_rma_request_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header" position="inside">
+                <button name="%(website_rma.action_stock_return_web)d"
+                        string="Create RMA"
+                        type="action" class="btn-primary"
+                        attrs="{'invisible': ['|', ('state', 'in', ['draft', 'rma_created']), ('is_website', '=', False)]}"
+                        context="{'rma': True}"
+                        groups="stock.group_stock_manager"/>
+            </xpath>
+        </field>
+    </record>
+
+</flectra>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra>
+       <record id="demo_sale_order_website" model="sale.order">
+            <field name="partner_id" ref="base.res_partner_4"/>
+            <field name="partner_invoice_id" ref="base.res_partner_address_13"/>
+            <field name="partner_shipping_id" ref="base.res_partner_address_13"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="pricelist_id" ref="product.list0"/>
+            <field name="team_id" ref="sales_team.team_sales_department"/>
+            <field name="date_order" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
+           <field name="website_id">1</field>
+           <field name="can_directly_mark_as_paid" eval="True"></field>
+        </record>
+
+        <record id="demo_sale_order_website_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="demo_sale_order_website"/>
+            <field name="name">Demo Product3</field>
+            <field name="product_id" ref="rma.demo_product_3"/>
+            <field name="product_uom_qty">3</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">300.00</field>
+        </record>
+
+        <function model="sale.order" name="action_confirm"
+                  eval="[ref('demo_sale_order_website')]"/>
+
+        <function model="stock.picking" name="force_assign">
+            <function
+                    eval="[[('sale_id', '=', ref('demo_sale_order_website'))]]"
+                    model="stock.picking" name="search"/>
+        </function>
+
+        <record id="demo_stock_immediate_transfer1"
+                model="stock.immediate.transfer">
+            <field name="pick_ids"
+                   search="[('sale_id', '=', ref('demo_sale_order_website'))]"/>
+        </record>
+
+        <function
+                model="stock.immediate.transfer" name="process"
+                eval="[ref('demo_stock_immediate_transfer1')]"
+        />
+
+
+    <record id="demo_sale_order_website_user" model="sale.order">
+            <field name="partner_id" ref="base.partner_demo"/>
+            <field name="partner_invoice_id" ref="base.res_partner_address_13"/>
+            <field name="partner_shipping_id" ref="base.res_partner_address_13"/>
+            <field name="user_id" ref="base.user_demo"/>
+            <field name="pricelist_id" ref="product.list0"/>
+            <field name="team_id" ref="sales_team.team_sales_department"/>
+            <field name="date_order" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
+           <field name="website_id">1</field>
+           <field name="can_directly_mark_as_paid" eval="True"></field>
+        </record>
+
+        <record id="demo_sale_order_website_line_user_1"
+                model="sale.order.line">
+            <field name="order_id" ref="demo_sale_order_website_user"/>
+            <field name="name">Demo Product3</field>
+            <field name="product_id" ref="rma.demo_product_3"/>
+            <field name="product_uom_qty">5</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">250.00</field>
+        </record>
+
+        <function model="sale.order" name="action_confirm"
+                  eval="[ref('demo_sale_order_website_user')]"/>
+
+        <function model="stock.picking" name="force_assign">
+            <function
+                    eval="[[('sale_id', '=', ref('demo_sale_order_website_user'))]]"
+                    model="stock.picking" name="search"/>
+        </function>
+
+        <record id="demo_stock_immediate_transfer1"
+                model="stock.immediate.transfer">
+            <field name="pick_ids"
+                   search="[('sale_id', '=', ref('demo_sale_order_website_user'))]"/>
+        </record>
+
+        <function
+                model="stock.immediate.transfer" name="process"
+                eval="[ref('demo_stock_immediate_transfer1')]"
+        />
+</flectra>

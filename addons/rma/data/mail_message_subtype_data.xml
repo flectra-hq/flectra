@@ -6,7 +6,7 @@
         <field name="hidden" eval="True"/>
         <field name="res_model">rma.request</field>
         <field name="default" eval="False"/>
-        <field name="description">Replacement Request is Created</field>
+        <field name="description">RMA Request is Created</field>
     </record>
     <record id="mt_salesteam_request" model="mail.message.subtype">
         <field name="name">Request Created</field>
@@ -22,7 +22,7 @@
         <field name="hidden" eval="True"/>
         <field name="res_model">rma.request</field>
         <field name="default" eval="False"/>
-        <field name="description">Replacement Request has been
+        <field name="description">RMA Request has been
             Confirmed</field>
     </record>
     <record id="mt_salesteam_request_confirm" model="mail.message.subtype">
@@ -34,19 +34,35 @@
         <field name="relation_field">team_id</field>
     </record>
 
-    <record id="mt_request_replaced" model="mail.message.subtype">
+    <record id="mt_request_return" model="mail.message.subtype">
+        <field name="name">Return created</field>
+        <field name="hidden" eval="True"/>
+        <field name="res_model">rma.request</field>
+        <field name="default" eval="False"/>
+        <field name="description">Products have been returned</field>
+    </record>
+    <record id="mt_salesteam_request_return" model="mail.message.subtype">
+        <field name="name">Return created</field>
+        <field name="sequence">12</field>
+        <field name="res_model">rma.request</field>
+        <field name="default" eval="False"/>
+        <field name="parent_id" eval="ref('mt_request_return')"/>
+        <field name="relation_field">team_id</field>
+    </record>
+
+    <record id="mt_replacement_create" model="mail.message.subtype">
         <field name="name">Replacement created</field>
         <field name="hidden" eval="True"/>
         <field name="res_model">rma.request</field>
         <field name="default" eval="False"/>
         <field name="description">Products have been replaced</field>
     </record>
-    <record id="mt_salesteam_request_replaced" model="mail.message.subtype">
+    <record id="mt_salesteam_request_replacement" model="mail.message.subtype">
         <field name="name">Replacement created</field>
         <field name="sequence">12</field>
         <field name="res_model">rma.request</field>
         <field name="default" eval="False"/>
-        <field name="parent_id" eval="ref('mt_request_replaced')"/>
+        <field name="parent_id" eval="ref('mt_replacement_create')"/>
         <field name="relation_field">team_id</field>
     </record>
 </flectra>

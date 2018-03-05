@@ -6,14 +6,14 @@ from flectra import fields, models
 class CrmTeam(models.Model):
     _inherit = 'crm.team'
 
-    use_replacement = fields.Boolean(string='Replacement')
-    replacements_count = fields.Integer(
-        compute='_compute_replacements',
-        string='Number of replacements')
+    use_return = fields.Boolean(string='Return')
+    returns_count = fields.Integer(
+        compute='_compute_returns',
+        string='Number of returns')
 
-    def _compute_replacements(self):
-        for replace in self:
-            if replace.use_replacement:
+    def _compute_returns(self):
+        for return_req in self:
+            if return_req.use_return:
                 rma_ids = self.env['rma.request'].search([
-                    ('team_id.id', '=', replace.id)])
-                replace.replacements_count = len(rma_ids)
+                    ('team_id.id', '=', return_req.id)])
+                return_req.returns_count = len(rma_ids)

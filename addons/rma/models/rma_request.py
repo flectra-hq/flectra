@@ -6,7 +6,7 @@ from flectra.exceptions import UserError
 
 class RmaRequest(models.Model):
     _name = "rma.request"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
     _description = "RMA Request"
 
     name = fields.Char(string='RMA Order Number')
@@ -16,7 +16,7 @@ class RmaRequest(models.Model):
                        default=fields.Date.context_today)
     partner_id = fields.Many2one('res.partner', string='Customer')
     type = fields.Selection([
-        ('replacement', 'Replacement')
+        ('return_replace', 'Return/Replace')
     ], string='Request Type')
     rma_line = fields.One2many('rma.line', 'rma_id', string='RMA Lines')
     warranty_expire_line = fields.One2many('warranty.expire.line', 'rma_id',
@@ -24,6 +24,7 @@ class RmaRequest(models.Model):
     state = fields.Selection([
         ('draft', 'Draft'),
         ('confirmed', 'Confirmed'),
+        ('rma_created', 'RMA Created'),
         ('replacement_created', 'Replacement Created'),
     ], string='Request Status', track_visibility='onchange', readonly=True,
         copy=False, default='draft')
@@ -35,6 +36,8 @@ class RmaRequest(models.Model):
     user_id = fields.Many2one('res.users', string='User',
                               default=lambda self: self.env.user)
     team_id = fields.Many2one('crm.team', string='Team')
+    is_website = fields.Boolean(string="Website")
+    is_replacement = fields.Boolean(string="Replacement?")
 
     @api.multi
     def _compute_picking(self):
@@ -54,7 +57,7 @@ class RmaRequest(models.Model):
 
     @api.onchange('picking_id')
     def _get_rma_lines(self):
-        if self.picking_id:
+        if self.picking_id and not self.is_website:
             move_line_ids = self.env['stock.move'].search([(
                 'picking_id', '=', self.picking_id.id)])
             move_lines = [(5, 0, 0)]
@@ -63,11 +66,11 @@ class RmaRequest(models.Model):
                     'product_id': line.product_id.id,
                     'uom_id': line.product_uom.id,
                     'qty_delivered': line.quantity_done,
-                    'qty_replaced': sum(line.qty_done for line in
-                                        line.move_line_ids if
-                                        line.lot_id.warranty_date and
-                                        line.lot_id.warranty_date >= self.date
-                                        ),
+                    'qty_return': sum(line.qty_done for line in
+                                      line.move_line_ids if
+                                      line.lot_id.warranty_date and
+                                      line.lot_id.warranty_date >= self.date
+                                      ),
                     'rma_id': self.id,
                     'move_line_id': line.id
                 }))
@@ -127,7 +130,7 @@ class RmaRequest(models.Model):
         ir_model_data = self.env['ir.model.data']
         try:
             template_id = ir_model_data.get_object_reference(
-                'rma', 'email_template_notify_warranty_new')[1]
+                'rma', 'email_template_notify_warranty_date')[1]
         except ValueError:
             template_id = False
         try:
@@ -163,8 +166,8 @@ class RmaRequest(models.Model):
         elif 'state' in init_values and self.state == 'confirmed' and \
                 self.rma_line:
             return 'rma.mt_request_confirm'
-        elif 'state' in init_values and self.state == 'replacement_created':
-            return 'rma.mt_request_replaced'
+        elif 'state' in init_values and self.state == 'rma_created':
+            return 'rma.mt_request_return'
         return super(RmaRequest, self)._track_subtype(init_values)
 
     @api.multi
@@ -172,8 +175,9 @@ class RmaRequest(models.Model):
         self.ensure_one()
         if not self.rma_line:
             raise UserError(_('You must select rma lines!'))
-        for line in self.rma_line:
-            line._onchange_qty_replaced()
+        if not self.is_website:
+            for line in self.rma_line:
+                line._onchange_qty_return()
         self.state = 'confirmed'
 
     @api.multi

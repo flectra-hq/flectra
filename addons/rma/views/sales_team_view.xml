@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <flectra>
-    <record id="crm_team_replacement_teams_view_form" model="ir.ui.view">
-        <field name="name">replacement.team.form</field>
+    <record id="crm_team_rma_teams_view_form" model="ir.ui.view">
+        <field name="name">rma.team.form</field>
         <field name="model">crm.team</field>
         <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='options_active']" position="inside">
                 <div class="o_row" style="display:inherit">
-                    <field name="use_replacement"/>
-                    <label for="use_replacement"/>
+                    <field name="use_return"/>
+                    <label for="use_return"/>
                 </div>
             </xpath>
         </field>
     </record>
 
-    <record id="crm_team_replacement_teams_view_kanban" model="ir.ui.view">
-        <field name="name">replacement.team.kanban</field>
+    <record id="crm_team_rma_teams_view_kanban" model="ir.ui.view">
+        <field name="name">rma.team.kanban</field>
         <field name="model">crm.team</field>
         <field name="inherit_id"
                ref="sale.crm_team_salesteams_view_kanban"/>
@@ -24,23 +24,28 @@
                 <xpath expr="//div[hasclass('o_kanban_primary_left')]"
                        position="inside">
                     <div>
-                        <button name="%(rma.action_open_rma_request_replacementteam)d"
+                        <button name="%(rma.action_open_rma_request_rmateam)d"
+                                type="action"
+                                class="btn btn-primary mt8">Returns
+                        </button>
+                        <button name="%(rma.action_open_replacement_request_rmateam)d"
                                 type="action"
                                 class="btn btn-primary mt8">Replacements
                         </button>
                     </div>
+
                 </xpath>
                 <xpath expr="//t[@name='second_options']"
                        position="after">
-                    <div class="row" t-if="record.replacements_count.raw_value">
+                    <div class="row" t-if="record.returns_count.raw_value">
                         <div class="col-xs-8">
-                            <a name="%(rma.action_open_rma_request_replacementteam)d"
+                            <a name="%(rma.action_open_rma_request_rmateam)d"
                                type="action">
-                                <field name="replacements_count"/>
-                                <t t-if="record.replacements_count.raw_value == 1">
-                                    Replacement
+                                <field name="returns_count"/>
+                                <t t-if="record.returns_count.raw_value == 1">
+                                    RMA Request
                                 </t>
-                                <t t-else="">Replacements</t>
+                                <t t-else="">RMA Requests</t>
                             </a>
                         </div>
                     </div>
@@ -48,8 +53,8 @@
                 <xpath expr="//div[hasclass('o_kanban_manage_view')]"
                        position="inside">
                     <div>
-                        <a name="%(rma.action_open_rma_request_replacementteam)d"
-                           type="action">Replacements
+                        <a name="%(rma.action_open_rma_request_rmateam)d"
+                           type="action">RMA Requests
                         </a>
                     </div>
                 </xpath>
@@ -57,8 +62,8 @@
         </field>
     </record>
 
-    <record id="replacement_view_kanban" model="ir.ui.view">
-        <field name="name">replacement.kanban</field>
+    <record id="rma_view_kanban" model="ir.ui.view">
+        <field name="name">rma.kanban</field>
         <field name="model">crm.team</field>
         <field name="inherit_id"
                ref="sales_team.crm_team_salesteams_view_kanban"/>
@@ -66,10 +71,10 @@
             <data>
                 <xpath expr="//div[hasclass('o_kanban_manage_reports')]"
                        position="inside">
-                    <div name="replacement_report">
-                        <a name="%(rma.replacement_request_action_reports)d"
+                    <div name="return_request_report">
+                        <a name="%(rma.return_request_action_reports)d"
                            type="action" context="{'search_default_team_id': active_id}">
-                            Replacement
+                            RMA Request
                         </a>
                     </div>
                 </xpath>

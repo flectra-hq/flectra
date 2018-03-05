@@ -56,28 +56,28 @@ class TestSaleOrder(TransactionCase):
             'picking_id': picking_ids[0].id,
             'date': datetime.now() - relativedelta(days=15),
             'partner_id': self.sale_order_id_1.partner_id.id,
-            'type': 'replacement'
+            'type': 'return_replace'
         })
         self.assertEquals(self.rma_id_1.state, 'draft')
 
         self.rma_id_1._get_rma_lines()
         self.assertTrue((len(self.rma_id_1.rma_line.ids)) != 0,
-                        'You can not create replacement request!')
+                        'You can not create RMA request!')
 
         self.rma_id_1._get_warranty_lines()
         self.assertEquals((len(self.rma_id_1.warranty_expire_line.ids)), 0,
-                          'This Replacement request should not have expiry '
+                          'This RMA request should not have expiry '
                           'product!')
 
         for rma_line in self.rma_id_1.rma_line:
-            replaceable_qty = sum(line.qty_done for line in
-                                  rma_line.move_line_id.move_line_ids if
-                                  line.lot_id.warranty_date and
-                                  line.lot_id.warranty_date >=
-                                  self.rma_id_1.date)
-            self.assertTrue(rma_line.qty_replaced <= replaceable_qty,
-                            "You can only replace %d quantity for %s" %
-                            (replaceable_qty, rma_line.product_id.name))
+            can_be_return_qty = sum(line.qty_done for line in
+                                    rma_line.move_line_id.move_line_ids if
+                                    line.lot_id.warranty_date and
+                                    line.lot_id.warranty_date >=
+                                    self.rma_id_1.date)
+            self.assertTrue(rma_line.qty_return <= can_be_return_qty,
+                            "You can only return %d quantity for %s" %
+                            (can_be_return_qty, rma_line.product_id.name))
 
         self.rma_id_1.action_confirm_request()
         self.assertEquals(self.rma_id_1.state, 'confirmed')
@@ -90,9 +90,9 @@ class TestSaleOrder(TransactionCase):
                 picking_id=self.rma_id_1.picking_id.id,
             ))
         self.return_picking_id_1.create_returns()
-        self.assertEquals(self.rma_id_1.state, 'replacement_created')
+        self.assertEquals(self.rma_id_1.state, 'rma_created')
         self.assertTrue(len(self.sale_order_id_1.picking_ids.ids) > 1,
-                        'Product has not been replaced yet')
+                        'Product has not been returned yet')
 
         incoming_shipment = False
         for pick in self.sale_order_id_1.picking_ids:
@@ -104,6 +104,9 @@ class TestSaleOrder(TransactionCase):
                 pick.button_validate()
                 pick.action_done()
         self.assertTrue(incoming_shipment, 'Incoming shipment is not created')
+        self.assertEqual(len(self.sale_order_id_1.picking_ids.filtered(
+            lambda pick: pick.picking_type_code == 'outgoing')), 1,
+            "Replacement request can not be created!")
 
     def test_01_rma_request(self):
         self.sale_order_id_2.action_confirm()
@@ -122,26 +125,27 @@ class TestSaleOrder(TransactionCase):
             'picking_id': picking_ids[0].id,
             'date': datetime.now() - relativedelta(days=10),
             'partner_id': self.sale_order_id_2.partner_id.id,
-            'type': 'replacement'
+            'type': 'return_replace',
+            'is_replacement': True
         })
         self.assertEquals(self.rma_id_2.state, 'draft')
         self.rma_id_2._get_rma_lines()
         self.assertTrue((len(self.rma_id_2.rma_line.ids)) != 0,
-                        'You can not create replacement request!')
+                        'You can not create RMA request!')
 
         self.rma_id_2._get_warranty_lines()
         self.assertEquals((len(self.rma_id_2.warranty_expire_line.ids)), 1,
-                          'Replacement request must have expiry product!')
+                          'RMA request must have expiry product!')
 
         for rma_line in self.rma_id_2.rma_line:
-            replaceable_qty = sum(line.qty_done for line in
-                                  rma_line.move_line_id.move_line_ids if
-                                  line.lot_id.warranty_date and
-                                  line.lot_id.warranty_date >=
-                                  self.rma_id_2.date)
-            self.assertTrue(rma_line.qty_replaced <= replaceable_qty,
+            can_be_return_qty = sum(line.qty_done for line in
+                                    rma_line.move_line_id.move_line_ids if
+                                    line.lot_id.warranty_date and
+                                    line.lot_id.warranty_date >=
+                                    self.rma_id_2.date)
+            self.assertTrue(rma_line.qty_return <= can_be_return_qty,
                             "You can only return %d quantity for %s" %
-                            (replaceable_qty, rma_line.product_id.name))
+                            (can_be_return_qty, rma_line.product_id.name))
 
         self.rma_id_2.state = 'confirmed'
         self.assertEquals(self.rma_id_2.state, 'confirmed')
@@ -153,10 +157,10 @@ class TestSaleOrder(TransactionCase):
             'stock.return.picking'].with_context(context).create(dict(
                 picking_id=self.rma_id_2.picking_id.id,
             ))
-        self.return_picking_id_2.create_returns()
-        self.assertEquals(self.rma_id_2.state, 'replacement_created')
+        picking = self.return_picking_id_2.create_returns()
+        self.assertEquals(self.rma_id_2.state, 'rma_created')
         self.assertTrue(len(self.sale_order_id_2.picking_ids.ids) > 1,
-                        'Product has not been replaced yet')
+                        'Product has not been returned yet')
 
         incoming_shipment = False
         for pick in self.sale_order_id_2.picking_ids:
@@ -170,3 +174,12 @@ class TestSaleOrder(TransactionCase):
                 pick.button_validate()
                 pick.action_done()
         self.assertTrue(incoming_shipment, 'Incoming shipment is not created')
+
+        replace_context = {"active_model": 'stock.picking',
+                           "active_ids": [picking['res_id']], "active_id":
+                               picking['res_id']}
+        self.replace_picking_id_2 = self.env[
+            'stock.return.picking'].with_context(replace_context).create(
+            dict(picking_id=picking['res_id']))
+        self.replace_picking_id_2.create_returns()
+        self.assertEquals(self.rma_id_2.state, 'replacement_created')

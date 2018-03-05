@@ -4,7 +4,6 @@
             <field name="name">warranty.expire..line.tree</field>
             <field name="model">warranty.expire.line</field>
             <field name="type">tree</field>
-            <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <tree create="false" edit="false">
                     <field name="rma_id" invisible="1"/>
@@ -20,9 +19,8 @@
             <field name="name">warranty.expire.line.form</field>
             <field name="model">warranty.expire.line</field>
             <field name="type">form</field>
-            <field name="priority" eval="8"/>
             <field name="arch" type="xml">
-                <form string="Warranty Expire Lines">
+                <form string="Warranty Expire Lines" create="false" edit="false">
                     <sheet>
                         <group>
                             <field name="product_id" readonly="1"/>

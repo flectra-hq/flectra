@@ -3,8 +3,8 @@
 from flectra import fields, models
 
 
-class ReplacementReason(models.Model):
-    _name = "replacement.reason"
-    _description = "Replacement Reason"
+class ReturnReason(models.Model):
+    _name = "return.reason"
+    _description = "Return Reason"
 
     name = fields.Char(string='Reason')

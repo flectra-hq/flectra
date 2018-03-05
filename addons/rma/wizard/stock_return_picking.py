@@ -9,12 +9,18 @@ class ReturnPicking(models.TransientModel):
 
     @api.model
     def default_get(self, fields):
+        if self._context.get('active_model') == 'stock.picking':
+            picking = self.env['stock.picking'].browse(
+                self.env.context.get('active_id'))
+            if picking.rma_id and not picking.rma_id.is_replacement:
+                raise UserError(_("It is not replacement request!"))
+
         if self._context.get('rma') and self._context.get('active_model') ==\
                 'rma.request':
             res = {}
             if len(self.env.context.get('active_ids', list())) > 1:
                 raise UserError(_(
-                    "You may only replace single picking at a time!"))
+                    "You may only return single picking at a time!"))
             move_dest_exists = False
             product_return_moves = []
             rma_id = self.env['rma.request'].browse(
@@ -33,7 +39,7 @@ class ReturnPicking(models.TransientModel):
                         vals = {}
                         for rma_line in rma_id.rma_line:
                             vals.update({
-                                rma_line.product_id.id: rma_line.qty_replaced,
+                                rma_line.product_id.id: rma_line.qty_return,
                             })
                         for prod_id in product_ids:
                             if vals.get(prod_id.id):
@@ -60,8 +66,8 @@ class ReturnPicking(models.TransientModel):
 
                 if not product_return_moves:
                     raise UserError(_(
-                        "No products to replace (only lines in Done state and"
-                        "not fully replaced yet can be replaced)!"))
+                        "No products to return (only lines in Done state and"
+                        "not fully returned yet can be returned)!"))
                 if 'product_return_moves' in fields:
                     res.update({'product_return_moves': product_return_moves})
                 if 'move_dest_exists' in fields:
@@ -94,5 +100,10 @@ class ReturnPicking(models.TransientModel):
                 'rma.request':
             rma_id = self.env['rma.request'].browse(
                 self.env.context.get('active_id'))
-            rma_id.state = 'replacement_created'
+            rma_id.state = 'rma_created'
+        if self._context.get('active_model') == 'stock.picking':
+            picking = self.env['stock.picking'].browse(
+                self.env.context.get('active_id'))
+            if picking.rma_id:
+                picking.rma_id.state = 'replacement_created'
         return super(ReturnPicking, self).create_returns()

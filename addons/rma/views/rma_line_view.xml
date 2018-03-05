@@ -5,7 +5,6 @@
         <field name="name">rma.line.form</field>
         <field name="model">rma.line</field>
         <field name="type">form</field>
-        <field name="priority" eval="8"/>
         <field name="arch" type="xml">
             <form string="RMA Lines">
                 <sheet>
@@ -13,7 +12,7 @@
                         <group>
                             <field name="product_id"/>
                             <field name="qty_delivered"/>
-                            <field name="qty_replaced" required="1"/>
+                            <field name="qty_return" required="1"/>
                             <field name="uom_id"/>
                         </group>
                         <group>
@@ -50,22 +49,21 @@
     <record id="view_rma_line_graph" model="ir.ui.view">
         <field name="name">rma.line.graph</field>
         <field name="model">rma.line</field>
-        <field name="priority" eval="8"/>
         <field name="arch" type="xml">
-            <graph string="Replacement Request">
+            <graph string="Return Request">
                 <field name="product_id"/>
             </graph>
         </field>
     </record>
 
-    <record id="replacement_request_action_reports"
+    <record id="return_request_action_reports"
             model="ir.actions.act_window">
-        <field name="name">Replacement Requests</field>
+        <field name="name">Return Requests</field>
         <field name="res_model">rma.line</field>
         <field name="view_mode">graph,tree,form</field>
         <field name="help" type="html">
             <p>
-                No replacement request.
+                No Return request.
             </p>
         </field>
         <field name="context">{'search_default_team_id': active_id}</field>

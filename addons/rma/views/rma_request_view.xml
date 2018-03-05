@@ -4,7 +4,6 @@
         <field name="name">rma.request.tree</field>
         <field name="model">rma.request</field>
         <field name="type">tree</field>
-        <field name="priority" eval="8"/>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -21,23 +20,24 @@
         <field name="name">rma.request.form</field>
         <field name="model">rma.request</field>
         <field name="type">form</field>
-        <field name="priority" eval="8"/>
         <field name="arch" type="xml">
             <form string="Requests for RMA">
                 <header>
                     <button name="action_notify_warranty"
                             string="Send By Email"
-                            type="object" class="oe_highlight"/>
+                            type="object" class="oe_highlight"
+                            groups="stock.group_stock_manager"
+                            attrs="{'invisible': [('state', '=', 'draft')]}"/>
                     <button name="%(stock.act_stock_return_picking)d"
-                            string="Create Replacement"
+                            string="Create RMA"
                             type="action" class="btn-primary"
-                            attrs="{'invisible': [('state', 'in', ['draft', 'replacement_created'])]}"
+                            attrs="{'invisible': ['|', ('state', 'in', ['draft', 'rma_created', 'replacement_created']), ('is_website', '=', True)]}"
                             context="{'rma': True}"
                             groups="stock.group_stock_manager"/>
                     <button name="action_confirm_request"
                             string="Confirm"
                             type="object" class="oe_highlight"
-                            attrs="{'invisible': [('state', 'in', ['confirmed', 'replacement_created'])]}"/>
+                            attrs="{'invisible': [('state', 'in', ['confirmed', 'rma_created', 'replacement_created'])]}"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -70,11 +70,14 @@
                                    options="{'no_create': True}"
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"
                             />
-                            <field name="picking_id" required="1"
+                            <field name="is_website" invisible="1"/>
+                            <field name="picking_id"
                                    options="{'no_create': True}"
                                    domain="[('sale_id', '=', sale_order_id),
                                        ('state', '=', 'done'), ('picking_type_code', '=', 'outgoing')]"
-                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                   attrs="{'readonly': [('state', '!=', 'draft')], 'required': [('is_website', '=', False)],
+                                   'invisible': [('is_website', '=', True)]}"/>
+                            <field name="is_replacement" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="user_id" invisible="1"/>
 
                         </group>
@@ -85,7 +88,7 @@
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"
                                    options="{'no_create': True}"/>
                             <field name="type" required="1"
-                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                   attrs="{'readonly': ['|', ('state', '!=', 'draft'), ('is_website', '=', True)]}"/>
                         </group>
                     </group>
                     <notebook>
@@ -99,7 +102,7 @@
                                            force_save="1"/>
                                     <field name="qty_delivered" readonly="1"
                                            force_save="1"/>
-                                    <field name="qty_replaced" required="1"/>
+                                    <field name="qty_return" required="1"/>
                                     <field name="reason_id" required="1"
                                            options="{'no_create': True}"/>
                                     <field name="remark"/>
@@ -115,8 +118,7 @@
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"
-                           groups="base.group_user"/>
+                    <field name="message_follower_ids" widget="mail_followers"/>
                     <field name="activity_ids" widget="mail_activity"/>
                     <field name="message_ids" widget="mail_thread"/>
                 </div>
@@ -138,9 +140,15 @@
                 <filter string="My Requests"
                         domain="[('user_id','=',uid)]"
                         name="my_rma_request_filter"/>
-                <filter string="Replacement Created"
-                        domain="[('state','=','replacement_created')]"
+                <filter string="RMA Created"
+                        domain="[('state','=','rma_created')]"
                         name="rma_request_state_filter"/>
+                <filter string="Replacements"
+                        domain="[('is_replacement', '=', True)]"
+                        name="replacement_filter"/>
+                <filter string="Returns"
+                        domain="[('is_replacement', '=', False)]"
+                        name="return_filter"/>
                 <separator/>
                 <group expand="1" string="Group By">
                     <filter string="Partner" name="Partner"
@@ -149,9 +157,13 @@
                             context="{'group_by':'sale_order_id'}"/>
                     <filter string="State"
                             context="{'group_by':'state'}"/>
+                    <filter string="RMA Request type"
+                            context="{'group_by':'type'}"/>
                     <separator/>
                     <filter string="Request Month"
                             context="{'group_by':'date:month'}"/>
+                    <filter string="Return/Replacement"
+                            context="{'group_by':'is_replacement'}"/>
                 </group>
             </search>
         </field>
@@ -168,7 +180,7 @@
     </record>
 
     <record model="ir.actions.act_window"
-            id="action_open_rma_request_replacementteam">
+            id="action_open_rma_request_rmateam">
         <field name="name">RMA Request</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">rma.request</field>
@@ -177,6 +189,23 @@
         <field name="domain">[]</field>
         <field name="context">{
             'search_default_team_id': [active_id],
+            'search_default_return_filter': 1,
+            'default_team_id': active_id,
+            }
+        </field>
+        <field name="search_view_id" ref="view_rma_request_filter"/>
+    </record>
+    <record model="ir.actions.act_window"
+            id="action_open_replacement_request_rmateam">
+        <field name="name">Replacement Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">rma.request</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{
+            'search_default_team_id': [active_id],
+            'search_default_replacement_filter': 1,
             'default_team_id': active_id,
             }
         </field>

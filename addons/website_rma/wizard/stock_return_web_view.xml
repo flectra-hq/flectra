@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+        <record id="view_stock_return_web" model="ir.ui.view">
+            <field name="name">stock.return.web.form</field>
+            <field name="model">stock.return.web</field>
+            <field name="arch" type="xml">
+                <form string="Return Product">
+                    <group>
+                         <group>
+                             <field name="order_id" readonly="1"/>
+                             <field name="product_id" readonly="1"/>
+                             <field name="qty_return" readonly="1"/>
+                         </group>
+                         <group>
+                             <field name="rma_id" readonly="1"/>
+                             <field name="picking_type_id"
+                                    domain="[('code', '=', 'incoming')]"/>
+                             <field name="source_location_id"
+                                    domain="[('usage', '!=', 'view')]"/>
+                             <field name="destination_location_id"
+                                    domain="[('usage', '!=', 'view')]"/>
+                         </group>
+                    </group>
+                    <footer>
+                        <button string='Return' name="return_product"
+                                type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_stock_return_web" model="ir.actions.act_window">
+            <field name="name">Return Product</field>
+            <field name="res_model">stock.return.web</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_stock_return_web"/>
+            <field name="target">new</field>
+
+        </record>
+
+</flectra>
