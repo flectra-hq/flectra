@@ -9,7 +9,8 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     @api.multi
-    @api.depends('discount_amount', 'discount_per', 'amount_untaxed')
+    @api.depends('discount_amount', 'discount_per',
+                 'amount_untaxed', 'order_line')
     def _get_discount(self):
         total_discount = 0.0
         for record in self:
@@ -46,7 +47,7 @@ class SaleOrder(models.Model):
         gross_amount = self.gross_amount
         if self.discount_method == 'per':
             for line in self.order_line:
-                line.write({'discount': line.discount + self.discount_per})
+                line.write({'discount': self.discount_per})
         else:
             for line in self.order_line:
                 discount_value_ratio = \
@@ -54,7 +55,7 @@ class SaleOrder(models.Model):
                      line.price_subtotal) / gross_amount
                 discount_per_ratio = \
                     (discount_value_ratio * 100) / line.price_subtotal
-                line.write({'discount': line.discount + discount_per_ratio})
+                line.write({'discount': discount_per_ratio})
 
     @api.onchange('discount_method')
     def onchange_discount_method(self):
