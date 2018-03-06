@@ -47,7 +47,8 @@ class AccountInvoice(models.Model):
         gross_amount = self.gross_amount
         if self.discount_method == 'per':
             for line in self.invoice_line_ids:
-                line.write({'discount': line.discount + self.discount_per})
+                line.write({'discount': self.discount_per})
+                self._onchange_invoice_line_ids()
         else:
             for line in self.invoice_line_ids:
                 discount_value_ratio = \
@@ -55,7 +56,8 @@ class AccountInvoice(models.Model):
                     gross_amount
                 discount_per_ratio = \
                     (discount_value_ratio * 100) / line.price_subtotal
-                line.write({'discount': line.discount + discount_per_ratio})
+                line.write({'discount': discount_per_ratio})
+                self._onchange_invoice_line_ids()
 
     @api.constrains('discount_per', 'discount_amount', 'invoice_line_ids')
     def _check_constrains(self):
