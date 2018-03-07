@@ -218,6 +218,9 @@ class Project(models.Model):
     low = fields.Integer("No of Days for Low priority")
     medium = fields.Integer("No of Days for Medium priority")
     high = fields.Integer("No of Days for High priority")
+    displayed_image_id = fields.Many2one('ir.attachment',
+                                         domain="[('res_model', '=', 'project.project'), ('res_id', '=', id), ('mimetype', 'ilike', 'image')]",
+                                         string='Cover Image')
 
     _sql_constraints = [
         ('project_date_greater', 'check(date >= date_start)', 'Error! project start-date must be lower than project end-date.')

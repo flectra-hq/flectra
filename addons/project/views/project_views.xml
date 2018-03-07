@@ -317,6 +317,9 @@
                                     <div class="o_kanban_card_manage_pane" groups="project.group_project_manager">
                                         <div class="o_kanban_card_manage_section o_kanban_manage_reports">
                                             <div>
+                                                <a type="set_cover">Set Cover Image</a>
+                                            </div>
+                                            <div>
                                                 <a type="edit">Settings</a>
                                             </div>
                                             <div>
@@ -329,6 +332,10 @@
                                     </div>
                                     <a class="o_kanban_manage_toggle_button o_left" href="#" groups="project.group_project_manager"><i class="fa fa-ellipsis-v" /></a>
                                     <span class="o_right"><field name="is_favorite" widget="boolean_favorite" nolabel="1" /></span>
+                                </div>
+
+                                <div t-if="record.displayed_image_id.value">
+                                    <field name="displayed_image_id" widget="attachment_image"/>
                                 </div>
 
                                 <div class="o_project_kanban_boxes">

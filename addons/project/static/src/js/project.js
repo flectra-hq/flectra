@@ -35,10 +35,11 @@ KanbanRecord.include({
      */
     _onKanbanActionClicked: function (ev) {
         var self = this;
+        var domain = null;
         if (this.modelName === 'project.task' && $(ev.currentTarget).data('type') === 'set_cover') {
             ev.preventDefault();
 
-            var domain = [['res_model', '=', 'project.task'], ['res_id', '=', this.id], ['mimetype', 'ilike', 'image']];
+            domain = [['res_model', '=', 'project.task'], ['res_id', '=', this.id], ['mimetype', 'ilike', 'image']];
             this._rpc({
                     model: 'ir.attachment',
                     method: 'search_read',
@@ -46,7 +47,19 @@ KanbanRecord.include({
                     fields: ['id', 'name'],
                 })
                 .then(open_cover_images_dialog);
-        } else {
+        } else if (this.modelName === 'project.project' && $(ev.currentTarget).data('type') === 'set_cover') {
+            ev.preventDefault();
+
+            domain = [['res_model', '=', 'project.project'], ['res_id', '=', this.id], ['mimetype', 'ilike', 'image']];
+            this._rpc({
+                    model: 'ir.attachment',
+                    method: 'search_read',
+                    domain: domain,
+                    fields: ['id', 'name'],
+                })
+                .then(open_cover_images_dialog);
+        }
+        else {
             this._super.apply(this, arguments, ev);
         }
 
