@@ -16,6 +16,131 @@
   border-bottom: 2px solid #cccccc;
 }
 
+.md-form {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.md-form label {
+  -webkit-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+  color: #757575;
+  position: absolute;
+  top: 0.8rem;
+  left: 0;
+  cursor: text;
+}
+
+.md-form label.active {
+  -webkit-transform: translateY(-140%);
+  -ms-transform: translateY(-140%);
+  transform: translateY(-140%);
+  font-size: 0.8rem;
+}
+
+.md-form .prefix {
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+  position: absolute;
+  width: 3rem;
+  font-size: 2rem;
+  padding-top: .5rem;
+}
+
+.md-form .prefix ~ input, .md-form .prefix ~ textarea {
+  margin-left: 3rem;
+  width: 92%;
+  width: -webkit-calc(100% - 3rem);
+  width: calc(100% - 3rem);
+}
+
+.md-form .prefix ~ label {
+  margin-left: 3rem;
+}
+
+.md-form .prefix.active {
+  color: @color-primary;
+}
+
+@media only screen and (max-width: 992px) {
+  .md-form .prefix ~ input {
+    width: 86%;
+    width: -webkit-calc(100% - 3rem);
+    width: calc(100% - 3rem);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .md-form .prefix ~ input {
+    width: 80%;
+    width: -webkit-calc(100% - 3rem);
+    width: calc(100% - 3rem);
+  }
+}
+
+.md-form .btn {
+  margin-bottom: 1.5rem;
+}
+
+.md-form.form-sm input {
+  padding-bottom: 0.2rem;
+  padding-top: 0.2rem;
+  font-size: 0.8rem;
+  line-height: 0.5;
+}
+
+.md-form.form-sm label {
+  font-size: 0.9rem;
+}
+
+.md-form.form-sm .prefix {
+  font-size: 1.5rem;
+  top: 0.4rem;
+}
+
+.md-form.form-sm .prefix ~ input, .md-form.form-sm .prefix ~ textarea, .md-form.form-sm .prefix ~ label {
+  margin-left: 2.2rem;
+}
+
+.md-form.input-group {
+  padding-left: 1rem;
+}
+
+.md-form.input-group::-webkit-input-placeholder {
+  color: #999;
+  padding-top: 2px;
+}
+
+.md-form.input-group:-moz-placeholder {
+  color: #999;
+  padding-top: 2px;
+}
+
+.md-form.input-group::-moz-placeholder {
+  color: #999;
+  padding-top: 2px;
+}
+
+.md-form.input-group::-webkit-input-placeholder {
+  color: #999;
+  padding-top: 2px;
+}
+
+.md-form.input-group::-moz-placeholder {
+  color: #999;
+  padding-top: 2px;
+}
+
+.md-form.input-group:-ms-input-placeholder {
+  color: #999;
+  padding-top: 2px;
+}
+
+.md-form.input-group::placeholder {
+  color: #999;
+  padding-top: 2px;
+}
+
 .form-group {
   display: block;
 }
@@ -498,24 +623,11 @@ pill_menu li {
   border-bottom: none !important;
 }
 
-h4.title-block span:before {
-  border-left: 2px solid;
-  border-top: 2px solid;
-  content: ".";
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  text-indent: -5000px;
-}
-
 h4.title-block span {
-  padding: 15px 20px;
+  padding: 17px 2px;
   font-size: 22px;
   color: @color-primary;
-  display: inline-block;
+  display: block;
   text-transform: none;
   position: relative;
 }
@@ -623,21 +735,21 @@ textarea:focus {
 }
 
 #js_product_style {
-    input.js_variant_change_full.js_variant_change {
-      position: absolute;
-      width: 100%;
-  }
-}
-
-#js_product_style > ul > li > ul > li > label > input,
-#radio-option {
-  input[type="checkbox"] {
+  input.js_variant_change_full.js_variant_change {
     position: absolute;
     width: 100%;
   }
 }
 .modal-body {
   input.js_variant_change_full.js_variant_change {
+    position: absolute;
+    width: 100%;
+  }
+}
+
+#js_product_style > ul > li > ul > li > label > input,
+#radio-option {
+  input[type="checkbox"] {
     position: absolute;
     width: 100%;
   }
@@ -773,10 +885,6 @@ textarea:focus {
   border-top: none;
 }
 
-.breadcrumb {
-  padding: 4px 15px;
-}
-
 .oe_search input[type=text] {
   background: #efefef;
   border: none;
@@ -789,4 +897,82 @@ textarea:focus {
 
 .oe_website_spinner .form-control {
   padding: 6px 2px !important;
+}
+
+#products_grid_before .attr-list ul label.css_attribute_color {
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  border-radius: 50%;
+  transition: .3s all;
+  border: 2px solid #ccc;
+}
+
+.css_attribute_color [type=radio], .css_attribute_color [type=checkbox] {
+  opacity: 0;
+  z-index: 50;
+  left: 0;
+  position: relative;
+  height: 22px;
+  width: auto;
+}
+
+.css_attribute_color.active {
+  border: 2px solid @color-primary !important;
+}
+
+.css_attribute_color.active input {
+  margin: 8px;
+}
+
+#o_shop_collapse_category .fa-chevron-right,
+#o_shop_collapse_category .fa-chevron-down {
+  position: absolute;
+  right: 20px;
+  top: 13px;
+  z-index: 400;
+}
+
+#products_grid_before #o_shop_collapse_category li a {
+  width: 100%;
+}
+
+#o_shop_collapse_category {
+  border: 1px solid @color-primary;
+  margin-top: 0px !important;
+  padding-bottom: 15px;
+}
+
+.breadcrumb {
+  padding: 4px 15px;
+}
+
+#product_details > div.oe_share.s_share > h2 > a.oe_share_google.share_buttons > i:before {
+  content: "\f0d5" !important;
+}
+
+#product_details > div.oe_share.s_share > h2 > a.oe_share_facebook.share_buttons > i:before {
+  content: "\f09a";
+}
+
+.oe_grid.oe_product form {
+  border: 1px solid #f1f1f1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.oe_product {
+  border: none !important;
+  padding: 0px 8px;
+  margin-bottom: 16px;
+}
+
+#products_grid_before #o_shop_collapse_category li a {
+  width: 100%;
+}
+
+.brand_list input {
+  position: absolute;
+  width: 100%;
 }

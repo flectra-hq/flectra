@@ -1,15 +1,21 @@
 /* ==========================================================================
-   moon
+   cyrus
    ========================================================================== */
 
 /* Colors
    ========================================================================== */
+@flectra-brand-primary: @color-primary;
+@color-primary: @cyrus-primary;
+@color-success: @cyrus-success;
+@color-info: @cyrus-info;
+@color-warning: @cyrus-warning;
+@color-danger: @cyrus-danger;
 
-@color-primary: @moon-primary;
-@color-success: @moon-success;
-@color-info: @moon-info;
-@color-warning: @moon-warning;
-@color-danger: @moon-danger;
+@brand-primary: @cyrus-primary;
+@brand-success: @cyrus-success;
+@brand-info: @cyrus-info;
+@brand-warning: @cyrus-warning;
+@brand-danger: @cyrus-danger;
 
 .text-primary {
   color: @color-primary;
@@ -31,6 +37,39 @@
   color: @color-danger;
 }
 
+@navbar-height: 60px;
+@navbar-default-bg: #fff;
+@navbar-default-color: #000;
+@navbar-default-link-color: #000;
+@navbar-default-link-active-color: @color-primary;
+@navbar-default-link-hover-color: @color-primary;
+@navbar-default-link-active-bg: white;
+
+.dropdown .dropdown-menu .dropdown-item:hover, .dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdown-item:focus {
+  color: #1d1e1f;
+  background-color: #f7f7f9;
+}
+
+.navbar .dropdown-menu {
+  position: absolute !important;
+  margin-top: 0;
+}
+
+.navbar .dropdown-menu a {
+  font-weight: 300;
+  color: #000 !important;
+}
+
+.navbar .dropdown-menu a:hover {
+  color: #fff !important;
+}
+
+@media (max-width: 600px) {
+  .navbar .dropdown-menu.dropdown-menu-right {
+    right: auto !important;
+  }
+}
+
 /* Grayscale
    ========================================================================== */
 
@@ -50,32 +89,13 @@
   .success(#fff);
   .info(#fff);
   .warning(#fff);
-  .danger(@gray-darker);
-}
-
-footer {
-  background-color: #f1f1f1;
-  color: #000;
+  .danger(#fff);
 }
 
 /* header start*/
-header {
-  div {
-    background-color: #fff !important;
-  }
-  .dropdown.open a.dropdown-toggle, .dropdown.open a.dropdown-toggle:hover {
-    background: @color-primary !important;
-    color: @color-info !important;
-  }
-}
 
 #wrapwrap div.navbar-static-top {
   border-bottom-width: 0px;
-}
-
-#wrapwrap div.navbar-static-top .navbar-nav > .active > a {
-  color: #fff !important;
-  background-color: @color-primary !important;
 }
 
 #top_menu > li > a {
@@ -83,20 +103,11 @@ header {
   text-decoration: none;
   font-weight: 600;
   letter-spacing: 0.1em;
-  padding: 18px;
   font-size: 16px;
 }
 
-#top_menu > li.active > a {
-  color: #fff;
-  font-weight: bold;
-  background: @color-primary
-}
-
-#top_menu > li > a:hover {
-  color: #fff;
-  font-weight: bold;
-  background: @color-primary;
+#top_menu > li.active > a, #top_menu > li > a:hover {
+  color: @color-primary;
 }
 
 #top_menu .divider {
@@ -105,8 +116,11 @@ header {
 
 @layout-icons-color: #fff;
 @link-color: @color-primary;
-
 @body-bg: #fff;
+footer {
+  background-color: #000;
+  color: #fff;
+}
 
 /* Label Colors
    ========================================================================== */
@@ -211,7 +225,7 @@ header {
 /* Dropdown Colors
    ========================================================================== */
 
-@navbar-default-border: @color-primary;
+@navbar-default-border: transparent;
 
 //** Global color for active items (e.g., navs or dropdowns).
 @component-active-color: #fff;
@@ -262,3 +276,52 @@ header {
 //** Border color for textual input addons
 @input-group-addon-border-color: @input-border;
 
+.oe_product .ribbon {
+  left: 0 !important;
+  top: 9px !important;
+  width: auto !important;
+  -webkit-transform: rotate(0) !important;
+  -moz-transform: rotate(0deg) !important;
+  -ms-transform: rotate(0deg) !important;
+  -o-transform: rotate(0deg) !important;
+}
+
+.oe_product .ribbon-wrap {
+  width: 100px !important;
+  height: 53px !important;
+}
+
+.navbar {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.navbar.navbar-static-top ul.nav > li.divider {
+  height: 33px !important;
+}
+.navbar-default .navbar-nav li > a {
+  border-radius: 8px;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: #fff !important;
+  background-color: @color-primary !important;
+}
+
+@media (min-width: 768px) {
+  .navbar.navbar-static-top {
+    padding-top: 10px;
+  }
+
+  .navbar-nav > li > a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+#o_shop_collapse_category .fa-chevron-right:before {
+  content: "\f055";
+}
+
+#o_shop_collapse_category .fa-chevron-down:before {
+  content: "\f056";
+}

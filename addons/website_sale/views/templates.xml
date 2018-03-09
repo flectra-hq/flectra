@@ -441,7 +441,7 @@
                                 </select>
                             </t>
                             <t t-if="a.type == 'radio'">
-                                <ul class="nav nav-pills nav-stacked">
+                                <ul class="nav nav-pills nav-stacked" id="radio-option">
                                     <t t-foreach="a.value_ids" t-as="v">
                                         <li t-att-class="'active' if v.id in attrib_set else None">
                                             <div>
@@ -454,7 +454,7 @@
                                 </ul>
                             </t>
                             <t t-if="a.type == 'color'">
-                                <ul class="nav nav-pills nav-stacked">
+                                <ul class="nav nav-pills nav-stacked" id="color-option">
                                     <t t-foreach="a.value_ids" t-as="v">
                                         <label t-attf-style="background-color:#{v.html_color or v.name}"
                                               t-attf-class="css_attribute_color #{'active' if v.id in attrib_set else ''}">
@@ -573,7 +573,7 @@
                             <t t-set="attribute_value_ids" t-value="get_attribute_value_ids(product)"/>
                             <form action="/shop/cart/update" class="js_add_cart_variants" t-att-data-attribute_value_ids="attribute_value_ids" method="POST">
                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                                <div class="js_product" t-if="product.product_variant_ids">
+                                <div class="js_product" t-if="product.product_variant_ids" id="js_product_style">
                                     <t t-placeholder="select">
                                         <input type="hidden" class="product_id" name="product_id" t-att-value="product.product_variant_id.id if len(product.product_variant_ids) == 1 else '0'" />
                                         <t t-call="website_sale.variants">
@@ -812,7 +812,7 @@
                   <t t-foreach="variant_id.value_ids" t-as="value_id">
                       <li class="form-group js_attribute_value" style="margin: 0;">
                           <label class="control-label">
-                              <input type="radio" t-att-class="'js_variant_change' if variant_id.attribute_id.create_variant else None" t-att-checked="'checked' if not inc else None" t-att-name="'attribute-%s-%s' % (product.id, variant_id.attribute_id.id)" t-att-value="value_id.id" style="vertical-align: top; margin-right: 10px;"/>
+                              <input type="radio" t-att-class="'js_variant_change_full js_variant_change' if variant_id.attribute_id.create_variant else None" t-att-checked="'checked' if not inc else None" t-att-name="'attribute-%s-%s' % (product.id, variant_id.attribute_id.id)" t-att-value="value_id.id" style="vertical-align: top; margin-right: 10px;"/>
                               <label t-field="value_id.name"/>
                               <span class="badge" t-if="value_id.price_extra">
                                   <t t-esc="value_id.price_extra > 0 and '+' or ''"/><span t-field="value_id.price_extra" style="white-space: nowrap;" t-options='{

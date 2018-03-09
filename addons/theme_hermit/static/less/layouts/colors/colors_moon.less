@@ -2,6 +2,45 @@
    moon
    ========================================================================== */
 
+@flectra-brand-primary: @color-primary;
+@navbar-height: 60px;
+@navbar-default-bg: @color-primary;
+@navbar-default-color: #fff;
+@navbar-default-link-color: #fff;
+@navbar-default-link-active-color: @color-primary;
+@navbar-default-link-hover-color: @color-primary;
+@navbar-default-link-hover-bg: #fff;
+@navbar-default-link-active-bg: #fff;
+
+.navbar {
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+}
+
+.dropdown .dropdown-menu .dropdown-item:hover, .dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdown-item:focus {
+  color: #1d1e1f;
+  background-color: #f7f7f9;
+}
+
+.navbar .dropdown-menu {
+  position: absolute !important;
+  margin-top: 0;
+}
+
+.navbar .dropdown-menu a {
+  color: #000 !important;
+}
+
+.navbar .dropdown-menu a:hover {
+  color: #fff !important;
+}
+
+@media (max-width: 600px) {
+  .navbar .dropdown-menu.dropdown-menu-right {
+    right: auto !important;
+  }
+}
+
 /* Colors
    ========================================================================== */
 
@@ -56,51 +95,6 @@
 footer {
   background-color: #f1f1f1;
   color: #000;
-}
-
-/* header start*/
-header {
-  div {
-    background-color: #fff !important;
-  }
-  .dropdown.open a.dropdown-toggle, .dropdown.open a.dropdown-toggle:hover {
-    background: @color-primary !important;
-    color: @color-info !important;
-  }
-}
-
-#wrapwrap div.navbar-static-top {
-  border-bottom-width: 0px;
-}
-
-#wrapwrap div.navbar-static-top .navbar-nav > .active > a {
-  color: #fff !important;
-  background-color: @color-primary !important;
-}
-
-#top_menu > li > a {
-  line-height: inherit;
-  text-decoration: none;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  padding: 18px;
-  font-size: 16px;
-}
-
-#top_menu > li.active > a {
-  color: #fff;
-  font-weight: bold;
-  background: @color-primary
-}
-
-#top_menu > li > a:hover {
-  color: #fff;
-  font-weight: bold;
-  background: @color-primary;
-}
-
-#top_menu .divider {
-  display: none;
 }
 
 @layout-icons-color: #fff;
@@ -262,3 +256,57 @@ header {
 //** Border color for textual input addons
 @input-group-addon-border-color: @input-border;
 
+.oe_product .ribbon {
+  left: 0 !important;
+  top: 9px !important;
+  width: auto !important;
+  -webkit-transform: rotate(0) !important;
+  -moz-transform: rotate(0deg) !important;
+  -ms-transform: rotate(0deg) !important;
+  -o-transform: rotate(0deg) !important;
+}
+
+.oe_product .ribbon-wrap {
+  width: 100px !important;
+  height: 53px !important;
+}
+
+.navbar {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.navbar.navbar-static-top ul.nav > li.divider {
+  height: 33px !important;
+  color: #fff;
+}
+
+.navbar-default .navbar-nav li > a {
+  border-radius: 8px;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  border: 1px solid @color-primary;
+}
+
+header a.navbar-brand.logo img {
+  margin-top: 0px;
+}
+
+@media (min-width: 768px) {
+  .navbar.navbar-static-top {
+    padding-top: 10px;
+  }
+
+  .navbar-nav > li > a {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+  }
+}
+
+#o_shop_collapse_category .fa-chevron-right:before {
+    content: "\f0fe";
+}
+#o_shop_collapse_category .fa-chevron-down:before {
+    content: "\f146";
+}
