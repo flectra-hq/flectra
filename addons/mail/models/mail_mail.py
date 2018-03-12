@@ -65,14 +65,16 @@ class MailMail(models.Model):
     scheduled_date = fields.Char('Scheduled Send Date',
         help="If set, the queue manager will send the email after the date. If not set, the email will be send as soon as possible.")
 
+    @api.multi
     @api.depends('keep_days')
     def _compute_delete_on_date(self):
-        mail_date = fields.Datetime.from_string(self.date)
-        if self.keep_days > 0:
-            delete_on = mail_date + datetime.timedelta(days=self.keep_days)
-            self.delete_date = delete_on
-        else:
-            self.delete_date = mail_date.date()
+        for obj in self:
+            mail_date = fields.Datetime.from_string(obj.date)
+            if obj.keep_days > 0:
+                delete_on = mail_date + datetime.timedelta(days=obj.keep_days)
+                obj.delete_date = delete_on
+            else:
+                obj.delete_date = mail_date.date()
 
 
     @api.model
