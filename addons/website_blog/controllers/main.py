@@ -229,7 +229,7 @@ class WebsiteBlog(http.Controller):
         tags = request.env['blog.tag'].search([])
 
         # Find next Post
-        all_post = BlogPost.search([('blog_id', '=', blog.id), ("website_published", "=", True), ("website_ids", "in", request.website.id)])
+        all_post = BlogPost.search([('blog_id', '=', blog.id), ("website_ids", "in", request.website.id)])
         if not request.env.user.has_group('website.group_website_designer'):
             all_post = all_post.filtered(lambda r: r.post_date <= fields.Datetime.now())
 
