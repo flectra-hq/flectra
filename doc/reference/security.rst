@@ -2,9 +2,9 @@
 
 .. _reference/security:
 
-================
+===================
 Security in Flectra
-================
+===================
 
 Aside from manually managing access using custom code, Flectra provides two main
 data-driven mechanisms to manage or restrict access to data.
@@ -78,8 +78,6 @@ This means the first *group rule* restricts access, but any further
 Field Access
 ============
 
-.. versionadded:: 7.0
-
 An ORM :class:`~flectra.fields.Field` can have a ``groups`` attribute
 providing a list of groups (as a comma-separated string of
 :term:`external identifiers`).
@@ -99,4 +97,4 @@ access to the field:
     read/write...
 
 .. _foo: http://google.com
-.. _time module: https://docs.python.org/2/library/time.html
+.. _time module: https://docs.python.org/3/library/time.html

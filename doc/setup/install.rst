@@ -2,17 +2,14 @@
 
 .. _setup/install:
 
-===============
+==================
 Installing Flectra
-===============
+==================
 
 There are mutliple ways to install Flectra, or not install it at all, depending
 on the intended use case.
 
 This documents attempts to describe most of the installation options.
-
-:ref:`setup/install/online`
-    The easiest way to use Flectra in production or to try it.
 
 :ref:`setup/install/packaged`
     Suitable for testing Flectra, developing modules and can be used for
@@ -27,26 +24,10 @@ This documents attempts to describe most of the installation options.
     If you usually use docker_ for development or deployment, an official
     docker_ base image is available.
 
-.. _setup/install/editions:
-
-Editions
-========
-
-There are two different Editions_ of Flectra: the Community and Enterprise versions.
-Using the Enterprise version is possible on our SaaS_ and accessing the code is
-restricted to Enterprise customers and partners. The Community version is freely
-available to anyone.
-
-If you already use the Community version and wish to upgrade to Enterprise, please
-refer to :ref:`setup/enterprise` (except for :ref:`setup/install/source`).
-
-.. _setup/install/online:
-
-Online
-======
+.. _setup/install/demo:
 
 Demo
-----
+======
 
 To simply get a quick idea of Flectra, demo_ instances are available. They are
 shared instances which only live for a few hours, and can be used to browse
@@ -74,20 +55,15 @@ Packaged installers
 
 Flectra provides packaged installers for Windows, deb-based distributions
 (Debian, Ubuntu, …) and RPM-based distributions (Fedora, CentOS, RHEL, …) for
-both the Community and Enterprise versions.
+the Community versions.
 
-These packages automatically set up all dependencies (for the Community version),
-but may be difficult to keep up-to-date.
-
-Official Community packages with all relevant dependency requirements are
-available on our nightly_ server. Both Communtiy and Enterprise packages can
-be downloaded from our Download_ page (you must to be logged in as a paying
-customer or partner to download the Enterprise packages).
+These packages automatically set up all dependencies,but may be difficult
+to keep up-to-date.
 
 Windows
 -------
 
-* Download the installer from our nightly_ server (Community only)
+* Download the installer from our Community only
   or the Windows installer from the Download_ page (any edition)
 * Run the downloaded file
 
@@ -106,7 +82,7 @@ Linux
 Debian/Ubuntu
 '''''''''''''
 
-Flectra 11.0 'deb' package currently supports `Debian Stretch`_, `Ubuntu Xenial`_,
+Flectra 1.0 'deb' package currently supports `Debian Stretch`_, `Ubuntu Xenial`_,
 `Ubuntu Zesty`_ and `Ubuntu Artful`_.
 
 Prepare
@@ -131,8 +107,8 @@ Repository
 ^^^^^^^^^^
 
 Flectra S.A. provides a repository that can be used with  Debian and Ubuntu
-distributions. It can be used to install Flectra Community Edition by executing the
-following commands as root:
+distributions. It can be used to install Flectra by executing the following
+commands as root:
 
 .. code-block:: console
 
@@ -142,16 +118,13 @@ following commands as root:
 
 You can then use the usual ``apt-get upgrade`` command to keep your installation up-to-date.
 
-At this moment, there is no repository for the Enterprise Edition.
-
 Deb Package
 ^^^^^^^^^^^
 
 Instead of using the repository as described above, the 'deb' package can be
 downloaded here:
 
-* Community Edition: `nightly`_
-* Enterprise Edition `Download`_
+* Community Edition: `flectrahq`_
 
 You can then use ``gdebi``:
 
@@ -200,9 +173,9 @@ If you need this feature, you can install the python module like this:
 Fedora
 ''''''
 
-Flectra 11.0 'rpm' package supports Fedora 26.
+Flectra 1.0 'rpm' package supports Fedora 26.
 As of 2017, CentOS does not have the minimum Python requirements (3.5) for
-Flectra 11.0.
+Flectra 1.0.
 
 Prepare
 ^^^^^^^
@@ -231,7 +204,7 @@ commands:
 
 .. code-block:: console
 
-    $ sudo dnf config-manager --add-repo=https://nightly.flectra.com/11.0/nightly/rpm/flectra.repo
+    $ sudo dnf config-manager --add-repo=https://download.flectrahq.com/1.0/pub/rpm/flectra_1.0.latest.noarch.rpm
     $ sudo dnf install -y flectra
     $ sudo systemctl enable flectra
     $ sudo systemctl start flectra
@@ -242,14 +215,13 @@ RPM package
 Instead of using the repository as described above, the 'rpm' package can be
 downloaded here:
 
-* Community Edition: `nightly`_
-* Enterprise Edition `Download`_
+* Community Edition: `flectrahq_rpm`_
 
 Once downloaded, the package can be installed using the 'dnf' package manager:
 
 .. code-block:: console
 
-    $ sudo dnf localinstall flectra_11.0.latest.noarch.rpm
+    $ sudo dnf localinstall flectra_1.0.latest.noarch.rpm
     $ sudo systemctl enable flectra
     $ sudo systemctl start flectra
 
@@ -418,57 +390,18 @@ Fetch the sources
 
 There are two ways to obtain the Flectra source code: zip or git.
 
-* Flectra zip can be downloaded from  our nightly_ server or our Download_  page,
+* Flectra zip can be downloaded from  our flectrahq_ server or our flectrahq_zip_  page,
   the zip file then needs to be uncompressed to use its content
 
-* git allows simpler update and easier switching between different versions
+* gitlab allows simpler update and easier switching between different versions
   of Flectra. It also simplifies maintaining non-module patches and
   contributions.  The primary drawback of git is that it is significantly
   larger than a tarball as it contains the entire history of the Flectra project.
 
-Community Edition
-'''''''''''''''''
-
-The git repository is https://github.com/flectra/flectra.git for the Community
-edition.
-
-Downloading it requires a `git client <http://git-scm.com/download/>`_
-(which may be available via your distribution on linux) and can be performed
-using the following command:
-
-.. code-block:: console
-
-    $ git clone https://github.com/flectra/flectra.git
-
-Enterprise Edition
-''''''''''''''''''
-
-If you have access to the Enterprise repository (see :ref:`setup/install/editions`
-if you wish to get access), you can use this command to fetch the addons:
-
-.. code-block:: console
-
-  $ git clone https://github.com/flectra/enterprise.git
-
-.. note:: The Enterprise git repository **does not contain the full Flectra
-    source code**. It is only a collection of extra add-ons. The main server
-    code is in the Community version.  Running the Enterprise version actually
-    means running the server from the Community version with the addons-path option
-    set to the folder with the Enterprise version.
-
-    You need to clone both the Community and Enterprise repository to have a working
-    Flectra installation
-
 Running Flectra
-------------
+---------------
 
 Once all dependencies are set up, Flectra can be launched by running ``flectra-bin``.
-
-.. tip:: For the Enterprise edition, you must specify the :file:`enterprise`
-    addons folder when starting your server. You can do so by providing the path
-    to your :file:`enterprise` folder in the ``addons-path`` parameter. Please
-    note that the :file:`enterprise` folder must come before the default
-    :file:`addons` folder in the  list for the addons to be loaded correctly.
 
 :ref:`Configuration <reference/cmdline>` can be provided either through
 :ref:`command-line arguments <reference/cmdline>` or through a
@@ -494,7 +427,7 @@ Under Windows a typical way to execute flectra would be:
 
 Where ``flectra``, ``flectra`` are the postgresql login and password,
 ``../mymodules`` a directory with additional addons and ``mydb`` the default
-db to serve on localhost:8069
+db to serve on localhost:7073
 
 Under Unix a typical way to execute flectra would be:
 
@@ -503,7 +436,7 @@ Under Unix a typical way to execute flectra would be:
     $ ./flectra-bin --addons-path=addons,../mymodules --db-filter=mydb$
 
 Where ``../mymodules`` is a directory with additional addons and ``mydb`` the
-default db to serve on localhost:8069
+default db to serve on localhost:7073
 
 Virtualenv
 ----------
@@ -588,11 +521,10 @@ Docker
 ======
 
 The full documentation on how to use Flectra with Docker can be found on the
-offcial Flectra `docker image <https://registry.hub.docker.com/_/flectra/>`_ page.
+offcial Flectra `docker image <https://hub.docker.com/r/flectrahq/flectra/>`_ page.
 
 .. _demo: https://demo.flectra.com
 .. _docker: https://www.docker.com
-.. _Download: https://www.flectra.com/page/download
 .. _Debian Stretch: https://www.debian.org/releases/stretch/
 .. _Ubuntu Xenial: http://releases.ubuntu.com/16.04/
 .. _Ubuntu Zesty: http://releases.ubuntu.com/17.04/
@@ -616,8 +548,12 @@ offcial Flectra `docker image <https://registry.hub.docker.com/_/flectra/>`_ pag
 .. _virtualenv: https://pypi.python.org/pypi/virtualenv
 .. _virtualenvwrapper: https://virtualenvwrapper.readthedocs.io/en/latest/
 .. _pywin32: http://sourceforge.net/projects/pywin32/files/pywin32/
-.. _the repository: https://github.com/flectra/flectra
+.. _the repository: https://gitlab.com/flectra-hq/flectra
 .. _git: http://git-scm.com
 .. _Editions: https://www.flectra.com/pricing#pricing_table_features
-.. _nightly: https://nightly.flectra.com/11.0/nightly/
-.. _extra: https://nightly.flectra.com/extra/
+.. _extra: https://download.flectrahq.com/1.0/pub/
+.. _flectrahq_rpm: https://download.flectrahq.com/1.0/pub/rpm/
+.. _Download: https://download.flectrahq.com/
+.. _flectrahq_zip: https://download.flectrahq.com/1.0/pub/src/flectra_1.0.latest.zip
+.. _flectrahq: https://download.flectrahq.com/1.0/pub/deb/flectra_1.0.latest_all.deb
+

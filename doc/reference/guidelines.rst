@@ -2,9 +2,9 @@
 
 .. highlight:: python
 
-===============
+==================
 Flectra Guidelines
-===============
+==================
 
 This page introduces the new Flectra Coding Guidelines. Those aim to improve the quality of the code (e.g. better readability of source) and Flectra Apps. Indeed, proper code eases maintenance, aids debugging, lowers complexity and promotes reliability.
 
@@ -479,7 +479,7 @@ So, you can write ``if some_collection:`` instead of ``if len(some_collection):`
   (a little bit outdated, but quite relevant)
 
 Programming in Flectra
--------------------
+----------------------
 
 - Avoid to create generators and decorators: only use the ones provided by
   the Flectra API.

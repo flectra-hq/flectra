@@ -11,7 +11,7 @@ Building a Module
     This tutorial requires :ref:`having installed Flectra <setup/install>`
 
 Start/Stop the Flectra server
-==========================
+=============================
 
 Flectra uses a client/server architecture in which clients are web browsers
 accessing the Flectra server via RPC.
@@ -32,7 +32,7 @@ The server is stopped by hitting ``Ctrl-C`` twice from the terminal, or by
 killing the corresponding OS process.
 
 Build an Flectra module
-====================
+=======================
 
 Both server and client extensions are packaged as *modules* which are
 optionally loaded in a *database*.
@@ -80,7 +80,7 @@ An Flectra module is declared by its :ref:`manifest <reference/module/manifest>`
 See the :ref:`manifest documentation <reference/module/manifest>` about it.
 
 A module is also a
-`Python package <http://docs.python.org/2/tutorial/modules.html#packages>`_
+`Python package <http://docs.python.org/3/tutorial/modules.html#packages>`_
 with a ``__init__.py`` file, containing import instructions for various Python
 files in the module.
 
@@ -1122,8 +1122,7 @@ Gantt
 
 .. warning::
 
-    The gantt view requires the web_gantt module which is present in
-    :ref:`the enterprise edition <setup/install/editions>` version.
+    The gantt view requires the web_gantt module.
 
 Horizontal bar charts typically used to show project planning and advancement,
 their root element is ``<gantt>``.

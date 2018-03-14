@@ -9,6 +9,4 @@ Web Services
     :titlesonly:
 
     webservices/flectra
-    webservices/iap
-    webservices/upgrade
     webservices/localization

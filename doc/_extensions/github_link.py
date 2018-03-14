@@ -86,7 +86,7 @@ def make_github_link(app, path, line=None, mode="blob"):
     )
     return urls.url_unparse((
         'https',
-        'github.com',
+        'gitlab.com',
         urlpath,
         '',
         '' if line is None else 'L%d' % line

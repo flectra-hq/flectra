@@ -11,7 +11,7 @@ freedom for the user to customize everything according to their needs.
 
 Ready to create your own theme? Great. Here are some things you should know before you begin. This tutorial is a guide to creating an Flectra theme.
 
-.. image:: theme_tutorial_assets/img/Intro.jpg
+.. image:: theme_tutorial_assets/img/flectra_intro.jpg
 
 
 An introduction for web designers
@@ -25,7 +25,7 @@ This introduction will outline the basics of Flectra theme creation.
    Flectra’s team has created a framework that’s powerful and easy to use. There’s no need to know special syntaxes to use this set of tools.
 
 From common CMS to Flectra
------------------------
+--------------------------
 
 .. note::
 
@@ -39,9 +39,9 @@ This is usually the first question from a web designer used to working with Word
 
 .. container:: row
 
-  .. container:: col-sm-4
+  .. container:: col-sm-5
 
-     .. image:: theme_tutorial_assets/img/cms.jpg
+     .. image:: theme_tutorial_assets/img/flectra_cms.jpg
 
   .. container:: col-sm-7
 
@@ -54,11 +54,11 @@ This is usually the first question from a web designer used to working with Word
    We think that theme design should be simple (and powerful). When we created our Website Builder, we decided to start from scratch instead of relying on what already existed. This approach gave us the freedom to focus on the things that are really important for designers: styles, content and the logic behind them. No more struggling with technical stuff.
 
 Flectra default theme structure
-----------------------------
+-------------------------------
 
 .. container:: row
 
-  .. container:: col-sm-8
+  .. container:: col-sm-7
 
     Flectra comes with a default theme structure.
     It is a very basic “theme” that provides minimal structure and layout. When you create a new theme, you are actually extending this.
@@ -67,13 +67,13 @@ Flectra default theme structure
 
     As a result, you are totally free to focus on design while this structure does the job of providing integrations and functionality.
 
-  .. container:: col-sm-4
+  .. container:: col-sm-5
 
-     .. image:: theme_tutorial_assets/img/def_structure.jpg
+     .. image:: theme_tutorial_assets/img/flectra_structure.jpg
 
 .. container:: row
 
-  .. container:: col-md-6
+  .. container:: col-md-7
 
      **Main features:**
 
@@ -83,7 +83,7 @@ Flectra default theme structure
      * Automatic Less/Sass compiling
      * Automatic Js and CSS minification and combination
 
-  .. container:: col-md-6
+  .. container:: col-md-5
 
      **Main technologies:**
 
@@ -109,34 +109,40 @@ Let’s take a tour of our “list” elements:
 
 .. container:: row
 
-  .. figure:: theme_tutorial_assets/img/snippet.jpg
-     :figclass: col-sm-6
+    .. container:: col-sm-6
 
-     Snippets (or building-blocks)
+        .. image:: theme_tutorial_assets/img/flectra_snippet.jpg
 
-     A piece of HTML code.  The user  will  drag&drop, modify and combine them using our built-in Website Builder interface. You can define sets of options and styles for each snippet. The user will choose from them according to their needs.
 
-  .. figure:: theme_tutorial_assets/img/page.jpg
-     :figclass: col-sm-6
+    .. container:: col-sm-6
+
+         Snippets (or building-blocks)
+
+         A piece of HTML code.  The user  will  drag&drop, modify and combine them using our built-in Website Builder interface. You can define sets of options and styles for each snippet. The user will choose from them according to their needs.
+
+
+.. container:: row
+
+    .. container:: col-sm-6
 
      Pages
 
      These are normal web pages, except that they will be editable by the final user and that you can define an empty area that the user can “fill” by dragging snippets into it.
 
-.. raw:: html
+    .. container:: col-sm-6
 
-    <div class="clearfix themes"></div>
+      .. image:: theme_tutorial_assets/img/flectra_page.jpg
 
 .. container:: row
 
-  .. figure:: theme_tutorial_assets/img/styles.jpg
+  .. figure:: theme_tutorial_assets/img/flectra_styles.jpg
      :figclass: col-sm-6
 
      Styles
 
      Styles are defined using standard CSS files (or Less/Sass). You can define a style as **default** or **optional**. The default styles are always active in your theme, the optional styles can be enabled or disabled by the user.
 
-  .. figure:: theme_tutorial_assets/img/functionalities.jpg
+  .. figure:: theme_tutorial_assets/img/flectra_functionalities.jpg
      :figclass: col-sm-6
 
      Functionalities
@@ -145,7 +151,7 @@ Let’s take a tour of our “list” elements:
 
 
 Flectra's XML files, an overview
------------------------------
+--------------------------------
 
 Any Flectra XML file starts with encoding specifications.
 After that, you have to write your code inside a ``<flectra>`` tag.
@@ -198,7 +204,7 @@ Update your theme
 
   .. container:: col-sm-5
 
-    .. image:: theme_tutorial_assets/img/upgrade_module.png
+    .. image:: theme_tutorial_assets/img/flectra_upgrade_module.png
 
 
 
@@ -233,7 +239,7 @@ Flectra’s themes are packaged like modules. Even if you are designing a very s
 
 The final result should be something like this:
 
-.. image:: theme_tutorial_assets/img/folder.jpg
+.. image:: theme_tutorial_assets/img/folder.jpeg
 
 Edit ``__manifest__.py``
 ------------------------
@@ -259,7 +265,7 @@ These values will be used to identify your new theme in Flectra’s backend.
 
 The ``data`` property will contain the xml files list. Right now it’s empty, but we will add any new files created.
 
-``category`` defines your module category (always “Theme”) and, after a slash, the subcategory. You can use one subcategory from the Flectra Apps categories list. (https://www.flectra.com/apps/themes)
+``category`` defines your module category (always “Theme”) and, after a slash, the subcategory.You can use one subcategory from the Flectra Apps categories list. (https://store.flectrahq.com/apps/category/2)
 
 
 ``depends`` specifies the modules needed by our theme to work properly. For our tutorial theme, we only need website. If you need blogging or eCommerce features as well, you have to add those modules too.
@@ -280,7 +286,7 @@ To install your theme, you just place your theme folder inside addons in your Fl
 After that, navigate to the Settings page, look for your theme and click on the install button.
 
 Structure of an Flectra page
-=========================
+============================
 
 An Flectra page is the visual result of a combination of 2 kind of elements, **cross-pages** and **unique**.
 By default, Flectra provides you with a **Header** and a **Footer** (cross-pages) and a unique main element that contains the content that makes your page unique.
@@ -289,7 +295,7 @@ By default, Flectra provides you with a **Header** and a **Footer** (cross-pages
 
   Cross-pages elements will be the same on every page. Unique elements are related to a specific page only.
 
-.. image:: theme_tutorial_assets/img/page_structure.jpg
+.. image:: theme_tutorial_assets/img/flectra_page_structure.jpg
 
 To inspect the default layout, simply create a new page using the
 Website Builder.  Click on :menuselection:`Content --> New Page` and
@@ -367,7 +373,7 @@ Great! We successfully added an id to the
 header and an element after the navigation menu. These changes will be
 applied to each page of the website.
 
-.. image:: theme_tutorial_assets/img/after-menu.png
+.. image:: theme_tutorial_assets/img/flectra_after_menu.png
    :class: shadow-0
 
 Create a specific page layout
@@ -389,9 +395,9 @@ default Flectra markup.  Inside ``<flectra>`` create a ``<template>`` tag, set t
        <template name="Services page" id="website.services" page="True">
          <h1>Our Services</h1>
            <ul class="services">
-             <li>Cloud Hosting</li>
+             <li>Training</li>
              <li>Support</li>
-             <li>Unlimited space</li>
+             <li>Development</li>
            </ul>
          </template>
 
@@ -412,9 +418,9 @@ html code into a ``<t>`` tag, like in this example.
          <div class="container">
            <h1>Our Services</h1>
            <ul class="services">
-             <li>Cloud Hosting</li>
+             <li>Training</li>
              <li>Support</li>
-             <li>Unlimited space</li>
+             <li>Development</li>
            </ul>
          </div>
        </div>
@@ -442,9 +448,9 @@ can fill with snippets. To achieve this, just create a ``div`` with
         <div class="container">
           <h1>Our Services</h1>
           <ul class="services">
-            <li>Cloud Hosting</li>
-            <li>Support</li>
-            <li>Unlimited space</li>
+             <li>Training</li>
+             <li>Support</li>
+             <li>Development</li>
           </ul>
           <!-- === Snippets' area === -->
           <div class="oe_structure" />
@@ -477,7 +483,7 @@ Great, our Services page is ready and you’ll be able to access it by navigatin
 You will notice that it's possible to drag/drop snippets underneath the
 *Our Services* list.
 
-.. image:: theme_tutorial_assets/img/services_page_nostyle.png
+.. image:: theme_tutorial_assets/img/flectra_services_page_nostyle.png.png
    :class: shadow-0
 
 Now let's go back to our *pages.xml* and, after our page template,
@@ -494,7 +500,7 @@ copy/paste the following code.
 
 This code will add a link to the main menu.
 
-.. image:: theme_tutorial_assets/img/services_page_menu.png
+.. image:: theme_tutorial_assets/img/flectra_services_page_menu.png
    :class: shadow-0
 
 The **sequence** attribute defines the link’s position in the top menu.
@@ -575,7 +581,7 @@ Update your theme
 
 Our less file is now included in our theme, it will be automatically compiled, minified and combined with all Flectra’s assets.
 
-.. image:: theme_tutorial_assets/img/services_page_styled.png
+.. image:: theme_tutorial_assets/img/flectra_services_page_styled.png
    :class: shadow-0
 
 Create Snippets
@@ -848,7 +854,7 @@ Let’s test our new javascript function. Enter in Edit mode and drop into the p
 You should now see the javascript alert that we bound on the ``onFocus`` event.
 If you close it, then click outside of your snippet and then click in it again, the event will trigger again.
 
-.. image:: theme_tutorial_assets/img/snippet_custom_method.png
+.. image:: theme_tutorial_assets/img/flectra_snippet_custom_method.png
    :class: shadow-0
 
 

@@ -15,7 +15,7 @@ Javascript
 Widgets
 =======
 
-.. class:: Widget
+:class:`~Widget`
 
     Exported in ``web.Widget``, the base class for all visual components.
     It corresponds to an MVC view, and provides a number of service to
@@ -412,8 +412,10 @@ Development Guidelines
 
 .. _deferred: http://api.jquery.com/category/deferred-object/
 
+====
 RPC
-===
+====
+
 
 To display and interact with data, calls to the Flectra server are necessary.
 This is performed using :abbr:`RPC <Remote Procedure Call>`.
@@ -699,8 +701,9 @@ For instance, to call the ``resequence`` of the
 
 .. _reference/javascript/client:
 
+===========
 Web Client
-==========
+===========
 
 Javascript module system overview
 ---------------------------------
@@ -834,9 +837,9 @@ Here are some basic conventions for the javascript code:
 
 
 
-
+=============================
 Testing in Flectra Web Client
-==========================
+=============================
 
 Javascript Unit Testing
 -----------------------
@@ -976,7 +979,7 @@ anything). The following list is available:
     inverse operation to :func:`equal`
 
 Getting an Flectra instance
-------------------------
+---------------------------
 
 The Flectra instance is the base through which most Flectra Web
 modules behaviors (functions, objects, …) are accessed. As a result,
