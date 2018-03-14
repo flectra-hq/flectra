@@ -5,7 +5,7 @@
     'sequence': 55,
     'summary': 'Sell Your Products Online',
     'website': 'https://flectrahq.com/page/e-commerce',
-    'version': '1.0',
+    'version': '1.1',
     'description': "",
     'depends': ['website', 'sale_payment', 'website_payment', 'website_mail', 'website_form', 'website_rating'],
     'data': [
