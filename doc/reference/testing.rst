@@ -32,11 +32,8 @@ and ``__init__.py`` contains::
     test modules which are not imported from ``tests/__init__.py`` will not be
     run
 
-.. versionchanged:: 8.0
-
-    previously, the test runner would only run modules added to two lists
-    ``fast_suite`` and ``checks`` in ``tests/__init__.py``. In 8.0 it will
-    run all imported modules
+the test runner would only run modules added to two lists
+``fast_suite`` and ``checks`` in ``tests/__init__.py``.
 
 The test runner will simply run any test case, as described in the official
 `unittest documentation`_, but Flectra provides a number of utilities and helpers
@@ -86,7 +83,7 @@ Tests are automatically run when installing or updating modules if
 :option:`--test-enable <flectra-bin --test-enable>` was enabled when starting the
 Flectra server.
 
-As of Flectra 8, running tests outside of the install/update cycle is not
+As of Flectra, running tests outside of the install/update cycle is not
 supported.
 
-.. _unittest documentation: https://docs.python.org/2/library/unittest.html
+.. _unittest documentation: https://docs.python.org/3/library/unittest.html

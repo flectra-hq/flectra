@@ -521,7 +521,7 @@ attribute ``statusbar_visible``.
 ::
 
     <field name="state" widget="statusbar"
-        statusbar_visible="draft,sent,progress,invoiced,done" />
+        statusbar_visible="draft,sent,sale,done,cancel" />
 
 The Sheet
 '''''''''
@@ -569,13 +569,23 @@ blocks): content following the field will be displayed on the same line rather
 than on the line below it. The form above is produced by the following XML::
 
     <label for="name" class="oe_edit_only"/>
-    <h1><field name="name"/></h1>
-
-    <label for="planned_revenue" class="oe_edit_only"/>
-    <h2>
-        <field name="planned_revenue" class="oe_inline"/>
-        <field name="company_currency" class="oe_inline oe_edit_only"/> at
-        <field name="probability" class="oe_inline"/> % success rate
+    <h1><field name="name" placeholder="e.g. Product Pricing"/></h1>
+    <h2 class="o_row">
+        <div>
+            <label for="planned_revenue" class="oe_edit_only" />
+            <div class="o_row">
+                <field name="company_currency" invisible="1"/>
+                <field name="planned_revenue" widget='monetary' options="{'currency_field': 'company_currency'}"/>
+                <span class="oe_grey"> at </span>
+            </div>
+        </div>
+        <div>
+            <label for="probability" class="oe_edit_only"/>
+            <div class="o_row">
+                <field name="probability" widget="integer"/>
+                <span>%%</span>
+            </div>
+        </div>
     </h2>
 
 Button Box
@@ -596,8 +606,8 @@ block on the top of the sheet.
 ::
 
     <div class="oe_button_box" name="button_box">
-        <button string="Schedule/Log Call" name="..." type="action"/>
-        <button string="Schedule Meeting" name="action_makeMeeting" type="object"/>
+        <button class="oe_stat_button" type="object" context="{'partner_id': partner_id}" name="action_schedule_meeting" icon="fa-calendar">
+        <button class="oe_stat_button" type="action" name=".." icon="fa-pencil-square-o" context="{'default_partner_id': partner_id, 'search_default_draft': 1}">
     </div>
 
 Groups and Titles
@@ -611,10 +621,11 @@ optional title.
 
 ::
 
-    <group string="Payment Options">
-        <field name="writeoff_amount"/>
-        <field name="payment_option"/>
-    </group>
+     <group string="Marketing">
+        <field name="campaign_id"/>
+        <field name="medium_id"/>
+        <field name="source_id"/>
+     </group>
 
 It is recommended to have two columns of fields on the form. For this, simply
 put the ``<group>`` elements that contain the fields inside a top-level
@@ -629,17 +640,21 @@ Special Case: Subtotals
 
 Some classes are defined to render subtotals like in invoice forms:
 
-.. image:: forms/screenshot-00.png
+.. image:: forms/flectra_account_line.png
    :class: img-responsive
 
 ::
 
-    <group class="oe_subtotal_footer">
+     <group class="oe_subtotal_footer oe_right">
         <field name="amount_untaxed"/>
         <field name="amount_tax"/>
         <field name="amount_total" class="oe_subtotal_footer_separator"/>
-        <field name="residual" style="margin-top: 10px"/>
-    </group>
+        <field name="payments_widget" colspan="2" nolabel="1" widget="payment"/>
+        <field name="residual" class="oe_subtotal_footer_separator" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+        <field name="reconciled" invisible="1"/>
+        <field name="outstanding_credits_debits_widget" colspan="2" nolabel="1" widget="payment" attrs="{'invisible': [('state', 'not in', 'open')]}"/>
+     </group>
+
 
 Placeholders and Inline Fields
 ..............................
@@ -673,10 +688,10 @@ inline fields (zip and city).
         <label for="street" string="Address"/>
         <div>
             <field name="street" placeholder="Street..."/>
-            <field name="street2"/>
+            <field name="street2"  placeholder="Street 2..."/>
             <div>
-                <field name="zip" class="oe_inline" placeholder="ZIP"/>
-                <field name="city" class="oe_inline" placeholder="City"/>
+                <field name="zip" class="o_address_zip" placeholder="ZIP"/>
+                <field name="city" class="o_address_city" placeholder="City"/>
             </div>
             <field name="state_id" placeholder="State"/>
             <field name="country_id" placeholder="Country"/>
@@ -686,7 +701,7 @@ inline fields (zip and city).
 Images
 ......
 
-Images, like avatars, should be displayed on the right of the sheet.  The
+Images, like avatars, By default avatars should be displayed on the left of the sheet.  The
 product form looks like:
 
 .. image:: forms/screenshot-02.png
@@ -696,7 +711,7 @@ The form above contains a <sheet> element that starts with:
 
 ::
 
-    <field name="product_image" widget="image" class="oe_avatar oe_right"/>
+    <field name="image_medium" widget="image" class="oe_avatar"/>
 
 Tags
 ....
@@ -715,7 +730,7 @@ Configuration forms guidelines
 ------------------------------
 
 Examples of configuration forms: Stages, Leave Type, etc.  This concerns all
-menu items under Configuration of each application (like Sales/Configuration).
+menu items under Configuration of each application (like CRM/Configuration).
 
 .. image:: forms/nosheet.png
    :class: img-responsive
@@ -726,19 +741,16 @@ menu items under Configuration of each application (like Sales/Configuration).
 Dialog forms guidelines
 -----------------------
 
-Example: "Schedule a Call" from an opportunity.
+Example: "Create Invoice" from a sale order.
 
-.. image:: forms/wizard-popup.png
+.. image:: forms/flectra_wizard_popup.png
    :class: img-responsive
 
 1. avoid separators (the title is already in the popup title bar, so another
    separator is not relevant)
-2. avoid cancel buttons (user generally close the popup window to get the same
-   effect)
-3. action buttons must be highlighted (red)
-4. when there is a text area, use a placeholder instead of a label or a
+2. action buttons must be highlighted (red)
+3. when there is a text area, use a placeholder instead of a label or a
    separator
-5. like in regular form views, put buttons in the <header> element
 
 Configuration Wizards guidelines
 --------------------------------
@@ -1179,7 +1191,7 @@ Possible children elements of the search view are:
         make the field only available to specific users
     ``widget``
         use specific search widget for the field (the only use case in
-        standard Flectra 8.0 is a ``selection`` widget for
+        standard Flectra 1.0 is a ``selection`` widget for
         :class:`~flectra.fields.Many2one` fields)
     ``domain``
         if the field can provide an auto-completion
@@ -1214,7 +1226,6 @@ Possible children elements of the search view are:
 
     .. tip::
 
-       .. versionadded:: 7.0
 
        Sequences of filters (without non-filters separating them) are treated
        as inclusively composited: they will be composed with ``OR`` rather

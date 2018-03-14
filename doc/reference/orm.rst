@@ -9,12 +9,8 @@ ORM API
 Recordsets
 ==========
 
-.. versionadded:: 8.0
-
-    This page documents the New API added in Flectra 8.0 which should be the
-    primary development API going forward. It also provides information about
-    porting from or bridging with the "old API" of versions 7 and earlier, but
-    does not explicitly document that API. See the old documentation for that.
+    This page documents the New API added in Flectra 1.0 which should be the
+    primary development API going forward.
 
 Interaction with models and records is performed through recordsets, a sorted
 set of records of the same model.
@@ -661,8 +657,6 @@ Model Reference
 
         list of ``(constraint_function, message, fields)`` defining Python
         constraints. The fields list is indicative
-
-        .. deprecated:: 8.0
 
             use :func:`~flectra.api.constrains`
 

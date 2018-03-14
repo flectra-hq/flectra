@@ -9,5 +9,3 @@ Setting Up
 
     setup/install
     setup/deploy
-    setup/cdn
-    setup/enterprise

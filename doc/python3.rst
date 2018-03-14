@@ -4,7 +4,7 @@
 Python 3 compatibility/conversions
 ==================================
 
-Official compatibility: Flectra 11 will be the first LTS release to introduce
+Official compatibility: Flectra 1.0 will be the first LTS release to introduce
 Python 3 compatibility, starting with Python 3.5. It will also be the first
 LTS release to drop official support for Python 2.
 
@@ -13,7 +13,7 @@ used by the official Flectra distribution have been ported and are considered
 stable. Most supported platforms have a Python 3.5 package, or a similar
 way to deploy it. Preserving dual compatibility is therefore considered
 unnecessary, and would represent a significant overhead in testing for the
-lifetime of Flectra 11.
+lifetime of Flectra 1.0.
 
 Python 2 and Python 3 are somewhat different language, but following
 backports, forward ports and cross-compatibility library it is possible to
@@ -35,7 +35,7 @@ References/useful documents:
 
 * `What's new in Python 3? <https://docs.python.org/3.0/whatsnew/3.0.html>`_
   covers many of the changes between Python 2 and Python 3, though it is
-  missing a number of changes which `were backported to Python 2.7 <https://docs.python.org/2.7/whatsnew/2.7.html#python-3-1-features>`_
+  missing a number of changes which `were backported to Python 2.7 <https://docs.python.org/3/whatsnew/2.7.html#python-3-1-features>`_
   as well as :ref:`some feature reintroductions <p3support>` of later Python 3
   revisions
 * `How do I port to Python 3? <https://eev.ee/blog/2016/07/31/python-faq-how-do-i-port-to-python-3/>`_

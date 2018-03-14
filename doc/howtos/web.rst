@@ -114,14 +114,10 @@ The files in the ``static`` folder, need to be defined within the module in orde
     individual files disappear and the code is made significantly less
     readable. It is possible to disable this process by enabling the
     "developer mode": log into your Flectra instance (user *admin* password
-    *admin* by default) open the user menu (in the top-right corner of the
-    Flectra screen) and select :guilabel:`About Flectra` then :guilabel:`Activate
+    *admin* by default) open the settings menu and select :guilabel:`Activate
     the developer mode`:
 
-    .. image:: web/about_flectra.png
-        :align: center
-
-    .. image:: web/devmode.png
+     .. image:: web/devmode.png
         :align: center
 
     This will reload the web client with optimizations disabled, making
@@ -130,7 +126,7 @@ The files in the ``static`` folder, need to be defined within the module in orde
 .. todo:: qweb files hooked via __manifest__.py, but js and CSS use bundles
 
 Flectra JavaScript Module
-======================
+=========================
 
 Javascript doesn't have built-in modules. As a result variables defined in
 different files are all mashed together and may conflict. This has given rise
@@ -903,10 +899,6 @@ Exercise
                 border-radius: 3px;
             }
 
-        .. image:: web/qweb.*
-           :align: center
-           :width: 70%
-
 Widget Helpers
 ==============
 
@@ -1264,7 +1256,7 @@ initialized, for class attributes for instance (as modules are loaded before
 the user's language is configured and translations are downloaded).
 
 Communication with the Flectra Server
-==================================
+=====================================
 
 Contacting Models
 -----------------
@@ -2320,4 +2312,4 @@ the most useful being:
 .. _PostgreSQL: http://en.wikipedia.org/wiki/PostgreSQL
 .. _positional arguments:
 .. _keyword arguments:
-    https://docs.python.org/2/glossary.html#term-argument
+    https://docs.python.org/3/glossary.html#term-argument

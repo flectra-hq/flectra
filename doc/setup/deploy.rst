@@ -1,8 +1,8 @@
 :banner: banners/deploying_flectra.jpg
 
-==============
+=================
 Deploying Flectra
-==============
+=================
 
 This document describes basic steps to set up Flectra in production or on an
 internet-facing server. It follows :ref:`installation <setup/install>`, and is
@@ -119,7 +119,7 @@ in ``/etc/postgresql/9.5/main/postgresql.conf`` set:
 .. _setup/deploy/flectra:
 
 Configuring Flectra
-----------------
+-------------------
 
 Out of the box, Flectra connects to a local postgres over UNIX socket via port
 5432. This can be overridden using :ref:`the database options
@@ -332,7 +332,7 @@ in ``/etc/nginx/sites-enabled/flectra.conf`` set:
   }
  
 Flectra as a WSGI Application
-==========================
+=============================
 
 It is also possible to mount Flectra as a standard WSGI_ application. Flectra
 provides the base for a WSGI launcher script as ``flectra-wsgi.example.py``. That
@@ -505,8 +505,7 @@ distinction is made according to the browser version in order to be
 up-to-date. Flectra is supported on the current browser version. The list 
 of the supported browsers by Flectra version is the following:
 
-- **Flectra 9:** IE11, Mozilla Firefox, Google Chrome, Safari, Microsoft Edge
-- **Flectra 10+:** Mozilla Firefox, Google Chrome, Safari, Microsoft Edge
+- **Flectra 1.0+:** Mozilla Firefox, Google Chrome, Safari, Microsoft Edge
 
 .. [#different-machines]
     to have multiple Flectra installations use the same PostgreSQL database,

@@ -407,16 +407,3 @@ The creation of an ``account.reconcile.model.template`` record is quite easy:
         <field name="second_amount">...</field>
         <field name="second_tax_id" ref="..."/>
    </record>
-
-How to create a new dynamic report?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If you need to add some reports on your localization, you need to create a new module named **l10n_xx_reports**.
-Furthermore, this additional module must be present in the ``enterprise`` repository and must have at least two dependencies,
-one to bring all the stuff for your localization module and one more, ``account_reports``, to design dynamic reports.
-
-.. code-block:: py
-
-    'depends': ['l10n_xx', 'account_reports'],
-
-Once it's done, you can start the creation of your report statements. The documentation is available in the following `slides <https://www.flectra.com/slides/slide/how-to-create-custom-accounting-report-415>`_.
