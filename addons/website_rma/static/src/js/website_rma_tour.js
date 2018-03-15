@@ -20,7 +20,7 @@ tour.register('web_rma', {
         },
         {
             content: "click on return button on order line",
-            trigger: '#order_line_return a:contains("Return")',
+            trigger: '#order_line_return a:contains("Return/Replace")',
         },
         {
             content: "click on return button",
