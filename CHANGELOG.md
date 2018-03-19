@@ -16,6 +16,7 @@ So, users can consider this **CHANGELOG** to find the differences between **Flec
 - Favorite Menu Book Marking in Search
 - ISO Country Code with Size of 3
 - Shop Page Layout Variants
+- Layered Navigation for Shop Page
 - Website RMA (Return Merchandise Authorization)
 - Set Cover Image for Project same as Tasks
 - Pycharm Templates
