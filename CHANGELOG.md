@@ -11,7 +11,7 @@ So, users can consider this **CHANGELOG** to find the differences between **Flec
 
 ## [Unreleased]
 
-## [1.1.0] - Hermit - 2018- 03 - 19
+## [1.1.0] - Hermit - 2018-03-19
 ### Added
 - Favorite Menu Book Marking in Search
 - ISO Country Code with Size of 3
