@@ -25,6 +25,13 @@ class Location(models.Model):
             res['barcode'] = res['complete_name']
         return res
 
+    def _should_be_valued(self):
+        self.ensure_one()
+        if self.usage == 'internal' or (
+                        self.usage == 'transit' and self.company_id):
+            return True
+        return False
+
     name = fields.Char('Location Name', required=True, translate=True)
     complete_name = fields.Char("Full Location Name", compute='_compute_complete_name', store=True)
     active = fields.Boolean('Active', default=True, help="By unchecking the active field, you may hide a location without deleting it.")

@@ -159,6 +159,9 @@ class StockMove(models.Model):
     is_quantity_done_editable = fields.Boolean('Is quantity done editable', compute='_compute_is_quantity_done_editable')
     reference = fields.Char(compute='_compute_reference', string="Reference", store=True)
     has_move_lines = fields.Boolean(compute='_compute_has_move_lines')
+    out_qty = fields.Float("Out Qty")
+    bal_qty = fields.Float("Balance")
+    move_type = fields.Selection([('in', 'In'), ('out', 'Out')], "Move type")
     branch_id = fields.Many2one(
         related='location_id.branch_id', store=True,
         string='Source Location Branch',
@@ -394,6 +397,17 @@ class StockMove(models.Model):
                 move.location_id.name, move.location_dest_id.name)))
         return res
 
+    def set_move_type(self):
+        for self in self:
+            if self.picking_type_id and self.picking_type_id.code == 'incoming' or\
+                    not self.location_id._should_be_valued() and \
+                    self.location_dest_id._should_be_valued():
+                self.move_type = 'in'
+            elif self.picking_type_id and self.picking_type_id.code == 'outgoing' \
+                    or self.location_id._should_be_valued() and not \
+                    self.location_dest_id._should_be_valued():
+                self.move_type = 'out'
+
     @api.model
     def create(self, vals):
         # TDE CLEANME: why doing this tracking on picking here ? seems weird
@@ -403,6 +417,7 @@ class StockMove(models.Model):
             initial_values = {picking.id: {'state': picking.state}}
         vals['ordered_qty'] = vals.get('product_uom_qty')
         res = super(StockMove, self).create(vals)
+        res.set_move_type()
         if perform_tracking:
             picking.message_track(picking.fields_get(['state']), initial_values)
         return res
@@ -1045,6 +1060,28 @@ class StockMove(models.Model):
                         break
         return extra_move
 
+    def check_move_bal_qty(self):
+        for move in self:
+            if move.move_type == 'in':
+                move.bal_qty = move.product_uom_qty
+            if move.move_type == 'out':
+                prev_in_moves = self.search([
+                    ('product_id', '=', move.product_id.id),
+                    ('state', '=', 'done'),
+                    ('move_type', '=', 'in'),
+                    ('bal_qty', '>', '0'),
+                ], order='date')
+                rem_qty = move.product_uom_qty
+                for pre_move in prev_in_moves:
+                    if rem_qty:
+                        pre_move.out_qty = move.product_uom_qty
+                        if rem_qty > pre_move.bal_qty:
+                            rem_qty -= pre_move.bal_qty
+                            pre_move.bal_qty = 0
+                        else:
+                            pre_move.bal_qty -= rem_qty
+                            rem_qty -= rem_qty
+
     def _action_done(self):
         self.filtered(lambda move: move.state == 'draft')._action_confirm()  # MRP allows scrapping draft moves
 
@@ -1104,6 +1141,9 @@ class StockMove(models.Model):
 
         if picking:
             picking._create_backorder()
+
+        #calculate balance quantity & out qty to track the age of each stock
+        moves_todo.check_move_bal_qty()
 
         return moves_todo
 
