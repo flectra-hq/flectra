@@ -11,8 +11,9 @@ So, users can consider this **CHANGELOG** to find the differences between **Flec
 
 ## [Unreleased]
 
-## [1.1.0] - ****** - 2018- ** - **
+## [1.1.0] - Hermit - 2018- 03 - 19
 ### Added
+- Favorite Menu Book Marking in Search
 - ISO Country Code with Size of 3
 - Shop Page Layout Variants
 - Website RMA (Return Merchandise Authorization)
@@ -22,6 +23,12 @@ So, users can consider this **CHANGELOG** to find the differences between **Flec
 - Purchase Indent
 - Themes for Website
     - Theme Hermit
+
+### Fixes
+- #5 Sale Report Branch Bug
+- #30 , #37 Lead Allocation Bug
+- #38 Issue with Current Adding  
+- #39 "|" sign after manage databases
 
 ## [1.0.0] - Snowcap - 2018-01-25
 ### Added
