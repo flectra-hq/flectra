@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<flectra>
+
+    <!-- Note Issue Reasons -->
+    <menuitem id="menu_note_issue_reason"
+              parent="account.account_account_menu"
+              sequence="50"
+              action="act_open_note_issue_reason_view"
+              groups="account.group_account_manager"/>
+
+    <!-- GST Reports Menu -->
+    <menuitem id="menu_gst_reports" name="GST Reports"
+              parent="account.menu_finance_reports"
+              groups="account.group_account_manager"/>
+
+    <!-- GSTR1 Summary Menu -->
+    <menuitem name="GSTR-1 Summary"
+              id="l10n_in_gst_report_menu"
+              action="l10n_in_gst_report_action"
+              parent="menu_gst_reports"
+              sequence="10"/>
+     <menuitem name="GSTR-2 Summary"
+              id="l10n_in_gst2_report_menu"
+              action="l10n_in_gstr2_report_action"
+              parent="menu_gst_reports"
+              sequence="20"/>
+    
+</flectra>

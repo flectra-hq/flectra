@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra>
+    <data noupdate="1">
+
+        <!-- B2B SGST/CGST Invoices -->
+        <record id="demo_invoice_gst1" model="account.invoice">
+            <field name="date_due"
+                   eval="DateTime.today().strftime('%Y-%m-28')"/>
+            <field name="currency_id" ref="base.INR"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="reference_type">none</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="state">draft</field>
+            <field name="type">out_invoice</field>
+            <field name="date_invoice"
+                   eval="DateTime.today().strftime('%Y-%m-01')"/>
+            <field name="partner_id"
+                   ref="l10n_in_gst.res_partner_gst_registered"/>
+        </record>
+
+        <record id="demo_invoice_gst1_line1" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst1"/>
+            <field name="name">Little server</field>
+            <field name="product_id" ref="product.consu_delivery_02"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">40000.0</field>
+            <field name="quantity">2.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst1_line1')]"/>
+
+        <record id="demo_invoice_gst1_line2" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst1"/>
+            <field name="name">Basic Computer</field>
+            <field name="product_id" ref="product.consu_delivery_03"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">23500.0</field>
+            <field name="quantity">3.0</field>
+
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst1_line2')]"/>
+
+        <function model="account.invoice" name="_onchange_invoice_line_ids"
+                  eval="[ref('demo_invoice_gst1')]"/>
+
+        <function model="account.invoice" name="action_invoice_open"
+                  eval="[ref('demo_invoice_gst1')]"/>
+
+        <record id="demo_invoice_gst2" model="account.invoice">
+            <field name="date_due"
+                   eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-12')"/>
+            <field name="currency_id" ref="base.INR"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="reference_type">none</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="state">draft</field>
+            <field name="type">out_invoice</field>
+            <field name="date_invoice" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-07')"/>
+            <field name="partner_id"
+                   ref="l10n_in_gst.res_partner_gst_registered"/>
+        </record>
+
+        <record id="demo_invoice_gst2_line1" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst2"/>
+            <field name="name">Server</field>
+            <field name="product_id" ref="product.consu_delivery_01"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">65000.0</field>
+            <field name="quantity">4.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst2_line1')]"/>
+
+        <record id="demo_invoice_gst2_line2" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst2"/>
+            <field name="name">Basic Computer</field>
+            <field name="product_id" ref="product.consu_delivery_03"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">23500.0</field>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst2_line2')]"/>
+
+        <record id="demo_invoice_gst2_line3" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst2"/>
+            <field name="name">Laptop E5023</field>
+            <field name="product_id" ref="product.product_product_25"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">2870.0</field>
+            <field name="quantity">3.0</field>
+
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst2_line3')]"/>
+
+        <function model="account.invoice" name="_onchange_invoice_line_ids"
+                  eval="[ref('demo_invoice_gst2')]"/>
+
+        <function model="account.invoice" name="action_invoice_open"
+                  eval="[ref('demo_invoice_gst2')]"/>
+
+        <!-- B2CS Invoices -->
+        <record id="demo_invoice_gst3" model="account.invoice">
+            <field name="date_due"
+                   eval="DateTime.today().strftime('%Y-%m-1')"/>
+            <field name="currency_id" ref="base.INR"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="reference_type">none</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="state">draft</field>
+            <field name="type">out_invoice</field>
+            <field name="date_invoice"
+                   eval="DateTime.today().strftime('%Y-%m-03')"/>
+            <field name="partner_id"
+                   ref="l10n_in_gst.res_partner_gst_unregistered"/>
+        </record>
+
+        <record id="demo_invoice_gst3_line1" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst3"/>
+            <field name="name">Little server</field>
+            <field name="product_id" ref="product.consu_delivery_02"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">40000.0</field>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst3_line1')]"/>
+
+        <record id="demo_invoice_gst3_line2" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst3"/>
+            <field name="name">Basic Computer</field>
+            <field name="product_id" ref="product.consu_delivery_03"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">23500.0</field>
+            <field name="quantity">4.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst3_line2')]"/>
+
+        <record id="demo_invoice_gst3_line3" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst3"/>
+            <field name="name">Server</field>
+            <field name="product_id" ref="product.consu_delivery_01"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">65000.0</field>
+            <field name="quantity">2.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst3_line3')]"/>
+
+        <function model="account.invoice" name="_onchange_invoice_line_ids"
+                  eval="[ref('demo_invoice_gst3')]"/>
+
+        <function model="account.invoice" name="action_invoice_open"
+                  eval="[ref('demo_invoice_gst3')]"/>
+
+        <!-- B2B IGST Invoices -->
+        <record id="demo_invoice_gst4" model="account.invoice">
+            <field name="date_due"
+                   eval="DateTime.today().strftime('%Y-%m-5')"/>
+            <field name="currency_id" ref="base.INR"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="reference_type">none</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="state">draft</field>
+            <field name="type">out_invoice</field>
+            <field name="date_invoice"
+                   eval="DateTime.today().strftime('%Y-%m-10')"/>
+            <field name="partner_id"
+                   ref="l10n_in_gst.res_partner_igst_registered"/>
+        </record>
+
+        <record id="demo_invoice_gst4_line1" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst4"/>
+            <field name="name">Little server</field>
+            <field name="product_id" ref="product.consu_delivery_02"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">40000.0</field>
+            <field name="quantity">2.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst4_line1')]"/>
+
+        <record id="demo_invoice_gst4_line2" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst4"/>
+            <field name="name">Server</field>
+            <field name="product_id" ref="product.consu_delivery_01"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">65000.0</field>
+            <field name="quantity">5.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst4_line2')]"/>
+
+        <function model="account.invoice" name="_onchange_invoice_line_ids"
+                  eval="[ref('demo_invoice_gst4')]"/>
+
+        <function model="account.invoice" name="action_invoice_open"
+                  eval="[ref('demo_invoice_gst4')]"/>
+
+        <!-- B2CL IGST Invoices -->
+        <record id="demo_invoice_gst5" model="account.invoice">
+            <field name="date_due"
+                   eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-25')"/>
+            <field name="currency_id" ref="base.INR"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="reference_type">none</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="state">draft</field>
+            <field name="type">out_invoice</field>
+            <field name="date_invoice"
+                   eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-12')"/>
+            <field name="partner_id"
+                   ref="l10n_in_gst.res_partner_igst_unregistered"/>
+        </record>
+
+        <record id="demo_invoice_gst5_line1" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst5"/>
+            <field name="name">Laptop E5023</field>
+            <field name="product_id" ref="product.product_product_25"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">2870.0</field>
+            <field name="quantity">8.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst5_line1')]"/>
+
+        <record id="demo_invoice_gst5_line2" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst5"/>
+            <field name="name">Server</field>
+            <field name="product_id" ref="product.consu_delivery_01"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">65000.0</field>
+            <field name="quantity">4.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst5_line2')]"/>
+
+        <function model="account.invoice" name="_onchange_invoice_line_ids"
+                  eval="[ref('demo_invoice_gst5')]"/>
+
+        <function model="account.invoice" name="action_invoice_open"
+                  eval="[ref('demo_invoice_gst5')]"/>
+
+        <!-- CDNUR Invoices -->
+        <record id="demo_invoice_gst_refund1" model="account.invoice.refund">
+            <field name="description">04-Correction in Invoice</field>
+            <field name="filter_refund">refund</field>
+            <field name="date_invoice"
+                   eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-16')"/>
+        </record>
+
+        <function
+                model="account.invoice.refund" name="invoice_refund"
+                eval="[ref('demo_invoice_gst_refund1')], {'active_ids': [ref('demo_invoice_gst5')]}"
+        />
+
+        <function model="account.invoice" name="action_invoice_open">
+            <function model="account.invoice"
+                      name="search"
+                      eval="[[('refund_invoice_id', '=', ref('demo_invoice_gst5'))]]"/>
+        </function>
+
+        <!-- CDNR Invoices -->
+        <record id="demo_invoice_gst_refund2" model="account.invoice.refund">
+            <field name="description">03-Deficiency in services</field>
+            <field name="filter_refund">refund</field>
+            <field name="date_invoice"
+                   eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-26')"/>
+        </record>
+
+        <function
+                model="account.invoice.refund" name="invoice_refund"
+                eval="[ref('demo_invoice_gst_refund2')], {'active_ids': [ref('demo_invoice_gst2')]}"/>
+
+        <function model="account.invoice" name="action_invoice_open">
+            <function model="account.invoice"
+                      name="search"
+                      eval="[[('refund_invoice_id', '=', ref('demo_invoice_gst2'))]]"/>
+        </function>
+
+        <!-- B2CL Invoice for test cases -->
+        <record id="demo_invoice_gst8" model="account.invoice">
+            <field name="date_due"
+                   eval="DateTime.today().strftime('%Y-%m-15')"/>
+            <field name="currency_id" ref="base.INR"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="reference_type">none</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="state">draft</field>
+            <field name="type">out_invoice</field>
+            <field name="date_invoice"
+                   eval="DateTime.today().strftime('%Y-%m-13')"/>
+            <field name="partner_id"
+                   ref="l10n_in_gst.res_partner_igst_unregistered"/>
+        </record>
+
+        <record id="demo_invoice_gst8_line1" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst8"/>
+            <field name="name">Laptop E5023</field>
+            <field name="product_id" ref="product.product_product_25"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">2870.0</field>
+            <field name="quantity">8.0</field>
+        </record>
+
+        <record id="demo_invoice_gst8_line2" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst8"/>
+            <field name="name">Server</field>
+            <field name="product_id" ref="product.consu_delivery_01"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">65000.0</field>
+            <field name="quantity">6.0</field>
+        </record>
+
+        <!-- B2B Invoice for test cases -->
+        <record id="demo_invoice_gst9" model="account.invoice">
+            <field name="date_due" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-12')"/>
+            <field name="currency_id" ref="base.INR"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="reference_type">none</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="state">draft</field>
+            <field name="type">out_invoice</field>
+            <field name="date_invoice"
+                   eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-07')"/>
+            <field name="partner_id"
+                   ref="l10n_in_gst.res_partner_gst_registered"/>
+        </record>
+
+        <record id="demo_invoice_gst9_line1" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst9"/>
+            <field name="name">Server</field>
+            <field name="product_id" ref="product.consu_delivery_01"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">65000.0</field>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <record id="demo_invoice_gst9_line2" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst9"/>
+            <field name="name">Basic Computer</field>
+            <field name="product_id" ref="product.consu_delivery_03"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">23500.0</field>
+            <field name="quantity">2.0</field>
+        </record>
+
+        <record id="demo_invoice_gst9_line3" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst9"/>
+            <field name="name">Laptop E5023</field>
+            <field name="product_id" ref="product.product_product_25"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">2870.0</field>
+            <field name="quantity">5.0</field>
+        </record>
+
+        <!-- B2CS Invoice for test cases -->
+        <record id="demo_invoice_gst10" model="account.invoice">
+            <field name="date_due"
+                   eval="DateTime.today().strftime('%Y-%m-21')"/>
+            <field name="currency_id" ref="base.INR"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="reference_type">none</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="state">draft</field>
+            <field name="type">out_invoice</field>
+            <field name="date_invoice"
+                   eval="DateTime.today().strftime('%Y-%m-11')"/>
+            <field name="partner_id"
+                   ref="l10n_in_gst.res_partner_gst_unregistered"/>
+        </record>
+
+        <record id="demo_invoice_gst10_line1" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst10"/>
+            <field name="name">Little server</field>
+            <field name="product_id" ref="product.consu_delivery_02"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">40000.0</field>
+            <field name="quantity">2.0</field>
+        </record>
+
+        <record id="demo_invoice_gst10_line2" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst10"/>
+            <field name="name">Basic Computer</field>
+            <field name="product_id" ref="product.consu_delivery_03"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">23500.0</field>
+            <field name="quantity">3.0</field>
+        </record>
+
+        <record id="demo_invoice_gst10_line3" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst10"/>
+            <field name="name">Server</field>
+            <field name="product_id" ref="product.consu_delivery_01"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">65000.0</field>
+            <field name="quantity">2.0</field>
+        </record>
+
+        <!-- Composite company Invoice for test cases -->
+        <record id="demo_invoice_gst11" model="account.invoice">
+            <field name="date_due"
+                   eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-12')"/>
+            <field name="currency_id" ref="base.INR"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="reference_type">none</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="state">draft</field>
+            <field name="type">out_invoice</field>
+            <field name="date_invoice"
+                   eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-13')"/>
+            <field name="partner_id"
+                   ref="l10n_in_gst.res_partner_gst_registered"/>
+        </record>
+
+        <record id="demo_invoice_gst11_line1" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst11"/>
+            <field name="name">Laptop E5023</field>
+            <field name="product_id" ref="product.product_product_25"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">2870.0</field>
+            <field name="quantity">2.0</field>
+        </record>
+
+        <record id="demo_invoice_gst11_line2" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst11"/>
+            <field name="name">Server</field>
+            <field name="product_id" ref="product.consu_delivery_01"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">65000.0</field>
+            <field name="quantity">3.0</field>
+        </record>
+
+        <!-- B2CL IGST Invoices -->
+        <record id="demo_invoice_gst12" model="account.invoice">
+            <field name="date_due"
+                   eval="DateTime.today().strftime('%Y-%m-17')"/>
+            <field name="currency_id" ref="base.INR"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="reference_type">none</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="state">draft</field>
+            <field name="type">out_invoice</field>
+            <field name="date_invoice"
+                   eval="DateTime.today().strftime('%Y-%m-12')"/>
+            <field name="partner_id"
+                   ref="l10n_in_gst.res_partner_igst_unregistered"/>
+        </record>
+
+        <record id="demo_invoice_gst12_line1" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst12"/>
+            <field name="name">Laptop E5023</field>
+            <field name="product_id" ref="product.product_product_25"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">2870.0</field>
+            <field name="quantity">8.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst12_line1')]"/>
+
+        <record id="demo_invoice_gst12_line2" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst5"/>
+            <field name="name">Server</field>
+            <field name="product_id" ref="product.consu_delivery_01"/>
+            <field name="account_id" ref="demo_p20011"/>
+            <field name="price_unit">65000.0</field>
+            <field name="quantity">4.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst12_line2')]"/>
+
+        <function model="account.invoice" name="_onchange_invoice_line_ids"
+                  eval="[ref('demo_invoice_gst12')]"/>
+
+        <function model="account.invoice" name="action_invoice_open"
+                  eval="[ref('demo_invoice_gst12')]"/>
+
+        <!-- CDNUR Invoices -->
+        <record id="demo_invoice_gst_refund3" model="account.invoice.refund">
+            <field name="description">04-Correction in Invoice</field>
+            <field name="filter_refund">refund</field>
+            <field name="date_invoice"
+                   eval="DateTime.today().strftime('%Y-%m-16')"/>
+        </record>
+
+        <function
+                model="account.invoice.refund" name="invoice_refund"
+                eval="[ref('demo_invoice_gst_refund3')], {'active_ids': [ref('demo_invoice_gst3')]}"
+        />
+
+        <function model="account.invoice" name="action_invoice_open">
+            <function model="account.invoice"
+                      name="search"
+                      eval="[[('refund_invoice_id', '=', ref('demo_invoice_gst3'))]]"/>
+        </function>
+
+        <!-- CDNR Invoices -->
+        <record id="demo_invoice_gst_refund4" model="account.invoice.refund">
+            <field name="description">03-Deficiency in services</field>
+            <field name="filter_refund">refund</field>
+            <field name="date_invoice"
+                   eval="DateTime.today().strftime('%Y-%m-26')"/>
+        </record>
+
+        <function
+                model="account.invoice.refund" name="invoice_refund"
+                eval="[ref('demo_invoice_gst_refund4')], {'active_ids': [ref('demo_invoice_gst1')]}"/>
+
+        <function model="account.invoice" name="action_invoice_open">
+            <function model="account.invoice"
+                      name="search"
+                      eval="[[('refund_invoice_id', '=', ref('demo_invoice_gst1'))]]"/>
+        </function>
+
+
+         <!--B2B Suppllier Invoices -->
+        <record id="demo_invoice_gst13" model="account.invoice">
+            <field name="date_due"
+                   eval="DateTime.today().strftime('%Y-%m-5')"/>
+            <field name="currency_id" ref="base.INR"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="reference_type">none</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="state">draft</field>
+            <field name="type">in_invoice</field>
+            <field name="date_invoice"
+                   eval="DateTime.today().strftime('%Y-%m-04')"/>
+            <field name="partner_id"
+                   ref="l10n_in_gst.res_partner_gst_registered_supplier"/>
+        </record>
+
+        <record id="demo_invoice_gst13_line1" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst13"/>
+            <field name="name">Little server</field>
+            <field name="product_id" ref="product.consu_delivery_02"/>
+            <field name="account_id" ref="demo_p2107"/>
+            <field name="price_unit">40000.0</field>
+            <field name="quantity">2.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst13_line1')]"/>
+
+        <record id="demo_invoice_gst13_line2" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst13"/>
+            <field name="name">Basic Computer</field>
+            <field name="product_id" ref="product.consu_delivery_03"/>
+            <field name="account_id" ref="demo_p2107"/>
+            <field name="price_unit">23500.0</field>
+            <field name="quantity">3.0</field>
+
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst13_line2')]"/>
+
+        <function model="account.invoice" name="_onchange_invoice_line_ids"
+                  eval="[ref('demo_invoice_gst13')]"/>
+
+        <function model="account.invoice" name="action_invoice_open"
+                  eval="[ref('demo_invoice_gst13')]"/>
+
+         <!-- B2BUR Supplier Invoices -->
+        <record id="demo_invoice_gst14" model="account.invoice">
+            <field name="date_due"
+                   eval="DateTime.today().strftime('%Y-%m-5')"/>
+            <field name="currency_id" ref="base.INR"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="reference_type">none</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="state">draft</field>
+            <field name="type">in_invoice</field>
+            <field name="date_invoice"
+                   eval="DateTime.today().strftime('%Y-%m-03')"/>
+            <field name="partner_id"
+                   ref="l10n_in_gst.res_partner_gst_unregistered_supplier"/>
+        </record>
+
+        <record id="demo_invoice_gst14_line1" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst14"/>
+            <field name="name">Little server</field>
+            <field name="product_id" ref="product.consu_delivery_02"/>
+            <field name="account_id" ref="demo_p2107"/>
+            <field name="price_unit">40000.0</field>
+            <field name="quantity">1.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst14_line1')]"/>
+
+        <record id="demo_invoice_gst14_line2" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst14"/>
+            <field name="name">Basic Computer</field>
+            <field name="product_id" ref="product.consu_delivery_03"/>
+            <field name="account_id" ref="demo_p2107"/>
+            <field name="price_unit">23500.0</field>
+            <field name="quantity">4.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst14_line2')]"/>
+
+        <record id="demo_invoice_gst14_line3" model="account.invoice.line">
+            <field name="invoice_id" ref="demo_invoice_gst14"/>
+            <field name="name">Server</field>
+            <field name="product_id" ref="product.consu_delivery_01"/>
+            <field name="account_id" ref="demo_p2107"/>
+            <field name="price_unit">65000.0</field>
+            <field name="quantity">2.0</field>
+        </record>
+
+        <function model="account.invoice.line" name="_onchange_product_id"
+                  eval="[ref('demo_invoice_gst14_line3')]"/>
+
+        <function model="account.invoice" name="_onchange_invoice_line_ids"
+                  eval="[ref('demo_invoice_gst14')]"/>
+
+        <function model="account.invoice" name="action_invoice_open"
+                  eval="[ref('demo_invoice_gst14')]"/>
+
+         <!-- CDNR Supplier Invoices -->
+        <record id="demo_invoice_gst_refund5" model="account.invoice.refund">
+            <field name="description">04-Correction in Invoice</field>
+            <field name="filter_refund">refund</field>
+            <field name="date_invoice"
+                   eval="DateTime.today().strftime('%Y-%m-16')"/>
+        </record>
+
+        <function
+                model="account.invoice.refund" name="invoice_refund"
+                eval="[ref('demo_invoice_gst_refund5')], {'active_ids': [ref('demo_invoice_gst13')]}"
+        />
+
+        <function model="account.invoice" name="action_invoice_open">
+            <function model="account.invoice"
+                      name="search"
+                      eval="[[('refund_invoice_id', '=', ref('demo_invoice_gst13'))]]"/>
+        </function>
+
+        <!-- CDNUR Supplier Invoices -->
+        <record id="demo_invoice_gst_refund6" model="account.invoice.refund">
+            <field name="description">03-Deficiency in services</field>
+            <field name="filter_refund">refund</field>
+            <field name="date_invoice"
+                   eval="DateTime.today().strftime('%Y-%m-26')"/>
+        </record>
+
+        <function
+                model="account.invoice.refund" name="invoice_refund"
+                eval="[ref('demo_invoice_gst_refund6')], {'active_ids': [ref('demo_invoice_gst14')]}"/>
+
+        <function model="account.invoice" name="action_invoice_open">
+            <function model="account.invoice"
+                      name="search"
+                      eval="[[('refund_invoice_id', '=', ref('demo_invoice_gst14'))]]"/>
+        </function>
+
+    </data>
+</flectra>

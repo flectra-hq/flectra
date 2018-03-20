@@ -45,7 +45,7 @@
     </record>
 
     <record id="cess_5_plus_1591_sale" model="account.tax.template">
-        <field name="name">CESS 5% + RS.1591/THOUSAND </field>
+        <field name="name">CESS 5% + RS.1591/THOUSAND</field>
         <field name="description">CESS 5% + RS.1591/THOUSAND</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">group</field>
@@ -56,14 +56,15 @@
     </record>
 
     <record id="cess_21_4170_higer_sale" model="account.tax.template">
-        <field name="name">CESS 21% or RS.4170/THOUSAND </field>
+        <field name="name">CESS 21% or RS.4170/THOUSAND</field>
         <field name="description">CESS 21% or RS.4170/THOUSAND</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">code</field>
         <field name="amount">0</field>
         <field name="python_compute">result=base_amount * 0.21
-tax=quantity * 4.17
-if tax > result:result=tax</field>
+            tax=quantity * 4.17
+            if tax > result:result=tax
+        </field>
         <field name="tax_group_id" ref="cess_group"/>
         <field name="chart_template_id" ref="indian_chart_template_standard"/>
         <field name="tag_ids" eval="[(6,0,[ref('cess_tag_tax'),])]"/>
@@ -72,7 +73,7 @@ if tax > result:result=tax</field>
     <!-- IGST -->
 
     <record id="igst_sale_1" model="account.tax.template">
-        <field name="name">IGST 1%</field>
+        <field name="name">IGST Sale 1%</field>
         <field name="description">IGST 1%</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">percent</field>
@@ -85,7 +86,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="igst_sale_2" model="account.tax.template">
-        <field name="name">IGST 2%</field>
+        <field name="name">IGST Sale 2%</field>
         <field name="description">IGST 2%</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">percent</field>
@@ -98,7 +99,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="igst_sale_28" model="account.tax.template">
-        <field name="name">IGST 28%</field>
+        <field name="name">IGST Sale 28%</field>
         <field name="description">IGST 28%</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">percent</field>
@@ -111,7 +112,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="igst_sale_18" model="account.tax.template">
-        <field name="name">IGST 18%</field>
+        <field name="name">IGST Sale 18%</field>
         <field name="description">IGST 18%</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">percent</field>
@@ -124,7 +125,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="igst_sale_12" model="account.tax.template">
-        <field name="name">IGST 12%</field>
+        <field name="name">IGST Sale 12%</field>
         <field name="description">IGST 12%</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">percent</field>
@@ -137,7 +138,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="igst_sale_5" model="account.tax.template">
-        <field name="name">IGST 5%</field>
+        <field name="name">IGST Sale 5%</field>
         <field name="description">IGST 5%</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">percent</field>
@@ -178,7 +179,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="sgst_sale_1" model="account.tax.template">
-        <field name="name">GST 1%</field>
+        <field name="name">GST Sale 1%</field>
         <field name="description">GST 1%</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">group</field>
@@ -214,7 +215,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="sgst_sale_2" model="account.tax.template">
-        <field name="name">GST 2%</field>
+        <field name="name">GST Sale 2%</field>
         <field name="description">GST 2%</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">group</field>
@@ -250,7 +251,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="sgst_sale_28" model="account.tax.template">
-        <field name="name">GST 28%</field>
+        <field name="name">GST Sale 28%</field>
         <field name="description">GST 28%</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">group</field>
@@ -259,7 +260,7 @@ if tax > result:result=tax</field>
         <field name="children_tax_ids" eval="[(6, 0, [ref('sgst_sale_14'),ref('cgst_sale_14'),])]"/>
     </record>
 
-        <record id="sgst_sale_9" model="account.tax.template">
+    <record id="sgst_sale_9" model="account.tax.template">
         <field name="name">SGST Sale 9%</field>
         <field name="description">SGST 9%</field>
         <field name="type_tax_use">none</field>
@@ -286,7 +287,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="sgst_sale_18" model="account.tax.template">
-        <field name="name">GST 18%</field>
+        <field name="name">GST Sale 18%</field>
         <field name="description">GST 18%</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">group</field>
@@ -322,7 +323,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="sgst_sale_12" model="account.tax.template">
-        <field name="name">GST 12%</field>
+        <field name="name">GST Sale 12%</field>
         <field name="description">GST 12%</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">group</field>
@@ -331,7 +332,7 @@ if tax > result:result=tax</field>
         <field name="children_tax_ids" eval="[(6, 0, [ref('sgst_sale_6'),ref('cgst_sale_6'),])]"/>
     </record>
 
-        <record id="sgst_sale_2_5" model="account.tax.template">
+    <record id="sgst_sale_2_5" model="account.tax.template">
         <field name="name">SGST Sale 2.5%</field>
         <field name="description">SGST 2.5%</field>
         <field name="type_tax_use">none</field>
@@ -358,7 +359,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="sgst_sale_5" model="account.tax.template">
-        <field name="name">GST 5%</field>
+        <field name="name">GST Sale 5%</field>
         <field name="description">GST 5%</field>
         <field name="type_tax_use">sale</field>
         <field name="amount_type">group</field>
@@ -394,7 +395,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="cess_5_plus_1591_purchase" model="account.tax.template">
-        <field name="name">CESS 5% + RS.1591/THOUSAND </field>
+        <field name="name">CESS 5% + RS.1591/THOUSAND</field>
         <field name="description">CESS 5% + RS.1591/THOUSAND</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">group</field>
@@ -404,14 +405,15 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="cess_21_4170_higer_purchase" model="account.tax.template">
-        <field name="name">CESS 21% or RS.4170/THOUSAND </field>
+        <field name="name">CESS 21% or RS.4170/THOUSAND</field>
         <field name="description">CESS 21% or RS.4170/THOUSAND</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">code</field>
         <field name="amount">0</field>
         <field name="python_compute">result=base_amount * 0.21
-tax=quantity * 4.17
-if tax > result:result=tax</field>
+            tax=quantity * 4.17
+            if tax > result:result=tax
+        </field>
         <field name="tax_group_id" ref="cess_group"/>
         <field name="chart_template_id" ref="indian_chart_template_standard"/>
         <field name="tag_ids" eval="[(6,0,[ref('cess_tag_tax'),])]"/>
@@ -420,7 +422,7 @@ if tax > result:result=tax</field>
     <!-- IGST -->
 
     <record id="igst_purchase_1" model="account.tax.template">
-        <field name="name">IGST 1%</field>
+        <field name="name">IGST Purchase 1%</field>
         <field name="description">IGST 1%</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">percent</field>
@@ -433,7 +435,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="igst_purchase_2" model="account.tax.template">
-        <field name="name">IGST 2%</field>
+        <field name="name">IGST Purchase 2%</field>
         <field name="description">IGST 2%</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">percent</field>
@@ -446,7 +448,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="igst_purchase_28" model="account.tax.template">
-        <field name="name">IGST 28%</field>
+        <field name="name">IGST Purchase 28%</field>
         <field name="description">IGST 28%</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">percent</field>
@@ -459,7 +461,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="igst_purchase_18" model="account.tax.template">
-        <field name="name">IGST 18%</field>
+        <field name="name">IGST Purchase 18%</field>
         <field name="description">IGST 18%</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">percent</field>
@@ -472,7 +474,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="igst_purchase_12" model="account.tax.template">
-        <field name="name">IGST 12%</field>
+        <field name="name">IGST Purchase 12%</field>
         <field name="description">IGST 12%</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">percent</field>
@@ -485,7 +487,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="igst_purchase_5" model="account.tax.template">
-        <field name="name">IGST 5%</field>
+        <field name="name">IGST Purchase 5%</field>
         <field name="description">IGST 5%</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">percent</field>
@@ -526,7 +528,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="sgst_purchase_1" model="account.tax.template">
-        <field name="name">GST 1%</field>
+        <field name="name">GST Purchase 1%</field>
         <field name="description">GST 1%</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">group</field>
@@ -562,7 +564,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="sgst_purchase_2" model="account.tax.template">
-        <field name="name">GST 2%</field>
+        <field name="name">GST Purchase 2%</field>
         <field name="description">GST 2%</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">group</field>
@@ -598,7 +600,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="sgst_purchase_28" model="account.tax.template">
-        <field name="name">GST 28%</field>
+        <field name="name">GST Purchase 28%</field>
         <field name="description">GST 28%</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">group</field>
@@ -607,7 +609,7 @@ if tax > result:result=tax</field>
         <field name="children_tax_ids" eval="[(6, 0, [ref('sgst_purchase_14'),ref('cgst_purchase_14'),])]"/>
     </record>
 
-        <record id="sgst_purchase_9" model="account.tax.template">
+    <record id="sgst_purchase_9" model="account.tax.template">
         <field name="name">SGST Purchase 9%</field>
         <field name="description">SGST 9%</field>
         <field name="type_tax_use">none</field>
@@ -634,7 +636,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="sgst_purchase_18" model="account.tax.template">
-        <field name="name">GST 18%</field>
+        <field name="name">GST Purchase 18%</field>
         <field name="description">GST 18%</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">group</field>
@@ -670,7 +672,7 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="sgst_purchase_12" model="account.tax.template">
-        <field name="name">GST 12%</field>
+        <field name="name">GST Purchase 12%</field>
         <field name="description">GST 12%</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">group</field>
@@ -706,13 +708,42 @@ if tax > result:result=tax</field>
     </record>
 
     <record id="sgst_purchase_5" model="account.tax.template">
-        <field name="name">GST 5%</field>
+        <field name="name">GST Purchase 5%</field>
         <field name="description">GST 5%</field>
         <field name="type_tax_use">purchase</field>
         <field name="amount_type">group</field>
         <field name="amount">0</field>
         <field name="chart_template_id" ref="indian_chart_template_standard"/>
         <field name="children_tax_ids" eval="[(6, 0, [ref('sgst_purchase_2_5'),ref('cgst_purchase_2_5'),])]"/>
+    </record>
+
+    <!-- Exempt -->
+    <record id="exempt_sale_tax_1" model="account.tax.template">
+        <field name="name">Exempt 0%</field>
+        <field name="description">Exempt 0%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0</field>
+        <field name="sequence">19</field>
+        <field name="account_id" ref="exempt_sale"/>
+        <field name="refund_account_id" ref="exempt_sale"/>
+        <field name="chart_template_id"
+               ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tag_ids" eval="[(6, 0, [ref('st_tag_in_97')])]"/>
+    </record>
+
+    <record id="exempt_purchase_tax_1" model="account.tax.template">
+        <field name="name">Exempt 0%</field>
+        <field name="description">Exempt 0%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0</field>
+        <field name="sequence">60</field>
+        <field name="account_id" ref="exempt_purchase"/>
+        <field name="refund_account_id" ref="exempt_purchase"/>
+        <field name="chart_template_id"
+               ref="indian_chart_template_standard"/>
+        <field name="tag_ids" eval="[(6, 0, [ref('st_tag_in_97')])]"/>
     </record>
 
 </flectra>

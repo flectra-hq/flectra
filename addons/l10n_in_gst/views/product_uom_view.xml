@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <!-- Inherit Product UOM Form View -->
+    <record id="product_uom_form_view_inherit_l10n_in_gst" model="ir.ui.view">
+        <field name="name">product.uom.form.inherit.gst</field>
+        <field name="model">product.uom</field>
+        <field name="inherit_id" ref="product.product_uom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='rounding']" position="after">
+                <field name="code" required="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit Product UOM List View -->
+    <record id="product_uom_tree_view_inherit_l10n_in_gst" model="ir.ui.view">
+        <field name="name">product.uom.tree.inherit.gst</field>
+        <field name="model">product.uom</field>
+        <field name="inherit_id" ref="product.product_uom_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="code"/>
+            </xpath>
+        </field>
+    </record>
+
+</flectra>

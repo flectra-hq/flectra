@@ -1,0 +1,974 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    <t t-name="GSTReportDashboard">
+        <div class="container-fluid"/>
+    </t>
+
+    <t t-name="GSTButton">
+        <div class="btn-group o_dropdown">
+            <button class="btn btn-primary" id="export_excel" type="button">Export XLS</button>
+        </div>
+        <div class="btn-group o_dropdown">
+            <button class="btn btn-primary hidden form-control" type="button" id="view_summary_back">View Summary</button>
+        </div>
+    </t>
+
+    <t t-name="GSTPager">
+        <div id="pager" class="hidden">
+            <span class="o_pager_value">1-8</span> / <span class="o_pager_limit">8</span>
+            <span class="btn-group btn-group-sm">
+                <button class="fa fa-chevron-left btn btn-icon o_pager_previous" type="button" accesskey="p" ></button>
+                <button class="fa fa-chevron-right btn btn-icon o_pager_next" type="button" accesskey="n" ></button>
+            </span>
+        </div>
+    </t>
+
+    <t t-name="GSTFilter">
+        <div>
+            <div class="btn-group o_dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><t t-esc="companies[curr_com_id]"/>
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu" id="res_company">
+                    <t t-foreach="companies" t-as="com">
+                        <li t-att-class="curr_com_id == com ? 'active' : None"><a href="javascript:void(0);" t-att-data-id="com" t-att-data-string="companies[com]"><span><i t-att-class="curr_com_id == com ? 'fa fa-check pull-right' : None"/><t t-esc="companies[com]"/></span></a></li>
+                    </t>
+                </ul>
+            </div>
+            <div class="btn-group o_dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><t t-esc="months[curr_month]"/>
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu" id="filter_month">
+                    <t t-foreach="months" t-as="i">
+                        <li t-att-class="curr_month == i ? 'active' : None"><a href="javascript:void(0);" t-att-data-value="i" t-att-data-string="months[i]"><span><i t-att-class="curr_month == i ? 'fa fa-check pull-right' : None"/><t t-esc="months[i]"/></span></a></li>
+                    </t>
+                </ul>
+            </div>
+            <div class="btn-group o_dropdown">
+                <input type="number" t-att-value="curr_year" min="0" step="1" class="form-control" id="filter_year"/>
+            </div>
+            <!--<div class="btn-group o_dropdown">-->
+                <!---->
+            <!--</div>-->
+        </div>
+    </t>
+
+    <t t-name="ViewSummary">
+        <div class="row container-blank">
+            <div class="col-md-12 text-center mt16 mb16">
+                <h1>Summary</h1>
+            </div>
+        </div>
+        <div class="row table-responsive td-border container-blank" id="view_summary">
+            <table class="table table-striped table-bordered mb32">
+                <thead>
+                    <tr class="table-header-color-gst">
+                        <th class="text-center"><span>Section Name</span></th>
+                        <th class="text-center"><span>No. of Invoices</span></th>
+                        <th class="text-center"><span>Total Central Tax Amount (₹)</span></th>
+                        <th class="text-center"><span>Total State/UT Tax Amount (₹)</span></th>
+                        <th class="text-center"><span>Total Integrated Tax Amount (₹)</span></th>
+                        <th class="text-center"><span>Total CESS (₹)</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="data" t-as="l">
+                        <tr>
+                            <td class="text-center data_action_flectra_color">
+                                <a href="javascript:void(0);" t-att-data-action="l.action"
+                                ><t t-esc="l.name"/></a>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="l.no_of_invoices"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="l.cgst_amount" t-esc="l.cgst_amount.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="l.sgst_amount" t-esc="l.sgst_amount.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="l.igst_amount" t-esc="l.igst_amount.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="l.cess_amt_total" t-esc="l.cess_amt_total.toFixed(2) + ' ₹'"/>
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-if="data.length == 0">
+                        <tr>
+                            <td class="text-black-50 text-center" colspan="6">
+                                <span>No Record Found</span>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+
+    <t t-name="B2BViewSummary">
+        <div class="row container-blank">
+            <div class="col-md-12 text-center mt16 mb16">
+                <t t-if="summary_type == 'gstr1'">
+                    <h1>B2B Invoices - 4A, 4B, 4C, 6B, 6C</h1>
+                </t>
+                <t t-if="summary_type == 'gstr2'">
+                    <h1>Supplies From Registered Suppliers B2B - 3,4A</h1>
+                </t>
+            </div>
+        </div>
+        <div class="row table-responsive td-border container-blank" id="b2bview_summary">
+            <table class="table table-striped table-bordered mb32">
+                <thead>
+                    <tr class="table-header-color-gst">
+                        <th class="text-center"><span>Receiver GSTIN/UIN</span></th>
+                        <th class="text-center"><span>Invoices No.</span></th>
+                        <th class="text-center"><span>Invoices Date</span></th>
+                        <th class="text-center"><span>Place of Supply</span></th>
+                        <th class="text-center"><span>Rate</span></th>
+                        <th class="text-center"><span>Invoice Type</span></th>
+                        <th class="text-center"><span>Reverse Charges</span></th>
+                        <th class="text-center"><span>E-Commerce GSTIN</span></th>
+                        <th class="text-center"><span>Taxable Value</span></th>
+                        <th class="text-center"><span>IGST</span></th>
+                        <th class="text-center"><span>CGST</span></th>
+                        <th class="text-center"><span>SGST</span></th>
+                        <th class="text-center"><span>CESS</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="data" t-as="line">
+                        <tr>
+                            <td class="text-left">
+                                <t t-esc="line.gstin_partner"/>
+                            </td>
+                            <td class="text-left data_action_flectra_color">
+                                <a href="javascript:void(0);" action="open_document" t-att-data-id="line.id" data-object="account.invoice"><t t-esc="line.inv_no"/></a>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.date"/>
+                            </td>
+                            <td class="text-left">
+                                <t t-esc="line.place_supply"/>
+                            </td>
+                            <td class="text-center data_action_flectra_color">
+                                <a href="javascript:void(0);" class="show_subline"><t t-esc="line.rate"/> %</a>
+                            </td>
+                            <td class="text-left">
+                                <t t-esc="line.inv_type"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.reverse_charge"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.ecommerce_gstin"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.taxable_value" t-esc="line.taxable_value.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.igst" t-esc="line.igst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cgst" t-esc="line.cgst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.sgst" t-esc="line.sgst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cess_amount" t-esc="line.cess_amount.toFixed(2) + ' ₹'"/>
+                            </td>
+                        </tr>
+                        <t t-if="line.lines.length">
+                            <tr class="data_subline hidden">
+                                <td colspan="2"/>
+                                <td colspan="11">
+                                    <table class="table table-striped table-bordered table-border-gst mb0">
+                                        <thead>
+                                            <tr class="sub-table-header-color-gst">
+                                                <th class="text-left"><span>Product Name</span></th>
+                                                <th class="text-center"><span>Quantity</span></th>
+                                                <th class="text-center"><span>Price</span></th>
+                                                <th class="text-center"><span>IGST</span></th>
+                                                <th class="text-center"><span>CGST</span></th>
+                                                <th class="text-center"><span>SGST</span></th>
+                                                <th class="text-center"><span>CESS</span></th>
+                                                <th class="text-center"><span>Amount</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="line.lines" t-as="sub_line">
+                                                <tr>
+                                                    <td class="text-left">
+                                                        <t t-esc="sub_line.product_name"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-esc="sub_line.quantity"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.price_unit" t-esc="sub_line.price_unit.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.igst_amount" t-esc="sub_line.igst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.cgst_amount" t-esc="sub_line.cgst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.sgst_amount" t-esc="sub_line.sgst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.cess" t-esc="sub_line.cess.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.amount" t-esc="sub_line.amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                    <t t-if="data.length == 0">
+                        <tr>
+                            <td class="text-black-50 text-center" colspan="13">
+                                <span>No Record Found</span>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+
+    <t t-name="B2CLViewSummary">
+        <div class="row container-blank">
+            <div class="col-md-12 text-center mt16 mb16">
+                <h1>B2C(Large) Invoices - 5A, 5B</h1>
+            </div>
+        </div>
+        <div class="row table-responsive td-border container-blank">
+            <table class="table table-striped table-bordered mb32">
+                <thead>
+                    <tr class="table-header-color-gst">
+                        <th class="text-center"><span>Invoices No.</span></th>
+                        <th class="text-center"><span>Invoices Date</span></th>
+                        <th class="text-center"><span>Place of Supply</span></th>
+                        <th class="text-center"><span>Rate</span></th>
+                        <th class="text-center"><span>E-Commerce
+                            GSTIN</span></th>
+                        <th class="text-center"><span>Taxable Value</span></th>
+                        <th class="text-center"><span>IGST</span></th>
+                        <th class="text-center"><span>CGST</span></th>
+                        <th class="text-center"><span>SGST</span></th>
+                        <th class="text-center"><span>CESS</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="data" t-as="line">
+                        <tr>
+                            <td class="text-left data_action_flectra_color">
+                                <a href="javascript:void(0);" action="open_document" t-att-data-id="line.id" data-object="account.invoice"><t t-esc="line.inv_no"/></a>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.date"/>
+                            </td>
+                            <td class="text-left">
+                                <t t-esc="line.place_supply"/>
+                            </td>
+                            <td class="text-center data_action_flectra_color">
+                                <a href="javascript:void(0);" class="show_subline"><t t-esc="line.rate"/> %</a>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.ecommerce_gstin"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.taxable_value" t-esc="line.taxable_value.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.igst" t-esc="line.igst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cgst" t-esc="line.cgst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.sgst" t-esc="line.sgst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cess_amount" t-esc="line.cess_amount.toFixed(2) + ' ₹'"/>
+                            </td>
+                        </tr>
+                        <t t-if="line.lines.length">
+                            <tr class="data_subline hidden">
+                                <td colspan="2"/>
+                                <td colspan="11">
+                                    <table class="table table-striped table-bordered table-border-gst mb0">
+                                        <thead>
+                                            <tr class="sub-table-header-color-gst">
+                                                <th class="text-left"><span>Product Name</span></th>
+                                                <th class="text-center"><span>Quantity</span></th>
+                                                <th class="text-center"><span>Price</span></th>
+                                                <th class="text-center"><span>IGST</span></th>
+                                                <th class="text-center"><span>CGST</span></th>
+                                                <th class="text-center"><span>SGST</span></th>
+                                                <th class="text-center"><span>CESS</span></th>
+                                                <th class="text-center"><span>Amount</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="line.lines" t-as="sub_line">
+                                                <tr>
+                                                    <td class="text-left">
+                                                        <t t-esc="sub_line.product_name"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-esc="sub_line.quantity"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.price_unit" t-esc="sub_line.price_unit.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.igst_amount" t-esc="sub_line.igst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.cgst_amount" t-esc="sub_line.cgst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.sgst_amount" t-esc="sub_line.sgst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.cess" t-esc="sub_line.cess.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.amount" t-esc="sub_line.amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="data.length == 0">
+                            <tr>
+                                <td class="text-black-50 text-center" colspan="10">
+                                    <span>No Record Found</span>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+
+    <t t-name="B2CSViewSummary">
+        <div class="row container-blank">
+            <div class="col-md-12 text-center mt16 mb16">
+                <h1>B2C(Small) Details - 7</h1>
+            </div>
+        </div>
+        <div class="row table-responsive td-border container-blank">
+            <table class="table table-striped table-bordered mb32">
+                <thead>
+                    <tr class="table-header-color-gst">
+                        <th class="text-center"><span>Invoices No.</span></th>
+                        <th class="text-center"><span>Place of Supply</span></th>
+                        <th class="text-center"><span>Rate</span></th>
+                        <th class="text-center"><span>Type</span></th>
+                        <th class="text-center"><span>E-Commerce
+                            GSTIN</span></th>
+                        <th class="text-center"><span>Taxable Value</span></th>
+                        <th class="text-center"><span>IGST</span></th>
+                        <th class="text-center"><span>CGST</span></th>
+                        <th class="text-center"><span>SGST</span></th>
+                        <th class="text-center"><span>CESS</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="data" t-as="line">
+                        <tr>
+                            <td class="text-left data_action_flectra_color">
+                                <a href="javascript:void(0);" action="open_document" t-att-data-id="line.id" data-object="account.invoice"><t t-esc="line.inv_no"/></a>
+                            </td>
+                            <td class="text-left">
+                                <t t-esc="line.place_supply"/>
+                            </td>
+                            <td class="text-center data_action_flectra_color">
+                                <a href="javascript:void(0);" class="show_subline"><t t-esc="line.rate"/> %</a>
+                            </td>
+                            <td class="text-left">
+                                <t t-esc="line.type"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.ecommerce_gstin"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.taxable_value" t-esc="line.taxable_value.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.igst" t-esc="line.igst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cgst" t-esc="line.cgst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.sgst" t-esc="line.sgst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cess_amount" t-esc="line.cess_amount.toFixed(2) + ' ₹'"/>
+                            </td>
+                        </tr>
+                        <t t-if="line.lines.length">
+                            <tr class="data_subline hidden">
+                                <td colspan="2"/>
+                                <td colspan="8">
+                                    <table class="table table-striped table-bordered table-border-gst mb0">
+                                        <thead>
+                                            <tr class="sub-table-header-color-gst">
+                                                <th class="text-left"><span>Product Name</span></th>
+                                                <th class="text-center"><span>Quantity</span></th>
+                                                <th class="text-center"><span>Price</span></th>
+                                                <th class="text-center"><span>IGST</span></th>
+                                                <th class="text-center"><span>CGST</span></th>
+                                                <th class="text-center"><span>SGST</span></th>
+                                                <th class="text-center"><span>CESS</span></th>
+                                                <th class="text-center"><span>Amount</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="line.lines" t-as="sub_line">
+                                                <tr class="table-border-gst">
+                                                    <td class="text-left">
+                                                        <t t-esc="sub_line.product_name"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-esc="sub_line.quantity"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.price_unit" t-esc="sub_line.price_unit.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.igst_amount" t-esc="sub_line.igst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.cgst_amount" t-esc="sub_line.cgst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.sgst_amount" t-esc="sub_line.sgst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.cess" t-esc="sub_line.cess.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.amount" t-esc="sub_line.amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                    <t t-if="data.length == 0">
+                        <tr>
+                            <td class="text-black-50 text-center" colspan="11">
+                                <span>No Record Found</span>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+
+    <t t-name="CDNRViewSummary">
+        <div class="row container-blank">
+            <div class="col-md-12 text-center mt16 mb16">
+                <t t-if="summary_type == 'gstr1'">
+                    <h1>Credit/Debit Notes(Registered) - 9B </h1>
+                </t>
+                <t t-if="summary_type == 'gstr2'">
+                    <h1>Debit/Credit Notes (Registered) - 6C </h1>
+                </t>
+            </div>
+        </div>
+        <div class="row table-responsive td-border container-blank">
+            <table class="table table-striped table-bordered mb32">
+                <thead>
+                    <tr class="table-header-color-gst">
+                        <th class="text-center"><span>GSTIN/UIN of Recipient</span></th>
+                        <th class="text-center"><span>Invoice/Advance Receipt Number</span></th>
+                        <th class="text-center"><span>Invoice/Advance Receipt date</span></th>
+                        <th class="text-center"><span>Note/Refund Voucher Number</span></th>
+                        <th class="text-center"><span>Note/Refund Voucher date</span></th>
+                        <th class="text-center"><span>Document Type</span></th>
+                        <th class="text-center"><span>Reason For Issuing document</span></th>
+                        <th class="text-center"><span>Place Of Supply</span></th>
+                        <th class="text-center"><span>Rate</span></th>
+                        <th class="text-center"><span>Taxable Value</span></th>
+                        <th class="text-center"><span>IGST</span></th>
+                        <th class="text-center"><span>CGST</span></th>
+                        <th class="text-center"><span>SGST</span></th>
+                        <th class="text-center"><span>CESS</span></th>
+                        <th class="text-center"><span>Pre GST</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="data" t-as="line">
+                        <tr>
+                            <td class="text-left">
+                                <t t-esc="line.gstin_partner"/>
+                            </td>
+                            <td class="text-left data_action_flectra_color">
+                                <a href="javascript:void(0);" action="open_document" t-att-data-id="line.refund_invoice_id" data-object="account.invoice"><t t-esc="line.refund_inv_no"/></a>
+                            </td>
+                            <td class="text-left">
+                                <t t-esc="line.refund_date_invoice"/>
+                            </td>
+                            <td class="text-left data_action_flectra_color">
+                                <a href="javascript:void(0);" action="open_document" t-att-data-id="line.id" data-object="account.invoice"><t t-esc="line.inv_no"/></a>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.inv_date"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.document_type"/>
+                            </td>
+                            <td class="text-left">
+                                <t t-esc="line.reason"/>
+                            </td>
+                            <td class="text-left">
+                                <t t-esc="line.place_supply"/>
+                            </td>
+                            <td class="text-center data_action_flectra_color">
+                                <a href="javascript:void(0);" class="show_subline"><t t-esc="line.rate"/> %</a>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.taxable_value" t-esc="line.taxable_value.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.igst" t-esc="line.igst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cgst" t-esc="line.cgst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.sgst" t-esc="line.sgst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cess_amount" t-esc="line.cess_amount.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-center" style="white-space: nowrap;">
+                                <t t-esc="line.pre_gst"/>
+                            </td>
+                        </tr>
+                        <t t-if="line.lines.length">
+                            <tr class="data_subline hidden">
+                                <td colspan="2"/>
+                                <td colspan="11">
+                                    <table class="table table-striped table-bordered table-border-gst mb0">
+                                        <thead>
+                                            <tr class="sub-table-header-color-gst">
+                                                <th class="text-left"><span>Product Name</span></th>
+                                                <th class="text-center"><span>Quantity</span></th>
+                                                <th class="text-center"><span>Price</span></th>
+                                                <th class="text-center"><span>IGST</span></th>
+                                                <th class="text-center"><span>CGST</span></th>
+                                                <th class="text-center"><span>SGST</span></th>
+                                                <th class="text-center"><span>CESS</span></th>
+                                                <th class="text-center"><span>Amount</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="line.lines" t-as="sub_line">
+                                                <tr class="table-border-gst">
+                                                    <td class="text-left">
+                                                        <t t-esc="sub_line.product_name"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-esc="sub_line.quantity"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.price_unit" t-esc="sub_line.price_unit.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.igst_amount" t-esc="sub_line.igst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.cgst_amount" t-esc="sub_line.cgst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.sgst_amount" t-esc="sub_line.sgst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.cess" t-esc="sub_line.cess.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.amount" t-esc="sub_line.amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                    <t t-if="data.length == 0">
+                        <tr>
+                            <td class="text-black-50 text-center" colspan="15">
+                                <span>No Record Found</span>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+
+    <t t-name="CDNURViewSummary">
+        <div class="row container-blank">
+            <div class="col-md-12 text-center mt16 mb16">
+                <t t-if="summary_type == 'gstr1'">
+                    <h1>Credit/Debit Notes(Unregistered) - 9B</h1>
+                </t>
+                <t t-if="summary_type == 'gstr2'">
+                    <h1>Credit/Debit Notes(Unregistered) - 6C</h1>
+                </t>
+            </div>
+        </div>
+        <div class="row table-responsive td-border container-blank">
+            <table class="table table-striped table-bordered mb32">
+                <thead>
+                    <tr class="table-header-color-gst">
+                        <th class="text-center"><span>UR Type</span></th>
+                        <th class="text-center"><span>Invoice/Advance Receipt Number</span></th>
+                        <th class="text-center"><span>Invoice/Advance Receipt date</span></th>
+                        <th class="text-center"><span>Note/Refund Voucher Number</span></th>
+                        <th class="text-center"><span>Note/Refund Voucher date</span></th>
+                        <th class="text-center"><span>Document Type</span></th>
+                        <th class="text-center"><span>Reason For Issuing document</span></th>
+                        <th class="text-center"><span>Place Of Supply</span></th>
+                        <th class="text-center"><span>Rate</span></th>
+                        <th class="text-center"><span>Taxable Value</span></th>
+                        <th class="text-center"><span>IGST</span></th>
+                        <th class="text-center"><span>CGST</span></th>
+                        <th class="text-center"><span>SGST</span></th>
+                        <th class="text-center"><span>CESS</span></th>
+                        <th class="text-center"><span>Pre GST</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="data" t-as="line">
+                        <tr>
+                            <td class="text-left">
+                                <t t-esc="line.gst_invoice_type"/>
+                            </td>
+                            <td class="text-left data_action_flectra_color">
+                                <a href="javascript:void(0);" action="open_document" t-att-data-id="line.refund_invoice_id" data-object="account.invoice"><t t-esc="line.refund_inv_no"/></a>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.refund_date_invoice"/>
+                            </td>
+                            <td class="text-left data_action_flectra_color">
+                                <a href="javascript:void(0);" action="open_document" t-att-data-id="line.id" data-object="account.invoice"><t t-esc="line.inv_no"/></a>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.inv_date"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.document_type"/>
+                            </td>
+                            <td class="text-left">
+                                <t t-esc="line.reason"/>
+                            </td>
+                            <td class="text-left">
+                                <t t-esc="line.place_supply"/>
+                            </td>
+                            <td class="text-center data_action_flectra_color">
+                                <a href="javascript:void(0);" class="show_subline"><t t-esc="line.rate"/> %</a>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.taxable_value" t-esc="line.taxable_value.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.igst" t-esc="line.igst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cgst" t-esc="line.cgst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.sgst" t-esc="line.sgst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cess_amount" t-esc="line.cess_amount.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.pre_gst"/>
+                            </td>
+                        </tr>
+                        <t t-if="line.lines.length">
+                            <tr class="data_subline hidden">
+                                <td colspan="2"/>
+                                <td colspan="11">
+                                    <table class="table table-striped table-bordered table-border-gst mb0">
+                                        <thead>
+                                            <tr class="sub-table-header-color-gst">
+                                                <th class="text-left"><span>Product Name</span></th>
+                                                <th class="text-center"><span>Quantity</span></th>
+                                                <th class="text-center"><span>Price</span></th>
+                                                <th class="text-center"><span>IGST</span></th>
+                                                <th class="text-center"><span>CGST</span></th>
+                                                <th class="text-center"><span>SGST</span></th>
+                                                <th class="text-center"><span>CESS</span></th>
+                                                <th class="text-center"><span>Amount</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="line.lines" t-as="sub_line">
+                                                <tr>
+                                                    <td class="text-left">
+                                                        <t t-esc="sub_line.product_name"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-esc="sub_line.quantity"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.price_unit" t-esc="sub_line.price_unit.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.igst_amount" t-esc="sub_line.igst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.cgst_amount" t-esc="sub_line.cgst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.sgst_amount" t-esc="sub_line.sgst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.cess" t-esc="sub_line.cess.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.amount" t-esc="sub_line.amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                    <t t-if="data.length == 0">
+                        <tr>
+                            <td class="text-black-50 text-center" colspan="15">
+                                <span>No Record Found</span>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+
+    <t t-name="HSNViewSummary">
+        <div class="row container-blank">
+            <div class="col-md-12 text-center mt16 mb16">
+                <t t-if="summary_type == 'gstr1'">
+                    <h1>HSN-Wise Summary of outward Supplies - 12</h1>
+                </t>
+                <t t-if="summary_type == 'gstr2'">
+                    <h1>HSN-Wise Summary of outward Supplies - 13</h1>
+                </t>
+            </div>
+        </div>
+        <div class="row table-responsive td-border container-blank">
+            <table class="table table-striped table-bordered mb32">
+                <thead>
+                    <tr class="table-header-color-gst">
+                        <th class="text-center"><span>HSN</span></th>
+                        <th class="text-center"><span>Description</span></th>
+                        <th class="text-center"><span>UQC</span></th>
+                        <th class="text-center"><span>Total Quantity</span></th>
+                        <th class="text-center"><span>Total Value</span></th>
+                        <th class="text-center"><span>Taxable Value</span></th>
+                        <th class="text-center"><span>IGST</span></th>
+                        <th class="text-center"><span>CGST</span></th>
+                        <th class="text-center"><span>SGST</span></th>
+                        <th class="text-center"><span>CESS</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="data" t-as="line">
+                        <tr>
+                            <td class="text-center">
+                                <t t-esc="line.hsn"/>
+                            </td>
+                            <td class="text-left">
+                                <t t-esc="line.product_name"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.uqc"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.total_qty"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.value" t-esc="line.value.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.taxable_value" t-esc="line.taxable_value.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.igst_amt" t-esc="line.igst_amt.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cgst_amt" t-esc="line.cgst_amt.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.sgst_amt" t-esc="line.sgst_amt.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cess_amount" t-esc="line.cess_amount.toFixed(2) + ' ₹'"/>
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-if="data.length == 0">
+                        <tr>
+                            <td class="text-black-50 text-center" colspan="10">
+                                <span>No Record Found</span>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+
+    <t t-name="B2BURViewSummary">
+        <div class="row container-blank">
+            <div class="col-md-12 text-center mt16 mb16">
+                <h1>Supplies From Unregistered Suppliers B2BUR - 4C</h1>
+            </div>
+        </div>
+        <div class="row table-responsive td-border container-blank">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="table-header-color-gst">
+                        <th class="text-center"><span>Invoices No.</span></th>
+                        <th class="text-center"><span>Invoices Date</span></th>
+                        <th class="text-center"><span>Place of Supply</span></th>
+                        <th class="text-center"><span>Rate</span></th>
+                        <th class="text-center"><span>E-Commerce GSTIN</span></th>
+                        <th class="text-center"><span>Taxable Value</span></th>
+                        <th class="text-center"><span>IGST</span></th>
+                        <th class="text-center"><span>CGST</span></th>
+                        <th class="text-center"><span>SGST</span></th>
+                        <th class="text-center"><span>CESS</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="data" t-as="line">
+                        <tr>
+                            <td class="text-left data_action_flectra_color">
+                                <a href="javascript:void(0);" action="open_document" t-att-data-id="line.id" data-object="account.invoice"><t t-esc="line.inv_no"/></a>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.date"/>
+                            </td>
+                            <td class="text-left">
+                                <t t-esc="line.place_supply"/>
+                            </td>
+                            <td class="text-center data_action_flectra_color">
+                                <a href="javascript:void(0);" class="show_subline"><t t-esc="line.rate"/> %</a>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.ecommerce_gstin"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.taxable_value" t-esc="line.taxable_value.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.igst" t-esc="line.igst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cgst" t-esc="line.cgst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.sgst" t-esc="line.sgst.toFixed(2) + ' ₹'"/>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <t t-if="line.cess_amount" t-esc="line.cess_amount.toFixed(2) + ' ₹'"/>
+                            </td>
+                        </tr>
+                        <t t-if="line.lines.length">
+                            <tr class="data_subline hidden">
+                                <td colspan="2"/>
+                                <td colspan="11">
+                                    <table class="table table-striped table-bordered table-border-gst mb0">
+                                        <thead>
+                                            <tr class="sub-table-header-color-gst">
+                                                <th class="text-left"><span>Product Name</span></th>
+                                                <th class="text-center"><span>Quantity</span></th>
+                                                <th class="text-center"><span>Price</span></th>
+                                                <th class="text-center"><span>IGST</span></th>
+                                                <th class="text-center"><span>CGST</span></th>
+                                                <th class="text-center"><span>SGST</span></th>
+                                                <th class="text-center"><span>CESS</span></th>
+                                                <th class="text-center"><span>Amount</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="line.lines" t-as="sub_line">
+                                                <tr>
+                                                    <td class="text-left">
+                                                        <t t-esc="sub_line.product_name"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-esc="sub_line.quantity"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.price_unit" t-esc="sub_line.price_unit.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.igst_amount" t-esc="sub_line.igst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.cgst_amount" t-esc="sub_line.cgst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.sgst_amount" t-esc="sub_line.sgst_amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.cess" t-esc="sub_line.cess.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                    <td class="text-right" style="white-space: nowrap;">
+                                                        <t t-if="sub_line.amount" t-esc="sub_line.amount.toFixed(2) + ' ₹'"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="data.length == 0">
+                            <tr>
+                                <td class="text-black-50 text-center" colspan="10">
+                                    <span>No Record Found</span>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+
+
+</templates>

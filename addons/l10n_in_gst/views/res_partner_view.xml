@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <!-- Inherit Partner Form View -->
+    <record id="view_partner_form_inherit_l10n_in_gst" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.gst</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_type']" position="after">
+                <div>
+                    <field name="e_commerce"/>
+                    <label for="e_commerce"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="before">
+                <field name="gst_company_partner" invisible="1"/>
+                <field name="gst_type"
+                       attrs="{'required': [('gst_company_partner', '!=', True)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="attrs">{'required': ['|', ('gst_type', '!=', 'unregistered'), ('e_commerce', '!=', False)], 'invisible': [('gst_type', '=', 'unregistered')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="partner_location" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='lang']" position="after">
+               <field name="partner_location" invisible="1"/>
+               <field name="property_account_position_id"
+                       options="{'no_create': True, 'no_open': True}"
+                       attrs="{'required': [('partner_location', '=', 'inter_country')]}"/>
+            </xpath>
+
+
+        </field>
+    </record>
+
+    <!-- Inherit Account Partner Form View -->
+    <record id="view_partner_property_form_inherit_l10n_in_gst" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.property.gst</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='fiscal_information']"
+                   position="replace"/>
+        </field>
+    </record>
+
+</flectra>

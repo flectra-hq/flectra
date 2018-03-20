@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra>
+    <data noupdate="1">
+
+        <!-- Inherit product demo data and add customer and supplier taxes -->
+
+        <record id="product.consu_delivery_02" model="product.product">
+            <field name="l10n_in_hsn_code">8492</field>
+            <field name="taxes_id" eval="[(6, 0, [ref('l10n_in.sgst_sale_12')])]"/>
+            <field name="supplier_taxes_id" eval="[(6, 0, [ref('l10n_in.sgst_purchase_12')])]"/>
+        </record>
+
+        <record id="product.consu_delivery_03" model="product.product">
+            <field name="l10n_in_hsn_code">84713011</field>
+            <field name="taxes_id" eval="[(6, 0, [ref('l10n_in.sgst_sale_18')])]"/>
+            <field name="supplier_taxes_id" eval="[(6, 0, [ref('l10n_in.sgst_purchase_18')])]"/>
+        </record>
+
+        <record id="product.consu_delivery_01" model="product.product">
+            <field name="l10n_in_hsn_code">847132</field>
+            <field name="taxes_id" eval="[(6, 0, [ref('l10n_in.sgst_sale_5')])]"/>
+            <field name="supplier_taxes_id" eval="[(6, 0, [ref('l10n_in.sgst_purchase_5')])]" />
+        </record>
+
+        <record id="product.product_product_25" model="product.product">
+            <field name="l10n_in_hsn_code">84713011</field>
+            <field name="taxes_id" eval="[(6, 0, [ref('l10n_in.sgst_sale_5')])]"/>
+            <field name="supplier_taxes_id" eval="[(6, 0, [ref('l10n_in.sgst_purchase_5')])]"/>
+        </record>
+
+    </data>
+</flectra>

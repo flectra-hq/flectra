@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <!-- Inherit Company Form View -->
+    <record id="view_company_form_inherit_l10n_in_gst" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.gst</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="gst_type"/>
+                <field name="gst_introduce_date" required="1"/>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="attrs">{'required': [('gst_type', '!=', 'unregistered')], 'invisible': [('gst_type', '=', 'unregistered')]}</attribute>
+            </xpath>
+            <xpath expr="//page" position="inside">
+                <separator string="B2C Limit"/>
+                <field name="company_b2c_limit_line"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- B2C Limit List View -->
+    <record id="view_res_company_b2c_limit_tree" model="ir.ui.view">
+        <field name="name">res.company.b2c.limit.tree</field>
+        <field name="model">res.company.b2c.limit</field>
+        <field name="type">tree</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <tree string="Company B2C Limit" editable="top">
+                <field name="date_from" required="1"/>
+                <field name="date_to" required="1"/>
+                <field name="b2cl_limit"/>
+                <field name="b2cs_limit"/>
+                <field name="company_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- B2C Limit Form View -->
+    <record id="view_res_company_b2c_limit_form" model="ir.ui.view">
+        <field name="name">res.company.b2c.limit.form</field>
+        <field name="model">res.company.b2c.limit</field>
+        <field name="type">form</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <form string="Company B2C Limit">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
+                        <field name="b2cl_limit"/>
+                        <field name="b2cs_limit"/>
+                        <field name="company_id" invisible="1"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+</flectra>

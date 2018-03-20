@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data noupdate="1">
+
+        <!-- Product Unit of Measure Data -->
+
+        <record id="product.product_uom_cm" model="product.uom">
+            <field name="name">CENTIMETER</field>
+            <field name="code">CMS</field>
+        </record>
+
+        <record id="product.product_uom_dozen" model="product.uom">
+            <field name="name">DOZEN</field>
+            <field name="code">DOZ</field>
+        </record>
+
+        <record id="product.product_uom_foot" model="product.uom">
+            <field name="code">FTS</field>
+            <field name="name">FEET</field>
+        </record>
+
+        <record id="product.product_uom_gram" model="product.uom">
+            <field name="code">GMS</field>
+            <field name="name">GRAMS</field>
+        </record>
+
+        <record id="product.product_uom_inch" model="product.uom">
+            <field name="code">INC</field>
+            <field name="name">INCHES</field>
+        </record>
+
+        <record id="product.product_uom_kgm" model="product.uom">
+            <field name="code">KGS</field>
+            <field name="name">Kilograms</field>
+        </record>
+
+        <record id="product_uom_kiloltr" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_vol"/>
+            <field name="name">KILOLITER</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.001"/>
+            <field name="code">KLR</field>
+        </record>
+
+        <record id="product.product_uom_km" model="product.uom">
+            <field name="code">KME</field>
+            <field name="name">KILOMETERS</field>
+        </record>
+
+        <record id="product.product_uom_litre" model="product.uom">
+            <field name="code">LTR</field>
+            <field name="name">LITERS</field>
+        </record>
+
+        <record id="product.product_uom_meter" model="product.uom">
+            <field name="code">MTR</field>
+            <field name="name">METER</field>
+        </record>
+
+        <record id="product.product_uom_qt" model="product.uom">
+            <field name="code">QTL</field>
+            <field name="name">QUINTAL</field>
+        </record>
+
+        <record id="product.product_uom_gal" model="product.uom">
+            <field name="code">UGS</field>
+            <field name="name">US GALLONS</field>
+        </record>
+
+        <record id="product.product_uom_unit" model="product.uom">
+            <field name="code">UNT</field>
+            <field name="name">UNITS</field>
+        </record>
+
+        <record id="product.product_uom_lb" model="product.uom">
+            <field name="code">LBS</field>
+            <field name="name">POUNDS</field>
+        </record>
+
+        <record id="product_uom_bag" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">BAG</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">BAG</field>
+        </record>
+
+        <record id="product_uom_BAGS" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">BAGS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">BGS</field>
+        </record>
+
+        <record id="product_uom_buckles" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">BUCKLES</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">BKL</field>
+        </record>
+
+        <record id="product_uom_bou" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">BOU</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">BOU</field>
+        </record>
+
+        <record id="product_uom_box" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">BOX</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">BOX</field>
+        </record>
+
+        <record id="product_uom_bun" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">BUNCHES</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">BUN</field>
+        </record>
+
+        <record id="product_uom_btl" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">BOTTLES</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">BTL</field>
+        </record>
+
+        <record id="product_uom_cbm" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">CUBIC METER</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">CBM</field>
+        </record>
+
+        <record id="product_uom_cqm" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">CUBIC METERS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">CQM</field>
+        </record>
+
+        <record id="product_uom_ccm" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">CUBIC CENTIMETER</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">CCM</field>
+        </record>
+
+        <record id="product_uom_cin" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">CUBIC INCHES</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">CIN</field>
+        </record>
+
+        <record id="product_uom_ctn" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">CARTON</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">CTN</field>
+        </record>
+
+        <record id="product_uom_drm" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">DRUM</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">DRM</field>
+        </record>
+
+        <record id="product_uom_ggr" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_vol"/>
+            <field name="name">GREAT GROSS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">GGR</field>
+        </record>
+
+        <record id="product_uom_grs" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_vol"/>
+            <field name="name">GROSS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">GRS</field>
+        </record>
+
+        <record id="product_uom_gyd" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">GROSS YARDS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">GYD</field>
+        </record>
+
+        <record id="product_uom_hks" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">HANKS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">HKS</field>
+        </record>
+
+        <record id="product_uom_lot" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_kgm"/>
+            <field name="name">LOTS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">LOT</field>
+        </record>
+
+        <record id="product_uom_mgs" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_kgm"/>
+            <field name="name">MILLI GRAMS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">MGS</field>
+        </record>
+
+        <record id="product_uom_mts" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_kgm"/>
+            <field name="name">METRIC TON</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">MTS</field>
+        </record>
+
+        <record id="product_uom_nos" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">Numbers</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">NOS</field>
+        </record>
+
+        <record id="product_uom_odd" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">ODDS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">ODD</field>
+        </record>
+
+        <record id="product_uom_pac" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">PACKS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">PAC</field>
+        </record>
+
+        <record id="product_uom_pcs" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">Pieces</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">PCS</field>
+        </record>
+
+        <record id="product_uom_prs" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">PAIRS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">PRS</field>
+        </record>
+
+        <record id="product_uom_rol" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">ROLLS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">ROL</field>
+        </record>
+
+        <record id="product_uom_sdm" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_vol"/>
+            <field name="name">DECAMETER SQUARE</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">SDM</field>
+        </record>
+
+        <record id="product_uom_set" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">SETS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">SET</field>
+        </record>
+
+        <record id="product_uom_sht" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">SHEETS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">SHT</field>
+        </record>
+
+        <record id="product_uom_sqi" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">SQUARE INCHES</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">SQI</field>
+        </record>
+
+        <record id="product_uom_sqf" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">SQUARE FEET</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">SQF</field>
+        </record>
+
+        <record id="product_uom_sqm" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">SQUARE METER</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">SQM</field>
+        </record>
+
+        <record id="product_uom_sqy" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">SQUARE YARDS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">SQY</field>
+        </record>
+
+        <record id="product_uom_tbs" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_kgm"/>
+            <field name="name">TABLETS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">TBS</field>
+        </record>
+
+        <record id="product_uom_thd" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_kgm"/>
+            <field name="name">THOUSANDS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">THD</field>
+        </record>
+
+        <record id="product_uom_tol" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_kgm"/>
+            <field name="name">TOLA</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">TOL</field>
+        </record>
+
+        <record id="product_uom_ton" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_kgm"/>
+            <field name="name">GREAT BRITAIN TON</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">TON</field>
+        </record>
+
+        <record id="product_uom_tub" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_kgm"/>
+            <field name="name">TUBES</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">TUB</field>
+        </record>
+
+        <record id="product_uom_vls" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_vol"/>
+            <field name="name">Vials</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">VLS</field>
+        </record>
+
+        <record id="product_uom_yds" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">YARDS</field>
+            <field name="factor" eval="1"/>
+            <field name="rounding" eval="0.01"/>
+            <field name="code">YDS</field>
+        </record>
+
+        <record id="product.product_uom_day" model="product.uom">
+            <field name="code">DAY</field>
+        </record>
+
+        <record id="product.product_uom_floz" model="product.uom">
+            <field name="code">FLOZ</field>
+        </record>
+
+        <record id="product.product_uom_hour" model="product.uom">
+            <field name="code">HOUR</field>
+        </record>
+
+        <record id="product.product_uom_mile" model="product.uom">
+            <field name="code">MILE</field>
+        </record>
+
+        <record id="product.product_uom_oz" model="product.uom">
+            <field name="code">OZ</field>
+        </record>
+
+        <record id="product.product_uom_ton" model="product.uom">
+            <field name="code">TON</field>
+        </record>
+
+    </data>
+</flectra>

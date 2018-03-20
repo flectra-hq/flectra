@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra>
+    <data noupdate="1">
+
+        <!-- Inherit partner demo data and update GST related details -->
+        <record id="base.main_partner" model="res.partner">
+            <field name="gst_type">regular</field>
+            <field name="vat">24ABCDE1234F2Z5</field>
+            <field name="country_id" ref="base.in"/>
+            <field name="state_id" ref="base.state_in_gj"/>
+        </record>
+
+        <!-- Demo SGST/CGST Registered Customer -->
+        <record id="res_partner_gst_registered" model="res.partner">
+            <field name="name">Demo SGST/CGST Registered Customer</field>
+            <field eval="[(6, 0, [ref('base.res_partner_category_15')])]"
+                   name="category_id"/>
+            <field name="is_company">1</field>
+            <field name="city">Ahmedabad</field>
+            <field name="zip">380009</field>
+            <field name="state_id" ref="base.state_in_gj"/>
+            <field name="country_id" ref="base.in"/>
+            <field name="street">22 Globe Street</field>
+            <field name="vat">24ANMPD7592B1Z2</field>
+            <field name="gst_type">regular</field>
+            <field name="email">sgst_cgst@yourcompany.example.com</field>
+            <field name="phone">+91 99111 2223</field>
+            <field name="website">http://www.sgstcgst.com</field>
+        </record>
+
+        <!-- Demo SGST/CGST Unregistered Customer -->
+        <record id="res_partner_gst_unregistered" model="res.partner">
+            <field name="name">Demo SGST/CGST Unregistered Customer</field>
+            <field eval="[(6, 0, [ref('base.res_partner_category_15')])]"
+                   name="category_id"/>
+            <field name="is_company">1</field>
+            <field name="city">Vadodara</field>
+            <field name="zip">391510</field>
+            <field name="state_id" ref="base.state_in_gj"/>
+            <field name="country_id" ref="base.in"/>
+            <field name="street">Ajwa</field>
+            <field name="gst_type">unregistered</field>
+            <field name="email">sgst_cgst_ur@yourcompany.example.com</field>
+            <field name="phone">+91 75123 75123</field>
+            <field name="website">http://www.sgstcgstur.com</field>
+        </record>
+
+        <!-- Demo IGST Registered Customer -->
+        <record id="res_partner_igst_registered" model="res.partner">
+            <field name="name">Demo IGST Registered Customer</field>
+            <field eval="[(6, 0, [ref('base.res_partner_category_14')])]"
+                   name="category_id"/>
+            <field name="is_company">1</field>
+            <field name="city">Delhi</field>
+            <field name="zip">110018</field>
+            <field name="state_id" ref="base.state_in_dl"/>
+            <field name="country_id" ref="base.in"/>
+            <field name="street">15 Ashok Nagar</field>
+            <field name="vat">07GEOPS0823B2ZH</field>
+            <field name="gst_type">regular</field>
+            <field name="email">igst@yourcompany.example.com</field>
+            <field name="phone">+91 99222 5553</field>
+            <field name="website">http://www.igst.com</field>
+            <field name="property_account_position_id"
+                   ref="l10n_in.fiscal_position_in_inter_state"/>
+        </record>
+
+        <!-- Demo IGST Unregistered Customer -->
+        <record id="res_partner_igst_unregistered" model="res.partner">
+            <field name="name">Demo IGST Unregistered Customer</field>
+            <field eval="[(6, 0, [ref('base.res_partner_category_16')])]"
+                   name="category_id"/>
+            <field name="is_company">1</field>
+            <field name="city">Darrang</field>
+            <field name="zip">784527</field>
+            <field name="state_id" ref="base.state_in_as"/>
+            <field name="country_id" ref="base.in"/>
+            <field name="street">16 Natrani Avenue</field>
+            <field name="gst_type">unregistered</field>
+            <field name="email">igstur@yourcompany.example.com</field>
+            <field name="phone">+91 95951 95951</field>
+            <field name="website">http://www.igstur.com</field>
+            <field name="property_account_position_id"
+                   ref="l10n_in.fiscal_position_in_inter_state"/>
+        </record>
+
+         <!-- Demo 2B Registered Supplier -->
+        <record id="res_partner_gst_registered_supplier" model="res.partner">
+            <field name="name">Demo B2B Registered Supplier</field>
+            <field eval="[(6, 0, [ref('base.res_partner_category_15')])]"
+                   name="category_id"/>
+            <field name="is_company">1</field>
+            <field name="supplier">1</field>
+            <field name="city">Ahmedabad</field>
+            <field name="zip">380009</field>
+            <field name="state_id" ref="base.state_in_gj"/>
+            <field name="country_id" ref="base.in"/>
+            <field name="street">22 Globe Street</field>
+            <field name="vat">24ANMPDFGH55678</field>
+            <field name="gst_type">regular</field>
+            <field name="email">b2b_supplier@yourcompany.example.com</field>
+            <field name="phone">+91 99111 5454</field>
+            <field name="website">http://www.b2bsupplier.com</field>
+        </record>
+
+        <!-- Demo B2BUR Unregistered Supplier -->
+        <record id="res_partner_gst_unregistered_supplier" model="res.partner">
+            <field name="name">Demo B2BUR Unregistered Supplier</field>
+            <field eval="[(6, 0, [ref('base.res_partner_category_15')])]"
+                   name="category_id"/>
+            <field name="is_company">1</field>
+            <field name="supplier">1</field>
+            <field name="city">Vadodara</field>
+            <field name="zip">391510</field>
+            <field name="state_id" ref="base.state_in_gj"/>
+            <field name="country_id" ref="base.in"/>
+            <field name="street">gotri</field>
+            <field name="gst_type">unregistered</field>
+            <field name="email">b2b_ur_supplier@yourcompany.example.com</field>
+            <field name="phone">+91 75123 77777</field>
+            <field name="website">http://www.b2bur.com</field>
+        </record>
+
+    </data>
+</flectra>

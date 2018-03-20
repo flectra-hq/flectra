@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra>
+    <data noupdate="0">
+
+        <!-- Company B2C limit lines' demo data -->
+        <record id="demo_company_b2c_limit1" model="res.company.b2c.limit">
+            <field name="company_id" ref="base.main_company"/>
+            <field name="date_from" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-01-01')"/>
+            <field name="date_to" eval="time.strftime('%Y')+'-12-31'"/>
+        </record>
+
+    </data>
+</flectra>
