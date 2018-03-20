@@ -119,10 +119,7 @@ var Apps = Widget.extend({
     },
     _clearSearch: function (ev) {
         this.$el.find('.f_apps_search_input').val('');
-        this.$el.find('.f_apps_contents').html(QWeb.render('FlectraMenuContent', {
-            bookmark_menus: this.bookmarkMenus,
-            dashboard_apps: this.allApps.main_menu
-        }));
+        this.render();
     },
     _appsSearch: function (ev) {
         var search_str = $(ev.currentTarget).val().trim().toLowerCase();
