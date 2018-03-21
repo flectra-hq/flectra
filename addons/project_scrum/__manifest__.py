@@ -4,7 +4,7 @@
     'name': 'Project Scrum',
     'version': '1.0',
     'category': 'Project',
-    'author': 'Flectra',
+    'author': 'FlectraHQ',
     'website': 'https://flectrahq.com',
     'sequence': 40,
     'summary': 'A module for Scrum implementation',

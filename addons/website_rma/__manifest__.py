@@ -3,7 +3,7 @@
 {
     'name': 'Website Return Merchandise Authorizationing',
     'version': '1.0',
-    'author': 'Flectra',
+    'author': 'FlectraHQ',
     'website': 'https://flectrahq.com',
     'description': """
         Return Merchandise Authorizationing is part of the process of a
