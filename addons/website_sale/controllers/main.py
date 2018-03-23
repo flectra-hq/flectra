@@ -239,7 +239,6 @@ class WebsiteSale(http.Controller):
         compute_currency, pricelist_context, pricelist = self._get_compute_currency_and_context()
 
         request.context = dict(request.context, pricelist=pricelist.id, partner=request.env.user.partner_id)
-
         url = "/shop"
         if search:
             post["search"] = search
@@ -252,7 +251,34 @@ class WebsiteSale(http.Controller):
         if attrib_list:
             post['attrib'] = attrib_list
 
-        categs = request.env['product.public.category'].search([('parent_id', '=', False), ('website_ids', 'in', request.website.id)])
+        current_partner_tags = request.context['partner'].category_id
+        partner_child_tags = request.env['res.partner.category'].search(
+            [('parent_id', 'in', current_partner_tags.ids)])
+
+        if not request.env.user.has_group('website.group_website_publisher'):
+            categs = request.env['product.public.category'].search(
+                [('parent_id', '=', False),
+                 ('website_ids', 'in', request.website.id),
+                 '|', ('partner_tag_ids', 'in',
+                       current_partner_tags.ids + partner_child_tags.ids),
+                 ('partner_tag_ids', '=', False)])
+        else:
+            categs = request.env['product.public.category'].search(
+                [('parent_id', '=', False),
+                 ('website_ids', 'in', request.website.id)])
+
+        categs_with_childs = request.env['product.public.category'].search(
+            [('website_ids', 'in', request.website.id),
+             '|', ('partner_tag_ids', 'in',
+                   current_partner_tags.ids + partner_child_tags.ids),
+             ('partner_tag_ids', '=', False)])
+
+        parent_categ_with_childs = request.env['product.public.category'].\
+            search([('parent_id', 'in', categs_with_childs.ids),
+                    '|', ('partner_tag_ids', 'in',
+                          current_partner_tags.ids + partner_child_tags.ids),
+                    ('partner_tag_ids', '=', False)])
+
         Product = request.env['product.template']
 
         parent_category_ids = []
@@ -263,10 +289,16 @@ class WebsiteSale(http.Controller):
                 parent_category_ids.append(current_category.parent_id.id)
                 current_category = current_category.parent_id
 
+        if not request.env.user.has_group('website.group_website_publisher') \
+                and (categs_with_childs or parent_categ_with_childs):
+            domain += ['|', '&',
+                       ('public_categ_ids', 'in', categs_with_childs.ids),
+                       ('public_categ_ids', 'in', parent_categ_with_childs.ids),
+                       ('public_categ_ids', '=', False)]
+
         product_count = Product.search_count(domain)
         pager = request.website.pager(url=url, total=product_count, page=page, step=ppg, scope=7, url_args=post)
         products = Product.search(domain, limit=ppg, offset=pager['offset'], order=self._get_search_order(post))
-
         ProductAttribute = request.env['product.attribute']
         ProductBrand = request.env['product.brand']
         ProductTag = request.env['product.tags']
@@ -302,6 +334,8 @@ class WebsiteSale(http.Controller):
             'bins': TableCompute().process(products, ppg),
             'rows': PPR,
             'categories': categs,
+            'categories_with_child': categs_with_childs.ids +
+            parent_categ_with_childs.ids,
             'attributes': attributes,
             'compute_currency': compute_currency,
             'keep': keep,

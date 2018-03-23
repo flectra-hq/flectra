@@ -131,6 +131,17 @@ class ProductPublicCategory(models.Model):
                                    string='Websites', copy=False,
                                    help='List of websites in which '
                                         'category will published.')
+    partner_tag_ids = fields.Many2many('res.partner.category',
+                                       'partner_public_categ_tags_rel',
+                                       'tag_id', 'category_id',
+                                       string='Partner Tags',
+                                       help='If logged in customers/partners '
+                                            'have this tag then this product '
+                                            'category will appear to them in '
+                                            'E-commerce website.\n\n'
+                                            'If empty then it becomes general '
+                                            'category which display to any '
+                                            'customers/partners.')
 
     @api.model
     def create(self, vals):

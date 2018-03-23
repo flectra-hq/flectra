@@ -362,7 +362,13 @@
     <!-- Add to cart button-->
     <template id="categories_recursive" name="Category list">
         <li t-att-class="'active' if c.id == int(category or 0) else None" t-if="website in c.website_ids or not c.website_ids">
-            <a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
+            <t t-set="is_publisher" t-value="request.env['res.users'].has_group('website.group_website_publisher')" />
+            <t t-if="not is_publisher">
+                <a t-if="c.id in categories_with_child" t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
+            </t>
+            <t t-else="">
+                <a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
+            </t>
             <ul t-if="c.child_id" class="nav nav-pills nav-stacked nav-hierarchy">
                 <t t-foreach="c.child_id" t-as="c">
                     <t t-call="website_sale.categories_recursive" />
