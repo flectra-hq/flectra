@@ -116,7 +116,7 @@ Var HWNDPostgreSQLPassword
 
 !define STATIC_PATH "static"
 !define PIXMAPS_PATH "${STATIC_PATH}\pixmaps"
-!define POSTGRESQL_EXE_FILENAME "postgresql-9.5.8-1-windows.exe"
+!define POSTGRESQL_EXE_FILENAME "postgresql-9.5.4-2-windows.exe"
 !define POSTGRESQL_EXE "${STATIC_PATH}\${POSTGRESQL_EXE_FILENAME}"
 
 !define MUI_ABORTWARNING
@@ -237,7 +237,7 @@ Section $(TITLE_FLECTRA_Server) SectionFLECTRA_Server
     WriteIniStr "$INSTDIR\server\flectra.conf" "options" "db_password" $TextPostgreSQLPassword
     WriteIniStr "$INSTDIR\server\flectra.conf" "options" "db_port" $TextPostgreSQLPort
     # Fix the addons path
-    WriteIniStr "$INSTDIR\server\flectra.conf" "options" "addons_path" "$INSTDIR\server\flectra\addons"
+    WriteIniStr "$INSTDIR\server\flectra.conf" "options" "addons_path" "$INSTDIR\server\flectra\addons,$INSTDIR\server\addons"
     WriteIniStr "$INSTDIR\server\flectra.conf" "options" "bin_path" "$INSTDIR\thirdparty"
 
     # if we're going to install postgresql force it's path,
