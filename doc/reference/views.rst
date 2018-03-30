@@ -1,4 +1,4 @@
-:banner: banners/views.jpg
+:banner: banners/flectra_views.jpg
 
 .. highlight:: xml
 .. _reference/views:

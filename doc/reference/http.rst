@@ -1,4 +1,4 @@
-:banner: banners/web_controllers.jpg
+:banner: banners/flectra_web_controllers.jpg
 
 ===============
 Web Controllers

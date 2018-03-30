@@ -1,4 +1,4 @@
-:banner: banners/build_interface_ext.jpg
+:banner: banners/flectra_building_interface_extensions.jpg
 
 =============================
 Building Interface Extensions

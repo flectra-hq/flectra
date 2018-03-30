@@ -1,4 +1,4 @@
-:banner: banners/actions.jpg
+:banner: banners/flectra_actions.jpg
 
 .. _reference/actions:
 

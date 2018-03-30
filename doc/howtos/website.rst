@@ -1,4 +1,4 @@
-:banner: banners/build_a_website.jpg
+:banner: banners/flectra_building_website.jpg
 
 .. queue:: website/series
 

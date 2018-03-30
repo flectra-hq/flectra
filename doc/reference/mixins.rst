@@ -1,4 +1,4 @@
-:banner: banners/mixins.jpg
+:banner: banners/flectra_mixins_and_useful_classes.jpg
 
 .. _reference/mixins:
 

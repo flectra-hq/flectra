@@ -1,4 +1,4 @@
-:banner: banners/testing_modules.jpg
+:banner: banners/flectra_testing_modules.jpg
 
 .. _reference/testing:
 

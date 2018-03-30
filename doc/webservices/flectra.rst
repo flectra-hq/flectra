@@ -1,4 +1,4 @@
-:banner: banners/web_service_api.jpg
+:banner: banners/flectra_external_api.jpg
 :types: api
 
 

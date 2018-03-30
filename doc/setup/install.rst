@@ -1,4 +1,4 @@
-:banner: banners/installing_flectra.jpg
+:banner: banners/flectra_installing.jpg
 
 .. _setup/install:
 
@@ -23,30 +23,6 @@ This documents attempts to describe most of the installation options.
 :ref:`setup/install/docker`
     If you usually use docker_ for development or deployment, an official
     docker_ base image is available.
-
-.. _setup/install/demo:
-
-Demo
-======
-
-To simply get a quick idea of Flectra, demo_ instances are available. They are
-shared instances which only live for a few hours, and can be used to browse
-around and try things out with no commitment.
-
-Demo_ instances require no local installation, just a web browser.
-
-SaaS
-----
-
-Trivial to start with, fully managed and migrated by Flectra S.A., Flectra's SaaS_
-provides private instances and starts out free. It can be used to discover and
-test Flectra and do non-code customizations (i.e. incompatible with custom modules
-or the Flectra Apps Store) without having to install it locally.
-
-Can be used for both testing Flectra and long-term production use.
-
-Like demo_ instances, SaaS_ instances require no local installation, a web
-browser is sufficient.
 
 .. _setup/install/packaged:
 
@@ -82,7 +58,7 @@ Linux
 Debian/Ubuntu
 '''''''''''''
 
-Flectra 1.0 'deb' package currently supports `Debian Stretch`_, `Ubuntu Xenial`_,
+Flectrahq 'deb' package currently supports `Debian Stretch`_, `Ubuntu Xenial`_,
 `Ubuntu Zesty`_ and `Ubuntu Artful`_.
 
 Prepare
@@ -106,14 +82,14 @@ in the archive section.
 Repository
 ^^^^^^^^^^
 
-Flectra S.A. provides a repository that can be used with  Debian and Ubuntu
+Flectra provides a repository that can be used with  Debian and Ubuntu
 distributions. It can be used to install Flectra by executing the following
 commands as root:
 
 .. code-block:: console
 
-    # wget -O - https://nightly.flectra.com/flectra.key | apt-key add -
-    # echo "deb http://nightly.flectra.com/11.0/nightly/deb/ ./" >> /etc/apt/sources.list.d/flectra.list
+    # wget -O - https://flectrahq.com/flectra.key | apt-key add -
+    # echo "deb https://download.flectrahq.com/1.0/pub/deb/ ./" >> /etc/apt/sources.list.d/flectra.list
     # apt-get update && apt-get install flectra
 
 You can then use the usual ``apt-get upgrade`` command to keep your installation up-to-date.
@@ -173,7 +149,7 @@ If you need this feature, you can install the python module like this:
 Fedora
 ''''''
 
-Flectra 1.0 'rpm' package supports Fedora 26.
+FlectraHQ 'rpm' package supports Fedora 26.
 As of 2017, CentOS does not have the minimum Python requirements (3.5) for
 Flectra 1.0.
 
@@ -198,7 +174,7 @@ in the archive section.
 Repository
 ^^^^^^^^^^
 
-Flectra S.A. provides a repository that can be used with the Fedora distibutions.
+Flectra provides a repository that can be used with the Fedora distibutions.
 It can be used to install Flectra Community Edition by executing the following
 commands:
 
@@ -523,7 +499,6 @@ Docker
 The full documentation on how to use Flectra with Docker can be found on the
 offcial Flectra `docker image <https://hub.docker.com/r/flectrahq/flectra/>`_ page.
 
-.. _demo: https://demo.flectra.com
 .. _docker: https://www.docker.com
 .. _Debian Stretch: https://www.debian.org/releases/stretch/
 .. _Ubuntu Xenial: http://releases.ubuntu.com/16.04/
