@@ -1,4 +1,4 @@
-:banner: banners/flectra_guideline.jpg
+:banner: banners/flectra_guidelines.jpg
 
 .. highlight:: python
 

@@ -1,4 +1,4 @@
-:banner: banners/translate.jpg
+:banner: banners/flectra_translating_modules.jpg
 
 .. _reference/translations:
 

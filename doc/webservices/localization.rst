@@ -1,4 +1,4 @@
-:banner: banners/localization.jpg
+:banner: banners/flectra_creating_localization.jpg
 
 =======================
 Creating a Localization

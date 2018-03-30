@@ -1,4 +1,4 @@
-:banner: banners/deploying_flectra.jpg
+:banner: banners/flectra_deploying.jpg
 
 =================
 Deploying Flectra
@@ -278,7 +278,7 @@ in ``/etc/nginx/sites-enabled/flectra.conf`` set:
 
   #flectra server
   upstream flectra {
-   server 127.0.0.1:8069;
+   server 127.0.0.1:7073;
   }
   upstream flectrachat {
    server 127.0.0.1:8072;
@@ -287,13 +287,13 @@ in ``/etc/nginx/sites-enabled/flectra.conf`` set:
   # http -> https
   server {
      listen 80;
-     server_name flectra.mycompany.com;
+     server_name flectrahq.mycompany.com;
      rewrite ^(.*) https://$host$1 permanent;
   }
   
   server {
    listen 443;
-   server_name flectra.mycompany.com;
+   server_name flectrahq.mycompany.com;
    proxy_read_timeout 720s;
    proxy_connect_timeout 720s;
    proxy_send_timeout 720s;
@@ -320,10 +320,10 @@ in ``/etc/nginx/sites-enabled/flectra.conf`` set:
    # Redirect requests to flectra backend server
    location / {
      proxy_redirect off;
-     proxy_pass http://flectra;
+     proxy_pass http://flectrahq;
    }
    location /longpolling {
-       proxy_pass http://flectrachat;
+       proxy_pass http://flectrahqchat;
    }
  
    # common gzip
@@ -441,7 +441,7 @@ security-related topics:
 
 - Keep installations updated by regularly installing the latest builds,
   either via GitHub or by downloading the latest version from
-  https://www.flectra.com/page/download or http://nightly.flectra.com
+  https://flectrahq.com/download
 
 - Configure your server in multi-process mode with proper limits matching your typical
   usage (memory/CPU/timeouts). See also :ref:`builtin_server`.

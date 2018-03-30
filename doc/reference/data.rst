@@ -1,4 +1,4 @@
-:banner: banners/data_files.jpg
+:banner: banners/flectra_data_files.jpg
 
 .. _reference/data:
 

@@ -1,4 +1,4 @@
-:banner: banners/javascript.jpg
+:banner: banners/flectra_javascript.jpg
 
 .. highlight:: javascript
 

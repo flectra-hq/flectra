@@ -1,4 +1,4 @@
-:banner: banners/build_a_theme.jpg
+:banner: banners/flectra_theme_tutorial.jpg
 
 =====================
 Theme Tutorial

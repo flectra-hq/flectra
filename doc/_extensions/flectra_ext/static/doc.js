@@ -129,8 +129,9 @@
                 var half_cols_selector = '.tutorials,.api';
 
                 $main.find("#index .index-tree").find(half_cols_selector)
-                    .wrap('<div class="o_half_col col-sm-6"/>')
-                    .find('.col-md-3').removeClass('col-md-3 col-sm-6').addClass('col-sm-12 col-md-6');
+                    .wrap('<div class="o_half_col col-sm-12"/>')
+                    .find('.col-md-3').removeClass('col-md-3 col-sm-6')
+                    .addClass('col-sm-12 col-md-3');
 
                 var half_cols_els = $main.find(".o_half_col");
                 for(var i = 0; i < half_cols_els.length; i+=2) {

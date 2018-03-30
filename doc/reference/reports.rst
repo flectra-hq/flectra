@@ -1,4 +1,4 @@
-:banner: banners/reports.jpg
+:banner: banners/flectra_qweb_reports.jpg
 
 .. highlight:: xml
 
@@ -290,16 +290,18 @@ the function ``render_html`` and pass objects in the ``docargs`` dictionary:
 
     class ParticularReport(models.AbstractModel):
         _name = 'report.module.report_name'
+
         @api.model
-        def render_html(self, docids, data=None):
-            report_obj = self.env['report']
-            report = report_obj._get_report_from_name('module.report_name')
-            docargs = {
-                'doc_ids': docids,
-                'doc_model': report.model,
-                'docs': self,
+        def get_report_values(self, docids, data=None):
+            self.model = self.env.context.get('active_model')
+            docs = self.env[self.model].browse(self.env.context.get('active_ids', []))
+
+            return {
+            'doc_ids': self.ids,
+            'doc_model': self.model,
+            'data': data['form'],
+            'docs': docs
             }
-            return report_obj.render('module.report_name', docargs)
 
 Reports are web pages
 =====================

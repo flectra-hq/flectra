@@ -1,4 +1,4 @@
-:banner: banners/cmdline.jpg
+:banner: banners/flectra_command_line_interface.jpg
 
 .. _reference/cmdline:
 

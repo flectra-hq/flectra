@@ -1,4 +1,4 @@
-:banner: banners/security.jpg
+:banner: banners/flectra_security.jpg
 
 .. _reference/security:
 
