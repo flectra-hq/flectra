@@ -4,6 +4,7 @@
 from flectra import http, _
 from flectra.http import request
 from flectra.addons.website_sale.controllers.main import WebsiteSale
+from flectra.tools import float_repr
 
 
 class WebsiteSaleDelivery(WebsiteSale):
@@ -60,11 +61,14 @@ class WebsiteSaleDelivery(WebsiteSale):
     def update_eshop_carrier(self, **post):
         order = request.website.sale_get_order()
         carrier_id = int(post['carrier_id'])
+        currency = order.currency_id
         if order:
             order._check_carrier_quotation(force_carrier_id=carrier_id)
             return {'status': order.delivery_rating_success,
                     'error_message': order.delivery_message,
                     'carrier_id': carrier_id,
-                    'new_amount_delivery': order.delivery_price,
+                    'new_amount_delivery': float_repr(currency.round(order.delivery_price), currency.decimal_places),
                     'new_amount_untaxed': order.amount_untaxed,
-                    'new_amount_tax': order.amount_tax}
+                    'new_amount_tax': order.amount_tax,
+                    'new_amount_total': order.amount_total,
+            }

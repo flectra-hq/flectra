@@ -253,4 +253,4 @@ QUnit.module('core', {}, function () {
 
 });
 
-});                                
+});

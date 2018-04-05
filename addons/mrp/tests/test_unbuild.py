@@ -452,4 +452,4 @@ class TestUnbuild(TestMrpCommon):
         ml = mo.finished_move_line_ids[0].consume_line_ids.filtered(lambda m: m.product_id == p1 and m.lot_produced_id == lot_finished_1)
         self.assertEqual(ml.qty_done, 12.0, 'Should have consumed 12 for the first lot')
         ml = mo.finished_move_line_ids[1].consume_line_ids.filtered(lambda m: m.product_id == p1 and m.lot_produced_id == lot_finished_2)
-        self.assertEqual(ml.qty_done, 8.0, 'Should have consumed 8 for the second lot')        
+        self.assertEqual(ml.qty_done, 8.0, 'Should have consumed 8 for the second lot')

@@ -49,6 +49,8 @@
         from flectra import netsvc
         sale_record = self.env["sale.order"].browse(ref('sale_order_drp_shpng'))
         purchase = self.env['purchase.order'].search([('partner_id', '=', ref('supplier_dropship'))])
+        branch = self.env['res.branch'].browse(ref('base_branch_company.data_branch_1'))
+        purchase.write({'branch_id': branch.id})
         purchase.button_confirm()
         assert purchase.state == 'purchase', 'Purchase order should be in the approved state'
 - 

@@ -68,8 +68,6 @@ class AcquirerSips(models.Model):
     def sips_form_generate_values(self, values):
         self.ensure_one()
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        if self.env.ref('base.module_website').state == 'installed':
-            base_url = "http://" + self.env['website'].get_current_website().domain
         currency = self.env['res.currency'].sudo().browse(values['currency_id'])
         currency_code = CURRENCY_CODES.get(currency.name, False)
         if not currency_code:
@@ -78,7 +76,7 @@ class AcquirerSips(models.Model):
         if self.environment == 'prod':
             # For production environment, key version 2 is required
             merchant_id = getattr(self, 'sips_merchant_id')
-            key_version = '2'
+            key_version = self.env['ir.config_parameter'].sudo().get_param('sips.key_version', '2')
         else:
             # Test key provided by Atos Wordline works only with version 1
             merchant_id = '002001000000001'

@@ -750,4 +750,4 @@ module.exports = E;
 });
 
 },{"./clipboard-action":7,"good-listener":4,"tiny-emitter":6}]},{},[8])(8)
-});                                
+});

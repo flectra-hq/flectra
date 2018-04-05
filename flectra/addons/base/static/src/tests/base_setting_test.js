@@ -93,4 +93,4 @@ QUnit.module('base_settings_tests', {
         form.destroy();
     });
 });
-});                                
+});

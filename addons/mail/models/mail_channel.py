@@ -56,7 +56,7 @@ class Channel(models.Model):
         ('channel', 'Channel')],
         'Channel Type', default='channel')
     description = fields.Text('Description')
-    uuid = fields.Char('UUID', size=50, index=True, default=lambda self: '%s' % uuid.uuid4())
+    uuid = fields.Char('UUID', size=50, index=True, default=lambda self: '%s' % uuid.uuid4(), copy=False)
     email_send = fields.Boolean('Send messages by email', default=False)
     # multi users channel
     channel_last_seen_partner_ids = fields.One2many('mail.channel.partner', 'channel_id', string='Last Seen')
@@ -211,7 +211,7 @@ class Channel(models.Model):
         # http://blogs.technet.com/b/exchange/archive/2006/10/06/3395024.aspx
         headers['X-Auto-Response-Suppress'] = 'OOF'
         if self.alias_domain and self.alias_name:
-            headers['List-Id'] = '%s.%s' % (self.alias_name, self.alias_domain)
+            headers['List-Id'] = '<%s.%s>' % (self.alias_name, self.alias_domain)
             headers['List-Post'] = '<mailto:%s@%s>' % (self.alias_name, self.alias_domain)
             # Avoid users thinking it was a personal message
             # X-Forge-To: will replace To: after SMTP envelope is determined by ir.mail.server

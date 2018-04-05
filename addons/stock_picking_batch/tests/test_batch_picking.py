@@ -222,4 +222,4 @@ class TestBatchPicking(TransactionCase):
 
         # ensure that quantity for picking has been moved
         self.assertFalse(quant_A)
-        self.assertFalse(quant_B)        
+        self.assertFalse(quant_B)

@@ -133,4 +133,4 @@ class TestProcurement(TestMrpCommon):
                 'product_qty': 1,
                 'bom_id': self.bom_1.id,
                 'product_uom_id': self.product_4.uom_id.id,
-            })        
+            })

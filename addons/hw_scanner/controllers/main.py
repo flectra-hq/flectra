@@ -124,7 +124,7 @@ class Scanner(Thread):
             if not evdev:
                 return []
 
-            if not os.path.isdir(self.input_dir):
+            if not isdir(self.input_dir):
                 return []
 
             new_devices = [device for device in listdir(self.input_dir)

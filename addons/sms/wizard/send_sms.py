@@ -15,8 +15,10 @@ try:
 
 except ImportError:
     _sms_phonenumbers_lib_imported = False
-    _logger.warning(
-        "The `phonenumbers` Python module is not installed. Try: pip install phonenumbers."
+    _logger.info(
+        "The `phonenumbers` Python module is not available. "
+        "Phone number validation will be skipped. "
+        "Try `pip3 install phonenumbers` to install it."
     )
 
 
@@ -33,7 +35,7 @@ class SendSMS(models.TransientModel):
 
     def _sms_sanitization(self, partner, field_name):
         number = partner[field_name]
-        if _sms_phonenumbers_lib_imported:
+        if number and _sms_phonenumbers_lib_imported:
             country = self._phone_get_country(partner)
             country_code = country.code if country else None
             try:
@@ -69,8 +71,7 @@ class SendSMS(models.TransientModel):
             phone_numbers = []
             no_phone_partners = []
             for partner in partners:
-                default_field_name = 'mobile' if partner.mobile else 'phone'
-                number = self._sms_sanitization(partner, self.env.context('field_name') or default_field_name)
+                number = self._sms_sanitization(partner, self.env.context.get('field_name') or 'mobile')
                 if number:
                     phone_numbers.append(number)
                 else:

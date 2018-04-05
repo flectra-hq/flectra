@@ -3,7 +3,6 @@
 
 {
     'name': 'Blogs',
-    'author': 'Odoo S.A.',
     'category': 'Website',
     'sequence': 140,
     'website': 'https://flectrahq.com/page/blog-engine',

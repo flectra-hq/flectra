@@ -92,4 +92,4 @@ QUnit.module('Form View', {
     });
 });
 
-});                                
+});

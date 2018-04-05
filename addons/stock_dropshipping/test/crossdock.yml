@@ -14,8 +14,11 @@
 -
     Use the warehouse created in cancellation_propagated.yml.
 -
-    !python {model: stock.warehouse, id: wh_pps}: |
-        assert self.crossdock_route_id.active, 'Crossdock route is not active'
+  !python {model: stock.warehouse, id: wh_pps}:  |
+    warehouse = self.env['stock.warehouse'].browse(ref('wh_pps'))
+    branch_id = self.env['res.branch'].browse(ref('base_branch_company.data_branch_1'))
+    warehouse.write({'branch_id': branch_id.id})
+    assert self.crossdock_route_id.active, 'Crossdock route is not active'
 -
     Create new product without any routes.
 -

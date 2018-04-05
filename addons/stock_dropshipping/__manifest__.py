@@ -21,7 +21,7 @@ going through the retailer's warehouse. In this case no
 internal transfer document is needed.
 
 """,
-    'website': 'https://flectrahq.com/page/warehouse',
+    'website': 'https://flectrahq.com/inventory',
     'depends': ['purchase', 'sale_stock'],
     'data': ['data/stock_data.xml'],
     'test': [

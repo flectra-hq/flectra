@@ -158,6 +158,7 @@ class StockMove(models.Model):
     is_initial_demand_editable = fields.Boolean('Is initial demand editable', compute='_compute_is_initial_demand_editable')
     is_quantity_done_editable = fields.Boolean('Is quantity done editable', compute='_compute_is_quantity_done_editable')
     reference = fields.Char(compute='_compute_reference', string="Reference", store=True)
+    has_move_lines = fields.Boolean(compute='_compute_has_move_lines')
     branch_id = fields.Many2one(
         related='location_id.branch_id', store=True,
         string='Source Location Branch',
@@ -246,6 +247,8 @@ class StockMove(models.Model):
                 move.is_quantity_done_editable = False
             elif move.show_details_visible:
                 move.is_quantity_done_editable = False
+            elif move.show_operations:
+                move.is_quantity_done_editable = False
             else:
                 move.is_quantity_done_editable = True
 
@@ -253,6 +256,11 @@ class StockMove(models.Model):
     def _compute_reference(self):
         for move in self:
             move.reference = move.picking_id.name if move.picking_id else move.name
+
+    @api.depends('move_line_ids')
+    def _compute_has_move_lines(self):
+        for move in self:
+            move.has_move_lines = bool(move.move_line_ids)
 
     @api.one
     @api.depends('product_id', 'product_uom', 'product_uom_qty')
@@ -556,7 +564,7 @@ class StockMove(models.Model):
             move.product_uom.id, move.restrict_partner_id.id, move.scrapped, move.origin_returned_move_id.id
         ]
 
-    def _merge_moves(self):
+    def _merge_moves(self, merge_into=False):
         """ This method will, for each move in `self`, go up in their linked picking and try to
         find in their existing moves a candidate into which we can merge the move.
         :return: Recordset of moves passed to this method. If some of the passed moves were merged
@@ -564,12 +572,19 @@ class StockMove(models.Model):
         """
         distinct_fields = self._prepare_merge_moves_distinct_fields()
 
+        candidate_moves_list = []
+        if not merge_into:
+            for picking in self.mapped('picking_id'):
+                candidate_moves_list.append(picking.move_lines)
+        else:
+            candidate_moves_list.append(merge_into | self)
+
         # Move removed after merge
         moves_to_unlink = self.env['stock.move']
         moves_to_merge = []
-        for picking in self.mapped('picking_id'):
+        for candidate_moves in candidate_moves_list:
             # First step find move to merge.
-            for k, g in groupby(sorted(picking.move_lines, key=self._prepare_merge_move_sort_method), key=itemgetter(*distinct_fields)):
+            for k, g in groupby(sorted(candidate_moves, key=self._prepare_merge_move_sort_method), key=itemgetter(*distinct_fields)):
                 moves = self.env['stock.move'].concat(*g).filtered(lambda m: m.state not in ('done', 'cancel', 'draft'))
                 # If we have multiple records we will merge then in a single one.
                 if len(moves) > 1:
@@ -718,7 +733,7 @@ class StockMove(models.Model):
             'location_dest_id': self.location_dest_id.id,
         }
 
-    def _action_confirm(self, merge=True):
+    def _action_confirm(self, merge=True, merge_into=False):
         """ Confirms stock move or put it in waiting if it's linked to another move.
         :param: merge: According to this boolean, a newly confirmed move will be merged
         in another move of the same picking sharing its characteristics.
@@ -758,7 +773,7 @@ class StockMove(models.Model):
             moves._assign_picking()
         self._push_apply()
         if merge:
-            return self._merge_moves()
+            return self._merge_moves(merge_into=merge_into)
         return self
 
     def _prepare_procurement_values(self):
@@ -845,7 +860,8 @@ class StockMove(models.Model):
 
         # Find a candidate move line to update or create a new one.
         for reserved_quant, quantity in quants:
-            to_update = self.move_line_ids.filtered(lambda m: m.location_id.id == reserved_quant.location_id.id and m.lot_id.id == reserved_quant.lot_id.id and m.package_id.id == reserved_quant.package_id.id and m.owner_id.id == reserved_quant.owner_id.id)
+            to_update = self.move_line_ids.filtered(lambda m: m.product_id.tracking != 'serial' and
+                                                    m.location_id.id == reserved_quant.location_id.id and m.lot_id.id == reserved_quant.lot_id.id and m.package_id.id == reserved_quant.package_id.id and m.owner_id.id == reserved_quant.owner_id.id)
             if to_update:
                 to_update[0].with_context(bypass_reservation_update=True).product_uom_qty += self.product_id.uom_id._compute_quantity(quantity, self.product_uom, rounding_method='HALF-UP')
             else:
@@ -980,7 +996,8 @@ class StockMove(models.Model):
     def _prepare_extra_move_vals(self, qty):
         vals = {
             'product_uom_qty': qty,
-            'picking_id': self.picking_id.id
+            'picking_id': self.picking_id.id,
+            'price_unit': self.price_unit,
         }
         return vals
 
@@ -992,7 +1009,7 @@ class StockMove(models.Model):
         The rationale for the creation of an extra move is the application of a potential push
         rule that will handle the extra quantities.
         """
-        extra_move = self.env['stock.move']
+        extra_move = self
         rounding = self.product_uom.rounding
         # moves created after the picking is assigned do not have `product_uom_qty`, but we shouldn't create extra moves for them
         if float_compare(self.quantity_done, self.product_uom_qty, precision_rounding=rounding) > 0:
@@ -1002,7 +1019,11 @@ class StockMove(models.Model):
                 precision_rounding=self.product_uom.rounding,
                 rounding_method ='UP')
             extra_move_vals = self._prepare_extra_move_vals(extra_move_quantity)
-            extra_move = self.copy(default=extra_move_vals)._action_confirm()
+            extra_move = self.copy(default=extra_move_vals)
+            if extra_move.picking_id:
+                extra_move = extra_move._action_confirm(merge_into=self)
+            else:
+                extra_move = extra_move._action_confirm()
 
             # link it to some move lines. We don't need to do it for move since they should be merged.
             if self.exists() and not self.picking_id:
@@ -1029,22 +1050,23 @@ class StockMove(models.Model):
 
         moves = self.filtered(lambda x: x.state not in ('done', 'cancel'))
         moves_todo = self.env['stock.move']
-        # Create extra moves where necessary
+
+        # Cancel moves where necessary ; we should do it before creating the extra moves because
+        # this operation could trigger a merge of moves.
         for move in moves:
-            # Here, the `quantity_done` was already rounded to the product UOM by the `do_produce` wizard. However,
-            # it is possible that the user changed the value before posting the inventory by a value that should be
-            # rounded according to the move's UOM. In this specific case, we chose to round up the value, because it
-            # is what is expected by the user (if i consumed/produced a little more, the whole UOM unit should be
-            # consumed/produced and the moves are split correctly).
-            # FIXME: move rounding to move line
-            # rounding = move.product_uom.rounding
-            # move.quantity_done = float_round(move.quantity_done, precision_rounding=rounding, rounding_method ='UP')
             if move.quantity_done <= 0:
                 if float_compare(move.product_uom_qty, 0.0, precision_rounding=move.product_uom.rounding) == 0:
                     move._action_cancel()
+
+        # Create extra moves where necessary
+        for move in moves:
+            if move.state == 'cancel' or move.quantity_done <= 0:
                 continue
-            moves_todo |= move
+            # extra move will not be merged in mrp
+            if not move.picking_id:
+                moves_todo |= move
             moves_todo |= move._create_extra_move()
+
         # Split moves where necessary and move quants
         for move in moves_todo:
             rounding = move.product_uom.rounding
@@ -1072,7 +1094,7 @@ class StockMove(models.Model):
                 .filtered(lambda p: p.quant_ids and len(p.quant_ids) > 1):
             if len(result_package.quant_ids.mapped('location_id')) > 1:
                 raise UserError(_('You should not put the contents of a package in different locations.'))
-        picking = self and self[0].picking_id or False
+        picking = moves_todo and moves_todo[0].picking_id or False
         moves_todo.write({'state': 'done', 'date': fields.Datetime.now()})
         moves_todo.mapped('move_dest_ids')._action_assign()
 
@@ -1081,18 +1103,8 @@ class StockMove(models.Model):
             return moves_todo
 
         if picking:
-            moves_to_backorder = picking.move_lines.filtered(lambda x: x.state not in ('done', 'cancel'))
-            if moves_to_backorder:
-                backorder_picking = picking.copy({
-                        'name': '/',
-                        'move_lines': [],
-                        'move_line_ids': [],
-                        'backorder_id': picking.id
-                    })
-                picking.message_post(_('The backorder <a href=# data-oe-model=stock.picking data-oe-id=%d>%s</a> has been created.') % (backorder_picking.id, backorder_picking.name))
-                moves_to_backorder.write({'picking_id': backorder_picking.id})
-                moves_to_backorder.mapped('move_line_ids').write({'picking_id': backorder_picking.id})
-            moves_to_backorder._action_assign()
+            picking._create_backorder()
+
         return moves_todo
 
     def unlink(self):
@@ -1109,6 +1121,7 @@ class StockMove(models.Model):
             'move_dest_ids': [(4, x.id) for x in self.move_dest_ids if x.state not in ('done', 'cancel')],
             'move_orig_ids': [(4, x.id) for x in self.move_orig_ids],
             'origin_returned_move_id': self.origin_returned_move_id.id,
+            'price_unit': self.price_unit,
         }
         return vals
 

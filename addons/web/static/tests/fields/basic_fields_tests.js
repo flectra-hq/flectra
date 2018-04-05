@@ -386,7 +386,6 @@ QUnit.module('basic_fields', {
                     '<field name="bar" widget="toggle_button" ' +
                         'options="{&quot;active&quot;: &quot;Reported in last payslips&quot;, &quot;inactive&quot;: &quot;To Report in Payslip&quot;}"/>' +
                 '</tree>',
-            res_id: 2,
         });
 
         assert.strictEqual(list.$('button i.fa.fa-circle.o_toggle_button_success').length, 4,
@@ -410,6 +409,81 @@ QUnit.module('basic_fields', {
         list.destroy();
     });
 
+    QUnit.test('toggle_button in form view (edit mode)', function (assert) {
+        assert.expect(6);
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<field name="bar" widget="toggle_button" ' +
+                        'options="{\'active\': \'Active value\', \'inactive\': \'Inactive value\'}"/>' +
+                '</form>',
+            mockRPC: function (route, args) {
+                if (args.method === 'write') {
+                    assert.step('write');
+                }
+                return this._super.apply(this, arguments);
+            },
+            res_id: 2,
+            viewOptions: {
+                mode: 'edit',
+            },
+        });
+
+        assert.strictEqual(form.$('.o_field_widget[name=bar] i.o_toggle_button_success:not(.text-muted)').length,
+            1, "should be green");
+
+        // click on the button to toggle the value
+        form.$('.o_field_widget[name=bar]').click();
+
+        assert.strictEqual(form.$('.o_field_widget[name=bar] i.text-muted:not(.o_toggle_button_success)').length,
+            1, "should be gray");
+        assert.verifySteps([]);
+
+        // save
+        form.$buttons.find('.o_form_button_save').click();
+
+        assert.strictEqual(form.$('.o_field_widget[name=bar] i.text-muted:not(.o_toggle_button_success)').length,
+            1, "should still be gray");
+        assert.verifySteps(['write']);
+
+        form.destroy();
+    });
+
+    QUnit.test('toggle_button in form view (readonly mode)', function (assert) {
+        assert.expect(4);
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<field name="bar" widget="toggle_button" ' +
+                        'options="{\'active\': \'Active value\', \'inactive\': \'Inactive value\'}"/>' +
+                '</form>',
+            mockRPC: function (route, args) {
+                if (args.method === 'write') {
+                    assert.step('write');
+                }
+                return this._super.apply(this, arguments);
+            },
+            res_id: 2,
+        });
+
+        assert.strictEqual(form.$('.o_field_widget[name=bar] i.o_toggle_button_success:not(.text-muted)').length,
+            1, "should be green");
+
+        // click on the button to toggle the value
+        form.$('.o_field_widget[name=bar]').click();
+
+        assert.strictEqual(form.$('.o_field_widget[name=bar] i.text-muted:not(.o_toggle_button_success)').length,
+            1, "should be gray");
+        assert.verifySteps(['write']);
+
+        form.destroy();
+    });
 
     QUnit.module('FieldFloat');
 
@@ -1073,7 +1147,7 @@ QUnit.module('basic_fields', {
     QUnit.module('UrlWidget');
 
     QUnit.test('url widget in form view', function (assert) {
-        assert.expect(8);
+        assert.expect(9);
 
         var form = createView({
             View: FormView,
@@ -1093,6 +1167,8 @@ QUnit.module('basic_fields', {
             "should have a anchor with correct classes");
         assert.strictEqual(form.$('a.o_form_uri.o_field_widget.o_text_overflow').attr('href'), 'yop',
             "should have proper href link");
+        assert.strictEqual(form.$('a.o_form_uri.o_field_widget.o_text_overflow').attr('target'), '_blank',
+            "should have target attribute set to _blank");
         assert.strictEqual(form.$('a.o_form_uri.o_field_widget.o_text_overflow').text(), 'yop',
             "the value should be displayed properly");
 

@@ -2,7 +2,7 @@
 
 {
     'name': 'Adyen Payment Acquirer',
-    'author' : 'Odoo S.A',
+    'author': 'Odoo S.A',
     'category': 'Accounting',
     'summary': 'Payment Acquirer: Adyen Implementation',
     'version': '1.0',

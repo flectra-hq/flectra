@@ -392,4 +392,4 @@ QUnit.module('core', {}, function () {
     });
 });
 
-});                                
+});

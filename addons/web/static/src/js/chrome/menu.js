@@ -259,9 +259,13 @@ var Menu = Widget.extend({
         this.isLoadflag = false;
     },
     /**
-     * Call open_menu with the first menu_item matching an action_id
+     * Call open_menu on a menu_item that matches the action_id
+     *
+     * If `menuID` is a match on this action, open this menu_item.
+     * Otherwise open the first menu_item that matches the action_id.
      *
      * @param {Number} id the action_id to match
+     * @param {Number} [menuID] a menu ID that may match with provided action
      */
     open_action: function (id) {
         var $menu = this.$el.add(this.$secondary_menus).find('a[data-action-id="' + id + '"]');

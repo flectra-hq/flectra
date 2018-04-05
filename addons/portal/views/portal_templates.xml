@@ -22,7 +22,7 @@
             <t t-set="head" t-value="head_website + (head or '')"/>
 
             <div id="wrapwrap" t-att-class="pageName or ''">
-                <header class="oe_structure">
+                <header>
                     <div class="navbar navbar-default navbar-static-top">
                         <div class="container">
                             <div class="navbar-header">
@@ -52,7 +52,7 @@
                 <main>
                     <t t-raw="0"/>
                 </main>
-                <footer class="oe_structure">
+                <footer >
                     <div id="footer">
                     </div>
                 </footer>
@@ -62,7 +62,7 @@
 
     <template id="portal_layout" name="Portal Layout">
         <t t-call="portal.frontend_layout">
-            <div class="container mt16 o_portal mb16">
+            <div class="container mt16 o_portal">
                 <div class="oe_structure">
                     <div t-if="not no_breadcrumbs" class="row">
                         <div class="col-sm-12">
@@ -278,7 +278,7 @@
                                 <select name="country_id" class="form-control">
                                     <option value="">Country...</option>
                                     <t t-foreach="countries or []" t-as="country">
-                                        <option t-att-value="country.id" t-att-selected="country.id == partner.country_id.id">
+                                        <option t-att-value="country.id" t-att-selected="country.id == int(country_id) if country_id else country.id == partner.country_id.id">
                                             <t t-esc="country.name" />
                                         </option>
                                     </t>
@@ -349,7 +349,7 @@
                      the message will be posted with the identity of the partner_id of the object
     -->
     <template id="message_thread">
-        <div id="discussion" class="hidden-print o_portal_chatter"
+        <div id="discussion" class="hidden-print o_portal_chatter o_not_editable"
             t-att-data-token="token" t-att-data-res_model="object._name" t-att-data-res_id="object.id" t-att-data-pager_step="message_per_page or 10" t-att-data-allow_composer="'0' if disable_composer else '1'">
         </div>
     </template>

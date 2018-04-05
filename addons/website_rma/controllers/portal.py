@@ -25,8 +25,8 @@ class CustomerPortal(CustomerPortal):
     def _order_get_page_view_values(self, order, access_token, **kwargs):
         values = super(CustomerPortal, self)._order_get_page_view_values(
             order, access_token, **kwargs)
-        reason_ids = request.env['return.reason'].search([])
-        return_ids = request.env['rma.request'].search([
+        reason_ids = request.env['return.reason'].sudo().search([])
+        return_ids = request.env['rma.request'].sudo().search([
             ('sale_order_id', '=', order.id)])
         values.update({
             'reasons': reason_ids,

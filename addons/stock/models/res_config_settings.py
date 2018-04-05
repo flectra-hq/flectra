@@ -30,6 +30,12 @@ class ResConfigSettings(models.TransientModel):
         oldname='default_new_propagation_minimum_delta',
         help="Rescheduling applies to any chain of operations (e.g. Make To Order, Pick Pack Ship). In the case of MTO sales, a vendor delay (updated incoming date) impacts the expected delivery date to the customer. \n This option allows to not propagate the rescheduling if the change is not critical.")
     module_stock_picking_batch = fields.Boolean("Batch Pickings", oldname="module_stock_picking_wave")
+    module_stock_barcode = fields.Boolean("Barcode Scanner")
+    module_delivery_dhl = fields.Boolean("DHL USA")
+    module_delivery_fedex = fields.Boolean("FedEx")
+    module_delivery_ups = fields.Boolean("UPS")
+    module_delivery_usps = fields.Boolean("USPS")
+    module_delivery_bpost = fields.Boolean("bpost")
     group_stock_multi_locations = fields.Boolean('Storage Locations', implied_group='stock.group_stock_multi_locations',
         help="Store products in specific locations of your warehouse (e.g. bins, racks) and to track inventory accordingly.")
     group_stock_multi_warehouses = fields.Boolean('Multi-Warehouses', implied_group='stock.group_stock_multi_warehouses')
@@ -73,11 +79,13 @@ class ResConfigSettings(models.TransientModel):
         operation types of the warehouses, so they won't appear in the dashboard.
         Otherwise, activate them.
         """
+        warehouse_obj = self.env['stock.warehouse']
         if self.group_stock_multi_locations:
-            warehouses = self.env['stock.warehouse'].search([])
+            # override active_test that is false in set_values
+            warehouses = warehouse_obj.with_context(active_test=True).search([])
             active = True
         else:
-            warehouses = self.env['stock.warehouse'].search([
+            warehouses = warehouse_obj.search([
                 ('reception_steps', '=', 'one_step'),
                 ('delivery_steps', '=', 'ship_only')])
             active = False

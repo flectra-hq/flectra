@@ -269,7 +269,11 @@ class Project(models.Model):
 
     @api.multi
     def write(self, vals):
-        res = super(Project, self).write(vals)
+        # directly compute is_favorite to dodge allow write access right
+        if 'is_favorite' in vals:
+            vals.pop('is_favorite')
+            self._fields['is_favorite'].determine_inverse(self)
+        res = super(Project, self).write(vals) if vals else True
         if 'active' in vals:
             # archiving/unarchiving a project does it on its tasks, too
             self.with_context(active_test=False).mapped('tasks').write({'active': vals['active']})
@@ -370,7 +374,7 @@ class Task(models.Model):
     _date_name = "date_start"
     _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin', 'ir.branch.company.mixin']
     _mail_post_access = 'read'
-    _order = "priority desc, sequence, date_start, name, id"
+    _order = "priority desc, sequence, id desc"
 
     def _get_default_partner(self):
         if 'default_project_id' in self.env.context:
@@ -451,20 +455,20 @@ class Task(models.Model):
     partner_id = fields.Many2one('res.partner',
         string='Customer',
         default=_get_default_partner)
-    manager_id = fields.Many2one('res.users', string='Project Manager', related='project_id.user_id', readonly=True)
+    manager_id = fields.Many2one('res.users', string='Project Manager', related='project_id.user_id', readonly=True, related_sudo=False)
     company_id = fields.Many2one('res.company',
         string='Company',
         default=lambda self: self.env['res.company']._company_default_get())
     color = fields.Integer(string='Color Index')
-    user_email = fields.Char(related='user_id.email', string='User Email', readonly=True)
+    user_email = fields.Char(related='user_id.email', string='User Email', readonly=True, related_sudo=False)
     attachment_ids = fields.One2many('ir.attachment', compute='_compute_attachment_ids', string="Main Attachments",
         help="Attachment that don't come from message.")
     # In the domain of displayed_image_id, we couln't use attachment_ids because a one2many is represented as a list of commands so we used res_model & res_id
     displayed_image_id = fields.Many2one('ir.attachment', domain="[('res_model', '=', 'project.task'), ('res_id', '=', id), ('mimetype', 'ilike', 'image')]", string='Cover Image')
-    legend_blocked = fields.Char(related='stage_id.legend_blocked', string='Kanban Blocked Explanation', readonly=True)
-    legend_done = fields.Char(related='stage_id.legend_done', string='Kanban Valid Explanation', readonly=True)
-    legend_normal = fields.Char(related='stage_id.legend_normal', string='Kanban Ongoing Explanation', readonly=True)
-    parent_id = fields.Many2one('project.task', string='Parent Task')
+    legend_blocked = fields.Char(related='stage_id.legend_blocked', string='Kanban Blocked Explanation', readonly=True, related_sudo=False)
+    legend_done = fields.Char(related='stage_id.legend_done', string='Kanban Valid Explanation', readonly=True, related_sudo=False)
+    legend_normal = fields.Char(related='stage_id.legend_normal', string='Kanban Ongoing Explanation', readonly=True, related_sudo=False)
+    parent_id = fields.Many2one('project.task', string='Parent Task', index=True)
     child_ids = fields.One2many('project.task', 'parent_id', string="Sub-tasks")
     subtask_project_id = fields.Many2one('project.project', related="project_id.subtask_project_id", string='Sub-task Project', readonly=True)
     subtask_count = fields.Integer(compute='_compute_subtask_count', type='integer', string="Sub-task count")
@@ -476,6 +480,8 @@ class Task(models.Model):
     working_hours_close = fields.Float(compute='_compute_elapsed', string='Working hours to close', store=True, group_operator="avg")
     working_days_open = fields.Float(compute='_compute_elapsed', string='Working days to assign', store=True, group_operator="avg")
     working_days_close = fields.Float(compute='_compute_elapsed', string='Working days to close', store=True, group_operator="avg")
+    # customer portal: include comment and incoming emails in communication history
+    website_message_ids = fields.One2many(domain=lambda self: [('model', '=', self._name), ('message_type', 'in', ['email', 'comment'])])
 
     task_seq = fields.Char(
         string="Reference", track_visibility='onchange',
@@ -564,7 +570,8 @@ class Task(models.Model):
         default_partner_id = self.env.context.get('default_partner_id')
         default_partner = self.env['res.partner'].browse(default_partner_id) if default_partner_id else self.env['res.partner']
         if self.project_id:
-            self.partner_id = self.project_id.partner_id or default_partner
+            if self.project_id.partner_id:
+                self.partner_id = self.project_id.partner_id
             if self.project_id not in self.stage_id.project_ids:
                 self.stage_id = self.stage_find(self.project_id.id, [('fold', '=', False)])
         else:

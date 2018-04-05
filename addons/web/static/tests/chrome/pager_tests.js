@@ -91,4 +91,4 @@ QUnit.module('chrome', {}, function () {
     });
 });
 
-});                                
+});

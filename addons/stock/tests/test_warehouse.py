@@ -249,4 +249,4 @@ class TestResupply(TestStockCommon):
             'product_min_qty': 10,
             'product_max_qty': 100,
             'product_uom': self.uom_unit.id,
-        })        
+        })

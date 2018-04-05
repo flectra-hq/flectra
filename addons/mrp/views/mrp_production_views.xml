@@ -14,7 +14,7 @@
                     <field name="product_qty" sum="Total Qty" string="Quantity"/>
                     <field name="product_uom_id" string="Unit of Measure" options="{'no_open':True,'no_create':True}" groups="product.group_uom"/>
                     <field name="availability"/>
-                    <field name="routing_id"/>
+                    <field name="routing_id" groups="mrp.group_mrp_routings"/>
                     <field name="origin" groups="base.group_no_one"/>
                     <field name="state"/>
                 </tree>
@@ -48,7 +48,7 @@
                     <button name="button_unreserve" type="object" string="Unreserve" attrs="{'invisible': [('unreserve_visible', '=', False)]}"/>
                     <span class="label label-danger" attrs="{'invisible': ['|',('availability', 'in', ('assigned', 'none')), ('state', 'not in', ('confirmed','progress'))]}">Raw materials not available!</span>
                     <field name="state" widget="statusbar" statusbar_visible="confirmed,progress,done"/>
-                    <button name="action_toggle_is_locked" attrs="{'invisible': ['|', '|', ('state', '=', 'cancel'), ('id', '=', False), ('is_locked', '=', False)]}" string="Unlock" groups="mrp.group_mrp_manager" type="object" help="If the manufacturing order is unlocked you can add to the initial demand."/>
+                    <button name="action_toggle_is_locked" attrs="{'invisible': ['|', '|', ('state', '=', 'cancel'), ('id', '=', False), ('is_locked', '=', False)]}" string="Unlock" groups="mrp.group_mrp_manager" type="object" help="Unlock the manufacturing order to correct what has been consumed or produced."/>
                     <button name="action_toggle_is_locked" attrs="{'invisible': [('is_locked', '=', True)]}" string="Lock" class="oe_highlight" groups="mrp.group_mrp_manager" type="object"/>
                 </header>
                 <sheet>
@@ -97,7 +97,7 @@
                                                 ('product_id','=',False),
                                                 ('type', '=', 'normal')]"
                                 context="{'default_product_tmpl_id': product_tmpl_id}" required="1" attrs="{'readonly': [('has_moves', '=', True)]}"/>
-                            <field name="routing_id"/>
+                            <field name="routing_id" groups="mrp.group_mrp_routings"/>
                         </group>
                         <group>
                             <field name="date_planned_start"/>
@@ -260,11 +260,11 @@
                     <filter string="Late" domain="['&amp;', ('date_planned_start', '&lt;', current_date), ('state', '=', 'confirmed')]"
                         name="late" help="Production started late"/>
                     <separator/>
-                    <filter string="No Routing" domain="[('routing_id','=', False)]" name="norouting"/>
+                    <filter string="No Routing" domain="[('routing_id','=', False)]" name="norouting" groups="mrp.group_mrp_routings"/>
                     <field name="product_id"/>
                     <field name="move_raw_ids" string="Raw Material" filter_domain="[('move_raw_ids.product_id','ilike',self)]"/>
                     <field name="name" string="Work Center" filter_domain="[('routing_id.operation_ids.workcenter_id','ilike',self)]"/>
-                    <field name="routing_id" />
+                    <field name="routing_id" groups="mrp.group_mrp_routings"/>
                     <separator/>
                     <filter string="My Activities" name="activities_my"
                         domain="[('activity_ids.user_id', '=', uid)]"/>
@@ -380,7 +380,8 @@
     <menuitem id="menu_mrp_workorder_todo"
             name="Work Orders"
             action="mrp_workorder_todo"
-            parent="menu_mrp_manufacturing"/>
+            parent="menu_mrp_manufacturing"
+            groups="group_mrp_routings"/>
 
     <menuitem id="menu_mrp_production_report"
           name="Manufacturing Orders"
@@ -392,6 +393,7 @@
           name="Work Orders"
           parent="menu_mrp_reporting"
           action="mrp_workorder_report"
+          groups="group_mrp_routings"
           sequence="11"/>
 
         <record id="act_product_mrp_production" model="ir.actions.act_window">

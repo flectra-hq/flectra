@@ -14,7 +14,7 @@ class Website(models.Model):
     _inherit = 'website'
 
     pricelist_id = fields.Many2one('product.pricelist', compute='_compute_pricelist_id', string='Default Pricelist')
-    currency_id = fields.Many2one('res.currency', related='pricelist_id.currency_id', string='Default Currency')
+    currency_id = fields.Many2one('res.currency', related='pricelist_id.currency_id', related_sudo=False, string='Default Currency')
     salesperson_id = fields.Many2one('res.users', string='Salesperson')
     salesteam_id = fields.Many2one('crm.team', string='Sales Channel')
     pricelist_ids = fields.One2many('product.pricelist', compute="_compute_pricelist_ids",
@@ -82,7 +82,7 @@ class Website(models.Model):
             if self.env.context.get('website_id'):
                 website = self.browse(self.env.context['website_id'])
             else:
-                # In the weird case we are coming from the backend (https://github.com/flectra/flectra/issues/20245)
+                # In the weird case we are coming from the backend (https://github.com/odoo/odoo/issues/20245)
                 website = len(self) == 1 and self or self.search([], limit=1)
         isocountry = request and request.session.geoip and request.session.geoip.get('country_code') or False
         partner = self.env.user.partner_id

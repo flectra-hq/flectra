@@ -3,7 +3,7 @@
 
 {
     'name': 'PayuMoney Payment Acquirer',
-    'author' : 'Odoo S.A',
+    'author': 'Odoo S.A',
     'category': 'Payment Acquirer',
     'summary': 'Payment Acquirer: PayuMoney Implementation',
     'description': """

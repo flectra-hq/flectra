@@ -149,7 +149,6 @@ class IrMailServer(models.Model):
     sequence = fields.Integer(string='Priority', default=10, help="When no specific mail server is requested for a mail, the highest priority one "
                                                                   "is used. Default priority is 10 (smaller number = higher priority)")
     active = fields.Boolean(default=True)
-    keep_days = fields.Integer('Keep days', default=-1)
 
     @api.multi
     def name_get(self):
@@ -427,6 +426,7 @@ class IrMailServer(models.Model):
         email_to = message['To']
         email_cc = message['Cc']
         email_bcc = message['Bcc']
+        del message['Bcc']
 
         smtp_to_list = [
             address
@@ -444,7 +444,7 @@ class IrMailServer(models.Model):
             message['To'] = x_forge_to
 
         # Do not actually send emails in testing mode!
-        if getattr(threading.currentThread(), 'testing', False):
+        if getattr(threading.currentThread(), 'testing', False) or self.env.registry.in_test_mode():
             _test_logger.info("skip sending email in test mode")
             return message['Message-Id']
 

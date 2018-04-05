@@ -86,6 +86,8 @@
                   target="fileframe"
                   class="form-inline">
                 <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
+                <input t-if="widget.options.res_id" type="hidden" name="res_id" t-att-value="widget.options.res_id"/>
+                <input t-if="widget.options.res_model" type="hidden" name="res_model" t-att-value="widget.options.res_model"/>
                 <div class="well">
                     <div class="form-group pull-left">
                         <input type="file" name="upload" t-att-accept="widget.accept" multiple="multiple" style="position: absolute; opacity: 0; width: 1px; height: 1px;"/>

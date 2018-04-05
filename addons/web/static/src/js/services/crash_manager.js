@@ -149,7 +149,7 @@ var CrashManager = core.Class.extend({
             clipboard.destroy();
         });
 
-        dialog.open();
+        return dialog.open();
     },
     show_message: function(exception) {
         this.show_error({

@@ -5,7 +5,12 @@
     name: WareHouse PickPackShip 
     code: whpps
     reception_steps: 'two_steps'
-    delivery_steps: 'pick_pack_ship' 
+    delivery_steps: 'pick_pack_ship'
+
+  !python {model: stock.warehouse, id: wh_pps}: |
+    warehouse = self.env['stock.warehouse'].browse(ref('wh_pps'))
+    branch_id = self.env['res.branch'].browse(ref('base_branch_company.data_branch_1'))
+    warehouse.write({'branch_id': branch_id.id})
 -
   Next I create a new product in this warehouse
 -

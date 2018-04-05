@@ -22,4 +22,4 @@ class MailComposer(models.TransientModel):
             invoice.l10n_ch_isr_sent = True
             invoice.message_post(body=_("ISR sent"))
 
-        return super(MailComposer, self).send_mail(auto_commit=auto_commit)        
+        return super(MailComposer, self).send_mail(auto_commit=auto_commit)

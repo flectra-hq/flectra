@@ -216,6 +216,10 @@ class Website(models.Model):
             'arch': template_record.arch.replace(template, key),
             'name': name,
         })
+
+        if view.arch_fs:
+            view.arch_fs = False
+
         if ispage:
             page = self.env['website.page'].create({
                 'url': page_url,
@@ -617,7 +621,7 @@ class Website(models.Model):
         if not force:
             domain += [('website_indexed', '=', True)]
             #is_visible
-            domain += [('website_published', '=', True), '|', ('date_publish', '!=', False), ('date_publish', '>', fields.Datetime.now())]
+            domain += [('website_published', '=', True), '|', ('date_publish', '=', False), ('date_publish', '<=', fields.Datetime.now())]
 
         if query_string:
             domain += [('url', 'like', query_string)]
@@ -756,6 +760,11 @@ class Page(models.Model):
         item = self.search_read(domain, fields=['id', 'name', 'url', 'website_published', 'website_indexed', 'date_publish', 'menu_ids', 'is_homepage'], limit=1)
         return item
 
+    @api.multi
+    def get_view_identifier(self):
+        """ Get identifier of this page view that may be used to render it """
+        return self.view_id.id
+
     @api.model
     def save_page_info(self, website_id, data):
         website = self.env['website'].browse(website_id)
@@ -813,7 +822,7 @@ class Page(models.Model):
                 'website_id': website.id,
             })
 
-        return True
+        return url
 
     @api.multi
     def copy(self, default=None):
@@ -979,12 +988,12 @@ class Menu(models.Model):
                 replace_id(mid, new_menu.id)
         for menu in data['data']:
             menu_id = self.browse(menu['id'])
-            if menu_id.page_id:
-                menu_id.page_id.write({'url': menu['url']})
             # if the url match a website.page, set the m2o relation
             page = self.env['website.page'].search([('url', '=', menu['url'])], limit=1)
             if page:
                 menu['page_id'] = page.id
+            elif menu_id.page_id:
+                menu_id.page_id.write({'url': menu['url']})
             menu_id.write(menu)
 
         return True

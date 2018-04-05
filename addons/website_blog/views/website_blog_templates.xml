@@ -57,7 +57,7 @@
                     <t t-foreach="posts" t-as="post">
                       <div class="col-md-4">
                         <h4>
-                            <a t-attf-href="#{blog_url('', ['blog', 'post'], blog=post.blog_id, post=post)}" t-field="post.name"/>
+                            <a t-attf-href="#{blog_url('', ['blog', 'post'], blog=post.blog_id, post=post)}" t-field="post.name"></a>
                             <span t-if="not post.website_published" class="text-warning">
                                 <span class="fa fa-exclamation-triangle ml8" title="Unpublished"/>
                             </span>
@@ -160,7 +160,7 @@
 
                             <!-- To display tags //no options -->
                             <t t-foreach="blog_post.tag_ids" t-as="one_tag">
-                                <a class="label label-primary" t-attf-href="#{blog_url(tag=one_tag.id, date_begin=False, date_end=False)}" t-esc="one_tag.name"/>
+                                <a class="mr8" t-attf-href="#{blog_url(tag=one_tag.id, date_begin=False, date_end=False)}" t-esc="one_tag.name"/>
                             </t>
                             <div class="o_sharing_links">
                                 <a class="fa fa-twitter-square o_twitter"></a>

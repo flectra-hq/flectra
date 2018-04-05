@@ -1756,7 +1756,7 @@ var StatInfo = AbstractField.extend({
 
 var FieldPercentPie = AbstractField.extend({
     template: 'FieldPercentPie',
-    supportedFieldTypes: ['integer'],
+    supportedFieldTypes: ['integer', 'float'],
 
     /**
      * Register some useful references for later use throughout the widget.
@@ -1992,8 +1992,9 @@ var FieldToggleBoolean = AbstractField.extend({
      * @private
      */
     _render: function () {
-        var className = this.value ? 'o_toggle_button_success' : 'text-muted';
-        this.$('i').addClass('fa fa-circle ' + className);
+        this.$('i')
+            .toggleClass('o_toggle_button_success', !!this.value)
+            .toggleClass('text-muted', !this.value);
         var title = this.value ? this.attrs.options.active : this.attrs.options.inactive;
         this.$el.attr('title', title);
     },

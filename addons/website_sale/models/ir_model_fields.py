@@ -17,7 +17,7 @@ from flectra import api, models
 # This is hotfixed by overriding the unlink method so as to not delete
 # the website_description field if website_sale is uninstalled, it's
 # an ugly hack but it works and big changes can't be done to the ORM
-# in stable versions, Flectra v12+ will properly fix this
+# in stable versions, Flectra v1+ will properly fix this
 
 
 class IrModelFields(models.Model):

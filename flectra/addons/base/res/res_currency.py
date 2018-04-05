@@ -124,8 +124,8 @@ class Currency(models.Model):
            :return: rounded float
         """
         # TODO: Need to check why it calls round() from sale.py, _amount_all() with *No* ID after below commits,
-        # https://github.com/flectra/flectra/commit/36ee1ad813204dcb91e9f5f20d746dff6f080ac2
-        # https://github.com/flectra/flectra/commit/0b6058c585d7d9a57bd7581b8211f20fca3ec3f7
+        # https://github.com/odoo/odoo/commit/36ee1ad813204dcb91e9f5f20d746dff6f080ac2
+        # https://github.com/odoo/odoo/commit/0b6058c585d7d9a57bd7581b8211f20fca3ec3f7
         # Removing self.ensure_one() will make few test cases to break of modules event_sale, sale_mrp and stock_dropshipping.
         #self.ensure_one()
         return tools.float_round(amount, precision_rounding=self.rounding)

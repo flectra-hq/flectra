@@ -64,9 +64,8 @@ class PaymentTransaction(models.Model):
             _logger.info('<%s> transaction authorized, auto-confirming order %s (ID %s)', self.acquirer_id.provider, self.sale_order_id.name, self.sale_order_id.id)
             if self.sale_order_id.state in ('draft', 'sent'):
                 self.sale_order_id.with_context(send_email=True).action_confirm()
-
-        if self.state == 'done':
-            _logger.info('<%s> transaction completed, auto-confirming order %s (ID %s) and generating invoice', self.acquirer_id.provider, self.sale_order_id.name, self.sale_order_id.id)
+        elif self.state == 'done':
+            _logger.info('<%s> transaction completed, auto-confirming order %s (ID %s)', self.acquirer_id.provider, self.sale_order_id.name, self.sale_order_id.id)
             if self.sale_order_id.state in ('draft', 'sent'):
                 self.sale_order_id.with_context(send_email=True).action_confirm()
             self._generate_and_pay_invoice()
@@ -105,6 +104,7 @@ class PaymentTransaction(models.Model):
             created_invoice.with_context(default_currency_id=self.currency_id.id).pay_and_reconcile(self.acquirer_id.journal_id, pay_amount=created_invoice.amount_total)
             if created_invoice.payment_ids:
                 created_invoice.payment_ids[0].payment_transaction_id = self
+            self._post_process_after_done(invoice_id=created_invoice)
         else:
             _logger.warning('<%s> transaction completed, could not auto-generate invoice for %s (ID %s)',
                             self.acquirer_id.provider, self.sale_order_id.name, self.sale_order_id.id)

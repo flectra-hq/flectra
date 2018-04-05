@@ -12,4 +12,4 @@ class StockWarnInsufficientQtyUnbuild(models.TransientModel):
 
     def action_done(self):
         self.ensure_one()
-        return self.unbuild_id.action_unbuild()        
+        return self.unbuild_id.action_unbuild()

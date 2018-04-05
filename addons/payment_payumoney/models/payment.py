@@ -56,8 +56,6 @@ class PaymentAcquirerPayumoney(models.Model):
     def payumoney_form_generate_values(self, values):
         self.ensure_one()
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        if self.env.ref('base.module_website').state == 'installed':
-            base_url = "http://" + self.env['website'].get_current_website().domain
         payumoney_values = dict(values,
                                 key=self.payumoney_merchant_key,
                                 txnid=values['reference'],

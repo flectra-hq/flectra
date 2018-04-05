@@ -22,8 +22,8 @@ class TestAccountVoucherBranch(common.TransactionCase):
         self.model_users = self.env['res.users']
         self.branch_2 = self.env.ref('base_branch_company.data_branch_2')
         self.income_type = self.env['account.account.type'].search([('name', '=', 'Income')])
-        account_obj = self.env.ref['account.account']
-        self.account_receivable = account_obj.create(
+        # account_obj = self.env.ref['account.account']
+        self.account_receivable = self.model_account.create(
             {'code': 'X1012', 'name': 'Account Receivable - Test',
              'user_type_id': self.env.ref('account.data_account_type_receivable').id,
              'reconcile': True})
@@ -78,13 +78,12 @@ class TestAccountVoucherBranch(common.TransactionCase):
         return user_obj.id
 
     def receipt_create(self, journal_id, branch_id):
-        print ("@@@@@@@@@@@@@@@@",self.receivable_account )
         vals = {
             'name': 'Test Voucher',
             'partner_id': self.partner.id,
             'journal_id': journal_id,
             'voucher_type': 'sale',
-            'account_id': self.receivable_account.id,
+            'account_id': self.account_receivable.id,
             'branch_id': branch_id.id,
             'company_id': self.main_company.id,
             'date': date.today(),
@@ -95,7 +94,7 @@ class TestAccountVoucherBranch(common.TransactionCase):
             'product_id': self.apple_product.id,
             'price_unit': 500,
             'quantity': 10,
-            'account_id': self.receivable_account.id,
+            'account_id': self.account_receivable.id,
             'voucher_id': voucher_obj.id,
         }
         self.model_voucher_line.create(line_vals)

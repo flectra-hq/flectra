@@ -57,13 +57,13 @@ class Forum(models.Model):
                             'build your professional profile and become a better marketer together.'))
     welcome_message = fields.Html(
         'Welcome Message',
-        default = """<section class="bg-info"><div class="container">
+        default = """<section class="bg-info" style="height: 168px;"><div class="container">
                         <div class="row">
-                            <div class="col-md-12 mt16">
+                            <div class="col-md-12">
                                 <h1 class="text-center" style="text-align: left;">Welcome!</h1>
                                 <p class="text-muted text-center" style="text-align: left;">This community is for professionals and enthusiasts of our products and services. Share and discuss the best content and new marketing ideas, build your professional profile and become a better marketer together.</p>
                             </div>
-                            <div class="col-md-12 mt16 mb32">
+                            <div class="col-md-12">
                                 <a href="#" class="js_close_intro">Hide Intro</a>    <a class="btn btn-primary forum_register_url" href="/web/login">Register</a> </div>
                             </div>
                         </div>

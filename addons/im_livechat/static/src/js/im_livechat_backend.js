@@ -28,4 +28,4 @@ chat_manager.bus.on('new_message', null, function (msg) {
     });
 });
 
-});                                
+});

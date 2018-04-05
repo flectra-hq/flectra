@@ -1,7 +1,5 @@
-from flectra.modules.registry import RegistryManager
-
+# -*- coding: utf-8 -*-
+from flectra.addons.account.models.chart_template import migrate_tags_on_taxes
 
 def migrate(cr, version):
-    registry = RegistryManager.get(cr.dbname)
-    from flectra.addons.account.models.chart_template import migrate_tags_on_taxes
-    migrate_tags_on_taxes(cr, registry)
+    migrate_tags_on_taxes(cr, None)

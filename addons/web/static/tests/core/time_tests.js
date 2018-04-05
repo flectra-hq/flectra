@@ -147,4 +147,4 @@ QUnit.module('core', {}, function () {
 
 });
 
-});                                
+});
