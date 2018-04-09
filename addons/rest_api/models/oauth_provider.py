@@ -2,14 +2,21 @@
 # Author: Ivan Yelizariev, Ildar
 # Ref. from: https://github.com/it-projects-llc/odoo-saas-tools/blob/10.0/oauth_provider/models/oauth_provider.py
 
+import logging
+
 from flectra import models, fields, api
 from datetime import datetime, timedelta
 from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
+_logger = logging.getLogger(__name__)
+
 try:
     from oauthlib import common as oauthlib_common
-except:
-    pass
+except ImportError:
+    _logger.warning(
+        'OAuth library not found. If you plan to use it, '
+        'please install the oauth library from '
+        'https://pypi.python.org/pypi/oauthlib')
 
 
 class OauthAccessToken(models.Model):
