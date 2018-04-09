@@ -34,6 +34,4 @@
         'demo/stock_demo.xml',
         'demo/sale_order_demo.xml',
     ],
-
-    'application': True,
 }

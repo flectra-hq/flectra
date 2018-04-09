@@ -25,5 +25,4 @@
     'images': [
         'static/description/website-rma-app-banner.jpg',
     ],
-    'application': True,
 }

@@ -5,7 +5,7 @@
     'name': 'Branch & Company Mixin',
     'version': '1.0',
     'category': 'Discuss',
-    'author': ['Flectra'],
+    'author': 'FlectraHQ',
     'sequence': 25,
     'summary': 'Include Branch & Company support',
     'description': """

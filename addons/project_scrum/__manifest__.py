@@ -41,5 +41,4 @@
         'static/src/xml/scrum_dashboard.xml',
     ],
     'installable': True,
-    'application': True,
 }

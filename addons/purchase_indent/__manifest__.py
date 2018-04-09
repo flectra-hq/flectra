@@ -1,14 +1,14 @@
 # Part of Flectra See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'Purchase Indent Flectra',
+    'name': 'Purchase Indent',
     'version': '1.0',
     'category': 'Purchase',
     'sequence': 10,
     'summary': 'Purchase Indent',
     'description': """
         Purchase Indent and Agreements""",
-    'author': 'Flectrahq',
+    'author': 'FlectraHQ',
     'website': 'https://www.flectrahq.com/',
     'depends': [
         'purchase',
@@ -26,6 +26,5 @@
         'demo/puchase_indent_demo.xml',
     ],
     'installable': True,
-    'application': True,
     'auto_install': False,
 }
