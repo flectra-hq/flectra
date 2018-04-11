@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-name="ShowDiscountInfo">
+        <div>
+            <table style="width:100%;">
+                <t t-if="lines">
+                    <t t-foreach="lines" t-as="line">
+                        <tr>
+                        <t t-if="!outstanding">
+                            <td>
+                                <a role="button" tabindex="0" class="js_discount_info fa fa-info-circle" t-att-index="line.index" style="margin-right:2px;"></a>
+                            </td>
+                        </t>
+                        </tr>
+                    </t>
+                </t>
+            </table>
+        </div>
+    </t>
+
+    <t t-name="AllDiscountDetails">
+        <div>
+            <table>
+                <tr>
+                    <td><strong>Discount Amount to Words: </strong></td>
+                    <td style="text-align:right;">
+                        <t t-if="position === 'before'">
+                            <t t-esc="currency"/>
+                        </t>
+                        <t t-esc="discount"></t>
+                        <t t-if="position === 'after'">
+                            <t t-esc="currency"/>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;padding-top:8px;">
+                        <t t-esc="amount_words"></t>
+                    </td>
+                </tr>
+                <tr >
+                    <td style="padding-top:18px;"><strong>Gross Amount: </strong></td>
+                    <td style="text-align:right; padding-top:18px;">
+                        <t t-if="position === 'before'">
+                            <t t-esc="currency"/>
+                        </t>
+                        <t t-esc="gross_amount"></t>
+                        <t t-if="position === 'after'">
+                            <t t-esc="currency"/>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Pricelist (-): </strong></td>
+                    <td style="text-align:right;">
+                        <t t-if="position === 'before'">
+                            <t t-esc="currency"/>
+                        </t>
+                        <t t-esc="price_list_discount"></t>
+                        <t t-if="position === 'after'">
+                            <t t-esc="currency"/>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Price Rule (-): </strong></td>
+                    <td style="text-align:right;">
+                        <t t-if="position === 'before'">
+                            <t t-esc="currency"/>
+                        </t>
+                        <t t-esc="price_rule_discount"></t>
+                        <t t-if="position === 'after'">
+                            <t t-esc="currency"/>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Cart Rule (-): </strong></td>
+                    <td style="text-align:right;">
+                        <t t-if="position === 'before'">
+                            <t t-esc="currency"/>
+                        </t>
+                        <t t-esc="cart_rule_discount"></t>
+                        <t t-if="position === 'after'">
+                            <t t-esc="currency"/>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Coupon Code (-): </strong></td>
+                    <td style="text-align:right;">
+                        <t t-if="position === 'before'">
+                            <t t-esc="currency"/>
+                        </t>
+                        <t t-esc="coupon_code_discount"></t>
+                        <t t-if="position === 'after'">
+                            <t t-esc="currency"/>
+                        </t>
+                    </td>
+                </tr>
+                <tr class="border-black" style="border-top:1px solid #dddddd;">
+                    <td><strong>Untaxed Amount: </strong></td>
+                    <td style="text-align:right;">
+                        <t t-if="position === 'before'">
+                            <t t-esc="currency"/>
+                        </t>
+                        <t t-esc="untaxed_amount"></t>
+                        <t t-if="position === 'after'">
+                            <t t-esc="currency"/>
+                        </t>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </t>
+
+</templates>

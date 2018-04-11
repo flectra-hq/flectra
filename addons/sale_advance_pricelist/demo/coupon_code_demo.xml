@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+    <record id="coupon_code_1" model="coupon.code">
+        <field name="name">Get10%</field>
+        <field name="coupon_code">Get10Peroff</field>
+        <field name="code_valid_from" eval="DateTime.now()"/>
+        <field name="code_valid_to" eval="DateTime.now() + timedelta(days=2)"/>
+        <field name="coupon_type">percent</field>
+        <field name="usage_limit">5</field>
+        <field name="discount_amount">10</field>
+        <field name="min_order_amount">2500</field>
+        <field name="apply_on">all</field>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+    </record>
+
+    <record id="coupon_code_2" model="coupon.code">
+        <field name="name">Get20-Off-per-Quantity</field>
+        <field name="coupon_code">Get20off</field>
+        <field name="code_valid_from" eval="DateTime.now()"/>
+        <field name="code_valid_to" eval="DateTime.now() + timedelta(days=2)"/>
+        <field name="coupon_type">fixed_amount</field>
+        <field name="usage_limit">5</field>
+        <field name="discount_amount">20</field>
+        <field name="min_order_amount">2500</field>
+        <field name="apply_on">all</field>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+    </record>
+
+    <record id="coupon_code_3" model="coupon.code">
+        <field name="name">Buy X Product Get Y Product Free</field>
+        <field name="coupon_code">BXGYFree</field>
+        <field name="code_valid_from" eval="DateTime.now()"/>
+        <field name="code_valid_to" eval="DateTime.now() + timedelta(days=2)"/>
+        <field name="coupon_type">buy_x_get_y</field>
+        <field name="usage_limit">5</field>
+        <field name="number_of_x_product">3</field>
+        <field name="number_of_y_product">1</field>
+        <field name="min_order_amount">4000</field>
+        <field name="apply_on">all</field>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+    </record>
+
+    <record id="coupon_code_4" model="coupon.code">
+        <field name="name">Buy X Product Get Y Other Product Free</field>
+        <field name="coupon_code">BXGYOtherFree</field>
+        <field name="code_valid_from" eval="DateTime.now()"/>
+        <field name="code_valid_to" eval="DateTime.now() + timedelta(days=2)"/>
+        <field name="coupon_type">buy_x_get_y_other</field>
+        <field name="usage_limit">5</field>
+        <field name="number_of_x_product">2</field>
+        <field name="number_of_y_product">1</field>
+        <field name="other_product_id" ref="product.product_product_16"/>
+        <field name="min_order_amount">4000</field>
+        <field name="apply_on">all</field>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+    </record>
+
+    <record id="coupon_code_5" model="coupon.code">
+        <field name="name">Clubbed Discount</field>
+        <field name="coupon_code">CD15Per</field>
+        <field name="code_valid_from" eval="DateTime.now()"/>
+        <field name="code_valid_to" eval="DateTime.now() + timedelta(days=2)"/>
+        <field name="coupon_type">clubbed</field>
+        <field name="usage_limit">5</field>
+        <field name="flat_discount">10</field>
+        <field name="extra_discount_percentage">5</field>
+        <field name="min_order_amount">3000</field>
+        <field name="apply_on">all</field>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+    </record>
+
+    <record id="coupon_code_6" model="coupon.code">
+        <field name="name">Buy X Product Get Percent Free</field>
+        <field name="coupon_code">BXGPercentFree</field>
+        <field name="code_valid_from" eval="DateTime.now()"/>
+        <field name="code_valid_to" eval="DateTime.now() + timedelta(days=2)"/>
+        <field name="coupon_type">buy_x_get_percent</field>
+        <field name="usage_limit">3</field>
+        <field name="number_of_x_product">3</field>
+        <field name="discount_amount">7.75</field>
+        <field name="min_order_amount">2500</field>
+        <field name="apply_on">all</field>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+    </record>
+
+</flectra>

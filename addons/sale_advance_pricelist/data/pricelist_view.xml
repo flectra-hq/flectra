@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+    <!-- Pricelist with First Matched Rule -->
+    <record id="advance_pricelist" model="product.pricelist">
+        <field name="name">Advance Pricelist (First Matched Rule) </field>
+        <field name="sequence">2</field>
+        <field name="discount_policy">without_discount</field>
+        <field name="pricelist_type">advance</field>
+        <field name="currency_id" ref="base.USD"/>
+    </record>
+
+    <!-- Pricelist with First Matched Rule and Coupon Code -->
+    <record id="advance_pricelist_with_coupon" model="product.pricelist">
+        <field name="name">Advance Pricelist (First Matched Rule With Coupon)</field>
+        <field name="sequence">3</field>
+        <field name="discount_policy">without_discount</field>
+        <field name="pricelist_type">advance</field>
+        <field name="apply_coupon_code">true</field>
+        <field name="currency_id" ref="base.USD"/>
+    </record>
+
+    <!-- Pricelist with All Matched Rule -->
+    <record id="advance_pricelist_all" model="product.pricelist">
+        <field name="name">Advance Pricelist with All Matched Rule</field>
+        <field name="sequence">3</field>
+        <field name="discount_policy">without_discount</field>
+        <field name="pricelist_type">advance</field>
+        <field name="apply_method">all_matched_rules</field>
+        <field name="currency_id" ref="base.USD"/>
+    </record>
+
+</flectra>

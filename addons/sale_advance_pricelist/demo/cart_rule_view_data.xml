@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+    <!-- Cart Rules -->
+    <record id="cart_rule_1" model="cart.rule">
+        <field name="apply_on">subtotal_at_least</field>
+        <field name="sequence">1</field>
+        <field name="discount_percentage">6.5</field>
+        <field name="amt_value">2500</field>
+        <field name="pricelist_id" ref="advance_pricelist"/>
+    </record>
+
+    <record id="cart_rule_2" model="cart.rule">
+        <field name="apply_on">one_product_al_least</field>
+        <field name="sequence">2</field>
+        <field name="discount_percentage">5</field>
+        <field name="product_id" ref="product.product_product_16"/>
+        <field name="pricelist_id" ref="advance_pricelist"/>
+        <field name="start_date" eval="DateTime.now()"/>
+        <field name="end_date" eval="DateTime.now() + timedelta(days=1)"/>
+    </record>
+
+    <record id="cart_rule_3" model="cart.rule">
+        <field name="apply_on">subtotal_less_than</field>
+        <field name="sequence">1</field>
+        <field name="discount_percentage">2.5</field>
+        <field name="amt_value">3000</field>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+    </record>
+
+    <record id="cart_rule_4" model="cart.rule">
+        <field name="apply_on">item_sum_qty_atleast</field>
+        <field name="sequence">2</field>
+        <field name="discount_percentage">10</field>
+        <field name="amt_value">7</field>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+    </record>
+
+    <record id="cart_rule_all_1" model="cart.rule">
+        <field name="apply_on">item_count_atleast</field>
+        <field name="sequence">1</field>
+        <field name="discount_percentage">7</field>
+        <field name="amt_value">6</field>
+        <field name="pricelist_id" ref="advance_pricelist_all"/>
+    </record>
+
+    <record id="cart_rule_all_2" model="cart.rule">
+        <field name="apply_on">item_count_less_than</field>
+        <field name="sequence">2</field>
+        <field name="discount_percentage">4</field>
+        <field name="amt_value">4</field>
+        <field name="pricelist_id" ref="advance_pricelist_all"/>
+    </record>
+
+    <record id="cart_rule_all_3" model="cart.rule">
+        <field name="apply_on">one_categ_al_least</field>
+        <field name="sequence">3</field>
+        <field name="discount_percentage">3.5</field>
+        <field name="categ_id" ref="product.product_category_5"/>
+        <field name="pricelist_id" ref="advance_pricelist_all"/>
+    </record>
+
+</flectra>

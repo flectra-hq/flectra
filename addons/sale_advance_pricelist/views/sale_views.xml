@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="view_order_form_flectra" model="ir.ui.view">
+        <field name="name">sale.order.flectra.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="amount_total" position="after">
+                <field name="discount_widget" style="position: relative; bottom: 94px;margin-left: 52px; text-align: left;" colspan="2" nolabel="1" widget="discount_widget"/>
+            </field>
+            <xpath expr="//group[@name='left_panel']" position="inside">
+                <div>
+                    <field name="coupon_flag" invisible="1"/>
+                    <label for="have_coupon_code" class="oe_inline"/>
+                    <field name="have_coupon_code" attrs="{'readonly':[('coupon_flag', '=', True)]}" class="oe_inline"/>
+                    <button name="apply_coupon_code" type="object"
+                            string="Apply Coupon Code" attrs="{'invisible': [('coupon_flag', '!=', False)]}" class="oe_edit_only oe_link"/>
+                    <button name="apply_coupon_code" type="object" context="{'remove': True}"
+                            string="Remove Coupon Code" attrs="{'invisible': [('coupon_flag', '=', False)]}" class="oe_edit_only oe_link"/>
+                </div>
+                <div>
+                    <field name="cart_discount" invisible="1"/>
+                </div>
+            </xpath>
+            <xpath expr="//notebook/page/field/tree/field[@name='tax_id']" position="replace">
+                <field name="tax_id" widget="many2many_tags" options="{'no_create': True}" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"
+                attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}" context="{'tax': True}"/>
+            </xpath>
+            <xpath expr="//notebook/page/field/tree/field[@name='discount']" position="replace">
+                <field name="discount" groups="sale.group_discount_per_so_line" context="{'discount': True}"/>
+            </xpath>
+            <xpath expr="//notebook/page/field/tree/field[@name='price_unit']" position="replace">
+                <field name="price_unit" attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}" context="{'price_unit': True}"/>
+            </xpath>
+            <xpath expr="//notebook/page/field/tree/field[@name='discount']" position="after">
+                <field name="check_coupon" invisible="1"/>
+            </xpath>
+            <xpath expr="//notebook/page/field/form/group/group/field[@name='price_unit']" position="replace">
+                <field name="price_unit" context="{'price_unit': True}"/>
+            </xpath>
+            <xpath expr="//notebook/page/field/form/group/group/div[@name='discount']" position="replace">
+                <div name="discount" groups="sale.group_discount_per_so_line">
+                    <field name="discount" class="oe_inline" context="{'discount': True}"/> %%
+                </div>
+            </xpath>
+            <xpath expr="//notebook/page/field/form/group/group/field[@name='tax_id']" position="replace">
+                <field name="tax_id" widget="many2many_tags" options="{'no_create': True}" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"
+                attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}" context="{'tax': True}"/>
+            </xpath>
+        </field>
+    </record>
+</flectra>

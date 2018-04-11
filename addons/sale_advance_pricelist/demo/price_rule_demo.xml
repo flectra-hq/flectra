@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+    <!-- Price Rules: First Matched Rule without Coupon -->
+    <record id="price_rule_1" model="price.rule">
+        <field name="apply_on">all</field>
+        <field name="sequence">1</field>
+        <field name="pricelist_id" ref="advance_pricelist"/>
+    </record>
+
+    <!-- Product Rule Line: First Matched Rule without Coupon-->
+    <record id="price_rule_line_1" model="rule.line">
+        <field name="sequence">1</field>
+        <field name="min_qty">1</field>
+        <field name="max_qty">5</field>
+        <field name="rule_type">fixed_amount</field>
+        <field name="discount_amount">50</field>
+        <field name="price_rule_id" ref="price_rule_1"/>
+    </record>
+
+    <record id="price_rule_line_2" model="rule.line">
+        <field name="sequence">2</field>
+        <field name="min_qty">11</field>
+        <field name="max_qty">15</field>
+        <field name="rule_type">percent</field>
+        <field name="discount_amount">12</field>
+        <field name="price_rule_id" ref="price_rule_1"/>
+        <field name="start_date" eval="DateTime.today() - timedelta(days=4)"/>
+        <field name="end_date" eval="DateTime.now() + timedelta(days=3)"/>
+    </record>
+
+    <!-- Product Rule Line: First Matched Rule without Coupon-->
+    <record id="price_rule_2" model="price.rule">
+        <field name="apply_on">category</field>
+        <field name="categ_id" ref="product.product_category_5"/>
+        <field name="sequence">2</field>
+        <field name="pricelist_id" ref="advance_pricelist"/>
+        <field name="start_date" eval="DateTime.today() - timedelta(days=7)"/>
+        <field name="end_date" eval="DateTime.now() + timedelta(days=5)"/>
+    </record>
+
+    <record id="price_rule_line_3" model="rule.line">
+        <field name="sequence">1</field>
+        <field name="min_qty">1</field>
+        <field name="max_qty">5</field>
+        <field name="rule_type">percent</field>
+        <field name="discount_amount">5</field>
+        <field name="price_rule_id" ref="price_rule_2"/>
+        <field name="start_date" eval="DateTime.today() - timedelta(days=1)"/>
+        <field name="end_date" eval="DateTime.now() + timedelta(days=3)"/>
+    </record>
+
+    <record id="price_rule_line_4" model="rule.line">
+        <field name="sequence">2</field>
+        <field name="min_qty">8</field>
+        <field name="max_qty">15</field>
+        <field name="rule_type">percent</field>
+        <field name="discount_amount">8</field>
+        <field name="price_rule_id" ref="price_rule_2"/>
+        <field name="start_date" eval="DateTime.today() - timedelta(days=2)"/>
+        <field name="end_date" eval="DateTime.now() + timedelta(days=3)"/>
+    </record>
+
+    <!-- Price Rules: First Matched Rule with Coupon-->
+    <record id="price_rule_with_coupon" model="price.rule">
+        <field name="apply_on">all</field>
+        <field name="sequence">1</field>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+    </record>
+
+    <!-- Product Rule Line: First Matched Rule with Coupon-->
+    <record id="price_rule_line_5" model="rule.line">
+        <field name="sequence">1</field>
+        <field name="min_qty">1</field>
+        <field name="max_qty">6</field>
+        <field name="rule_type">percent</field>
+        <field name="discount_amount">4.9</field>
+        <field name="price_rule_id" ref="price_rule_with_coupon"/>
+    </record>
+
+    <record id="price_rule_line_6" model="rule.line">
+        <field name="sequence">1</field>
+        <field name="min_qty">11</field>
+        <field name="max_qty">15</field>
+        <field name="rule_type">percent</field>
+        <field name="discount_amount">9.5</field>
+        <field name="price_rule_id" ref="price_rule_with_coupon"/>
+    </record>
+
+    <!-- Price Rules: All Matched Rule without Coupon -->
+    <record id="price_rule_4" model="price.rule">
+        <field name="apply_on">all</field>
+        <field name="sequence">1</field>
+        <field name="pricelist_id" ref="advance_pricelist_all"/>
+    </record>
+
+    <!-- Product Rule Line: All Matched Rule without Coupon-->
+    <record id="price_rule_line_all_1" model="rule.line">
+        <field name="sequence">1</field>
+        <field name="min_qty">1</field>
+        <field name="max_qty">3</field>
+        <field name="rule_type">percent</field>
+        <field name="discount_amount">3</field>
+        <field name="price_rule_id" ref="price_rule_4"/>
+    </record>
+
+    <record id="price_rule_line_all_2" model="rule.line">
+        <field name="sequence">1</field>
+        <field name="min_qty">4</field>
+        <field name="max_qty">8</field>
+        <field name="rule_type">percent</field>
+        <field name="discount_amount">5</field>
+        <field name="price_rule_id" ref="price_rule_4"/>
+    </record>
+
+    <record id="price_rule_line_all_3" model="rule.line">
+        <field name="sequence">1</field>
+        <field name="min_qty">9</field>
+        <field name="max_qty">15</field>
+        <field name="rule_type">percent</field>
+        <field name="discount_amount">7</field>
+        <field name="price_rule_id" ref="price_rule_4"/>
+    </record>
+
+</flectra>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="view_price_rule_tree" model="ir.ui.view">
+        <field name="name">price.rule.tree</field>
+        <field name="model">price.rule</field>
+        <field name="arch" type="xml">
+            <tree string="Price Rules">
+                <field name="sequence" widget="handle"/>
+                <field name="name" string="Applicable On"/>
+                <field name="start_date" />
+                <field name="end_date" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_price_rule_form" model="ir.ui.view">
+        <field name="name">price.rule.form</field>
+        <field name="model">price.rule</field>
+        <field name="arch" type="xml">
+            <form string="Price Rule">
+                <h1><field name="name"/></h1>
+                <group>
+                    <group>
+                        <field name="apply_on"/>
+                        <field name="categ_id" attrs="{'invisible': [('apply_on','!=','category')], 'required': [('apply_on','=','category')]}"/>
+                        <field name="product_id" attrs="{'invisible': [('apply_on','!=','product')], 'required': [('apply_on','=','product')]}"/>
+                        <field name="product_tmpl_id" attrs="{'invisible': [('apply_on','!=','product_template')], 'required': [('apply_on','=','product_template')]}"/>
+                    </group>
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Product Rule Lines">
+                        <field name="rule_lines" nolabel="1">
+                            <tree string="Rule Line" >
+                                <field name="sequence" widget="handle"/>
+                                <field name="min_qty" />
+                                <field name="max_qty" />
+                                <field name="start_date" />
+                                <field name="end_date" />
+                                <field name="rule_type" />
+                                <field name="discount_amount"/>
+                            </tree>
+                            <form string="Rule Lines">
+                                <group>
+                                    <group>
+                                        <field name="rule_type" />
+                                        <field name="discount_amount" />
+                                        <field name="start_date" />
+                                    </group>
+                                    <group>
+                                        <field name="min_qty"/>
+                                        <field name="max_qty"/>
+                                        <field name="end_date" />
+                                    </group>
+                                </group>
+                                <group>
+                                    <label for="model_id" string="Condition"/>
+                                    <div>
+                                        <field name="model_id" widget="selection"/>
+                                        <field name="model_name" invisible="1"/>
+                                        <field name="model_real" invisible="1"/>
+                                        <field name="model_domain" widget="domain"
+                                            options="{'model': 'model_real'}"/>
+                                    </div>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Note">
+                        <field name="note" nolabel="1"/>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cart_rule_tree" model="ir.ui.view">
+        <field name="name">cart.rule.tree</field>
+        <field name="model">cart.rule</field>
+        <field name="arch" type="xml">
+            <tree string="Cart Rules">
+                <field name="sequence" widget="handle"/>
+                <field name="name" string="Applicable On"/>
+                <field name="start_date"/>
+                <field name="end_date" />
+                <field name="discount_percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_cart_rule_form" model="ir.ui.view">
+        <field name="name">cart.rule.form</field>
+        <field name="model">cart.rule</field>
+        <field name="arch" type="xml">
+            <form string="Cart Rule">
+                <h1><field name="name"/></h1>
+                <group>
+                    <group>
+                        <field name="start_date"/>
+                        <field name="discount_percentage"/>
+                    </group>
+                    <group>
+                        <field name="end_date"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="apply_on"/>
+                    <field name="amt_value" attrs="{'invisible': [('apply_on','in',('one_product_al_least','none_of_sel_products','one_categ_al_least','none_of_sel_categs'))], 'required': [('apply_on','not in',('one_product_al_least','none_of_sel_products','one_categ_al_least','none_of_sel_categs'))]}"/>
+                    <field name="product_id" attrs="{'invisible': [('apply_on','!=','one_product_al_least')], 'required': [('apply_on','=','one_product_al_least')]}"/>
+                    <field name="product_ids" widget="many2many_tags" attrs="{'invisible': [('apply_on','!=','none_of_sel_products')], 'required': [('apply_on','=','none_of_sel_products')]}"/>
+                    <field name="categ_id"  attrs="{'invisible': [('apply_on','!=','one_categ_al_least')], 'required': [('apply_on','=','one_categ_al_least')]}"/>
+                    <field name="categ_ids" widget="many2many_tags" attrs="{'invisible': [('apply_on','!=','none_of_sel_categs')], 'required': [('apply_on','=','none_of_sel_categs')]}"/>
+                </group>
+                <group string="Note">
+                    <field name="note" nolabel="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_coupon_code_tree" model="ir.ui.view">
+        <field name="name">coupon.code.tree</field>
+        <field name="model">coupon.code</field>
+        <field name="arch" type="xml">
+            <tree string="Coupon">
+                <field name="name"/>
+                <field name="coupon_code"/>
+                <field name="code_valid_from" />
+                <field name="code_valid_to" />
+                <field name="apply_on" string="Applicable On"/>
+                <field name="coupon_type"/>
+                <field name="discount_amount"/>
+                <field name="min_order_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_coupon_code_form" model="ir.ui.view">
+        <field name="name">coupon.code.form</field>
+        <field name="model">coupon.code</field>
+        <field name="arch" type="xml">
+            <form string="Coupon">
+                <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" type="object" name="view_sale_order" icon="fa-usd" attrs="{'invisible': [('sale_order_count', '&lt;', 1)]}">
+                        <field string="Sales" name="sale_order_count" widget="statinfo"/>
+                    </button>
+                </div>
+               <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="coupon_code"/>
+                        <field name="usage_limit"/>
+                    </group>
+                    <group>
+                        <field name="code_valid_from"/>
+                        <field name="code_valid_to"/>
+                        <field name="remaining_limit" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="coupon_type"/>
+                        <field name="number_of_x_product" attrs="{'invisible': [('coupon_type','not in',['buy_x_get_y', 'buy_x_get_y_other', 'buy_x_get_percent'])], 'required': [('coupon_type','in', ['buy_x_get_y', 'buy_x_get_y_other', 'buy_x_get_percent'])]}"/>
+                        <field name="number_of_y_product" attrs="{'invisible': [('coupon_type','not in',['buy_x_get_y', 'buy_x_get_y_other'])], 'required': [('coupon_type','in',['buy_x_get_y', 'buy_x_get_y_other'])]}"/>
+                        <field name="discount_amount" attrs="{'invisible': [('coupon_type','not in',['percent', 'fixed_amount', 'buy_x_get_percent'])]}"/>
+                        <field name="other_product_id" attrs="{'invisible': [('coupon_type','!=','buy_x_get_y_other')], 'required': [('coupon_type','=','buy_x_get_y_other')]}"/>
+                    </group>
+                    <group>
+                        <field name="min_order_amount"/>
+                        <field name="apply_on" attrs="{'required': [('coupon_type','not in',['percent', 'fixed_amount'])]}"/>
+                        <field name="categ_id" attrs="{'invisible': [('apply_on','!=','category')], 'required': [('apply_on','=','category')]}"/>
+                        <field name="product_id" attrs="{'invisible': [('apply_on','!=','product')], 'required': [('apply_on','=','product')]}"/>
+                        <field name="product_tmpl_id" attrs="{'invisible': [('apply_on','!=','product_template')], 'required': [('apply_on','=','product_template')]}"/>
+                    </group>
+
+                    <group col="6" attrs="{'invisible':[('coupon_type', '!=', 'clubbed')]}">
+                        <label string="Discount ="/>
+                        <div class="o_row">
+                            <field name="flat_discount"/>
+                            <span>%%</span>
+                        </div>
+                        <label string=" + Extra"/>
+                        <div class="o_row">
+                            <field name="extra_discount_percentage" nolabel="1"/>
+                            <span>%%</span>
+                        </div>
+                    </group>
+                </group>
+                <group>
+                    <label for="model_id" string="Condition"/>
+                    <div>
+                        <field name="model_id" widget="selection"/>
+                        <field name="model_name" invisible="1"/>
+                        <field name="model_real" invisible="1"/>
+                        <field name="model_domain" widget="domain"
+                            options="{'model': 'model_real'}"/>
+                    </div>
+                </group>
+            </form>
+        </field>
+    </record>
+</flectra>

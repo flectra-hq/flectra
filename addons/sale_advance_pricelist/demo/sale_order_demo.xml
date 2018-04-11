@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+    <!-- Without Coupon Code -->
+    <record id="sale_order_ap_1" model="sale.order">
+        <field name="partner_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_invoice_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_shipping_id" ref="res_partner_advance_pricelist"/>
+        <field name="user_id" ref="base.user_demo"/>
+        <field name="pricelist_id" ref="advance_pricelist"/>
+        <field name="team_id" ref="sales_team.team_sales_department"/>
+        <field name="date_order" eval="DateTime.today() - timedelta(days=4)"/>
+    </record>
+
+    <record id="sale_order_line_ap_1" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_1"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="product_uom_qty">5</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">885.0</field>
+    </record>
+
+    <record id="sale_order_line_ap_2" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_1"/>
+        <field name="name">Laptop E5023</field>
+        <field name="product_id" ref="product.product_product_25"/>
+        <field name="product_uom_qty">3</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">2950.00</field>
+    </record>
+
+    <record id="sale_order_line_ap_2_1" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_1"/>
+        <field name="name">Computer Case</field>
+        <field name="product_id" ref="product.product_product_16"/>
+        <field name="product_uom_qty">3</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">25</field>
+    </record>
+
+    <function model="sale.order" name="_check_cart_rules"
+                  eval="[ref('sale_order_ap_1')]"/>
+
+    <!-- Coupon Code Percentage -->
+    <record id="sale_order_ap_2" model="sale.order">
+        <field name="partner_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_invoice_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_shipping_id" ref="res_partner_advance_pricelist"/>
+        <field name="user_id" ref="base.user_demo"/>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+        <field name="team_id" ref="sales_team.team_sales_department"/>
+        <field name="date_order" eval="DateTime.today() - timedelta(days=2)"/>
+    </record>
+
+    <record id="sale_order_line_ap_3" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_2"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="product_uom_qty">5</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">885.0</field>
+    </record>
+
+    <record id="sale_order_line_ap_4" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_2"/>
+        <field name="name">Laptop E5023</field>
+        <field name="product_id" ref="product.product_product_25"/>
+        <field name="product_uom_qty">3</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">2950.00</field>
+    </record>
+
+    <function model="sale.order" name="_check_cart_rules"
+                  eval="[ref('sale_order_ap_2')]"/>
+
+    <record id="sale_advance_pricelist.sale_order_ap_2" model="sale.order">
+        <field name="have_coupon_code">Get10Peroff</field>
+    </record>
+
+    <function model="sale.order" name="apply_coupon_code"
+                  eval="[ref('sale_order_ap_2')]"/>
+
+    <!-- Coupon Code Fixed -->
+    <record id="sale_order_ap_3" model="sale.order">
+        <field name="partner_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_invoice_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_shipping_id" ref="res_partner_advance_pricelist"/>
+        <field name="user_id" ref="base.user_demo"/>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+        <field name="team_id" ref="sales_team.team_sales_department"/>
+        <field name="date_order" eval="DateTime.today() - timedelta(days=4)"/>
+    </record>
+
+    <record id="sale_order_line_ap_fixed_1" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_3"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="product_uom_qty">5</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">885.0</field>
+    </record>
+
+    <record id="sale_order_line_ap_fixed_2" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_3"/>
+        <field name="name">Laptop E5023</field>
+        <field name="product_id" ref="product.product_product_25"/>
+        <field name="product_uom_qty">3</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">2950.00</field>
+    </record>
+
+    <function model="sale.order" name="_check_cart_rules"
+                  eval="[ref('sale_order_ap_3')]"/>
+
+    <record id="sale_advance_pricelist.sale_order_ap_3" model="sale.order">
+        <field name="have_coupon_code">Get20off</field>
+    </record>
+
+    <function model="sale.order" name="apply_coupon_code"
+                  eval="[ref('sale_order_ap_3')]"/>
+
+
+    <!-- Coupon Code Buy X Product Get Y Product Free -->
+    <record id="sale_order_ap_4" model="sale.order">
+        <field name="partner_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_invoice_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_shipping_id" ref="res_partner_advance_pricelist"/>
+        <field name="user_id" ref="base.user_demo"/>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+        <field name="team_id" ref="sales_team.team_sales_department"/>
+        <field name="date_order" eval="DateTime.today() - timedelta(days=4)"/>
+    </record>
+
+    <record id="sale_order_line_ap_bxgy_free_1" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_4"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="product_uom_qty">5</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">885.0</field>
+    </record>
+
+    <record id="sale_order_line_ap_bxgy_free_2" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_4"/>
+        <field name="name">Laptop E5023</field>
+        <field name="product_id" ref="product.product_product_25"/>
+        <field name="product_uom_qty">3</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">2950.00</field>
+    </record>
+
+    <function model="sale.order" name="_check_cart_rules"
+                  eval="[ref('sale_order_ap_4')]"/>
+
+    <record id="sale_advance_pricelist.sale_order_ap_4" model="sale.order">
+        <field name="have_coupon_code">BXGYFree</field>
+    </record>
+
+    <function model="sale.order" name="apply_coupon_code"
+                  eval="[ref('sale_order_ap_4')]"/>
+
+    <!-- Coupon Code Buy X Product Get Y Other Product Free -->
+    <record id="sale_order_ap_5" model="sale.order">
+        <field name="partner_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_invoice_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_shipping_id" ref="res_partner_advance_pricelist"/>
+        <field name="user_id" ref="base.user_demo"/>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+        <field name="team_id" ref="sales_team.team_sales_department"/>
+        <field name="date_order" eval="DateTime.today() - timedelta(days=4)"/>
+    </record>
+
+    <record id="sale_order_line_ap_bxgyother_free_1" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_5"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="product_uom_qty">5</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">885.0</field>
+    </record>
+
+    <record id="sale_order_line_ap_bxgyother_free_2" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_5"/>
+        <field name="name">Laptop E5023</field>
+        <field name="product_id" ref="product.product_product_25"/>
+        <field name="product_uom_qty">3</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">2950.00</field>
+    </record>
+
+    <function model="sale.order" name="_check_cart_rules"
+                  eval="[ref('sale_order_ap_5')]"/>
+
+    <record id="sale_advance_pricelist.sale_order_ap_5" model="sale.order">
+        <field name="have_coupon_code">BXGYOtherFree</field>
+    </record>
+
+    <function model="sale.order" name="apply_coupon_code"
+                  eval="[ref('sale_order_ap_5')]"/>
+
+    <!-- Coupon Code Buy X Product Get Percentage Free -->
+    <record id="sale_order_ap_7" model="sale.order">
+        <field name="partner_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_invoice_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_shipping_id" ref="res_partner_advance_pricelist"/>
+        <field name="user_id" ref="base.user_demo"/>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+        <field name="team_id" ref="sales_team.team_sales_department"/>
+        <field name="date_order" eval="DateTime.today() - timedelta(days=4)"/>
+    </record>
+
+    <record id="sale_order_line_ap_bxgpfree_1" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_7"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="product_uom_qty">5</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">885.0</field>
+    </record>
+
+    <record id="sale_order_line_ap_bxgpfree_2" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_7"/>
+        <field name="name">Laptop E5023</field>
+        <field name="product_id" ref="product.product_product_25"/>
+        <field name="product_uom_qty">2</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">2950.00</field>
+    </record>
+
+    <function model="sale.order" name="_check_cart_rules"
+                  eval="[ref('sale_order_ap_7')]"/>
+
+    <record id="sale_advance_pricelist.sale_order_ap_7" model="sale.order">
+        <field name="have_coupon_code">BXGPercentFree</field>
+    </record>
+
+    <function model="sale.order" name="apply_coupon_code"
+                  eval="[ref('sale_order_ap_7')]"/>
+
+    <!-- Coupon Code Clubbed Discount -->
+    <record id="sale_order_ap_6" model="sale.order">
+        <field name="partner_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_invoice_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_shipping_id" ref="res_partner_advance_pricelist"/>
+        <field name="user_id" ref="base.user_demo"/>
+        <field name="pricelist_id" ref="advance_pricelist_with_coupon"/>
+        <field name="team_id" ref="sales_team.team_sales_department"/>
+        <field name="date_order" eval="DateTime.today() - timedelta(days=4)"/>
+    </record>
+
+    <record id="sale_order_line_ap_clubbed_1" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_6"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="product_uom_qty">5</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">885.0</field>
+    </record>
+
+    <record id="sale_order_line_ap_clubbed_2" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_6"/>
+        <field name="name">Laptop E5023</field>
+        <field name="product_id" ref="product.product_product_25"/>
+        <field name="product_uom_qty">3</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">2950.00</field>
+    </record>
+
+    <function model="sale.order" name="_check_cart_rules"
+                  eval="[ref('sale_order_ap_6')]"/>
+
+    <record id="sale_advance_pricelist.sale_order_ap_6" model="sale.order">
+        <field name="have_coupon_code">CD15Per</field>
+    </record>
+
+    <function model="sale.order" name="apply_coupon_code"
+                  eval="[ref('sale_order_ap_6')]"/>
+
+    <!-- All Matched Rules -->
+    <record id="sale_order_ap_all_1" model="sale.order">
+        <field name="partner_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_invoice_id" ref="res_partner_advance_pricelist"/>
+        <field name="partner_shipping_id" ref="res_partner_advance_pricelist"/>
+        <field name="user_id" ref="base.user_demo"/>
+        <field name="pricelist_id" ref="advance_pricelist_all"/>
+        <field name="team_id" ref="sales_team.team_sales_department"/>
+        <field name="date_order" eval="DateTime.today() - timedelta(days=4)"/>
+    </record>
+
+    <record id="sale_order_line_ap_all_1" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_all_1"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="product_uom_qty">5</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">885.0</field>
+    </record>
+
+    <record id="sale_order_line_ap_all_2" model="sale.order.line">
+        <field name="order_id" ref="sale_order_ap_all_1"/>
+        <field name="name">Laptop E5023</field>
+        <field name="product_id" ref="product.product_product_25"/>
+        <field name="product_uom_qty">3</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">2950.00</field>
+    </record>
+
+    <function model="sale.order" name="_check_cart_rules"
+                  eval="[ref('sale_order_ap_all_1')]"/>
+
+</flectra>
