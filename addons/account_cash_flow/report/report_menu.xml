@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="paperformat_cashflow_report" model="report.paperformat">
+        <field name="name">Cash flow report paperformat</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">15</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">10</field>
+        <field name="dpi">70</field>
+    </record>
+
+    <report
+            id="action_cash_flow_report"
+            model="account.move.line"
+            string="Cash Flow Statement"
+            report_type="qweb-pdf"
+            name="account_cash_flow.report_account_cash_flow"
+            file="account_cash_flow.report_account_cash_flow"
+            menu="False"
+            paperformat="paperformat_cashflow_report"
+        />
+</flectra>

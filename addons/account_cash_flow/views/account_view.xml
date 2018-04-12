@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="view_account_type_form_inherit" model="ir.ui.view">
+        <field name="name">account.account.type.form.inherit</field>
+        <field name="model">account.account.type</field>
+        <field name="inherit_id" ref="account.view_account_type_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="activity_type"/>
+            </xpath>
+        </field>
+    </record>
+
+</flectra>
