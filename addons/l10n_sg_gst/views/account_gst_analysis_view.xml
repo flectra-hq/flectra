@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <template id="account_gst_analysis_view">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="row text-center">
+                    <h2>
+                        <strong>GST Analysis</strong>
+                    </h2>
+                </div>
+                <div class="row text-center">
+                    <h2>
+                        <strong>Sales</strong>
+                    </h2>
+                </div>
+
+                <table class="table table-condensed" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Particulars</th>
+                            <th class="text-right">Standard</th>
+                            <th class="text-right">Zeroed</th>
+                            <th class="text-right">Exempted</th>
+                            <th class="text-right">MES</th>
+                            <th class="text-right">Output Of Scope</th>
+                            <th class="text-right">Gross Amount</th>
+                            <th class="text-right">GST Amount</th>
+                            <th class="text-right">GST %</th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_body">
+                        <tr t-foreach="get_sale_data" t-as="obj">
+                            <td class="text-left">
+                                <span t-esc="obj.get('tax_name')"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="obj.get('standard')"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="obj.get('zeroed')"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="obj.get('exempted')"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="obj.get('mes')"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="obj.get('out_scope')"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="obj.get('gross_amount')"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="obj.get('gst_amount')"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="obj.get('gst_perc')"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tr>
+                        <td class="text-left">
+                            <b>Total</b>
+                        </td>
+                        <td class="text-right">
+                            <b>
+                                <span t-esc="get_sale_standard_total"/>
+                            </b>
+                        </td>
+                        <td class="text-right">
+                            <b>
+                                <span t-esc="get_sale_zeroed_total"/>
+                            </b>
+                        </td>
+                        <td class="text-right">
+                            <b>
+                                <span t-esc="get_sale_exempted_total"/>
+                            </b>
+                        </td>
+                        <td class="text-right">
+                            <b>
+                                <span t-esc="get_sale_mes_total"/>
+                            </b>
+                        </td>
+                        <td class="text-right">
+                            <b>
+                                <span t-esc="get_sale_out_scope_total"/>
+                            </b>
+                        </td>
+                        <td class="text-right">
+                            <b>
+                                <span t-esc="get_sale_gross_amount_total"/>
+                            </b>
+                        </td>
+                        <td class="text-right">
+                            <b>
+                                <span t-esc=" get_sale_gst_amount_total"/>
+                            </b>
+                        </td>
+                        <td class="text-right">
+                            <b></b>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Purchase -->
+                <p style="page-break-before: always;">
+                    <div class="row text-center">
+                        <h2>
+                            <strong>GST Analysis</strong>
+                        </h2>
+                    </div>
+                    <div class="row text-center">
+                        <h2>
+                            <strong>Purchases</strong>
+                        </h2>
+                    </div>
+                    <table class="table table-condensed" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Particulars</th>
+                                <th class="text-right">Standard</th>
+                                <th class="text-right">Zeroed</th>
+                                <th class="text-right">Exempted</th>
+                                <th class="text-right">MES</th>
+                                <th class="text-right">Output Of Scope</th>
+                                <th class="text-right">Gross Amount</th>
+                                <th class="text-right">GST Amount</th>
+                                <th class="text-right">GST %</th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_body">
+                            <tr t-foreach="get_purchase_data" t-as="obj">
+                                <td class="text-left">
+                                    <span t-esc="obj.get('tax_name')"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="obj.get('standard')"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="obj.get('zeroed')"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="obj.get('exempted')"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="obj.get('mes')"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="obj.get('out_scope')"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="obj.get('gross_amount')"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="obj.get('gst_amount')"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="obj.get('gst_perc')"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tr>
+                            <td class="text-left">
+                                <b>Total</b>
+                            </td>
+                            <td class="text-right">
+                                <b>
+                                    <span t-esc="get_purchase_standard_total"/>
+                                </b>
+                            </td>
+                            <td class="text-right">
+                                <b>
+                                    <span t-esc="get_purchase_zeroed_total"/>
+                                </b>
+                            </td>
+                            <td class="text-right">
+                                <b>
+                                    <span t-esc="get_purchase_exempted_total"/>
+                                </b>
+                            </td>
+                            <td class="text-right">
+                                <b>
+                                    <span t-esc="get_purchase_mes_total"/>
+                                </b>
+                            </td>
+                            <td class="text-right">
+                                <b>
+                                    <span t-esc="get_purchase_out_scope_total"/>
+                                </b>
+                            </td>
+                            <td class="text-right">
+                                <b>
+                                    <span t-esc="get_purchase_gross_amount_total"/>
+                                </b>
+                            </td>
+                            <td class="text-right">
+                                <b>
+                                    <span t-esc=" get_purchase_gst_amount_totals"/>
+                                </b>
+                            </td>
+                            <td class="text-right">
+                                <b></b>
+                            </td>
+                        </tr>
+                    </table>
+                </p>
+            </div>
+        </t>
+    </template>
+
+</flectra>

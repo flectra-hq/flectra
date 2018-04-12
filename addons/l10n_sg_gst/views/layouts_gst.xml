@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <template id="layout" inherit_id="web.layout" primary="True">
+        <!-- Add report attributes -->
+        <xpath expr="//html" position="attributes">
+            <attribute name="t-att-data-report-margin-top">
+                data_report_margin_top if data_report_margin_top else
+                None
+            </attribute>
+            <attribute name="t-att-data-report-header-spacing">
+                data_report_header_spacing if
+                data_report_header_spacing else None
+            </attribute>
+            <attribute name="t-att-data-report-dpi">data_report_dpi if
+                data_report_dpi else None
+            </attribute>
+        </xpath>
+        <!-- Add report style -->
+        <xpath expr="//head" position="inside">
+            <link href="/web/static/lib/bootstrap/css/bootstrap.css"
+                  rel="stylesheet"/>
+            <link href="/website/static/src/css/website.css" rel="stylesheet"/>
+            <link href="/web/static/lib/fontawesome/css/font-awesome.css"
+                  rel="stylesheet"/>
+            <style type="text/css">
+                <t t-call="report.style"/>
+            </style>
+        </xpath>
+    </template>
+
+    <template id="custom_layout_gst">
+        <!-- Multicompany -->
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"/>
+        </t>
+
+        <div class="header">
+            <div class="row">
+                <table>
+                    <tr>
+                        <t t-if="not data['form']['declaration_of_error']">
+                        <td style="padding-left:400px;">
+                            <h3 style="color:#000000;">GST F5 Summary Report
+                            </h3>
+                        </td>
+                        </t>
+                        <t t-if="data['form']['declaration_of_error']">
+                        <td style="padding-left:400px;">
+                            <h3 style="color:#000000;">GST F7 Summary Report
+                            </h3>
+                        </td>
+                        </t>
+                    </tr>
+                </table>
+                    <table
+                            width="100%" style="height:100px;
+                width:1050px;border: 1px solid black;margin-top:0px;
+                    background-color: #000000;color:#FFFFFF;">
+                        <tr>
+                            <td width="45%" style="padding-left:8px;">
+                                Comptroller Of Goods and Service
+                                Tax
+                            </td>
+                            <td>
+                                <b>GOODS AND SERVICES TAX RETURN</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="45%" style="padding:8px;">55 Newton
+                                Road, Revenue House, Singapore
+                                307987
+                            </td>
+                            <td>
+                                <b>Goods And Services Tax act 1993</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px;">Tel:1800-3568633</td>
+                        </tr>
+                    </table>
+            </div>
+        </div>
+        <div class="article">
+            <t t-raw="0"/>
+        </div>
+    </template>
+
+</flectra>

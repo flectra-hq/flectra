@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+			<!-- Added new field Tax-Group -->
+    <record id="view_account_tax_form_inherit" model="ir.ui.view">
+        <field name="name">account.tax.inherit.form</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <field name="amount_type" position="before">
+                <field name="tax_group"/>
+            </field>
+        </field>
+    </record>
+        
+</flectra>

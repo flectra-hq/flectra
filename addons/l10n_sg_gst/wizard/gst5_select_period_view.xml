@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="wiz_gst5_report_form" model="ir.ui.view">
+        <field name="name">wiz.gst5.report.form</field>
+        <field name="model">wiz.gst5.report</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="GST5 Report">
+                <sheet>
+                    <group>
+                        <group col="4" colspan="4">
+                            <field name="company_id" context="{'user_company':True}"/>
+                            <separator string="Filter on Date" colspan="4"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group colspan="4" col="6">
+                            <separator string="Did you make following claims in BOX 7 ?" colspan="4"/>
+                            <newline/>
+                            <label string="Did you claim for GST you had refunded to tourists?" colspan="1"/>
+                            <field name="answer1_yes" colspan="1"
+                                   attrs="{'readonly':[('answer1_no','=',True)],'required':[('answer1_no','=',False)]}"/>
+                            <field name="answer1_no" colspan="1"/>
+                            <newline/>
+                            <label string="Did you make any bad debt relief claims?" colspan="1"/>
+                            <field name="answer2_yes" colspan="1"
+                                   attrs="{'readonly':[('answer2_no','=',True)],'required':[('answer2_no','=',False)]}"/>
+                            <field name="answer2_no" colspan="1"/>
+                            <newline/>
+                            <label string="Did you make any pre-registration claims?" colspan="1"/>
+                            <field name="answer3_yes" colspan="1"
+                                   attrs="{'readonly':[('answer3_no','=',True)],'required':[('answer3_no','=',False)]}"/>
+                            <field name="answer3_no" colspan="1"/>
+                            <newline/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <span groups="base.group_user">
+                        <button name="print_report" string="Print" type="object" class="btn-primary"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </span>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wiz_gst5_report" model="ir.actions.act_window">
+        <field name="name">GST5 Report</field>
+        <field name="res_model">wiz.gst5.report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wiz_gst5_report_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            name="GST Report"
+            parent="account.menu_finance_reports"
+            id="menu_account_gst_report"
+            icon="STOCK_PRINT"/>
+
+    <menuitem
+            name="GST5 Report"
+            parent="menu_account_gst_report"
+            action="action_wiz_gst5_report"
+            id="menu_action_wiz_gst5_report"
+            icon="STOCK_PRINT"/>
+
+</flectra>

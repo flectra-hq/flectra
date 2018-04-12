@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="wiz_gst_analysis_form" model="ir.ui.view">
+        <field name="name">wiz.gst.analysis.form</field>
+        <field name="model">wiz.gst.analysis</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="GST Analysis">
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="company_id" context="{'user_company':True}"/>
+                        <separator string="Filter on Date" colspan="4"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <span groups="base.group_user">
+                        <button name="print_report" string="Print" type="object" class="btn-primary"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </span>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wiz_gst_analysis" model="ir.actions.act_window">
+        <field name="name">GST Analysis</field>
+        <field name="res_model">wiz.gst.analysis</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wiz_gst_analysis_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            name="GST Analysis"
+            parent="l10n_sg_gst.menu_account_gst_report"
+            action="action_wiz_gst_analysis"
+            id="menu_action_wiz_gst_analysis"
+            icon="STOCK_PRINT"/>
+
+</flectra>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+
+    <!-- Company -->
+    <record id="view_res_company_form_inh" model="ir.ui.view">
+        <field name="name">res.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="is_gst"/>
+                <field name="gst_number" attrs="{'invisible':[('is_gst','=',False)],'required':[('is_gst','=',True)]}"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Partner -->
+    <record id="view_res_partner_form_inh" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="supplier" position="after">
+                <field name="is_gst"/>
+                <field name="gst_number" attrs="{'invisible':[('is_gst','=',False)],'required':[('is_gst','=',True)]}"/>
+            </field>
+        </field>
+    </record>
+        
+</flectra>

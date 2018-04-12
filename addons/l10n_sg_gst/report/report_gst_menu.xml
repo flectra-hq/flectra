@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <report
+            id="action_account_gst_analysis"
+            model="account.tax"
+            string="GST Analysis"
+            report_type="qweb-pdf"
+            name="l10n_sg_gst.account_gst_analysis_view"
+            file="l10n_sg_gst.account_gst_analysis_view"
+            menu="False"
+    />
+
+    <report
+            id="action_account_gst5_report_id"
+            model="account.tax"
+            string="GST5 Report"
+            report_type="qweb-pdf"
+            name="l10n_sg_gst.account_gst5_report_view"
+            file="l10n_sg_gst.account_gst5_report_view"
+            menu="False"
+    />
+
+    <report
+            id="action_account_gst7_report_id"
+            model="account.tax"
+            string="GST7 Report"
+            report_type="qweb-pdf"
+            name="l10n_sg_gst.account_gst7_report_view"
+            file="l10n_sg_gst.account_gst7_report_view"
+            menu="False"
+    />
+
+    <record id="action_account_gst5_report_id" model="ir.actions.report">
+        <field name="paperformat_id" ref="l10n_sg_gst.paperformat_report_gst"/>
+    </record>
+
+    <record id="action_account_gst7_report_id" model="ir.actions.report">
+        <field name="paperformat_id" ref="l10n_sg_gst.paperformat_report_gst"/>
+    </record>
+
+    <record id="action_account_gst_analysis" model="ir.actions.report">
+        <field name="paperformat_id" ref="l10n_sg_gst.paperformat_report_gst_analysis"/>
+    </record>
+
+</flectra>

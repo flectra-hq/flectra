@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+    
+    <record id="test_data_account_type_income" model="account.account.type">
+        <field name="name">Income</field>
+    </record>
+
+    <record id="test_a_sale" model="account.account">
+        <field name="code">X2001</field>
+        <field name="name">Product Sales - (test)</field>
+        <field name="user_type_id" ref="test_data_account_type_income"/>
+    </record>
+
+    <record id="test_sales_journal" model="account.journal">
+        <field name="name">Sales Journal - (test)</field>
+        <field name="code">TSAJ</field>
+        <field name="type">sale</field>
+        <field name="default_credit_account_id" ref="test_a_sale"/>
+        <field name="default_debit_account_id" ref="test_a_sale"/>
+    </record>
+
+</flectra>

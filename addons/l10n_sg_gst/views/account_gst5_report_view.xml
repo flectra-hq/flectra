@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <template id="account_gst5_report_view">
+        <t t-call="l10n_sg_gst.custom_layout_gst">
+            <div class="page">
+                <table>
+                    <tr>
+                        <td>
+                            <p style="padding-top:2px;">If you
+                                have changed your postal adddress, please
+                                update the address printed below.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <table class="table" width="100%" style="font-size:11px;
+                                                                              border-width: 1px;
+                                                                              border-color: 1px solid black;
+                                                                              border-collapse: collapse;">
+                                <tr>
+                                    <td style="color:#000000;
+                                            border-width: 1px;
+                                            padding: 8px;
+                                            border-style: solid;
+                                            border-color: #cccccc;">
+                                        <b>Company Name :</b>
+                                        <span t-esc="get_company(data)['name']"/>
+                                        <br/>
+                                        <b>Company Address:</b>
+                                        <span t-esc="get_company(data)['contact_address']"/>
+                                        <br/>
+                                        <b>GST Registration Number :</b>
+                                        <span t-esc="get_company(data)['gst_number']"/>
+                                        <br/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <font color="white">........</font>
+                        </td>
+                        <td>
+                            <table width="100%">
+                                <tr>
+                                    <td style="color:#000000;">The due date for
+                                        submission is one month after the end
+                                        of the accountig period.
+                                        <br/>
+                                        Penalties will be imposed if you do not
+                                        submit your Return and make payment
+                                        <br/>
+                                        by the due date.
+                                    </td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td colspan="2" style="color:#000000;border-width: 1px;
+							                        padding: 8px;
+							                        border-style: solid;
+							                        border-color: #cccccc;">
+                                        Period covered by this return :
+                                        <t t-if="data['form']['date_from']">
+                                            <strong>From :</strong>
+                                            <span t-esc="time.strftime('%d-%m-%Y', time.strptime(data['form']['date_from'],'%Y-%m-%d'))"/>
+                                        </t>
+                                        <t t-if="data['form']['date_to']">
+                                            <strong>To :</strong>
+                                            <span t-esc="time.strftime('%d-%m-%Y', time.strptime(data['form']['date_to'],'%Y-%m-%d'))"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <p style="color:#000000;">
+                    <b>Before you fill in this form, please read the notes on
+                        Page 2.
+                    </b>
+                </p>
+                <p style="color:#000000;">Complete all boxes clearly in ink.
+                    Please enter a '0' (Zero) if the item is not applicable.
+                    Exclude GST amount and disregard cents for items 1 to 5.
+                </p>
+                <div class="box1"
+                     style="height: 1055px;width:1030px;border: 1px solid black;margin-top:5px;">
+                    <table>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Total value of standard-rated supplies
+                                (excluding GST)
+                            </td>
+                            <td style="padding-left:400px;">
+                                <font color="white">........</font>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="get_tax(data['form'],'standard_rates')"/>
+                            </td>
+                            <td style="padding-left:20px;">
+                                <div class="box2"
+                                     style="height: 25px;width:50px;border:1px solid black;margin-top:0px; background-color: #000000;text-color: #FFFFFF;">
+                                    <p class="text-center"
+                                       style="color:#FFFFFF;">1
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Total value of zero-rated supplies</td>
+                            <td style="padding-left:250px;">
+                                <font color="white">........</font>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="get_tax(data['form'],'zeroed')"/>
+                            </td>
+                            <td style="padding-left:20px;">
+                                <div class="box2"
+                                     style="height: 25px;width:50px;border:1px solid black;margin-top:0px; background-color: #000000;text-color: #FFFFFF;">
+                                    <p class="text-center"
+                                       style="color:#FFFFFF;">2
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Total value of exempt supplies</td>
+                            <td style="padding-left:250px;">
+                                <font color="white">........</font>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="get_tax(data['form'],'exempted')"/>
+                            </td>
+                            <td style="padding-left:20px;">
+                                <div class="box2"
+                                     style="height: 25px;width:50px;border:1px solid black;margin-top:0px; background-color: #000000;text-color: #FFFFFF;">
+                                    <p class="text-center"
+                                       style="color:#FFFFFF;">3
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Total value of (1) + (2) + (3)</td>
+                            <td style="padding-left:250px;">
+                                <font color="white">........</font>
+                            </td>
+                            <td class="text-right">
+                                <b>
+                                    <span t-esc="get_tax(data['form'],'standard_rates') + get_tax(data['form'],'zeroed')+get_tax(data['form'],'exempted')"/>
+                                </b>
+                            </td>
+                            <td style="padding-left:20px;">
+                                <div class="box2"
+                                     style="height: 25px;width:50px;border:1px solid black;margin-top:0px; background-color: #000000;text-color: #FFFFFF;">
+                                    <p class="text-center"
+                                       style="color:#FFFFFF;">4
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Total value of taxable purchases (excluding
+                                GST)
+                            </td>
+                            <td style="padding-left:250px;">
+                                <font color="white">........</font>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="get_tax(data['form'],'purchase')"/>
+                            </td>
+                            <td style="padding-left:20px;">
+                                <div class="box2"
+                                     style="height: 25px;width:50px;border:1px solid black;margin-top:0px; background-color: #000000;text-color: #FFFFFF;">
+                                    <p class="text-center"
+                                       style="color:#FFFFFF;">5
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Output tax due</td>
+                            <td style="padding-left:250px;">
+                                <font color="white">........</font>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="get_tax(data['form'],'sales-tax')"/>
+                            </td>
+                            <td style="padding-left:20px;">
+                                <div class="box2"
+                                     style="height: 25px;width:50px;border:1px solid black;margin-top:0px; background-color: #000000;text-color: #FFFFFF;">
+                                    <p class="text-center"
+                                       style="color:#FFFFFF;">6
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <b>Less:</b>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Input tax and refunds claimed</td>
+                            <td style="padding-left:250px;">
+                                <font color="white">........</font>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="get_tax(data['form'],'purchase-tax')"/>
+                            </td>
+                            <td style="padding-left:20px;">
+                                <div class="box2"
+                                     style="height: 25px;width:50px;border:1px solid black;margin-top:0px; background-color: #000000;text-color: #FFFFFF;">
+                                    <p class="text-center"
+                                       style="color:#FFFFFF;">7
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td style="padding-left:200px;">(Please Cross)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <b>Equals:</b>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Net GST to be paid to IRAS</td>
+                            <td style="padding-left:250px;">
+                                <span t-esc="(get_tax(data['form'],'sales-tax')-get_tax(data['form'],'purchase-tax')) > 0 and '☒' or '◻'"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>(Attach payment voucher if you are paying by
+                                cheque)
+                            </td>
+                            <td style="padding-left:210px;">+</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>OR</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Net GST To be claimed for IRAS</td>
+                            <td style="padding-left:250px;">
+                                <span t-esc="(get_tax(data['form'],'sales-tax')-get_tax(data['form'],'purchase-tax')) > 0 and '◻' or '☒'"/>
+                            </td>
+                            <td class="text-right">
+                                <b>
+                                    <span t-esc="abs(get_tax(data['form'],'sales-tax')-get_tax(data['form'],'purchase-tax'))"/>
+                                </b>
+                            </td>
+                            <td style="padding-left:20px;">
+                                <div class="box2"
+                                     style="height: 25px;width:50px;border:1px solid black;margin-top:0px; background-color: #000000;text-color: #FFFFFF;">
+                                    <p class="text-center"
+                                       style="color:#FFFFFF;">8
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td style="padding-left:210px;">-</td>
+                        </tr>
+                    </table>
+                    <div class="box3" style="height: 25px;
+								                    width:  1030px;
+								                    border: 1px solid black;
+								                    margin-top:0px;
+								                    background-color: #000000;
+								                    text-color: #FFFFFF;">
+                        <table style="font-size:12px;
+										                        border-width: 1px;
+										                        font-family: verdana,arial,sans-serif;
+										                        color:black;">
+                            <tr class="text-center">
+                                <td style="color:#FFFFFF;border-width: 1px;padding: 8px;">
+                                    <b>APPLICABLE TO TAXABLE PERSONS UNDER
+                                        MAJOR EXPORTER SCHEME ONLY
+                                    </b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table width="100%">
+                        <tr height="10%">
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Total value of goods imported under this scheme
+                            </td>
+                            <td style="padding-left:470px;">
+                                <font color="white">.</font>
+                            </td>
+                            <td width="35px" class="text-right">
+                                <span t-esc="get_tax(data['form'],'MES')"/>
+                            </td>
+                            <td class="text-right" style="padding-left:30px;">
+                                <div class="box2"
+                                     style="height: 25px;width:50px;border:1px solid black;margin-top:0px; background-color: #000000;text-color: #FFFFFF;">
+                                    <p class="text-center"
+                                       style="color:#FFFFFF;">9
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="box3" style="height: 25px;
+                                                    width:  1030px;
+                                                    border: 1px solid black;
+                                                    margin-top:0px;
+                                                    background-color: #000000;
+                                                    text-color: #FFFFFF;">
+                        <table style="font-size:12px; border-width: 1px;
+                                                                font-family: verdana,arial,sans-serif;
+                                                                color:black;">
+                            <tr class="text-center">
+                                <td style="color:#FFFFFF;border-width: 1px;padding: 8px;">
+                                    <b>DID YOU MAKE FOLLOWING CLAIMS IN BOX 7
+                                        ?
+                                    </b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Did you claim for GST you had refunded to
+                                tourists?
+                            </td>
+                            <td style="padding-left:460px;">
+                                <font color="white">........</font>
+                            </td>
+                            <td style="padding-left:50px;" class="text-right">
+                                <div class="box2"
+                                     style="height: 25px;width:50px;border:1px solid black;margin-top:0px; background-color: #000000;text-color: #FFFFFF;">
+                                    <p class="text-center"
+                                       style="color:#FFFFFF;">10
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <span
+                                        t-esc="get_boolean_data(data)['answer1_yes']"/>
+                                Yes<span
+                                    t-esc="get_boolean_data(data)['answer1_no']"
+                                    style="padding-left:20px;"/>No
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Did you make any bad debt relief claims?</td>
+                            <td style="padding-left:460px;">
+                                <font color="white">........</font>
+                            </td>
+                            <td style="padding-left:50px;">
+                                <div class="box2"
+                                     style="height: 25px;width:50px;border:1px solid black;margin-top:0px; background-color: #000000;text-color: #FFFFFF;">
+                                    <p class="text-center"
+                                       style="color:#FFFFFF;">11
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <span
+                                        t-esc="get_boolean_data(data)['answer2_yes']"/>
+                                Yes<span
+                                    t-esc="get_boolean_data(data)['answer2_no']"
+                                    style="padding-left:20px;"/>No
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Did you make any pre-registration claims?</td>
+                            <td style="padding-left:460px;">
+                                <font color="white">........</font>
+                            </td>
+                            <td style="padding-left:50px;">
+                                <div class="box2"
+                                     style="height: 25px;width:50px;border:1px solid black;margin-top:0px; background-color: #000000;text-color: #FFFFFF;">
+                                    <p class="text-center"
+                                       style="color:#FFFFFF;">12
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <span
+                                        t-esc="get_boolean_data(data)['answer3_yes']"/>
+                                Yes<span
+                                    t-esc="get_boolean_data(data)['answer3_no']"
+                                    style="padding-left:20px;"/>No
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="box3" style="height: 25px;
+                                                    width:  1030px;
+                                                    border: 1px solid black;
+                                                    margin-top:0px;
+                                                    background-color: #000000;
+                                                    text-color: #FFFFFF;">
+                        <table style="font-size:12px;
+                                                                border-width: 1px;
+                                                                font-family: verdana,arial,sans-serif;
+                                                                color:black;">
+                            <tr class="text-center">
+                                <td style="color:#FFFFFF;border-width: 1px;padding: 6px;">
+                                    <b>REVENUE</b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr height="15%">
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Revenue for the accounting period</td>
+                            <td style="padding-left:540px;">
+                                <font color="white">........</font>
+                            </td>
+                            <td class="text-right" width="30px">
+                                <b>
+                                    <span t-esc="get_tax(data['form'],'sales')"/>
+                                </b>
+                            </td>
+                            <td style="padding-left:25px;">
+                                <div class="box2"
+                                     style="height: 25px;width:50px;border:1px solid black;margin-top:0px; background-color: #000000;text-color: #FFFFFF;">
+                                    <p class="text-center"
+                                       style="color:#FFFFFF;">13
+                                    </p>
+                                </div>
+                                <p></p>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="box3" style="height: 25px;
+                                                    width:  1030px;
+                                                    border: 1px solid black;
+                                                    margin-top:0px;
+                                                    background-color: #000000;
+                                                    text-color: #FFFFFF;">
+                        <table style="font-size:11px;
+                                                                border-width: 1px;
+                                                                font-family: verdana,arial,sans-serif;
+                                                                color:black;">
+                            <tr class="text-center">
+                                <td style="color:#FFFFFF;border-width: 1px;padding: 8px;">
+                                    <b>DECLARATION</b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>I declare that the information given above is
+                                true and complete.
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Name Of Declarant:</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <span t-esc="user.name"/>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Designation:</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <span t-esc="user.partner_id.function"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Signature</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>_____________________</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Date</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <u>
+                                    <span t-esc="datetime.now().strftime('%d-%m-%Y')"/>
+                                </u>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>Contact Telephone No.</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>
+                                <u>
+                                    <span t-esc="user.partner_id.phone"/>
+                                </u>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>
+                        ____________________________________________________________________________________________________________________________________
+                    </p>
+                    <table>
+                        <tr>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>For Office Use</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>1</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>L</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>2</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>CP</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>3</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>NS</td>
+                            <td>4</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>PR</td>
+                            <td>5</td>
+                            <td>
+                                <font color="white">........</font>
+                            </td>
+                            <td>AT</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+</flectra>
