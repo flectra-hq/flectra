@@ -1,0 +1,264 @@
+/* ==========================================================================
+   moon
+   ========================================================================== */
+
+
+/* Colors
+   ========================================================================== */
+
+@color-primary: @moon-primary;
+@color-success: @moon-success;
+@color-info: @moon-info;
+@color-warning: @moon-warning;
+@color-danger: @moon-danger;
+
+.text-primary{color:@color-primary;}
+.text-success{color:@color-success;}
+.text-info{color:@color-info;}
+.text-warning{color:@color-warning;}
+.text-danger{color:@color-danger;}
+
+/* Grayscale
+   ========================================================================== */
+
+// @gray-darker: #343642;
+// @gray: lighten(@gray-darker, 40%);
+// @gray-light: lighten(@gray-darker, 70%);
+
+/* Content Colors
+   ========================================================================== */
+
+#wrapwrap{
+	.white(@gray-darker);
+	.gray-lighter(@gray-darker);
+	.gray(#fff);
+	.gray-darker(#fff);
+	.primary(#fff);
+	.success(#fff);
+	.info(#fff);
+	.warning(#fff);
+	.danger(@gray-darker);
+}
+
+footer {
+    background-color: #f1f1f1;
+    color: #000;
+}
+
+/* header start*/
+header{
+
+    .dropdown.open a.dropdown-toggle,.dropdown.open a.dropdown-toggle:hover{
+        background:@color-primary !important;
+        color:@color-info !important;
+    }
+}
+header a.navbar-brand.logo img{
+    margin:8px;
+}
+#wrapwrap div.navbar-static-top{
+    border-bottom-width: 0px;
+}
+#wrapwrap div.navbar-static-top .navbar-nav > .active > a{
+    color: #fff !important;
+    background-color: @color-primary !important;
+}
+#top_menu > li > a {
+    line-height: inherit;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 18px;
+    font-size: 16px;
+}
+#top_menu > li.active > a{
+    color: #fff;
+    font-weight: bold;
+    background: @color-primary
+}
+#top_menu > li > a:hover{
+    color: #fff;
+    font-weight: bold;
+    background: @color-primary;
+}
+#top_menu .divider{
+    display:none;
+}
+
+@layout-icons-color: #fff;
+@link-color: @color-primary;
+
+@body-bg: #fff;
+
+
+
+/* Label Colors
+   ========================================================================== */
+
+//** Default label background color
+@label-default-bg:            @btn-default-bg;
+//** Primary label background color
+@label-primary-bg:            @color-primary;
+//** Success label background color
+@label-success-bg:            @color-success;
+//** Info label background color
+@label-info-bg:               @color-info;
+//** Warning label background color
+@label-warning-bg:            @color-warning;
+//** Danger label background color
+@label-danger-bg:             @color-danger;
+
+//** Default label text color
+@label-color:                 #fff;
+//** Default text color of a linked label
+@label-link-hover-color:      #fff;
+
+
+
+/* Button Colors
+   ========================================================================== */
+
+
+@btn-font-weight:                normal;
+
+@btn-default-color:              @text-color;
+@btn-default-bg:                 #fff;
+@btn-default-border:             #ddd;
+
+@btn-primary-color:              #fff;
+@btn-primary-bg:                 @color-primary;
+@btn-primary-border:             @btn-primary-bg;
+
+@btn-success-color:              #fff;
+@btn-success-bg:                 @color-success;
+@btn-success-border:             @btn-success-bg;
+
+@btn-info-color:                 #fff;
+@btn-info-bg:                    @color-info;
+@btn-info-border:                @btn-info-bg;
+
+@btn-warning-color:              #fff;
+@btn-warning-bg:                 @color-warning;
+@btn-warning-border:             @btn-warning-bg;
+
+@btn-danger-color:               #fff;
+@btn-danger-bg:                  @color-danger;
+@btn-danger-border:              @btn-danger-bg;
+
+@btn-link-disabled-color:        @gray-light;
+
+// Allows for customizing button radius independently from global border radius
+@btn-border-radius-base:         @border-radius-base;
+@btn-border-radius-large:        @border-radius-large;
+@btn-border-radius-small:        @border-radius-small;
+
+
+
+
+
+/* Pagination Colors
+   ========================================================================== */
+
+@pagination-color:                     @text-color;
+@pagination-bg:                        #fff;
+@pagination-border:                    #ddd;
+
+@pagination-hover-color:               #fff;
+@pagination-hover-bg:                  @color-primary;
+@pagination-hover-border:              @color-primary;
+
+@pagination-active-color:              #fff;
+@pagination-active-bg:                 @color-primary;
+@pagination-active-border:             @color-primary;
+
+@pagination-disabled-color:            @gray-light;
+@pagination-disabled-bg:               #fff;
+@pagination-disabled-border:           #ddd;
+
+
+
+/* Pager Colors
+   ========================================================================== */
+
+@pager-bg:                             @pagination-bg;
+@pager-border:                         @pagination-border;
+@pager-border-radius:                  15px;
+
+@pager-hover-bg:                       @pagination-hover-bg;
+
+@pager-active-bg:                      @pagination-active-bg;
+@pager-active-color:                   @pagination-active-color;
+
+@pager-disabled-color:                 @gray-light;
+
+/* Jumbotron Colors
+   ========================================================================== */
+
+@jumbotron-padding:              30px;
+@jumbotron-color:                inherit;
+@jumbotron-bg:                   darken(@body-bg, 3%);
+@jumbotron-heading-color:        inherit;
+@jumbotron-font-size:            ceil((@font-size-base * 1.5));
+@jumbotron-heading-font-size:    ceil((@font-size-base * 4.5));
+
+
+
+
+
+/* Dropdown Colors
+   ========================================================================== */
+   
+@navbar-default-border: @color-primary;   
+   
+//** Global color for active items (e.g., navs or dropdowns).
+@component-active-color:    #fff;
+//** Global background color for active items (e.g., navs or dropdowns).
+@component-active-bg:       @color-primary;
+
+//** Width of the `border` for generating carets that indicator dropdowns.
+@caret-width-base:          4px;
+//** Carets increase slightly in size for larger components.
+@caret-width-large:         5px;
+   
+   
+
+//** Background for the dropdown menu.
+@dropdown-bg:                    #fff;
+//** Dropdown menu `border-color`.
+@dropdown-border:                rgba(0,0,0,.15);
+//** Dropdown menu `border-color` **for IE8**.
+@dropdown-fallback-border:       #ccc;
+//** Divider color for between dropdown items.
+@dropdown-divider-bg:            #e5e5e5;
+
+//** Dropdown link text color.
+@dropdown-link-color:            @gray-dark;
+//** Hover color for dropdown links.
+@dropdown-link-hover-color:      #fff;
+//** Hover background for dropdown links.
+@dropdown-link-hover-bg:         @component-active-bg;
+
+//** Active dropdown menu item text color.
+@dropdown-link-active-color:     #fff;
+//** Active dropdown menu item background color.
+@dropdown-link-active-bg:        @component-active-bg;
+
+//** Disabled dropdown menu item background color.
+@dropdown-link-disabled-color:   @gray-light;
+
+//** Text color for headers within dropdown menus.
+@dropdown-header-color:          @gray-light;
+
+//** Deprecated `@dropdown-caret-color` as of v3.1.0
+@dropdown-caret-color:           #000;
+
+/* Input Group Colors
+   ========================================================================== */
+
+
+//** Background color for textual input addons
+@input-group-addon-bg: #FFF;
+
+//** Border color for textual input addons
+@input-group-addon-border-color: @input-border;
+
