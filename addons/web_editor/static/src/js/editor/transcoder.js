@@ -300,5 +300,7 @@ return {
     imgToFont: imgToFont,
     classToStyle: classToStyle,
     styleToClass: styleToClass,
+    attachmentThumbnailToLinkImg: attachmentThumbnailToLinkImg,
+    linkImgToAttachmentThumbnail: linkImgToAttachmentThumbnail,
 };
 });
