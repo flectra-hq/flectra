@@ -5,6 +5,7 @@ from flectra import models, fields
 
 class AccountCashFlow(models.TransientModel):
     """Credit Notes"""
+    # TODO: Add date filters
 
     _inherit = "account.common.report"
     _name = "account.cash.flow"
@@ -13,7 +14,8 @@ class AccountCashFlow(models.TransientModel):
     no_of_year = fields.Integer(string='Previous Period', default=0)
 
     def _print_report(self, data):
-        data['form'].update(self.read(['no_of_year', 'company_id'])[0])
+        data['form'].update(self.read(['no_of_year', 'company_id',
+                                       'branch_id'])[0])
         landscape = False
         if self.no_of_year > 2:
             landscape = True

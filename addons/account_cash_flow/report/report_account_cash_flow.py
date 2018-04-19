@@ -30,7 +30,8 @@ class ReportAccountCashFlow(models.AbstractModel):
             return date_dict
         return year_list
 
-    def get_move_lines(self, date_from, date_to, key, dummy_list):
+    def get_move_lines(self, date_from, date_to, key, dummy_list,
+                       company_id, branch_id):
         self._cr.execute("select CASE WHEN acc_type.activity_type is null THEN acc.name ELSE acc_type.activity_type END AS activity_type, "
                          "aml.account_id, "
                          "(sum(aml.debit) - sum(aml.credit)) * -1 as "
@@ -41,7 +42,9 @@ class ReportAccountCashFlow(models.AbstractModel):
                          "where acc.id = aml.account_id and "
                          "aml.date >= '%s'" % date_from + "and "
                          "aml.date <= '%s'" % date_to + "and "
-                         "acc.user_type_id = acc_type.id "
+                         "acc.user_type_id = acc_type.id and "
+                         "aml.company_id = %s " % company_id + "and "
+                         "aml.branch_id = %s " % branch_id +
                          "group by aml.account_id, "
                          "acc_type.activity_type, acc.name")
         balance_data = self._cr.dictfetchall()
@@ -58,7 +61,10 @@ class ReportAccountCashFlow(models.AbstractModel):
             dummy_list = list(date_dict.keys())
             dummy_list.remove(key)
             balance_data += self.get_move_lines(date_dict[key][0],
-                                               date_dict[key][1], key, dummy_list)
+                                               date_dict[key][1], key,
+                                                dummy_list, data['form'][
+                                                    'company_id'][0],
+                                                data['form']['branch_id'][0])
         for data in balance_data:
             if data['activity_type'] not in final_dict:
                 final_dict[data['activity_type']] = {'account': {}}
@@ -98,6 +104,7 @@ class ReportAccountCashFlow(models.AbstractModel):
         docargs = {
             'doc_model': 'account.move.line',
             'docs': docs,
+            'branch_name': data['form']['branch_id'][1],
             'get_data': self.get_data(data),
             'get_years': self.get_years(data, is_getdata=False),
             'get_acc_details': self.get_acc_details,
