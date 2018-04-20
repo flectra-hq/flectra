@@ -21,7 +21,7 @@ class ReleasePlanning(models.Model):
         related="sprint_id.estimated_velocity", string="Sprint Velocity",
         track_visibility="onchange", store=True)
     task_id = fields.One2many(
-        "project.task", "release_planning_id", string="Task", readonly=True)
+        "project.task", "release_planning_id", string="Task")
 
     @api.onchange('sprint_id')
     def onchange_project(self):
