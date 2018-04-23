@@ -9,7 +9,22 @@ As Flectra Team is working on Odoo's fork. It is team's responsibilities to main
 This changelog contains things those are improved version by version and also things those are not identical with Odoo.
 So, users can consider this **CHANGELOG** to find the differences between **Flectra** and **Odoo(Community Edition)**.
 
-## [Unreleased]
+
+## [1.2.0] - WoodStar - 2018-04-23
+### Added
+- Manage product category visibility on website by partners/customers tags
+- Cash Flow Report
+- GST Reporting for Indian Localization
+- GST Reporting for Singapore Localization
+- Advance Pricelist Module
+- Themes for Website
+    - Theme Leith
+
+### Fixes
+- #50, #51 website_hr module bug
+- #48 Kanban image display issue
+- #43 Menu bookmark issue
+- #59 website_sale migration issue
 
 ## [1.1.0] - Hermit - 2018-03-19
 ### Added
