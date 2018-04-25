@@ -31,8 +31,8 @@
                                                 <label class="col-md-3 o_light_label" for="website_theme_id"/>
                                                 <field name="website_theme_id"
                                                        options="{'no_create': True, 'no_open': True}"
-                                                       domain="['|', ('category_id.name', '=', 'Theme'),
-                                                           ('category_id.parent_id.name', '=', 'Theme')]"/>
+                                                        domain="['|', ('category_id', '=', %(base.module_category_theme)d),
+                                                           ('category_id.parent_id', '=', %(base.module_category_theme)d)]"/>
                                             </div>
                                         </div>
                                     </div>
