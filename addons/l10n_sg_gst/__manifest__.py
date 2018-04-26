@@ -5,7 +5,7 @@
     'name': 'Singapore - GST Report',
     'version': '1.0',
     'category': 'Localization',
-    'summary': 'GST Reports for Singapore Localization',
+    'summary': 'Goods and Service Tax (Singapore)',
     'description': '''
 GST Reports for Singapore Localization
 ========================================
