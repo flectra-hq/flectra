@@ -359,13 +359,18 @@ class GSTR1Report(models.AbstractModel):
         result = []
         list_product = []
         acc_tax = self.env['account.tax']
-        hsn_invoice_line_ids = self.env['account.invoice.line'].search([
-            ('invoice_id.date', '>=', data['from_date']),
+        invoice_domain = [('invoice_id.date', '>=', data['from_date']),
             ('invoice_id.date', '<=', data['to_date']),
             ('invoice_id.state', 'not in', ['draft', 'cancel']),
-            ('invoice_id.company_id', '=', data['company_id']),
-            ('invoice_id.type', '=', 'out_invoice'),
-            ('invoice_id.gst_invoice', 'in', ('b2b', 'b2cl', 'b2cs'))])
+            ('invoice_id.company_id', '=', data['company_id'])]
+        if data['summary_type'] == 'gstr1':
+            invoice_domain += [('invoice_id.type', '=', 'out_invoice'),
+            ('invoice_id.gst_invoice', 'in', ('b2b', 'b2cl', 'b2cs'))]
+        if data['summary_type'] == 'gstr2':
+            invoice_domain += [('invoice_id.type', '=', 'in_invoice'), (
+            'invoice_id.gst_invoice', 'in', ('b2b', 'b2bur'))]
+        hsn_invoice_line_ids = self.env['account.invoice.line'].search(
+                invoice_domain)
         for line in hsn_invoice_line_ids:
             igst_amount = cgst_amount = sgst_amount = cess_amount = 0.0
             if line.invoice_line_tax_ids:
@@ -582,8 +587,13 @@ class GSTR1Report(models.AbstractModel):
                 no_of_hsn += 1
             taxable_value_total += inv['taxable_value']
             cess_amt_total += inv['cess_amount']
+        name = ''
+        if data['summary_type'] == 'gstr1':
+            name = _("HSN-Wise Summary of outward Supplies - 12")
+        elif data['summary_type'] == 'gstr2':
+            name = _("HSN-Wise Summary of inward Supplies - 13")
         summary = {
-            "name": _("HSN-Wise Summary of outward Supplies - 12"),
+            "name": name,
             "no_of_invoices": "",
             "no_of_hsn": no_of_hsn,
             "taxable_value_total": taxable_value_total,
