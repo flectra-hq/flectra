@@ -1,6 +1,6 @@
 # Part of Flectra See LICENSE file for full copyright and licensing details.
 
-from flectra import api, fields, models
+from flectra import api, fields, models, _
 from flectra.exceptions import ValidationError
 
 

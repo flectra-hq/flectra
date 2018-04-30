@@ -229,6 +229,60 @@
             <field name="chart_template_id" ref="indian_chart_template_standard"/>
             <field name="tag_ids" eval="[(6,0,[ref('igst_tag_account'),])]"/>
         </record>
+
+        <record id="p112331" model="account.account.template">
+            <field name="name">Excise Duty Payable</field>
+            <field name="code">112331</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="reconcile" eval="False"/>
+            <field name="chart_template_id" ref="indian_chart_template_standard"/>
+        </record>
+        <record id="p112332" model="account.account.template">
+            <field name="name">Education Cess Payable On Excise Duty</field>
+            <field name="code">112332</field>
+            <field name="user_type_id"
+                   ref="account.data_account_type_current_liabilities"/>
+            <field name="reconcile" eval="False"/>
+            <field name="chart_template_id" ref="indian_chart_template_standard"/>
+        </record>
+        <record id="p112333" model="account.account.template">
+            <field name="name">Higher Education Cess Payable On Excise Duty
+            </field>
+            <field name="code">112333</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="reconcile" eval="False"/>
+            <field name="chart_template_id" ref="indian_chart_template_standard"/>
+        </record>
+        <record id="p112341" model="account.account.template">
+            <field name="name">Service Tax Payable</field>
+            <field name="code">112341</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="reconcile" eval="False"/>
+            <field name="chart_template_id" ref="indian_chart_template_standard"/>
+        </record>
+        <record id="p112342" model="account.account.template">
+            <field name="name">Education Cess Payable On Service Tax</field>
+            <field name="code">112342</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="reconcile" eval="False"/>
+            <field name="chart_template_id" ref="indian_chart_template_standard"/>
+        </record>
+        <record id="p112343" model="account.account.template">
+            <field name="name">Higher Education Cess Payable On Service Tax</field>
+            <field name="code">112343</field>
+            <field name="user_type_id"
+                   ref="account.data_account_type_current_liabilities"/>
+            <field name="reconcile" eval="False"/>
+            <field name="chart_template_id" ref="indian_chart_template_standard"/>
+        </record>
+        <record id="p11235" model="account.account.template">
+            <field name="name">Sales Tax Payable</field>
+            <field name="code">11235</field>
+            <field name="user_type_id"
+                   ref="account.data_account_type_current_liabilities"/>
+            <field name="reconcile" eval="False"/>
+            <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        </record>
         <record id="p11241" model="account.account.template">
             <field name="name">Wages Payable</field>
             <field name="code">11241</field>
@@ -239,14 +293,16 @@
         <record id="p11242" model="account.account.template">
             <field name="name">Interest Payable</field>
             <field name="code">11242</field>
-            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="user_type_id"
+                   ref="account.data_account_type_current_liabilities"/>
             <field name="reconcile" eval="False"/>
             <field name="chart_template_id" ref="indian_chart_template_standard"/>
         </record>
         <record id="p11243" model="account.account.template">
             <field name="name">Notes Payable</field>
             <field name="code">11243</field>
-            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="user_type_id"
+                   ref="account.data_account_type_current_liabilities"/>
             <field name="reconcile" eval="False"/>
             <field name="chart_template_id" ref="indian_chart_template_standard"/>
         </record>
@@ -508,14 +564,7 @@
         <field name="reconcile" eval="False"/>
         <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
     </record>
-    <record id="p10054" model="account.account.template">
-        <field name="name">VAT Receivable</field>
-        <field name="code">10054</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_assets"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
+
     <record id="p100521" model="account.account.template">
         <field name="name">Excise Duty Receivable</field>
         <field name="code">100521</field>
@@ -570,152 +619,8 @@
     </record>
 
     <!-- Liabilities -->
-    <record id="p1111" model="account.account.template">
-        <field name="name">Capital Account</field>
-        <field name="code">1111</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p1112" model="account.account.template">
-        <field name="name">Reserve And Surplus Account</field>
-        <field name="code">1112</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p11211" model="account.account.template">
-        <field name="name">Creditors</field>
-        <field name="code">11211</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_payable"/>
-        <field name="reconcile" eval="True"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p11221" model="account.account.template">
-        <field name="name">Bank OD Account</field>
-        <field name="code">11221</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p11222" model="account.account.template">
-        <field name="name">Secured Loan Account</field>
-        <field name="code">11222</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p11223" model="account.account.template">
-        <field name="name">Unsecured Loan Account</field>
-        <field name="code">11223</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p11231" model="account.account.template">
-        <field name="name">TDS Payable</field>
-        <field name="code">11231</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p11232" model="account.account.template">
-        <field name="name">VAT Payable</field>
-        <field name="code">11232</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p112331" model="account.account.template">
-        <field name="name">Excise Duty Payable</field>
-        <field name="code">112331</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p112332" model="account.account.template">
-        <field name="name">Education Cess Payable On Excise Duty</field>
-        <field name="code">112332</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p112333" model="account.account.template">
-        <field name="name">Higher Education Cess Payable On Excise Duty
-        </field>
-        <field name="code">112333</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p112341" model="account.account.template">
-        <field name="name">Service Tax Payable</field>
-        <field name="code">112341</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p112342" model="account.account.template">
-        <field name="name">Education Cess Payable On Service Tax</field>
-        <field name="code">112342</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p112343" model="account.account.template">
-        <field name="name">Higher Education Cess Payable On Service Tax
-        </field>
-        <field name="code">112343</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p11235" model="account.account.template">
-        <field name="name">Sales Tax Payable</field>
-        <field name="code">11235</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p11241" model="account.account.template">
-        <field name="name">Wages Payable</field>
-        <field name="code">11241</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p11242" model="account.account.template">
-        <field name="name">Interest Payable</field>
-        <field name="code">11242</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
-    <record id="p11243" model="account.account.template">
-        <field name="name">Notes Payable</field>
-        <field name="code">11243</field>
-        <field name="user_type_id"
-               ref="account.data_account_type_current_liabilities"/>
-        <field name="reconcile" eval="False"/>
-        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
-    </record>
+
+
 
     <record id="st_tag_in_97" model="account.account.tag">
         <field name="name">Exempt</field>
