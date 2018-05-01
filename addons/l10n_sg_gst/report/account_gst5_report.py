@@ -59,24 +59,25 @@ class AccountGst5Report(models.AbstractModel):
         final_purchase_domain = [('type_tax_use', '=', 'purchase')]
         gst_taxes_results = self._cr.fetchall()
         if tax_group == 'MES':
-            final_domain = final_purchase_domain + [('tax_group', '=', 'MES')]
+            final_domain = final_purchase_domain + [('tax_group_id', '=', self.env.ref("l10n_sg.tax_group_mes").name)]
         elif tax_group == 'purchase':
-            final_domain = final_purchase_domain + [('tax_group', '!=', 'MES')]
+            final_domain = final_purchase_domain + [('tax_group_id', '!=', self.env.ref("l10n_sg.tax_group_mes").name)]
         elif tax_group == 'purchase-tax':
             flag = 1
             final_domain = final_purchase_domain
         if tax_group == 'standard_rates':
-            final_domain = final_sale_domain + [('tax_group', '=', 'standard_rates')]
+            final_domain = final_sale_domain + [('tax_group_id', '=', self.env.ref("l10n_sg.tax_group_7").name)]
         elif tax_group == 'zeroed':
-            final_domain = final_sale_domain + [('tax_group', '=', 'zeroed')]
+            final_domain = final_sale_domain + [('tax_group_id', '=', self.env.ref("l10n_sg.tax_group_0").name)]
         elif tax_group == 'exempted':
-            final_domain = final_sale_domain + [('tax_group', '=', 'exempted')]
+            final_domain = final_sale_domain + [('tax_group_id', '=', self.env.ref("l10n_sg.tax_group_exempted").name)]
         elif tax_group == 'sales-tax':
             flag = 1
             final_domain = final_sale_domain
         elif tax_group == 'sales':
             final_domain = final_sale_domain
         tax_ids = self.env['account.tax'].search(final_domain)
+        print("tax_ids......",tax_ids)
 
         if flag:
             for i in range(len(taxes_result)):
