@@ -305,7 +305,7 @@ class WebsiteSale(http.Controller):
 
         if not request.env.user.has_group('website.group_website_publisher') \
                 and (categs_with_childs or parent_categ_with_childs):
-            domain += ['|', '&',
+            domain += ['|', '|',
                        ('public_categ_ids', 'in', categs_with_childs.ids),
                        ('public_categ_ids', 'in', parent_categ_with_childs.ids),
                        ('public_categ_ids', '=', False)]
