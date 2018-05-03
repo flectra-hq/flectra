@@ -3,7 +3,7 @@
 {
     'name': 'Cash Flow',
     'version': '1.1',
-    'author': 'Flectra',
+    'author': 'FlectraHQ',
     'website': 'https://flectrahq.com',
     'summary': "cash flow statement",
     'description': """
