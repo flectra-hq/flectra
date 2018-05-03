@@ -24,6 +24,12 @@ class TestGstF5(TransactionCase):
         self.product7 = self.env.ref('product.product_product_8')
         self.product8 = self.env.ref('product.product_product_9')
         self.product9 = self.env.ref('product.product_product_10')
+        self.standard_rates = self.env.ref('l10n_sg.tax_group_7').id
+        self.zeroed = self.env.ref('l10n_sg.tax_group_0').id
+        self.mes = self.env.ref('l10n_sg.tax_group_mes').id
+        self.oos = self.env.ref('l10n_sg.tax_group_oos').id
+        self.exempted = self.env.ref('l10n_sg.tax_group_exempted').id
+
 
         self.gst_customer_id_1 = self.res_partner_model.create(dict(
             name="Cyril",
@@ -38,71 +44,71 @@ class TestGstF5(TransactionCase):
 
         self.sale_tax_id_1 = self.account_tax.search(
             [('name', '=', 'Sales Tax 7% SR')])
-        self.sale_tax_id_1.write({'tax_group': 'standard_rates'})
+        self.sale_tax_id_1.write({'tax_group_id': self.standard_rates})
 
         self.sale_tax_id_2 = self.account_tax.search(
             [('name', '=', 'Sales Tax 0% ZR')])
-        self.sale_tax_id_2.write({'tax_group': 'zeroed'})
+        self.sale_tax_id_2.write({'tax_group_id': self.zeroed})
 
         self.sale_tax_id_3 = self.account_tax.search(
             [('name', '=', 'Sales Tax 0% OS')])
-        self.sale_tax_id_3.write({'tax_group': 'out_of_scope'})
+        self.sale_tax_id_3.write({'tax_group_id': self.oos})
 
         self.sale_tax_id_4 = self.account_tax.search(
             [('name', '=', 'Sales Tax 0% ESN33')])
-        self.sale_tax_id_4.write({'tax_group': 'exempted'})
+        self.sale_tax_id_4.write({'tax_group_id': self.exempted})
 
         self.sale_tax_id_5 = self.account_tax.search(
             [('name', '=', 'Sales Tax 7% DS')])
-        self.sale_tax_id_5.write({'tax_group': 'standard_rates'})
+        self.sale_tax_id_5.write({'tax_group_id': self.standard_rates})
 
         self.sale_tax_id_6 = self.account_tax.search(
             [('name', '=', 'Sales Tax 0% ES33')])
-        self.sale_tax_id_6.write({'tax_group': 'exempted'})
+        self.sale_tax_id_6.write({'tax_group_id': self.exempted})
 
         self.purchase_tax_id_1 = self.account_tax.search(
             [('name', '=', 'Purchase Tax 7% TX-N33')])
-        self.purchase_tax_id_1.write({'tax_group': 'standard_rates'})
+        self.purchase_tax_id_1.write({'tax_group_id': self.standard_rates})
 
         self.purchase_tax_id_2 = self.account_tax.search(
             [('name', '=', 'Purchase Tax 7% BL')])
-        self.purchase_tax_id_2.write({'tax_group': 'standard_rates'})
+        self.purchase_tax_id_2.write({'tax_group_id': self.standard_rates})
 
         self.purchase_tax_id_3 = self.account_tax.search(
             [('name', '=', 'Purchase Tax 7% IM')])
-        self.purchase_tax_id_3.write({'tax_group': 'standard_rates'})
+        self.purchase_tax_id_3.write({'tax_group_id': self.standard_rates})
 
         self.purchase_tax_id_4 = self.account_tax.search(
             [('name', '=', 'Purchase Tax 7% TX-RE')])
-        self.purchase_tax_id_4.write({'tax_group': 'standard_rates'})
+        self.purchase_tax_id_4.write({'tax_group_id': self.standard_rates})
 
         self.purchase_tax_id_5 = self.account_tax.search(
             [('name', '=', 'Purchase Tax 0% ME')])
-        self.purchase_tax_id_5.write({'tax_group': 'standard_rates'})
+        self.purchase_tax_id_5.write({'tax_group_id': self.standard_rates})
 
         self.purchase_tax_id_6 = self.account_tax.search(
             [('name', '=', 'Purchase Tax 0% NR')])
-        self.purchase_tax_id_6.write({'tax_group': 'standard_rates'})
+        self.purchase_tax_id_6.write({'tax_group_id': self.standard_rates})
 
         self.purchase_tax_id_7 = self.account_tax.search(
             [('name', '=', 'Purchase Tax 0% ZP')])
-        self.purchase_tax_id_7.write({'tax_group': 'standard_rates'})
+        self.purchase_tax_id_7.write({'tax_group_id': self.standard_rates})
 
         self.purchase_tax_id_8 = self.account_tax.search(
             [('name', '=', 'Purchase Tax 0% OP')])
-        self.purchase_tax_id_8.write({'tax_group': 'out_of_scope'})
+        self.purchase_tax_id_8.write({'tax_group_id': self.standard_rates})
 
         self.purchase_tax_id_9 = self.account_tax.search(
             [('name', '=', 'Purchase Tax 0% EP')])
-        self.purchase_tax_id_9.write({'tax_group': 'exempted'})
+        self.purchase_tax_id_9.write({'tax_group_id': self.exempted})
 
         self.purchase_tax_id_10 = self.account_tax.search(
             [('name', '=', 'Purchase Tax MES')])
-        self.purchase_tax_id_10.write({'tax_group': 'MES'})
+        self.purchase_tax_id_10.write({'tax_group_id': self.mes})
 
         self.purchase_tax_id_11 = self.account_tax.search(
             [('name', '=', 'Purchase Tax 7% TX7')])
-        self.purchase_tax_id_11.write({'tax_group': 'standard_rates'})
+        self.purchase_tax_id_11.write({'tax_group_id': self.standard_rates})
 
     def test_create_customer_invoice(self):
         customer_invoice = self.account_invoice_model.create(

@@ -12,26 +12,18 @@ from flectra.addons.l10n_sg_gst.report.account_gst5_report import taxes_query, \
 class AccountGstAnalysisView(models.AbstractModel):
     _name = 'report.l10n_sg_gst.account_gst_analysis_view'
 
-    def compute_group_total(self, tax_browse, gst_taxes_result, group_name):
+    def compute_total(self, tax_browse, taxes_result, group_name):
         amount = 0.00
-        for i in range(len(gst_taxes_result)):
-            if tax_browse.id == gst_taxes_result[i][0]:
-                if tax_browse.tax_group in group_name:
-                    amount += gst_taxes_result[i][1]
+        for i in range(len(taxes_result)):
+            if tax_browse.id == taxes_result[i][0] and tax_browse.tax_group_id in group_name:
+                    amount += taxes_result[i][1]
         return abs(amount) or 0.00
-
-    def compute_gst_total(self, tax_browse, texes_result, group_name):
-        tax_amount = 0.00
-        for i in range(len(texes_result)):
-            if tax_browse.id == texes_result[i][0]:
-                if tax_browse.tax_group in group_name:
-                    tax_amount += texes_result[i][1]
-        return abs(tax_amount) or 0.00
 
     def get_common_data(self, tax_ids, data):
         result = []
         gst_perc = standard_total = zeroed_total = exempted_total = mes_total \
             = out_scope_total = gross_amount_total = gst_amount_total = 0.0
+        group_name = tax_ids.mapped('tax_group_id')
         for tax_browse in tax_ids:
             date_start = data['form']['date_from']
             date_stop = data['form']['date_to']
@@ -50,30 +42,27 @@ class AccountGstAnalysisView(models.AbstractModel):
             else:
                 gst_perc = tax_browse.amount
 
-            standard = self.compute_group_total(tax_browse,
-                    gst_taxes_result, ['standard_rates'])
+            standard = self.compute_total(tax_browse,
+                    gst_taxes_result, [self.env.ref("l10n_sg.tax_group_7")])
             standard_total += standard
-            zeroed = self.compute_group_total(tax_browse,
-                    gst_taxes_result, ['zeroed'])
+            zeroed = self.compute_total(tax_browse,
+                    gst_taxes_result, [self.env.ref("l10n_sg.tax_group_0")])
             zeroed_total += zeroed
-            exempted = self.compute_group_total(tax_browse,
-                    gst_taxes_result, ['exempted'])
+            exempted = self.compute_total(tax_browse,
+                    gst_taxes_result, [self.env.ref("l10n_sg.tax_group_exempted")])
             exempted_total += exempted
-            mes = self.compute_group_total(tax_browse,
-                    gst_taxes_result, ['MES'])
+            mes = self.compute_total(tax_browse,
+                    gst_taxes_result, [self.env.ref("l10n_sg.tax_group_mes")])
             mes_total += mes
-            out_scope = self.compute_group_total(tax_browse,
-                    gst_taxes_result, ['out_of_scope'])
+            out_scope = self.compute_total(tax_browse,
+                    gst_taxes_result, [self.env.ref("l10n_sg.tax_group_oos")])
             out_scope_total += out_scope
-            gross_amount = self.compute_group_total(tax_browse,
-                    gst_taxes_result,
-                    ['standard_rates', 'zeroed', 'exempted', 'MES',
-                     'out_of_scope'])
+
+            gross_amount = self.compute_total(tax_browse,
+                    gst_taxes_result, group_name)
             gross_amount_total += gross_amount
-            gst_amount = self.compute_gst_total(tax_browse,
-                    texes_result,
-                    ['standard_rates', 'zeroed', 'exempted', 'MES',
-                     'out_of_scope'])
+            gst_amount = self.compute_total(tax_browse,
+                    texes_result, group_name)
             gst_amount_total += gst_amount
             result.append({
                 'tax_name': tax_browse.name,

@@ -20,7 +20,6 @@ There are Different type of GST Reports available for Singapore Localization.
     'depends': ['account_invoicing', 'l10n_sg'],
     'data': [
         'views/res_company_view.xml',
-        'views/account_tax_view.xml',
         'report/report_paperformat.xml',
         'wizard/gst5_select_period_view.xml',
         'wizard/gst7_select_period_view.xml',
