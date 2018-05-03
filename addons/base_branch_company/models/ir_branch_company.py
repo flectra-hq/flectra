@@ -13,3 +13,10 @@ class IrBranchCompanyMixin(models.AbstractModel):
     company_id = fields.Many2one(
         'res.company', 'Company', ondelete="restrict",
         default=lambda self: self.env.user.company_id)
+
+
+class ResConfigSettings(models.TransientModel):
+
+    _inherit = 'res.config.settings'
+
+    group_multi_branch = fields.Boolean("Multi Branch", implied_group='base_branch_company.group_multi_branch')

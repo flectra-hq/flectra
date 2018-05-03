@@ -21,7 +21,7 @@ Main Features
     <field name="company_id" />
 """,
     'website': '',
-    'depends': ['base'],
+    'depends': ['base', 'base_setup'],
     'data': [
             'demo/branch_data.xml',
             'wizard/branch_config_view.xml',
