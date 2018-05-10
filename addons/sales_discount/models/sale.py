@@ -21,7 +21,8 @@ class SaleOrder(models.Model):
         record.discount = record.pricelist_id.currency_id.round(total_discount)
 
     @api.multi
-    @api.depends('order_line', 'discount_per', 'discount_amount')
+    @api.depends('order_line', 'discount_per', 'discount_amount',
+                 'order_line.product_uom_qty', 'order_line.price_unit')
     def _get_total_amount(self):
         for order_id in self:
             order_id.gross_amount = sum(

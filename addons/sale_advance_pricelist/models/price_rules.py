@@ -334,6 +334,17 @@ class CouponCode(models.Model):
                 'message': _("Percentage should be between 0% to 100%!")})
             self.discount_amount = 0.0
             return {'warning': warning}
+        if self.coupon_type not in ['percent', 'fixed_amount',
+                                    'buy_x_get_percent']:
+            self.discount_amount = 0.0
+        if self.coupon_type != 'clubbed':
+            self.flat_discount = 0.0
+            self.extra_discount_percentage = 0.0
+        if self.coupon_type not in ['buy_x_get_y', 'buy_x_get_y_other',
+                                    'buy_x_get_percent']:
+            self.number_of_x_product = 0.0
+            self.number_of_y_product = 0.0
+            self.other_product_id = False
 
     @api.onchange('flat_discount', 'extra_discount_percentage')
     def check_clubbed_percentage(self):
@@ -371,7 +382,8 @@ class CouponCode(models.Model):
     def check_duplicate_coupon_code(self):
         check_coupon_id = self.search([
             ('coupon_code', '=', self.coupon_code),
-            ('id', '!=', self.id)])
+            ('id', '!=', self.id),
+            ('pricelist_id', '=', self.pricelist_id.id)])
         if check_coupon_id:
             raise Warning(_("Coupon code (%s) already exists!") % (
                 self.coupon_code))

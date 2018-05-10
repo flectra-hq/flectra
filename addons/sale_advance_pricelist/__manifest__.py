@@ -2,7 +2,7 @@
 # Part of flectra. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'Sale Advance Ecommerce Pricelist',
+    'name': 'Sale Advance Pricelist',
     'version': '1.0.0',
     'category': 'Sale',
     'author': 'FlectraHQ',

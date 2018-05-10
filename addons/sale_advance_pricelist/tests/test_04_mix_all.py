@@ -112,10 +112,9 @@ class TestMixAllDiscount(TestAdvSalePricelist):
 
         first_order_line = self.sale_order.order_line[0]
         first_order_line._onchange_discount()
-        self.assertEqual(first_order_line.discount, 12.5,
+        self.assertEqual(first_order_line.discount, 19.0,
                          'Discount Percentage: the discount for the'
-                         ' sale order line should be 12.5!')
-        self.sale_order._check_cart_rules()
+                         ' sale order line should be 19.0!')
 
         # Set coupon code with percent
         self.check_all_condition(self.sale_order, 'percent')
@@ -142,11 +141,6 @@ class TestMixAllDiscount(TestAdvSalePricelist):
 
         first_order_line = self.sale_order_1.order_line[0]
         first_order_line._onchange_discount()
-        self.assertEqual(first_order_line.discount, 15.00,
-                         'Discount Percentage: the discount for the'
-                         ' first sale order line should be 15!')
-
-        self.sale_order_1._check_cart_rules()
         self.assertEqual(first_order_line.discount, 21.50,
                          'Discount Percentage: the discount for the'
                          ' first sale order line should be 21.50!')
@@ -162,11 +156,7 @@ class TestMixAllDiscount(TestAdvSalePricelist):
 
         self.coupon_code_id.write({'coupon_type': coupon_type,
                                    'apply_on': 'category',
-                                   'categ_id': self.category_id.id,
-                                   'discount_amount': 0.0,
-                                   'number_of_y_product': 0.0,
-                                   'number_of_y_product': 0.0,
-                                   'other_product_id': False})
+                                   'categ_id': self.category_id.id})
         if coupon_type in ['percent', 'fixed_amount']:
             self.coupon_code_id.write({'discount_amount': 20})
         elif coupon_type == 'buy_x_get_percent':
@@ -181,6 +171,7 @@ class TestMixAllDiscount(TestAdvSalePricelist):
                                        'number_of_y_product': 1,
                                        'discount_amount': 0.0,
                                        'other_product_id': self.product_3.id})
+        self.coupon_code_id.check_percentage()
         # Category Coupon Code
         self.check_all_coupon_code(sale_order,
                                    'GetDiscount', self.pricelist_id)
