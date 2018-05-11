@@ -702,25 +702,33 @@ textarea:focus {
   pointer-events: none;
 }
 
+.js_add_cart_variants input[type=checkbox]:checked + span:before,
 .js_add_cart_variants input[type=checkbox]:checked + label:before,
+.js_attributes input[type=checkbox]:checked + span:before,
 .js_attributes input[type=checkbox]:checked + label:before {
   border-right: 2px solid @color-primary;
   border-bottom: 2px solid @color-primary;
 }
 
+.js_add_cart_variants input[type=checkbox].filled-in:checked + span:before,
 .js_add_cart_variants input[type=checkbox].filled-in:checked + label:before,
+.js_attributes input[type=checkbox].filled-in:checked + span:before,
 .js_attributes input[type=checkbox].filled-in:checked + label:before {
   border-right: 2px solid #fff;
   border-bottom: 2px solid #fff;
 }
 
+.js_add_cart_variants input[type=checkbox].filled-in:checked + span:after,
 .js_add_cart_variants input[type=checkbox].filled-in:checked + label:after,
+.js_attributes input[type=checkbox].filled-in:checked + span:after,
 .js_attributes input[type=checkbox].filled-in:checked + label:after {
   background-color: #33b5e5;
   border-color: #33b5e5;
 }
 
+.js_add_cart_variants [type=radio] + span, .js_add_cart_variants [type=checkbox] + span,
 .js_add_cart_variants [type=radio] + label, .js_add_cart_variants [type=checkbox] + label,
+.js_attributes [type=radio] + span, .js_attributes [type=checkbox] + span,
 .js_attributes [type=radio] + label, .js_attributes [type=checkbox] + label {
   position: relative;
   padding-left: 35px;
@@ -767,7 +775,9 @@ textarea:focus {
   height: 22px;
 }
 
+.js_add_cart_variants [type=checkbox]:checked + span:before,
 .js_add_cart_variants [type=checkbox]:checked + label:before,
+.js_attributes [type=checkbox]:checked + span:before,
 .js_attributes [type=checkbox]:checked + label:before {
   top: -4px;
   left: -3px;
@@ -785,7 +795,9 @@ textarea:focus {
   transform-origin: 100% 100%;
 }
 
+.js_add_cart_variants [type=checkbox] + span:before,
 .js_add_cart_variants [type=checkbox] + label:before,
+.js_attributes [type=checkbox] + span:before,
 .js_attributes [type=checkbox] + label:before {
   content: '';
   position: absolute;
@@ -801,13 +813,17 @@ textarea:focus {
   transition: .2s;
 }
 
+.js_add_cart_variants [type=radio] + span,
 .js_add_cart_variants [type=radio] + label,
+.js_attributes [type=radio] + span,
 .js_attributes [type=radio] + label {
   -webkit-transition: .28s ease;
   transition: .28s ease;
 }
 
+.js_add_cart_variants [type=radio] + span, .js_add_cart_variants [type=checkbox] + span,
 .js_add_cart_variants [type=radio] + label, .js_add_cart_variants [type=checkbox] + label,
+.js_attributes [type=radio] + span, .js_attributes [type=checkbox] + span,
 .js_attributes [type=radio] + label, .js_attributes [type=checkbox] + label {
   position: relative;
   padding-left: 35px;
@@ -822,12 +838,16 @@ textarea:focus {
   -ms-user-select: none;
 }
 
+.js_add_cart_variants [type=radio]:checked + span:before,
 .js_add_cart_variants [type=radio]:checked + label:before,
+.js_attributes [type=radio]:checked + span:before,
 .js_attributes [type=radio]:checked + label:before {
   border-color: transparent;
 }
 
+.js_add_cart_variants [type=radio] + span:after, .js_add_cart_variants [type=radio] + span:before,
 .js_add_cart_variants [type=radio] + label:after, .js_add_cart_variants [type=radio] + label:before,
+.js_attributes [type=radio] + span:after, .js_attributes [type=radio] + span:before,
 .js_attributes [type=radio] + label:after, .js_attributes [type=radio] + label:before {
   content: '';
   position: absolute;
@@ -844,7 +864,9 @@ textarea:focus {
   transition: .28s ease;
 }
 
+.js_add_cart_variants [type=radio]:checked + span:after,
 .js_add_cart_variants [type=radio]:checked + label:after,
+.js_attributes [type=radio]:checked + span:after,
 .js_attributes [type=radio]:checked + label:after {
   border-color: @color-primary;
   background-color: @color-primary;
@@ -854,7 +876,9 @@ textarea:focus {
   transform: scale(1.02);
 }
 
+.js_add_cart_variants [type=radio] + span:after, .js_add_cart_variants [type=radio] + span:before,
 .js_add_cart_variants [type=radio] + label:after, .js_add_cart_variants [type=radio] + label:before,
+.js_attributes [type=radio] + span:after, .js_attributes [type=radio] + span:before,
 .js_attributes [type=radio] + label:after, .js_attributes [type=radio] + label:before {
   content: '';
   position: absolute;
