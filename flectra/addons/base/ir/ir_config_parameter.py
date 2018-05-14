@@ -20,6 +20,7 @@ _default_parameters = {
     "database.uuid": lambda: pycompat.text_type(uuid.uuid1()),
     "database.create_date": fields.Datetime.now,
     "web.base.url": lambda: "http://localhost:%s" % config.get('http_port'),
+    "base_setup.send_statistics" :  lambda: "true",
 }
 
 
