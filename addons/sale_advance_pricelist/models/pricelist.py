@@ -4,6 +4,7 @@
 from flectra import api, fields, models
 from flectra.exceptions import UserError
 from itertools import chain
+from flectra.tools import pycompat
 
 
 class Pricelist(models.Model):
@@ -30,17 +31,16 @@ class Pricelist(models.Model):
         'coupon.code', 'pricelist_id', 'Coupon Code Items',
         copy=True)
 
-    def get_product_price_rule_flectra(
+    def get_product_price_rule_advance(
             self, product, quantity, partner,
-            rule_id, price_unit, date=False, uom_id=False):
+            date=False, uom_id=False):
         self.ensure_one()
-        return self._compute_price_rule_flectra(
+        return self._compute_price_rule_advance(
             [(product, quantity, partner)],
-            rule_id, price_unit, date=date, uom_id=uom_id)[product.id]
+            date=date, uom_id=uom_id)[product.id]
 
     @api.multi
-    def _compute_price_rule_flectra(self, products_qty_partner,
-                                    rule_id, price_unit,
+    def _compute_price_rule_advance(self, products_qty_partner,
                                     date=False, uom_id=False):
         self.ensure_one()
         if not date:
@@ -91,10 +91,9 @@ class Pricelist(models.Model):
             'AND (item.pricelist_id = %s) '
             'AND (item.start_date IS NULL OR item.start_date<=%s) '
             'AND (item.end_date IS NULL OR item.end_date>=%s)'
-            'ORDER BY item.sequence,categ.parent_left desc',
-            (prod_tmpl_ids, rule_id.ids, prod_ids,
+            'ORDER BY item.sequence,item.id,categ.parent_left desc',
+            (prod_tmpl_ids, self.rule_ids.ids, prod_ids,
              categ_ids, self.id, date, date))
-
         item_ids = [x[0] for x in self._cr.fetchall()]
         items = self.env['rule.line'].browse(item_ids)
         results = {}
@@ -156,9 +155,12 @@ class Pricelist(models.Model):
                 dis_price = 0.0
                 if price is not False:
                     if rule.rule_type == 'fixed_amount':
-                        if price != price_unit:
+                        price_unit = self._context.get('price_unit')
+                        if price_unit and price != price_unit \
+                                and self.discount_policy == 'without_discount':
                             price = price_unit
-                        if price < rule.discount_amount:
+                        if price <= rule.discount_amount \
+                                and self.apply_method != 'smallest_discount':
                             price = 0
                             suitable_rule = rule
                             break
@@ -177,6 +179,14 @@ class Pricelist(models.Model):
                     min_dis_price.append(price - dis_price)
                 else:
                     max_dis_price.append(price - dis_price)
+
+            # Used context for add Cart Rules Discount
+            cart_price = 0.0
+            if self._context.get('order_id', False):
+                order_id = self._context.get('order_id')
+                cart_per = order_id.get_cart_rules_discount(
+                    order_id.get_values())
+                cart_price = price * (cart_per / 100) or 0.0
             if one_dis_price > 0.0:
                 price = one_dis_price
             elif all_dis_price > 0.0:
@@ -185,8 +195,65 @@ class Pricelist(models.Model):
                 price = price - min(min_dis_price)
             elif max_dis_price:
                 price = price - max(max_dis_price)
+            if cart_price > 0.0:
+                price -= cart_price
             price = product.currency_id.compute(
                 price, self.currency_id, round=False)
             results[product.id] = (price,
                                    suitable_rule and suitable_rule.id or False)
         return results
+
+    # Used context for add Cart Rules Discount
+    def get_products_price_advance(self, products, quantities,
+                                   partners, date=False, uom_id=False):
+        """ For a given pricelist, return price for products
+        Returns: dict{product_id: product price}, in the given pricelist """
+        self.ensure_one()
+        vals = {
+            product_id: res_tuple[0]
+            for product_id, res_tuple in self._compute_price_rule_advance(
+                list(pycompat.izip(products, quantities, partners)),
+                date=date, uom_id=uom_id).items()
+            }
+        return vals
+
+
+class ProductProduct(models.Model):
+    _inherit = "product.product"
+
+    # Overrides Function
+    # Used context for add Cart Rules Discount
+    def _compute_product_price(self):
+        prices = {}
+        pricelist_id_or_name = self._context.get('pricelist')
+        if pricelist_id_or_name:
+            pricelist = None
+            partner = self._context.get('partner', False)
+            quantity = self._context.get('quantity', 1.0)
+            if isinstance(pricelist_id_or_name, pycompat.string_types):
+                pricelist_name_search = \
+                    self.env['product.pricelist'].name_search(
+                        pricelist_id_or_name, operator='=', limit=1)
+                if pricelist_name_search:
+                    pricelist = \
+                        self.env['product.pricelist'].browse(
+                            [pricelist_name_search[0][0]])
+            elif isinstance(pricelist_id_or_name, pycompat.integer_types):
+                pricelist = self.env['product.pricelist'].browse(
+                    pricelist_id_or_name)
+
+            if pricelist:
+                quantities = [quantity] * len(self)
+                partners = [partner] * len(self)
+                if pricelist.pricelist_type == 'basic':
+                    prices = pricelist.get_products_price(
+                        self, quantities, partners)
+                else:
+                    prices = pricelist.with_context(
+                        {'order_id': self._context.get('order_id')}
+                    ).get_products_price_advance(
+                        self, quantities, partners)
+        for product in self:
+            product.price = prices.get(product.id, 0.0)
+            if self._context.get('order_id', False):
+                return product.price

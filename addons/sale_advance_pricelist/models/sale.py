@@ -25,19 +25,19 @@ class SaleOrder(models.Model):
         for order in self:
             if order.pricelist_id.pricelist_type == 'advance':
                 order._update_all()
-                cart_discount = 0.0
-                cart_discount_per = \
-                    order.get_cart_rules_discount(order.get_values())
                 if order.pricelist_id.discount_policy == 'without_discount':
+                    cart_discount = 0.0
+                    cart_discount_per = \
+                        order.get_cart_rules_discount(order.get_values())
                     for line in order.order_line:
-                        if line.get_line_percentage(cart_discount_per) < 100:
+                        if line.get_line_percentage() < 100:
                             cart_discount += \
                                 ((line.price_unit * line.product_uom_qty
                                   ) * cart_discount_per) / 100
                     order.cart_discount = cart_discount
                 else:
                     for line in order.order_line:
-                        line.set_line_amount(cart_discount_per)
+                        line.set_line_amount()
 
     @api.multi
     def get_cart_discount(self, cart_rule_id, values):
@@ -191,13 +191,23 @@ class SaleOrder(models.Model):
         coupon_discount_amount = 0.0
         total_price = (line.product_uom_qty * line.price_unit)
         if self.coupon_flag and not onchange_context and line.coupon_code_id:
+            if line.dummy_discount:
+                percent = line.dummy_discount - discount_per
+            else:
+                percent = line.discount - discount_per
             line.write({'check_coupon': False,
-                        'discount': line.discount - discount_per,
+                        'discount': percent,
                         'coupon_code_id': False,
                         'check_coupon': False})
         elif not cal_coupon and not remove:
             coupon_discount_amount = (total_price * discount_per) / 100
-            line.discount = line.discount + discount_per
+            percent = line.discount + discount_per
+            if percent > 100:
+                line.dummy_discount = percent
+                line.discount = 100
+            else:
+                line.discount = percent
+                line.dummy_discount = 0.0
             line.coupon_code_id = coupon_code_id.id
             line.check_coupon = True
         else:
@@ -306,17 +316,26 @@ class SaleOrder(models.Model):
         coupon_discount_amount = 0.0
         total_price = (line.product_uom_qty * line.price_unit)
         if self.coupon_flag and not onchange_context and line.coupon_code_id \
-                and line.product_uom_qty > coupon_code_id.number_of_x_product:
+                and line.product_uom_qty >= coupon_code_id.number_of_x_product:
+            if line.dummy_discount:
+                percent = line.dummy_discount - coupon_code_id.discount_amount
+            else:
+                percent = line.discount - coupon_code_id.discount_amount
             line.write({'check_coupon': False,
-                        'discount':
-                            line.discount - coupon_code_id.discount_amount,
+                        'discount': percent,
                         'coupon_code_id': False,
                         'check_coupon': False})
         elif not cal_coupon and not remove and line.product_uom_qty >= \
                 coupon_code_id.number_of_x_product:
             coupon_discount_amount = \
                 (total_price * coupon_code_id.discount_amount) / 100
-            line.discount = line.discount + coupon_code_id.discount_amount
+            percent = line.discount + coupon_code_id.discount_amount
+            if percent > 100:
+                line.dummy_discount = percent
+                line.discount = 100
+            else:
+                line.discount = percent
+                line.dummy_discount = 0.0
             line.coupon_code_id = coupon_code_id.id
             line.check_coupon = True
         else:
@@ -365,7 +384,12 @@ class SaleOrder(models.Model):
 
     @api.multi
     def apply_coupon_code(self):
-        coupon_id = self._check_Constraints()
+        if self._context.get('website_id', False):
+            coupon_obj = self.env['coupon.code']
+            coupon_id = coupon_obj.get_coupon_records(
+                self.have_coupon_code, self.pricelist_id)
+        else:
+            coupon_id = self._check_Constraints()
         order_line = self.order_line
         coupon_discount_amount = 0.0
         have_coupon_code = self.have_coupon_code
@@ -440,7 +464,7 @@ class SaleOrder(models.Model):
                             line, coupon_id, onchange_context,
                             cal_coupon, remove)
                     check_coupon = False
-        if check_coupon:
+        if check_coupon and not self._context.get('website_id', False):
             raise Warning(_("Coupon code (%s) condition criteria not match!"
                             ) % (self.have_coupon_code))
         if qty:
@@ -463,9 +487,9 @@ class SaleOrderLine(models.Model):
         digits=dp.get_precision('Discount'), default=0.0)
 
     @api.multi
-    def get_line_percentage(self, percent):
+    def get_line_percentage(self):
         self._onchange_discount()
-        discount = self.discount + percent
+        discount = self.discount
         if discount > 100:
             self.dummy_discount = discount
             discount = 100
@@ -473,17 +497,17 @@ class SaleOrderLine(models.Model):
         return discount
 
     @api.multi
-    def set_line_amount(self, percent):
+    def set_line_amount(self):
         discount, product_price = self.get_rule_discount()
         if product_price:
-            discount = product_price * (discount + percent) / 100
+            discount = product_price * (discount) / 100
         self.price_unit = product_price - discount
 
     @api.multi
     def get_total_coupon_code(self):
         return self.env['coupon.code'].get_coupon_discount(self, False)
 
-    def _get_real_price_currency_flectra(self, product, uom,
+    def _get_real_price_currency_advance(self, product, uom,
                                          pricelist_id, price_unit):
         currency_id = pricelist_id.currency_id
         product_currency = \
@@ -514,20 +538,20 @@ class SaleOrderLine(models.Model):
         context_partner = dict(self.env.context,
                                partner_id=self.order_id.partner_id.id,
                                date=self.order_id.date_order)
-        pricelist_context = dict(context_partner, uom=self.product_uom.id)
+        pricelist_context = dict(context_partner, uom=self.product_uom.id,
+                                 order_id=self.order_id,
+                                 price_unit=self.price_unit)
         product_price = 0.0
         for rule in rules:
             adv_price, adv_rule_id = \
                 self.order_id.pricelist_id.with_context(
-                    pricelist_context).get_product_price_rule_flectra(
+                    pricelist_context).get_product_price_rule_advance(
                     self.product_id, self.product_uom_qty,
-                    self.order_id.partner_id, rule, self.price_unit)
+                    self.order_id.partner_id)
             rule_line_id = self.env['rule.line'].browse(adv_rule_id)
-            if not rule_line_id:
-                return discount, product_price
             adv_new_price = 0.0
             currency_id = False
-            if rule_line_id.rule_type == 'percent':
+            if not rule_line_id:
                 adv_new_price, currency_id = self.with_context(
                     context_partner)._get_real_price_currency(
                     self.product_id, False,
@@ -535,11 +559,19 @@ class SaleOrderLine(models.Model):
                     self.product_uom,
                     self.order_id.pricelist_id.id)
             else:
-                adv_new_price, currency_id = self.with_context(
-                    context_partner)._get_real_price_currency_flectra(
-                    self.product_id,
-                    self.product_uom,
-                    self.order_id.pricelist_id, self.price_unit)
+                if rule_line_id.rule_type == 'percent':
+                    adv_new_price, currency_id = self.with_context(
+                        context_partner)._get_real_price_currency(
+                        self.product_id, False,
+                        self.product_uom_qty,
+                        self.product_uom,
+                        self.order_id.pricelist_id.id)
+                elif rule_line_id.rule_type == 'fixed_amount':
+                    adv_new_price, currency_id = self.with_context(
+                        context_partner)._get_real_price_currency_advance(
+                        self.product_id,
+                        self.product_uom,
+                        self.order_id.pricelist_id, self.price_unit)
             if adv_new_price != 0:
                 if self.order_id.pricelist_id.currency_id.id != currency_id:
                     adv_new_price = self.env['res.currency'].browse(

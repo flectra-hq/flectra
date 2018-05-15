@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Flectra Server 1.1\n"
+"Project-Id-Version: Flectra Server 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-12 05:50+0000\n"
-"PO-Revision-Date: 2018-04-12 05:50+0000\n"
+"POT-Creation-Date: 2018-05-14 05:17+0000\n"
+"PO-Revision-Date: 2018-05-14 05:17+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -53,12 +53,18 @@ msgid "Advanced"
 msgstr "Advanced"
 
 #. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/price_rules.py:119
+#, python-format
+msgid "All Products"
+msgstr "All Products"
+
+#. module: sale_advance_pricelist
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_cart_rule_amt_value
 msgid "Amount"
 msgstr "Amount"
 
 #. module: sale_advance_pricelist
-#: model:ir.ui.view,arch_db:sale_advance_pricelist.product_pricelist_view_flectra
+#: model:ir.ui.view,arch_db:sale_advance_pricelist.product_pricelist_view_advance
 #: model:ir.ui.view,arch_db:sale_advance_pricelist.view_cart_rule_tree
 #: model:ir.ui.view,arch_db:sale_advance_pricelist.view_coupon_code_tree
 #: model:ir.ui.view,arch_db:sale_advance_pricelist.view_price_rule_tree
@@ -81,7 +87,7 @@ msgid "Apply Coupon"
 msgstr "Apply Coupon"
 
 #. module: sale_advance_pricelist
-#: model:ir.ui.view,arch_db:sale_advance_pricelist.view_order_form_flectra
+#: model:ir.ui.view,arch_db:sale_advance_pricelist.view_order_form_advance
 msgid "Apply Coupon Code"
 msgstr "Apply Coupon Code"
 
@@ -148,8 +154,15 @@ msgid "Cart Rule"
 msgstr "Cart Rule"
 
 #. module: sale_advance_pricelist
+#. flectra-web
+#: code:addons/sale_advance_pricelist/static/src/xml/discount_details_view.xml:80
+#, python-format
+msgid "Cart Rule (-):"
+msgstr "Cart Rule (-):"
+
+#. module: sale_advance_pricelist
 #: model:ir.model,name:sale_advance_pricelist.model_cart_rule
-#: model:ir.ui.view,arch_db:sale_advance_pricelist.product_pricelist_view_flectra
+#: model:ir.ui.view,arch_db:sale_advance_pricelist.product_pricelist_view_advance
 #: model:ir.ui.view,arch_db:sale_advance_pricelist.view_cart_rule_tree
 msgid "Cart Rules"
 msgstr "Cart Rules"
@@ -174,6 +187,12 @@ msgstr "Categories"
 #: selection:price.rule,apply_on:0
 msgid "Category"
 msgstr "Category"
+
+#. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/price_rules.py:112
+#, python-format
+msgid "Category: %s"
+msgstr "Category: %s"
 
 #. module: sale_advance_pricelist
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_sale_order_coupon_flag
@@ -202,9 +221,16 @@ msgstr "Coupon"
 #. module: sale_advance_pricelist
 #: model:ir.model,name:sale_advance_pricelist.model_coupon_code
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_coupon_code_coupon_code
-#: model:ir.ui.view,arch_db:sale_advance_pricelist.product_pricelist_view_flectra
+#: model:ir.ui.view,arch_db:sale_advance_pricelist.product_pricelist_view_advance
 msgid "Coupon Code"
 msgstr "Coupon Code"
+
+#. module: sale_advance_pricelist
+#. flectra-web
+#: code:addons/sale_advance_pricelist/static/src/xml/discount_details_view.xml:92
+#, python-format
+msgid "Coupon Code (-):"
+msgstr "Coupon Code (-):"
 
 #. module: sale_advance_pricelist
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_product_pricelist_coupon_code_lines
@@ -221,6 +247,37 @@ msgstr "Coupon Ref"
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_coupon_code_coupon_type
 msgid "Coupon Type"
 msgstr "Coupon Type"
+
+#. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/sale.py:366
+#, python-format
+msgid "Coupon code (%s) Remaining Limit exceeds!"
+msgstr "Coupon code (%s) Remaining Limit exceeds!"
+
+#. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/price_rules.py:388
+#, python-format
+msgid "Coupon code (%s) already exists!"
+msgstr "Coupon code (%s) already exists!"
+
+#. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/sale.py:381
+#: code:addons/sale_advance_pricelist/models/sale.py:468
+#, python-format
+msgid "Coupon code (%s) condition criteria not match!"
+msgstr "Coupon code (%s) condition criteria not match!"
+
+#. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/sale.py:362
+#, python-format
+msgid "Coupon code (%s) not found!"
+msgstr "Coupon code (%s) not found!"
+
+#. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/sale.py:356
+#, python-format
+msgid "Coupon code does not apply to sale order pricelist!"
+msgstr "Coupon code does not apply to sale order pricelist!"
 
 #. module: sale_advance_pricelist
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_cart_rule_create_uid
@@ -245,6 +302,12 @@ msgid "Description"
 msgstr "Description"
 
 #. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/sale.py:147
+#, python-format
+msgid "Discount"
+msgstr "Discount"
+
+#. module: sale_advance_pricelist
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_cart_rule_discount_percentage
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_sale_order_line_dummy_discount
 msgid "Discount (%)"
@@ -265,6 +328,13 @@ msgstr "Discount Amount"
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_sale_order_amount_words
 msgid "Discount Amount Words"
 msgstr "Discount Amount Words"
+
+#. module: sale_advance_pricelist
+#. flectra-web
+#: code:addons/sale_advance_pricelist/static/src/xml/discount_details_view.xml:27
+#, python-format
+msgid "Discount Amount to Words:"
+msgstr "Discount Amount to Words:"
 
 #. module: sale_advance_pricelist
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_sale_order_discount_widget
@@ -294,6 +364,12 @@ msgid "End Date"
 msgstr "End Date"
 
 #. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/price_rules.py:98
+#, python-format
+msgid "End Date date not valid in Product Rule Lines!"
+msgstr "End Date date not valid in Product Rule Lines!"
+
+#. module: sale_advance_pricelist
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_coupon_code_extra_discount_percentage
 msgid "Extra Discount"
 msgstr "Extra Discount"
@@ -314,6 +390,13 @@ msgstr "Flat Discount"
 #: selection:price.rule,apply_on:0
 msgid "Global"
 msgstr "Global"
+
+#. module: sale_advance_pricelist
+#. flectra-web
+#: code:addons/sale_advance_pricelist/static/src/xml/discount_details_view.xml:44
+#, python-format
+msgid "Gross Amount:"
+msgstr "Gross Amount:"
 
 #. module: sale_advance_pricelist
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_sale_order_have_coupon_code
@@ -428,7 +511,21 @@ msgid "Percent"
 msgstr "Percent"
 
 #. module: sale_advance_pricelist
-#: model:ir.ui.view,arch_db:sale_advance_pricelist.product_pricelist_view_flectra
+#: code:addons/sale_advance_pricelist/models/price_rules.py:74
+#: code:addons/sale_advance_pricelist/models/price_rules.py:217
+#: code:addons/sale_advance_pricelist/models/price_rules.py:334
+#, python-format
+msgid "Percentage should be between 0% to 100%!"
+msgstr "Percentage should be between 0% to 100%!"
+
+#. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/sale.py:351
+#, python-format
+msgid "Please enter the Coupon code!"
+msgstr "Please enter the Coupon code!"
+
+#. module: sale_advance_pricelist
+#: model:ir.ui.view,arch_db:sale_advance_pricelist.product_pricelist_view_advance
 msgid "Price"
 msgstr "Price"
 
@@ -439,9 +536,16 @@ msgid "Price Rule"
 msgstr "Price Rule"
 
 #. module: sale_advance_pricelist
+#. flectra-web
+#: code:addons/sale_advance_pricelist/static/src/xml/discount_details_view.xml:68
+#, python-format
+msgid "Price Rule (-):"
+msgstr "Price Rule (-):"
+
+#. module: sale_advance_pricelist
 #: model:ir.model,name:sale_advance_pricelist.model_price_rule
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_product_pricelist_rule_ids
-#: model:ir.ui.view,arch_db:sale_advance_pricelist.product_pricelist_view_flectra
+#: model:ir.ui.view,arch_db:sale_advance_pricelist.product_pricelist_view_advance
 #: model:ir.ui.view,arch_db:sale_advance_pricelist.view_price_rule_tree
 msgid "Price Rules"
 msgstr "Price Rules"
@@ -456,7 +560,14 @@ msgid "Pricelist"
 msgstr "Pricelist"
 
 #. module: sale_advance_pricelist
-#: model:ir.ui.view,arch_db:sale_advance_pricelist.product_pricelist_view_flectra
+#. flectra-web
+#: code:addons/sale_advance_pricelist/static/src/xml/discount_details_view.xml:56
+#, python-format
+msgid "Pricelist (-):"
+msgstr "Pricelist (-):"
+
+#. module: sale_advance_pricelist
+#: model:ir.ui.view,arch_db:sale_advance_pricelist.product_pricelist_view_advance
 msgid "Pricelist Items"
 msgstr "Pricelist Items"
 
@@ -466,6 +577,7 @@ msgid "Pricelist Type"
 msgstr "Pricelist Type"
 
 #. module: sale_advance_pricelist
+#: model:ir.model,name:sale_advance_pricelist.model_product_product
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_cart_rule_product_id
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_coupon_code_product_id
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_price_rule_product_id
@@ -521,7 +633,7 @@ msgid "Remaining Usage Limit"
 msgstr "Remaining Usage Limit"
 
 #. module: sale_advance_pricelist
-#: model:ir.ui.view,arch_db:sale_advance_pricelist.view_order_form_flectra
+#: model:ir.ui.view,arch_db:sale_advance_pricelist.view_order_form_advance
 msgid "Remove Coupon Code"
 msgstr "Remove Coupon Code"
 
@@ -566,6 +678,12 @@ msgid "Start Date"
 msgstr "Start Date"
 
 #. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/price_rules.py:92
+#, python-format
+msgid "Start Date date not valid in Product Rule Lines!"
+msgstr "Start Date date not valid in Product Rule Lines!"
+
+#. module: sale_advance_pricelist
 #: selection:cart.rule,apply_on:0
 msgid "Subtotal At Least"
 msgstr "Subtotal At Least"
@@ -586,9 +704,34 @@ msgid "Sum of Item Qty less than"
 msgstr "Sum of Item Qty less than"
 
 #. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/sale.py:353
+#, python-format
+msgid "There is no sale order line!"
+msgstr "There is no sale order line!"
+
+#. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/price_rules.py:356
+#, python-format
+msgid "Total Percentage ( Discount + Extra ) should be between 0% to 100%!"
+msgstr "Total Percentage ( Discount + Extra ) should be between 0% to 100%!"
+
+#. module: sale_advance_pricelist
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_coupon_code_usage_limit
 msgid "Total Usage Limit"
 msgstr "Total Usage Limit"
+
+#. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/sale.py:371
+#, python-format
+msgid "Untaxed Amount (%s) must be greater than Min Order Amount (%s) which required for the apply coupon code!"
+msgstr "Untaxed Amount (%s) must be greater than Min Order Amount (%s) which required for the apply coupon code!"
+
+#. module: sale_advance_pricelist
+#. flectra-web
+#: code:addons/sale_advance_pricelist/static/src/xml/discount_details_view.xml:104
+#, python-format
+msgid "Untaxed Amount:"
+msgstr "Untaxed Amount:"
 
 #. module: sale_advance_pricelist
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_coupon_code_code_valid_from
@@ -599,6 +742,21 @@ msgstr "Valid From"
 #: model:ir.model.fields,field_description:sale_advance_pricelist.field_coupon_code_code_valid_to
 msgid "Valid To"
 msgstr "Valid To"
+
+#. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/price_rules.py:73
+#: code:addons/sale_advance_pricelist/models/price_rules.py:216
+#: code:addons/sale_advance_pricelist/models/price_rules.py:333
+#: code:addons/sale_advance_pricelist/models/price_rules.py:355
+#, python-format
+msgid "Warning"
+msgstr "Warning"
+
+#. module: sale_advance_pricelist
+#: code:addons/sale_advance_pricelist/models/sale.py:636
+#, python-format
+msgid "You can not change order line. Please remove coupon code first!"
+msgstr "You can not change order line. Please remove coupon code first!"
 
 #. module: sale_advance_pricelist
 #: model:ir.model,name:sale_advance_pricelist.model_rule_line
