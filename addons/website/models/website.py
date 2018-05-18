@@ -981,7 +981,6 @@ class Menu(models.Model):
         if to_delete:
             self.browse(to_delete).unlink()
         for menu in data['data']:
-            del menu['is_homepage']
             mid = menu['id']
             # new menu are prefixed by new-
             if isinstance(mid, pycompat.string_types):
@@ -995,6 +994,14 @@ class Menu(models.Model):
                 menu['page_id'] = page.id
             elif menu_id.page_id:
                 menu_id.page_id.write({'url': menu['url']})
+            if 'is_homepage' in menu:
+                del menu['is_homepage']
+            if 'className' in menu:
+                del menu['className']
+            if 'style' in menu:
+                del menu['style']
+            if 'text' in menu:
+                del menu['text']
             menu_id.write(menu)
 
         return True
