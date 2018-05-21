@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+    <!-- Pricelist with First Matched Rule -->
+    <record id="sale_advance_pricelist.advance_pricelist" model="product.pricelist">
+        <field name="selectable" eval="True"/>
+        <field name="website_ids" eval="[(4, ref('website.default_website'))]"/>
+    </record>
+
+    <!-- Pricelist with First Matched Rule and Coupon Code -->
+    <record id="sale_advance_pricelist.advance_pricelist_with_coupon" model="product.pricelist">
+        <field name="selectable" eval="True"/>
+        <field name="website_ids" eval="[(4, ref('website.default_website'))]"/>
+    </record>
+
+    <!-- Pricelist with All Matched Rule -->
+    <record id="sale_advance_pricelist.advance_pricelist_all" model="product.pricelist">
+        <field name="selectable" eval="True"/>
+        <field name="website_ids" eval="[(4, ref('website.default_website'))]"/>
+    </record>
+
+</flectra>
