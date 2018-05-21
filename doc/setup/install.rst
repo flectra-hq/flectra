@@ -88,7 +88,7 @@ commands as root:
 
 .. code-block:: console
 
-    # wget -O - https://flectrahq.com/flectra.key | apt-key add -
+    # wget -O - https://download.flectrahq.com/flectra.key | apt-key add -
     # echo "deb https://download.flectrahq.com/1.0/pub/deb/ ./" >> /etc/apt/sources.list.d/flectra.list
     # apt-get update && apt-get install flectra
 
