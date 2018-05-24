@@ -284,6 +284,7 @@ class Module(models.Model):
         ('Other OSI approved licence', 'Other OSI Approved Licence'),
         ('FEEL-1', 'Flectra Enterprise Edition License v1.0'),
         ('FPL-1', 'Flectra Proprietary License v1.0'),
+        ('OPL-1', 'Odoo Proprietary License v1.0'),
         ('Other proprietary', 'Other Proprietary')
     ], string='License', default='LGPL-3', readonly=True)
     menus_by_module = fields.Text(string='Menus', compute='_get_views', store=True)
