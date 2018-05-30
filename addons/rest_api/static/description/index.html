@@ -1,0 +1,315 @@
+<section class="container">
+    <div class="row oe_spaced">
+        <h2 class="text-center">Guideline of Rest API</h2>
+    </div>
+</section>
+
+<section class="container oe_dark">
+    <div class="row oe_spaced">
+        <div class="col-md-12 bg-black">
+            <h3 class="text-center">Generate Token</h3>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+import requests
+
+db_config = {
+    "username': "YOUR_EMAIL",
+    "password': "YOUR_PASSWORD",
+    "db': "SERVER_DATABASE_NAME"
+}
+server_url = "YOUR_SERVER_URL"
+get_token_url = "/api/auth/get_tokens"
+url = server_url + get_token_url
+
+requests.post(url=url, data=db_config)
+
+                </code>
+            </div>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+<u><b>output:</b></u>
+{
+    "company_id": 1,
+    "user_context": {
+        "lang": "en_US",
+        "tz": "Asia/Kolkata",
+        "uid": 1
+    },
+    "access_token": "YOUR_API_ACCESS_TOKEN",
+    "expires_in": "600",
+    "uid": 1
+}
+
+                </code>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container oe_dark">
+    <div class="row oe_spaced">
+        <div class="col-md-12 bg-black">
+            <h3 class="text-center">Delete Token</h3>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+import requests
+
+header = {
+    "access_token": "YOUR_API_ACCESS_TOKEN"
+}
+server_url = "YOUR_SERVER_URL"
+del_token_url = "/api/auth/delete_tokens"
+url = server_url + del_token_url
+
+requests.post(url=url, headers=header)
+
+                </code>
+            </div>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+<u><b>output:</b></u>
+{
+    "desc": "Token Successfully Deleted",
+    "delete": true
+}
+
+                </code>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container oe_dark">
+    <div class="row oe_spaced">
+        <div class="col-md-12 bg-black">
+            <h3 class="text-center">POST Request</h3>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+import requests
+
+header = {
+    "access_token": "YOUR_API_ACCESS_TOKEN"
+}
+data={
+	"name": "FlectraHQ",
+	"email": "example@flectrahq.com",
+	"website": "www.flectrahq.com"
+}
+server_url = "YOUR_SERVER_URL"
+post_url = '/api/res.partner'
+url = server_url + post_url
+
+requests.post(url=url, data=data, headers=header)
+
+                </code>
+            </div>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+<u><b>output:</b></u>
+{
+    "id": 300
+}
+
+                </code>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container oe_dark">
+    <div class="row oe_spaced">
+        <div class="col-md-12 bg-black">
+            <h3 class="text-center">GET Request</h3>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+"""
+
+"limit"   : Integer eg. 10,
+"field"   : [List of Field(s) in String]
+            eg. "['name', 'email', ..]",
+"order"   : "String" eg. "name asc/desc",
+"offset"  : Integer eg. 3,
+"filters" : [List of Condition(s) in String]
+            eg. "[('name', 'like', 'XXX'), ..]"
+
+"""
+
+import requests
+
+header = {
+    "access_token": "YOUR_API_ACCESS_TOKEN"
+}
+data={
+	"limit": 3,
+	"field": "['name', 'email']",
+	"order": 'name desc'
+}
+server_url = "YOUR_SERVER_URL"
+get_url = '/api/res.partner'
+url = server_url + get_url
+
+requests.get(url=url, data=data, headers=header)
+
+
+                </code>
+            </div>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+<u><b>output:</b></u>
+{
+    "count": 3,
+    "results": [
+        {
+            "email": false,
+            "id": 44,
+            "name": "Your Company"
+        },
+        {
+            "email": "info@yourcompany.example.com",
+            "id": 1,
+            "name": "YourCompany"
+        },
+        {
+            "email": "william.jackson@jackson.example.com",
+            "id": 33,
+            "name": "William Thomas"
+        }
+    ]
+}
+
+                </code>
+            </div>
+        </div>
+        <div class="col-md-12 bg-black">
+            <h5 class="text-center">GET Request for Single Record</h5>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+"""
+
+"field"   : [List of Field(s) in String]
+            eg. "['name', 'email', ..]",
+
+"""
+
+import requests
+
+header = {
+    "access_token": "YOUR_API_ACCESS_TOKEN"
+}
+data={
+	"field": "['name', 'email']",
+}
+server_url = "YOUR_SERVER_URL"
+get_url = '/api/res.partner/1'
+url = server_url + get_url
+
+requests.get(url=url, data=data, headers=header)
+
+
+                </code>
+            </div>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+<u><b>output:</b></u>
+[
+    {
+        "email": "info@yourcompany.example.com",
+        "name": "YourCompany",
+        "id": 1
+    }
+]
+
+                </code>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container oe_dark">
+    <div class="row oe_spaced">
+        <div class="col-md-12 bg-black">
+            <h3 class="text-center">PUT Request</h3>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+import requests
+
+header = {
+    "access_token": "YOUR_API_ACCESS_TOKEN"
+}
+data={
+	"name": "FlectraHQ",
+	"email": "example@flectrahq.com",
+	"website": "www.flectrahq.com"
+    "id": 300
+}
+server_url = "YOUR_SERVER_URL"
+put_url = '/api/res.partner'
+url = server_url + put_url
+
+requests.put(url=url, data=data, headers=header)
+
+                </code>
+            </div>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+<u><b>output:</b></u>
+{
+    "desc": "Record Updated successfully!",
+    "update": true
+}
+
+                </code>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container oe_dark">
+    <div class="row oe_spaced">
+        <div class="col-md-12 bg-black">
+            <h3 class="text-center">DELETE Request</h3>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+import requests
+
+header = {
+    "access_token": "YOUR_API_ACCESS_TOKEN"
+}
+data={
+    "id": 300
+}
+server_url = "YOUR_SERVER_URL"
+put_url = '/api/res.partner'
+url = server_url + put_url
+
+requests.delete(url=url, data=data, headers=header)
+
+                </code>
+            </div>
+            <div class="col-md-6">
+                <code class="bg-black" style="white-space: pre-wrap;">
+
+<u><b>output:</b></u>
+{
+    "desc": "Record Successfully Deleted!",
+    "delete": true
+}
+
+                </code>
+            </div>
+        </div>
+    </div>
+</section>

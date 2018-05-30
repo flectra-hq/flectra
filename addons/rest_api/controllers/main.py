@@ -55,108 +55,100 @@ def eval_json_to_data(modelname, json_data, create=True):
     return values
 
 
-def object_read(modelname, default_domain, status_code,
-                             post={}):
-    json_data = post
-    domain = default_domain or []
-    field = []
+def object_read(model_name, params, status_code):
+    domain = []
+    fields = []
     offset = 0
     limit = None
     order = None
-    if 'filters' in json_data:
-        domain += ast.literal_eval(json_data['filters'])
-    elif 'field' in json_data:
-        field += ast.literal_eval(json_data['field'])
-    elif 'offset' in json_data:
-        offset = int(json_data['offset'])
-    elif 'limit' in json_data:
-        limit = int(json_data['limit'])
-    elif 'order' in json_data:
-        order = json_data['order']
-    else:
-        pass
-    # Search Read object:
-    data = request.env[modelname].search_read(domain, offset=offset, limit=limit, order=order)
-    return valid_response(status=status_code,
-                          data={
-                              'count': len(data), 'results': data
-                          })
+    if 'filters' in params:
+        domain += ast.literal_eval(params['filters'])
+    if 'field' in params:
+        fields += ast.literal_eval(params['field'])
+    if 'offset' in params:
+        offset = int(params['offset'])
+    if 'limit' in params:
+        limit = int(params['limit'])
+    if 'order' in params:
+        order = params['order']
 
-
-def object_read_one(modelname, id, status_code):
-    try:
-        id = int(id)
-    except:
-        pass
-
-    if not id:
-        return invalid_object_id()
-    data = request.env[modelname].search_read(domain=[('id', '=', id)])
+    data = request.env[model_name].search_read(domain=domain, fields=fields, offset=offset, limit=limit, order=order)
     if data:
-        return valid_response(status_code, data)
+        return valid_response(status=status_code, data={
+            'count': len(data),
+            'results': data
+        })
     else:
-        return object_not_found()
+        return object_not_found_all(model_name)
 
 
-def object_create_one(modelname, data, status_code):
-    rdata = request.httprequest.stream.read().decode('utf-8')
-    json_data = json.loads(rdata)
-    vals = eval_json_to_data(modelname, json_data)
-    if data:
-        vals.update(data)
+def object_read_one(model_name, rec_id, params, status_code):
+    fields = []
+    if 'field' in params:
+        fields += ast.literal_eval(params['field'])
     try:
-        res = request.env[modelname].create(vals)
-        flectra_error = ''
+        rec_id = int(rec_id)
     except Exception as e:
-        res = None
-        flectra_error = e
+        rec_id = False
+
+    if not rec_id:
+        return invalid_object_id()
+    data = request.env[model_name].search_read(domain=[('id', '=', rec_id)], fields=fields)
+    if data:
+        return valid_response(status=status_code, data=data)
+    else:
+        return object_not_found(rec_id, model_name)
+
+
+def object_create_one(model_name, data, status_code):
+    try:
+        res = request.env[model_name].create(data)
+    except Exception as e:
+        return no_object_created(e)
     if res:
         return valid_response(status_code, {'id': res.id})
-    else:
-        return no_object_created(flectra_error)
 
 
-def object_update_one(modelname, id, status_code):
+def object_update_one(model_name, rec_id, data, status_code):
     try:
-        id = int(id)
-    except:
-        id = None
-    if not id:
-        return invalid_object_id()
-    rdata = request.httprequest.stream.read().decode('utf-8')
-    json_data = ast.literal_eval(rdata)
-    vals = eval_json_to_data(modelname, json_data, create=False)
-    try:
-        res = request.env[modelname].browse(id).write(vals)
-        flectra_error = ''
+        rec_id = int(rec_id)
     except Exception as e:
-        res = None
-        flectra_error = e
-    if res:
-        return valid_response(status_code, 'Record Updated '
-                                                 'successfully!')
-    else:
-        return no_object_updated(flectra_error)
+        rec_id = None
 
-
-def object_delete_one(modelname, id, status_code):
-    try:
-        id = int(id)
-    except:
-        id = None
-    if not id:
+    if not rec_id:
         return invalid_object_id()
+
     try:
-        res = request.env[modelname].browse(id).unlink()
-        flectra_error = ''
+        res = request.env[model_name].search([('id', '=', rec_id)])
+        if res:
+            res.write(data)
+        else:
+            return object_not_found(rec_id, model_name)
     except Exception as e:
-        res = None
-        flectra_error = e
+        return no_object_updated(e)
     if res:
-        return valid_response(status_code, 'Record Successfully '
-                                                 'Deleted!')
-    else:
-        return no_object_deleted(flectra_error)
+        return valid_response(status_code, {'desc': 'Record Updated successfully!', 'update': True})
+
+
+def object_delete_one(model_name, rec_id, status_code):
+    try:
+        rec_id = int(rec_id)
+    except Exception as e:
+        rec_id = None
+
+    if not rec_id:
+        return invalid_object_id()
+
+    try:
+        res = request.env[model_name].search([('id', '=', rec_id)])
+        if res:
+            res.unlink()
+        else:
+            return object_not_found(rec_id, model_name)
+    except Exception as e:
+        return no_object_deleted(e)
+    if res:
+        return valid_response(status_code, {'desc': 'Record Successfully Deleted!', 'delete': True})
 
 
 def check_valid_token(func):
@@ -284,7 +276,7 @@ class ControllerREST(http.Controller):
         # Successful response:
         return valid_response(
             200,
-            {}
+            {"desc": 'Token Successfully Deleted', "delete": True}
         )
 
     @http.route([
@@ -295,45 +287,27 @@ class ControllerREST(http.Controller):
     @check_valid_token
     def restapi_access_token(self, model_name=False, id=False, **post):
         Model = request.env['ir.model']
-        Model_ids = Model.sudo().search([('model', '=', model_name),
-                                  ('rest_api', '=', True)])
-        if Model_ids:
-            return getattr(self, '%s_data' % (
-                request.httprequest.method).lower())(
-                model_name=model_name, id=id, **post)
-        return object_not_found()
+        Model_id = Model.sudo().search([('model', '=', model_name)], limit=1)
 
-    def get_data(self, model_name=False, id=False, **post):
+        if Model_id:
+            if Model_id.rest_api:
+                return getattr(self, '%s_data' % (
+                    request.httprequest.method).lower())(
+                    model_name=model_name, id=id, **post)
+            else:
+                return rest_api_unavailable(model_name)
+        return modal_not_found(model_name)
+
+    def get_data(self, model_name=False, id=False, **get):
         if id:
-            return object_read_one(
-                modelname=model_name,
-                id=id,
-                status_code=200,
-            )
-        return object_read(
-            modelname=model_name,
-            default_domain=[],
-            status_code=200,
-            post=post
-        )
+            return object_read_one(model_name, id, get, status_code=200)
+        return object_read(model_name, get, status_code=200)
 
-    def put_data(self, model_name=False, id=False, **post):
-        return object_update_one(
-            modelname=model_name,
-            id=id,
-            status_code=200,
-        )
+    def put_data(self, model_name=False, id=False, **put):
+        return object_update_one(model_name, id, put, status_code=200)
 
-    def post_data(self, model_name=False, id=False, **post):
-        return object_create_one(
-            modelname=model_name,
-            data={},
-            status_code=200,
-        )
+    def post_data(self, model_name=False, **post):
+        return object_create_one(model_name, post, status_code=200)
 
     def delete_data(self, model_name=False, id=False):
-        return object_delete_one(
-            modelname=model_name,
-            id=id,
-            status_code=200
-        )
+        return object_delete_one(model_name, id, status_code=200)
