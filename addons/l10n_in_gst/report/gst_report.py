@@ -2,8 +2,10 @@
 
 from io import BytesIO
 from datetime import datetime
-
+from operator import itemgetter
+from itertools import groupby
 import xlsxwriter
+from functools import reduce
 from flectra import api, models, _
 
 
@@ -901,6 +903,20 @@ class GSTR1Report(models.AbstractModel):
             self.write_data_worksheet_values(worksheet, inv_value, row, col)
             row += 1
 
+    def _groupby_b2cs_inv(self, invoices):
+        keys = ['place_supply', 'rate']
+
+        return [reduce(lambda a,b: {
+            "place_supply":a["place_supply"],
+            "rate": a['rate'], "type": a['type'],
+            "taxable_value":a["taxable_value"]+b["taxable_value"],
+            "cess_amount":a["cess_amount"]+b["cess_amount"],
+            "ecommerce_gstin":a["ecommerce_gstin"]},list(g))
+            for k, g in groupby(sorted(invoices, key=itemgetter(
+                *keys)), key=itemgetter(*keys))
+        ]
+
+
     def sheet_b2cs(self, data, workbook, **post):
         """ Generate excel sheet for 'b2cs' data """
         cell_format = self.cell_format(workbook=workbook, **post)
@@ -909,6 +925,7 @@ class GSTR1Report(models.AbstractModel):
         worksheet.set_column(0, 20, 20)
         worksheet.protect()
         inv_ids_b2cs = self.get_data_b2cs(data=data, **post)
+        b2cs_data = self._groupby_b2cs_inv(inv_ids_b2cs)
         # Calculation of header
         summary = self.get_data_b2cs_summary(data=data, **post)
         row = 0
@@ -943,7 +960,7 @@ class GSTR1Report(models.AbstractModel):
             worksheet, invoice_header, cell_format[
                 'header_cell_format'], row, col)
         row += 1
-        for inv in inv_ids_b2cs:
+        for inv in b2cs_data:
             inv_value = [{
                 'value': inv['type'],
                 'format': cell_format['regular_cell_format']},
@@ -1142,8 +1159,9 @@ class GSTR1Report(models.AbstractModel):
         invoice_header = ["GSTIN/UIN of Recipient",
                           'Invoice/Advance Receipt Number',
                           'Invoice/Advance Receipt date',
+                          'Note/Refund Voucher Number',
                           'Note/Refund Voucher date',
-                          'Note/Refund Voucher Number', 'Document Type',
+                          'Document Type',
                           'Reason For Issuing document', "Place Of Supply",
                           'Note/Refund Voucher Value',
                           "Rate", "Taxable Value", "Cess Amount", 'Pre GST']

@@ -43,9 +43,15 @@ class AccountInvoice(models.Model):
          ('composite', 'Composite'), ('volunteer', 'Volunteer')],
         string='GST Type', copy=False)
     partner_location = fields.Selection(
-        [('inter_state', 'Inter State'), ('intra_state', 'intra State'),
+        [('inter_state', 'Inter State'), ('intra_state', 'Intra State'),
          ('inter_country', 'Inter Country')],
         related='partner_id.partner_location', string="Partner Location")
+    fiscal_position_id = fields.Many2one('account.fiscal.position',
+                                         string='Nature of Transaction',
+                                         oldname='fiscal_position',
+                                         readonly=True,
+                                         states={
+                                             'draft': [('readonly', False)]})
 
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id(self):
@@ -54,11 +60,12 @@ class AccountInvoice(models.Model):
             self.partner_id.partner_location = \
                 self.partner_id._get_partner_location_details(self.company_id)
 
+
     @api.onchange('fiscal_position_id')
     def _onchange_fiscal_position_id(self):
         """ Onchange of Fiscal Position update tax values in invoice lines. """
         for line in self.invoice_line_ids:
-            line._onchange_product_id()
+            line._set_taxes()
 
     @api.multi
     def action_move_create(self):

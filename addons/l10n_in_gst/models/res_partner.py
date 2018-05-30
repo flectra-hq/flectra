@@ -19,6 +19,13 @@ class Partner(models.Model):
                                          ('intra_state', 'intra State'),
                                          ('inter_country', 'Inter Country')
                                          ], "Partner Location")
+    property_account_position_id = fields.Many2one(
+            'account.fiscal.position',
+            company_dependent=True,
+            string="Nature of Transaction",
+            help="The fiscal position will determine taxes and accounts "
+                 "used for the partner.",
+            oldname="property_account_position")
 
     @api.multi
     @api.constrains('vat', 'state_id')
