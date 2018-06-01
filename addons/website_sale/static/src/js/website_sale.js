@@ -438,6 +438,26 @@ flectra.define('website_sale.website_sale', function (require) {
                     window.location = oldurl + '&' + search.attr('name') + '=' + encodeURIComponent(search.val());
                 }
             });
+
+            var $search_box = $('.oe_website_sale .oe_search_box');
+            var _clear_search_btn = function (e){
+                var $search_clear_btn = $('.oe_website_sale .oe_search_clear_button');
+                if($(e).val().trim()){
+                    $search_clear_btn.removeClass('hidden');
+                }else{
+                    $search_clear_btn.addClass('hidden');
+                }
+            };
+
+            _clear_search_btn($search_box);
+
+            $search_box.on('keyup', function (event) {
+                _clear_search_btn(this);
+            });
+            $('.oe_website_sale .oe_search_clear_button').on('click', function (e) {
+                $('.oe_website_sale .oe_search_box').val('');
+                $('.oe_website_sale .o_website_sale_search').trigger('submit');
+            });
         }
 
         if ($(".checkout_autoformat").length) {
