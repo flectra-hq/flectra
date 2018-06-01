@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="stock_ageing_wizard_form_view" model="ir.ui.view">
+        <field name="name">Stock Ageing Wizard Form</field>
+        <field name="model">stock.ageing.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Select following details">
+                <group col="4">
+                    <field name="company_id"/>
+                    <field name="branch_id"/>
+                    <field name="period_length" required="1"/>
+                    <field name="date" required="1"/>
+                </group>
+                <seperator/>
+                <group>
+                    <group>
+                        <field name="warehouse_ids" domain="[('company_id', '=', company_id)]" widget="many2many_tags"/>
+                        <field name="product_category_ids" widget="many2many_tags"/>
+                    </group>
+                     <group>
+                         <field name="location_ids" context="{'warehouse': warehouse_ids}" widget="many2many_tags"/>
+                         <field name="product_ids" domain="[('categ_id', 'in', product_category_ids)]" widget="many2many_tags"/>
+                     </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Print" type="object" class="btn-primary" />
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_ageing_wizard" model="ir.actions.act_window">
+        <field name="name">Stock Ageing Report</field>
+        <field name="res_model">stock.ageing.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'company_id': context.get('company_id', False), 'warehouse_id':
+            context.get('warehouse_ids', False), 'location_id': context.get('location_ids', False),
+            'product_category_id': context.get('product_category_ids', False), 'product_id':
+            context.get('product_ids', False), 'period_length': context.get('period_length', False), 'date':
+            context.get('date', False)}</field>
+        <field name="view_id" ref="stock_ageing_wizard_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="stock_ageing_wizard_menu" name="Stock Ageing Report" parent="stock.menu_warehouse_report" sequence="2" action="action_stock_ageing_wizard"/>
+
+</flectra>
