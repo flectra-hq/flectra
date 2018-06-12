@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <template id="discount_template" inherit_id="website_sale.cart_lines" name="Discount">
+        <xpath expr="//table/thead/tr/th[hasclass('td-qty')]" position="after">
+            <th class="text-center td-qty">Discount (%)</th>
+        </xpath>
+        <xpath expr="//table/tbody/t/tr/td[hasclass('td-qty')]" position="after">
+            <td class="text-center td-qty">
+                <span t-field="line.discount" style="white-space: nowrap;"/>
+            </td>
+        </xpath>
+    </template>
+
+    <template id="discount_payment_template" inherit_id="website_sale.payment" name="Discount Payment">
+        <xpath expr="//th[hasclass('td-qty')]" position="after">
+            <th class="text-center td-qty">Discount (%)</th>
+        </xpath>
+        <xpath expr="//td[hasclass('td-qty')]" position="after">
+            <td class="text-center td-qty">
+                <span t-field="line.discount" style="white-space: nowrap;"/>
+            </td>
+        </xpath>
+    </template>
+
+    <template id="discount_confirmation_template" inherit_id="website_sale.confirmation" name="Discount Confirmation">
+        <xpath expr="//th[hasclass('td-price')]" position="after">
+            <th class="text-center td-qty">Discount (%)</th>
+        </xpath>
+        <xpath expr="//td[hasclass('td-price')]" position="after">
+            <td class="text-center td-qty">
+                <span t-field="line.discount" style="white-space: nowrap;"/>
+            </td>
+        </xpath>
+    </template>
+
+    <template id="discount_popover" name="Discount Popover">
+        <t t-if="website_sale_order and website_sale_order.discount">
+            <div>
+                <table>
+                    <tr>
+                        <td><small><strong>Discount Amount to Words:</strong></small></td>
+                        <td class="text-success" style="text-align:right;">
+                            <small><strong>
+                                <span t-field="website_sale_order.discount"/>
+                            </strong></small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-success" colspan="2" style="text-align:center;padding-top:8px;padding-bottom:8px;">
+                        <small><strong>
+                            <t t-esc="data['amount_words']"></t>
+                        </strong></small>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td><small><strong>Gross Amount: </strong></small></td>
+                        <td style="text-align:right;">
+                            <small>
+                            <span t-field="website_sale_order.gross_amount"/>
+                            </small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><small><strong>Pricelist (-): </strong></small></td>
+                        <td style="text-align:right;">
+                            <small>
+                            <t t-if="data['position'] == 'before'">
+                                <t t-esc="data['currency']"/>
+                            </t>
+                            <t t-esc="data['price_list_discount']"></t>
+                            <t t-if="data['position'] == 'after'">
+                                <t t-esc="data['currency']"/>
+                            </t>
+                            </small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><small><strong>Price Rule (-): </strong></small></td>
+                        <td style="text-align:right;">
+                            <small>
+                            <t t-if="data['position'] == 'before'">
+                                <t t-esc="data['currency']"/>
+                            </t>
+                            <t t-esc="data['price_rule_discount']"></t>
+                            <t t-if="data['position'] == 'after'">
+                                <t t-esc="data['currency']"/>
+                            </t>
+                            </small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><small><strong>Cart Rule (-): </strong></small></td>
+                        <td style="text-align:right;">
+                            <small>
+                            <t t-if="data['position'] == 'before'">
+                                <t t-esc="data['currency']"/>
+                            </t>
+                            <t t-esc="data['cart_rule_discount']"></t>
+                            <t t-if="data['position'] == 'after'">
+                                <t t-esc="data['currency']"/>
+                            </t>
+                            </small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><small><strong>Coupon Code (-): </strong></small></td>
+                        <td style="text-align:right; padding-bottom:6px;">
+                            <small>
+                            <t t-if="data['position'] == 'before'">
+                                <t t-esc="data['currency']"/>
+                            </t>
+                            <t t-esc="data['coupon_code_discount']"></t>
+                            <t t-if="data['position'] == 'after'">
+                                <t t-esc="data['currency']"/>
+                            </t>
+                            </small>
+                        </td>
+                    </tr>
+                    <tr class="border-black" style="border-top:1px solid #dddddd;">
+                        <td><small><strong>Untaxed Amount: </strong></small></td>
+                        <td style="text-align:right; padding-top:6px;">
+                            <small>
+                            <span t-field="website_sale_order.amount_untaxed"/>
+                            </small>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="discount_table_template" inherit_id="website_sale.total" name="Discount Table">
+        <xpath expr="//div[@id='order_total_untaxed']" position="before">
+            <div class="row" id="order_gross_amount">
+                <span class="col-xs-6 text-right text-muted">Gross Amount:</span>
+                <span class="col-xs-6 text-right-not-xs text-left-xs text-muted">
+                    <span t-field="website_sale_order.gross_amount" style="white-space: nowrap;" t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
+                </span>
+            </div>
+
+            <div class="row" id="order_total_discount">
+                <span class="col-xs-6 text-right text-muted">
+                    <t t-if="website_sale_order and website_sale_order.discount">
+                        <a href="/website/discount" onClick="return false;" style="padding-right:2px">
+                            <i class="fa fa-info-circle"></i> 
+                        </a></t> Discount:
+                </span>
+                <span class="col-xs-6 text-right-not-xs text-left-xs text-muted">
+                    <span t-field="website_sale_order.discount" style="white-space: nowrap;" t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
+                    </span>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="advance_coupon_check_template" inherit_id="website_sale.coupon_form" name="advance_coupon_check">
+        <xpath expr="//t[@name='code_not_available']" position="after">
+            <t t-if="request.params.get('apply_coupon_code')" name="apply_coupon_code">
+                <p class="bg-warning">Coupon code does not apply to sale order pricelist!</p>
+            </t>
+            <t t-if="request.params.get('coupon_code_id')" name="coupon_code_id">
+                <p class="bg-warning">Coupon code not found!</p>
+            </t>
+            <t t-if="request.params.get('coupon_exceeds_limit')" name="coupon_exceed_limit">
+                <p class="bg-warning">Coupon code Remaining Limit exceeds!</p>
+            </t>
+            <!-- <p t-esc="request.params.get('min_order_amount')"/> -->
+            <t t-if="request.params.get('coupon_min_order')" name="coupon_min_order">
+                <p class="bg-warning">Subtotal (<span t-esc="request.params.get('subtotal')"/>) must be greater than Min Order Amount (<span t-esc="request.params.get('min_order_amount')"/>) which required for the apply coupon code!</p>
+            </t>
+            <t t-if="request.params.get('coupon_condition')" name="coupon_condition">
+                <p class="bg-warning">Coupon code condition criteria not match!</p>
+            </t>
+        </xpath>
+        <xpath expr="//input[@name='promo']" position="replace">
+            <input name="promo" class="form-control" type="text" placeholder="code..." t-att-value="website_sale_order.have_coupon_code or website_sale_order.pricelist_id.code or None" />
+        </xpath>
+        <xpath expr="//div[hasclass('input-group')]" position="after">
+            <t t-if="website_sale_order.have_coupon_code">
+                <p class="text-success fa fa-check" style="padding-top: 5px;">Coupon Applied Successfully.</p>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="advance_confirmation" inherit_id="website_sale.confirmation" name="advance_confirmation">
+        <xpath expr="//table/tr" position="before">
+            <tr>
+                <td class="col-md-8"></td>
+                <td class="text-right-not-xs text-left-xs col-sm-2 col-xs-3">Gross Amount:</td>
+                <td class="text-right col-sm-2 col-xs-3">
+                    <span t-field="order.gross_amount" style="white-space: nowrap;" t-options="{'widget': 'monetary','from_currency': order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
+                </td>
+            </tr>
+            <tr>
+                <td class='noborder'></td>
+                <td class="text-right noborder">Discount:</td>
+                <td class="text-right-not-xs text-left-xs noborder">
+                    <span t-field="order.discount" style="white-space: nowrap;" t-options="{'widget': 'monetary','from_currency': order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</flectra>
