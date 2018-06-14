@@ -226,6 +226,8 @@
                 </div>
                 <field name="has_outstanding" invisible="1"/>
                 <sheet string="Vendor Bill">
+                    <div class="oe_button_box" name="button_box">
+                    </div>
                     <div>
                         <label string="Draft Bill" attrs="{'invisible': ['|',('state','!=','draft'), ('type','!=','in_invoice')]}"/>
                         <label string="- First Number:" attrs="{'invisible': [('sequence_number_next_prefix','=',False)]}"/>
