@@ -7,6 +7,14 @@ from flectra import api, fields, models, _
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
+
+    def _default_fiscalyear_last_day(self):
+        return self.env.user.company_id.fiscalyear_last_day or 31
+
+    def _default_fiscalyear_last_month(self):
+        return self.env.user.company_id.fiscalyear_last_month or 12
+
+
     has_accounting_entries = fields.Boolean(compute='_compute_has_chart_of_accounts')
     currency_id = fields.Many2one('res.currency', related="company_id.currency_id", required=True,
         string='Currency', help="Main currency of the company.")
@@ -42,6 +50,15 @@ class ResConfigSettings(models.TransientModel):
     tax_exigibility = fields.Boolean(string='Cash Basis', related='company_id.tax_exigibility')
     tax_cash_basis_journal_id = fields.Many2one('account.journal', related='company_id.tax_cash_basis_journal_id', string="Tax Cash Basis Journal")
     account_hide_setup_bar = fields.Boolean(string='Hide Setup Bar', related='company_id.account_setup_bar_closed',help="Tick if you wish to hide the setup bar on the dashboard")
+
+
+    fiscalyear_last_day = fields.Integer(related='company_id.fiscalyear_last_day',
+        default=lambda self: self._default_fiscalyear_last_day())
+    fiscalyear_last_month = fields.Selection([(1, 'January'), (2, 'February'), (3, 'March'), (4, 'April'), (5, 'May'), (6, 'June'), (7, 'July'), (8, 'August'), (9, 'September'), (10, 'October'), (11, 'November'), (12, 'December')],
+        related='company_id.fiscalyear_last_month', default=lambda self: self._default_fiscalyear_last_month())
+    period_lock_date = fields.Date(string="Lock Date for Non-Advisers", related='company_id.period_lock_date', help="Only users with the 'Adviser' role can edit accounts prior to and inclusive of this date. Use it for period locking inside an open fiscal year, for example.")
+    fiscalyear_lock_date = fields.Date(string="Lock Date", related='company_id.fiscalyear_lock_date', help="No users, including Advisers, can edit accounts prior to and inclusive of this date. Use it for fiscal year locking for example.")
+
 
     @api.model
     def get_values(self):
