@@ -192,10 +192,17 @@ class AccountChartTemplate(models.Model):
             return default_account
 
         journals = [{'name': _('Customer Invoices'), 'type': 'sale', 'code': _('INV'), 'favorite': True, 'color': 11, 'sequence': 5},
-                    {'name': _('Vendor Bills'), 'type': 'purchase', 'code': _('BILL'), 'favorite': True, 'color': 11, 'sequence': 6},
-                    {'name': _('Miscellaneous Operations'), 'type': 'general', 'code': _('MISC'), 'favorite': False, 'sequence': 7},
-                    {'name': _('Exchange Difference'), 'type': 'general', 'code': _('EXCH'), 'favorite': False, 'sequence': 9},
-                    {'name': _('Cash Basis Tax Journal'), 'type': 'general', 'code': _('CABA'), 'favorite': False, 'sequence': 10}]
+                    {'name': _('Cash Sale'), 'type': 'sale', 'code': _('CSALE'), 'favorite': True, 'color': 11, 'sequence': 6},
+                    {'name': _('Credit Note'), 'type': 'sale', 'code': _('CRMEMO'), 'favorite': True, 'color': 11, 'sequence': 7},
+                    {'name': _('Vendor Bills'), 'type': 'purchase', 'code': _('BILL'), 'favorite': True, 'color': 11, 'sequence': 8},
+                    {'name': _('Cash Purchase'), 'type': 'purchase', 'code': _('CBILL'), 'favorite': True, 'color': 11, 'sequence': 9},
+                    {'name': _('Debit Note'), 'type': 'purchase', 'code': _('DRMEMO'), 'favorite': True, 'color': 11, 'sequence': 10},
+                    {'name': _('Miscellaneous Operations'), 'type': 'general', 'code': _('MISC'), 'favorite': False, 'sequence': 11},
+                    {'name': _('Exchange Difference'), 'type': 'general', 'code': _('EXCH'), 'favorite': False, 'sequence': 12},
+                    {'name': _('Expenses Journal'), 'type': 'general', 'code': _('EXP'), 'favorite': False, 'sequence': 13},
+                    {'name': _('Income journal'), 'type': 'general', 'code': _('INCM'), 'favorite': False, 'sequence': 14},
+                    {'name': _('Opening/Closing Journals'), 'type': 'general', 'code': _('OPCL'), 'favorite': False, 'sequence': 15},
+                    {'name': _('Cash Basis Tax Journal'), 'type': 'general', 'code': _('CABA'), 'favorite': False, 'sequence': 16}]
         if journals_dict != None:
             journals.extend(journals_dict)
 
