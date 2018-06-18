@@ -9,16 +9,17 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     @api.multi
-    @api.depends('discount_amount', 'discount_per', 'amount_untaxed')
+    @api.depends('discount_amount', 'discount_per', 'amount_untaxed',
+                 'invoice_line_ids')
     def _get_discount(self):
-        total_discount = 0.0
         for record in self:
+            total_discount = 0.0
             for invoice_line_id in record.invoice_line_ids:
                 total_price = (
                     invoice_line_id.quantity * invoice_line_id.price_unit)
                 total_discount += \
                     (total_price * invoice_line_id.discount) / 100
-        record.discount = record.currency_id.round(total_discount)
+            record.discount = record.currency_id.round(total_discount)
 
     @api.multi
     @api.depends('invoice_line_ids', 'discount_per', 'discount_amount')
@@ -40,7 +41,6 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def calculate_discount(self):
-        self._check_constrains()
         for line in self.invoice_line_ids:
             line.write({'discount': 0.0})
         # amount_untaxed = self.amount_untaxed
@@ -58,6 +58,21 @@ class AccountInvoice(models.Model):
                     (discount_value_ratio * 100) / line.price_subtotal
                 line.write({'discount': discount_per_ratio})
                 self._onchange_invoice_line_ids()
+        self._check_constrains()
+
+    @api.multi
+    @api.returns('self')
+    def refund(self, date_invoice=None,
+               date=None, description=None, journal_id=None):
+        result = super(AccountInvoice, self).refund(
+            date_invoice=date_invoice, date=date,
+            description=description, journal_id=journal_id)
+        result.write({
+            'discount_method': result.refund_invoice_id.discount_method,
+            'discount_amount': result.refund_invoice_id.discount_amount,
+            'discount_per': result.refund_invoice_id.discount_per})
+        result.calculate_discount()
+        return result
 
     @api.constrains('discount_per', 'discount_amount', 'invoice_line_ids')
     def _check_constrains(self):
@@ -66,8 +81,9 @@ class AccountInvoice(models.Model):
 
     @api.onchange('discount_method')
     def onchange_discount_method(self):
-        self.discount_amount = 0.0
-        self.discount_per = 0.0
+        if not self.refund_invoice_id:
+            self.discount_amount = 0.0
+            self.discount_per = 0.0
         if self.discount_method and not self.invoice_line_ids:
             raise Warning('No Invoice Line(s) were found!')
 

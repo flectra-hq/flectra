@@ -9,9 +9,9 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='left_panel']" position="inside">
                 <separator string="Discount"/>
-                <field name="discount_method" attrs="{'readonly': ['|', ('origin', '!=', False), ('state', '!=', 'draft')]}"/>
-                <field name="discount_amount" attrs="{'readonly': ['|', '|', ('origin', '!=', False), ('state', '!=', 'draft'), ('discount_method', '=', False)], 'invisible': [('discount_method', '=', 'per')]}"/>
-                <field name="discount_per" attrs="{'invisible': ['|', ('discount_method', '=', 'fixed'), ('discount_method', '=', False)], 'readonly': ['|', ('origin', '!=', False), ('state', '!=', 'draft')]}"/>
+                <field name="discount_method" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                <field name="discount_amount" attrs="{'readonly': [('state', '!=', 'draft'), ('discount_method', '=', False)], 'invisible': [('discount_method', '=', 'per')]}"/>
+                <field name="discount_per" attrs="{'invisible': ['|', ('discount_method', '=', 'fixed'), ('discount_method', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
                 <button name="calculate_discount" type="object" class="oe_edit_only oe_link" string="(Update Discount)" attrs="{'invisible': [('discount_method', '=', False)]}" confirm="If you want to apply global discount other discount methods will be reset."/>
             </xpath>
             <xpath expr="//field[@name='amount_untaxed']" position="before">
