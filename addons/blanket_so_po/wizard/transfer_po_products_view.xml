@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra>
+
+    <record id="purchase_transfer_products_form_view" model="ir.ui.view">
+        <field name="name">purchase.transfer.products.form.view</field>
+        <field name="model">purchase.transfer.products</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="ref_id"/>
+                        <field name="transfer_qty" default_focus="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="split_qty_wt_newline_po" string="Transfer"
+                            type="object" class="oe_highlight"
+                            context="{'blanket':True, 'transfer_qty':transfer_qty}"/>
+                    or
+                    <button special="cancel" string="Cancel"
+                            class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_purchase_transfer_products"
+            model="ir.actions.act_window">
+        <field name="name">Transfer Products</field>
+        <field name="res_model">purchase.transfer.products</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="purchase_transfer_products_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+</flectra>
+
