@@ -195,7 +195,7 @@ class TestStockValuation(TransactionCase):
         wizard.process()
 
         # the unit price of the stock move has been updated to the latest value
-        self.assertEquals(move1.price_unit, price_unit_usd_new_rate)
+        self.assertEquals(round(move1.price_unit), round(price_unit_usd_new_rate))
 
         self.assertAlmostEqual(self.product1.stock_value, price_unit_usd_new_rate * 10, delta=0.1)
 

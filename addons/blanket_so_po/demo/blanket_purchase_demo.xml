@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+    <record id="blanket_purchase_order" model="purchase.order">
+        <field name="partner_id" ref="base.res_partner_4"/>
+    </record>
+
+    <record id="blanket_purchase_order_line_1" model="purchase.order.line">
+        <field name="order_id" ref="blanket_purchase_order"/>
+        <field name="name">[RAM-SR5] RAM DDR SR5</field>
+        <field name="date_planned" eval="time.strftime('%Y/%m/10')"/>
+        <field name="product_id" ref="product.product_product_6"/>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">6000</field>
+        <field name="product_qty">10</field>
+        <field name="blanket_po_line" eval="True"/>
+    </record>
+
+    <record id="blanket_purchase_order_line_2" model="purchase.order.line">
+        <field name="order_id" ref="blanket_purchase_order"/>
+        <field name="name">[M-Wir] Mouse, Wireless]</field>
+        <field name="date_planned" eval="time.strftime('%Y/%m/10')"/>
+        <field name="product_id" ref="product.product_product_7"/>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">200</field>
+        <field name="product_qty">5</field>
+        <field name="blanket_po_line" eval="False"/>
+    </record>
+
+    <record id="blanket_purchase_order_line_3" model="purchase.order.line">
+        <field name="order_id" ref="blanket_purchase_order"/>
+        <field name="name">[MBi9] Motherboard I9P57</field>
+        <field name="date_planned" eval="time.strftime('%Y/%m/10')"/>
+        <field name="product_id" ref="product.product_product_8"/>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="price_unit">3000</field>
+        <field name="product_qty">8</field>
+        <field name="blanket_po_line" eval="False"/>
+    </record>
+
+</flectra>

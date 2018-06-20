@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra>
+
+    <record id="inherit_blanket_sale_order_form_view" model="ir.ui.view">
+        <field name="name">inherit.sale.order.form.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='name']"
+                   position="after">
+                <field name='blanket_so_line'/>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/form/group/group/field[@name='tax_id']"
+                   position="before">
+                <field name="blanket_so_line"
+                       attrs="{'readonly':[('state','=','sale')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form/group"
+                   position="before">
+                <header>
+                    <button name="%(action_sale_transfer_products)d"
+                            type="action" string="Transfer"
+                            class="oe_highlight"
+                            attrs="{'invisible':['|', '|', ('blanket_so_line', '=', False), ('remaining_to_so_transfer','&lt;=',0),('state','!=','sale')]}"/>
+                </header>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree"
+                   position="attributes">
+                <attribute name="editable"/>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/form/group/group/label[@for='product_uom_qty']"
+                   position="before">
+                <field name="remaining_to_so_transfer"
+                       attrs="{'invisible':[('state','!=','sale')]}"
+                       string="Remaining to Transfer"/>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='product_uom_qty']"
+                   position="after">
+                <field name="remaining_to_so_transfer"
+                       string="Remaining to Transfer"/>
+            </xpath>
+        </field>
+    </record>
+
+</flectra>
