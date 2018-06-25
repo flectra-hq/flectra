@@ -16,6 +16,17 @@ body {
         text-decoration: none !important;
     }
 }
+@media print {
+    body {
+        overflow: auto !important;
+        .o_main_content {
+            overflow: visible !important;
+            .o_content {
+                overflow: visible !important;
+            }
+        }
+    }
+}
 
 .o_web_client {
     background-color: #ffffff;
