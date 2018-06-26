@@ -145,13 +145,11 @@ class SaleOrder(models.Model):
 
     @api.multi
     def _prepare_invoice(self):
-        sale_order = self.env['sale.order'].browse(
-            self._context.get('active_ids', []))
         invoice_vals = super(SaleOrder, self)._prepare_invoice()
         invoice_vals.update({
-            'discount_method': sale_order.discount_method,
-            'discount_amount': sale_order.discount_amount,
-            'discount_per': sale_order.discount_per,
-            'discount': sale_order.discount,
+            'discount_method': self.discount_method,
+            'discount_amount': self.discount_amount,
+            'discount_per': self.discount_per,
+            'discount': self.discount,
             })
         return invoice_vals
