@@ -1501,7 +1501,6 @@ class AccountMoveLine(models.Model):
         domain = domain or []
         if not isinstance(domain, (list, tuple)):
             domain = safe_eval(domain)
-
         date_field = 'date'
         if context.get('aged_balance'):
             date_field = 'date_maturity'
@@ -1524,6 +1523,9 @@ class AccountMoveLine(models.Model):
 
         if context.get('company_id'):
             domain += [('company_id', '=', context['company_id'])]
+
+        if context.get('branch_id', False):
+            domain += [('branch_id', '=', context['branch_id'][0])]
 
         if 'company_ids' in context:
             domain += [('company_id', 'in', context['company_ids'])]
