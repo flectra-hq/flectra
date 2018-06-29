@@ -3,7 +3,7 @@
 
 {
     'name': 'Branch & Company Mixin',
-    'version': '1.0',
+    'version': '1.1',
     'category': 'Discuss',
     'author': 'FlectraHQ',
     'sequence': 25,
