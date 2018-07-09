@@ -3,8 +3,7 @@
 
     <template id="default_acquirer_button">
         <input type="hidden" name="data_set" t-att-data-action-url="tx_url"/>
-        <input type="hidden" name="csrf_token"
-               t-att-value="request.csrf_token()"/>
+        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
         <t t-if="return_url">
             <input type="hidden" name="return_url" t-att-value="return_url"/>
         </t>
@@ -148,8 +147,7 @@
         </field>
         <field name="description" type="html">
             <p>
-                Provide instructions to customers so that they can pay their
-                orders manually.
+                Provide instructions to customers so that they can pay their orders manually.
             </p>
         </field>
     </record>
