@@ -111,6 +111,16 @@ class AcquirerSips(models.Model):
         return self.environment == 'prod' and self.sips_prod_url or self.sips_test_url
 
 
+class PaymentTransactionSips(models.Model):
+    _inherit = 'payment.transaction'
+
+    @api.model
+    def _get_next_reference(self, reference, acquirer=None):
+        if acquirer and acquirer.provider == 'sips':
+            reference = re.sub(r'[^0-9a-zA-Z]+', 'x' , reference)
+        return super(PaymentTransactionSips, self)._get_next_reference(reference, acquirer=acquirer)
+
+
 class TxSips(models.Model):
     _inherit = 'payment.transaction'
 
