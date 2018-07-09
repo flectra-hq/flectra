@@ -137,13 +137,9 @@ class SaleOrderLine(models.Model):
     @api.multi
     @api.depends('product_id')
     def _compute_qty_delivered_updateable(self):
-        # prefetch field before filtering
-        self.mapped('product_id')
-        # on consumable or stockable products, qty_delivered_updateable defaults
-        # to False; on other lines use the original computation
-        lines = self.filtered(lambda line: line.product_id.type not in ('consu', 'product'))
-        lines = lines.with_prefetch(self._prefetch)
-        super(SaleOrderLine, lines)._compute_qty_delivered_updateable()
+        for line in self:
+            if line.product_id.type not in ('consu', 'product'):
+                super(SaleOrderLine, line)._compute_qty_delivered_updateable()
 
     @api.onchange('product_id')
     def _onchange_product_id_set_customer_lead(self):
@@ -343,8 +339,8 @@ class SaleOrderLine(models.Model):
             raise UserError('You cannot decrease the ordered quantity below the delivered quantity.\n'
                             'Create a return first.')
         for line in self:
-            pickings = self.order_id.picking_ids.filtered(lambda p: p.state not in ('done', 'cancel'))
+            pickings = line.order_id.picking_ids.filtered(lambda p: p.state not in ('done', 'cancel'))
             for picking in pickings:
                 picking.message_post("The quantity of %s has been updated from %d to %d in %s" %
-                                      (line.product_id.name, line.product_uom_qty, values['product_uom_qty'], self.order_id.name))
+                                      (line.product_id.display_name, line.product_uom_qty, values['product_uom_qty'], line.order_id.name))
         super(SaleOrderLine, self)._update_line_quantity(values)
