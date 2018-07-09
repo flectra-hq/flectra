@@ -370,7 +370,9 @@ class HrExpense(models.Model):
             product = default_product
         else:
             expense_description = expense_description.replace(product_code.group(), '')
-            product = self.env['product.product'].search([('default_code', 'ilike', product_code.group(1))]) or default_product
+            products = self.env['product.product'].search([('default_code', 'ilike', product_code.group(1))]) or default_product
+            product = products.filtered(lambda p: p.default_code == product_code.group(1)) or products[0]
+        account = product.product_tmpl_id._get_product_accounts()['expense']
 
         pattern = '[-+]?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?'
         # Match the last occurence of a float in the string
@@ -397,6 +399,8 @@ class HrExpense(models.Model):
             'unit_amount': price,
             'company_id': employee.company_id.id,
         })
+        if account:
+            custom_values['account_id'] = account.id
         return super(HrExpense, self).message_new(msg_dict, custom_values)
 
 class HrExpenseSheet(models.Model):
@@ -512,7 +516,7 @@ class HrExpenseSheet(models.Model):
 
     @api.onchange('employee_id')
     def _onchange_employee_id(self):
-        self.address_id = self.employee_id.address_home_id
+        self.address_id = self.employee_id.sudo().address_home_id
         self.department_id = self.employee_id.department_id
 
     @api.one
@@ -599,4 +603,4 @@ class HrExpenseSheet(models.Model):
     def _check_payment_mode(self):
         payment_mode = set(self.expense_line_ids.mapped('payment_mode'))
         if len(payment_mode) > 1:
-            raise ValidationError(_('You cannot report expenses with different payment modes.'))        
+            raise ValidationError(_('You cannot report expenses with different payment modes.'))
