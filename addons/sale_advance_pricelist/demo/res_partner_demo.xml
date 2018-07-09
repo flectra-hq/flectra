@@ -5,10 +5,6 @@
         <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman')), (4, ref('sale.group_discount_per_so_line'))]"/>
     </record>
 
-    <record id="base.main_company" model="res.company">
-        <field name="currency_id" ref="base.USD"/>
-    </record>
-
     <record id="res_partner_advance_pricelist" model="res.partner">
         <field name="name">Josheph</field>
         <field eval="[(6, 0, [ref('base.res_partner_category_7'), ref('base.res_partner_category_9')])]" name="category_id"/>

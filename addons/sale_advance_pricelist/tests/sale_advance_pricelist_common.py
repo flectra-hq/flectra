@@ -11,6 +11,9 @@ class TestAdvSalePricelist(TransactionCase):
         self.currency_id = self.env.ref('base.USD')
         self.category_id = self.env.ref('product.product_category_5')
 
+        self.main_company = self.env.ref('base.main_company')
+        self.main_company.currency_id = self.env.ref('base.USD').id
+
         self.pricelist_1 = \
             self.env.ref('sale_advance_pricelist.advance_pricelist')
         self.pricelist_2 = self.env.ref(
