@@ -58,7 +58,7 @@ models.load_models({
 
         for(var i = 0; i < printers.length; i++){
             if(active_printers[printers[i].id]){
-                var url = printers[i].proxy_ip;
+                var url = printers[i].proxy_ip || '';
                 if(url.indexOf('//') < 0){
                     url = 'http://'+url;
                 }
