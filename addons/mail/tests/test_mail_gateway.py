@@ -367,6 +367,18 @@ class TestMailgateway(TestMail):
         self.assertEqual(res['attachments'][0][0], 'thetruth.pdf')
 
     @mute_logger('flectra.addons.mail.models.mail_thread')
+    def test_message_parse_eml(self):
+        """ Test that the parsing of mail with embedded emails as eml(msg) which generates empty attachments, can be processed.
+        """
+        self.env['mail.thread'].message_process('mail.channel', MAIL_EML_ATTACHMENT)
+
+    @mute_logger('flectra.addons.mail.models.mail_thread')
+    def test_message_parse_xhtml(self):
+        """ Test that the parsing of mail with embedded emails as eml(msg) which generates empty attachments, can be processed.
+        """
+        self.env['mail.thread'].message_process('mail.channel', MAIL_XHTML)
+
+    @mute_logger('flectra.addons.mail.models.mail_thread')
     def test_message_process_cid(self):
         new_groups = self.format_and_process(MAIL_MULTIPART_IMAGE, subject='My Frogs', to='groups@example.com')
         message = new_groups.message_ids[0]
