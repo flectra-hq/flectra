@@ -180,7 +180,7 @@ class Holidays(models.Model):
         states={'draft': [('readonly', False)], 'confirm': [('readonly', False)]})
     employee_id = fields.Many2one('hr.employee', string='Employee', index=True, readonly=True,
         states={'draft': [('readonly', False)], 'confirm': [('readonly', False)]}, default=_default_employee, track_visibility='onchange')
-    manager_id = fields.Many2one('hr.employee', related='employee_id.parent_id', string='Manager', readonly=True, store=True)
+    manager_id = fields.Many2one('hr.employee', string='Manager', readonly=True)
     notes = fields.Text('Reasons', readonly=True, states={'draft': [('readonly', False)], 'confirm': [('readonly', False)]})
     number_of_days_temp = fields.Float(
         'Allocation', copy=False, readonly=True,
@@ -197,7 +197,7 @@ class Holidays(models.Model):
              "\nChoose 'Allocation Request' if you want to increase the number of leaves available for someone")
     parent_id = fields.Many2one('hr.holidays', string='Parent', copy=False)
     linked_request_ids = fields.One2many('hr.holidays', 'parent_id', string='Linked Requests')
-    department_id = fields.Many2one('hr.department', related='employee_id.department_id', string='Department', readonly=True, store=True)
+    department_id = fields.Many2one('hr.department', string='Department', readonly=True)
     category_id = fields.Many2one('hr.employee.category', string='Employee Tag', readonly=True,
         states={'draft': [('readonly', False)], 'confirm': [('readonly', False)]}, help='Category of Employee')
     holiday_type = fields.Selection([
