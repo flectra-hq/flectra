@@ -5,7 +5,7 @@ import logging
 
 from flectra import api, fields, models
 from flectra import tools, _
-from flectra.exceptions import ValidationError
+from flectra.exceptions import ValidationError, AccessError
 from flectra.modules.module import get_module_resource
 
 _logger = logging.getLogger(__name__)
