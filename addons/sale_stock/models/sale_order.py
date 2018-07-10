@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 from flectra import api, fields, models, _
 from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_compare
-from flectra.exceptions import UserError, ValidationError
+from flectra.exceptions import UserError
 
 
 class SaleOrder(models.Model):
