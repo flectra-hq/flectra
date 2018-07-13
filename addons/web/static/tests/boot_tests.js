@@ -18,4 +18,4 @@ flectra.__DEBUG__.didLogInfo.then(function() {
 
 });
 
-})();                
+})();

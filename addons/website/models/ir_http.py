@@ -6,6 +6,7 @@ import traceback
 import os
 import unittest
 
+import pytz
 import werkzeug
 import werkzeug.routing
 import werkzeug.utils
@@ -17,7 +18,7 @@ from flectra.http import request
 from flectra.tools import config
 from flectra.exceptions import QWebException
 from flectra.tools.safe_eval import safe_eval
-from flectra.osv.expression import FALSE_DOMAIN
+from flectra.osv.expression import FALSE_DOMAIN, OR
 
 from flectra.addons.http_routing.models.ir_http import ModelConverter, _guess_mimetype
 from flectra.addons.portal.controllers.portal import _build_url_w_params
@@ -74,6 +75,10 @@ class Http(models.AbstractModel):
         context = {}
         if not request.context.get('tz'):
             context['tz'] = request.session.get('geoip', {}).get('time_zone')
+            try:
+                pytz.timezone(context['tz'] or '')
+            except pytz.UnknownTimeZoneError:
+                context.pop('tz')
 
         request.website = request.env['website'].get_current_website()  # can use `request.env` since auth methods are called
         context['website_id'] = request.website.id
@@ -103,6 +108,11 @@ class Http(models.AbstractModel):
         if getattr(request, 'website', False):
             return request.website.default_lang_id
         return super(Http, cls)._get_default_lang()
+
+    @classmethod
+    def _get_translation_frontend_modules_domain(cls):
+        domain = super(Http, cls)._get_translation_frontend_modules_domain()
+        return OR([domain, [('name', 'ilike', 'website')]])
 
     @classmethod
     def _serve_page(cls):

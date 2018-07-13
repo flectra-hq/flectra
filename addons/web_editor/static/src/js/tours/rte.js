@@ -178,7 +178,7 @@ tour.register('rte', {
     content: "insert a link url",
     trigger: '#o_link_dialog_url_input',
     extra_trigger: 'a#link-preview.btn',
-    run: "text http://www.flectra.com",
+    run: "text http://www.flectrahq.com",
 }, {
     content: "change text label",
     trigger: '#o_link_dialog_label_input',

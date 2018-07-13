@@ -4,8 +4,6 @@
 from flectra.addons.website_form.controllers.main import WebsiteForm
 from flectra.http import request, route
 
-import json
-
 
 class WebsiteForm(WebsiteForm):
 

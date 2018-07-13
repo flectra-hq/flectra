@@ -231,7 +231,6 @@ var DashboardApps = Widget.extend({
 
     events: {
         'click .o_browse_apps': 'on_new_apps',
-        'click .o_confirm_upgrade': 'confirm_upgrade',
     },
 
     init: function(parent, data){
@@ -242,17 +241,10 @@ var DashboardApps = Widget.extend({
 
     start: function() {
         this._super.apply(this, arguments);
-        if (flectra.db_info && _.last(flectra.db_info.server_version_info) !== 'e') {
-            $(QWeb.render("DashboardEnterprise")).appendTo(this.$el);
-        }
     },
 
     on_new_apps: function(){
         this.do_action('base.open_module_tree');
-    },
-
-    confirm_upgrade: function() {
-        framework.redirect("https://www.flectra.com/flectra-enterprise/upgrade?num_users=" + (this.data.enterprise_users || 1));
     },
 });
 
@@ -268,7 +260,7 @@ var DashboardShare = Widget.extend({
     init: function(parent, data){
         this.data = data;
         this.parent = parent;
-        this.share_url = 'https://www.flectra.com';
+        this.share_url = 'https://www.flectrahq.com';
         this.share_text = encodeURIComponent("I am using #Flectra - Awesome open source business apps.");
     },
 
@@ -283,7 +275,7 @@ var DashboardShare = Widget.extend({
     },
 
     share_linkedin: function(){
-        var popup_url = _.str.sprintf('http://www.linkedin.com/shareArticle?mini=true&url=%s&title=I am using flectra&summary=%s&source=www.flectra.com', encodeURIComponent(this.share_url), this.share_text);
+        var popup_url = _.str.sprintf('http://www.linkedin.com/shareArticle?mini=true&url=%s&title=I am using flectra&summary=%s&source=www.flectrahq.com', encodeURIComponent(this.share_url), this.share_text);
         this.sharer(popup_url);
     },
 

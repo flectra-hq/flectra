@@ -281,7 +281,7 @@ var RTEWidget = Widget.extend({
         .each(function () {
             var $node = $(this);
 
-            // fallback for firefox iframe display:none see
+            // fallback for firefox iframe display:none see https://github.com/odoo/odoo/pull/22610
             var computedStyles = window.getComputedStyle(this) || window.parent.getComputedStyle(this);
             // add class to display inline-block for empty t-field
             if (computedStyles.display === 'inline' && $node.data('oe-type') !== 'image') {
@@ -290,9 +290,12 @@ var RTEWidget = Widget.extend({
         });
 
         // start element observation
-        $(document).on('content_changed', '.o_editable', function (event) {
-            self.trigger_up('rte_change', {target: event.target});
-            $(this).addClass('o_dirty');
+        $(document).on('content_changed', '.o_editable', function (ev) {
+            self.trigger_up('rte_change', {target: ev.target});
+            if (!ev.__isDirtyHandled) {
+                $(this).addClass('o_dirty');
+                ev.__isDirtyHandled = true;
+            }
         });
 
         $('#wrapwrap, .o_editable').on('click.rte', '*', this, this._onClick.bind(this));
@@ -376,10 +379,11 @@ var RTEWidget = Widget.extend({
      * @param {boolean} internal_history
      */
     historyRecordUndo: function ($target, event, internal_history) {
+        $target = $($target);
         var rng = range.create();
         var $editable = $(rng && rng.sc).closest('.o_editable');
         if (!rng || !$editable.length) {
-            $editable = $($target).closest('.o_editable');
+            $editable = $target.closest('.o_editable');
             rng = range.create($target.closest('*')[0],0);
         } else {
             rng = $editable.data('range') || rng;
@@ -406,6 +410,10 @@ var RTEWidget = Widget.extend({
      */
     save: function (context) {
         var self = this;
+
+        $('.o_editable')
+            .destroy()
+            .removeClass('o_editable o_is_inline_editable');
 
         var $dirty = $('.o_dirty');
         $dirty

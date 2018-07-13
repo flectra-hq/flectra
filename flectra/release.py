@@ -29,7 +29,7 @@ License :: OSI Approved :: GNU Lesser General Public License v3
 
 Programming Language :: Python
 """
-url = 'https://www.flectra.com'
+url = 'https://www.flectrahq.com'
 author = 'OpenERP S.A., FlectraHQ'
 author_email = 'info@flectrahq.com'
 license = 'LGPL-3'

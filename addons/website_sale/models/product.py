@@ -68,8 +68,8 @@ class ProductPricelist(models.Model):
                                    string="website", default=_default_website,
                                    help='List of websites in which price-list '
                                         'will published.')
-    selectable = fields.Boolean(help="Allow the end user to choose this price list")
     code = fields.Char(string='E-commerce Promotional Code', groups="base.group_user")
+    selectable = fields.Boolean(help="Allow the end user to choose this price list")
 
     def clear_cache(self):
         # website._get_pl() is cached to avoid to recompute at each request the

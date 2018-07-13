@@ -430,7 +430,7 @@ var SelectCreateDialog = ViewDialog.extend({
      * list controller.
      *
      * @private
-     * @param {OdooEvent} ev
+     * @param {FlectraEvent} ev
      * @param {function} ev.data.callback used to send the requested context
      */
     _onGetControllerContext: function (ev) {

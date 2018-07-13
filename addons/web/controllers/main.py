@@ -28,6 +28,7 @@ import werkzeug.wsgi
 from collections import OrderedDict
 from werkzeug.urls import url_decode, iri_to_uri
 from xml.etree import ElementTree
+import unicodedata
 
 
 import flectra
@@ -1007,14 +1008,17 @@ class DataSet(http.Controller):
 
 class View(http.Controller):
 
-    @http.route('/web/view/add_custom', type='json', auth="user")
-    def add_custom(self, view_id, arch):
-        CustomView = request.env['ir.ui.view.custom']
-        CustomView.create({
-            'user_id': request.session.uid,
-            'ref_id': view_id,
-            'arch': arch
-        })
+    @http.route('/web/view/edit_custom', type='json', auth="user")
+    def edit_custom(self, custom_id, arch):
+        """
+        Edit a custom view
+
+        :param int custom_id: the id of the edited custom view
+        :param str arch: the edited arch of the custom view
+        :returns: dict with acknowledged operation (result set to True)
+        """
+        custom_view = request.env['ir.ui.view.custom'].browse(custom_id)
+        custom_view.write({ 'arch': arch })
         return {'result': True}
 
 class Binary(http.Controller):
@@ -1039,7 +1043,7 @@ class Binary(http.Controller):
         '/web/content/<string:model>/<int:id>/<string:field>/<string:filename>'], type='http', auth="public")
     def content_common(self, xmlid=None, model='ir.attachment', id=None, field='datas',
                        filename=None, filename_field='datas_fname', unique=None, mimetype=None,
-                       download=None, data=None, token=None, access_token=None):
+                       download=None, data=None, token=None, access_token=None, **kw):
         status, headers, content = binary_content(
             xmlid=xmlid, model=model, id=id, field=field, unique=unique, filename=filename,
             filename_field=filename_field, download=download, mimetype=mimetype,
@@ -1089,8 +1093,12 @@ class Binary(http.Controller):
         elif status != 200 and download:
             return request.not_found()
 
-        height = int(height or 0)
-        width = int(width or 0)
+        if headers and dict(headers).get('Content-Type', '') == 'image/svg+xml':  # we shan't resize svg images
+            height = 0
+            width = 0
+        else:
+            height = int(height or 0)
+            width = int(width or 0)
 
         if crop and (width or height):
             content = crop_image(content, type='center', size=(width, height), ratio=(1, 1))
@@ -1153,20 +1161,27 @@ class Binary(http.Controller):
                 </script>"""
         args = []
         for ufile in files:
+
+            filename = ufile.filename
+            if request.httprequest.user_agent.browser == 'safari':
+                # Safari sends NFD UTF-8 (where é is composed by 'e' and [accent])
+                # we need to send it the same stuff, otherwise it'll fail
+                filename = unicodedata.normalize('NFD', ufile.filename)
+
             try:
                 attachment = Model.create({
-                    'name': ufile.filename,
+                    'name': filename,
                     'datas': base64.encodestring(ufile.read()),
-                    'datas_fname': ufile.filename,
+                    'datas_fname': filename,
                     'res_model': model,
                     'res_id': int(id)
                 })
             except Exception:
-                args = args.append({'error': _("Something horrible happened")})
+                args.append({'error': _("Something horrible happened")})
                 _logger.exception("Fail to upload attachment %s" % ufile.filename)
             else:
                 args.append({
-                    'filename': ufile.filename,
+                    'filename': filename,
                     'mimetype': ufile.content_type,
                     'id': attachment.id
                 })
@@ -1428,7 +1443,7 @@ class ExportFormat(object):
         model, fields, ids, domain, import_compat = \
             operator.itemgetter('model', 'fields', 'ids', 'domain', 'import_compat')(params)
 
-        Model = request.env[model].with_context(**params.get('context', {}))
+        Model = request.env[model].with_context(import_compat=import_compat, **params.get('context', {}))
         records = Model.browse(ids) or Model.search(domain, offset=0, limit=False, order=False)
 
         if not Model._is_an_ordinary_table():

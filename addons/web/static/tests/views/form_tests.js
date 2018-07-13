@@ -1623,6 +1623,37 @@ QUnit.module('Views', {
         form.destroy();
     });
 
+    QUnit.test('duplicating a record preserve the context', function (assert) {
+        assert.expect(2);
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form string="Partners">' +
+                        '<field name="foo"/>' +
+                '</form>',
+            res_id: 1,
+            viewOptions: {sidebar: true, context: {hey: 'hoy'}},
+            mockRPC: function (route, args) {
+                if (args.method === 'read') {
+                    // should have 2 read, one for initial load, second for
+                    // read after duplicating
+                    assert.strictEqual(args.kwargs.context.hey, 'hoy',
+                        "should have send the correct context");
+                }
+                if (args.method === 'search_read' && args.model === 'ir.attachment') {
+                    return $.when([]);
+                }
+                return this._super.apply(this, arguments);
+            },
+        });
+
+        form.sidebar.$('a:contains(Duplicate)').click();
+
+        form.destroy();
+    });
+
     QUnit.test('cannot duplicate a record', function (assert) {
         assert.expect(2);
 
@@ -6493,6 +6524,36 @@ QUnit.module('Views', {
 
         testUtils.unpatch(mixins.ParentedMixin);
     });
+
+    QUnit.test('do not change pager when discarding current record', function (assert) {
+        assert.expect(2);
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form string="Partners">' +
+                    '<field name="foo"/>' +
+                '</form>',
+            viewOptions: {
+                ids: [1, 2],
+                index: 0,
+            },
+            res_id: 2,
+        });
+
+        assert.strictEqual(form.pager.$('.o_pager_counter').text().trim(), '2 / 2',
+            'pager should indicate that we are on second record');
+
+        form.$buttons.find('.o_form_button_edit').click();
+        form.$buttons.find('.o_form_button_cancel').click();
+
+        assert.strictEqual(form.pager.$('.o_pager_counter').text().trim(), '2 / 2',
+            'pager should not have changed');
+
+        form.destroy();
+    });
+
 
 });
 });

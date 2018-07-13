@@ -41,7 +41,7 @@ RPC_FAULT_CODE_ACCESS_ERROR = 4
 
 def xmlrpc_handle_exception_int(e):
     if isinstance(e, flectra.exceptions.UserError):
-        fault = xmlrpclib.Fault(RPC_FAULT_CODE_WARNING, flectra.tools.ustr(e.value))
+        fault = xmlrpclib.Fault(RPC_FAULT_CODE_WARNING, flectra.tools.ustr(e.name))
     elif isinstance(e, flectra.exceptions.RedirectWarning):
         fault = xmlrpclib.Fault(RPC_FAULT_CODE_WARNING, str(e))
     elif isinstance(e, flectra.exceptions.MissingError):

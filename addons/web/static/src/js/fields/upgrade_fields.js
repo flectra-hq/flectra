@@ -92,10 +92,11 @@ var AbstractFieldUpgrade = {
      */
     _render: function () {
         this._super.apply(this, arguments);
-        this._insertEnterpriseLabel($("<span>", {
-            text: "Enterprise",
-            'class': "label label-primary oe_inline o_enterprise_label"
-        }));
+        // disable enterprise tags
+        // this._insertEnterpriseLabel($("<span>", {
+        //     text: "Enterprise",
+        //     'class': "label label-primary oe_inline o_enterprise_label"
+        // }));
     },
     /**
      * This function is meant to be overriden to reset the $el to its initial

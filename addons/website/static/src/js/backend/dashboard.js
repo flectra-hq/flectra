@@ -293,6 +293,7 @@ var Dashboard = Widget.extend(ControlPanelMixin, {
 
             self.handle_analytics_auth($analytics_components);
             gapi.analytics.auth.on('signIn', function() {
+                delete window.onOriginError;
                 self.handle_analytics_auth($analytics_components);
             });
 

@@ -102,6 +102,10 @@ class Website(models.Model):
     @api.multi
     def write(self, values):
         self._get_languages.clear_cache(self)
+        result = super(Website, self).write(values)
+        if 'cdn_activated' in values or 'cdn_url' in values or 'cdn_filters' in values:
+            # invalidate the caches from static node at compile time
+            self.env['ir.qweb'].clear_caches()
         if values.get('website_code') or \
                 (values.get('is_default_website')
                  and self != self.env.ref('website.default_website')):
@@ -112,7 +116,7 @@ class Website(models.Model):
                             '- If above action is not properly done '
                             'then it will break your current '
                             'multi website feature.'))
-        return super(Website, self).write(values)
+        return result
 
     @api.model
     def create(self, values):
@@ -660,15 +664,15 @@ class Website(models.Model):
         size = '' if size is None else '/%s' % size
         return '/web/image/%s/%s/%s%s?unique=%s' % (record._name, record.id, field, size, sha)
 
-    @api.model
     def get_cdn_url(self, uri):
-        # Currently only usable in a website_enable request context
-        if request and request.website and not request.debug and request.website.user_id.id == request.uid:
-            cdn_url = request.website.cdn_url
-            cdn_filters = (request.website.cdn_filters or '').splitlines()
-            for flt in cdn_filters:
-                if flt and re.match(flt, uri):
-                    return urls.url_join(cdn_url, uri)
+        self.ensure_one()
+        if not uri:
+            return ''
+        cdn_url = self.cdn_url
+        cdn_filters = (self.cdn_filters or '').splitlines()
+        for flt in cdn_filters:
+            if flt and re.match(flt, uri):
+                return urls.url_join(cdn_url, uri)
         return uri
 
     @api.model
@@ -989,9 +993,10 @@ class Menu(models.Model):
         for menu in data['data']:
             menu_id = self.browse(menu['id'])
             # if the url match a website.page, set the m2o relation
-            page = self.env['website.page'].search([('url', '=', menu['url'])], limit=1)
+            page = self.env['website.page'].search(['|', ('url', '=', menu['url']), ('url', '=', '/' + menu['url'])], limit=1)
             if page:
                 menu['page_id'] = page.id
+                menu['url'] = page.url
             elif menu_id.page_id:
                 menu_id.page_id.write({'url': menu['url']})
             if 'is_homepage' in menu:
