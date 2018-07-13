@@ -60,6 +60,11 @@
                     <strong>Payment Terms:</strong>
                     <p t-field="doc.payment_term_id"/>
                 </div>
+                <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-xs-3">
+                    <strong>Expiration Date:</strong>
+                    <p t-field="doc.validity_date"/>
+                </div>
+
                 <div name="branch" t-if="doc.branch_id" class="col-xs-3" groups="base_branch_company.group_multi_branch">
                     <strong>Branch:</strong>
                     <p t-field="doc.branch_id"/>

@@ -158,9 +158,6 @@
                                         <field name="portal_confirmation_options" class="o_light_label" widget="radio"
                                             attrs="{'required': [('portal_confirmation', '=', True)]}"/>
                                     </div>
-                                <div attrs="{'invisible': [('portal_confirmation_options', '!=', 'pay')]}">
-                                    <button name='%(payment.action_payment_acquirer)d' icon="fa-arrow-right" type="action" string="Payment Acquirers" class="btn-link"/>
-                                </div>
                                 </div>
                             </div>
                         </div>
@@ -269,7 +266,7 @@
                     </div>
                     <h2>Invoicing</h2>
                     <div class="row mt16 o_settings_container">
-                        <div class="col-xs-12 col-md-6 o_setting_box" title="This default value is applied to any new product created. This can be changed in the product detail form.">
+                        <div class="col-xs-12 col-md-6 o_setting_box hidden" title="This default value is applied to any new product created. This can be changed in the product detail form.">
                             <div class="o_setting_right_pane">
                                 <label for="default_invoice_policy"/>
                                 <div class="text-muted">
