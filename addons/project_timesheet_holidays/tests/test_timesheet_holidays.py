@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from datetime import datetime
+from datetime import datetime, time
 from dateutil.relativedelta import relativedelta
 
 from flectra import fields
