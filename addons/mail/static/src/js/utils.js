@@ -112,6 +112,7 @@ function parse_email (text) {
         }
         return [text, false];
     }
+}
   /*  result = text.match(/(.*@.*)/);
     if (result) {
         return [_.str.trim(result[1]), _.str.trim(result[1])];
