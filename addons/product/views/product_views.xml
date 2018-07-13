@@ -90,6 +90,11 @@
                             </group>
                         </page>
                         <page string="Notes" name="notes">
+                            <group name="description_internal">
+                                <group string="Description for Internal">
+                                    <field name="description" nolabel="1" placeholder="This note is only for internal purposes."/>
+                                </group>
+                            </group>
                             <group name="description">
                                 <group string="Description for Customers" attrs="{'invisible': [('sale_ok','=',False)]}">
                                     <field name="description_sale" nolabel="1" placeholder="This note will show up on sales orders."/>
@@ -202,7 +207,7 @@
                         <field name="image_medium" widget="image" class="oe_avatar"/>
                         <div class="oe_title">
                             <label class="oe_edit_only" for="name" string="Product Name"/>
-                            <h1><field name="name" placeholder="e.g. Flectra Enterprise Subscription"/></h1>
+                            <h1><field name="name" placeholder="e.g. Flectra Subscription"/></h1>
                         </div>
                         <group>
                             <p>All general settings about this product are managed on <button name="open_product_template" type="object" string="the product template" class="oe_link"/></p>

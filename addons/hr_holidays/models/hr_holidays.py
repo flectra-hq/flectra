@@ -180,7 +180,7 @@ class Holidays(models.Model):
         states={'draft': [('readonly', False)], 'confirm': [('readonly', False)]})
     employee_id = fields.Many2one('hr.employee', string='Employee', index=True, readonly=True,
         states={'draft': [('readonly', False)], 'confirm': [('readonly', False)]}, default=_default_employee, track_visibility='onchange')
-    manager_id = fields.Many2one('hr.employee', related='employee_id.parent_id', string='Manager', readonly=True, store=True)
+    manager_id = fields.Many2one('hr.employee', string='Manager', readonly=True)
     notes = fields.Text('Reasons', readonly=True, states={'draft': [('readonly', False)], 'confirm': [('readonly', False)]})
     number_of_days_temp = fields.Float(
         'Allocation', copy=False, readonly=True,
@@ -195,9 +195,9 @@ class Holidays(models.Model):
         states={'draft': [('readonly', False)], 'confirm': [('readonly', False)]},
         help="Choose 'Leave Request' if someone wants to take an off-day. "
              "\nChoose 'Allocation Request' if you want to increase the number of leaves available for someone")
-    parent_id = fields.Many2one('hr.holidays', string='Parent')
+    parent_id = fields.Many2one('hr.holidays', string='Parent', copy=False)
     linked_request_ids = fields.One2many('hr.holidays', 'parent_id', string='Linked Requests')
-    department_id = fields.Many2one('hr.department', related='employee_id.department_id', string='Department', readonly=True, store=True)
+    department_id = fields.Many2one('hr.department', string='Department', readonly=True)
     category_id = fields.Many2one('hr.employee.category', string='Employee Tag', readonly=True,
         states={'draft': [('readonly', False)], 'confirm': [('readonly', False)]}, help='Category of Employee')
     holiday_type = fields.Selection([
@@ -248,7 +248,7 @@ class Holidays(models.Model):
             if nholidays:
                 raise ValidationError(_('You can not have 2 leaves that overlaps on same day!'))
 
-    @api.constrains('state', 'number_of_days_temp')
+    @api.constrains('state', 'number_of_days_temp', 'holiday_status_id')
     def _check_holidays(self):
         for holiday in self:
             if holiday.holiday_type != 'employee' or holiday.type != 'remove' or not holiday.employee_id or holiday.holiday_status_id.limit:
@@ -274,7 +274,8 @@ class Holidays(models.Model):
             self.employee_id = None
 
     @api.onchange('employee_id')
-    def _onchange_employee(self):
+    def _onchange_employee_id(self):
+        self.manager_id = self.employee_id and self.employee_id.parent_id
         self.department_id = self.employee_id.department_id
 
     def _get_number_of_days(self, date_from, date_to, employee_id):
@@ -358,6 +359,8 @@ class Holidays(models.Model):
             values.update({'department_id': self.env['hr.employee'].browse(employee_id).department_id.id})
         holiday = super(Holidays, self.with_context(mail_create_nolog=True, mail_create_nosubscribe=True)).create(values)
         holiday.add_follower(employee_id)
+        if 'employee_id' in values:
+            holiday._onchange_employee_id()
         return holiday
 
     @api.multi
@@ -367,6 +370,8 @@ class Holidays(models.Model):
             raise AccessError(_('You cannot set a leave request as \'%s\'. Contact a human resource manager.') % values.get('state'))
         result = super(Holidays, self).write(values)
         self.add_follower(employee_id)
+        if 'employee_id' in values:
+            self._onchange_employee_id()
         return result
 
     @api.multi
