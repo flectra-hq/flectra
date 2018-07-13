@@ -11,13 +11,14 @@ class TestStockValuation(AccountingTestCase):
         self.stock_location = self.env.ref('stock.stock_location_stock')
         self.partner_id = self.env.ref('base.res_partner_1')
         self.product1 = self.env.ref('product.product_product_8')
+        self.categ_id = self.product1.categ_id
 
-        self.acc_payable = self.env['account.account'].search([('name', '=', 'Account Payable')]).id
-        self.acc_expense = self.env['account.account'].search([('name', '=', 'Expenses')]).id
-        self.acc_receivable = self.env['account.account'].search([('name', '=', 'Account Receivable')]).id
-        self.acc_sale = self.env['account.account'].search([('name', '=', 'Product Sales')]).id
-        self.acc_stock_in = self.env['account.account'].search([('name', '=', 'Stock Interim Account (Received)')]).id
-        self.acc_stock_out = self.env['account.account'].search([('name', '=', 'Stock Interim Account (Delivered)')]).id
+        self.acc_payable = self.partner_id.property_account_payable_id.id
+        self.acc_expense = self.categ_id.property_account_expense_categ_id.id
+        self.acc_receivable = self.partner_id.property_account_receivable_id.id
+        self.acc_sale = self.categ_id.property_account_income_categ_id.id
+        self.acc_stock_in = self.categ_id.property_stock_account_input_categ_id.id
+        self.acc_stock_out = self.categ_id.property_stock_account_output_categ_id.id
 
     def _dropship_product1(self):
         # enable the dropship and MTO route on the product
@@ -84,8 +85,7 @@ class TestStockValuation(AccountingTestCase):
         return all_amls
 
     def _check_results(self, expected_aml, expected_aml_count, all_amls):
-        # Construct a dict similar to `expected_aml` with `all_amls` in
-        # order to
+        # Construct a dict similar to `expected_aml` with `all_amls` in order to
         # compare them.
         result_aml = {}
         for aml in all_amls:
@@ -93,12 +93,12 @@ class TestStockValuation(AccountingTestCase):
             if result_aml.get(account_id):
                 debit = result_aml[account_id][0]
                 credit = result_aml[account_id][1]
-                result_aml[account_id] = (
-                debit + aml.debit, credit + aml.credit)
+                result_aml[account_id] = (debit + aml.debit, credit + aml.credit)
             else:
                 result_aml[account_id] = (aml.debit, aml.credit)
 
         self.assertEqual(len(all_amls), expected_aml_count)
+
         for k, v in expected_aml.items():
             self.assertEqual(result_aml[k], v)
 
