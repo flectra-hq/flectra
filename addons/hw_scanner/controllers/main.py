@@ -4,7 +4,7 @@
 import logging
 import time
 from os import listdir
-from os.path import join
+from os.path import join, isdir
 try:
     from queue import Queue, Empty
 except ImportError:

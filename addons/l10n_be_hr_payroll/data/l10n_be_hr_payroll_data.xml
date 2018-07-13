@@ -160,7 +160,7 @@ elif salary &lt;= 2510.47:
         <field name="sequence">165</field>
         <field name="condition_select">python</field>
         <field name="appears_on_payslip" eval="False"/>
-        <field name="condition_python">result = (((employee.marital in ['divorced', 'single', 'widower']) or (employee.marital=='married' and employee.spouse_fiscal_status=='without income')) and (employee.resident_bool!=True))</field>
+        <field name="condition_python">result = (((employee.marital in ['divorced', 'single', 'widower']) or (employee.marital in ['married', 'cohabitant'] and employee.spouse_fiscal_status=='without income')) and (employee.resident_bool!=True))</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 wage = categories.BASIC
