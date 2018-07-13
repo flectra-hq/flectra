@@ -10,7 +10,7 @@
     'category': 'Localization',
     'description': """
 This is the module to manage the accounting chart for France in Odoo, Flectra.
-========================================================================
+=================================================================================
 
 This module applies to companies based in France mainland. It doesn't apply to
 companies based in the DOM-TOMs (Guadeloupe, Martinique, Guyane, Réunion, Mayotte).
