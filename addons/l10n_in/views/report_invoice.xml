@@ -98,7 +98,7 @@
                                         <t t-set="total_cess" t-value="total_cess + tax_data['amount']" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                     </t>
                                 </t>
-                                <t t-esc="total_cess"/>
+                                <t t-esc="total_cess" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                             </td>
                         </t>
                     </tr>

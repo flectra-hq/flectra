@@ -8,7 +8,6 @@ from flectra.tests.common import TransactionCase
 
 
 class TestWebsitePriceList(TransactionCase):
-
     # Mock nedded because request.session doesn't exist during test
     def _get_pricelist_available(self, show_visible=False):
         return self.get_pl(self.args.get('show'), self.args.get('current_pl'), self.args.get('country'))
@@ -38,7 +37,8 @@ class TestWebsitePriceList(TransactionCase):
             'country_group_ids': [(6, 0, [ca_group.id])],
             'sequence': 10
         })
-        patcher = patch('flectra.addons.website_sale.models.website.Website.get_pricelist_available', wraps=self._get_pricelist_available)
+        patcher = patch('flectra.addons.website_sale.models.website.Website.get_pricelist_available',
+                        wraps=self._get_pricelist_available)
         patcher.start()
         self.addCleanup(patcher.stop)
 
@@ -57,15 +57,16 @@ class TestWebsitePriceList(TransactionCase):
         current_pl = False
 
         country_list = {
-            False: ['USD', 'EUR', 'Benelux', 'Canada'],
+            False: ['Public Pricelist', 'EUR', 'Benelux', 'Canada'],
             'BE': ['EUR', 'Benelux'],
             'IT': ['EUR'],
             'CA': ['Canada'],
-            'US': ['USD', 'EUR', 'Benelux', 'Canada']
+            'US': ['Public Pricelist', 'EUR', 'Benelux', 'Canada']
         }
         for country, result in country_list.items():
             pls = self.get_pl(show, current_pl, country)
-            self.assertEquals(len(set(pls.mapped('name')) & set(result)), len(pls), 'Test failed for %s (%s %s vs %s %s)'
+            self.assertEquals(len(set(pls.mapped('name')) & set(result)), len(pls),
+                              'Test failed for %s (%s %s vs %s %s)'
                               % (country, len(pls), pls.mapped('name'), len(result), result))
 
     def _test_get_pricelist_available_not_show(self):
@@ -73,16 +74,17 @@ class TestWebsitePriceList(TransactionCase):
         current_pl = False
 
         country_list = {
-            False: ['USD', 'EUR', 'Benelux', 'Christmas', 'Canada'],
+            False: ['Public Pricelist', 'EUR', 'Benelux', 'Christmas', 'Canada'],
             'BE': ['EUR', 'Benelux', 'Christmas'],
             'IT': ['EUR', 'Christmas'],
-            'US': ['USD', 'EUR', 'Benelux', 'Christmas', 'Canada'],
+            'US': ['Public Pricelist', 'EUR', 'Benelux', 'Christmas', 'Canada'],
             'CA': ['Canada']
         }
 
         for country, result in country_list.items():
             pls = self.get_pl(show, current_pl, country)
-            self.assertEquals(len(set(pls.mapped('name')) & set(result)), len(pls), 'Test failed for %s (%s %s vs %s %s)'
+            self.assertEquals(len(set(pls.mapped('name')) & set(result)), len(pls),
+                              'Test failed for %s (%s %s vs %s %s)'
                               % (country, len(pls), pls.mapped('name'), len(result), result))
 
     def _test_get_pricelist_available_promocode(self):
@@ -114,15 +116,17 @@ class TestWebsitePriceList(TransactionCase):
         show = True
         self.env.user.partner_id.country_id = self.env.ref('base.be')  # Add EUR pricelist auto
         current_pl = False
-
         country_list = {
-            False: ['USD', 'EUR', 'Benelux', 'Canada'],
+            False: ['Public Pricelist', 'EUR', 'Benelux', 'Canada'],
             'BE': ['EUR', 'Benelux'],
-            'IT': ['Benelux', 'USD', 'Canada'],
+            'IT': ['Benelux', 'Public Pricelist', 'Canada'],  # 'IT': ['Benelux', 'USD', 'Canada']
             'CA': ['EUR', 'Canada'],
-            'US': ['USD', 'EUR', 'Benelux', 'Canada']
+            'US': ['Public Pricelist', 'EUR', 'Benelux', 'Canada']
         }
         for country, result in country_list.items():
             pls = self.get_pl(show, current_pl, country)
-            self.assertEquals(len(set(pls.mapped('name')) & set(result)), len(pls), 'Test failed for %s (%s %s vs %s %s)'
+            self.assertEquals(len(set(pls.mapped('name')) & set(result)), len(pls),
+                              'Test failed for %s (%s %s vs %s %s)'
                               % (country, len(pls), pls.mapped('name'), len(result), result))
+
+

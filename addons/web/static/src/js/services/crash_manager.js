@@ -41,7 +41,8 @@ var CrashManager = core.Class.extend({
             core.bus.trigger('connection_lost');
             this.connection_lost = true;
             var timeinterval = setInterval(function() {
-                ajax.jsonRpc('/web/webclient/version_info').then(function() {
+                var options = {shadow: true};
+                ajax.jsonRpc('/web/webclient/version_info', 'call', {}, options).then(function () {
                     clearInterval(timeinterval);
                     core.bus.trigger('connection_restored');
                     self.connection_lost = false;
@@ -103,7 +104,7 @@ var CrashManager = core.Class.extend({
         if (!this.active) {
             return;
         }
-        new Dialog(this, {
+        return new Dialog(this, {
             size: 'medium',
             title: _.str.capitalize(error.type || error.message) || _t("Flectra Warning"),
             subtitle: error.data.title,

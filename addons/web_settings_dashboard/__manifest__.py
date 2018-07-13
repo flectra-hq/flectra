@@ -2,14 +2,14 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'Odoo Settings Dashboard',
+    'name': 'Flectra Settings Dashboard',
     'author': 'Odoo S.A.',
     'version': '1.0',
     'summary': 'Quick actions for installing new app, adding users, completing planners, etc.',
     'category': 'Extra Tools',
     'description':
     """
-Odoo dashboard
+Flectra dashboard
 ==============
 * Quick access to install apps
 * Quick users add

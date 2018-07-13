@@ -43,10 +43,6 @@ var PlannerDialog = Dialog.extend({
             e.preventDefault();
             this._display_page($(e.currentTarget).attr("href").replace("#", ""));
         },
-        "click a[href^=\"#show_enterprise\"]": function (e) {
-            e.preventDefault();
-            this.show_enterprise();
-        },
     },
     init: function (parent, options, planner) {
         this._super.apply(this, arguments);
@@ -362,36 +358,6 @@ var PlannerDialog = Dialog.extend({
                 method: 'write',
                 args: [this.planner.id, {'data': JSON.stringify(this.planner.data), 'progress': this.planner.progress}],
             });
-    },
-    show_enterprise: function () {
-        var buttons = [{
-            text: _t("Upgrade now"),
-            classes: 'btn-primary',
-            close: true,
-            click: function () {
-                rpc.query({
-                        model: "res.users",
-                        method: "search_count",
-                        args: [[["share", "=", false]]],
-                    })
-                    .then(function (data) {
-                        window.location = "https://www.flectra.com/flectra-enterprise/upgrade?utm_medium=community_upgrade&num_users=" + data;
-                    });
-            },
-        }, {
-            text: _t("Cancel"),
-            close: true,
-        }];
-        var dialog = new Dialog(this, {
-            size: 'medium',
-            buttons: buttons,
-            $content: $('<div>', {
-                html: QWeb.render('EnterpriseUpgrade'),
-            }),
-            title: _t("Flectra Enterprise"),
-        }).open();
-
-        return dialog;
     },
 });
 

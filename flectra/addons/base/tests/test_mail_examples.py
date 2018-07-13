@@ -73,7 +73,7 @@ QUOTE_BLOCKQUOTE = u"""<html>
     </div>
     <blockquote
 cite="mid:CAEJSRZvWvud8c6Qp=wfNG6O1+wK3i_jb33qVrF7XyrgPNjnyUA@mail.gmail.com"
-      type="cite"><base href="https://www.flectra.com">
+      type="cite"><base href="https://www.flectrahq.com">
       <div dir="ltr">Yep Dominique that is true, as Postgres was the
         base of all same as Flectra and MySQL etc came much later.Â 
         <div><br>
@@ -510,7 +510,7 @@ REMOVE_CLASS = u"""
 </div>
 """
 REMOVE_CLASS_IN = [
-    u'<div style="font-size: 12pt; font-family: \'Times New Roman\'; color: #000000">',
+    u'<div style="font-size:12pt; font-family:\'Times New Roman\'; color:#000000">',
     u'An error occured in a modal and I will send you back the html to try opening one on your end']
 REMOVE_CLASS_OUT = [
     u'<div class="modal-backdrop in">',

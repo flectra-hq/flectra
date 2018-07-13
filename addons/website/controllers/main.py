@@ -18,8 +18,9 @@ from flectra import http, models, fields, _
 from flectra.http import request
 from flectra.tools import pycompat, OrderedSet
 from flectra.addons.http_routing.models.ir_http import slug, _guess_mimetype
-from flectra.addons.web.controllers.main import WebClient, Binary, Home
+from flectra.addons.web.controllers.main import WebClient, Binary
 from flectra.addons.portal.controllers.portal import pager as portal_pager
+from flectra.addons.portal.controllers.web import Home
 
 logger = logging.getLogger(__name__)
 
@@ -305,17 +306,6 @@ class Website(Home):
             if modules:
                 modules.button_immediate_upgrade()
         return request.redirect(redirect)
-
-    @http.route('/website/translations', type='json', auth="public", website=True)
-    def get_website_translations(self, lang, mods=None):
-        Modules = request.env['ir.module.module'].sudo()
-        modules = Modules.search([
-            '|', ('name', 'ilike', 'website'), ('name', '=', 'web_editor'),
-            ('state', '=', 'installed')
-        ]).mapped('name')
-        if mods:
-            modules += mods
-        return WebClient().translations(mods=modules, lang=lang)
 
     @http.route(['/website/publish'], type='json', auth="public", website=True)
     def publish(self, id, object):

@@ -211,7 +211,7 @@ QUnit.test('html_frame does not crash when saving in readonly', function (assert
             if (_.str.startsWith(route, '/logo')) {
                 // manually call the callback to simulate that the iframe has
                 // been loaded (note: just the content, not the editor)
-                window.odoo[$.deparam(route).callback + '_content'].call();
+                window.flectra[$.deparam(route).callback + '_content'].call();
                 return $.when();
             }
             return this._super.apply(this, arguments);
@@ -248,7 +248,7 @@ QUnit.test('html_frame does not crash when saving in edit mode (editor not loade
             if (_.str.startsWith(route, '/logo')) {
                 // manually call the callback to simulate that the iframe has
                 // been partially loaded (just the content, not the editor)
-                window.odoo[$.deparam(route).callback + '_content']();
+                window.flectra[$.deparam(route).callback + '_content']();
                 return $.when();
             }
             return this._super.apply(this, arguments);
