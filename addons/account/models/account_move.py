@@ -445,7 +445,7 @@ class AccountMoveLine(models.Model):
     tax_line_id = fields.Many2one('account.tax', string='Originator tax', ondelete='restrict')
     analytic_account_id = fields.Many2one('account.analytic.account', string='Analytic Account')
     analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Analytic tags')
-    company_id = fields.Many2one('res.company', related='account_id.company_id', string='Company', store=True)
+    company_id = fields.Many2one('res.company', related='account_id.company_id', string='Company', store=True, readonly=True)
     branch_id = fields.Many2one(related='move_id.branch_id', string='Branch',
                                 store=True)
     counterpart = fields.Char("Counterpart", compute='_get_counterpart', help="Compute the counter part accounts of this journal item for this journal entry. This can be needed in reports.")
@@ -1206,7 +1206,7 @@ class AccountMoveLine(models.Model):
             current_invoice = self.env['account.invoice'].browse(self.env.context['invoice_id'])
             aml_to_keep = current_invoice.move_id.line_ids | current_invoice.move_id.line_ids.mapped('full_reconcile_id.exchange_move_id.line_ids')
             rec_move_ids = rec_move_ids.filtered(
-                lambda r: (r.debit_move_id + r.credit_move_id) & current_invoice.move_id.line_ids
+                lambda r: (r.debit_move_id + r.credit_move_id) & aml_to_keep
             )
         return rec_move_ids.unlink()
 
