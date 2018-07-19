@@ -37,7 +37,9 @@ class WebsiteSaleDelivery(WebsiteSale):
 
     def _get_shop_payment_values(self, order, **kwargs):
         values = super(WebsiteSaleDelivery, self)._get_shop_payment_values(order, **kwargs)
-        if not order._get_delivery_methods():
+        has_stockable_products = any(line.product_id.type in ['consu', 'product'] for line in order.order_line)
+
+        if not order._get_delivery_methods() and has_stockable_products:
             values['errors'].append(
                 (_('Sorry, we are unable to ship your order'),
                  _('No shipping method is available for your current order and shipping address. '
@@ -54,6 +56,7 @@ class WebsiteSaleDelivery(WebsiteSale):
             delivery_carriers = order._get_delivery_methods()
             values['deliveries'] = delivery_carriers.sudo()
 
+        values['delivery_has_stockable'] = has_stockable_products
         values['delivery_action_id'] = request.env.ref('delivery.action_delivery_carrier_form').id
         return values
 
