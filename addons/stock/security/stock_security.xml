@@ -170,7 +170,7 @@
         <field name="name">Picking type multi-branch</field>
         <field name="model_id" ref="model_stock_picking_type"/>
         <field name="global" eval="True"/>
-        <field name="domain_force">['|',('warehouse_id.branch_id','=',False), '|', ('warehouse_id.branch_id','in',[branch for branch in user.branch_ids.ids]), ('warehouse_id.branch_id','=', user.default_branch_id.id)]
+        <field name="domain_force">['|', ('warehouse_id','=',False), '|', ('warehouse_id.branch_id','=',False), '|', ('warehouse_id.branch_id','in',[branch for branch in user.branch_ids.ids]), ('warehouse_id.branch_id','=', user.default_branch_id.id)]
         </field>
     </record>
 
