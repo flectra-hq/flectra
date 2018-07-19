@@ -790,8 +790,7 @@ class TestReconciliation(AccountingTestCase):
         statement = self.make_payment(invoice, journal, 50)
 
         # Case 1: The invoice and payment are reconciled: Nothing should appear
-        report_lines, total, amls = AgedReport._get_partner_move_lines(account_type, report_date_to, 'posted', 30)
-
+        report_lines, total, amls = AgedReport._get_partner_move_lines(account_type, report_date_to, 'posted', 30, self.env.user.company_id.branch_id)
         partner_lines = [line for line in report_lines if line['partner_id'] == partner.id]
         self.assertEqual(partner_lines, [], 'The aged receivable shouldn\'t have lines at this point')
         self.assertFalse(partner.id in amls, 'The aged receivable should not have amls either')
@@ -799,7 +798,7 @@ class TestReconciliation(AccountingTestCase):
         # Case 2: The invoice and payment are not reconciled: we should have one line on the report
         # and 2 amls
         invoice.move_id.line_ids.with_context(invoice_id=invoice.id).remove_move_reconcile()
-        report_lines, total, amls = AgedReport._get_partner_move_lines(account_type, report_date_to, 'posted', 30)
+        report_lines, total, amls = AgedReport._get_partner_move_lines(account_type, report_date_to, 'posted', 30, self.env.user.company_id.branch_id)
 
         partner_lines = [line for line in report_lines if line['partner_id'] == partner.id]
         self.assertEqual(partner_lines, [{'trust': 'normal', '1': 0.0, '0': 0.0, 'direction': 0.0, 'partner_id': partner.id, '3': 0.0, 'total': 0.0, 'name': 'AgedPartner', '4': 0.0, '2': 0.0}],
