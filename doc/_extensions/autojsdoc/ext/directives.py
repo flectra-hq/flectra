@@ -117,11 +117,23 @@ def autodirective_bound(app, modules):
 
             # strip 'js:auto'
             objname = self.arguments[0].strip()
+            if not modules:
+                read_js(app, modules)
 
-            path = self.env.temp_data.get('autojs:prefix', []) + [objname]
-            item = modules[path[0]]
+            # build complete path to object
+            path = self.env.temp_data.get('autojs:prefix', []) + objname.split('.')
+            # look for module/object split
+            for i in range(1, len(path)):
+                modname, objpath = '.'.join(path[:-i]), path[-i:]
+                module = modules.get(modname)
+                if module:
+                    break
+            else:
+                raise Exception("Found no valid module in " + '.'.join(path))
+
+            item = module
             # deref' namespaces until we reach the object we're looking for
-            for k in path[1:]:
+            for k in objpath:
                 item = item.get_property(k)
 
             docclass = documenters[self.name]
@@ -210,8 +222,12 @@ class NSDocumenter(Documenter):
     def make_content(self, all_members):
         doc = self.item
         ret = nodes.section()
+
         if doc.doc:
             self.directive.state.nested_parse(to_list(doc.doc), 0, ret)
+
+        self.directive.state.nested_parse(self.directive.content, 0, ret)
+
         ret += self.document_properties(all_members)
         return ret.children
 
@@ -307,11 +323,11 @@ class ModuleDocumenter(NSDocumenter):
                     with addto(fields, nodes.field()) as field:
                         self.make_dependencies(field, doc)
 
-        self.directive.state.nested_parse(self.directive.content, 0, content)
-
         if doc.doc:
             # FIXME: source offset
             self.directive.state.nested_parse(to_list(doc.doc, source=doc['sourcefile']), 0, content)
+
+        self.directive.state.nested_parse(self.directive.content, 0, content)
 
         content += self.document_properties(all_members)
 
@@ -395,6 +411,8 @@ class ClassDocumenter(NSDocumenter):
         if doc.doc:
             self.directive.state.nested_parse(to_list(doc.doc), 0, ret)
 
+        self.directive.state.nested_parse(self.directive.content, 0, ret)
+
         ret += self.document_properties(all_members)
 
         ret += self.document_subtypes(subtypes)
@@ -466,9 +484,12 @@ class InstanceDocumenter(Documenter):
 
     def make_content(self, all_members):
         ret = nodes.section()
+
         if self.item.doc:
             self.directive.state.nested_parse(to_list(self.item.doc), 0, ret)
-            return ret.children
+
+        self.directive.state.nested_parse(self.directive.content, 0, ret)
+
         return ret.children
 
 class FunctionDocumenter(Documenter):
@@ -487,8 +508,11 @@ class FunctionDocumenter(Documenter):
     def make_content(self, all_members):
         ret = nodes.section()
         doc = self.item
+
         if doc.doc:
             self.directive.state.nested_parse(to_list(doc.doc), 0, ret)
+
+        self.directive.state.nested_parse(self.directive.content, 0, ret)
 
         check_parameters(self, doc)
 
@@ -677,6 +701,9 @@ class PropertyDocumenter(Documenter):
     def make_content(self, all_members):
         doc = self.item
         ret = nodes.section()
+
+        self.directive.state.nested_parse(self.directive.content, 0, ret)
+
         if doc.doc:
             self.directive.state.nested_parse(to_list(doc.doc), 0, ret)
         return ret.children

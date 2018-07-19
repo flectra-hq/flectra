@@ -10,9 +10,6 @@ case "${1}" in
     remove)
         deluser --quiet --system $FLECTRA_USER || true
         delgroup --quiet --system --only-if-empty $FLECTRA_GROUP || true
-        if [ -d "$FLECTRA_LIB_DIR" ]; then
-            rm -rf $FLECTRA_LIB_DIR
-        fi
         ;;
 
     purge)

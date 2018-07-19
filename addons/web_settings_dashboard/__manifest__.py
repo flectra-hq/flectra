@@ -10,7 +10,7 @@
     'description':
     """
 Flectra dashboard
-==============
+==================
 * Quick access to install apps
 * Quick users add
 * Access all planners at one place
