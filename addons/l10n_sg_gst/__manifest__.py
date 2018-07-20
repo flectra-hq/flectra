@@ -35,6 +35,5 @@ There are Different type of GST Reports available for Singapore Localization.
         'demo/demo_product.xml'
     ],
     'installable': True,
-    'application': True,
     'auto_install': False
 }
