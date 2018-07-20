@@ -35,7 +35,6 @@ The cash flow statement is intended to:
 
     'demo': [
 
-    ],
+    ]
 
-    'application': True,
 }
