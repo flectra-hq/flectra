@@ -81,11 +81,12 @@ class GSTR1Report(models.AbstractModel):
     def _update_inv_line_details(self, line, inv, document_type):
         line.update({
             'inv_no': inv.number,
-            'refund_invoice_id': inv.refund_invoice_id.id,
-            'refund_inv_no': inv.refund_invoice_id.number,
-            'refund_date_invoice': datetime.strptime(
+            'refund_invoice_id': inv.refund_invoice_id.id or '',
+            'refund_inv_no': inv.refund_invoice_id.number or '',
+            'refund_date_invoice': inv.refund_invoice_id and datetime.strptime(
                     inv.refund_invoice_id.date_invoice, '%Y-%m-%d').strftime(
-                '%d %b %y'), 'document_type': document_type,
+                '%d %b %y') or '',
+             'document_type': document_type,
             'reason': inv.name or '',
             'pre_gst': inv.date <= inv.company_id.gst_introduce_date and
             'Y' or 'N',
@@ -1176,8 +1177,8 @@ class GSTR1Report(models.AbstractModel):
                 'format': cell_format['regular_cell_format']},
                 {'value': inv['refund_inv_no'],
                  'format': cell_format['regular_cell_format']},
-                {'value': datetime.strptime(inv['refund_date_invoice'],
-                                            '%d %b %y'),
+                {'value':  inv['refund_date_invoice'] and datetime.strptime(inv['refund_date_invoice'],
+                                            '%d %b %y') or '',
                  'format': cell_format['regular_cell_format_date']},
                 {'value': inv['inv_no'],
                  'format': cell_format['regular_cell_format']},
