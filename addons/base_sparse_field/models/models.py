@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from flectra import models, fields, api
+from flectra import models, fields, api, _
+from flectra.exceptions import UserError
 
 
 class IrModelFields(models.Model):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from flectra import api, models
+from flectra import api, models, fields
 
 import logging
 

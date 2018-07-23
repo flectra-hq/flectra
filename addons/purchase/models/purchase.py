@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 from flectra import api, fields, models, SUPERUSER_ID, _
 from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from flectra.tools.float_utils import float_is_zero, float_compare
-from flectra.exceptions import UserError, AccessError, ValidationError
+from flectra.exceptions import UserError, AccessError
 from flectra.tools.misc import formatLang
 from flectra.addons.base.res.res_partner import WARNING_MESSAGE, WARNING_HELP
 from flectra.addons import decimal_precision as dp
@@ -167,8 +167,8 @@ class PurchaseOrder(models.Model):
         ('invoiced', 'No Bill to Receive'),
         ], string='Billing Status', compute='_get_invoiced', store=True, readonly=True, copy=False, default='no')
 
-    picking_count = fields.Integer(compute='_compute_picking', string='Receptions', default=0, store=True)
-    picking_ids = fields.Many2many('stock.picking', compute='_compute_picking', string='Receptions', copy=False, store=True)
+    picking_count = fields.Integer(compute='_compute_picking', string='Receptions', default=0, store=True, compute_sudo=True)
+    picking_ids = fields.Many2many('stock.picking', compute='_compute_picking', string='Receptions', copy=False, store=True, compute_sudo=True)
 
     # There is no inverse function on purpose since the date may be different on each line
     date_planned = fields.Datetime(string='Scheduled Date', compute='_compute_date_planned', store=True, index=True)
@@ -669,7 +669,7 @@ class PurchaseOrderLine(models.Model):
 
     # Replace by invoiced Qty
     qty_invoiced = fields.Float(compute='_compute_qty_invoiced', string="Billed Qty", digits=dp.get_precision('Product Unit of Measure'), store=True)
-    qty_received = fields.Float(compute='_compute_qty_received', string="Received Qty", digits=dp.get_precision('Product Unit of Measure'), store=True)
+    qty_received = fields.Float(compute='_compute_qty_received', string="Received Qty", digits=dp.get_precision('Product Unit of Measure'), store=True, compute_sudo=True)
 
     partner_id = fields.Many2one('res.partner', related='order_id.partner_id', string='Partner', readonly=True, store=True)
     currency_id = fields.Many2one(related='order_id.currency_id', store=True, string='Currency', readonly=True)
