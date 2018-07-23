@@ -31,8 +31,8 @@ class Partner(models.Model):
     @api.constrains('vat', 'state_id')
     def _check_gstin_format(self):
         for res in self:
-            if res.state_id and res.vat and res.state_id.l10n_in_tin != \
-                    res.vat[:2]:
+            if res.state_id and res.vat and res.state_id.l10n_in_tin \
+                    and res.state_id.l10n_in_tin != res.vat[:2]:
                 raise ValidationError(_('Invalid State Code!'))
             if res.vat and len(res.vat) != 15 and res.gst_type != \
                     'unregistered':
