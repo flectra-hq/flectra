@@ -10,6 +10,18 @@
             <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']" position="before">
                 <field string="Asset Category" name="asset_category_id" domain="[('type','=','purchase')]" context="{'default_type':'purchase'}"/>
             </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="asset_bool" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('asset_bool', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']" position="inside">
+                <field name="asset_bool" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']" position="attributes">
+                <attribute name="attrs">{'readonly': [('asset_bool', '=', True)]}</attribute>
+            </xpath>
         </field>
     </record>
 

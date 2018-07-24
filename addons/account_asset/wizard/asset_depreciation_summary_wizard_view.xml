@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+    <record id="asset_depreciation_summary_report_form_view" model="ir.ui.view">
+        <field name="name">asset.depreciation.summary.report.form</field>
+        <field name="model">asset.depreciation.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </group>
+                <footer>
+                    <button name="print_depreciation_lines" type="object" class="oe_highlight" string="Print"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="asset_depreciation_summary_report_action" model="ir.actions.act_window">
+        <field name="name">Asset Depreciation Summary Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">asset.depreciation.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            id="asset_depreciation_summary_report_menu"
+            name="Asset Depreciation Summary"
+            parent="account.menu_finance_legal_statement"
+            action="asset_depreciation_summary_report_action"
+    />
+</flectra>
