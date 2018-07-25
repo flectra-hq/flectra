@@ -164,9 +164,12 @@
                         <button class="oe_stat_button" name="open_entries"  type="object" icon="fa-pencil">
                             <field string="Dep. Entries" name="entry_count" widget="statinfo" />
                         </button>
-                        <button class="oe_inline oe_stat_button"  name="redirect_to_invoice" type="object" icon="fa-pencil" attrs="{'invisible': [('invoice_count', '=', 0)]}">
-                            <field name="invoice_count" widget="statinfo"/>
+                        <button class="oe_inline oe_stat_button" string="Vendor Invoice" name="redirect_to_invoice" type="object" icon="fa-pencil" attrs="{'invisible': [('invoice_count', '=', 0)]}">
                         </button>
+                        <button class="oe_inline oe_stat_button" context="{'customer': True}" string="Customer Invoice" name="redirect_to_invoice" type="object" icon="fa-pencil" attrs="{'invisible': [('customer_invoice_count', '=', 0)]}">
+                        </button>
+                        <field name="invoice_count" widget="statinfo" invisible="1"/>
+                        <field name="customer_invoice_count" widget="statinfo" invisible="1"/>
                     </div>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>

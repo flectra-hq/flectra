@@ -32,11 +32,14 @@ class SaleAssetWizard(models.TransientModel):
                     amount += line.amount
                     last_date = line.depreciation_date
                 else:
-                    if not last_date:
+                    if not last_date and line.sequence != 1:
                         last_date = line.depreciation_date
-                    delta, total_days = \
-                        self.get_days(last_date, self.sale_date)
-                    amount += (line.amount * delta.days) / total_days
+                        days, total_days = \
+                            self.get_days(last_date, self.sale_date)
+                    else:
+                        days, total_days = \
+                            self.get_days(self.asset_id.date, self.sale_date)
+                    amount += (line.amount * days) / total_days
                     break
             self.depreciated_amount = amount
             self.sale_value = self.asset_id.value_residual - amount
@@ -63,7 +66,7 @@ class SaleAssetWizard(models.TransientModel):
         delta = sale_date - last_depreciation_date
         year = last_depreciation_date.year
         total_days = (year % 4) and 365 or 366
-        return delta, total_days
+        return delta.days, total_days
 
     @api.multi
     def last_line_info(self):
@@ -77,11 +80,13 @@ class SaleAssetWizard(models.TransientModel):
                 last_line = line
             else:
                 last_line = line
-                if not last_date:
+                if not last_date and line.sequence != 1:
                     last_date = line.depreciation_date
+                else:
+                    last_date = self.asset_id.date
                 break
-        delta, total_days = self.get_days(last_date, sale_date)
-        amount = (last_line.amount * delta.days) / total_days
+        days, total_days = self.get_days(last_date, sale_date)
+        amount = (last_line.amount * days) / total_days
         return last_line, amount
 
     def sale_asset(self):

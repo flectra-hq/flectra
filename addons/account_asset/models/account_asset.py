@@ -123,6 +123,8 @@ class AccountAssetAsset(models.Model):
         help="It is the amount you plan to have that you cannot depreciate.")
     invoice_id = fields.Many2one('account.invoice', string='Invoice', states={'draft': [('readonly', False)]}, copy=False)
     type = fields.Selection(related="category_id.type", string='Type', required=True)
+    customer_invoice_count = fields.Integer(string="Invoice",
+                                   compute="count_invoice")
 
     @api.onchange('prorata')
     def onchange_prorata(self):
@@ -161,19 +163,21 @@ class AccountAssetAsset(models.Model):
     @api.multi
     def count_invoice(self):
         for self_obj in self:
-            count = self.env['account.invoice'].search_count(
-                [('asset_id', '=', self_obj.id)])
+            count = self_obj.invoice_id.search_count(
+                [('asset_id', '=', self_obj.id), ('type', '=', 'in_invoice')])
             self_obj.invoice_count = count
+            customer_invoice_count = self_obj.invoice_id.search_count(
+                [('asset_id', '=', self_obj.id), ('type', '=', 'out_invoice')])
+            self_obj.customer_invoice_count = customer_invoice_count
 
     def redirect_to_invoice(self):
-        return {
-            'name': (_('Invoices')),
-            'type': 'ir.actions.act_window',
-            'view_type': 'form',
-            'view_mode': 'tree,form',
-            'res_model': 'account.invoice',
-            'domain': [('asset_id', '=', self.id)]
-        }
+        if self._context.get('customer'):
+            action = self.env.ref('account.action_invoice_tree1').read()[0]
+            action['domain'] = [('asset_id', '=', self.id), ('type', '=', 'out_invoice')]
+        else:
+            action = self.env.ref('account.action_invoice_tree2').read()[0]
+            action['domain'] = [('asset_id', '=', self.id), ('type', '=', 'in_invoice')]
+        return action
 
     @api.multi
     def unlink(self):

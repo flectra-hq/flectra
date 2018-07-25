@@ -68,6 +68,7 @@
                 'account_asset_id': xfa_account_id,
                 'account_depreciation_id': xfa_account_id,
                 'account_depreciation_expense_id': expense_account_id,
+                'prorata': 'fiscal_year',
             }
             self._update('account.asset.category', 'account_asset', vals, 'account_asset_category_electronics')
             vals = {
@@ -79,7 +80,7 @@
                 'method_number': 6,
                 'date': time.strftime('%Y-01-01'),
                 'name': 'Basic Computer',
-                'value': 23500.0,
+                'value': 25000.0,
                 'category_id': ref('account_asset_category_electronics'),
             }
             self._update('account.asset.asset', 'account_asset', vals, 'account_asset_asset_electronics')
