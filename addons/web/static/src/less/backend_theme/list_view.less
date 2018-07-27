@@ -12,8 +12,19 @@
     }
 
     @media print {
-        .o_checkbox {
-            display: none;
+        thead {
+            th.o_column_sortable {
+                position: unset;
+            }
+        }
+        tfoot {
+            border: 0;
+            display: table-footer-group;
+        }
+        .o_list_record_selector {
+            .o_checkbox {
+                display: none;
+            }
         }
     }
 

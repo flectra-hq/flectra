@@ -19,10 +19,15 @@ body {
 @media print {
     body {
         overflow: auto !important;
-        .o_main_content {
-            overflow: visible !important;
-            .o_content {
+        display: block !important;
+        .o_main {
+            display: block !important;
+            .o_main_content {
+                display: block !important;
                 overflow: visible !important;
+                .o_content {
+                    overflow: visible !important;
+                }
             }
         }
     }
@@ -134,6 +139,29 @@ div.o_checkbox {
     }
     > input:focus + span {
         outline: 1px solid @brand-primary;
+    }
+}
+@media print {
+    .o_checkbox {
+        input[type="checkbox"] {
+            opacity: 1 !important;
+        }
+        input:disabled + span {
+            opacity: 0 !important;
+        }
+    }
+    .o_kanban_view {
+        display: block;
+        .o_kanban_record {
+            width: 100% !important;
+            margin: 0 !important;
+        }
+    }
+    .o_pivot {
+        overflow: unset !important;
+    }
+    .o_graph {
+        height: 500px !important;
     }
 }
 .o_dialog_error.modal-body{
