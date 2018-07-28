@@ -22,6 +22,16 @@ class SaleAssetWizard(models.TransientModel):
         string="Date", default=lambda self: datetime.today(),
         required=True)
 
+    @api.onchange('product_id')
+    def onchange_product_id(self):
+        date = False
+        for line in self.asset_id.depreciation_line_ids:
+            if line.move_check:
+                date = line.depreciation_date
+        if not date:
+            date = self.asset_id.depreciation_line_ids and self.asset_id.depreciation_line_ids[0].depreciation_date or self.asset_id.date
+        self.sale_date = date
+
     @api.onchange('sale_date')
     def onchange_sale_date(self):
         if self.sale_date:
@@ -32,17 +42,16 @@ class SaleAssetWizard(models.TransientModel):
                     amount += line.amount
                     last_date = line.depreciation_date
                 else:
-                    if not last_date and line.sequence != 1:
+                    if not last_date:
                         last_date = line.depreciation_date
-                        days, total_days = \
-                            self.get_days(last_date, self.sale_date)
-                    else:
-                        days, total_days = \
-                            self.get_days(self.asset_id.date, self.sale_date)
+                    if line.sequence == 1:
+                        last_date = self.asset_id.date
+                    days, total_days = \
+                        self.get_days(last_date, self.sale_date)
                     amount += (line.amount * days) / total_days
                     break
             self.depreciated_amount = amount
-            self.sale_value = self.asset_id.value_residual - amount
+            self.sale_value = self.asset_id.value - amount
 
     @api.constrains('sale_date')
     def _check_sale_date(self):
@@ -58,6 +67,9 @@ class SaleAssetWizard(models.TransientModel):
                 if self.sale_date < str(last_depreciation_date):
                     raise ValueError(_("Sale date must be greater than last "
                                        "Depreciated date!"))
+            if self.sale_date < self.asset_id.date:
+                raise ValueError(_("Sale date must be greater than "
+                                   "Date of Asset!"))
 
     @api.multi
     def get_days(self, last_date, sale_date):
@@ -66,6 +78,12 @@ class SaleAssetWizard(models.TransientModel):
         delta = sale_date - last_depreciation_date
         year = last_depreciation_date.year
         total_days = (year % 4) and 365 or 366
+        if self.asset_id.depreciation_line_ids and self.asset_id.depreciation_line_ids[0].depreciation_date > str(sale_date):
+            depreciation_date = datetime.strptime(self.asset_id.depreciation_line_ids[0].depreciation_date, DF).date()
+            asset_date = datetime.strptime(self.asset_id.date, DF).date()
+            delta_day = depreciation_date - asset_date
+            total_days = delta_day.days
+            delta = sale_date - asset_date
         return delta.days, total_days
 
     @api.multi
@@ -80,9 +98,9 @@ class SaleAssetWizard(models.TransientModel):
                 last_line = line
             else:
                 last_line = line
-                if not last_date and line.sequence != 1:
+                if not last_date:
                     last_date = line.depreciation_date
-                else:
+                if line.sequence == 1:
                     last_date = self.asset_id.date
                 break
         days, total_days = self.get_days(last_date, sale_date)
@@ -96,7 +114,7 @@ class SaleAssetWizard(models.TransientModel):
                 'sale_date': self.sale_date,
             })
             last_line, amount = self.last_line_info()
-            if last_line:
+            if last_line and amount:
                 depreciated_value = \
                     (last_line.depreciated_value - last_line.amount) + amount
                 last_line.update({

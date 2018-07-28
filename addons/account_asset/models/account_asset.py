@@ -153,12 +153,11 @@ class AccountAssetAsset(models.Model):
                 date = datetime.strptime(date, DF).date()
             else:
                 date = datetime.now()
-            if date.month <= 3 and date.day < 31:
-                year = date.year
-            else:
-                year = date.year + 1
-            date = date.replace(month=last_month, day=last_day, year=year)
-            return datetime.strftime(date, '%Y-%m-%d')
+            year = date.year
+            fiscal_date = date.replace(month=last_month, day=last_day, year=year)
+            if fiscal_date < date:
+                fiscal_date = date.replace(month=last_month, day=last_day, year=year + 1)
+            return datetime.strftime(fiscal_date, '%Y-%m-%d')
 
     @api.multi
     def count_invoice(self):
@@ -250,7 +249,6 @@ class AccountAssetAsset(models.Model):
                     fiscal_date = datetime.strptime(self.date or fields.Datetime.today(), '%Y-%m-%d')
                     days = (self.company_id.compute_fiscalyear_dates(depreciation_date)['date_to'] - fiscal_date.date()).days
                     amount = (amount_to_depr / self.method_number) / total_days * days
-
             elif self.method == 'degressive':
                 amount = residual_amount * self.method_progress_factor
                 if self.prorata == 'purchase_date':
