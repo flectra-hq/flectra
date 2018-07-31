@@ -1,35 +1,358 @@
-image: ubuntu:focal
 stages:
-  - test
-job_test_base_100:
-  stage: test
+  - unittest
+  - unittest2
+  - build
+  - builddev
+  - integrationtest
+  - deploy
+  - package
+
+variables:
+  GITLAB_REGISTRY: "registry.gitlab.com/${CI_PROJECT_PATH}"
+  UBUNTU_BASE_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/base/ubuntu"
+  UBUNTU_FLECTRA_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/ubuntu"
+  UBUNTUDEV_FLECTRA_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/ubuntudev"
+  GAE_FLECTRA_IMAGE: "eu.gcr.io/test-flectra-2-0-0/flectra"
+  #  DOCKER_HOST: tcp://docker:2375
+  #  DOCKER_DRIVER: overlay2
+
+  # Configure postgres service (https://hub.docker.com/_/postgres/)
+  POSTGRES_DB: postgres
+  POSTGRES_USER: flectra
+  POSTGRES_PASSWORD: flectra
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: "5432"
+
+#--------------------------------------------------------------------
+# Job Templates
+#--------------------------------------------------------------------
+.psql9:template:
+  services: &psql9_definition
+    - name: postgres:9-alpine
+      alias: postgres9
+
+.psql10:template:
+  services: &psql10_definition
+    - name: postgres:10-alpine
+      alias: postgres10
+
+.psql11:template:
+  services: &psql11_definition
+    - name: postgres:11-alpine
+      alias: postgres11
+
+.psql12:template:
+  services: &psql12_definition
+    - name: postgres:12-alpine
+      alias: postgres12
+
+.psql13:template:
+  services: &psql13_definition
+    - name: postgres:13-alpine
+      alias: postgres13
+
+.unittest:template: &unittest_definition
+  image: ${UBUNTU_BASE_IMAGE}:2-latest
+  stage: unittest
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - flectra.log
+    when: always
+    expire_in: 2 week
+  coverage: '/^TOTAL.*\s+(\d+\%)$/'
+  only:
+    - branches
+    - tags
+  except:
+    - schedules
+
+.unittest2:template: &unittest2_definition
+  image: ${UBUNTU_BASE_IMAGE}:2-latest
+  stage: unittest2
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - flectra.log
+    when: always
+    expire_in: 2 week
+  coverage: '/^TOTAL.*\s+(\d+\%)$/'
+  only:
+    - branches
+  except:
+    - schedules
+
+.build:template: &build_definition
+  services:
+    - name: docker:dind
+  except:
+    - schedules
+  image: docker:stable
+
+.integrationtest:template: &integrationtest_definition
+  stage: integrationtest
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - flectra.log
+    when: always
+    expire_in: 2 week
+  only:
+    - tags
+
+.build:base:template: &build_base_definition
+  stage: build
+  services:
+    - name: docker:dind
+  only:
+    - schedules
+  image: docker:stable
+
+#--------------------------------------------------------------------
+# Jobs of stage unittest
+#--------------------------------------------------------------------
+test:pg9_base:
+  <<: *unittest_definition
+  services: *psql9_definition
   script:
-  - apt-get update && apt-get install -y apt-utils locales git
-  - export POSTGRESQL_VERSION=10
-  - git clone https://gitlab.com/flectra-hq/build-tools.git ${CI_PROJECT_DIR}/build-tools && export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH}
-  - gitlab_ci_install_flectra
-  - su - flectra -c "export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH} && gitlab_test_flectra --build=base"
-job_test_all_100:
-  stage: test
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres9"
+
+test:pg9_all:
+  <<: *unittest2_definition
+  services: *psql9_definition
   script:
-  - apt-get update && apt-get install -y apt-utils locales git
-  - export POSTGRESQL_VERSION=10
-  - git clone https://gitlab.com/flectra-hq/build-tools.git ${CI_PROJECT_DIR}/build-tools && export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH}
-  - gitlab_ci_install_flectra
-  - su - flectra -c "export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH} && gitlab_test_flectra --build=all"
-job_test_base_110:
-  stage: test
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres9"
+
+test:pg10_base:
+  <<: *unittest_definition
+  services: *psql10_definition
   script:
-  - apt-get update && apt-get install -y apt-utils locales git
-  - export POSTGRESQL_VERSION=11
-  - git clone https://gitlab.com/flectra-hq/build-tools.git ${CI_PROJECT_DIR}/build-tools && export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH}
-  - gitlab_ci_install_flectra
-  - su - flectra -c "export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH} && gitlab_test_flectra --build=base"
-job_test_all_110:
-  stage: test
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres10"
+
+test:pg10_all:
+  <<: *unittest2_definition
+  services: *psql10_definition
   script:
-  - apt-get update && apt-get install -y apt-utils locales git
-  - export POSTGRESQL_VERSION=11
-  - git clone https://gitlab.com/flectra-hq/build-tools.git ${CI_PROJECT_DIR}/build-tools && export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH}
-  - gitlab_ci_install_flectra
-  - su - flectra -c "export PATH=${CI_PROJECT_DIR}/build-tools/gitlab-ci:${PATH} && gitlab_test_flectra --build=all"
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres10"
+
+test:pg11_base:
+  <<: *unittest_definition
+  services: *psql11_definition
+  script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres11"
+
+test:pg11_all:
+  <<: *unittest2_definition
+  services: *psql11_definition
+  script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres11"
+
+test:pg12_base:
+  <<: *unittest_definition
+  services: *psql12_definition
+  script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres12"
+
+test:pg12_all:
+  <<: *unittest2_definition
+  services: *psql12_definition
+  script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres12"
+
+test:pg13_base:
+  <<: *unittest_definition
+  services: *psql13_definition
+  script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres13"
+
+test:pg13_all:
+  <<: *unittest2_definition
+  services: *psql13_definition
+  script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres13"
+
+#--------------------------------------------------------------------
+# Jobs of stage build
+#--------------------------------------------------------------------
+build:flectra_ubuntu:
+  <<: *build_definition
+  stage: build
+  only:
+    - tags
+  needs:
+    - test:pg9_base
+  script:
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - docker pull ${UBUNTU_FLECTRA_IMAGE}:2-latest || true
+    - docker build --cache-from ${UBUNTU_FLECTRA_IMAGE}:2-latest
+      --build-arg BASE_IMAGE=${UBUNTU_BASE_IMAGE}:2-latest
+      --build-arg GITLAB_OWNER=${CI_PROJECT_NAMESPACE}
+      --build-arg GITLAB_COMMIT=${CI_COMMIT_SHA}
+      --file ./setup/docker/flectra/ubuntu/Dockerfile
+      --tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+      ./setup/docker/
+    - docker push ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+
+build:flectra_ubuntu_dev:
+  <<: *build_definition
+  stage: builddev
+  needs:
+    - build:flectra_ubuntu
+  only:
+    - tags
+  script:
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - docker pull ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA || true
+    - docker build --cache-from ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+      --build-arg BASE_IMAGE=${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+      --build-arg GITLAB_OWNER=${CI_PROJECT_NAMESPACE}
+      --build-arg GITLAB_COMMIT=${CI_COMMIT_SHA}
+      --file ./setup/docker/flectra/dev/Dockerfile
+      --tag ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+      ./setup/docker/
+    - docker push ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+
+#--------------------------------------------------------------------
+# Jobs of stage integrationtest
+#--------------------------------------------------------------------
+itest:ubuntu_pg9_all:
+  <<: *integrationtest_definition
+  services: *psql9_definition
+  image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+  script:
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres9
+
+itest:ubuntu_pg10_all:
+  <<: *integrationtest_definition
+  services: *psql10_definition
+  image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+  script:
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres10
+
+itest:ubuntu_pg11_all:
+  <<: *integrationtest_definition
+  services: *psql11_definition
+  image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+  script:
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres11
+
+itest:ubuntu_pg12_base:
+  <<: *integrationtest_definition
+  services: *psql12_definition
+  image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+  script:
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --server-path=/opt/flectra --host=postgres12
+
+itest:ubuntu_pg12_all:
+  <<: *integrationtest_definition
+  services: *psql12_definition
+  image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+  script:
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres12
+
+itest:ubuntu_pg13_all:
+  <<: *integrationtest_definition
+  services: *psql13_definition
+  image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+  script:
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres13
+
+#--------------------------------------------------------------------
+# Jobs of stage deploy
+#--------------------------------------------------------------------
+deploy:flectra_gitlab:
+  <<: *build_definition
+  stage: deploy
+  needs:
+    - build:flectra_ubuntu
+  only:
+    - tags
+  script:
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - docker pull ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+    - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_TAG
+    - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTU_FLECTRA_IMAGE}:2-latest
+    - docker push ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_TAG
+    - docker push ${UBUNTU_FLECTRA_IMAGE}:2-latest
+
+deploy:flectra_gae_paas:
+  image: ${UBUNTU_BASE_IMAGE}:2-latest
+  stage: unittest
+#  needs:
+#    - build:flectra_ubuntu
+  only:
+    - tags
+  script:
+    - mkdir -p ~/.ssh
+    - echo "$GITLAB_PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
+    - chmod 0700 ~/.ssh
+    - chmod 0600 ~/.ssh/id_rsa
+    - ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts
+    - git config --global user.name "Jamotion Bot"
+    - git config --global user.email "info@jamotion.ch"
+    - git clone --depth=1 git@gitlab.com:jamotion/paas/f20.git ~/f20
+    - cd ~/f20 && ./update-flectra.sh
+    - cd ~/f20 && git commit -am"Automatic Release Upgrade to $CI_COMMIT_TAG"
+    - cd ~/f20 && git tag -f $CI_COMMIT_TAG
+    - cd ~/f20 && git push --force --tags
+
+deploy:flectra_gae:
+  <<: *build_definition
+  stage: unittest2
+  needs:
+    - deploy:flectra_gae_paas
+  only:
+    - tags
+  script:
+    - apk update && apk add git
+    - mkdir -p ~/.ssh
+    - echo "$GITLAB_PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
+    - chmod 0700 ~/.ssh
+    - chmod 0600 ~/.ssh/id_rsa
+    - ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts
+    - git clone --depth=1 git@gitlab.com:jamotion/paas/f20.git ~/f20
+    - echo "$GOOGLE_CLOUD_ACCOUNT" > ~/gc.key
+    - cat ~/gc.key
+    - cat ~/gc.key | docker login -u _json_key --password-stdin https://eu.gcr.io
+    - docker pull ${GAE_FLECTRA_IMAGE}:2-latest || true
+    - docker build --cache-from ${GAE_FLECTRA_IMAGE}:2-latest -f ~/f20/Dockerfile ~/f20 --tag ${GAE_FLECTRA_IMAGE}:2-latest --tag ${GAE_FLECTRA_IMAGE}:$CI_COMMIT_TAG
+    - docker push ${GAE_FLECTRA_IMAGE}:$CI_COMMIT_TAG
+    - docker push ${GAE_FLECTRA_IMAGE}:2-latest
+
+deploy:flectra_dev_gitlab:
+  <<: *build_definition
+  stage: deploy
+  needs:
+    - build:flectra_ubuntu_dev
+  only:
+    - tags
+  script:
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - docker pull ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+    - docker tag ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_TAG
+    - docker tag ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTUDEV_FLECTRA_IMAGE}:2-latest
+    - docker push ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_TAG
+    - docker push ${UBUNTUDEV_FLECTRA_IMAGE}:2-latest
+
+#--------------------------------------------------------------------
+# Scheduled jobs of stage build (executed by gitlab scheduler)
+#--------------------------------------------------------------------
+
+build:base_ubuntu:
+  <<: *build_base_definition
+  script:
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - docker pull ${UBUNTU_BASE_IMAGE}:2-latest || true
+    - docker build --cache-from ${UBUNTU_BASE_IMAGE}:2-latest -f ./setup/docker/base/ubuntu/Dockerfile ./setup/docker/ --tag ${UBUNTU_BASE_IMAGE}:2-latest
+    - docker push ${UBUNTU_BASE_IMAGE}:2-latest
+
