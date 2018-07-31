@@ -118,23 +118,6 @@ class TestAccountAsset(common.TransactionCase):
         else:
             logging.info("Asset Sale Function successfully executed")
 
-        scrap_asset_id = self.env['scrap.asset.wizard'].create({
-            'partner_id': self.asset_id_1.partner_id.id,
-            'asset_id': self.asset_id_1.id,
-            'product_id': self.asset_id_1.product_id.id,
-            'asset_category_id': self.asset_id_1.category_id.id,
-            'depreciated_amount': self.asset_id_1.remaining_asset_value,
-            'sale_date': date.today(),
-        })
-
-        scrap_asset_id.with_context(
-            {'active_id': self.asset_id_1.id}).do_scrap()
-
-        if self.asset_id_1.state != 'close':
-            raise AssertionError("Asset is not moved to scrap location")
-        else:
-            logging.info("Asset scrap function successfully executed")
-
         # Check Fiscal Year
         account_config = self.env['res.config.settings'].create({
                 'fiscalyear_last_month': 3,

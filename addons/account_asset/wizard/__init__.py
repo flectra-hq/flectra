@@ -4,5 +4,4 @@
 from . import asset_depreciation_confirmation_wizard
 from . import asset_modify
 from . import sale_asset_wizard
-from . import scrap_asset_wizard
 from . import asset_depreciation_summary

@@ -148,17 +148,6 @@
                             'default_depreciated_amount': remaining_asset_value,
                             'default_sale_value': remaining_asset_value,
                             }"/>
-                    <button name="%(asset_scrap_action)d" type="action" string="Scrap" class="oe_highlight"
-                            context="{
-                            'default_product_id': product_id,
-                            'default_asset_category_id': category_id,
-                            'default_asset_id': active_id,
-                            'default_depreciated_amount': remaining_asset_value,
-                            'default_sale_value': remaining_asset_value,
-                            'default_partner_id': partner_id,
-                            }"
-                            attrs="{'invisible': [('state', '!=', 'open')]}"
-                    />
                     <button type="object" name="compute_depreciation_board" string="Compute Depreciation" states="draft"/>
                     <button name="set_to_close" states="open" string="Sell or Dispose" type="object" class="oe_highlight" invisible="1"/>
                     <button name="set_to_draft" string="Set to Draft" type="object" attrs="{'invisible': ['|', ('entry_count', '!=', 0), ('state', '!=', 'open')]}"/>

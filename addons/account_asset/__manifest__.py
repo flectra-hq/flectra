@@ -25,7 +25,6 @@ Keeps track of depreciations, and creates corresponding journal entries.
         'data/account_asset_data.xml',
         'wizard/asset_modify_views.xml',
         'wizard/sale_asset_wizard_view.xml',
-        'wizard/scrap_asset_wizard_view.xml',
         'wizard/asset_depreciation_summary_wizard_view.xml',
         'views/account_asset_views.xml',
         'views/account_invoice_views.xml',
