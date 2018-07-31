@@ -362,13 +362,13 @@ def test_rpm(o):
     with docker('flectra-%s-fedora-nightly-tests' % docker_version, o.build_dir, o.pub) as fedora24:
         fedora24.release = '*.noarch.rpm'
         # Start postgresql
-        fedora24.system('su postgres -c "/usr/bin/pg_ctl -D /var/lib/postgres/data start"')
-        fedora24.system('sleep 5')
-        fedora24.system('su postgres -c "createdb mycompany"')
+        # fedora24.system('su postgres -c "/usr/bin/pg_ctl -D /var/lib/postgres/data start"')
+        # fedora24.system('sleep 5')
+        # fedora24.system('su postgres -c "createdb mycompany"')
         # Flectra install
         fedora24.system('dnf install -d 0 -e 0 /opt/release/%s -y' % fedora24.release)
-        fedora24.system('su flectra -s /bin/bash -c "flectra -c /etc/flectra/flectra.conf -d mycompany -i base --stop-after-init"')
-        fedora24.system('su flectra -s /bin/bash -c "flectra -c /etc/flectra/flectra.conf -d mycompany &"')
+        fedora24.system('su flectra -s /bin/bash -c "flectra -c /etc/flectra/flectra.conf -d mycompany -i base --stop-after-init -r flectra -w flectra --db_host postgres --db_port 5432"')
+        fedora24.system('su flectra -s /bin/bash -c "flectra -c /etc/flectra/flectra.conf -d mycompany -r flectra -w flectra --db_host postgres --db_port 5432 &"')
 
 def test_exe(o):
     logging.info('Testng windows installer in KVM')
