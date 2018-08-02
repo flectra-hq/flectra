@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+    <template id="asset_depreciation_template">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <h2>Asset Depreciation</h2>
+                    <div class="row mt32">
+                        <div class="col-xs-3">
+                            <strong>Start Date:</strong>
+                            <p t-esc="data['form']['start_date']"/>
+                        </div>
+                        <div class="col-xs-3">
+                            <strong>End Date:</strong>
+                            <p t-esc="data['form']['end_date']"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th colspan="2"></th>
+                            <th colspan="3" class="text-center">Assets</th>
+                            <th colspan="3" class="text-center">Depreciation</th>
+                            <th colspan="3" class="text-center">Closing Balance</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center">Asset Name</th>
+                            <th class="text-center">Category</th>
+                            <th class="text-center">Opening</th>
+                            <th class="text-center">Additional</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-center">Opening</th>
+                            <th class="text-center">Additional</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-center">Opening</th>
+                            <th class="text-center">Additional</th>
+                            <th class="text-center">Total</th>
+                        </tr>
+
+                        <tr t-foreach="get_data" t-as="object">
+                            <td>
+                                <t t-esc="object['name']"/>
+                            </td>
+                            <td>
+                                <t t-esc="object['category']"/>
+                            </td>
+                            <td align="right">
+                                <t t-esc="object['open_asset']"
+                                   t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                            </td>
+                            <td align="right">
+                                <t t-esc="object['add_asset']"
+                                   t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                            </td>
+                            <td align="right">
+                                <t t-esc="object['total_asset']"
+                                   t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                            </td>
+                            <td align="right">
+                                <t t-esc="object['open_dep']"
+                                   t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                            </td>
+                            <td align="right">
+                                <t t-esc="object['add_dep']"
+                                   t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                            </td>
+                            <td align="right">
+                                <t t-esc="object['total_dep']"
+                                   t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                            </td>
+                            <td align="right">
+                                <t t-esc="object['open_net']"
+                                   t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                            </td>
+                            <td align="right">
+                                <t t-esc="object['add_net']"
+                                   t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                            </td>
+                            <td align="right">
+                                <t t-esc="object['total_net']"
+                                   t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</flectra>

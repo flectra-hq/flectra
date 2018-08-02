@@ -8,6 +8,7 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     asset_depreciation_ids = fields.One2many('account.asset.depreciation.line', 'move_id', string='Assets Depreciation Lines', ondelete="restrict")
+    asset_id = fields.Many2one('account.asset.asset', string="Asset")
 
     @api.multi
     def button_cancel(self):
@@ -22,3 +23,9 @@ class AccountMove(models.Model):
             for depreciation_line in move.asset_depreciation_ids:
                 depreciation_line.post_lines_and_close_asset()
         return super(AccountMove, self).post()
+
+
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
+
+    asset_id = fields.Many2one(related='move_id.asset_id', string="Asset")

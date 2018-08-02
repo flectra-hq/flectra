@@ -3,7 +3,8 @@
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from flectra import api, fields, models
+from flectra.exceptions import UserError
+from flectra import api, fields, models, _
 from flectra.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
 from flectra.addons import decimal_precision as dp
@@ -11,6 +12,9 @@ from flectra.addons import decimal_precision as dp
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
+
+    asset_id = fields.Many2one('account.asset.asset')
+    asset_bool = fields.Boolean(string="Asset")
 
     @api.model
     def _refund_cleanup_lines(self, lines):
@@ -45,6 +49,8 @@ class AccountInvoice(models.Model):
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
+    asset_id = fields.Many2one('account.asset.asset')
+    asset_bool = fields.Boolean(string="Asset")
     asset_category_id = fields.Many2one('account.asset.category', string='Asset Category')
     asset_start_date = fields.Date(string='Asset Start Date', compute='_get_asset_date', readonly=True, store=True)
     asset_end_date = fields.Date(string='Asset End Date', compute='_get_asset_date', readonly=True, store=True)
@@ -71,9 +77,13 @@ class AccountInvoiceLine(models.Model):
 
     @api.one
     def asset_create(self):
-        if self.asset_category_id:
+        if not self.asset_category_id:
+            self.write(
+                {'asset_category_id': self.product_id.asset_category_id.id})
+        if self.asset_category_id and not self.asset_bool:
             vals = {
                 'name': self.name,
+                'product_id': self.product_id.id,
                 'code': self.invoice_id.number or False,
                 'category_id': self.asset_category_id.id,
                 'value': self.price_subtotal_signed,
@@ -86,6 +96,7 @@ class AccountInvoiceLine(models.Model):
             changed_vals = self.env['account.asset.asset'].onchange_category_id_values(vals['category_id'])
             vals.update(changed_vals['value'])
             asset = self.env['account.asset.asset'].create(vals)
+            self.invoice_id.update({'asset_id': asset.id})
             if self.asset_category_id.open_asset:
                 asset.validate()
         return True
