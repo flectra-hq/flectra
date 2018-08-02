@@ -161,7 +161,7 @@ class PaymentAcquirer(models.Model):
 
     payment_icon_ids = fields.Many2many('payment.icon', string='Supported Payment Icons')
     payment_flow = fields.Selection(selection=[('form', 'Redirection to the acquirer website'),
-        ('s2s','Payment from Odoo')],
+        ('s2s','Payment from Flectra')],
         default='form', required=True, string='Payment Flow',
         help="""Note: Subscriptions does not take this field in account, it uses server to server by default.""")
 
