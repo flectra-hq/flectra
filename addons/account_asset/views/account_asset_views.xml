@@ -13,16 +13,14 @@
                 <sheet>
                     <group>
                         <div class="oe_title">
-                            <label for="name" string="Asset Type" class="oe_edit_only" attrs="{'invisible': [('type','!=','purchase')]}"/>
+                            <label for="name" string="Asset Category" class="oe_edit_only" attrs="{'invisible': [('type','!=','purchase')]}"/>
                             <label for="name" string="Deferred Revenue Type" class="oe_edit_only" attrs="{'invisible': [('type','==','purchase')]}"/>
                             <h1>
                                 <field name="name" placeholder="e.g. Computers"/>
                             </h1>
                         </div>
-                        <group>
-                            <field name="type" invisible="1"/>
-                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
-                        </group>
+                    </group>
+                    <group>
                         <group string="Journal Entries">
                             <div>
                                 <label for="journal_id" style="font-weight: bold;" string="Journal"/>
@@ -67,6 +65,10 @@
                                 <group string="Additional Options">
                                     <field name="open_asset"/>
                                     <field name="group_entries"/>
+                                </group>
+                                <group string="Company" groups="base.group_multi_company">
+                                    <field name="type" invisible="1"/>
+                                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
                                 </group>
                             </group>
                         </page>
@@ -356,7 +358,7 @@
     <menuitem id="menu_finance_config_assets" name="Assets and Revenues" parent="account.menu_finance_configuration" sequence="25"/>
 
     <record model="ir.actions.act_window" id="action_account_asset_asset_list_normal_purchase">
-        <field name="name">Asset Types</field>
+        <field name="name">Asset Categories</field>
         <field name="res_model">account.asset.category</field>
         <field name="domain">[('type', '=', 'purchase')]</field>
         <field name="view_type">form</field>

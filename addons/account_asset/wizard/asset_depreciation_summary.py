@@ -15,12 +15,11 @@ class AssetDepreciationWizard(models.TransientModel):
             last_day = self.env.user.company_id.fiscalyear_last_day
             last_month = self.env.user.company_id.fiscalyear_last_month
             date = datetime.strptime(self.start_date, DF).date()
-            if date.month <= 3 and date.day < 31:
-                year = date.year
-            else:
-                year = date.year + 1
-            date = date.replace(month=last_month, day=last_day, year=year)
-            self.end_date = datetime.strftime(date, '%Y-%m-%d')
+            year = date.year
+            fiscal_date = date.replace(month=last_month, day=last_day, year=year)
+            if fiscal_date < date:
+                fiscal_date = date.replace(month=last_month, day=last_day, year=year + 1)
+            self.end_date = datetime.strftime(fiscal_date, '%Y-%m-%d')
 
     start_date = fields.Date(string="Start Date", required=True)
     end_date = fields.Date(compute='_compute_get_end_date', store=True)

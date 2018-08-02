@@ -125,6 +125,8 @@ class SaleAssetWizard(models.TransientModel):
                         last_line.begin_value - depreciated_value,
                     })
                 last_line.create_move(post_move=True)
+                if last_line.move_id.state == 'draft':
+                    last_line.move_id.post()
             for line in self.asset_id.depreciation_line_ids:
                 if not line.move_check:
                     line.unlink()

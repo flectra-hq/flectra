@@ -40,9 +40,9 @@ class AssetDepreciation(models.AbstractModel):
                         or line_id.sequence == 1:
                     open_asset = 0.0
                     open_dep = 0.0
-                    add_asset = line_id.asset_id.value_residual
+                    add_asset = line_id.begin_value
                 else:
-                    open_asset = line_id.asset_id.value_residual
+                    open_asset = line_id.begin_value
                     add_asset = 0.00
                     open_dep = line_id.depreciated_value - line_id.amount
                 add_dep = line_id.amount
@@ -67,10 +67,10 @@ class AssetDepreciation(models.AbstractModel):
                 if depre_date.year == purchase_date.year \
                         or line_id.sequence == 1:
                     open_asset = 0.0
-                    add_asset = line_id.asset_id.value_residual
+                    add_asset = line_id.begin_value
                     open_dep = 0.0
                 else:
-                    open_asset = line_id.asset_id.value_residual
+                    open_asset = line_id.begin_value
                     add_asset = 0.00
                     open_dep = line_id.depreciated_value - line_id.amount
                 if line_id.asset_id.sale_date \

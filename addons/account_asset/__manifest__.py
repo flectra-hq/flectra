@@ -4,7 +4,7 @@
 {
     'name': 'Assets Management',
     'author': 'Odoo S.A',
-    'depends': ['account'],
+    'depends': ['account_invoicing'],
     'description': """
 Assets management
 =================
