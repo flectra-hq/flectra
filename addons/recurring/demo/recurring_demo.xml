@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<flectra noupdate="1">
+
+    <record id="recurring_document_partner0" model="recurring.document">
+        <field eval="1" name="active"/>
+        <field name="model" ref="base.model_res_partner"/>
+        <field name="name">Partner</field>
+    </record>
+    <record id="recurring_document_fields_2" model="recurring.document.fields">
+        <field name="field" ref="base.field_res_partner_name"/>
+        <field name="value">false</field>
+        <field model="recurring.document" name="document_id" search="[('name', '=', u'Partner')]"/>
+    </record>
+    <record id="recurring_document_fields_3" model="recurring.document.fields">
+        <field name="field" ref="base.field_res_partner_child_ids"/>
+        <field model="recurring.document" name="document_id" search="[('name', '=', u'Partner')]"/>
+    </record>
+
+    <record id="recurring_partner0" model="recurring">
+     <field name="name">Partner Recurring</field>
+     <field name="exec_init">5</field>
+     <field name="interval_type">minutes</field>
+     <field name="date_init" eval="datetime.now()"/>
+     <field name="doc_source" ref='base.res_partner_2'/>
+    </record>
+
+</flectra>

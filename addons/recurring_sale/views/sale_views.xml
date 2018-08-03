@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="view_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="recurring_id" invisible="1"/>
+                <field name="rec_source_id" readonly="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="before">
+                <button name="%(recurring.action_recurring_wizard)d"
+                        id="generate_recurring"
+                        string="Generate Recurring" class="btn-primary"
+                        type="action"
+                        attrs="{'invisible': ['|', ('state', 'in', ['draft','cancel']), ('recurring_id', '!=', False)]}"/>
+            </xpath>
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object"
+                        string="Recurring" name="get_recurring"
+                        icon="fa-tasks" attrs="{'invisible': [('recurring_id', '=', False)]}"/>
+
+                <button class="oe_stat_button" type="object"
+                        string="Document" name="get_recurring_documents"
+                        icon="fa-tasks" attrs="{'invisible': [('recurring_id', '=', False)]}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</flectra>
