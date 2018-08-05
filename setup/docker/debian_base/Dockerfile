@@ -40,4 +40,4 @@ RUN pip3 install coverage coveralls codecov simplejson pyserial pyyaml unittest2
     mkdir -p /usr/share/GeoIP/ && \
     mv GeoLiteCity.dat /usr/share/GeoIP/
 
-RUN adduser --system --quiet --shell=/bin/bash --gecos 'flectra' --group flectra --home=/var/lib/flectra
+RUN adduser --system --quiet --shell=/bin/bash --gecos 'flectra' --group flectra --home=/opt/flectra
