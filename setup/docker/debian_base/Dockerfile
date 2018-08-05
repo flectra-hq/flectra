@@ -13,7 +13,7 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
     echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update && \
-    apt-get install wget gnupg2 python3 curl expect-dev node-less \
+    apt-get install git gnupg2 python3 curl expect-dev node-less \
     python3-pillow python3-lxml python-ldap3 python3-dev python3-pip python3-setuptools \
     postgresql-${POSTGRESQL_VERSION} postgresql-server-dev-${POSTGRESQL_VERSION} \
     npm nodejs libldap2-dev libsasl2-dev libxml2-dev libxslt1-dev libjpeg-dev zlib1g-dev libfontconfig1 -y
