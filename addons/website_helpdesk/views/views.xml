@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <template id="assets_frontend" inherit_id="website.assets_frontend"
+              name="Helpdesk">
+        <xpath expr="." position="inside">
+            <script type="text/javascript"
+                    src="website_helpdesk/static/src/js/helpdesk.js"></script>
+            <link rel="stylesheet" href="/website_helpdesk/static/src/css/helpdesk_attachment.css"/>
+        </xpath>
+    </template>
+
+    <template id="portal_my_home_ticket" name="Portal My Home : Tickets"
+              inherit_id="portal.portal_my_home"
+              priority="30">
+        <xpath expr="//ul[hasclass('o_portal_docs')]" position="inside">
+            <li t-if="ticket_count" class="list-group-item">
+                <span class="badge" t-esc="ticket_count"/>
+                <a href="/my/ticket">Tickets</a>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="my_tickets" name="Tickets">
+        <t t-call="portal.portal_layout">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Your Helpdesk Tickets
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="mb16">
+                        <t t-if="not ticket">
+                            <p class="mt32 text-center">There are currently
+                                no ticket.
+                            </p>
+                        </t>
+                        <a class="btn btn-primary module_create_btn"
+                           href="/helpdesk-form">Create
+                        </a>
+                    </div>
+                    <t t-if="ticket">
+                        <div class="table-responsive">
+                            <table class="table table-hover o_my_status_table">
+                                <thead>
+                                    <tr class="active">
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Team</th>
+                                        <th>Assigned To</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="ticket" t-as="ticket">
+                                    <tr>
+                                        <td>
+                                            <a t-attf-href="/my/ticket/#{ticket.id}?{{ keep_query() }}">
+                                                <span t-raw="ticket.sequence"/>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <span t-raw="ticket.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-raw="ticket.team_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-raw="ticket.assigned_to_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-raw="ticket.stage_id.name"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                        <div t-if="pager" class="o_portal_pager text-center">
+                            <t t-call="website.pager"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_my_ticket" name="My Ticket">
+        <t t-call="portal.portal_layout">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>
+                                Issue -
+                                <span t-field="ticket.name"/>
+                                (#<span
+                                    t-esc="ticket.id"/>)
+                                <a class="btn btn-info"
+                                   t-att-href="'/web#return_label=Website&amp;model=helpdesk.ticket&amp;id=%s&amp;view_type=form' % (ticket.id)"
+                                   groups="project.group_project_user">Edit
+                                    Ticket
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 style="padding-top: 5px;">
+                                <t t-if="display_rating and not rating">
+                                    <button
+                                            type="button"
+                                            class="btn btn-info"
+                                            data-toggle="modal"
+                                            t-att-data-target="'#myModal'+str(ticket.id)">
+                                        Rate It
+                                    </button>
+                                    <div class="modal fade"
+                                         t-att-id="'myModal'+str(ticket.id)"
+                                         role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button"
+                                                            class="close"
+                                                            data-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <t t-call="portal.message_thread">
+                                                        <t t-set="object"
+                                                           t-value="ticket"/>
+                                                        <t t-set="display_rating"
+                                                           t-value="True"/>
+                                                    </t>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button"
+                                                            class="btn btn-default"
+                                                            data-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </t>
+                                <t t-if="display_rating and rating">
+                                    <t t-name="website_rating.rating_stars_static">
+                                        <t t-set="val_integer"
+                                           t-value="round(rating.rating) or 0"/>
+                                        <t t-set="val_decimal"
+                                           t-value="0"/>
+                                        <t t-set="empty_star"
+                                           t-value="5 - val_integer"/>
+                                        <div class="col-md-6 o_website_rating_static">
+                                            <span style="color: #333333;">
+                                                Rating:
+                                            </span>
+                                            <t t-foreach="range(0,val_integer)"
+                                               t-as="num">
+                                                <i class="fa fa-star"/>
+                                            </t>
+                                            <t t-if="val_decimal">
+                                                <i class="fa fa-star-half-o"/>
+                                            </t>
+                                            <t t-foreach="range(0,empty_star)"
+                                               t-as="num">
+                                                <i class="fa fa-star-o"/>
+                                            </t>
+                                        </div>
+                                    </t>
+
+                                </t>
+                                <t t-call='portal.record_pager'/>
+                                <t>
+                                    <span t-field="ticket.stage_id.name"
+                                          class="pull-right label label-info"
+                                          title="Current stage of this ticket"/>
+                                </t>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class='row'>
+                        <div class="col-md-6 mb8">
+                            <t t-if="ticket.start_date">
+                                <strong>Start Date:</strong>
+                                <span
+                                        t-field="ticket.start_date"
+                                        t-field-options='{"widget": "date"}'/>
+                                <br/>
+                            </t>
+                            <t t-if="ticket.issue_type_id">
+                                <strong>Issue Type:</strong>
+                                <span
+                                        t-field="ticket.issue_type_id"/>
+                                <br/>
+                            </t>
+                            <t t-if="ticket.assigned_to_id">
+                                <strong>Assigned to:</strong>
+                                <div>
+                                    <address t-field="ticket.assigned_to_id"
+                                             t-field-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'/>
+                                </div>
+                            </t>
+                        </div>
+                        <div class="col-md-6 mb8">
+                            <strong>End Date:</strong>
+                            <span t-field="ticket.end_date"
+                                  t-field-options='{"widget": "date"}'/>
+                            <t t-name="website_rating.rating_stars_static">
+                                <t t-set="val_integer"
+                                   t-value="priority or 0"/>
+                                <t t-set="val_decimal"
+                                   t-value="0"/>
+                                <t t-set="empty_star"
+                                   t-value="3 - val_integer"/>
+                                <div class="o_website_rating_static">
+                                    <strong style="color:#333333;">
+                                        Priority:
+                                    </strong>
+                                    <t t-foreach="range(0,val_integer)"
+                                       t-as="num">
+                                        <i class="fa fa-star"/>
+                                    </t>
+                                    <t t-if="val_decimal">
+                                        <i class="fa fa-star-half-o"/>
+                                    </t>
+                                    <t t-foreach="range(0,empty_star)"
+                                       t-as="num">
+                                        <i class="fa fa-star-o"/>
+                                    </t>
+                                </div>
+                            </t>
+                            <t t-if="ticket.partner_id">
+                                <strong>Reported by:</strong>
+                                <div>
+                                    <address t-field="ticket.partner_id"
+                                             t-field-options='{"widget": "contact", "fields": ["name", "email"]}'/>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <t t-if="ticket.description">
+                            <div class="col-md-12">
+                                <strong>Description</strong>
+                                <div t-field="ticket.description"/>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="row"/>
+                    <div class="row">
+                        <t t-if="ticket.attachment_ids">
+                            <div class="col-md-12">
+                                <strong>
+                                    <t t-if='len(ticket.attachment_ids)&gt;1'>
+                                        Attachments
+                                    </t>
+                                    <t t-else="">Attachment</t>
+                                </strong>
+                                <div class='row'>
+                                    <div class="col-md-2 col-sm-3 text-center oe_attachments"
+                                         t-foreach='ticket.attachment_ids'
+                                         t-as='attachment'>
+                                        <a t-attf-href="/web/content/#{attachment.id}?download=true"
+                                           target="_blank">
+                                            <div class='oe_attachment_embedded o_image o_image_small'
+                                                 t-att-title="attachment.name"
+                                                 t-att-data-mimetype="attachment.mimetype"
+                                                 t-attf-data-src="/web/image/#{attachment.id}/50x40"/>
+                                            <div class='oe_attachment_name'>
+                                                <t t-esc='attachment.name'/>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="menu_helpdesk_form" model="website.menu">
+        <field name="name">Helpdesk</field>
+        <field name="url">/helpdesk-form</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">70</field>
+    </record>
+
+
+</flectra>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="view_issue_type_form" model="ir.ui.view">
+        <field name="name">Issue Type Form</field>
+        <field name="model">issue.type</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Issue Type">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="reporting_template"
+                              string="Reporting Template Content">
+                            <field name="reporting_template"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_issue_type_tree" model="ir.ui.view">
+        <field name="name">Issue Type Tree</field>
+        <field name="model">issue.type</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_issue_type_search" model="ir.ui.view">
+        <field name="name">Issue Type Search</field>
+        <field name="model">issue.type</field>
+        <field name="arch" type="xml">
+            <search string="Search for Issue Type">
+                <field name="name" string="Name"
+                       filter_domain="['|',('name','ilike',self)]"/>
+                <field name="code" string="Code"
+                       filter_domain="['|',('code','ilike',self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="issue_type_dashboard_kanban_view">
+        <field name="name">issue.type.dashboard.kanban.view</field>
+        <field name="model">issue.type</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey o_kanban_dashboard o_account_kanban o_helpdesk_kanban">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="stages"/>
+                <field name="color"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="#{kanban_color(record.color.raw_value)}">
+                            <div t-attf-class="o_kanban_card_header o_kanban_record_top">
+                                <div t-attf-class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title">
+                                        <div class="o_primary">
+                                            <strong>
+                                                <span>Issue Type:</span>
+                                            </strong>
+                                            <field name="name"/>
+
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_manage_button_section">
+                                        <a class="o_kanban_manage_toggle_button"
+                                           href="#">
+                                            <i class="fa fa-ellipsis-v"/>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_content">
+                                <div class="row">
+                                    <div class="col-xs-6 o_kanban_primary_left">
+                                        <button type="object"
+                                                name="action_create_new"
+                                                class="btn btn-primary btn-sm o_invoice_new"
+                                                context="{'default_issue_type_id': active_id}">
+                                            <span>Ticket</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-6 o_kanban_primary_right">
+                                        <div class="row"
+                                             t-foreach="JSON.parse(record.stages.raw_value)"
+                                             t-as="stage">
+                                            <t t-set="context"
+                                               t-value="stage['context']"/>
+                                            <div class="col-xs-6">
+                                                <a name="%(act_helpdesk_view)d"
+                                                   type="action"
+                                                   t-att-data-context="context">
+                                                    <strong>
+                                                        <span t-esc="stage['key']"/>
+                                                    </strong>
+                                                    <span>:</span>
+                                                    <span t-esc="stage['value']"/>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_content">
+                                <field name="kanban_dashboard_graph"
+                                       t-att-graph_type="'bar'"
+                                       widget="dashboard_graph"/>
+                            </div>
+                            <div class="container o_kanban_card_manage_pane">
+                                <div t-if="widget.editable"
+                                     class="o_kanban_card_manage_settings row">
+                                    <div class="col-xs-8">
+                                        <ul class="oe_kanban_colorpicker"
+                                            data-field="color"/>
+                                    </div>
+                                    <div class="col-xs-4 text-right">
+                                        <a type="edit">Settings</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_issue_type">
+        <field name="name">Issue Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">issue.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_issue_type_search"/>
+    </record>
+
+    <menuitem id="issue_type_menu" parent="menu_helpdesk_config"
+              action="action_issue_type" sequence="2"
+              groups="helpdesk_basic.helpdesk_group_manager"/>
+
+</flectra>

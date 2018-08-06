@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <template id="helpdesk_form" name="Helpdesk Form">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-10">
+                                <br></br>
+                                <form role="form" data-toggle="validator"
+                                      method="post"
+                                      action="/issue-submitted"
+                                      id="helpdesk_form">
+                                    <input type="hidden" name="csrf_token"
+                                           t-att-value="request.csrf_token()"/>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <center>
+                                                <h3>Helpdesk: Issue Form</h3>
+                                            </center>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="name">Issue</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   name="name" id="name"
+                                                   placeholder="Issue"
+                                                   required="1"/>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="name">Email</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   name="email" id="email"
+                                                   t-att-value="email"
+                                                   placeholder="demo@mail.com"
+                                                   required="1"/>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label class="control-label"
+                                                   for="issue_type_id">
+                                                Issue Type
+                                            </label>
+                                            <select name="issue_type_id"
+                                                    id="issue_type_id"
+                                                    class="form-control issue_type_selection_field"
+                                                    required="1">
+                                                <option value="0">
+                                                    Select Issue Type
+                                                </option>
+                                                <t t-foreach="issue_type or []"
+                                                   t-as="type">
+                                                    <option t-att-value="type.id">
+                                                        <t t-esc="type.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="name">Issue Description
+                                            </label>
+                                            <textarea class="form-control"
+                                                      placeholder="Issue Description"
+                                                      rows="7" id="description"
+                                                      name="description"></textarea>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <input id="upload" name="file"
+                                                   class="uploaded_file"
+                                                   accept="image/*"
+                                                   type="file"
+                                                   multiple="multiple"/>
+                                            <div id="file_upload_data"></div>
+                                        </div>
+                                    </div>
+                                    <div class="from-group col-md-4"></div>
+                                    <div class="from-group col-md-4">
+                                        <center>
+                                            <button type="submit"
+                                                    class="btn btn-primary mb16 mt16 col-md-12">
+                                                Submit
+                                            </button>
+                                        </center>
+                                    </div>
+                                    <div class="from-group col-md-4"></div>
+                                </form>
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template t-name="issue_submitted" name="Issue Submitted">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="mt32 mb64">
+                    <div class="container">
+                        <div class="row">
+                            <div class="text-center">
+                                <br></br>
+                                <h2>Thank You!</h2>
+                                <h2>We have received your issue #<span t-esc="sequence"/> and will try
+                                    fix it soon.
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+</flectra>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.view.inherit.helpdesk</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Helpdesk"
+                     string="Helpdesk" data-key="helpdesk"
+                     groups="helpdesk_basic.helpdesk_group_manager">
+                    <h2>Helpdesk</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="use_project"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="use_project"/>
+                                <div class="text-muted">
+                                    Use projects for creating helpdesk
+                                    issues.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="helpdesk_config_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'helpdesk'}</field>
+    </record>
+
+    <menuitem id="helpdesk_config_settings_menu_action"
+              parent="helpdesk_basic.menu_helpdesk_config" sequence="0"
+              action="helpdesk_config_settings_action"
+              groups="base.group_system,helpdesk_basic.helpdesk_group_manager"/>
+
+</flectra>

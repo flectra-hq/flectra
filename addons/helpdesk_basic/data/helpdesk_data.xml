@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <data noupdate="1">
+        <record id="seq_helpdesk_issue" model="ir.sequence">
+            <field name="name">Issues</field>
+            <field name="code">helpdesk.ticket</field>
+            <field name="prefix">ISSUE</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+
+    <record id="mt_issue_new" model="mail.message.subtype">
+            <field name="name">Issue Opened</field>
+            <field name="res_model">helpdesk.ticket</field>
+            <field name="default" eval="False"/>
+            <field name="hidden" eval="False"/>
+            <field name="description">Issue opened</field>
+        </record>
+
+    <record id="mt_issue_stage" model="mail.message.subtype">
+        <field name="name">Stage Changed</field>
+        <field name="res_model">helpdesk.ticket</field>
+        <field name="default" eval="False"/>
+        <field name="description">Stage changed</field>
+    </record>
+
+</flectra>
