@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+        <record id="helpdesk_stage_draft" model="helpdesk.stage">
+            <field name="name">Draft</field>
+            <field name="stage_type">draft</field>
+        </record>
+
+        <record id="helpdesk_stage_new" model="helpdesk.stage">
+            <field name="name">New</field>
+            <field name="stage_type">new</field>
+        </record>
+
+        <record id="helpdesk_stage_in_progress" model="helpdesk.stage">
+            <field name="name">In Progress</field>
+            <field name="stage_type">in_progress</field>
+        </record>
+
+        <record id="helpdesk_stage_done" model="helpdesk.stage">
+            <field name="name">Done</field>
+            <field name="stage_type">done</field>
+        </record>
+
+        <record id="helpdesk_tag_new" model="helpdesk.tag">
+            <field name="name">New</field>
+            <field name="code">new</field>
+        </record>
+
+        <record id="helpdesk_tag_reopen" model="helpdesk.tag">
+            <field name="name">Re-Open</field>
+            <field name="code">reopen</field>
+        </record>
+
+        <record id="helpdesk_tag_cancel" model="helpdesk.tag">
+            <field name="name">Cancelled</field>
+            <field name="code">cancel</field>
+        </record>
+
+        <record id="helpdesk_tag_done" model="helpdesk.tag">
+            <field name="name">Done</field>
+            <field name="code">done</field>
+        </record>
+
+        <record id="issue_type_hardware" model="issue.type">
+            <field name="name">Hardware</field>
+            <field name="code">H/W</field>
+            <field name="reporting_template">
+Q. When did you purchased this product?
+A.
+
+Q. Was it a damaged product at time of purchase?
+A.
+
+Q. How long was the warrenty of this product?
+A.
+            </field>
+        </record>
+
+        <record id="issue_type_software" model="issue.type">
+            <field name="name">Software</field>
+            <field name="code">S/W</field>
+            <field name="reporting_template">
+Q. What is the version?
+A.
+
+Q. What is the OS of your system?
+A.
+
+Q. When did you last updated your system?
+A.
+
+Q. When did you last updated this software?
+A.
+            </field>
+        </record>
+
+        <record id="helpdesk_software" model="helpdesk.team">
+            <field name="name">Team Software</field>
+            <field name="alias_name">team_software</field>
+            <field name="issue_type_ids"
+                   eval="[(6,0,[ref('helpdesk_basic.issue_type_software')])]"/>
+            <field name="stage_ids"
+                   eval="[(6,0,[ref('helpdesk_basic.helpdesk_stage_new'), ref('helpdesk_basic.helpdesk_stage_in_progress'),
+                    ref('helpdesk_basic.helpdesk_stage_done')])]"/>
+            <field name="member_ids"
+                   eval="[(6,0,[ref('base.user_root'), ref('base.user_demo')])]"/>
+        </record>
+
+        <record id="helpdesk_hardware" model="helpdesk.team">
+            <field name="name">Team Hardware</field>
+            <field name="alias_name">team_hardware</field>
+            <field name="issue_type_ids"
+                   eval="[(6,0,[ref('helpdesk_basic.issue_type_hardware')])]"/>
+            <field name="stage_ids"
+                   eval="[(6,0,[ref('helpdesk_basic.helpdesk_stage_draft'), ref('helpdesk_basic.helpdesk_stage_in_progress'),
+                    ref('helpdesk_basic.helpdesk_stage_done')])]"/>
+            <field name="member_ids"
+                   eval="[(6,0,[ref('base.user_root'), ref('base.user_demo')])]"/>
+        </record>
+
+        <record id="helpdesk_ticket" model="helpdesk.ticket">
+            <field name="name">Software Issue</field>
+            <field name="priority">2</field>
+            <field name="issue_type_id"
+                   eval="ref('helpdesk_basic.issue_type_software')"/>
+            <field name="team_id"
+                   eval="ref('helpdesk_basic.helpdesk_software')"/>
+            <field name="assigned_to_id" eval="ref('base.user_demo')"/>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('helpdesk_basic.helpdesk_tag_new')])]"/>
+        </record>
+
+</flectra>
