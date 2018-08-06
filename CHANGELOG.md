@@ -10,6 +10,21 @@ This changelog contains things those are improved version by version and also th
 So, users can consider this **CHANGELOG** to find the differences between **Flectra** and **Odoo(Community Edition)**.
 
 
+## [1.4.0] - Lucifer - 2018-08-07
+### Added
+- Helpdesk
+- Recurring Documents
+- Capital Asset Management
+
+### Fixes
+- #77 Email Invitation Link - Missing Link / Error Traceback in Email invitation
+- #79 Printing Current view
+- #86 Broken Documentation - Fixed links with documentations
+- #87 Invalid State Code with GST for India
+- #88 Sale Advance Pricelist Installation Issue
+- #91 Point of Sale Issue for Order Creation
+- [ALL] upstream patching till 48803ecd0ed1d628261b10c57f32657e100038f7
+
 ## [1.3.0] - Sunbeam - 2018-06-21
 ### Added
 - Blanket Sales Orders
