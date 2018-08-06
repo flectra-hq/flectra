@@ -7,5 +7,5 @@ class HelpdeskTag(models.Model):
     _name = 'helpdesk.tag'
     _description = 'Helpdesk Tags'
 
-    name = fields.Char('Name')
-    code = fields.Char('Code')
+    name = fields.Char('Name', required=True)
+    code = fields.Char('Code', required=True)

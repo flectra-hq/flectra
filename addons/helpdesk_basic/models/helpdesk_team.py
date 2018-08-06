@@ -14,7 +14,7 @@ class HelpdeskTeam(models.Model):
     _description = 'Helpdesk Team'
 
     name = fields.Char(string='Helpdesk Team', translate=True,
-                       track_visibility='always')
+                       track_visibility='always', required=True)
     active = fields.Boolean(string='Active', default=True)
     color = fields.Integer(string='Color Index')
     member_ids = fields.Many2many('res.users', string='Members')

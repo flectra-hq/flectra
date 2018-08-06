@@ -8,10 +8,11 @@ class HelpdeskStage(models.Model):
     _order = 'sequence, id'
     _description = 'Helpdesk Stage'
 
-    name = fields.Char('Name')
+    name = fields.Char('Name', required=True)
     description = fields.Text(translate=True)
     fold = fields.Boolean(string='Fold in Kanban')
     stage_type = fields.Selection([('draft', 'Draft'), ('new', 'New'),
                                    ('in_progress', 'In Progress'),
-                                   ('done', 'Done')], string='Stage Type')
+                                   ('done', 'Done')], string='Stage Type',
+                                  required=True)
     sequence = fields.Integer(default=1)
