@@ -84,7 +84,7 @@ class Recurring(models.Model):
                     record.doc_source.partner_id != record.partner_id:
                 raise ValidationError(_(
                     'Error! Source Document should be related to partner %s' %
-                    record.partner_id.name))
+                    record.doc_source.partner_id.name))
 
     name = fields.Char(string='Name')
     active = fields.Boolean(
@@ -172,8 +172,8 @@ class Recurring(models.Model):
                 'interval_type': recurring.interval_type,
                 'numbercall': recurring.exec_init,
                 'nextcall': recurring.date_init,
-                'model_id': self.env['ir.model'].search([('model', '=',
-                                                          model)]).id,
+                'model_id': self.env['ir.model'].search(
+                    [('model', '=', model)]).id,
                 'priority': 6,
                 'user_id': recurring.user_id.id,
                 'state': 'code',
@@ -184,11 +184,12 @@ class Recurring(models.Model):
 
     @api.multi
     def set_recurring_id(self):
-        if self.doc_source and 'recurring_id' \
-                in self.env[self.doc_source._name]._fields:
+        if self.doc_source and 'recurring_id' and 'rec_source_id' in \
+                self.env[self.doc_source._name]._fields:
             rec_id = self.env[self.doc_source._name].browse(self.doc_source.id)
-            if not rec_id.recurring_id:
+            if not rec_id.recurring_id and not rec_id.rec_source_id:
                 rec_id.recurring_id = self.id
+                rec_id.rec_source_id = self.doc_source.id
             else:
                 raise ValidationError(
                     _('Document is already recurring'))
