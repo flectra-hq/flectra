@@ -9,7 +9,7 @@ from flectra.addons.portal.controllers.portal import pager as portal_pager
 
 class HelpdeskTicket(http.Controller):
 
-    @http.route(['/helpdesk-form'], type='http', auth='public', website=True)
+    @http.route(['/helpdesk-form'], type='http', auth='user', website=True)
     def helpdesk_issue_form(self, **post):
         issue_type = request.env['issue.type'].sudo().search([])
         team_ids = request.env['helpdesk.team'].sudo().search([])
@@ -24,7 +24,7 @@ class HelpdeskTicket(http.Controller):
         })
         return request.render('website_helpdesk.helpdesk_form', post)
 
-    @http.route(['/issue-submitted'], type='http', auth='public',
+    @http.route(['/issue-submitted'], type='http', auth='user',
                 website=True)
     def issue_submitted(self, **post):
         attachment_obj = request.env['ir.attachment']
@@ -43,7 +43,7 @@ class HelpdeskTicket(http.Controller):
 
     @http.route(
         ['/helpdesk-form/issue_description/<model("issue.type"):issue_type_id>'
-         ], type='json', auth="public", methods=['POST'], website=True)
+         ], type='json', auth="user", methods=['POST'], website=True)
     def issue_description(self, issue_type_id, **kw):
         domain = []
         if issue_type_id:
