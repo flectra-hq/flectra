@@ -61,7 +61,6 @@ class PosConfig(models.Model):
         return self.env['ir.qweb'].render('point_of_sale.customer_facing_display_html')
 
     name = fields.Char(string='Point of Sale Name', index=True, required=True, help="An internal identification of the point of sale.")
-    is_installed_account_accountant = fields.Boolean(compute="_compute_is_installed_account_accountant")
     journal_ids = fields.Many2many(
         'account.journal', 'pos_config_journal_rel',
         'pos_config_id', 'journal_id', string='Available Payment Methods',
@@ -162,11 +161,6 @@ class PosConfig(models.Model):
     module_pos_reprint = fields.Boolean(string="Reprint Receipt")
     is_posbox = fields.Boolean("PosBox")
     is_header_or_footer = fields.Boolean("Header & Footer")
-
-    def _compute_is_installed_account_accountant(self):
-        account_accountant = self.env['ir.module.module'].sudo().search([('name', '=', 'account_accountant'), ('state', '=', 'installed')])
-        for pos_config in self:
-            pos_config.is_installed_account_accountant = account_accountant and account_accountant.id
 
     @api.depends('journal_id.currency_id', 'journal_id.company_id.currency_id')
     def _compute_currency(self):
