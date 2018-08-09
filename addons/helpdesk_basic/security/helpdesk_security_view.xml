@@ -18,8 +18,8 @@
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
-    <record id="helpdesk_user_rule" model="ir.rule">
-        <field name="name">See Own Issues</field>
+    <record id="helpdesk_portal_user_rule" model="ir.rule">
+        <field name="name">Portal See Own Issues</field>
         <field ref="model_helpdesk_ticket" name="model_id"/>
         <field name="domain_force">
             ['|', ('user_id','=',user.id), ('partner_id', '=', user.partner_id.id)]
