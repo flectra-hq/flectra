@@ -41,5 +41,5 @@ class Company(models.Model):
         company.create_transit_location()
         # mutli-company rules prevents creating warehouse and sub-locations
         self.env['stock.warehouse'].check_access_rights('create')
-        self.env['stock.warehouse'].sudo().create({'name': company.name, 'code': company.name[:5], 'company_id': company.id, 'partner_id': company.partner_id.id})
+        self.env['stock.warehouse'].sudo().create({'name': company.name, 'code': company.name[:5], 'company_id': company.id, 'branch_id': company.branch_id.id, 'partner_id': company.partner_id.id})
         return company
