@@ -187,13 +187,13 @@ def run_flectra(type_of_db,server_path, host, port, user, password):
 
         cmd_flectra = ["unbuffer", "coverage", "run"]
         cmd_flectra += ["%s/flectra-bin" % (server_path),
-                     "--host",
+                     "--db_host",
                      host,
-                     "--port",
+                     "--db_port",
                      port,
-                     "--user",
+                     "--db_user",
                      user,
-                     "--password",
+                     "--db_password",
                      password,
                      "-d", 
                      db,
