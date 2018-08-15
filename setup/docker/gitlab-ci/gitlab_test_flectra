@@ -168,7 +168,7 @@ def run_flectra(type_of_db,server_path, host, port, user, password):
     try:
         db = str(uuid.uuid1())+"-"+type_of_db
         os.environ["PGPASSWORD"] = password
-        subprocess.check_call(["createdb", "-U", user, "-h", host, "-p", port, db])
+        subprocess.check_call(["createdb", "-U", user, "-h", host, "-p", port, "-T", "template1", db])
     except subprocess.CalledProcessError:
         print("Problem in creating database.")
     else:
