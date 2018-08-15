@@ -272,13 +272,21 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Create Docker Instances....')
     parser.add_argument('--build', dest='build', help='Build type',
-                        required=True, default="base")
+                        default="base")
+    parser.add_argument('--host', dest='host',
+                        help='PostgreSQL Host',
+                        default="postgres")
+    parser.add_argument('--port', dest='port',
+                        help='PostgreSQL Port',
+                        default="5432")
+    parser.add_argument('--user', dest='user',
+                        help='PostgreSQL user',
+                        default="flectra")
+    parser.add_argument('--password', dest='password',
+                        help='PostgreSQL password',
+                        default="flectra")
     args = parser.parse_args()
     build = args.build
-    db_host = os.environ['FLECTRA_DB_HOST'] or 'localhost'
-    db_port = os.environ['FLECTRA_DB_PORT'] or 5432
-    db_user = os.environ['POSTGRES_USER'] or 'flectra'
-    db_password = os.environ['POSTGRES_PASSWORD'] or 'flectra'
     
     res = {}
     server_path = os.getcwd()
@@ -287,10 +295,10 @@ def main(argv=None):
         res['all'] = run_flectra(
                 type_of_db="all",
                 server_path=server_path,
-                host=db_host,
-                port=db_port,
-                user=db_user,
-                password=db_password,
+                host=args.host,
+                port=args.port,
+                user=args.user,
+                password=args.password,
         )
         errors = 'all' in res and res['all'] and 'errors' in res['all'] and \
                  res['all']['errors']
@@ -299,10 +307,10 @@ def main(argv=None):
         res['base'] = run_flectra(
                 type_of_db="base",
                 server_path=server_path,
-                host=db_host,
-                port=db_port,
-                user=db_user,
-                password=db_password,
+                host=args.host,
+                port=args.port,
+                user=args.user,
+                password=args.password,
         )
         errors = 'base' in res and res['base'] and 'errors' in res['base'] \
                  and \
