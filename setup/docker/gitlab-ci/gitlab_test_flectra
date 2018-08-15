@@ -227,11 +227,11 @@ def main(argv=None):
     server_path = os.getcwd()
     
     if build=="all":
-        res['all'] = run_flectra(type_of_db="all", server_path=server_path)
+        res['all'] = run_flectra(type_of_db="all", server_path=server_path, host=args.host, port=args.port, user=args.user, password=args.password)
         errors = 'all' in res and res['all'] and 'errors' in res['all'] and res['all']['errors']
     
     if build=="base":
-        res['base'] = run_flectra(type_of_db="base", server_path=server_path)
+        res['base'] = run_flectra(type_of_db="base", server_path=server_path, host=args.host, port=args.port, user=args.user, password=args.password)
         errors = 'base' in res and res['base'] and 'errors' in res['base'] and res['base']['errors']
         
 #     errors = ( errors_in_base or 0) + ( errors_in_all or 0)
