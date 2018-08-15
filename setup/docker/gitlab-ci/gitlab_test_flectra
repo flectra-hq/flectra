@@ -163,7 +163,7 @@ def has_test_errors(fname, dbname, check_loaded=True):
     return len(errors)
 
 
-def run_flectra(type_of_db,server_path, host, port, user, pwd):
+def run_flectra(type_of_db,server_path, host, port, user, password):
     print ("\n creating database for : ",type_of_db)
     try:
         db = str(uuid.uuid1())+"-"+type_of_db
