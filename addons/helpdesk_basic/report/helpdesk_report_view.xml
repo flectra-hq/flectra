@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="view_helpdesk_report_graph" model="ir.ui.view">
+        <field name="name">helpdesk.report.graph</field>
+        <field name="model">helpdesk.report</field>
+        <field name="arch" type="xml">
+            <graph string="Helpdesk Analysis">
+                <field name="name" type="row"/>
+                <field name="partner_id" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_report_helpdesk_pivot">
+        <field name="name">helpdesk.pivot</field>
+        <field name="model">helpdesk.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Helpdesk Statistics" disable_linking="True">
+                <field name="name" type="row"/>
+                <field name="partner_id" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="report_helpdesk_view_search" model="ir.ui.view">
+        <field name="name">report.helpdesk.search</field>
+        <field name="model">helpdesk.report</field>
+        <field name="arch" type="xml">
+            <search string="Helpdesk Analysis">
+                <filter string="My Issues" name="my_issues"
+                        domain="[('assigned_to_id', '=', uid)]"/>
+                <separator/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <filter string="This Year" name="thisyear"
+                        domain="['|', ('start_date', '=', False), '&amp;',
+                        ('start_date','&lt;=', time.strftime('%%Y-12-31')),
+                        ('start_date','&gt;=',time.strftime('%%Y-01-01'))]"
+                        help="Journal invoices with period in current year"/>
+                <separator/>
+                <filter string="Draft" domain="[('stage_id','=','draft')]"
+                        help="Draft Issues" name="draft"/>
+                <filter string="New" domain="[('stage_id','=','new')]"
+                        help="New" name="new"/>
+                <filter string="In Progress" name="in_progress"
+                        domain="[('stage_id','=', 'in_progress')]"/>
+                <filter string="Done" name="done"
+                        domain="[('stage_id','=', 'done')]"/>
+                <filter string="Cancel" name="cancel"
+                        domain="[('stage_id','=', 'cancel')]"/>
+                <separator/>
+                <filter string="This Month" name="this_month"
+                        domain="[('start_date', '&gt;=', context_today().strftime('%%Y-%%m-01'))]"/>
+                <filter string="Last Month" name="last_month"
+                        domain="['&amp;',
+                        ('start_date', '&gt;=', (context_today() - relativedelta(months=1)).strftime('%%Y-%%m-01')),
+                         ('start_date', '&lt;', context_today().strftime('%%Y-%%m-01'))]"/>
+                <separator/>
+                <field name="partner_id" operator="child_of"/>
+                <field name="assigned_to_id"/>
+                <group expand="1" string="Group By">
+                    <filter string="Helpdesk Team" name="team_id"
+                            context="{'group_by':'team_id'}"/>
+                    <filter string="Partner" name="partner_id"
+                            context="{'group_by':'partner_id','residual_visible':True}"/>
+                    <filter string="Assiged To" name='assigned_to_id'
+                            context="{'group_by':'assigned_to_id'}"/>
+                    <filter string="Status" context="{'group_by':'stage_id'}"/>
+                    <separator orientation="vertical"/>
+                    <filter string="Start Date"
+                            context="{'group_by':'start_date'}"/>
+                    <filter string="End Date"
+                            context="{'group_by':'end_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_helpdesk_report" model="ir.actions.act_window">
+        <field name="name">Helpdesk Analysis</field>
+        <field name="res_model">helpdesk.report</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_id" ref="view_helpdesk_report_graph"/>
+        <field name="search_view_id" ref="report_helpdesk_view_search"/>
+        <field name="context">{'search_default_team_id': 1,
+            'search_default_current_year': 1}
+        </field>
+    </record>
+
+    <menuitem id="helpdesk_report_main_menu" name="Reporting"
+              parent="menu_main_helpdesk" sequence="50"/>
+    <menuitem id="helpdesk_report" name="Helpdesk Report"
+              parent="helpdesk_report_main_menu" sequence="1"
+              action="action_helpdesk_report"/>
+
+</flectra>

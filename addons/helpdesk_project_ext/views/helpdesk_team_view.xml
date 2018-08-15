@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="helpdesk_team_form_view_inherited" model="ir.ui.view">
+        <field name="name">Helpdesk Team Form</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id"
+               ref="helpdesk_basic.helpdesk_team_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="need_project" invisible="1"/>
+                <field name="project_id"
+                       context="{'default_is_helpdesk': True}"
+                       attrs="{'invisible':[('need_project', '=', False)]}"
+                       domain="[('is_helpdesk', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="helpdesk_team_kanban_view_inherited">
+        <field name="name">helpdesk.team.kanban.view</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id"
+               ref="helpdesk_basic.helpdesk_team_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="need_project" invisible="1"/>
+                <field name="project_id"
+                       attrs="{'invisible':[('need_project', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//div[@id='project']" position="inside">
+                <strong>
+                    <span t-if="record.need_project.raw_value">Project</span>
+                </strong>
+            </xpath>
+            <xpath expr="//div[@id='project_value']" position="inside">
+                <field t-if="record.need_project and record.project_id.raw_value"
+                       name="project_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</flectra>

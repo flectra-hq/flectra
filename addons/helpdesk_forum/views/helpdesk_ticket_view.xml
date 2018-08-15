@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="view_helpdesk_form_inherited" model="ir.ui.view">
+        <field name="name">Helpdesk Form</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id"
+               ref="helpdesk_basic.view_helpdesk_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="posted_to_forum" invisible="1"/>
+                <field name="display_post" invisible="1"/>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="post_to_forum"
+                        string="Post Issue to Forum" type="object"
+                        attrs="{'invisible': ['|', ('posted_to_forum', '=', True), ('display_post', '=', False)]}"
+                        groups="helpdesk_basic.helpdesk_group_manager"/>
+            </xpath>
+        </field>
+    </record>
+
+</flectra>

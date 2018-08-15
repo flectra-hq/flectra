@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+        <record id="helpdesk_team_forum" model="helpdesk.team">
+            <field name="name">Team Quick Support</field>
+            <field name="alias_name">team_quick_support</field>
+            <field name="issue_type_ids"
+                   eval="[(6,0,[ref('helpdesk_basic.issue_type_hardware')]), (6,0,[ref('helpdesk_basic.issue_type_software')])]"/>
+            <field name="stage_ids"
+                   eval="[(6,0,[ref('helpdesk_basic.helpdesk_stage_draft'), ref('helpdesk_basic.helpdesk_stage_in_progress'),
+                    ref('helpdesk_basic.helpdesk_stage_done')])]"/>
+            <field name="member_ids"
+                   eval="[(6,0,[ref('base.user_root'), ref('base.user_demo')])]"/>
+        </record>
+
+</flectra>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="helpdesk_project_view_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.project.view.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id"
+               ref="project.project_project_view_form_simplified"/>
+        <field name="priority">24</field>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="is_helpdesk"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="helpdesk_inherit_edit_project" model="ir.ui.view">
+        <field name="name">helpdesk.inherit.edit.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="priority">24</field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options_active']" position="inside">
+                <div>
+                    <label for="is_helpdesk"/>
+                    <field name="is_helpdesk" class="oe_inline"
+                           string="Use in Helpdesk"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</flectra>

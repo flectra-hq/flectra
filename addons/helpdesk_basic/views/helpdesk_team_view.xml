@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="helpdesk_team_tree_view" model="ir.ui.view">
+        <field name="name">helpdesk.team.tree</field>
+        <field name="model">helpdesk.team</field>
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="member_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="helpdesk_team_form_view" model="ir.ui.view">
+        <field name="name">Helpdesk Team Form</field>
+        <field name="model">helpdesk.team</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form string="Team Members">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="issue_type_ids" required="1"
+                                   widget="many2many_tags"/>
+                        </group>
+                        <group name="group_alias">
+                            <field name="stage_ids" widget="many2many_tags"
+                                   required="1"/>
+                            <label for="alias_name" string="Email Alias"/>
+                            <div name="alias_def">
+                                <field name="alias_id" required="0"
+                                       class="oe_read_only oe_inline"
+                                       string="Email Alias"/>
+                                <div class="oe_edit_only oe_inline"
+                                     name="edit_alias"
+                                     style="display: inline;">
+                                    <field name="alias_name"
+                                           class="oe_inline"/>
+                                    @
+                                    <field name="alias_domain"
+                                           class="oe_inline" readonly="1"/>
+                                </div>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="members" string="Team Members">
+                            <field name="member_ids" widget="many2many">
+                                <kanban quick_create="false" create="true"
+                                        delete="true">
+                                    <field name="id"/>
+                                    <field name="name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click"
+                                                 style="max-width: 200px">
+                                                <div class="o_kanban_record_top">
+                                                    <img t-att-src="kanban_image('res.users','image_small', record.id.raw_value)"
+                                                         height="40" width="40"
+                                                         class="oe_avatar oe_kanban_avatar_smallboxn mb0"/>
+                                                    <div class="o_kanban_record_headings ml8">
+                                                        <strong class="o_kanban_record_title">
+                                                            <field name="name"/>
+                                                        </strong>
+                                                    </div>
+                                                    <a t-if="! read_only_mode"
+                                                       type="delete"
+                                                       class="text-danger">
+                                                        <i class="fa fa-times">
+                                                        </i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"
+                           widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"
+                           options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_helpdesk_team_search" model="ir.ui.view">
+        <field name="name">Helpdesk Team Search</field>
+        <field name="model">helpdesk.team</field>
+        <field name="arch" type="xml">
+            <search string="Search for Helpdesk">
+                <field name="name" string="Team id"
+                       filter_domain="['|',('name','ilike',self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="helpdesk_team_kanban_view">
+        <field name="name">helpdesk.team.kanban.view</field>
+        <field name="model">helpdesk.team</field>
+        <field name="arch" type="xml">
+            <kanban
+                    class="oe_background_grey o_kanban_dashboard o_workcenter_kanban o_helpdesk_kanban">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="color"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div style="width: 400px;"
+                             t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+                            <div t-attf-class="o_kanban_card_header o_kanban_record_top">
+                                <div style="text-align: center;"
+                                     class="o_kanban_record_headings o_kanban_card_header_title">
+                                    <span class="o_primary ml8"
+                                          style="display: inline-block; font-weight:bold;">
+                                        <field name="name"/>
+                                    </span>
+                                </div>
+                                <div class="o_kanban_manage_button_section">
+                                    <a class="o_kanban_manage_toggle_button"
+                                       href="#">
+                                        <i class="fa fa-ellipsis-v"/>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="container o_kanban_card_content"
+                                 id="container">
+                                <div class="row">
+                                    <div class="col-xs-4" id="total_issues">
+                                        <strong>Total Issues</strong>
+                                    </div>
+                                    <div class="col-xs-4" id="project">
+                                    </div>
+                                    <div class="col-xs-4" id="issue_type">
+                                        <strong>Issue Types</strong>
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                    <div class="col-xs-4" id="issue">
+                                        <a name="%(act_helpdesk_view)d"
+                                           type="action"
+                                           context="{'search_default_team_id': [active_id], 'default_team_id': active_id}">
+                                            <field name="helpdesk_count"/>
+                                            Issues
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-4" id="project_value">
+                                    </div>
+                                    <div class="col-xs-4"
+                                         id="issue_type_value">
+                                        <field name="issue_type_ids"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_manage_pane">
+                                <div t-if="widget.editable"
+                                     class="o_kanban_card_manage_settings row">
+                                    <div class="col-xs-8">
+                                        <ul class="oe_kanban_colorpicker"
+                                            data-field="color"/>
+                                    </div>
+                                    <div class="col-xs-4 text-right">
+                                        <a type="edit">Settings</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="team_dashboard_view">
+        <field name="name">helpdesk.dashboard.kanban.view</field>
+        <field name="model">helpdesk.team</field>
+        <field name="arch" type="xml">
+            <kanban create="false"
+                    class="oe_background_grey o_kanban_dashboard o_workcenter_kanban o_helpdesk_kanban">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="color"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div style="width: 400px;"
+                             t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+                            <div t-attf-class="o_kanban_card_header o_kanban_record_top">
+                                <div style="text-align: center;"
+                                     class="o_kanban_record_headings o_kanban_card_header_title">
+                                    <span class="o_primary ml8"
+                                          style="display: inline-block; font-weight:bold;">
+                                        <field name="name"/>
+                                    </span>
+                                </div>
+                                <div class="o_kanban_manage_button_section">
+                                    <a class="o_kanban_manage_toggle_button"
+                                       href="#">
+                                        <i class="fa fa-ellipsis-v"/>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="container o_kanban_card_content">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <strong>Total Issues</strong>
+                                    </div>
+                                    <div class="col-xs-4">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <strong>Issue Types</strong>
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                    <div class="col-xs-4">
+                                        <a name="%(act_helpdesk_view)d"
+                                           type="action"
+                                           context="{'search_default_team_id': [active_id], 'default_team_id': active_id}">
+                                            <field name="helpdesk_count"/>
+                                            Issues
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-4">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <field name="issue_type_ids"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_content">
+                                <field name="kanban_dashboard_graph"
+                                       t-att-graph_type="'bar'"
+                                       widget="dashboard_graph"/>
+                            </div>
+                            <div class="container o_kanban_card_manage_pane">
+                                <div t-if="widget.editable"
+                                     class="o_kanban_card_manage_settings row">
+                                    <div class="col-xs-8">
+                                        <ul class="oe_kanban_colorpicker"
+                                            data-field="color"/>
+                                    </div>
+                                    <div class="col-xs-4 text-right">
+                                        <a type="edit">Settings</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_helpdesk_team" model="ir.actions.act_window">
+        <field name="name">Helpdesk Team</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">helpdesk.team</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="helpdesk_team_kanban_view"/>
+        <field name="search_view_id" ref="view_helpdesk_team_search"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_team_dashboard_view">
+        <field name="name">Dashboard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">helpdesk.team</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_id" ref="team_dashboard_view"/>
+    </record>
+
+    <menuitem id="helpdesk_team_menu" parent="menu_helpdesk_config"
+              action="action_helpdesk_team" sequence="2"/>
+
+    <menuitem name="Dashboard" id="menu_helpdesk_dashboard"
+              parent="menu_main_helpdesk" sequence="1"
+              action="act_team_dashboard_view"
+              groups="helpdesk_basic.helpdesk_group_manager"/>
+
+</flectra>

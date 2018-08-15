@@ -2,3 +2,5 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from . import account_asset_report
+from . import asset_depreciation_report
+
