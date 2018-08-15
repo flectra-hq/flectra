@@ -11,7 +11,7 @@ import uuid
 import argparse
 
 try:
-    import basestring
+    basestring
 except NameError:
     basestring = str
 
