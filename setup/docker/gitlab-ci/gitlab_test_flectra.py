@@ -273,6 +273,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description='Create Docker Instances....')
     parser.add_argument('--build', dest='build', help='Build type',
                         default="base")
+    parser.add_argument('--server-path', dest='path', help='Flectra Path')
     parser.add_argument('--host', dest='host',
                         help='PostgreSQL Host',
                         default="postgres")
@@ -289,7 +290,7 @@ def main(argv=None):
     build = args.build
     
     res = {}
-    server_path = os.getcwd()
+    server_path = args.path or os.getcwd()
     
     if build == "all":
         res['all'] = run_flectra(
@@ -316,8 +317,6 @@ def main(argv=None):
                  and \
                  res['base']['errors']
     
-    #     errors = ( errors_in_base or 0) + ( errors_in_all or 0)
-    #     #print ("ERRORS IN BASE : ",errors_in_base)
     print("************ ERRORS ************  : ", errors)
     return errors
 
