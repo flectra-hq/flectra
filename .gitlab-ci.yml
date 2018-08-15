@@ -13,7 +13,7 @@ variables:
   CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
   DOCKER_HOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
-  CI_PROJECT_NAMESPACE: jamotion
+#  CI_PROJECT_NAMESPACE: jamotion
 
   # Configure postgres service (https://hub.docker.com/_/postgres/)
   POSTGRES_DB: postgres
@@ -22,26 +22,26 @@ variables:
   POSTGRES_HOST: postgres
   POSTGRES_PORT: "5432"
 
-unittest:base:psql9:
+test:pg9:base:
   image: registry.gitlab.com/${CI_PROJECT_NAMESPACE}/flectra/ubuntu_base:latest
   stage: unittest
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres9"
 
-unittest:all:psql9:
+test:pg9:all:
   image: registry.gitlab.com/${CI_PROJECT_NAMESPACE}/flectra/ubuntu_base:latest
   stage: unittest
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres9"
 
-unittest:base:psql10:
+test:pg10:base:
   image: registry.gitlab.com/${CI_PROJECT_NAMESPACE}/flectra/ubuntu_base:latest
   stage: unittest
   script:
     - echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' > /etc/default/locale
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres10"
 
-unittest:all:psql10:
+test:pg10:all:
   image: registry.gitlab.com/${CI_PROJECT_NAMESPACE}/flectra/ubuntu_base:latest
   stage: unittest
   script:
@@ -72,32 +72,35 @@ build:base:debian:
     - docker build -f ./setup/docker/debian_base/Dockerfile ./setup/docker/ --tag $CONTAINER_IMAGE:latest
     - docker push $CONTAINER_IMAGE:latest
 
-#build:flectra:ubuntu:
-#  stage: build
-#  image: docker:stable
-#  services:
-#    - docker:dind
-#  script:
-#    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-#    - docker build -f ./setup/docker/ubuntu_flectra/Dockerfile ./setup/docker/
-#
-#build:flectra:debian:
-#  stage: build
-#  image: docker:stable
-#  services:
-#    - docker:dind
-#  script:
-#    - docker build -f ./setup/docker/debian_flectra/Dockerfile ./setup/docker/
-#
-#
-#job_integrationtest_ubuntu_base_9:
-#  image: registry.gitlab.com/${CI_PROJECT_NAMESPACE}/flectra/ubuntu_flectra:latest
-#  services:
-#    - postgres:9
-#  stage: integrationtest
-#  script:
-#    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --server-path=/opt/flectra/flectra
-#
+build:flectra:ubuntu:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - docker build -f ./setup/docker/ubuntu_flectra/Dockerfile ./setup/docker/ --tag $CONTAINER_IMAGE:$CI_BUILD_REF --tag $CONTAINER_IMAGE:latest
+    - docker push $CONTAINER_IMAGE:$CI_BUILD_REF
+    - docker push $CONTAINER_IMAGE:latest
+
+build:flectra:debian:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - docker build -f ./setup/docker/debian_flectra/Dockerfile ./setup/docker/ --tag $CONTAINER_IMAGE:$CI_BUILD_REF --tag $CONTAINER_IMAGE:latest
+    - docker push $CONTAINER_IMAGE:$CI_BUILD_REF
+    - docker push $CONTAINER_IMAGE:latest
+
+
+job_integrationtest_ubuntu_base_9:
+  image: registry.gitlab.com/${CI_PROJECT_NAMESPACE}/flectra/ubuntu_flectra:latest
+  stage: integrationtest
+  script:
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --server-path=/opt/flectra/flectra --host=postgres9
+
 #job_integrationtest_ubuntu_all_9:
 #  image: registry.gitlab.com/${CI_PROJECT_NAMESPACE}/flectra/ubuntu_flectra:latest
 #  services:
