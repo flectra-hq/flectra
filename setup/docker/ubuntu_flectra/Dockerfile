@@ -24,6 +24,8 @@ USER root
 RUN mkdir -p /var/log/flectra && \
     chown -R flectra:flectra /var/log/flectra/
 
+RUN echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' > /etc/default/locale
+
 USER flectra
 
 EXPOSE 7073 7072
