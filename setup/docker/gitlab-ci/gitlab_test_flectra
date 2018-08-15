@@ -225,6 +225,8 @@ def main(argv=None):
     res = {}
     #server_path = "/home/erp/workspace_flectra/flectra_latest"
     server_path = os.getcwd()
+    ct = os.listdir(server_path)
+    print(ct)
     
     if build=="all":
         res['all'] = run_flectra(type_of_db="all", server_path=server_path, host=args.host, port=args.port, user=args.user, password=args.password)
