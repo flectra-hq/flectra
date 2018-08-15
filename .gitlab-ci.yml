@@ -17,22 +17,27 @@ variables:
   POSTGRES_PORT: "5432"
 
 before_script:
+#  - export LANG=en_US.UTF-8
+#  - export LANGUAGE=en_US:en
+#  - export LC_ALL=en_US.UTF-8
+#  - echo -e "export LANG=en_US.UTF-8\nexport LANGUAGE=en_US:en\nexport LC_ALL=en_US.UTF-8" > /tmp/locale_env
+#  - chmod 0666 /tmp/locale_env
+
 # - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
 
 job_jamo_test:
   image: registry.gitlab.com/${CI_PROJECT_NAMESPACE}/flectra/ubuntu_base:latest
   stage: unittest
   script:
-    - su - flectra -c "locale"
+    - su - flectra -c "source /tmp/locale_env && locale"
 
-#job_test_base_9:
-#  image: registry.gitlab.com/${CI_PROJECT_NAMESPACE}/flectra/ubuntu_base:latest
-#  services:
-#    - postgres:9
-#  stage: unittest
-#  script:
-#    - su - flectra -c "locale"
-#    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base"
+job_test_base_9:
+  image: registry.gitlab.com/${CI_PROJECT_NAMESPACE}/flectra/ubuntu_base:latest
+  services:
+    - postgres:9
+  stage: unittest
+  script:
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base"
 #
 #job_test_all_9:
 #  image: registry.gitlab.com/${CI_PROJECT_NAMESPACE}/flectra/ubuntu_base:latest
