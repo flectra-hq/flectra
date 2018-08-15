@@ -41,3 +41,15 @@ RUN pip3 install coverage coveralls codecov simplejson pyserial pyyaml unittest2
     mv GeoLiteCity.dat /usr/share/GeoIP/
 
 RUN adduser --system --quiet --shell=/bin/bash --gecos 'flectra' --group flectra --home=/opt/flectra
+
+ENV LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+
+USER flectra
+
+ENV LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+
+USER root
