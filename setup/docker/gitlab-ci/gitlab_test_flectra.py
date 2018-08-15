@@ -211,6 +211,12 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
     print("\n creating database for : ", type_of_db)
     try:
         db = str(uuid.uuid1()) + "-" + type_of_db
+        
+        # Setting locale is needed because of gitlab runner server have other locales
+        os.environ["LANG"] = "en_US.UTF-8"
+        os.environ["LANGUAGE"] = "en_US:en"
+        os.environ["LC_ALL"] = "en_US.UTF-8"
+        
         os.environ["PGPASSWORD"] = password
         subprocess.check_call(
                 ["createdb", "-U", user, "-h", host, "-p", port, "-T",
