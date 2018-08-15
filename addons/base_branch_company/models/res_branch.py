@@ -16,6 +16,7 @@ def migrate_company_branch(cr, registry):
                                  'branch_ids': [(6, 0, [user_id.company_id.branch_id.id])]})
            cr.commit()
 
+
 class Company(models.Model):
     _name = "res.company"
     _inherit = ["res.company"]
@@ -129,7 +130,7 @@ class Users(models.Model):
         string="Number of Companies", default=_branches_count)
 
     @api.onchange('company_id')
-    def _onchange_address(self):
+    def _onchange_company_id(self):
         self.default_branch_id = self.company_id.branch_id.id
         self.branch_ids = [(4, self.company_id.branch_id.id)]
 

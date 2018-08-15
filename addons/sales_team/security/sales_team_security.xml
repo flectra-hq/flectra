@@ -43,7 +43,7 @@
         <record model="ir.rule" id="crm_team_multi_branch_rule">
             <field name="name">CRM Team multi-branch</field>
             <field name="model_id" ref="sales_team.model_crm_team"/>
-            <field name="global" eval="True"/>
+            <field name="groups" eval="[(4, ref('base_branch_company.group_multi_branch'))]"/>
             <field name="domain_force">['|',('branch_id','=', False),'|',('branch_id','=',user.default_branch_id.id), ('branch_id','in', [b.id for b in user.branch_ids])]</field>
         </record>
 
