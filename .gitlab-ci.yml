@@ -61,16 +61,19 @@ job_jamo_test:
 #    - echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' > /etc/default/locale
 #    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all"
 #
-#build:base:ubuntu:
-#  only:
-#    - schedules
-#  image: docker:stable
-#  services:
-#    - docker:dind
-#  script:
-#    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-#    - docker build -f ./setup/docker/ubuntu_base/Dockerfile ./setup/docker/
-#
+
+build:base:ubuntu:
+  only:
+    - schedules
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - docker build -f ./setup/docker/ubuntu_base/Dockerfile ./setup/docker/ --tag $CONTAINER_IMAGE:$CI_BUILD_REF --tag $CONTAINER_IMAGE:latest
+    - docker push $CONTAINER_IMAGE:$CI_BUILD_REF
+    - docker push $CONTAINER_IMAGE:latest
+
 #build:base:debian:
 #  only:
 #    - schedules
