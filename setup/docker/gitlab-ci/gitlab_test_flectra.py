@@ -5,11 +5,12 @@
 
 import re
 import os
-import shutil
 import subprocess
-import sys
 import uuid
 import argparse
+from coverage.cmdline import main as coverage_main
+from coveralls import cli as coveralls_cli
+from codecov import main as codecov_main
 
 try:
     basestring
@@ -213,7 +214,8 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
     try:
         db = str(uuid.uuid1()) + "-" + type_of_db
         
-        # Setting locale is needed because of gitlab runner server have other locales
+        # Setting locale is needed because of gitlab runner server have
+        # other locales
         os.environ["LANG"] = "en_US.UTF-8"
         os.environ["LANGUAGE"] = "en_US:en"
         os.environ["LC_ALL"] = "en_US.UTF-8"
@@ -329,4 +331,18 @@ def main(argv=None):
 
 
 if __name__ == '__main__':
-    exit(main())
+    rc = main()
+    
+    if rc:
+        exit(rc)
+        
+    coverage_main(["report", "--show-missing"])
+    try:
+        coveralls_cli.main(argv=None)
+    except:
+        pass
+    try:
+        codecov_main(argv=None)
+    except:
+        pass
+    exit(rc)
