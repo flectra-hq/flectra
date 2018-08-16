@@ -28,10 +28,15 @@ variables:
   POSTGRES_PORT: "5432"
 
 test_test:
+  variables:
+    GIT_STRATEGY: none
   image: ${UBUNTU_BASE_IMAGE}:latest
   stage: unittest
   script:
+    - python -c "import locale; print(locale.getlocale())"
+    - python -c 'import sys; print(sys.stdout.encoding)'
     - su - flectra -c 'python -c "import locale; print(locale.getlocale())"'
+    - su - flectra -c "python -c 'import sys; print(sys.stdout.encoding)'"
 
 test:pg9_base:
   image: ${UBUNTU_BASE_IMAGE}:latest

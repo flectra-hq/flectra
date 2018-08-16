@@ -9,6 +9,7 @@ import subprocess
 import uuid
 import argparse
 from coverage.cmdline import main as coverage_main
+import locale
 
 try:
     basestring
@@ -264,14 +265,15 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
                         "--init", modules_to_init]
         print("CMD EXECUTED --->>> ", " ".join(cmd_flectra))
         
-        with subprocess.Popen(cmd_flectra, stdout=subprocess.PIPE, bufsize=1
-                              ) as p:
+        with subprocess.Popen(
+                cmd_flectra,
+                stdout=subprocess.PIPE,
+                bufsize=1,
+                universal_newlines=True) as p:
             with open(log_file, 'w') as outfile:
                 for line in p.stdout:
-                    str_line = line.decode('UTF-8').encode(
-                            'ASCII', 'ignore').decode('ASCII')
-                    print(str_line, end='')
-                    outfile.write(str_line)
+                    print(line, end='')
+                    outfile.write(line)
         returncode = p.wait()
         outfile.close()
         errors = has_test_errors(os.path.join(server_path, log_file), db)
@@ -331,6 +333,7 @@ def main(argv=None):
 
 
 if __name__ == '__main__':
+    locale.setlocale(locale.LC_ALL, '')
     rc = main()
     
     if rc:
