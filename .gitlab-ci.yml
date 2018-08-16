@@ -30,24 +30,32 @@ variables:
 test:pg9_base:
   image: ${UBUNTU_BASE_IMAGE}:latest
   stage: unittest
+  except:
+    - schedules
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres9"
 
 test:pg9_all:
   image: ${UBUNTU_BASE_IMAGE}:latest
   stage: unittest
+  except:
+    - schedules
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres9"
 
 test:pg10_base:
   image: ${UBUNTU_BASE_IMAGE}:latest
   stage: unittest
+  except:
+    - schedules
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres10"
 
 test:pg10_all:
   image: ${UBUNTU_BASE_IMAGE}:latest
   stage: unittest
+  except:
+    - schedules
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres10"
 
@@ -79,8 +87,8 @@ build:flectra_ubuntu:
   variables:
     GIT_STRATEGY: none
   stage: build
-  only:
-    - branch
+  except:
+    - schedules
   image: docker:stable
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
@@ -89,8 +97,8 @@ build:flectra_ubuntu:
 
 build:flectra_debian:
   stage: build
-  only:
-    - branch
+  except:
+    - schedules
   image: docker:stable
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
@@ -99,32 +107,32 @@ build:flectra_debian:
 
 itest:ubuntu_pg9_all:
   stage: integrationtest
-  only:
-    - branch
+  except:
+    - schedules
   image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres9
 
 itest:ubuntu_pg10_all:
   stage: integrationtest
-  only:
-    - branch
+  except:
+    - schedules
   image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres10
 
 itest:debian_pg9_all:
   stage: integrationtest
-  only:
-    - branch
+  except:
+    - schedules
   image: ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres9
 
 itest:debian_pg10_all:
   stage: integrationtest
-  only:
-    - branch
+  except:
+    - schedules
   image: ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres10
