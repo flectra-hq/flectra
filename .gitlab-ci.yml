@@ -66,7 +66,8 @@ build:base_ubuntu:
   image: docker:stable
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker build -f ./setup/docker/base/ubuntu/Dockerfile ./setup/docker/ --tag ${UBUNTU_BASE_IMAGE}:latest
+    - docker pull ${UBUNTU_BASE_IMAGE}:latest || true
+    - docker build --cache-from ${UBUNTU_BASE_IMAGE}:latest -f ./setup/docker/base/ubuntu/Dockerfile ./setup/docker/ --tag ${UBUNTU_BASE_IMAGE}:latest
     - docker push ${UBUNTU_BASE_IMAGE}:latest
 
 build:base_debian:
@@ -76,7 +77,8 @@ build:base_debian:
   image: docker:stable
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker build -f ./setup/docker/base/debian/Dockerfile ./setup/docker/ --tag ${DEBIAN_BASE_IMAGE}:latest
+    - docker pull ${DEBIAN_BASE_IMAGE}:latest || true
+    - docker build --cache-from ${DEBIAN_BASE_IMAGE}:latest -f ./setup/docker/base/debian/Dockerfile ./setup/docker/ --tag ${DEBIAN_BASE_IMAGE}:latest
     - docker push ${DEBIAN_BASE_IMAGE}:latest
 
 build:flectra_ubuntu:
