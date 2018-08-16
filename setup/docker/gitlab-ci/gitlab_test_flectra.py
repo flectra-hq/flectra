@@ -266,12 +266,13 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
                         "--init", modules_to_init]
         print("CMD EXECUTED --->>> ", " ".join(cmd_flectra))
         
-        with subprocess.Popen(cmd_flectra, stdout=subprocess.PIPE, bufsize=1,
-                              universal_newlines=True, encoding='UTF-8') as p:
+        with subprocess.Popen(cmd_flectra, stdout=subprocess.PIPE, bufsize=1
+                              ) as p:
             with open(log_file, 'w') as outfile:
                 for line in p.stdout:
-                    print(line, end='')
-                    outfile.write(line)  # process line here
+                    strline = line.decode('UTF-8', errors='replace')
+                    print(strline, end='')
+                    outfile.write(strline)  # process line here
         returncode = p.wait()
         outfile.close()
         errors = has_test_errors(os.path.join(server_path, log_file), db)
@@ -335,7 +336,7 @@ if __name__ == '__main__':
     
     if rc:
         exit(rc)
-        
+    
     coverage_main(["report", "--show-missing"])
     try:
         coveralls_cli.main(argv=None)
