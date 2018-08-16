@@ -34,6 +34,7 @@ test:pg9_base:
     - schedules
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres9"
+  coverage: '/^TOTAL.*\s+(\d+\%)$/'
 
 test:pg9_all:
   image: ${UBUNTU_BASE_IMAGE}:latest
@@ -42,6 +43,7 @@ test:pg9_all:
     - schedules
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres9"
+  coverage: '/^TOTAL.*\s+(\d+\%)$/'
 
 test:pg10_base:
   image: ${UBUNTU_BASE_IMAGE}:latest
@@ -50,6 +52,7 @@ test:pg10_base:
     - schedules
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres10"
+  coverage: '/^TOTAL.*\s+(\d+\%)$/'
 
 test:pg10_all:
   image: ${UBUNTU_BASE_IMAGE}:latest
@@ -58,6 +61,7 @@ test:pg10_all:
     - schedules
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres10"
+  coverage: '/^TOTAL.*\s+(\d+\%)$/'
 
 build:base_ubuntu:
   stage: build
