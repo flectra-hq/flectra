@@ -9,8 +9,6 @@ import subprocess
 import uuid
 import argparse
 from coverage.cmdline import main as coverage_main
-from coveralls import cli as coveralls_cli
-from codecov import main as codecov_main
 
 try:
     basestring
@@ -271,7 +269,7 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
             with open(log_file, 'w') as outfile:
                 for line in p.stdout:
                     strline = line.decode('UTF-8', errors='replace')
-                    print(strline, end='')
+                    print(strline.encode('ascii', 'ignore'), end='')
                     outfile.write(strline)  # process line here
         returncode = p.wait()
         outfile.close()
@@ -337,13 +335,6 @@ if __name__ == '__main__':
     if rc:
         exit(rc)
     
-    coverage_main(["report", "--show-missing"])
-    try:
-        coveralls_cli.main(argv=None)
-    except:
-        pass
-    try:
-        codecov_main(argv=None)
-    except:
-        pass
+    coverage_main(["report"])
+
     exit(rc)
