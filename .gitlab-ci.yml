@@ -60,8 +60,6 @@ test:pg10_all:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres10"
 
 build:base_ubuntu:
-  variables:
-    GIT_STRATEGY: none
   stage: build
   only:
     - schedules
@@ -72,8 +70,6 @@ build:base_ubuntu:
     - docker push ${UBUNTU_BASE_IMAGE}:latest
 
 build:base_debian:
-  variables:
-    GIT_STRATEGY: none
   stage: build
   only:
     - schedules
