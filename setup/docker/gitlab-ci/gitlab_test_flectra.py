@@ -268,10 +268,8 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
                               ) as p:
             with open(log_file, 'w') as outfile:
                 for line in p.stdout:
-                    strline = line.decode('UTF-8', errors='replace').encode(
-                            'ascii', 'ignore')
-                    print(strline, end='')
-                    outfile.write(strline)  # process line here
+                    print(line.decode('UTF-8', errors='replace'), end='')
+                    outfile.write(line.decode('ASCII', errors='replace'))
         returncode = p.wait()
         outfile.close()
         errors = has_test_errors(os.path.join(server_path, log_file), db)
