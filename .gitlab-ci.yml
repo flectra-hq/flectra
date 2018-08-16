@@ -27,6 +27,12 @@ variables:
   POSTGRES_HOST: postgres
   POSTGRES_PORT: "5432"
 
+test_test:
+  image: ${UBUNTU_BASE_IMAGE}:latest
+  stage: unittest
+  script:
+    - su - flectra -c 'python -c "import locale; print(locale.getlocale())"'
+
 test:pg9_base:
   image: ${UBUNTU_BASE_IMAGE}:latest
   stage: unittest
