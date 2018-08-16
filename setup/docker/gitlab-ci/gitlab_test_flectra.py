@@ -265,7 +265,7 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
         print("CMD EXECUTED --->>> ", " ".join(cmd_flectra))
         
         with subprocess.Popen(cmd_flectra, stdout=subprocess.PIPE, bufsize=1,
-                              universal_newlines=True) as p:
+                              universal_newlines=True, encoding='UTF-8') as p:
             with open(log_file, 'w') as outfile:
                 for line in p.stdout:
                     print(line, end='')
