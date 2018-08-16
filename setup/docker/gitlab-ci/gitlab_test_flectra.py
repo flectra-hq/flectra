@@ -264,18 +264,22 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
                         "--test-enable",
                         "--init", modules_to_init]
         print("CMD EXECUTED --->>> ", " ".join(cmd_flectra))
-        
-        with subprocess.Popen(
-                cmd_flectra,
-                stdout=subprocess.PIPE,
-                bufsize=1,
-                universal_newlines=True) as p:
-            with open(log_file, 'w') as outfile:
-                for line in p.stdout:
-                    print(line, end='')
-                    outfile.write(line)
-        returncode = p.wait()
+
+        with open(log_file, 'w') as outfile:
+            with subprocess.Popen(
+                    cmd_flectra,
+                    stdout=outfile,
+                    bufsize=1,
+                    universal_newlines=True) as p:
+                returncode = p.wait()
         outfile.close()
+        try:
+            with open(log_file) as logfile:
+                for line in logfile:
+                    print(line, end='')
+        except Exception as ex:
+            print(ex)
+            
         errors = has_test_errors(os.path.join(server_path, log_file), db)
     return {'errors': errors, 'returncode': returncode}
 
