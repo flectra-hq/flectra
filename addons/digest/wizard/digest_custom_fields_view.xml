@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<flectra>
+    <record id="digest_custom_fields_view_form" model="ir.ui.view">
+        <field name="name">digest.custom.fields.form</field>
+        <field name="model">digest.custom.fields</field>
+        <field name="arch" type="xml">
+            <form string="Customized Digest">
+                <group class="oe_title" col="4">
+                    <field name="field_name"/>
+                    <field name="label_name"/>
+                    <field name="group_name"/>
+                </group>
+                <group string="Compute Details">
+                    <field name="compute_field_name"/>
+                    <field name="ttype"/>
+                    <field name="compute" widget="ace" options="{'mode': 'python'}"/>
+                </group>
+                <footer>
+                    <button name="action_customize_digest" string="Save" type="object" class="btn btn-sm btn-primary"/>
+                    <button string="Cancel" class="btn btn-sm btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="digest_custom_fields_action" model="ir.actions.act_window">
+        <field name="name">Customized Digest</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">digest.custom.fields</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="digest_custom_fields_view_form"/>
+        <field name="target">new</field>
+    </record>
+</flectra>

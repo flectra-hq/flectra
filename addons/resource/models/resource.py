@@ -89,6 +89,10 @@ class ResourceCalendar(models.Model):
         'resource.calendar.leaves', 'calendar_id', 'Global Leaves',
         domain=[('resource_id', '=', False)]
         )
+    tz = fields.Selection(
+        _tz_get, string='Timezone', required=True,
+        default=lambda self: self._context.get('tz') or self.env.user.tz or 'UTC',
+        help="This field is used in order to define in which timezone the resources will work.")
 
     # --------------------------------------------------
     # Utility methods
