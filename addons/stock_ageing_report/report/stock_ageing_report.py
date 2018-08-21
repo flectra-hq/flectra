@@ -58,7 +58,9 @@ class StockAgeingReport(models.AbstractModel):
                 product, location_id, branch_id, company_id, final_dates)
             product_dict = {'product_id': product.name_get()[0][1],
                             'qty_period_list': qty_period_list,
-                            'qty_available': sum(qty_period_list)}
+                            'qty_available': sum(qty_period_list),
+                            'total_amount': sum(qty_period_list) *
+                                            product.list_price}
             product_list.append(product_dict)
         return product_list
 

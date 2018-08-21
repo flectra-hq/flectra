@@ -22,7 +22,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><b>Brnach: </b></td>
+                                    <td><b>Branch: </b></td>
                                     <td t-foreach="data['branch']" t-as="branch_id">
                                         <span t-esc="branch_id.name"/>
                                     </td>
@@ -62,7 +62,8 @@
                                 <th t-foreach="data['period_list']" t-as="period">
                                     <span t-esc="period"/>
                                 </th>
-                                <th>Total</th>
+                                <th>Total Qty</th>
+                                <th>Total Cost</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,6 +76,9 @@
                                 </td>
                                <td>
                                     <span t-esc="product['qty_available']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="product['total_amount']"/>
                                 </td>
                             </tr>
                         </tbody>
