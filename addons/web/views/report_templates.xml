@@ -275,11 +275,36 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6" name="company_address">
-                    <span t-field="company.partner_id"
-                        t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
-                        style="border-bottom: 1px solid black; display:inline-block;"/>
-                </div>
+                 <table style="margin-left:16px;">
+                    <tr t-if="company.partner_id.name">
+                        <td colspan="4"><strong t-field="company.partner_id.name"/></td>
+                    </tr>
+                    <tr t-if="company.partner_id.street">
+                        <td colspan="4"><span t-field="company.partner_id.street"/></td>
+                    </tr>
+                    <tr t-if="company.partner_id.street2">
+                        <td colspan="4"><span t-field="company.partner_id.street2"/></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span t-if="company.partner_id.city and company.partner_id.zip">
+                                <span t-field="company.partner_id.city"/> - <span t-field="company.partner_id.zip"/>,
+                            </span>
+                            <span t-if="company.partner_id.city and not company.partner_id.zip">
+                                <span t-field="company.partner_id.city"/>,
+                            </span>
+                            <span t-if="not company.partner_id.city and company.partner_id.zip">
+                                <span t-field="company.partner_id.zip"/>,
+                            </span>
+                            <span t-if="company.partner_id.state_id">
+                                <span t-field="company.partner_id.state_id.name"/>,
+                            </span>
+                            <span t-if="company.partner_id.country_id">
+                                <span t-field="company.partner_id.country_id.name"/>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
 
