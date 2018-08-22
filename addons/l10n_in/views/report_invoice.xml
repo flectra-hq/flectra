@@ -26,10 +26,15 @@
             </t>
         </xpath>
         <xpath expr="//table[@name='invoice_line_table']" position="replace">
+
+            <!-- Is there a HSN code in at least one product? -->
+            <t t-set="hsn_code" t-value="any([l.product_id.l10n_in_hsn_code for l in o.invoice_line_ids])"/>
+
             <table class="table table-condensed" name="invoice_line_table">
                 <thead>
                     <tr>
                         <th>Description</th>
+                        <th t-if="hsn_code">HSN</th>
                         <th class="hidden">Source Document</th>
                         <th class="text-right">Quantity</th>
                         <th class="text-right">Unit Price</th>
@@ -38,17 +43,18 @@
                             <th class="text-right">Taxes</th>
                         </t>
                         <th class="text-right">Amount</th>
-                        <t t-if="o.company_id.country_id.code == 'IN'">
+                        <!-- <t t-if="o.company_id.country_id.code == 'IN'">
                             <th class="text-right" t-if="is_cgst">CGST</th>
                             <th class="text-right" t-if="is_cgst">SGST</th>
                             <th class="text-right" t-if="is_igst">IGST</th>
                             <th class="text-right" t-if="is_cess">CESS</th>
-                        </t>
+                        </t> -->
                     </tr>
                 </thead>
                 <tbody class="invoice_tbody">
                     <tr t-foreach="o.invoice_line_ids" t-as="l">
-                        <td><span t-field="l.name"/><t t-if="l.product_id.l10n_in_hsn_code"><h6><strong class="ml16">HSN/SAC Code:</strong> <span t-field="l.product_id.l10n_in_hsn_code"/></h6></t></td>
+                        <td><span t-field="l.name"/></td>
+                        <td t-if="hsn_code"><span t-field="l.product_id.l10n_in_hsn_code"/></td>
                         <td class="hidden"><span t-field="l.origin"/></td>
                         <td class="text-right">
                             <span t-field="l.quantity"/>
@@ -69,7 +75,7 @@
                             <span t-field="l.price_subtotal"
                                 t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                         </td>
-                        <t t-if="o.company_id.country_id.code == 'IN'">
+                        <!-- <t t-if="o.company_id.country_id.code == 'IN'">
                             <td class="text-right" t-if="is_cgst">
                                 <t t-foreach="tax_datas[l.id]" t-as="tax_data">
                                     <t t-if="tag_cgst_id in tax_data['tag_ids']">
@@ -100,7 +106,7 @@
                                 </t>
                                 <t t-esc="total_cess" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                             </td>
-                        </t>
+                        </t> -->
                     </tr>
                     <tr t-foreach="range(max(5-len(o.invoice_line_ids),0))" t-as="l">
                         <td>&amp;nbsp;</td>
