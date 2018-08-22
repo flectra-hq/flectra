@@ -6,38 +6,9 @@
                 <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
                 <div class="page">
                     <div class="row">
-                        <div name="invoice_address" class="col-xs-6 col-xs-offset-6">
-                            <table>
-                                <tr t-if="o.partner_id.name">
-                                    <td colspan="4"><strong t-field="o.partner_id.name"/></td>
-                                </tr>
-                                <tr t-if="o.partner_id.street">
-                                    <td colspan="4"><span t-field="o.partner_id.street"/></td>
-                                </tr>
-                                <tr t-if="o.partner_id.street2">
-                                    <td colspan="4"><span t-field="o.partner_id.street2"/></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span t-if="o.partner_id.city and o.partner_id.zip">
-                                            <span t-field="o.partner_id.city"/> - <span t-field="o.partner_id.zip"/>,
-                                        </span>
-                                        <span t-if="o.partner_id.city and not o.partner_id.zip">
-                                            <span t-field="o.partner_id.city"/>,
-                                        </span>
-                                        <span t-if="not o.partner_id.city and o.partner_id.zip">
-                                            <span t-field="o.partner_id.zip"/>,
-                                        </span>
-                                        <span t-if="o.partner_id.state_id">
-                                            <span t-field="o.partner_id.state_id.name"/>,
-                                        </span>
-                                        <span t-if="o.partner_id.country_id">
-                                            <span t-field="o.partner_id.country_id.name"/>
-                                        </span>
-                                    </td>
-                                </tr>
-                            </table>
-
+                        <div name="invoice_address" class="col-xs-5 col-xs-offset-7">
+                            <address t-field="o.partner_id"
+                                t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
                             <div t-if="o.partner_id.vat" class="mt16"><t t-esc="o.company_id.country_id.vat_label or 'TIN'"/>: <span t-field="o.partner_id.vat"/></div>
                         </div>
                     </div>
