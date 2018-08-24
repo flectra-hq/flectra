@@ -5,10 +5,12 @@
         <field name="model">digest.custom.fields</field>
         <field name="arch" type="xml">
             <form string="Customized Digest">
-                <group class="oe_title" col="4">
+                <group col="4">
                     <field name="field_name"/>
                     <field name="label_name"/>
-                    <field name="group_name"/>
+                    <field name="available_group_name" required="1"/>
+                    <field name="position" required="1"/>
+                    <field name="new_group_name" attrs="{'required': [('position', '!=', 'inside')], 'invisible': [('position', 'not in', ['before', 'after'])]}"/>
                 </group>
                 <group string="Compute Details">
                     <field name="compute_field_name"/>
@@ -16,7 +18,7 @@
                     <field name="compute" widget="ace" options="{'mode': 'python'}"/>
                 </group>
                 <footer>
-                    <button name="action_customize_digest" string="Save" type="object" class="btn btn-sm btn-primary"/>
+                    <button name="action_add_customize_digest" string="Save" type="object" class="btn btn-sm btn-primary"/>
                     <button string="Cancel" class="btn btn-sm btn-default" special="cancel"/>
                 </footer>
             </form>

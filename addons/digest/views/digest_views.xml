@@ -62,43 +62,6 @@
                                 <group name="kpi_sales"/>
                             </group>
                         </page>
-                        <page name="how_to" string="How to customize your digest?" groups="base.group_no_one">
-                            <div>
-                                <button type="action" name="%(digest.digest_custom_fields_action)d" string="Customized Digest"/>
-                            </div>
-                            <div class="alert alert-info" role="alert">
-                                In order to build your customized digest, follow these steps:
-                                <ol>
-                                    <li>
-                                        You may want to add new computed fields:
-                                        <ul>
-                                            <li>
-                                                you must create 2 fields on the
-                                                <code>digest</code>
-                                                object:
-                                            </li>
-                                            <li>
-                                                first create a boolean field called
-                                                <code>x_kpi_field_name</code>
-                                                and display it in the KPI's tab;
-                                            </li>
-                                            <li>
-                                                then create a computed field called
-                                                <code>x_kpi_field_name_value</code>
-                                                that will compute your customized KPI.
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>Select your KPIs in the KPI's tab.</li>
-                                    <li>
-                                        Create or edit the mail template: you may get computed KPI's value using these fields:
-                                        <code>
-                                            <field name="available_fields" class="oe_inline" />
-                                        </code>
-                                    </li>
-                                </ol>
-                            </div>
-                        </page>
                     </notebook>
                 </sheet>
             </form>
