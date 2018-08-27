@@ -6,8 +6,8 @@ stages:
 
 variables:
   GITLAB_REGISTRY: "registry.gitlab.com/${CI_PROJECT_PATH}"
-  UBUNTU_BASE_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/flectra/base/ubuntu"
-  DEBIAN_BASE_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/flectra/base/debian"
+  UBUNTU_BASE_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/base/ubuntu"
+  DEBIAN_BASE_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/base/debian"
   UBUNTU_FLECTRA_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/ubuntu"
   DEBIAN_FLECTRA_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/debian"
   DOCKER_HOST: tcp://docker:2375
@@ -20,148 +20,108 @@ variables:
   POSTGRES_HOST: postgres
   POSTGRES_PORT: "5432"
 
-#test_test:
-#  variables:
-#    GIT_STRATEGY: none
-#  image: ${UBUNTU_BASE_IMAGE}:latest
-#  stage: unittest
-#  script:
-#    - python -c "import locale; print(locale.getlocale())"
-#    - python -c 'import sys; print(sys.stdout.encoding)'
-#    - su - flectra -c 'python -c "import locale; print(locale.getlocale())"'
-#    - su - flectra -c "python -c 'import sys; print(sys.stdout.encoding)'"
-
-test:pg9_base:
-  image: ${UBUNTU_BASE_IMAGE}:latest
-  stage: unittest
-  services:
+.psql9:template:
+  services: &psql9_definition
     - name: postgres:9-alpine
       alias: postgres9
-  only:
-    - triggers
+
+.psql10:template:
+  services: &psql9_definition
+    - name: postgres:10-alpine
+      alias: postgres10
+
+.unittest:template: &unittest_definition
+  image: ${UBUNTU_BASE_IMAGE}:latest
+  stage: unittest
+  coverage: '/^TOTAL.*\s+(\d+\%)$/'
   except:
     - schedules
+
+.test:pg9_base:
+  <<: *unittest_definition
+  services: *psql9_definition
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres9"
-  coverage: '/^TOTAL.*\s+(\d+\%)$/'
 
-test:pg9_all:
-  image: ${UBUNTU_BASE_IMAGE}:latest
-  stage: unittest
-  services:
-    - name: postgres:9-alpine
-      alias: postgres9
-  only:
-    - triggers
-  except:
-    - schedules
+.test:pg9_all:
+  <<: *unittest_definition
+  services: *psql9_definition
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres9"
-  coverage: '/^TOTAL.*\s+(\d+\%)$/'
 
-test:pg10_base:
-  image: ${UBUNTU_BASE_IMAGE}:latest
-  stage: unittest
-  services:
-    - name: postgres:10-alpine
-      alias: postgres10
-  only:
-    - triggers
-  except:
-    - schedules
+.test:pg10_base:
+  <<: *unittest_definition
+  services: *psql10_definition
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres10"
-  coverage: '/^TOTAL.*\s+(\d+\%)$/'
 
-test:pg10_all:
-  image: ${UBUNTU_BASE_IMAGE}:latest
-  stage: unittest
-  services:
-    - name: postgres:10-alpine
-      alias: postgres10
-  except:
-    - schedules
-  only:
-    - triggers
+.test:pg10_all:
+  <<: *unittest_definition
+  services: *psql10_definition
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres10"
-  coverage: '/^TOTAL.*\s+(\d+\%)$/'
 
-build:flectra_ubuntu:
-  stage: build
+.build:template: &build_definition
   services:
     - name: docker:dind
   except:
     - schedules
   image: docker:stable
+
+build:flectra_ubuntu:
+  <<: *build_definition
+  stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker build --build-arg BASE_IMAGE=${UBUNTU_BASE_IMAGE} -f ./setup/docker/flectra/ubuntu/Dockerfile ./setup/docker/ --tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
     - docker push ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
 
 build:flectra_debian:
+  <<: *build_definition
   stage: build
-  services:
-    - name: docker:dind
-  except:
-    - schedules
-  image: docker:stable
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker build --build-arg BASE_IMAGE=${DEBIAN_BASE_IMAGE} -f ./setup/docker/flectra/debian/Dockerfile ./setup/docker/ --tag ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
     - docker push ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
 
-itest:ubuntu_pg9_all:
+.integrationtest:template: &integrationtest_definition
   stage: integrationtest
-  services:
-    - name: postgres:9-alpine
-      alias: postgres9
   except:
     - schedules
+
+itest:ubuntu_pg9_all:
+  <<: *integrationtest_definition
+  services: *psql9_definition
   image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres9
 
 itest:ubuntu_pg10_all:
-  stage: integrationtest
-  services:
-    - name: postgres:10-alpine
-      alias: postgres10
-  except:
-    - schedules
+  <<: *integrationtest_definition
+  services: *psql10_definition
   image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres10
 
 itest:debian_pg9_all:
-  stage: integrationtest
-  services:
-    - name: postgres:9-alpine
-      alias: postgres9
-  except:
-    - schedules
+  <<: *integrationtest_definition
+  services: *psql9_definition
   image: ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres9
 
 itest:debian_pg10_all:
-  stage: integrationtest
-  services:
-    - name: postgres:10-alpine
-      alias: postgres10
-  except:
-    - schedules
+  <<: *integrationtest_definition
+  services: *psql10_definition
   image: ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres10
 
 deploy:flectra_ubuntu:
+  <<: *build_definition
   stage: deploy
-  services:
-    - name: docker:dind
   only:
     - tag
-  image: docker:stable
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker build --build-arg BASE_IMAGE=${UBUNTU_BASE_IMAGE} -f ./setup/docker/flectra/ubuntu/Dockerfile ./setup/docker/ --tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_TAG --tag ${UBUNTU_FLECTRA_IMAGE}:latest
@@ -169,12 +129,10 @@ deploy:flectra_ubuntu:
     - docker push ${UBUNTU_FLECTRA_IMAGE}:latest
 
 deploy:flectra_debian:
+  <<: *build_definition
   stage: deploy
-  services:
-    - name: docker:dind
   only:
     - tag
-  image: docker:stable
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker build --build-arg BASE_IMAGE=${DEBIAN_BASE_IMAGE} -f ./setup/docker/flectra/ubuntu/Dockerfile ./setup/docker/ --tag ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_TAG --tag ${DEBIAN_FLECTRA_IMAGE}:latest
@@ -183,13 +141,16 @@ deploy:flectra_debian:
 
 
 # Scheduled builds for base image
-build:base_ubuntu:
+.build:base:template: &build_base_definition
   stage: build
   services:
     - name: docker:dind
   only:
     - schedules
   image: docker:stable
+
+build:base_ubuntu:
+  <<: *build_base_definition
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker pull ${UBUNTU_BASE_IMAGE}:latest || true
@@ -197,12 +158,7 @@ build:base_ubuntu:
     - docker push ${UBUNTU_BASE_IMAGE}:latest
 
 build:base_debian:
-  stage: build
-  services:
-    - name: docker:dind
-  only:
-    - schedules
-  image: docker:stable
+  <<: *build_base_definition
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker pull ${DEBIAN_BASE_IMAGE}:latest || true
