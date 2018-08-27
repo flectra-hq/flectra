@@ -96,7 +96,7 @@ build:flectra_ubuntu:
   image: docker:stable
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker build --build-arg GITLAB_REGISTRY=${GITLAB_REGISTRY} -f ./setup/docker/flectra/ubuntu/Dockerfile ./setup/docker/ --tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+    - docker build --build-arg BASE_IMAGE=${UBUNTU_BASE_IMAGE} -f ./setup/docker/flectra/ubuntu/Dockerfile ./setup/docker/ --tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
     - docker push ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
 
 build:flectra_debian:
@@ -108,7 +108,7 @@ build:flectra_debian:
   image: docker:stable
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker build --build-arg GITLAB_REGISTRY=${GITLAB_REGISTRY} -f ./setup/docker/flectra/debian/Dockerfile ./setup/docker/ --tag ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+    - docker build --build-arg BASE_IMAGE=${DEBIAN_BASE_IMAGE} -f ./setup/docker/flectra/debian/Dockerfile ./setup/docker/ --tag ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
     - docker push ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
 
 itest:ubuntu_pg9_all:
@@ -164,7 +164,7 @@ deploy:flectra_ubuntu:
   image: docker:stable
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker build --build-arg GITLAB_REGISTRY=${GITLAB_REGISTRY} -f ./setup/docker/flectra/ubuntu/Dockerfile ./setup/docker/ --tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_TAG --tag ${UBUNTU_FLECTRA_IMAGE}:latest
+    - docker build --build-arg BASE_IMAGE=${UBUNTU_BASE_IMAGE} -f ./setup/docker/flectra/ubuntu/Dockerfile ./setup/docker/ --tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_TAG --tag ${UBUNTU_FLECTRA_IMAGE}:latest
     - docker push ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_TAG
     - docker push ${UBUNTU_FLECTRA_IMAGE}:latest
 
@@ -177,7 +177,7 @@ deploy:flectra_debian:
   image: docker:stable
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker build --build-arg GITLAB_REGISTRY=${GITLAB_REGISTRY} -f ./setup/docker/flectra/ubuntu/Dockerfile ./setup/docker/ --tag ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_TAG --tag ${DEBIAN_FLECTRA_IMAGE}:latest
+    - docker build --build-arg BASE_IMAGE=${DEBIAN_BASE_IMAGE} -f ./setup/docker/flectra/ubuntu/Dockerfile ./setup/docker/ --tag ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_TAG --tag ${DEBIAN_FLECTRA_IMAGE}:latest
     - docker push ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_TAG
     - docker push ${DEBIAN_FLECTRA_IMAGE}:latest
 
