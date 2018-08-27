@@ -38,7 +38,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 
 RUN cd /opt/flectra && \
-    wget -O flectra.tar.gz https://gitlab.com/${ARG_GITLAB_OWNER}flectra/-/archive/${ARG_BRANCH}/flectra.tar.gz && \
+    wget -O flectra.tar.gz https://gitlab.com/${ARG_GITLAB_OWNER}/flectra/-/archive/${ARG_BRANCH}/flectra.tar.gz && \
     tar -zxvf flectra.tar.gz --strip 1
 
 EXPOSE 7073 7072
