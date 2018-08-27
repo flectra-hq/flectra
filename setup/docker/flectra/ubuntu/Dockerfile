@@ -6,8 +6,8 @@ FROM ${BASE_IMAGE}:latest
 LABEL maintainer="FlectraHQ <flectra@flectrahq.com>"
 LABEL authors="FlectraHQ,Jamotion"
 
-ARG ARG_GITLAB_OWNER=flectra
-ARG ARG_BRANCH=master
+ARG GITLAB_OWNER=flectra
+ARG GITLAB_COMMIT=master
 ARG ARG_DB_HOST=postgres
 ARG ARG_DB_PORT=5432
 ARG ARG_DB_USER=flectra
@@ -38,7 +38,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 
 RUN cd /opt/flectra && \
-    wget -O flectra.tar.gz https://gitlab.com/${ARG_GITLAB_OWNER}/flectra/-/archive/${ARG_BRANCH}/flectra.tar.gz && \
+    wget -q -O flectra.tar.gz https://gitlab.com/${GITLAB_OWNER}/flectra/-/archive/${GITLAB_COMMIT}/flectra.tar.gz && \
     tar -zxvf flectra.tar.gz --strip 1
 
 EXPOSE 7073 7072
