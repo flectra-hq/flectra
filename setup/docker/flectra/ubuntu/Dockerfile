@@ -25,9 +25,19 @@ USER root
 RUN mkdir -p /var/log/flectra && \
     chown -R flectra:flectra /var/log/flectra/
 
-RUN echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' > /etc/default/locale
+RUN locale-gen --purge en_US.UTF-8 && \
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' > /etc/default/locale
+
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
 
 USER flectra
+
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
 
 EXPOSE 7073 7072
 
