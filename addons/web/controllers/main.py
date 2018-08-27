@@ -639,7 +639,7 @@ class WebClient(http.Controller):
         translations_per_module = {}
         messages = request.env['ir.translation'].sudo().search_read([
             ('module', 'in', mods), ('lang', '=', lang),
-            ('comments', 'like', 'openerp-web'), ('value', '!=', False),
+            ('comments', 'like', 'flectra-web'), ('value', '!=', False),
             ('value', '!=', '')],
             ['module', 'src', 'value', 'lang'], order='module')
         for mod, msg_group in itertools.groupby(messages, key=operator.itemgetter('module')):
