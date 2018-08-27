@@ -38,7 +38,8 @@ ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 
-RUN wget -O flectra.tar.gz https://gitlab.com/${GITLAB_OWNER}flectra/-/archive/${GITLAB_COMMIT}/flectra.tar.gz && \
+RUN cd /opt/flectra && \
+    wget -O flectra.tar.gz https://gitlab.com/${GITLAB_OWNER}flectra/-/archive/${GITLAB_COMMIT}/flectra.tar.gz && \
     tar -zxvf flectra.tar.gz --strip 1
 
 EXPOSE 7073 7072
