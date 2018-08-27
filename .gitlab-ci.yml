@@ -20,6 +20,9 @@ variables:
   POSTGRES_HOST: postgres
   POSTGRES_PORT: "5432"
 
+#--------------------------------------------------------------------
+# Job Templates
+#--------------------------------------------------------------------
 .psql9:template:
   services: &psql9_definition
     - name: postgres:9-alpine
@@ -37,6 +40,29 @@ variables:
   except:
     - schedules
 
+.build:template: &build_definition
+  services:
+    - name: docker:dind
+  except:
+    - schedules
+  image: docker:stable
+
+.integrationtest:template: &integrationtest_definition
+  stage: integrationtest
+  except:
+    - schedules
+
+.build:base:template: &build_base_definition
+  stage: build
+  services:
+    - name: docker:dind
+  only:
+    - schedules
+  image: docker:stable
+
+#--------------------------------------------------------------------
+# Jobs of stage unittest
+#--------------------------------------------------------------------
 .test:pg9_base:
   <<: *unittest_definition
   services: *psql9_definition
@@ -61,13 +87,9 @@ variables:
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres10"
 
-.build:template: &build_definition
-  services:
-    - name: docker:dind
-  except:
-    - schedules
-  image: docker:stable
-
+#--------------------------------------------------------------------
+# Jobs of stage build
+#--------------------------------------------------------------------
 build:flectra_ubuntu:
   <<: *build_definition
   stage: build
@@ -84,11 +106,9 @@ build:flectra_debian:
     - docker build --build-arg BASE_IMAGE=${DEBIAN_BASE_IMAGE} -f ./setup/docker/flectra/debian/Dockerfile ./setup/docker/ --tag ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
     - docker push ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
 
-.integrationtest:template: &integrationtest_definition
-  stage: integrationtest
-  except:
-    - schedules
-
+#--------------------------------------------------------------------
+# Jobs of stage integrationtest
+#--------------------------------------------------------------------
 itest:ubuntu_pg9_all:
   <<: *integrationtest_definition
   services: *psql9_definition
@@ -140,14 +160,9 @@ deploy:flectra_debian:
     - docker push ${DEBIAN_FLECTRA_IMAGE}:latest
 
 
-# Scheduled builds for base image
-.build:base:template: &build_base_definition
-  stage: build
-  services:
-    - name: docker:dind
-  only:
-    - schedules
-  image: docker:stable
+#--------------------------------------------------------------------
+# Scheduled jobs of stage build (executed by gitlab scheduler)
+#--------------------------------------------------------------------
 
 build:base_ubuntu:
   <<: *build_base_definition
