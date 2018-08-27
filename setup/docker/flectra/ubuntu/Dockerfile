@@ -2,7 +2,7 @@
 #github.com/odoo/docker
 
 ARG BASE_IMAGE
-FROM ${GITLAB_REGISTRY}:latest
+FROM ${BASE_IMAGE}:latest
 LABEL maintainer="FlectraHQ <flectra@flectrahq.com>"
 LABEL authors="FlectraHQ,Jamotion"
 
