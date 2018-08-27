@@ -1,8 +1,8 @@
 #Partially from Odoo's dockerfile
 #github.com/odoo/docker
 
-ARG GITLAB_REGISTRY
-FROM ${GITLAB_REGISTRY}/flectra/base/debian:latest
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}:latest
 LABEL maintainer="FlectraHQ <flectra@flectrahq.com>"
 LABEL authors="FlectraHQ,Jamotion"
 
