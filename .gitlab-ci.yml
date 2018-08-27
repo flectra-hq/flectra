@@ -50,6 +50,8 @@ test:pg9_base:
 test:pg9_all:
   image: ${UBUNTU_BASE_IMAGE}:latest
   stage: unittest
+  only:
+    - triggers
   except:
     - schedules
   script:
@@ -70,6 +72,8 @@ test:pg10_all:
   stage: unittest
   except:
     - schedules
+  only:
+    - triggers
   script:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres10"
   coverage: '/^TOTAL.*\s+(\d+\%)$/'
