@@ -159,15 +159,9 @@ deploy:flectra_ubuntu:
     - tags
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker pull ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA || true
-    - docker build --cache-from ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
-        --build-arg BASE_IMAGE=${UBUNTU_BASE_IMAGE}
-        --build-arg GITLAB_OWNER=${CI_PROJECT_NAMESPACE}
-        --build-arg GITLAB_COMMIT=${CI_COMMIT_SHA}
-        --file ./setup/docker/flectra/ubuntu/Dockerfile
-        --tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_TAG
-        --tag ${UBUNTU_FLECTRA_IMAGE}:latest
-        ./setup/docker/
+    - docker pull ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+    - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_TAG
+    - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTU_FLECTRA_IMAGE}:latest
     - docker push ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_TAG
     - docker push ${UBUNTU_FLECTRA_IMAGE}:latest
 
@@ -178,15 +172,9 @@ deploy:flectra_debian:
     - tags
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker pull ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA || true
-    - docker build --cache-from ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
-        --build-arg BASE_IMAGE=${DEBIAN_BASE_IMAGE}
-        --build-arg GITLAB_OWNER=${CI_PROJECT_NAMESPACE}
-        --build-arg GITLAB_COMMIT=${CI_COMMIT_SHA}
-        --file ./setup/docker/flectra/debian/Dockerfile
-        --tag ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_TAG
-        --tag ${DEBIAN_FLECTRA_IMAGE}:latest
-        ./setup/docker/
+    - docker pull ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+    - docker tag ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_TAG
+    - docker tag ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${DEBIAN_FLECTRA_IMAGE}:latest
     - docker push ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_TAG
     - docker push ${DEBIAN_FLECTRA_IMAGE}:latest
 
