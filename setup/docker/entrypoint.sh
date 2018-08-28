@@ -25,13 +25,13 @@ case "$1" in
     -- | flectra)
         shift
         if [[ "$1" == "scaffold" ]] ; then
-            exec /opt/flectra/flectra/flectra-bin "$@"
+            exec /opt/flectra/flectra-bin "$@"
         else
-            exec /opt/flectra/flectra/flectra-bin "$@" "${DB_ARGS[@]}"
+            exec /opt/flectra/flectra-bin "$@" "${DB_ARGS[@]}"
         fi
         ;;
     -*)
-        exec /opt/flectra/flectra/flectra-bin "$@" "${DB_ARGS[@]}"
+        exec /opt/flectra/flectra-bin "$@" "${DB_ARGS[@]}"
         ;;
     *)
         exec "$@"
