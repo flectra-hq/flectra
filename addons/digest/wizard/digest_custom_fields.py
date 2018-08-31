@@ -11,36 +11,45 @@ import xml.etree.ElementTree as ET
 class DigestCustomFields(models.TransientModel):
     _name = 'digest.custom.fields'
 
-
-    DEFAULT_PYTHON_CODE = """# Available variables:
-#  - env: Flectra Environment on which the action is triggered
-#  - model: Flectra Model of the record on which the action is triggered; is a void recordset
-#  - record: record on which the action is triggered; may be be void
-#  - records: recordset of all records on which the action is triggered in multi-mode; may be void
-#  - time, datetime, dateutil, timezone: useful Python libraries
-#  - log: log(message, level='info'): logging function to record debug information in ir.logging table
-#  - Warning: Warning Exception to use with raise
-# To return an action, assign: action = {...}
-for rec in self:
-  rec[''] = self.env[''].search([])\n\n\n\n"""
-
-
     field_name = fields.Char('Field Name', default='x_kpi_', required=True)
     label_name = fields.Char('Label Name', required=True)
-    # group_type = fields.Selection([('new', 'New Group'), ('existing', 'Existing Group')], string='Group Type', required=True)
     new_group_name = fields.Char('Group Name')
     ttype = fields.Selection([('integer', 'Integer'), ('monetary', 'Monetary')], string='Field Type', required=True, default='integer')
-    compute = fields.Text(string='Python Code', groups='base.group_system',
-                       default=DEFAULT_PYTHON_CODE,
-                       help="Write Python code that the action will execute. Some variables are "
-                            "available for use; help about pyhon expression is given in the help tab.")
-
+    compute = fields.Text(string='Compute', groups='base.group_system')
     compute_field_name = fields.Char(compute='_compute_get_field_name', string='Compute Field Name')
     available_group_name = fields.Selection('_get_group_name', string='Available Group')
     position = fields.Selection([('before', 'Before'), ('after', 'After'), ('inside', 'Inside')], string='Position')
+    model_id = fields.Many2one(
+        'ir.model', string='Model')
+    model_name = fields.Char(related='model_id.model', string='Model Name')
+    model_domain = fields.Char(string='Domain', oldname='domain', default=[])
+    model_real = fields.Char(compute='_compute_model', string='Real Model')
+    related_date_field_id = fields.Many2one('ir.model.fields', 'Date')
+
+    @api.onchange('compute_field_name', 'model_id', 'model_domain', 'date_domain', 'related_date_field_id')
+    def onchange_compute_field_name(self):
+        data = """for record in self:
+  start, end, company = record._get_kpi_compute_parameters()
+  """
+        domain = self.model_domain
+        date = self.related_date_field_id
+        domain_values = """[["%s", ">=", start], ["%s", "<", end]]""" % (date.name or '', date.name or '')
+        if domain != '[]':
+            domain += domain_values
+            domain = domain.replace("][", ",")
+        else:
+            domain = domain_values
+
+        data += "record['%s'] = self.env['%s'].search_count(%s)" % (self.compute_field_name, self.model_real or '', domain) + "\n\n"
+        self.compute = data
+
+    @api.depends('model_id')
+    def _compute_model(self):
+        for record in self:
+            if record.model_id:
+                record.model_real = record.model_name or 'res.users'
 
     def _get_group_name(self):
-        print("=====self=========", self.env.context)
         digest_view_id = self.env.ref('digest.digest_digest_view_form').id
         view_ids = self.env['ir.ui.view'].search([('inherit_id', 'child_of', digest_view_id)])
         group_value = {}
@@ -70,8 +79,6 @@ for rec in self:
         for field in self:
             if not field.field_name.startswith('x_kpi_'):
                 raise ValidationError(_("Custom fields must have a name that starts with 'x_kpi_'!"))
-            # if self.position != 'inside' and not field.new_group_name.startswith('x_kpi_'):
-            #     raise ValidationError(_("Group Name must have a name that starts with 'x_kpi_'!"))
             try:
                 models.check_pg_name(field.field_name)
             except ValidationError:
@@ -90,9 +97,8 @@ for rec in self:
             'field_description': self.label_name,
             'model': 'digest.digest'
         }
-        ir_model_fields_obj.create(values)
 
-        values = {
+        compute_values = {
             'model_id': model_id.id,
             'ttype': self.ttype,
             'name': self.field_name + '_value',
@@ -101,7 +107,12 @@ for rec in self:
             'depends': first_field_name,
             'compute': self.compute
         }
-        ir_model_fields_obj.create(values)
+
+        try:
+            ir_model_fields_obj.create(values)
+            ir_model_fields_obj.create(compute_values)
+        except Exception as e:
+            raise ValidationError(e)
 
     def field_arch(self):
         xpath = etree.Element('xpath')
@@ -109,19 +120,16 @@ for rec in self:
         expr = '//' + 'group' + '[@name="' + name + '"]'
         xpath.set('expr', expr)
         xpath.set('position', self.position)
+        field = etree.Element('field')
+        field.set('name', self.field_name)
+        xpath.set('expr', expr)
 
         if self.position == 'inside':
-            field = etree.Element('field')
-            field.set('name', self.field_name)
-            xpath.set('expr', expr)
             xpath.append(field)
         else:
             group = etree.Element('group')
             group.set('name', 'x_kpi_' + self.new_group_name.replace(" ", "_"))
             group.set('string', self.new_group_name)
-            field = etree.Element('field')
-            field.set('name', self.field_name)
-            xpath.set('expr', expr)
             group.append(field)
             xpath.append(group)
 

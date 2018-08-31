@@ -44,7 +44,6 @@ class Digest(models.Model):
     kpi_mail_message_total = fields.Boolean('Messages')
     kpi_mail_message_total_value = fields.Integer(compute='_compute_kpi_mail_message_total_value')
 
-
     def _compute_is_subscribed(self):
         for digest in self:
             digest.is_subscribed = self.env.user in digest.user_ids
@@ -108,6 +107,10 @@ class Digest(models.Model):
 
     def compute_kpis(self, company, user):
         self.ensure_one()
+        if not company:
+            company = self.env.user.company_id
+        if not user:
+            user = self.env.user
         res = {}
         for tf_name, tf in self._compute_timeframes(company).items():
             digest = self.with_context(start_date=tf[0][0], end_date=tf[0][1], company=company).sudo(user.id)
@@ -115,7 +118,6 @@ class Digest(models.Model):
             kpis = {}
             for field_name, field in self._fields.items():
                 if field.type == 'boolean' and (field_name.startswith('kpi_') or field_name.startswith('x_kpi_')) and self[field_name]:
-
                     try:
                         compute_value = digest[field_name + '_value']
                         previous_value = previous_digest[field_name + '_value']

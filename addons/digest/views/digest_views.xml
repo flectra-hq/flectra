@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <flectra>
+
     <record id="digest_digest_view_tree" model="ir.ui.view">
         <field name="name">digest.digest.view.tree</field>
         <field name="model">digest.digest</field>
@@ -36,6 +37,9 @@
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="%(digest.wizard_email_template_preview_digest)d" icon="fa-search-plus" string="Preview" type="action" target="new" context="{'template_id': template_id}" attrs="{'invisible': [('template_id', '=', False)]}"/>
+                    </div>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
                         <h1>
@@ -92,4 +96,5 @@
         parent="base.menu_email"
         groups="base.group_erp_manager"
         sequence="93"/>
+
 </flectra>

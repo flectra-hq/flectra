@@ -34,40 +34,27 @@ class DigestCustomRemove(models.TransientModel):
         ir_ui_view_obj = self.env['ir.ui.view']
         if self.remove_type == 'group':
             find_view_id = self.available_group_name and self.available_group_name.split('_', 1)[0] or False
-            print("===find_view_id==", find_view_id)
             view_ids = ir_ui_view_obj.search([('inherit_id', 'child_of', int(find_view_id))], order="id desc")
             field_list = []
             for view_id in view_ids:
-                print("===view_id========", view_id)
                 root = ET.fromstring(view_id.arch_base)
-                print("==========root=====", root)
                 for child in root.iter('group'):
                     name = child.find('field')
                     if name.attrib and name.attrib.get('name', False):
                         field_list.append(name.attrib.get('name', False))
             field_ids = ir_model_fields_obj.search([('name', 'in', field_list)])
-            print("====field_ids====", field_ids, view_ids.ids)
             view_ids.unlink()
             for field_id in field_ids:
                 ir_model_fields_obj.search([('depends', '=', field_id.name)]).unlink()
             field_ids.unlink()
         else:
             domain = expression.OR([('arch_db', 'like', record.name)] for record in self.field_id)
-            print("===domain======", domain)
             view_ids = ir_ui_view_obj.search(domain)
-            print("==========>>>>>>>>.", view_ids)
             for view_id in view_ids:
-                # print("=====view_id.arch_base======before========", view_id.arch_base)
                 root = ET.fromstring(view_id.arch_base)
-                # result = len(root.getchildren())
-                # count = sum(1 for root in root.iter("field"))
-                # print("===============result==============>", result, count)
                 for child in root.iter('field'):
-                #     print("===========>>>>",child.text, child.attrib, child.tag)
                     if child.attrib and child.attrib.get('name', False) == self.field_id.name:
                         view_id.unlink()
-                #         root.remove(child)
-                # view_id.write({'arch_base': ET.tostring(root)})
             ir_model_fields_obj.search([('depends', '=', self.field_id.name)]).unlink()
             self.field_id.unlink()
         return {

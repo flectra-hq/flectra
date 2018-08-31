@@ -10,8 +10,8 @@
 <table style="width: 100%; border-spacing: 0; font-family: Helvetica,Arial,Verdana,sans-serif;">
     <tr>
         <td align="center" valign="top" style="border-collapse: collapse; padding: 0">
-            % set company, user = ctx['company'], ctx['user']
-            % set data = object.compute_kpis(company, user)
+            % set company, user = user.company_id, user
+            % set data = object.compute_kpis(user.company, user)
             % set tips = object.compute_tips(company, user)
             % set kpi_actions = object.compute_kpis_actions(company, user)
             % set kpis = data.yesterday.keys()
@@ -120,32 +120,6 @@
                     </tr>
                 </table>
             % endif
-            <table style="width: 100%; max-width: 600px; margin-top: 5px; border: 1px solid #e7e7e7;">
-                <tr>
-                    <td style="border-collapse: collapse; background-color: #ffffff; line-height: 21px; padding: 0 20px 10px 20px; text-align: center;"><br/>
-                        <div style="color: #3d466e; font-size: 16px; font-weight: 600; line-height: 23px;">Run your bussiness from anywhere with Flectra Mobile.</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div style="text-align: center;"><a href="https://play.google.com/store/apps/details?id=com.flectrahq.mobile" target="_blank"><img src="/digest/static/src/img/google_play.png" style="display: inline-block; height: 30px; margin-left: auto; margin-right: 12px;"/></a><a href="https://itunes.apple.com/us/app/flectrahq/id1272543640" target="_blank"><img src="/digest/static/src/img/app_store.png" style="display: inline-block; height: 30px; margin-left: 12px; margin-right: auto;"/></a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <table style="margin-top: 5px; border: 1px solid #e7e7e7; font-size: 15px; width: 100%; max-width: 600px;">
-                <tr>
-                    <td style="border-collapse: collapse; margin: 0; padding: 10px 20px;">
-                        % if ctx['user'].has_group('base.group_system'):
-                            <div style="margin-top: 20px;">
-                                Want to customize the email?
-                                <a href="/web#view_type=form&amp;model=digest.digest&amp;id=${object.id}" target="_blank" style="color: #875A7B;">Choose the metrics you care about</a>
-                            </div>
-                            <br />
-                        % endif
-                    </td>
-                </tr>
-            </table>
         </td>
     </tr>
 </table>
