@@ -39,9 +39,13 @@ ENV LANGUAGE en_US:en
 
 RUN cd /opt/flectra && \
     wget -q -O flectra.tar.gz https://gitlab.com/${GITLAB_OWNER}/flectra/-/archive/${GITLAB_COMMIT}/flectra.tar.gz && \
-    tar -zxvf flectra.tar.gz --strip 1 && \
-    mv -r addons/* ./flectra/addons && \
-    rm -rf addons
+    tar -zxvf flectra.tar.gz flectra-${GITLAB_COMMIT}/flectra-bin flectra-${GITLAB_COMMIT}/flectra flectra-${GITLAB_COMMIT}/addons && \
+    cd flectra-${GITLAB_COMMIT} && \
+    rm -rf flectra/addons/test* && \
+    mv addons/* flectra/addons/ && \
+    mv flectra ../. && \
+    mv flectra-bin ../. && \
+    rm -rf flectra-${GITLAB_COMMIT}
 
 EXPOSE 7073 7072
 
