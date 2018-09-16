@@ -8,10 +8,6 @@ ARG POSTGRESQL_VERSION=10
 RUN apt-get update && \
     apt-get install wget -y
 
-# adding postgresql debian repo in order to access all available postgresql version
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-    echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" > /etc/apt/sources.list.d/pgdg.list
-
 RUN apt-get update && \
     apt-get install git gnupg2 python3 curl expect-dev node-less \
     python3-pillow python3-lxml python-ldap3 python3-dev python3-pip python3-setuptools python3-passlib \
