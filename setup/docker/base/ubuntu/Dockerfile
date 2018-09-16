@@ -12,7 +12,7 @@ RUN apt-get update && \
     apt-get install git gnupg2 python3 curl expect-dev node-less \
     python3-pillow python3-lxml python-ldap3 python3-dev python3-pip python3-setuptools python3-passlib \
     postgresql-${POSTGRESQL_VERSION} postgresql-server-dev-${POSTGRESQL_VERSION} \
-    fontconfig libxfont1 xfonts-encodings xfonts-utils xfonts-base xfonts-75dpi \
+    fontconfig libxfont2 xfonts-encodings xfonts-utils xfonts-base xfonts-75dpi \
     npm nodejs libldap2-dev libsasl2-dev libxml2-dev libxslt1-dev libjpeg-dev zlib1g-dev libfontconfig1 -y
 
 RUN locale-gen --purge en_US.UTF-8 && \
