@@ -3,7 +3,7 @@ FROM debian:jessie
 LABEL maintainer="FlectraHQ <flectra@flectrahq.com>"
 LABEL authors="FlectraHQ,Jamotion"
 
-ARG POSTGRESQL_VERSION=9.6
+ARG POSTGRESQL_VERSION=10
 
 RUN apt-get update && \
     apt-get install wget -y
