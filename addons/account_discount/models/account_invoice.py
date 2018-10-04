@@ -54,10 +54,11 @@ class AccountInvoice(models.Model):
                 discount_value_ratio = \
                     (self.discount_amount * line.price_subtotal) / \
                     gross_amount
-                discount_per_ratio = \
-                    (discount_value_ratio * 100) / line.price_subtotal
-                line.write({'discount': discount_per_ratio})
-                self._onchange_invoice_line_ids()
+                if discount_value_ratio:
+                    discount_per_ratio = \
+                        (discount_value_ratio * 100) / line.price_subtotal
+                    line.write({'discount': discount_per_ratio})
+                    self._onchange_invoice_line_ids()
         self._check_constrains()
 
     @api.multi
