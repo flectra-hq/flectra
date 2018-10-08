@@ -505,7 +505,12 @@ class HrPayslipLine(models.Model):
     rate = fields.Float(string='Rate (%)', digits=dp.get_precision('Payroll Rate'), default=100.0)
     amount = fields.Float(digits=dp.get_precision('Payroll'))
     quantity = fields.Float(digits=dp.get_precision('Payroll'), default=1.0)
-    total = fields.Float(compute='_compute_total', string='Total', digits=dp.get_precision('Payroll'), store=True)
+    total = fields.Monetary(compute='_compute_total', string='Total',
+                            digits=dp.get_precision('Payroll'), store=True,
+                            currency_field='company_currency_id')
+    company_currency_id = fields.Many2one(
+        'res.currency', related='employee_id.company_id.currency_id',
+        string="Company Currency", readonly=True)
 
     @api.depends('quantity', 'amount', 'rate')
     def _compute_total(self):
