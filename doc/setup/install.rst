@@ -512,7 +512,7 @@ offcial Flectra `docker image <https://hub.docker.com/r/flectrahq/flectra/>`_ pa
 .. _PostgreSQL for windows:
     http://www.enterprisedb.com/products-services-training/pgdownload
 .. _Quilt: http://en.wikipedia.org/wiki/Quilt_(software)
-.. _saas: https://www.flectra.com/page/start
+.. _saas: https://www.flectrahq.com
 .. _the wkhtmltopdf download page: https://github.com/wkhtmltopdf/wkhtmltopdf/releases/tag/0.12.1
 .. _UAC: http://en.wikipedia.org/wiki/User_Account_Control
 .. _wkhtmltopdf: http://wkhtmltopdf.org
@@ -525,10 +525,9 @@ offcial Flectra `docker image <https://hub.docker.com/r/flectrahq/flectra/>`_ pa
 .. _pywin32: http://sourceforge.net/projects/pywin32/files/pywin32/
 .. _the repository: https://gitlab.com/flectra-hq/flectra
 .. _git: http://git-scm.com
-.. _Editions: https://www.flectra.com/pricing#pricing_table_features
-.. _extra: https://download.flectrahq.com/1.0/pub/
-.. _flectrahq_rpm: https://download.flectrahq.com/1.0/pub/rpm/
-.. _Download: https://download.flectrahq.com/
-.. _flectrahq_zip: https://download.flectrahq.com/1.0/pub/src/flectra_1.0.latest.zip
-.. _flectrahq: https://download.flectrahq.com/1.0/pub/deb/flectra_1.0.latest_all.deb
+.. _extra: https://download.flectrahq.com
+.. _flectrahq_rpm: https://download.flectrahq.com
+.. _Download: https://download.flectrahq.com
+.. _flectrahq_zip: https://download.flectrahq.com
+.. _flectrahq: https://download.flectrahq.com
 

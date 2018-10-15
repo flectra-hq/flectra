@@ -24,6 +24,6 @@ class ResConfigSettings(models.TransientModel):
         res.update(
             cal_client_id=get_param('google_calendar_client_id', default=''),
             cal_client_secret=get_param('google_calendar_client_secret', default=''),
-            server_uri="%s/google_account/authentication" % get_param('web.base.url', default="http://yourcompany.flectra.com"),
+            server_uri="%s/google_account/authentication" % get_param('web.base.url', default="http://www.flectrahq.com"),
         )
         return res

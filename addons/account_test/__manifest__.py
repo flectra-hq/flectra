@@ -9,7 +9,7 @@
     'author': 'Odoo S.A',
     'version': '1.0',
     'category': 'Accounting',
-    'website': 'https://flectrahq.com/page/accounting',
+    'website': 'https://flectrahq.com/accounting',
     'description': """
 Asserts on accounting.
 ======================

@@ -28,7 +28,7 @@ Three reports are available:
     3. The last one is available from the Analytic Chart of Accounts. It gives
        the spreading, for the selected Analytic Accounts of Budgets.
 """,
-    'website': 'https://flectrahq.com/page/accounting',
+    'website': 'https://flectrahq.com/accounting',
     'depends': ['account'],
     'data': [
         'security/ir.model.access.csv',

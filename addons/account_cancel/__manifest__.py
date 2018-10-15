@@ -22,7 +22,7 @@ It also operates on invoices, bank statements, payments ...
 
 Be careful with this module as it has audit implications. Cancelling accounting entries is not authorized in all countries.
 """,
-    'website': 'https://flectrahq.com/page/accounting',
+    'website': 'https://flectrahq.com/accounting',
     'depends': ['account'],
     'data': ['views/account_views.xml'],
     'demo': [],

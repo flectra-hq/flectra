@@ -113,7 +113,7 @@ class BuckarooForm(BuckarooCommon):
             'brq_payment': u'573311D081B04069BD6336001611DBD4',
             'BRQ_PAYMENT_METHOD': u'paypal',
             'BRQ_SERVICE_PAYPAL_PAYERCOUNTRY': u'NL',
-            'BRQ_SERVICE_PAYPAL_PAYEREMAIL': u'fhe@flectra.com',
+            'BRQ_SERVICE_PAYPAL_PAYEREMAIL': u'fhe@flectrahq.com',
             'BRQ_SERVICE_PAYPAL_PAYERFIRSTNAME': u'Jan',
             'BRQ_SERVICE_PAYPAL_PAYERLASTNAME': u'Tester',
             'BRQ_SERVICE_PAYPAL_PAYERMIDDLENAME': u'de',

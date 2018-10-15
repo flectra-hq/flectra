@@ -36,7 +36,7 @@ such as Chile, Colombia, Mexico, Norway or Russia. For unsupported countries,
 only the country code will be validated.
     """,
     'depends': ['account'],
-    'website': 'https://flectrahq.com/page/accounting',
+    'website': 'https://flectrahq.com/accounting',
     'data': [
         'views/res_partner_views.xml',
         'views/res_config_settings_views.xml',

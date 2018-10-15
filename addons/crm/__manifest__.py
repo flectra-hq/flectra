@@ -9,7 +9,7 @@
     'sequence': 5,
     'summary': 'Leads, Opportunities, Activities',
     'description': "",
-    'website': 'https://flectrahq.com/page/crm',
+    'website': 'https://flectrahq.com/crm',
     'depends': [
         'base_setup',
         'sales_team',

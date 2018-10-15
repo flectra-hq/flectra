@@ -425,7 +425,7 @@ QUnit.test('chatter: post, receive and star messages', function (assert) {
             }
             if (args.method === 'get_mention_suggestions') {
                 getSuggestionsDef.resolve();
-                return $.when([{email: "test@flectra.com", id: 1, name: "Test User"}]);
+                return $.when([{email: "test@flectrahq.com", id: 1, name: "Test User"}]);
             }
             return this._super(route, args);
         },
@@ -545,7 +545,8 @@ QUnit.test('chatter: post, receive and star messages', function (assert) {
                 "suggestion's id should be correct");
             assert.strictEqual(form.$('.o_mention_proposition .o_mention_name').text(), 'Test User',
                 "suggestion should be displayed correctly");
-            assert.strictEqual(form.$('.o_mention_proposition .o_mention_info').text(), '(test@flectra.com)',
+            assert.strictEqual(form.$('.o_mention_proposition' +
+                ' .o_mention_info').text(), '(test@flectrahq.com)',
                 "suggestion should be displayed correctly");
 
             BasicComposer.prototype.MENTION_THROTTLE = mentionThrottle;

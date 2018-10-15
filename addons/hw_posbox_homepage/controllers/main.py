@@ -38,13 +38,14 @@ index_template = """
         <p>
         The PosBox is a hardware adapter that allows you to use
         receipt printers and barcode scanners with Flectra's Point of
-        Sale, <b>version 8.0 or later</b>. You can start an <a href='https://www.flectra.com/start'>online free trial</a>,
-        or <a href='https://www.flectra.com/page/download'>download and install</a> it yourself.
+        Sale, <b>version 8.0 or later</b>. You can start an <a 
+        href='https://www.flectrahq.com'>online free trial</a>,
+        or <a href='https://flectrahq.com/download'>download and install</a> it yourself.
         </p>
         <p>
         For more information on how to setup the Point of Sale with
         the PosBox, please refer to
-        <a href='https://www.flectra.com/documentation/user/point_of_sale/posbox/index.html'>the manual</a>.
+        <a href='https://userdoc.flectrahq.com/point_of_sale.html'>the manual</a>.
         </p>
         <p>
         To see the status of the connected hardware, please refer 
@@ -62,7 +63,7 @@ index_template = """
         the posbox version number is independent from Flectra. You can upgrade
         the software on the <a href='/hw_proxy/upgrade/'>upgrade page</a>.
         </p>
-        <p>For any other question, please contact the Flectra support at <a href='http://www.flectra.com/help'>www.flectra.com/help</a>
+        <p>For any other question, please contact the Flectra support at <a href='https://flectrahq.com/flectra-erp-support'</a>
         </p>
     </body>
 </html>
@@ -76,7 +77,8 @@ class PosboxHomepage(flectra.addons.web.controllers.main.Home):
         return """
 <p>
     The activate the customer display feature, you will need to reinstall the PosBox software.
-    You can find the latest images on the <a href="http://nightly.flectra.com/master/posbox/">Flectra Nightly builds</a> website.
+    You can find the latest images on the <a 
+    href="http://nightly.flectrahq.com/master/posbox/">Flectra Nightly builds</a> website.
     Make sure to download at least the version 16.<br/>
     Flectra version 11, or above, is required to use the customer display feature.
 </p>

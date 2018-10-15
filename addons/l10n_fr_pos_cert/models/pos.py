@@ -180,7 +180,10 @@ class pos_order(models.Model):
                          From: %(start_order_name)s %(start_order_ref)s recorded on %(start_order_date)s
                          To: %(end_order_name)s %(end_order_ref)s recorded on %(end_order_date)s
 
-                         For this report to be legally meaningful, please download your certification from your customer account on Flectra.com (Only for Flectra Enterprise users).'''
+                         For this report to be legally meaningful, please 
+                         download your certification from your customer 
+                         account on flectrahq.com (Only for Flectra 
+                         Enterprise users).'''
                          ) % report_dict)
 
 

@@ -5,7 +5,7 @@ from flectra import api, fields, models
 from flectra.exceptions import UserError
 from flectra.addons.iap.models import iap
 
-DEFAULT_ENDPOINT = 'https://iap-sms.flectra.com'
+DEFAULT_ENDPOINT = 'https://www.flectrahq.com'
 
 
 class SmsApi(models.AbstractModel):

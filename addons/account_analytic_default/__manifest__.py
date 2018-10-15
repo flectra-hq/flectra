@@ -18,7 +18,7 @@ Allows to automatically select analytic accounts based on criterions:
     * Company
     * Date
     """,
-    'website': 'https://flectrahq.com/page/accounting',
+    'website': 'https://flectrahq.com/accounting',
     'depends': ['sale_stock'],
     'data': [
         'security/ir.model.access.csv',

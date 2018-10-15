@@ -20,7 +20,7 @@ It supports:
 If you need to manage your meetings, you should install the CRM module.
     """,
     'category': 'Extra Tools',
-    'website': 'https://flectrahq.com/page/crm',
+    'website': 'https://flectrahq.com/crm',
     'demo': [
         'data/calendar_demo.xml'
     ],
