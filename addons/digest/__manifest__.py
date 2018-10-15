@@ -10,15 +10,16 @@ Send KPI Digests periodically
     'version': '1.0',
     'depends': [
         'mail',
-        'portal'
+        'portal',
+        'resource',
     ],
     'data': [
         'security/ir.model.access.csv',
         'data/digest_template_data.xml',
-        'views/digest_templates.xml',
         'data/digest_data.xml',
         'data/ir_cron_data.xml',
         'data/res_config_settings_data.xml',
+        'views/digest_templates.xml',
         'views/digest_views.xml',
         'wizard/digest_custom_fields_view.xml',
         'wizard/digest_custom_remove_view.xml',
