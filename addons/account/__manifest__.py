@@ -10,7 +10,7 @@
 Core mechanisms for the accounting modules. To display the menuitems, install the module account_invoicing.
     """,
     'category': 'Accounting',
-    'website': 'https://flectrahq.com/page/billing',
+    'website': 'https://flectrahq.com/accounting',
     'images' : ['images/accounts.jpeg','images/bank_statement.jpeg','images/cash_register.jpeg','images/chart_of_accounts.jpeg','images/customer_invoice.jpeg','images/journal_entries.jpeg'],
     'depends' : ['base_setup', 'product', 'analytic', 'web_planner', 'portal'],
     'data': [

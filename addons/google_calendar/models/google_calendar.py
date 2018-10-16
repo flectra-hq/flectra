@@ -901,7 +901,7 @@ class GoogleCalendar(models.AbstractModel):
         readonly = '.readonly' if RO else ''
         return 'https://www.googleapis.com/auth/calendar%s' % (readonly)
 
-    def authorize_google_uri(self, from_url='http://www.flectra.com'):
+    def authorize_google_uri(self, from_url='http://www.flectrahq.com'):
         url = self.env['google.service']._get_authorize_uri(from_url, self.STR_SERVICE, scope=self.get_calendar_scope())
         return url
 

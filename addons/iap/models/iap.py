@@ -12,7 +12,7 @@ from flectra.tools import pycompat
 
 _logger = logging.getLogger(__name__)
 
-DEFAULT_ENDPOINT = 'https://iap.flectra.com'
+DEFAULT_ENDPOINT = 'https://www.flectrahq.com'
 
 
 #----------------------------------------------------------

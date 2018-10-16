@@ -290,7 +290,9 @@ Adding a new fiscal position to my Chart of Accounts
 ####################################################
 
 .. note::
-    If you need more information about what is a fiscal position and how it works in Flectra, please refer to `How to adapt taxes to my customer status or localization <https://www.flectra.com/documentation/user/online/accounting/others/taxes/application.html>`_.
+    If you need more information about what is a fiscal position and how it
+    works in Flectra, please refer to `How to adapt taxes to my customer
+    status or localization <https://userdoc.flectrahq.com/accounting/others/taxes/application.html>`_.
 
 To create a new fiscal position, simply use the ``account.fiscal.position.template`` model:
 
@@ -361,8 +363,8 @@ How to create a new bank operation model?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. note::
-    How a bank operation model works exactly in Flectra? See `Configure model of entries <https://www.flectra.com/documentation/user/online/accounting/bank/reconciliation/configure.html>`_.
-
+    How a bank operation model works exactly in Flectra? See `Configure model of entries <https://userdoc.flectrahq.com/accounting/bank/reconciliation/configure.html>`_.
+accounting/bank/reconciliation/configure.html
 Since ``V10``, a new feature is available in the bank statement reconciliation widget: the bank operation model.
 This allows the user to pre-fill some accounting entries with a single click.
 The creation of an ``account.reconcile.model.template`` record is quite easy:

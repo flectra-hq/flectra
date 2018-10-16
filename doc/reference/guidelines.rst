@@ -16,7 +16,8 @@ These guidelines should be applied to every new module, and new development.
     modifying existing files, the original style of the file strictly supersedes
     any other style guidelines. In other words, never modify existing files in
     order to apply these guidelines, to avoid disrupting the revision history of
-    each line. For more details, see our `pull request guide <https://flectra.com/submit-pr>`_.
+    each line. For more details, see our `pull request guide
+    <https://flectrahq.com/submit-pr>`_.
 
 Module structure
 ================

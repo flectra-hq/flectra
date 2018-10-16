@@ -9,7 +9,7 @@
     'sequence': 60,
     'summary': 'Purchase Orders, Receipts, Vendor Bills',
     'description': "",
-    'website': 'https://flectrahq.com/page/purchase',
+    'website': 'https://flectrahq.com/purchase',
     'depends': ['stock_account'],
     'data': [
         'security/purchase_security.xml',

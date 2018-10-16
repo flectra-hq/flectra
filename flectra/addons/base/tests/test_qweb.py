@@ -475,7 +475,7 @@ class TestQWebNS(TransactionCase):
             'type': 'qweb',
             'arch': u"""
                 <t t-name="base.dummy">
-                    <Invoice xmlns:od="http://flectra.com/od">
+                    <Invoice xmlns:od="http://flectrahq.com/od">
                         <od:name t-att-test="'a' + 1"/>
                     </Invoice>
                 </t>
