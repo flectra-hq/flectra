@@ -202,9 +202,7 @@ class EventEvent(models.Model):
 
     @api.model
     def _tz_get(self):
-        a = [(x, x) for x in pytz.all_timezones]
-        print("\n\n\n=================>>>>>>.", a)
-        return a
+        return [(x, x) for x in pytz.all_timezones]
 
     @api.one
     @api.depends('date_tz', 'date_begin')

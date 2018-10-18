@@ -8,6 +8,8 @@ Send KPI Digests periodically
 =============================
 """,
     'version': '1.0',
+    'author': 'Odoo SA, FlectraHQ',
+    'summary': 'Get KPIs sent by email periodically according to your preferences',
     'depends': [
         'mail',
         'portal',
