@@ -21,7 +21,7 @@ class Company(models.Model):
     _name = "res.company"
     _inherit = ["res.company"]
 
-    branch_id = fields.Many2one('res.branch', 'Branch', ondelete="restrict")
+    branch_id = fields.Many2one('res.branch', 'Branch', ondelete="cascade")
 
     @api.model
     def create(self, vals):
@@ -66,9 +66,6 @@ class ResBranch(models.Model):
 
     @api.model
     def create(self, vals):
-        if not vals.get('partner_id', False):
-            partner_id = self.env['res.partner'].create({'name': vals['name']})
-            vals.update({'partner_id': partner_id.id})
         res = super(ResBranch, self).create(vals)
         vals.pop("name", None)
         vals.pop("code", None)
@@ -86,7 +83,8 @@ class ResBranch(models.Model):
         vals.pop("partner_id", None)
         ctx = self.env.context.copy()
         if 'branch' not in ctx:
-            self.partner_id.write(vals)
+            for record in self:
+                record.partner_id.write(vals)
         return res
 
 
@@ -131,8 +129,9 @@ class Users(models.Model):
 
     @api.onchange('company_id')
     def _onchange_company_id(self):
-        self.default_branch_id = self.company_id.branch_id.id
-        self.branch_ids = [(4, self.company_id.branch_id.id)]
+        if self.company_id.branch_id:
+            self.default_branch_id = self.company_id.branch_id.id
+            self.branch_ids = [(4, self.company_id.branch_id.id)]
 
     # To do : Check with all base module test cases
     # @api.multi
