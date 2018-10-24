@@ -264,3 +264,19 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self)._prepare_invoice()
         res['website_id'] = self.website_id.id
         return res
+
+    @api.model
+    def send_cart_recovery_mail(self):
+        for val in self.search([('state', 'in', ['draft', 'sent'])]):
+            template = False
+            try:
+                template = self.env.ref(
+                    'website_sale.mail_template_sale_cart_recovery',
+                    raise_if_not_found=False)
+            except ValueError:
+                pass
+            if val.partner_id.email and template and val.is_abandoned_cart \
+                    and not val.cart_recovery_email_sent:
+                template.with_context(lang=val.partner_id.lang).send_mail(
+                    val.id, force_send=True, raise_exception=True)
+                val.cart_recovery_email_sent = True

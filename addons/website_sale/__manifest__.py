@@ -14,6 +14,7 @@
         'data/data.xml',
         'data/web_planner_data.xml',
         'data/mail_template_data.xml',
+        'data/ir_cron_view.xml',
         'views/product_views.xml',
         'views/account_views.xml',
         'views/sale_report_views.xml',
