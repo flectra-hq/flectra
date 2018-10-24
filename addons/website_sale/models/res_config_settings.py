@@ -72,6 +72,8 @@ class ResConfigSettings(models.TransientModel):
         cart_recovery_mail_template = literal_eval(params.get_param('website_sale.cart_recovery_mail_template_id', default='False'))
         if cart_recovery_mail_template and not self.env['mail.template'].browse(cart_recovery_mail_template).exists():
             cart_recovery_mail_template = self._default_recovery_mail_template()
+        else:
+            cart_recovery_mail_template = self._default_recovery_mail_template()
 
         res.update(
             automatic_invoice=params.get_param('website_sale.automatic_invoice', default=False),

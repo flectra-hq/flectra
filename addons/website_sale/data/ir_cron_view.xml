@@ -1,0 +1,14 @@
+<flectra>
+    <data noupdate="1">
+        <record forcecreate="True" id="cron_sale_cart_recovery" model="ir.cron">
+            <field name="name">eCommerce: Cart Recovery Email Cron</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">model.send_cart_recovery_mail()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+        </record>
+    </data>
+</flectra>
