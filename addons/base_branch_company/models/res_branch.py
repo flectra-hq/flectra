@@ -149,3 +149,19 @@ class Users(models.Model):
         branches_count = self._branches_count()
         for user in self:
             user.branches_count = branches_count
+
+    @api.model
+    def create(self, vals):
+        res = super(Users, self).create(vals)
+        if 'company_id' in vals:
+            vals.update({
+                'default_branch_id': self.company_id.branch_id.id,
+            })
+        return res
+
+    @api.multi
+    def write(self, vals):
+        res = super(Users, self).write(vals)
+        if 'company_id' in vals:
+            self.default_branch_id = self.company_id.branch_id.id
+        return res
