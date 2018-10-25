@@ -13,7 +13,7 @@
          <field name="bank_account_code_prefix">101</field>
          <field name="currency_id" ref="base.AED" />
          <field name="transfer_account_id" ref="transfer_account_id"/>
-         <field name="complete_tax_set" eval="False"/>
+         <!-- <field name="complete_tax_set" eval="False"/> -->
      </record>
 
      <record model="account.account.template" id="transfer_account_id">
@@ -1469,6 +1469,13 @@
          <field name="chart_template_id" ref="uae_chart_template_standard"/>
      </record>
 
+    <record id="rc_customs_expense_account" model="account.account.template">
+        <field name="code">581001</field>
+        <field name="name">Customs Expense</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses"/>
+        <field name="chart_template_id" ref="uae_chart_template_standard"/>
+    </record>
+
      <record id="uae_chart_template_standard" model="account.chart.template">
          <field name="property_account_receivable_id" ref="uae_account_3681" />
          <field name="property_account_payable_id" ref="uae_account_3753" />
@@ -1498,4 +1505,169 @@
          <field name="refund_account_id" ref="uae_account_3726"/>
          <field name="tax_group_id" ref="tax_group_15"/>
      </record>
+
+    <record model="account.account.template" id="excise_payable_account">
+        <field name="name">Excise Payable Account</field>
+        <field name="code">2013001</field>
+        <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+        <field name="reconcile" eval="True" />
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
+    <record model="account.account.template" id="excise_receivable_account">
+        <field name="name">Excise Receivable Account</field>
+        <field name="code">1034001</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="reconcile" eval="True" />
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
+    <record model="account.account.template" id="vat_payable_account">
+        <field name="name">Vat Payable Account</field>
+        <field name="code">2013002</field>
+        <field name="user_type_id" ref="account.data_account_type_current_liabilities" />
+        <field name="reconcile" eval="True" />
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
+    <record model="account.account.template" id="vat_receivable_account">
+        <field name="name">Vat Receivable Account</field>
+        <field name="code">1034002</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="reconcile" eval="True" />
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
+    <record id="sale_uae_excise_50" model="account.tax.template">
+        <field name="name">Sale - Excise 50%</field>
+        <field name="description">Sale Excise 50%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">50</field>
+        <field name="account_id" ref="vat_payable_account"/>
+        <field name="refund_account_id" ref="vat_payable_account"/>
+        <field name="tax_type">excise</field>
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
+    <record id="purchase_uae_excise_50" model="account.tax.template">
+        <field name="name">Purchase - Excise 50%</field>
+        <field name="description">Purchase Excise 50%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">50</field>
+        <field name="account_id" ref="excise_receivable_account"/>
+        <field name="refund_account_id" ref="excise_receivable_account"/>
+        <field name="tax_type">excise</field>
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
+    <record id="sale_uae_vat_zero" model="account.tax.template">
+        <field name="name">Sale - Zero%</field>
+        <field name="description">Sale Zero%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0</field>
+        <field name="account_id" ref="vat_payable_account"/>
+        <field name="refund_account_id" ref="vat_payable_account"/>
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
+    <record id="purchase_uae_vat_zero" model="account.tax.template">
+        <field name="name">Purchase - Zero%</field>
+        <field name="description">Purchase Zero%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0</field>
+        <field name="account_id" ref="vat_receivable_account"/>
+        <field name="refund_account_id" ref="vat_receivable_account"/>
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
+    <record id="sale_uae_excise_100" model="account.tax.template">
+        <field name="name">Sale - Excise 100%</field>
+        <field name="description">Sale Excise 100%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">100</field>
+        <field name="account_id" ref="excise_payable_account"/>
+        <field name="refund_account_id" ref="excise_payable_account"/>
+        <field name="tax_type">excise</field>
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
+    <record id="purchase_uae_excise_10" model="account.tax.template">
+        <field name="name">Purchase - Excise 100%</field>
+        <field name="description">Purchase Excise 100%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="tax_type">excise</field>
+        <field name="amount">100</field>
+        <field name="account_id" ref="excise_receivable_account"/>
+        <field name="refund_account_id" ref="excise_receivable_account"/>
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
+    <record id="sale_uae_vat_exempted" model="account.tax.template">
+        <field name="name">Sale - VAT Exempted</field>
+        <field name="description">Sale VAT Exempted</field>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0</field>
+        <field name="account_id" ref="vat_payable_account"/>
+        <field name="refund_account_id" ref="vat_payable_account"/>
+        <field name="tax_type">exempted</field>
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
+    <record id="purchase_uae_vat_exempted" model="account.tax.template">
+        <field name="name">Purchase - VAT Exempted</field>
+        <field name="description">Purchase VAT Exempted</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0</field>
+        <field name="account_id" ref="vat_receivable_account"/>
+        <field name="refund_account_id" ref="vat_receivable_account"/>
+        <field name="tax_type">exempted</field>
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
+    <record id="vat_custom" model="account.tax.template">
+        <field name="name">Custom</field>
+        <field name="description">Custom VAT </field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">5</field>
+        <field name="account_id" ref="rc_customs_expense_account"/>
+        <field name="refund_account_id" ref="rc_customs_expense_account"/>
+        <field name="tax_type">customs</field>
+        <field name="chart_template_id" ref="uae_chart_template_standard"/>
+        <field name="include_base_amount" eval="True"/>
+        <field name="sequence"/>0</record>
+    </record>
+
+    <record id="sale_uae_vat_5" model="account.tax.template">
+        <field name="name">Sale - VAT 5%</field>
+        <field name="description">Sale VAT 5%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">5</field>
+        <field name="account_id" ref="vat_payable_account"/>
+        <field name="refund_account_id" ref="vat_payable_account"/>
+        <field name="tax_type">vat</field>
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
+    <record id="purchase_uae_vat_5" model="account.tax.template">
+        <field name="name">Purchase - VAT 5%</field>
+        <field name="description">Purchase VAT 5%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">5</field>
+        <field name="account_id" ref="vat_receivable_account"/>
+        <field name="refund_account_id" ref="vat_receivable_account"/>
+        <field name="tax_type">vat</field>
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+    </record>
+
 </flectra>

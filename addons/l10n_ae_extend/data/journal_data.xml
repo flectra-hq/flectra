@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+    <!-- Sale -->
+    <record id="local_sale_uae_account" model="account.account">
+        <field name="code">433101</field>
+        <field name="name">Local Sale</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue"/>
+    </record>
+
+    <record id="local_sale_journal" model="account.journal">
+        <field name="name">Local Sale</field>
+        <field name="code">LCLS</field>
+        <field name="type">sale</field>
+        <field name="default_credit_account_id" ref="local_sale_uae_account"/>
+        <field name="default_debit_account_id" ref="local_sale_uae_account"/>
+    </record>
+
+    <record id="insidegcc_sale_uae_account" model="account.account">
+        <field name="code">433102</field>
+        <field name="name">Inside GCC Sale</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue"/>
+    </record>
+
+    <record id="insidegcc_sale_journal" model="account.journal">
+        <field name="name">Inside GCC Sale</field>
+        <field name="code">IGCCS</field>
+        <field name="type">sale</field>
+        <field name="default_credit_account_id" ref="insidegcc_sale_uae_account"/>
+        <field name="default_debit_account_id" ref="insidegcc_sale_uae_account"/>
+    </record>
+
+    <record id="outsidegcc_sale_uae_account" model="account.account">
+        <field name="code">433103</field>
+        <field name="name">Outside GCC Sale</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue"/>
+    </record>
+
+    <record id="outsidegcc_sale_journal" model="account.journal">
+        <field name="name">Outside GCC Sale</field>
+        <field name="code">OGCCS</field>
+        <field name="type">sale</field>
+        <field name="default_credit_account_id" ref="outsidegcc_sale_uae_account"/>
+        <field name="default_debit_account_id" ref="outsidegcc_sale_uae_account"/>
+    </record>
+
+    <record id="designated_zone_sale_uae_account" model="account.account">
+        <field name="code">433104</field>
+        <field name="name">Designated Zone Sale</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue"/>
+    </record>
+
+    <record id="designated_zone_sale_journal" model="account.journal">
+        <field name="name">Designated Zone Sale</field>
+        <field name="code">DZS</field>
+        <field name="type">sale</field>
+        <field name="default_credit_account_id" ref="designated_zone_sale_uae_account"/>
+        <field name="default_debit_account_id" ref="designated_zone_sale_uae_account"/>
+    </record>
+
+    <record id="rc_vat_account" model="account.account">
+        <field name="code">205301</field>
+        <field name="name">Reverse Charge(Vat)</field>
+        <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+    </record>
+
+    <record id="rc_vat_expense_account" model="account.account">
+        <field name="code">581002</field>
+        <field name="name">VAT Expense</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses"/>
+    </record>
+
+    <record id="base.main_company" model="res.company">
+        <field name="rc_vat_account_id" ref="rc_vat_account"/>
+        <field name="customs_duty_account_id" ref="l10n_ae.uae_account_3694"/>
+        <field name="vat_expense_account_id" ref="rc_vat_expense_account"/>
+    </record>
+
+    <!-- Purchase -->
+    <record id="local_purchase_uae_account" model="account.account">
+        <field name="code">571001</field>
+        <field name="name">Local Purchase</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses"/>
+    </record>
+
+    <record id="local_purchase_journal" model="account.journal">
+        <field name="name">Local Purchase</field>
+        <field name="code">LCLP</field>
+        <field name="type">purchase</field>
+        <field name="default_credit_account_id" ref="local_purchase_uae_account"/>
+        <field name="default_debit_account_id" ref="local_purchase_uae_account"/>
+    </record>
+
+    <record id="insidegcc_purchase_uae_account" model="account.account">
+        <field name="code">571002</field>
+        <field name="name">Inside GCC Purchase</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses"/>
+    </record>
+
+    <record id="insidegcc_purchase_journal" model="account.journal">
+        <field name="name">Inside GCC Purchase</field>
+        <field name="code">IGCCP</field>
+        <field name="type">purchase</field>
+        <field name="default_credit_account_id" ref="insidegcc_purchase_uae_account"/>
+        <field name="default_debit_account_id" ref="insidegcc_purchase_uae_account"/>
+    </record>
+
+    <record id="outsidegcc_purchase_uae_account" model="account.account">
+        <field name="code">571003</field>
+        <field name="name">Outside GCC Purchase</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses"/>
+    </record>
+
+    <record id="outsidegcc_purchase_journal" model="account.journal">
+        <field name="name">Outside GCC Purchase</field>
+        <field name="code">OGCCP</field>
+        <field name="type">purchase</field>
+        <field name="default_credit_account_id" ref="outsidegcc_purchase_uae_account"/>
+        <field name="default_debit_account_id" ref="outsidegcc_purchase_uae_account"/>
+    </record>
+
+    <record id="designated_zone_purchase_uae_account" model="account.account">
+        <field name="code">571004</field>
+        <field name="name">Designated Zone Purchase</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses"/>
+    </record>
+
+    <record id="designated_zone_purchase_journal" model="account.journal">
+        <field name="name">Designated Zone Purchase</field>
+        <field name="code">DZP</field>
+        <field name="type">purchase</field>
+        <field name="default_credit_account_id" ref="designated_zone_purchase_uae_account"/>
+        <field name="default_debit_account_id" ref="designated_zone_purchase_uae_account"/>
+    </record>
+
+</flectra>
+
