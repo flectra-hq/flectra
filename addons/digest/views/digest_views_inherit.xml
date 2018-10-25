@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<flectra>
+    <record id="digest_digest_view_form_inherit" model="ir.ui.view">
+        <field name="name">digest.digest.view.form.inherit</field>
+        <field name="model">digest.digest</field>
+        <field name="inherit_id" ref="digest.digest_digest_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='kpis']" position="after">
+                <page name="how_to" string="Add/Remove digest?" groups="base.group_no_one">
+                    <div>
+                        <button type="action" class="oe_highlight" name="%(digest.digest_custom_fields_action)d" string="Add Customized Digest"/>
+                        <button type="action" name="%(digest.digest_custom_remove_action)d" string="Remove Customized Digest"/>
+                    </div>
+                </page>
+            </xpath>
+        </field> 
+	</record>
+</flectra>

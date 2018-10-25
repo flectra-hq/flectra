@@ -19,6 +19,7 @@
         'web',
         'web_planner',
         'web_tour',
+        'digest'
     ],
     'description': "",
     'data': [
@@ -26,12 +27,14 @@
         'security/ir.model.access.csv',
         'data/project_data.xml',
         'report/project_report_views.xml',
+        'views/digest_views.xml',
         'views/project_views.xml',
         'views/res_partner_views.xml',
         'views/res_config_settings_views.xml',
         'views/project_templates.xml',
         'views/project_portal_templates.xml',
         'data/web_planner_data.xml',
+        'data/digest_data.xml',
         'data/project_mail_template_data.xml',
         'wizard/project_task_merge_wizard_views.xml',
     ],
