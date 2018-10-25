@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra noupdate="1">
+
+    <record id="product.product_product_24" model="product.product">
+        <field name="taxes_id" eval="[(6, 0, [ref('l10n_ae.sale_uae_vat_5')])]"/>
+        <field name="supplier_taxes_id" eval="[(6, 0, [ref('l10n_ae.purchase_uae_vat_5')])]"/>
+    </record>
+
+    <record id="demo_invoice_ae_1" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">out_invoice</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="journal_id" ref="l10n_ae_extend.local_sale_journal"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_1"/>
+    </record>
+
+    <record id="demo_invoice_ae_line1" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_1"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="account_id" ref="l10n_ae_extend.local_sale_uae_account"/>
+        <field name="price_unit">885.0</field>
+        <field name="quantity">2.0</field>
+    </record>
+
+    <function model="account.invoice.line" name="_onchange_product_id"
+              eval="[ref('demo_invoice_ae_line1')]"/>
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_1')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_1')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_1')]"/>
+
+    <!-- Refund -->
+    <record id="demo_invoice_ae_2" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">out_refund</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="journal_id" ref="l10n_ae_extend.local_sale_journal"/>
+        <field name="refund_invoice_id" ref="demo_invoice_ae_1"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_1"/>
+    </record>
+
+    <record id="demo_invoice_ae_line2" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_2"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="price_unit">885.0</field>
+        <field name="account_id" ref="l10n_ae_extend.local_sale_uae_account"/>
+        <field name="quantity">1.0</field>
+    </record>
+
+    <function model="account.invoice.line" name="_onchange_product_id"
+              eval="[ref('demo_invoice_ae_line2')]"/>
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_2')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_2')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_2')]"/>
+
+    <record id="demo_invoice_ae_3" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">in_invoice</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_5"/>
+        <field name="journal_id" ref="l10n_ae_extend.local_purchase_journal"/>
+    </record>
+
+    <record id="demo_invoice_ae_line3" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_3"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="account_id" ref="l10n_ae_extend.local_purchase_uae_account"/>
+        <field name="price_unit">876.0</field>
+        <field name="quantity">20.0</field>
+    </record>
+
+    <function model="account.invoice.line" name="_onchange_product_id"
+              eval="[ref('demo_invoice_ae_line3')]"/>
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_3')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_3')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_3')]"/>
+
+    <!-- Refund -->
+    <record id="demo_invoice_ae_4" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">in_refund</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_5"/>
+        <field name="journal_id" ref="l10n_ae_extend.local_purchase_journal"/>
+        <field name="refund_invoice_id" ref="demo_invoice_ae_3"/>
+    </record>
+
+    <record id="demo_invoice_ae_line4" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_4"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="account_id" ref="l10n_ae_extend.local_purchase_uae_account"/>
+        <field name="price_unit">876.0</field>
+        <field name="quantity">10.0</field>
+    </record>
+
+    <function model="account.invoice.line" name="_onchange_product_id"
+              eval="[ref('demo_invoice_ae_line4')]"/>
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_4')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_4')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_4')]"/>
+
+    <!-- Reverse -->
+    <record id="demo_invoice_ae_5" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">in_invoice</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="journal_id" ref="l10n_ae_extend.local_purchase_journal"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_5"/>
+        <field name="reverse_charge" eval="True"/>
+    </record>
+
+    <record id="demo_invoice_ae_line5" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_5"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="account_id" ref="l10n_ae_extend.local_sale_uae_account"/>
+        <field name="price_unit">876.0</field>
+        <field name="quantity">20.0</field>
+    </record>
+
+    <function model="account.invoice.line" name="_onchange_product_id"
+              eval="[ref('demo_invoice_ae_line5')]"/>
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_5')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_5')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_5')]"/>
+
+    <record id="demo_invoice_ae_6" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">in_refund</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="journal_id" ref="l10n_ae_extend.local_purchase_journal"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_5"/>
+        <field name="reverse_charge" eval="True"/>
+    </record>
+
+    <record id="demo_invoice_ae_line6" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_6"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="account_id" ref="l10n_ae_extend.local_sale_uae_account"/>
+        <field name="price_unit">876.0</field>
+        <field name="quantity">5.0</field>
+    </record>
+
+    <function model="account.invoice.line" name="_onchange_product_id"
+              eval="[ref('demo_invoice_ae_line6')]"/>
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_6')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_6')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_6')]"/>
+
+</flectra>

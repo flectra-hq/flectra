@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <!-- Fiscal Position Templates -->
+    <record model="account.fiscal.position.template" id="fp_in_zero">
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+        <field name="name">Zero</field>
+    </record>
+
+    <!-- Fiscal Position Tax Templates -->
+    <record id="fp_sale_vat_5_percent_zero" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_zero"/>
+        <field name="tax_src_id" ref="sale_uae_vat_5"/>
+        <field name="tax_dest_id" ref="sale_uae_vat_zero"/>
+    </record>
+
+    <record id="fp_purchase_vat_5_percent_zero" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_zero"/>
+        <field name="tax_src_id" ref="purchase_uae_vat_5"/>
+        <field name="tax_dest_id" ref="purchase_uae_vat_zero"/>
+    </record>
+
+    <record id="fp_sale_excise_50_percent_zero" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_zero"/>
+        <field name="tax_src_id" ref="sale_uae_excise_50"/>
+        <field name="tax_dest_id" ref="sale_uae_vat_zero"/>
+    </record>
+
+    <record id="fp_purchase_excise_50_percent_zero" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_zero"/>
+        <field name="tax_src_id" ref="purchase_uae_excise_50"/>
+        <field name="tax_dest_id" ref="purchase_uae_vat_zero"/>
+    </record>
+
+    <record id="fp_sale_excise_100_percent_zero" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_zero"/>
+        <field name="tax_src_id" ref="sale_uae_excise_100"/>
+        <field name="tax_dest_id" ref="sale_uae_vat_zero"/>
+    </record>
+
+    <record id="fp_purchase_excise_100_percent_zero" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_zero"/>
+        <field name="tax_src_id" ref="purchase_uae_excise_10"/>
+        <field name="tax_dest_id" ref="purchase_uae_vat_zero"/>
+    </record>
+
+    <record id="fp_sale_tax_template_zero" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_zero"/>
+        <field name="tax_src_id" ref="l10n_ae.sale_tax_template"/>
+        <field name="tax_dest_id" ref="sale_uae_vat_zero"/>
+    </record>
+
+    <record id="fp_purchase_tax_template_zero" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_zero"/>
+        <field name="tax_src_id" ref="l10n_ae.purchase_tax_template"/>
+        <field name="tax_dest_id" ref="purchase_uae_vat_zero"/>
+    </record>
+
+    <record model="account.fiscal.position.template" id="fp_in_exempted">
+        <field name="chart_template_id" ref="l10n_ae.uae_chart_template_standard"/>
+        <field name="name">Exempted</field>
+    </record>
+
+    <record id="fp_sale_vat_5_percent_exempted" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_exempted"/>
+        <field name="tax_src_id" ref="sale_uae_vat_5"/>
+        <field name="tax_dest_id" ref="sale_uae_vat_exempted"/>
+    </record>
+
+    <record id="fp_purchase_vat_5_percent_exempted" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_exempted"/>
+        <field name="tax_src_id" ref="purchase_uae_vat_5"/>
+        <field name="tax_dest_id" ref="purchase_uae_vat_exempted"/>
+    </record>
+
+    <record id="fp_sale_excise_50_percent_exempted" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_exempted"/>
+        <field name="tax_src_id" ref="sale_uae_excise_50"/>
+        <field name="tax_dest_id" ref="sale_uae_vat_exempted"/>
+    </record>
+
+    <record id="fp_purchase_excise_50_percent_exempted" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_exempted"/>
+        <field name="tax_src_id" ref="purchase_uae_excise_50"/>
+        <field name="tax_dest_id" ref="purchase_uae_vat_exempted"/>
+    </record>
+
+    <record id="fp_sale_excise_100_percent_exempted" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_exempted"/>
+        <field name="tax_src_id" ref="sale_uae_excise_100"/>
+        <field name="tax_dest_id" ref="sale_uae_vat_exempted"/>
+    </record>
+
+    <record id="fp_purchase_excise_100_percent_exempted" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_exempted"/>
+        <field name="tax_src_id" ref="purchase_uae_excise_10"/>
+        <field name="tax_dest_id" ref="purchase_uae_vat_exempted"/>
+    </record>
+
+    <record id="fp_sale_tax_template_exempted" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_exempted"/>
+        <field name="tax_src_id" ref="l10n_ae.sale_tax_template"/>
+        <field name="tax_dest_id" ref="sale_uae_vat_exempted"/>
+    </record>
+
+    <record id="fp_purchase_tax_template_exempted" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_in_exempted"/>
+        <field name="tax_src_id" ref="l10n_ae.purchase_tax_template"/>
+        <field name="tax_dest_id" ref="purchase_uae_vat_exempted"/>
+    </record>
+
+</flectra>

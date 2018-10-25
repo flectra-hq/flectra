@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+    <record model="ir.ui.view" id="vat_config_type_tree">
+        <field name="name">vat.config.type.tree</field>
+        <field name="model">vat.config.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="journal_id"/>
+                <field name="type"/>
+                <!-- <field name="reverse_charge"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="vat_config_type_form">
+        <field name="name">vat.config.type.form</field>
+        <field name="model">vat.config.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="vat_type" required="1"/>
+                            <field name="type" required="1"/>
+                        </group>
+                        <group>
+                            <field name="code" required="1"/>
+                            <field name="journal_id" required="1"/>
+                            <!-- <field name="reverse_charge" attrs="{'invisible': [('type', '!=', 'purchase')]}"/> -->
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vat_config_type" model="ir.actions.act_window">
+        <field name="name">Vat Types</field>
+        <field name="res_model">vat.config.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_vat_config_type"
+        action="action_vat_config_type"
+        parent="account.menu_finance_configuration"
+        sequence="10"/>
+
+</flectra>
