@@ -10,7 +10,8 @@ United Arab Emirates accounting chart and localization.
 =======================================================
 
     """,
-    'depends': ['l10n_ae', 'account_invoicing', 'sale_management', 'purchase'],
+    'depends': ['l10n_ae', 'account_invoicing',
+                'sale_management', 'purchase', 'base_vat'],
     'data': [
              'security/ir.model.access.csv',
              'data/journal_data.xml',
