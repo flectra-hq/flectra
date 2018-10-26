@@ -160,7 +160,7 @@ via two fields:
 
     {
         "type": "ir.actions.act_url",
-        "url": "http://flectra.com",
+        "url": "http://flectrahq.com",
         "target": "self",
     }
 

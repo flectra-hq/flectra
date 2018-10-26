@@ -14,3 +14,4 @@ from . import sale_report
 from . import ir_model_fields
 from . import website
 from . import res_config_settings
+from . import digest

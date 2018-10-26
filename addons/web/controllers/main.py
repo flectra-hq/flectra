@@ -639,7 +639,7 @@ class WebClient(http.Controller):
         translations_per_module = {}
         messages = request.env['ir.translation'].sudo().search_read([
             ('module', 'in', mods), ('lang', '=', lang),
-            ('comments', 'like', 'openerp-web'), ('value', '!=', False),
+            ('comments', 'like', 'flectra-web'), ('value', '!=', False),
             ('value', '!=', '')],
             ['module', 'src', 'value', 'lang'], order='module')
         for mod, msg_group in itertools.groupby(messages, key=operator.itemgetter('module')):
@@ -900,7 +900,8 @@ class Session(http.Controller):
             'state': json.dumps({'d': request.db, 'u': ICP.get_param('web.base.url')}),
             'scope': 'userinfo',
         }
-        return 'https://accounts.flectra.com/oauth2/auth?' + werkzeug.url_encode(params)
+        return 'https://accounts.flectrahq.com/oauth2/auth?' + \
+               werkzeug.url_encode(params)
 
     @http.route('/web/session/destroy', type='json', auth="user")
     def destroy(self):

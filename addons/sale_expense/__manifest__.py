@@ -17,6 +17,7 @@ This module allow to reinvoice employee expense, by setting the SO directly on t
     'website': 'https://flectrahq.com/page/warehouse',
     'depends': ['sale_management', 'hr_expense'],
     'data': [
+        'data/digest_data.xml',
         'security/ir.model.access.csv',
         'security/sale_expense_security.xml',
         'views/product_view.xml',

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<flectra>
+    <record id="digest_custom_remove_view_form" model="ir.ui.view">
+        <field name="name">digest.custom.remove.form</field>
+        <field name="model">digest.custom.remove</field>
+        <field name="arch" type="xml">
+            <form string="Customized Digest">
+                <group>
+                    <group>
+                        <field name="remove_type"/>
+                        <field name="field_id" attrs="{'invisible': [('remove_type', '!=', 'field')], 'required': [('remove_type', '=', 'field')]}" options="{'no_create': True}"/>
+                        <field name="available_group_name" attrs="{'invisible': [('remove_type', '!=', 'group')], 'required': [('remove_type', '=', 'group')]}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_customize_digest_remove" string="Remove Field" attrs="{'invisible': [('remove_type', '!=', 'field')]}" type="object" class="btn btn-sm btn-primary"/>
+                    <button name="action_customize_digest_remove" string="Remove Group" attrs="{'invisible': [('remove_type', '!=', 'group')]}" type="object" class="btn btn-sm btn-primary" confirm="Do you want remove all child related to this group?"/>
+                    <button string="Cancel" class="btn btn-sm btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="digest_custom_remove_action" model="ir.actions.act_window">
+        <field name="name">Customized Digest Remove</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">digest.custom.remove</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="digest_custom_remove_view_form"/>
+        <field name="target">new</field>
+    </record>
+</flectra>

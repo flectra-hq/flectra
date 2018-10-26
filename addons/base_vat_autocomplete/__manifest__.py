@@ -13,7 +13,7 @@ Auto-Complete Addresses based on VAT numbers
     This module requires the python library stdnum to work.
     """,
     'depends': ['base_vat'],
-    'website': 'https://flectrahq.com/page/accounting',
+    'website': 'https://flectrahq.com/accounting',
     'data': [
         'views/res_partner_views.xml',
         'views/res_company_view.xml',

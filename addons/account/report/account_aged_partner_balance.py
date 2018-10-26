@@ -13,6 +13,7 @@ class ReportAgedPartnerBalance(models.AbstractModel):
     _name = 'report.account.report_agedpartnerbalance'
 
     def _get_partner_move_lines(self, account_type, date_from, target_move, period_length, branch_id):
+
         periods = {}
         start = datetime.strptime(date_from, "%Y-%m-%d")
         for i in range(5)[::-1]:
@@ -30,8 +31,9 @@ class ReportAgedPartnerBalance(models.AbstractModel):
         company_ids = self.env.context.get('company_ids', (self.env.user.company_id.id,))
         move_state = ['draft', 'posted']
         branch = ''
-        if branch_id:
-            branch = 'AND (l.branch_id =' + str(branch_id[0]) + ')'
+        if branch:
+            branch = 'AND ( l.branch_id = ' + str(branch) + ' OR l.branch_id ' \
+                                                          'is NULL)'
         if target_move == 'posted':
             move_state = ['posted']
         arg_list = (tuple(move_state), tuple(account_type))
@@ -45,6 +47,7 @@ class ReportAgedPartnerBalance(models.AbstractModel):
             reconciliation_clause = '(l.reconciled IS FALSE OR l.id IN %s)'
             arg_list += (tuple(reconciled_after_date),)
         arg_list += (date_from, tuple(company_ids))
+
         query = '''
             SELECT DISTINCT l.partner_id, UPPER(res_partner.name)
             FROM account_move_line AS l left join res_partner on l.partner_id = res_partner.id, account_account, account_move am
@@ -217,7 +220,10 @@ class ReportAgedPartnerBalance(models.AbstractModel):
         else:
             account_type = ['payable', 'receivable']
 
-        movelines, total, dummy = self._get_partner_move_lines(account_type, date_from, target_move, data['form']['period_length'], data['form'].get('branch_id', False))
+        default_branch_id = data['form'].get('branch_id', False)
+        branch_id = default_branch_id[0]
+        movelines, total, dummy = self._get_partner_move_lines(account_type, date_from, target_move, data['form']['period_length'],
+                                                               branch_id)
         return {
             'doc_ids': self.ids,
             'doc_model': model,

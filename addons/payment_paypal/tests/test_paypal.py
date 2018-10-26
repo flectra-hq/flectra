@@ -35,7 +35,8 @@ class PaypalForm(PaypalCommon):
     def test_10_paypal_form_render(self):
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
         # be sure not to do stupid things
-        self.paypal.write({'paypal_email_account': 'tde+paypal-facilitator@flectra.com', 'fees_active': False})
+        self.paypal.write({'paypal_email_account': 'tde+paypal-facilitator@flectrahq.com',
+                           'fees_active': False})
         self.assertEqual(self.paypal.environment, 'test', 'test without test environment')
 
         # ----------------------------------------
@@ -49,7 +50,7 @@ class PaypalForm(PaypalCommon):
 
         form_values = {
             'cmd': '_xclick',
-            'business': 'tde+paypal-facilitator@flectra.com',
+            'business': 'tde+paypal-facilitator@flectrahq.com',
             'item_name': 'YourCompany: test_ref0',
             'item_number': 'test_ref0',
             'first_name': 'Norbert',
@@ -154,7 +155,7 @@ class PaypalForm(PaypalCommon):
             'address_status': u'unconfirmed',
             'mc_currency': u'EUR',
             'shipping': u'0.00',
-            'payer_email': u'tde+buyer@flectra.com',
+            'payer_email': u'tde+buyer@flectrahq.com',
             'payment_type': u'instant',
             'mc_gross': u'1.95',
             'ipn_track_id': u'866df2ccd444b',

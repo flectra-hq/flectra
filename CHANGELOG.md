@@ -1,6 +1,7 @@
 # CHANGELOG
 
-Inception of [Flectra](https://flectrahq.com/) from [Odoo](https://www.odoo.com/).
+Inception of [Flectra](https://www.flectrahq.com/) from [Odoo](https://www.odoo
+.com/).
 
 Flectra is Forked from Odoo v11's commit reference [odoo/odoo@6135e82](https://github.com/odoo/odoo/commit/6135e82d735d5eb3af914f4a838468f6dc33e51d)
 

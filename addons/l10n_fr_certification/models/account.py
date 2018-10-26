@@ -141,7 +141,9 @@ class AccountMove(models.Model):
                          From: %(start_move_name)s %(start_move_ref)s
                          To: %(end_move_name)s %(end_move_ref)s
 
-                         For this report to be legally meaningful, please download your certification from your customer account on Flectra.com (Only for Flectra Enterprise users).'''
+                         For this report to be legally meaningful, please 
+                         download your certification from your customer 
+                         account on Flectrahq.com (Only for Flectra Enterprise users).'''
                          ) % report_dict)
 
 

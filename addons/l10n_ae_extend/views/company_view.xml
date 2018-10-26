@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="uae_res_company_form_inherit" model="ir.ui.view">
+        <field name="name">uae.res.company.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='report_header']" position="after">
+                <field name="rc_vat_account_id" required="1"/>
+                <field name="customs_duty_account_id" required="1"/>
+                <field name="vat_expense_account_id" required="1"/>
+            </xpath>
+        </field>
+    </record>
+</flectra>
+

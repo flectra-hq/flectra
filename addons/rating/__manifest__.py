@@ -7,7 +7,7 @@
     'description': """
 This module allows a customer to give rating.
 """,
-    'website': 'http://flectra.com',
+    'website': 'http://flectrahq.com',
     'depends': [
         'mail',
     ],

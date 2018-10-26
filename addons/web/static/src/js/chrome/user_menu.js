@@ -65,7 +65,7 @@ var UserMenu = Widget.extend({
                     })
                     .fail(function (result, ev){
                         ev.preventDefault();
-                        framework.redirect('https://accounts.flectra.com/account');
+                        framework.redirect('https://flectrahq.com/accounting');
                     });
             },
         });
@@ -74,7 +74,7 @@ var UserMenu = Widget.extend({
      * @private
      */
     _onMenuDocumentation: function () {
-        window.open('https://www.flectra.com/documentation/user', '_blank');
+        window.open('https://userdoc.flectrahq.com/index.html', '_blank');
     },
     /**
      * @private
@@ -109,7 +109,7 @@ var UserMenu = Widget.extend({
      * @private
      */
     _onMenuSupport: function () {
-        window.open('https://www.flectra.com/buy', '_blank');
+        window.open('https://www.flectrahq.com/buy', '_blank');
     },
 });
 
@@ -161,30 +161,32 @@ var UserProfile = Widget.extend({
                 method: 'search_read',
                 args: [[["code", "=", session.user_context.lang]], ['name', 'direction']],
             }).then(function(lang_data){
-                var img_src = session.url('/web/image', {
-                    model:'res.lang',
-                    field: 'image',
-                    id: lang_data[0].id,
-                });
-                $lang_logo.attr('title', lang_data[0].name).attr('src', img_src).attr('data-lang-dir', lang_data[0].direction);
+                if (lang_data.length) {
+                    var img_src = session.url('/web/image', {
+                        model: 'res.lang',
+                        field: 'image',
+                        id: lang_data[0].id,
+                    });
+                    $lang_logo.attr('title', lang_data[0].name).attr('src', img_src).attr('data-lang-dir', lang_data[0].direction);
 
-                // Web RTL(Right to Left) Snippet
-                if (lang_data[0].direction == 'rtl') {
-                    var head  = document.getElementsByTagName('head')[0];
+                    // Web RTL(Right to Left) Snippet
+                    if (lang_data[0].direction == 'rtl') {
+                        var head = document.getElementsByTagName('head')[0];
 
-                    // BootStrap RTL CSS
-                    var link  = document.createElement('link');
-                    link.rel  = 'stylesheet';
-                    link.type = 'text/css';
-                    link.href = '/web/static/lib/rtl/bootstrap-rtl.min.css';
-                    head.appendChild(link);
+                        // BootStrap RTL CSS
+                        var link = document.createElement('link');
+                        link.rel = 'stylesheet';
+                        link.type = 'text/css';
+                        link.href = '/web/static/lib/rtl/bootstrap-rtl.min.css';
+                        head.appendChild(link);
 
-                    // Flectra RTL Custom CSS
-                    var link1  = document.createElement('link');
-                    link1.rel  = 'stylesheet';
-                    link1.type = 'text/css';
-                    link1.href = '/web/static/lib/rtl/flectra-rtl-custom.css';
-                    head.appendChild(link1);
+                        // Flectra RTL Custom CSS
+                        var link1 = document.createElement('link');
+                        link1.rel = 'stylesheet';
+                        link1.type = 'text/css';
+                        link1.href = '/web/static/lib/rtl/flectra-rtl-custom.css';
+                        head.appendChild(link1);
+                    }
                 }
             });
             $avatar.attr('src', avatar_src);
