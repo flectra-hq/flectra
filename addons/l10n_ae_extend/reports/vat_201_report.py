@@ -36,19 +36,16 @@ class ReportVat201(models.AbstractModel):
     def get_total_sale(self, data):
         return self.get_invoice_data_for_local(data, VAT_SALE_TYPE)
 
-    def get_subtotal(self, line, tax_ids):
-        return line.price_subtotal if any(
-            [tax_id for tax_id in tax_ids
-             if tax_id.tax_type == 'vat' and tax_id.amount != 0.0]) else 0.0
-
-    def get_customs_amount(self, tax_ids):
+    def get_vat_amount(self, tax_ids):
         account_tax_object = self.env['account.tax']
-        customs_amount = 0.0
+        vat_amount = 0.0
         for tax_line_id in tax_ids:
             tax_id = account_tax_object.search([
-                ('name', '=', tax_line_id.name), ('tax_type', '=', 'customs')])
-            customs_amount += tax_line_id.amount_total if tax_id else 0.0
-        return customs_amount
+                ('name', '=', tax_line_id.name), ('tax_type', '=', 'vat')])
+            if tax_id.tax_type != 'vat':
+                continue
+            vat_amount += tax_line_id.base
+        return vat_amount
 
     def get_tax_amount(self, tax_ids):
         return sum([tax_id.amount for tax_id in tax_ids
@@ -70,10 +67,7 @@ class ReportVat201(models.AbstractModel):
                     self.set_zero_exempted_amount(
                         data_dict, invoice_id, line,
                         line.invoice_line_tax_ids))
-                check_line_vat_tax += \
-                    self.get_subtotal(line, line.invoice_line_tax_ids)
-            check_line_vat_tax += \
-                self.get_customs_amount(invoice_id.tax_line_ids)
+            check_line_vat_tax += self.get_vat_amount(invoice_id.tax_line_ids)
             if invoice_id.type == 'out_refund':
                 data_dict['adjustment'] += check_line_vat_tax
                 data_dict['return_tax_amount'] += tax_amount
@@ -126,9 +120,10 @@ class ReportVat201(models.AbstractModel):
                     tax_line_ids = line.reverse_invoice_line_tax_ids
                 data_dict.update(self.set_zero_exempted_amount(
                     data_dict, invoice_id, line, tax_line_ids))
-                check_line_vat_tax += self.get_subtotal(line, tax_line_ids)
-            check_line_vat_tax += \
-                self.get_customs_amount(invoice_id.tax_line_ids)
+            tax_ids = invoice_id.tax_line_ids
+            if invoice_id.reverse_charge:
+                tax_ids = invoice_id.reverse_tax_line_ids
+            check_line_vat_tax += self.get_vat_amount(tax_ids)
             if invoice_id.type == 'in_refund':
                 data_dict['adjustment'] += check_line_vat_tax
                 data_dict['return_tax_amount'] += tax_amount
