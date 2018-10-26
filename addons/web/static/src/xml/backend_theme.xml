@@ -102,4 +102,31 @@
     <li class="o_user_bookmark_menu" ><a href="#" title="Bookmark"><i class="fa fa-bookmark"/></a></li>
 </t>
 
+
+<div t-name="FlectraLicense.contract_expire_panel" >
+    <div id="expiration-message">
+        <div>
+            <div id="inner-message" class="alert" t-att-style="'background:' + background + ';'">
+                <button type="button" class="close" data-dismiss="alert">&amp;times;</button>
+                <span>
+                    <span id="contract-message"><t t-esc="message"/></span>
+                    <div id="register_contract" class="noselect">
+                        <span id="btn_register_contract">Register</span>
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div t-name="FlectraLicense.dialog_contract_registration" >
+    <div id="register_contract_form">
+        <div class="form-group">
+            <label for="contract_id">Contract ID</label>
+            <input type="text" class="form-control" id="contract_id" placeholder="Contract ID"/>
+            <input type="hidden" value=""/>
+        </div>
+    </div>
+</div>
+
 </templates>

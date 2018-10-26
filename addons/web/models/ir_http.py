@@ -2,9 +2,11 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import json
+import base64
 
-from flectra import models
+from flectra import models,api
 from flectra.http import request
+from .crypt import *
 
 import flectra
 
@@ -22,6 +24,16 @@ class Http(models.AbstractModel):
         user = request.env.user
         display_switch_company_menu = user.has_group('base.group_multi_company') and len(user.company_ids) > 1
         version_info = flectra.service.common.exp_version()
+        ir_module_module_ids = self.env['ir.module.module'].sudo().search(
+            [('contract_certificate', '!=', False), ('state', '=', 'installed')])
+        IrConfig = request.env['ir.config_parameter'].sudo()
+        contracted_module_list, is_valid = None, False
+        if ir_module_module_ids:
+            contracted_module_list = str(self.get_contracted_modules(ir_module_module_ids=ir_module_module_ids))
+            is_valid = self.check_validate_date(IrConfig)
+        else:
+            is_valid = True
+
         return {
             "session_id": request.session.sid,
             "uid": request.session.uid,
@@ -38,9 +50,35 @@ class Http(models.AbstractModel):
             "user_companies": {'current_company': (user.company_id.id, user.company_id.name), 'allowed_companies': [(comp.id, comp.name) for comp in user.company_ids]} if display_switch_company_menu else False,
             "currencies": self.get_currencies() if request.session.uid else {},
             "web.base.url": self.env['ir.config_parameter'].sudo().get_param('web.base.url', default=''),
+            'expiration_date' : IrConfig.get_param('database.expiration_date'),
+            'expiration_reason': IrConfig.get_param('database.expiration_reason'),
+            'contracted_module_list': contracted_module_list,
+            'contract_validation':is_valid
         }
 
     def get_currencies(self):
         Currency = request.env['res.currency']
         currencies = Currency.search([]).read(['symbol', 'position', 'decimal_places'])
         return { c['id']: {'symbol': c['symbol'], 'position': c['position'], 'digits': [69,c['decimal_places']]} for c in currencies} 
+
+    def get_contracted_modules(self, contract_key='', ir_module_module_ids=None):
+        if ir_module_module_ids:
+            contracted_module_list = ir_module_module_ids.mapped('name')
+            contracts = encrypt(json.dumps(contracted_module_list), contract_key)
+            return contracts
+
+    @api.model
+    def contract_validate_file(self, contract_id):
+        ir_module_module_ids = self.env['ir.module.module'].sudo().search(
+            [('contract_certificate', '!=', False), ('state', '=', 'installed')])
+        contracts = self.get_contracted_modules(contract_id,ir_module_module_ids)
+        return json.dumps(base64.encodestring(contracts).decode('ascii'))
+
+    def check_validate_date(self, config):
+        exp_date = config.get_param('database.expiration_date')
+        validity = config.get_param('contract.validity')
+        try:
+            decrypt(base64.decodestring(str.encode(validity)), str(exp_date))
+        except Exception:
+            return False
+        return True
