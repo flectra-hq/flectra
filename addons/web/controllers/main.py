@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+import tarfile
 
 import babel.messages.pofile
 import base64
@@ -45,6 +46,11 @@ from flectra.http import content_disposition, dispatch_rpc, request, \
 from flectra.exceptions import AccessError, UserError
 from flectra.models import check_method_name
 from flectra.service import db
+import requests
+
+from flectra.tools import config
+from flectra import release
+from flectra.http import root
 
 _logger = logging.getLogger(__name__)
 
@@ -433,6 +439,12 @@ def binary_content(xmlid=None, model='ir.attachment', id=None, field='datas', un
 #----------------------------------------------------------
 # Flectra Web web Controllers
 #----------------------------------------------------------
+
+server_url = 'https://store.flectrahq.com'
+tmp_dir_path = tempfile.gettempdir()
+data_dir = os.path.join(config.options['data_dir'], 'addons', release.series)
+
+
 class Home(http.Controller):
 
     @http.route('/', type='http', auth="none")
@@ -549,6 +561,104 @@ class Home(http.Controller):
                                                      options=context)
         return True
 
+    @http.route(['/web/get_app_store_mode'], type='json', auth="user")
+    def get_app_store_mode(self, **kwargs):
+        if request.env.user.has_group('base.group_system'):
+            app_store = config.get('app_store')
+            return app_store if app_store in ['install', 'download', 'disable'] else 'download'
+        return False
+
+    @http.route(['/web/app_action'], type='json', auth="user")
+    def app_action(self, action='', module_name='', **kwargs):
+        if request.env.user.has_group('base.group_system'):
+            if module_name and action:
+                module = request.env['ir.module.module'].search([('state', '=', 'installed'), ('name', '=', module_name)], limit=1)
+                if module:
+                    module.button_immediate_uninstall()
+                    return {"success": "Module is successfully uninstalled."}
+            return {"error": "Module not found or Module already uninstalled."}
+        return False
+
+    @http.route(['/web/get_modules'], type='json', auth="user")
+    def get_modules(self, **kwargs):
+        if request.env.user.has_group('base.group_system'):
+            try:
+                modules = request.env['ir.module.module'].search_read([('state', '=', 'installed')], fields=['name'])
+                p = requests.post(server_url + '/flectrahq/get_modules', data=kwargs)
+                data = json.loads(p.content.decode('utf-8'))
+                data.update({
+                    'installed_modules': [m['name'] for m in modules],
+                    'store_url': server_url
+                })
+                return data
+            except:
+                return False
+        return False
+
+    @http.route(['/web/module_download/<int:id>'], type='http', auth="user", methods=['GET', 'POST'])
+    def app_download(self, id=None):
+        if request.env.user.has_group('base.group_system'):
+            dbuuid = request.env['ir.config_parameter'].get_param('database.uuid')
+            p = requests.get(server_url + '/flectrahq/get_module_zip/' + str(id) + '/1', params={'dbuuid': dbuuid})
+            try:
+                data = json.loads(p.content.decode('utf-8'))
+                if data.get('error', False):
+                    return json.dumps(data)
+            except:
+                pass
+            name = p.headers.get('Content-Disposition', False)
+            if name and name.startswith('filename='):
+                zip = p.content
+                headers = [('Content-Type', 'application/zip'),
+                           ('Content-Length', len(zip)),
+                           ('Content-Disposition', p.headers.get('Content-Disposition', 'dummy') + '.tar.gz')]
+                response = request.make_response(zip, headers)
+                return response
+            else:
+                return request.not_found()
+        return request.not_found()
+
+    @http.route(['/web/app_download_install/<int:id>'], type='json', auth="user")
+    def app_download_install(self, id=None):
+        if request.env.user.has_group('base.group_system'):
+            IrModule = request.env['ir.module.module']
+            try:
+                res_get_details = requests.get(server_url + '/flectrahq/get_module_zip/' + str(id) + '/0')
+                module_file_details = json.loads(res_get_details.content.decode('utf-8'))
+            except:
+                return {"error": "Internal Server Error"}
+            finally:
+                res_download = requests.get(server_url + '/flectrahq/get_module_zip/' + str(id) + '/1')
+                downloaded_file_checksum = hashlib.sha1(res_download.content or b'').hexdigest()
+                if res_download.status_code == 200:
+                    try:
+                        data = json.loads(res_download.content.decode('utf-8'))
+                        if data.get('error', False):
+                            return data
+                    except:
+                        pass
+
+                    if module_file_details['checksum'] == downloaded_file_checksum:
+                        path = os.path.join(tmp_dir_path, module_file_details['name'])
+                        try:
+                            with open(path, 'wb') as f:
+                                f.write(res_download.content)
+                            with tarfile.open(path) as tar:
+                                tar.extractall(data_dir)
+                        except:
+                            return {"error": "Internal Server Error"}
+                        finally:
+                            IrModule.update_list()
+                            root.load_addons()
+                            modules = IrModule.search([('name', '=', module_file_details['module_name'])], limit=1)
+                            modules.button_immediate_install()
+                            os.remove(path)
+                            return {"success": "Module is successfully installed."}
+                    else:
+                        return {"error": "File Crash."}
+
+            return {"error": "Internal Server Error."}
+        return False
 
 
 class WebClient(http.Controller):

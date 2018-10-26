@@ -10,7 +10,9 @@ import logging
 import optparse
 import os
 import sys
+import shutil
 import flectra
+from contextlib import closing
 from .. import release, conf, loglevels
 from . import appdirs, pycompat
 
@@ -276,6 +278,7 @@ class configmanager(object):
                          help="Use the unaccent function provided by the database when available.")
         group.add_option("--geoip-db", dest="geoip_database", my_default='/usr/share/GeoIP/GeoLiteCity.dat',
                          help="Absolute path to the GeoIP database file.")
+        group.add_option("--app-store", dest="app_store", help="specify the option to enable app store. Accepted values: [install|download|disable]", my_default='install')
         parser.add_option_group(group)
 
         if os.name == 'posix':
@@ -403,7 +406,8 @@ class configmanager(object):
                 'db_maxconn', 'import_partial', 'addons_path',
                 'syslog', 'without_demo',
                 'dbfilter', 'log_level', 'log_db',
-                'log_db_level', 'geoip_database', 'dev_mode', 'shell_interface'
+                'log_db_level', 'geoip_database', 'dev_mode', 'shell_interface',
+                'app_store'
         ]
 
         for arg in keys:
@@ -602,6 +606,15 @@ class configmanager(object):
     def __getitem__(self, key):
         return self.options[key]
 
+    def copytree(self, src, dst, symlinks=False, ignore=None):
+        for item in os.listdir(src):
+            s = os.path.join(src, item)
+            d = os.path.join(dst, item)
+            if os.path.isdir(s):
+                shutil.copytree(s, d, symlinks, ignore)
+            else:
+                shutil.copy2(s, d)
+
     @property
     def addons_data_dir(self):
         add_dir = os.path.join(self['data_dir'], 'addons')
@@ -612,9 +625,31 @@ class configmanager(object):
                 if not os.path.exists(add_dir):
                     os.makedirs(add_dir, 0o700)
                 # try to make +rx placeholder dir, will need manual +w to activate it
-                os.makedirs(d, 0o500)
+                os.makedirs(d, 0o700)
             except OSError:
                 logging.getLogger(__name__).debug('Failed to create addons data dir %s', d)
+        try:
+            if not os.listdir(os.path.join(d)):
+                from flectra.sql_db import db_connect
+                with closing(db_connect(self.get('db_name')).cursor()) as cr:
+                    if flectra.tools.table_exists(cr, 'ir_module_module'):
+                        cr.execute("SELECT latest_version FROM ir_module_module WHERE name=%s", ('base',))
+                        base_version = cr.fetchone()
+                        if base_version and base_version[0]:
+                            tmp = base_version[0].split('.')[:2]
+                            last_version = '.'.join(str(v) for v in tmp)
+                            s = os.path.join(add_dir, last_version)
+                            if float(last_version) < float(release.series) and os.listdir(os.path.join(s)):
+                                self.copytree(s, d)
+
+            if self.get('app_store') == 'install':
+                if not os.access(d, os.W_OK):
+                    os.chmod(d, 0o700)
+            else:
+                if os.access(d, os.W_OK):
+                    os.chmod(d, 0o500)
+        except OSError:
+            logging.getLogger(__name__).debug("No such file or directory: %s", d)
         return d
 
     @property
