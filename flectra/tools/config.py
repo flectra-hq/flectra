@@ -636,7 +636,7 @@ class configmanager(object):
             except OSError:
                 logging.getLogger(__name__).debug('Failed to create addons data dir %s', d)
         try:
-            if not os.listdir(os.path.join(d)):
+            if self.get('db_name') and not os.listdir(os.path.join(d)):
                 from flectra.sql_db import db_connect
                 with closing(db_connect(self.get('db_name')).cursor()) as cr:
                     if flectra.tools.table_exists(cr, 'ir_module_module'):
