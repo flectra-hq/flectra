@@ -279,7 +279,9 @@ class configmanager(object):
                          help="Use the unaccent function provided by the database when available.")
         group.add_option("--geoip-db", dest="geoip_database", my_default='/usr/share/GeoIP/GeoLiteCity.dat',
                          help="Absolute path to the GeoIP database file.")
-        group.add_option("--app-store", dest="app_store", help="specify the option to enable app store. Accepted values: [install|download|disable]", my_default='install')
+        group.add_option("--app-store", dest="app_store",
+                         help="specify the option to enable app store. (default : install) "
+                              "Options : [install|download|disable]", my_default='install')
         parser.add_option_group(group)
 
         if os.name == 'posix':
