@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import tarfile
+import uuid
 
 import babel.messages.pofile
 import base64
@@ -570,7 +571,7 @@ class Home(http.Controller):
 
     @http.route(['/web/app_action'], type='json', auth="user")
     def app_action(self, action='', module_name='', **kwargs):
-        if request.env.user.has_group('base.group_system'):
+        if request.env.user.has_group('base.group_system') and config.get('app_store') == 'install':
             if module_name and action:
                 module = request.env['ir.module.module'].search([('state', '=', 'installed'), ('name', '=', module_name)], limit=1)
                 if module:
@@ -581,7 +582,7 @@ class Home(http.Controller):
 
     @http.route(['/web/get_modules'], type='json', auth="user")
     def get_modules(self, **kwargs):
-        if request.env.user.has_group('base.group_system'):
+        if request.env.user.has_group('base.group_system') and config.get('app_store') in ['install', 'download']:
             try:
                 modules = request.env['ir.module.module'].search_read([('state', '=', 'installed')], fields=['name'])
                 p = requests.post(server_url + '/flectrahq/get_modules', data=kwargs)
@@ -595,11 +596,11 @@ class Home(http.Controller):
                 return False
         return False
 
-    @http.route(['/web/module_download/<int:id>'], type='http', auth="user", methods=['GET', 'POST'])
-    def app_download(self, id=None):
-        if request.env.user.has_group('base.group_system'):
+    @http.route(['/web/module_download/<string:id>'], type='http', auth="user", methods=['GET', 'POST'])
+    def app_download(self, id=None, **kwargs):
+        if request.env.user.has_group('base.group_system') and config.get('app_store') in ['install', 'download']:
             dbuuid = request.env['ir.config_parameter'].get_param('database.uuid')
-            p = requests.get(server_url + '/flectrahq/get_module_zip/' + str(id) + '/1', params={'dbuuid': dbuuid})
+            p = requests.get(server_url + '/flectrahq/get_module_zip/' + str(id), params={'dbuuid': dbuuid})
             try:
                 data = json.loads(p.content.decode('utf-8'))
                 if data.get('error', False):
@@ -618,17 +619,12 @@ class Home(http.Controller):
                 return request.not_found()
         return request.not_found()
 
-    @http.route(['/web/app_download_install/<int:id>'], type='json', auth="user")
-    def app_download_install(self, id=None):
-        if request.env.user.has_group('base.group_system'):
+    @http.route(['/web/app_download_install'], type='json', auth="user")
+    def app_download_install(self, checksum=None, module_name=None, id=None, **kwargs):
+        if request.env.user.has_group('base.group_system') and config.get('app_store') == 'install':
             IrModule = request.env['ir.module.module']
             try:
-                res_get_details = requests.get(server_url + '/flectrahq/get_module_zip/' + str(id) + '/0')
-                module_file_details = json.loads(res_get_details.content.decode('utf-8'))
-            except:
-                return {"error": "Internal Server Error"}
-            finally:
-                res_download = requests.get(server_url + '/flectrahq/get_module_zip/' + str(id) + '/1')
+                res_download = requests.get(server_url + '/flectrahq/get_module_zip/' + str(id))
                 downloaded_file_checksum = hashlib.sha1(res_download.content or b'').hexdigest()
                 if res_download.status_code == 200:
                     try:
@@ -637,9 +633,8 @@ class Home(http.Controller):
                             return data
                     except:
                         pass
-
-                    if module_file_details['checksum'] == downloaded_file_checksum:
-                        path = os.path.join(tmp_dir_path, module_file_details['name'])
+                    if checksum == downloaded_file_checksum:
+                        path = os.path.join(tmp_dir_path, uuid.uuid4().hex)
                         try:
                             with open(path, 'wb') as f:
                                 f.write(res_download.content)
@@ -650,14 +645,15 @@ class Home(http.Controller):
                         finally:
                             IrModule.update_list()
                             root.load_addons()
-                            modules = IrModule.search([('name', '=', module_file_details['module_name'])], limit=1)
-                            modules.button_immediate_install()
+                            if module_name:
+                                modules = IrModule.search([('name', '=', module_name)], limit=1)
+                                modules.button_immediate_install()
                             os.remove(path)
                             return {"success": "Module is successfully installed."}
                     else:
-                        return {"error": "File Crash."}
-
-            return {"error": "Internal Server Error."}
+                        return {"error": "File crashed when downloading."}
+            except:
+                return {"error": "Internal Server Error"}
         return False
 
 

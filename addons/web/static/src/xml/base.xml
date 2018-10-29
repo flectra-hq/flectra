@@ -1495,7 +1495,7 @@
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                 <t t-set="is_install" t-value="installed_modules.includes(m.technical_name)"/>
                 <li><a t-if="is_install and mode == 'install'" app-action="uninstall" t-att-data-module-id="m.id" href="#" class=" oe_kanban_action oe_kanban_action_a">Uninstall</a></li>
-                <li><a app-action="download" t-att-data-module-id="m.id" t-att-href="m.price ? 'javascript:void(0);' : '/web/module_download/' + m.id" class=" oe_kanban_action oe_kanban_action_a">Download</a></li>
+                <li><a app-action="download" t-att-data-module-id="m.id" t-att-href="m.price ? 'javascript:void(0);' : '/web/module_download/' + m.md5_val" class=" oe_kanban_action oe_kanban_action_a">Download</a></li>
                 <li><a app-action="view-info" t-att-data-module-id="m.id" href="#" class="oe_kanban_action oe_kanban_action_a">View Info</a></li>
                 <li><a t-attf-href="{{ store_url }}/apps/{{ m.version }}/{{ m.technical_name }}" target="_blank" class=" oe_kanban_action oe_kanban_action_a">View More on Store</a></li>
             </ul>
@@ -1507,9 +1507,13 @@
                 <span><t t-esc="m.description or ''"/></span>
             </p>
             <div class="oe_module_action">
-                <span class="pull-left"><t t-esc="m.price ? m.price + ' ' + m.currency[1] : 'Free'"/></span><br/>
-                <code class="pull-left o_module_tech_name"><small><span><t t-esc="m.technical_name"/></span></small></code>
-                <div class="text-right">
+                <span t-if="m.price">
+                    <t t-esc="m.currency[2] == 'after' ? m.price + ' ' + m.currency[1] : m.currency[1] + ' ' + m.price"/>
+                </span>
+                <span t-else="m.price">Free</span>
+                <br/>
+                <code class="o_module_tech_name" t-att-title="m.technical_name"><small><span><t t-esc="m.technical_name"/></span></small></code>
+                <div class="text-right mt8">
                     <t t-if="is_install">
                         <span>Installed</span>
                     </t>
@@ -1521,7 +1525,7 @@
                         </t>
                         <t t-else="">
                             <button t-if="mode == 'install'" app-action="install" t-att-data-module-id="m.id" class="btn btn-primary btn-sm oe_kanban_action oe_kanban_action_button">Install</button>
-                            <a t-if="mode == 'download'" app-action="download" t-att-href="m.price ? 'javascript:void(0);' : '/web/module_download/' + m.id " t-att-data-module-id="m.id" class="btn btn-primary btn-sm oe_kanban_action oe_kanban_action_button">
+                            <a t-if="mode == 'download'" app-action="download" t-att-href="m.price ? 'javascript:void(0);' : '/web/module_download/' + m.md5_val " t-att-data-module-id="m.id" class="btn btn-primary btn-sm oe_kanban_action oe_kanban_action_button">
                                 <span><i class="fa fa-download"/></span>
                             </a>
                         </t>
@@ -1607,7 +1611,11 @@
                         <span><t t-esc="m.description or ''"/></span>
                     </p>
                     <div class="oe_module_action">
-                        <span><t t-esc="m.price ? m.price + ' ' + m.currency[1] : 'Free'"/></span><br/>
+                        <span t-if="m.price">
+                            <t t-esc="m.currency[2] == 'after' ? m.price + ' ' + m.currency[1] : m.currency[1] + ' ' + m.price"/>
+                        </span>
+                        <span t-else="m.price">Free</span>
+                        <br/>
                         <code><small><span><t t-esc="m.technical_name"/></span></small></code>
                     </div>
                 </div>

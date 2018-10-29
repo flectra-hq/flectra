@@ -32,10 +32,13 @@
         }
         li {
             float: none;
-            > a:hover, > a:focus {
-                border-color: transparent;
-                border-radius: 0;
-                background-color: mix(@brand-primary, #ffffff, 50%);
+            > a {
+                white-space: nowrap;
+                &:hover, &:focus {
+                    border-color: transparent;
+                    border-radius: 0;
+                    background-color: mix(@brand-primary, #ffffff, 50%);
+                }
             }
         }
         @media (max-width: @screen-sm-max) {
@@ -70,13 +73,13 @@
                 visibility: visible;
             }
             .oe_module_desc {
+                min-height: 130px;
                 .oe_module_action {
+                    white-space: nowrap;
+                    overflow: hidden !important;
+                    text-overflow: ellipsis;
                     .o_module_tech_name {
                         display: inline-block;
-                        width: 140px;
-                        white-space: nowrap;
-                        overflow: hidden !important;
-                        text-overflow: ellipsis;
                     }
                 }
             }

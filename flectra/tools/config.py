@@ -636,18 +636,23 @@ class configmanager(object):
             except OSError:
                 logging.getLogger(__name__).debug('Failed to create addons data dir %s', d)
         try:
-            if self.get('db_name') and not os.listdir(os.path.join(d)):
-                from flectra.sql_db import db_connect
-                with closing(db_connect(self.get('db_name')).cursor()) as cr:
-                    if flectra.tools.table_exists(cr, 'ir_module_module'):
-                        cr.execute("SELECT latest_version FROM ir_module_module WHERE name=%s", ('base',))
-                        base_version = cr.fetchone()
-                        if base_version and base_version[0]:
-                            tmp = base_version[0].split('.')[:2]
-                            last_version = '.'.join(str(v) for v in tmp)
-                            s = os.path.join(add_dir, last_version)
-                            if float(last_version) < float(release.series) and os.listdir(os.path.join(s)):
-                                self.copytree(s, d)
+            try:
+                from flectra.http import request, root
+                if request.session.db and not os.listdir(os.path.join(d)):
+                    from flectra.sql_db import db_connect
+                    with closing(db_connect(request.session.db).cursor()) as cr:
+                        if flectra.tools.table_exists(cr, 'ir_module_module'):
+                            cr.execute("SELECT latest_version FROM ir_module_module WHERE name=%s", ('base',))
+                            base_version = cr.fetchone()
+                            if base_version and base_version[0]:
+                                tmp = base_version[0].split('.')[:2]
+                                last_version = '.'.join(str(v) for v in tmp)
+                                s = os.path.join(add_dir, last_version)
+                                if float(last_version) < float(release.series) and os.listdir(os.path.join(s)):
+                                    self.copytree(s, d)
+                                    root.load_addons()
+            except:
+                pass
 
             if self.get('app_store') == 'install':
                 if not os.access(d, os.W_OK):
