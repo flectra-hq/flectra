@@ -11,6 +11,7 @@ import os
 import shutil
 import tempfile
 import zipfile
+import datetime,json
 
 import requests
 
@@ -28,6 +29,7 @@ from flectra.exceptions import AccessDenied, UserError
 from flectra.tools.parse_version import parse_version
 from flectra.tools.misc import topological_sort
 from flectra.http import request
+from flectra.addons.web.models.crypt import *
 
 _logger = logging.getLogger(__name__)
 
@@ -293,6 +295,7 @@ class Module(models.Model):
     application = fields.Boolean('Application', readonly=True)
     icon = fields.Char('Icon URL')
     icon_image = fields.Binary(string='Icon', compute='_get_icon_image')
+    contract_certificate = fields.Char('Required Contract')
 
     _sql_constraints = [
         ('name_uniq', 'UNIQUE (name)', 'The name of the module must be unique!'),
@@ -433,6 +436,20 @@ class Module(models.Model):
                     "- %s (%s)" % (module.shortdesc, labels[module.state])
                     for module in modules
                 ]))
+        ir_config = self.env['ir.config_parameter'].sudo()
+        exp_date = ir_config.get_param('database.expiration_date')
+        reason = ir_config.get_param('database.expiration_reason')
+        set_param = ir_config.set_param
+
+        for mod in self:
+            if mod.contract_certificate and not (reason == 'contract_expire' and exp_date):
+                expire_date = datetime.datetime.now() + datetime.timedelta(days=15)
+                set_param('database.expiration_date', expire_date.replace(microsecond=0))
+                set_param('database.expiration_reason', 'contract_expire')
+                set_param('contract.validity',
+                          base64.encodestring(
+                              encrypt(json.dumps(str(expire_date.replace(microsecond=0))),
+                                      str(expire_date.replace(microsecond=0)))))
 
         return dict(ACTION_DICT, name=_('Install'))
 
@@ -573,6 +590,13 @@ class Module(models.Model):
             raise UserError(_("The `base` module cannot be uninstalled"))
         deps = self.downstream_dependencies()
         (self + deps).write({'state': 'to remove'})
+        modules = self.env['ir.module.module'].search([('contract_certificate', '!=', False), ('state', '=', 'installed')])
+        ir_config = self.env['ir.config_parameter'].sudo()
+        set_param = ir_config.set_param
+        if len(modules) <= 0:
+            set_param('database.expiration_date', False)
+            set_param('database.expiration_reason', False)
+            set_param('contract.validity', False)
         return dict(ACTION_DICT, name=_('Uninstall'))
 
     @assert_log_admin_access
@@ -697,6 +721,8 @@ class Module(models.Model):
                     updated_values['state'] = 'uninstalled'
                 if parse_version(terp.get('version', default_version)) > parse_version(mod.latest_version or default_version):
                     res[0] += 1
+                if terp.get('contract_certificate'):
+                    mod.write({'contract_certificate': terp.get('contract_certificate') or False})
                 if updated_values:
                     mod.write(updated_values)
             else:

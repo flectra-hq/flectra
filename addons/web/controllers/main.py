@@ -52,6 +52,7 @@ import requests
 from flectra.tools import config
 from flectra import release
 from flectra.http import root
+from ..models.crypt import *
 
 _logger = logging.getLogger(__name__)
 
@@ -69,6 +70,8 @@ env.filters["json"] = json.dumps
 BUNDLE_MAXAGE = 60 * 60 * 24 * 7
 
 DBNAME_PATTERN = '^[a-zA-Z0-9][a-zA-Z0-9_.-]+$'
+FILENAME = 'licence'
+EXT = 'key'
 
 #----------------------------------------------------------
 # Flectra Web helpers
@@ -1861,3 +1864,16 @@ class ReportController(http.Controller):
     @http.route(['/report/check_wkhtmltopdf'], type='json', auth="user")
     def check_wkhtmltopdf(self):
         return request.env['ir.actions.report'].get_wkhtmltopdf_state()
+
+class LicensingController(http.Controller):
+    @http.route('/flectra/licensing', type='http', auth="user")
+    def download(self, binary='', **kwargs):
+        filename = '%s.%s' % (FILENAME, EXT)
+        content = binary
+        return request.make_response(
+            content,
+            headers=[
+                ('Content-Type', 'plain/text' or 'application/octet-stream'),
+                ('Content-Disposition', content_disposition(filename))
+            ]
+        )
