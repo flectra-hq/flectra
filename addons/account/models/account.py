@@ -975,12 +975,19 @@ class AccountTax(models.Model):
             total_excluded = total_included = base = round(price_unit * quantity, prec)
         else:
             total_excluded, total_included, base = base_values
-
         # Sorting key is mandatory in this case. When no key is provided, sorted() will perform a
         # search. However, the search method is overridden in account.tax in order to add a domain
         # depending on the context. This domain might filter out some taxes from self, e.g. in the
         # case of group taxes.
+        check_previous_sequence = False
+        previous_base = 0.0
+        previous_include_base_amount = False
+        final_base = base
         for tax in self.sorted(key=lambda r: r.sequence):
+            if tax.sequence == check_previous_sequence and previous_include_base_amount == tax.include_base_amount:
+                base = previous_base or base
+            else:
+                base = final_base
             if tax.amount_type == 'group':
                 children = tax.children_tax_ids.with_context(base_values=(total_excluded, total_included, base))
                 ret = children.compute_all(price_unit, currency, quantity, product, partner)
@@ -1007,8 +1014,13 @@ class AccountTax(models.Model):
             tax_base = base
 
             if tax.include_base_amount:
+                previous_base = base
+                final_base += tax_amount
+                previous_include_base_amount = True
                 base += tax_amount
-
+                if tax.sequence == check_previous_sequence:
+                    base -= tax_amount
+            check_previous_sequence = tax.sequence
             taxes.append({
                 'id': tax.id,
                 'name': tax.with_context(**{'lang': partner.lang} if partner else {}).name,
