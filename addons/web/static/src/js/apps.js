@@ -99,27 +99,20 @@ var Apps = Widget.extend({
     },
     _openDialogAfterAction: function (data) {
         if (!_.isEmpty(data)) {
-            var buttons = [];
             if (data.success) {
-                buttons.push({
-                    text: _t("Refresh"),
-                    classes: 'btn-success',
-                    click: function (e) {
-                        window.location.reload();
-                    },
-                    close: true
-                });
+                window.location.reload();
+                return;
             }
-            buttons.push({
-                text: _t("Cancel"),
-                classes: 'btn-warning',
+            var buttons = [{
+                text: _t("OK"),
+                classes: 'btn-success',
                 close: true,
-            });
+            }];
             var dialog = new Dialog(this, {
                 size: 'medium',
                 buttons: buttons,
-                $content: $("<h4>" + (data.error || data.success) + "</h4>"),
-                title: _t(data.error ? "Error" : "Message"),
+                $content: $("<h4>" + data.error + "</h4>"),
+                title: _t("Error"),
             });
             dialog.open();
         }
@@ -152,8 +145,14 @@ var Apps = Widget.extend({
         e.preventDefault();
         var self = this;
         var id = $(e.target).data("module-id");
+        var data = _.findWhere(this.all_app, {id: id});
         self._rpc({
-            route: '/web/app_download_install/' + id,
+            route: '/web/app_download_install',
+            params: {
+                id: data['md5_val'],
+                checksum: data['checksum'],
+                module_name: data['technical_name']
+            }
         }).then(function (data) {
             self._openDialogAfterAction(data);
         });
@@ -172,10 +171,11 @@ var Apps = Widget.extend({
             params: {
                 offset: this.context.categ[this.active_categ]['offset'],
                 categ: this.active_categ,
-                search: this.context.categ[self.active_categ]['search']
+                search: this.context.categ[this.active_categ]['search']
             }
         }).done(function (data) {
             if (data) {
+                self.all_app = self.all_app.concat(data.modules[self.active_categ]);
                 self.$el.find('#' + self.active_categ + " .module-kanban:last")
                     .after(QWeb.render('AppStore.ModuleBoxContainer', {
                         modules: data.modules[self.active_categ],
@@ -183,10 +183,15 @@ var Apps = Widget.extend({
                         mode: self.mode,
                         store_url: data.store_url
                     }));
-                if (!_.isEmpty(data.modules[self.active_categ])) {
+                if (!_.isEmpty(data.modules[self.active_categ]) && data.modules[self.active_categ].length == data.limit) {
                     self.$el.find('#' + self.active_categ + " .load-more").show();
                 } else {
-                    self.$el.find('#' + self.active_categ + " .load-more").hide();
+                    var $rec = self.$el.find('#' + self.active_categ + " .module-kanban ");
+                    var $load_more = self.$el.find('#' + self.active_categ + " .load-more");
+                    $load_more.hide().next('h3').remove();
+                    if (!$rec.length) {
+                        $load_more.after('<h3>No such module(s) found.</h3>');
+                    }
                 }
             } else {
                 self.$el.html(QWeb.render('AppStore.TryError', {}));
@@ -227,18 +232,25 @@ var Apps = Widget.extend({
             }
         }).done(function (data) {
             if (data) {
+                self.all_app = self.all_app.concat(data.modules[self.active_categ]);
                 self.$el.find('#' + self.active_categ).find('.module-kanban').remove();
                 self.context.categ[self.active_categ]['search'] = search;
+                self.context.categ[self.active_categ]['offset'] = 0;
                 $(QWeb.render('AppStore.ModuleBoxContainer', {
                     modules: data.modules[self.active_categ],
                     installed_modules: data.installed_modules,
                     mode: self.mode,
                     store_url: data.store_url
                 })).prependTo(self.$el.find('#' + self.active_categ + " .o_kanban_view"));
-                if (!_.isEmpty(data.modules[self.active_categ])) {
+                if (!_.isEmpty(data.modules[self.active_categ]) && data.modules[self.active_categ].length == data.limit) {
                     self.$el.find('#' + self.active_categ + " .load-more").show().next('h3').remove();
                 } else {
-                    self.$el.find('#' + self.active_categ + " .load-more").hide().after('<h3>No such module(s) found.</h3>');
+                    var $rec = self.$el.find('#' + self.active_categ + " .module-kanban ");
+                    var $load_more = self.$el.find('#' + self.active_categ + " .load-more");
+                    $load_more.hide().next('h3').remove();
+                    if (!$rec.length) {
+                        $load_more.after('<h3>No such module(s) found.</h3>');
+                    }
                 }
             } else {
                 self.$el.html(QWeb.render('AppStore.TryError', {}));
