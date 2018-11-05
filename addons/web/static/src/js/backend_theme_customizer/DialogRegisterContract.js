@@ -24,15 +24,16 @@ flectra.define('FlectraLicensing.DialogRegisterContract', function (require) {
         save: function () {
             var contract_id = this.$el.find('#contract_id').val();
             var self = this;
-            if (!contract_id) {
+            var type = this.$el.find("input[name='activate']:checked").val();
+            if (!contract_id || !type) {
                 return;
             }
             rpc.query({
                 model: 'ir.http',
                 method: 'contract_validate_file',
-                args: [contract_id]
+                args: [contract_id,type]
             }).done(function (bin) {
-                self.trigger('get_key', {'key': contract_id, 'binary': bin});
+                self.trigger('get_key', {'key': contract_id, 'binary': bin, 'type': type});
                 self.close();
             });
         }

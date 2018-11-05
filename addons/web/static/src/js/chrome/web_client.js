@@ -244,7 +244,17 @@ return AbstractWebClient.extend({
             session.get_file({
                 url: '/flectra/licensing',
                 data: {
-                    'binary': key['binary']
+                    'binary': key['binary'],
+                    'type': key['type'],
+                    'contract_id': key['key']
+                },
+                error: function (err) {
+                    new require('web.Dialog').alert(null,err['message']);
+                },
+                success:function () {
+                    if (key['type'] === 'online') {
+                        window.location.reload();
+                    }
                 }
             });
         });
@@ -291,7 +301,7 @@ return AbstractWebClient.extend({
                 overlayCSS: {cursor: 'auto'}
             });
             self.contract_expired();
-        }, 15000);
+        }, 150000);
     },
 });
 
