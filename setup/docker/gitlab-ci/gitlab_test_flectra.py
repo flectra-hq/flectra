@@ -337,7 +337,6 @@ def main(argv=None):
 
 
 if __name__ == '__main__':
-    locale.setlocale(locale.LC_ALL, '')
     rc = main()
     
     if rc:
