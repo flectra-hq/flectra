@@ -103,66 +103,88 @@ class TestPurchaseOrder(AccountingTestCase):
         of the picking with Refund.
         """
         # Draft purchase order created
-        self.po = self.env['purchase.order'].create(self.po_vals)
-        self.assertTrue(self.po, 'Purchase: no purchase order created')
-        self.assertEqual(self.po.order_line.mapped('qty_received'), [0.0, 0.0], 'Purchase: no product should be received"')
-        self.assertEqual(self.po.order_line.mapped('qty_invoiced'), [0.0, 0.0], 'Purchase: no product should be invoiced"')
+        self.po2 = self.env['purchase.order'].create({
+            'partner_id': self.partner_id.id,
+            'order_line': [
+                (0, 0, {
+                    'name': self.product_id_1.name,
+                    'product_id': self.product_id_1.id,
+                    'product_qty': 5.0,
+                    'product_uom': self.product_id_1.uom_po_id.id,
+                    'price_unit': 100.0,
+                    'date_planned': datetime.today().strftime(
+                        DEFAULT_SERVER_DATETIME_FORMAT),
+                }),
+            ],
+        })
 
-        self.po.button_confirm()
-        self.assertEqual(self.po.state, 'purchase', 'Purchase: PO state should be "Purchase"')
-        self.assertEqual(self.po.invoice_status, 'to invoice', 'Purchase: PO invoice_status should be "Waiting Invoices"')
+        self.assertTrue(self.po2, 'Purchase: no purchase order created')
+        self.po2.button_confirm()
 
-        # Confirm the purchase order
-        self.po.button_confirm()
-        self.assertEqual(self.po.state, 'purchase', 'Purchase: PO state should be "Purchase')
-        self.assertEqual(self.po.picking_count, 1, 'Purchase: one picking should be created"')
-        self.picking = self.po.picking_ids[0]
-        self.picking.force_assign()
-        self.picking.move_line_ids.write({'qty_done': 5.0})
+        self.assertEqual(self.po2.state, 'purchase', 'Purchase: PO state '
+                                                     'should be "Purchase"')
+        self.assertEqual(self.po2.invoice_status, 'to invoice', 'Purchase: '
+                                                                'PO invoice_status should be "Waiting Invoices"')
+        self.assertEqual(self.po2.picking_count, 1, 'Purchase: one picking '
+                                                    'should be created"')
+
+        self.picking = self.po2.picking_ids[0]
+        self.picking.move_lines.quantity_done = 5
         self.picking.button_validate()
-        self.assertEqual(self.po.order_line.mapped('qty_received'), [5.0, 5.0], 'Purchase: all products should be received"')
+
+        self.assertEqual(self.po2.order_line.mapped('qty_received'), [5.0],
+                         'Purchase: all products should be received"')
 
         #After Receiving all products create vendor bill.
-        self.invoice = self.AccountInvoice.create({
+        self.invoice2 = self.AccountInvoice.create({
             'partner_id': self.partner_id.id,
-            'purchase_id': self.po.id,
+            'purchase_id': self.po2.id,
             'account_id': self.partner_id.property_account_payable_id.id,
             'type': 'in_invoice',
         })
-        self.invoice.purchase_order_change()
-        self.invoice.invoice_validate()
-        self.assertEqual(self.po.order_line.mapped('qty_invoiced'), [5.0, 5.0], 'Purchase: all products should be invoiced"')
+        self.invoice2.purchase_order_change()
+        self.invoice2.action_invoice_open()
+        self.invoice2.invoice_validate()
+        self.assertEqual(self.po2.order_line.mapped('qty_invoiced'), [5.0],
+                         'Purchase: all products should be invoiced"')
 
         # Check quantity received
-        received_qty = sum(pol.qty_received for pol in self.po.order_line)
-        self.assertEqual(received_qty, 10.0, 'Purchase: Received quantity should be 10.0 instead of %s after validating incoming shipment' % received_qty)
+        received_qty = sum(pol.qty_received for pol in self.po2.order_line)
+
+        self.assertEqual(received_qty, 5.0,
+                         'Purchase: Received quantity should be 5.0 '
+                         'instead of %s after validating incoming '
+                         'shipment' % received_qty)
 
         # Create return picking
         StockReturnPicking = self.env['stock.return.picking']
-        pick = self.po.picking_ids
+        pick = self.po2.picking_ids
         default_data = StockReturnPicking.with_context(active_ids=pick.ids, active_id=pick.ids[0]).default_get(['move_dest_exists', 'original_location_id', 'product_return_moves', 'parent_location_id', 'location_id'])
         return_wiz = StockReturnPicking.with_context(active_ids=pick.ids, active_id=pick.ids[0]).create(default_data)
-        return_wiz.product_return_moves.write({'quantity': 2.0, 'to_refund': True}) # Return only 2
+        return_wiz.product_return_moves.write({'quantity': 5.0,
+                                               'to_refund':True})
+        # Return only 5 qty
         res = return_wiz.create_returns()
         return_pick = self.env['stock.picking'].browse(res['res_id'])
 
         # Validate picking
         return_pick.force_assign()
-        return_pick.move_line_ids.write({'qty_done': 2})
-        
-        return_pick.button_validate()
+        return_pick.move_line_ids.write({'qty_done': 5.0})
+        return_pick.do_transfer()
 
-        # Check Received quantity
-        self.assertEqual(self.po.order_line[0].qty_received, 3.0, 'Purchase: delivered quantity should be 3.0 instead of "%s" after picking return' % self.po.order_line[0].qty_received)
-        #Create vendor bill for refund qty
-        self.invoice = self.AccountInvoice.create({
-            'partner_id': self.partner_id.id,
-            'purchase_id': self.po.id,
-            'account_id': self.partner_id.property_account_payable_id.id,
-            'type': 'in_refund',
-        })
-        self.invoice.purchase_order_change()
-        self.invoice.invoice_line_ids[0].quantity = 2.0
-        self.invoice.invoice_line_ids[1].quantity = 2.0
-        self.invoice.invoice_validate()
-        self.assertEqual(self.po.order_line.mapped('qty_invoiced'), [3.0, 3.0], 'Purchase: Billed quantity should be 3.0')        
+        # I created a credit note Using Add Credit Note Button
+
+        context = {"active_model": 'account.invoice',
+                   "active_ids": [self.invoice2.id],
+                   "active_id": self.invoice2.id}
+
+        invoice_refund_obj = self.env['account.invoice.refund']
+        self.AccountInvoiceRefund = invoice_refund_obj.with_context(context).create(dict(
+            description='Create Credit Note for Purchase Order',
+            filter_refund='refund',
+
+        ))
+        # I clicked on Add Credit Note button.
+        self.AccountInvoiceRefund.with_context(context).invoice_refund()
+        self.invoice2.refund_invoice_ids and self.invoice2.refund_invoice_ids[
+            0].invoice_validate()

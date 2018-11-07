@@ -25,6 +25,7 @@ from os.path import join as opj
 from zlib import adler32
 
 import babel.core
+from datetime import datetime, date
 import passlib.utils
 import psycopg2
 import json
@@ -44,10 +45,11 @@ except ImportError:
     psutil = None
 
 import flectra
+from flectra import fields
 from .service.server import memory_info
 from .service import security, model as service_model
 from .tools.func import lazy_property
-from .tools import ustr, consteq, frozendict, pycompat, unique
+from .tools import ustr, consteq, frozendict, pycompat, unique, date_utils
 
 from .modules.module import module_manifest
 
@@ -101,9 +103,9 @@ def dispatch_rpc(service_name, method, params):
         rpc_response_flag = rpc_response.isEnabledFor(logging.DEBUG)
         if rpc_request_flag or rpc_response_flag:
             start_time = time.time()
-            start_rss, start_vms = 0, 0
+            start_memory = 0
             if psutil:
-                start_rss, start_vms = memory_info(psutil.Process(os.getpid()))
+                start_memory = memory_info(psutil.Process(os.getpid()))
             if rpc_request and rpc_response_flag:
                 flectra.netsvc.log(rpc_request, logging.DEBUG, '%s.%s' % (service_name, method), replace_request_password(params))
 
@@ -617,6 +619,7 @@ class JsonRequest(WebRequest):
         self.context = self.params.pop('context', dict(self.session.context))
 
     def _json_response(self, result=None, error=None):
+
         response = {
             'jsonrpc': '2.0',
             'id': self.jsonrequest.get('id')
@@ -632,7 +635,7 @@ class JsonRequest(WebRequest):
             # We need then to manage http sessions manually.
             response['session_id'] = self.session.sid
             mime = 'application/javascript'
-            body = "%s(%s);" % (self.jsonp, json.dumps(response, default=ustr),)
+            body = "%s(%s);" % (self.jsonp, json.dumps(response, default=date_utils.json_default))
         else:
             mime = 'application/json'
             body = json.dumps(response, default=ustr)
@@ -682,9 +685,9 @@ class JsonRequest(WebRequest):
                 args = self.params.get('args', [])
 
                 start_time = time.time()
-                _, start_vms = 0, 0
+                start_memory = 0
                 if psutil:
-                    _, start_vms = memory_info(psutil.Process(os.getpid()))
+                    start_memory = memory_info(psutil.Process(os.getpid()))
                 if rpc_request and rpc_response_flag:
                     rpc_request.debug('%s: %s %s, %s',
                         endpoint, model, method, pprint.pformat(args))
@@ -693,11 +696,11 @@ class JsonRequest(WebRequest):
 
             if rpc_request_flag or rpc_response_flag:
                 end_time = time.time()
-                _, end_vms = 0, 0
+                end_memory = 0
                 if psutil:
-                    _, end_vms = memory_info(psutil.Process(os.getpid()))
+                    end_memory = memory_info(psutil.Process(os.getpid()))
                 logline = '%s: %s %s: time:%.3fs mem: %sk -> %sk (diff: %sk)' % (
-                    endpoint, model, method, end_time - start_time, start_vms / 1024, end_vms / 1024, (end_vms - start_vms)/1024)
+                    endpoint, model, method, end_time - start_time, start_memory / 1024, end_memory / 1024, (end_memory - start_memory)/1024)
                 if rpc_response_flag:
                     rpc_response.debug('%s, %s', logline, pprint.pformat(result))
                 else:
@@ -1033,9 +1036,10 @@ class OpenERPSession(werkzeug.contrib.sessions.Session):
                 HTTP_HOST=wsgienv['HTTP_HOST'],
                 REMOTE_ADDR=wsgienv['REMOTE_ADDR'],
             )
-            uid = dispatch_rpc('common', 'authenticate', [db, login, password, env])
+            uid = flectra.registry(db)['res.users'].authenticate(db, login, password, env)
         else:
             security.check(db, uid, password)
+        self.rotate = True
         self.db = db
         self.uid = uid
         self.login = login
@@ -1057,12 +1061,6 @@ class OpenERPSession(werkzeug.contrib.sessions.Session):
         # We create our own environment instead of the request's one.
         # to avoid creating it without the uid since request.uid isn't set yet
         env = flectra.api.Environment(request.cr, self.uid, self.context)
-        #  == BACKWARD COMPATIBILITY TO CONVERT OLD SESSION TYPE TO THE NEW ONES ! REMOVE ME AFTER 11.0 ==
-        if self.get('password'):
-            security.check(self.db, self.uid, self.password)
-            self.session_token = security.compute_session_token(self, env)
-            self.pop('password')
-        # =================================================================================================
         # here we check if the session is still valid
         if not security.check_session(self, env):
             raise SessionExpiredException("Session expired")
@@ -1239,6 +1237,7 @@ class Response(werkzeug.wrappers.Response):
     def set_default(self, template=None, qcontext=None, uid=None):
         self.template = template
         self.qcontext = qcontext or dict()
+        self.qcontext['response_template'] = self.template
         self.uid = uid
         # Support for Cross-Origin Resource Sharing
         if request.endpoint and 'cors' in request.endpoint.routing:
@@ -1302,7 +1301,8 @@ class Root(object):
         # Setup http sessions
         path = flectra.tools.config.session_dir
         _logger.debug('HTTP sessions stored in: %s', path)
-        return werkzeug.contrib.sessions.FilesystemSessionStore(path, session_class=OpenERPSession)
+        return werkzeug.contrib.sessions.FilesystemSessionStore(
+            path, session_class=OpenERPSession, renew_missing=True)
 
     @lazy_property
     def nodb_routing_map(self):
@@ -1350,6 +1350,7 @@ class Root(object):
                         addons_module[module] = m
                         addons_manifest[module] = manifest
                         statics['/%s/static' % module] = path_static
+
 
         if statics:
             _logger.info("HTTP Configuring static files")
@@ -1423,10 +1424,16 @@ class Root(object):
         else:
             response = result
 
+        save_session = (not request.endpoint) or request.endpoint.routing.get('save_session', True)
+        if not save_session:
+            return response
+
         if httprequest.session.should_save:
             if httprequest.session.rotate:
                 self.session_store.delete(httprequest.session)
                 httprequest.session.sid = self.session_store.generate_key()
+                if httprequest.session.uid:
+                    httprequest.session.session_token = security.compute_session_token(httprequest.session, request.env)
                 httprequest.session.modified = True
             self.session_store.save(httprequest.session)
         # We must not set the cookie if the session id was specified using a http header or a GET parameter.
@@ -1450,6 +1457,9 @@ class Root(object):
             httprequest.app = self
             httprequest.parameter_storage_class = werkzeug.datastructures.ImmutableOrderedMultiDict
             threading.current_thread().url = httprequest.url
+            threading.current_thread().query_count = 0
+            threading.current_thread().query_time = 0
+            threading.current_thread().perf_t0 = time.time()
 
             explicit_session = self.setup_session(httprequest)
             self.setup_db(httprequest)
@@ -1513,6 +1523,7 @@ def db_filter(dbs, httprequest=None):
     if d == "www" and r:
         d = r.partition('.')[0]
     if flectra.tools.config['dbfilter']:
+        d, h = re.escape(d), re.escape(h)
         r = flectra.tools.config['dbfilter'].replace('%h', h).replace('%d', d)
         dbs = [i for i in dbs if re.match(r, i)]
     elif flectra.tools.config['db_name']:
@@ -1646,7 +1657,7 @@ def send_file(filepath_or_fp, mimetype=None, as_attachment=False, filename=None,
 
 def content_disposition(filename):
     filename = flectra.tools.ustr(filename)
-    escaped = urls.url_quote(filename)
+    escaped = urls.url_quote(filename, safe='')
 
     return "attachment; filename*=UTF-8''%s" % escaped
 

@@ -6,11 +6,14 @@ try:
 except ImportError:
     import ConfigParser
 
+import errno
 import logging
 import optparse
 import os
 import sys
+import shutil
 import flectra
+from contextlib import closing
 from .. import release, conf, loglevels
 from . import appdirs, pycompat
 
@@ -74,7 +77,7 @@ class configmanager(object):
         self.options = {
             'admin_passwd': 'admin',
             'csv_internal_sep': ',',
-            'publisher_warranty_url': 'http://services.flectrahq.com/publisher-warranty/',
+            'publisher_warranty_url': 'https://services.flectrahq.com/publisher-warranty/',
             'reportgz': False,
             'root_path': None,
         }
@@ -276,6 +279,9 @@ class configmanager(object):
                          help="Use the unaccent function provided by the database when available.")
         group.add_option("--geoip-db", dest="geoip_database", my_default='/usr/share/GeoIP/GeoLiteCity.dat',
                          help="Absolute path to the GeoIP database file.")
+        group.add_option("--app-store", dest="app_store",
+                         help="specify the option to enable app store. (default : install) "
+                              "Options : [install|download|disable]", my_default='install')
         parser.add_option_group(group)
 
         if os.name == 'posix':
@@ -285,10 +291,12 @@ class configmanager(object):
                              help="Specify the number of workers, 0 disable prefork mode.",
                              type="int")
             group.add_option("--limit-memory-soft", dest="limit_memory_soft", my_default=2048 * 1024 * 1024,
-                             help="Maximum allowed virtual memory per worker, when reached the worker be reset after the current request (default 671088640 aka 640MB).",
+                             help="Maximum allowed virtual memory per worker, when reached the worker be "
+                             "reset after the current request (default 2048MiB).",
                              type="int")
             group.add_option("--limit-memory-hard", dest="limit_memory_hard", my_default=2560 * 1024 * 1024,
-                             help="Maximum allowed virtual memory per worker, when reached, any memory allocation will fail (default 805306368 aka 768MB).",
+                             help="Maximum allowed virtual memory per worker, when reached, any memory "
+                             "allocation will fail (default 2560MiB).",
                              type="int")
             group.add_option("--limit-time-cpu", dest="limit_time_cpu", my_default=60,
                              help="Maximum allowed CPU time per request (default 60).",
@@ -403,7 +411,8 @@ class configmanager(object):
                 'db_maxconn', 'import_partial', 'addons_path',
                 'syslog', 'without_demo',
                 'dbfilter', 'log_level', 'log_db',
-                'log_db_level', 'geoip_database', 'dev_mode', 'shell_interface'
+                'log_db_level', 'geoip_database', 'dev_mode', 'shell_interface',
+                'app_store'
         ]
 
         for arg in keys:
@@ -464,6 +473,8 @@ class configmanager(object):
             self.options['addons_path'] = ",".join(
                     os.path.abspath(os.path.expanduser(os.path.expandvars(x.strip())))
                       for x in self.options['addons_path'].split(','))
+
+        self.options['data_dir'] = os.path.abspath(os.path.expanduser(os.path.expandvars(self.options['data_dir'].strip())))
 
         self.options['init'] = opt.init and dict.fromkeys(opt.init.split(','), 1) or {}
         self.options['demo'] = (dict(self.options['init'])
@@ -602,6 +613,15 @@ class configmanager(object):
     def __getitem__(self, key):
         return self.options[key]
 
+    def copytree(self, src, dst, symlinks=False, ignore=None):
+        for item in os.listdir(src):
+            s = os.path.join(src, item)
+            d = os.path.join(dst, item)
+            if os.path.isdir(s):
+                shutil.copytree(s, d, symlinks, ignore)
+            else:
+                shutil.copy2(s, d)
+
     @property
     def addons_data_dir(self):
         add_dir = os.path.join(self['data_dir'], 'addons')
@@ -612,17 +632,46 @@ class configmanager(object):
                 if not os.path.exists(add_dir):
                     os.makedirs(add_dir, 0o700)
                 # try to make +rx placeholder dir, will need manual +w to activate it
-                os.makedirs(d, 0o500)
+                os.makedirs(d, 0o700)
             except OSError:
                 logging.getLogger(__name__).debug('Failed to create addons data dir %s', d)
+        try:
+            try:
+                from flectra.http import request, root
+                if request.session.db and not os.listdir(os.path.join(d)):
+                    from flectra.sql_db import db_connect
+                    with closing(db_connect(request.session.db).cursor()) as cr:
+                        if flectra.tools.table_exists(cr, 'ir_module_module'):
+                            cr.execute("SELECT latest_version FROM ir_module_module WHERE name=%s", ('base',))
+                            base_version = cr.fetchone()
+                            if base_version and base_version[0]:
+                                tmp = base_version[0].split('.')[:2]
+                                last_version = '.'.join(str(v) for v in tmp)
+                                s = os.path.join(add_dir, last_version)
+                                if float(last_version) < float(release.series) and os.listdir(os.path.join(s)):
+                                    self.copytree(s, d)
+                                    root.load_addons()
+            except:
+                pass
+
+            if self.get('app_store') == 'install':
+                if not os.access(d, os.W_OK):
+                    os.chmod(d, 0o700)
+            else:
+                if os.access(d, os.W_OK):
+                    os.chmod(d, 0o500)
+        except OSError:
+            logging.getLogger(__name__).debug("No such file or directory: %s", d)
         return d
 
     @property
     def session_dir(self):
         d = os.path.join(self['data_dir'], 'sessions')
-        if not os.path.exists(d):
+        try:
             os.makedirs(d, 0o700)
-        else:
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise
             assert os.access(d, os.W_OK), \
                 "%s: directory is not writable" % d
         return d

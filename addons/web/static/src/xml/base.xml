@@ -1443,4 +1443,202 @@
     </div>
 </t>
 
+<t t-name="AppStore">
+    <div class="f_app_store_container">
+        <t t-call="AppStore.Content"/>
+    </div>
+</t>
+
+<t t-name="AppDownload">
+    <div>
+        <div class="progress" id="app_1">
+            <div class="progress-bar progress-bar-striped active"
+                 role="progressbar"
+                 aria-valuenow="0"
+                 aria-valuemin="0"
+                 aria-valuemax="100"
+                 style="width:0%">
+                0%
+            </div>
+        </div>
+    </div>
+</t>
+
+<t t-name="AppStore.RatingStart">
+    <t t-set="val_integer"
+       t-value="m.rate"/>
+    <t t-set="val_decimal"
+       t-value="0"/>
+    <t t-set="empty_star"
+       t-value="5 - val_integer"/>
+    <div class="o_website_rating_static">
+        <t t-foreach="_.range(0,val_integer)"
+           t-as="num">
+            <i class="fa fa-star"/>
+        </t>
+        <t t-if="val_decimal">
+            <i class="fa fa-star-half-o"/>
+        </t>
+        <t t-foreach="_.range(0,empty_star)"
+           t-as="num">
+            <i class="fa fa-star-o"/>
+        </t>
+    </div>
+</t>
+
+<t t-name="AppStore.ModuleBox">
+    <div class="module-kanban oe_module_vignette oe_kanban_global_click o_kanban_record">
+        <div t-if="!m.price" class="o_dropdown_kanban dropdown">
+            <a class="dropdown-toggle btn" data-toggle="dropdown" href="#" aria-expanded="true">
+                <span class="fa fa-ellipsis-v"/>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <t t-set="is_install" t-value="installed_modules.includes(m.technical_name)"/>
+                <li><a t-if="is_install and mode == 'install'" app-action="uninstall" t-att-data-module-id="m.id" href="#" class=" oe_kanban_action oe_kanban_action_a">Uninstall</a></li>
+                <li><a app-action="download" t-att-data-module-id="m.id" t-att-href="m.price ? 'javascript:void(0);' : '/web/module_download/' + m.md5_val" class=" oe_kanban_action oe_kanban_action_a">Download</a></li>
+                <li><a app-action="view-info" t-att-data-module-id="m.id" href="#" class="oe_kanban_action oe_kanban_action_a">View Info</a></li>
+                <li><a t-attf-href="{{ store_url }}/apps/{{ m.version }}/{{ m.technical_name }}" target="_blank" class=" oe_kanban_action oe_kanban_action_a">View More on Store</a></li>
+            </ul>
+        </div>
+        <img class="oe_module_icon" t-attf-src="{{ store_url }}/web/image/griffin.module/{{ m.id }}/module_icon/120x120"/>
+        <div class="oe_module_desc" t-att-title="m.name">
+            <h4 class="o_kanban_record_title"><span t-esc="m.name"/></h4>
+            <p class="oe_module_name">
+                <span><t t-esc="m.description or ''"/></span>
+            </p>
+            <div class="oe_module_action">
+                <span t-if="m.price">
+                    <t t-esc="m.currency[2] == 'after' ? m.price + ' ' + m.currency[1] : m.currency[1] + ' ' + m.price"/>
+                </span>
+                <span t-else="m.price">Free</span>
+                <br/>
+                <code class="o_module_tech_name" t-att-title="m.technical_name"><small><span><t t-esc="m.technical_name"/></span></small></code>
+                <div class="text-right mt8">
+                    <t t-if="is_install">
+                        <span>Installed</span>
+                    </t>
+                    <t t-else="">
+                        <t t-if="m.price">
+                            <a t-attf-href="{{ store_url }}/apps/{{ m.version }}/{{ m.technical_name }}" target="_blank" class="btn btn-primary btn-sm oe_kanban_action oe_kanban_action_button">
+                                <span><i class="fa fa-globe"/></span>
+                            </a>
+                        </t>
+                        <t t-else="">
+                            <button t-if="mode == 'install'" app-action="install" t-att-data-module-id="m.id" class="btn btn-primary btn-sm oe_kanban_action oe_kanban_action_button">Install</button>
+                            <a t-if="mode == 'download'" app-action="download" t-att-href="m.price ? 'javascript:void(0);' : '/web/module_download/' + m.md5_val " t-att-data-module-id="m.id" class="btn btn-primary btn-sm oe_kanban_action oe_kanban_action_button">
+                                <span><i class="fa fa-download"/></span>
+                            </a>
+                        </t>
+                    </t>
+                </div>
+            </div>
+        </div>
+        <div class="oe_module_footer">
+            <div>
+                <span>
+                    <i class="fa fa-download"/> (<span t-esc="m.download_count"/>)
+                </span>
+                <span class="pull-right"><t t-call="AppStore.RatingStart"/></span>
+            </div>
+            <span><span><t t-esc="m.author"/></span></span>
+        </div>
+    </div>
+</t>
+
+<t t-name="AppStore.ModuleBoxContainer">
+    <t t-foreach="modules" t-as="m">
+        <t t-call="AppStore.ModuleBox"/>
+    </t>
+</t>
+
+<t t-name="AppStore.Content">
+    <div t-if="modules" class="o_view_manager_content">
+        <div class="container-fluid">
+            <div class="banner"/>
+            <ul class="nav nav-tabs search-box">
+                <li>
+                    <div class="input-group">
+                        <input id="input-module-search" type="text" class="form-control" name="input-module-search" placeholder="Search Modules"/>
+                        <span class = "input-group-btn">
+                            <button id="btn-module-search" class="btn btn-default" type = "button"><i class="fa fa-search"/></button>
+                        </span>
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav nav-tabs category">
+                <t t-foreach="categ" t-as="c">
+                    <li><a t-att-data-category-id="c[0]" data-toggle="tab" t-att-href="'#' + c[0]"><t t-esc="c[1]"/></a></li>
+                </t>
+            </ul>
+            <div class="tab-content">
+                <t t-foreach="categ" t-as="c">
+                    <div t-att-id="c[0]" class="tab-pane fade">
+                        <div class="o_kanban_view o_kanban_ungrouped">
+                            <t t-foreach="modules[c[0]]" t-as="m">
+                                <t t-call="AppStore.ModuleBox"/>
+                            </t>
+                            <div class="o_kanban_record o_kanban_ghost"/>
+                            <div class="o_kanban_record o_kanban_ghost"/>
+                            <div class="o_kanban_record o_kanban_ghost"/>
+                        </div>
+                        <div class="text-center mb16">
+                            <div t-att-data-category-name="c[0]" class="btn btn-primary load-more">View More Modules</div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+            <span class="top"><i class="fa fa-arrow-up"/></span>
+        </div>
+    </div>
+</t>
+
+<t t-name="AppStore.TryError">
+    <div class="text-center mt32 mb32">
+        <h3>Unable to connect with FlectraHQ store.</h3>
+        <a class="btn btn-danger" id="try-again">Try Again</a>
+    </div>
+</t>
+
+<t t-name="AppStore.ViewDetails">
+    <div>
+        <div class="container-fluid">
+            <t t-set="m" t-value="app"/>
+            <div class="col-md-12 col-xs-12">
+                <img class="oe_module_icon" t-attf-src="{{ store_url }}/web/image/griffin.module/{{ m.id }}/module_icon/120x120"/>
+                <div class="oe_module_desc">
+                    <h4 class="o_kanban_record_title"><span t-esc="m.name"/></h4>
+                    <p class="oe_module_name">
+                        <span><t t-esc="m.description or ''"/></span>
+                    </p>
+                    <div class="oe_module_action">
+                        <span t-if="m.price">
+                            <t t-esc="m.currency[2] == 'after' ? m.price + ' ' + m.currency[1] : m.currency[1] + ' ' + m.price"/>
+                        </span>
+                        <span t-else="m.price">Free</span>
+                        <br/>
+                        <code><small><span><t t-esc="m.technical_name"/></span></small></code>
+                    </div>
+                </div>
+                <div class="oe_module_footer">
+                    <span><b>Version: </b><t t-esc="m.version"/></span><br/>
+                    <span><b>license: </b><t t-esc="m.license"/></span><br/>
+                    <span><b>Dependent Module: </b><t t-esc="m.depends"/></span><br/>
+                    <span><b>Develop By: </b><span><t t-esc="m.author"/></span></span>
+                    <div>
+                        <span class="pull-left mr8">
+                            <i class="fa fa-download"/> (<span t-esc="m.download_count"/>)
+                        </span>
+                        <t t-call="AppStore.RatingStart"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</t>
+<t t-name="AppStore.Disable">
+    <div class="text-center mt32 mb32">
+        <h2>App Store Disable by Administrator.</h2>
+    </div>
+</t>
+
 </templates>

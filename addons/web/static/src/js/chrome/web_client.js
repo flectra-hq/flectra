@@ -11,6 +11,9 @@ var SystrayMenu = require('web.SystrayMenu');
 var UserMenu = require('web.UserMenu');
 var UserProfile = require('web.UserProfile');
 var config = require('web.config');
+var rpc = require('web.rpc');
+var qweb = core.qweb;
+var Dialog = require('FlectraLicensing.DialogRegisterContract');
 
 return AbstractWebClient.extend({
     events: {
@@ -55,6 +58,9 @@ return AbstractWebClient.extend({
         this.systray_menu.setElement(this.$el.parents().find('.oe_systray'));
         var systray_menu_loaded = this.systray_menu.start();
 
+        if ((session.expiration_date && session.expiration_reason === 'contract_expire') || !session['contract_validation']) {
+            this.validate_days_of_contract();
+        }
         // Start the menu once both systray and user menus are rendered
         // to prevent overflows while loading
         return $.when(systray_menu_loaded, user_menu_loaded).then(function() {
@@ -197,6 +203,95 @@ return AbstractWebClient.extend({
         if (!fullscreen) {
             this.menu.reflow();
         }
+    },
+    validate_days_of_contract: function () {
+        var today = new moment();
+        var dbexpiration_date = new moment(session.expiration_date);
+        var duration = moment.duration(dbexpiration_date.diff(today));
+        var params = {
+            'difference': Math.round(duration.asDays()),
+            'reason': session.expiration_reason,
+        };
+        this.show_contract_registration(params);
+    },
+
+    show_contract_registration: function (params) {
+        var self = this;
+        var bg_color = params.difference <= 10 ? '#e55e50' : '#f3be5d';
+        var difference = params.difference || 0;
+        if (difference <= 15 || !session['contract_validation']) {
+            if (difference > 15){
+                difference = 0;
+                bg_color = '#e55e50';
+            }
+            var message = 'Register your contract, only ' + difference  + ' days left';
+            var $panel = $(qweb.render('FlectraLicense.contract_expire_panel', {
+                'difference': params.difference,
+                'message': message,
+                'background': bg_color
+            }));
+            $('nav').after($panel);
+            if (difference <= 0) {
+                return self.contract_expired()
+            }
+            $panel.find('#register_contract').bind('click', self.register_contract);
+        }
+    },
+    register_contract: function () {
+        var self = this;
+        var dialog = new Dialog(self).open();
+        dialog.on('get_key', self, function (key) {
+            session.get_file({
+                url: '/flectra/licensing',
+                data: {
+                    'binary': key['binary']
+                }
+            });
+        });
+    },
+    contract_expired: function () {
+        var self = this;
+        var $message = $('#expiration-message').parent();
+        var $clone = $message.clone();
+        $clone.find('#contract-message').text('Contract Expired !!!').addClass('contract-block');
+        $clone.find('button.close').remove();
+        $message.hide();
+        $clone.find('div#register_contract').after(
+            $('<div id="apply_contract" class="noselect">').append(
+                $('<span id="btn_apply_key">').text('Apply Key')));
+        $clone.find('span#btn_register_contract').off('click').on('click', function () {
+            $.unblockUI();
+            self.register_contract();
+        });
+        $clone.find('#register_contract,#apply_contract').addClass('contract-mrg10');
+        $clone.find('span#btn_apply_key').off('click').on('click', function () {
+            $.unblockUI();
+            rpc.query({
+                model: 'ir.actions.act_window',
+                method: 'search_read',
+                domain: [['context', '=', "{'module' : 'general_settings'}"]]
+            }).done(function (res) {
+                if (!res)
+                    window.location.reload();
+                self.do_action(res[0]['id']).done(function () {
+                    var $el = $('div[name=activator_key]');
+                    if ($el && $el[0]){
+                        $el[0].scrollIntoView({behavior: 'smooth', block: 'center'});
+                        $el.parents('.o_setting_box').animate({backgroundColor: "rgb(239, 234, 208)"}, 2000, function () {
+                            $el.parents('.o_setting_box').animate({backgroundColor: ''})
+                        });
+                    }
+                });
+            });
+        });
+        setTimeout(function () {
+            $.blockUI({
+                message: $clone,
+                css: {cursor: 'auto'},
+                overlayCSS: {cursor: 'auto'}
+            });
+            self.contract_expired();
+        }, 15000);
     },
 });
 

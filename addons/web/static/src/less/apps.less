@@ -1,0 +1,93 @@
+.f_app_store_container {
+    .f_app_title {
+        background-color: mix(@brand-primary, #ffffff, 30%);
+        padding: 5px 10px;
+        margin: 0;
+    }
+    .top {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        background: @brand-primary;
+        padding: 10px 15px;
+        font-size: 20px;
+        z-index: 2;
+        color: #ffffff;
+        cursor: pointer;
+    }
+    ul.nav.category {
+        border-top: 1px solid #dddddd;
+        background-color: mix(@brand-primary, #ffffff, 30%);
+        overflow-x: auto;
+        overflow-y: hidden;
+        .o-flex-display();
+        li.active > a {
+            border-color: transparent;
+            border-bottom: 3px solid @brand-primary;
+            background-color: unset;
+            &:hover, &:focus {
+                border-bottom: 3px solid @brand-primary;
+                background-color: unset;
+            }
+        }
+        li {
+            float: none;
+            > a {
+                white-space: nowrap;
+                &:hover, &:focus {
+                    border-color: transparent;
+                    border-radius: 0;
+                    background-color: mix(@brand-primary, #ffffff, 50%);
+                }
+            }
+        }
+        @media (max-width: @screen-sm-max) {
+            border-top: none;
+        }
+    }
+    ul.search-box {
+        background-color: mix(@brand-primary, #ffffff, 30%);
+        float: right;
+        border-top: 1px solid #dddddd;
+        > li {
+            padding: 5px 20px;
+            width: 260px;
+            #input-module-search {
+                border-radius: 0;
+            }
+            @media (max-width: @screen-sm-max) {
+                width: 100%;
+            }
+        }
+        @media (max-width: @screen-sm-max) {
+            float: none;
+            border-bottom: none;
+        }
+    }
+    .o_kanban_view {
+        width: 100%;
+        .o_kanban_record {
+            cursor: auto;
+            border-color: #777777;
+            .o_dropdown_kanban {
+                visibility: visible;
+            }
+            .oe_module_desc {
+                min-height: 130px;
+                .oe_module_action {
+                    white-space: nowrap;
+                    overflow: hidden !important;
+                    text-overflow: ellipsis;
+                    .o_module_tech_name {
+                        display: inline-block;
+                    }
+                }
+            }
+            .oe_module_footer {
+                border-top: 1px solid @flectra-color-silver-darker;
+                margin-top: 8px;
+                padding-top: 8px;
+            }
+        }
+    }
+}

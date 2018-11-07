@@ -10,6 +10,31 @@ As Flectra Team is working on Odoo's fork. It is team's responsibilities to main
 This changelog contains things those are improved version by version and also things those are not identical with Odoo.
 So, users can consider this **CHANGELOG** to find the differences between **Flectra** and **Odoo(Community Edition)**.
 
+Introduction
+
+## [1.5.0] - Rufous - 2018-10-31
+### Added
+
+- One Click App Install
+- Email Digest
+- United Arab Emirates (UAE) Accounting Localization
+- Automated Abandon Cart Recovery
+- Inter-Company Transaction (Extra Addons)
+- Email Validation (Extra Addons)
+
+### Fixes
+- #95 Installation issue with Linux Mint 19
+- #98 Helpdesk module: Related Partner field changes user_id name and Related Partner
+- #99 Hide Helpdesk Issue Form page for not logged in visitors
+- #100 Portal User has no rights to access /my/ticket page
+- #104 Incorrect layout for billing orders
+- #105 Flectra Client Error: TypeError: Cannot read property 'id' of undefined
+- #107 Documentation Link Fix
+- #126, #131 Multi-Company Multi Accounting plan
+- #132 multiple shipment issue with PO
+- #134 oauth data error
+- #164 Wrong order of taxes in quotation
+
 
 ## [1.4.0] - Lucifer - 2018-08-07
 ### Added

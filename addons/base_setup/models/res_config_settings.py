@@ -2,8 +2,10 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from flectra import api, fields, models, _
-import json
-
+import json, base64, datetime, logging
+from flectra.exceptions import UserError
+from flectra.addons.web.models.crypt import *
+_logger = logging.getLogger(__name__)
 
 class ResConfigSettings(models.TransientModel):
 
@@ -37,6 +39,8 @@ class ResConfigSettings(models.TransientModel):
     external_report_layout = fields.Selection(related="company_id.external_report_layout")
     send_statistics = fields.Boolean(
         "Send Statistics")
+    activator_key = fields.Binary('Upload Activation Key')
+    contract_id = fields.Char('Contract ID')
 
     @api.model
     def get_values(self):
@@ -72,6 +76,8 @@ class ResConfigSettings(models.TransientModel):
         self.env['ir.config_parameter'].sudo().set_param(
             "base_setup.send_statistics", send_statistics)
         self.env.ref('base.res_partner_rule').write({'active': not self.company_share_partner})
+        if self.activator_key:
+            self._check_authorization()
 
     @api.multi
     def open_company(self):
@@ -123,3 +129,22 @@ class ResConfigSettings(models.TransientModel):
             'view_id': template.id,
             'target': 'new',
         }
+
+    def _check_authorization(self):
+        if self.activator_key and self.contract_id:
+            try:
+                set_param = self.env['ir.config_parameter'].sudo().set_param
+                binary = json.loads(base64.decodestring(self.activator_key)).encode('ascii')
+                binary = base64.decodestring(binary)
+                enc = json.dumps(decrypt(binary, self.contract_id))
+                if enc:
+                    dt = datetime.datetime.strptime(json.loads(enc),'"%Y-%m-%d %H:%M:%S"')
+                    set_param('database.expiration_date', dt)
+                    set_param('contract.validity',
+                              base64.encodestring(
+                                  encrypt(json.dumps(str(dt)),
+                                          str(dt))))
+            except Exception:
+                _logger.info(_('Please double-check your Contract Key!'), exc_info=True)
+                raise UserError(
+                    _('Authorization error!') + ' ' + _('Please double-check your Contract Key!'))
