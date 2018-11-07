@@ -111,7 +111,7 @@ build:flectra_ubuntu:
         ./setup/docker/
     - docker push ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
 
-build:flectra_debian:
+.build:flectra_debian:
   <<: *build_definition
   stage: build
   script:
@@ -200,7 +200,7 @@ deploy:flectra_ubuntu_root:
     - docker push ${UBUNTUROOT_FLECTRA_IMAGE}:$CI_COMMIT_TAG
     - docker push ${UBUNTUROOT_FLECTRA_IMAGE}:latest
 
-deploy:flectra_debian:
+.deploy:flectra_debian:
   <<: *build_definition
   stage: deploy
   only:
@@ -226,7 +226,7 @@ build:base_ubuntu:
     - docker build --cache-from ${UBUNTU_BASE_IMAGE}:latest -f ./setup/docker/base/ubuntu/Dockerfile ./setup/docker/ --tag ${UBUNTU_BASE_IMAGE}:latest
     - docker push ${UBUNTU_BASE_IMAGE}:latest
 
-build:base_debian:
+.build:base_debian:
   <<: *build_base_definition
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
