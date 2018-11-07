@@ -1,6 +1,7 @@
 stages:
   - unittest
   - build
+  - buildroot
   - integrationtest
   - deploy
 
@@ -9,6 +10,7 @@ variables:
   UBUNTU_BASE_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/base/ubuntu"
   DEBIAN_BASE_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/base/debian"
   UBUNTU_FLECTRA_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/ubuntu"
+  UBUNTUROOT_FLECTRA_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/ubunturoot"
   DEBIAN_FLECTRA_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/debian"
   DOCKER_HOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
@@ -120,6 +122,23 @@ build:flectra_debian:
         --tag ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
         ./setup/docker/
     - docker push ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+
+#--------------------------------------------------------------------
+# Jobs of stage buildroot
+#--------------------------------------------------------------------
+build:flectra_ubuntu_root:
+  <<: *build_definition
+  stage: buildroot
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - docker pull ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA || true
+    - docker build --cache-from ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+        --build-arg BASE_IMAGE=${UBUNTU_FLECTRA_IMAGE}
+        --build-arg BASE_TAG=${CI_COMMIT_SHA}
+        --file ./setup/docker/flectra/ubunturoot/Dockerfile
+        --tag ${UBUNTUROOT_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+        ./setup/docker/
+    - docker push ${UBUNTUROOT_FLECTRA_IMAGE}:$CI_COMMIT_SHA
 
 #--------------------------------------------------------------------
 # Jobs of stage integrationtest
