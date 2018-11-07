@@ -22,6 +22,9 @@ variables:
   POSTGRES_HOST: postgres
   POSTGRES_PORT: "5432"
 
+before_script:
+  - cp -rp requirements.txt setup/docker/requirements.txt
+
 #--------------------------------------------------------------------
 # Job Templates
 #--------------------------------------------------------------------
