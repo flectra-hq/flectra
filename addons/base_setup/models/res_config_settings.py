@@ -134,7 +134,7 @@ class ResConfigSettings(models.TransientModel):
         if self.activator_key and self.contract_id:
             try:
                 set_param = self.env['ir.config_parameter'].sudo().set_param
-                binary = json.loads(base64.decodestring(self.activator_key)).encode('ascii')
+                binary = json.loads(base64.decodestring(self.activator_key).decode('utf-8')).encode('ascii')
                 binary = base64.decodestring(binary)
                 enc = json.dumps(decrypt(binary, self.contract_id))
                 if enc:
