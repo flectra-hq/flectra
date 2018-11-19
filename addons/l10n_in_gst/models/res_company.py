@@ -20,6 +20,7 @@ class Company(models.Model):
                                      default=time.strftime('2017-07-01'))
     company_b2c_limit_line = fields.One2many('res.company.b2c.limit',
                                              'company_id', string='B2C Limit')
+    rc_gst_account_id = fields.Many2one('account.account', 'Reverse Charge')
 
     def onchange_state(self, gst_type, vat, state):
         result = {'vat': '', 'country_id': False}

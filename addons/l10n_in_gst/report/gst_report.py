@@ -135,7 +135,6 @@ class GSTR1Report(models.AbstractModel):
                 ('gst_invoice', '=', 'b2b'), ('vat', '!=', False)]
         if post.get('gst_invoice') == 'cdnur':
             final_inv_domain = common_domain + refund_domain + cdnur_domain
-
         final_invoice_ids = acc_invoice.search(final_inv_domain)
         for inv in final_invoice_ids:
             inv_data_list = []
@@ -159,15 +158,17 @@ class GSTR1Report(models.AbstractModel):
 
             for line in inv.invoice_line_ids:
                 cess_amount = igst_amount = cgst_amount = sgst_amount = 0.0
-
-                if line.invoice_line_tax_ids:
+                if inv.reverse_charge:
+                    tax_lines = line.reverse_invoice_line_tax_ids
+                else:
+                    tax_lines = line.invoice_line_tax_ids
+                if tax_lines:
                     price_unit = line.price_unit * (
                         1 - (line.discount or 0.0) / 100.0)
-                    taxes = line.invoice_line_tax_ids.compute_all(
+                    taxes = tax_lines.compute_all(
                         price_unit, line.invoice_id.currency_id,
                         line.quantity, line.product_id,
                         line.invoice_id.partner_id)['taxes']
-
                     for tax_data in taxes:
                         tax = acc_tax.browse(tax_data['id'])
                         if tax.tax_group_id.name == 'Cess':
@@ -185,7 +186,7 @@ class GSTR1Report(models.AbstractModel):
                                 'amount'] > 0):
                             sgst_amount += tax_data['amount']
 
-                    for tax in line.invoice_line_tax_ids:
+                    for tax in tax_lines:
                         rate = 0
                         if tax.id not in tax_list:
                             if tax.tax_group_id.name == 'IGST' \
@@ -213,7 +214,6 @@ class GSTR1Report(models.AbstractModel):
                                 line_data = self._prepare_taxable_line_data(
                                     line, inv, igst_amount, cgst_amount,
                                     sgst_amount, cess_amount, rate, tax)
-
                                 if post.get('gst_invoice') in \
                                         ['b2b', 'b2cl', 'b2cs', 'b2bur']:
                                     line_data.update({
@@ -241,7 +241,7 @@ class GSTR1Report(models.AbstractModel):
                                 if post.get('gst_invoice') == 'b2b':
                                     line_data.update({
                                         'inv_type': 'Regular',
-                                        'reverse_charge': 'N',
+                                        'reverse_charge': 'Y' if inv.reverse_charge else 'N',
                                     })
                                 if post.get('gst_invoice') == 'b2bur':
                                     supply_type = dict(inv.fields_get(
@@ -376,10 +376,14 @@ class GSTR1Report(models.AbstractModel):
                 invoice_domain)
         for line in hsn_invoice_line_ids:
             igst_amount = cgst_amount = sgst_amount = cess_amount = 0.0
-            if line.invoice_line_tax_ids:
+            if line.invoice_id.reverse_charge:
+                tax_lines = line.reverse_invoice_line_tax_ids
+            else:
+                tax_lines = line.invoice_line_tax_ids
+            if tax_lines:
                 price_unit = line.price_unit * (
                     1 - (line.discount or 0.0) / 100.0)
-                taxes = line.invoice_line_tax_ids.compute_all(
+                taxes = tax_lines.compute_all(
                     price_unit, line.invoice_id.currency_id,
                     line.quantity, line.product_id,
                     line.invoice_id.partner_id)['taxes']
@@ -446,10 +450,11 @@ class GSTR1Report(models.AbstractModel):
             no_of_recepient = 0
 
             for inv in result:
-                taxable_value_total += float(inv['taxable_value'])
-                igst_amount += float(inv['igst'])
-                sgst_amount += float(inv['sgst'])
-                cgst_amount += float(inv['cgst'])
+                if inv.get('reverse_charge') != 'Y':
+                    taxable_value_total += float(inv['taxable_value'])
+                    igst_amount += float(inv['igst'])
+                    sgst_amount += float(inv['sgst'])
+                    cgst_amount += float(inv['cgst'])
 
                 if post.get('gst_invoice') == 'b2b':
                     if inv['reverse_charge'] == 'N':
@@ -473,7 +478,7 @@ class GSTR1Report(models.AbstractModel):
             invoice_value = 0.0
             for invoice_id in invoices_list:
                 ids = self.env['account.invoice'].search(
-                    [('number', '=', invoice_id)])
+                    [('number', '=', invoice_id), ('reverse_charge', '=', False)])
                 invoice_value += ids.amount_total
             summary.update({
                 "no_of_invoices": no_of_invoices,
