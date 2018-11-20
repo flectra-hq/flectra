@@ -8,7 +8,7 @@
     'summary': 'Inventory, Logistics, Warehousing',
     'description': "",
     'website': 'https://flectrahq.com/page/warehouse',
-    'depends': ['product', 'barcodes', 'web_planner'],
+    'depends': ['product', 'barcodes', 'web_planner', 'base_branch_company'],
     'category': 'Warehouse',
     'sequence': 13,
     'demo': [

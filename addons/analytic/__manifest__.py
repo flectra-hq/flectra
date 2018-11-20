@@ -7,7 +7,7 @@
     'version': '1.1',
     'website' : 'https://flectrahq.com/accounting',
     'category': 'Hidden/Dependency',
-    'depends' : ['base', 'decimal_precision', 'mail'],
+    'depends' : ['base', 'decimal_precision', 'mail', 'base_branch_company'],
     'description': """
 Module for defining analytic accounting object.
 ===============================================

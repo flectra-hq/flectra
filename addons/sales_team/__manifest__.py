@@ -11,7 +11,7 @@ Using this application you can manage Sales Channels  with CRM and/or Sales
 ===========================================================================
  """,
     'website': 'https://flectrahq.com/page/crm',
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'mail', 'base_branch_company'],
     'data': ['security/sales_team_security.xml',
              'security/ir.model.access.csv',
              'data/sales_team_data.xml',

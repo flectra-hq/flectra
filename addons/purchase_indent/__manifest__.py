@@ -13,6 +13,7 @@
     'depends': [
         'purchase',
         'purchase_requisition',
+        'base_branch_company'
     ],
     'data': [
         'security/ir.model.access.csv',
