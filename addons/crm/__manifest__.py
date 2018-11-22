@@ -22,6 +22,7 @@
         'web_tour',
         'contacts',
         'digest',
+        'base_branch_company'
     ],
     'data': [
         'security/crm_security.xml',

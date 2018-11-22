@@ -10,7 +10,7 @@
     'summary': 'Purchase Orders, Receipts, Vendor Bills',
     'description': "",
     'website': 'https://flectrahq.com/purchase',
-    'depends': ['stock_account'],
+    'depends': ['stock_account', 'base_branch_company'],
     'data': [
         'security/purchase_security.xml',
         'security/ir.model.access.csv',

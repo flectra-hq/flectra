@@ -92,6 +92,19 @@ class Users(models.Model):
 
     _inherit = "res.users"
 
+    @api.multi
+    def read(self, fields=None, load='_classic_read'):
+        result = super(Users, self).read(fields, load=load)
+        self.with_context({'check_branch': True}).check_missing_branch()
+        return result
+
+    @api.multi
+    def check_missing_branch(self):
+        for user_id in self:
+            if self._context.get('check_branch', False) and user_id.company_id.branch_id and not user_id.default_branch_id:
+                user_id.default_branch_id = user_id.company_id.branch_id.id
+                user_id.branch_ids = [(4, user_id.company_id.branch_id.id)]
+
     @api.model
     def branch_default_get(self, user):
         if not user:
