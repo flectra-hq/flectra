@@ -248,13 +248,23 @@ return AbstractWebClient.extend({
                     'type': key['type'],
                     'contract_id': key['key']
                 },
-                error: function (err) {
-                    new require('web.Dialog').alert(null,err['message']);
-                },
-                success:function () {
-                    if (key['type'] === 'online') {
-                        window.location.reload();
+                error: function (res) {
+                    var btn = [{
+                        text: core._t("Cancel"),
+                        close: true,
+                    }];
+                    if (res.success) {
+                        btn.unshift({
+                            text: core._t('Refresh'),
+                            classes: "btn-primary",
+                            click: function () { window.location.reload(); },
+                            close: true
+                        })
                     }
+                    new require('web.Dialog').alert(null, '', {
+                        $content: $('<div/>').html(res['message']),
+                        buttons: btn
+                    });
                 }
             });
         });
