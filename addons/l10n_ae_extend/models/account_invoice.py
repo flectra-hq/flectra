@@ -1,7 +1,6 @@
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
 
-from flectra import fields, models, api, _
-from flectra.exceptions import Warning
+from flectra import fields, models, api
 
 
 class ReverseAccountInvoiceTax(models.Model):
@@ -22,7 +21,7 @@ class AccountInvoice(models.Model):
         return self.vat_config_type.search(domain, limit=1)
 
     vat_config_type = fields.Many2one(
-        'vat.config.type', 'Vat Type', default=_default_config_type,
+        'vat.config.type', 'VAT Type', default=_default_config_type,
         readonly=True, states={'draft': [('readonly', False)]})
     reverse_charge = fields.Boolean(
         'Reverse Charge', readonly=True,
@@ -63,8 +62,14 @@ class AccountInvoice(models.Model):
     def action_invoice_open(self):
         if not self.reverse_charge:
             return super(AccountInvoice, self).action_invoice_open()
-        if not self.company_id.rc_vat_account_id:
-            raise Warning(_('Define Reverse Charge Account in Company!'))
+        config_id = self.env[
+            'res.config.settings'].search([], order='id desc', limit=1)
+        rc_account = config_id.rc_vat_account_id or \
+            self.env.ref('l10n_ae_extend.rc_vat_account')
+        vat_account = config_id.vat_expense_account_id or \
+            self.env.ref('l10n_ae_extend.rc_vat_expense_account')
+        customs_account = config_id.customs_duty_account_id or \
+            self.env.ref('l10n_ae.uae_account_3694')
         list_data = []
         account_tax_obj = self.env['account.tax']
         custom_amount = 0.0
@@ -77,7 +82,7 @@ class AccountInvoice(models.Model):
             if self.partner_id.vat:
                 account_id = tax_line.account_id.id
             elif tax_id.tax_type == 'vat':
-                account_id = self.company_id.vat_expense_account_id.id
+                account_id = vat_account.id
             list_data.append((0, 0, {
                 'name': tax_line.name,
                 'partner_id':
@@ -109,20 +114,22 @@ class AccountInvoice(models.Model):
         for move_line_id in list_data:
             move_line_id[2].update({'move_id': self.move_id.id})
         list_data.append(
-            (0, 0, self.get_move_line_vals(total_tax_amount - custom_amount)))
+            (0, 0, self.get_move_line_vals(
+                total_tax_amount - custom_amount, rc_account)))
         if custom_amount:
-            list_data.append((0, 0, self.get_move_line_vals(custom_amount)))
+            list_data.append((0, 0, self.get_move_line_vals(
+                custom_amount, customs_account)))
         self.move_id.state = 'draft'
         self.move_id.line_ids = list_data
         self.move_id.post()
         return res
 
     @api.multi
-    def get_move_line_vals(self, credit):
+    def get_move_line_vals(self, credit, account_id):
         return {
             'name': '/',
             'partner_id': self.partner_id.parent_id.id or self.partner_id.id,
-            'account_id': self.company_id.rc_vat_account_id.id,
+            'account_id': account_id.id,
             'credit': credit,
             'move_id': self.move_id.id,
             'invoice_id': self.id,

@@ -19,7 +19,7 @@ United Arab Emirates accounting chart and localization.
              'views/report_vat_201_view.xml',
              'views/report_menu_view.xml',
              'views/vat_config_type.xml',
-             'views/company_view.xml',
+             'views/res_config_view.xml',
              'views/purchase_order_view.xml',
              'views/sale_order_view.xml',
              'views/account_invoice_view.xml',
