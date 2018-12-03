@@ -12,7 +12,7 @@ class SaleOrder(models.Model):
             ('journal_id.type', '=', 'sale')], limit=1)
 
     vat_config_type = fields.Many2one(
-        'vat.config.type', 'Vat Type', default=_default_config_type,
+        'vat.config.type', 'VAT Type', default=_default_config_type,
         readonly=True, states={'draft': [('readonly', False)]})
 
     @api.multi

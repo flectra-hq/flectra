@@ -15,6 +15,17 @@
         </field>
     </record>
 
+    <record id="uae_account_invoice_tree_inherit" model="ir.ui.view">
+        <field name="name">uae.account.invoice.tree.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='number']" position="after">
+                <field name="vat_config_type"/>
+            </xpath>
+        </field>
+    </record>
+
     <record id="view_reverse_invoice_tax_tree" model="ir.ui.view">
         <field name="name">reverse.account.invoice.tax.tree</field>
         <field name="model">reverse.account.invoice.tax</field>
@@ -48,6 +59,17 @@
             </xpath>
             <xpath expr="//field/tree/field[@name='invoice_line_tax_ids']" position="after">
                 <field name="reverse_invoice_line_tax_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="uae_account_invoice_supplier_tree_inherit" model="ir.ui.view">
+        <field name="name">uae.account.invoice.supplier.tree.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='number']" position="after">
+                <field name="vat_config_type"/>
             </xpath>
         </field>
     </record>

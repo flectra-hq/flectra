@@ -60,7 +60,7 @@
 
     <record id="rc_vat_account" model="account.account">
         <field name="code">205301</field>
-        <field name="name">Reverse Charge(Vat)</field>
+        <field name="name">Reverse Charge(VAT)</field>
         <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     </record>
 
@@ -68,12 +68,6 @@
         <field name="code">581002</field>
         <field name="name">VAT Expense</field>
         <field name="user_type_id" ref="account.data_account_type_expenses"/>
-    </record>
-
-    <record id="base.main_company" model="res.company">
-        <field name="rc_vat_account_id" ref="rc_vat_account"/>
-        <field name="customs_duty_account_id" ref="l10n_ae.uae_account_3694"/>
-        <field name="vat_expense_account_id" ref="rc_vat_expense_account"/>
     </record>
 
     <!-- Purchase -->
