@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra noupdate="1">
+
+    <record id="in_gst_rc_account" model="account.account">
+        <field name="code">205311</field>
+        <field name="name">Reverse Charge(GST)</field>
+        <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+    </record>
+
+    <record id="base.main_company" model="res.company">
+        <field name="rc_gst_account_id" ref="in_gst_rc_account"/>
+    </record>
+</flectra>
