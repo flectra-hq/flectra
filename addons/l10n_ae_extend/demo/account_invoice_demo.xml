@@ -14,7 +14,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">out_invoice</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_local"/>
         <field name="journal_id" ref="l10n_ae_extend.local_sale_journal"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_1"/>
     </record>
@@ -45,7 +45,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">out_refund</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_local"/>
         <field name="journal_id" ref="l10n_ae_extend.local_sale_journal"/>
         <field name="refund_invoice_id" ref="demo_invoice_ae_1"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_1"/>
@@ -76,7 +76,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">out_invoice</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_inside"/>
         <field name="journal_id" ref="l10n_ae_extend.insidegcc_sale_journal"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_2"/>
     </record>
@@ -117,7 +117,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">out_refund</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_inside"/>
         <field name="journal_id" ref="l10n_ae_extend.local_sale_journal"/>
         <field name="refund_invoice_id" ref="demo_invoice_ae_insidegcc_country"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_2"/>
@@ -158,7 +158,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">out_invoice</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_outside"/>
         <field name="journal_id" ref="l10n_ae_extend.outsidegcc_sale_journal"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_3"/>
     </record>
@@ -199,7 +199,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">out_refund</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_outside"/>
         <field name="journal_id" ref="l10n_ae_extend.outsidegcc_sale_journal"/>
         <field name="refund_invoice_id" ref="demo_invoice_ae_outsidegcc_country"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_3"/>
@@ -240,7 +240,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">out_invoice</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_designated"/>
         <field name="journal_id" ref="l10n_ae_extend.designated_zone_sale_journal"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_4"/>
     </record>
@@ -270,7 +270,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">out_refund</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_designated"/>
         <field name="journal_id" ref="l10n_ae_extend.designated_zone_sale_journal"/>
         <field name="refund_invoice_id" ref="demo_invoice_ae_exempte"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_4"/>
@@ -301,7 +301,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">in_invoice</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_local"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_5"/>
         <field name="journal_id" ref="l10n_ae_extend.local_purchase_journal"/>
     </record>
@@ -332,7 +332,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">in_refund</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_local"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_5"/>
         <field name="journal_id" ref="l10n_ae_extend.local_purchase_journal"/>
         <field name="refund_invoice_id" ref="demo_invoice_ae_3"/>
@@ -364,7 +364,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">in_invoice</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_local"/>
         <field name="journal_id" ref="l10n_ae_extend.local_purchase_journal"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_5"/>
         <field name="reverse_charge" eval="True"/>
@@ -395,7 +395,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">in_refund</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_local"/>
         <field name="journal_id" ref="l10n_ae_extend.local_purchase_journal"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_5"/>
         <field name="reverse_charge" eval="True"/>
@@ -426,7 +426,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">in_invoice</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_inside"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_6"/>
         <field name="journal_id" ref="l10n_ae_extend.insidegcc_purchase_journal"/>
     </record>
@@ -477,7 +477,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">in_refund</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_inside"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_6"/>
         <field name="journal_id" ref="l10n_ae_extend.insidegcc_purchase_journal"/>
         <field name="refund_invoice_id" ref="demo_invoice_ae_io_gcc"/>

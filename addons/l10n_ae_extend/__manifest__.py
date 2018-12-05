@@ -26,6 +26,7 @@ United Arab Emirates accounting chart and localization.
              'wizard/vat_201_view.xml',
     ],
     'demo': [
+        'demo/res_partner_demo.xml',
         'demo/account_invoice_demo.xml',
     ],
 }
