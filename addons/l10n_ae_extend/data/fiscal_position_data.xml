@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+
+    <record model="account.fiscal.position" id="fp_uae_local">
+        <field name="name">Local</field>
+        <field name="sale_vat_config_type" ref="config_type_1"/>
+        <field name="purchase_vat_config_type" ref="config_type_5"/>
+        <field name="auto_apply" eval="True"/>
+        <field name="country_id" ref="base.ae"/>
+        <field name="state_ids" search="[('country_id.code','=', 'AE')]"/>
+    </record>
+
+    <record model="account.fiscal.position" id="fp_uae_inside_gcc">
+        <field name="name">Inside GCC</field>
+        <field name="sale_vat_config_type" ref="config_type_2"/>
+        <field name="purchase_vat_config_type" ref="config_type_6"/>
+        <field name="country_group_id" ref="l10n_ae_extend.ae_cg_gcc"/>
+        <field name="auto_apply" eval="True"/>
+    </record>
+
+    <record model="account.fiscal.position" id="fp_uae_outside_gcc">
+        <field name="name">Outside GCC</field>
+        <field name="sale_vat_config_type" ref="config_type_3"/>
+        <field name="purchase_vat_config_type" ref="config_type_7"/>
+        <field name="country_group_id" ref="l10n_ae_extend.ae_cg_outside_gcc"/>
+        <field name="auto_apply" eval="True"/>
+    </record>
+
+    <record model="account.fiscal.position" id="fp_uae_designated_zone">
+        <field name="name">Designated Zone</field>
+        <field name="sale_vat_config_type" ref="config_type_4"/>
+        <field name="purchase_vat_config_type" ref="config_type_8"/>
+    </record>
+
+</flectra>

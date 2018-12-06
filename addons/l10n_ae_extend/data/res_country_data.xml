@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+    <record id="base.ae" model="res.country">
+        <field name="vat_label">VAT</field>
+    </record>
+
+    <record id="ae_cg_gcc" model="res.country.group">
+        <field name="name">Inside GCC</field>
+        <field name="country_ids" search="[('code','in', ['BH', 'OM', 'QA', 'KW', 'SA'])]"/>
+    </record>
+
+    <record id="ae_cg_outside_gcc" model="res.country.group">
+        <field name="name">Outside GCC</field>
+        <field name="country_ids" search="[('code','not in', ['AE', 'BH', 'OM', 'QA', 'KW', 'SA'])]"/>
+    </record>
+
+</flectra>

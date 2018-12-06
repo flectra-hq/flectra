@@ -11,17 +11,8 @@ class ReverseAccountInvoiceTax(models.Model):
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    @api.multi
-    def _default_config_type(self):
-        domain = []
-        if self._context.get('type', False) in ['out_invoice', 'out_refund']:
-            domain = [('journal_id.type', '=', 'sale')]
-        elif self._context.get('type', False) in ['in_invoice', 'in_refund']:
-            domain = [('journal_id.type', '=', 'purchase')]
-        return self.vat_config_type.search(domain, limit=1)
-
     vat_config_type = fields.Many2one(
-        'vat.config.type', 'VAT Type', default=_default_config_type,
+        'vat.config.type', 'VAT Type',
         readonly=True, states={'draft': [('readonly', False)]})
     reverse_charge = fields.Boolean(
         'Reverse Charge', readonly=True,
@@ -146,7 +137,14 @@ class AccountInvoice(models.Model):
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id(self):
         res = super(AccountInvoice, self)._onchange_partner_id()
-        self.journal_id = self.vat_config_type.journal_id.id
+        if self.type in ['out_invoice', 'out_refund']:
+            self.vat_config_type = \
+                self.fiscal_position_id.sale_vat_config_type.id
+        elif self.type in ['in_invoice', 'in_refund']:
+            self.vat_config_type = \
+                self.fiscal_position_id.purchase_vat_config_type.id
+        if self.vat_config_type:
+            self.journal_id = self.vat_config_type.journal_id.id
         return res
 
     @api.onchange('state', 'partner_id', 'invoice_line_ids',
@@ -160,9 +158,8 @@ class AccountInvoice(models.Model):
 
     @api.onchange('fiscal_position_id')
     def _onchange_fiscal_position_id(self):
-        if self.fiscal_position_id:
-            for line in self.invoice_line_ids:
-                line._set_taxes()
+        for line in self.invoice_line_ids:
+            line._set_taxes()
 
     @api.multi
     @api.returns('self')
@@ -196,3 +193,13 @@ class AccountInvoiceLine(models.Model):
     def get_invoice_line_account(self, type, product, fpos, company):
         return self.invoice_id.vat_config_type.\
             journal_id.default_debit_account_id
+
+
+class AccountFiscalPosition(models.Model):
+    _inherit = 'account.fiscal.position'
+
+    sale_vat_config_type = fields.Many2one(
+        'vat.config.type', 'Sale VAT Type', domain=[('type', '=', 'sale')])
+    purchase_vat_config_type = fields.Many2one(
+        'vat.config.type', 'Purchase VAT Type',
+        domain=[('type', '=', 'purchase')])

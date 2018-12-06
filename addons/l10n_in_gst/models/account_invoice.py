@@ -145,9 +145,8 @@ class AccountInvoice(models.Model):
     @api.onchange('fiscal_position_id')
     def _onchange_fiscal_position_id(self):
         """ Onchange of Fiscal Position update tax values in invoice lines. """
-        if self.fiscal_position_id:
-            for line in self.invoice_line_ids:
-                line._set_taxes()
+        for line in self.invoice_line_ids:
+            line._set_taxes()
 
     @api.multi
     @api.returns('self')
