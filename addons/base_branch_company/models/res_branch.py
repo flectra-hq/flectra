@@ -25,16 +25,18 @@ class Company(models.Model):
 
     @api.model
     def create(self, vals):
-        branch = self.env['res.branch'].create({
-            'name': vals['name'],
-            'code': vals['name'],
+        res = super(Company, self).create(vals)
+        field_list = ['name', 'street', 'street2', 'zip', 'city', 'state_id',
+                      'country_id', 'email', 'phone', 'mobile', 'partner_id']
+        branch_vals = dict((f, vals[f]) for f in field_list if f in vals)
+        branch_vals.update({
+            'code': res.name,
+            'company_id': res.id
         })
-        vals['branch_id'] = branch.id
-        self.clear_caches()
-        company = super(Company, self).create(vals)
-        branch.write({'partner_id': company.partner_id.id,
-                      'company_id': company.id})
-        return company
+        branch = self.env['res.branch'].create(branch_vals)
+        res.write({'branch_id': branch.id})
+        res.partner_id.branch_id = branch.id
+        return res
 
 
 class ResBranch(models.Model):
