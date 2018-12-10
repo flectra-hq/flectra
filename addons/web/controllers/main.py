@@ -1881,8 +1881,8 @@ class LicensingController(http.Controller):
         elif type == 'online':
             error = {
                 'code': 200,
-                'message': "Invalid License Key",
-                'data': ''
+                'message': "<h5>Invalid License Key</h5>",
+                'success': False
             }
             try:
                 if contract_id:
@@ -1904,6 +1904,9 @@ class LicensingController(http.Controller):
                                       encrypt(json.dumps(str(date)),str(date))))
                     if 'error_in_key' in content:
                         return request.make_response(html_escape(json.dumps(error)))
+                    error['success'] = True
+                    error['message'] = '<h5>Your database successfully activated</h5>'
+                    return request.make_response(html_escape(json.dumps(error)))
             except Exception as e:
                 error['code'] = 400
                 error['message'] = 'Flectra Error!'
