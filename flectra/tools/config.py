@@ -5,17 +5,20 @@ try:
     import configparser as ConfigParser
 except ImportError:
     import ConfigParser
+import tempfile
 
 import errno
 import logging
 import optparse
 import os
+import io
 import sys
 import shutil
 import flectra
 from contextlib import closing
 from .. import release, conf, loglevels
 from . import appdirs, pycompat
+from subprocess import call
 
 from passlib.context import CryptContext
 crypt_context = CryptContext(schemes=['pbkdf2_sha512', 'plaintext'],
@@ -282,6 +285,17 @@ class configmanager(object):
         group.add_option("--app-store", dest="app_store",
                          help="specify the option to enable app store. (default : install) "
                               "Options : [install|download|disable]", my_default='install')
+        group.add_option("-b", "--backup", dest="backup",
+                         help="specify the file name to backup (without any extension).", my_default=False)
+        group.add_option("--backup-zip", dest="backup_zip",
+                         help="specify the file name to backup (without any extension)", my_default=False)
+        group.add_option("--restore", dest="restore",
+                         help="specify the file name to restore (with .dump extension)", my_default=False)
+        group.add_option("--restore-zip", dest="restore_zip",
+                         help="specify the file name to restore (with .zip extension)", my_default=False)
+        group.add_option("--destination", dest="destination",
+                         help="specify the destination folder where to save backup / from where to restore the database",
+                         my_default=False)
         parser.add_option_group(group)
 
         if os.name == 'posix':
@@ -346,11 +360,9 @@ class configmanager(object):
         if args is None:
             args = []
         opt, args = self.parser.parse_args(args)
-
         def die(cond, msg):
             if cond:
                 self.parser.error(msg)
-
         # Ensures no illegitimate argument is silently discarded (avoids insidious "hyphen to dash" problem)
         die(args, "unrecognized parameters: '%s'" % " ".join(args))
 
@@ -412,7 +424,7 @@ class configmanager(object):
                 'syslog', 'without_demo',
                 'dbfilter', 'log_level', 'log_db',
                 'log_db_level', 'geoip_database', 'dev_mode', 'shell_interface',
-                'app_store'
+                'app_store', 'backup', 'backup_zip', 'restore', 'restore_zip', 'destination'
         ]
 
         for arg in keys:
@@ -501,6 +513,11 @@ class configmanager(object):
         conf.server_wide_modules = [
             m.strip() for m in self.options['server_wide_modules'].split(',') if m.strip()
         ]
+
+        if opt.db_name and (opt.backup or opt.backup_zip):
+            self._create_backup()
+        elif opt.db_name and (opt.restore or opt.restore_zip):
+            self._restore_database()
 
     def _is_addons_path(self, path):
         from flectra.modules.module import MANIFEST_NAMES
@@ -693,5 +710,75 @@ class configmanager(object):
             if updated_hash:
                 self.options['admin_passwd'] = updated_hash
             return True
+
+    def _restore_database(self):
+        dbname = self['db_name']
+        restore = self['restore']
+        restore_zip = self['restore_zip']
+        destination = self['destination']
+        stop_after_init = self['stop_after_init']
+        def die(cond, msg):
+            if cond:
+                self.parser.error(msg)
+        die((not dbname),
+            "The restore cannot be completed if the database (-d) options is not available.")
+        die(not restore and not restore_zip,
+            "The restore cannot be completed if the file name not provided (--restore or --restore-zip) options is not available.")
+        die((not destination),
+            "The restore cannot be completed if the path to store the file is not provided (--destination) option is not available.")
+        die((not stop_after_init),
+            "In order to restore database please enable [--stop-after-init] option.")
+        file = ''
+        if restore:
+            file = os.path.join(destination, restore)
+        elif restore_zip:
+            file = os.path.join(destination, restore_zip)
+        if not os.path.exists(file):
+            logging.error('File does not exist. Please check for path : %s' % destination)
+            os._exit(1)
+        flectra.service.db.restore_db(dbname, file, copy=True, flag=True)
+
+    def _create_backup(self):
+        dbname = self['db_name']
+        backup = self['backup']
+        backup_zip = self['backup_zip']
+        destination = self['destination']
+        stop_after_init = self['stop_after_init']
+        if not os.path.isdir(destination) and not os.path.exists(destination):
+            logging.error('Directory does not exist. Please check for path : %s' % destination)
+            os._exit(1)
+        def die(cond, msg):
+            if cond:
+                self.parser.error(msg)
+        die((not dbname),
+            "The backup cannot be generated if the database (-d) options is not available.")
+        die(not backup and not backup_zip,
+            "The backup cannot be generated if the file name not provided (-b or --backup-zip) options is not available.")
+        die((not destination),
+            "The backup cannot be generated if the path to store the file is not provided (--destination) option is not available.")
+        die((not stop_after_init),
+            "In order to generate database backup please enable [--stop-after-init] option.")
+        try:
+            if backup_zip:
+                file_name = os.path.join(destination, backup_zip)
+                file = '%s.%s' % (file_name, 'zip')
+                if os.path.exists(file):
+                    logging.error('File already exist. Please check for path : %s' % file)
+                    os._exit(1)
+                t = flectra.service.db.dump_db(dbname, None, 'zip')
+                function = "cp %s %s" % (t.name, file)
+                call(function, shell=True)
+            elif backup:
+                file_name = os.path.join(destination, backup)
+                file = '%s.%s' % (file_name, 'dump')
+                if os.path.exists(file):
+                    logging.error('File already exist. Please check for path : %s' % file)
+                    os._exit(1)
+                t = flectra.service.db.dump_db(dbname, None, 'dump')
+                file = open(file, 'wb')
+                file.write(t.read())
+                file.close()
+        except Exception as e:
+            pass
 
 config = configmanager()

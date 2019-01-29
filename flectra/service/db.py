@@ -202,7 +202,6 @@ def dump_db(db_name, stream, backup_format='zip'):
 
     cmd = ['pg_dump', '--no-owner']
     cmd.append(db_name)
-
     if backup_format == 'zip':
         with flectra.tools.osutil.tempdir() as dump_dir:
             filestore = flectra.tools.config.filestore(db_name)
@@ -217,7 +216,7 @@ def dump_db(db_name, stream, backup_format='zip'):
             if stream:
                 flectra.tools.osutil.zip_dir(dump_dir, stream, include_dir=False, fnct_sort=lambda file_name: file_name != 'dump.sql')
             else:
-                t=tempfile.TemporaryFile()
+                t=tempfile.NamedTemporaryFile()
                 flectra.tools.osutil.zip_dir(dump_dir, t, include_dir=False, fnct_sort=lambda file_name: file_name != 'dump.sql')
                 t.seek(0)
                 return t
@@ -245,7 +244,7 @@ def exp_restore(db_name, data, copy=False):
     return True
 
 @check_db_management_enabled
-def restore_db(db, dump_file, copy=False):
+def restore_db(db, dump_file, copy=False, flag=False):
     assert isinstance(db, pycompat.string_types)
     if exp_db_exist(db):
         _logger.info('RESTORE DB: %s already exists', db)
@@ -271,31 +270,32 @@ def restore_db(db, dump_file, copy=False):
         else:
             # <= 7.0 format (raw pg_dump output)
             pg_cmd = 'pg_restore'
-            pg_args = ['--no-owner', dump_file]
+            pg_args = ['--no-owner' , dump_file]
 
         args = []
         args.append('--dbname=' + db)
         pg_args = args + pg_args
-
         if flectra.tools.exec_pg_command(pg_cmd, *pg_args):
             raise Exception("Couldn't restore database")
 
         registry = flectra.modules.registry.Registry.new(db)
-        with registry.cursor() as cr:
-            env = flectra.api.Environment(cr, SUPERUSER_ID, {})
-            if copy:
-                # if it's a copy of a database, force generation of a new dbuuid
-                env['ir.config_parameter'].init(force=True)
-            if filestore_path:
-                filestore_dest = env['ir.attachment']._filestore()
-                shutil.move(filestore_path, filestore_dest)
+        if not flag:
+            with registry.cursor() as cr:
+                from flectra import api
+                env = api.Environment(cr, SUPERUSER_ID, {})
+                if copy:
+                    # if it's a copy of a database, force generation of a new dbuuid
+                    env['ir.config_parameter'].init(force=True)
+                if filestore_path:
+                    filestore_dest = env['ir.attachment']._filestore()
+                    shutil.move(filestore_path, filestore_dest)
 
-            if flectra.tools.config['unaccent']:
-                try:
-                    with cr.savepoint():
-                        cr.execute("CREATE EXTENSION unaccent")
-                except psycopg2.Error:
-                    pass
+                if flectra.tools.config['unaccent']:
+                    try:
+                        with cr.savepoint():
+                            cr.execute("CREATE EXTENSION unaccent")
+                    except psycopg2.Error:
+                        pass
 
     _logger.info('RESTORE DB: %s', db)
 
