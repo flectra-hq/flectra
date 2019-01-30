@@ -289,6 +289,14 @@ class ControllerREST(http.Controller):
         Model = request.env['ir.model']
         Model_id = Model.sudo().search([('model', '=', model_name)], limit=1)
 
+        for key, value in post.items():
+            ir_model_obj = request.env['ir.model.fields']
+            ir_model_field = ir_model_obj.search(
+                [('model', '=', model_name), ('name', '=', key)])
+            field_type = ir_model_field.ttype
+            if field_type == "many2one" or field_type == "one2many" or field_type == "many2many":
+                post[key] = int(value)
+
         if Model_id:
             if Model_id.rest_api:
                 return getattr(self, '%s_data' % (
