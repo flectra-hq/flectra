@@ -42,15 +42,18 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-10 07:40+0000\n"
-"PO-Revision-Date: 2018-01-10 07:40+0000\n"
-"Last-Translator: jahzar <jahzar@gmail.com>, 2017\n"
+"PO-Revision-Date: 2019-01-17 06:50+0000\n"
+"Last-Translator: Aakash kodwani <aakash@techreceptives.com>\n"
 "Language-Team: Arabic (https://www.transifex.com/odoo/teams/41243/ar/)\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 3.4-dev\n"
 
+# Module account tranalted using weblate
 #. module: account
 #: model:ir.model.fields,help:account.field_account_invoice_state
 msgid ""
@@ -90,7 +93,7 @@ msgstr "عدد المعاملات"
 #. module: account
 #: model:mail.template,report_name:account.mail_template_data_payment_receipt
 msgid "${(object.name or '').replace('/','-')}"
-msgstr ""
+msgstr "${(object.name or '').replace('/','-')}"
 
 #. module: account
 #: model:mail.template,subject:account.email_template_edi_invoice
@@ -101,7 +104,7 @@ msgstr "${object.company_id.name} فاتورة (Ref ${object.number or 'n/a'})"
 #: model:mail.template,subject:account.mail_template_data_payment_receipt
 msgid ""
 "${object.company_id.name} Payment Receipt (Ref ${object.name or 'n/a' })"
-msgstr ""
+msgstr "${object.company_id.name} إيصال الدف (Ref ${object.name or 'n/a' })"
 
 #. module: account
 #: model:mail.template,subject:account.mail_template_data_notification_email_account_invoice
@@ -215,6 +218,18 @@ msgid ""
 "</p>\n"
 "</data>"
 msgstr ""
+"<؟ xml version = \"1.0\"؟> 1\n"
+"<data> 2 <p> 3Dear $ {object.partner_id.name}، </ p> 4\n"
+"<p> 5 شكرًا جزيلاً على الدفع. <br/> 6 هنا هو إيصال الدفع <strong> 7 $ {("
+"object.name أو '') .replace ('/'، '-')} </ strong> 8 المبلغ إلى <strong> 9 $ "
+"{object.amount} $ {object.currency_id.name} </ strong> 0 من $ "
+"{object.company_id.name}. </ p>\n"
+"<p> إذا كانت لديك أي أسئلة ، يُرجى عدم التردد في الاتصال بنا. </ p>\n"
+"<p> أطيب التحيات ،\n"
+"٪ إذا كان المستخدم و user.signature:\n"
+"$ {user.signature | آمنة}\n"
+"٪ إنهاء إذا\n"
+"</ P>"
 
 #. module: account
 #: model:mail.template,body_html:account.mail_template_data_notification_email_account_invoice
@@ -585,7 +600,7 @@ msgstr "<span>التسوية</span>"
 #. module: account
 #: model:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
 msgid "<span>Reporting</span>"
-msgstr ""
+msgstr "<span>التقارير</span>"
 
 #. module: account
 #: model:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
@@ -1052,19 +1067,19 @@ msgstr ""
 #: code:addons/account/models/account_bank_statement.py:383
 #, python-format
 msgid "A Cash transaction can't have a 0 amount."
-msgstr ""
+msgstr "لا يمكن أن تحتوي المعاملة النقدية على مبلغ 0."
 
 #. module: account
 #: code:addons/account/models/account_invoice.py:1731
 #, python-format
 msgid "A Payment Terms should have its last line of type Balance."
-msgstr ""
+msgstr "يجب أن تحتوي شروط الدفع على السطر الأخير من نوع الرصيد."
 
 #. module: account
 #: code:addons/account/models/account_invoice.py:1734
 #, python-format
 msgid "A Payment Terms should have only one line of type Balance."
-msgstr ""
+msgstr "يجب أن تحتوي \"شروط الدفع\" على سطر واحد فقط من النوع \"الرصيد\"."
 
 #. module: account
 #: code:addons/account/models/account.py:707
@@ -1139,6 +1154,8 @@ msgid ""
 "A rounding per line is advised if your prices are tax-included. That way, "
 "the sum of line subtotals equals the total with taxes."
 msgstr ""
+"يُنصح بالتقريب في كل سطر إذا كانت الأسعار مضمنة الضريبة. وبهذه الطريقة ، "
+"يكون مجموع مجموع المجاميع الفرعية مساويًا للإجمالي مع الضرائب."
 
 #. module: account
 #: code:addons/account/models/account_bank_statement.py:880
@@ -1165,6 +1182,10 @@ msgid ""
 "                bank accounts, checks), one purchase journal, one sales journal\n"
 "                and one for miscellaneous information."
 msgstr ""
+"يجوز لشركة نموذجية استخدام مجلة واحدة لكل طريقة دفع (نقدًا ،\n"
+"                الحسابات المصرفية ، والشيكات) ، وجريدة شراء واحدة ، ومجلة "
+"مبيعات واحدة\n"
+"                وواحد للمعلومات المتنوعة."
 
 #. module: account
 #: model:res.groups,name:account.group_warning_account
@@ -1260,7 +1281,7 @@ msgstr "القيد"
 #: model:ir.ui.view,arch_db:account.view_account_group_form
 #: model:ir.ui.view,arch_db:account.view_account_group_tree
 msgid "Account Group"
-msgstr ""
+msgstr "جماعة حساب"
 
 #. module: account
 #: model:ir.actions.act_window,name:account.action_account_group_tree
@@ -1347,7 +1368,7 @@ msgstr "تقارير الحساب"
 #. module: account
 #: model:ir.model,name:account.model_account_cash_rounding
 msgid "Account Rounding"
-msgstr ""
+msgstr "تقريب الحساب"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_fiscal_position_account_template_account_src_id
