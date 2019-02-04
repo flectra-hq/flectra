@@ -33,5 +33,29 @@
         <field name="groups" eval="[(4, ref('hr_payroll.group_hr_payroll_manager'))]"/>
     </record>
 
+    <record id="hr_payslip_rule" model="ir.rule">
+        <field name="name">Payslip Multicompany</field>
+        <field name="model_id" ref="model_hr_payslip"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="hr_payroll_structure_rule" model="ir.rule">
+        <field name="name">Payroll Structure Multicompany</field>
+        <field name="model_id" ref="model_hr_payroll_structure"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="hr_salary_rule_rule" model="ir.rule">
+        <field name="name">Hr Salary Rule Multicompany</field>
+        <field name="model_id" ref="model_hr_salary_rule"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="hr_contribution_register_rule" model="ir.rule">
+        <field name="name">Hr Contribution Register Multicompany</field>
+        <field name="model_id" ref="model_hr_contribution_register"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
 </data>
 </flectra>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra noupdate="1">
+
+    <record id="res_partner_ae_local" model="res.partner">
+        <field name="name">Buena Vista Garden Maintenance</field>
+        <field eval="[(6, 0, [ref('base.res_partner_category_13'), ref('base.res_partner_category_12')])]" name="category_id"/>
+        <field name="customer">1</field>
+        <field name="supplier">1</field>
+        <field name="city">Dubai</field>
+        <field name="zip">21121</field>
+        <field name="vat">AE06DU987654</field>
+        <field name="country_id" ref="base.ae"/>
+        <field name="street">Box No. 21121</field>
+        <field name="email">buena@yourcompany.example.com</field>
+        <field name="phone">2281188</field>
+        <field name="website">http://www.buena.com</field>
+        <field model="res.country.state" name="state_id" search="[('code','=','DU')]"/>
+    </record>
+
+    <record id="res_partner_ae_inside" model="res.partner">
+        <field name="name">Starship Tapes</field>
+        <field eval="[(6, 0, [ref('base.res_partner_category_13'), ref('base.res_partner_category_12')])]" name="category_id"/>
+        <field name="customer">1</field>
+        <field name="supplier">1</field>
+        <field name="city">Riyadh</field>
+        <field name="vat">SA06AB123456</field>
+        <field name="country_id" ref="base.sa"/>
+        <field name="street">Hayir, P.O.Box: 41005</field>
+        <field name="email">starship@yourcompany.example.com</field>
+        <field name="phone">01-4959210</field>
+        <field name="website">http://www.starship.com</field>
+    </record>
+
+    <record id="res_partner_ae_outside" model="res.partner">
+        <field name="name">Wholesale Club, Inc.</field>
+        <field eval="[(6, 0, [ref('base.res_partner_category_13'), ref('base.res_partner_category_12')])]" name="category_id"/>
+        <field name="customer">1</field>
+        <field name="supplier">1</field>
+        <field name="city">LITTLE ROCK</field>
+        <field name="zip">39337</field>
+        <field name="vat">US06MS987654</field>
+        <field name="country_id" ref="base.us"/>
+        <field model="res.country.state" name="state_id" search="[('code','=','MS')]"/>
+        <field name="street">1332  Oral Lake Road</field>
+        <field name="email">wholesale@yourcompany.example.com</field>
+        <field name="phone">952-540-6038</field>
+        <field name="website">http://www.wholesale.com</field>
+    </record>
+
+    <record id="res_partner_ae_designated" model="res.partner">
+        <field name="name">Adham al Exports</field>
+        <field eval="[(6, 0, [ref('base.res_partner_category_13'), ref('base.res_partner_category_12')])]" name="category_id"/>
+        <field name="customer">1</field>
+        <field name="supplier">1</field>
+        <field name="city">Dubai</field>
+        <field name="zip">21121</field>
+        <field name="country_id" ref="base.ae"/>
+        <field name="vat">AE06DU986420</field>
+        <field model="res.country.state" name="state_id" search="[('code','=','DU')]"/>
+        <field name="street">Post Box 89099</field>
+        <field name="email">adham@yourcompany.example.com</field>
+        <field name="website">http://www.adham.com</field>
+    </record>
+
+</flectra>

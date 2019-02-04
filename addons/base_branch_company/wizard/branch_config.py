@@ -33,6 +33,10 @@ class BarnchConfiguration(models.TransientModel):
                                  'user_id', 'branch_id', 'Default Branch for users',
                                  domain="[('company_id','=',company_id)]")
 
+    @api.onchange('state_id')
+    def _onchange_state(self):
+        self.country_id = self.state_id.country_id
+
     @api.multi
     def branch_config(self):
         s_ids = self.search_read([('id', '=', self.id)], [])[0]

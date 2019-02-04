@@ -76,7 +76,7 @@ PostgreSQL server :
 In order to print PDF reports, you must install wkhtmltopdf_ yourself:
 the version of wkhtmltopdf_ available in debian repositories does not support
 headers and footers so it can not be installed automatically.
-The recommended version is 0.12.1 and is available on `the wkhtmltopdf download page`_,
+The recommended version is 0.12.5 and is available on `the wkhtmltopdf download page`_,
 in the archive section.
 
 Repository
@@ -513,7 +513,7 @@ offcial Flectra `docker image <https://hub.docker.com/r/flectrahq/flectra/>`_ pa
     http://www.enterprisedb.com/products-services-training/pgdownload
 .. _Quilt: http://en.wikipedia.org/wiki/Quilt_(software)
 .. _saas: https://www.flectrahq.com
-.. _the wkhtmltopdf download page: https://github.com/wkhtmltopdf/wkhtmltopdf/releases/tag/0.12.1
+.. _the wkhtmltopdf download page: https://github.com/wkhtmltopdf/wkhtmltopdf/releases/tag/0.12.5
 .. _UAC: http://en.wikipedia.org/wiki/User_Account_Control
 .. _wkhtmltopdf: http://wkhtmltopdf.org
 .. _pip: https://pip.pypa.io

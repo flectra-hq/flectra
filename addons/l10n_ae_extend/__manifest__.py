@@ -14,18 +14,22 @@ United Arab Emirates accounting chart and localization.
                 'sale_management', 'purchase', 'base_vat'],
     'data': [
              'security/ir.model.access.csv',
+             'data/res_company_data.xml',
+             'data/res_country_data.xml',
              'data/journal_data.xml',
              'data/vat_config_type_data.xml',
+             'data/fiscal_position_data.xml',
              'views/report_vat_201_view.xml',
              'views/report_menu_view.xml',
              'views/vat_config_type.xml',
-             'views/company_view.xml',
+             'views/res_config_view.xml',
              'views/purchase_order_view.xml',
              'views/sale_order_view.xml',
              'views/account_invoice_view.xml',
              'wizard/vat_201_view.xml',
     ],
     'demo': [
+        'demo/res_partner_demo.xml',
         'demo/account_invoice_demo.xml',
     ],
 }

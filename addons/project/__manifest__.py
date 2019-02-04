@@ -19,7 +19,8 @@
         'web',
         'web_planner',
         'web_tour',
-        'digest'
+        'digest',
+        'base_branch_company'
     ],
     'description': "",
     'data': [

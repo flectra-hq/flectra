@@ -17,6 +17,7 @@
         'security/ir.model.access.csv',
         'data/product_uom_data.xml',
         'data/note_issue_reason_data.xml',
+        'data/res_company_data.xml',
         'wizard/account_invoice_refund_view.xml',
         'views/product_uom_view.xml',
         'views/res_partner_view.xml',

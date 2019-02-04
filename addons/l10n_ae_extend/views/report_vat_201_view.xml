@@ -6,12 +6,12 @@
                 <div class="page">
                     <h3 align="center">VAT 201</h3>
                     <div class="row">
-                        <div class="col-xs-4">
-                            <t t-if="data['form']['date_from']"><strong>From</strong> <span t-esc="data['form']['date_from']"/><br/></t>
-                            <t t-if="data['form']['date_to']"><strong>To </strong><span t-esc="data['form']['date_to']"/></t>
+                        <div class="text-center">
+                            <t t-if="data['form']['date_from']"><strong>Date from :</strong> <span t-esc="data['form']['date_from']"/></t>
+                            <t t-if="data['form']['date_to']"><strong>Date to : </strong><span t-esc="data['form']['date_to']"/></t>
                         </div>
                     </div>
-                    <table class="table" width="100%">
+                    <table class="table table-condensed" width="100%">
                         <thead>
                             <tr>
                                 <th width="3%"></th>
@@ -22,7 +22,7 @@
                             </tr>
                         </thead>
                         <tr>
-                            <td rowspan="6" style="font-size: 14px; letter-spacing: 1px;">VAT on Sales</td>
+                            <td rowspan="6" style="font-size: 12px; letter-spacing: 1px;">VAT on Sales</td>
                             <td class="success">Standard rated sales</td>
                             <td class="text-right"><span t-att-style="style" t-esc="get_local_sale.get('amount')" t-options="{'widget': 'monetary', 'display_currency': currency_id}"/></td>
                             <td class="text-right"><span t-att-style="style" t-esc="get_local_sale.get('adjustment')" t-options="{'widget': 'monetary', 'display_currency': currency_id}"/></td>
@@ -59,7 +59,7 @@
                             <td class="text-right"><b><span t-att-style="style" t-esc="get_total_sale.get('tax_amount') - get_total_sale.get('return_tax_amount')" t-options="{'widget': 'monetary', 'display_currency': currency_id}"/></b><br/></td>
                         </tr>
                         <tr>
-                            <td rowspan="6" style="font-size: 14px; letter-spacing: 1px;">VAT on Purchas</td>
+                            <td rowspan="6" style="font-size: 12px; letter-spacing: 1px;">VAT on Purchase</td>
                             <td class="danger">Standard rated domestic purchases</td>
                             <td class="text-right"><span t-att-style="style" t-esc="get_local_purchase.get('amount')" t-options="{'widget': 'monetary', 'display_currency': currency_id}"/></td>
                             <td class="text-right"><span t-att-style="style" t-esc="get_local_purchase.get('adjustment')" t-options="{'widget': 'monetary', 'display_currency': currency_id}"/></td>
@@ -97,28 +97,28 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td>Total VAT due for current period</td>
+                            <td><b>Total VAT due for current period</b></td>
                             <td></td>
                             <td></td>
                             <td class="text-right"><b><span t-att-style="style" t-esc="get_total_vat_due.get('total_tax_amount')" t-options="{'widget': 'monetary', 'display_currency': currency_id}"/></b></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td>Corrections from previous period</td>
+                            <td><b>Corrections from previous period</b></td>
                             <td></td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td>VAT credit carried forword from previous period(s)</td>
+                            <td><b>VAT credit carried forword from previous period(s)</b></td>
                             <td></td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td>Net VAT due</td>
+                            <td><b>Net VAT due</b></td>
                             <td></td>
                             <td></td>
                             <td class="text-right"><b><span t-att-style="style" t-esc="get_total_vat_due.get('total_tax_amount')" t-options="{'widget': 'monetary', 'display_currency': currency_id}"/></b></td>

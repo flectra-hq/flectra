@@ -25,16 +25,18 @@ class Company(models.Model):
 
     @api.model
     def create(self, vals):
-        branch = self.env['res.branch'].create({
-            'name': vals['name'],
-            'code': vals['name'],
+        res = super(Company, self).create(vals)
+        field_list = ['name', 'street', 'street2', 'zip', 'city', 'state_id',
+                      'country_id', 'email', 'phone', 'mobile', 'partner_id']
+        branch_vals = dict((f, vals[f]) for f in field_list if f in vals)
+        branch_vals.update({
+            'code': res.name,
+            'company_id': res.id
         })
-        vals['branch_id'] = branch.id
-        self.clear_caches()
-        company = super(Company, self).create(vals)
-        branch.write({'partner_id': company.partner_id.id,
-                      'company_id': company.id})
-        return company
+        branch = self.env['res.branch'].create(branch_vals)
+        res.write({'branch_id': branch.id})
+        res.partner_id.branch_id = branch.id
+        return res
 
 
 class ResBranch(models.Model):
@@ -91,6 +93,19 @@ class ResBranch(models.Model):
 class Users(models.Model):
 
     _inherit = "res.users"
+
+    @api.multi
+    def read(self, fields=None, load='_classic_read'):
+        result = super(Users, self).read(fields, load=load)
+        self.with_context({'check_branch': True}).check_missing_branch()
+        return result
+
+    @api.multi
+    def check_missing_branch(self):
+        for user_id in self:
+            if self._context.get('check_branch', False) and user_id.company_id.branch_id and not user_id.default_branch_id:
+                user_id.default_branch_id = user_id.company_id.branch_id.id
+                user_id.branch_ids = [(4, user_id.company_id.branch_id.id)]
 
     @api.model
     def branch_default_get(self, user):

@@ -77,6 +77,9 @@
                 <field name="vat" readonly="1"
                        attrs="{'invisible': [('state', 'not in', ('open', 'paid'))]}"/>
             </xpath>
+            <xpath expr="//field[@name='date_due']" position="after">
+                <field name="reverse_charge" attrs="{'invisible': [('type', 'in', ['out_invoice', 'out_refund'])]}"/>
+            </xpath>
             <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="e_commerce_partner_id"
                        attrs="{'readonly': [('state', '!=', 'draft')]}"
@@ -84,6 +87,14 @@
             </xpath>
             <xpath expr="//field[@name='tax_line_ids']" position="attributes">
                 <attribute name="attrs">{'invisible': [('tax_line_ids', '=', [])]}</attribute>
+            </xpath>
+            <xpath expr="//field/tree/field[@name='invoice_line_tax_ids']" position="after">
+                <field name="reverse_invoice_line_tax_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+            <xpath expr="//page[@name='other_info']" position="after">
+                <page string="Reverse Charge" name="reverse_charge_info" attrs="{'invisible': [('reverse_charge', '=', False)]}">
+                    <field name="reverse_tax_line_ids" nolabel="1"/>
+                </page>
             </xpath>
         </field>
     </record>
@@ -110,6 +121,19 @@
 
     <record id="account.menu_action_account_fiscal_position_form" model="ir.ui.menu">
         <field name="name">Nature of Transaction</field>
+    </record>
+
+    <record id="view_in_reverse_invoice_tax_tree" model="ir.ui.view">
+        <field name="name">in_reverse.account.invoice.tax.tree</field>
+        <field name="model">reverse.account.invoice.tax</field>
+        <field name="arch" type="xml">
+            <tree string="Reverse Invoice Taxes">
+                <field name="name"/>
+                <field name="account_id" groups="account.group_account_user"/>
+                <field name="base"/>
+                <field name="amount_total"/>
+            </tree>
+        </field>
     </record>
 
 

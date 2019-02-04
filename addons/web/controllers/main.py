@@ -1867,13 +1867,47 @@ class ReportController(http.Controller):
 
 class LicensingController(http.Controller):
     @http.route('/flectra/licensing', type='http', auth="user")
-    def download(self, binary='', **kwargs):
-        filename = '%s.%s' % (FILENAME, EXT)
-        content = binary
-        return request.make_response(
-            content,
-            headers=[
-                ('Content-Type', 'plain/text' or 'application/octet-stream'),
-                ('Content-Disposition', content_disposition(filename))
-            ]
-        )
+    def download(self, contract_id=None, type=None, binary='', **kwargs):
+        if type == 'offline':
+            filename = '%s.%s' % (FILENAME, EXT)
+            content = binary
+            return request.make_response(
+                content,
+                headers=[
+                    ('Content-Type', 'plain/text' or 'application/octet-stream'),
+                    ('Content-Disposition', content_disposition(filename))
+                ]
+            )
+        elif type == 'online':
+            error = {
+                'code': 200,
+                'message': "<h5>Invalid License Key</h5>",
+                'success': False
+            }
+            try:
+                if contract_id:
+                    data = {
+                        'data': binary,
+                        'contract_id': contract_id
+                    }
+                    p = requests.post(
+                        server_url + '/my/contract/validate/online',
+                        params=data,
+                        headers={'Content-type': 'plain/text' or 'application/octet-stream'})
+                    content = json.loads(p.content.decode('utf-8'))
+                    if 'activation_key' in content:
+                        date = datetime.datetime.now() + datetime.timedelta(days=(12 * 30 * 1))
+                        set_param = request.env['ir.config_parameter'].sudo().set_param
+                        set_param('database.expiration_date', date)
+                        set_param('contract.validity',
+                                  base64.encodestring(
+                                      encrypt(json.dumps(str(date)),str(date))))
+                    if 'error_in_key' in content:
+                        return request.make_response(html_escape(json.dumps(error)))
+                    error['success'] = True
+                    error['message'] = '<h5>Your database successfully activated</h5>'
+                    return request.make_response(html_escape(json.dumps(error)))
+            except Exception as e:
+                error['code'] = 400
+                error['message'] = 'Flectra Error!'
+                return request.make_response(html_escape(json.dumps(error)))

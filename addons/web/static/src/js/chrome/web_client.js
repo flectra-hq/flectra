@@ -16,7 +16,7 @@ var qweb = core.qweb;
 var Dialog = require('FlectraLicensing.DialogRegisterContract');
 
 return AbstractWebClient.extend({
-    events: {
+    events: _.extend({}, AbstractWebClient.prototype.events, {
         'click .oe_logo_edit_admin': 'logo_edit',
         'click .oe_logo img': function(ev) {
             ev.preventDefault();
@@ -24,7 +24,7 @@ return AbstractWebClient.extend({
                 framework.redirect("/web" + (core.debug ? "?debug" : ""));
             });
         },
-    },
+    }),
     show_application: function() {
         var self = this;
 
@@ -244,7 +244,27 @@ return AbstractWebClient.extend({
             session.get_file({
                 url: '/flectra/licensing',
                 data: {
-                    'binary': key['binary']
+                    'binary': key['binary'],
+                    'type': key['type'],
+                    'contract_id': key['key']
+                },
+                error: function (res) {
+                    var btn = [{
+                        text: core._t("Cancel"),
+                        close: true,
+                    }];
+                    if (res.success) {
+                        btn.unshift({
+                            text: core._t('Refresh'),
+                            classes: "btn-primary",
+                            click: function () { window.location.reload(); },
+                            close: true
+                        })
+                    }
+                    new require('web.Dialog').alert(null, '', {
+                        $content: $('<div/>').html(res['message']),
+                        buttons: btn
+                    });
                 }
             });
         });
@@ -291,7 +311,7 @@ return AbstractWebClient.extend({
                 overlayCSS: {cursor: 'auto'}
             });
             self.contract_expired();
-        }, 15000);
+        }, 150000);
     },
 });
 

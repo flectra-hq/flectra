@@ -9,7 +9,7 @@
     'sequence': 40,
     'summary': 'A module for Scrum implementation',
     'depends': [
-        'project', 'resource'
+        'project', 'resource', 'base_branch_company'
     ],
     'data': [
         'security/ir.model.access.csv',

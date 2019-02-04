@@ -14,7 +14,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">out_invoice</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_local"/>
         <field name="journal_id" ref="l10n_ae_extend.local_sale_journal"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_1"/>
     </record>
@@ -25,7 +25,7 @@
         <field name="product_id" ref="product.product_product_24"/>
         <field name="account_id" ref="l10n_ae_extend.local_sale_uae_account"/>
         <field name="price_unit">885.0</field>
-        <field name="quantity">2.0</field>
+        <field name="quantity">18.0</field>
     </record>
 
     <function model="account.invoice.line" name="_onchange_product_id"
@@ -45,7 +45,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">out_refund</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_local"/>
         <field name="journal_id" ref="l10n_ae_extend.local_sale_journal"/>
         <field name="refund_invoice_id" ref="demo_invoice_ae_1"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_1"/>
@@ -57,7 +57,7 @@
         <field name="product_id" ref="product.product_product_24"/>
         <field name="price_unit">885.0</field>
         <field name="account_id" ref="l10n_ae_extend.local_sale_uae_account"/>
-        <field name="quantity">1.0</field>
+        <field name="quantity">5.0</field>
     </record>
 
     <function model="account.invoice.line" name="_onchange_product_id"
@@ -69,6 +69,231 @@
     <function model="account.invoice" name="action_invoice_open"
               eval="[ref('demo_invoice_ae_2')]"/>
 
+    <record id="demo_invoice_ae_insidegcc_country" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">out_invoice</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_inside"/>
+        <field name="journal_id" ref="l10n_ae_extend.insidegcc_sale_journal"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_2"/>
+    </record>
+
+    <record id="demo_invoice_ae_insidegcc_country_line" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_insidegcc_country"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="account_id" ref="l10n_ae_extend.insidegcc_sale_uae_account"/>
+        <field name="price_unit">885.0</field>
+        <field name="quantity">20.0</field>
+    </record>
+
+    <record id="demo_invoice_ae_insidegcc_country_line_1" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_insidegcc_country"/>
+        <field name="name">Basic Computer</field>
+        <field name="product_id" ref="product.consu_delivery_03"/>
+        <field name="account_id" ref="l10n_ae_extend.insidegcc_sale_uae_account"/>
+        <field name="price_unit">23500.0</field>
+        <field name="quantity">2.0</field>
+        <field name="invoice_line_tax_ids" eval="[(6, 0, [ref('l10n_ae.sale_uae_vat_zero')])]"/>
+    </record>
+
+    <function model="account.invoice.line" name="_onchange_product_id"
+              eval="[ref('demo_invoice_ae_insidegcc_country_line')]"/>
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_insidegcc_country')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_insidegcc_country')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_insidegcc_country')]"/>
+
+    <!-- Refund -->
+    <record id="demo_invoice_ae_insidegcc_country_refund" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">out_refund</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_inside"/>
+        <field name="journal_id" ref="l10n_ae_extend.local_sale_journal"/>
+        <field name="refund_invoice_id" ref="demo_invoice_ae_insidegcc_country"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_2"/>
+    </record>
+
+    <record id="demo_invoice_ae_insidegcc_country_refund_line" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_insidegcc_country_refund"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="price_unit">800.0</field>
+        <field name="account_id" ref="l10n_ae_extend.insidegcc_sale_uae_account"/>
+        <field name="quantity">3.0</field>
+    </record>
+
+    <record id="demo_invoice_ae_insidegcc_country_refund_line_1" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_insidegcc_country_refund"/>
+        <field name="name">Basic Computer</field>
+        <field name="product_id" ref="product.consu_delivery_03"/>
+        <field name="account_id" ref="l10n_ae_extend.insidegcc_sale_uae_account"/>
+        <field name="price_unit">23000.0</field>
+        <field name="quantity">1.0</field>
+        <field name="invoice_line_tax_ids" eval="[(6, 0, [ref('l10n_ae.sale_uae_vat_zero')])]"/>
+    </record>
+
+    <function model="account.invoice.line" name="_onchange_product_id"
+              eval="[ref('demo_invoice_ae_insidegcc_country_refund_line')]"/>
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_insidegcc_country_refund')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_insidegcc_country_refund')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_insidegcc_country_refund')]"/>
+
+    <record id="demo_invoice_ae_outsidegcc_country" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">out_invoice</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_outside"/>
+        <field name="journal_id" ref="l10n_ae_extend.outsidegcc_sale_journal"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_3"/>
+    </record>
+
+    <record id="demo_invoice_ae_outsidegcc_country_line" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_outsidegcc_country"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="account_id" ref="l10n_ae_extend.outsidegcc_sale_uae_account"/>
+        <field name="price_unit">885.0</field>
+        <field name="quantity">15.0</field>
+    </record>
+
+    <record id="demo_invoice_ae_outsidegcc_country_line_1" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_outsidegcc_country"/>
+        <field name="name">Basic Computer</field>
+        <field name="product_id" ref="product.consu_delivery_03"/>
+        <field name="account_id" ref="l10n_ae_extend.outsidegcc_sale_uae_account"/>
+        <field name="price_unit">23500.0</field>
+        <field name="quantity">4.0</field>
+        <field name="invoice_line_tax_ids" eval="[(6, 0, [ref('l10n_ae.sale_uae_vat_zero')])]"/>
+    </record>
+
+    <function model="account.invoice.line" name="_onchange_product_id"
+              eval="[ref('demo_invoice_ae_outsidegcc_country_line')]"/>
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_outsidegcc_country')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_outsidegcc_country')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_outsidegcc_country')]"/>
+
+    <!-- Refund -->
+    <record id="demo_invoice_ae_outsidegcc_country_refund" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">out_refund</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_outside"/>
+        <field name="journal_id" ref="l10n_ae_extend.outsidegcc_sale_journal"/>
+        <field name="refund_invoice_id" ref="demo_invoice_ae_outsidegcc_country"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_3"/>
+    </record>
+
+    <record id="demo_invoice_ae_outsidegcc_country_refund_line" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_outsidegcc_country_refund"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="price_unit">800.0</field>
+        <field name="account_id" ref="l10n_ae_extend.outsidegcc_sale_uae_account"/>
+        <field name="quantity">5.0</field>
+    </record>
+
+    <record id="demo_invoice_ae_outsidegcc_country_refund_line_1" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_outsidegcc_country_refund"/>
+        <field name="name">Basic Computer</field>
+        <field name="product_id" ref="product.consu_delivery_03"/>
+        <field name="account_id" ref="l10n_ae_extend.outsidegcc_sale_uae_account"/>
+        <field name="price_unit">23500.0</field>
+        <field name="quantity">2.0</field>
+        <field name="invoice_line_tax_ids" eval="[(6, 0, [ref('l10n_ae.sale_uae_vat_zero')])]"/>
+    </record>
+
+    <function model="account.invoice.line" name="_onchange_product_id"
+              eval="[ref('demo_invoice_ae_outsidegcc_country_refund_line')]"/>
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_outsidegcc_country_refund')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_outsidegcc_country_refund')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_outsidegcc_country_refund')]"/>
+
+    <record id="demo_invoice_ae_exempte" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">out_invoice</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_designated"/>
+        <field name="journal_id" ref="l10n_ae_extend.designated_zone_sale_journal"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_4"/>
+    </record>
+
+    <record id="demo_invoice_ae_exempte_line" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_exempte"/>
+        <field name="name">Little server</field>
+        <field name="product_id" ref="product.consu_delivery_02"/>
+        <field name="account_id" ref="l10n_ae_extend.designated_zone_sale_uae_account"/>
+        <field name="price_unit">40000</field>
+        <field name="quantity">5.0</field>
+        <field name="invoice_line_tax_ids" eval="[(6, 0, [ref('l10n_ae.sale_uae_vat_exempted')])]"/>
+    </record>
+
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_exempte')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_exempte')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_exempte')]"/>
+
+    <!-- Refund -->
+    <record id="demo_invoice_ae_exempte_refund" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">out_refund</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_designated"/>
+        <field name="journal_id" ref="l10n_ae_extend.designated_zone_sale_journal"/>
+        <field name="refund_invoice_id" ref="demo_invoice_ae_exempte"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_4"/>
+    </record>
+
+    <record id="demo_invoice_ae_exempte_refund_line" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_exempte_refund"/>
+        <field name="name">Little server</field>
+        <field name="product_id" ref="product.consu_delivery_02"/>
+        <field name="account_id" ref="l10n_ae_extend.designated_zone_sale_uae_account"/>
+        <field name="price_unit">40000</field>
+        <field name="quantity">1.0</field>
+        <field name="invoice_line_tax_ids" eval="[(6, 0, [ref('l10n_ae.sale_uae_vat_exempted')])]"/>
+    </record>
+
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_exempte_refund')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_exempte_refund')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_exempte_refund')]"/>
+
+    <!-- Purchases -->
     <record id="demo_invoice_ae_3" model="account.invoice">
         <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
         <field name="currency_id" ref="base.AED"/>
@@ -76,7 +301,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">in_invoice</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_local"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_5"/>
         <field name="journal_id" ref="l10n_ae_extend.local_purchase_journal"/>
     </record>
@@ -107,7 +332,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">in_refund</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_local"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_5"/>
         <field name="journal_id" ref="l10n_ae_extend.local_purchase_journal"/>
         <field name="refund_invoice_id" ref="demo_invoice_ae_3"/>
@@ -139,7 +364,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">in_invoice</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_local"/>
         <field name="journal_id" ref="l10n_ae_extend.local_purchase_journal"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_5"/>
         <field name="reverse_charge" eval="True"/>
@@ -170,7 +395,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="type">in_refund</field>
         <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
-        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_local"/>
         <field name="journal_id" ref="l10n_ae_extend.local_purchase_journal"/>
         <field name="vat_config_type" ref="l10n_ae_extend.config_type_5"/>
         <field name="reverse_charge" eval="True"/>
@@ -193,5 +418,107 @@
               eval="[ref('demo_invoice_ae_6')]"/>
     <function model="account.invoice" name="action_invoice_open"
               eval="[ref('demo_invoice_ae_6')]"/>
+
+    <record id="demo_invoice_ae_io_gcc" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">in_invoice</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_inside"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_6"/>
+        <field name="journal_id" ref="l10n_ae_extend.insidegcc_purchase_journal"/>
+    </record>
+
+    <record id="demo_invoice_ae_io_gcc_line" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_io_gcc"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="account_id" ref="l10n_ae_extend.insidegcc_purchase_uae_account"/>
+        <field name="price_unit">876.0</field>
+        <field name="quantity">5.0</field>
+    </record>
+
+    <record id="demo_invoice_ae_io_gcc_line_1" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_io_gcc"/>
+        <field name="name">Basic Computer</field>
+        <field name="product_id" ref="product.consu_delivery_03"/>
+        <field name="account_id" ref="l10n_ae_extend.insidegcc_purchase_uae_account"/>
+        <field name="price_unit">23500.0</field>
+        <field name="quantity">2.0</field>
+        <field name="invoice_line_tax_ids" eval="[(6, 0, [ref('l10n_ae.purchase_uae_vat_zero')])]"/>
+    </record>
+
+    <record id="demo_invoice_ae_io_gcc_line_2" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_io_gcc"/>
+        <field name="name">Little server</field>
+        <field name="product_id" ref="product.consu_delivery_02"/>
+        <field name="account_id" ref="l10n_ae_extend.insidegcc_purchase_uae_account"/>
+        <field name="price_unit">40000</field>
+        <field name="quantity">3.0</field>
+        <field name="invoice_line_tax_ids" eval="[(6, 0, [ref('l10n_ae.purchase_uae_vat_exempted')])]"/>
+    </record>
+
+    <function model="account.invoice.line" name="_onchange_product_id"
+              eval="[ref('demo_invoice_ae_io_gcc_line')]"/>
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_io_gcc')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_io_gcc')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_io_gcc')]"/>
+
+    <!-- Refund -->
+    <record id="demo_invoice_ae_io_gcc_refund" model="account.invoice">
+        <field name="date_due" eval="DateTime.today().strftime('%Y-%m-28')"/>
+        <field name="currency_id" ref="base.AED"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type">in_refund</field>
+        <field name="date_invoice" eval="DateTime.today().strftime('%Y-%m-01')"/>
+        <field name="partner_id" ref="l10n_ae_extend.res_partner_ae_inside"/>
+        <field name="vat_config_type" ref="l10n_ae_extend.config_type_6"/>
+        <field name="journal_id" ref="l10n_ae_extend.insidegcc_purchase_journal"/>
+        <field name="refund_invoice_id" ref="demo_invoice_ae_io_gcc"/>
+    </record>
+
+    <record id="demo_invoice_ae_io_gcc_refund_line" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_io_gcc_refund"/>
+        <field name="name">Graphics Card</field>
+        <field name="product_id" ref="product.product_product_24"/>
+        <field name="account_id" ref="l10n_ae_extend.insidegcc_purchase_uae_account"/>
+        <field name="price_unit">876.0</field>
+        <field name="quantity">3.0</field>
+    </record>
+
+    <record id="demo_invoice_ae_io_gcc_refund_line_1" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_io_gcc_refund"/>
+        <field name="name">Basic Computer</field>
+        <field name="product_id" ref="product.consu_delivery_03"/>
+        <field name="account_id" ref="l10n_ae_extend.insidegcc_purchase_uae_account"/>
+        <field name="price_unit">23500.0</field>
+        <field name="quantity">1.0</field>
+        <field name="invoice_line_tax_ids" eval="[(6, 0, [ref('l10n_ae.purchase_uae_vat_zero')])]"/>
+    </record>
+
+    <record id="demo_invoice_ae_io_gcc_refund_line_2" model="account.invoice.line">
+        <field name="invoice_id" ref="demo_invoice_ae_io_gcc_refund"/>
+        <field name="name">Little server</field>
+        <field name="product_id" ref="product.consu_delivery_02"/>
+        <field name="account_id" ref="l10n_ae_extend.insidegcc_purchase_uae_account"/>
+        <field name="price_unit">40000</field>
+        <field name="quantity">1.0</field>
+        <field name="invoice_line_tax_ids" eval="[(6, 0, [ref('l10n_ae.purchase_uae_vat_exempted')])]"/>
+    </record>
+
+    <function model="account.invoice.line" name="_onchange_product_id"
+              eval="[ref('demo_invoice_ae_io_gcc_refund_line')]"/>
+    <function model="account.invoice" name="_onchange_invoice_line_ids"
+              eval="[ref('demo_invoice_ae_io_gcc_refund')]"/>
+    <function model="account.invoice" name="_get_total_amount"
+              eval="[ref('demo_invoice_ae_io_gcc_refund')]"/>
+    <function model="account.invoice" name="action_invoice_open"
+              eval="[ref('demo_invoice_ae_io_gcc_refund')]"/>
 
 </flectra>

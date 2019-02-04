@@ -122,8 +122,26 @@
 <div t-name="FlectraLicense.dialog_contract_registration" >
     <div id="register_contract_form">
         <div class="form-group">
-            <label for="contract_id">Contract ID</label>
-            <input type="text" class="form-control" id="contract_id" placeholder="Contract ID"/>
+            <div class="form-group">
+                <label for="contract_id">Contract ID</label>
+                <input type="text" class="form-control" id="contract_id" placeholder="Contract ID"/>
+            </div>
+            <div class="form-group">
+                <select class="form-control" id="activate_online">
+                    <option disabled="" style="text-align: center;"> ---- Type ---- </option>
+                    <option value="online">Online</option>
+                    <option value="offline" selected="">Offline</option>
+                </select>
+            </div>
+            <div id="form-offline">
+                <div class="form-group text-center">
+                    <a href="javascript:void(0);" id="download-key">Click Here to Download licence.key <i class="fa fa-download"/></a>
+                </div>
+                <div class="form-group">
+                    <label>Here Upload contract.key file downloaded from FlectraHQ Store.<i class="fa fa-arrow-down"/></label>
+                    <input type="file" class="form-control" id="activator_key" placeholder="Activator Key"/>
+                </div>
+            </div>
             <input type="hidden" value=""/>
         </div>
     </div>

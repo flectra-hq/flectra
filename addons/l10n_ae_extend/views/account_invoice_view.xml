@@ -6,11 +6,22 @@
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="vat_config_type" domain="[('journal_id.type', '=', 'sale')]"/>
+                <field name="vat_config_type" domain="[('journal_id.type', '=', 'sale')]" options="{'no_create': True}"/>
             </xpath>
             <xpath expr="//field[@name='fiscal_position_id']" position="replace"/>
             <xpath expr="//field[@name='date_due']" position="after">
                <field name="fiscal_position_id" options="{'no_create': True}" placeholder="Auto-detect"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="uae_account_invoice_tree_inherit" model="ir.ui.view">
+        <field name="name">uae.account.invoice.tree.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='number']" position="after">
+                <field name="vat_config_type"/>
             </xpath>
         </field>
     </record>
@@ -34,7 +45,7 @@
         <field name="inherit_id" ref="account.invoice_supplier_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="vat_config_type" domain="[('journal_id.type', '=', 'purchase')]"/>
+                <field name="vat_config_type" domain="[('journal_id.type', '=', 'purchase')]" options="{'no_create': True}"/>
             </xpath>
             <xpath expr="//field[@name='fiscal_position_id']" position="replace"/>
             <xpath expr="//field[@name='date_due']" position="after">
@@ -52,6 +63,17 @@
         </field>
     </record>
 
+    <record id="uae_account_invoice_supplier_tree_inherit" model="ir.ui.view">
+        <field name="name">uae.account.invoice.supplier.tree.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='number']" position="after">
+                <field name="vat_config_type"/>
+            </xpath>
+        </field>
+    </record>
+
     <record id="uae_account_tax_form_inherit" model="ir.ui.view">
         <field name="name">uae.account.tax.form.inherit</field>
         <field name="model">account.tax</field>
@@ -59,6 +81,18 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='type_tax_use']" position="after">
                 <field name="tax_type"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="uae_account_fiscal_position_inherit" model="ir.ui.view">
+        <field name="name">uae.account.fiscal.position.form.inherit</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='active']" position="after">
+                <field name="sale_vat_config_type" options="{'no_create': True}"/>
+                <field name="purchase_vat_config_type" options="{'no_create': True}"/>
             </xpath>
         </field>
     </record>

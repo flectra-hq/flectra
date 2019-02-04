@@ -7,9 +7,9 @@
             <tree>
                 <field name="code"/>
                 <field name="name"/>
+                <field name="vat_type"/>
                 <field name="journal_id"/>
                 <field name="type"/>
-                <!-- <field name="reverse_charge"/> -->
             </tree>
         </field>
     </record>
@@ -22,14 +22,13 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name" required="1"/>
-                            <field name="vat_type" required="1"/>
-                            <field name="type" required="1"/>
+                            <field name="name"/>
+                            <field name="vat_type"/>
+                            <field name="type"/>
                         </group>
                         <group>
-                            <field name="code" required="1"/>
-                            <field name="journal_id" required="1"/>
-                            <!-- <field name="reverse_charge" attrs="{'invisible': [('type', '!=', 'purchase')]}"/> -->
+                            <field name="code"/>
+                            <field name="journal_id"/>
                         </group>
                     </group>
                 </sheet>
@@ -38,7 +37,7 @@
     </record>
 
     <record id="action_vat_config_type" model="ir.actions.act_window">
-        <field name="name">Vat Types</field>
+        <field name="name">VAT Types</field>
         <field name="res_model">vat.config.type</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
@@ -48,7 +47,7 @@
 
     <menuitem id="menu_vat_config_type"
         action="action_vat_config_type"
-        parent="account.menu_finance_configuration"
+        parent="account.account_account_menu"
         sequence="10"/>
 
 </flectra>

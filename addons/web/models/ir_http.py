@@ -61,17 +61,28 @@ class Http(models.AbstractModel):
         currencies = Currency.search([]).read(['symbol', 'position', 'decimal_places'])
         return { c['id']: {'symbol': c['symbol'], 'position': c['position'], 'digits': [69,c['decimal_places']]} for c in currencies} 
 
-    def get_contracted_modules(self, contract_key='', ir_module_module_ids=None):
+    def get_contracted_modules(self, type=None, contract_key=None, ir_module_module_ids=None):
         if ir_module_module_ids:
+            contract_key = contract_key or ''
             contracted_module_list = ir_module_module_ids.mapped('name')
-            contracts = encrypt(json.dumps(contracted_module_list), contract_key)
+            warrant = self.env['publisher_warranty.contract'].sudo()._get_message()
+            warrant.update({
+                'contracts': contracted_module_list,
+                'contract_id': contract_key
+            })
+            if type != 'online':
+                contracts = encrypt(json.dumps(warrant), contract_key)
+            else:
+                contracts = str.encode(json.dumps(warrant))
             return contracts
 
     @api.model
-    def contract_validate_file(self, contract_id):
-        ir_module_module_ids = self.env['ir.module.module'].sudo().search(
-            [('contract_certificate', '!=', False), ('state', '=', 'installed')])
-        contracts = self.get_contracted_modules(contract_id,ir_module_module_ids)
+    def contract_validate_file(self, contract_id, type):
+        contracts = []
+        if contract_id:
+            ir_module_module_ids = self.env['ir.module.module'].sudo().search(
+                [('contract_certificate', '!=', False), ('state', '=', 'installed')])
+            contracts = self.get_contracted_modules(type, contract_id, ir_module_module_ids)
         return json.dumps(base64.encodestring(contracts).decode('ascii'))
 
     def check_validate_date(self, config):

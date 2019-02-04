@@ -135,7 +135,7 @@ class Location(models.Model):
                  ('lot_stock_id', 'in', record.ids),
                  ('wh_output_stock_loc_id', 'in', record.ids)])
             for warehouse_id in warehouses_ids:
-                if record.branch_id and record.branch_id != warehouse_id.branch_id:
+                if record.branch_id and warehouse_id.branch_id and record.branch_id != warehouse_id.branch_id:
                     raise ValidationError(
                         _('Configuration Error of Branch:\n'
                           'The Location Branch (%s) and '
