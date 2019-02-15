@@ -20,14 +20,25 @@ class Employee(models.Model):
     vehicle_distance = fields.Integer(
         string='Home-Work Dist.', help="In kilometers", groups="hr.group_hr_user")
     contract_ids = fields.One2many('hr.contract', 'employee_id', string='Contracts')
-    contract_id = fields.Many2one('hr.contract', compute='_compute_contract_id', string='Current Contract', help='Latest contract of the employee')
+    contract_id = fields.Many2one('hr.contract', compute='_compute_contract_id', string='Current Contract', help='Current contract of the employee')
     contracts_count = fields.Integer(compute='_compute_contracts_count', string='Contracts')
 
     def _compute_contract_id(self):
-        """ get the lastest contract """
+        """ get the contract which is in force today"""
         Contract = self.env['hr.contract']
         for employee in self:
-            employee.contract_id = Contract.search([('employee_id', '=', employee.id)], order='date_start desc', limit=1)
+            select_date = fields.Date.today()
+            if self.env.context.get('force_contract_date'):
+                select_date = self.env.context.get('force_contract_date')
+
+            employee.contract_id = Contract.search([
+                ('employee_id', '=', employee.id),
+                ('date_start', '<=', select_date),
+                '|',
+                ('date_end', '=', False),
+                ('date_end', '>=', select_date),
+
+            ], order='date_start desc', limit=1)
 
     def _compute_contracts_count(self):
         # read_group as sudo, since contract count is displayed on form view

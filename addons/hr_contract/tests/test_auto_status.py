@@ -51,3 +51,27 @@ class TestHrContracts(TransactionCase):
         self.contract.write(self.test_contract)
         self.apply_cron()
         self.assertEquals(self.contract.state, 'close')
+
+    def test_return_contract_in_force_for_date(self):
+        self.test_contract.update({
+            'date_start': datetime.now() + relativedelta(days=-50),
+            'date_end': datetime.now() + relativedelta(days=-20),
+        })
+        contract_past = self.contracts.create(self.test_contract)
+        self.test_contract.update({
+            'date_start': datetime.now() + relativedelta(days=-19),
+            'date_end': datetime.now() + relativedelta(days=5),
+        })
+        contract_in_force = self.contracts.create(self.test_contract)
+
+        self.test_contract.update({
+            'date_start': datetime.now() + relativedelta(days=6),
+            'date_end': datetime.now() + relativedelta(days=50),
+        })
+        contract_future = self.contracts.create(self.test_contract)
+
+        self.assertEqual(self.employee.contract_id, contract_in_force)
+        self.assertEqual(self.employee.with_context(
+            force_contract_date=datetime.now() + relativedelta(days=14)).contract_id, contract_future)
+        self.assertEqual(self.employee.with_context(
+            force_contract_date=datetime.now() + relativedelta(days=-25)).contract_id, contract_past)
