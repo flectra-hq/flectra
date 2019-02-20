@@ -7,6 +7,7 @@ class ProjectStory(models.Model):
     _name = "project.story"
     _inherit = ['ir.branch.company.mixin', 'mail.thread']
     _description = "Project Story"
+    _order = "sprint_seq,sequence"
 
     name = fields.Char("Title", required=True, track_visibility="onchange")
     priority_id = fields.Many2one('story.priority', string="Priority",
@@ -32,6 +33,10 @@ class ProjectStory(models.Model):
         ('cancel', 'Cancel'),
         ('done', 'Done'),
     ], string="states", track_visibility="onchange", default="draft")
+    sequence = fields.Integer(string='Sequence', default=1)
+    sprint_seq = fields.Char(
+            related="sprint_id.sprint_seq",
+            string="Reference", readonly=True)
 
     @api.multi
     def set_state_active(self):
