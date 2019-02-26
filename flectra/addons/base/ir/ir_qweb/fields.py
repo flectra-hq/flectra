@@ -367,7 +367,10 @@ class FloatTimeConverter(models.AbstractModel):
 
     @api.model
     def value_to_html(self, value, options):
-        hours, minutes = divmod(value * 60, 60)
+
+        hours, minutes = divmod(abs(value) * 60, 60)
+        if value < 0:
+            return '-%02d:%02d' % (hours, minutes)
         return '%02d:%02d' % (hours, minutes)
 
 
