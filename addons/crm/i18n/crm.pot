@@ -1,13 +1,13 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 #	* crm
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Flectra Server 1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-16 08:08+0000\n"
-"PO-Revision-Date: 2017-11-16 08:08+0000\n"
+"POT-Creation-Date: 2019-02-26 08:54+0000\n"
+"PO-Revision-Date: 2019-02-26 08:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,7 @@ msgid "\n"
 "                        <td style=\"padding:15px 10px;font-size:20px\">\n"
 "                            <p style=\"color:#875A7B;margin:0\" >Hooray!</p><br>\n"
 "                            <p dir=\"ltr\" style=\"font-size:15px;margin-top:0pt;margin-bottom:0pt;\">\n"
-"                                <span>Your Odoo CRM application is up and running.</span></p><br>\n"
+"                                <span>Your Flectra CRM application is up and running.</span></p><br>\n"
 "                            <p dir=\"ltr\" style=\"margin-top:0pt;margin-bottom:8pt;\">\n"
 "                                <span style=\"font-size:13px;font-weight:bold; \">What’s next?</span></p>\n"
 "                            <ul style=\"margin-top:0pt;margin-bottom:0pt;font-size:13px;list-style-type:disc;\">\n"
@@ -98,22 +98,22 @@ msgid "\n"
 "                            </p>\n"
 "                            <p dir=\"ltr\" style=\"font-size:13px;margin-top:0pt;margin-bottom:8pt;\">\n"
 "                                <span>We would be delighted to assist you along the way. Contact us through our\n"
-"                                <a href=\"https://www.odoo.com/help\">support form</a> if you have any question.\n"
-"                                You can also discover how to get the best out of Odoo CRM with our </span>\n"
-"                                <a target=\"_blank\" href=\"https://www.odoo.com/documentation/user/11.0/crm.html\">\n"
+"                                <a href=\"https://flectrahq.com/flectra-erp-support\">support form</a> if you have any question.\n"
+"                                You can also discover how to get the best out of Flectra CRM with our </span>\n"
+"                                <a target=\"_blank\" href=\"https://userdoc.flectrahq.com/crm.html\">\n"
 "                                <span style=\"text-decoration:underline;\">User Documentation</span></a>\n"
 "                                </span><span> or with our </span>\n"
-"                                <a target=\"_blank\" href=\"https://www.odoo.com/documentation\">\n"
+"                                <a target=\"_blank\" href=\"https://doc.flectrahq.com/webservices/flectra.html\">\n"
 "                                <span style=\"text-decoration:underline;\">API Documentation</span></a>\n"
 "                            </p>\n"
 "                            <br>\n"
-"                            <p dir=\"ltr\" style=\"font-size:13px;margin-top:0pt;margin-bottom:8pt;\"><span>Enjoy your Odoo experience,</span></p>\n"
+"                            <p dir=\"ltr\" style=\"font-size:13px;margin-top:0pt;margin-bottom:8pt;\"><span>Enjoy your Flectra experience,</span></p>\n"
 "                        </td>\n"
 "                    </tr>\n"
 "                </tbody>\n"
 "            </table>\n"
 "            <div dir=\"ltr\" style=\"font-size:13px;margin-top:0pt;margin-bottom:8pt;color:grey\">\n"
-"                <span><br/>-- <br/>The Odoo Team<br/>PS: People love Odoo, check </span><a target=\"_blank\" href=\"https://twitter.com/odoo/favorites\"><span style=\"text-decoration:underline;\">what they say about it.</span></a></span>\n"
+"                <span><br/>-- <br/>The Flectra Team<br/>PS: People love Flectra, check </span><a target=\"_blank\" href=\"https://twitter.com/flectra/favorites\"><span style=\"text-decoration:underline;\">what they say about it.</span></a></span>\n"
 "            </div>\n"
 "        </div>"
 msgstr ""
@@ -143,6 +143,18 @@ msgid "# of Activities"
 msgstr ""
 
 #. module: crm
+#: model:digest.tip,tip_description:crm.digest_tip_crm_0
+msgid "% endif"
+msgstr ""
+
+#. module: crm
+#: model:digest.tip,tip_description:crm.digest_tip_crm_0
+msgid "% set email = object.env['crm.team'].search([('alias_name','!=', False)],limit=1).alias_id.display_name\n"
+"    % if email\n"
+"    <strong style=\"font-size: 16px;\">Try the mail gateway</strong>"
+msgstr ""
+
+#. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "(if leads are activated)"
 msgstr ""
@@ -158,14 +170,14 @@ msgid ", if accounting or purchase is installed"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/tour.js:29
 #, python-format
 msgid "<b>Drag &amp; drop opportunities</b> between columns as you progress in your sales cycle."
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/tour.js:74
 #, python-format
 msgid "<b>Invite coworkers</b> via email.<br/><i>Enter one email per line.</i>"
@@ -182,14 +194,14 @@ msgid "<i class=\"fa fa-question-circle\"> view examples</i>"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/tour.js:60
 #, python-format
 msgid "<p><b>Send messages</b> to your prospect and get replies automatically attached to this opportunity.</p><p class=\"mb0\">Type <i>'@'</i> to mention people - it's like cc-ing on emails.</p>"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/tour.js:45
 #, python-format
 msgid "<p>You will be able to customize your followup activities. Examples:</p><ol><li>introductory email</li><li>call 10 days after</li><li>second call 3 days after, ...</li></ol><p class='mb0'><i>Select a standard activity for now on.</i></p>"
@@ -244,30 +256,22 @@ msgstr ""
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "<span class=\"fa fa-lightbulb-o fa-lg\"/>\n"
-"                        <strong>Tip:</strong> For developers, you can\n"
-"                        use our API to load data through scripts: read\n"
-"                        the"
+msgid "<span class=\"label label-default text-center flectra_purple\">Incoming email</span>"
 msgstr ""
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "<span class=\"label label-default text-center odoo_purple\">Incoming email</span>"
+msgid "<span class=\"label label-default text-center flectra_purple\">Lead</span>"
 msgstr ""
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "<span class=\"label label-default text-center odoo_purple\">Lead</span>"
+msgid "<span class=\"label label-default text-center flectra_purple\">Opportunity</span>"
 msgstr ""
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "<span class=\"label label-default text-center odoo_purple\">Opportunity</span>"
-msgstr ""
-
-#. module: crm
-#: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "<span class=\"label label-default text-center odoo_purple\">Quotation</span>"
+msgid "<span class=\"label label-default text-center flectra_purple\">Quotation</span>"
 msgstr ""
 
 #. module: crm
@@ -417,10 +421,10 @@ msgstr ""
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "<strong>Every business is different.</strong> Odoo allows to\n"
+msgid "<strong>Every business is different.</strong> Flectra allows to\n"
 "                        customize every application and it's usually a good\n"
 "                        advice to customize screens to fit your sales process.\n"
-"                        <strong>Customizations are done by Odoo experts.</strong>"
+"                        <strong>Customizations are done by Flectra experts.</strong>"
 msgstr ""
 
 #. module: crm
@@ -573,7 +577,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "<strong>Trainings</strong><br/>\n"
 "                                To build a strong sales training program, you can use the following\n"
-"                                apps of Odoo:"
+"                                apps of Flectra:"
 msgstr ""
 
 #. module: crm
@@ -613,7 +617,7 @@ msgstr ""
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "A product in Odoo is something you sell or buy. It could\n"
+msgid "A product in Flectra is something you sell or buy. It could\n"
 "                    be a goods, consumable or services. Choose how you want to\n"
 "                    create your products:"
 msgstr ""
@@ -626,11 +630,6 @@ msgstr ""
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_base_partner_merge_automatic_wizard_exclude_contact
 msgid "A user associated to the contact"
-msgstr ""
-
-#. module: crm
-#: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "API documentation"
 msgstr ""
 
 #. module: crm
@@ -747,7 +746,7 @@ msgid "All contacts must have the same email. Only the Administrator can merge c
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:905
+#: code:addons/crm/models/crm_lead.py:920
 #, python-format
 msgid "All email incoming to %s will automatically\n"
 "                    create new opportunity. Update your business card, phone book, social media,...\n"
@@ -873,7 +872,7 @@ msgid "Better visibility on team activities"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:381
+#: code:addons/crm/models/crm_lead.py:394
 #, python-format
 msgid "Boom! Team record for the past 30 days."
 msgstr ""
@@ -889,7 +888,13 @@ msgid "Bounce"
 msgstr ""
 
 #. module: crm
+#: model:ir.ui.view,arch_db:crm.view_crm_case_opportunities_filter
+msgid "Branch"
+msgstr ""
+
+#. module: crm
 #: model:ir.ui.menu,name:crm.crm_menu_root
+#: model:ir.ui.view,arch_db:crm.digest_digest_view_form
 #: model:ir.ui.view,arch_db:crm.res_config_settings_view_form
 msgid "CRM"
 msgstr ""
@@ -975,21 +980,21 @@ msgid "Classify and analyze your lead/opportunity categories like: Training, Ser
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/tour.js:18
 #, python-format
 msgid "Click here to <b>create your first opportunity</b> and add it to your pipeline."
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/tour.js:53
 #, python-format
 msgid "Click on an opportunity to zoom to it."
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:908
+#: code:addons/crm/models/crm_lead.py:923
 #, python-format
 msgid "Click to add a new opportunity"
 msgstr ""
@@ -1025,7 +1030,7 @@ msgid "Close Date"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:29
 #, python-format
 msgid "Close opportunity if: \"pre-sales days * $500\" < \"expected revenue\" * probability"
@@ -1046,11 +1051,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:crm.field_crm_lead_color
 #: model:ir.model.fields,field_description:crm.field_crm_lead_tag_color
 msgid "Color Index"
-msgstr ""
-
-#. module: crm
-#: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "Community &amp; Enterprise users:"
 msgstr ""
 
 #. module: crm
@@ -1079,7 +1079,7 @@ msgid "Configuration"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/tour.js:70
 #, python-format
 msgid "Configuration options are available in the Settings app."
@@ -1177,7 +1177,7 @@ msgid "Convert to opportunities"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:1080
+#: code:addons/crm/models/crm_lead.py:1097
 #: selection:crm.lead2opportunity.partner,name:0
 #: selection:crm.lead2opportunity.partner.mass,name:0
 #: model:ir.actions.act_window,name:crm.action_crm_lead2opportunity_partner
@@ -1233,7 +1233,7 @@ msgid "Create Vendors"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:30
 #, python-format
 msgid "Create a Proof of Concept with consultants"
@@ -1352,7 +1352,7 @@ msgid "Current Line"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:1135
+#: code:addons/crm/models/crm_lead.py:1141
 #: model:ir.model.fields,field_description:crm.field_crm_lead2opportunity_partner_mass_partner_id
 #: model:ir.model.fields,field_description:crm.field_crm_lead2opportunity_partner_partner_id
 #: model:ir.model.fields,field_description:crm.field_crm_lead_partner_id
@@ -1367,12 +1367,7 @@ msgid "Customer"
 msgstr ""
 
 #. module: crm
-#: model:ir.model.fields,field_description:crm.field_res_config_settings_module_web_clearbit
-msgid "Customer Autocomplete"
-msgstr ""
-
-#. module: crm
-#: code:addons/crm/models/crm_lead.py:1126
+#: code:addons/crm/models/crm_lead.py:1143
 #, python-format
 msgid "Customer Email"
 msgstr ""
@@ -1396,7 +1391,7 @@ msgid "Customizations"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_team.py:121
+#: code:addons/crm/models/crm_team.py:122
 #, python-format
 msgid "Dashboard graph content cannot be Pipeline if the sales channel doesn't use it. (Pipeline is unchecked.)"
 msgstr ""
@@ -1418,6 +1413,7 @@ msgstr ""
 
 #. module: crm
 #: model:ir.actions.act_window,name:crm.action_partner_deduplicate
+#: model:ir.ui.menu,name:crm.partner_merge_automatic_menu
 msgid "Deduplicate Contacts"
 msgstr ""
 
@@ -1452,7 +1448,7 @@ msgid "Delete"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:27
 #, python-format
 msgid "Demonstration"
@@ -1490,6 +1486,11 @@ msgid "Destination Contact"
 msgstr ""
 
 #. module: crm
+#: model:ir.model,name:crm.model_digest_digest
+msgid "Digest"
+msgstr ""
+
+#. module: crm
 #: model:ir.ui.view,arch_db:crm.view_create_opportunity_simplified
 msgid "Discard"
 msgstr ""
@@ -1514,6 +1515,13 @@ msgstr ""
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "Display your brochures, product sheets, showcases etc."
+msgstr ""
+
+#. module: crm
+#: code:addons/crm/models/digest.py:18
+#: code:addons/crm/models/digest.py:29
+#, python-format
+msgid "Do not have access, skip this data for user's digest email"
 msgstr ""
 
 #. module: crm
@@ -1570,6 +1578,11 @@ msgstr ""
 #. module: crm
 #: model:ir.model.fields,help:crm.field_crm_lead_email_from
 msgid "Email address of the contact"
+msgstr ""
+
+#. module: crm
+#: model:digest.tip,tip_description:crm.digest_tip_crm_0
+msgid "Email sent to <strong>${email}</strong> generate opportunities in your pipeline.<br>"
 msgstr ""
 
 #. module: crm
@@ -1710,7 +1723,7 @@ msgid "Extra Info"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:31
 #, python-format
 msgid "Final Proposal sent"
@@ -1719,6 +1732,31 @@ msgstr ""
 #. module: crm
 #: selection:base.partner.merge.automatic.wizard,state:0
 msgid "Finished"
+msgstr ""
+
+#. module: crm
+#: model:ir.ui.view,arch_db:crm.crm_planner
+msgid "Flectra Default"
+msgstr ""
+
+#. module: crm
+#: model:ir.actions.act_window,help:crm.crm_case_form_view_salesteams_opportunity
+#: model:ir.actions.act_window,help:crm.crm_lead_opportunities
+#: model:ir.actions.act_window,help:crm.crm_lead_opportunities_tree_view
+msgid "Flectra helps you keep track of your sales pipeline to follow\n"
+"                    up potential sales and better forecast your future revenues."
+msgstr ""
+
+#. module: crm
+#: model:ir.ui.view,arch_db:crm.crm_planner
+msgid "Flectra is the world's only software to have a full integration of Marketing Apps for your sales channel: insight sales, point of sale, ecommerce."
+msgstr ""
+
+#. module: crm
+#: model:ir.ui.view,arch_db:crm.crm_planner
+msgid "Flectra will help you create polished, professional quotations and contracts in minutes.\n"
+"                        Tell us how you sell and we will tell you what\n"
+"                        configuration will best fit your quotation process."
 msgstr ""
 
 #. module: crm
@@ -1744,8 +1782,7 @@ msgstr ""
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "For the Odoo Team,<br/>\n"
-"                          Fabien Pinckaers, Founder"
+msgid "For the Flectra Team,<br/>"
 msgstr ""
 
 #. module: crm
@@ -1754,7 +1791,7 @@ msgid "Force assignation"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:577
+#: code:addons/crm/models/crm_lead.py:592
 #, python-format
 msgid "From %s : %s"
 msgstr ""
@@ -1775,7 +1812,7 @@ msgid "Future Activities (All)"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:30
 #, python-format
 msgid "GAP analysis with customer"
@@ -1808,13 +1845,13 @@ msgid "Global CC"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:379
+#: code:addons/crm/models/crm_lead.py:392
 #, python-format
 msgid "Go, go, go! Congrats for your first deal."
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/tour.js:79
 #, python-format
 msgid "Good job! Your completed the tour of the CRM. You can continue with the <b>implementation guide</b> to help you setup the CRM in your company."
@@ -1860,7 +1897,7 @@ msgstr ""
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "Happy Selling!<br/>- The Odoo Team"
+msgid "Happy Selling!<br/>- The Flectra Team"
 msgstr ""
 
 #. module: crm
@@ -1977,7 +2014,7 @@ msgstr ""
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "In Odoo, there are 3 different ways to manage your prices.<br/>"
+msgid "In Flectra, there are 3 different ways to manage your prices.<br/>"
 msgstr ""
 
 #. module: crm
@@ -1996,7 +2033,7 @@ msgid "Information"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:22
 #, python-format
 msgid "Initial Contact"
@@ -2031,6 +2068,16 @@ msgstr ""
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "KPIs"
+msgstr ""
+
+#. module: crm
+#: model:ir.model.fields,field_description:crm.field_digest_digest_kpi_crm_lead_created_value
+msgid "Kpi Crm Lead Created Value"
+msgstr ""
+
+#. module: crm
+#: model:ir.model.fields,field_description:crm.field_digest_digest_kpi_crm_opportunities_won_value
+msgid "Kpi Crm Opportunities Won Value"
 msgstr ""
 
 #. module: crm
@@ -2103,7 +2150,7 @@ msgid "Late Activities"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:882
+#: code:addons/crm/models/crm_lead.py:897
 #: selection:crm.activity.report,lead_type:0
 #: selection:crm.lead,type:0
 #: selection:crm.opportunity.report,type:0
@@ -2243,7 +2290,6 @@ msgid "Lines"
 msgstr ""
 
 #. module: crm
-#: selection:crm.lead.convert2task,action:0
 #: selection:crm.lead2opportunity.partner,action:0
 #: selection:crm.partner.binding,action:0
 msgid "Link to an existing customer"
@@ -2260,13 +2306,8 @@ msgid "List of possible pain points by segment/profile"
 msgstr ""
 
 #. module: crm
-#: model:ir.ui.view,arch_db:crm.res_config_settings_view_form
-msgid "Look up company information (name, logo, etc.)"
-msgstr ""
-
-#. module: crm
-#. openerp-web
-#: code:addons/crm/models/crm_lead.py:1086
+#. flectra-web
+#: code:addons/crm/models/crm_lead.py:1103
 #: code:addons/crm/static/src/js/web_planner_crm.js:33
 #: model:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
 #: model:ir.ui.view,arch_db:crm.crm_opportunity_report_view_search
@@ -2314,6 +2355,16 @@ msgid "Manually Assignation of Incoming Emails"
 msgstr ""
 
 #. module: crm
+#: model:ir.actions.server,name:crm.action_mark_activities_done
+msgid "Mark All Activities as Done"
+msgstr ""
+
+#. module: crm
+#: model:ir.actions.server,name:crm.action_mark_late_activities_done
+msgid "Mark Late Activities as Done"
+msgstr ""
+
+#. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
 msgid "Mark Lost"
 msgstr ""
@@ -2351,13 +2402,13 @@ msgid "Medium"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:924
+#: code:addons/crm/models/crm_lead.py:939
 #, python-format
 msgid "Meeting scheduled at '%s'<br> Subject: %s <br> Duration: %s hour(s)"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:24
 #, python-format
 msgid "Meeting with a demo. Set Fields: expected revenue, closing date"
@@ -2435,25 +2486,25 @@ msgid "Merge with existing opportunities"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:528
+#: code:addons/crm/models/crm_lead.py:542
 #, python-format
 msgid "Merged lead"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:559
+#: code:addons/crm/models/crm_lead.py:574
 #, python-format
 msgid "Merged leads"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:559
+#: code:addons/crm/models/crm_lead.py:574
 #, python-format
 msgid "Merged opportunities"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:528
+#: code:addons/crm/models/crm_lead.py:542
 #, python-format
 msgid "Merged opportunity"
 msgstr ""
@@ -2518,14 +2569,14 @@ msgid "Name"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:27
 #, python-format
 msgid "Needs assessment"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:15
 #: code:addons/crm/static/src/js/web_planner_crm.js:33
 #, python-format
@@ -2533,7 +2584,7 @@ msgid "Negotiation"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:22
 #: code:addons/crm/static/src/js/web_planner_crm.js:27
 #: code:addons/crm/static/src/js/web_planner_crm.js:33
@@ -2543,12 +2594,17 @@ msgid "New"
 msgstr ""
 
 #. module: crm
+#: model:ir.model.fields,field_description:crm.field_digest_digest_kpi_crm_lead_created
+msgid "New Leads/Opportunities"
+msgstr ""
+
+#. module: crm
 #: model:ir.actions.act_window,name:crm.action_opportunity_form
 msgid "New Opportunity"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:16
 #, python-format
 msgid "New propspect assigned to the right salesperson"
@@ -2571,7 +2627,7 @@ msgid "Next activity late"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:1146
+#: code:addons/crm/models/crm_lead.py:1163
 #, python-format
 msgid "No Subject"
 msgstr ""
@@ -2626,31 +2682,6 @@ msgstr ""
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_team_opportunities_count
 msgid "Number of open opportunities"
-msgstr ""
-
-#. module: crm
-#: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "Odoo Default"
-msgstr ""
-
-#. module: crm
-#: model:ir.actions.act_window,help:crm.crm_case_form_view_salesteams_opportunity
-#: model:ir.actions.act_window,help:crm.crm_lead_opportunities
-#: model:ir.actions.act_window,help:crm.crm_lead_opportunities_tree_view
-msgid "Odoo helps you keep track of your sales pipeline to follow\n"
-"                    up potential sales and better forecast your future revenues."
-msgstr ""
-
-#. module: crm
-#: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "Odoo is the world's only software to have a full integration of Marketing Apps for your sales channel: insight sales, point of sale, ecommerce."
-msgstr ""
-
-#. module: crm
-#: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "Odoo will help you create polished, professional quotations and contracts in minutes.\n"
-"                        Tell us how you sell and we will tell you what\n"
-"                        configuration will best fit your quotation process."
 msgstr ""
 
 #. module: crm
@@ -2723,6 +2754,11 @@ msgid "Opportunities Cohort"
 msgstr ""
 
 #. module: crm
+#: model:ir.model.fields,field_description:crm.field_digest_digest_kpi_crm_opportunities_won
+msgid "Opportunities Won"
+msgstr ""
+
+#. module: crm
 #: model:ir.filters,name:crm.filter_opportunity_opportunities_won_per_team
 msgid "Opportunities Won Per Team"
 msgstr ""
@@ -2738,8 +2774,8 @@ msgid "Opportunities that are assigned to me"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:427
-#: code:addons/crm/models/crm_lead.py:857
+#: code:addons/crm/models/crm_lead.py:440
+#: code:addons/crm/models/crm_lead.py:872
 #: selection:crm.activity.report,lead_type:0
 #: selection:crm.lead,type:0
 #: selection:crm.opportunity.report,type:0
@@ -2828,14 +2864,14 @@ msgid "Owner"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:27
 #, python-format
 msgid "POC Sold"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:31
 #, python-format
 msgid "POC demonstration to the customer"
@@ -2898,7 +2934,7 @@ msgid "Phone Validation"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:23
 #, python-format
 msgid "Phone call with following questions: ..."
@@ -2910,7 +2946,7 @@ msgid "Phone scripts"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_team.py:165
+#: code:addons/crm/models/crm_team.py:166
 #: model:ir.actions.act_window,name:crm.crm_lead_opportunities_tree_view
 #: model:ir.model.fields,field_description:crm.field_crm_team_use_opportunities
 #: model:ir.ui.menu,name:crm.crm_menu_pipeline
@@ -2949,7 +2985,7 @@ msgid "Pipeline Analysis gives you an instant access to\n"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_team.py:231
+#: code:addons/crm/models/crm_team.py:235
 #, python-format
 msgid "Pipeline: Expected Revenue"
 msgstr ""
@@ -2965,7 +3001,7 @@ msgid "Planner"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:631
+#: code:addons/crm/models/crm_lead.py:646
 #, python-format
 msgid "Please select more than one element (lead or opportunity) from the list view."
 msgstr ""
@@ -3018,7 +3054,7 @@ msgid "Product"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:22
 #, python-format
 msgid "Product Demonstration"
@@ -3030,7 +3066,7 @@ msgid "Products"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:15
 #: code:addons/crm/static/src/js/web_planner_crm.js:22
 #: code:addons/crm/static/src/js/web_planner_crm.js:27
@@ -3040,7 +3076,7 @@ msgid "Proposal"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:33
 #: model:crm.stage,name:crm.stage_lead3
 #, python-format
@@ -3053,7 +3089,7 @@ msgid "Qualification form (you can use the survey app for this)"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:14
 #: code:addons/crm/static/src/js/web_planner_crm.js:27
 #: code:addons/crm/static/src/js/web_planner_crm.js:33
@@ -3063,28 +3099,28 @@ msgid "Qualified"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:14
 #, python-format
 msgid "Qualified Sponsor"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:25
 #, python-format
 msgid "Quotation sent"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:19
 #, python-format
 msgid "Quotation sent to customer"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:20
 #, python-format
 msgid "Quotation signed by the customer"
@@ -3096,7 +3132,7 @@ msgid "Read the documentation about pricing &amp; discounts"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/tour.js:13
 #, python-format
 msgid "Ready to boost your sales? Your <b>Pipeline</b> can be found here, under <b>CRM</b> app."
@@ -3120,7 +3156,6 @@ msgstr ""
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_lead2opportunity_partner_action
 #: model:ir.model.fields,field_description:crm.field_crm_lead2opportunity_partner_mass_action
-#: model:ir.model.fields,field_description:crm.field_crm_lead_convert2task_action
 #: model:ir.model.fields,field_description:crm.field_crm_partner_binding_action
 msgid "Related Customer"
 msgstr ""
@@ -3222,7 +3257,7 @@ msgid "Save filters or add any report to your dashboard with the Favorites menu.
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/tour.js:40
 #, python-format
 msgid "Schedule an activity by clicking here"
@@ -3253,7 +3288,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:crm.base_partner_merge_automatic_wizard_form
 msgid "Select the list of fields used to search for\n"
 "                            duplicated records. If you select several fields,\n"
-"                            Odoo will propose you to merge only those having\n"
+"                            Flectra will propose you to merge only those having\n"
 "                            all these fields in common. (not one of the fields)."
 msgstr ""
 
@@ -3291,7 +3326,7 @@ msgid "Services"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:17
 #: code:addons/crm/static/src/js/web_planner_crm.js:28
 #, python-format
@@ -3312,7 +3347,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "Setting up your sales funnel is just the first step. To achieve a\n"
 "                      significant boost, we will help you get the most out of\n"
-"                      Odoo CRM to transform how your salespeople work.\n"
+"                      Flectra CRM to transform how your salespeople work.\n"
 "                      That's the purpose of this guide."
 msgstr ""
 
@@ -3537,18 +3572,18 @@ msgstr ""
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "Templates of quotations (use Odoo Online Proposals for this)"
+msgid "Templates of quotations (use Flectra Online Proposals for this)"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:14
 #, python-format
 msgid "Territory"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:19
 #, python-format
 msgid "The customer came back to you to discuss your quotation"
@@ -3566,12 +3601,12 @@ msgstr ""
 
 #. module: crm
 #: model:ir.model.fields,help:crm.field_crm_team_alias_model_id
-msgid "The model (Odoo Document Kind) to which this alias corresponds. Any incoming email that does not reply to an existing record will cause the creation of a new record of this model (e.g. a Project Task)"
+msgid "The model (Flectra Document Kind) to which this alias corresponds. Any incoming email that does not reply to an existing record will cause the creation of a new record of this model (e.g. a Project Task)"
 msgstr ""
 
 #. module: crm
 #: model:ir.model.fields,help:crm.field_crm_team_alias_name
-msgid "The name of the email alias, e.g. 'jobs' if you want to catch emails for <jobs@example.odoo.com>"
+msgid "The name of the email alias, e.g. 'jobs' if you want to catch emails for <jobs@example.flectrahq.com>"
 msgstr ""
 
 #. module: crm
@@ -3614,15 +3649,15 @@ msgstr ""
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "There are several ways for your company to generate leads with Odoo CRM.\n"
+msgid "There are several ways for your company to generate leads with Flectra CRM.\n"
 "                        One of them is using your company's generic email address as a trigger\n"
-"                        to create a new lead in the system. In Odoo, each one of your sales channels\n"
+"                        to create a new lead in the system. In Flectra, each one of your sales channels\n"
 "                        is linked to its own email address from which prospects can reach them.\n"
 "                        For example, if the personal email address of your Direct team is\n"
 "                        direct@mycompany.example.com, every email sent when a new prospect\n"
 "                        contacts you will automatically create a new opportunity into the sales channel.\n"
 "\n"
-"                        That's the easiest way to integrate Odoo with third party apps."
+"                        That's the easiest way to integrate Flectra with third party apps."
 msgstr ""
 
 #. module: crm
@@ -3653,7 +3688,7 @@ msgid "This is the default configuration, there is nothing to setup."
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/tour.js:35
 #, python-format
 msgid "This opportunity has <b>no activity planned</b>. <i>Click to check them.</i>"
@@ -3675,7 +3710,7 @@ msgid "This stage is folded in the kanban view when there are no records in that
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:1052
+#: code:addons/crm/models/crm_lead.py:1069
 #, python-format
 msgid "This target does not exist."
 msgstr ""
@@ -3729,6 +3764,11 @@ msgid "Training"
 msgstr ""
 
 #. module: crm
+#: model:digest.tip,tip_description:crm.digest_tip_crm_0
+msgid "Try Now"
+msgstr ""
+
+#. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_activity_report_lead_type
 #: model:ir.model.fields,field_description:crm.field_crm_lead_type
 #: model:ir.model.fields,field_description:crm.field_crm_opportunity_report_type
@@ -3762,6 +3802,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:crm.field_crm_team_unassigned_leads_count
 #: model:ir.ui.view,arch_db:crm.crm_team_salesteams_view_kanban
 msgid "Unassigned Leads"
+msgstr ""
+
+#. module: crm
+#: code:addons/crm/models/crm_team.py:212
+#, python-format
+msgid "Undefined"
 msgstr ""
 
 #. module: crm
@@ -3836,14 +3882,14 @@ msgid "Use subscription for recurring billing.\n"
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/tour.js:83
 #, python-format
 msgid "Use the <b>implementation guide</b> to setup the CRM in your company."
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/tour.js:65
 #, python-format
 msgid "Use the breadcrumbs to <b>go back to your sales pipeline</b>."
@@ -3919,7 +3965,7 @@ msgstr ""
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "We can handle the whole import process\n"
-"                                        for you: simply send your Odoo project\n"
+"                                        for you: simply send your Flectra project\n"
 "                                        manager a CSV file containing all your\n"
 "                                        data."
 msgstr ""
@@ -3931,7 +3977,7 @@ msgstr ""
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "We designed Odoo to help you grow your business. Odoo CRM\n"
+msgid "We designed Flectra to help you grow your business. Flectra CRM\n"
 "                      is not just a tool, we want it to have a major impact on your\n"
 "                      sales performance. That's our mission, and we are serious about it."
 msgstr ""
@@ -3984,11 +4030,6 @@ msgid "What are your sales objectives? What challenges are you\n"
 msgstr ""
 
 #. module: crm
-#: model:ir.ui.view,arch_db:crm.res_config_settings_view_form
-msgid "When populating your address book, Odoo relies on Clearbit’s API to provide you with a list of matching contacts or companies.When selecting one item, the partner name, logo and website get automatically set."
-msgstr ""
-
-#. module: crm
 #: model:ir.model.fields,help:crm.field_crm_lead_team_id
 msgid "When sending mails, the default email address is taken from the sales channel."
 msgstr ""
@@ -4019,8 +4060,8 @@ msgid "Wizard"
 msgstr ""
 
 #. module: crm
-#. openerp-web
-#: code:addons/crm/models/crm_lead.py:1085
+#. flectra-web
+#: code:addons/crm/models/crm_lead.py:1102
 #: code:addons/crm/static/src/js/web_planner_crm.js:15
 #: code:addons/crm/static/src/js/web_planner_crm.js:22
 #: code:addons/crm/static/src/js/web_planner_crm.js:27
@@ -4046,13 +4087,13 @@ msgid "Won in Opportunities Target"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:383
+#: code:addons/crm/models/crm_lead.py:396
 #, python-format
 msgid "Yeah! Deal of the last 7 days for the team."
 msgstr ""
 
 #. module: crm
-#. openerp-web
+#. flectra-web
 #: code:addons/crm/static/src/js/web_planner_crm.js:18
 #, python-format
 msgid "You are in discussion with the decision maker and HE agreed on his pain points"
@@ -4079,13 +4120,13 @@ msgid "You have to specify a filter for your selection"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:385
+#: code:addons/crm/models/crm_lead.py:398
 #, python-format
 msgid "You just beat your personal record for the past 30 days."
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:387
+#: code:addons/crm/models/crm_lead.py:400
 #, python-format
 msgid "You just beat your personal record for the past 7 days."
 msgstr ""
@@ -4118,6 +4159,11 @@ msgid "Your Expectations"
 msgstr ""
 
 #. module: crm
+#: model:mail.template,subject:crm.mail_template_data_module_install_crm
+msgid "Your Flectra CRM application is running smoothly."
+msgstr ""
+
+#. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "Your KPIs"
 msgstr ""
@@ -4125,11 +4171,6 @@ msgstr ""
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "Your LinkedIn or social media pages"
-msgstr ""
-
-#. module: crm
-#: model:mail.template,subject:crm.mail_template_data_module_install_crm
-msgid "Your Odoo CRM application is running smoothly."
 msgstr ""
 
 #. module: crm
@@ -4206,11 +4247,11 @@ msgstr ""
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_case_form_view_leads
 #: model:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
-msgid "e.g. www.odoo.com"
+msgid "e.g. www.flectrahq.com"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:912
+#: code:addons/crm/models/crm_lead.py:927
 #, python-format
 msgid "opportunities"
 msgstr ""
@@ -4272,14 +4313,9 @@ msgid "to setup your own domain\n"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/models/crm_lead.py:918
+#: code:addons/crm/models/crm_lead.py:933
 #, python-format
 msgid "unknown"
-msgstr ""
-
-#. module: crm
-#: model:ir.ui.view,arch_db:crm.crm_planner
-msgid "use Odoo API to import through scripts"
 msgstr ""
 
 #. module: crm
