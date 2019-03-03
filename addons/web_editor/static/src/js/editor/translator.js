@@ -83,7 +83,7 @@ var AttributeTranslateDialog = weWidgets.Dialog.extend({
 
 var TranslatorInfoDialog = Dialog.extend({
     template: 'web_editor.TranslatorInfoDialog',
-    xmlDependencies: §
+    xmlDependencies: Dialog.prototype.xmlDependencies.concat(
         ['/web_editor/static/src/xml/translator.xml']
     ),
 
