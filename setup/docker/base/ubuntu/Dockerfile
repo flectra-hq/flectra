@@ -30,9 +30,12 @@ RUN pip3 install -r /tmp/requirements.txt
 RUN npm install -g less less-plugin-clean-css -y && \
     ln -s /usr/bin/nodejs /usr/bin/node
 
-RUN curl -o wkhtmltox.deb -SL https://downloads.wkhtmltopdf.org/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb && \
-    echo '5c509de79121e96908794ebcb9d16647a9385e1d wkhtmltox.deb' | sha1sum -c - && \
-    dpkg --force-depends -i wkhtmltox.deb
+RUN curl -o wkhtmltox.tar.xz -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
+    && echo '3f923f425d345940089e44c1466f6408b9619562 wkhtmltox.tar.xz' | sha1sum -c - \
+    && tar xvf wkhtmltox.tar.xz \
+    && cp wkhtmltox/lib/* /usr/local/lib/ \
+    && cp wkhtmltox/bin/* /usr/local/bin/ \
+    && cp -r wkhtmltox/share/man/man1 /usr/local/share/man/
 
 # install CI tools
 RUN pip3 install coverage coveralls codecov simplejson pyserial pyyaml unittest2 pyopenssl>=16.2.0 && \
