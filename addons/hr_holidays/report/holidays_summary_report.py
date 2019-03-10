@@ -16,7 +16,7 @@ class HrHolidaySummaryReport(models.AbstractModel):
         st_date = fields.Date.from_string(start_date)
         return {
             'start_date': fields.Date.to_string(st_date),
-            'end_date': fields.Date.to_string(st_date + relativedelta(days=59)),
+            'end_date': fields.Date.to_string(st_date + relativedelta(days=60)),
             'holiday_type': 'Confirmed and Approved' if holiday_type == 'both' else holiday_type
         }
     
@@ -26,7 +26,7 @@ class HrHolidaySummaryReport(models.AbstractModel):
     def _get_day(self, start_date):
         res = []
         start_date = fields.Date.from_string(start_date)
-        for x in range(0, 60):
+        for x in range(0, 61):
             color = '#ababab' if self._date_is_day_off(start_date) else ''
             res.append({'day_str': start_date.strftime('%a'), 'day': start_date.day , 'color': color})
             start_date = start_date + relativedelta(days=1)
@@ -36,7 +36,7 @@ class HrHolidaySummaryReport(models.AbstractModel):
         # it works for geting month name between two dates.
         res = []
         start_date = fields.Date.from_string(start_date)
-        end_date = start_date + relativedelta(days=59)
+        end_date = start_date + relativedelta(days=60)
         while start_date <= end_date:
             last_date = start_date + relativedelta(day=1, months=+1, days=-1)
             if last_date > end_date:
@@ -50,8 +50,8 @@ class HrHolidaySummaryReport(models.AbstractModel):
         res = []
         count = 0
         start_date = fields.Date.from_string(start_date)
-        end_date = start_date + relativedelta(days=59)
-        for index in range(0, 60):
+        end_date = start_date + relativedelta(days=60)
+        for index in range(0, 61):
             current = start_date + timedelta(index)
             res.append({'day': current.day, 'color': ''})
             if self._date_is_day_off(current) :
