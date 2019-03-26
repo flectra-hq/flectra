@@ -19,7 +19,6 @@
         'fetchmail',
         'utm',
         'web_planner',
-        'web_tour',
         'contacts',
         'digest',
         'base_branch_company'

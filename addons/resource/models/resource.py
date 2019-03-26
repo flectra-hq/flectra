@@ -14,13 +14,13 @@ from operator import itemgetter
 from flectra import api, fields, models, _
 from flectra.addons.base.res.res_partner import _tz_get
 from flectra.exceptions import ValidationError
-from flectra.tools.float_utils import float_compare
+from flectra.tools.float_utils import float_compare, float_round
 
 
 def float_to_time(float_hour):
     if float_hour == 24.0:
         return datetime.time.max
-    return datetime.time(int(math.modf(float_hour)[1]), round(60 * math.modf(float_hour)[0]), 0)
+    return datetime.time(int(math.modf(float_hour)[1]), int(float_round(60 * math.modf(float_hour)[0], precision_digits=0)), 0)
 
 
 def to_naive_user_tz(datetime, record):
@@ -421,12 +421,13 @@ class ResourceCalendar(models.Model):
         if not end_dt:
             end_dt = datetime.datetime.combine(start_dt.date(), datetime.time.max)
 
-        start_dt = to_naive_user_tz(start_dt, self.env.user)
-        end_dt = to_naive_user_tz(end_dt, self.env.user)
+        if not self.env.context.get('no_tz_convert', False):
+            start_dt = to_naive_user_tz(start_dt, self.env.user)
+            end_dt = to_naive_user_tz(end_dt, self.env.user)
 
         for day in rrule.rrule(rrule.DAILY,
                                dtstart=start_dt,
-                               until=end_dt,
+                               until=end_dt.replace(hour=23, minute=59, second=59, microsecond=999999),
                                byweekday=self._get_weekdays()):
             start_time = datetime.time.min
             if day.date() == start_dt.date():
@@ -455,7 +456,7 @@ class ResourceCalendar(models.Model):
 
         for day in rrule.rrule(rrule.DAILY,
                                dtstart=start_dt,
-                               until=end_dt,
+                               until=end_dt.replace(hour=23, minute=59, second=59, microsecond=999999),
                                byweekday=self._get_weekdays()):
             start_time = datetime.time.min
             if day.date() == start_dt.date():

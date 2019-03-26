@@ -280,7 +280,7 @@ class configmanager(object):
                          type="int")
         group.add_option("--unaccent", dest="unaccent", my_default=False, action="store_true",
                          help="Use the unaccent function provided by the database when available.")
-        group.add_option("--geoip-db", dest="geoip_database", my_default='/usr/share/GeoIP/GeoLiteCity.dat',
+        group.add_option("--geoip-db", dest="geoip_database", my_default='/usr/share/GeoIP/GeoLite2-City.mmdb',
                          help="Absolute path to the GeoIP database file.")
         group.add_option("--app-store", dest="app_store",
                          help="specify the option to enable app store. (default : install) "
@@ -360,9 +360,11 @@ class configmanager(object):
         if args is None:
             args = []
         opt, args = self.parser.parse_args(args)
+
         def die(cond, msg):
             if cond:
                 self.parser.error(msg)
+
         # Ensures no illegitimate argument is silently discarded (avoids insidious "hyphen to dash" problem)
         die(args, "unrecognized parameters: '%s'" % " ".join(args))
 
@@ -684,11 +686,9 @@ class configmanager(object):
     @property
     def session_dir(self):
         d = os.path.join(self['data_dir'], 'sessions')
-        try:
+        if not os.path.exists(d):
             os.makedirs(d, 0o700)
-        except OSError as e:
-            if e.errno != errno.EEXIST:
-                raise
+        else:
             assert os.access(d, os.W_OK), \
                 "%s: directory is not writable" % d
         return d

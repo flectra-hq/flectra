@@ -84,7 +84,18 @@ class MailMail(models.Model):
             values['notification'] = True
         if not values.get('mail_message_id'):
             self = self.with_context(message_create_from_mail_mail=True)
-        return super(MailMail, self).create(values)
+        new_mail = super(MailMail, self).create(values)
+        if values.get('attachment_ids'):
+            new_mail.attachment_ids.check(mode='read')
+        return new_mail
+
+    @api.multi
+    def write(self, vals):
+        res = super(MailMail, self).write(vals)
+        if vals.get('attachment_ids'):
+            for mail in self:
+                mail.attachment_ids.check(mode='read')
+        return res
 
     @api.multi
     def unlink(self):
@@ -109,7 +120,6 @@ class MailMail(models.Model):
     @api.multi
     def cancel(self):
         return self.write({'state': 'cancel'})
-
 
     @api.model
     def process_email_unlink(self):
@@ -144,6 +154,8 @@ class MailMail(models.Model):
             ids = filtered_ids
         else:
             ids = list(set(filtered_ids) & set(ids))
+        ids.sort()
+
         res = None
         try:
             # auto-commit except in testing mode

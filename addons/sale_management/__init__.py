@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
-
 from . import models
 from flectra.api import Environment, SUPERUSER_ID
 

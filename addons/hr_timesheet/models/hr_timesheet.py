@@ -18,7 +18,7 @@ class AccountAnalyticLine(models.Model):
     project_id = fields.Many2one('project.project', 'Project', domain=[('allow_timesheets', '=', True)])
 
     employee_id = fields.Many2one('hr.employee', "Employee")
-    department_id = fields.Many2one('hr.department', "Department", compute='_compute_department_id', store=True)
+    department_id = fields.Many2one('hr.department', "Department", compute='_compute_department_id', store=True, compute_sudo=True)
 
     @api.onchange('project_id')
     def onchange_project_id(self):
@@ -41,6 +41,13 @@ class AccountAnalyticLine(models.Model):
 
     @api.model
     def create(self, vals):
+        # compute employee only for timesheet lines, makes no sense for other lines
+        if not vals.get('employee_id') and vals.get('project_id'):
+            if vals.get('user_id'):
+                ts_user_id = vals['user_id']
+            else:
+                ts_user_id = self._default_user()
+            vals['employee_id'] = self.env['hr.employee'].search([('user_id', '=', ts_user_id)], limit=1).id
         vals = self._timesheet_preprocess(vals)
         return super(AccountAnalyticLine, self).create(vals)
 
@@ -62,11 +69,4 @@ class AccountAnalyticLine(models.Model):
         if vals.get('employee_id') and not vals.get('user_id'):
             employee = self.env['hr.employee'].browse(vals['employee_id'])
             vals['user_id'] = employee.user_id.id
-        # compute employee only for timesheet lines, makes no sense for other lines
-        if not vals.get('employee_id') and vals.get('project_id'):
-            if vals.get('user_id'):
-                ts_user_id = vals['user_id']
-            else:
-                ts_user_id = self._default_user()
-            vals['employee_id'] = self.env['hr.employee'].search([('user_id', '=', ts_user_id)], limit=1).id
         return vals

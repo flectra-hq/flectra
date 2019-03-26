@@ -107,7 +107,7 @@ var StatementModel = BasicModel.extend({
         this.valuenow = 0;
         this.valuemax = 0;
         this.alreadyDisplayed = [];
-        this.defaultDisplayQty = 10;
+        this.defaultDisplayQty = options && options.defaultDisplayQty || 10;
         this.limitMoveLines = options && options.limitMoveLines || 5;
     },
 
@@ -128,6 +128,20 @@ var StatementModel = BasicModel.extend({
         var line = this.getLine(handle);
         var prop = _.clone(_.find(line.mv_lines, {'id': mv_line_id}));
         this._addProposition(line, prop);
+
+        // Check whether we have some propositions left
+        // If we don't, it means we are on an empty page
+        // so let's go back to the previous page
+        // Through the offset
+        var propLineIds = _.map(line.reconciliation_proposition, function(prop) {
+                return prop.id;
+            });
+        var leftOversProps = _.filter(line.mv_lines, function(mv_line) {
+            return propLineIds.indexOf(mv_line.id) === -1;
+        });
+        if (line.offset && !leftOversProps.length) {
+            line.offset -= line.limitMoveLines;
+        }
         return $.when(this._computeLine(line), this._performMoveLine(handle));
     },
     /**
@@ -378,9 +392,17 @@ var StatementModel = BasicModel.extend({
                     };
                 });
             });
+        var domainReconcile = [];
+        if (context && context.company_ids) {
+            domainReconcile.push(['company_id', 'in', context.company_ids]);
+        }
+        if (context && context.active_model === 'account.journal' && context.active_ids) {
+            domainReconcile.push(['journal_id', 'in', [false].concat(context.active_ids)]);
+        }
         var def_reconcileModel = this._rpc({
                 model: 'account.reconcile.model',
                 method: 'search_read',
+                domain: domainReconcile,
             })
             .then(function (reconcileModels) {
                 self.reconcileModels = reconcileModels;
@@ -431,6 +453,7 @@ var StatementModel = BasicModel.extend({
             model: 'account.bank.statement.line',
             method: 'get_data_for_reconciliation_widget',
             args: [ids, excluded_ids],
+            context: self.context,
         })
         .then(self._formatLine.bind(self));
     },
@@ -647,9 +670,10 @@ var StatementModel = BasicModel.extend({
                     return !isNaN(prop.id) && prop.already_paid;
                 }), 'id'),
                 "new_aml_dicts": _.map(_.filter(props, function (prop) {
-                    return isNaN(prop.id);
+                    return isNaN(prop.id) && prop.display;
                 }), self._formatToProcessReconciliation.bind(self, line)),
             };
+
             // If the lines are not fully balanced, create an unreconciled amount.
             // line.st_line.currency_id is never false here because its equivalent to
             // statement_line.currency_id or statement_line.journal_id.currency_id or statement_line.journal_id.company_id.currency_id (Python-side).
@@ -745,7 +769,7 @@ var StatementModel = BasicModel.extend({
             }).then(function (result) {
                 if (result.length > 0) {
                     var line = self.getLine(handle);
-                    self.lines[handle].st_line.open_balance_account_id = line.amount < 0 ? result[0]['property_account_payable_id'][0] : result[0]['property_account_receivable_id'][0];
+                    self.lines[handle].st_line.open_balance_account_id = line.balance.amount < 0 ? result[0]['property_account_payable_id'][0] : result[0]['property_account_receivable_id'][0];
                 }
             });
     },
@@ -804,6 +828,7 @@ var StatementModel = BasicModel.extend({
 
                             prop.computed_with_tax = tax.price_include
                             prop.tax_amount = tax.amount
+                            prop.tax_exigible = tax.tax_exigibility === 'on_payment' ? true : undefined
                             prop.amount = tax.base;
                             prop.amount_str = field_utils.format.monetary(Math.abs(prop.amount), {}, formatOptions);
                             prop.invalid = !self._isValid(prop);
@@ -840,7 +865,14 @@ var StatementModel = BasicModel.extend({
                     }
                 }
             });
-            total = Math.round(total*1000)/1000 || 0;
+            var company_currency = session.get_currency(line.st_line.currency_id);
+            var company_precision = company_currency && company_currency.digits[1] || 2;
+            total = utils.round_decimals(total, company_precision) || 0;
+            if(isOtherCurrencyId){
+                var other_currency = session.get_currency(isOtherCurrencyId);
+                var other_precision = other_currency && other_currency.digits[1] || 2;
+                amount_currency = utils.round_decimals(amount_currency, other_precision);
+            }
             line.balance = {
                 amount: total,
                 amount_str: field_utils.format.monetary(Math.abs(total), {}, formatOptions),
@@ -1060,6 +1092,7 @@ var StatementModel = BasicModel.extend({
                 model: 'account.bank.statement.line',
                 method: 'get_move_lines_for_reconciliation_widget',
                 args: [line.id, line.st_line.partner_id, excluded_ids, filter, offset, limit],
+                context: this.context,
             })
             .then(this._formatMoveLine.bind(this, handle));
     },
@@ -1077,10 +1110,12 @@ var StatementModel = BasicModel.extend({
         if (prop.partial_reconcile === true) {
             amount = -prop.write_off_amount;
         }
+
         var result = {
             name : prop.label,
             debit : amount > 0 ? amount : 0,
             credit : amount < 0 ? -amount : 0,
+            tax_exigible: prop.tax_exigible,
             // This one isn't usefull for the server,
             // But since we need to change the amount (and thus its semantics) into base_amount
             // It might be useful to have a trace in the RPC for debugging purposes
@@ -1114,6 +1149,17 @@ var ManualModel = StatementModel.extend({
     //--------------------------------------------------------------------------
 
     /**
+     * Return a boolean telling if load button needs to be displayed or not
+     *
+     * @returns {boolean} true if load more button needs to be displayed
+     */
+    hasMoreLines: function () {
+        if (this.manualLines.length > this.pagerIndex) {
+            return true;
+        }
+        return false;
+    },
+    /**
      * load data from
      * - 'account.move.line' fetch the lines to reconciliate
      * - 'account.account' fetch all account code
@@ -1127,6 +1173,7 @@ var ManualModel = StatementModel.extend({
      */
     load: function (context) {
         var self = this;
+        this.context = context;
 
         var domain_account_id = [];
         if (context && context.company_ids) {
@@ -1144,7 +1191,21 @@ var ManualModel = StatementModel.extend({
                 self.accounts = _.object(self.account_ids, _.pluck(accounts, 'code'));
             });
 
-        return def_account.then(function () {
+        var domainReconcile = [];
+        var company_ids = context && context.company_ids || [session.company_id]
+        if (company_ids) {
+            domainReconcile.push(['company_id', 'in', company_ids]);
+        }
+        var def_reconcileModel = this._rpc({
+                model: 'account.reconcile.model',
+                method: 'search_read',
+                domain: domainReconcile,
+            })
+            .then(function (reconcileModels) {
+                self.reconcileModels = reconcileModels;
+            });
+
+        return $.when(def_reconcileModel, def_account).then(function () {
             switch(context.mode) {
                 case 'customers':
                 case 'suppliers':
@@ -1157,10 +1218,12 @@ var ManualModel = StatementModel.extend({
                             context: context,
                         })
                         .then(function (result) {
-                            var defs = _.map(result, self._formatLine.bind(self, context.mode));
+                            self.manualLines = result;
                             self.valuenow = 0;
-                            self.valuemax = Object.keys(self.lines).length;
-                            return $.when.apply($, defs);
+                            self.valuemax = Object.keys(self.manualLines).length;
+                            var lines = self.manualLines.splice(0, self.defaultDisplayQty);
+                            self.pagerIndex = lines.length;
+                            return self.loadData(lines);
                         });
                 case 'accounts':
                     return self._rpc({
@@ -1170,10 +1233,12 @@ var ManualModel = StatementModel.extend({
                             context: context,
                         })
                         .then(function (result) {
-                            var defs = _.map(result, self._formatLine.bind(self, 'accounts'));
+                            self.manualLines = result;
                             self.valuenow = 0;
-                            self.valuemax = Object.keys(self.lines).length;
-                            return $.when.apply($, defs);
+                            self.valuemax = Object.keys(self.manualLines).length;
+                            var lines = self.manualLines.splice(0, self.defaultDisplayQty);
+                            self.pagerIndex = lines.length;
+                            return self.loadData(lines);
                         });
                 default:
                     var partner_ids = context.partner_ids;
@@ -1189,15 +1254,45 @@ var ManualModel = StatementModel.extend({
                             context: context,
                         })
                         .then(function (result) {
-                            var defs = _.map(result.accounts, self._formatLine.bind(self, 'accounts'));
-                            defs = defs.concat(_.map(result.customers, self._formatLine.bind(self, 'customers')));
-                            defs = defs.concat(_.map(result.suppliers, self._formatLine.bind(self, 'suppliers')));
+                            // Flatten the result
+                            self.manualLines = [].concat(result.accounts, result.customers, result.suppliers)
                             self.valuenow = 0;
-                            self.valuemax = Object.keys(self.lines).length;
-                            return $.when.apply($, defs);
+                            self.valuemax = Object.keys(self.manualLines).length;
+                            var lines = self.manualLines.splice(0, self.defaultDisplayQty);
+                            self.pagerIndex = lines.length;
+                            return self.loadData(lines);
                         });
             }
         });
+    },
+    /**
+     * Load more partners/accounts
+     *
+     * @param {integer} qty quantity to load
+     * @returns {Deferred}
+     */
+    loadMore: function(qty) {
+        if (qty === undefined) {
+            qty = this.defaultDisplayQty;
+        }
+        var lines = this.manualLines.splice(this.pagerIndex, qty);
+        this.pagerIndex += qty;
+        return this.loadData(lines);
+    },
+    /**
+     * Method to load informations on lines
+     *
+     * @param {Array} lines manualLines to load
+     * @returns {Deferred}
+     */
+    loadData: function(lines) {
+        var self = this;
+        var defs = [];
+        _.each(lines, function (l) {
+            defs.push(self._formatLine(l.mode, l))
+        });
+        return $.when.apply($, defs);
+
     },
     /**
      * Mark the account or the partner as reconciled
@@ -1239,7 +1334,8 @@ var ManualModel = StatementModel.extend({
                 });
             } else {
                 var mv_line_ids = _.pluck(_.filter(props, function (prop) {return !isNaN(prop.id);}), 'id');
-                var new_mv_line_dicts = _.map(_.filter(props, function (prop) {return isNaN(prop.id);}), self._formatToProcessReconciliation.bind(self, line));
+                // Dear KangOl, please FORWARD-PORT UP TO SAAS-11.3. Thank you for your hard work.
+                var new_mv_line_dicts = _.map(_.filter(props, function (prop) {return isNaN(prop.id) && prop.display && !prop.is_tax;}), self._formatToProcessReconciliation.bind(self, line));
                 process_reconciliations.push({
                     id: null,
                     type: null,
@@ -1344,7 +1440,7 @@ var ManualModel = StatementModel.extend({
             offset: 0,
             limitMoveLines: this.limitMoveLines,
             filter: "",
-            reconcileModels: [],
+            reconcileModels: this.reconcileModels,
             account_id: this._formatNameGet([data.account_id, data.account_name]),
             st_line: data,
             visible: true
@@ -1417,6 +1513,7 @@ var ManualModel = StatementModel.extend({
                 model: 'account.move.line',
                 method: 'get_move_lines_for_manual_reconciliation',
                 args: args,
+                context: this.context,
             })
             .then(this._formatMoveLine.bind(this, handle));
     },

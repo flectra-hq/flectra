@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-26 08:55+0000\n"
-"PO-Revision-Date: 2019-02-26 08:55+0000\n"
+"POT-Creation-Date: 2019-03-26 12:03+0000\n"
+"PO-Revision-Date: 2019-03-26 12:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -217,6 +217,11 @@ msgstr ""
 msgid "<i>Example: pre-paid service offers for which the customer have\n"
 "                to buy an extra pack of hours, because he used all his support\n"
 "                hours.</i>"
+msgstr ""
+
+#. module: sale
+#: model:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" groups=\"base.group_multi_company\"/>"
 msgstr ""
 
 #. module: sale
@@ -618,7 +623,7 @@ msgid "Configuration"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:173
+#: code:addons/sale/models/sale.py:187
 #, python-format
 msgid "Configuration Error of Company:\n"
 "The Sales Order Company (%s) and the Company (%s) of Branch must be the same!"
@@ -632,6 +637,7 @@ msgstr ""
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order_confirmation_date
 #: model:ir.model.fields,field_description:sale.field_sale_report_confirmation_date
+#: model:ir.ui.view,arch_db:sale.view_order_tree
 msgid "Confirmation Date"
 msgstr ""
 
@@ -755,7 +761,7 @@ msgid "Delivered"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:858
+#: code:addons/sale/models/sale.py:897
 #: model:ir.ui.view,arch_db:sale.view_order_form
 #, python-format
 msgid "Delivered Quantity"
@@ -808,6 +814,11 @@ msgstr ""
 #. module: sale
 #: model:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Design standardized offers"
+msgstr ""
+
+#. module: sale
+#: model:ir.model.fields,field_description:sale.field_res_config_settings_module_website_sale_digital
+msgid "Digital Content"
 msgstr ""
 
 #. module: sale
@@ -920,7 +931,7 @@ msgid "Extended Filters"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:841
+#: code:addons/sale/models/sale.py:880
 #, python-format
 msgid "Extra line with %s "
 msgstr ""
@@ -1099,7 +1110,7 @@ msgid "Invoiced"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:859
+#: code:addons/sale/models/sale.py:898
 #: model:ir.ui.view,arch_db:sale.view_order_form
 #, python-format
 msgid "Invoiced Quantity"
@@ -1182,10 +1193,16 @@ msgid "Is expired"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:878
+#: code:addons/sale/models/sale.py:917
 #, python-format
 msgid "It is forbidden to modify the following fields in a locked order:\n"
 "%s"
+msgstr ""
+
+#. module: sale
+#: code:addons/sale/models/sale.py:575
+#, python-format
+msgid "It is not allowed to confirm an order in the following states: %s"
 msgstr ""
 
 #. module: sale
@@ -1329,10 +1346,10 @@ msgid "Name"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:116
-#: code:addons/sale/models/sale.py:287
-#: code:addons/sale/models/sale.py:289
-#: code:addons/sale/models/sale.py:291
+#: code:addons/sale/models/sale.py:130
+#: code:addons/sale/models/sale.py:301
+#: code:addons/sale/models/sale.py:303
+#: code:addons/sale/models/sale.py:305
 #, python-format
 msgid "New"
 msgstr ""
@@ -1400,7 +1417,7 @@ msgstr ""
 
 #. module: sale
 #. flectra-web
-#: code:addons/sale/static/src/js/sale.js:32
+#: code:addons/sale/static/src/js/sale.js:49
 #, python-format
 msgid "Only Integer Value should be valid."
 msgstr ""
@@ -1429,7 +1446,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale.field_sale_order_date_order
 #: model:ir.ui.view,arch_db:sale.portal_my_orders
 #: model:ir.ui.view,arch_db:sale.portal_my_quotations
-#: model:ir.ui.view,arch_db:sale.view_order_tree
 #, python-format
 msgid "Order Date"
 msgstr ""
@@ -1492,7 +1508,7 @@ msgid "Ordered Qty"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:855
+#: code:addons/sale/models/sale.py:894
 #: model:ir.ui.view,arch_db:sale.view_order_form
 #, python-format
 msgid "Ordered Quantity"
@@ -1584,13 +1600,13 @@ msgid "Personalize sales order and invoice report"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:365
+#: code:addons/sale/models/sale.py:379
 #, python-format
 msgid "Please define an accounting sales journal for this company."
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:965
+#: code:addons/sale/models/sale.py:1004
 #, python-format
 msgid "Please define income account for this product: \"%s\" (id:%d) - or for its category: \"%s\"."
 msgstr ""
@@ -1679,6 +1695,11 @@ msgstr ""
 #. module: sale
 #: model:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Product Catalog"
+msgstr ""
+
+#. module: sale
+#: model:ir.ui.menu,name:sale.menu_product_category_config_sale
+msgid "Product Categories"
 msgstr ""
 
 #. module: sale
@@ -2085,11 +2106,6 @@ msgid "Sell and purchase products in different units of measure"
 msgstr ""
 
 #. module: sale
-#: model:ir.model.fields,field_description:sale.field_res_config_settings_module_website_sale_digital
-msgid "Sell digital products - provide downloadable content on your customer portal"
-msgstr ""
-
-#. module: sale
 #: model:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Sell products by multiple of unit # per package"
 msgstr ""
@@ -2132,7 +2148,7 @@ msgstr ""
 
 #. module: sale
 #. flectra-web
-#: code:addons/sale/static/src/js/sale.js:25
+#: code:addons/sale/static/src/js/sale.js:26
 #, python-format
 msgid "Set an invoicing target: "
 msgstr ""
@@ -2324,10 +2340,21 @@ msgid "Terms and conditions"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/analytic.py:129
-#: code:addons/sale/models/analytic.py:143
+#: code:addons/sale/models/analytic.py:134
 #, python-format
-msgid "The Sales Order %s linked to the Analytic Account must be validated before registering expenses."
+msgid "The Sales Order %s linked to the Analytic Account %s is cancelled. You cannot register an expense on a cancelled Sales Order."
+msgstr ""
+
+#. module: sale
+#: code:addons/sale/models/analytic.py:133
+#, python-format
+msgid "The Sales Order %s linked to the Analytic Account %s is currently locked. You cannot register an expense on a locked Sales Order. Please create a new SO linked to this Analytic Account."
+msgstr ""
+
+#. module: sale
+#: code:addons/sale/models/analytic.py:129
+#, python-format
+msgid "The Sales Order %s linked to the Analytic Account %s must be validated before registering expenses."
 msgstr ""
 
 #. module: sale
@@ -2385,8 +2412,8 @@ msgid "There is no income account defined for this product: \"%s\". You may have
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:451
-#: code:addons/sale/models/sale.py:455
+#: code:addons/sale/models/sale.py:465
+#: code:addons/sale/models/sale.py:470
 #, python-format
 msgid "There is no invoiceable line."
 msgstr ""
@@ -2419,6 +2446,11 @@ msgstr ""
 #. module: sale
 #: model:ir.actions.act_window,help:sale.action_order_report_so_salesteam
 msgid "This report performs analysis on your sales orders. Analysis check your sales revenues and sort it by different group criteria (salesman, partner, product, etc.) Use this report to perform analysis on sales not having invoiced yet. If you want to analyse your turnover, you should use the Invoice Analysis report in the Accounting application."
+msgstr ""
+
+#. module: sale
+#: selection:product.template,service_type:0
+msgid "Timesheets on project (one fare per SO/Project)"
 msgstr ""
 
 #. module: sale
@@ -2468,7 +2500,7 @@ msgid "Track Service"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:592
+#: code:addons/sale/models/sale.py:615
 #, python-format
 msgid "Uncategorized"
 msgstr ""
@@ -2552,7 +2584,7 @@ msgid "Warning"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:1054
+#: code:addons/sale/models/sale.py:1093
 #, python-format
 msgid "Warning for %s"
 msgstr ""
@@ -2580,19 +2612,19 @@ msgstr ""
 
 #. module: sale
 #. flectra-web
-#: code:addons/sale/static/src/js/sale.js:32
+#: code:addons/sale/static/src/js/sale.js:49
 #, python-format
 msgid "Wrong value entered!"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:200
+#: code:addons/sale/models/sale.py:214
 #, python-format
 msgid "You can not delete a sent quotation or a sales order! Try to cancel it before."
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:1115
+#: code:addons/sale/models/sale.py:1154
 #, python-format
 msgid "You can not remove a sales order line.\n"
 "Discard changes and try setting the quantity to 0."
@@ -2616,10 +2648,15 @@ msgid "Your Order has been confirmed."
 msgstr ""
 
 #. module: sale
-#: model:ir.actions.act_window,help:sale.action_quotations
 #: model:ir.actions.act_window,help:sale.action_quotations_salesteams
 msgid "Your next actions should flow efficiently: confirm the Quotation\n"
 "                to a Sales Order, then create the Invoice and collect the Payment."
+msgstr ""
+
+#. module: sale
+#: model:ir.actions.act_window,help:sale.action_quotations
+msgid "Your next actions should flow efficiently: confirm the Quotation\n"
+"            to a Sales Order, then create the Invoice and collect the Payment."
 msgstr ""
 
 #. module: sale

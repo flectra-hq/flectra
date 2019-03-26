@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 FORCE_HOST_AP="${1}"
-WIRED_IP=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}';)
+WIRED_IP=$(python3 -c "import netifaces as ni; print(ni.ifaddresses('eth0').get(ni.AF_INET) and ni.ifaddresses('eth0')[ni.AF_INET][0]['addr'] or '')")
 WIFI_NETWORK_FILE="/home/pi/wifi_network.txt"
 
 # if there is no wired ip, attempt to start an AP through wireless interface
@@ -22,7 +22,7 @@ if [ -z "${WIRED_IP}" ] ; then
 	if [ -n "$(iw list)" ] ; then
 		if [ -f "${WIFI_NETWORK_FILE}" ] && [ -z "${FORCE_HOST_AP}" ] ; then
 			logger -t posbox_wireless_ap "Loading persistently saved setting"
-			/home/pi/odoo/addons/point_of_sale/tools/posbox/configuration/connect_to_wifi.sh &
+			/home/pi/flectra/addons/point_of_sale/tools/posbox/configuration/connect_to_wifi.sh &
 		else
 			logger -t posbox_wireless_ap "Starting AP"
 
@@ -32,13 +32,13 @@ if [ -z "${WIRED_IP}" ] ; then
 
 			service isc-dhcp-server restart
 
-			service odoo restart
+			service flectra restart
 		fi
 	# no wired, no wireless
 	else
-		service odoo restart
+		service flectra restart
 	fi
 # wired
 else
-	service odoo restart
+	service flectra restart
 fi

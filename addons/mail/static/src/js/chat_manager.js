@@ -483,7 +483,7 @@ function on_partner_notification (data) {
             }
             remove_channel(channel);
             chat_manager.bus.trigger("unsubscribe_from_channel", data.id);
-            web_client.do_notify(_("Unsubscribed"), msg);
+            web_client.do_notify(_t("Unsubscribed"), msg);
         }
     } else if (data.type === 'toggle_star') {
         on_toggle_star_notification(data);
@@ -863,7 +863,9 @@ var ChatManager =  Class.extend(Mixins.EventDispatcherMixin, ServicesMixin, {
         if ('ids' in options) {
             // get messages from their ids (chatter is the main use case)
             return this._fetchDocumentMessages(options.ids, options).then(function(result) {
-                chat_manager.mark_as_read(options.ids);
+                if (options.shouldMarkAsRead) { // DO NOT FORWARD-PORT
+                    chat_manager.mark_as_read(options.ids); // DO NOT FORWARD-PORT
+                } // DO NOT FORWARD-PORT
                 return result;
             });
         }

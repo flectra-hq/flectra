@@ -6,7 +6,7 @@ import time
 from dateutil.relativedelta import relativedelta
 
 from flectra import fields, models, api, _
-from flectra.exceptions import UserError
+from flectra.exceptions import ValidationError, UserError
 from flectra.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 from flectra.tools.float_utils import float_round, float_is_zero
 
@@ -121,12 +121,8 @@ Best Regards,'''))
 
     @api.model
     def _verify_fiscalyear_last_day(self, company_id, last_day, last_month):
-        company = self.browse(company_id)
-        last_day = last_day or (company and company.fiscalyear_last_day) or 31
-        last_month = last_month or (company and company.fiscalyear_last_month) or 12
-        current_year = datetime.now().year
-        last_day_of_month = calendar.monthrange(current_year, last_month)[1]
-        return last_day > last_day_of_month and last_day_of_month or last_day
+        # FIXME: Remove this method in master
+        return last_day
 
     @api.multi
     def compute_fiscalyear_dates(self, date):
@@ -138,7 +134,11 @@ Best Regards,'''))
         last_month = self.fiscalyear_last_month
         last_day = self.fiscalyear_last_day
         if (date.month < last_month or (date.month == last_month and date.day <= last_day)):
-            date = date.replace(month=last_month, day=last_day)
+            # FORWARD-PORT UP TO v11
+            if last_month == 2 and last_day == 29 and date.year % 4 != 0:
+                date = date.replace(month=last_month, day=28)
+            else:
+                date = date.replace(month=last_month, day=last_day)
         else:
             if last_month == 2 and last_day == 29 and (date.year + 1) % 4 != 0:
                 date = date.replace(month=last_month, day=28, year=date.year + 1)
@@ -243,7 +243,6 @@ Best Regards,'''))
     def setting_init_fiscal_year_action(self):
         """ Called by the 'Fiscal Year Opening' button of the setup bar."""
         company = self.env.user.company_id
-        company.create_op_move_if_non_existant()
         new_wizard = self.env['account.financial.year.op'].create({'company_id': company.id})
         view_id = self.env.ref('account.setup_financial_year_opening_form').id
 

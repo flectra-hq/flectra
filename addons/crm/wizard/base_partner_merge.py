@@ -127,14 +127,14 @@ class MergePartnerAutomatic(models.TransientModel):
                 # unique key treated
                 query = """
                     UPDATE "%(table)s" as ___tu
-                    SET %(column)s = %%s
+                    SET "%(column)s" = %%s
                     WHERE
-                        %(column)s = %%s AND
+                        "%(column)s" = %%s AND
                         NOT EXISTS (
                             SELECT 1
                             FROM "%(table)s" as ___tw
                             WHERE
-                                %(column)s = %%s AND
+                                "%(column)s" = %%s AND
                                 ___tu.%(value)s = ___tw.%(value)s
                         )""" % query_dic
                 for partner in src_partners:

@@ -133,7 +133,7 @@ flectra.define('payment.payment_form', function (require) {
                         self.displayError(
                             _t('Server Error'),
                             _t("We are not able to add your payment method at the moment.") +
-                               data.data.message
+                               message.data.message
                         );
                     });
                 }
@@ -177,8 +177,8 @@ flectra.define('payment.payment_form', function (require) {
                         }).fail(function (message, data) {
                             self.displayError(
                                 _t('Server Error'),
-                                _t("We are not able to redirect you to the payment form.<") +
-                                   data.data.message
+                                _t("We are not able to redirect you to the payment form. ") +
+                                   message.data.message
                             );
                         });
                     }
@@ -220,7 +220,7 @@ flectra.define('payment.payment_form', function (require) {
                 var form_data = this.getFormData(inputs_form);
                 var ds = $('input[name="data_set"]', acquirer_form)[0];
                 var wrong_input = false;
-                
+
                 inputs_form.toArray().forEach(function (element) {
                     //skip the check of non visible inputs
                     if ($(element).attr('type') == 'hidden') {
@@ -396,7 +396,7 @@ flectra.define('payment.payment_form', function (require) {
             var acquirer_id = this.getAcquirerIdFromRadio(checked_radio);
 
             // if we clicked on an add new payment radio, display its form
-            if (this.isNewPaymentRadio(checked_radio)) {                
+            if (this.isNewPaymentRadio(checked_radio)) {
                 this.$('#o_payment_add_token_acq_' + acquirer_id).removeClass('hidden');
             }
             else if (this.isFormPaymentRadio(checked_radio)) {

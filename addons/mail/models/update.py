@@ -30,22 +30,16 @@ class PublisherWarrantyContract(AbstractModel):
         db_create_date = IrParamSudo.get_param('database.create_date')
         limit_date = datetime.datetime.now()
         limit_date = limit_date - datetime.timedelta(15)
-        limit_date_str = limit_date.strftime(
-            misc.DEFAULT_SERVER_DATETIME_FORMAT)
+        limit_date_str = limit_date.strftime(misc.DEFAULT_SERVER_DATETIME_FORMAT)
         nbr_users = Users.search_count([('active', '=', True)])
-        nbr_active_users = Users.search_count(
-            [("login_date", ">=", limit_date_str), ('active', '=', True)])
+        nbr_active_users = Users.search_count([("login_date", ">=", limit_date_str), ('active', '=', True)])
         nbr_share_users = 0
         nbr_active_share_users = 0
         if "share" in Users._fields:
-            nbr_share_users = Users.search_count(
-                [("share", "=", True), ('active', '=', True)])
-            nbr_active_share_users = Users.search_count(
-                [("share", "=", True), ("login_date", ">=", limit_date_str),
-                 ('active', '=', True)])
+            nbr_share_users = Users.search_count([("share", "=", True), ('active', '=', True)])
+            nbr_active_share_users = Users.search_count([("share", "=", True), ("login_date", ">=", limit_date_str), ('active', '=', True)])
         user = self.env.user
-        domain = [('application', '=', True),
-                  ('state', 'in', ['installed', 'to upgrade', 'to remove'])]
+        domain = [('application', '=', True), ('state', 'in', ['installed', 'to upgrade', 'to remove'])]
         apps = self.env['ir.module.module'].sudo().search_read(domain, ['name'])
         demo_domain = [('name', 'ilike', 'base'), ('demo', '=', True)]
         demo_data_ids = self.env['ir.module.module'].sudo().search(demo_domain)
@@ -104,10 +98,8 @@ class PublisherWarrantyContract(AbstractModel):
             except Exception:
                 if cron_mode:  # we don't want to see any stack trace in cron
                     return False
-                _logger.debug("Exception while sending a get logs messages",
-                              exc_info=1)
-                raise UserError(_(
-                    "Error during communication with the publisher warranty server."))
+                _logger.debug("Exception while sending a get logs messages", exc_info=1)
+                raise UserError(_("Error during communication with the publisher warranty server."))
             # old behavior based on res.log; now on mail.message, that is not necessarily installed
             user = self.env['res.users'].sudo().browse(SUPERUSER_ID)
             poster = self.sudo().env.ref('mail.channel_all_employees')
@@ -117,8 +109,7 @@ class PublisherWarrantyContract(AbstractModel):
                 poster = user
             for message in result["messages"]:
                 try:
-                    poster.message_post(body=message, subtype='mt_comment',
-                                        partner_ids=[user.partner_id.id])
+                    poster.message_post(body=message, subtype='mt_comment', partner_ids=[user.partner_id.id])
                 except Exception:
                     pass
             if result.get('support_info'):

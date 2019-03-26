@@ -420,4 +420,3 @@ class TestSaleStock(TestSale):
 
         # check the delivered quantity
         self.assertEqual(so1.order_line.qty_delivered, 3.0)
-

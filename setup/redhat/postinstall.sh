@@ -10,6 +10,12 @@ FLECTRA_LOG_DIR=/var/log/flectra
 FLECTRA_LOG_FILE=$FLECTRA_LOG_DIR/flectra-server.log
 FLECTRA_USER="flectra"
 
+if [ -d /usr/lib/python3.7 ]; then
+    SITE_PACK_DIR37=/usr/lib/python3.7/site-packages
+    [[ ! -d ${SITE_PACK_DIR37} ]] && mkdir -p ${SITE_PACK_DIR37}
+    ln -s /usr/lib/python3.6/site-packages/flectra ${SITE_PACK_DIR37}/flectra
+fi
+
 if ! getent passwd | grep -q "^flectra:"; then
     groupadd $FLECTRA_GROUP
     adduser --system --no-create-home $FLECTRA_USER -g $FLECTRA_GROUP

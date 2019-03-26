@@ -1,13 +1,13 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 #	* sale_payment
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Flectra Server 1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-07 15:45+0000\n"
-"PO-Revision-Date: 2017-11-07 15:45+0000\n"
+"POT-Creation-Date: 2019-03-26 12:03+0000\n"
+"PO-Revision-Date: 2019-03-26 12:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,19 +16,24 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sale_payment
-#: code:addons/sale_payment/models/payment.py:111
+#: model:ir.ui.view,arch_db:sale_payment.payment_confirmation_status
+msgid "&amp;times;"
+msgstr ""
+
+#. module: sale_payment
+#: code:addons/sale_payment/models/payment.py:134
 #, python-format
 msgid "<%s> transaction (%s) failed: <%s>"
 msgstr ""
 
 #. module: sale_payment
-#: code:addons/sale_payment/models/payment.py:118
+#: code:addons/sale_payment/models/payment.py:141
 #, python-format
 msgid "<%s> transaction (%s) invalid state: %s"
 msgstr ""
 
 #. module: sale_payment
-#: code:addons/sale_payment/models/payment.py:126
+#: code:addons/sale_payment/models/payment.py:149
 #, python-format
 msgid "<%s> transaction (%s) order confirmation failed: <%s>"
 msgstr ""
@@ -45,6 +50,11 @@ msgstr ""
 
 #. module: sale_payment
 #: model:ir.ui.view,arch_db:sale_payment.portal_my_orders_payment
+msgid "<i class=\"fa fa-info\"/> You have credits card registered, you can log-in to be able to use them."
+msgstr ""
+
+#. module: sale_payment
+#: model:ir.ui.view,arch_db:sale_payment.portal_my_orders_payment
 msgid "<span class=\"label label-info orders_label_text_align\"><i class=\"fa fa-fw fa-clock-o\"/> Waiting</span>"
 msgstr ""
 
@@ -56,6 +66,12 @@ msgstr ""
 #. module: sale_payment
 #: model:ir.ui.view,arch_db:sale_payment.portal_my_orders_payment
 msgid "<strong>Transactions</strong>"
+msgstr ""
+
+#. module: sale_payment
+#: code:addons/sale_payment/models/payment.py:55
+#, python-format
+msgid "Amount Mismatch (%s)"
 msgstr ""
 
 #. module: sale_payment
@@ -84,7 +100,7 @@ msgid "Awaiting Payments"
 msgstr ""
 
 #. module: sale_payment
-#: code:addons/sale_payment/controllers/payment.py:52
+#: code:addons/sale_payment/controllers/payment.py:53
 #, python-format
 msgid "If we store your payment information on our server, subscription payments will be made automatically."
 msgstr ""
@@ -110,18 +126,13 @@ msgid "Number of transactions to capture"
 msgstr ""
 
 #. module: sale_payment
-#: model:ir.ui.view,arch_db:sale_payment.portal_order_success
-msgid "Order successfully paid."
-msgstr ""
-
-#. module: sale_payment
 #: code:addons/sale_payment/controllers/payment.py:50
 #, python-format
 msgid "Pay"
 msgstr ""
 
 #. module: sale_payment
-#: code:addons/sale_payment/models/payment.py:187
+#: code:addons/sale_payment/models/payment.py:210
 #, python-format
 msgid "Pay Now"
 msgstr ""
@@ -134,6 +145,11 @@ msgstr ""
 #. module: sale_payment
 #: model:ir.model.fields,field_description:sale_payment.field_sale_order_payment_acquirer_id
 msgid "Payment Acquirer"
+msgstr ""
+
+#. module: sale_payment
+#: model:ir.ui.view,arch_db:sale_payment.res_config_settings_view_form
+msgid "Payment Acquirers"
 msgstr ""
 
 #. module: sale_payment
@@ -162,6 +178,11 @@ msgid "Quotation"
 msgstr ""
 
 #. module: sale_payment
+#: model:ir.model.fields,field_description:sale_payment.field_payment_transaction_so_state
+msgid "Sale Order State"
+msgstr ""
+
+#. module: sale_payment
 #: model:ir.model,name:sale_payment.model_crm_team
 msgid "Sales Channel"
 msgstr ""
@@ -169,6 +190,12 @@ msgstr ""
 #. module: sale_payment
 #: model:ir.model.fields,field_description:sale_payment.field_payment_transaction_sale_order_id
 msgid "Sales Order"
+msgstr ""
+
+#. module: sale_payment
+#: code:addons/sale_payment/models/payment.py:56
+#, python-format
+msgid "The sale order was not confirmed despite response from the acquirer (%s): SO amount is %r but acquirer replied with %r."
 msgstr ""
 
 #. module: sale_payment
@@ -215,5 +242,10 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_payment.field_sale_order_payment_tx_ids
 #: model:ir.ui.view,arch_db:sale_payment.sale_order_view_form
 msgid "Transactions"
+msgstr ""
+
+#. module: sale_payment
+#: model:ir.ui.view,arch_db:sale_payment.payment_confirmation_status
+msgid "Your payment has been authorized."
 msgstr ""
 

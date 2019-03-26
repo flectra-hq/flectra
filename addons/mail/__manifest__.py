@@ -9,7 +9,7 @@
     'summary': 'Discussions, Mailing Lists, News',
     'description': "",
     'website': 'https://flectrahq.com/page/enterprise-social-network',
-    'depends': ['base', 'base_setup', 'bus', 'web_tour'],
+    'depends': ['base', 'base_setup', 'bus'],
     'data': [
         'wizard/invite_view.xml',
         'wizard/mail_compose_message_view.xml',

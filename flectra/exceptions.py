@@ -53,12 +53,10 @@ class RedirectWarning(Exception):
 
 
 class AccessDenied(Exception):
-    """ Login/password error. no traceback.
+    """ Login/password error. No message, no traceback.
     Example: When you try to log with a wrong password."""
-    def __init__(self, message='Access denied'):
-        super(AccessDenied, self).__init__(message)
-        self.with_traceback(None)
-        self.__cause__ = None
+    def __init__(self):
+        super(AccessDenied, self).__init__('Access denied')
         self.traceback = ('', '', '')
 
 
