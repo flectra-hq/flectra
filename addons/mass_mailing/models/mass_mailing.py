@@ -164,7 +164,7 @@ class MassMailingCampaign(models.Model):
     mass_mailing_ids = fields.One2many(
         'mail.mass_mailing', 'mass_mailing_campaign_id',
         string='Mass Mailings')
-    unique_ab_testing = fields.Boolean(string='Allow A/B Testing', default=True,
+    unique_ab_testing = fields.Boolean(string='Allow A/B Testing', default=False,
         help='If checked, recipients will be mailed only once for the whole campaign. '
              'This lets you send different mailings to randomly selected recipients and test '
              'the effectiveness of the mailings, without causing duplicate messages.')
@@ -558,6 +558,12 @@ class MassMailing(models.Model):
         failed_mails = self.env['mail.mail'].search([('mailing_id', 'in', self.ids), ('state', '=', 'exception')])
         failed_mails.mapped('statistics_ids').unlink()
         failed_mails.sudo().unlink()
+        res_ids = self.get_recipients()
+        except_mailed = self.env['mail.mail.statistics'].search([
+            ('model', '=', self.mailing_model_real),
+            ('res_id', 'in', res_ids),
+            ('exception', '!=', False),
+            ('mass_mailing_id', '=', self.id)]).unlink()
         self.write({'state': 'in_queue'})
 
     #------------------------------------------------------
@@ -591,6 +597,21 @@ class MassMailing(models.Model):
             _logger.info("Mass-mailing %s targets %s, no blacklist available", self, target._name)
         return blacklist
 
+    def _get_convert_links(self):
+        self.ensure_one()
+        utm_mixin = self.mass_mailing_campaign_id if self.mass_mailing_campaign_id else self
+        vals = {'mass_mailing_id': self.id}
+
+        if self.mass_mailing_campaign_id:
+            vals['mass_mailing_campaign_id'] = self.mass_mailing_campaign_id.id
+        if utm_mixin.campaign_id:
+            vals['campaign_id'] = utm_mixin.campaign_id.id
+        if utm_mixin.source_id:
+            vals['source_id'] = utm_mixin.source_id.id
+        if utm_mixin.medium_id:
+            vals['medium_id'] = utm_mixin.medium_id.id
+        return vals
+
     def _get_seen_list(self):
         """Returns a set of emails already targeted by current mailing/campaign (no duplicates)"""
         self.ensure_one()
@@ -610,10 +631,11 @@ class MassMailing(models.Model):
             """
         else:
             query +="""
-               AND s.mass_mailing_id = %%(mailing_id)s;
+               AND s.mass_mailing_id = %%(mailing_id)s
+               AND s.model = %%(target_model)s;
             """
         query = query % {'target': target._table, 'mail_field': mail_field}
-        params = {'mailing_id': self.id, 'mailing_campaign_id': self.mass_mailing_campaign_id.id}
+        params = {'mailing_id': self.id, 'mailing_campaign_id': self.mass_mailing_campaign_id.id, 'target_model': self.mailing_model_real}
         self._cr.execute(query, params)
         seen_list = set(m[0] for m in self._cr.fetchall())
         _logger.info(
@@ -625,6 +647,7 @@ class MassMailing(models.Model):
         return {
             'mass_mailing_blacklist': self._get_blacklist(),
             'mass_mailing_seen_list': self._get_seen_list(),
+            'post_convert_links': self._get_convert_links(),
         }
 
     def get_recipients(self):
@@ -666,13 +689,10 @@ class MassMailing(models.Model):
             if not res_ids:
                 raise UserError(_('Please select recipients.'))
 
-            # Convert links in absolute URLs before the application of the shortener
-            mailing.body_html = self.env['mail.template']._replace_local_links(mailing.body_html)
-
             composer_values = {
                 'author_id': author_id,
                 'attachment_ids': [(4, attachment.id) for attachment in mailing.attachment_ids],
-                'body': mailing.convert_links()[mailing.id],
+                'body': mailing.body_html,
                 'subject': mailing.name,
                 'model': mailing.mailing_model_real,
                 'email_from': mailing.email_from,

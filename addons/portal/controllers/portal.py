@@ -6,8 +6,10 @@ import math
 from werkzeug import urls
 
 from flectra import fields as flectra_fields, tools, _
+from flectra.osv import expression
 from flectra.exceptions import ValidationError
 from flectra.http import Controller, request, route
+from flectra.addons.web.controllers.main import WebClient
 
 # --------------------------------------------------
 # Misc tools

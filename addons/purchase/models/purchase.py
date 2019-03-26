@@ -336,6 +336,7 @@ class PurchaseOrder(models.Model):
             'default_template_id': template_id,
             'default_composition_mode': 'comment',
             'custom_layout': "purchase.mail_template_data_notification_email_purchase_order",
+            'purchase_mark_rfq_sent': True,
             'force_email': True
         })
         return {
@@ -399,10 +400,11 @@ class PurchaseOrder(models.Model):
             if order.state in ('draft', 'sent', 'to approve'):
                 for order_line in order.order_line:
                     if order_line.move_dest_ids:
-                        siblings_states = (order_line.move_dest_ids.mapped('move_orig_ids')).mapped('state')
+                        move_dest_ids = order_line.move_dest_ids.filtered(lambda m: m.state not in ('done', 'cancel'))
+                        siblings_states = (move_dest_ids.mapped('move_orig_ids')).mapped('state')
                         if all(state in ('done', 'cancel') for state in siblings_states):
-                            order_line.move_dest_ids.write({'procure_method': 'make_to_stock'})
-                            order_line.move_dest_ids._recompute_state()
+                            move_dest_ids.write({'procure_method': 'make_to_stock'})
+                            move_dest_ids._recompute_state()
 
             for pick in order.picking_ids.filtered(lambda r: r.state != 'cancel'):
                 pick.action_cancel()
@@ -483,10 +485,20 @@ class PurchaseOrder(models.Model):
                     'sequence': max(line.product_id.seller_ids.mapped('sequence')) + 1 if line.product_id.seller_ids else 1,
                     'product_uom': line.product_uom.id,
                     'min_qty': 0.0,
-                    'price': self.currency_id.compute(line.price_unit, currency),
+                    'price': self.currency_id.compute(line.price_unit, currency, round=False),
                     'currency_id': currency.id,
                     'delay': 0,
                 }
+                # In case the order partner is a contact address, a new supplierinfo is created on
+                # the parent company. In this case, we keep the product name and code.
+                seller = line.product_id._select_seller(
+                    partner_id=line.partner_id,
+                    quantity=line.product_qty,
+                    date=line.order_id.date_order and line.order_id.date_order[:10],
+                    uom_id=line.product_uom)
+                if seller:
+                    supplierinfo['product_name'] = seller.product_name
+                    supplierinfo['product_code'] = seller.product_code
                 vals = {
                     'seller_ids': [(0, 0, supplierinfo)],
                 }
@@ -501,7 +513,7 @@ class PurchaseOrder(models.Model):
         This function returns an action that display existing picking orders of given purchase order ids.
         When only one found, show the picking immediately.
         '''
-        action = self.env.ref('stock.action_picking_tree')
+        action = self.env.ref('stock.action_picking_tree_all')
         result = action.read()[0]
 
         #override the context to get rid of the default filtering on operation type
@@ -526,11 +538,7 @@ class PurchaseOrder(models.Model):
         result = action.read()[0]
 
         #override the context to get rid of the default filtering
-        result['context'] = {
-            'type': 'in_invoice',
-            'default_purchase_id': self.id,
-            'default_branch_id': self.branch_id.id
-        }
+        result['context'] = {'type': 'in_invoice', 'default_purchase_id': self.id}
 
         if not self.invoice_ids:
             # Choose a default account journal in the same currency in case a new invoice is created
@@ -584,7 +592,7 @@ class PurchaseOrderLine(models.Model):
             taxes = line.product_id.supplier_taxes_id.filtered(lambda r: not line.company_id or r.company_id == line.company_id)
             line.taxes_id = fpos.map_tax(taxes, line.product_id, line.order_id.partner_id) if fpos else taxes
 
-    @api.depends('invoice_lines.invoice_id.state', 'invoice_lines.quantity')
+    @api.depends('invoice_lines.invoice_id.state', 'invoice_lines.quantity', 'invoice_lines.uom_id')
     def _compute_qty_invoiced(self):
         for line in self:
             qty = 0.0
@@ -1158,7 +1166,7 @@ class MailComposeMessage(models.TransientModel):
 
     @api.multi
     def mail_purchase_order_on_send(self):
-        if not self.filtered('subtype_id.internal'):
+        if self._context.get('purchase_mark_rfq_sent'):
             order = self.env['purchase.order'].browse(self._context['default_res_id'])
             if order.state == 'draft':
                 order.state = 'sent'
@@ -1166,6 +1174,7 @@ class MailComposeMessage(models.TransientModel):
     @api.multi
     def send_mail(self, auto_commit=False):
         if self._context.get('default_model') == 'purchase.order' and self._context.get('default_res_id'):
-            self = self.with_context(mail_post_autofollow=True)
+            order = self.env['purchase.order'].browse(self._context['default_res_id'])
+            self = self.with_context(mail_post_autofollow=True, lang=order.partner_id.lang)
             self.mail_purchase_order_on_send()
         return super(MailComposeMessage, self).send_mail(auto_commit=auto_commit)

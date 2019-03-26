@@ -190,6 +190,7 @@ class Module(models.Model):
                     'doctitle_xform': False,
                     'output_encoding': 'unicode',
                     'xml_declaration': False,
+                    'file_insertion_enabled': False,
                 }
                 output = publish_string(source=module.description or '', settings_overrides=overrides, writer=MyWriter())
                 module.description_html = tools.html_sanitize(output)
@@ -480,7 +481,8 @@ class Module(models.Model):
         """
         modules_to_remove = self.mapped('name')
         self.env['ir.model.data']._module_data_uninstall(modules_to_remove)
-        self.write({'state': 'uninstalled', 'latest_version': False})
+        # we deactivate prefetching to not try to read a column that has been deleted
+        self.with_context(prefetch_fields=False).write({'state': 'uninstalled', 'latest_version': False})
         return True
 
     @api.multi

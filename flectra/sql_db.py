@@ -245,7 +245,7 @@ class Cursor(object):
 
         # advanced stats only if sql_log is enabled
         if self.sql_log:
-            delay *= 1E6
+            delay = (time.time() - now) * 1E6
 
             res_from = re_from.match(query.lower())
             if res_from:
@@ -444,8 +444,13 @@ class TestCursor(Cursor):
 
     def acquire(self):
         self._lock.acquire()
+        # the cursor maintains a savepoint at its last commit point
+        self.execute("SAVEPOINT test_cursor")
 
     def release(self):
+        # the cursor should be right after the savepoint; release it to make
+        # former savepoints directly accessible
+        self.execute("RELEASE SAVEPOINT test_cursor")
         self._lock.release()
 
     def force_close(self):
@@ -460,12 +465,13 @@ class TestCursor(Cursor):
         _logger.debug("TestCursor.autocommit(%r) does nothing", on)
 
     def commit(self):
+        # move the savepoint to the current position
         self.execute("RELEASE SAVEPOINT test_cursor")
         self.execute("SAVEPOINT test_cursor")
 
     def rollback(self):
+        # this does not release the savepoint; release() will do it
         self.execute("ROLLBACK TO SAVEPOINT test_cursor")
-        self.execute("SAVEPOINT test_cursor")
 
 class LazyCursor(object):
     """ A proxy object to a cursor. The cursor itself is allocated only if it is

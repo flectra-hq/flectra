@@ -34,6 +34,7 @@ var core = require('web.core');
 var rpc = require('web.rpc');
 var utils = require('web.utils');
 var field_utils = require('web.field_utils');
+var BarcodeEvents = require('barcodes.BarcodeEvents').BarcodeEvents;
 
 var QWeb = core.qweb;
 var _t = core._t;
@@ -394,10 +395,14 @@ var NumpadWidget = PosBaseWidget.extend({
         this.$el.find('.mode-button').click(_.bind(this.clickChangeMode, this));
     },
     applyAccessRights: function() {
-        var has_price_control_rights = !this.pos.config.restrict_price_control || this.pos.get_cashier().role == 'manager';
+        var cashier = this.pos.get('cashier') || this.pos.get_cashier();
+        var has_price_control_rights = !this.pos.config.restrict_price_control || cashier.role == 'manager';
         this.$el.find('.mode-button[data-mode="price"]')
             .toggleClass('disabled-mode', !has_price_control_rights)
             .prop('disabled', !has_price_control_rights);
+        if (!has_price_control_rights && this.state.get('mode')=='price'){
+            this.state.changeMode('quantity');
+        }
     },
     clickDeleteLastChar: function() {
         return this.state.deleteLastChar();
@@ -1273,6 +1278,9 @@ var ClientListScreenWidget = ScreenWidget.extend({
         } else {
             fields.property_product_pricelist = false;
         }
+        var contents = this.$(".client-details-contents");
+        contents.off("click", ".button.save");
+
 
         rpc.query({
                 model: 'res.partner',
@@ -1281,7 +1289,8 @@ var ClientListScreenWidget = ScreenWidget.extend({
             })
             .then(function(partner_id){
                 self.saved_client_details(partner_id);
-            },function(type,err){
+            },function(err,ev){
+                ev.preventDefault();
                 var error_body = _t('Your Internet connection is probably down.');
                 if (err.data) {
                     var except = err.data;
@@ -1308,6 +1317,8 @@ var ClientListScreenWidget = ScreenWidget.extend({
                 // has created, and reload_partner() must have loaded the newly created partner. 
                 self.display_client_details('hide');
             }
+        }).always(function(){
+            $(".client-details-contents").on('click','.button.save',function(){ self.save_client_details(partner); });
         });
     },
 
@@ -1371,6 +1382,9 @@ var ClientListScreenWidget = ScreenWidget.extend({
     reload_partners: function(){
         var self = this;
         return this.pos.load_new_partners().then(function(){
+            // partners may have changed in the backend
+            self.partner_cache = new DomCache();
+
             self.render_list(self.pos.db.get_partners_sorted(1000));
             
             // update the currently assigned client if it has been changed in db.
@@ -1543,7 +1557,22 @@ var ReceiptScreenWidget = ScreenWidget.extend({
         };
     },
     print_web: function() {
-        window.print();
+        if ($.browser.safari) {
+            document.execCommand('print', false, null);
+        } else {
+            try {
+                window.print();
+            } catch(err) {
+                if (navigator.userAgent.toLowerCase().indexOf("android") > -1) {
+                    this.gui.show_popup('error',{
+                        'title':_t('Printing is not supported on some android browsers'),
+                        'body': _t('Printing is not supported on some android browsers due to no default printing protocol is available. It is possible to print your tickets by making use of an IoT Box.'),
+                    });
+                } else {
+                    throw err;
+                }
+            }
+        }
         this.pos.get_order()._printed = true;
     },
     print_xml: function() {
@@ -1665,6 +1694,13 @@ var PaymentScreenWidget = ScreenWidget.extend({
         // also called explicitly to handle some keydown events that
         // do not generate keypress events.
         this.keyboard_handler = function(event){
+            // On mobile Chrome BarcodeEvents relies on an invisible
+            // input being filled by a barcode device. Let events go
+            // through when this input is focused.
+            if (BarcodeEvents.$barcodeInput && BarcodeEvents.$barcodeInput.is(":focus")) {
+                return;
+            }
+
             var key = '';
 
             if (event.type === "keypress") {
@@ -1922,16 +1958,11 @@ var PaymentScreenWidget = ScreenWidget.extend({
         $('body').keypress(this.keyboard_handler);
         // that one comes from the pos, but we prefer to cover all the basis
         $('body').keydown(this.keyboard_keydown_handler);
-        // legacy vanilla JS listeners
-        window.document.body.addEventListener('keypress',this.keyboard_handler);
-        window.document.body.addEventListener('keydown',this.keyboard_keydown_handler);
         this._super();
     },
     hide: function(){
         $('body').off('keypress', this.keyboard_handler);
         $('body').off('keydown', this.keyboard_keydown_handler);
-        window.document.body.removeEventListener('keypress',this.keyboard_handler);
-        window.document.body.removeEventListener('keydown',this.keyboard_keydown_handler);
         this._super();
     },
     // sets up listeners to watch for order changes
@@ -2044,6 +2075,17 @@ var PaymentScreenWidget = ScreenWidget.extend({
                         'body': _t('You need to select the customer before you can invoice an order.'),
                         confirm: function(){
                             self.gui.show_screen('clientlist');
+                        },
+                    });
+                } else if (error.message === 'Backend Invoice') {
+                    self.gui.show_popup('confirm',{
+                        'title': _t('Please print the invoice from the backend'),
+                        'body': _t('The order has been synchronized earlier. Please make the invoice from the backend for the order: ') + error.data.order.name,
+                        confirm: function () {
+                            this.gui.show_screen('receipt');
+                        },
+                        cancel: function () {
+                            this.gui.show_screen('receipt');
                         },
                     });
                 } else if (error.code < 0) {        // XmlHttpRequest Errors

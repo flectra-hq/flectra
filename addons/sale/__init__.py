@@ -11,7 +11,6 @@ import flectra
 from flectra import api, SUPERUSER_ID
 
 
-
 def uninstall_hook(cr, registry):
     def update_dashboard_graph_model(dbname):
         db_registry = flectra.modules.registry.Registry.new(dbname)

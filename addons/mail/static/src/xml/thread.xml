@@ -212,6 +212,7 @@
                     </span>
                 </p>
                 <div class="o_thread_message_content">
+                    <t t-raw="message.body"/>
                     <t t-if="message.tracking_value_ids and message.tracking_value_ids.length &gt; 0">
                         <t t-if="message.subtype_description">
                             <p><t t-esc="message.subtype_description"/></p>

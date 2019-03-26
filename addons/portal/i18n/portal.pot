@@ -1,13 +1,13 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 #	* portal
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Flectra Server 1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 11:27+0000\n"
-"PO-Revision-Date: 2017-10-02 11:27+0000\n"
+"POT-Creation-Date: 2019-03-26 12:03+0000\n"
+"PO-Revision-Date: 2019-03-26 12:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -44,7 +44,16 @@ msgstr ""
 
 #. module: portal
 #: model:ir.ui.view,arch_db:portal.portal_show_sign_in
+#: model:ir.ui.view,arch_db:portal.portal_show_sign_in_95cf248f
 msgid "<b>Sign in</b>"
+msgstr ""
+
+#. module: portal
+#: model:ir.ui.view,arch_db:portal.frontend_layout
+msgid "<span class=\"sr-only\">Toggle navigation</span>\n"
+"                                    <span class=\"icon-bar\"/>\n"
+"                                    <span class=\"icon-bar\"/>\n"
+"                                    <span class=\"icon-bar\"/>"
 msgstr ""
 
 #. module: portal
@@ -78,14 +87,14 @@ msgid "City"
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_signature.xml:12
 #, python-format
 msgid "Clear"
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_signature.xml:27
 #, python-format
 msgid "Click here to see your document."
@@ -136,9 +145,11 @@ msgstr ""
 
 #. module: portal
 #: model:ir.model.fields,help:portal.field_account_invoice_portal_url
+#: model:ir.model.fields,help:portal.field_helpdesk_ticket_portal_url
 #: model:ir.model.fields,help:portal.field_portal_mixin_portal_url
 #: model:ir.model.fields,help:portal.field_project_project_portal_url
 #: model:ir.model.fields,help:portal.field_project_task_portal_url
+#: model:ir.model.fields,help:portal.field_rma_request_portal_url
 #: model:ir.model.fields,help:portal.field_sale_order_portal_url
 msgid "Customer Portal URL"
 msgstr ""
@@ -151,7 +162,7 @@ msgid "Display Name"
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_signature.xml:14
 #, python-format
 msgid "Draw your signature"
@@ -175,6 +186,11 @@ msgid "Group %s is not a portal"
 msgstr ""
 
 #. module: portal
+#: model:ir.model,name:portal.model_ir_http
+msgid "HTTP routing"
+msgstr ""
+
+#. module: portal
 #: model:ir.model.fields,field_description:portal.field_portal_mixin_id
 #: model:ir.model.fields,field_description:portal.field_portal_wizard_id
 #: model:ir.model.fields,field_description:portal.field_portal_wizard_user_id
@@ -187,7 +203,7 @@ msgid "In Portal"
 msgstr ""
 
 #. module: portal
-#: code:addons/portal/controllers/portal.py:180
+#: code:addons/portal/controllers/portal.py:200
 #, python-format
 msgid "Invalid Email! Please enter a valid email address."
 msgstr ""
@@ -217,7 +233,7 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_chatter.xml:20
 #, python-format
 msgid "Leave a comment"
@@ -249,7 +265,7 @@ msgid "Next"
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_chatter.xml:38
 #, python-format
 msgid "Oops! Something went wrong. Try to reload the page and log in."
@@ -274,9 +290,11 @@ msgstr ""
 
 #. module: portal
 #: model:ir.model.fields,field_description:portal.field_account_invoice_portal_url
+#: model:ir.model.fields,field_description:portal.field_helpdesk_ticket_portal_url
 #: model:ir.model.fields,field_description:portal.field_portal_mixin_portal_url
 #: model:ir.model.fields,field_description:portal.field_project_project_portal_url
 #: model:ir.model.fields,field_description:portal.field_project_task_portal_url
+#: model:ir.model.fields,field_description:portal.field_rma_request_portal_url
 #: model:ir.model.fields,field_description:portal.field_sale_order_portal_url
 msgid "Portal Access URL"
 msgstr ""
@@ -292,8 +310,8 @@ msgid "Prev"
 msgstr ""
 
 #. module: portal
-#. openerp-web
-#: code:addons/portal/static/src/js/portal_chatter.js:101
+#. flectra-web
+#: code:addons/portal/static/src/js/portal_chatter.js:102
 #, python-format
 msgid "Published on %s"
 msgstr ""
@@ -306,7 +324,7 @@ msgid "Select which contacts should belong to the portal in the list below.\n"
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_chatter.xml:41
 #, python-format
 msgid "Send"
@@ -331,7 +349,7 @@ msgid "Some contacts have the same email as an existing portal user:"
 msgstr ""
 
 #. module: portal
-#: code:addons/portal/controllers/portal.py:197
+#: code:addons/portal/controllers/portal.py:219
 #, python-format
 msgid "Some required fields are empty."
 msgstr ""
@@ -347,7 +365,7 @@ msgid "Street"
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_signature.xml:25
 #, python-format
 msgid "Thank You !"
@@ -359,7 +377,7 @@ msgid "The portal that users can be added in or removed from."
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_chatter.xml:11
 #, python-format
 msgid "There are no comments for now."
@@ -414,6 +432,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:portal.field_forum_tag_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_gamification_badge_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_gamification_challenge_website_message_ids
+#: model:ir.model.fields,field_description:portal.field_helpdesk_team_website_message_ids
+#: model:ir.model.fields,field_description:portal.field_helpdesk_ticket_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_hr_applicant_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_hr_contract_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_hr_department_website_message_ids
@@ -439,11 +459,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:portal.field_product_product_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_product_template_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_project_project_website_message_ids
-#: model:ir.model.fields,field_description:portal.field_project_task_website_message_ids
+#: model:ir.model.fields,field_description:portal.field_project_sprint_website_message_ids
+#: model:ir.model.fields,field_description:portal.field_project_story_website_message_ids
+#: model:ir.model.fields,field_description:portal.field_project_team_website_message_ids
+#: model:ir.model.fields,field_description:portal.field_purchase_indent_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_purchase_order_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_purchase_requisition_website_message_ids
+#: model:ir.model.fields,field_description:portal.field_release_planning_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_res_partner_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_res_users_website_message_ids
+#: model:ir.model.fields,field_description:portal.field_retrospective_method_website_message_ids
+#: model:ir.model.fields,field_description:portal.field_retrospective_website_message_ids
+#: model:ir.model.fields,field_description:portal.field_rma_request_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_sale_order_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_slide_channel_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_slide_slide_website_message_ids
@@ -451,7 +478,10 @@ msgstr ""
 #: model:ir.model.fields,field_description:portal.field_stock_picking_batch_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_stock_picking_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_stock_production_lot_website_message_ids
+#: model:ir.model.fields,field_description:portal.field_story_priority_website_message_ids
+#: model:ir.model.fields,field_description:portal.field_story_type_website_message_ids
 #: model:ir.model.fields,field_description:portal.field_survey_survey_website_message_ids
+#: model:ir.model.fields,field_description:portal.field_test_performance_mail_website_message_ids
 msgid "Website Messages"
 msgstr ""
 
@@ -476,6 +506,8 @@ msgstr ""
 #: model:ir.model.fields,help:portal.field_forum_tag_website_message_ids
 #: model:ir.model.fields,help:portal.field_gamification_badge_website_message_ids
 #: model:ir.model.fields,help:portal.field_gamification_challenge_website_message_ids
+#: model:ir.model.fields,help:portal.field_helpdesk_team_website_message_ids
+#: model:ir.model.fields,help:portal.field_helpdesk_ticket_website_message_ids
 #: model:ir.model.fields,help:portal.field_hr_applicant_website_message_ids
 #: model:ir.model.fields,help:portal.field_hr_contract_website_message_ids
 #: model:ir.model.fields,help:portal.field_hr_department_website_message_ids
@@ -501,11 +533,18 @@ msgstr ""
 #: model:ir.model.fields,help:portal.field_product_product_website_message_ids
 #: model:ir.model.fields,help:portal.field_product_template_website_message_ids
 #: model:ir.model.fields,help:portal.field_project_project_website_message_ids
-#: model:ir.model.fields,help:portal.field_project_task_website_message_ids
+#: model:ir.model.fields,help:portal.field_project_sprint_website_message_ids
+#: model:ir.model.fields,help:portal.field_project_story_website_message_ids
+#: model:ir.model.fields,help:portal.field_project_team_website_message_ids
+#: model:ir.model.fields,help:portal.field_purchase_indent_website_message_ids
 #: model:ir.model.fields,help:portal.field_purchase_order_website_message_ids
 #: model:ir.model.fields,help:portal.field_purchase_requisition_website_message_ids
+#: model:ir.model.fields,help:portal.field_release_planning_website_message_ids
 #: model:ir.model.fields,help:portal.field_res_partner_website_message_ids
 #: model:ir.model.fields,help:portal.field_res_users_website_message_ids
+#: model:ir.model.fields,help:portal.field_retrospective_method_website_message_ids
+#: model:ir.model.fields,help:portal.field_retrospective_website_message_ids
+#: model:ir.model.fields,help:portal.field_rma_request_website_message_ids
 #: model:ir.model.fields,help:portal.field_sale_order_website_message_ids
 #: model:ir.model.fields,help:portal.field_slide_channel_website_message_ids
 #: model:ir.model.fields,help:portal.field_slide_slide_website_message_ids
@@ -513,7 +552,10 @@ msgstr ""
 #: model:ir.model.fields,help:portal.field_stock_picking_batch_website_message_ids
 #: model:ir.model.fields,help:portal.field_stock_picking_website_message_ids
 #: model:ir.model.fields,help:portal.field_stock_production_lot_website_message_ids
+#: model:ir.model.fields,help:portal.field_story_priority_website_message_ids
+#: model:ir.model.fields,help:portal.field_story_type_website_message_ids
 #: model:ir.model.fields,help:portal.field_survey_survey_website_message_ids
+#: model:ir.model.fields,help:portal.field_test_performance_mail_website_message_ids
 msgid "Website communication history"
 msgstr ""
 
@@ -523,14 +565,14 @@ msgid "Wizard"
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_chatter.xml:32
 #, python-format
 msgid "Write a message..."
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_chatter.xml:21
 #, python-format
 msgid "You must be"
@@ -559,16 +601,16 @@ msgid "Your Documents"
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#: model:mail.template,subject:portal.mail_template_data_portal_welcome
+msgid "Your Flectra account at ${user.company_id.name}"
+msgstr ""
+
+#. module: portal
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_signature.xml:6
 #: model:ir.ui.view,arch_db:portal.portal_my_details
 #, python-format
 msgid "Your Name"
-msgstr ""
-
-#. module: portal
-#: model:mail.template,subject:portal.mail_template_data_portal_welcome
-msgid "Your Odoo account at ${user.company_id.name}"
 msgstr ""
 
 #. module: portal
@@ -577,28 +619,28 @@ msgid "Zip / Postal Code"
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_chatter.xml:56
 #, python-format
 msgid "avatar"
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_chatter.xml:8
 #, python-format
 msgid "comment"
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_chatter.xml:9
 #, python-format
 msgid "comments"
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_chatter.xml:21
 #, python-format
 msgid "logged in"
@@ -615,7 +657,7 @@ msgid "select..."
 msgstr ""
 
 #. module: portal
-#. openerp-web
+#. flectra-web
 #: code:addons/portal/static/src/xml/portal_chatter.xml:21
 #, python-format
 msgid "to post a comment."

@@ -71,7 +71,10 @@ def _initialize_db(id, db_name, demo, lang, user_password, login='admin', countr
             if country_code:
                 countries = env['res.country'].search([('code', 'ilike', country_code)])
                 if countries:
-                    env['res.company'].browse(1).country_id = countries[0]
+                    comp_local = {'country_id': countries[0].id}
+                    if countries[0].currency_id:
+                        comp_local['currency_id'] = countries[0].currency_id.id
+                    env['res.company'].browse(1).write(comp_local)
 
             # update admin's password and lang and login
             values = {'password': user_password, 'lang': lang}
@@ -202,6 +205,7 @@ def dump_db(db_name, stream, backup_format='zip'):
 
     cmd = ['pg_dump', '--no-owner']
     cmd.append(db_name)
+
     if backup_format == 'zip':
         with flectra.tools.osutil.tempdir() as dump_dir:
             filestore = flectra.tools.config.filestore(db_name)
@@ -270,11 +274,12 @@ def restore_db(db, dump_file, copy=False, flag=False):
         else:
             # <= 7.0 format (raw pg_dump output)
             pg_cmd = 'pg_restore'
-            pg_args = ['--no-owner' , dump_file]
+            pg_args = ['--no-owner', dump_file]
 
         args = []
         args.append('--dbname=' + db)
         pg_args = args + pg_args
+
         if flectra.tools.exec_pg_command(pg_cmd, *pg_args):
             raise Exception("Couldn't restore database")
 

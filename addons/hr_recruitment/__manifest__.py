@@ -16,7 +16,6 @@
         'fetchmail',
         'utm',
         'document',
-        'web_tour',
         'digest',
     ],
     'data': [

@@ -18,7 +18,6 @@
         'resource',
         'web',
         'web_planner',
-        'web_tour',
         'digest',
         'base_branch_company'
     ],

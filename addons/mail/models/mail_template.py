@@ -63,7 +63,7 @@ def format_amount(env, amount, currency):
     lang = env['res.lang']._lang_get(env.context.get('lang') or 'en_US')
 
     formatted_amount = lang.format(fmt, currency.round(amount), grouping=True, monetary=True)\
-        .replace(r' ', u'\N{NO-BREAK SPACE}').replace(r'-', u'\u2011')
+        .replace(r' ', u'\N{NO-BREAK SPACE}').replace(r'-', u'-\N{ZERO WIDTH NO-BREAK SPACE}')
 
     pre = post = u''
     if currency.position == 'before':
@@ -315,7 +315,7 @@ class MailTemplate(models.Model):
 
         def _process_link(url):
             new_url = urls.url_parse(url)
-            if new_url.scheme and (new_url.netloc or new_url.scheme == 'mailto'):
+            if new_url.scheme and (new_url.netloc or new_url.scheme in ['mailto', 'tel']):
                 return url
             return new_url.replace(scheme=base.scheme, netloc=base.netloc).to_url()
 

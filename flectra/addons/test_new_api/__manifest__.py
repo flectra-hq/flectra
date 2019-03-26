@@ -5,7 +5,7 @@
     'version': '1.0',
     'category': 'Tests',
     'description': """A module to test the API.""",
-    'depends': ['base', 'web', 'web_tour'],
+    'depends': ['base', 'web'],
     'installable': True,
     'auto_install': False,
     'data': [

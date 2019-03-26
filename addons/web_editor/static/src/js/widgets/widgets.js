@@ -286,7 +286,7 @@ var ImageDialog = Widget.extend({
             $form.find('.well > span').remove();
             $form.find('.well > div').show();
             _.each(attachments, function (record) {
-                record.src = record.url || '/web/image/' + record.id;
+                record.src = record.url || _.str.sprintf('/web/image/%s/%s', record.id, encodeURI(record.name)); // Name is added for SEO purposes
                 record.is_document = !(/gif|jpe|jpg|png/.test(record.mimetype));
             });
             if (error || !attachments.length) {
@@ -820,6 +820,9 @@ var VideoDialog = Widget.extend({
             return {errorCode: 1};
         }
 
+        if (ytMatch) {
+            $video.attr('src', $video.attr('src') + '&rel=0');
+        }
         if (options.loop && (ytMatch || vimMatch)) {
             $video.attr('src', $video.attr('src') + '&loop=1');
         }
@@ -983,10 +986,14 @@ var MediaDialog = Dialog.extend({
 
         this.$modal.addClass('note-image-dialog');
         this.$modal.find('.modal-dialog').addClass('o_select_media_dialog');
-
+        // DO NOT FORWARD PORT
+        this.mailCompose = this.options.res_model === "mail.compose.message";
         this.only_images = this.options.only_images || this.options.select_images || (this.media && ($(this.media).parent().data("oe-field") === "image" || $(this.media).parent().data("oe-type") === "image"));
+        if (this.only_images || this.mailCompose) {
+            this.$('[href="#editor-media-video"]').addClass('hidden');
+        }
         if (this.only_images) {
-            this.$('[href="#editor-media-document"], [href="#editor-media-video"], [href="#editor-media-icon"]').addClass('hidden');
+            this.$('[href="#editor-media-document"], [href="#editor-media-icon"]').addClass('hidden');
         }
 
         this.opened((function () {
@@ -1013,8 +1020,10 @@ var MediaDialog = Dialog.extend({
         if (!this.only_images) {
             this.iconDialog = new fontIconsDialog(this, this.media, this.options);
             this.iconDialog.appendTo(this.$("#editor-media-icon"));
-            this.videoDialog = new VideoDialog(this, this.media, this.options);
-            this.videoDialog.appendTo(this.$("#editor-media-video"));
+            if (!this.mailCompose) {
+                this.videoDialog = new VideoDialog(this, this.media, this.options);
+                this.videoDialog.appendTo(this.$("#editor-media-video"));
+            }
         }
 
         this.active = this.imageDialog;

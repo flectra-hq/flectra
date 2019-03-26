@@ -1,13 +1,13 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 #	* mrp
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Flectra Server 1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-16 08:08+0000\n"
-"PO-Revision-Date: 2017-11-16 08:08+0000\n"
+"POT-Creation-Date: 2019-03-26 12:03+0000\n"
+"PO-Revision-Date: 2019-03-26 12:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -73,13 +73,18 @@ msgid "19v,5.5 x 2.5 mm Pin Type Adapter (Power Cord Included)"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_bom.py:293
+#: code:addons/mrp/models/mrp_bom.py:300
 #, python-format
 msgid "<p class=\"oe_view_nocontent_create\">\n"
 "                        Click to upload files to your product.\n"
 "                    </p><p>\n"
 "                        Use this feature to store any files, like drawings or specifications.\n"
 "                    </p>"
+msgstr ""
+
+#. module: mrp
+#: model:ir.ui.view,arch_db:mrp.res_config_settings_view_form
+msgid "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" groups=\"base.group_multi_company\"/>"
 msgstr ""
 
 #. module: mrp
@@ -240,7 +245,7 @@ msgid "<strong>WorkCenter</strong>"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_workorder.py:472
+#: code:addons/mrp/models/mrp_workorder.py:511
 #, python-format
 msgid "A Manufacturing Order is already done or cancelled!"
 msgstr ""
@@ -338,7 +343,7 @@ msgid "Attachment URL"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_bom.py:285
+#: code:addons/mrp/models/mrp_bom.py:292
 #, python-format
 msgid "Attachments"
 msgstr ""
@@ -552,7 +557,7 @@ msgid "Cancelled"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_production.py:316
+#: code:addons/mrp/models/mrp_production.py:341
 #, python-format
 msgid "Cannot delete a manufacturing order not in cancel state"
 msgstr ""
@@ -594,7 +599,7 @@ msgid "Checksum/SHA1"
 msgstr ""
 
 #. module: mrp
-#. openerp-web
+#. flectra-web
 #: code:addons/mrp/static/src/xml/mrp.xml:9
 #, python-format
 msgid "Clear"
@@ -648,6 +653,7 @@ msgstr ""
 
 #. module: mrp
 #: model:ir.actions.act_window,help:mrp.action_mrp_workorder_production
+#: model:ir.actions.act_window,help:mrp.mrp_workorder_todo
 msgid "Click to start a new work order."
 msgstr ""
 
@@ -1058,6 +1064,12 @@ msgid "Finished Products Location"
 msgstr ""
 
 #. module: mrp
+#: model:ir.actions.act_window,help:mrp.mrp_bom_form_action
+msgid "Flectra uses these BoMs to automatically propose manufacturing\n"
+"                orders according to procurement needs."
+msgstr ""
+
+#. module: mrp
 #: model:ir.ui.view,arch_db:mrp.oee_search_view
 msgid "Fully Productive"
 msgstr ""
@@ -1196,11 +1208,6 @@ msgid "If the active field is set to False, it will allow you to hide the routin
 msgstr ""
 
 #. module: mrp
-#: model:ir.ui.view,arch_db:mrp.mrp_production_form_view
-msgid "If the manufacturing order is unlocked you can add to the initial demand."
-msgstr ""
-
-#. module: mrp
 #: model:ir.ui.view,arch_db:mrp.mrp_bom_form_view
 msgid "If the product is a finished product: When processing a sales\n"
 "                                    order for this product, the delivery order will contain the raw\n"
@@ -1238,7 +1245,7 @@ msgid "Informative, not used in matching"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_unbuild.py:187
+#: code:addons/mrp/models/mrp_unbuild.py:220
 #, python-format
 msgid "Insufficient Quantity"
 msgstr ""
@@ -1401,7 +1408,7 @@ msgid "Late Activities"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_production.py:432
+#: code:addons/mrp/models/mrp_production.py:461
 #, python-format
 msgid "Lines need to be deleted, but can not as you still have some quantities to consume in them. "
 msgstr ""
@@ -1427,7 +1434,7 @@ msgid "Lock"
 msgstr ""
 
 #. module: mrp
-#: model:ir.model.fields,field_description:mrp.field_mrp_workcenter_productivity_loss_id_8239
+#: model:ir.model.fields,field_description:mrp.field_mrp_workcenter_productivity_loss_id_8693
 #: model:ir.ui.view,arch_db:mrp.oee_search_view
 msgid "Loss Reason"
 msgstr ""
@@ -1463,11 +1470,6 @@ msgstr ""
 #. module: mrp
 #: selection:mrp.document,priority:0
 msgid "Low"
-msgstr ""
-
-#. module: mrp
-#: model:ir.model.fields,field_description:mrp.field_res_config_settings_module_mrp_maintenance
-msgid "Maintenance"
 msgstr ""
 
 #. module: mrp
@@ -1532,7 +1534,6 @@ msgid "Manufacturing Operation Type"
 msgstr ""
 
 #. module: mrp
-#: model:ir.model,name:mrp.model_mrp_production
 #: model:ir.model.fields,field_description:mrp.field_change_production_qty_mo_id
 #: model:ir.model.fields,field_description:mrp.field_mrp_unbuild_mo_id
 #: model:ir.model.fields,field_description:mrp.field_mrp_workorder_production_id
@@ -1619,11 +1620,6 @@ msgid "Master Data"
 msgstr ""
 
 #. module: mrp
-#: model:ir.model.fields,field_description:mrp.field_res_config_settings_module_mrp_mps
-msgid "Master Production Schedule"
-msgstr ""
-
-#. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_production_availability
 #: model:ir.model.fields,field_description:mrp.field_mrp_workorder_production_availability
 msgid "Materials Availability"
@@ -1700,15 +1696,15 @@ msgid "Name"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_production.py:46
-#: code:addons/mrp/models/mrp_production.py:302
-#: code:addons/mrp/models/mrp_production.py:306
+#: code:addons/mrp/models/mrp_production.py:54
+#: code:addons/mrp/models/mrp_production.py:327
+#: code:addons/mrp/models/mrp_production.py:331
 #: code:addons/mrp/models/mrp_routing.py:18
 #: code:addons/mrp/models/mrp_routing.py:34
 #: code:addons/mrp/models/mrp_routing.py:35
-#: code:addons/mrp/models/mrp_unbuild.py:21
-#: code:addons/mrp/models/mrp_unbuild.py:81
-#: code:addons/mrp/models/mrp_unbuild.py:82
+#: code:addons/mrp/models/mrp_unbuild.py:31
+#: code:addons/mrp/models/mrp_unbuild.py:91
+#: code:addons/mrp/models/mrp_unbuild.py:92
 #, python-format
 msgid "New"
 msgstr ""
@@ -1818,12 +1814,6 @@ msgstr ""
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_workcenter_oee_target
 msgid "OEE Target in percentage"
-msgstr ""
-
-#. module: mrp
-#: model:ir.actions.act_window,help:mrp.mrp_bom_form_action
-msgid "Odoo uses these BoMs to automatically propose manufacturing\n"
-"                orders according to procurement needs."
 msgstr ""
 
 #. module: mrp
@@ -1967,11 +1957,6 @@ msgid "Plan Orders"
 msgstr ""
 
 #. module: mrp
-#: model:ir.ui.view,arch_db:mrp.res_config_settings_view_form
-msgid "Plan manufacturing or purchase orders based on forecasts"
-msgstr ""
-
-#. module: mrp
 #: model:ir.ui.view,arch_db:mrp.stock_production_type_kanban
 #: model:ir.ui.view,arch_db:mrp.view_mrp_production_filter
 #: selection:mrp.production,state:0
@@ -1990,13 +1975,13 @@ msgid "Planning"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/wizard/mrp_product_produce.py:147
+#: code:addons/mrp/wizard/mrp_product_produce.py:152
 #, python-format
 msgid "Please enter a lot or serial number for %s !"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_workorder.py:288
+#: code:addons/mrp/models/mrp_workorder.py:304
 #, python-format
 msgid "Please set the quantity you are currently producing. It should be different from zero."
 msgstr ""
@@ -2010,12 +1995,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mrp.field_mrp_document_priority
 #: model:ir.model.fields,field_description:mrp.field_mrp_production_priority
 msgid "Priority"
-msgstr ""
-
-#. module: mrp
-#: model:ir.ui.view,arch_db:mrp.res_config_settings_view_form
-msgid "Process operations at specific work centers based on the routing\n"
-"                                        and carry out quality checks."
 msgstr ""
 
 #. module: mrp
@@ -2119,6 +2098,7 @@ msgid "Product:"
 msgstr ""
 
 #. module: mrp
+#: model:ir.model,name:mrp.model_mrp_production
 #: model:ir.model.fields,field_description:mrp.field_mrp_product_produce_production_id
 #: model:ir.ui.view,arch_db:mrp.view_mrp_production_filter
 #: model:ir.ui.view,arch_db:mrp.view_mrp_production_workcenter_form_view_filter
@@ -2300,8 +2280,8 @@ msgid "Ready"
 msgstr ""
 
 #. module: mrp
-#. openerp-web
-#: code:addons/mrp/static/src/js/mrp.js:147
+#. flectra-web
+#: code:addons/mrp/static/src/js/mrp.js:153
 #, python-format
 msgid "Ready to produce"
 msgstr ""
@@ -2328,7 +2308,7 @@ msgid "Record Production Line"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_bom.py:159
+#: code:addons/mrp/models/mrp_bom.py:166
 #, python-format
 msgid "Recursion error!  A product with a Bill of Material should not have itself in its BoM or child BoMs!"
 msgstr ""
@@ -2450,7 +2430,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:mrp.mrp_routing_action
 #: model:ir.model,name:mrp.model_mrp_routing
 #: model:ir.ui.menu,name:mrp.menu_mrp_routing_action
-#: model:ir.ui.view,arch_db:mrp.res_config_settings_view_form
 #: model:ir.ui.view,arch_db:mrp.view_mrp_bom_filter
 #: model:ir.ui.view,arch_db:mrp.view_mrp_bom_line_filter
 msgid "Routings"
@@ -2472,11 +2451,6 @@ msgstr ""
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.res_config_settings_view_form
 msgid "Schedule manufacturing orders earlier to avoid delays"
-msgstr ""
-
-#. module: mrp
-#: model:ir.ui.view,arch_db:mrp.res_config_settings_view_form
-msgid "Schedule the maintenance of your equipment"
 msgstr ""
 
 #. module: mrp
@@ -2502,8 +2476,8 @@ msgid "Scheduled Month"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_production.py:590
-#: code:addons/mrp/models/mrp_workorder.py:481
+#: code:addons/mrp/models/mrp_production.py:625
+#: code:addons/mrp/models/mrp_workorder.py:520
 #: model:ir.model.fields,field_description:mrp.field_mrp_workorder_scrap_ids
 #: model:ir.ui.view,arch_db:mrp.mrp_production_form_view
 #: model:ir.ui.view,arch_db:mrp.mrp_production_workcenter_form_view_inherit
@@ -2576,7 +2550,7 @@ msgid "Security days for each manufacturing operation."
 msgstr ""
 
 #. module: mrp
-#. openerp-web
+#. flectra-web
 #: code:addons/mrp/static/src/xml/mrp.xml:7
 #: code:addons/mrp/static/src/xml/mrp.xml:8
 #, python-format
@@ -2623,7 +2597,7 @@ msgid "Settings"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_unbuild.py:89
+#: code:addons/mrp/models/mrp_unbuild.py:99
 #, python-format
 msgid "Should have a lot for the finished product"
 msgstr ""
@@ -2804,7 +2778,7 @@ msgstr ""
 
 #. module: mrp
 #: code:addons/mrp/models/mrp_bom.py:76
-#: code:addons/mrp/models/mrp_bom.py:254
+#: code:addons/mrp/models/mrp_bom.py:261
 #, python-format
 msgid "The Product Unit of Measure you chose has a different category than in the product form."
 msgstr ""
@@ -2856,7 +2830,7 @@ msgid "The operations for producing this BoM.  When a routing is specified, the 
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/wizard/mrp_product_produce.py:94
+#: code:addons/mrp/wizard/mrp_product_produce.py:95
 #, python-format
 msgid "The production order for '%s' has no quantity specified"
 msgstr ""
@@ -2925,7 +2899,7 @@ msgid "Time Tracking"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_workorder.py:402
+#: code:addons/mrp/models/mrp_workorder.py:441
 #, python-format
 msgid "Time Tracking: "
 msgstr ""
@@ -2953,6 +2927,11 @@ msgstr ""
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_routing_workcenter_time_cycle_manual
 msgid "Time in minutes. Is the time used in manual mode, or the first time supposed in real time when there are not any work orders yet."
+msgstr ""
+
+#. module: mrp
+#: model:ir.ui.view,arch_db:mrp.mrp_production_workcenter_form_view_inherit
+msgid "Time the currently logged user spent on this workorder."
 msgstr ""
 
 #. module: mrp
@@ -3026,6 +3005,11 @@ msgid "Total Running Orders"
 msgstr ""
 
 #. module: mrp
+#: model:ir.ui.view,arch_db:mrp.mrp_production_workcenter_form_view_inherit
+msgid "Total duration"
+msgstr ""
+
+#. module: mrp
 #: model:ir.ui.menu,name:mrp.menu_mrp_traceability
 msgid "Traceability: Lots"
 msgstr ""
@@ -3062,7 +3046,7 @@ msgid "Unbuild Order"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_unbuild.py:77
+#: code:addons/mrp/models/mrp_unbuild.py:87
 #, python-format
 msgid "Unbuild Order product quantity has to be strictly positive."
 msgstr ""
@@ -3111,6 +3095,11 @@ msgstr ""
 
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.mrp_production_form_view
+msgid "Unlock the manufacturing order to correct what has been consumed or produced."
+msgstr ""
+
+#. module: mrp
+#: model:ir.ui.view,arch_db:mrp.mrp_production_form_view
 msgid "Unreserve"
 msgstr ""
 
@@ -3120,14 +3109,14 @@ msgid "Update"
 msgstr ""
 
 #. module: mrp
-#. openerp-web
+#. flectra-web
 #: code:addons/mrp/static/src/xml/mrp.xml:7
 #, python-format
 msgid "Upload your file"
 msgstr ""
 
 #. module: mrp
-#. openerp-web
+#. flectra-web
 #: code:addons/mrp/static/src/xml/mrp.xml:6
 #, python-format
 msgid "Uploading..."
@@ -3164,11 +3153,6 @@ msgstr ""
 #: model:ir.ui.view,arch_db:mrp.oee_search_view
 #: model:res.groups,name:mrp.group_mrp_user
 msgid "User"
-msgstr ""
-
-#. module: mrp
-#: model:ir.ui.view,arch_db:mrp.res_config_settings_view_form
-msgid "Using a MPS report to schedule your reordering and manufacturing operations is useful if you have long lead time and if you produce based on sales forecasts."
 msgstr ""
 
 #. module: mrp
@@ -3215,8 +3199,8 @@ msgid "Waiting Availability MO"
 msgstr ""
 
 #. module: mrp
-#. openerp-web
-#: code:addons/mrp/static/src/js/mrp.js:147
+#. flectra-web
+#: code:addons/mrp/static/src/js/mrp.js:153
 #, python-format
 msgid "Waiting Materials"
 msgstr ""
@@ -3228,7 +3212,8 @@ msgstr ""
 
 #. module: mrp
 #: code:addons/mrp/models/mrp_bom.py:76
-#: code:addons/mrp/models/mrp_bom.py:254
+#: code:addons/mrp/models/mrp_bom.py:261
+#: code:addons/mrp/wizard/mrp_product_produce.py:206
 #, python-format
 msgid "Warning"
 msgstr ""
@@ -3290,7 +3275,6 @@ msgstr ""
 #. module: mrp
 #: model:ir.actions.act_window,name:mrp.mrp_workcenter_action
 #: model:ir.ui.menu,name:mrp.menu_view_resource_search_mrp
-#: model:ir.ui.view,arch_db:mrp.res_config_settings_view_form
 msgid "Work Centers"
 msgstr ""
 
@@ -3334,11 +3318,6 @@ msgid "Work Order Messages are used to warn users about any change in the produc
 msgstr ""
 
 #. module: mrp
-#: model:ir.ui.view,arch_db:mrp.res_config_settings_view_form
-msgid "Work Order Operations allow you to create and manage the manufacturing operations that should be followed within your work centers in order to produce a product. They are attached to bills of materials that will define the required raw materials."
-msgstr ""
-
-#. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_stock_move_workorder_id
 msgid "Work Order To Consume"
 msgstr ""
@@ -3356,11 +3335,6 @@ msgstr ""
 #: model:ir.ui.view,arch_db:mrp.mrp_production_workcenter_tree_view_inherit
 #: model:ir.ui.view,arch_db:mrp.view_mrp_production_workcenter_form_view_filter
 msgid "Work Orders"
-msgstr ""
-
-#. module: mrp
-#: model:ir.model.fields,field_description:mrp.field_res_config_settings_group_mrp_routings
-msgid "Work Orders & Quality"
 msgstr ""
 
 #. module: mrp
@@ -3406,7 +3380,7 @@ msgid "Work Sheet"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_production.py:567
+#: code:addons/mrp/models/mrp_production.py:602
 #, python-format
 msgid "Work order %s is still running"
 msgstr ""
@@ -3467,46 +3441,64 @@ msgid "You can either upload a file from your computer or copy/paste an internet
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_production.py:521
+#: code:addons/mrp/models/mrp_production.py:556
 #, python-format
 msgid "You can not cancel production order, a work order is still in progress."
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_workorder.py:240
+#: code:addons/mrp/models/mrp_workorder.py:244
 #, python-format
 msgid "You can not change the finished work order."
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_production.py:553
+#: code:addons/mrp/models/mrp_production.py:588
 #, python-format
 msgid "You can not consume without telling for which lot you consumed it"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_bom.py:91
+#: code:addons/mrp/models/mrp_bom.py:98
 #, python-format
 msgid "You can not delete a Bill of Material with running manufacturing orders.\n"
 "Please close or cancel it first."
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/stock_move.py:134
+#: code:addons/mrp/wizard/mrp_product_produce.py:205
+#, python-format
+msgid "You can only process 1.0 %s for products with unique serial number."
+msgstr ""
+
+#. module: mrp
+#: code:addons/mrp/models/stock_move.py:143
 #, python-format
 msgid "You cannot cancel a manufacturing order if you have already consumed material.             If you want to cancel this MO, please change the consumed quantities to 0."
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/wizard/mrp_product_produce.py:204
+#: code:addons/mrp/models/stock_move.py:227
 #, python-format
 msgid "You cannot consume the same serial number twice. Please correct the serial numbers encoded."
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/wizard/change_production_qty.py:44
+#: code:addons/mrp/wizard/mrp_product_produce.py:132
 #, python-format
-msgid "You have already processed %d. Please input a quantity higher than %d "
+msgid "You cannot produce the same serial number twice."
+msgstr ""
+
+#. module: mrp
+#: code:addons/mrp/models/mrp_unbuild.py:103
+#, python-format
+msgid "You cannot unbuild a undone manufacturing order."
+msgstr ""
+
+#. module: mrp
+#: code:addons/mrp/wizard/change_production_qty.py:47
+#, python-format
+msgid "You have already processed %s. Please input a quantity higher than %s "
 msgstr ""
 
 #. module: mrp
@@ -3515,43 +3507,43 @@ msgid "You have consumed less material than what was planned. Are you sure you w
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_workorder.py:392
+#: code:addons/mrp/models/mrp_workorder.py:431
 #, python-format
 msgid "You need to define at least one productivity loss in the category 'Performance'. Create one from the Manufacturing app, menu: Configuration / Productivity Losses."
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_workorder.py:388
+#: code:addons/mrp/models/mrp_workorder.py:427
 #, python-format
 msgid "You need to define at least one productivity loss in the category 'Productivity'. Create one from the Manufacturing app, menu: Configuration / Productivity Losses."
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_workorder.py:446
+#: code:addons/mrp/models/mrp_workorder.py:485
 #, python-format
 msgid "You need to define at least one unactive productivity loss in the category 'Performance'. Create one from the Manufacturing app, menu: Configuration / Productivity Losses."
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/wizard/mrp_product_produce.py:125
+#: code:addons/mrp/wizard/mrp_product_produce.py:128
 #, python-format
 msgid "You need to provide a lot for the finished product"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_workorder.py:314
+#: code:addons/mrp/models/mrp_workorder.py:332
 #, python-format
 msgid "You should provide a lot/serial number for a component"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_workorder.py:291
+#: code:addons/mrp/models/mrp_workorder.py:307
 #, python-format
 msgid "You should provide a lot/serial number for the final product"
 msgstr ""
 
 #. module: mrp
-#: code:addons/mrp/models/mrp_unbuild.py:95
+#: code:addons/mrp/models/mrp_unbuild.py:109
 #, python-format
 msgid "You should specify a manufacturing order in order to find the correct tracked products."
 msgstr ""

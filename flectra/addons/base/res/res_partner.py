@@ -137,6 +137,9 @@ class Partner(models.Model):
     def _default_company(self):
         return self.env['res.company']._company_default_get('res.partner')
 
+    def _split_street_with_params(self, street_raw, street_format):
+        return {'street': street_raw}
+
     name = fields.Char(index=True)
     display_name = fields.Char(compute='_compute_display_name', store=True, index=True)
     date = fields.Date(index=True)
@@ -215,7 +218,8 @@ class Partner(models.Model):
     # technical field used for managing commercial fields
     commercial_partner_id = fields.Many2one('res.partner', compute='_compute_commercial_partner',
                                              string='Commercial Entity', store=True, index=True)
-    commercial_partner_country_id = fields.Many2one('res.country', related='commercial_partner_id.country_id', store=True)
+    commercial_partner_country_id = fields.Many2one('res.country', related='commercial_partner_id.country_id', store=True,
+        string="Commercial Entity's Country")
     commercial_company_name = fields.Char('Company Name Entity', compute='_compute_commercial_company_name',
                                           store=True)
     company_name = fields.Char('Company Name')
@@ -445,7 +449,7 @@ class Partner(models.Model):
         """ Sync commercial fields and address fields from company and to children after create/update,
         just as if those were all modeled as fields.related to the parent """
         # 1. From UPSTREAM: sync from parent
-        if values.get('parent_id') or values.get('type', 'contact'):
+        if values.get('parent_id') or values.get('type') == 'contact':
             # 1a. Commercial fields: sync if parent changed
             if values.get('parent_id'):
                 self._commercial_sync_from_company()
@@ -649,6 +653,7 @@ class Partner(models.Model):
             where_query = self._where_calc(args)
             self._apply_ir_rules(where_query, 'read')
             from_clause, where_clause, where_clause_params = where_query.get_sql()
+            from_str = from_clause if from_clause else 'res_partner'
             where_str = where_clause and (" WHERE %s AND " % where_clause) or ' WHERE '
 
             # search on the name of the contacts and of its company
@@ -660,8 +665,8 @@ class Partner(models.Model):
 
             unaccent = get_unaccent_wrapper(self.env.cr)
 
-            query = """SELECT id
-                         FROM res_partner
+            query = """SELECT res_partner.id
+                         FROM {from_str}
                       {where} ({email} {operator} {percent}
                            OR {display_name} {operator} {percent}
                            OR {reference} {operator} {percent}
@@ -669,13 +674,14 @@ class Partner(models.Model):
                            -- don't panic, trust postgres bitmap
                      ORDER BY {display_name} {operator} {percent} desc,
                               {display_name}
-                    """.format(where=where_str,
+                    """.format(from_str=from_str,
+                               where=where_str,
                                operator=operator,
-                               email=unaccent('email'),
-                               display_name=unaccent('display_name'),
-                               reference=unaccent('ref'),
+                               email=unaccent('res_partner.email'),
+                               display_name=unaccent('res_partner.display_name'),
+                               reference=unaccent('res_partner.ref'),
                                percent=unaccent('%s'),
-                               vat=unaccent('vat'),)
+                               vat=unaccent('res_partner.vat'),)
 
             where_clause_params += [search_name]*5
             if limit:

@@ -180,6 +180,9 @@ class IrModel(models.Model):
                 # prevent screwing up fields that depend on these models' fields
                 model.field_id._prepare_update()
 
+        # delete fields whose comodel is being removed
+        self.env['ir.model.fields'].search([('relation', 'in', self.mapped('model'))]).unlink()
+
         self._drop_table()
         res = super(IrModel, self).unlink()
 
@@ -366,6 +369,11 @@ class IrModelFields(models.Model):
             raise UserError(_("The Selection Options expression is not a valid Pythonic expression. "
                               "Please provide an expression in the [('key','Label'), ...] format."))
 
+    @api.constrains('domain')
+    def _check_domain(self):
+        for field in self:
+            safe_eval(field.domain or '[]')
+
     @api.constrains('name', 'state')
     def _check_name(self):
         for field in self:
@@ -549,7 +557,11 @@ class IrModelFields(models.Model):
         failed_dependencies = []
         for rec in self:
             model = self.env[rec.model]
-            field = model._fields[rec.name]
+            if rec.name in model._fields:
+                field = model._fields[rec.name]
+            else:
+                # field hasn't been loaded (yet?)
+                continue
             for dependant, path in model._field_triggers.get(field, ()):
                 if dependant.manual:
                     failed_dependencies.append((field, dependant))
@@ -730,6 +742,10 @@ class IrModelFields(models.Model):
     def _reflect_field_params(self, field):
         """ Return the values to write to the database for the given field. """
         model = self.env['ir.model']._get(field.model_name)
+        selection = getattr(field, 'selection', None)
+        if not isinstance(selection, list):
+            # only reflect the selection of a selection field if it's a list
+            selection = None
         return {
             'model_id': model.id,
             'model': field.model_name,
@@ -742,10 +758,13 @@ class IrModelFields(models.Model):
             'index': bool(field.index),
             'store': bool(field.store),
             'copy': bool(field.copy),
+            'on_delete': getattr(field, 'ondelete', None),
             'related': ".".join(field.related) if field.related else None,
             'readonly': bool(field.readonly),
             'required': bool(field.required),
             'selectable': bool(field.search or field.store),
+            'selection': selection,
+            'size': getattr(field, 'size', None),
             'translate': bool(field.translate),
             'relation_field': field.inverse_name if field.type == 'one2many' else None,
             'relation_table': field.relation if field.type == 'many2many' else None,

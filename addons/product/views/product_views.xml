@@ -51,13 +51,14 @@
                                     <field name="list_price" widget='monetary' options="{'currency_field': 'currency_id', 'field_digits': True}"/>
                                     <label for="standard_price" groups="base.group_user" attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"/>
                                     <div name="standard_price_uom" groups="base.group_user" attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}">
-                                        <field name="standard_price" widget='monetary' options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                                        <field name="standard_price" widget='monetary' options="{'currency_field': 'cost_currency_id', 'field_digits': True}"/>
                                     </div>
                                     <field name="company_id" groups="base.group_multi_company"
                                         options="{'no_create': True}"/>
                                     <field name="uom_id" groups="product.group_uom" options="{'no_create': True}"/>
                                     <field name="uom_po_id" groups="product.group_uom" options="{'no_create': True}"/>
                                     <field name="currency_id" invisible="1"/>
+                                    <field name="cost_currency_id" invisible="1"/>
                                     <field name="product_variant_id" invisible="1"/>
                                 </group>
                             </group>
@@ -520,7 +521,7 @@
                     <group>
                         <group string="Vendor">
                             <field name="product_variant_count" invisible="1"/>
-                            <field name="product_id" groups="product.group_product_variant" domain="[('product_tmpl_id', '=', product_tmpl_id)]"/>
+                            <field name="product_id" groups="product.group_product_variant" domain="[('product_tmpl_id', '=', product_tmpl_id)]" options="{'no_create_edit': True}"/>
                             <field name="name" context="{'default_customer': 0, 'search_default_supplier': 1, 'default_supplier': 1}"/>
                             <field name="product_name"/>
                             <field name="product_code"/>

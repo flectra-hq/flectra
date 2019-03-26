@@ -57,7 +57,7 @@ class AccountPayment(models.Model):
     @api.onchange('amount','currency_id')
     def _onchange_amount(self):
         res = super(AccountPayment, self)._onchange_amount()
-        self.check_amount_in_words = self.currency_id.amount_to_text(self.amount)
+        self.check_amount_in_words = self.currency_id.amount_to_text(self.amount) if self.currency_id else ''
         return res
 
     def _check_communication(self, payment_method_id, communication):
@@ -70,10 +70,10 @@ class AccountPayment(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals['payment_method_id'] == self.env.ref('account_check_printing.account_payment_method_check').id\
-                and vals.get('check_manual_sequencing'):
-            sequence = self.env['account.journal'].browse(vals['journal_id']).check_sequence_id
-            vals.update({'check_number': sequence.next_by_id()})
+        if vals['payment_method_id'] == self.env.ref('account_check_printing.account_payment_method_check').id:
+            journal = self.env['account.journal'].browse(vals['journal_id'])
+            if journal.check_manual_sequencing:
+                vals.update({'check_number': journal.check_sequence_id.next_by_id()})
         return super(AccountPayment, self).create(vals)
 
     @api.multi

@@ -43,6 +43,10 @@ var PlannerDialog = Dialog.extend({
             e.preventDefault();
             this._display_page($(e.currentTarget).attr("href").replace("#", ""));
         },
+        "click a[href^=\"#show_enterprise\"]": function (e) {
+            e.preventDefault();
+            this.show_enterprise();
+        },
     },
     init: function (parent, options, planner) {
         this._super.apply(this, arguments);

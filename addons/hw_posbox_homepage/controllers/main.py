@@ -163,7 +163,7 @@ class PosboxHomepage(flectra.addons.web.controllers.main.Home):
 """
         return wifi_template
 
-    @http.route('/wifi_connect', type='http', auth='none', cors='*')
+    @http.route('/wifi_connect', type='http', auth='none', cors='*', csrf=False)
     def connect_to_wifi(self, essid, password, persistent=False):
         if persistent:
                 persistent = "1"
@@ -173,7 +173,7 @@ class PosboxHomepage(flectra.addons.web.controllers.main.Home):
         subprocess.call(['/home/pi/flectra/addons/point_of_sale/tools/posbox/configuration/connect_to_wifi.sh', essid, password, persistent])
         return "connecting to " + essid
 
-    @http.route('/wifi_clear', type='http', auth='none', cors='*')
+    @http.route('/wifi_clear', type='http', auth='none', cors='*', csrf=False)
     def clear_wifi_configuration(self):
         os.system('/home/pi/flectra/addons/point_of_sale/tools/posbox/configuration/clear_wifi_configuration.sh')
         return "configuration cleared"
@@ -246,7 +246,7 @@ class PosboxHomepage(flectra.addons.web.controllers.main.Home):
 """
         return ngrok_template
 
-    @http.route('/enable_ngrok', type='http', auth='none', cors='*')
+    @http.route('/enable_ngrok', type='http', auth='none', cors='*', csrf=False)
     def enable_ngrok(self, auth_token):
         if subprocess.call(['pgrep', 'ngrok']) == 1:
             subprocess.Popen(['ngrok', 'tcp', '-authtoken', auth_token, '-log', '/tmp/ngrok.log', '22'])

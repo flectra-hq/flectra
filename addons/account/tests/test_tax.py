@@ -78,8 +78,8 @@ class TestTax(AccountTestUsers):
         # Base after the second group (220) is dropped.
         # Base of the group of groups is passed out,
         # so we obtain base as after first group
-        self.assertEquals(res['base'], 210.0)
-        self.assertEquals(res['total_included'], 263.0)
+        self.assertEquals(res['base'], 200.0)
+        self.assertEquals(res['total_included'], 262.0)
 
     def test_tax_group(self):
         res = self.group_tax.compute_all(200.0)
@@ -137,24 +137,28 @@ class TestTax(AccountTestUsers):
             'date': time.strftime('%Y-01-01'),
             'journal_id': self.bank_journal.id,
             'name': 'Test move',
-            'line_ids': [(0, 0, {
-                    'account_id': self.bank_account.id,
-                    'debit': 235,
-                    'credit': 0,
-                    'name': 'Bank Fees',
-                    'partner_id': False,
-                }), (0, 0, {
-                    'account_id': self.expense_account.id,
-                    'debit': 0,
-                    'credit': 200,
-                    'date': time.strftime('%Y-01-01'),
-                    'name': 'Bank Fees',
-                    'partner_id': False,
-                    'tax_ids': [(4, self.group_tax.id), (4, self.fixed_tax_bis.id)]
-                })],
             'company_id': company_id,
         }
         move = self.env['account.move'].with_context(apply_taxes=True).create(vals)
+
+        self.env['account.move.line'].create({
+            'move_id': move.id,
+            'account_id': self.bank_account.id,
+            'debit': 235,
+            'credit': 0,
+            'name': 'Bank Fees',
+            'partner_id': False,
+        })
+        self.env['account.move.line'].create({
+            'move_id': move.id,
+            'account_id': self.expense_account.id,
+            'debit': 0,
+            'credit': 200,
+            'date': time.strftime('%Y-01-01'),
+            'name': 'Bank Fees',
+            'partner_id': False,
+            'tax_ids': [(4, self.group_tax.id), (4, self.fixed_tax_bis.id)]
+        })
 
         aml_fixed_tax = move.line_ids.filtered(lambda l: l.tax_line_id.id == self.fixed_tax.id)
         aml_percent_tax = move.line_ids.filtered(lambda l: l.tax_line_id.id == self.percent_tax.id)

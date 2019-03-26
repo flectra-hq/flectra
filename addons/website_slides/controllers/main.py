@@ -57,10 +57,7 @@ class WebsiteSlides(http.Controller):
         """ Returns a list of available channels: if only one is available,
             redirects directly to its slides
         """
-        domain = []
-        if not request.env.user.has_group('website.group_website_designer'):
-            domain += [("website_ids", "in", request.website.id)]
-        channels = request.env['slide.channel'].search(domain, order='sequence, id')
+        channels = request.env['slide.channel'].search([], order='sequence, id')
         if not channels:
             return request.render("website_slides.channel_not_found")
         elif len(channels) == 1:
@@ -98,11 +95,7 @@ class WebsiteSlides(http.Controller):
     def channel(self, channel, category=None, tag=None, page=1, slide_type=None, sorting='creation', search=None, **kw):
         user = request.env.user
         Slide = request.env['slide.slide']
-        if not request.env.user.has_group('website.group_website_publisher') \
-                and request.website.id not in channel.website_ids.ids:
-            return request.render('website.404')
-        domain = [('channel_id', '=', channel.id),
-                  ('website_ids', 'in', request.website.id)]
+        domain = [('channel_id', '=', channel.id)]
         pager_url = "/slides/%s" % (channel.id)
         pager_args = {}
 
@@ -189,7 +182,7 @@ class WebsiteSlides(http.Controller):
     @http.route('''/slides/slide/<model("slide.slide"):slide>/download''', type='http', auth="public", website=True, sitemap=False)
     def slide_download(self, slide, **kw):
         slide = slide.sudo()
-        if slide.download_security == 'public' or (slide.download_security == 'user' and request.session.uid):
+        if slide.download_security == 'public' or (slide.download_security == 'user' and request.env.user and request.env.user != request.website.user_id):
             filecontent = base64.b64decode(slide.datas)
             disposition = 'attachment; filename=%s.pdf' % werkzeug.urls.url_quote(slide.name)
             return request.make_response(

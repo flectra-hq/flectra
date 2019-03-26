@@ -1,13 +1,13 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 #	* purchase
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Flectra Server 1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-16 08:08+0000\n"
-"PO-Revision-Date: 2017-11-16 08:08+0000\n"
+"POT-Creation-Date: 2019-03-26 12:03+0000\n"
+"PO-Revision-Date: 2019-03-26 12:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: model:mail.template,body_html:purchase.email_template_edi_purchase
 msgid "\n"
 "<p>Dear\n"
-"% if object.partner_id.is_company and object.child_ids:\n"
+"% if object.partner_id.is_company and object.partner_id.child_ids:\n"
 "    ${object.partner_id.child_ids[0].name}\n"
 "% else :\n"
 "    ${object.partner_id.name}\n"
@@ -32,15 +32,15 @@ msgid "\n"
 "% if object.origin:\n"
 "    (RFQ origin: ${object.origin})\n"
 "% endif\n"
-"amounting in <strong>${object.amount_total} ${object.currency_id.name}</strong>\n"
+"amounting in <strong>${format_amount(object.amount_total, object.currency_id)}</strong>\n"
 "from ${object.company_id.name}.\n"
 "</p>\n"
 "\n"
-"<p>Do not hesitate to contact us, further you have any question.</p>\n"
+"<p>Do not hesitate to contact us if you have any further question.</p>\n"
 "<p>Best regards,</p>\n"
 "<p style=\"color:#888888;\">\n"
-"% if object.user_id and object.user_id.signature:\n"
-"    ${object.user_id.signature | safe}\n"
+"% if object.sudo().create_uid and object.sudo().create_uid.signature:\n"
+"    ${object.sudo().create_uid.signature | safe}\n"
 "% endif\n"
 "</p>\n"
 ""
@@ -49,7 +49,7 @@ msgstr ""
 #. module: purchase
 #: model:mail.template,body_html:purchase.email_template_edi_purchase_done
 msgid "\n"
-"<p>Dear ${object.partner_id.name} \n"
+"<p>Dear ${object.partner_id.name}\n"
 "% if object.partner_id.parent_id:\n"
 "    (<i>${object.partner_id.parent_id.name}</i>)\n"
 "% endif\n"
@@ -62,17 +62,22 @@ msgid "\n"
 "% if object.origin:\n"
 "    (RFQ origin: ${object.origin})\n"
 "% endif\n"
-"amounting <strong>${object.amount_total} ${object.currency_id.name}</strong>\n"
+"amounting <strong>${format_amount(object.amount_total, object.currency_id)}</strong>\n"
 "from ${object.company_id.name}.\n"
 "</p>\n"
 "\n"
 "<p>You can reply to this email if you have any questions.</p>\n"
 "<p>Thank you,</p>\n"
+"<p style=\"color:#888888;\">\n"
+"% if object.sudo().create_uid and object.sudo().create_uid.signature:\n"
+"    ${object.sudo().create_uid.signature | safe}\n"
+"% endif\n"
+"</p>\n"
 ""
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/stock.py:79
+#: code:addons/purchase/models/stock.py:102
 #, python-format
 msgid " Buy"
 msgstr ""
@@ -117,19 +122,10 @@ msgid "${object.subject}"
 msgstr ""
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-msgid "3-way matching"
-msgstr ""
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_module_account_3way_match
-msgid "3-way matching: purchases, receptions and bills"
-msgstr ""
-
-#. module: purchase
 #: model:mail.template,body_html:purchase.mail_template_data_notification_email_purchase_order
 msgid "<html>\n"
 "                <head></head>\n"
+"                % set company = record and record.company_id or ctx.get('company')\n"
 "                <body style=\"margin: 0; padding: 0;\">\n"
 "                <table border=\"0\" width=\"100%\" cellpadding=\"0\" bgcolor=\"#ededed\" style=\"padding: 20px; background-color: #ededed\" summary=\"o_mail_notification\">\n"
 "                    <tbody>\n"
@@ -137,7 +133,7 @@ msgid "<html>\n"
 "                      <!-- HEADER -->\n"
 "                      <tr>\n"
 "                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                          <table width=\"590\" border=\"0\" cellpadding=\"0\" bgcolor=\"#875A7B\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
+"                          <table width=\"590\" border=\"0\" cellpadding=\"0\" bgcolor=\"#875A7B\" style=\"min-width: 590px; background-color: rgb(0,158,251); padding: 20px;\">\n"
 "                            <tr>\n"
 "                              <td valign=\"middle\">\n"
 "                                  <span style=\"font-size:20px; color:white; font-weight: bold;\">\n"
@@ -145,7 +141,7 @@ msgid "<html>\n"
 "                                  </span>\n"
 "                              </td>\n"
 "                              <td valign=\"middle\" align=\"right\">\n"
-"                                  <img src=\"/logo.png\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${user.company_id.name}\">\n"
+"                                  <img src=\"/logo.png?company=${company.id}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${company.name}\">\n"
 "                              </td>\n"
 "                            </tr>\n"
 "                          </table>\n"
@@ -168,19 +164,19 @@ msgid "<html>\n"
 "                      <!-- FOOTER -->\n"
 "                      <tr>\n"
 "                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                          <table width=\"590\" border=\"0\" cellpadding=\"0\" bgcolor=\"#875A7B\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
+"                          <table width=\"590\" border=\"0\" cellpadding=\"0\" bgcolor=\"#875A7B\" style=\"min-width: 590px; background-color: rgb(0,158,251); padding: 20px;\">\n"
 "                            <tr>\n"
 "                              <td valign=\"middle\" align=\"left\" style=\"color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;\">\n"
-"                                ${user.company_id.name}<br/>\n"
-"                                ${user.company_id.phone or ''}\n"
+"                                ${company.name}<br/>\n"
+"                                ${company.phone or ''}\n"
 "                              </td>\n"
 "                              <td valign=\"middle\" align=\"right\" style=\"color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;\">\n"
-"                                % if user.company_id.email:\n"
-"                                <a href=\"mailto:${user.company_id.email}\" style=\"text-decoration:none; color: white;\">${user.company_id.email}</a><br/>\n"
+"                                % if company.email:\n"
+"                                <a href=\"mailto:${company.email}\" style=\"text-decoration:none; color: white;\">${company.email}</a><br/>\n"
 "                                % endif\n"
-"                                % if user.company_id.website:\n"
-"                                    <a href=\"${user.company_id.website}\" style=\"text-decoration:none; color: white;\">\n"
-"                                        ${user.company_id.website}\n"
+"                                % if company.website:\n"
+"                                    <a href=\"${company.website}\" style=\"text-decoration:none; color: white;\">\n"
+"                                        ${company.website}\n"
 "                                    </a>\n"
 "                                % endif\n"
 "                              </td>\n"
@@ -188,16 +184,24 @@ msgid "<html>\n"
 "                          </table>\n"
 "                        </td>\n"
 "                      </tr>\n"
+"                      <!--\n"
 "                      <tr>\n"
 "                        <td align=\"center\">\n"
-"                            Powered by <a href=\"https://www.odoo.com\">Odoo</a>.\n"
+"                            Powered by <a href=\"https://www.flectrahq.com\">Flectra</a>.\n"
 "                        </td>\n"
 "                      </tr>\n"
+"                       -->\n"
 "                    </tbody>\n"
 "                </table>\n"
 "                </body>\n"
 "                </html>\n"
 "            "
+msgstr ""
+
+#. module: purchase
+#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_stock
+msgid "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" groups=\"base.group_multi_company\"/>"
 msgstr ""
 
 #. module: purchase
@@ -208,6 +212,12 @@ msgstr ""
 #. module: purchase
 #: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
 msgid "<strong>Amount</strong>"
+msgstr ""
+
+#. module: purchase
+#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model:ir.ui.view,arch_db:purchase.report_purchasequotation_document
+msgid "<strong>Branch:</strong>"
 msgstr ""
 
 #. module: purchase
@@ -301,7 +311,7 @@ msgid "<strong>Your Order Reference:</strong>"
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/stock.py:83
+#: code:addons/purchase/models/stock.py:76
 #, python-format
 msgid "A sale order that generated this purchase order has been deleted. Check if an action is needed."
 msgstr ""
@@ -420,7 +430,13 @@ msgid "Blocking Message"
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/stock.py:73
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_branch_id
+#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+msgid "Branch"
+msgstr ""
+
+#. module: purchase
+#: code:addons/purchase/models/stock.py:96
 #: model:stock.location.route,name:purchase.route_warehouse0_buy
 #, python-format
 msgid "Buy"
@@ -447,7 +463,7 @@ msgid "Calls for tenders are used when you want to generate requests for quotati
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/stock.py:76
+#: code:addons/purchase/models/stock.py:99
 #, python-format
 msgid "Can't find any generic Buy route."
 msgstr ""
@@ -466,7 +482,7 @@ msgid "Cancelled"
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:737
+#: code:addons/purchase/models/purchase.py:802
 #, python-format
 msgid "Cannot delete a purchase order line which is in state '%s'."
 msgstr ""
@@ -521,7 +537,7 @@ msgid "Company"
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:313
+#: code:addons/purchase/models/purchase.py:343
 #, python-format
 msgid "Compose Email"
 msgstr ""
@@ -529,6 +545,20 @@ msgstr ""
 #. module: purchase
 #: model:ir.ui.menu,name:purchase.menu_purchase_config
 msgid "Configuration"
+msgstr ""
+
+#. module: purchase
+#: code:addons/purchase/models/purchase.py:108
+#, python-format
+msgid "Configuration Error of Branch:\n"
+"The Purchase Order Branch (%s) and the Warehouse Branch (%s) of Deliver To must be the same branch!"
+msgstr ""
+
+#. module: purchase
+#: code:addons/purchase/models/purchase.py:120
+#, python-format
+msgid "Configuration Error of Company:\n"
+"The Purchase Order Company (%s) and the Company (%s) of Branch must be the same company!"
 msgstr ""
 
 #. module: purchase
@@ -705,7 +735,7 @@ msgid "Extended Filters"
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:577
+#: code:addons/purchase/models/purchase.py:631
 #, python-format
 msgid "Extra line with %s "
 msgstr ""
@@ -763,16 +793,11 @@ msgstr ""
 
 #. module: purchase
 #: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-msgid "If enabled, activates 3-way matching on vendor bills : the items must be received in order to pay the invoice."
-msgstr ""
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
 msgid "Import vendor pricelists"
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:206
+#: code:addons/purchase/models/purchase.py:235
 #, python-format
 msgid "In order to delete a purchase order, you must cancel it first."
 msgstr ""
@@ -884,11 +909,6 @@ msgid "Logistics"
 msgstr ""
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-msgid "Make sure you only pay bills for which you received the goods you ordered"
-msgstr ""
-
-#. module: purchase
 #: model:res.groups,name:purchase.group_manage_vendor_price
 msgid "Manage Vendor Price"
 msgstr ""
@@ -961,7 +981,7 @@ msgstr ""
 #. module: purchase
 #: model:ir.actions.act_window,help:purchase.purchase_rfq
 msgid "Most propositions of purchase orders are created automatically\n"
-"                by Odoo based on inventory needs."
+"                by Flectra based on inventory needs."
 msgstr ""
 
 #. module: purchase
@@ -1380,6 +1400,11 @@ msgid "Purchases Orders"
 msgstr ""
 
 #. module: purchase
+#: model:ir.model,name:purchase.model_stock_location_path
+msgid "Pushed Flow"
+msgstr ""
+
+#. module: purchase
 #: model:ir.model.fields,help:purchase.field_purchase_order_dest_address_id
 msgid "Put an address if you want to deliver directly from the vendor to the customer. Otherwise, keep empty to deliver to your own company."
 msgstr ""
@@ -1686,7 +1711,7 @@ msgid "The product form contains detailed information to improve the\n"
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:649
+#: code:addons/purchase/models/purchase.py:707
 #, python-format
 msgid "The quantities on your purchase order indicate less than billed. You should ask for a refund. "
 msgstr ""
@@ -1706,7 +1731,7 @@ msgid "The request for quotation is the first step of the purchases flow. Once\n
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:878
+#: code:addons/purchase/models/purchase.py:943
 #, python-format
 msgid "There is no vendor associated to the product %s. Please define a vendor for this product."
 msgstr ""
@@ -1750,13 +1775,13 @@ msgid "This note will show up on purchase orders."
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/account_invoice.py:203
+#: code:addons/purchase/models/account_invoice.py:220
 #, python-format
 msgid "This vendor bill has been created from: %s"
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/account_invoice.py:217
+#: code:addons/purchase/models/account_invoice.py:234
 #, python-format
 msgid "This vendor bill has been modified from: %s"
 msgstr ""
@@ -1813,13 +1838,13 @@ msgid "Transfer"
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:362
+#: code:addons/purchase/models/purchase.py:393
 #, python-format
 msgid "Unable to cancel purchase order %s as some receptions have already been done."
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:365
+#: code:addons/purchase/models/purchase.py:396
 #, python-format
 msgid "Unable to cancel this purchase order. You must first cancel related vendor bills."
 msgstr ""
@@ -1868,7 +1893,7 @@ msgstr ""
 #: model:ir.actions.act_window,help:purchase.action_invoice_pending
 msgid "Use this menu to control the invoices to be received from your\n"
 "            vendors. When registering a new bill, set the purchase order\n"
-"            and Odoo will fill the bill automatically according to ordered\n"
+"            and Flectra will fill the bill automatically according to ordered\n"
 "            or received quantities."
 msgstr ""
 
@@ -1932,7 +1957,7 @@ msgstr ""
 msgid "Vendors bills can be pre-generated based on purchase\n"
 "                    orders or receipts. This allows you to control bills\n"
 "                    you receive from your vendor according to the draft\n"
-"                    document in Odoo."
+"                    document in Flectra."
 msgstr ""
 
 #. module: purchase
@@ -1959,8 +1984,8 @@ msgid "Warning"
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:268
-#: code:addons/purchase/models/purchase.py:808
+#: code:addons/purchase/models/purchase.py:297
+#: code:addons/purchase/models/purchase.py:873
 #, python-format
 msgid "Warning for %s"
 msgstr ""
@@ -2011,7 +2036,7 @@ msgid "You must define a product for everything you purchase, whether\n"
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:395
+#: code:addons/purchase/models/purchase.py:439
 #, python-format
 msgid "You must set a Vendor Location for this partner %s"
 msgstr ""
