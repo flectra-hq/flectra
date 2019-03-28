@@ -12,6 +12,20 @@ So, users can consider this **CHANGELOG** to find the differences between **Flec
 
 Introduction
 
+
+## [1.6.0] - Firecrown - 2019-03-28
+### Added
+
+- Database backup and Restore via Shell
+- Keyboard Shortcuts
+- Upstream patches and Security Fixes
+
+### Fixes
+- #163 No access to certain terms for translation
+- #155 german translation
+- #172 Flectra 1.5 Bad Request - Session expired (invalid CSRF token) at Login
+
+
 ## [1.5.0] - Rufous - 2018-10-31
 ### Added
 
