@@ -38,7 +38,10 @@ Running the server
     the specified number of HTTP workers (sub-processes processing HTTP
     and RPC requests).
 
-    .. note:: multiprocessing mode is only available on Unix-based systems
+    .. note::
+        multiprocessing mode is only available on Unix-based systems
+        workers only work in combination with nginx or apache
+        checkout our snippets: `Flectra Snippets <https://gitlab.com/flectra-hq/flectra/snippets>`_
 
     A number of options allow limiting and recycling workers:
 
@@ -197,7 +200,7 @@ built-in HTTP
 .. option:: --longpolling-port <port>
 
     TCP port for long-polling connections in multiprocessing or gevent mode,
-    defaults to 8072. Not used in default (threaded) mode.
+    defaults to 7072. Not used in default (threaded) mode.
 
 logging
 -------
