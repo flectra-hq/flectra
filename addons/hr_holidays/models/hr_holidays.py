@@ -9,7 +9,7 @@ from datetime import timedelta
 
 from flectra import api, fields, models
 from flectra.exceptions import UserError, AccessError, ValidationError
-from flectra.tools import float_compare
+from flectra.tools import float_compare, float_round
 from flectra.tools.translate import _
 
 _logger = logging.getLogger(__name__)
