@@ -304,9 +304,30 @@ customize the amount of logging output
 translations
 ------------
 
-.. option:: --i18n-import
+.. option:: --language <lang>
 
-.. option:: --i18n-export
+     Specify the language of the translation file. Use it with --i18n-export or --i18n-import
+
+.. option:: --i18n-import <filename>
+
+     Import a CSV or a PO file with translations and exit. The '--language' option is required
+
+.. option:: --i18n-export <filename>
+
+     Export all sentences to be translated to a CSV file, a PO file or a TGZ archive and exit.
+     The file extension determines the export format.
+
+.. option:: --modules
+
+     Comma-separated list of modules to export or :option:`all`. Use in combination with --i18n-export
+
+.. option:: --load-language
+
+     Comma-separated list of languages you want to be loaded
+
+.. option:: --i18n-overwrite
+
+     Overwrites existing translation terms on updating a module or importing a CSV or a PO file
 
 emails
 ------
