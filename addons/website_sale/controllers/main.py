@@ -69,10 +69,6 @@ class TableCompute(object):
             for y2 in range(y):
                 for x2 in range(x):
                     self.table[(pos // PPR) + y2][(pos % PPR) + x2] = False
-            self.table[pos // PPR][pos % PPR] = {
-                'product': p, 'x': x, 'y': y,
-                'class': " ".join(x.html_class for x in p.website_style_ids if x.html_class)
-            }
             if index <= ppg:
                 maxy = max(maxy, y + (pos // PPR))
             index += 1
@@ -1091,28 +1087,6 @@ class WebsiteSale(http.Controller):
             'public_categ_ids': category
         })
         return "/shop/product/%s?enable_editor=1" % slug(product.product_tmpl_id)
-
-    @http.route(['/shop/change_styles'], type='json', auth="public")
-    def change_styles(self, id, style_id):
-        product = request.env['product.template'].browse(id)
-
-        remove = []
-        active = False
-        style_id = int(style_id)
-        for style in product.website_style_ids:
-            if style.id == style_id:
-                remove.append(style.id)
-                active = True
-                break
-
-        style = request.env['product.style'].browse(style_id)
-
-        if remove:
-            product.write({'website_style_ids': [(3, rid) for rid in remove]})
-        if not active:
-            product.write({'website_style_ids': [(4, style.id)]})
-
-        return not active
 
     @http.route(['/shop/change_sequence'], type='json', auth="public")
     def change_sequence(self, id, sequence):
