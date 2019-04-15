@@ -5,7 +5,7 @@ from collections import OrderedDict
 from flectra import api, fields, models, _
 from flectra.osv import expression
 from flectra.exceptions import RedirectWarning, UserError, ValidationError
-from flectra.tools.misc import formatLang
+from flectra.tools.misc import formatLang, format_date
 from flectra.tools import float_is_zero, float_compare
 from flectra.tools.safe_eval import safe_eval
 from flectra.addons import decimal_precision as dp
