@@ -30,8 +30,8 @@ RUN pip3 install -r /tmp/requirements.txt
 RUN npm install -g less less-plugin-clean-css -y && \
     ln -s /usr/bin/nodejs /usr/bin/node
 
-RUN curl -o wkhtmltox.tar.xz -SL https://github.com/wkhtmltopdf/wkhtmltopdf/archive/0.12.1.2.tar.gz \
-    && echo '39b02e59b295ba6b3bbd4ed88bd1ae84bd9c1730 wkhtmltox.tar.xz' | sha1sum -c - \
+RUN curl -o wkhtmltox.tar.xz -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
+    && echo '3f923f425d345940089e44c1466f6408b9619562 wkhtmltox.tar.xz' | sha1sum -c - \
     && tar xvf wkhtmltox.tar.xz \
     && cp wkhtmltox/lib/* /usr/local/lib/ \
     && cp wkhtmltox/bin/* /usr/local/bin/ \
