@@ -38,11 +38,7 @@ RUN curl -o wkhtmltox.tar.xz -SL https://github.com/wkhtmltopdf/wkhtmltopdf/rele
     && cp -r wkhtmltox/share/man/man1 /usr/local/share/man/
 
 # install CI tools
-RUN pip3 install coverage coveralls codecov simplejson pyserial pyyaml unittest2 pyopenssl>=16.2.0 && \
-    wget -N http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz && \
-    gunzip GeoLiteCity.dat.gz && \
-    mkdir -p /usr/share/GeoIP/ && \
-    mv GeoLiteCity.dat /usr/share/GeoIP/
+RUN pip3 install coverage coveralls codecov simplejson pyserial pyyaml unittest2 pyopenssl>=16.2.0
 
 RUN addgroup --gid=5500 flectra && adduser --system --uid=5500 --gid=5500 --home=/opt/flectra --shell=/bin/bash flectra
 
