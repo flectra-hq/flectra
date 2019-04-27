@@ -22,7 +22,7 @@ class Website(models.Model):
 
     @api.one
     def _compute_pricelist_ids(self):
-        self.pricelist_ids = self.env["product.pricelist"].search([("website_ids", "in", self.id)])
+        self.pricelist_ids = self.env["product.pricelist"].search([("website_id", "=", self.id)])
 
     @api.multi
     def _compute_pricelist_id(self):
@@ -55,13 +55,13 @@ class Website(models.Model):
         partner = self.env.user.partner_id
         is_public = self.user_id.id == self.env.user.id
         if not is_public and (not pricelists or (partner_pl or partner.property_product_pricelist.id) != website_pl):
-            if partner.property_product_pricelist.website_ids:
+            if partner.property_product_pricelist.website_id:
                 pricelists |= partner.property_product_pricelist
 
         if not pricelists:  # no pricelist for this country, or no GeoIP
             pricelists |= all_pl.filtered(lambda pl: not show_visible or pl.selectable or pl.id in (current_pl, order_pl))
         if not show_visible and not country_code:
-            pricelists |= all_pl.filtered(lambda pl: not show_visible and pl.sudo().code)
+            pricelists |= all_pl.filtered(lambda pl: pl.sudo().code)
 
         # This method is cached, must not return records! See also #8795
         return pricelists.ids
@@ -215,7 +215,7 @@ class Website(models.Model):
             # TODO cache partner_id session
             pricelist = self.env['product.pricelist'].browse(pricelist_id).sudo()
             so_data = self._prepare_sale_order_values(partner, pricelist)
-            sale_order = self.env['sale.order'].sudo().create(so_data)
+            sale_order = self.env['sale.order'].with_context(force_company=request.website.company_id.id).sudo().create(so_data)
 
             # set fiscal position
             if request.website.partner_id.id != partner.id:
@@ -224,7 +224,7 @@ class Website(models.Model):
                 country_code = request.session['geoip'].get('country_code')
                 if country_code:
                     country_id = request.env['res.country'].search([('code', '=', country_code)], limit=1).id
-                    fp_id = request.env['account.fiscal.position'].sudo()._get_fpos_by_region(country_id)
+                    fp_id = request.env['account.fiscal.position'].sudo().with_context(force_company=request.website.company_id.id)._get_fpos_by_region(country_id)
                     sale_order.fiscal_position_id = fp_id
                 else:
                     # if no geolocation, use the public user fp
