@@ -141,8 +141,9 @@ class AccountMove(models.Model):
     def post(self):
         invoice = self._context.get('invoice', False)
         self._post_validate()
+        # Create the analytic lines in batch is faster as it leads to less cache invalidation.
+        self.mapped('line_ids').create_analytic_lines()
         for move in self:
-            move.line_ids.create_analytic_lines()
             if move.name == '/':
                 new_name = False
                 journal = move.journal_id
@@ -1937,12 +1938,13 @@ class AccountPartialReconcile(models.Model):
         # Get value of matched percentage from both move before reconciliating
         lines = self.env['account.move.line'].browse(aml)
         lines._payment_invoice_match()
-        if lines[0].account_id.internal_type in ('receivable', 'payable'):
+        tax_cash_basis_entry = not self.env.context.get('skip_tax_cash_basis_entry') and lines[0].account_id.internal_type in ('receivable', 'payable')
+        if tax_cash_basis_entry:
             percentage_before_rec = lines._get_matched_percentage()
         # Reconcile
         res = super(AccountPartialReconcile, self).create(vals)
         # if the reconciliation is a matching on a receivable or payable account, eventually create a tax cash basis entry
-        if lines[0].account_id.internal_type in ('receivable', 'payable'):
+        if tax_cash_basis_entry:
             res.create_tax_cash_basis_entry(percentage_before_rec)
         res._compute_partial_lines()
         return res
@@ -1952,7 +1954,6 @@ class AccountPartialReconcile(models.Model):
         """ When removing a partial reconciliation, also unlink its full reconciliation if it exists """
         full_to_unlink = self.env['account.full.reconcile']
         for rec in self:
-            #without the deleted partial reconciliations, the full reconciliation won't be full anymore
             if rec.full_reconcile_id:
                 full_to_unlink |= rec.full_reconcile_id
         #reverse the tax basis move created at the reconciliation time
