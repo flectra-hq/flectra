@@ -977,9 +977,10 @@ class TestMailgateway(TestMail):
             msg_id='<1198923581.41972151344608186800.JavaMail.4@agrolait.com>',
             target_model='mail.channel')
 
-        self.assertEqual(len(self.test_public.message_ids), 2, 'message_process: group should not contain new message')
-        self.assertEqual(len(self.fake_email.child_ids), 1, 'message_process: original email should not contain childs')
-        self.assertEqual(len(res_test.message_ids), 0)
+        self.assertEqual(len(self.test_public.message_ids), 1, 'message_process: group should not contain new message')
+        self.assertEqual(len(self.fake_email.child_ids), 0, 'message_process: original email should not contain childs')
+        self.assertEqual(res_test.name, 'My Dear Forward')
+        self.assertEqual(len(res_test.message_ids), 1)
 
     @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_references_forward_cc(self):
@@ -1116,7 +1117,7 @@ class TestMailgateway(TestMail):
         self.assertIn('<pre>\nPlease call me as soon as possible this afternoon!\n<span data-o-mail-quote="1">\n--\nSylvie\n</span></pre>', msg.body,
                       'message_process: plaintext incoming email incorrectly parsed')
 
-    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models', 'flectra.addons.mail.models.mail_mail')
+    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models', 'odoo.addons.mail.models.mail_mail')
     def test_private_discussion(self):
         """ Testing private discussion between partners. """
         msg1_pids = [self.env.user.partner_id.id, self.partner_1.id]
@@ -1133,7 +1134,7 @@ class TestMailgateway(TestMail):
         self.assertEqual(msg.model, False,
                          'message_post: private discussion: context key "thread_model" not correctly ignored when having no res_id')
         # Test: message-id
-        self.assertIn('flectra-private', msg.message_id, 'message_post: private discussion: message-id should contain the private keyword')
+        self.assertIn('flectra-private', msg.message_id.split('@')[0], 'message_post: private discussion: message-id should contain the private keyword')
 
         # Do: Bert replies through mailgateway (is a customer)
         self.format_and_process(
@@ -1161,9 +1162,9 @@ class TestMailgateway(TestMail):
     @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models', 'flectra.addons.mail.models.mail_mail')
     def test_forward_parent_id(self):
         msg = self.test_pigs.sudo(self.user_employee).message_post(no_auto_thread=True, subtype='mail.mt_comment')
-        self.assertNotIn(msg.model, msg.message_id)
-        self.assertNotIn('-%d-' % msg.res_id, msg.message_id)
-        self.assertIn('reply_to', msg.message_id)
+        self.assertNotIn(msg.model, msg.message_id.split('@')[0])
+        self.assertNotIn('-%d-' % msg.res_id, msg.message_id.split('@')[0])
+        self.assertIn('reply_to', msg.message_id.split('@')[0])
 
         # forward it to a new thread AND an existing thread
         fw_msg_id = '<THIS.IS.A.FW.MESSAGE.1@bert.fr>'
