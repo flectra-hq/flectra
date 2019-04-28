@@ -80,7 +80,7 @@ def werkzeugRaiseNotFound(*args, **kwargs):
     raise werkzeug.exceptions.NotFound()
 
 class MockRequest(object):
-    """ Class with context manager mocking odoo.http.request for tests """
+    """ Class with context manager mocking flectra.http.request for tests """
     def __init__(self, env, website=None, context=None, multilang=True, routing=True):
         app = MockObject(routing={
             'type': 'http',
@@ -97,11 +97,11 @@ class MockRequest(object):
                 app=app
             )
         )
-        odoo.http._request_stack.push(self.request)
+        flectra.http._request_stack.push(self.request)
     def __enter__(self):
         return self.request
     def __exit__(self, exc_type, exc_value, traceback):
-        odoo.http._request_stack.pop()
+        flectra.http._request_stack.pop()
 
 class TestQwebProcessAtt(TransactionCase):
     def setUp(self):
