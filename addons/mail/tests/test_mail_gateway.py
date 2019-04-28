@@ -977,10 +977,9 @@ class TestMailgateway(TestMail):
             msg_id='<1198923581.41972151344608186800.JavaMail.4@agrolait.com>',
             target_model='mail.channel')
 
-        self.assertEqual(len(self.test_public.message_ids), 1, 'message_process: group should not contain new message')
-        self.assertEqual(len(self.fake_email.child_ids), 0, 'message_process: original email should not contain childs')
-        self.assertEqual(res_test.name, 'My Dear Forward')
-        self.assertEqual(len(res_test.message_ids), 1)
+        self.assertEqual(len(self.test_public.message_ids), 2, 'message_process: group should not contain new message')
+        self.assertEqual(len(self.fake_email.child_ids), 1, 'message_process: original email should not contain childs')
+        self.assertEqual(len(res_test.message_ids), 0)
 
     @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_references_forward_cc(self):

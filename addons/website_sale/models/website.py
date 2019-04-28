@@ -22,7 +22,7 @@ class Website(models.Model):
 
     @api.one
     def _compute_pricelist_ids(self):
-        self.pricelist_ids = self.env["product.pricelist"].search([("website_id", "=", self.id)])
+        self.pricelist_ids = self.env["product.pricelist"].search([("website_ids", "in", self.id)])
 
     @api.multi
     def _compute_pricelist_id(self):
@@ -55,7 +55,7 @@ class Website(models.Model):
         partner = self.env.user.partner_id
         is_public = self.user_id.id == self.env.user.id
         if not is_public and (not pricelists or (partner_pl or partner.property_product_pricelist.id) != website_pl):
-            if partner.property_product_pricelist.website_id:
+            if partner.property_product_pricelist.website_ids:
                 pricelists |= partner.property_product_pricelist
 
         if not pricelists:  # no pricelist for this country, or no GeoIP
