@@ -3,7 +3,7 @@
 
 from flectra import api, fields, models, _
 from flectra.addons import decimal_precision as dp
-from flectra.exceptions import UserError
+from flectra.exceptions import UserError, ValidationError
 from flectra.tools import float_utils
 
 
