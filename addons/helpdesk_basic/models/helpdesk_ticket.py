@@ -17,7 +17,8 @@ class HelpdeskTicket(models.Model):
     active = fields.Boolean('Active', default=True)
     color = fields.Integer(string='Color Index')
     name = fields.Char('Name', translate=True)
-    sequence = fields.Char('Sequence', default='New', copy=False)
+    ticket_seq = fields.Char('Sequence', default='New', copy=False,
+                             oldname='sequence')
     priority = fields.Selection([('1', 'Low'), ('2', 'Medium'),
                                  ('3', 'High')], default='1')
     user_id = fields.Many2one('res.users', string='Created By',
@@ -80,8 +81,8 @@ class HelpdeskTicket(models.Model):
     def create(self, values):
         if not values.get('user_id'):
             values.update({'user_id': self.env.user.id})
-        if 'sequence' not in values or values['sequence'] == _('New'):
-            values['sequence'] = self.env['ir.sequence'].next_by_code(
+        if 'ticket_seq' not in values or values['ticket_seq'] == _('New'):
+            values['ticket_seq'] = self.env['ir.sequence'].next_by_code(
                 'helpdesk.ticket') or _('New')
         if values.get('team_id'):
             team = self.team_id.browse(values.get('team_id'))
