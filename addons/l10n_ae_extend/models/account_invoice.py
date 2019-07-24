@@ -53,13 +53,12 @@ class AccountInvoice(models.Model):
     def action_invoice_open(self):
         if not self.reverse_charge:
             return super(AccountInvoice, self).action_invoice_open()
-        config_id = self.env[
-            'res.config.settings'].search([], order='id desc', limit=1)
-        rc_account = config_id.rc_vat_account_id or \
+        config_data = self.env['res.config.settings'].get_values()
+        rc_account = config_data.get('rc_vat_account_id') or \
             self.env.ref('l10n_ae_extend.rc_vat_account')
-        vat_account = config_id.vat_expense_account_id or \
+        vat_account = config_data.get('vat_expense_account_id') or \
             self.env.ref('l10n_ae_extend.rc_vat_expense_account')
-        customs_account = config_id.customs_duty_account_id or \
+        customs_account = config_data.get('customs_duty_account_id') or \
             self.env.ref('l10n_ae.uae_account_3694')
         list_data = []
         account_tax_obj = self.env['account.tax']

@@ -13,9 +13,8 @@ class HelpdeskTeam(models.Model):
 
     @api.multi
     def _compute_need_project(self):
-        config = self.env['res.config.settings'].search(
-            [], limit=1, order='id desc')
+        config_data = self.env['res.config.settings'].get_values()
         for team in self:
             team.need_project = False
-            if config.use_project:
+            if config_data.get('use_project'):
                 team.need_project = True
