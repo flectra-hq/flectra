@@ -22,28 +22,26 @@ class SaleDiscountConfig(models.Model):
 
     @api.constrains('fix_amount')
     def _check_fix_amount_value(self):
-        config_id = self.env['res.config.settings'].search(
-            [], order='id desc', limit=1)
-        if config_id and config_id.global_discount_apply \
-                and config_id.global_discount_fix_amount < self.fix_amount:
+        config_data = self.env['res.config.settings'].get_values()
+        if config_data.get('global_discount_apply') \
+                and config_data.get('global_discount_fix_amount') < self.fix_amount:
             raise ValueError(
                 _("Fix amount (%s) is greater than configuration Amount (%s)!"
                   ) % (formatLang(
                     self.env, self.fix_amount, digits=2), formatLang(
-                    self.env, config_id.global_discount_fix_amount, digits=2)))
+                    self.env, config_data.get('global_discount_fix_amount'), digits=2)))
 
     @api.constrains('percentage')
     def _check_percentage(self):
         if self.percentage < 0 or self.percentage > 100:
             raise ValueError(_("Percentage should be between 0% to 100%!"))
-        config_id = self.env[
-            'res.config.settings'].search([], order='id desc', limit=1)
-        if config_id and config_id.global_discount_apply \
-                and config_id.global_discount_percentage < self.percentage:
+        config_data = self.env['res.config.settings'].get_values()
+        if config_data.get('global_discount_apply') \
+                and config_data.get('global_discount_percentage') < self.percentage:
             raise ValueError(
                 _("Percentage (%s) is greater than configuration Percentage "
                   "(%s)!") % (formatLang(
                     self.env, self.percentage, digits=2),
                               formatLang(self.env,
-                                         config_id.global_discount_percentage,
+                                         config_dat.get('global_discount_percentage'),
                                          digits=2)))

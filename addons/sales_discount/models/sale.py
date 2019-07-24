@@ -103,16 +103,15 @@ class SaleOrder(models.Model):
                             "(%s) in configuration setting!") % (
                 formatLang(self.env,  self.discount_per, digits=2),
                 formatLang(self.env, values['max_percentage'], digits=2)))
-        config_id = self.env['res.config.settings'].search(
-            [], order='id desc', limit=1)
-        if config_id and config_id.global_discount_apply:
-            if config_id.global_discount_percentage < self.discount_per:
+        config_data = self.env['res.config.settings'].get_values()
+        if config_data.get('global_discount_apply'):
+            if config_data.get('global_discount_percentage') < self.discount_per:
                 raise Warning(_("You are not allowed to apply Discount "
                                 "Percentage (%s) more than configured "
                                 "Discount Percentage (%s) in configuration "
                                 "setting!") % (
                     formatLang(self.env, self.discount_per, digits=2),
-                    formatLang(self.env, config_id.global_discount_percentage,
+                    formatLang(self.env, config_data.get('global_discount_percentage'),
                                digits=2)))
 
     @api.onchange('discount_amount')
@@ -133,15 +132,14 @@ class SaleOrder(models.Model):
                             "configuration setting!") % (
                 formatLang(self.env, self.discount_amount, digits=2),
                 formatLang(self.env, values['max_amount'], digits=2)))
-        config_id = self.env['res.config.settings'].search(
-            [], order='id desc', limit=1)
-        if config_id and config_id.global_discount_apply:
-            if config_id.global_discount_fix_amount < self.discount_amount:
+        config_data = self.env['res.config.settings'].get_values()
+        if config_data.get('global_discount_apply'):
+            if config_data.get('global_discount_fix_amount') < self.discount_amount:
                 raise Warning(_("You're not allowed to apply Discount "
                                 "Amount (%s) more than configured amount "
                                 "(%s) in configuration setting!") % (
                     formatLang(self.env, self.discount_amount, digits=2),
-                    formatLang(self.env, config_id.global_discount_fix_amount,
+                    formatLang(self.env, config_data.get('global_discount_fix_amount'),
                                digits=2)))
 
     @api.multi
