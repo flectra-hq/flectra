@@ -691,7 +691,12 @@ class Partner(models.Model):
             partner_ids = [row[0] for row in self.env.cr.fetchall()]
 
             if partner_ids:
-                return self.browse(partner_ids).name_get()
+                result = self.browse(partner_ids).name_get()
+                if self._context.get('show_address_search'):
+                    # Are you a good coder? then you do not need the following comment ;-)))
+                    # Beginner? Okay, read this:
+                    # Replace \n with comma but ignore empty parts
+                    return map(lambda r: (r[0], ', '.join([p.strip() for p in r[1].split("\n") if p.strip()])), result)
             else:
                 return []
         return super(Partner, self).name_search(name, args, operator=operator, limit=limit)
