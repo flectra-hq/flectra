@@ -17,7 +17,8 @@ class HelpdeskTicket(models.Model):
     active = fields.Boolean('Active', default=True)
     color = fields.Integer(string='Color Index')
     name = fields.Char('Name', translate=True)
-    sequence = fields.Char('Sequence', default='New', copy=False)
+    ticket_seq = fields.Char('Sequence', default='New', copy=False,
+                             oldname='sequence')
     priority = fields.Selection([('1', 'Low'), ('2', 'Medium'),
                                  ('3', 'High')], default='1')
     user_id = fields.Many2one('res.users', string='Created By',
@@ -26,8 +27,8 @@ class HelpdeskTicket(models.Model):
         'res.partner', store=True, related='user_id.partner_id',
         string='Related Partner', track_visibility='onchange')
     email = fields.Char(
-        string='Email',
-        default=lambda s: s.env.user.partner_id.email or False)
+            string='Email',
+            default=lambda s: s.env.user.partner_id.email or False)
     issue_type_id = fields.Many2one('issue.type', string='Issue Type',
                                     track_visibility='onchange')
     team_id = fields.Many2one('helpdesk.team', 'Team',
@@ -36,17 +37,17 @@ class HelpdeskTicket(models.Model):
                                      track_visibility='onchange')
     tag_ids = fields.Many2many('helpdesk.tag', string='Tag(s)')
     start_date = fields.Datetime(
-        string='Start Date', default=fields.Datetime.now,
-        track_visibility='onchange')
+            string='Start Date', default=fields.Datetime.now,
+            track_visibility='onchange')
     end_date = fields.Datetime(
         string='End Date', default=fields.Datetime.now,
         track_visibility='onchange')
     description = fields.Text(string='Description', size=128, translate=True,
                               track_visibility='onchange')
     attachment_ids = fields.One2many(
-        'ir.attachment', compute='_compute_attachments',
-        string="Main Attachments",
-        help="Attachment that don't come from message.")
+            'ir.attachment', compute='_compute_attachments',
+            string="Main Attachments",
+            help="Attachment that don't come from message.")
     attachments_count = fields.Integer(compute='_compute_attachments',
                                        string='Add Attachments')
     is_accessible = fields.Boolean('Is Accessible',
@@ -80,9 +81,9 @@ class HelpdeskTicket(models.Model):
     def create(self, values):
         if not values.get('user_id'):
             values.update({'user_id': self.env.user.id})
-        if 'sequence' not in values or values['sequence'] == _('New'):
-            values['sequence'] = self.env['ir.sequence'].next_by_code(
-                'helpdesk.ticket') or _('New')
+        if 'ticket_seq' not in values or values['ticket_seq'] == _('New'):
+            values['ticket_seq'] = self.env['ir.sequence'].next_by_code(
+                    'helpdesk.ticket') or _('New')
         if values.get('team_id'):
             team = self.team_id.browse(values.get('team_id'))
             values.update(
@@ -98,6 +99,18 @@ class HelpdeskTicket(models.Model):
         if vals.get('partner_id', False) or vals.get('assigned_to_id', False):
             self.add_followers()
         return super(HelpdeskTicket, self).write(vals)
+
+    @api.onchange('user_id')
+    def onchange_user_id(self):
+        if self.user_id:
+            self.partner_id = self.user_id.partner_id
+
+    @api.onchange('partner_id')
+    def onchange_partner_id(self):
+        if self.partner_id:
+            user = self.env['res.users'].search([('partner_id', '=', self.partner_id.id)])
+            if user:
+                self.user_id = user
 
     @api.onchange('team_id')
     def onchange_team_id(self):
@@ -136,8 +149,8 @@ class HelpdeskTicket(models.Model):
     def _compute_attachments(self):
         for ticket in self:
             attachment_ids = self.env['ir.attachment'].search(
-                [('res_model', '=', ticket._name),
-                 ('res_id', '=', ticket.id)])
+                    [('res_model', '=', ticket._name),
+                     ('res_id', '=', ticket.id)])
             ticket.attachments_count = len(attachment_ids.ids)
             ticket.attachment_ids = attachment_ids
 

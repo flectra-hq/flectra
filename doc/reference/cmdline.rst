@@ -31,6 +31,12 @@ Running the server
 
     comma-separated list of directories in which modules are stored. These
     directories are scanned for modules (nb: when and why?)
+    **Only in config file**
+    You also can separate your directories with a line feed and an intended second line like the following example::
+
+        addons_path=/your/first/path
+          /your/second/path
+          /your/third/path
 
 .. option:: --workers <count>
 

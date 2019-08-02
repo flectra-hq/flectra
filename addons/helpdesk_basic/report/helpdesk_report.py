@@ -34,7 +34,7 @@ class HelpdeskReport(models.Model):
                    CREATE VIEW helpdesk_report as (
                    SELECT
                        t.id as id,
-                       h.sequence as sequence,
+                       h.ticket_seq as ticket_seq,
                        t.name as name,
                        h.partner_id as partner_id,
                        h.user_id as user_id,

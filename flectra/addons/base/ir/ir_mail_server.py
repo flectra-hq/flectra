@@ -151,7 +151,13 @@ class IrMailServer(models.Model):
     sequence = fields.Integer(string='Priority', default=10, help="When no specific mail server is requested for a mail, the highest priority one "
                                                                   "is used. Default priority is 10 (smaller number = higher priority)")
     active = fields.Boolean(default=True)
-
+    keep_days = fields.Integer('Keep days', default=-1,
+                               help="This value defines the no. of days "
+                                    "the emails should be recorded "
+                                    "in the system: \n -1 = Email will be deleted "
+                                    "immediately once it is send \n greater than 0 = Email "
+                                    "will be deleted after "
+                                    "the no. of days are met.")
     @api.multi
     def name_get(self):
         return [(server.id, "(%s)" % server.name) for server in self]

@@ -565,53 +565,53 @@ class ProjectTask(models.Model):
 
     @api.multi
     def write(self, vals):
-        if self.task_seq == '/':
-            vals['task_seq'] = self.env['ir.sequence'].next_by_code(
-                'project.task')
         res = super(ProjectTask, self).write(vals)
-
-        data = []
-        for record in self:
-            task_ids = self.search([
-                ('sprint_id', '=', record.sprint_id.id)])
-            for task in task_ids:
-                data.append({
-                    'task': task.task_seq or '/',
-                    'velocity': task.velocity or 0,
-                    'per': round(((float(task.velocity) * 100) / float(
-                        record.sprint_id.estimated_velocity)), 2)
-                    if record.sprint_id.estimated_velocity > 0 else 0
-                })
-
-            record.sprint_id.write({'tasks_json': data})
-
-        if 'sprint_id' in vals:
-            sprint_id = self.env['project.sprint'].browse(vals['sprint_id'])
-            team_id = sprint_id.team_id
-        else:
-            team_id = self.sprint_id.team_id
-
-        delete_team_id = self.env['mail.followers'].sudo().search([
-            ('team_id', '!=', team_id.id),
-            ('res_id', '=', self.id),
-        ])
-        delete_team_id.unlink()
-
-        partner_list = [member.partner_id.id for member in team_id.member_ids]
-        for follower in partner_list:
-            if follower:
-                mail_follower_ids = self.env['mail.followers'].sudo().search([
-                    ('res_id', '=', self.id),
-                    ('partner_id', '=', follower),
-                    ('res_model', '=', self._name),
-                ])
-                if not mail_follower_ids:
-                    self.env['mail.followers'].sudo().create({
-                        'res_id': self.id,
-                        'res_model': self._name,
-                        'partner_id': follower,
-                        'team_id': team_id.id,
+        if len(self._ids) == 0:
+            if self.task_seq == '/':
+                vals['task_seq'] = self.env['ir.sequence'].next_by_code(
+                    'project.task')
+            data = []
+            for record in self:
+                task_ids = self.search([
+                    ('sprint_id', '=', record.sprint_id.id)])
+                for task in task_ids:
+                    data.append({
+                        'task': task.task_seq or '/',
+                        'velocity': task.velocity or 0,
+                        'per': round(((float(task.velocity) * 100) / float(
+                            record.sprint_id.estimated_velocity)), 2)
+                        if record.sprint_id.estimated_velocity > 0 else 0
                     })
+
+                record.sprint_id.write({'tasks_json': data})
+
+            if 'sprint_id' in vals:
+                sprint_id = self.env['project.sprint'].browse(vals['sprint_id'])
+                team_id = sprint_id.team_id
+            else:
+                team_id = self.sprint_id.team_id
+
+            delete_team_id = self.env['mail.followers'].sudo().search([
+                ('team_id', '!=', team_id.id),
+                ('res_id', '=', self.id),
+            ])
+            delete_team_id.unlink()
+
+            partner_list = [member.partner_id.id for member in team_id.member_ids]
+            for follower in partner_list:
+                if follower:
+                    mail_follower_ids = self.env['mail.followers'].sudo().search([
+                        ('res_id', '=', self.id),
+                        ('partner_id', '=', follower),
+                        ('res_model', '=', self._name),
+                    ])
+                    if not mail_follower_ids:
+                        self.env['mail.followers'].sudo().create({
+                            'res_id': self.id,
+                            'res_model': self._name,
+                            'partner_id': follower,
+                            'team_id': team_id.id,
+                        })
         return res
 
 

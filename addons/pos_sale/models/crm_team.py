@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
+import pytz
 from flectra import api, fields, models, _
 from datetime import datetime
-
 
 class CrmTeam(models.Model):
     _inherit = 'crm.team'
