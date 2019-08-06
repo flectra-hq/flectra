@@ -35,7 +35,7 @@ class SaleDiscountConfig(models.Model):
     def _check_percentage(self):
         if self.percentage < 0 or self.percentage > 100:
             raise ValueError(_("Percentage should be between 0% to 100%!"))
-        config_data = self.env['res.config.settings'].sudo.get_values()
+        config_data = self.env['res.config.settings'].sudo().get_values()
         if config_data.get('global_discount_apply') \
                 and config_data.get('global_discount_percentage') < self.percentage:
             raise ValueError(
