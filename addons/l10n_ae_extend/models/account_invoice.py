@@ -53,7 +53,7 @@ class AccountInvoice(models.Model):
     def action_invoice_open(self):
         if not self.reverse_charge:
             return super(AccountInvoice, self).action_invoice_open()
-        config_data = self.env['res.config.settings'].get_values()
+        config_data = self.env['res.config.settings'].sudo().get_values()
         rc_account = config_data.get('rc_vat_account_id') or \
             self.env.ref('l10n_ae_extend.rc_vat_account')
         vat_account = config_data.get('vat_expense_account_id') or \

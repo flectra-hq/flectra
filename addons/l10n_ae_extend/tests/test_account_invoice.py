@@ -55,7 +55,7 @@ class TestAccountInvoice(TestAECommon):
         self.assertEquals(invoice_id.amount_tax, 0)
         self.assertEquals(len(invoice_id.tax_line_ids), 0)
         self.assertEquals(len(invoice_id.reverse_tax_line_ids), 1)
-        config_data = self.env['res.config.settings'].get_values()
+        config_data = self.env['res.config.settings'].sudo().get_values()
         rc_account = config_data.get('rc_vat_account_id') or \
             self.env.ref('l10n_ae_extend.rc_vat_account')
         move_line_id = self.env['account.move.line'].search([
