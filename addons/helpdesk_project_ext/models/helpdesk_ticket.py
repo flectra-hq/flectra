@@ -23,7 +23,7 @@ class HelpdeskTicket(models.Model):
                 'user_id': user and user.id or False,
                 'priority': 'l',
                 }
-        config_data = self.env['res.config.settings'].get_values()
+        config_data = self.env['res.config.settings'].sudo().get_values()
         if config_data.get('use_project'):
             vals.update({
                 'project_id':
@@ -35,7 +35,7 @@ class HelpdeskTicket(models.Model):
     def action_get_tasks(self):
         self.ensure_one()
         context = {'default_helpdesk_id': self.id}
-        config_data = self.env['res.config.settings'].get_values()
+        config_data = self.env['res.config.settings'].sudo().get_values()
         if config_data.get('use_project') and \
                 self.team_id and self.team_id.project_id and \
                 self.team_id.project_id:
@@ -58,7 +58,7 @@ class HelpdeskTicket(models.Model):
 
     @api.multi
     def _compute_need_project(self):
-        config_data = self.env['res.config.settings'].get_values()
+        config_data = self.env['res.config.settings'].sudo().get_values()
         if config_data.get('use_project'):
             for team in self:
                 team.need_project = True

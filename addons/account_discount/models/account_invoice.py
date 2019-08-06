@@ -120,7 +120,7 @@ class AccountInvoice(models.Model):
                             "(%s) in configuration setting!") % (
                 formatLang(self.env,  self.discount_per, digits=2),
                 formatLang(self.env, values['max_percentage'], digits=2)))
-        config_data = self.env['res.config.settings'].get_values()
+        config_data = self.env['res.config.settings'].sudo().get_values()
         if config_data.get('global_discount_invoice_apply'):
             global_percentage = config_data.get('global_discount_percentage_invoice')
             if global_percentage < self.discount_per:
@@ -151,7 +151,7 @@ class AccountInvoice(models.Model):
                             " assign Fix Amount (%s).") % (
                 formatLang(self.env, self.discount, digits=2),
                 formatLang(self.env, values['max_amount'], digits=2)))
-        config_data = self.env['res.config.settings'].get_values()
+        config_data = self.env['res.config.settings'].sudo().get_values()
         if config_data.get('global_discount_invoice_apply'):
             fix_amount = config_data.get('global_discount_fix_invoice_amount')
             if fix_amount < self.discount_amount:

@@ -135,7 +135,7 @@ class TestPasswordSecurityHome(TransactionCase):
             authenticate = assets['request'].session.authenticate
             request = assets['request']
             request.httprequest.method = 'POST'
-            request.env['res.users'].sudo.side_effect = EndTestException
+            request.env['res.users'].sudo().side_effect = EndTestException
             authenticate.return_value = False
             res = self.password_security_home.web_login()
             self.assertEqual(

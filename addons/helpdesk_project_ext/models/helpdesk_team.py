@@ -13,7 +13,7 @@ class HelpdeskTeam(models.Model):
 
     @api.multi
     def _compute_need_project(self):
-        config_data = self.env['res.config.settings'].get_values()
+        config_data = self.env['res.config.settings'].sudo().get_values()
         for team in self:
             team.need_project = False
             if config_data.get('use_project'):
