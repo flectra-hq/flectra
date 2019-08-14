@@ -6,18 +6,20 @@
                 <div id="total" class="row">
                     <div class="col-xs-5 pull-right">
                         <table class="table table-condensed" style="min-width: 250px;max-width: 400px;">
-                            <tr>
-                                <td><strong>Gross Amount</strong></td>
-                                <td class="text-right">
-                                    <span t-field="o.gross_amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Discount</strong></td>
-                                <td class="text-right">
-                                    <span t-field="o.discount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                </td>
-                            </tr>
+                            <t t-if="o.discount &gt; 0">
+                                <tr>
+                                    <td><strong>Gross Amount</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="o.gross_amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Discount</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="o.discount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </t>
                             <tr class="border-black" style="border-bottom:1px solid #dddddd;">
                                 <td><strong>Subtotal</strong></td>
                                 <td class="text-right">
