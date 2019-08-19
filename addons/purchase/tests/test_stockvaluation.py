@@ -9,7 +9,6 @@ from flectra.tests.common import TransactionCase
 from flectra.addons.account.tests.account_test_classes import AccountingTestCase
 from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
-
 class TestStockValuation(TransactionCase):
     def setUp(self):
         super(TestStockValuation, self).setUp()
@@ -558,7 +557,7 @@ class TestStockValuationWithCOA(AccountingTestCase):
         def _today(*args, **kwargs):
             return date_po
         patchers = [
-            patch('odoo.fields.Date.context_today', _today),
+            patch('flectra.fields.Date.context_today', _today),
         ]
 
         for p in patchers:
@@ -727,8 +726,8 @@ class TestStockValuationWithCOA(AccountingTestCase):
             return date_delivery + ' 01:00:00'
 
         patchers = [
-            patch('odoo.fields.Date.context_today', _today),
-            patch('odoo.fields.Datetime.now', _now),
+            patch('flectra.fields.Date.context_today', _today),
+            patch('flectra.fields.Datetime.now', _now),
         ]
 
         for p in patchers:
