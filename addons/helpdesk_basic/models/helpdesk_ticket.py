@@ -24,8 +24,9 @@ class HelpdeskTicket(models.Model):
     user_id = fields.Many2one('res.users', string='Created By',
                               track_visibility='onchange')
     partner_id = fields.Many2one(
-        'res.partner', store=True, related='user_id.partner_id',
-        string='Related Partner', track_visibility='onchange')
+        'res.partner',
+        string='Related Partner',
+        track_visibility='onchange')
     email = fields.Char(
             string='Email',
             default=lambda s: s.env.user.partner_id.email or False)
