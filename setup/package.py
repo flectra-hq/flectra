@@ -281,9 +281,7 @@ def build_deb(o):
         deb = pexpect.spawn('dpkg-buildpackage -rfakeroot -k%s' % GPGID, cwd=o.build_dir)
         deb.logfile = stdout.buffer
         if GPGPASSPHRASE:
-            deb.expect_exact('Enter passphrase: ', timeout=1200)
-            deb.send(GPGPASSPHRASE + '\r\n')
-            deb.expect_exact('Enter passphrase: ')
+            deb.expect_exact('Passphrase: ', timeout=1200)
             deb.send(GPGPASSPHRASE + '\r\n')
         deb.expect(pexpect.EOF, timeout=1200)
     else:
