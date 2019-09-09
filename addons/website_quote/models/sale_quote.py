@@ -98,6 +98,7 @@ class SaleQuoteLine(models.Model):
 class SaleQuoteOption(models.Model):
     _name = "sale.quote.option"
     _description = "Quotation Option"
+    _order = 'sequence, id'
 
     template_id = fields.Many2one('sale.quote.template', 'Quotation Template Reference', ondelete='cascade',
         index=True, required=True)
@@ -109,6 +110,7 @@ class SaleQuoteOption(models.Model):
     discount = fields.Float('Discount (%)', digits=dp.get_precision('Discount'))
     uom_id = fields.Many2one('product.uom', 'Unit of Measure ', required=True)
     quantity = fields.Float('Quantity', required=True, digits=dp.get_precision('Product UoS'), default=1)
+    sequence = fields.Integer('Sequence', help="Gives the sequence order when displaying a list of suggested product.")
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
