@@ -168,7 +168,7 @@ def has_test_errors(fname, dbname, check_loaded=True):
     log_start_regex = re.compile(r'^.*(?P<loglevel>(INFO|WARNING|DEBUG|ERROR|CRITICAL)).*?: (?P<message>.*\S)\s*$')
     log_records = []
     last_log_record = dict.fromkeys(log_start_regex.groupindex.keys())
-    with open(fname) as log:
+    with open(fname, encoding='utf-8') as log:
         for line in log:
             line = color_regex.sub('', line)
             match = log_start_regex.match(line)
