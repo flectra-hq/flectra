@@ -240,7 +240,7 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
         else:
             modules_to_init = "base"
         
-        cmd_flectra = ["unbuffer", "coverage", "run"]
+        cmd_flectra = ["unbuffer", "coverage", "run", "--source", server_path]
         cmd_flectra += ["%s/flectra-bin" % (server_path),
                         "--db_host",
                         host,
