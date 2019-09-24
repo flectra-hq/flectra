@@ -141,7 +141,7 @@ def has_test_errors(fname, dbname, check_loaded=True):
         'failed sending mail',
     ]
     errors_report = [
-        lambda x: x['loglevel'] == 'CRITICAL',
+        lambda x: 'loglevel' in x and x['loglevel'] == 'CRITICAL',
         'At least one test failed',
         'no access rules, consider adding one',
         'invalid module names, ignored',
