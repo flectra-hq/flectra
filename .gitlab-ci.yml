@@ -23,7 +23,6 @@ variables:
   POSTGRES_PORT: "5432"
 
 before_script:
-  - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
   - cp -rp requirements.txt setup/docker/requirements.txt
 
 #--------------------------------------------------------------------
@@ -101,6 +100,7 @@ build:flectra_ubuntu:
   <<: *build_definition
   stage: build
   script:
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
     - docker pull ${UBUNTU_FLECTRA_IMAGE}:latest || true
     - docker build --cache-from ${UBUNTU_FLECTRA_IMAGE}:latest
         --build-arg BASE_IMAGE=${UBUNTU_BASE_IMAGE}
@@ -115,6 +115,7 @@ build:flectra_ubuntu:
   <<: *build_definition
   stage: build
   script:
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
     - docker pull ${DEBIAN_FLECTRA_IMAGE}:latest || true
     - docker build --cache-from ${DEBIAN_FLECTRA_IMAGE}:latest
         --build-arg BASE_IMAGE=${DEBIAN_BASE_IMAGE}
@@ -132,6 +133,7 @@ build:flectra_ubuntu_root:
   <<: *build_definition
   stage: buildroot
   script:
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
     - docker pull ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA || true
     - docker build --cache-from ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
         --build-arg BASE_IMAGE=${UBUNTU_FLECTRA_IMAGE}
