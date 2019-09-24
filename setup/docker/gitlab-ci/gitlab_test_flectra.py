@@ -165,10 +165,7 @@ def has_test_errors(fname, dbname, check_loaded=True):
     # Read log file removing ASCII color escapes:
     # http://serverfault.com/questions/71285
     color_regex = re.compile(r'\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]')
-    log_start_regex = re.compile(
-            r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3} \d+ ('
-            r'?P<loglevel>\w+) '
-            '(?P<db>(%s)|([?])) (?P<logger>\S+): (?P<message>.*)$' % dbname)
+    log_start_regex = re.compile(r'^.*?: (?P<message>.*\S)\s*$')
     log_records = []
     last_log_record = dict.fromkeys(log_start_regex.groupindex.keys())
     with open(fname) as log:
