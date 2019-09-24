@@ -270,12 +270,12 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
                     universal_newlines=True) as p:
                 returncode = p.wait()
         outfile.close()
-        try:
-            with open(log_file) as logfile:
-                for line in logfile:
-                    print(line, end='')
-        except Exception as ex:
-            print(ex)
+        # try:
+        #     with open(log_file) as logfile:
+        #         for line in logfile:
+        #             print(line, end='')
+        # except Exception as ex:
+        #     print(ex)
             
         errors = has_test_errors(os.path.join(server_path, log_file), db)
     return {'errors': errors, 'returncode': returncode}
