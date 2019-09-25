@@ -146,14 +146,14 @@ build:flectra_ubuntu_root:
 #--------------------------------------------------------------------
 # Jobs of stage integrationtest
 #--------------------------------------------------------------------
-.itest:ubuntu_pg9_all:
+itest:ubuntu_pg9_all:
   <<: *integrationtest_definition
   services: *psql9_definition
   image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres9
 
-.itest:ubuntu_pg10_all:
+itest:ubuntu_pg10_all:
   <<: *integrationtest_definition
   services: *psql10_definition
   image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
