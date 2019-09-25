@@ -22,9 +22,6 @@ variables:
   POSTGRES_HOST: postgres
   POSTGRES_PORT: "5432"
 
-before_script:
-  - cp -rp requirements.txt setup/docker/requirements.txt
-
 #--------------------------------------------------------------------
 # Job Templates
 #--------------------------------------------------------------------
@@ -73,24 +70,28 @@ test:pg9_base:
   <<: *unittest_definition
   services: *psql9_definition
   script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres9"
 
 test:pg9_all:
   <<: *unittest_definition
   services: *psql9_definition
   script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres9"
 
 test:pg10_base:
   <<: *unittest_definition
   services: *psql10_definition
   script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres10"
 
 test:pg10_all:
   <<: *unittest_definition
   services: *psql10_definition
   script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres10"
 
 #--------------------------------------------------------------------
