@@ -182,7 +182,7 @@ itest:ubuntu_pg9_all:
     expire_in: 2 week
   image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
-    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres9
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres9
 
 itest:ubuntu_pg10_all:
   <<: *integrationtest_definition
@@ -195,21 +195,21 @@ itest:ubuntu_pg10_all:
     expire_in: 2 week
   image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
-    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres10
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres10
 
 .itest:debian_pg9_all:
   <<: *integrationtest_definition
   services: *psql9_definition
   image: ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
-    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres9
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres9
 
 .itest:debian_pg10_all:
   <<: *integrationtest_definition
   services: *psql10_definition
   image: ${DEBIAN_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
-    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres10
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres10
 
 deploy:flectra_ubuntu:
   <<: *build_definition
