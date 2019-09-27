@@ -171,7 +171,8 @@ def has_test_errors(fname, dbname, check_loaded=True):
     with open(fname, encoding='utf-8') as log:
         for line in log:
             line = color_regex.sub('', line)
-            line = line.encode('ascii', 'ignore').decode('ascii')
+            if sys.stdout.encoding != 'UTF-8':
+                line = line.encode('ascii', 'ignore').decode('ascii')
             match = log_start_regex.match(line)
             if match:
                 last_log_record = match.groupdict()
@@ -330,7 +331,6 @@ def main(argv=None):
 
 
 if __name__ == '__main__':
-    print(sys.stdout.encoding)
     rc = main()
     
     if rc:
