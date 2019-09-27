@@ -82,6 +82,12 @@ test:pg9_base:
 test:pg9_all:
   <<: *unittest_definition
   services: *psql9_definition
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - all_postgres9.log
+    when: always
+    expire_in: 2 week
   script:
     - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres9"
@@ -89,6 +95,12 @@ test:pg9_all:
 test:pg10_base:
   <<: *unittest_definition
   services: *psql10_definition
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - base_postgres10.log
+    when: always
+    expire_in: 2 week
   script:
     - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres10"
@@ -96,6 +108,12 @@ test:pg10_base:
 test:pg10_all:
   <<: *unittest_definition
   services: *psql10_definition
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - all_postgres10.log
+    when: always
+    expire_in: 2 week
   script:
     - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres10"
@@ -156,6 +174,12 @@ build:flectra_ubuntu_root:
 itest:ubuntu_pg9_all:
   <<: *integrationtest_definition
   services: *psql9_definition
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - all_postgres9.log
+    when: always
+    expire_in: 2 week
   image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres9
@@ -163,6 +187,12 @@ itest:ubuntu_pg9_all:
 itest:ubuntu_pg10_all:
   <<: *integrationtest_definition
   services: *psql10_definition
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - all_postgres10.log
+    when: always
+    expire_in: 2 week
   image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra/flectra --host=postgres10
