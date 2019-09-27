@@ -41,12 +41,6 @@ variables:
   coverage: '/^TOTAL.*\s+(\d+\%)$/'
   except:
     - schedules
-  artifacts:
-    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
-    paths:
-      - ${CI_JOB_NAME}.log
-    when: always
-    expire_in: 2 week
 
 .build:template: &build_definition
   services:
@@ -75,6 +69,12 @@ variables:
 test:pg9_base:
   <<: *unittest_definition
   services: *psql9_definition
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - base_postgres9.log
+    when: always
+    expire_in: 2 week
   script:
     - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres9"
