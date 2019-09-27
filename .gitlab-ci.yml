@@ -66,7 +66,7 @@ variables:
 #--------------------------------------------------------------------
 # Jobs of stage unittest
 #--------------------------------------------------------------------
-.test:pg9_base:
+test:pg9_base:
   <<: *unittest_definition
   services: *psql9_definition
   artifacts:
@@ -79,7 +79,7 @@ variables:
     - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres9"
 
-.test:pg9_all:
+test:pg9_all:
   <<: *unittest_definition
   services: *psql9_definition
   artifacts:
@@ -92,7 +92,7 @@ variables:
     - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres9"
 
-.test:pg10_base:
+test:pg10_base:
   <<: *unittest_definition
   services: *psql10_definition
   artifacts:
@@ -105,7 +105,7 @@ variables:
     - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres10"
 
-.test:pg10_all:
+test:pg10_all:
   <<: *unittest_definition
   services: *psql10_definition
   artifacts:
@@ -154,7 +154,7 @@ build:flectra_ubuntu:
 #--------------------------------------------------------------------
 # Jobs of stage buildroot
 #--------------------------------------------------------------------
-.build:flectra_ubuntu_root:
+build:flectra_ubuntu_root:
   <<: *build_definition
   stage: buildroot
   script:
