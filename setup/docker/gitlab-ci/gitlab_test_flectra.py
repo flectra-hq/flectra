@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Part of code taken from github.com/OCA/maintainer-quality-tools
-
+import sys
 import re
 import os
 import subprocess
@@ -171,6 +171,7 @@ def has_test_errors(fname, dbname, check_loaded=True):
     with open(fname, encoding='utf-8') as log:
         for line in log:
             line = color_regex.sub('', line)
+            line = line.encode('ascii', 'ignore').decode('ascii')
             match = log_start_regex.match(line)
             if match:
                 last_log_record = match.groupdict()
@@ -188,7 +189,7 @@ def has_test_errors(fname, dbname, check_loaded=True):
                 break
         if ignore:
             break
-        print(log_record)
+        print('{0}: {1}'.format(log_record['loglevel'], log_record['message']))
         for report_pattern in errors_report:
             if report_pattern(log_record):
                 errors.append(log_record)
@@ -329,6 +330,7 @@ def main(argv=None):
 
 
 if __name__ == '__main__':
+    print(sys.stdout.encoding)
     rc = main()
     
     if rc:
