@@ -223,7 +223,7 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
     except subprocess.CalledProcessError:
         print("Problem in creating database.")
     else:
-        log_file = os.path.join(server_path, db + ".log")
+        log_file = os.path.join(server_path, os.environ['CI_JOB_NAME'] + ".log")
         
         # ugly hack as -i all is broken and does not take all modules into
         # consideration
@@ -270,9 +270,6 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
                     universal_newlines=True) as p:
                 returncode = p.wait()
         outfile.close()
-        with open(log_file, encoding='utf-8') as logfile:
-            for line in logfile:
-                print(line, end='')
 
         errors = has_test_errors(os.path.join(server_path, log_file), db)
     return {'errors': errors, 'returncode': returncode}

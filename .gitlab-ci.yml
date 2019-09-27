@@ -41,6 +41,12 @@ variables:
   coverage: '/^TOTAL.*\s+(\d+\%)$/'
   except:
     - schedules
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - ${CI_JOB_NAME}.log
+    when: always
+    expire_in: 2 week
 
 .build:template: &build_definition
   services:
