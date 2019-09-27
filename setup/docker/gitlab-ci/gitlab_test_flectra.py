@@ -188,6 +188,7 @@ def has_test_errors(fname, dbname, check_loaded=True):
                 break
         if ignore:
             break
+        print(log_record)
         for report_pattern in errors_report:
             if report_pattern(log_record):
                 errors.append(log_record)
