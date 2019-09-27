@@ -235,7 +235,11 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
         # creates trouble and build always fails
         addons_path = os.path.join(server_path, "addons")
         if not os.path.isdir(addons_path):
+            # Assume we are at integration test level where we can not test performance and client modules
             addons_path = os.path.join(server_path, "flectra", "addons")
+            modules_to_ignore.append('test_performance')
+            modules_to_ignore.append('website')
+
         addons = list(set([addon.name for addon in os.scandir(addons_path) if
                            addon.is_dir() and "10n" not in addon.name]) - set(
                 modules_to_ignore))
