@@ -50,7 +50,7 @@ variables:
   image: docker:stable
 
 .integrationtest:template: &integrationtest_definition
-  stage: integrationtest
+  stage: unittest
   except:
     - schedules
     - tags
