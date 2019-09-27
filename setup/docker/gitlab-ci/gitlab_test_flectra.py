@@ -226,7 +226,7 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
     except subprocess.CalledProcessError:
         print("Problem in creating database.")
     else:
-        log_file = os.path.join(server_path, "{0}_{1}.log".format(type_of_db, host))
+        log_file = os.path.join(os.getcwd(), "{0}_{1}.log".format(type_of_db, host))
         
         # ugly hack as -i all is broken and does not take all modules into
         # consideration
