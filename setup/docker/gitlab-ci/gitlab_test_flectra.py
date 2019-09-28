@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 # Part of code taken from github.com/OCA/maintainer-quality-tools
-import sys
+
 import re
 import os
+import shutil
 import subprocess
+import sys
 import uuid
 import argparse
 from coverage.cmdline import main as coverage_main
@@ -22,84 +23,47 @@ YELLOW = "\033[1;33m"
 YELLOW_LIGHT = "\033[33m"
 CLEAR = "\033[0;m"
 
-# modules that are either added as dependencies for other modules, so better
-#  to ignore them for the moment
-modules_to_ignore = [
-    "account", "account_analytic_default", "account_asset",
-    "account_bank_statement_import", "account_budget",
-    "account_cancel", "account_check_printing",
-    "account_payment", "account_tax_python", "account_test",
-    "account_voucher", "analytic", "anonymization",
-    "association", "auth_crypt", "auth_ldap", "auth_oauth",
-    "auth_signup", "barcodes", "base_address_city",
-    "base_address_extended", "base_automation",
-    "base_gengo", "base_geolocalize", "base_iban",
-    "base_import", "base_import_module", "base_setup",
-    "base_sparse_field", "base_vat", "base_vat_autocomplete",
-    "bus", "calendar_sms", "crm_livechat",
-    "crm_phone_validation", "crm_project",
-    "decimal_precision", "delivery", "document", "event",
-    "event_sale", "fetchmail", "gamification",
-    "gamification_sale_crm", "google_account",
-    "google_calendar",
-    "google_drive", "google_spreadsheet", "hr_contract",
-    "hr_expense_check", "hr_gamification", "hr_maintenance",
-    "hr_org_chart", "hr_payroll", "hr_payroll_account",
-    "hr_recruitment_survey", "hr_timesheet_attendance",
-    "http_routing", "hw_blackbox_be", "hw_escpos",
-    "hw_posbox_homepage", "hw_posbox_upgrade", "hw_proxy",
-    "hw_scale", "hw_scanner", "hw_screen", "link_tracker",
-    "live_currency_rate", "mass_mailing_event",
-    "mass_mailing_event_track", "membership", "mrp_byproduct",
-    "note_pad", "pad", "pad_project", "password_security",
-    "payment", "payment_adyen", "payment_authorize",
-    "payment_buckaroo", "payment_ogone", "payment_paypal",
-    "payment_payumoney", "payment_sips", "payment_stripe",
-    "payment_transfer", "phone_validation", "portal",
-    "pos_cache", "pos_data_drinks", "pos_discount",
-    "pos_mercury", "pos_reprint", "pos_restaurant",
-    "pos_sale",
-    "procurement_jit", "product", "product_email_template",
-    "product_expiry", "product_extended", "product_margin",
-    "project_timesheet_holidays", "purchase_mrp",
-    "purchase_requisition", "rating", "rating_project",
-    "report_intrastat",
-    "resource", "sale", "sale_crm", "sale_expense",
-    "sale_margin", "sale_mrp", "sale_order_dates",
-    "sale_payment",
-    "sale_service_rating", "sale_stock", "sale_timesheet",
-    "sales_team", "sms", "stock_account",
-    "stock_dropshipping",
-    "stock_landed_costs", "stock_picking_batch", "survey_crm",
-    "theme_bootswatch", "theme_default", "transifex", "utm",
-    "web", "web_diagram", "web_editor",
-    "web_kanban_gauge", "web_planner",
-    "web_settings_dashboard", "web_tour", "website_crm",
-    "website_crm_partner_assign",
-    "website_crm_phone_validation", "website_customer",
-    "website_event_questions", "website_event_sale",
-    "website_event_track", "website_form",
-    "website_form_project", "website_forum_doc",
-    "website_gengo", "website_google_map", "website_hr",
-    "website_hr_recruitment",
-    "website_links", "website_livechat",
-    "website_mail", "website_mail_channel",
-    "website_mass_mailing", "website_membership",
-    "website_partner",
-    "website_payment", "website_quote", "website_rating",
-    "website_rating_project", "website_sale_comparison",
-    "website_sale_delivery", "website_sale_digital",
-    "website_sale_management", "website_sale_options",
-    "website_sale_stock", "website_sale_stock_options",
-    "website_sale_wishlist", "website_theme_install",
-    "website_twitter", "theme_art", "theme_hermit",
-    "theme_leith", "theme_techreceptives"
-]
+# modules that are either added as dependencies for other modules, so better to ignore them for the moment
+modules_to_ignore = ["account_analytic_default", "account_bank_statement_import", "account_budget",
+                     "account_cancel", "account_check_printing", "account_payment", "account_tax_python",
+                     "account_test", "account_voucher", "analytic", "anonymization", "association",
+                     "auth_crypt", "auth_ldap", "auth_oauth", "auth_signup", "barcodes", "base_address_city",
+                     "base_address_extended", "base_automation", "base_gengo", "base_geolocalize", "base_iban",
+                     "base_import", "base_import_module", "base_setup", "base_sparse_field", "base_vat",
+                     "base_vat_autocomplete", "bus", "calendar_sms", "crm_livechat",
+                     "crm_phone_validation", "crm_project", "decimal_precision", "delivery", "document", "event",
+                     "event_sale", "fetchmail", "gamification", "gamification_sale_crm", "google_account",
+                     "google_calendar", "google_drive", "google_spreadsheet",
+                     "hr_contract", "hr_expense_check", "hr_gamification", "hr_maintenance",
+                     "hr_org_chart", "hr_payroll", "hr_payroll_account", "hr_recruitment_survey",
+                     "hr_timesheet_attendance", "http_routing", "hw_blackbox_be", "hw_escpos", "hw_posbox_homepage",
+                     "hw_posbox_upgrade", "hw_proxy", "hw_scale", "hw_scanner", "hw_screen", "link_tracker",
+                     "live_currency_rate", "mass_mailing_event", "mass_mailing_event_track", "membership",
+                     "mrp_byproduct", "note_pad", "pad", "pad_project", "password_security",
+                     "payment", "payment_adyen", "payment_authorize", "payment_buckaroo", "payment_ogone",
+                     "payment_paypal", "payment_payumoney", "payment_sips", "payment_stripe", "payment_transfer",
+                     "phone_validation", "portal", "pos_cache", "pos_data_drinks", "pos_discount", "pos_mercury",
+                     "pos_reprint", "pos_restaurant", "pos_sale", "procurement_jit", "product", "product_email_template",
+                     "product_expiry", "product_extended", "product_margin", "project_timesheet_holidays", "rating",
+                     "rating_project", "report_intrastat", "resource", "sale_mrp", "sale_order_dates",
+                     "sale_payment", "sale_service_rating", "sale_timesheet", "sales_team", "sms", "stock_dropshipping",
+                     "stock_landed_costs", "stock_picking_batch", "survey_crm", "theme_bootswatch", "theme_default",
+                     "transifex", "utm", "web", "web_diagram", "web_editor", "web_kanban_gauge", "web_planner",
+                     "web_settings_dashboard", "web_tour", "website_crm", "website_crm_partner_assign",
+                     "website_crm_phone_validation", "website_customer", "website_event_questions",
+                     "website_event_sale", "website_event_track", "website_form", "website_form_project",
+                     "website_forum_doc", "website_gengo" , "website_google_map", "website_hr", "website_hr_recruitment",
+                     "website_links", "website_livechat", "website_mail", "website_mail_channel", "website_mass_mailing",
+                     "website_membership", "website_partner", "website_payment", "website_quote", "website_rating",
+                     "website_rating_project", "website_sale_comparison", "website_sale_delivery", "website_sale_digital",
+                     "website_sale_management", "website_sale_options", "website_sale_stock", "website_sale_stock_options",
+                     "website_sale_wishlist", "website_theme_install", "website_twitter", "theme_art", "theme_hermit",
+                     "theme_leith", "theme_techreceptives"]
 
 
 def colorized(text, color):
     return '\n'.join(
-            map(lambda line: color + line + CLEAR, text.split('\n')))
+        map(lambda line: color + line + CLEAR, text.split('\n')))
 
 
 def green(text):
@@ -146,7 +110,7 @@ def has_test_errors(fname, dbname, check_loaded=True):
         'no access rules, consider adding one',
         'invalid module names, ignored',
     ]
-    
+
     def make_pattern_list_callable(pattern_list):
         for i in range(len(pattern_list)):
             if isinstance(pattern_list[i], basestring):
@@ -157,10 +121,10 @@ def has_test_errors(fname, dbname, check_loaded=True):
                 regex = pattern_list[i]
                 pattern_list[i] = lambda x, regex=regex: \
                     regex.search(x['message'])
-    
+
     make_pattern_list_callable(errors_ignore)
     make_pattern_list_callable(errors_report)
-    
+
     print("-" * 10)
     # Read log file removing ASCII color escapes:
     # http://serverfault.com/questions/71285
@@ -195,16 +159,15 @@ def has_test_errors(fname, dbname, check_loaded=True):
             if report_pattern(log_record):
                 errors.append(log_record)
                 break
-    
+
     if check_loaded:
-        if not [r for r in log_records if 'Modules loaded.' == r['message']]:
-            errors.append({'message': "Modules loaded message not found."})
-    
+        if not [r for r in log_records if 'Modules loaded.' in r['message']]:
+            errors.append({'message': "Message not found: 'Modules loaded.'"})
+
     if errors:
         for e in errors:
             print(e['message'])
-        print("-" * 10)
-    #     print ("THIS IS ERROR ------",errors)
+        print("-"*10)
     return len(errors)
 
 
@@ -227,11 +190,9 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
         print("Problem in creating database.")
     else:
         log_file = os.path.join(os.getcwd(), "flectra.log")
-        
-        # ugly hack as -i all is broken and does not take all modules into
-        # consideration
-        # need to remove l10n_* modules from the list as installing them all
-        #  together
+
+        # ugly hack as -i all is broken and does not take all modules into consideration
+        # need to remove l10n_* modules from the list as installing them all together
         # creates trouble and build always fails
         addons_path = os.path.join(server_path, "addons")
         if not os.path.isdir(addons_path):
@@ -240,15 +201,15 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
             modules_to_ignore.append('test_performance')
             modules_to_ignore.append('website')
 
-        addons = list(set([addon.name for addon in os.scandir(addons_path) if
-                           addon.is_dir() and "10n" not in addon.name]) - set(
+        addons = list(
+            set([addon.name for addon in os.scandir(addons_path) if addon.is_dir() and "10n" not in addon.name]) - set(
                 modules_to_ignore))
-        
+
         if type_of_db == "all":
             modules_to_init = str(",".join(addons))
         else:
             modules_to_init = "base"
-        
+
         cmd_flectra = ["unbuffer", "coverage", "run", "--source", server_path]
         cmd_flectra += ["%s/flectra-bin" % (server_path),
                         "--db_host",
@@ -271,23 +232,20 @@ def run_flectra(type_of_db, server_path, host, port, user, password):
                         "--init", modules_to_init]
         print("CMD EXECUTED --->>> ", " ".join(cmd_flectra))
 
-        with open(log_file, 'w') as outfile:
-            with subprocess.Popen(
-                    cmd_flectra,
-                    stdout=outfile,
-                    bufsize=1,
-                    universal_newlines=True) as p:
-                returncode = p.wait()
+        with subprocess.Popen(cmd_flectra, stdout=subprocess.PIPE, bufsize=1, universal_newlines=True) as p:
+            with open(log_file, 'w') as outfile:
+                for line in p.stdout:
+                    print(line, end='')
+                    outfile.write(line)  # process line here
+        returncode = p.wait()
         outfile.close()
-
         errors = has_test_errors(os.path.join(server_path, log_file), db)
     return {'errors': errors, 'returncode': returncode}
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Create Docker Instances....')
-    parser.add_argument('--build', dest='build', help='Build type',
-                        default="base")
+    parser.add_argument('--build', dest='build', help='Port For Instance', required=True, default="base")
     parser.add_argument('--server-path', dest='path', help='Flectra Path')
     parser.add_argument('--host', dest='host',
                         help='PostgreSQL Host',
@@ -303,7 +261,9 @@ def main(argv=None):
                         default="flectra")
     args = parser.parse_args()
     build = args.build
-    
+
+    if argv is None:
+        argv = sys.argv
     res = {}
     server_path = args.path or os.getcwd()
     
@@ -328,8 +288,7 @@ def main(argv=None):
                 user=args.user,
                 password=args.password,
         )
-        errors = 'base' in res and res['base'] and 'errors' in res['base'] \
-                 and \
+        errors = 'base' in res and res['base'] and 'errors' in res['base'] and \
                  res['base']['errors']
     
     print("************ ERRORS ************  : ", errors)
