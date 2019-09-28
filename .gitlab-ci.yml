@@ -213,7 +213,7 @@ deploy:flectradev_gitlab:
     - docker tag ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTUDEV_FLECTRA_IMAGE}:latest
     - docker push ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_TAG
     - docker push ${UBUNTUDEV_FLECTRA_IMAGE}:latest
-    -
+
 deploy:flectra_dockerhub:
   <<: *build_definition
   stage: deploy
