@@ -25,7 +25,7 @@ RUN mkdir -p /var/run/sshd \
     && sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config
 
 # add special scripts for development
-ADD setup/docker/flectra/dev/bin /usr/local/bin
+ADD flectra/dev/bin /usr/local/bin
 
 VOLUME ["/opt/flectra", "/etc/flectra", "/var/log/flectra"]
 
