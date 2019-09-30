@@ -65,7 +65,7 @@ class AccountInvoice(models.Model):
         custom_amount = 0.0
         self.reverse_tax_line_ids = [[6, 0, []]]
         for tax_line in self.tax_line_ids:
-            tax_id = account_tax_obj.search([('name', 'ilike', tax_line.name)])
+            tax_id = account_tax_obj.search([('name', 'ilike', tax_line.name)],limit=1)
             custom_amount += \
                 tax_line.amount_total if tax_id.tax_type == 'customs' else 0.0
             account_id = tax_id.account_id.id
@@ -119,7 +119,7 @@ class AccountInvoice(models.Model):
         return {
             'name': '/',
             'partner_id': self.partner_id.parent_id.id or self.partner_id.id,
-            'account_id': account_id.id,
+            'account_id': account_id,
             'credit': credit,
             'move_id': self.move_id.id,
             'invoice_id': self.id,
