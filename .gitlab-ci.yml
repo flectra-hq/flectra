@@ -235,8 +235,8 @@ deploy:flectra_bin:
     - name: docker:dind
     - name: postgres:10-alpine
       alias: postgres
-  except:
-    - schedules
+  only:
+    - tags
   image: docker:stable
   stage: package
   artifacts:
