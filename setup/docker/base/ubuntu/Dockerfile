@@ -15,7 +15,7 @@ RUN apt-get update && \
     python3-pillow python3-lxml python-ldap3 python3-dev python3-pip python3-setuptools python3-passlib \
     postgresql-${POSTGRESQL_VERSION} postgresql-server-dev-${POSTGRESQL_VERSION} \
     fontconfig libxfont2 xfonts-encodings xfonts-utils xfonts-base xfonts-75dpi \
-    npm nodejs libldap2-dev libsasl2-dev libxml2-dev libxslt1-dev libjpeg-dev zlib1g-dev libfontconfig1 -y
+    npm nodejs libldap2-dev libsasl2-dev libxml2-dev libxslt1-dev libjpeg-dev zlib1g-dev libfontconfig1 libmagickwand-dev -y
 
 RUN locale-gen --purge en_US.UTF-8 && \
     dpkg-reconfigure --frontend=noninteractive locales && \
@@ -27,12 +27,8 @@ RUN pip3 install --upgrade pip
 RUN pip3 install -r /tmp/requirements.txt
 RUN npm install -g less less-plugin-clean-css -y
 
-RUN curl -o wkhtmltox.tar.xz -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
-    && echo '3f923f425d345940089e44c1466f6408b9619562 wkhtmltox.tar.xz' | sha1sum -c - \
-    && tar xvf wkhtmltox.tar.xz \
-    && cp wkhtmltox/lib/* /usr/local/lib/ \
-    && cp wkhtmltox/bin/* /usr/local/bin/ \
-    && cp -r wkhtmltox/share/man/man1 /usr/local/share/man/
+RUN curl -SsLO https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb && \
+    apt-get install -f ./wkhtmltox_0.12.5-1.bionic_amd64.deb
 
 # install CI tools
 RUN pip3 install coverage coveralls codecov simplejson pyserial pyyaml unittest2 pyopenssl>=16.2.0 \
