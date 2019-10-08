@@ -97,7 +97,7 @@ var Apps = Widget.extend({
         var _bookmarkMenus = rpc.query({
             model: 'menu.bookmark',
             method: 'get_bookmark_data',
-            args: ['', ['name', 'action', 'display_name']],
+            args: ['', ['name', 'action', 'display_name', 'bookmark_label', 'bookmark_icon']],
             kwargs: {context: session.user_context},
         }).then(function (menus) {
             menus = _.each(menus, function (menu) {

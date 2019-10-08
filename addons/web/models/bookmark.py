@@ -56,7 +56,8 @@ class MenuBookmark(models.Model):
     def get_bookmark_data(self, fields=[]):
         bookmark_menu_ids = [rec.menu_id.id for rec in self.sudo().search([('user_id', '=', self.env.user.id)])]
         menu_ids = self.env['ir.ui.menu'].browse(bookmark_menu_ids)
-        return menu_ids.read(fields)
+        data = menu_ids.read(fields)
+        return sorted(data, key=lambda s: s['bookmark_label'])
 
     @api.multi
     def remove_bookmark(self, menu_id):

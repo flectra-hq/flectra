@@ -44,6 +44,33 @@ class IrUiMenu(models.Model):
                                          ('ir.actions.client', 'ir.actions.client')])
 
     web_icon_data = fields.Binary(string='Web Icon Image', attachment=True)
+    bookmark_icon = fields.Binary(string='Bookmark Icon Image', attachment=True, compute='_compute_bookmark_icon')
+    bookmark_label = fields.Char(string='Bookmark Label', compute='_compute_bookmark_label')
+
+    def _compute_bookmark_label(self):
+        for menu in self:
+            label_parts = menu._get_parent_bookmark_label()
+            menu.bookmark_label = '<br/>'.join(label_parts)
+
+    def _get_parent_bookmark_label(self):
+        self.ensure_one()
+        if self.parent_id:
+            label_parts = self.parent_id._get_parent_bookmark_label()
+            if label_parts and label_parts[-1] != self.name:
+                label_parts.append(self.name)
+        else:
+            label_parts = [self.name]
+        return label_parts
+
+    def _compute_bookmark_icon(self):
+        for menu in self:
+            menu.bookmark_icon = menu._get_parent_icon()
+
+    def _get_parent_icon(self):
+        self.ensure_one()
+        if self.web_icon_data:
+            return self.web_icon_data
+        return self.parent_id._get_parent_icon()
 
     @api.depends('name', 'parent_id.complete_name')
     def _compute_complete_name(self):
