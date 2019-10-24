@@ -230,7 +230,7 @@ deploy:flectra_dockerhub:
     - docker push ${DOCKER_HUB_ROOT}/flectra:$CI_COMMIT_TAG
     - docker push ${DOCKER_HUB_ROOT}/flectra:latest
 
-deploy:flectra_bin:
+.deploy:flectra_bin:
   services:
     - name: docker:dind
     - name: postgres:10-alpine
