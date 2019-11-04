@@ -113,6 +113,10 @@ class SaleOrder(models.Model):
         sol = SaleOrderLine.sudo().create(values)
         return sol
 
+    def _get_domain_for_invoice_status(self):
+        line_domain = super()._get_domain_for_invoice_status()
+        line_domain.append(('is_delivery', '=', False))
+        return line_domain
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
