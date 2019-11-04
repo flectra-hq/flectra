@@ -1,0 +1,696 @@
+# Translation of Flectra Server.
+# This file contains the translation of the following modules:
+#	* rma
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Flectra Server 1.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-01 13:03+0000\n"
+"PO-Revision-Date: 2019-11-01 13:03+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: rma
+#: model:mail.template,body_html:rma.email_template_notify_warranty_date
+msgid "\n"
+"                % if object.is_website:\n"
+"                    %if object.is_replacement:\n"
+"                        <div>\n"
+"                                <p>Dear ${object.partner_id.name}</p>\n"
+"                                <p>We do hereby confirm the reception of your\n"
+"                                    request regarding replacement of products\n"
+"                                <b>${object.rma_line.product_id.name}</b>, Please accept our apologies\n"
+"                                    for this incident.</p>\n"
+"                                <p> As per your request, a new shipment for\n"
+"                                    <b>${object.rma_line.product_id.name}</b> will be created\n"
+"                                    soon and we will replace product.</p>\n"
+"                                <p>We are sorry that this occurred and appreciate\n"
+"                                    your continued patronage, As a thanks for\n"
+"                                    being one of our best client.\n"
+"                                    Should you have any questions,\n"
+"                                    please do not hesitate to contact us.\n"
+"                                </p>\n"
+"                                <p>Thank You</p>\n"
+"                        </div>\n"
+"                    %else:\n"
+"                        <div>\n"
+"                            <p>Dear ${object.partner_id.name}</p>\n"
+"                            <p>We do hereby confirm the reception of your\n"
+"                                request regarding return of products\n"
+"                            <b>${object.rma_line.product_id.name}</b>, Please accept our apologies\n"
+"                                for this incident.</p>\n"
+"                            <p>We are sorry that this occurred and appreciate\n"
+"                                your continued patronage, As a thanks for\n"
+"                                being one of our best client.\n"
+"                                Should you have any questions,\n"
+"                                please do not hesitate to contact us.\n"
+"                            </p>\n"
+"                            <p>Thank You</p>\n"
+"                        </div>\n"
+"                    %endif\n"
+"\n"
+"                % else:\n"
+"                    % if object.warranty_expire_line:\n"
+"                        <div>\n"
+"                            <p>Dear ${object.partner_id.name}</p>\n"
+"                            <p>We are sorry to hear about the problem you have had\n"
+"                                with your product.\n"
+"                            </p>\n"
+"                            <p> We would like to be able to make the necessary\n"
+"                                adjustment at no charge to you,\n"
+"                                but unfortunately the warranty is expired of\n"
+"                                following products:\n"
+"                            </p>\n"
+"                        </div>\n"
+"\n"
+"                        <table border=\"1\" width=\"100%\">\n"
+"                           <thead>\n"
+"                                <tr>\n"
+"                                    <th>Product</th>\n"
+"                                    <th>Lot</th>\n"
+"                                    <th>Quantity</th>\n"
+"                                    <th>Warranty Date</th>\n"
+"                                </tr>\n"
+"                            </thead>\n"
+"                            <tbody>\n"
+"                                % for line in object.warranty_expire_line:\n"
+"                                <tr>\n"
+"                                    <td>${line.product_id.name}</td>\n"
+"                                    <td>${line.lot_id.name}</td>\n"
+"                                    <td>${line.qty_expired}</td>\n"
+"                                    <td>${line.warranty_date}</td>\n"
+"                                </tr>\n"
+"                                % endfor\n"
+"                               </tbody>\n"
+"                        </table>\n"
+"                    % else:\n"
+"                        <div>\n"
+"                            <p>Dear ${object.partner_id.name}</p>\n"
+"                            <p>We are sorry to hear about the problem you have had\n"
+"                                with your product.</p>\n"
+"                            <p>We would like to be able to make the necessary\n"
+"                                adjustment at no charge to you.\n"
+"                            </p>\n"
+"                        </div>\n"
+"                    % endif\n"
+"                % endif\n"
+"\n"
+"        "
+msgstr "\n"
+"                % if object.is_website:\n"
+"                    %if object.is_replacement:\n"
+"                        <div>\n"
+"                                <p>Hallo ${object.partner_id.name}</p>\n"
+"                                <p>Wir bestätigen hiermit den Erhalt Ihrer Anfrage\n"
+"                                    bezüglich des Ersatzes der Produkte\n"
+"                                <b>${object.rma_line.product_id.name}</b>. Wir entschuldigen\n"
+"                                    uns für diesen Vorfall.</p>\n"
+"                                <p> Auf Ihren Wunsch hin werden wir in Kürze eine neue Lieferung für\n"
+"                                    <b>${object.rma_line.product_id.name}</b> erstellen\n"
+"                                    und das Produkt ersetzen. </p>\n"
+"                                <p>Wir bedauern, dass dies geschehen ist und freuen\n"
+"                                     uns über Ihre weitere Unterstützung. Als Dankeschön,\n"
+"                                     dass Sie einer unserer besten Kunden sind.\n"
+"                                    Sollten Sie Fragen haben, zögern Sie\n"
+"                                    bitte nicht, uns zu kontaktieren.\n"
+"                                </p>\n"
+"                                <p>Vielen Dank</p>\n"
+"                        </div>\n"
+"                    %else:\n"
+"                        <div>\n"
+"                            <p>Hallo ${object.partner_id.name}</p>\n"
+"                            <p>Hiermit bestätigen wir den Eingang Ihrer Anfrage\n"
+"                               bezüglich der Rückgabe von Produkten\n"
+"                            <b>${object.rma_line.product_id.name}</b>, Wir bitten um Entschuldigung\n"
+"                                für diesen Vorfall.</p>\n"
+"                            <p>Wir bedauern, dass dies geschehen ist und schätzen Ihre\n"
+"                                kontinuierliche Unterstützung, als Dankeschön,\n"
+"                                dass Sie einer unserer besten Kunden sind.\n"
+"                                Sollten Sie Fragen haben, zögern \n"
+"                                Sie bitte nicht, uns zu kontaktieren.\n"
+"                            </p>\n"
+"                            <p>Vielen Dank</p>\n"
+"                        </div>\n"
+"                    %endif\n"
+"\n"
+"                % else:\n"
+"                    % if object.warranty_expire_line:\n"
+"                        <div>\n"
+"                            <p>Hallo ${object.partner_id.name}</p>\n"
+"                            <p>Es tut uns leid, von dem Problem zu hören,\n"
+"                                 das Sie mit Ihrem Produkt hatten.\n"
+"                            </p>\n"
+"                            <p> Wir möchten die notwendige Korrektur\n"
+"                                kostenlos für Sie vornehmen können,\n"
+"                                aber leider ist die Garantie für\n"
+"                                folgende Produkte abgelaufen:\n"
+"                            </p>\n"
+"                        </div>\n"
+"\n"
+"                        <table border=\"1\" width=\"100%\">\n"
+"                           <thead>\n"
+"                                <tr>\n"
+"                                    <th>Produkt</th>\n"
+"                                    <th>Serien-Nr.</th>\n"
+"                                    <th>Menge</th>\n"
+"                                    <th>Garantie Datum</th>\n"
+"                                </tr>\n"
+"                            </thead>\n"
+"                            <tbody>\n"
+"                                % for line in object.warranty_expire_line:\n"
+"                                <tr>\n"
+"                                    <td>${line.product_id.name}</td>\n"
+"                                    <td>${line.lot_id.name}</td>\n"
+"                                    <td>${line.qty_expired}</td>\n"
+"                                    <td>${line.warranty_date}</td>\n"
+"                                </tr>\n"
+"                                % endfor\n"
+"                               </tbody>\n"
+"                        </table>\n"
+"                    % else:\n"
+"                        <div>\n"
+"                            <p>Hallo ${object.partner_id.name}</p>\n"
+"                            <p>Es tut uns leid das Sie Probleme mit\n"
+"                                Ihrem Produkt hatten.</p>\n"
+"                            <p>Wir werden die notwendige Korrektur kostenlos\n"
+"                                für Sie vornehmen.\n"
+"                            </p>\n"
+"                        </div>\n"
+"                    % endif\n"
+"                % endif\n"
+"\n"
+"        "
+
+#. module: rma
+#: model:mail.template,subject:rma.email_template_notify_warranty_date
+msgid "${object.name or 'n/a'}"
+msgstr "${object.name or 'n/a'}"
+
+#. module: rma
+#: code:addons/rma/models/rma_request.py:150
+#, python-format
+msgid "Compose Email"
+msgstr "E-Mail senden"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_form
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#. module: rma
+#: selection:rma.request,state:0
+msgid "Confirmed"
+msgstr "Bestätigt"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_form
+msgid "Create RMA"
+msgstr "RMA anlegen"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_return_reason_create_uid
+#: model:ir.model.fields,field_description:rma.field_rma_line_create_uid
+#: model:ir.model.fields,field_description:rma.field_rma_request_create_uid
+#: model:ir.model.fields,field_description:rma.field_warranty_expire_line_create_uid
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_return_reason_create_date
+#: model:ir.model.fields,field_description:rma.field_rma_line_create_date
+#: model:ir.model.fields,field_description:rma.field_rma_request_create_date
+#: model:ir.model.fields,field_description:rma.field_warranty_expire_line_create_date
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_request_partner_id
+msgid "Customer"
+msgstr "Kunde"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_line_qty_delivered
+msgid "Delivered Quantity"
+msgstr "Gelieferte Menge"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_request_picking_count
+#: model:ir.model.fields,field_description:rma.field_rma_request_picking_ids
+#: model:ir.ui.view,arch_db:rma.view_rma_request_form
+msgid "Delivery"
+msgstr "Lieferung"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_return_reason_display_name
+#: model:ir.model.fields,field_description:rma.field_rma_line_display_name
+#: model:ir.model.fields,field_description:rma.field_rma_request_display_name
+#: model:ir.model.fields,field_description:rma.field_warranty_expire_line_display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: rma
+#: selection:rma.request,state:0
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_warranty_expire_line_qty_expired
+msgid "Expired Quantity"
+msgstr "Verfallene Menge"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+msgid "Group By"
+msgstr "Gruppieren nach"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_return_reason_id
+#: model:ir.model.fields,field_description:rma.field_rma_line_id
+#: model:ir.model.fields,field_description:rma.field_rma_request_id
+#: model:ir.model.fields,field_description:rma.field_warranty_expire_line_id
+msgid "ID"
+msgstr "ID"
+
+#. module: rma
+#: code:addons/rma/wizard/stock_return_picking.py:16
+#, python-format
+msgid "It is not replacement request!"
+msgstr "Es handelt sich nicht um einen Umtausch!"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_return_reason___last_update
+#: model:ir.model.fields,field_description:rma.field_rma_line___last_update
+#: model:ir.model.fields,field_description:rma.field_rma_request___last_update
+#: model:ir.model.fields,field_description:rma.field_warranty_expire_line___last_update
+msgid "Last Modified on"
+msgstr "Zuletzt geändert am"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_return_reason_write_uid
+#: model:ir.model.fields,field_description:rma.field_rma_line_write_uid
+#: model:ir.model.fields,field_description:rma.field_rma_request_write_uid
+#: model:ir.model.fields,field_description:rma.field_warranty_expire_line_write_uid
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert durch"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_return_reason_write_date
+#: model:ir.model.fields,field_description:rma.field_rma_line_write_date
+#: model:ir.model.fields,field_description:rma.field_rma_request_write_date
+#: model:ir.model.fields,field_description:rma.field_warranty_expire_line_write_date
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_warranty_expire_line_warranty_date
+msgid "Lot Warranty Date"
+msgstr "Garantiedatum des Los"
+
+#. module: rma
+#: model:ir.model,name:rma.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr "Los/Serie"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+msgid "My Requests"
+msgstr "Meine Anfragen"
+
+#. module: rma
+#: model:ir.actions.act_window,help:rma.return_request_action_reports
+msgid "No Return request."
+msgstr "Keine Rückgabeanfrage."
+
+#. module: rma
+#: code:addons/rma/wizard/stock_return_picking.py:68
+#, python-format
+msgid "No products to return (only lines in Done state andnot fully returned yet can be returned)!"
+msgstr "Keine Produkte zur Rücksendung (nur Positionen im Status erledigt, welche noch nicht zurück gesendet wurden, können verwendet werden)!"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_crm_team_returns_count
+msgid "Number of returns"
+msgstr "Anzahl Rücksendungen"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+msgid "Partner"
+msgstr "Partner"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_request_picking_id
+msgid "Picking Number"
+msgstr "Lieferschein Nr."
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_line_product_id
+#: model:ir.model.fields,field_description:rma.field_warranty_expire_line_product_id
+msgid "Product"
+msgstr "Produkt"
+
+#. module: rma
+#: model:mail.message.subtype,description:rma.mt_replacement_create
+msgid "Products have been replaced"
+msgstr "Die Produkte wurden ersetzt"
+
+#. module: rma
+#: model:mail.message.subtype,description:rma.mt_request_return
+msgid "Products have been returned"
+msgstr "Die Produkte wurden zurück gesendet"
+
+#. module: rma
+#: model:ir.ui.menu,name:rma.rma_request_menu
+msgid "RMA"
+msgstr "RMA"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+#: selection:rma.request,state:0
+msgid "RMA Created"
+msgstr "RMA angelegt"
+
+#. module: rma
+#: model:ir.model,name:rma.model_rma_line
+msgid "RMA Line"
+msgstr "RMA Position"
+
+#. module: rma
+#: model:ir.actions.act_window,name:rma.act_open_rma_line_view
+#: model:ir.model.fields,field_description:rma.field_rma_request_rma_line
+#: model:ir.ui.view,arch_db:rma.view_rma_line_form
+#: model:ir.ui.view,arch_db:rma.view_rma_request_form
+msgid "RMA Lines"
+msgstr "RMA Positionen"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_request_name
+#: model:ir.model.fields,field_description:rma.field_stock_picking_rma_id
+msgid "RMA Order Number"
+msgstr "RMA Auftragsnummer"
+
+#. module: rma
+#: model:ir.actions.act_window,name:rma.act_open_rma_request_view
+#: model:ir.actions.act_window,name:rma.action_open_rma_request_rmateam
+#: model:ir.model,name:rma.model_rma_request
+#: model:ir.ui.menu,name:rma.menu_request_rma
+#: model:ir.ui.view,arch_db:rma.crm_team_rma_teams_view_kanban
+#: model:ir.ui.view,arch_db:rma.rma_view_kanban
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+msgid "RMA Request"
+msgstr "RMA Anfrage"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_line_rma_id
+#: model:ir.model.fields,field_description:rma.field_warranty_expire_line_rma_id
+msgid "RMA Request Number"
+msgstr "RMA Anfrage Nr."
+
+#. module: rma
+#: model:mail.message.subtype,description:rma.mt_request_confirm
+msgid "RMA Request has been\n"
+"            Confirmed"
+msgstr "RMA Anfrage wurde\n"
+"            akzeptiert"
+
+#. module: rma
+#: model:mail.message.subtype,description:rma.mt_request_create
+msgid "RMA Request is Created"
+msgstr "RMA Anfrage wurde erstellt"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+msgid "RMA Request type"
+msgstr "RMA Anfrage Art"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.crm_team_rma_teams_view_kanban
+msgid "RMA Requests"
+msgstr "RMA Anfragen"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_return_reason_name
+#: model:ir.model.fields,field_description:rma.field_rma_line_reason_id
+#: model:ir.ui.view,arch_db:rma.view_return_reason_form
+msgid "Reason"
+msgstr "Grund"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_line_remark
+msgid "Remark"
+msgstr "Bemerkungen"
+
+#. module: rma
+#: selection:rma.request,state:0
+msgid "Replacement Created"
+msgstr "Ersatzlieferung angelegt"
+
+#. module: rma
+#: model:ir.actions.act_window,name:rma.action_open_replacement_request_rmateam
+msgid "Replacement Request"
+msgstr "Ersatzanfrage"
+
+#. module: rma
+#: model:mail.message.subtype,name:rma.mt_replacement_create
+#: model:mail.message.subtype,name:rma.mt_salesteam_request_replacement
+msgid "Replacement created"
+msgstr "Ersatzlieferung angelegt"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_request_is_replacement
+msgid "Replacement?"
+msgstr "Ersetzen?"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.crm_team_rma_teams_view_kanban
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+msgid "Replacements"
+msgstr "Ersatzteile"
+
+#. module: rma
+#: model:mail.message.subtype,name:rma.mt_request_confirm
+#: model:mail.message.subtype,name:rma.mt_salesteam_request_confirm
+msgid "Request Confirmed"
+msgstr "Anfrage bestätigt"
+
+#. module: rma
+#: model:mail.message.subtype,name:rma.mt_request_create
+#: model:mail.message.subtype,name:rma.mt_salesteam_request
+msgid "Request Created"
+msgstr "Anfrage angelegt"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_request_date
+msgid "Request Date"
+msgstr "Datum der Anfrage"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+msgid "Request Month"
+msgstr "Monat der Anfrage"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_request_state
+msgid "Request Status"
+msgstr "Status der Anfrage"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_request_type
+msgid "Request Type"
+msgstr "Art der Anfrage"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_form
+msgid "Requests for RMA"
+msgstr "Anfragen für RMA"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_crm_team_use_return
+msgid "Return"
+msgstr "Rückgabe"
+
+#. module: rma
+#: model:ir.model,name:rma.model_stock_return_picking
+msgid "Return Picking"
+msgstr "Rücklieferschein"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_line_qty_return
+msgid "Return Quantity"
+msgstr "Rückgabemenge"
+
+#. module: rma
+#: model:ir.actions.act_window,name:rma.act_open_return_reason_view
+#: model:ir.model,name:rma.model_return_reason
+msgid "Return Reason"
+msgstr "Grund für Rückgabe"
+
+#. module: rma
+#: model:ir.ui.menu,name:rma.menu_return_reason
+msgid "Return Reasons"
+msgstr "Gründe für Rückgabe"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_line_graph
+msgid "Return Request"
+msgstr "Rückgabeanfrage"
+
+#. module: rma
+#: model:ir.actions.act_window,name:rma.return_request_action_reports
+msgid "Return Requests"
+msgstr "Rückgabeanfragen"
+
+#. module: rma
+#: model:mail.message.subtype,name:rma.mt_request_return
+#: model:mail.message.subtype,name:rma.mt_salesteam_request_return
+msgid "Return created"
+msgstr "Rückgabe angelegt"
+
+#. module: rma
+#: code:addons/rma/models/rma_line.py:35
+#, python-format
+msgid "Return quantity of %s should not be greater than ordered quantity."
+msgstr "Die Rückgabemenge von %s darf nicht größer als die bestellte Menge sein."
+
+#. module: rma
+#: code:addons/rma/models/rma_line.py:40
+#, python-format
+msgid "Return quantity should not be 0."
+msgstr "Die Rückgabemenge darf nicht 0 sein."
+
+#. module: rma
+#: selection:rma.request,type:0
+msgid "Return/Replace"
+msgstr "Rückgabe/Austausch"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+msgid "Return/Replacement"
+msgstr "Rückgabe/Austausch"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.crm_team_rma_teams_view_kanban
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+msgid "Returns"
+msgstr "Rückgaben"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_request_sale_order_id
+msgid "SO Number"
+msgstr "Auftrags-Nr."
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+msgid "Sale Order"
+msgstr "Auftrag"
+
+#. module: rma
+#: model:ir.model,name:rma.model_crm_team
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+msgid "Sales Channel"
+msgstr "Vertriebskanal"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_line_filter
+msgid "Search RMA Line"
+msgstr "Suche RMA Position"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+msgid "Search RMA Request"
+msgstr "Suche RMA Anfrage"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_form
+msgid "Send By Email"
+msgstr "Per E-Mail senden"
+
+#. module: rma
+#: model:ir.ui.view,arch_db:rma.view_rma_request_filter
+msgid "State"
+msgstr "Status"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_line_move_line_id
+msgid "Stock Move"
+msgstr "Lagerbuchung"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_warranty_expire_line_lot_id
+msgid "Stock production lot"
+msgstr "Lagerproduktionslos"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_line_team_id
+#: model:ir.model.fields,field_description:rma.field_rma_request_team_id
+msgid "Team"
+msgstr "Team"
+
+#. module: rma
+#: model:ir.model,name:rma.model_stock_picking
+msgid "Transfer"
+msgstr "Lieferung vornehmen"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_line_uom_id
+msgid "UOM"
+msgstr "MEH"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_request_user_id
+msgid "User"
+msgstr "Benutzer"
+
+#. module: rma
+#: model:ir.actions.act_window,name:rma.act_open_warranty_expire_line_view
+#: model:ir.model,name:rma.model_warranty_expire_line
+#: model:ir.model.fields,field_description:rma.field_rma_request_warranty_expire_line
+#: model:ir.ui.view,arch_db:rma.view_rma_request_form
+#: model:ir.ui.view,arch_db:rma.view_warranty_expire_line_form
+msgid "Warranty Expire Lines"
+msgstr "Auslaufende Garantiezeiten"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_stock_production_lot_warranty_date
+msgid "Warranty Expiry Date"
+msgstr "Ablaufdatum der Garantiezeit"
+
+#. module: rma
+#: model:ir.model.fields,field_description:rma.field_rma_request_is_website
+msgid "Website"
+msgstr "Website"
+
+#. module: rma
+#: code:addons/rma/models/rma_line.py:30
+#, python-format
+msgid "You can only return %s quantity for product %s as its warranty has been expired."
+msgstr "Sie können nur %s Einheiten für das Produkt %s zurückgeben, da die Garantie abgelaufen ist."
+
+#. module: rma
+#: code:addons/rma/models/rma_request.py:187
+#, python-format
+msgid "You cannot delete a request which is not in draft state."
+msgstr "Sie können eine Anfrage, die sich nicht im Entwurf befindet, nicht löschen."
+
+#. module: rma
+#: code:addons/rma/wizard/stock_return_picking.py:32
+#, python-format
+msgid "You may only return Done pickings"
+msgstr "Sie können Rücksendungen nur auf erledigten Lieferungen vornehmen"
+
+#. module: rma
+#: code:addons/rma/wizard/stock_return_picking.py:22
+#, python-format
+msgid "You may only return single picking at a time!"
+msgstr "Sie können Rücksendungen nur für eine Lieferung gleichzeitig vornehmen!"
+
+#. module: rma
+#: code:addons/rma/models/rma_request.py:177
+#, python-format
+msgid "You must select rma lines!"
+msgstr "Sie müssen RMA Positionen eintragen!"
+
