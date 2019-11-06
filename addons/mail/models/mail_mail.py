@@ -148,8 +148,13 @@ class MailMail(models.Model):
                    ('scheduled_date', '=', False)]
         if 'filters' in self._context:
             filters.extend(self._context['filters'])
-        # TODO: make limit configurable
-        filtered_ids = self.search(filters, limit=10000).ids
+
+        try:
+            send_limit = int(self.env["ir.config_parameter"].sudo().get_param("mail.send.limit", default='10000'))
+        except ValueError:
+            send_limit = 10000
+
+        filtered_ids = self.search(filters, limit=send_limit).ids
         if not ids:
             ids = filtered_ids
         else:

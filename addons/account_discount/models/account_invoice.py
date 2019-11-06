@@ -72,7 +72,6 @@ class AccountInvoice(models.Model):
             'discount_method': result.refund_invoice_id.discount_method,
             'discount_amount': result.refund_invoice_id.discount_amount,
             'discount_per': result.refund_invoice_id.discount_per})
-        result.calculate_discount()
         return result
 
     @api.constrains('discount_per', 'discount_amount', 'invoice_line_ids')
