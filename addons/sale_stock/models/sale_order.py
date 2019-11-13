@@ -300,8 +300,13 @@ class SaleOrderLine(models.Model):
             if move.location_dest_id.usage == "customer":
                 if not move.origin_returned_move_id or (move.origin_returned_move_id and move.to_refund):
                     qty += move.product_uom._compute_quantity(move.product_uom_qty, self.product_uom)
+            elif move.location_id.usage == "customer":
+                if not move.origin_returned_move_id or (move.origin_returned_move_id and move.to_refund):
+                    qty -= move.product_uom._compute_quantity(move.product_uom_qty, self.product_uom)
             elif move.location_dest_id.usage != "customer" and move.to_refund:
                 qty -= move.product_uom._compute_quantity(move.product_uom_qty, self.product_uom)
+            elif move.location_id.usage != "customer" and move.to_refund:
+                qty += move.product_uom._compute_quantity(move.product_uom_qty, self.product_uom)
         return qty
 
     @api.multi
