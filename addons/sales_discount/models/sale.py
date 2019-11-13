@@ -91,6 +91,9 @@ class SaleOrder(models.Model):
 
     @api.onchange('discount_per')
     def onchange_discount_per(self):
+        if self.discount_method != 'per':
+            return
+
         values = self.get_maximum_per_amount()
         if self.discount_method == 'per' and (
                 self.discount_per > 100 or self.discount_per < 0) and \
@@ -116,6 +119,9 @@ class SaleOrder(models.Model):
 
     @api.onchange('discount_amount')
     def onchange_discount_amount(self):
+        if self.discount_method != 'fixed':
+            return
+
         values = self.get_maximum_per_amount()
         if self.discount < 0 < self.gross_amount:
             raise Warning(_("Discount should be less than Gross Amount"))
