@@ -135,7 +135,7 @@ class SaleOrder(models.Model):
                 formatLang(self.env, values['max_amount'], digits=2)))
         config_data = self.env['res.config.settings'].sudo().get_values()
         if config_data.get('global_discount_apply'):
-            fix_amount = config_data.get('global_discount_fix_invoice_amount')
+            fix_amount = config_data.get('global_discount_fix_amount')
             if self.gross_amount > 0 and fix_amount < self.discount_amount:
                 raise Warning(_("You're not allowed to apply Discount "
                                 "Amount (%s) more than configured amount "
