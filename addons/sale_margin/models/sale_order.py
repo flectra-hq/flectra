@@ -8,8 +8,10 @@ from flectra.addons import decimal_precision as dp
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    margin = fields.Float(compute='_product_margin', digits=dp.get_precision('Product Price'), store=True)
-    purchase_price = fields.Float(string='Cost', digits=dp.get_precision('Product Price'))
+    margin = fields.Float(compute='_product_margin', digits=dp.get_precision('Product Price'), store=True,
+                          groups='sale_margin.group_show_margin')
+    purchase_price = fields.Float(string='Cost', digits=dp.get_precision('Product Price'),
+                                  groups='sale_margin.group_show_margin')
 
     def _compute_margin(self, order_id, product_id, product_uom_id):
         frm_cur = self.env.user.company_id.currency_id
@@ -70,7 +72,7 @@ class SaleOrderLine(models.Model):
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    margin = fields.Monetary(compute='_product_margin', help="It gives profitability by calculating the difference between the Unit Price and the cost.", currency_field='currency_id', digits=dp.get_precision('Product Price'), store=True)
+    margin = fields.Monetary(compute='_product_margin', groups='sale_margin.group_show_margin', help="It gives profitability by calculating the difference between the Unit Price and the cost.", currency_field='currency_id', digits=dp.get_precision('Product Price'), store=True)
 
     @api.depends('order_line.margin')
     def _product_margin(self):
