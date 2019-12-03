@@ -92,7 +92,7 @@ class ProcurementRule(models.Model):
         # it is possible that we've already got some move done, so check for the done qty and create
         # a new move with the correct qty
         qty_left = product_qty
-        return {
+        vals = {
             'name': name[:2000],
             'company_id': self.company_id.id or self.location_src_id.company_id.id or self.location_id.company_id.id or values['company_id'].id,
             'product_id': product_id.id,
@@ -114,6 +114,13 @@ class ProcurementRule(models.Model):
             'propagate': self.propagate,
             'priority': values.get('priority', "1"),
         }
+        if qty_left < 0:
+            vals['location_dest_id'] = self.location_src_id.id
+            vals['location_id'] = location_id.id
+            vals['product_uom_qty'] = qty_left * -1
+            if self.picking_type_id.return_picking_type_id:
+                vals['picking_type_id'] = self.picking_type_id.return_picking_type_id.id
+        return vals
 
     def _log_next_activity(self, product_id, note):
         existing_activity = self.env['mail.activity'].search([('res_id', '=',  product_id.product_tmpl_id.id), ('res_model_id', '=', self.env.ref('product.model_product_template').id),
