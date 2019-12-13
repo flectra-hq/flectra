@@ -207,7 +207,7 @@ class ControllerREST(http.Controller):
         username = post['username'] if post.get('username') else None
         password = post['password'] if post.get('password') else None
         # Compare dbname (from HTTP-request vs. flectra config):
-        if db and (db != db_name):
+        if db_name and db and (db != db_name):
             info = "Wrong 'dbname'!"
             error = 'wrong_dbname'
             _logger.error(info)
