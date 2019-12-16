@@ -7,6 +7,10 @@ from flectra import api, fields, models, _
 from flectra.addons import decimal_precision as dp
 from flectra.exceptions import UserError
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
 
 class SaleAdvancePaymentInv(models.TransientModel):
     _name = "sale.advance.payment.inv"
@@ -43,13 +47,13 @@ class SaleAdvancePaymentInv(models.TransientModel):
         ('all', 'Invoiceable lines (deduct down payments)'),
         ('percentage', 'Down payment (percentage)'),
         ('fixed', 'Down payment (fixed amount)')
-        ], string='What do you want to invoice?', default=_get_advance_payment_method, required=True)
+    ], string='What do you want to invoice?', default=_get_advance_payment_method, required=True)
     product_id = fields.Many2one('product.product', string='Down Payment Product', domain=[('type', '=', 'service')],
-        default=_default_product_id)
+                                 default=_default_product_id)
     count = fields.Integer(default=_count, string='# of Orders')
     amount = fields.Float('Down Payment Amount', digits=dp.get_precision('Account'), help="The amount to be invoiced in advance, taxes excluded.")
     deposit_account_id = fields.Many2one("account.account", string="Income Account", domain=[('deprecated', '=', False)],
-        help="Account used for deposits", default=_default_deposit_account_id)
+                                         help="Account used for deposits", default=_default_deposit_account_id)
     deposit_taxes_id = fields.Many2many("account.tax", string="Customer Taxes", help="Taxes used for deposits", default=_default_deposit_taxes_id)
 
     @api.onchange('advance_payment_method')
@@ -65,14 +69,16 @@ class SaleAdvancePaymentInv(models.TransientModel):
 
         account_id = False
         if self.product_id.id:
-            account_id = order.fiscal_position_id.map_account(self.product_id.property_account_income_id or self.product_id.categ_id.property_account_income_categ_id).id
+            account_id = order.fiscal_position_id.map_account(
+                self.product_id.property_account_income_id or self.product_id.categ_id.property_account_income_categ_id).id
         if not account_id:
             inc_acc = ir_property_obj.get('property_account_income_categ_id', 'product.category')
             account_id = order.fiscal_position_id.map_account(inc_acc).id if inc_acc else False
         if not account_id:
             raise UserError(
-                _('There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
-                (self.product_id.name,))
+                    _(
+                        'There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
+                    (self.product_id.name,))
 
         if self.amount <= 0.00:
             raise UserError(_('The value of the down payment amount must be positive.'))
@@ -120,8 +126,8 @@ class SaleAdvancePaymentInv(models.TransientModel):
         })
         invoice.compute_taxes()
         invoice.message_post_with_view('mail.message_origin_link',
-                    values={'self': invoice, 'origin': order},
-                    subtype_id=self.env.ref('mail.mt_note').id)
+                                       values={'self': invoice, 'origin': order},
+                                       subtype_id=self.env.ref('mail.mt_note').id)
         return invoice
 
     @api.multi
@@ -146,9 +152,11 @@ class SaleAdvancePaymentInv(models.TransientModel):
                 else:
                     amount = self.amount
                 if self.product_id.invoice_policy != 'order':
-                    raise UserError(_('The product used to invoice a down payment should have an invoice policy set to "Ordered quantities". Please update your deposit product to be able to create a deposit invoice.'))
+                    raise UserError(_(
+                        'The product used to invoice a down payment should have an invoice policy set to "Ordered quantities". Please update your deposit product to be able to create a deposit invoice.'))
                 if self.product_id.type != 'service':
-                    raise UserError(_("The product used to invoice a down payment should be of type 'Service'. Please use another product or update this product."))
+                    raise UserError(_(
+                        "The product used to invoice a down payment should be of type 'Service'. Please use another product or update this product."))
                 taxes = self.product_id.taxes_id.filtered(lambda r: not order.company_id or r.company_id == order.company_id)
                 if order.fiscal_position_id and taxes:
                     tax_ids = order.fiscal_position_id.map_tax(taxes).ids
@@ -167,7 +175,10 @@ class SaleAdvancePaymentInv(models.TransientModel):
                     'is_downpayment': True,
                 })
                 del context
-                self._create_invoice(order, so_line, amount)
+                try:
+                    self._create_invoice(order, so_line, amount)
+                except UserError:
+                    _logger.warning('No invoiceable lines for order %s', order.name)
         if self._context.get('open_invoices', False):
             return sale_orders.action_view_invoice()
         return {'type': 'ir.actions.act_window_close'}
