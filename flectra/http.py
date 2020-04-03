@@ -356,6 +356,9 @@ class WebRequest(object):
         if not debug:
             debug = self.httprequest.environ.get('HTTP_X_DEBUG_MODE')
 
+        if not debug:
+            debug = os.environ.get('FLECTRA_DEBUG_MODE')
+
         if not debug and self.httprequest.referrer:
             debug = 'debug' in urls.url_parse(self.httprequest.referrer).decode_query()
         return debug
