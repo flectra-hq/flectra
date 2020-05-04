@@ -72,7 +72,6 @@ class AccountInvoice(models.Model):
             'discount_method': result.refund_invoice_id.discount_method,
             'discount_amount': result.refund_invoice_id.discount_amount,
             'discount_per': result.refund_invoice_id.discount_per})
-        result.calculate_discount()
         return result
 
     @api.constrains('discount_per', 'discount_amount', 'invoice_line_ids')
@@ -136,18 +135,19 @@ class AccountInvoice(models.Model):
     @api.onchange('discount_amount')
     def onchange_discount_amount(self):
         values = self.get_maximum_per_amount()
-        if self.discount < 0:
+        if self.discount < 0 < self.gross_amount:
+            raise Warning(_("Discount should be less than Gross Amount"))
+        if self.discount > 0 > self.gross_amount:
             raise Warning(_("Discount should be less than Gross Amount"))
         discount = self.discount or self.discount_amount
         if discount == 0:
             return
-        if self.gross_amount and discount > self.gross_amount:
+        if (0 < self.gross_amount < discount) or (0 > self.gross_amount > discount):
             raise Warning(_("Discount (%s) should be less than "
                             "Gross Amount (%s).") % (
                 formatLang(self.env, discount, digits=2),
                 formatLang(self.env, self.gross_amount, digits=2)))
-        if self.discount > values.get('max_amount', False) \
-                and values.get('check_group', False):
+        if self.gross_amount > 0 and self.discount > values.get('max_amount', False) and values.get('check_group', False):
             raise Warning(_("You're not allowed to apply this amount of "
                             "discount as discount Amount (%s) is greater than"
                             " assign Fix Amount (%s).") % (
@@ -156,7 +156,7 @@ class AccountInvoice(models.Model):
         config_data = self.env['res.config.settings'].sudo().get_values()
         if config_data.get('global_discount_invoice_apply'):
             fix_amount = config_data.get('global_discount_fix_invoice_amount')
-            if fix_amount < self.discount_amount:
+            if self.gross_amount > 0 and fix_amount < self.discount_amount:
                 raise Warning(_("You're not allowed to apply this amount of"
                                 " discount as discount Amount (%s) is greater"
                                 " than Configuration Amount (%s).") % (

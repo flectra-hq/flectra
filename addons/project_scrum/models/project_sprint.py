@@ -291,13 +291,9 @@ class ProjectSprint(models.Model):
 
     @api.multi
     def check_sprint_state(self):
-        next_call = datetime.today()
         for record in self.search([('state', '!=', 'done')]):
-            if record.end_date:
-                end_date = datetime.strptime(
-                    record.end_date, '%Y-%m-%d').date()
-                if end_date < next_call:
-                    record.state = 'done'
+            if record.end_date and record.end_date < fields.Date.today():
+                record.state = 'done'
 
     @api.constrains('sprint_planning_line')
     def check_users_in_planning_line(self):

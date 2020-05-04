@@ -904,11 +904,11 @@ class MailThread(models.AbstractModel):
         model, thread_id, alias = route[0], route[1], route[4]
         record_set = None
 
-        _generic_bounce_body_html = """<div>
+        _generic_bounce_body_html = _("""<div>
 <p>Hello,</p>
 <p>The following email sent to %s cannot be accepted because this is a private email address.
    Only allowed people can contact us at this address.</p>
-</div><blockquote>%s</blockquote>""" % (message.get('to'), message_dict.get('body'))
+</div><blockquote>%s</blockquote>""" % (message.get('to'), message_dict.get('body')))
 
         # Wrong model
         if model and model not in self.env:

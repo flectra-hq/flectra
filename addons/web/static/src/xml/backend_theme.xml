@@ -43,8 +43,12 @@
                t-att-title="bookmark_menu.name"
                t-att-data-action-id="bookmark_menu.action">
                 <div class="f_remove_bookmark"><i t-att-data-id="bookmark_menu.id" class="fa fa-times-circle"/></div>
-                <div class="f_bm_icon"><t t-esc="bookmark_menu.short_name"/></div>
-                <div class="f_app_label"><t t-esc="bookmark_menu.name"/></div>
+                <div class="f_bm_icon">
+                    <t t-esc="bookmark_menu.short_name" t-if="!bookmark_menu.bookmark_icon"/>
+                    <img class="img img-responsive" t-if="bookmark_menu.bookmark_icon"
+                         t-attf-src="data:image/png;base64,{{bookmark_menu.bookmark_icon}}"/>
+                </div>
+                <div class="f_app_label"><t t-raw="bookmark_menu.bookmark_label"/></div>
             </a>
         </t>
     </t>

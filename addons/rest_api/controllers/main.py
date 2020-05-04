@@ -183,9 +183,6 @@ def generate_token(length=40):
 
 # Read OAuth2 constants and setup token store:
 db_name = flectra.tools.config.get('db_name')
-if not db_name:
-    _logger.warning("Warning: To proper setup OAuth - it's necessary to "
-                    "set the parameter 'db_name' in flectra config file!")
 
 
 # List of REST resources in current file:
@@ -203,15 +200,9 @@ class ControllerREST(http.Controller):
                 auth='none', csrf=False)
     def api_auth_gettokens(self, **post):
         # Convert http data into json:
-        db = post['db'] if post.get('db') else None
+        db = post['db'] if post.get('db') else db_name
         username = post['username'] if post.get('username') else None
         password = post['password'] if post.get('password') else None
-        # Compare dbname (from HTTP-request vs. flectra config):
-        if db and (db != db_name):
-            info = "Wrong 'dbname'!"
-            error = 'wrong_dbname'
-            _logger.error(info)
-            return invalid_response(400, error, info)
 
         # Empty 'db' or 'username' or 'password:
         if not db or not username or not password:
@@ -228,7 +219,6 @@ class ControllerREST(http.Controller):
             error = 'invalid_database'
             _logger.error(info)
             return invalid_response(400, error, info)
-
         uid = request.session.uid
         # flectra login failed:
         if not uid:
@@ -236,7 +226,6 @@ class ControllerREST(http.Controller):
             error = 'flectra_user_authentication_failed'
             _logger.error(info)
             return invalid_response(401, error, info)
-
         # Generate tokens
         access_token = request.env['oauth.access_token']._get_access_token(user_id = uid, create = True)
 
