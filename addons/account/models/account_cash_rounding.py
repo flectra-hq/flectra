@@ -16,14 +16,19 @@ class AccountCashRounding(models.Model):
 
     name = fields.Char(string='Name', translate=True, required=True)
     rounding = fields.Float(string='Rounding Precision', required=True,
-        help='Represent the non-zero value smallest coinage (for example, 0.05).')
+                            help='Represent the non-zero value smallest coinage (for example, 0.05).')
     strategy = fields.Selection([('biggest_tax', 'Modify tax amount'), ('add_invoice_line', 'Add a rounding line')],
-        string='Rounding Strategy', default='add_invoice_line', required=True,
-        help='Specify which way will be used to round the invoice amount to the rounding precision')
+                                string='Rounding Strategy', default='add_invoice_line', required=True,
+                                help='Specify which way will be used to round the invoice amount to the rounding precision')
     account_id = fields.Many2one('account.account', string='Account')
     rounding_method = fields.Selection(string='Rounding Method', required=True,
-        selection=[('UP', 'UP'), ('DOWN', 'DOWN'), ('HALF-UP', 'HALF-UP')],
-        default='HALF-UP', help='The tie-breaking rule used for float rounding operations')
+                                       selection=[('UP', 'UP'), ('DOWN', 'DOWN'), ('HALF-UP', 'HALF-UP')],
+                                       default='HALF-UP',
+                                       help='The tie-breaking rule used for float rounding operations')
+
+    company_id = fields.Many2one(
+        'res.company', string='Company',
+        default=lambda self: self.env.user.company_id)
 
     @api.multi
     def round(self, amount):
