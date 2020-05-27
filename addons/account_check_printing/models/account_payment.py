@@ -33,7 +33,6 @@ class AccountRegisterPayments(models.TransientModel):
         if self.payment_method_id == self.env.ref('account_check_printing.account_payment_method_check'):
             res.update({
                 'check_amount_in_words': self.currency_id.amount_to_text(res['amount']) if self.multi else self.check_amount_in_words,
-                'check_manual_sequencing': self.check_manual_sequencing,
             })
         return res
 
@@ -120,3 +119,7 @@ class AccountPayment(models.Model):
         """ This method is a hook for l10n_xx_check_printing modules to implement actual check printing capabilities """
         raise UserError(_("There is no check layout configured.\nMake sure the proper check printing module is installed"
                           " and its configuration (in company settings > 'Configuration' tab) is correct."))
+
+    def set_check_amount_in_words(self):
+        for payment in self:
+            payment.check_amount_in_words = payment.currency_id.amount_to_text(payment.amount) if payment.currency_id else ''

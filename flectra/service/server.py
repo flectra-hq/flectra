@@ -116,6 +116,19 @@ class ThreadedWSGIServerReloadable(LoggingBaseWSGIServerMixIn, werkzeug.serving.
     socket open when a reload happens.
     """
     def __init__(self, host, port, app):
+        # The FLECTRA_MAX_HTTP_THREADS environment variable allows to limit the amount of concurrent
+        # socket connections accepted by a threaded server, implicitly limiting the amount of
+        # concurrent threads running for http requests handling.
+        self.max_http_threads = os.environ.get("FLECTRA_MAX_HTTP_THREADS")
+        if self.max_http_threads:
+            try:
+                self.max_http_threads = int(self.max_http_threads)
+            except ValueError:
+                # If the value can't be parsed to an integer then it's computed in an automated way to
+                # half the size of db_maxconn because while most requests won't borrow cursors concurrently
+                # there are some exceptions where some controllers might allocate two or more cursors.
+                self.max_http_threads = config["db_maxconn"] // 2
+            self.http_threads_sem = threading.Semaphore(self.max_http_threads)
         super(ThreadedWSGIServerReloadable, self).__init__(host, port, app,
                                                            handler=RequestHandler)
 
@@ -133,6 +146,22 @@ class ThreadedWSGIServerReloadable(LoggingBaseWSGIServerMixIn, werkzeug.serving.
     def server_activate(self):
         if not self.reload_socket:
             super(ThreadedWSGIServerReloadable, self).server_activate()
+
+    def _handle_request_noblock(self):
+        if self.max_http_threads and not self.http_threads_sem.acquire(timeout=0.1):
+            # If the semaphore is full we will return immediately to the upstream (most probably
+            # socketserver.BaseServer's serve_forever loop  which will retry immediately as the
+            # selector will find a pending connection to accept on the socket. There is a 100 ms
+            # penalty in such case in order to avoid cpu bound loop while waiting for the semaphore.
+            return
+        # upstream _handle_request_noblock will handle errors and call shutdown_request in any cases
+        super(ThreadedWSGIServerReloadable, self)._handle_request_noblock()
+
+    def shutdown_request(self, request):
+        if self.max_http_threads:
+            # upstream is supposed to call this function no matter what happens during processing
+            self.http_threads_sem.release()
+        super(ThreadedWSGIServerReloadable, self).shutdown_request(request)
 
 #----------------------------------------------------------
 # FileSystem Watcher for autoreload and cache invalidation
@@ -369,7 +398,6 @@ class ThreadedServer(CommonServer):
                     time.sleep(0.05)
 
         _logger.debug('--')
-        flectra.modules.registry.Registry.delete_all()
         logging.shutdown()
 
     def run(self, preload=None, stop=False):
@@ -735,6 +763,13 @@ class Worker(object):
     def signal_handler(self, sig, frame):
         self.alive = False
 
+    def signal_time_expired_handler(self, n, stack):
+        # TODO: print actual RUSAGE_SELF (since last check_limits) instead of
+        #       just repeating the config setting
+        _logger.info('Worker (%d) CPU time limit (%s) reached.', self.pid, config['limit_time_cpu'])
+        # We dont suicide in such case
+        raise Exception('CPU time limit exceeded.')
+
     def sleep(self):
         try:
             select.select([self.multi.socket, self.wakeup_fd_r], [], [], self.multi.beat)
@@ -763,15 +798,9 @@ class Worker(object):
         soft, hard = resource.getrlimit(resource.RLIMIT_AS)
         resource.setrlimit(resource.RLIMIT_AS, (config['limit_memory_hard'], hard))
 
-    def set_limits(self):
-        # SIGXCPU (exceeded CPU time) signal handler will raise an exception.
+        # update RLIMIT_CPU so limit_time_cpu applies per unit of work
         r = resource.getrusage(resource.RUSAGE_SELF)
         cpu_time = r.ru_utime + r.ru_stime
-        def time_expired(n, stack):
-            _logger.info('Worker (%d) CPU time limit (%s) reached.', self.pid, config['limit_time_cpu'])
-            # We dont suicide in such case
-            raise Exception('CPU time limit exceeded.')
-        signal.signal(signal.SIGXCPU, time_expired)
         soft, hard = resource.getrlimit(resource.RLIMIT_CPU)
         resource.setrlimit(resource.RLIMIT_CPU, (cpu_time + config['limit_time_cpu'], hard))
 
@@ -792,11 +821,15 @@ class Worker(object):
             self.multi.socket.setblocking(0)
 
         signal.signal(signal.SIGINT, self.signal_handler)
-        signal.signal(signal.SIGTERM, signal.SIG_DFL)
-        signal.signal(signal.SIGCHLD, signal.SIG_DFL)
-        signal.set_wakeup_fd(self.wakeup_fd_w)
+        signal.signal(signal.SIGXCPU, self.signal_time_expired_handler)
 
-        self.set_limits()
+        signal.signal(signal.SIGTERM, signal.SIG_DFL)
+        signal.signal(signal.SIGHUP, signal.SIG_DFL)
+        signal.signal(signal.SIGCHLD, signal.SIG_DFL)
+        signal.signal(signal.SIGTTIN, signal.SIG_DFL)
+        signal.signal(signal.SIGTTOU, signal.SIG_DFL)
+
+        signal.set_wakeup_fd(self.wakeup_fd_w)
 
     def stop(self):
         pass
@@ -818,14 +851,18 @@ class Worker(object):
             sys.exit(1)
 
     def _runloop(self):
+        signal.pthread_sigmask(signal.SIG_BLOCK, {
+            signal.SIGXCPU,
+            signal.SIGINT, signal.SIGQUIT, signal.SIGUSR1,
+        })
         try:
             while self.alive:
+                self.check_limits()
                 self.multi.pipe_ping(self.watchdog_pipe)
                 self.sleep()
                 if not self.alive:
                     break
                 self.process_work()
-                self.check_limits()
         except:
             _logger.exception("Worker %s (%s) Exception occured, exiting...", self.__class__.__name__, self.pid)
             sys.exit(1)
@@ -1057,6 +1094,28 @@ def start(preload=None, stop=False):
             # turn on buffering also for wfile, to avoid partial writes (Default buffer = 8k)
             werkzeug.serving.WSGIRequestHandler.wbufsize = -1
     else:
+        if platform.system() == "Linux" and sys.maxsize > 2**32 and "MALLOC_ARENA_MAX" not in os.environ:
+            # glibc's malloc() uses arenas [1] in order to efficiently handle memory allocation of multi-threaded
+            # applications. This allows better memory allocation handling in case of multiple threads that
+            # would be using malloc() concurrently [2].
+            # Due to the python's GIL, this optimization have no effect on multithreaded python programs.
+            # Unfortunately, a downside of creating one arena per cpu core is the increase of virtual memory
+            # which Odoo is based upon in order to limit the memory usage for threaded workers.
+            # On 32bit systems the default size of an arena is 512K while on 64bit systems it's 64M [3],
+            # hence a threaded worker will quickly reach it's default memory soft limit upon concurrent requests.
+            # We therefore set the maximum arenas allowed to 2 unless the MALLOC_ARENA_MAX env variable is set.
+            # Note: Setting MALLOC_ARENA_MAX=0 allow to explicitely set the default glibs's malloc() behaviour.
+            #
+            # [1] https://sourceware.org/glibc/wiki/MallocInternals#Arenas_and_Heaps
+            # [2] https://www.gnu.org/software/libc/manual/html_node/The-GNU-Allocator.html
+            # [3] https://sourceware.org/git/?p=glibc.git;a=blob;f=malloc/malloc.c;h=00ce48c;hb=0a8262a#l862
+            try:
+                import ctypes
+                libc = ctypes.CDLL("libc.so.6")
+                M_ARENA_MAX = -8
+                assert libc.mallopt(ctypes.c_int(M_ARENA_MAX), ctypes.c_int(2))
+            except Exception:
+                _logger.warning("Could not set ARENA_MAX through mallopt()")
         server = ThreadedServer(flectra.service.wsgi_server.application)
 
     watcher = None

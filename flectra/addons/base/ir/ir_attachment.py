@@ -11,7 +11,7 @@ from collections import defaultdict
 import uuid
 
 from flectra import api, fields, models, tools, SUPERUSER_ID, _
-from flectra.exceptions import AccessError
+from flectra.exceptions import AccessError, ValidationError
 from flectra.tools import config, human_size, ustr, html_escape
 from flectra.tools.mimetypes import guess_mimetype
 

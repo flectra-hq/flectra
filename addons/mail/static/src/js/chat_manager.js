@@ -17,7 +17,7 @@ var _t = core._t;
 var _lt = core._lt;
 var LIMIT = 25;
 var preview_msg_max_size = 350;  // optimal for native english speakers
-var FLECTRABOT_ID = "FLECTRABOT";
+var ODOOBOT_ID = "ODOOBOT";
 
 // Private model
 //----------------------------------------------------------------------------------
@@ -202,16 +202,16 @@ function make_message (data) {
     if ((!msg.author_id || !msg.author_id[0]) && msg.email_from) {
         msg.mailto = msg.email_from;
     } else {
-        msg.displayed_author = (msg.author_id === FLECTRABOT_ID) && "FlectraBot" ||
+        msg.displayed_author = (msg.author_id === ODOOBOT_ID) && "FlectraBot" ||
                                msg.author_id && msg.author_id[1] ||
                                msg.email_from || _t('Anonymous');
     }
 
     // Don't redirect on author clicked of self-posted or FlectraBot messages
-    msg.author_redirect = !msg.is_author && msg.author_id !== FLECTRABOT_ID;
+    msg.author_redirect = !msg.is_author && msg.author_id !== ODOOBOT_ID;
 
     // Compute the avatar_url
-    if (msg.author_id === FLECTRABOT_ID) {
+    if (msg.author_id === ODOOBOT_ID) {
         msg.avatar_src = "/mail/static/src/img/flectra_o.png";
     } else if (msg.author_id && msg.author_id[0]) {
         msg.avatar_src = "/web/image/res.partner/" + msg.author_id[0] + "/image_small";
@@ -616,7 +616,7 @@ function on_presence_notification (data) {
 function on_transient_message_notification (data) {
     var last_message = _.last(messages);
     data.id = (last_message ? last_message.id : 0) + 0.01;
-    data.author_id = data.author_id || FLECTRABOT_ID;
+    data.author_id = data.author_id || ODOOBOT_ID;
     add_message(data);
 }
 

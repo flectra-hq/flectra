@@ -115,8 +115,10 @@ class AccountInvoice(models.Model):
             if line.currency_id == self.currency_id:
                 residual += line.amount_residual_currency if line.currency_id else line.amount_residual
             else:
-                from_currency = (line.currency_id and line.currency_id.with_context(date=line.date)) or line.company_id.currency_id.with_context(date=line.date)
-                residual += from_currency.compute(line.amount_residual, self.currency_id)
+                if line.currency_id:
+                    residual += line.currency_id.with_context(date=line.date).compute(line.amount_residual_currency, self.currency_id)
+                else:
+                    residual += line.company_id.currency_id.with_context(date=line.date).compute(line.amount_residual, self.currency_id)
         self.residual_company_signed = abs(residual_company_signed) * sign
         self.residual_signed = abs(residual) * sign
         self.residual = abs(residual)
@@ -133,6 +135,7 @@ class AccountInvoice(models.Model):
             domain = [('account_id', '=', self.account_id.id),
                       ('partner_id', '=', self.env['res.partner']._find_accounting_partner(self.partner_id).id),
                       ('reconciled', '=', False),
+                      ('move_id.state', '=', 'posted'),
                       '|',
                         '&', ('amount_residual_currency', '!=', 0.0), ('currency_id','!=', None),
                         '&', ('amount_residual_currency', '=', 0.0), '&', ('currency_id','=', None), ('amount_residual', '!=', 0.0)]
@@ -200,13 +203,16 @@ class AccountInvoice(models.Model):
             if payment_currency_id and payment_currency_id == self.currency_id:
                 amount_to_show = amount_currency
             else:
-                amount_to_show = payment.company_id.currency_id.with_context(date=self.date).compute(amount,
+                amount_to_show = payment.company_id.currency_id.with_context(date=payment.date).compute(amount,
                                                                                                         self.currency_id)
             if float_is_zero(amount_to_show, precision_rounding=self.currency_id.rounding):
                 continue
             payment_ref = payment.move_id.name
+            invoice_view_id = None
             if payment.move_id.ref:
                 payment_ref += ' (' + payment.move_id.ref + ')'
+            if payment.invoice_id:
+                invoice_view_id = payment.invoice_id.get_formview_id()
             payment_vals.append({
                 'name': payment.name,
                 'journal_name': payment.journal_id.name,
@@ -218,6 +224,7 @@ class AccountInvoice(models.Model):
                 'payment_id': payment.id,
                 'account_payment_id': payment.payment_id.id,
                 'invoice_id': payment.invoice_id.id,
+                'invoice_view_id': invoice_view_id,
                 'move_id': payment.move_id.id,
                 'ref': payment_ref,
             })
@@ -415,7 +422,7 @@ class AccountInvoice(models.Model):
         for order in self:
             order.portal_url = '/my/invoices/%s' % (order.id)
 
-    @api.depends('state', 'journal_id', 'date_invoice')
+    @api.depends('state', 'journal_id', 'date', 'date_invoice')
     def _get_sequence_prefix(self):
         """ computes the prefix of the number that will be assigned to the first invoice/bill/refund of a journal, in order to
         let the user manually change it.
@@ -427,9 +434,10 @@ class AccountInvoice(models.Model):
             return
         for invoice in self:
             journal_sequence, domain = invoice._get_seq_number_next_stuff()
+            sequence_date = invoice.date or invoice.date_invoice
             if (invoice.state == 'draft') and not self.search(domain, limit=1):
-                prefix, dummy = journal_sequence.with_context(ir_sequence_date=invoice.date_invoice,
-                                                              ir_sequence_date_range=invoice.date_invoice)._get_prefix_suffix()
+                prefix, dummy = journal_sequence.with_context(ir_sequence_date=sequence_date,
+                                                              ir_sequence_date_range=sequence_date)._get_prefix_suffix()
                 invoice.sequence_number_next_prefix = prefix
             else:
                 invoice.sequence_number_next_prefix = False
@@ -442,7 +450,8 @@ class AccountInvoice(models.Model):
         for invoice in self:
             journal_sequence, domain = invoice._get_seq_number_next_stuff()
             if (invoice.state == 'draft') and not self.search(domain, limit=1):
-                number_next = journal_sequence._get_current_sequence().number_next_actual
+                sequence_date = invoice.date or invoice.date_invoice
+                number_next = journal_sequence._get_current_sequence(sequence_date=sequence_date).number_next_actual
                 invoice.sequence_number_next = '%%0%sd' % journal_sequence.padding % number_next
             else:
                 invoice.sequence_number_next = ''
@@ -458,7 +467,8 @@ class AccountInvoice(models.Model):
         result = re.match("(0*)([0-9]+)", nxt)
         if result and journal_sequence:
             # use _get_current_sequence to manage the date range sequences
-            sequence = journal_sequence._get_current_sequence()
+            sequence_date = self.date or self.date_invoice
+            sequence = journal_sequence._get_current_sequence(sequence_date=sequence_date)
             sequence.number_next = int(result.group(2))
 
     @api.multi
@@ -765,6 +775,10 @@ class AccountInvoice(models.Model):
                             biggest_tax_line = tax_line
                     biggest_tax_line.amount_rounding += rounding_amount
                 elif self.cash_rounding_id.strategy == 'add_invoice_line':
+                    if rounding_amount > 0.0:
+                        account_id = self.cash_rounding_id._get_loss_account_id().id
+                    else:
+                        account_id = self.cash_rounding_id._get_profit_account_id().id
                     # Create a new invoice line to perform the rounding
                     rounding_line = self.env['account.invoice.line'].new({
                         'name': self.cash_rounding_id.name,
@@ -1058,7 +1072,7 @@ class AccountInvoice(models.Model):
                     'account_id': tax_line.account_id.id,
                     'account_analytic_id': tax_line.account_analytic_id.id,
                     'invoice_id': self.id,
-                    'tax_ids': [(6, 0, list(done_taxes))] if tax_line.tax_id.include_base_amount else []
+                    'tax_ids': [(6, 0, list(done_taxes))] if done_taxes and tax_line.tax_id.include_base_amount else []
                 })
                 done_taxes.append(tax.id)
         return res
@@ -1375,6 +1389,7 @@ class AccountInvoice(models.Model):
 
         values['type'] = TYPE2REFUND[invoice['type']]
         values['date_invoice'] = date_invoice or fields.Date.context_today(invoice)
+        values['date_due'] = values['date_invoice']
         values['state'] = 'draft'
         values['number'] = False
         values['origin'] = invoice.number
@@ -1673,7 +1688,7 @@ class AccountInvoiceLine(models.Model):
             return
         if not self.product_id:
             fpos = self.invoice_id.fiscal_position_id
-            self.invoice_line_tax_ids = fpos.map_tax(self.account_id.tax_ids, partner=self.partner_id).ids
+            self.invoice_line_tax_ids = fpos.map_tax(self.account_id.tax_ids, partner=self.partner_id)
         elif not self.price_unit:
             self._set_taxes()
 

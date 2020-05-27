@@ -5,7 +5,7 @@ from flectra.http import request
 from flectra.addons.portal.controllers.portal import CustomerPortal
 from flectra.addons.portal.controllers.portal import get_records_pager
 from flectra.addons.portal.controllers.portal import pager as portal_pager
-
+import copy
 
 class HelpdeskTicket(http.Controller):
 
@@ -29,8 +29,21 @@ class HelpdeskTicket(http.Controller):
     def issue_submitted(self, **post):
         attachment_obj = request.env['ir.attachment']
         post.update({'user_id': request.session.uid})
-        ticket = request.env['helpdesk.ticket'].sudo().create(post)
-        values = {'sequence': ticket.sequence}
+        post_data = copy.deepcopy(post)
+        for k in post:
+            if k=='file' or 'file_data_' in k:
+                post_data.pop(k)
+        ticket = request.env['helpdesk.ticket'].sudo().create(post_data)
+        helpdesk_team = request.env["helpdesk.team"].sudo().search([('issue_type_ids', 'in',
+                                                  ticket.issue_type_id.id)])
+        for team_id in helpdesk_team:
+            ticket.update({
+                'team_id': team_id.id,
+                'stage_id': request.env.ref('helpdesk_basic.helpdesk_stage_draft')
+            })
+            if request.env.user.partner_id:
+                ticket.partner_id = request.env.user.partner_id or False
+        values = {'ticket_seq': ticket.ticket_seq}
         file_data = [key for key in post if 'file_data_' in key]
         for name in file_data:
             attachment_obj.sudo().create(
@@ -70,7 +83,7 @@ class CustomerPortal(CustomerPortal):
                 auth="user", website=True)
     def portal_my_ticket(self, page=1, ticket_id=None, **kw):
         domain = [('user_id', '=', request.session.uid)]
-        ticket_count = request.env['helpdesk.ticket'].search_count(domain)
+        ticket_count = request.env['helpdesk.ticket'].sudo().search_count(domain)
         pager = portal_pager(
             url="/my/tickets",
             url_args={},
@@ -78,7 +91,7 @@ class CustomerPortal(CustomerPortal):
             page=page,
             step=self._items_per_page
         )
-        tickets = request.env['helpdesk.ticket'].search(
+        tickets = request.env['helpdesk.ticket'].sudo().search(
             domain, limit=self._items_per_page, offset=pager['offset'])
         request.session['my_tickets_history'] = tickets.ids[:100]
         vals = {

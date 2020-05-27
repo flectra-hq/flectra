@@ -160,9 +160,23 @@ class Product(models.Model):
             company_id = self.env.user.company_id.id
             return (
                 [('location_id.company_id', '=', company_id), ('location_id.usage', 'in', ['internal', 'transit'])],
-                [('location_id.company_id', '=', False), ('location_dest_id.company_id', '=', company_id)],
-                [('location_id.company_id', '=', company_id), ('location_dest_id.company_id', '=', False),
-            ])
+                ['&',
+                     ('location_dest_id.company_id', '=', company_id),
+                     '|',
+                         ('location_id.company_id', '=', False),
+                         '&',
+                             ('location_id.usage', 'in', ['inventory', 'production']),
+                             ('location_id.company_id', '=', company_id),
+                 ],
+                ['&',
+                     ('location_id.company_id', '=', company_id),
+                     '|',
+                         ('location_dest_id.company_id', '=', False),
+                         '&',
+                             ('location_dest_id.usage', 'in', ['inventory', 'production']),
+                             ('location_dest_id.company_id', '=', company_id),
+                 ]
+            )
         location_ids = []
         if self.env.context.get('location', False):
             if isinstance(self.env.context['location'], pycompat.integer_types):
@@ -385,7 +399,7 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     responsible_id = fields.Many2one('res.users', string='Responsible', default=lambda self: self.env.uid, required=True)
-    type = fields.Selection(selection_add=[('product', 'Stockable Product')])
+    type = fields.Selection(selection_add=[('product', 'Stockable Product')], track_visibility='onchange')
     property_stock_production = fields.Many2one(
         'stock.location', "Production Location",
         company_dependent=True, domain=[('usage', 'like', 'production')],
@@ -437,6 +451,11 @@ class ProductTemplate(models.Model):
     def _is_cost_method_standard(self):
         return True
 
+    @api.depends(
+        'product_variant_ids',
+        'product_variant_ids.stock_move_ids.product_qty',
+        'product_variant_ids.stock_move_ids.state',
+    )
     def _compute_quantities(self):
         res = self._compute_quantities_dict()
         for template in self:

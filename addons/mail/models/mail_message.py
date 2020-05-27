@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 import re
 
-from email.utils import formataddr
-from openerp.http import request
+from flectra.http import request
 
 from flectra import _, api, fields, models, modules, SUPERUSER_ID, tools
 from flectra.exceptions import UserError, AccessError
@@ -28,7 +27,7 @@ class Message(models.Model):
     @api.model
     def _get_default_from(self):
         if self.env.user.email:
-            return formataddr((self.env.user.name, self.env.user.email))
+            return tools.formataddr((self.env.user.name, self.env.user.email))
         raise UserError(_("Unable to send email, please configure the sender's email address."))
 
     @api.model
@@ -413,7 +412,6 @@ class Message(models.Model):
             'message_type', 'subtype_id', 'subject',  # message specific
             'model', 'res_id', 'record_name',  # document related
             'channel_ids', 'partner_ids',  # recipients
-            'needaction_partner_ids',  # list of partner ids for whom the message is a needaction
             'starred_partner_ids',  # list of partner ids for whom the message is starred
         ])
         message_tree = dict((m.id, m) for m in self.sudo())
@@ -509,31 +507,32 @@ class Message(models.Model):
         # check read access rights before checking the actual rules on the given ids
         super(Message, self.sudo(access_rights_uid or self._uid)).check_access_rights('read')
 
-        self._cr.execute("""
-            SELECT DISTINCT m.id, m.model, m.res_id, m.author_id,
-                            COALESCE(partner_rel.res_partner_id, needaction_rel.res_partner_id),
-                            channel_partner.channel_id as channel_id
-            FROM "%s" m
-            LEFT JOIN "mail_message_res_partner_rel" partner_rel
-            ON partner_rel.mail_message_id = m.id AND partner_rel.res_partner_id = %%(pid)s
-            LEFT JOIN "mail_message_res_partner_needaction_rel" needaction_rel
-            ON needaction_rel.mail_message_id = m.id AND needaction_rel.res_partner_id = %%(pid)s
-            LEFT JOIN "mail_message_mail_channel_rel" channel_rel
-            ON channel_rel.mail_message_id = m.id
-            LEFT JOIN "mail_channel" channel
-            ON channel.id = channel_rel.mail_channel_id
-            LEFT JOIN "mail_channel_partner" channel_partner
-            ON channel_partner.channel_id = channel.id AND channel_partner.partner_id = %%(pid)s
-            WHERE m.id = ANY (%%(ids)s)""" % self._table, dict(pid=pid, ids=ids))
-        for id, rmod, rid, author_id, partner_id, channel_id in self._cr.fetchall():
-            if author_id == pid:
-                author_ids.add(id)
-            elif partner_id == pid:
-                partner_ids.add(id)
-            elif channel_id:
-                channel_ids.add(id)
-            elif rmod and rid:
-                model_ids.setdefault(rmod, {}).setdefault(rid, set()).add(id)
+        for sub_ids in self._cr.split_for_in_conditions(ids):
+            self._cr.execute("""
+                SELECT DISTINCT m.id, m.model, m.res_id, m.author_id,
+                                COALESCE(partner_rel.res_partner_id, needaction_rel.res_partner_id),
+                                channel_partner.channel_id as channel_id
+                FROM "%s" m
+                LEFT JOIN "mail_message_res_partner_rel" partner_rel
+                ON partner_rel.mail_message_id = m.id AND partner_rel.res_partner_id = %%(pid)s
+                LEFT JOIN "mail_message_res_partner_needaction_rel" needaction_rel
+                ON needaction_rel.mail_message_id = m.id AND needaction_rel.res_partner_id = %%(pid)s
+                LEFT JOIN "mail_message_mail_channel_rel" channel_rel
+                ON channel_rel.mail_message_id = m.id
+                LEFT JOIN "mail_channel" channel
+                ON channel.id = channel_rel.mail_channel_id
+                LEFT JOIN "mail_channel_partner" channel_partner
+                ON channel_partner.channel_id = channel.id AND channel_partner.partner_id = %%(pid)s
+                WHERE m.id = ANY (%%(ids)s)""" % self._table, dict(pid=pid, ids=list(sub_ids)))
+            for id, rmod, rid, author_id, partner_id, channel_id in self._cr.fetchall():
+                if author_id == pid:
+                    author_ids.add(id)
+                elif partner_id == pid:
+                    partner_ids.add(id)
+                elif channel_id:
+                    channel_ids.add(id)
+                elif rmod and rid:
+                    model_ids.setdefault(rmod, {}).setdefault(rid, set()).add(id)
 
         allowed_ids = self._find_allowed_doc_ids(model_ids)
 
@@ -596,8 +595,9 @@ class Message(models.Model):
                                 WHERE message.message_type = %%s AND (message.subtype_id IS NULL OR subtype.internal IS TRUE) AND message.id = ANY (%%s)''' % (self._table), ('comment', self.ids,))
             if self._cr.fetchall():
                 raise AccessError(
-                    _('The requested operation cannot be completed due to security restrictions. Please contact your system administrator.\n\n(Document type: %s, Operation: %s)') %
-                    (self._description, operation))
+                    _('The requested operation cannot be completed due to security restrictions. Please contact your system administrator.\n\n(Document type: %s, Operation: %s)') % (self._description, operation)
+                    + ' - ({} {}, {} {})'.format(_('Records:'), self.ids[:6], _('User:'), self._uid)
+                )
 
         # Read mail_message.ids to have their values
         message_values = dict((res_id, {}) for res_id in self.ids)
@@ -696,8 +696,9 @@ class Message(models.Model):
         if not (other_ids and self.browse(other_ids).exists()):
             return
         raise AccessError(
-            _('The requested operation cannot be completed due to security restrictions. Please contact your system administrator.\n\n(Document type: %s, Operation: %s)') %
-            (self._description, operation))
+            _('The requested operation cannot be completed due to security restrictions. Please contact your system administrator.\n\n(Document type: %s, Operation: %s)') % (self._description, operation)
+            + ' - ({} {}, {} {})'.format(_('Records:'), list(other_ids)[:6], _('User:'), self._uid)
+        )
 
     @api.model
     def _get_record_name(self, values):

@@ -806,11 +806,11 @@ class Orderpoint(models.Model):
         default=lambda self: self._context.get('product_uom', False))
     product_min_qty = fields.Float(
         'Minimum Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True,
-        help="When the virtual stock goes below the Min Quantity specified for this field, Flectra generates "
+        help="When the virtual stock goes below the Min Quantity specified for this field, Odoo generates "
              "a procurement to bring the forecasted quantity to the Max Quantity.")
     product_max_qty = fields.Float(
         'Maximum Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True,
-        help="When the virtual stock goes below the Min Quantity, Flectra generates "
+        help="When the virtual stock goes below the Min Quantity, Odoo generates "
              "a procurement to bring the forecasted quantity to the Quantity specified as Max Quantity.")
     qty_multiple = fields.Float(
         'Qty Multiple', digits=dp.get_precision('Product Unit of Measure'),

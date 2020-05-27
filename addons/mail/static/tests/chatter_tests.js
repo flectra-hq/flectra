@@ -615,8 +615,7 @@ QUnit.test('chatter: post, receive and star messages', function (assert) {
                 "suggestion's id should be correct");
             assert.strictEqual(form.$('.o_mention_proposition .o_mention_name').text(), 'Test User',
                 "suggestion should be displayed correctly");
-            assert.strictEqual(form.$('.o_mention_proposition' +
-                ' .o_mention_info').text(), '(test@flectrahq.com)',
+            assert.strictEqual(form.$('.o_mention_proposition .o_mention_info').text(), '(test@flectrahq.com)',
                 "suggestion should be displayed correctly");
 
             BasicComposer.prototype.MENTION_THROTTLE = mentionThrottle;

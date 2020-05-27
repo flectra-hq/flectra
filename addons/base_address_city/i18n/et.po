@@ -6,14 +6,14 @@
 # Rivo Zängov <eraser@eraser.ee>, 2017
 # Wanradt Koell <wanradt@gmail.com>, 2017
 # Arma Gedonsky <armagedonsky@hot.ee>, 2017
-# Martin Trigaux <mat@odoo.com>, 2017
+# Martin Trigaux, 2017
 # Eneli Õigus <enelioigus@gmail.com>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 09:52+0000\n"
-"PO-Revision-Date: 2017-09-20 09:52+0000\n"
+"POT-Creation-Date: 2018-03-15 07:58+0000\n"
+"PO-Revision-Date: 2018-03-15 07:58+0000\n"
 "Last-Translator: Eneli Õigus <enelioigus@gmail.com>, 2017\n"
 "Language-Team: Estonian (https://www.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
@@ -30,8 +30,8 @@ msgid ""
 "Check this box to ensure every address created in that country has a 'City' "
 "chosen in the list of the country's cities."
 msgstr ""
-"Märgi see ruut, et tagada, et iga selles riigis loodud aadressil on 'Linn' "
-"valitud riigi linnade loendist."
+"Tee sellesse ruutu märge, kui soovid, et selle riigi aadressidel oleks alati"
+" \"linn\" valitud."
 
 #. module: base_address_city
 #: model:ir.actions.act_window,name:base_address_city.action_res_city_tree
@@ -40,17 +40,15 @@ msgid "Cities"
 msgstr "Linnad"
 
 #. module: base_address_city
+#: code:addons/base_address_city/models/res_partner.py:36
 #: model:ir.model,name:base_address_city.model_res_city
-#: model:ir.ui.view,arch_db:base_address_city.view_city_filter
-#: model:ir.ui.view,arch_db:base_address_city.view_city_tree
-msgid "City"
-msgstr "Linn"
-
-#. module: base_address_city
 #: model:ir.model.fields,field_description:base_address_city.field_res_partner_city_id
 #: model:ir.model.fields,field_description:base_address_city.field_res_users_city_id
-msgid "Company"
-msgstr "Ettevõte"
+#: model:ir.ui.view,arch_db:base_address_city.view_city_filter
+#: model:ir.ui.view,arch_db:base_address_city.view_city_tree
+#, python-format
+msgid "City"
+msgstr "Linn"
 
 #. module: base_address_city
 #: model:ir.model,name:base_address_city.model_res_partner
@@ -71,7 +69,7 @@ msgstr "Loonud"
 #. module: base_address_city
 #: model:ir.model.fields,field_description:base_address_city.field_res_city_create_date
 msgid "Created on"
-msgstr "Loodud"
+msgstr "Loomise kuupäev"
 
 #. module: base_address_city
 #: model:ir.model.fields,field_description:base_address_city.field_res_city_display_name

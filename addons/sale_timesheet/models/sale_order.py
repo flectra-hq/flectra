@@ -6,7 +6,7 @@ from flectra import api, fields, models, _
 from flectra.exceptions import ValidationError
 from flectra.osv import expression
 from flectra.tools.safe_eval import safe_eval
-from flectra.tools import float_is_zero
+from flectra.tools import float_is_zero, plaintext2html
 
 
 class SaleOrder(models.Model):
@@ -223,7 +223,7 @@ class SaleOrderLine(models.Model):
             'planned_hours': planned_hours,
             'remaining_hours': planned_hours,
             'partner_id': self.order_id.partner_id.id,
-            'description': self.name + '<br/>',
+            'description': plaintext2html(self.name) if self.name else False,
             'project_id': project.id,
             'sale_line_id': self.id,
             'company_id': self.company_id.id,

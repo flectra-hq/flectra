@@ -4,12 +4,14 @@ import requests
 from lxml import etree, objectify
 from xml.etree import ElementTree as ET
 from uuid import uuid4
+import logging
 
 from flectra.addons.payment.models.payment_acquirer import _partner_split_name
 from flectra.exceptions import ValidationError, UserError
 from flectra import _
 
 XMLNS = 'AnetApi/xml/v1/schema/AnetApiSchema.xsd'
+_logger = logging.getLogger(__name__)
 
 
 def strip_ns(xml, ns):
@@ -118,7 +120,7 @@ class AuthorizeAPI():
         """Create a payment and customer profile in the Authorize.net backend.
 
         Creates a customer profile for the partner/credit card combination and links
-        a corresponding payment profile to it. Note that a single partner in the Flectra
+        a corresponding payment profile to it. Note that a single partner in the Odoo
         database can have multiple customer profiles in Authorize.net (i.e. a customer
         profile is created for every res.partner/payment.token couple).
 
@@ -133,7 +135,7 @@ class AuthorizeAPI():
         """
         root = self._base_tree('createCustomerProfileRequest')
         profile = etree.SubElement(root, "profile")
-        etree.SubElement(profile, "merchantCustomerId").text = 'FLECTRA-%s-%s' % (partner.id, uuid4().hex[:8])
+        etree.SubElement(profile, "merchantCustomerId").text = 'ODOO-%s-%s' % (partner.id, uuid4().hex[:8])
         etree.SubElement(profile, "email").text = partner.email or ''
         payment_profile = etree.SubElement(profile, "paymentProfiles")
         etree.SubElement(payment_profile, "customerType").text = 'business' if partner.is_company else 'individual'
@@ -186,7 +188,7 @@ class AuthorizeAPI():
         """Create an Auth.net payment/customer profile from an existing transaction.
 
         Creates a customer profile for the partner/credit card combination and links
-        a corresponding payment profile to it. Note that a single partner in the Flectra
+        a corresponding payment profile to it. Note that a single partner in the Odoo
         database can have multiple customer profiles in Authorize.net (i.e. a customer
         profile is created for every res.partner/payment.token couple).
 
@@ -205,10 +207,16 @@ class AuthorizeAPI():
         root = self._base_tree('createCustomerProfileFromTransactionRequest')
         etree.SubElement(root, "transId").text = transaction_id
         customer = etree.SubElement(root, "customer")
-        etree.SubElement(customer, "merchantCustomerId").text = 'FLECTRA-%s-%s' % (partner.id, uuid4().hex[:8])
+        etree.SubElement(customer, "merchantCustomerId").text = 'ODOO-%s-%s' % (partner.id, uuid4().hex[:8])
         etree.SubElement(customer, "email").text = partner.email or ''
         response = self._authorize_request(root)
         res = dict()
+        if response.find('customerProfileId') is None:  # Warning: do not use bool(etree) as the semantics is very misleading
+            _logger.warning(
+                'Unable to create customer payment profile, data missing from transaction. Transaction_id: %s - Partner_id: %s'
+                % (transaction_id, partner)
+            )
+            return res
         res['profile_id'] = response.find('customerProfileId').text
         res['payment_profile_id'] = response.find('customerPaymentProfileIdList/numericString').text
         root_profile = self._base_tree('getCustomerPaymentProfileRequest')

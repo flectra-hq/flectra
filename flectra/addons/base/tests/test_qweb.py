@@ -5,7 +5,6 @@ import collections
 import json
 import os.path
 import re
-import sys
 
 from lxml import etree
 

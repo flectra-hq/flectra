@@ -32,16 +32,16 @@
                     model="stock.picking" name="search"/>
         </function>
 
-        <record id="demo_stock_immediate_transfer1"
-                model="stock.immediate.transfer">
-            <field name="pick_ids"
-                   search="[('sale_id', '=', ref('demo_sale_order_website'))]"/>
-        </record>
+<!--        <record id="demo_stock_immediate_transfer1"-->
+<!--                model="stock.immediate.transfer">-->
+<!--            <field name="pick_ids"-->
+<!--                   search="[('sale_id', '=', ref('demo_sale_order_website'))]"/>-->
+<!--        </record>-->
 
-        <function
-                model="stock.immediate.transfer" name="process"
-                eval="[ref('demo_stock_immediate_transfer1')]"
-        />
+<!--        <function-->
+<!--                model="stock.immediate.transfer" name="process"-->
+<!--                eval="[ref('demo_stock_immediate_transfer1')]"-->
+<!--        />-->
 
 
     <record id="demo_sale_order_website_user" model="sale.order">
@@ -66,23 +66,15 @@
             <field name="price_unit">250.00</field>
         </record>
 
-        <function model="sale.order" name="action_confirm"
-                  eval="[ref('demo_sale_order_website_user')]"/>
+        <function model="sale.order" name="action_confirm" eval="[ref('demo_sale_order_website_user')]"/>
 
         <function model="stock.picking" name="force_assign">
-            <function
-                    eval="[[('sale_id', '=', ref('demo_sale_order_website_user'))]]"
-                    model="stock.picking" name="search"/>
+            <function eval="[[('sale_id', '=', ref('demo_sale_order_website_user'))]]" model="stock.picking" name="search"/>
         </function>
 
-        <record id="demo_stock_immediate_transfer1"
-                model="stock.immediate.transfer">
-            <field name="pick_ids"
-                   search="[('sale_id', '=', ref('demo_sale_order_website_user'))]"/>
-        </record>
+<!--        <record id="demo_stock_immediate_transfer1" model="stock.immediate.transfer">-->
+<!--            <field name="pick_ids"  search="[('sale_id', '=', ref('demo_sale_order_website_user'))]"/>-->
+<!--        </record>-->
 
-        <function
-                model="stock.immediate.transfer" name="process"
-                eval="[ref('demo_stock_immediate_transfer1')]"
-        />
+<!--        <function model="stock.immediate.transfer" name="process"  eval="[ref('demo_stock_immediate_transfer1')]"/>-->
 </flectra>

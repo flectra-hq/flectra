@@ -276,7 +276,7 @@ class CrmTeam(models.Model):
                 values.append({x_field: data_item.get('x_value'), y_field: data_item.get('y_value')})
 
         [graph_title, graph_key] = self._graph_title_and_key()
-        color = '#875A7B' if '+e' in version else '#7c7bad'
+        color = '#009efb' if '+e' in version else '#7c7bad'
         return [{'values': values, 'area': True, 'title': graph_title, 'key': graph_key, 'color': color}]
 
     def _compute_dashboard_button_name(self):

@@ -80,8 +80,6 @@ class HelpdeskTicket(models.Model):
 
     @api.model
     def create(self, values):
-        if not values.get('user_id'):
-            values.update({'user_id': self.env.user.id})
         if 'ticket_seq' not in values or values['ticket_seq'] == _('New'):
             values['ticket_seq'] = self.env['ir.sequence'].next_by_code(
                     'helpdesk.ticket') or _('New')
@@ -101,17 +99,10 @@ class HelpdeskTicket(models.Model):
             self.add_followers()
         return super(HelpdeskTicket, self).write(vals)
 
-    @api.onchange('user_id')
-    def onchange_user_id(self):
-        if self.user_id:
-            self.partner_id = self.user_id.partner_id
-
     @api.onchange('partner_id')
     def onchange_partner_id(self):
         if self.partner_id:
-            user = self.env['res.users'].search([('partner_id', '=', self.partner_id.id)])
-            if user:
-                self.user_id = user
+            self.email = self.partner_id.email
 
     @api.onchange('team_id')
     def onchange_team_id(self):
@@ -132,6 +123,10 @@ class HelpdeskTicket(models.Model):
     def onchange_issue_type_id(self):
         self.team_id = False
         if self.issue_type_id:
+            team = self.env["helpdesk.team"].search([('issue_type_ids', 'in',
+                                                      self.issue_type_id.id)])
+            for teams in team:
+                self.team_id = teams.id
             self.description = self.issue_type_id.reporting_template or ''
             return {'domain': {'team_id': [('issue_type_ids', 'in',
                                             self.issue_type_id.id)]}}

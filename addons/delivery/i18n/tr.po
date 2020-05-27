@@ -3,21 +3,25 @@
 # * delivery
 # 
 # Translators:
-# Ayhan KIZILTAN <akiziltan76@hotmail.com>, 2017
-# Güven YILMAZ <guvenyilmaz@outlook.com.tr>, 2017
-# Martin Trigaux <mat@odoo.com>, 2017
 # Ramiz Deniz Öner <deniz@denizoner.com>, 2017
-# Murat Kaplan <muratk@projetgrup.com>, 2017
+# Gökay Kıvırcıoğlu <riza.gokay@gmail.com>, 2017
 # Ahmet Altinisik <aaltinisik@altinkaya.com.tr>, 2017
 # Ediz Duman <neps1192@gmail.com>, 2017
-# Gökay Kıvırcıoğlu <riza.gokay@gmail.com>, 2017
+# Ayhan KIZILTAN <akiziltan76@hotmail.com>, 2017
+# Güven YILMAZ <guvenyilmaz@outlook.com.tr>, 2017
+# Murat Kaplan <muratk@projetgrup.com>, 2017
+# Martin Trigaux, 2018
+# Umur Akın <umura@projetgrup.com>, 2019
+# İlknur Püskül <ilknurpuskull@gmail.com>, 2019
+# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2020
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-30 13:12+0000\n"
-"PO-Revision-Date: 2017-11-30 13:12+0000\n"
-"Last-Translator: Gökay Kıvırcıoğlu <riza.gokay@gmail.com>, 2017\n"
+"POT-Creation-Date: 2019-07-17 15:01+0000\n"
+"PO-Revision-Date: 2017-09-20 10:16+0000\n"
+"Last-Translator: Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2020\n"
 "Language-Team: Turkish (https://www.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,13 +32,14 @@ msgstr ""
 #. module: delivery
 #: model:mail.template,report_name:delivery.mail_template_data_delivery_confirmation
 msgid "${(object.name or '').replace('/','_')}"
-msgstr ""
+msgstr "${(object.name or '').replace('/','_')}"
 
 #. module: delivery
 #: model:mail.template,subject:delivery.mail_template_data_delivery_confirmation
 msgid ""
 "${object.company_id.name} Delivery Order (Ref ${object.name or 'n/a' })"
 msgstr ""
+"${object.company_id.name} Teslimat Emri (Ref ${object.name or 'n/a' })"
 
 #. module: delivery
 #: model:mail.template,subject:delivery.mail_template_data_delivery_notification
@@ -61,6 +66,22 @@ msgid ""
 "<p>Thank you,</p>\n"
 "      </data>"
 msgstr ""
+"<?xml version=\"1.0\"?>\n"
+"<data><p>Sayın ${object.partner_id.name},</p>\n"
+"<p>Siparişinizin teslim edildiğini size bildirmekten memnuniyet duyarız.</p>\n"
+"<p>\n"
+"%if object.carrier_tracking_ref:\n"
+"  Takip referansınız:\n"
+"  %if object.carrier_tracking_url:\n"
+"    <a href=\"${object.carrier_tracking_url}\" target=\"_blank\">${object.carrier_tracking_ref}</a>.\n"
+"  %else:\n"
+"    ${object.carrier_tracking_ref}.\n"
+"  %endif\n"
+"%endif\n"
+"</p>\n"
+"<p>Ekteki teslimat siparişinde detaylı bilgi bulabilirsiniz .</p>\n"
+"<p>Teşekkürler,</p>\n"
+"      </data>"
 
 #. module: delivery
 #: model:mail.template,body_html:delivery.mail_template_data_delivery_notification
@@ -71,7 +92,7 @@ msgid ""
 "            <!-- HEADER -->\n"
 "            <tr>\n"
 "              <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                <table width=\"650\" border=\"0\" cellpadding=\"0\" bgcolor=\"#875A7B\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
+"                <table width=\"650\" border=\"0\" cellpadding=\"0\" bgcolor=\"#009efb\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
 "                  <tr>\n"
 "                    <td valign=\"middle\">\n"
 "                      <span style=\"font-size:20px; color:white; font-weight: bold;\">${object.record_name}</span>\n"
@@ -96,7 +117,7 @@ msgid ""
 "            <!-- FOOTER -->\n"
 "            <tr>\n"
 "              <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                <table width=\"650\" border=\"0\" cellpadding=\"0\" bgcolor=\"#875A7B\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
+"                <table width=\"650\" border=\"0\" cellpadding=\"0\" bgcolor=\"#009efb\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
 "                  <tr>\n"
 "                    <td valign=\"middle\" align=\"left\" style=\"color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;\">${user.company_id.name}<br/>${user.company_id.phone or ''}</td>\n"
 "                    <td valign=\"middle\" align=\"right\" style=\"color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;\">\n"
@@ -112,7 +133,7 @@ msgid ""
 "              </td>\n"
 "            </tr>\n"
 "            <tr>\n"
-"              <td align=\"center\">Powered by <a href=\"https://www.odoo.com\">Odoo</a>.</td>\n"
+"              <td align=\"center\">Powered by <a href=\"https://www.flectrahq.com\">Odoo</a>.</td>\n"
 "            </tr>\n"
 "          </tbody>\n"
 "        </table>\n"
@@ -145,7 +166,7 @@ msgstr "<strong>Taşıyıcı</strong>"
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.report_delivery_document2
 msgid "<strong>Tracking Number</strong>"
-msgstr ""
+msgstr "<strong>Takip Numarası</strong>"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.report_delivery_document2
@@ -213,12 +234,12 @@ msgstr "İptal"
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_search
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_tree
 msgid "Carrier"
-msgstr "Nakliyeci"
+msgstr "Teslim Yöntemi"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_order_form_with_carrier
 msgid "Check price"
-msgstr ""
+msgstr "Fiyatı Kontrol Et"
 
 #. module: delivery
 #: model:ir.actions.act_window,help:delivery.action_delivery_carrier_form
@@ -262,6 +283,13 @@ msgstr "Oluşturulma"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_debug_logging
 msgid "Debug logging"
+msgstr "Günlüğü Ayıkla"
+
+#. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:13
+#, python-format
+msgid "Debug requests"
 msgstr ""
 
 #. module: delivery
@@ -272,7 +300,7 @@ msgstr "Teslimat"
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_search
 msgid "Delivery Carrier"
-msgstr "Nakliyeci"
+msgstr "Teslim Yöntemi"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_delivery_price_rule_form
@@ -287,7 +315,7 @@ msgstr "Teslimat Bilgisi"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_sale_order_delivery_message
 msgid "Delivery Message"
-msgstr ""
+msgstr "Teslimat Mesajı"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_res_partner_property_delivery_carrier_id
@@ -314,7 +342,7 @@ msgstr "Teslimat Paketi Seçim Sihirbazı"
 #: model:ir.ui.menu,name:delivery.menu_delivery_packagings
 #: model:ir.ui.view,arch_db:delivery.product_packaging_delivery_tree
 msgid "Delivery Packages"
-msgstr ""
+msgstr "Teslimat Paketi"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_choose_delivery_package_delivery_packaging_id
@@ -335,7 +363,7 @@ msgstr "Teslimat Ürünü"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_sale_order_delivery_rating_success
 msgid "Delivery Rating Success"
-msgstr ""
+msgstr "Teslimat Oranı Başarısı"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_form
@@ -346,6 +374,13 @@ msgstr "Destinasyonlar"
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_sequence
 msgid "Determine the display order"
 msgstr "Görünüm sırasını belirle"
+
+#. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:14
+#, python-format
+msgid "Disable debug"
+msgstr ""
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.choose_delivery_package_view_form
@@ -371,16 +406,29 @@ msgstr ""
 "kuralları olabilir."
 
 #. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:16
+#, python-format
+msgid "Enable debug"
+msgstr ""
+
+#. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_prod_environment
 msgid "Environment"
 msgstr "Ortam"
 
 #. module: delivery
-#: code:addons/delivery/models/delivery_grid.py:50
 #: code:addons/delivery/models/delivery_grid.py:109
 #, python-format
 msgid "Error: no matching grid."
-msgstr ""
+msgstr "Hata: Eşleşen tablo yok."
+
+#. module: delivery
+#: code:addons/delivery/models/delivery_carrier.py:206
+#: code:addons/delivery/models/delivery_grid.py:50
+#, python-format
+msgid "Error: this delivery method is not available for this address."
+msgstr "Hata: bu teslimat yöntemi bu adres için mevcut değil."
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_sale_order_delivery_price
@@ -399,7 +447,7 @@ msgid ""
 "Filling this form allows you to filter delivery carriers according to the "
 "delivery address of your customer."
 msgstr ""
-"Bu formu doldurmak, nakliyecileri, müşterinizin teslimat adresine göre "
+"Bu formu doldurmak, teslim yöntemleri, müşterinizin teslimat adresine göre "
 "filtrelemenize olanak tanır."
 
 #. module: delivery
@@ -409,6 +457,7 @@ msgid "Fixed Price"
 msgstr "Sabit Fiyat"
 
 #. module: delivery
+#: model:delivery.carrier,name:delivery.free_delivery_carrier
 #: model:product.product,name:delivery.product_product_delivery
 #: model:product.template,name:delivery.product_product_delivery_product_template
 msgid "Free delivery charges"
@@ -474,6 +523,9 @@ msgid ""
 "The shipping is free because the order amount exceeds %.2f.\n"
 "(The actual shipping cost is: %.2f)"
 msgstr ""
+"Bilgi:\n"
+"Teslimat ücretsiz, çünkü sipariş tutarı aşıyor %.2f.\n"
+"(asıl teslimat ücreti: %.2f)"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_form
@@ -529,7 +581,7 @@ msgstr "Uzunluk artı (+) değerde olmalıdır"
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_debug_logging
 msgid "Log requests in order to ease debugging"
-msgstr ""
+msgstr "Hata ayıklamayı kolaylaştırmak için loglama ihtiyacı."
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_picking_withcarrier_out_form
@@ -590,12 +642,21 @@ msgid "No carrier set for this order."
 msgstr "Bu sipariş için taşıyıcı ayarlanmamış."
 
 #. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:15
+#, python-format
+msgid "No debug"
+msgstr ""
+
+#. module: delivery
 #: code:addons/delivery/models/delivery_grid.py:100
 #, python-format
 msgid "No price rule matching this order; delivery cost cannot be computed."
 msgstr ""
+"Bu komutla eşleşen bir fiyat kuralı yok, teslimat bedeli hesaplanamaz."
 
 #. module: delivery
+#: model:delivery.carrier,name:delivery.normal_delivery_carrier
 #: model:product.product,name:delivery.product_product_delivery_normal
 #: model:product.template,name:delivery.product_product_delivery_normal_product_template
 msgid "Normal Delivery Charges"
@@ -646,7 +707,7 @@ msgstr "Paket Operasyonu"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_choose_delivery_package_stock_quant_package_id
 msgid "Physical Package"
-msgstr ""
+msgstr "Fiziksel Paket"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_stock_quant_package
@@ -660,6 +721,8 @@ msgid ""
 "Please use \"Check price\" in order to compute a shipping price for this "
 "quotation."
 msgstr ""
+"Bu teklif için gönderim ücretini hesaplamak için lütfen \"Fiyatı Kontrol "
+"Et\" i kullan."
 
 #. module: delivery
 #: selection:delivery.price.rule,variable:0
@@ -687,6 +750,13 @@ msgstr "Fiyatlandırma Kuralları"
 #: model:ir.model,name:delivery.model_product_template
 msgid "Product Template"
 msgstr "Ürün Şablonu"
+
+#. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:9
+#, python-format
+msgid "Production Environment"
+msgstr "Üretim ortamı"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_delivery_type
@@ -735,7 +805,7 @@ msgstr "Kaydet"
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_picking_withcarrier_out_form
 msgid "Send Confirmation Email"
-msgstr ""
+msgstr "Onay E-Postası Gönder"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_picking_withcarrier_out_form
@@ -764,7 +834,7 @@ msgstr "Kimlik bilgileriniz üretim için onaylandıysa, True olarak ayarlayın.
 msgid ""
 "Shipment sent to carrier %s for shipping with tracking number %s<br/>Cost: "
 "%.2f %s"
-msgstr ""
+msgstr "%s takip numarasıyla taşımacılık için Transfer %s<br/>Ücret: %.2f %s"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_carrier_price
@@ -776,6 +846,12 @@ msgstr "Taşıma maliyeti"
 #: model:ir.model.fields,field_description:delivery.field_stock_quant_package_shipping_weight
 msgid "Shipping Weight"
 msgstr "Sevkiyat Ağırlığı"
+
+#. module: delivery
+#: model:ir.ui.view,arch_db:delivery.report_package_barcode_delivery
+#: model:ir.ui.view,arch_db:delivery.report_package_barcode_small_delivery
+msgid "Shipping Weight:"
+msgstr "Kargo Ağırlığı:"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_product_product_hs_code
@@ -794,6 +870,28 @@ msgid "Stock Move"
 msgstr "Stok Hareketi"
 
 #. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:12
+#, python-format
+msgid "Switch to production environment"
+msgstr "Üretim ortamına geçiş yapın"
+
+#. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:10
+#, python-format
+msgid "Switch to test environment"
+msgstr "Test ortamına geç"
+
+#. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:11
+#, python-format
+msgid "Test Environment"
+msgstr "Test ortamı"
+
+#. module: delivery
+#: model:delivery.carrier,name:delivery.delivery_carrier
 #: model:product.product,name:delivery.product_product_delivery_poste
 #: model:product.template,name:delivery.product_product_delivery_poste_product_template
 msgid "The Poste"
@@ -836,7 +934,7 @@ msgstr "Takip Referansı"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_carrier_tracking_url
 msgid "Tracking URL"
-msgstr ""
+msgstr "Takip URL"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_stock_picking
@@ -903,6 +1001,12 @@ msgid "Weight for Shipping"
 msgstr "Nakliye Ağırlığı"
 
 #. module: delivery
+#: model:ir.ui.view,arch_db:delivery.report_package_barcode_delivery
+#: model:ir.ui.view,arch_db:delivery.report_package_barcode_small_delivery
+msgid "Weight:"
+msgstr "Ağırlık:"
+
+#. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_product_packaging_width
 msgid "Width"
 msgstr "Genişlik"
@@ -920,7 +1024,7 @@ msgid ""
 "Packaging Types: %s"
 msgstr ""
 "Aynı sevkiyatta farklı paketleme türleri kullanıyorsunuz.\n"
-"Paket Türleri:% s"
+"Paket Türleri: %s"
 
 #. module: delivery
 #: code:addons/delivery/models/sale_order.py:71

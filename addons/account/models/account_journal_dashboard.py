@@ -96,7 +96,7 @@ class account_journal(models.Model):
                 data.append({'x': short_name, 'y':last_balance, 'name': name})
 
         [graph_title, graph_key] = self._graph_title_and_key()
-        color = '#875A7B' if '+e' in version else '#7c7bad'
+        color = '#009efb' if '+e' in version else '#7c7bad'
         return [{'values': data, 'title': graph_title, 'key': graph_key, 'area': True, 'color': color}]
 
     @api.multi

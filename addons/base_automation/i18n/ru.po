@@ -1,34 +1,36 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * base_automation
-#
+# 
 # Translators:
-# Sergey Vilizhanin <sv@grimmette.ru>, 2017
-# Эдуард Манятовский <manyatovskiy@gmail.com>, 2017
-# Martin Trigaux <mat@odoo.com>, 2017
-# Max Belyanin <maxbelyanin@gmail.com>, 2017
 # Gennady Marchenko <gennadym@gmail.com>, 2017
 # Русский «kolobok2048» Ивашка <kolobok2048@gmail.com>, 2017
-# Максим Дронь <dronmax@gmail.com>, 2017
-# Masha Koc <mariya.kos.ua@gmail.com>, 2017
 # Denis Trepalin <zekarious@gmail.com>, 2017
 # Viktor Pogrebniak <vp@aifil.ru>, 2017
-# Dimko Pythonic <d.v.selitsky@gmail.com>, 2017
+# Masha Koc <mariya.kos.ua@gmail.com>, 2017
+# Max Belyanin <maxbelyanin@gmail.com>, 2017
+# Collex100, 2017
+# Sergey Vilizhanin, 2017
+# Martin Trigaux, 2017
+# Максим Дронь <dronmax@gmail.com>, 2017
+# Ꚁemetron <d.v.selitsky@gmail.com>, 2017
+# Yuriy Ney <k_wizard@mail.ru>, 2018
+# Vasiliy Korobatov <korobatov@gmail.com>, 2019
+# Ivan Yelizariev <yelizariev@it-projects.info>, 2019
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 11:26+0000\n"
-"PO-Revision-Date: 2019-09-10 21:21+0300\n"
-"Last-Translator: Dimko Pythonic <d.v.selitsky@gmail.com>, 2017\n"
+"POT-Creation-Date: 2018-02-19 13:43+0000\n"
+"PO-Revision-Date: 2017-09-20 10:15+0000\n"
+"Last-Translator: Ivan Yelizariev <yelizariev@it-projects.info>, 2019\n"
 "Language-Team: Russian (https://www.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Poedit 2.2.3\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: base_automation
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_help
@@ -64,7 +66,7 @@ msgstr "Тип действия"
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_active
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_lead_test_active
 msgid "Active"
-msgstr "Активно"
+msgstr "Актив"
 
 #. module: base_automation
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_channel_ids
@@ -84,7 +86,7 @@ msgstr "Применить для"
 #. module: base_automation
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_lead_test_is_assigned_to_admin
 msgid "Assigned to admin user"
-msgstr "Назначено администратору"
+msgstr "Назначен пользователю с правами администратора"
 
 #. module: base_automation
 #: model:ir.model,name:base_automation.model_base_automation
@@ -92,7 +94,8 @@ msgid "Automated Action"
 msgstr "Автоматизированное действие"
 
 #. module: base_automation
-#: model:ir.actions.act_window,name:base_automation.base_automation_act model:ir.ui.menu,name:base_automation.menu_base_automation_form
+#: model:ir.actions.act_window,name:base_automation.base_automation_act
+#: model:ir.ui.menu,name:base_automation.menu_base_automation_form
 msgid "Automated Actions"
 msgstr "Автоматические действия"
 
@@ -103,41 +106,46 @@ msgstr "Автоматизация"
 
 #. module: base_automation
 #: model:ir.actions.server,name:base_automation.ir_cron_data_base_automation_check_ir_actions_server
-#: model:ir.cron,cron_name:base_automation.ir_cron_data_base_automation_check model:ir.cron,name:base_automation.ir_cron_data_base_automation_check
+#: model:ir.cron,cron_name:base_automation.ir_cron_data_base_automation_check
+#: model:ir.cron,name:base_automation.ir_cron_data_base_automation_check
 msgid "Base Action Rule: check and execute"
-msgstr "Правило базового действия: проверьте и выполните"
+msgstr "Базовое правило действия: проверить и выполнить"
 
 #. module: base_automation
-#: model:base.automation,name:base_automation.test_rule_recursive model:ir.actions.server,name:base_automation.test_rule_recursive_ir_actions_server
+#: model:base.automation,name:base_automation.test_rule_recursive
+#: model:ir.actions.server,name:base_automation.test_rule_recursive_ir_actions_server
 msgid "Base Automation: test recursive rule"
 msgstr "Базовая автоматизация: тестовое рекурсивное правило"
 
 #. module: base_automation
-#: model:base.automation,name:base_automation.test_rule_on_create model:ir.actions.server,name:base_automation.test_rule_on_create_ir_actions_server
+#: model:base.automation,name:base_automation.test_rule_on_create
+#: model:ir.actions.server,name:base_automation.test_rule_on_create_ir_actions_server
 msgid "Base Automation: test rule on create"
-msgstr "Базовая автоматизация: тестовое правило для создания"
+msgstr "Базовая автоматизация: правило тестирования на создание"
 
 #. module: base_automation
 #: model:base.automation,name:base_automation.test_rule_on_recompute
 #: model:ir.actions.server,name:base_automation.test_rule_on_recompute_ir_actions_server
 msgid "Base Automation: test rule on recompute"
-msgstr "Базовая автоматизация: тестовое правило при пересчете"
+msgstr "Базовая автоматизация: тестовое правило переопределения"
 
 #. module: base_automation
-#: model:base.automation,name:base_automation.test_rule_on_line model:ir.actions.server,name:base_automation.test_rule_on_line_ir_actions_server
+#: model:base.automation,name:base_automation.test_rule_on_line
+#: model:ir.actions.server,name:base_automation.test_rule_on_line_ir_actions_server
 msgid "Base Automation: test rule on secondary model"
-msgstr "Базовая автоматизация: тестовое правило для вторичной модели"
+msgstr "Базовая автоматизация: правило испытаний на вторичную модель"
 
 #. module: base_automation
-#: model:base.automation,name:base_automation.test_rule_on_write model:ir.actions.server,name:base_automation.test_rule_on_write_ir_actions_server
+#: model:base.automation,name:base_automation.test_rule_on_write
+#: model:ir.actions.server,name:base_automation.test_rule_on_write_ir_actions_server
 msgid "Base Automation: test rule on write"
-msgstr "Базовая автоматизация: тестовое правило при записи"
+msgstr "Базовая автоматизация: тестовое правило на написание"
 
 #. module: base_automation
 #: model:base.automation,name:base_automation.test_rule_on_write_check_context
 #: model:ir.actions.server,name:base_automation.test_rule_on_write_check_context_ir_actions_server
 msgid "Base Automation: test rule on write check context"
-msgstr "Базовая автоматизация: тестовое правило в контексте проверки записи"
+msgstr "Базовая автоматизация: тестовое правило написания проверки контекста"
 
 #. module: base_automation
 #: selection:base.automation,trigger:0
@@ -157,12 +165,12 @@ msgstr "Перед обновлением домена"
 #. module: base_automation
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_binding_model_id
 msgid "Binding Model"
-msgstr "Модель привязки"
+msgstr "Связанная модель"
 
 #. module: base_automation
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_binding_type
 msgid "Binding Type"
-msgstr "Тип привязки"
+msgstr "Связанный Тип"
 
 #. module: base_automation
 #: selection:base.automation.lead.test,state:0
@@ -181,15 +189,18 @@ msgstr "Подчиненные действия"
 
 #. module: base_automation
 #: model:ir.model.fields,help:base_automation.field_base_automation_child_ids
-msgid "Child server actions that will be executed. Note that the last return returned action value will be used as global return value."
+msgid ""
+"Child server actions that will be executed. Note that the last return "
+"returned action value will be used as global return value."
 msgstr ""
-"Действия дочернего сервера, которые будут выполнены. Следует отметить, что последний возврат значения возвращаемого действия будет использоваться в "
+"Действия дочернего сервера, которые будут выполнены. Следует отметить, что "
+"последний возврат значения возвращаемого действия будет использоваться в "
 "качестве глобального возвращаемого значения."
 
 #. module: base_automation
 #: model:ir.actions.act_window,help:base_automation.base_automation_act
 msgid "Click to setup a new automated automation."
-msgstr "Нажмите, чтобы настроить новую автоматизацию."
+msgstr ""
 
 #. module: base_automation
 #: selection:base.automation.lead.test,state:0
@@ -199,7 +210,8 @@ msgstr "Закрыт"
 #. module: base_automation
 #: model:ir.model.fields,help:base_automation.field_base_automation_on_change_fields
 msgid "Comma-separated list of field names that triggers the onchange."
-msgstr "Список полей имен, разделенный запятыми, который реагирует на изменения."
+msgstr ""
+"Список полей имен, разделенный запятыми, который реагирует на изменения."
 
 #. module: base_automation
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_crud_model_id
@@ -282,13 +294,21 @@ msgstr "Номер"
 
 #. module: base_automation
 #: model:ir.model.fields,help:base_automation.field_base_automation_filter_domain
-msgid "If present, this condition must be satisfied before executing the action rule."
-msgstr "В случае присутствия, это условие должно быть удовлетворено до выполнения правила действия."
+msgid ""
+"If present, this condition must be satisfied before executing the action "
+"rule."
+msgstr ""
+"В случае присутствия, это условие должно быть удовлетворено до выполнения "
+"правила действия."
 
 #. module: base_automation
 #: model:ir.model.fields,help:base_automation.field_base_automation_filter_pre_domain
-msgid "If present, this condition must be satisfied before the update of the record."
-msgstr "В случае присутствия, это условие должно быть удовлетворено до обновления записи."
+msgid ""
+"If present, this condition must be satisfied before the update of the "
+"record."
+msgstr ""
+"В случае присутствия, это условие должно быть удовлетворено до обновления "
+"записи."
 
 #. module: base_automation
 #: selection:base.automation.lead.test,state:0
@@ -364,8 +384,12 @@ msgstr "Описание Модели"
 
 #. module: base_automation
 #: model:ir.model.fields,help:base_automation.field_base_automation_crud_model_id
-msgid "Model for record creation / update. Set this field only to specify a different model than the base model."
-msgstr "Модель для создания / обновления записей. Установите это поле только для указания другой модели, чем базовая модель."
+msgid ""
+"Model for record creation / update. Set this field only to specify a "
+"different model than the base model."
+msgstr ""
+"Модель для создания / обновления записей. Установите это поле только для "
+"указания другой модели, чем базовая модель."
 
 #. module: base_automation
 #: model:ir.model.fields,help:base_automation.field_base_automation_model_id
@@ -414,8 +438,12 @@ msgstr "Обновляется"
 
 #. module: base_automation
 #: model:ir.model.fields,help:base_automation.field_base_automation_help
-msgid "Optional help text for the users with a description of the target view, such as its usage and purpose."
-msgstr "Дополнительный текст помощи для пользователей с описанием целевого представления, например его использования или предназначения."
+msgid ""
+"Optional help text for the users with a description of the target view, such"
+" as its usage and purpose."
+msgstr ""
+"Дополнительный текст помощи для пользователей с описанием целевого "
+"представления, например его использования или предназначения."
 
 #. module: base_automation
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_lead_test_partner_id
@@ -434,8 +462,12 @@ msgstr "Приоритет"
 
 #. module: base_automation
 #: model:ir.model.fields,help:base_automation.field_base_automation_link_field_id
-msgid "Provide the field used to link the newly created recordon the record on used by the server action."
-msgstr "Укажите поле, используемое для связывания вновь созданной записи с записью, используемой действием сервера."
+msgid ""
+"Provide the field used to link the newly created record on the record on "
+"used by the server action."
+msgstr ""
+"Добавить поле, которое используется для связывания вновь записи с записями, "
+"используемых сервером."
 
 #. module: base_automation
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_code
@@ -469,8 +501,12 @@ msgstr "Действия сервера"
 
 #. module: base_automation
 #: model:ir.model.fields,help:base_automation.field_base_automation_binding_model_id
-msgid "Setting a value makes this action available in the sidebar for the given model."
-msgstr "Установка значения делает это действие доступным на боковой панели для данной модели."
+msgid ""
+"Setting a value makes this action available in the sidebar for the given "
+"model."
+msgstr ""
+"Установка значения делает это действие доступна на боковой панели для данной"
+" модели."
 
 #. module: base_automation
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_lead_test_state
@@ -485,7 +521,7 @@ msgstr "Тема"
 #. module: base_automation
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_trigger
 msgid "Trigger Condition"
-msgstr "Состояние триггера"
+msgstr "Условие триггера"
 
 #. module: base_automation
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_trg_date_id
@@ -503,13 +539,6 @@ msgid ""
 "- 'Add Followers': add followers to a record (available in Discuss)\n"
 "- 'Send Email': automatically send an email (available in email_template)"
 msgstr ""
-"Тип действия сервера. Доступны следующие значения:\n"
-"- 'Выполнить код Python': блок кода python, который будет выполнен\n"
-"- 'Создать или скопировать новую запись': создать новую запись с новыми значениями или скопировать существующую запись в вашу базу данных\n"
-"- 'Запись на запись': обновить значения записи\n"
-"- 'Выполнять несколько действий: определить действие, которое запускает несколько других действий сервера\n"
-"- 'Добавить последователей': добавить подписчиков к записи (доступно Обсуждении)\n"
-"- 'Отправить электронную почту': автоматически отправлять электронную почту (доступно по электронной почте)"
 
 #. module: base_automation
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_usage
@@ -530,11 +559,6 @@ msgid ""
 "                opportunity which still has status pending after 14 days might\n"
 "                trigger an automatic reminder email."
 msgstr ""
-"Используйте автоматические действия для автоматического запуска действий для\n"
-"                 различных экранов. Пример: вывод, созданный конкретным пользователем, может\n"
-"                 автоматически устанавливаться на определенный канал продаж или\n"
-"                 возможность, которая все еще имеет статус в ожидании после 14 дней, может\n"
-"                 вызвать автоматическое напоминание электронной почты."
 
 #. module: base_automation
 #: model:ir.model.fields,field_description:base_automation.field_base_automation_line_test_user_id
@@ -548,13 +572,21 @@ msgstr "Структура значений"
 
 #. module: base_automation
 #: model:ir.model.fields,help:base_automation.field_base_automation_trg_date_calendar_id
-msgid "When calculating a day-based timed condition, it is possible to use a calendar to compute the date based on working days."
-msgstr "При расчете временного условия основанного на днях, можно использовать календарь, чтобы вычислить дату на основе рабочих дней."
+msgid ""
+"When calculating a day-based timed condition, it is possible to use a "
+"calendar to compute the date based on working days."
+msgstr ""
+"При расчете временного условия основанного на днях, можно использовать "
+"календарь, чтобы вычислить дату на основе рабочих дней."
 
 #. module: base_automation
 #: model:ir.model.fields,help:base_automation.field_base_automation_sequence
-msgid "When dealing with multiple actions, the execution order is based on the sequence. Low number means high priority."
-msgstr "При работе с несколькими действиями порядок выполнения основан на последовательности. Низкое значение означает высокий приоритет."
+msgid ""
+"When dealing with multiple actions, the execution order is based on the "
+"sequence. Low number means high priority."
+msgstr ""
+"При работе с несколькими действиями порядок выполнения основан на "
+"последовательности. Низкое значение означает высокий приоритет."
 
 #. module: base_automation
 #: model:ir.model.fields,help:base_automation.field_base_automation_trg_date_id
@@ -572,10 +604,13 @@ msgstr "При отсутствии проверки, правило скрыт�
 
 #. module: base_automation
 #: model:ir.model.fields,help:base_automation.field_base_automation_code
-msgid "Write Python code that the action will execute. Some variables are available for use; help about pyhon expression is given in the help tab."
+msgid ""
+"Write Python code that the action will execute. Some variables are available"
+" for use; help about pyhon expression is given in the help tab."
 msgstr ""
-"Напишите код Python, который будет выполнено действием. Некоторые переменные доступны для использования; Справка о выражении pyhon приведена на "
-"вкладке справки."
+"Напишите код Python, который будет выполнено действием. Некоторые переменные"
+" доступны для использования; Справка о выражении pyhon приведена на вкладке "
+"справки."
 
 #. module: base_automation
 #: model:ir.model,name:base_automation.model_ir_actions_server

@@ -149,7 +149,7 @@
                     <field name="active_move_line_ids" attrs="{'invisible': [('active_move_line_ids', '=', [])]}">
                         <tree editable="bottom" create="0" delete="0">
                             <field name="product_id"/>
-                            <field name="product_uom_qty" readonly="1" string="To Consume"/>
+                            <field name="product_uom_qty" readonly="1" invisible="1" string="To Consume"/>
                             <field name="lot_id" domain="[('product_id', '=', product_id)]" context="{'default_product_id': product_id}"/>
                             <field name="qty_done"/>
                             <field name="product_uom_id" invisible="1"/>
@@ -326,7 +326,7 @@
         <field name="name">mrp.production.work.order.kanban</field>
         <field name="model">mrp.workorder</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_small_column" create="0">
+            <kanban class="o_kanban_small_column o_mrp_workorder_kanban" create="0">
                 <field name="name"/>
                 <field name="production_id"/>
                 <field name="state"/>

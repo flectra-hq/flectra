@@ -39,7 +39,8 @@ class PostgreSQLHandler(logging.Handler):
         if not dbname:
             return
         with tools.ignore(Exception), tools.mute_logger('flectra.sql_db'), sql_db.db_connect(dbname, allow_uri=True).cursor() as cr:
-            cr.autocommit(True)
+            # preclude risks of deadlocks
+            cr.execute("SET LOCAL statement_timeout = 1000")
             msg = tools.ustr(record.msg)
             if record.args:
                 msg = msg % record.args
@@ -103,7 +104,7 @@ class ColoredPerfFilter(PerfFilter):
 class DBFormatter(logging.Formatter):
     def format(self, record):
         record.pid = os.getpid()
-        record.dbname = getattr(threading.current_thread(), 'dbname', '?')
+        record.dbname = getattr(threading.currentThread(), 'dbname', '?')
         return logging.Formatter.format(self, record)
 
 class ColoredFormatter(DBFormatter):

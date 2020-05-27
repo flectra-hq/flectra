@@ -35,7 +35,7 @@ class _LogTracer(object):
 
         in_self = frame.f_locals['self']
 
-        if isinstance(in_self, (flectra.sql_db.Cursor, flectra.sql_db.TestCursor, flectra.sql_db.LazyCursor)):
+        if not isinstance(in_self, flectra.models.BaseModel):
             return self.tracer
 
         model = getattr(in_self, '_name', None)

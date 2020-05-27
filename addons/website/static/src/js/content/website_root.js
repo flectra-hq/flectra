@@ -43,6 +43,7 @@ var WebsiteRoot = BodyManager.extend({
     }),
     custom_events: _.extend({}, BodyManager.prototype.custom_events || {}, {
         animation_start_demand: '_onAnimationStartDemand',
+        animation_stop_demand: '_onAnimationStopDemand',
         ready_to_clean_for_save: '_onAnimationStopDemand',
     }),
 
@@ -165,12 +166,21 @@ var WebsiteRoot = BodyManager.extend({
      * in edition mode for example.
      *
      * @private
+     * @param {jQuery} [$from]
+     *        only stop the animations linked to the given element(s) or one of
+     *        its descendants
      */
-    _stopAnimations: function () {
-        _.each(this.animations, function (animation) {
-            animation.destroy();
+    _stopAnimations: function ($from) {
+        var removedAnimations = _.map(this.animations, function (animation) {
+            if (!$from
+             || $from.filter(animation.el).length
+             || $from.find(animation.el).length) {
+                animation.destroy();
+                return animation;
+            }
+            return null;
         });
-        this.animations = [];
+        this.animations = _.difference(this.animations, removedAnimations);
     },
 
     //--------------------------------------------------------------------------
@@ -194,9 +204,10 @@ var WebsiteRoot = BodyManager.extend({
      * stopped.
      *
      * @private
+     * @param {FlectraEvent} ev
      */
-    _onAnimationStopDemand: function () {
-        this._stopAnimations();
+    _onAnimationStopDemand: function (ev) {
+        this._stopAnimations(ev.data.$target);
     },
     /**
      * @todo review
@@ -242,7 +253,7 @@ var WebsiteRoot = BodyManager.extend({
                     html: (data.data ? data.data.arguments[1] : data.statusText)
                         + '<br/>'
                         + _.str.sprintf(
-                            _t('It might be possible to edit the relevant items or fix the issue in <a href="%s">the classic Flectra interface</a>'),
+                            _t('It might be possible to edit the relevant items or fix the issue in <a href="%s">the classic Odoo interface</a>'),
                             '/web#return_label=Website&model=' + $data.data('object') + '&id=' + $data.data('id')
                         ),
                 }),

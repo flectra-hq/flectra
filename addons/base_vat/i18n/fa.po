@@ -3,22 +3,33 @@
 # * base_vat
 # 
 # Translators:
-# Martin Trigaux <mat@odoo.com>, 2017
-# mohammad azarbara <mohammadazarbara98@gmail.com>, 2017
+# Martin Trigaux, 2017
+# سید محمد آذربرا <mohammadazarbara98@gmail.com>, 2017
 # Arash Sardari <arashss77@gmail.com>, 2018
+# Hamed Mohammadi <hamed@dehongi.com>, 2019
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 09:53+0000\n"
-"PO-Revision-Date: 2017-09-20 09:53+0000\n"
-"Last-Translator: Arash Sardari <arashss77@gmail.com>, 2018\n"
+"POT-Creation-Date: 2019-01-03 15:07+0000\n"
+"PO-Revision-Date: 2017-09-20 10:16+0000\n"
+"Last-Translator: Hamed Mohammadi <hamed@dehongi.com>, 2019\n"
 "Language-Team: Persian (https://www.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: fa\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: base_vat
+#: model:ir.ui.view,arch_db:base_vat.res_config_settings_view_form
+msgid ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" groups=\"base.group_multi_company\"/>"
+msgstr ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" groups=\"base.group_multi_company\"/>"
 
 #. module: base_vat
 #: model:ir.model,name:base_vat.model_res_company
@@ -36,6 +47,8 @@ msgid ""
 "If this checkbox is ticked, you will not be able to save a contact if its "
 "VAT number cannot be verified by the European VIES service."
 msgstr ""
+"اگر این کادر تأیید شود ، اگر شماره مالیات بر ارزش افزوده آن توسط سرویس VIES "
+"اروپا قابل تأیید نباشد ، نمی توانید مخاطب را ذخیره کنید."
 
 #. module: base_vat
 #: code:addons/base_vat/models/res_partner.py:134
@@ -44,6 +57,8 @@ msgid ""
 "The VAT number [%s] for partner [%s] does not seem to be valid. \n"
 "Note: the expected format is %s"
 msgstr ""
+"شماره ارزش افزوده  [%s] برای همکار [%s] به نظر می‌آید معتبر نیست. \n"
+"نکته: فرمت مورد انتظار از این قرار است %s"
 
 #. module: base_vat
 #: code:addons/base_vat/models/res_partner.py:133
@@ -52,23 +67,26 @@ msgid ""
 "The VAT number [%s] for partner [%s] either failed the VIES VAT validation "
 "check or did not respect the expected format %s."
 msgstr ""
+"شماره ارزش افزوده  [%s] برای همکار [%s] یا ارزیابی ارزش افزوده VIES شکست "
+"خورد یا دارای فرمت مورد انتظار نیست %s."
 
 #. module: base_vat
 #: model:ir.ui.view,arch_db:base_vat.view_partner_form
 #: model:ir.ui.view,arch_db:base_vat.view_partner_short_form
 msgid "VAT"
-msgstr ""
+msgstr "ارزش افزوده"
 
 #. module: base_vat
 #: model:ir.model.fields,field_description:base_vat.field_res_company_vat_check_vies
 #: model:ir.model.fields,field_description:base_vat.field_res_config_settings_vat_check_vies
 msgid "Verify VAT Numbers"
-msgstr ""
+msgstr "شماره مالیات بر ارزش افزوده را تأیید کنید"
 
 #. module: base_vat
 #: model:ir.ui.view,arch_db:base_vat.res_config_settings_view_form
 msgid "Verify VAT numbers using the European VIES service"
 msgstr ""
+"با استفاده از خدمات اروپایی VIES ، شماره مالیات بر ارزش افزوده را تأیید کنید"
 
 #. module: base_vat
 #: model:ir.model,name:base_vat.model_res_config_settings
