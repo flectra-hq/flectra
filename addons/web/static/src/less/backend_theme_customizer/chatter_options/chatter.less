@@ -1,0 +1,32 @@
+.o_form_view {
+    @media (min-width: @screen-sm-min) {
+        display: flex;
+        -webkit-flex-flow: column nowrap;
+        flex-flow: column nowrap;
+        min-height: 100%;
+    }
+
+    // Chatter
+    .oe_chatter {
+        padding: 0;
+        -webkit-box-flex: 0;
+        -webkit-flex: 1000 0 auto;
+        flex: 1000 0 auto;
+        .o_chatter_topbar {
+            margin: 0;
+        }
+        .o_mail_thread, .o_mail_activity {
+            .o_thread_message {
+                background-color: @gray-lighter;
+                border-bottom: 1px solid @gray-lighter-darker;
+                margin-bottom: 10px;
+                .o_thread_message_core {
+                    &.o_mail_note {
+                        background: none;
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
+}
