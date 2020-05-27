@@ -3,20 +3,21 @@
 # * hr_expense
 # 
 # Translators:
-# 高木正勝 <masakatsu.takagi@pro-spire.co.jp>, 2017
-# Norimichi Sugimoto <norimichi.sugimoto@tls-ltd.co.jp>, 2017
-# Martin Trigaux <mat@odoo.com>, 2017
-# Yoshi Tashiro <tashiro@roomsfor.hk>, 2017
-# Manami Hashi <manami@roomsfor.hk>, 2017
 # Takahiro MURAKAMI <murakami@date-yakkyoku.com>, 2017
+# 高木正勝 <masakatsu.takagi@pro-spire.co.jp>, 2017
+# Manami Hashi <manami@roomsfor.hk>, 2017
 # kent_ocean <ke.tanabe@gmail.com>, 2017
+# Martin Trigaux, 2017
+# Norimichi Sugimoto <norimichi.sugimoto@tls-ltd.co.jp>, 2017
+# Yoshi Tashiro <tashiro@roomsfor.hk>, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-16 08:08+0000\n"
-"PO-Revision-Date: 2017-11-16 08:08+0000\n"
-"Last-Translator: kent_ocean <ke.tanabe@gmail.com>, 2017\n"
+"POT-Creation-Date: 2019-01-03 15:06+0000\n"
+"PO-Revision-Date: 2017-09-20 10:18+0000\n"
+"Last-Translator: Yoshi Tashiro <tashiro@roomsfor.hk>, 2019\n"
 "Language-Team: Japanese (https://www.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +27,7 @@ msgstr ""
 
 #. module: hr_expense
 #: model:ir.ui.view,arch_db:hr_expense.hr_expense_planner
-msgid "(e.g. expenses@mycompany.odoo.com)"
+msgid "(e.g. expenses@mycompany.flectrahq.com)"
 msgstr ""
 
 #. module: hr_expense
@@ -42,7 +43,7 @@ msgstr ""
 #. module: hr_expense
 #: model:ir.ui.view,arch_db:hr_expense.hr_expense_planner
 msgid "(used for reimbursement)"
-msgstr ""
+msgstr "(払戻に使用)"
 
 #. module: hr_expense
 #: model:ir.ui.view,arch_db:hr_expense.hr_expense_planner
@@ -298,7 +299,7 @@ msgstr "全経費"
 #. module: hr_expense
 #: model:ir.model.fields,help:hr_expense.field_hr_expense_account_id
 msgid "An expense account is expected"
-msgstr ""
+msgstr "経費勘定科目を指定"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_analytic_account_id
@@ -342,7 +343,7 @@ msgstr ""
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_sheet_bank_journal_id
 msgid "Bank Journal"
-msgstr "空白の記録"
+msgstr "銀行仕訳帳"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_reference
@@ -703,7 +704,7 @@ msgstr "支払済経費報告書"
 #. module: hr_expense
 #: model:mail.message.subtype,description:hr_expense.mt_expense_refused
 msgid "Expense report refused"
-msgstr "却下済経費報告書"
+msgstr "経費報告拒否"
 
 #. module: hr_expense
 #: model:mail.message.subtype,description:hr_expense.mt_expense_confirmed
@@ -1264,6 +1265,11 @@ msgid "Product Template"
 msgstr "プロダクトテンプレート"
 
 #. module: hr_expense
+#: model:ir.ui.view,arch_db:hr_expense.product_product_expense_tree_view
+msgid "Product Variants"
+msgstr "プロダクトバリアント"
+
+#. module: hr_expense
 #: model:ir.ui.view,arch_db:hr_expense.hr_expense_planner
 msgid ""
 "Provide your customer with detailed reports (along with copies of receipts)"
@@ -1389,7 +1395,7 @@ msgstr "支払用報告書"
 #. module: hr_expense
 #: model:ir.actions.act_window,name:hr_expense.action_request_to_post_expense_sheet
 msgid "Reports to Post"
-msgstr "投稿するレポート"
+msgstr "記帳対象報告"
 
 #. module: hr_expense
 #: model:ir.ui.view,arch_db:hr_expense.view_hr_expense_sheet_form
@@ -1474,7 +1480,7 @@ msgstr "製品がHR費用で選択することが可能かどうかを指定し�
 #. module: hr_expense
 #: model:ir.ui.view,arch_db:hr_expense.view_hr_expense_sheet_filter
 msgid "State"
-msgstr "都道府県・州"
+msgstr "ステータス"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_sheet_state
@@ -1597,7 +1603,7 @@ msgstr "要支払"
 #. module: hr_expense
 #: model:ir.ui.view,arch_db:hr_expense.view_hr_expense_sheet_filter
 msgid "To Post"
-msgstr "投稿します"
+msgstr "未記帳"
 
 #. module: hr_expense
 #: selection:hr.expense,state:0
@@ -1618,7 +1624,6 @@ msgstr "合計"
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_sheet_total_amount
 #: model:ir.ui.view,arch_db:hr_expense.view_expenses_tree
-#: model:ir.ui.view,arch_db:hr_expense.view_hr_expense_sheet_form
 #: model:ir.ui.view,arch_db:hr_expense.view_hr_expense_sheet_tree
 msgid "Total Amount"
 msgstr "合計金額"
@@ -1742,6 +1747,12 @@ msgid "You cannot report expenses for different employees in the same report!"
 msgstr "同じレポートで異なる従業員の経費を報告することはできません！"
 
 #. module: hr_expense
+#: code:addons/hr_expense/models/hr_expense.py:602
+#, python-format
+msgid "You cannot report expenses with different payment modes."
+msgstr ""
+
+#. module: hr_expense
 #: code:addons/hr_expense/models/hr_expense.py:109
 #, python-format
 msgid "You cannot report twice the same line!"
@@ -1805,7 +1816,7 @@ msgstr "例. ニューヨークへの旅行"
 #. module: hr_expense
 #: model:ir.ui.view,arch_db:hr_expense.hr_expense_template_refuse_reason
 msgid "has been refused"
-msgstr ""
+msgstr "が拒否されました。"
 
 #. module: hr_expense
 #: code:addons/hr_expense/models/hr_expense.py:344

@@ -714,7 +714,7 @@ class AccountJournal(models.Model):
     @api.depends('company_id')
     def _belong_to_company(self):
         for journal in self:
-            journal.belong_to_company = (journal.company_id.id == self.env.user.company_id.id)
+            journal.belongs_to_company = (journal.company_id.id == self.env.user.company_id.id)
 
     @api.multi
     def _search_company_journals(self, operator, value):
@@ -1000,10 +1000,6 @@ class AccountTax(models.Model):
         previous_include_base_amount = False
         final_base = base
         for tax in self.sorted(key=lambda r: r.sequence):
-            # if tax.sequence == check_previous_sequence and previous_include_base_amount == tax.include_base_amount:
-            #     base = previous_base or base
-            # else:
-            #     base = final_base
             if tax.amount_type == 'group':
                 children = tax.children_tax_ids.with_context(base_values=(total_excluded, total_included, base))
                 ret = children.compute_all(price_unit, currency, quantity, product, partner)

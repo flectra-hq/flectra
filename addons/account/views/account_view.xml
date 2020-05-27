@@ -1172,10 +1172,10 @@
                                         <field name="tax_line_id" readonly="1" attrs="{'invisible': [('tax_line_id','=',False)]}"/>
                                         <field name="tax_ids" widget="many2many_tags" readonly="1" attrs="{'invisible': [('tax_ids','=',[])]}"/>
                                     </group>
-                                    <group string="Matching" attrs="{'invisible':[('full_reconcile_id','=',False), ('matched_debit_ids', '=', []),('matched_credit_ids', '=', [])]}">
+                                    <group string="Matching" attrs="{'invisible':[('matched_debit_ids', '=', []),('matched_credit_ids', '=', [])]}">
                                         <label for="full_reconcile_id"/>
                                         <div>
-                                            <field name="full_reconcile_id"/>
+                                            <field name="full_reconcile_id" attrs="{'invisible':[('full_reconcile_id','=',False)]}"/>
                                             <field name="matched_debit_ids" invisible="1"/>
                                             <field name="matched_credit_ids" invisible="1"/>
                                             <button name="open_reconcile_view"
@@ -1202,7 +1202,7 @@
                             </page>
                             <page string="Analytic Lines" groups="analytic.group_analytic_accounting">
                                 <field name="date" invisible="1"/>
-                                <field name="analytic_line_ids" context="{'default_general_account_id':account_id, 'default_name': name, 'default_date':date, 'amount': (debit or 0.0)-(credit or 0.0)}"/>
+                                <field name="analytic_line_ids" context="{'tree_view_ref':'analytic.view_account_analytic_line_tree','default_general_account_id':account_id, 'default_name': name, 'default_date':date, 'amount': (debit or 0.0)-(credit or 0.0)}"/>
                             </page>
                         </notebook>
                     </sheet>

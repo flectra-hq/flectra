@@ -58,13 +58,13 @@ class TestMassMailingShortener(common.TransactionCase):
             "name": "sdf",
             "body_html": """
 Hi,
-% set url = "www.flectra.com"
+% set url = "www.flectrahq.com"
 % set httpurl = "https://www.flectra.eu"
 Website0: <a id="url0" href="https://www.flectra.tz/my/${object.name}">https://www.flectra.tz/my/${object.name}</h1>
 Website1: <a id="url1" href="https://www.flectra.be">https://www.flectra.be</h1>
 Website2: <a id="url2" href="https://${url}">https://${url}</h1>
 Website3: <a id="url3" href="${httpurl}">${httpurl}</h1>
-Email: <a id="url4" href="mailto:test@flectra.com">test@flectra.com</h1>
+Email: <a id="url4" href="mailto:test@flectrahq.com">test@flectrahq.com</h1>
             """,
             "schedule_date": False,
             "state": "draft",
@@ -91,7 +91,7 @@ Email: <a id="url4" href="mailto:test@flectra.com">test@flectra.com</h1>
         self.assertTrue('/r/' in after_url1, 'URL1 should be shortened: %s' % after_url1)
         self.assertTrue('/r/' in after_url2, 'URL2 should be shortened: %s' % after_url2)
         self.assertTrue('/r/' in after_url3, 'URL3 should be shortened: %s' % after_url3)
-        self.assertEqual(after_url4, "mailto:test@flectra.com", 'mailto: has been converted')
+        self.assertEqual(after_url4, "mailto:test@flectrahq.com", 'mailto: has been converted')
 
         short0 = self.shorturl_to_link(after_url0)
         short1 = self.shorturl_to_link(after_url1)
@@ -100,7 +100,7 @@ Email: <a id="url4" href="mailto:test@flectra.com">test@flectra.com</h1>
 
         self.assertTrue("https://www.flectra.tz/my/User" in short0.url, 'URL mismatch')
         self.assertEqual(short1.url, "https://www.flectra.be", 'URL mismatch')
-        self.assertEqual(short2.url, "https://www.flectra.com", 'URL mismatch')
+        self.assertEqual(short2.url, "https://www.flectrahq.com", 'URL mismatch')
         self.assertEqual(short3.url, "https://www.flectra.eu", 'URL mismatch')
 
         _xbody = etree.fromstring(sent_messages[1].body)
@@ -114,7 +114,7 @@ Email: <a id="url4" href="mailto:test@flectra.com">test@flectra.com</h1>
         self.assertTrue('/r/' in _after_url1, 'URL1 should be shortened: %s' % _after_url1)
         self.assertTrue('/r/' in _after_url2, 'URL2 should be shortened: %s' % _after_url2)
         self.assertTrue('/r/' in _after_url3, 'URL3 should be shortened: %s' % _after_url3)
-        self.assertEqual(_after_url4, "mailto:test@flectra.com", 'mailto: has been converted')
+        self.assertEqual(_after_url4, "mailto:test@flectrahq.com", 'mailto: has been converted')
 
         _short0 = self.shorturl_to_link(_after_url0)
         _short1 = self.shorturl_to_link(_after_url1)
@@ -123,7 +123,7 @@ Email: <a id="url4" href="mailto:test@flectra.com">test@flectra.com</h1>
 
         self.assertTrue("https://www.flectra.tz/my/User" in _short0.url, 'URL mismatch')
         self.assertEqual(_short1.url, "https://www.flectra.be", 'URL mismatch')
-        self.assertEqual(_short2.url, "https://www.flectra.com", 'URL mismatch')
+        self.assertEqual(_short2.url, "https://www.flectrahq.com", 'URL mismatch')
         self.assertEqual(_short3.url, "https://www.flectra.eu", 'URL mismatch')
 
         self.assertNotEqual(short0.url, _short0.url)

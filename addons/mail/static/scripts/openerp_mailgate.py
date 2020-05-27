@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 """
-    openerp_mailgate.py
+    flectra_mailgate.py
 """
 
 import cgitb
@@ -28,7 +28,7 @@ class DefaultConfig(object):
     OPENERP_DEFAULT_PASSWORD = 'admin'
     OPENERP_HOSTNAME = 'localhost'
     OPENERP_PORT = 7073
-    OPENERP_DEFAULT_DATABASE = 'openerp'
+    OPENERP_DEFAULT_DATABASE = 'flectra'
     MAIL_ERROR = 'error@example.com'
     MAIL_SERVER = 'smtp.example.com'
     MAIL_SERVER_PORT = 25

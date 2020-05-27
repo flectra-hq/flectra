@@ -1,22 +1,26 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * report_intrastat
-#
+# 
 # Translators:
-# Jaroslav Bosansky <jaro.bosansky@ekoenergo.sk>, 2015
+# gebri <gebri@inmail.sk>, 2018
+# Martin Trigaux, 2018
+# Jaroslav Bosansky <jaro.bosansky@ekoenergo.sk>, 2018
+# Jan Prokop, 2019
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo 9.0\n"
+"Project-Id-Version: Odoo Server 10.saas~18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-18 14:07+0000\n"
-"PO-Revision-Date: 2015-10-14 12:11+0000\n"
-"Last-Translator: Pavol Krnáč <pavol.krnac@ekoenergo.sk>\n"
-"Language-Team: Slovak (http://www.transifex.com/odoo/odoo-9/language/sk/)\n"
-"Language: sk\n"
+"POT-Creation-Date: 2017-09-20 09:53+0000\n"
+"PO-Revision-Date: 2017-09-20 10:23+0000\n"
+"Last-Translator: Jan Prokop, 2019\n"
+"Language-Team: Slovak (https://www.transifex.com/odoo/teams/41243/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Language: sk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #. module: report_intrastat
 #: model:ir.ui.view,arch_db:report_intrastat.report_intrastatinvoice_document
@@ -27,6 +31,11 @@ msgstr "<strong>Komentár:</strong>"
 #: model:ir.ui.view,arch_db:report_intrastat.report_intrastatinvoice_document
 msgid "<strong>Document:</strong>"
 msgstr "<strong>Dokument:</strong>"
+
+#. module: report_intrastat
+#: model:ir.ui.view,arch_db:report_intrastat.report_intrastatinvoice_document
+msgid "<strong>Fiscal Position Remark:</strong>"
+msgstr "<strong>Poznámka fiškálnej pozície:</strong>"
 
 #. module: report_intrastat
 #: model:ir.ui.view,arch_db:report_intrastat.report_intrastatinvoice_document
@@ -45,13 +54,13 @@ msgstr "<strong>Ref. Partnera:</strong>"
 
 #. module: report_intrastat
 #: model:ir.ui.view,arch_db:report_intrastat.report_intrastatinvoice_document
-msgid "<strong>Payment Term:</strong>"
-msgstr "<strong>Platobná lehota:</strong>"
+msgid "<strong>Payment Terms:</strong>"
+msgstr "<strong>Platobné podmienky:</strong>"
 
 #. module: report_intrastat
 #: model:ir.ui.view,arch_db:report_intrastat.report_intrastatinvoice_document
-msgid "<strong>Total Without Taxes</strong>"
-msgstr "<strong>Celkom bez dane</strong>"
+msgid "<strong>Subtotal</strong>"
+msgstr "<strong>Medzisúčet</strong>"
 
 #. module: report_intrastat
 #: model:ir.ui.view,arch_db:report_intrastat.report_intrastatinvoice_document
@@ -86,12 +95,17 @@ msgstr "Spoločnost"
 #. module: report_intrastat
 #: model:ir.model,name:report_intrastat.model_res_country
 msgid "Country"
-msgstr "Krajina"
+msgstr "Štát"
 
 #. module: report_intrastat
 #: model:ir.model.fields,field_description:report_intrastat.field_report_intrastat_code
 msgid "Country code"
 msgstr "Kód krajiny"
+
+#. module: report_intrastat
+#: model:ir.ui.view,arch_db:report_intrastat.report_intrastatinvoice_document
+msgid "Credit Note"
+msgstr "Kreditná poznámka"
 
 #. module: report_intrastat
 #: model:ir.model.fields,field_description:report_intrastat.field_report_intrastat_currency_id
@@ -152,6 +166,8 @@ msgstr "Intrastat"
 
 #. module: report_intrastat
 #: model:ir.actions.act_window,name:report_intrastat.action_report_intrastat_code_tree
+#: model:ir.model.fields,field_description:report_intrastat.field_product_product_intrastat_id
+#: model:ir.model.fields,field_description:report_intrastat.field_product_template_intrastat_id
 #: model:ir.ui.menu,name:report_intrastat.menu_report_intrastat_code
 #: model:ir.ui.view,arch_db:report_intrastat.view_report_intrastat_code_form
 msgid "Intrastat Code"
@@ -164,13 +180,12 @@ msgid "Intrastat Data"
 msgstr "Intrastat dáta"
 
 #. module: report_intrastat
-#: model:ir.actions.report.xml,name:report_intrastat.account_intrastatinvoices
+#: model:ir.actions.report,name:report_intrastat.account_intrastatinvoices
 msgid "Intrastat Invoices"
 msgstr "Intrastat faktúry"
 
 #. module: report_intrastat
 #: model:ir.model,name:report_intrastat.model_report_intrastat_code
-#: model:ir.model.fields,field_description:report_intrastat.field_product_template_intrastat_id
 #: model:ir.model.fields,field_description:report_intrastat.field_report_intrastat_intrastat_id
 #: model:ir.ui.view,arch_db:report_intrastat.view_report_intrastat_code_tree
 msgid "Intrastat code"
@@ -237,11 +252,6 @@ msgid "October"
 msgstr "Október"
 
 #. module: report_intrastat
-#: model:ir.ui.view,arch_db:report_intrastat.report_intrastatinvoice_document
-msgid "PRO-FORMA"
-msgstr "PRO-FORMA"
-
-#. module: report_intrastat
 #: model:ir.model,name:report_intrastat.model_product_template
 msgid "Product Template"
 msgstr "šablona produktu"
@@ -250,11 +260,6 @@ msgstr "šablona produktu"
 #: model:ir.ui.view,arch_db:report_intrastat.report_intrastatinvoice_document
 msgid "Quantity"
 msgstr "Množstvo"
-
-#. module: report_intrastat
-#: model:ir.ui.view,arch_db:report_intrastat.report_intrastatinvoice_document
-msgid "Refund"
-msgstr "Refundácia"
 
 #. module: report_intrastat
 #: selection:report.intrastat,month:0
@@ -308,8 +313,8 @@ msgstr "Účet predajcu"
 
 #. module: report_intrastat
 #: model:ir.ui.view,arch_db:report_intrastat.report_intrastatinvoice_document
-msgid "Vendor Refund"
-msgstr "Refundácia predajcu"
+msgid "Vendor Credit Note"
+msgstr "Dodávateľský dobropis"
 
 #. module: report_intrastat
 #: model:ir.model.fields,field_description:report_intrastat.field_report_intrastat_weight

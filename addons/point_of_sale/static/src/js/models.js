@@ -903,6 +903,9 @@ exports.PosModel = Backbone.Model.extend({
                     }}).done(function () {
                         invoiced.resolve();
                         done.resolve();
+                    }).fail(function (error) {
+                        invoiced.reject({code:401, message:'Backend Invoice', data:{order: order}});
+                        done.reject();
                     });
                 } else {
                     // The order has been pushed separately in batch when
@@ -1428,9 +1431,9 @@ exports.Orderline = Backbone.Model.extend({
             var unit = this.get_unit();
             if(unit){
                 if (unit.rounding) {
-                    this.quantity    = round_pr(quant, unit.rounding);
                     var decimals = this.pos.dp['Product Unit of Measure'];
-                    this.quantity = round_di(this.quantity, decimals)
+                    var rounding = Math.max(unit.rounding, Math.pow(10, -decimals));
+                    this.quantity    = round_pr(quant, rounding);
                     this.quantityStr = field_utils.format.float(this.quantity, {digits: [69, decimals]});
                 } else {
                     this.quantity    = round_pr(quant, 1);
@@ -1469,7 +1472,7 @@ exports.Orderline = Backbone.Model.extend({
         var lots_required = 1;
 
         if (this.product.tracking == 'serial') {
-            lots_required = this.quantity;
+            lots_required = Math.abs(this.quantity);
         }
 
         return lots_required;
@@ -1703,8 +1706,11 @@ exports.Orderline = Backbone.Model.extend({
     },
     _compute_all: function(tax, base_amount, quantity) {
         if (tax.amount_type === 'fixed') {
-            var sign_base_amount = base_amount >= 0 ? 1 : -1;
-            return (Math.abs(tax.amount) * sign_base_amount) * quantity;
+            var sign_base_amount = Math.sign(base_amount) || 1;
+            // Since base amount has been computed with quantity
+            // we take the abs of quantity
+            // Same logic as bb72dea98de4dae8f59e397f232a0636411d37ce
+            return tax.amount * sign_base_amount * Math.abs(quantity);
         }
         if ((tax.amount_type === 'percent' && !tax.price_include) || (tax.amount_type === 'division' && tax.price_include)){
             return base_amount * tax.amount / 100;
@@ -1872,8 +1878,11 @@ var PacklotlineCollection = Backbone.Collection.extend({
 
     set_quantity_by_lot: function() {
         if (this.order_line.product.tracking == 'serial') {
-            var valid_lots = this.get_valid_lots();
-            this.order_line.set_quantity(valid_lots.length);
+            var valid_lots_quantity = this.get_valid_lots().length;
+            if (this.order_line.quantity < 0){
+                valid_lots_quantity = -valid_lots_quantity;
+            }
+            this.order_line.set_quantity(valid_lots_quantity);
         }
     }
 });
@@ -2093,7 +2102,8 @@ exports.Order = Backbone.Model.extend({
             uid: this.uid,
             sequence_number: this.sequence_number,
             creation_date: this.validation_date || this.creation_date, // todo: rename creation_date in master
-            fiscal_position_id: this.fiscal_position ? this.fiscal_position.id : false
+            fiscal_position_id: this.fiscal_position ? this.fiscal_position.id : false,
+            to_invoice: this.to_invoice ? this.to_invoice : false,
         };
     },
     export_for_printing: function(){
@@ -2548,20 +2558,24 @@ exports.Order = Backbone.Model.extend({
 
         return total;
     },
+    get_change_value: function(paymentline){
+      if (!paymentline) {
+          var change = this.get_total_paid() - this.get_total_with_tax();
+      } else {
+          var change = -this.get_total_with_tax();
+          var lines  = this.paymentlines.models;
+          for (var i = 0; i < lines.length; i++) {
+              change += lines[i].get_amount();
+              if (lines[i] === paymentline) {
+                  break;
+              }
+          }
+      }
+      return round_pr(change, this.pos.currency.rounding);
+    },
     get_change: function(paymentline) {
-        if (!paymentline) {
-            var change = this.get_total_paid() - this.get_total_with_tax();
-        } else {
-            var change = -this.get_total_with_tax();
-            var lines  = this.paymentlines.models;
-            for (var i = 0; i < lines.length; i++) {
-                change += lines[i].get_amount();
-                if (lines[i] === paymentline) {
-                    break;
-                }
-            }
-        }
-        return round_pr(Math.max(0,change), this.pos.currency.rounding);
+        var change = this.get_change_value(paymentline);
+        return Math.max(0,change);
     },
     get_due: function(paymentline) {
         if (!paymentline) {

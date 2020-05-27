@@ -478,6 +478,10 @@ class Field(MetaField('DummyField', (object,), {})):
 
     def _setup_regular_base(self, model):
         """ Setup the attributes of a non-related field. """
+        pass
+
+    def _setup_regular_full(self, model):
+        """ Determine the dependencies and inverse field(s) of ``self``. """
         def make_depends(deps):
             return tuple(deps(model) if callable(deps) else deps)
 
@@ -488,10 +492,6 @@ class Field(MetaField('DummyField', (object,), {})):
                 self.depends += make_depends(getattr(method, '_depends', ()))
         else:
             self.depends = make_depends(getattr(self.compute, '_depends', ()))
-
-    def _setup_regular_full(self, model):
-        """ Setup the inverse field(s) of ``self``. """
-        pass
 
     #
     # Setup of related fields
@@ -556,6 +556,7 @@ class Field(MetaField('DummyField', (object,), {})):
         # copy the cache of draft records into others' cache
         if records.env.in_onchange and records.env != others.env:
             copy_cache(records - records.filtered('id'), others.env)
+            others.env._protected = records.env._protected
         #
         # Traverse fields one by one for all records, in order to take advantage
         # of prefetching for each field access. In order to clarify the impact
@@ -661,7 +662,7 @@ class Field(MetaField('DummyField', (object,), {})):
     # on ``path``. See method ``modified`` below for details.
     #
 
-    def resolve_deps(self, model):
+    def resolve_deps(self, model, path0=[], seen=frozenset()):
         """ Return the dependencies of ``self`` as tuples ``(model, field, path)``,
             where ``path`` is an optional list of field names.
         """
@@ -672,11 +673,12 @@ class Field(MetaField('DummyField', (object,), {})):
         for dotnames in self.depends:
             if dotnames == self.name:
                 _logger.warning("Field %s depends on itself; please fix its decorator @api.depends().", self)
-            model, path = model0, dotnames.split('.')
-            for i, fname in enumerate(path):
+            model, path = model0, path0
+            for fname in dotnames.split('.'):
                 field = model._fields[fname]
-                result.append((model, field, path[:i]))
+                result.append((model, field, path))
                 model = model0.env.get(field.comodel_name)
+                path = None if path is None else path + [fname]
 
         # add self's model dependencies
         for mname, fnames in model0._depends.items():
@@ -686,11 +688,14 @@ class Field(MetaField('DummyField', (object,), {})):
                 result.append((model, field, None))
 
         # add indirect dependencies from the dependencies found above
+        seen = seen.union([self])
         for model, field, path in list(result):
             for inv_field in model._field_inverses[field]:
                 inv_model = model0.env[inv_field.model_name]
                 inv_path = None if path is None else path + [field.name]
                 result.append((inv_model, inv_field, inv_path))
+            if not field.store and field not in seen:
+                result += field.resolve_deps(model, path, seen)
 
         return result
 
@@ -740,7 +745,7 @@ class Field(MetaField('DummyField', (object,), {})):
 
     @property
     def _description_sortable(self):
-        return self.store or (self.inherited and self.related_field._description_sortable)
+        return (self.column_type and self.store) or (self.inherited and self.related_field._description_sortable)
 
     def _description_string(self, env):
         if self.string and env.lang:
@@ -760,16 +765,6 @@ class Field(MetaField('DummyField', (object,), {})):
     #
     # Conversion of values
     #
-
-    def cache_key(self, record):
-        """ Return the key to get/set the value of ``self`` on ``record`` in
-            cache, the full cache key being ``(self, record.id, key)``.
-        """
-        env = record.env
-        # IMPORTANT: flectra.api.Cache.get_records() depends on the fact that the
-        # result does not depend on record.id. If you ever make the following
-        # dependent on record.id, don't forget to fix the other method!
-        return env if self.context_dependent else (env.cr, env.uid)
 
     def null(self, record):
         """ Return the null value for this field in the record format. """
@@ -1042,6 +1037,8 @@ class Field(MetaField('DummyField', (object,), {})):
                 recs = record._recompute_check(self)
                 if recs:
                     # recompute the value (only in cache)
+                    if self.recursive:
+                        recs = record
                     self.compute_value(recs)
                     # HACK: if result is in the wrong cache, copy values
                     if recs.env != env:
@@ -1314,6 +1311,7 @@ class _String(Field):
     """ Abstract class for string fields. """
     _slots = {
         'translate': False,             # whether the field is translated
+        'prefetch': None,
     }
 
     def __init__(self, string=Default, **kwargs):
@@ -1321,6 +1319,12 @@ class _String(Field):
         if 'translate' in kwargs and not callable(kwargs['translate']):
             kwargs['translate'] = bool(kwargs['translate'])
         super(_String, self).__init__(string=string, **kwargs)
+
+    def _setup_attrs(self, model, name):
+        super(_String, self)._setup_attrs(model, name)
+        if self.prefetch is None:
+            # do not prefetch complex translated fields by default
+            self.prefetch = not callable(self.translate)
 
     _related_translate = property(attrgetter('translate'))
 
@@ -1450,11 +1454,13 @@ class Html(_String):
         'strip_classes': False,         # whether to strip classes attributes
     }
 
-    def _setup_attrs(self, model, name):
-        super(Html, self)._setup_attrs(model, name)
+    def _get_attrs(self, model, name):
+        # called by _setup_attrs(), working together with _String._setup_attrs()
+        attrs = super(Html, self)._get_attrs(model, name)
         # Translated sanitized html fields must use html_translate or a callable.
-        if self.translate is True and self.sanitize:
-            self.translate = html_translate
+        if attrs.get('translate') is True and attrs.get('sanitize', True):
+            attrs['translate'] = html_translate
+        return attrs
 
     _related_sanitize = property(attrgetter('sanitize'))
     _related_sanitize_tags = property(attrgetter('sanitize_tags'))
@@ -1966,6 +1972,9 @@ class Many2one(_Relational):
 
     def update_db_foreign_key(self, model, column):
         comodel = model.env[self.comodel_name]
+        # foreign keys do not work on views, and users can define custom models on sql views.
+        if not model._is_an_ordinary_table() or not comodel._is_an_ordinary_table():
+            return
         # ir_actions is inherited, so foreign key doesn't work on it
         if not comodel._auto or comodel._table == 'ir_actions':
             return
@@ -2090,8 +2099,8 @@ class _RelationalMulti(_Relational):
         elif isinstance(value, (list, tuple)):
             # value is a list/tuple of commands, dicts or record ids
             comodel = record.env[self.comodel_name]
-            # determine the value ids; by convention empty on new records
-            ids = OrderedSet(record[self.name].ids if record.id else ())
+            # determine the value ids
+            ids = OrderedSet(record[self.name]._ids)
             # modify ids with the commands
             for command in value:
                 if isinstance(command, (tuple, list)):
@@ -2186,8 +2195,8 @@ class _RelationalMulti(_Relational):
             for record in records:
                 record[self.name] = record[self.name].filtered(accessible)
 
-    def _setup_regular_base(self, model):
-        super(_RelationalMulti, self)._setup_regular_base(model)
+    def _setup_regular_full(self, model):
+        super(_RelationalMulti, self)._setup_regular_full(model)
         if isinstance(self.domain, list):
             self.depends += tuple(
                 self.name + '.' + arg[0]

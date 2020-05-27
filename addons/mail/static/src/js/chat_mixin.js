@@ -127,4 +127,4 @@ web_client.on('get_mention_partner_suggestions', web_client, function(event) {
     event.data.callback(chat_manager.get_mention_partner_suggestions(event.data.channel_id));
 });
 
-});                                
+});

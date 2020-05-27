@@ -3,15 +3,16 @@
 # * website_slides
 # 
 # Translators:
-# Martin Trigaux <mat@odoo.com>, 2017
 # Slobodan Simić <slsimic@gmail.com>, 2017
+# Martin Trigaux, 2017
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 11:27+0000\n"
-"PO-Revision-Date: 2017-10-02 11:27+0000\n"
-"Last-Translator: Slobodan Simić <slsimic@gmail.com>, 2017\n"
+"POT-Creation-Date: 2019-01-03 15:07+0000\n"
+"PO-Revision-Date: 2017-09-20 10:28+0000\n"
+"Last-Translator: Martin Trigaux, 2017\n"
 "Language-Team: Serbian (https://www.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +34,7 @@ msgid ""
 "    </a>\n"
 "</p>\n"
 "<p style=\"text-align: center; margin-top: 10px;\">\n"
-"    <a style=\"-webkit-user-select: none; padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px\" class=\"o_default_snippet_text\" href=\"${object.website_url}\">\n"
+"    <a style=\"-webkit-user-select: none; padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#009efb; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #009efb; border: 1px solid #009efb; border-radius:3px\" class=\"o_default_snippet_text\" href=\"${object.website_url}\">\n"
 "        View <strong>${object.name}</strong>\n"
 "    </a>\n"
 "</p>\n"
@@ -53,7 +54,7 @@ msgid ""
 "    </a>\n"
 "</p>\n"
 "<p style=\"text-align: center; margin-top: 10px;\">\n"
-"    <a style=\"-webkit-user-select: none; padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px\" class=\"o_default_snippet_text\" href=\"${object.website_url}\">\n"
+"    <a style=\"-webkit-user-select: none; padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#009efb; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #009efb; border: 1px solid #009efb; border-radius:3px\" class=\"o_default_snippet_text\" href=\"${object.website_url}\">\n"
 "        View <strong>${object.name}</strong>\n"
 "    </a>\n"
 "</p>\n"
@@ -210,6 +211,13 @@ msgid "<i class=\"fa fa-thumbs-up\"/> Likes"
 msgstr ""
 
 #. module: website_slides
+#: code:addons/website_slides/models/slides.py:105
+#, python-format
+msgid ""
+"<p>This channel is private and its content is restricted to some users.</p>"
+msgstr ""
+
+#. module: website_slides
 #: model:ir.ui.view,arch_db:website_slides.slide_detail_view
 msgid ""
 "<span class=\"badge\" id=\"facebook-badge\">0</span>\n"
@@ -264,6 +272,46 @@ msgstr ""
 #. module: website_slides
 #: model:ir.ui.view,arch_db:website_slides.slides_channel_header
 msgid "<span class=\"text-muted\">Sort by:</span>"
+msgstr ""
+
+#. module: website_slides
+#: model:ir.ui.view,arch_db:website_slides.embed_slide
+msgid ""
+"<span id=\"first\" title=\"First slide\">\n"
+"                                            <i class=\"fa fa-step-backward fa-2x\"/>\n"
+"                                        </span>"
+msgstr ""
+
+#. module: website_slides
+#: model:ir.ui.view,arch_db:website_slides.embed_slide
+msgid ""
+"<span id=\"fullscreen\" title=\"View fullscreen\">\n"
+"                                        <i class=\"fa fa-arrows-alt fa-2x\"/>\n"
+"                                    </span>"
+msgstr ""
+
+#. module: website_slides
+#: model:ir.ui.view,arch_db:website_slides.embed_slide
+msgid ""
+"<span id=\"last\" title=\"Last slide\" role=\"button\">\n"
+"                                            <i class=\"fa fa-step-forward fa-2x\"/>\n"
+"                                        </span>"
+msgstr ""
+
+#. module: website_slides
+#: model:ir.ui.view,arch_db:website_slides.embed_slide
+msgid ""
+"<span id=\"next\" title=\"Next slide\" role=\"button\">\n"
+"                                            <i class=\"fa fa-arrow-circle-right fa-2x\"/>\n"
+"                                        </span>"
+msgstr ""
+
+#. module: website_slides
+#: model:ir.ui.view,arch_db:website_slides.embed_slide
+msgid ""
+"<span id=\"previous\" title=\"Previous slide\" role=\"button\">\n"
+"                                            <i class=\"fa fa-arrow-circle-left fa-2x\"/>\n"
+"                                        </span>"
 msgstr ""
 
 #. module: website_slides
@@ -481,14 +529,14 @@ msgstr ""
 msgid ""
 "Discover how you can integrate MRP, PLM, Quality and Maintenance in a single application to maximize the efficiency of your manufacturing operations.\n"
 "\n"
-"Read more about the features at: https://www.odoo.com/page/manufacturing-features\n"
+"Read more about the features at: https://www.flectrahq.com/page/manufacturing-features\n"
 "\n"
-"Discover Odoo MRP: https://www.odoo.com/page/manufacturing"
+"Discover Odoo MRP: https://www.flectrahq.com/page/manufacturing"
 msgstr ""
 
 #. module: website_slides
 #: model:slide.slide,description:website_slides.slide_1
-msgid "Discover the CRM sales people love https://www.odoo.com/page/crm"
+msgid "Discover the CRM sales people love https://www.flectrahq.com/page/crm"
 msgstr ""
 
 #. module: website_slides
@@ -496,7 +544,7 @@ msgstr ""
 msgid ""
 "Discover the all-in-one business management software solution that fits any business size and use case.\n"
 "\n"
-"Learn more at https://odoo.com"
+"Learn more at https://flectrahq.com"
 msgstr ""
 
 #. module: website_slides
@@ -753,7 +801,7 @@ msgstr ""
 
 #. module: website_slides
 #: model:slide.slide,description:website_slides.slide_8
-msgid "Learn more at https://www.odoo.com/page/sales"
+msgid "Learn more at https://www.flectrahq.com/page/sales"
 msgstr ""
 
 #. module: website_slides
@@ -1134,7 +1182,7 @@ msgstr ""
 msgid ""
 "Stop doing manual printing and scanning. Move to electronic signature with Odoo Sign!\n"
 "\n"
-"Discover more at https://www.odoo.com/page/sign"
+"Discover more at https://www.flectrahq.com/page/sign"
 msgstr ""
 
 #. module: website_slides
@@ -1327,7 +1375,7 @@ msgstr ""
 msgid ""
 "Warehouse management software for the 21st century.\n"
 "\n"
-"Discover Odoo Inventory: https://www.odoo.com/page/warehouse"
+"Discover Odoo Inventory: https://www.flectrahq.com/page/warehouse"
 msgstr ""
 
 #. module: website_slides

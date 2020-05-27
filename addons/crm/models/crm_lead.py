@@ -240,7 +240,7 @@ class Lead(models.Model):
             return {}
         if user_id and self._context.get('team_id'):
             team = self.env['crm.team'].browse(self._context['team_id'])
-            if user_id in team.member_ids.ids:
+            if user_id in team.member_ids.ids or user_id == team.user_id.id:
                 return {}
         team_id = self.env['crm.team']._get_default_team_id(user_id=user_id)
         return {'team_id': team_id}
@@ -279,6 +279,8 @@ class Lead(models.Model):
 
     @api.model
     def create(self, vals):
+        if vals.get('website'):
+            vals['website'] = self.env['res.partner']._clean_website(vals['website'])
         # set up context used to find the lead's sales channel which is needed
         # to correctly set the default stage_id
         context = dict(self._context or {})
@@ -299,6 +301,8 @@ class Lead(models.Model):
 
     @api.multi
     def write(self, vals):
+        if vals.get('website'):
+            vals['website'] = self.env['res.partner']._clean_website(vals['website'])
         # stage change: update date_last_stage_update
         if 'stage_id' in vals:
             vals['date_last_stage_update'] = fields.Datetime.now()
@@ -1124,8 +1128,8 @@ class Lead(models.Model):
     @api.model
     def message_get_reply_to(self, res_ids, default=None):
         leads = self.sudo().browse(res_ids)
-        aliases = self.env['crm.team'].message_get_reply_to(leads.mapped('team_id').ids, default=default)
-        return {lead.id: aliases.get(lead.team_id.id or 0, False) for lead in leads}
+        aliases = self.env['crm.team'].message_get_reply_to(leads.mapped(lambda x: x.team_id.id or None), default=default)
+        return {lead.id: aliases.get(lead.team_id.id or None, False) for lead in leads}
 
     @api.multi
     def get_formview_id(self, access_uid=None):

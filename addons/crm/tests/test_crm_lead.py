@@ -75,11 +75,24 @@ class TestCRMLead(TestCrmCases):
         lead = self.env['crm.lead'].search([('email_from', '=', 'Mr. John Right <info@customer.com>')], limit=1)
         lead.handle_partner_assignation()
 
+    def test_crm_message_default_alias(self):
+        alias_domain = 'example.com'
+        self.env['ir.config_parameter'].set_param('mail.catchall.domain', alias_domain)
+        alias_name = self.env['ir.config_parameter'].search([('key', '=', 'mail.catchall.alias')]).value
+
+        lead = self.env['crm.lead'].create({'name': 'test'})
+        lead.write({'team_id': False})
+        msg = self.env['mail.message'].create({
+            'model': 'crm.lead',
+            'res_id': lead.id
+        })
+        self.assertIn('<%s@%s>' % (alias_name, alias_domain), msg.reply_to)
+
     def test_crm_lead_merge(self):
         # During a mixed merge (involving leads and opps), data should be handled a certain way following their type (m2o, m2m, text, ...)  Start by creating two leads and an opp and giving the rights of Sales manager.
         default_stage_id = self.ref("crm.stage_lead1")
         LeadSalesmanager = self.env['crm.lead'].sudo(self.crm_salemanager.id)
-        branch = self.env.ref('base_branch_company.data_branch_2')
+        branch = self.env.ref('base_branch_company.data_branch_1')
         # TEST CASE 1
         test_crm_opp_01 = LeadSalesmanager.create({
             'type': 'opportunity',
@@ -94,7 +107,7 @@ class TestCRMLead(TestCrmCases):
             'type': 'lead',
             'name': 'Test lead first',
             'partner_id': self.env.ref("base.res_partner_1").id,
-            'stage_id': default_stage_id, 'branch_id': branch.id,
+            'stage_id': default_stage_id,
             'description': 'This is the description of the test lead first.'
         })
 

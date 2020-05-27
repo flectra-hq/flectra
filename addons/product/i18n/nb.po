@@ -3,16 +3,18 @@
 # * product
 # 
 # Translators:
-# Martin Trigaux <mat@odoo.com>, 2017
-# Jorunn D. Newth <jdn@eyenetworks.no>, 2017
 # Viktor Basso <viktor@voit.no>, 2017
+# Martin Trigaux, 2018
+# Jorunn D. Newth, 2018
+# Marius Stedjan <marius@stedjan.com>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 11:26+0000\n"
-"PO-Revision-Date: 2017-10-02 11:26+0000\n"
-"Last-Translator: Viktor Basso <viktor@voit.no>, 2017\n"
+"POT-Creation-Date: 2019-03-29 09:08+0000\n"
+"PO-Revision-Date: 2017-09-20 10:22+0000\n"
+"Last-Translator: Marius Stedjan <marius@stedjan.com>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/odoo/teams/41243/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,7 +51,7 @@ msgid "%s %% discount and %s surcharge"
 msgstr ""
 
 #. module: product
-#: code:addons/product/models/product_template.py:324
+#: code:addons/product/models/product_template.py:333
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (kopi)"
@@ -95,6 +97,12 @@ msgid ""
 "                Intel Iris Pro graphics\n"
 "            "
 msgstr ""
+"2.7GHz quad-core Intel Core i5\n"
+"                Turbo Boost opp til 3.2GHz\n"
+"                8GB (to 4GB) minne\n"
+"                1TB harddisk\n"
+"                Intel Iris Pro-grafikk\n"
+"            "
 
 #. module: product
 #: model:product.attribute.value,name:product.product_attribute_value_2
@@ -175,7 +183,7 @@ msgid ""
 "                        will delete and recreate existing variants and lead\n"
 "                        to the loss of their possible customizations."
 msgstr ""
-"<strong>Advarsel</strong>: å legge til og slette attributter vil slette og \n"
+"<strong>Advarsel</strong>: Å legge til og slette attributter vil slette og \n"
 "                        gjenopprette eksisterende varianter og føre til at\n"
 "                        eventuelle tilpasninger av disse blir slettet."
 
@@ -392,7 +400,7 @@ msgstr "Attributter og varianter"
 #: model:product.product,website_description:product.product_product_5b
 #: model:product.template,website_description:product.product_product_5b_product_template
 msgid "Auxiliary input for portable devices"
-msgstr ""
+msgstr "STASJON"
 
 #. module: product
 #: model:product.product,website_description:product.product_product_5b
@@ -710,11 +718,9 @@ msgid "Computer SC234"
 msgstr "Datamaskin SC234"
 
 #. module: product
-#: code:addons/product/models/product_template.py:50
 #: selection:product.template,type:0
-#, python-format
 msgid "Consumable"
-msgstr ""
+msgstr "Forbruksmateriell"
 
 #. module: product
 #: model:ir.model,name:product.model_res_partner
@@ -727,6 +733,8 @@ msgid ""
 "Conversion between Units of Measure can only occur if they belong to the "
 "same category. The conversion will be made based on the ratios."
 msgstr ""
+"Konvertering mellom enheter fungerer bare når de tilhører samme kategori. "
+"Konverteringen gjøres basert på forhold mellom enhetene."
 
 #. module: product
 #: code:addons/product/models/product_uom.py:98
@@ -735,6 +743,8 @@ msgid ""
 "Conversion from Product UoM %s to Default UoM %s is not possible as they "
 "both belong to different Category!."
 msgstr ""
+"Konvertering fra vareenhet %s til standard enhet %s er ikke mulig ettersom "
+"enhetene tilhører ulike kategorier!"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_price_history_cost
@@ -743,6 +753,12 @@ msgstr ""
 #: selection:product.pricelist.item,base:0
 msgid "Cost"
 msgstr "Kostnad"
+
+#. module: product
+#: model:ir.model.fields,field_description:product.field_product_product_cost_currency_id
+#: model:ir.model.fields,field_description:product.field_product_template_cost_currency_id
+msgid "Cost Currency"
+msgstr ""
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_product_standard_price
@@ -916,6 +932,11 @@ msgid "Description for Customers"
 msgstr "Beskrivelse for kunder"
 
 #. module: product
+#: model:ir.ui.view,arch_db:product.product_template_form_view
+msgid "Description for Internal"
+msgstr ""
+
+#. module: product
 #: model:product.product,website_description:product.product_product_11
 #: model:product.product,website_description:product.product_product_11b
 #: model:product.template,website_description:product.product_product_11_product_template
@@ -995,19 +1016,19 @@ msgid "Ending valid for the pricelist item validation"
 msgstr ""
 
 #. module: product
-#: code:addons/product/models/product.py:53
+#: code:addons/product/models/product.py:56
 #, python-format
 msgid "Error ! You cannot create recursive categories."
 msgstr "Feil! Du kan ikke opprette rekursive kategorier."
 
 #. module: product
-#: code:addons/product/models/product_attribute.py:101
+#: code:addons/product/models/product_attribute.py:102
 #, python-format
 msgid "Error ! You cannot use this attribute with the following value."
 msgstr "Feil! Du kan ikke bruke dette attributtet med følgende verdi."
 
 #. module: product
-#: code:addons/product/models/product.py:283
+#: code:addons/product/models/product.py:293
 #, python-format
 msgid ""
 "Error! It is not allowed to choose more than one value for a given "
@@ -1029,7 +1050,7 @@ msgid ""
 msgstr "Feil! Du kan ikke tildele hovedprisliste som annen prisliste!"
 
 #. module: product
-#: code:addons/product/models/product_template.py:274
+#: code:addons/product/models/product_template.py:283
 #, python-format
 msgid ""
 "Error: The default Unit of Measure and the purchase Unit of Measure must be "
@@ -1102,7 +1123,7 @@ msgstr "Eksempler på produkter å fakturere basert på leveranse."
 #: model:ir.model.fields,help:product.field_product_pricelist_item_name
 #: model:ir.model.fields,help:product.field_product_pricelist_item_price
 msgid "Explicit rule name for this pricelist line."
-msgstr ""
+msgstr "Eksplisitt regelnavn for denne prislistelinjen."
 
 #. module: product
 #: model:product.product,name:product.service_cost_01
@@ -1156,6 +1177,11 @@ msgstr ""
 #: model:product.template,website_description:product.product_product_8_product_template
 msgid "Friendly to the environment."
 msgstr "Miljøvennlig"
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Future Activities"
+msgstr "Fremtidige aktiviteter"
 
 #. module: product
 #: model:product.product,name:product.product_product_1
@@ -1423,6 +1449,16 @@ msgid "Inventory"
 msgstr "Lagerbeholdning"
 
 #. module: product
+#: model:ir.model.fields,field_description:product.field_product_product_is_product_variant
+msgid "Is Product Variant"
+msgstr ""
+
+#. module: product
+#: model:ir.model.fields,field_description:product.field_product_template_is_product_variant
+msgid "Is a product variant"
+msgstr ""
+
+#. module: product
 #: model:product.product,website_description:product.product_product_7
 #: model:product.template,website_description:product.product_product_7_product_template
 msgid "Keep it clean."
@@ -1505,6 +1541,11 @@ msgid "Last Updated on"
 msgstr "Sist oppdatert"
 
 #. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Late Activities"
+msgstr "Forsinkede aktiviteter"
+
+#. module: product
 #: model:ir.model.fields,help:product.field_product_supplierinfo_delay
 msgid ""
 "Lead time in days between the confirmation of the purchase order and the "
@@ -1518,7 +1559,7 @@ msgstr ""
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_category_parent_left
 msgid "Left Parent"
-msgstr ""
+msgstr "venstre forelder"
 
 #. module: product
 #: model:product.uom.categ,name:product.uom_categ_length
@@ -1806,7 +1847,7 @@ msgstr "Prisavrunding"
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_pricelist_item_price_surcharge
 msgid "Price Surcharge"
-msgstr ""
+msgstr "Pristillegg"
 
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_kanban_view
@@ -2024,7 +2065,7 @@ msgstr "Produkter"
 #: model:ir.actions.report,name:product.report_product_label
 #: model:ir.actions.report,name:product.report_product_template_label
 msgid "Products Labels"
-msgstr ""
+msgstr "Produktetiketter"
 
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_pricelist_view_search
@@ -2043,7 +2084,7 @@ msgid "Products Price Search"
 msgstr "Produktprissøk"
 
 #. module: product
-#: code:addons/product/models/product.py:448
+#: code:addons/product/models/product.py:464
 #, python-format
 msgid "Products: "
 msgstr "Produkter:"
@@ -2053,6 +2094,11 @@ msgstr "Produkter:"
 #: selection:product.pricelist.item,base:0
 msgid "Public Price"
 msgstr "Offentlig pris"
+
+#. module: product
+#: model:product.pricelist,name:product.list0
+msgid "Public Pricelist"
+msgstr "Offentlig prisliste"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product_description_purchase
@@ -2132,7 +2178,7 @@ msgstr "Reparasjon"
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_category_parent_right
 msgid "Right Parent"
-msgstr ""
+msgstr "høyere Overordnet"
 
 #. module: product
 #: model:product.product,website_description:product.product_product_6
@@ -2196,7 +2242,7 @@ msgstr "Salgspris"
 #: model:ir.model.fields,field_description:product.field_res_partner_property_product_pricelist
 #: model:ir.model.fields,field_description:product.field_res_users_property_product_pricelist
 msgid "Sale Pricelist"
-msgstr ""
+msgstr "Salgsprisliste"
 
 #. module: product
 #: model:product.category,name:product.product_category_1
@@ -2257,9 +2303,7 @@ msgid "Server"
 msgstr "Server"
 
 #. module: product
-#: code:addons/product/models/product_template.py:51
 #: selection:product.template,type:0
-#, python-format
 msgid "Service"
 msgstr "Tjeneste"
 
@@ -2276,6 +2320,9 @@ msgid ""
 "Rounding is applied after the discount and before the surcharge.\n"
 "To have prices that end in 9.99, set rounding 10, surcharge -0.01"
 msgstr ""
+"Setter prisen så den er multiplisert med denne verdien.\n"
+"Avrunding brukes etter rabatten og før avgift.\n"
+"For å ha priser som ender på 9.99, bruk runding 10, tilleggsavgift -0.01"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_res_config_settings_company_share_product
@@ -2289,6 +2336,11 @@ msgid ""
 " * Checked : Product are visible for every company, even if a company is defined on the partner.\n"
 " * Unchecked : Each company can see only its product (product where company is defined). Product not related to a company are visible for all companies."
 msgstr ""
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Show all records which has next action date is before today"
+msgstr "Vis alle oppføringer som har en neste tiltak-dato før dagen i dag"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_res_config_settings_group_product_pricelist
@@ -2386,7 +2438,7 @@ msgstr "Oppgi om produktet kan velges i en salgsordrelinje."
 msgid ""
 "Specify the fixed amount to add or substract(if negative) to the amount "
 "calculated with the discount."
-msgstr ""
+msgstr "Oppgi maksimal margin over grunnprisen."
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_pricelist_item_price_max_margin
@@ -2417,7 +2469,7 @@ msgstr ""
 #. module: product
 #: selection:product.template,type:0
 msgid "Stockable Product"
-msgstr ""
+msgstr "Lagerført produkt"
 
 #. module: product
 #: model:product.product,name:product.product_product_2
@@ -2561,7 +2613,7 @@ msgid ""
 msgstr "Antall produkter i kategorien (teller ikke med underkategorier)"
 
 #. module: product
-#: code:addons/product/models/product_attribute.py:74
+#: code:addons/product/models/product_attribute.py:75
 #, python-format
 msgid ""
 "The operation cannot be completed:\n"
@@ -2708,6 +2760,11 @@ msgstr "Summen av ekstraprisen for alle attributter"
 
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_template_form_view
+msgid "This note is only for internal purposes."
+msgstr ""
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_form_view
 msgid "This note will show up on sales orders."
 msgstr "Dette notatet vil dukke opp på salgsordrer."
 
@@ -2736,6 +2793,11 @@ msgid ""
 msgstr ""
 
 #. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Today Activities"
+msgstr "Dagens aktiviteter"
+
+#. module: product
 #: model:product.product,website_description:product.product_product_7
 #: model:product.template,website_description:product.product_product_7_product_template
 msgid "Two is better than one."
@@ -2753,11 +2815,6 @@ msgid ""
 "USB port allows for software update to ensure ongoing Bluetooth device "
 "compatibility"
 msgstr ""
-
-#. module: product
-#: model:product.pricelist,name:product.list0
-msgid "USD"
-msgstr "USD"
 
 #. module: product
 #: model:product.product,website_description:product.product_product_6

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 import socket
 
@@ -10,7 +10,7 @@ from flectra.tools import mute_logger
 MAIL_TEMPLATE = """Return-Path: <whatever-2a840@postmaster.twitter.com>
 To: {to}
 cc: {cc}
-Received: by mail1.openerp.com (Postfix, from userid 10002)
+Received: by mail1.flectrahq.com (Postfix, from userid 10002)
     id 5DF9ABFB2A; Fri, 10 Aug 2012 16:16:39 +0200 (CEST)
 From: {email_from}
 Subject: {subject}
@@ -51,7 +51,7 @@ Content-Transfer-Encoding: quoted-printable
 
 MAIL_TEMPLATE_PLAINTEXT = """Return-Path: <whatever-2a840@postmaster.twitter.com>
 To: {to}
-Received: by mail1.openerp.com (Postfix, from userid 10002)
+Received: by mail1.flectrahq.com (Postfix, from userid 10002)
     id 5DF9ABFB2A; Fri, 10 Aug 2012 16:16:39 +0200 (CEST)
 From: Sylvie Lelitre <test.sylvie.lelitre@agrolait.com>
 Subject: {subject}
@@ -78,7 +78,7 @@ X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,FREEMAIL_FROM,
     HTML_MESSAGE,RCVD_IN_DNSWL_LOW autolearn=unavailable version=3.3.1
 Received: from mail-ie0-f173.google.com (mail-ie0-f173.google.com [209.85.223.173])
     by mail1.grosbedon.com (Postfix) with ESMTPS id 9BBD7BFAAA
-    for <raoul@openerp.fr>; Fri, 23 Aug 2013 13:17:55 +0200 (CEST)
+    for <raoul@flectra.fr>; Fri, 23 Aug 2013 13:17:55 +0200 (CEST)
 Received: by mail-ie0-f173.google.com with SMTP id qd12so575130ieb.4
         for <raoul@grosbedon.fr>; Fri, 23 Aug 2013 04:17:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -331,7 +331,7 @@ Content-Transfer-Encoding: 8bit
 Content-Disposition: attachment;
  filename="original_msg.eml"
 
-Delivered-To: anon2@gmail1.openerp.com
+Delivered-To: anon2@gmail1.flectrahq.com
 Received: by 10.46.1.170 with SMTP id f42csp2379722lji;
         Mon, 5 Mar 2018 01:19:23 -0800 (PST)
 X-Google-Smtp-Source: AG47ELsYTlAcblMxfnaEENQuF+MFoac5Q07wieyw0cybq/qOX4+DmayqoQILkiWT+NiTOcnr/ACO
@@ -405,7 +405,7 @@ Résultat de recherche d'images pour "dessin la princesse au petit pois"
 --
 Soup
 
-Odoo S.A.
+Flectra S.A.
 Chaussée de Namur, 40
 B-1367 Grand Rosière
 Web: http://www.flectrahq.com
@@ -428,7 +428,7 @@ src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjCNAadd3NDM8g9w0P_-g
     <pre class="moz-signature" cols="72">--
 Soup
 
-Odoo S.A.
+Flectra S.A.
 Chaussée de Namur, 40
 B-1367 Grand Rosière
 Web: <a class="moz-txt-link-freetext" href="http://www.flectrahq.com">http://www.flectrahq.com</a> </pre>
@@ -519,9 +519,9 @@ To: "xxxx" <catchall@xxxx.xxxx>
 Subject: Re: xxxx (Ref PO1)
 Date: Sat, 14 Apr 2018 02:11:42 +0000
 Message-Id: <em67f5c44a-xxxx-xxxx-xxxx-69f56d618a94@wswin7hg4n4l1ce>
-In-Reply-To: <829228111124527.1111111602.256611118262939-openerp-129-xxxx.xxxx@ip-1-1-1-1>
-References: <867911111953277.1523671337.187951111160400-openerp-129-xxxx.xxxx@ip-1-1-1-1>
- <867911111953277.1523671337.256611118262939-openerp-129-xxxx.xxxx@ip-1-1-1-1>
+In-Reply-To: <829228111124527.1111111602.256611118262939-flectra-129-xxxx.xxxx@ip-1-1-1-1>
+References: <867911111953277.1523671337.187951111160400-flectra-129-xxxx.xxxx@ip-1-1-1-1>
+ <867911111953277.1523671337.256611118262939-flectra-129-xxxx.xxxx@ip-1-1-1-1>
 Reply-To: "xxxx xxxx" <xxxx@xxxx.com>
 User-Agent: eM_Client/7.0.26687.0
 Mime-Version: 1.0
@@ -578,7 +578,7 @@ xxxx@xxxx.com</a>&gt;</div>
 <div>Subject: xxxx</div><div><br /></div=
 >
 <div id=3D"x00b4101ba6e64ce"><blockquote cite=3D"829228972724527.1523671602=
-.256660938262939-openerp-129-xxxx.xxxx@ip-1-1-1-1" type=3D"cite"=
+.256660938262939-flectra-129-xxxx.xxxx@ip-1-1-1-1" type=3D"cite"=
  class=3D"cite2">
 <table border=3D"0" width=3D"100%" cellpadding=3D"0" bgcolor=3D"#ededed"=
  style=3D"padding: 20px; background-color: #ededed" summary=3D"o_mail_notif=
@@ -589,7 +589,7 @@ ication">
                       <tr>
                         <td align=3D"center" style=3D"min-width: 590px;">
                           <table width=3D"590" border=3D"0" cellpadding=3D=
-"0" bgcolor=3D"#875A7B" style=3D"min-width: 590px; background-color: rgb(13=
+"0" bgcolor=3D"#009efb" style=3D"min-width: 590px; background-color: rgb(13=
 5,90,123); padding: 20px;">
                             <tbody><tr>
                               <td valign=3D"middle">
@@ -641,7 +641,7 @@ cida Grande&quot;, Helvetica, Verdana, Arial, sans-serif">Thank you,</p>
                       <tr>
                         <td align=3D"center" style=3D"min-width: 590px;">
                           <table width=3D"590" border=3D"0" cellpadding=3D=
-"0" bgcolor=3D"#875A7B" style=3D"min-width: 590px; background-color: rgb(13=
+"0" bgcolor=3D"#009efb" style=3D"min-width: 590px; background-color: rgb(13=
 5,90,123); padding: 20px;">
                             <tbody><tr>
                               <td valign=3D"middle" align=3D"left" style=
@@ -667,8 +667,8 @@ aa.com" style=3D"text-decoration:none; color: white;">info@aust-mfg.com</a>=
                       </tr>
                       <tr>
                         <td align=3D"center">
-                            Powered by <a href=3D"https://www.flectrahq.com">Flectr=
-a</a>.
+                            Powered by <a href=3D"https://www.flectrahq.com">Odo=
+o</a>.
                         </td>
                       </tr>
                     </tbody>
@@ -687,6 +687,13 @@ class TestMailgateway(TestMail):
         super(TestMailgateway, self).setUp()
         mail_test_model = self.env['ir.model']._get('mail.test')
         mail_channel_model = self.env['ir.model']._get('mail.channel')
+
+        self.bounce_alias = 'test_bounce'
+        self.catchall_alias = 'test_catchall'
+        self.catchall_domain = 'example.com'
+        self.env['ir.config_parameter'].set_param('mail.bounce.alias', self.bounce_alias)
+        self.env['ir.config_parameter'].set_param('mail.catchall.alias', self.catchall_alias)
+        self.env['ir.config_parameter'].set_param('mail.catchall.domain', self.catchall_domain)
 
         # groups@.. will cause the creation of new mail.test
         self.alias = self.env['mail.alias'].create({
@@ -709,7 +716,7 @@ class TestMailgateway(TestMail):
             'subject': 'Public Discussion',
             'message_type': 'email',
             'author_id': self.partner_1.id,
-            'message_id': '<123456-openerp-%s-mail.test@%s>' % (self.test_public.id, socket.gethostname()),
+            'message_id': '<123456-flectra-%s-mail.test@%s>' % (self.test_public.id, socket.gethostname()),
         })
 
     @mute_logger('flectra.addons.mail.models.mail_thread')
@@ -838,6 +845,39 @@ class TestMailgateway(TestMail):
         self.assertEqual(len(self._mails), 0,
                          'message_process: no bounce or notificatoin email should be sent with follower = author')
 
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
+    def test_message_process_bounce(self):
+        """Incoming email: bounce processing: no group created, message_bounce increased """
+        new_groups = self.format_and_process(
+            MAIL_TEMPLATE,
+            email_from='Valid Lelitre <valid.lelitre@agrolait.com>',
+            to='%s+%s-%s-%s@%s' % (
+                self.bounce_alias, self.fake_email.id,
+                self.fake_email.model, self.fake_email.res_id,
+                self.catchall_domain
+            ),
+            subject='Should bounce',
+        )
+        self.assertFalse(new_groups)
+        self.assertEqual(len(self._mails), 0, 'message_process: incoming bounce produces no mails')
+
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
+    def test_message_process_bounce_other_recipients(self):
+        """Incoming email: bounce processing: bounce should be computed even if not first recipient """
+        new_groups = self.format_and_process(
+            MAIL_TEMPLATE,
+            email_from='Valid Lelitre <valid.lelitre@agrolait.com>',
+            to='%s@%s, %s+%s-%s-%s@%s' % (
+                self.alias.alias_name, self.catchall_domain,
+                self.bounce_alias, self.fake_email.id,
+                self.fake_email.model, self.fake_email.res_id,
+                self.catchall_domain
+            ),
+            subject='Should bounce',
+        )
+        self.assertFalse(new_groups)
+        self.assertEqual(len(self._mails), 0, 'message_process: incoming bounce produces no mails')
+
     @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models', 'flectra.addons.mail.models.mail_mail')
     def test_message_process_alias_partners_bounce(self):
         """ Incoming email from an unknown partner on a Partners only alias -> bounce """
@@ -931,6 +971,53 @@ class TestMailgateway(TestMail):
         #                  'message_process: after reply, group should have 2 followers (0 channels)')
 
     @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
+    def test_message_process_alias_domain_confusion_no_domain(self):
+        """ Incoming email: write to alias even if no domain set: considered as valid alias """
+        self.env['ir.config_parameter'].set_param('mail.catchall.domain', '')
+
+        new_groups = self.format_and_process(
+            MAIL_TEMPLATE,
+            subject='Test Subject',
+            email_from='valid.other@gmail.com',
+            to='groups@another.domain.com',
+            msg_id='<whatever.JavaMail.diff1@agrolait.com>'
+        )
+        # Test: one group created
+        self.assertEqual(len(new_groups), 1, 'message_process: a new mail.test should have been created')
+
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
+    def test_message_process_alias_forward_domain_confusion(self):
+        """ Incoming email: write to alias of another model: forward to new alias """
+        new_rec = self.format_and_process(
+            MAIL_TEMPLATE,
+            subject='Test Subject',
+            email_from='valid.other@gmail.com',
+            to='%s@%s, %s@%s' % (self.alias.alias_name, self.catchall_domain, self.alias_2.alias_name, self.catchall_domain),
+            msg_id='<whatever.JavaMail.diff1@agrolait.com>',
+            target_model=self.alias_2.alias_model_id.model
+        )
+        # Test: one channel (alias 2) created
+        self.assertEqual(len(new_rec), 1, 'message_process: a new mail.channel should have been created')
+        self.assertEqual(new_rec._name, self.alias_2.alias_model_id.model)
+
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
+    def test_message_process_alias_forward_domain_confusion_no_domain(self):
+        """ Incoming email: write to alias of another model: forward to new alias even if no catchall domain """
+        self.env['ir.config_parameter'].set_param('mail.catchall.domain', '')
+
+        new_rec = self.format_and_process(
+            MAIL_TEMPLATE,
+            subject='Test Subject',
+            email_from='valid.other@gmail.com',
+            to='%s@%s, %s@%s' % (self.alias.alias_name, self.catchall_domain, self.alias_2.alias_name, 'another.domain.com'),
+            msg_id='<whatever.JavaMail.diff1@agrolait.com>',
+            target_model=self.alias_2.alias_model_id.model
+        )
+        # Test: one channel (alias 2) created
+        self.assertEqual(len(new_rec), 1, 'message_process: a new mail.channel should have been created')
+        self.assertEqual(new_rec._name, self.alias_2.alias_model_id.model)
+
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_in_reply_to(self):
         """ Incoming email using in-rely-to should go into the right destination even with a wrong destination """
         self.format_and_process(
@@ -977,9 +1064,10 @@ class TestMailgateway(TestMail):
             msg_id='<1198923581.41972151344608186800.JavaMail.4@agrolait.com>',
             target_model='mail.channel')
 
-        self.assertEqual(len(self.test_public.message_ids), 2, 'message_process: group should not contain new message')
-        self.assertEqual(len(self.fake_email.child_ids), 1, 'message_process: original email should not contain childs')
-        self.assertEqual(len(res_test.message_ids), 0)
+        self.assertEqual(len(self.test_public.message_ids), 1, 'message_process: group should not contain new message')
+        self.assertEqual(len(self.fake_email.child_ids), 0, 'message_process: original email should not contain childs')
+        self.assertEqual(res_test.name, 'My Dear Forward')
+        self.assertEqual(len(res_test.message_ids), 1)
 
     @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models')
     def test_message_process_references_forward_cc(self):
@@ -1001,11 +1089,11 @@ class TestMailgateway(TestMail):
                           self.format_and_process,
                           MAIL_TEMPLATE, email_from='valid.lelitre@agrolait.com',
                           to='noone@example.com', subject='spam',
-                          extra='In-Reply-To: <12321321-openerp-%d-mail.test@%s>' % (self.test_public.id, socket.gethostname()),
+                          extra='In-Reply-To: <12321321-flectra-%d-mail.test@%s>' % (self.test_public.id, socket.gethostname()),
                           msg_id='<1198923581.41972151344608186802.JavaMail.diff1@agrolait.com>')
 
         # when 6.1 messages are present, compat mode is available
-        # Odoo 10 update: compat mode has been removed and should not work anymore
+        # Flectra 10 update: compat mode has been removed and should not work anymore
         self.fake_email.write({'message_id': False})
         # Do: compat mode accepts partial-matching emails
         self.assertRaises(
@@ -1014,16 +1102,16 @@ class TestMailgateway(TestMail):
             MAIL_TEMPLATE, email_from='other5@gmail.com',
             msg_id='<1.2.JavaMail.new@agrolait.com>',
             to='noone@example.com>', subject='spam',
-            extra='In-Reply-To: <12321321-openerp-%d-mail.test@%s>' % (self.test_public.id, socket.gethostname()))
+            extra='In-Reply-To: <12321321-flectra-%d-mail.test@%s>' % (self.test_public.id, socket.gethostname()))
 
         # 3''. 6.1 compat mode should not work if hostname does not match!
-        # Odoo 10 update: compat mode has been removed and should not work anymore and does not depend from hostname
+        # Flectra 10 update: compat mode has been removed and should not work anymore and does not depend from hostname
         self.assertRaises(ValueError,
                           self.format_and_process,
                           MAIL_TEMPLATE, email_from='other5@gmail.com',
                           msg_id='<1.3.JavaMail.new@agrolait.com>',
                           to='noone@example.com>', subject='spam',
-                          extra='In-Reply-To: <12321321-openerp-%d-mail.test@neighbor.com>' % self.test_public.id)
+                          extra='In-Reply-To: <12321321-flectra-%d-mail.test@neighbor.com>' % self.test_public.id)
 
         # Test created messages
         self.assertEqual(len(self.test_public.message_ids), 1)
@@ -1116,7 +1204,7 @@ class TestMailgateway(TestMail):
         self.assertIn('<pre>\nPlease call me as soon as possible this afternoon!\n<span data-o-mail-quote="1">\n--\nSylvie\n</span></pre>', msg.body,
                       'message_process: plaintext incoming email incorrectly parsed')
 
-    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models', 'odoo.addons.mail.models.mail_mail')
+    @mute_logger('flectra.addons.mail.models.mail_thread', 'flectra.models', 'flectra.addons.mail.models.mail_mail')
     def test_private_discussion(self):
         """ Testing private discussion between partners. """
         msg1_pids = [self.env.user.partner_id.id, self.partner_1.id]

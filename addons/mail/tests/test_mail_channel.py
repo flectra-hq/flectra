@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from email.utils import formataddr
-
 from .common import TestMail
 from flectra import api
 from flectra.exceptions import AccessError, except_orm
-from flectra.tools import mute_logger
+from flectra.tools import mute_logger, formataddr
 
 
 class TestMailGroup(TestMail):

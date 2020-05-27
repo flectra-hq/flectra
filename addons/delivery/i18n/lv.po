@@ -3,15 +3,20 @@
 # * delivery
 # 
 # Translators:
-# Martin Trigaux <mat@odoo.com>, 2017
-# Arnis Putniņš <arnis.putnins@its1.lv>, 2018
+# Arnis Putniņš <arnis@allegro.lv>, 2018
+# InfernalLV <karlisdreizis@gmail.com>, 2018
+# Martin Trigaux, 2018
+# JanisJanis <jbojars@gmail.com>, 2018
+# ievaputnina <ievai.putninai@gmail.com>, 2019
+# Vladimirs Malejevs <vladimirs.malejevs@ms-idi.eu>, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-30 13:12+0000\n"
-"PO-Revision-Date: 2017-11-30 13:12+0000\n"
-"Last-Translator: Arnis Putniņš <arnis.putnins@its1.lv>, 2018\n"
+"POT-Creation-Date: 2019-07-17 15:01+0000\n"
+"PO-Revision-Date: 2017-09-20 10:16+0000\n"
+"Last-Translator: Vladimirs Malejevs <vladimirs.malejevs@ms-idi.eu>, 2019\n"
 "Language-Team: Latvian (https://www.transifex.com/odoo/teams/41243/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +38,7 @@ msgstr ""
 #. module: delivery
 #: model:mail.template,subject:delivery.mail_template_data_delivery_notification
 msgid "${object.subject}"
-msgstr ""
+msgstr "${object.subject}"
 
 #. module: delivery
 #: model:mail.template,body_html:delivery.mail_template_data_delivery_confirmation
@@ -65,7 +70,7 @@ msgid ""
 "            <!-- HEADER -->\n"
 "            <tr>\n"
 "              <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                <table width=\"650\" border=\"0\" cellpadding=\"0\" bgcolor=\"#875A7B\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
+"                <table width=\"650\" border=\"0\" cellpadding=\"0\" bgcolor=\"#009efb\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
 "                  <tr>\n"
 "                    <td valign=\"middle\">\n"
 "                      <span style=\"font-size:20px; color:white; font-weight: bold;\">${object.record_name}</span>\n"
@@ -90,7 +95,7 @@ msgid ""
 "            <!-- FOOTER -->\n"
 "            <tr>\n"
 "              <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                <table width=\"650\" border=\"0\" cellpadding=\"0\" bgcolor=\"#875A7B\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
+"                <table width=\"650\" border=\"0\" cellpadding=\"0\" bgcolor=\"#009efb\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
 "                  <tr>\n"
 "                    <td valign=\"middle\" align=\"left\" style=\"color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;\">${user.company_id.name}<br/>${user.company_id.phone or ''}</td>\n"
 "                    <td valign=\"middle\" align=\"right\" style=\"color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;\">\n"
@@ -106,7 +111,7 @@ msgid ""
 "              </td>\n"
 "            </tr>\n"
 "            <tr>\n"
-"              <td align=\"center\">Powered by <a href=\"https://www.odoo.com\">Odoo</a>.</td>\n"
+"              <td align=\"center\">Powered by <a href=\"https://www.flectrahq.com\">Odoo</a>.</td>\n"
 "            </tr>\n"
 "          </tbody>\n"
 "        </table>\n"
@@ -125,7 +130,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.choose_delivery_package_view_form
 msgid "<span>kg</span>"
-msgstr ""
+msgstr "kg"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.report_delivery_document2
@@ -157,7 +162,7 @@ msgstr "Aktīvs"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_amount
 msgid "Amount"
-msgstr ""
+msgstr "Summa"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_amount
@@ -202,7 +207,7 @@ msgstr "Atcelt"
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_search
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_tree
 msgid "Carrier"
-msgstr ""
+msgstr "Pārvadātājs"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_order_form_with_carrier
@@ -222,7 +227,7 @@ msgstr "Uzņēmums"
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_delivery_price_rule_form
 msgid "Condition"
-msgstr ""
+msgstr "Condition"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_res_partner
@@ -232,7 +237,7 @@ msgstr "Kontakts"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_country_ids
 msgid "Countries"
-msgstr ""
+msgstr "Valstis"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_choose_delivery_package_create_uid
@@ -254,9 +259,16 @@ msgid "Debug logging"
 msgstr ""
 
 #. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:13
+#, python-format
+msgid "Debug requests"
+msgstr ""
+
+#. module: delivery
 #: model:ir.ui.menu,name:delivery.menu_delivery
 msgid "Delivery"
-msgstr ""
+msgstr "Piegāde"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_search
@@ -283,7 +295,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:delivery.field_res_users_property_delivery_carrier_id
 #: model:ir.model.fields,field_description:delivery.field_sale_order_carrier_id
 msgid "Delivery Method"
-msgstr ""
+msgstr "Piegādes Metode"
 
 #. module: delivery
 #: model:ir.actions.act_window,name:delivery.action_delivery_carrier_form
@@ -291,7 +303,7 @@ msgstr ""
 #: model:ir.ui.menu,name:delivery.sale_menu_action_delivery_carrier_form
 #: model:ir.ui.view,arch_db:delivery.res_config_settings_view_form
 msgid "Delivery Methods"
-msgstr ""
+msgstr "Piegādes metodes"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_choose_delivery_package
@@ -319,7 +331,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_product_id
 msgid "Delivery Product"
-msgstr ""
+msgstr "Piegādes Produkts"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_sale_order_delivery_rating_success
@@ -334,6 +346,13 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_sequence
 msgid "Determine the display order"
+msgstr "Norāda attēlošanas kārtību"
+
+#. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:14
+#, python-format
+msgid "Disable debug"
 msgstr ""
 
 #. module: delivery
@@ -357,15 +376,28 @@ msgid ""
 msgstr ""
 
 #. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:16
+#, python-format
+msgid "Enable debug"
+msgstr ""
+
+#. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_prod_environment
 msgid "Environment"
 msgstr ""
 
 #. module: delivery
-#: code:addons/delivery/models/delivery_grid.py:50
 #: code:addons/delivery/models/delivery_grid.py:109
 #, python-format
 msgid "Error: no matching grid."
+msgstr ""
+
+#. module: delivery
+#: code:addons/delivery/models/delivery_carrier.py:206
+#: code:addons/delivery/models/delivery_grid.py:50
+#, python-format
+msgid "Error: this delivery method is not available for this address."
 msgstr ""
 
 #. module: delivery
@@ -389,9 +421,10 @@ msgstr ""
 #: selection:delivery.carrier,delivery_type:0
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_fixed_price
 msgid "Fixed Price"
-msgstr ""
+msgstr "Fiksēta cena"
 
 #. module: delivery
+#: model:delivery.carrier,name:delivery.free_delivery_carrier
 #: model:product.product,name:delivery.product_product_delivery
 #: model:product.template,name:delivery.product_product_delivery_product_template
 msgid "Free delivery charges"
@@ -426,7 +459,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_product_packaging_height
 msgid "Height"
-msgstr ""
+msgstr "Augstums"
 
 #. module: delivery
 #: sql_constraint:product.packaging:0
@@ -500,7 +533,7 @@ msgstr "Pēdējās izmaiņas"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_product_packaging_length
 msgid "Length"
-msgstr ""
+msgstr "Garums"
 
 #. module: delivery
 #: sql_constraint:product.packaging:0
@@ -520,7 +553,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_margin
 msgid "Margin"
-msgstr ""
+msgstr "Peļņa"
 
 #. module: delivery
 #: sql_constraint:delivery.carrier:0
@@ -545,7 +578,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_max_value
 msgid "Maximum Value"
-msgstr ""
+msgstr "Maksimālais tilpums"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_product_packaging_max_weight
@@ -571,12 +604,20 @@ msgid "No carrier set for this order."
 msgstr ""
 
 #. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:15
+#, python-format
+msgid "No debug"
+msgstr ""
+
+#. module: delivery
 #: code:addons/delivery/models/delivery_grid.py:100
 #, python-format
 msgid "No price rule matching this order; delivery cost cannot be computed."
 msgstr ""
 
 #. module: delivery
+#: model:delivery.carrier,name:delivery.normal_delivery_carrier
 #: model:product.product,name:delivery.product_product_delivery_normal
 #: model:product.template,name:delivery.product_product_delivery_normal_product_template
 msgid "Normal Delivery Charges"
@@ -585,12 +626,12 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_number_of_packages
 msgid "Number of Packages"
-msgstr ""
+msgstr "Paku Skaits"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_operator
 msgid "Operator"
-msgstr ""
+msgstr "Operators"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.choose_delivery_package_view_form
@@ -617,7 +658,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model,name:delivery.model_product_packaging
 msgid "Packaging"
-msgstr ""
+msgstr "Iepakojums"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_stock_move_line
@@ -657,7 +698,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_form
 msgid "Pricing"
-msgstr ""
+msgstr "Pricing"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_price_rule_ids
@@ -668,6 +709,13 @@ msgstr ""
 #: model:ir.model,name:delivery.model_product_template
 msgid "Product Template"
 msgstr "Produkta Veidne"
+
+#. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:9
+#, python-format
+msgid "Production Environment"
+msgstr ""
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_delivery_type
@@ -691,7 +739,7 @@ msgstr "Tāme"
 #. module: delivery
 #: model:ir.model,name:delivery.model_stock_return_picking
 msgid "Return Picking"
-msgstr ""
+msgstr "Preču Atgriešana"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_list_base_price
@@ -701,7 +749,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_list_price
 msgid "Sale Price"
-msgstr ""
+msgstr "Pārdošanas Cena"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_sale_order_line
@@ -711,7 +759,7 @@ msgstr "Pasūtījuma Rinda"
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.choose_delivery_package_view_form
 msgid "Save"
-msgstr ""
+msgstr "Saglabāt"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_picking_withcarrier_out_form
@@ -759,6 +807,12 @@ msgid "Shipping Weight"
 msgstr ""
 
 #. module: delivery
+#: model:ir.ui.view,arch_db:delivery.report_package_barcode_delivery
+#: model:ir.ui.view,arch_db:delivery.report_package_barcode_small_delivery
+msgid "Shipping Weight:"
+msgstr ""
+
+#. module: delivery
 #: model:ir.model.fields,help:delivery.field_product_product_hs_code
 #: model:ir.model.fields,help:delivery.field_product_template_hs_code
 msgid "Standardized code for international shipping and goods declaration"
@@ -767,14 +821,36 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_state_ids
 msgid "States"
-msgstr ""
+msgstr "Stāvokļi"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_stock_move
 msgid "Stock Move"
+msgstr "Krājumu kustība"
+
+#. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:12
+#, python-format
+msgid "Switch to production environment"
 msgstr ""
 
 #. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:10
+#, python-format
+msgid "Switch to test environment"
+msgstr ""
+
+#. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:11
+#, python-format
+msgid "Test Environment"
+msgstr ""
+
+#. module: delivery
+#: model:delivery.carrier,name:delivery.delivery_carrier
 #: model:product.product,name:delivery.product_product_delivery_poste
 #: model:product.template,name:delivery.product_product_delivery_poste_product_template
 msgid "The Poste"
@@ -793,6 +869,8 @@ msgstr ""
 #: model:ir.model.fields,help:delivery.field_res_users_property_delivery_carrier_id
 msgid "This delivery method will be used when invoicing from picking."
 msgstr ""
+"Nosūtīšanas metode tiks lietota, kad rēķins tiks izrakstīts pēc "
+"komplektēšanas."
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_margin
@@ -817,7 +895,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model,name:delivery.model_stock_picking
 msgid "Transfer"
-msgstr ""
+msgstr "Transfer"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_weight_uom_id
@@ -828,29 +906,29 @@ msgstr "Mērvienība"
 #: model:ir.model.fields,help:delivery.field_stock_move_weight_uom_id
 msgid ""
 "Unit of Measure (Unit of Measure) is the unit of measurement for Weight"
-msgstr ""
+msgstr "Svara mērvienība"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_stock_picking_weight_uom_id
 msgid "Unit of measurement for Weight"
-msgstr ""
+msgstr "Svara mērvienība"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_variable
 msgid "Variable"
-msgstr ""
+msgstr "Mainīgais"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_variable_factor
 msgid "Variable Factor"
-msgstr ""
+msgstr "Mainīgs Faktors"
 
 #. module: delivery
 #: selection:delivery.price.rule,variable:0
 #: selection:delivery.price.rule,variable_factor:0
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_volume
 msgid "Volume"
-msgstr ""
+msgstr "Tilpums"
 
 #. module: delivery
 #: selection:delivery.price.rule,variable:0
@@ -860,18 +938,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:delivery.field_stock_quant_package_weight
 #: model:ir.ui.view,arch_db:delivery.view_picking_withcarrier_out_form
 msgid "Weight"
-msgstr ""
+msgstr "Svars"
 
 #. module: delivery
 #: selection:delivery.price.rule,variable:0
 #: selection:delivery.price.rule,variable_factor:0
 msgid "Weight * Volume"
-msgstr ""
+msgstr "Svars * Tilpums"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_stock_move_weight_uom_id
 msgid "Weight Unit of Measure"
-msgstr ""
+msgstr "Svara mērvienība"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_shipping_weight
@@ -879,9 +957,15 @@ msgid "Weight for Shipping"
 msgstr ""
 
 #. module: delivery
+#: model:ir.ui.view,arch_db:delivery.report_package_barcode_delivery
+#: model:ir.ui.view,arch_db:delivery.report_package_barcode_small_delivery
+msgid "Weight:"
+msgstr ""
+
+#. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_product_packaging_width
 msgid "Width"
-msgstr ""
+msgstr "Platums"
 
 #. module: delivery
 #: sql_constraint:product.packaging:0

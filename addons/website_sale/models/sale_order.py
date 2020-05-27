@@ -130,6 +130,7 @@ class SaleOrder(models.Model):
             'order_id': order_id,
             'product_uom': product.uom_id.id,
             'price_unit': pu,
+            'discount': discount,
         }
 
     @api.multi

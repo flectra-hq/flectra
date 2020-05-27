@@ -3,15 +3,20 @@
 # * mrp_repair
 # 
 # Translators:
-# Martin Trigaux <mat@odoo.com>, 2017
-# Link-Up <linkup.way@gmail.com>, 2018
+# Link Up링크업 <linkup.way@gmail.com>, 2018
+# Mark Lee <odoos@soti.33mail.com>, 2018
+# Martin Trigaux, 2018
+# Jongkwan, Yeom <jongkwanyeom@gmail.com>, 2018
+# Linkup <link-up@naver.com>, 2018
+# JH CHOI <hwangtog@gmail.com>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 11:27+0000\n"
-"PO-Revision-Date: 2017-10-02 11:27+0000\n"
-"Last-Translator: Link-Up <linkup.way@gmail.com>, 2018\n"
+"POT-Creation-Date: 2018-04-27 14:52+0000\n"
+"PO-Revision-Date: 2017-09-20 10:19+0000\n"
+"Last-Translator: JH CHOI <hwangtog@gmail.com>, 2020\n"
 "Language-Team: Korean (https://www.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,22 +27,22 @@ msgstr ""
 #. module: mrp_repair
 #: model:mail.template,report_name:mrp_repair.mail_template_mrp_repair_quotation
 msgid "${(object.name or '').replace('/','_')}"
-msgstr ""
+msgstr "${(object.name or '').replace('/','_')}"
 
 #. module: mrp_repair
 #: model:mail.template,subject:mrp_repair.mail_template_mrp_repair_quotation
 msgid "${object.partner_id.name} Repair Orders (Ref ${object.name or 'n/a' })"
-msgstr ""
+msgstr "${object.partner_id.name} 수리 요청서 (Ref ${object.name or 'n/a' })"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "(<i>Remove</i>)"
-msgstr ""
+msgstr "(<i>제거</i>)"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "(update)"
-msgstr ""
+msgstr "(갱신)"
 
 #. module: mrp_repair
 #: model:ir.model.fields,help:mrp_repair.field_mrp_repair_state
@@ -49,6 +54,12 @@ msgid ""
 "* The 'Done' status is set when repairing is completed.\n"
 "* The 'Cancelled' status is used when user cancel repair order."
 msgstr ""
+"* '초안' 상태는 사용자가 새로운 미확인 수리 요청서를 기록할 때 사용합니다.\n"
+"* '확인됨' 상태는 사용자가 수리 요청서를 확인할 때 사용됩니다.\n"
+"* '수리 준비 완료' 상태는 수리를 시작하는 데 사용되며, 수리 요청서가 확인되어야만 수리를 시작할 수 있습니다.\n"
+"* '송장 처리 예정' 상태는 수리 전 또는 수리 후 송장을 생성하는 데 사용됩니다.\n"
+"* '완료' 상태는 수리가 완료되면 설정됩니다.\n"
+"* '취소' 상태는 사용자가 수리 요청을 취소할 때 사용됩니다."
 
 #. module: mrp_repair
 #: model:mail.template,body_html:mrp_repair.mail_template_mrp_repair_quotation
@@ -61,7 +72,7 @@ msgid ""
 "                (with reference: ${object.origin} )\n"
 "                % endif\n"
 "                % if object.invoice_method != 'none':\n"
-"                amounting in <strong>${object.amount_total} ${object.pricelist_id.currency_id.name}.</strong>\n"
+"                amounting in <strong>${format_amount(object.amount_total, object.pricelist_id.currency_id)}.</strong>\n"
 "                % endif\n"
 "                </p>\n"
 "                <p>You can reply to this email if you have any questions.</p>\n"
@@ -72,42 +83,42 @@ msgstr ""
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "<i>(Add)</i>"
-msgstr ""
+msgstr "<i>(추가하기)</i>"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "<strong>Lot/Serial Number:</strong>"
-msgstr ""
+msgstr "<strong>Lot/일련번호 :</strong>"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "<strong>Operations</strong>"
-msgstr ""
+msgstr "<strong>운영</strong>"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "<strong>Parts</strong>"
-msgstr ""
+msgstr "<strong>부품</strong>"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "<strong>Printing Date:</strong>"
-msgstr ""
+msgstr "<strong>인쇄 날짜 :</strong>"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "<strong>Product to Repair:</strong>"
-msgstr ""
+msgstr "<strong>수리해야 할 상품 :</strong>"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "<strong>Shipping address :</strong>"
-msgstr ""
+msgstr "<strong>선적 주소 :</strong>"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "<strong>Total Without Taxes</strong>"
-msgstr ""
+msgstr "<storng>부가가치세:</strong>"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
@@ -117,7 +128,7 @@ msgstr "<strong>합계</strong>"
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "<strong>Warranty:</strong>"
-msgstr ""
+msgstr "<strong>보증 :</strong>"
 
 #. module: mrp_repair
 #: selection:mrp.repair.line,type:0
@@ -127,22 +138,22 @@ msgstr "추가"
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Add internal notes..."
-msgstr ""
+msgstr "내부 메모 추가하기..."
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Add quotation notes..."
-msgstr ""
+msgstr "견적 노트 추가하기..."
 
 #. module: mrp_repair
 #: selection:mrp.repair,invoice_method:0
 msgid "After Repair"
-msgstr ""
+msgstr "수리 후"
 
 #. module: mrp_repair
 #: selection:mrp.repair,invoice_method:0
 msgid "Before Repair"
-msgstr ""
+msgstr "수리 전"
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:237
@@ -160,13 +171,13 @@ msgstr "취소"
 #: model:ir.model,name:mrp_repair.model_mrp_repair_cancel
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Cancel Repair"
-msgstr ""
+msgstr "수리 취소"
 
 #. module: mrp_repair
 #: model:ir.actions.act_window,name:mrp_repair.action_cancel_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_cancel_repair
 msgid "Cancel Repair Order"
-msgstr ""
+msgstr "수리 요청 취소"
 
 #. module: mrp_repair
 #: selection:mrp.repair,state:0 selection:mrp.repair.line,state:0
@@ -177,7 +188,7 @@ msgstr "취소됨"
 #: code:addons/mrp_repair/models/mrp_repair.py:249
 #, python-format
 msgid "Cannot cancel completed repairs."
-msgstr ""
+msgstr "수리가 완료되면 취소할 수 없습니다."
 
 #. module: mrp_repair
 #: model:ir.model.fields,help:mrp_repair.field_mrp_repair_partner_id
@@ -198,7 +209,7 @@ msgstr "회사"
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Confirm Repair"
-msgstr ""
+msgstr "수리 확정"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form_filter
@@ -214,18 +225,20 @@ msgid ""
 "Couldn't find a pricelist line matching this product and quantity.\n"
 "You have to change either the product, the quantity or the pricelist."
 msgstr ""
+"이 상품 및 수량과 일치하는 가격표를 찾을 수 없습니다.\n"
+"상품, 수량 또는 가격표를 변경해야 합니다."
 
 #. module: mrp_repair
 #: model:ir.actions.act_window,name:mrp_repair.act_mrp_repair_invoice
 #: model:ir.ui.view,arch_db:mrp_repair.view_make_invoice
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Create Invoice"
-msgstr ""
+msgstr "송장 작성"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_make_invoice
 msgid "Create invoices"
-msgstr ""
+msgstr "송장 작성"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_cancel_create_uid
@@ -250,7 +263,7 @@ msgstr "작성일"
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_location_id
 msgid "Current Location"
-msgstr ""
+msgstr "현재 위치"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_partner_id
@@ -260,7 +273,7 @@ msgstr "고객"
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_default_address_id
 msgid "Default Address"
-msgstr ""
+msgstr "기본 주소"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_address_id
@@ -270,7 +283,7 @@ msgstr "배송 주소"
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_location_dest_id
 msgid "Delivery Location"
-msgstr ""
+msgstr "배송 위치"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_fee_name
@@ -282,7 +295,7 @@ msgstr "설명"
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_line_location_dest_id
 msgid "Dest. Location"
-msgstr ""
+msgstr "도착지"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_cancel_display_name
@@ -297,7 +310,7 @@ msgstr "표시 이름"
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_make_invoice
 msgid "Do you really want to create the invoice(s)?"
-msgstr ""
+msgstr "정말로 송장을 생성하시겠습니까?"
 
 #. module: mrp_repair
 #: selection:mrp.repair.line,state:0
@@ -307,22 +320,22 @@ msgstr "완료"
 #. module: mrp_repair
 #: selection:mrp.repair.line,state:0
 msgid "Draft"
-msgstr ""
+msgstr "기안"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "End Repair"
-msgstr ""
+msgstr "수리 완료"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Extra Info"
-msgstr ""
+msgstr "기타 정보"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Fees"
-msgstr ""
+msgstr "수수료"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form_filter
@@ -337,7 +350,7 @@ msgstr "그룹화"
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_make_invoice_group
 msgid "Group by partner invoice address"
-msgstr ""
+msgstr "파트너 인보이스 주소 별로 그룹화"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form_filter
@@ -352,7 +365,7 @@ msgstr ""
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "History"
-msgstr ""
+msgstr "기록"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_cancel_id
@@ -371,22 +384,25 @@ msgid ""
 "                add or replace and record the time you spent on the different\n"
 "                operations."
 msgstr ""
+"수리 요청서에서는 제거, 추가 또는 교체한 구성 요소를 \n"
+"                  자세히 설명하고 여러 작업에 소요된 시간을 \n"
+"                  기록할 수 있습니다."
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:215
 #, python-format
 msgid "Insufficient Quantity"
-msgstr ""
+msgstr "불충분 한 수량"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_internal_notes
 msgid "Internal Notes"
-msgstr ""
+msgstr "내부 노트"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_line_move_id
 msgid "Inventory Move"
-msgstr ""
+msgstr "재고 이동"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_invoice_id
@@ -397,7 +413,7 @@ msgstr "송장"
 #. module: mrp_repair
 #: selection:mrp.repair,state:0
 msgid "Invoice Exception"
-msgstr ""
+msgstr "송장 제외"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_fee_invoice_line_id
@@ -408,23 +424,23 @@ msgstr "송장 명세"
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_invoice_method
 msgid "Invoice Method"
-msgstr ""
+msgstr "인보이스 방식"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "Invoice address:"
-msgstr ""
+msgstr "송장 주소 :"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "Invoice and shipping address:"
-msgstr ""
+msgstr "소장 및 배송 주소 :"
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:389
 #, python-format
 msgid "Invoice created"
-msgstr ""
+msgstr "작성된 송장"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_fee_invoiced
@@ -437,7 +453,7 @@ msgstr "송장 발행됨"
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_partner_invoice_id
 msgid "Invoicing Address"
-msgstr ""
+msgstr "인보이싱 주소"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair___last_update
@@ -478,22 +494,22 @@ msgstr "지연된 활동"
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_line_lot_id
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_lot_id
 msgid "Lot/Serial"
-msgstr ""
+msgstr "작업 단위/일련번호"
 
 #. module: mrp_repair
 #: model:ir.model,name:mrp_repair.model_mrp_repair_make_invoice
 msgid "Make Invoice"
-msgstr ""
+msgstr "인보이스 작성"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_move_id
 msgid "Move"
-msgstr ""
+msgstr "이동"
 
 #. module: mrp_repair
 #: model:ir.model.fields,help:mrp_repair.field_mrp_repair_move_id
 msgid "Move created by the repair order"
-msgstr ""
+msgstr "수리 요청에 의해 생성된 이동"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form_filter
@@ -503,14 +519,14 @@ msgstr "나의 활동"
 #. module: mrp_repair
 #: selection:mrp.repair,invoice_method:0
 msgid "No Invoice"
-msgstr ""
+msgstr "인보이스 없음"
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:591
 #: code:addons/mrp_repair/models/mrp_repair.py:649
 #, python-format
 msgid "No Pricelist!"
-msgstr ""
+msgstr "가격표가 없습니다!"
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:312
@@ -523,7 +539,7 @@ msgstr ""
 #: code:addons/mrp_repair/models/mrp_repair.py:366
 #, python-format
 msgid "No account defined for product \"%s\"."
-msgstr ""
+msgstr "\"%s\" 상품에 대해 정의된 계정이 없습니다."
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:359
@@ -541,13 +557,13 @@ msgstr ""
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Notes"
-msgstr ""
+msgstr "노트"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_fees_lines
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Operations"
-msgstr ""
+msgstr "작업"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form_filter
@@ -558,7 +574,7 @@ msgstr "파트너"
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_operations
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Parts"
-msgstr ""
+msgstr "부품"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
@@ -573,12 +589,12 @@ msgstr "가격표"
 #. module: mrp_repair
 #: model:ir.model.fields,help:mrp_repair.field_mrp_repair_pricelist_id
 msgid "Pricelist of the selected partner."
-msgstr ""
+msgstr "선택된 협력사의 가격표."
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Print Quotation"
-msgstr ""
+msgstr "견적 인쇄"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_fee_product_id
@@ -597,17 +613,17 @@ msgstr "상품 수량"
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_line_product_uom
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_product_uom
 msgid "Product Unit of Measure"
-msgstr ""
+msgstr "제품측정단위"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_product_id
 msgid "Product to Repair"
-msgstr ""
+msgstr "수리할 상품"
 
 #. module: mrp_repair
 #: model:ir.model.fields,help:mrp_repair.field_mrp_repair_lot_id
 msgid "Products repaired are all belonging to this lot"
-msgstr ""
+msgstr "수리된 상품은 모두 이 LOT에 속합니다"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_fee_product_uom_qty
@@ -630,7 +646,7 @@ msgstr "견적 / 주문"
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_quotation_notes
 msgid "Quotation Notes"
-msgstr ""
+msgstr "견적 노트"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form_filter
@@ -640,12 +656,12 @@ msgstr "견적"
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form_filter
 msgid "Ready To Repair"
-msgstr ""
+msgstr "수리 준비 완료"
 
 #. module: mrp_repair
 #: selection:mrp.repair,state:0
 msgid "Ready to Repair"
-msgstr ""
+msgstr "수리 준비됨"
 
 #. module: mrp_repair
 #: selection:mrp.repair.line,type:0
@@ -656,7 +672,7 @@ msgstr "제거"
 #: model:ir.model.fields,field_description:mrp_repair.field_stock_move_repair_id
 #: model:ir.model.fields,field_description:mrp_repair.field_stock_warn_insufficient_qty_repair_repair_id
 msgid "Repair"
-msgstr ""
+msgstr "수리"
 
 #. module: mrp_repair
 #: model:ir.model,name:mrp_repair.model_mrp_repair_fee
@@ -667,64 +683,64 @@ msgstr ""
 #: model:ir.model,name:mrp_repair.model_mrp_repair_line
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Repair Line"
-msgstr ""
+msgstr "수리 라인"
 
 #. module: mrp_repair
 #: model:ir.model,name:mrp_repair.model_mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Repair Order"
-msgstr ""
+msgstr "수리 주문"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "Repair Order #:"
-msgstr ""
+msgstr "수리 요청 # :"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_fee_repair_id
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_line_repair_id
 msgid "Repair Order Reference"
-msgstr ""
+msgstr "수리 요청 참고"
 
 #. module: mrp_repair
 #: model:ir.actions.act_window,name:mrp_repair.action_repair_order_tree
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form_filter
 msgid "Repair Orders"
-msgstr ""
+msgstr "수리 주문"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.report_mrprepairorder
 msgid "Repair Quotation #:"
-msgstr ""
+msgstr "수리 견적 # :"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_name
 msgid "Repair Reference"
-msgstr ""
+msgstr "수리 참고"
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:203
 #, python-format
 msgid "Repair must be canceled in order to reset it to draft."
-msgstr ""
+msgstr "초안으로 재설정하려면 수리를 취소해야 합니다."
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:408
 #, python-format
 msgid "Repair must be confirmed before starting reparation."
-msgstr ""
+msgstr "보상을 시작하기 전에 수리를 확인해야 합니다."
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:436
 #, python-format
 msgid "Repair must be repaired in order to make the product moves."
-msgstr ""
+msgstr "상품을 이동하려면 수리해야 합니다."
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:419
 #, python-format
 msgid "Repair must be under repair in order to end reparation."
-msgstr ""
+msgstr "보상을 끝내려면 수리를 받아야 합니다."
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:251
@@ -736,29 +752,29 @@ msgstr ""
 #: code:addons/mrp_repair/wizard/mrp_repair_cancel.py:20
 #, python-format
 msgid "Repair order is not invoiced."
-msgstr ""
+msgstr "수리 요청에 송장이 없습니다."
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_repaired
 #: selection:mrp.repair,state:0
 msgid "Repaired"
-msgstr ""
+msgstr "수리됨"
 
 #. module: mrp_repair
 #: model:ir.ui.menu,name:mrp_repair.menu_repair_order
 msgid "Repairs"
-msgstr ""
+msgstr "수리"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_tree
 msgid "Repairs order"
-msgstr ""
+msgstr "수리 주문"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form_filter
 msgid "Search Repair Orders"
-msgstr ""
+msgstr "수리 요청서 검색"
 
 #. module: mrp_repair
 #: model:ir.model.fields,help:mrp_repair.field_mrp_repair_invoice_method
@@ -767,22 +783,24 @@ msgid ""
 "invoice before or after the repair is done respectively. 'No invoice' means "
 "you don't want to generate invoice for this repair order."
 msgstr ""
+"'수리 전'또는 '수리 후'를 선택하면 각각 수리 전후에 송장을 생성할 수 있습니다. '송장 없음'은 이 수리 요청에 대해 송장을 "
+"생성하지 않음을 의미합니다."
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Send Quotation"
-msgstr ""
+msgstr "견적서 보내기"
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:540
 #, python-format
 msgid "Serial number is required for operation line with product '%s'"
-msgstr ""
+msgstr "제품 '%s'의 작업 내역에 일련 번호가 필요합니다."
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Set to Draft"
-msgstr ""
+msgstr "기안으로 설정"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form_filter
@@ -792,12 +810,12 @@ msgstr "다음 활동 일자가 오늘 이전인 모든 자료 조회"
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_line_location_id
 msgid "Source Location"
-msgstr ""
+msgstr "자재 위치"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Start Repair"
-msgstr ""
+msgstr "수리 시작"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_line_state
@@ -809,7 +827,7 @@ msgstr "상태"
 #. module: mrp_repair
 #: model:ir.model,name:mrp_repair.model_stock_move
 msgid "Stock Move"
-msgstr ""
+msgstr "재고이동"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_fee_price_subtotal
@@ -836,12 +854,12 @@ msgstr "세금"
 msgid ""
 "The Product Unit of Measure you chose has a different category than in the "
 "product form."
-msgstr ""
+msgstr "상품 측정 단위는 상품 형태와는 다른 분류를 선택합니다."
 
 #. module: mrp_repair
 #: sql_constraint:mrp.repair:0
 msgid "The name of the Repair Order must be unique!"
-msgstr ""
+msgstr "수리 요청의 이름은 고유해야 합니다!"
 
 #. module: mrp_repair
 #: model:ir.actions.act_window,help:mrp_repair.action_repair_order_tree
@@ -849,14 +867,14 @@ msgid ""
 "The repair order uses the warranty date on the Serial Number in\n"
 "                order to know if whether the repair should be invoiced to the\n"
 "                customer or not."
-msgstr ""
+msgstr "수리 요청서는 고객에게 수리를 청구해야 하는지 여부를 확인하기 위해 일련 번호의 보증 날짜를 사용합니다."
 
 #. module: mrp_repair
 #: model:ir.model.fields,help:mrp_repair.field_mrp_repair_line_state
 msgid ""
 "The status of a repair line is set automatically to the one of the linked "
 "repair order."
-msgstr ""
+msgstr "수리 내역의 상태는 연결된 수리 요청 중 하나로 자동 설정됩니다."
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_cancel_repair
@@ -868,7 +886,7 @@ msgstr ""
 #. module: mrp_repair
 #: selection:mrp.repair,state:0
 msgid "To be Invoiced"
-msgstr ""
+msgstr "인보이스 예정"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form_filter
@@ -883,22 +901,22 @@ msgstr "총계"
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Total amount"
-msgstr ""
+msgstr "총계"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_tracking
 msgid "Tracking"
-msgstr ""
+msgstr "추적"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_line_type
 msgid "Type"
-msgstr ""
+msgstr "유형"
 
 #. module: mrp_repair
 #: selection:mrp.repair,state:0
 msgid "Under Repair"
-msgstr ""
+msgstr "수리 중"
 
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_fee_price_unit
@@ -920,7 +938,7 @@ msgstr "공급가액"
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_repair_order_form
 msgid "Untaxed amount"
-msgstr ""
+msgstr "과세 안된 금액"
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:175
@@ -931,12 +949,12 @@ msgstr "경고"
 #. module: mrp_repair
 #: model:ir.model.fields,field_description:mrp_repair.field_mrp_repair_guarantee_limit
 msgid "Warranty Expiration"
-msgstr ""
+msgstr "보증기간 만료"
 
 #. module: mrp_repair
 #: model:ir.ui.view,arch_db:mrp_repair.view_cancel_repair
 msgid "Yes"
-msgstr ""
+msgstr "예"
 
 #. module: mrp_repair
 #: code:addons/mrp_repair/models/mrp_repair.py:300
@@ -952,11 +970,13 @@ msgid ""
 "You have to select a pricelist in the Repair form !\n"
 " Please set one before choosing a product."
 msgstr ""
+"수리 양식에서 가격표를 선택해야 합니다! \n"
+"상품을 선택하기 전에 하나를 설정하십시오."
 
 #. module: mrp_repair
 #: model:ir.model,name:mrp_repair.model_stock_traceability_report
 msgid "stock.traceability.report"
-msgstr ""
+msgstr "stock.traceability.report"
 
 #. module: mrp_repair
 #: model:ir.model,name:mrp_repair.model_stock_warn_insufficient_qty_repair

@@ -392,7 +392,7 @@ class TestAPI(common.TransactionCase):
         self.assertIn('company_type', partner1._cache)
         self.assertNotIn('company_type', partner2._cache)
 
-    @mute_logger('odoo.models')
+    @mute_logger('flectra.models')
     def test_70_one(self):
         """ Check method one(). """
         # check with many records

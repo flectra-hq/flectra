@@ -1,27 +1,30 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * stock_landed_costs
-#
+# 
 # Translators:
+# Alejandro Santana <alejandrosantana@anubia.es>, 2018
+# Martin Trigaux, 2019
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo 9.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-18 14:06+0000\n"
-"PO-Revision-Date: 2015-09-19 08:25+0000\n"
-"Last-Translator: Martin Trigaux\n"
-"Language-Team: Galician (http://www.transifex.com/odoo/odoo-9/language/gl/)\n"
-"Language: gl\n"
+"POT-Creation-Date: 2019-01-03 15:06+0000\n"
+"PO-Revision-Date: 2017-09-20 10:24+0000\n"
+"Last-Translator: Martin Trigaux, 2019\n"
+"Language-Team: Galician (https://www.transifex.com/odoo/teams/41243/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: stock_landed_costs
-#: code:addons/stock_landed_costs/stock_landed_costs.py:127
-#: code:addons/stock_landed_costs/stock_landed_costs.py:131
-#: code:addons/stock_landed_costs/stock_landed_costs.py:147
-#: code:addons/stock_landed_costs/stock_landed_costs.py:151
+#: code:addons/stock_landed_costs/models/stock_landed_cost.py:344
+#: code:addons/stock_landed_costs/models/stock_landed_cost.py:348
+#: code:addons/stock_landed_costs/models/stock_landed_cost.py:365
+#: code:addons/stock_landed_costs/models/stock_landed_cost.py:369
 #, python-format
 msgid " already out"
 msgstr ""
@@ -86,6 +89,16 @@ msgid "Click to define a new kind of landed cost."
 msgstr ""
 
 #. module: stock_landed_costs
+#: model:ir.model.fields,field_description:stock_landed_costs.field_stock_landed_cost_company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: stock_landed_costs
+#: model:ir.model.fields,help:stock_landed_costs.field_stock_landed_cost_company_id
+msgid "Company related to this journal"
+msgstr "Compañía relacionada con este diario"
+
+#. module: stock_landed_costs
 #: model:ir.ui.view,arch_db:stock_landed_costs.view_stock_landed_cost_form
 msgid "Compute"
 msgstr "Calcular"
@@ -104,6 +117,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_landed_cost_cost_lines
 #: model:ir.ui.view,arch_db:stock_landed_costs.view_stock_landed_cost_form
 msgid "Cost Lines"
+msgstr ""
+
+#. module: stock_landed_costs
+#: code:addons/stock_landed_costs/models/stock_landed_cost.py:91
+#, python-format
+msgid ""
+"Cost and adjustments lines do not match. You should maybe recompute the "
+"landed costs."
 msgstr ""
 
 #. module: stock_landed_costs
@@ -132,19 +153,11 @@ msgid "Description"
 msgstr "Descrición"
 
 #. module: stock_landed_costs
-#: code:addons/stock_landed_costs/purchase_config_settings.py:18
-#, python-format
-msgid ""
-"Disabling the costing methods will prevent you to use the landed costs "
-"feature."
-msgstr ""
-
-#. module: stock_landed_costs
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_landed_cost_display_name
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_landed_cost_lines_display_name
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_valuation_adjustment_lines_display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Amosar nome"
 
 #. module: stock_landed_costs
 #: model:ir.ui.view,arch_db:stock_landed_costs.view_stock_landed_cost_search
@@ -165,6 +178,7 @@ msgid "Equal"
 msgstr ""
 
 #. module: stock_landed_costs
+#: model:ir.model.fields,help:stock_landed_costs.field_product_product_split_method
 #: model:ir.model.fields,help:stock_landed_costs.field_product_template_split_method
 msgid ""
 "Equal : Cost will be equally divided.\n"
@@ -207,6 +221,12 @@ msgid "Information"
 msgstr "Información"
 
 #. module: stock_landed_costs
+#: model:ir.model.fields,field_description:stock_landed_costs.field_product_product_landed_cost_ok
+#: model:ir.model.fields,field_description:stock_landed_costs.field_product_template_landed_cost_ok
+msgid "Is a Landed Cost"
+msgstr ""
+
+#. module: stock_landed_costs
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_landed_cost_description
 msgid "Item Description"
 msgstr ""
@@ -218,6 +238,7 @@ msgstr "Entrada de Diario"
 
 #. module: stock_landed_costs
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_landed_cost_lines_cost_id
+#: model:ir.model.fields,field_description:stock_landed_costs.field_stock_move_landed_cost_value
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_valuation_adjustment_lines_cost_id
 msgid "Landed Cost"
 msgstr ""
@@ -229,13 +250,14 @@ msgstr ""
 
 #. module: stock_landed_costs
 #: model:ir.ui.menu,name:stock_landed_costs.menu_stock_landed_cost_type
-msgid "Landed Cost Type"
+#: model:ir.ui.view,arch_db:stock_landed_costs.res_config_settings_view_form
+msgid "Landed Cost Types"
 msgstr ""
 
 #. module: stock_landed_costs
 #: model:ir.actions.act_window,name:stock_landed_costs.action_stock_landed_cost
-#: model:ir.model.fields,field_description:stock_landed_costs.field_product_template_landed_cost_ok
 #: model:ir.ui.menu,name:stock_landed_costs.menu_stock_landed_cost
+#: model:ir.ui.view,arch_db:stock_landed_costs.view_product_landed_cost_form
 #: model:ir.ui.view,arch_db:stock_landed_costs.view_stock_landed_cost_form
 #: model:ir.ui.view,arch_db:stock_landed_costs.view_stock_landed_cost_search
 #: model:ir.ui.view,arch_db:stock_landed_costs.view_stock_landed_cost_tree
@@ -258,7 +280,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_landed_cost_lines___last_update
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_valuation_adjustment_lines___last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última modificación en"
 
 #. module: stock_landed_costs
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_landed_cost_lines_write_uid
@@ -286,7 +308,21 @@ msgid "Name"
 msgstr "Nome"
 
 #. module: stock_landed_costs
-#: code:addons/stock_landed_costs/stock_landed_costs.py:203
+#: code:addons/stock_landed_costs/models/stock_landed_cost.py:24
+#: code:addons/stock_landed_costs/models/stock_landed_cost.py:62
+#, python-format
+msgid "New"
+msgstr "Novo"
+
+#. module: stock_landed_costs
+#: code:addons/stock_landed_costs/models/stock_landed_cost.py:89
+#, python-format
+msgid ""
+"No valuation adjustments lines. You should maybe recompute the landed costs."
+msgstr ""
+
+#. module: stock_landed_costs
+#: code:addons/stock_landed_costs/models/stock_landed_cost.py:87
 #, python-format
 msgid "Only draft landed costs can be validated"
 msgstr ""
@@ -297,7 +333,7 @@ msgid "Pickings"
 msgstr ""
 
 #. module: stock_landed_costs
-#: code:addons/stock_landed_costs/stock_landed_costs.py:90
+#: code:addons/stock_landed_costs/models/stock_landed_cost.py:312
 #, python-format
 msgid "Please configure Stock Expense Account for product: %s."
 msgstr ""
@@ -335,6 +371,7 @@ msgid "Quantity"
 msgstr "Cantidade"
 
 #. module: stock_landed_costs
+#: model:ir.model.fields,field_description:stock_landed_costs.field_product_product_split_method
 #: model:ir.model.fields,field_description:stock_landed_costs.field_product_template_split_method
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_landed_cost_lines_split_method
 msgid "Split Method"
@@ -361,6 +398,7 @@ msgid "Stock Landed Cost Lines"
 msgstr ""
 
 #. module: stock_landed_costs
+#: model:ir.model,name:stock_landed_costs.model_stock_move
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_valuation_adjustment_lines_move_id
 msgid "Stock Move"
 msgstr "Movemento de stock"
@@ -371,12 +409,12 @@ msgid "Stock Valuation Adjustment Lines"
 msgstr ""
 
 #. module: stock_landed_costs
-#: code:addons/stock_landed_costs/stock_landed_costs.py:52
+#: code:addons/stock_landed_costs/models/stock_landed_cost.py:161
 #, python-format
 msgid ""
 "The selected picking does not contain any move that would be impacted by "
-"landed costs. Landed costs are only possible for products configured in real "
-"time valuation with real price costing method. Please make sure it is the "
+"landed costs. Landed costs are only possible for products configured in real"
+" time valuation with real price costing method. Please make sure it is the "
 "case, or you selected the correct picking"
 msgstr ""
 
@@ -391,7 +429,7 @@ msgid "Validate"
 msgstr "Validar"
 
 #. module: stock_landed_costs
-#: code:addons/stock_landed_costs/stock_landed_costs.py:261
+#: code:addons/stock_landed_costs/models/stock_landed_cost.py:81
 #, python-format
 msgid ""
 "Validated landed costs cannot be cancelled, but you could create negative "
@@ -410,33 +448,11 @@ msgid "Volume"
 msgstr "Volume"
 
 #. module: stock_landed_costs
-#: code:addons/stock_landed_costs/purchase_config_settings.py:17
-#, python-format
-msgid "Warning!"
-msgstr "¡Aviso!"
-
-#. module: stock_landed_costs
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_valuation_adjustment_lines_weight
 msgid "Weight"
 msgstr "Peso"
 
 #. module: stock_landed_costs
-#: code:addons/stock_landed_costs/stock_landed_costs.py:205
-#, python-format
-msgid ""
-"You cannot validate a landed cost which has no valid valuation adjustments "
-"lines. Did you click on Compute?"
-msgstr ""
-
-#. module: stock_landed_costs
 #: model:ir.ui.view,arch_db:stock_landed_costs.view_stock_landed_cost_type_form
 msgid "describe the product characteristics..."
 msgstr ""
-
-#. module: stock_landed_costs
-#: model:ir.model,name:stock_landed_costs.model_purchase_config_settings
-msgid "purchase.config.settings"
-msgstr ""
-
-#~ msgid "Messages"
-#~ msgstr "Mensaxes"

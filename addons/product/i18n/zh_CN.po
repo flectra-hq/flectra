@@ -3,33 +3,39 @@
 # * product
 # 
 # Translators:
-# 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2017
-# Martin Trigaux <mat@odoo.com>, 2017
-# Ted Wang <feiyuwang2012@gmail.com>, 2017
-# Jeffery CHEN Fan <jeffery9@gmail.com>, 2017
+# Yuan Xulei <hi@yxl.name>, 2017
+# Si Ling Lau <happy8645@hotmail.com>, 2017
 # zpq001 <zpq001@live.com>, 2017
-# liAnGjiA <liangjia@qq.com>, 2017
+# liyes <bodetools@gmail.com>, 2017
+# Yaorong Li <55yaorong.li@gmail.com>, 2017
+# Ted Wang <feiyuwang2012@gmail.com>, 2017
+# THL <wt39181819@gmail.com>, 2017
+# v2exerer <9010446@qq.com>, 2017
+# xiaobin wu <bd5dml@gmail.com>, 2017
+# Maie <m@maie.name>, 2017
+# glovebx <ruinning@163.com>, 2017
 # Gary Wei <Gary.wei@elico-corp.com>, 2017
 # zhining wu <wzn63@21cn.com>, 2017
-# Talway <9010446@qq.com>, 2017
-# fausthuang <faust_huang@hotmail.com>, 2017
-# Yuan Xulei <hi@yxl.name>, 2017
-# 苏州远鼎 <tiexinliu@126.com>, 2017
-# Si Ling Lau <happy8645@hotmail.com>, 2017
 # waveyeung <waveyeung@qq.com>, 2017
-# liyes <bodetools@gmail.com>, 2017
-# glovebx <ruinning@163.com>, 2017
-# Maie <m@maie.name>, 2017
-# THL <wt39181819@gmail.com>, 2017
-# Yaorong Li <55yaorong.li@gmail.com>, 2017
-# xiaobin wu <bd5dml@gmail.com>, 2017
+# fausthuang, 2017
+# 苏州远鼎 <tiexinliu@126.com>, 2017
+# 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2018
+# 老窦 北京 <2662059195@qq.com>, 2018
+# liulixia <liu.lixia@elico-corp.com>, 2018
+# Jeffery CHEN Fan <jeffery9@gmail.com>, 2018
+# Martin Trigaux, 2018
+# keecome <7017511@qq.com>, 2018
+# liAnGjiA <liangjia@qq.com>, 2018
+# diaojiaolou <124412206@qq.com>, 2019
+# F4NNIU <sparkamax@gmail.com>, 2019
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 11:26+0000\n"
-"PO-Revision-Date: 2017-10-02 11:26+0000\n"
-"Last-Translator: xiaobin wu <bd5dml@gmail.com>, 2017\n"
+"POT-Creation-Date: 2019-03-29 09:08+0000\n"
+"PO-Revision-Date: 2017-09-20 10:22+0000\n"
+"Last-Translator: F4NNIU <sparkamax@gmail.com>, 2019\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -66,7 +72,7 @@ msgid "%s %% discount and %s surcharge"
 msgstr "%s %% 折扣 和 %s 附加费"
 
 #. module: product
-#: code:addons/product/models/product_template.py:324
+#: code:addons/product/models/product_template.py:333
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (副本)"
@@ -83,6 +89,8 @@ msgid ""
 "17\" LCD Monitor\n"
 "Processor AMD 8-Core"
 msgstr ""
+"17\" LCD Monitor\n"
+"Processor AMD 8-Core"
 
 #. module: product
 #: model:product.product,description:product.product_product_25
@@ -91,6 +99,8 @@ msgid ""
 "17\" Monitor, 4GB RAM\n"
 "Standard-1294P Processor"
 msgstr ""
+"17\" Monitor, 4GB RAM\n"
+"Standard-1294P Processor"
 
 #. module: product
 #: model:product.attribute.value,name:product.product_attribute_value_5
@@ -735,9 +745,7 @@ msgid "Computer SC234"
 msgstr "电脑 SC234"
 
 #. module: product
-#: code:addons/product/models/product_template.py:50
 #: selection:product.template,type:0
-#, python-format
 msgid "Consumable"
 msgstr "可消耗"
 
@@ -767,7 +775,13 @@ msgstr "产品单位 %s 与默认单位 %s 无法转换，二者属于不同的�
 #: model:ir.model.fields,field_description:product.field_product_template_standard_price
 #: selection:product.pricelist.item,base:0
 msgid "Cost"
-msgstr "费用"
+msgstr "成本"
+
+#. module: product
+#: model:ir.model.fields,field_description:product.field_product_product_cost_currency_id
+#: model:ir.model.fields,field_description:product.field_product_template_cost_currency_id
+msgid "Cost Currency"
+msgstr "成本货币"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_product_standard_price
@@ -940,6 +954,11 @@ msgid "Description for Customers"
 msgstr "客户描述"
 
 #. module: product
+#: model:ir.ui.view,arch_db:product.product_template_form_view
+msgid "Description for Internal"
+msgstr "内部描述"
+
+#. module: product
 #: model:product.product,website_description:product.product_product_11
 #: model:product.product,website_description:product.product_product_11b
 #: model:product.template,website_description:product.product_product_11_product_template
@@ -1019,19 +1038,19 @@ msgid "Ending valid for the pricelist item validation"
 msgstr "终结有效的价格表项验证"
 
 #. module: product
-#: code:addons/product/models/product.py:53
+#: code:addons/product/models/product.py:56
 #, python-format
 msgid "Error ! You cannot create recursive categories."
 msgstr "错误！你不能创建循环类别。"
 
 #. module: product
-#: code:addons/product/models/product_attribute.py:101
+#: code:addons/product/models/product_attribute.py:102
 #, python-format
 msgid "Error ! You cannot use this attribute with the following value."
 msgstr "错误！您不能将此属性与以下值配合使用。"
 
 #. module: product
-#: code:addons/product/models/product.py:283
+#: code:addons/product/models/product.py:293
 #, python-format
 msgid ""
 "Error! It is not allowed to choose more than one value for a given "
@@ -1053,7 +1072,7 @@ msgid ""
 msgstr "错误！不能在价格表项目里指派这个主价格表作为其它价格表"
 
 #. module: product
-#: code:addons/product/models/product_template.py:274
+#: code:addons/product/models/product_template.py:283
 #, python-format
 msgid ""
 "Error: The default Unit of Measure and the purchase Unit of Measure must be "
@@ -1187,6 +1206,11 @@ msgstr ""
 #: model:product.template,website_description:product.product_product_8_product_template
 msgid "Friendly to the environment."
 msgstr "环保"
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Future Activities"
+msgstr "未来活动"
 
 #. module: product
 #: model:product.product,name:product.product_product_1
@@ -1444,6 +1468,16 @@ msgid "Inventory"
 msgstr "库存"
 
 #. module: product
+#: model:ir.model.fields,field_description:product.field_product_product_is_product_variant
+msgid "Is Product Variant"
+msgstr "是产品变体"
+
+#. module: product
+#: model:ir.model.fields,field_description:product.field_product_template_is_product_variant
+msgid "Is a product variant"
+msgstr "是产品变体"
+
+#. module: product
 #: model:product.product,website_description:product.product_product_7
 #: model:product.template,website_description:product.product_product_7_product_template
 msgid "Keep it clean."
@@ -1524,6 +1558,11 @@ msgstr "最后更新者"
 #: model:ir.model.fields,field_description:product.field_product_uom_write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Late Activities"
+msgstr "逾期活动"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_supplierinfo_delay
@@ -1983,7 +2022,7 @@ msgstr "产品包装"
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_packaging_form_view
 msgid "Product Packaging"
-msgstr ""
+msgstr "产品包装"
 
 #. module: product
 #: model:ir.model,name:product.model_product_template
@@ -2060,7 +2099,7 @@ msgid "Products Price Search"
 msgstr "产品价格搜索"
 
 #. module: product
-#: code:addons/product/models/product.py:448
+#: code:addons/product/models/product.py:464
 #, python-format
 msgid "Products: "
 msgstr "产品： "
@@ -2070,6 +2109,11 @@ msgstr "产品： "
 #: selection:product.pricelist.item,base:0
 msgid "Public Price"
 msgstr "公开价格"
+
+#. module: product
+#: model:product.pricelist,name:product.list0
+msgid "Public Pricelist"
+msgstr "公开价格表"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product_description_purchase
@@ -2277,9 +2321,7 @@ msgid "Server"
 msgstr "服务器"
 
 #. module: product
-#: code:addons/product/models/product_template.py:51
 #: selection:product.template,type:0
-#, python-format
 msgid "Service"
 msgstr "服务"
 
@@ -2314,6 +2356,11 @@ msgid ""
 msgstr ""
 "在你实例中把产品定义为公司间分享\n"
 "选择：产品队每个公司可见，即便是某个公司只针对某一个业务伙伴不选择：每个公司只能看到自己的产品（定义产品的公司）。但是没有关联到某一公司的产品对全部的公司都是可见的"
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Show all records which has next action date is before today"
+msgstr "显示所有下一个活动日期在今天之前的记录"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_res_config_settings_group_product_pricelist
@@ -2583,7 +2630,7 @@ msgid ""
 msgstr "此类别下的产品数量 (不考虑子类别)"
 
 #. module: product
-#: code:addons/product/models/product_attribute.py:74
+#: code:addons/product/models/product_attribute.py:75
 #, python-format
 msgid ""
 "The operation cannot be completed:\n"
@@ -2740,6 +2787,11 @@ msgstr "这是所有属性额外价格的总和"
 
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_template_form_view
+msgid "This note is only for internal purposes."
+msgstr "这张备注只用于内部用途。"
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_form_view
 msgid "This note will show up on sales orders."
 msgstr "此注意事项将显示在销售订单上。"
 
@@ -2766,6 +2818,11 @@ msgid ""
 msgstr "打印询价单时，此供应商产品名称会被使用。保持空白就使用内部的那个。"
 
 #. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Today Activities"
+msgstr "今天的活动"
+
+#. module: product
 #: model:product.product,website_description:product.product_product_7
 #: model:product.template,website_description:product.product_product_7_product_template
 msgid "Two is better than one."
@@ -2783,11 +2840,6 @@ msgid ""
 "USB port allows for software update to ensure ongoing Bluetooth device "
 "compatibility"
 msgstr "USB端口允许软件更新，以确保持续的蓝牙设备兼容"
-
-#. module: product
-#: model:product.pricelist,name:product.list0
-msgid "USD"
-msgstr "美元"
 
 #. module: product
 #: model:product.product,website_description:product.product_product_6
@@ -3299,13 +3351,13 @@ msgstr "夸脱"
 #: model:product.product,description_sale:product.consu_delivery_02
 #: model:product.template,description_sale:product.consu_delivery_02_product_template
 msgid "raid 1, 512ECC ram"
-msgstr ""
+msgstr "raid 1, 512ECC ram"
 
 #. module: product
 #: model:product.product,description_sale:product.consu_delivery_01
 #: model:product.template,description_sale:product.consu_delivery_01_product_template
 msgid "raid 10, 2048ECC ram"
-msgstr ""
+msgstr "raid 10, 2048ECC ram"
 
 #. module: product
 #: model:ir.model,name:product.model_report_product_report_pricelist

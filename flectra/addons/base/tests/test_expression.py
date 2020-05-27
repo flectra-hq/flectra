@@ -134,6 +134,14 @@ class TestExpression(TransactionCase):
         cats = Category.search([('id', 'child_of', categ_1.ids)])
         self.assertEqual(len(cats), 1)
 
+        # test hierarchical search in m2m with child ids (nonsense name)
+        cats = Category.search([('id', 'child_of', 'nonsense name')])
+        self.assertEqual(len(cats), 0)
+
+        # test hierarchical search in m2m with child ids (empty list)
+        cats = Category.search([('id', 'child_of', [])])
+        self.assertEqual(len(cats), 0)
+
         # test hierarchical search in m2m with parent id (list of ids)
         cats = Category.search([('id', 'parent_of', categ_1.ids)])
         self.assertEqual(len(cats), 3)
@@ -153,6 +161,14 @@ class TestExpression(TransactionCase):
         # test hierarchical search in m2m with parent ids
         cats = Category.search([('id', 'parent_of', categ_root.ids)])
         self.assertEqual(len(cats), 1)
+
+        # test hierarchical search in m2m with child ids (nonsense name)
+        cats = Category.search([('id', 'parent_of', 'nonsense name')])
+        self.assertEqual(len(cats), 0)
+
+        # test hierarchical search in m2m with child ids (empty list)
+        cats = Category.search([('id', 'parent_of', [])])
+        self.assertEqual(len(cats), 0)
 
     def test_10_equivalent_id(self):
         # equivalent queries
@@ -523,6 +539,37 @@ class TestExpression(TransactionCase):
         self.assertEqual(helene, Company.search([('name','ilike','hélène')]))
         self.assertNotIn(helene, Company.search([('name','not ilike','Helene')]))
         self.assertNotIn(helene, Company.search([('name','not ilike','hélène')]))
+
+    def test_pure_function(self):
+        orig_false = expression.FALSE_DOMAIN.copy()
+        orig_true = expression.TRUE_DOMAIN.copy()
+        false = orig_false.copy()
+        true = orig_true.copy()
+
+        domain = expression.AND([])
+        domain += [('id', '=', 1)]
+        domain = expression.AND([])
+        self.assertEqual(domain, orig_true)
+
+        domain = expression.AND([false])
+        domain += [('id', '=', 1)]
+        domain = expression.AND([false])
+        self.assertEqual(domain, orig_false)
+
+        domain = expression.OR([])
+        domain += [('id', '=', 1)]
+        domain = expression.OR([])
+        self.assertEqual(domain, orig_false)
+
+        domain = expression.OR([true])
+        domain += [('id', '=', 1)]
+        domain = expression.OR([true])
+        self.assertEqual(domain, orig_true)
+
+        domain = expression.normalize_domain([])
+        domain += [('id', '=', 1)]
+        domain = expression.normalize_domain([])
+        self.assertEqual(domain, orig_true)
 
     def test_like_wildcards(self):
         # check that =like/=ilike expressions are working on an untranslated field

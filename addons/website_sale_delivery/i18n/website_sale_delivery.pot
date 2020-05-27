@@ -1,19 +1,26 @@
-# Translation of Flectra Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
 #	* website_sale_delivery
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Flectra Server 1.5\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 12:03+0000\n"
-"PO-Revision-Date: 2019-03-26 12:03+0000\n"
+"POT-Creation-Date: 2017-10-10 11:35+0000\n"
+"PO-Revision-Date: 2017-10-10 11:35+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: website_sale_delivery
+#: code:addons/website_sale_delivery/controllers/main.py:50
+#, python-format
+msgid "%s does not ship to your address, please choose another one.\n"
+"(Error: %s)"
+msgstr ""
 
 #. module: website_sale_delivery
 #: model:ir.ui.view,arch_db:website_sale_delivery.payment_delivery
@@ -51,6 +58,11 @@ msgid "Country"
 msgstr ""
 
 #. module: website_sale_delivery
+#: model:ir.ui.view,arch_db:website_sale_delivery.res_config_settings_view_form
+msgid "DHL Delivery Methods"
+msgstr ""
+
+#. module: website_sale_delivery
 #: model:ir.model.fields,field_description:website_sale_delivery.field_sale_order_amount_delivery
 msgid "Delivery Amount"
 msgstr ""
@@ -77,8 +89,13 @@ msgid "Description for Online Quotations"
 msgstr ""
 
 #. module: website_sale_delivery
+#: model:ir.ui.view,arch_db:website_sale_delivery.res_config_settings_view_form
+msgid "FedEx Delivery Methods"
+msgstr ""
+
+#. module: website_sale_delivery
 #. flectra-web
-#: code:addons/website_sale_delivery/static/src/js/website_sale_delivery.js:29
+#: code:addons/website_sale_delivery/static/src/js/website_sale_delivery.js:27
 #: model:ir.ui.view,arch_db:website_sale_delivery.payment_delivery
 #, python-format
 msgid "Free"
@@ -95,14 +112,15 @@ msgid "Has delivery"
 msgstr ""
 
 #. module: website_sale_delivery
-#: model:ir.model.fields,help:website_sale_delivery.field_delivery_carrier_website_ids
-msgid "List of websites in which Delivery Carrier will published."
+#: code:addons/website_sale_delivery/controllers/main.py:42
+#, python-format
+msgid "No shipping method is available for your current order and shipping address. Please contact us for more information."
 msgstr ""
 
 #. module: website_sale_delivery
-#: code:addons/website_sale_delivery/controllers/main.py:45
+#: code:addons/website_sale_delivery/controllers/main.py:49
 #, python-format
-msgid "No shipping method is available for your current order and shipping address. Please contact us for more information."
+msgid "Ouch, you cannot choose this carrier!"
 msgstr ""
 
 #. module: website_sale_delivery
@@ -116,7 +134,7 @@ msgid "Quotation"
 msgstr ""
 
 #. module: website_sale_delivery
-#: code:addons/website_sale_delivery/controllers/main.py:44
+#: code:addons/website_sale_delivery/controllers/main.py:41
 #, python-format
 msgid "Sorry, we are unable to ship your order"
 msgstr ""
@@ -132,12 +150,17 @@ msgid "Tracking:"
 msgstr ""
 
 #. module: website_sale_delivery
+#: model:ir.ui.view,arch_db:website_sale_delivery.res_config_settings_view_form
+msgid "USPS Delivery Methods"
+msgstr ""
+
+#. module: website_sale_delivery
 #: model:ir.model.fields,field_description:website_sale_delivery.field_delivery_carrier_website_published
 msgid "Visible in Website"
 msgstr ""
 
 #. module: website_sale_delivery
-#: model:ir.model.fields,field_description:website_sale_delivery.field_delivery_carrier_website_ids
-msgid "Websites"
+#: model:ir.ui.view,arch_db:website_sale_delivery.res_config_settings_view_form
+msgid "bpost Delivery Methods"
 msgstr ""
 

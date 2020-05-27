@@ -9487,8 +9487,8 @@ QUnit.module('relational_fields', {
         form.destroy();
     });
 
-    QUnit.test('propagate context to sub views', function (assert) {
-        assert.expect(5);
+    QUnit.test('propagate context to sub views without default_* keys', function (assert) {
+        assert.expect(7);
 
         var form = createView({
             View: FormView,
@@ -9506,9 +9506,18 @@ QUnit.module('relational_fields', {
             mockRPC: function (route, args) {
                 assert.strictEqual(args.kwargs.context.flutter, 'shy',
                     'view context key should be used for every rpcs');
+                if (args.method === 'default_get') {
+                    if (args.model === 'partner') {
+                        assert.strictEqual(args.kwargs.context.default_flutter, 'why',
+                            "should have default_* values in context for form view RPCs");
+                    } else if (args.model === 'turtle') {
+                        assert.notOk(args.kwargs.context.default_flutter,
+                            "should not have default_* values in context for subview RPCs");
+                    }
+                }
                 return this._super.apply(this, arguments);
             },
-            viewOptions: {context: {flutter: 'shy'}},
+            viewOptions: {context: {flutter: 'shy', default_flutter: 'why'}},
         });
         form.$('.o_field_x2many_list_row_add a').click();
         form.$('input[name="turtle_foo"]').val('pinky pie').trigger('input');
@@ -9859,6 +9868,7 @@ QUnit.module('relational_fields', {
         // on_close handler, executed because the python method does not return
         // any action, or an ir.action.act_window_close) ; this test ensures that
         // it reloads the fields of the opened view (i.e. the form in this case).
+        // See https://github.com/odoo/odoo/issues/24189
         assert.expect(7);
 
         var data = this.data;
@@ -12350,6 +12360,35 @@ QUnit.module('relational_fields', {
         form.destroy();
     });
 
+    QUnit.test('widget many2many_checkboxes: values are updated when domain changes', function (assert) {
+        assert.expect(5);
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<field name="int_field"/>' +
+                    '<field name="timmy" widget="many2many_checkboxes" domain="[[\'id\', \'>\', int_field]]"/>' +
+                '</form>',
+            res_id: 1,
+            viewOptions: {
+                mode: 'edit',
+            },
+        });
+
+        assert.strictEqual(form.$('.o_field_widget[name=int_field]').val(), '10');
+        assert.strictEqual(form.$('.o_field_widget[name=timmy] .o_checkbox').length, 2);
+        assert.strictEqual(form.$('.o_field_widget[name=timmy] .o_form_label').text(), 'goldsilver');
+
+        form.$('.o_field_widget[name=int_field]').val('13').trigger('input');
+
+        assert.strictEqual(form.$('.o_field_widget[name=timmy] .o_checkbox').length, 1);
+        assert.strictEqual(form.$('.o_field_widget[name=timmy] .o_form_label').text(), 'silver');
+
+        form.destroy();
+    });
+
     QUnit.module('FieldMany2ManyBinaryMultiFiles');
 
     QUnit.test('widget many2many_binary', function (assert) {
@@ -12662,6 +12701,59 @@ QUnit.module('relational_fields', {
                         "should contain a link with the new value");
 
         form.destroy();
+    });
+
+    QUnit.test('interact with reference field changed by onchange', function (assert) {
+        assert.expect(2);
+        var done = assert.async();
+
+        var M2O_DELAY = relationalFields.FieldMany2One.prototype.AUTOCOMPLETE_DELAY;
+        relationalFields.FieldMany2One.prototype.AUTOCOMPLETE_DELAY = 0;
+
+        this.data.partner.onchanges = {
+            bar: function (obj) {
+                if (!obj.bar) {
+                    obj.reference = 'partner,1';
+                }
+            },
+        };
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                        '<field name="bar"/>' +
+                        '<field name="reference"/>' +
+                '</form>',
+            mockRPC: function (route, args) {
+                if (args.method === 'create') {
+                    assert.deepEqual(args.args[0], {
+                        bar: false,
+                        reference: 'partner,4',
+                    });
+                }
+                return this._super.apply(this, arguments);
+            },
+        });
+
+        // trigger the onchange to set a value for the reference field
+        form.$('.o_field_boolean input').click();
+
+        assert.strictEqual(form.$('.o_field_widget[name=reference] select').val(), 'partner');
+
+        // manually update reference field
+        var $dropdown = form.$('.o_field_widget[name=reference] input').autocomplete('widget');
+        form.$('.o_field_widget[name=reference] input').val('aaa').trigger('keydown');
+        concurrency.delay(0).then(function () {
+            $dropdown.find('li:first()').click(); // select 'aaa'
+
+            // save
+            form.$buttons.find('.o_form_button_save').click();
+
+            relationalFields.FieldMany2One.prototype.AUTOCOMPLETE_DELAY = M2O_DELAY;
+            done();
+            form.destroy();
+        });
     });
 
     QUnit.test('default_get and onchange with a reference field', function (assert) {

@@ -3,24 +3,30 @@
 # * payment
 # 
 # Translators:
-# Martin Trigaux <mat@odoo.com>, 2017
-# zbik2607 <darek@krokus.com.pl>, 2017
-# Grzegorz Grzelak <grzegorz.grzelak@openglobe.pl>, 2017
-# Piotr Szlązak <szlazakpiotr@gmail.com>, 2017
-# Judyta Kaźmierczak <judyta.kazmierczak@openglobe.pl>, 2017
 # Grażyna Grzelak <grazyna.grzelak@openglobe.pl>, 2017
+# Jaroslaw Kaczmarski, 2017
+# Dariusz Żbikowski <darek@krokus.com.pl>, 2017
 # Marcin Młynarczyk <mlynarczyk@gmail.com>, 2017
-# Jaroslaw Kaczmarski <jarek.pl@gmail.com>, 2017
-# Paweł Michoń <michon.pawel@wp.pl>, 2017
 # Zdzisław Krajewski <zdzichucb@gmail.com>, 2017
+# Paweł Michoń <michon.pawel@wp.pl>, 2017
 # Tadeusz Karpiński <tadeuszkarpinski@gmail.com>, 2017
+# Grzegorz Grzelak <grzegorz.grzelak@openglobe.pl>, 2017
+# Tomasz Leppich <t.leppich@gmail.com>, 2018
+# Radosław Biegalski <radoslaw.biegalski@openglobe.pl>, 2018
+# Maja Stawicka <mjstwck@wp.pl>, 2018
+# Paweł Wodyński <pw@myodoo.pl>, 2018
+# Judyta Kaźmierczak <judyta.kazmierczak@openglobe.pl>, 2018
+# Piotr Szlązak <szlazakpiotr@gmail.com>, 2018
+# Martin Trigaux, 2019
+# Natalia Gros <nag@flectrahq.com>, 2019
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 09:53+0000\n"
-"PO-Revision-Date: 2017-09-20 09:53+0000\n"
-"Last-Translator: Tadeusz Karpiński <tadeuszkarpinski@gmail.com>, 2017\n"
+"POT-Creation-Date: 2019-07-17 15:01+0000\n"
+"PO-Revision-Date: 2017-09-20 10:20+0000\n"
+"Last-Translator: Natalia Gros <nag@flectrahq.com>, 2019\n"
 "Language-Team: Polish (https://www.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,9 +35,24 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #. module: payment
+#: model:ir.ui.view,arch_db:payment.payment_confirmation_status
+msgid "&amp;times;"
+msgstr "&amp;times;"
+
+#. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_html_3ds
 msgid "3D Secure HTML"
 msgstr "3D Secure HTML"
+
+#. module: payment
+#: model:ir.ui.view,arch_db:payment.pay
+msgid "<b>Amount:</b>"
+msgstr "<b>Wartość:</b>"
+
+#. module: payment
+#: model:ir.ui.view,arch_db:payment.pay
+msgid "<b>Reference:</b>"
+msgstr "<b>Referencje:</b>"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.confirm
@@ -40,80 +61,74 @@ msgstr "<i class=\"fa fa-arrow-circle-right\"/> Wróć do Moje Konto"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.payment_tokens_list
-msgid "<i class=\"fa fa-lock\"> Pay</i>"
+msgid ""
+"<i class=\"fa fa-check text-success\" title=\"This payment method is "
+"verified by our system.\"/>"
 msgstr ""
+
+#. module: payment
+#: model:ir.ui.view,arch_db:payment.payment_tokens_list
+msgid ""
+"<i class=\"fa fa-close text-danger\" title=\"This payment method has not "
+"been verified by our system.\"/>"
+msgstr ""
+
+#. module: payment
+#: model:ir.ui.view,arch_db:payment.payment_tokens_list
+msgid "<i class=\"fa fa-lock\"> Pay</i>"
+msgstr "<i class=\"fa fa-lock\"> Zapłać</i>"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.payment_tokens_list
 msgid "<i class=\"fa fa-plus-circle\"> Add new card</i>"
-msgstr ""
+msgstr "<i class=\"fa fa-plus-circle\">Dodaj nową kartę</i>"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.payment_tokens_list
 msgid "<i class=\"fa fa-trash\"/> Delete"
-msgstr ""
+msgstr "<i class=\"fa fa-trash\"/> Usuń"
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:76
-#: code:addons/payment/static/src/js/payment_form.js:219
+#: code:addons/payment/models/payment_acquirer.py:122
 #, python-format
-msgid "<p>Please fill all the inputs required.</p>"
-msgstr ""
+msgid "<i>Cancel,</i> Your payment has been cancelled."
+msgstr "<i>Anuluj,</i> Twoja płatność została anulowana"
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:180
+#: code:addons/payment/models/payment_acquirer.py:118
 #, python-format
-msgid "<p>Please select a payment method.</p>"
+msgid ""
+"<i>Done,</i> Your online payment has been successfully processed. Thank you "
+"for your order."
 msgstr ""
+"<i>Gotowe,</i> Twoja płatność online została pomyślnie przetworzona. "
+"Dziękujemy za Twoje zamówienie."
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:274
+#: code:addons/payment/models/payment_acquirer.py:126
 #, python-format
-msgid "<p>Please select the option to add a new payment method.</p>"
+msgid ""
+"<i>Error,</i> Please be aware that an error occurred during the transaction."
+" The order has been confirmed but will not be paid. Do not hesitate to "
+"contact us if you have any questions on the status of your order."
 msgstr ""
 
 #. module: payment
+#: code:addons/payment/models/payment_acquirer.py:114
+#, python-format
+msgid ""
+"<i>Pending,</i> Your online payment has been successfully processed. But "
+"your order is not validated yet."
+msgstr ""
+"<i>Oczekiwanie,</i> Twoja płatność online została pomyślnie przetworzona. "
+"Ale twoje zamówienie nie zostało jeszcze zatwierdzone."
+
+#. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:315
+#: code:addons/payment/static/src/js/payment_form.js:350
 #, python-format
 msgid "<p>This card is currently linked to the following records:<p/>"
-msgstr ""
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:108
-#: code:addons/payment/static/src/js/payment_form.js:120
-#: code:addons/payment/static/src/js/payment_form.js:254
-#: code:addons/payment/static/src/js/payment_form.js:267
-#, python-format
-msgid "<p>We are not able to add your payment method at the moment.</p>"
-msgstr ""
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:298
-#: code:addons/payment/static/src/js/payment_form.js:333
-#, python-format
-msgid "<p>We are not able to delete your payment method at the moment.</p>"
-msgstr ""
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:155
-#: code:addons/payment/static/src/js/payment_form.js:161
-#, python-format
-msgid "<p>We are not able to redirect you to the payment form.</p>"
-msgstr ""
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:169
-#, python-format
-msgid "<p>We're unable to process your payment.</p>"
-msgstr ""
+msgstr "<p>Ta karta jest aktualnie połączona z następującymi wpisami:<p/>"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
@@ -178,6 +193,10 @@ msgid ""
 "hesitate to contact us if you have any questions on the status of your "
 "order.</span>"
 msgstr ""
+"<span><i>Błąd,</i> pamiętaj, że podczas transakcji wystąpił błąd. Zamówienie"
+" zostało potwierdzone, ale nie zostanie wypłacone. Nie wahaj się z nami "
+"skontaktować, jeśli masz jakiekolwiek pytania dotyczące statusu Twojego "
+"zamówienia.</span>"
 
 #. module: payment
 #: model:payment.acquirer,pending_msg:payment.payment_acquirer_adyen
@@ -271,7 +290,6 @@ msgstr "Zawsze"
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_amount
 #: model:ir.model.fields,help:payment.field_payment_transaction_amount
 #: model:ir.ui.view,arch_db:payment.confirm
-#: model:ir.ui.view,arch_db:payment.pay
 msgid "Amount"
 msgstr "Kwota"
 
@@ -325,7 +343,7 @@ msgstr ""
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:323
+#: code:addons/payment/static/src/js/payment_form.js:358
 #, python-format
 msgid "Cancel"
 msgstr "Anuluj"
@@ -342,9 +360,15 @@ msgstr "Anulowano"
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:168
+#: code:addons/payment/static/src/js/payment_form.js:188
 #, python-format
 msgid "Cannot set-up the payment"
+msgstr ""
+
+#. module: payment
+#: code:addons/payment/controllers/portal.py:111
+#, python-format
+msgid "Cannot setup the payment."
 msgstr ""
 
 #. module: payment
@@ -401,7 +425,7 @@ msgstr "Konfiguruj"
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:322
+#: code:addons/payment/static/src/js/payment_form.js:357
 #, python-format
 msgid "Confirm Deletion"
 msgstr ""
@@ -544,10 +568,10 @@ msgstr "Wiadomość o błędzie"
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:372
+#: code:addons/payment/static/src/js/payment_form.js:428
 #, python-format
 msgid "Error: "
-msgstr ""
+msgstr "Błąd: "
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_fees
@@ -703,7 +727,7 @@ msgstr ""
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.pay_methods
 msgid "Manage your Payment Methods"
-msgstr ""
+msgstr "Zarządzaj swymi metodami płatności"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.pay_meth_link
@@ -713,7 +737,7 @@ msgstr "Zarządzaj swymi metodami płatności"
 #. module: payment
 #: selection:payment.acquirer,provider:0
 msgid "Manual Configuration"
-msgstr ""
+msgstr "Manualna Konfiguracja"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_image_medium
@@ -737,22 +761,24 @@ msgstr "Wiadomość"
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_post_msg
 msgid "Message displayed after having done the payment process."
-msgstr ""
+msgstr "Komunikat wyświetlany po zakończeniu procesu płatności."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_pre_msg
 msgid "Message displayed to explain and help the payment process."
-msgstr ""
+msgstr "Komunikat wyświetlany aby wyjaśnić i wspomóc proces płatności."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_error_msg
 msgid "Message displayed, if error is occur during the payment process."
-msgstr ""
+msgstr "Komunikat wyświetlany, jeśli wystąpi błąd podczas procesu płatności."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_cancel_msg
 msgid "Message displayed, if order is cancel during the payment process."
 msgstr ""
+"Komunikat wyświetlany, jeśli zamówienie zostaje anulowane podczas procesu "
+"płatności."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_done_msg
@@ -760,6 +786,8 @@ msgid ""
 "Message displayed, if order is done successfully after having done the "
 "payment process."
 msgstr ""
+"Komunikat wyświetlany, jeśli zamówienie zostanie wykonane pomyślnie po "
+"zakończeniu procesu płatności."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_pending_msg
@@ -767,6 +795,8 @@ msgid ""
 "Message displayed, if order is in pending state after having done the "
 "payment process."
 msgstr ""
+"Komunikat wyświetlany, jeśli zamówienie ma status oczekujące po zakończeniu "
+"procesu płatności."
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
@@ -774,17 +804,9 @@ msgid "Messages"
 msgstr "Wiadomości"
 
 #. module: payment
-#: code:addons/payment/models/payment_acquirer.py:395
+#: code:addons/payment/models/payment_acquirer.py:455
 #, python-format
 msgid "Missing partner reference when trying to create a new payment token"
-msgstr ""
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:75
-#: code:addons/payment/static/src/js/payment_form.js:218
-#, python-format
-msgid "Missing values"
 msgstr ""
 
 #. module: payment
@@ -808,12 +830,17 @@ msgid "Never"
 msgstr "Nigdy"
 
 #. module: payment
+#: model:ir.ui.view,arch_db:payment.pay
+msgid "No payment acquirer found."
+msgstr ""
+
+#. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:179
-#: code:addons/payment/static/src/js/payment_form.js:273
+#: code:addons/payment/static/src/js/payment_form.js:199
+#: code:addons/payment/static/src/js/payment_form.js:308
 #, python-format
 msgid "No payment method selected"
-msgstr ""
+msgstr "Nie wybrano metody płatności"
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_account_payment_payment_token_id
@@ -836,19 +863,19 @@ msgstr "Ogone"
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:376
+#: code:addons/payment/static/src/js/payment_form.js:432
 #, python-format
 msgid "Ok"
 msgstr "Ok"
 
 #. module: payment
-#: code:addons/payment/models/payment_acquirer.py:759
+#: code:addons/payment/models/payment_acquirer.py:824
 #, python-format
 msgid "Only transactions in the Authorized status can be captured."
 msgstr ""
 
 #. module: payment
-#: code:addons/payment/models/payment_acquirer.py:766
+#: code:addons/payment/models/payment_acquirer.py:831
 #, python-format
 msgid "Only transactions in the Authorized status can be voided."
 msgstr ""
@@ -862,12 +889,6 @@ msgstr "Partner"
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_name
 msgid "Partner Name"
 msgstr "Nazwa partnera"
-
-#. module: payment
-#: code:addons/payment/controllers/portal.py:39
-#, python-format
-msgid "Pay Now"
-msgstr "Zapłać teraz"
 
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_payu
@@ -893,6 +914,11 @@ msgstr "Beneficjent płatności"
 #: model:ir.ui.view,arch_db:payment.acquirer_list
 msgid "Payment Acquirers"
 msgstr "Beneficijent płatności"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_payment_flow
+msgid "Payment Flow"
+msgstr ""
 
 #. module: payment
 #: model:ir.model,name:payment.model_payment_icon
@@ -947,14 +973,21 @@ msgid "Payment Transactions"
 msgstr "Transakcje płatności"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_payment_flow
-msgid "Payment flow"
+#: selection:payment.acquirer,payment_flow:0
+msgid "Payment from Odoo"
 msgstr ""
 
 #. module: payment
 #: code:addons/payment/models/account_payment.py:59
 #, python-format
 msgid "Payment transaction failed (%s)"
+msgstr ""
+
+#. module: payment
+#: code:addons/payment/controllers/portal.py:131
+#: code:addons/payment/controllers/portal.py:135
+#, python-format
+msgid "Payment transaction failed."
 msgstr ""
 
 #. module: payment
@@ -998,20 +1031,38 @@ msgid "Phone"
 msgstr "Telefon"
 
 #. module: payment
+#: model:ir.ui.view,arch_db:payment.pay
+msgid "Please configure a payment acquirer."
+msgstr ""
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:200
+#, python-format
+msgid "Please select a payment method."
+msgstr "Proszę wybrać metodę płatności"
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:309
+#, python-format
+msgid "Please select the option to add a new payment method."
+msgstr ""
+
+#. module: payment
 #: model:payment.acquirer,post_msg:payment.payment_acquirer_custom
 #: model:payment.acquirer,post_msg:payment.payment_acquirer_transfer
 msgid "Please use the following transfer details"
-msgstr ""
+msgstr "Proszę użyć następujących danych do przelewu"
 
 #. module: payment
 #: model:payment.acquirer,post_msg:payment.payment_acquirer_custom
 #: model:payment.acquirer,post_msg:payment.payment_acquirer_transfer
 msgid "Please use the order name as communication reference."
-msgstr ""
+msgstr "Proszę użyć nazwy zamówienia jako odniesienia do komunikacji."
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.confirm
-#: model:ir.ui.view,arch_db:payment.pay
 msgid "Processed by"
 msgstr ""
 
@@ -1028,9 +1079,27 @@ msgid "Provider"
 msgstr "Dostawca"
 
 #. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_translations.js:9
+#, python-format
+msgid "Publish"
+msgstr "Publikuj"
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_translations.js:8
+#, python-format
+msgid "Published"
+msgstr "Opublikowano"
+
+#. module: payment
+#: selection:payment.acquirer,payment_flow:0
+msgid "Redirection to the acquirer website"
+msgstr ""
+
+#. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_reference
 #: model:ir.ui.view,arch_db:payment.confirm
-#: model:ir.ui.view,arch_db:payment.pay
 msgid "Reference"
 msgstr "Odnośnik"
 
@@ -1042,7 +1111,7 @@ msgstr ""
 #. module: payment
 #: selection:payment.transaction,state:0
 msgid "Refunded"
-msgstr ""
+msgstr "Zwrócone"
 
 #. module: payment
 #: selection:payment.transaction,state:0
@@ -1062,18 +1131,18 @@ msgstr "S2S Szablon formularza"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_save_token
 msgid "Save Cards"
-msgstr ""
+msgstr "Zapisz karty"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.payment_tokens_list
 msgid "Save my payment data"
-msgstr ""
+msgstr "Zapisz moje dane do płatności"
 
 #. module: payment
 #: model:ir.actions.act_window,name:payment.payment_token_action
 #: model:ir.ui.menu,name:payment.payment_token_menu
 msgid "Saved Payment Data"
-msgstr ""
+msgstr "Zapisano dane do płatności"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_account_payment_payment_token_id
@@ -1092,16 +1161,16 @@ msgstr "Numeracja"
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:107
 #: code:addons/payment/static/src/js/payment_form.js:119
-#: code:addons/payment/static/src/js/payment_form.js:154
-#: code:addons/payment/static/src/js/payment_form.js:160
-#: code:addons/payment/static/src/js/payment_form.js:253
-#: code:addons/payment/static/src/js/payment_form.js:297
+#: code:addons/payment/static/src/js/payment_form.js:134
+#: code:addons/payment/static/src/js/payment_form.js:173
+#: code:addons/payment/static/src/js/payment_form.js:179
+#: code:addons/payment/static/src/js/payment_form.js:285
 #: code:addons/payment/static/src/js/payment_form.js:332
+#: code:addons/payment/static/src/js/payment_form.js:367
 #, python-format
 msgid "Server Error"
-msgstr ""
+msgstr "Błąd Serwera"
 
 #. module: payment
 #: selection:payment.transaction,type:0
@@ -1110,10 +1179,10 @@ msgstr ""
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:266
+#: code:addons/payment/static/src/js/payment_form.js:300
 #, python-format
 msgid "Server error"
-msgstr ""
+msgstr "Błąd serwera"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_token_short_name
@@ -1173,26 +1242,16 @@ msgstr "Test"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_post_msg
 msgid "Thanks Message"
-msgstr ""
+msgstr "Wiadomość dziękczynna"
 
 #. module: payment
-#: code:addons/payment/models/payment_acquirer.py:570
+#: code:addons/payment/models/payment_acquirer.py:627
 #, python-format
 msgid "The %s payment acquirers are not allowed to manual capture mode!"
 msgstr ""
 
 #. module: payment
-#: selection:payment.acquirer,payment_flow:0
-msgid "The customer encode his payment details on the website."
-msgstr ""
-
-#. module: payment
-#: selection:payment.acquirer,payment_flow:0
-msgid "The customer is redirected to the website of the acquirer."
-msgstr ""
-
-#. module: payment
-#: code:addons/payment/models/payment_acquirer.py:563
+#: code:addons/payment/models/payment_acquirer.py:620
 #, python-format
 msgid "The payment transaction reference must be unique!"
 msgstr ""
@@ -1222,9 +1281,9 @@ msgstr ""
 #: model:ir.model.fields,help:payment.field_payment_acquirer_save_token
 msgid ""
 "This option allows customers to save their credit card as a payment token "
-"and to reuse it for a later purchase.If you manage subscriptions (recurring "
-"invoicing), you need it to automatically charge the customer when you issue "
-"an invoice."
+"and to reuse it for a later purchase. If you manage subscriptions (recurring"
+" invoicing), you need it to automatically charge the customer when you issue"
+" an invoice."
 msgstr ""
 
 #. module: payment
@@ -1289,10 +1348,53 @@ msgstr ""
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:318
+#: code:addons/payment/static/src/js/payment_form.js:353
 #, python-format
 msgid "Warning!"
 msgstr "Uwaga!"
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:135
+#, python-format
+msgid "We are not able to add your payment method at the moment."
+msgstr "Nie możemy w tej chwili dodać twojej metody płatności."
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:301
+#, python-format
+msgid "We are not able to add your payment method at the moment.</p>"
+msgstr "Nie możemy w tej chwili dodać twojej metody płatności.</p>"
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:333
+#: code:addons/payment/static/src/js/payment_form.js:368
+#, python-format
+msgid "We are not able to delete your payment method at the moment."
+msgstr "Nie możemy w tej chwili usunąć twojej metody płatności."
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:174
+#, python-format
+msgid "We are not able to redirect you to the payment form."
+msgstr ""
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:180
+#, python-format
+msgid "We are not able to redirect you to the payment form. "
+msgstr ""
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:189
+#, python-format
+msgid "We're unable to process your payment."
+msgstr "Nie możemy przetworzyć twojej płatności."
 
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_transfer
@@ -1346,12 +1448,18 @@ msgid ""
 "You will be redirected to the Paypal website after clicking on the payment "
 "button."
 msgstr ""
+"Zostaniesz przekierowany na stronę PayPal po kliknięciu przycisku płatności."
 
 #. module: payment
 #: model:payment.acquirer,pre_msg:payment.payment_acquirer_sips
 msgid ""
 "You will be redirected to the Sips website after clicking on payment button."
 msgstr ""
+
+#. module: payment
+#: model:ir.ui.view,arch_db:payment.payment_confirmation_status
+msgid "Your payment has been authorized."
+msgstr "Twoja płatność została autoryzowana."
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.transaction_form
@@ -1389,6 +1497,14 @@ msgid "currency: the transaction currency browse record"
 msgstr ""
 
 #. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:120
+#: code:addons/payment/static/src/js/payment_form.js:286
+#, python-format
+msgid "e.g. Your credit card details are wrong. Please verify."
+msgstr ""
+
+#. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
 msgid "partner: the buyer partner browse record, not necessarily set"
 msgstr ""
@@ -1403,7 +1519,7 @@ msgstr ""
 #. module: payment
 #: model:ir.model,name:payment.model_payment_token
 msgid "payment.token"
-msgstr ""
+msgstr "payment.token"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
@@ -1424,3 +1540,8 @@ msgstr "tx_values: transaction values"
 #: model:ir.ui.view,arch_db:payment.acquirer_form
 msgid "user: current user browse record"
 msgstr ""
+
+#. module: payment
+#: model:ir.model,name:payment.model_wizard_multi_charts_accounts
+msgid "wizard.multi.charts.accounts"
+msgstr "wizard.multi.charts.accounts"

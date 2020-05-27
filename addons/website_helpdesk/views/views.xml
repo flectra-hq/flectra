@@ -5,7 +5,7 @@
               name="Helpdesk">
         <xpath expr="." position="inside">
             <script type="text/javascript"
-                    src="website_helpdesk/static/src/js/helpdesk.js"></script>
+                    src="/website_helpdesk/static/src/js/helpdesk.js"></script>
             <link rel="stylesheet" href="/website_helpdesk/static/src/css/helpdesk_attachment.css"/>
         </xpath>
     </template>
@@ -56,7 +56,7 @@
                                     <tr>
                                         <td>
                                             <a t-attf-href="/my/ticket/#{ticket.id}?{{ keep_query() }}">
-                                                <span t-raw="ticket.sequence"/>
+                                                <span t-raw="ticket.ticket_seq"/>
                                             </a>
                                         </td>
                                         <td>

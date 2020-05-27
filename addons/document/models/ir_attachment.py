@@ -9,7 +9,7 @@ import zipfile
 from flectra import api, models
 
 _logger = logging.getLogger(__name__)
-FTYPES = ['docx', 'pptx', 'xlsx', 'opendoc', 'pdf']
+FTYPES = ['docx', 'pptx', 'xlsx', 'opendoc']
 
 def textToString(element):
     buff = u""

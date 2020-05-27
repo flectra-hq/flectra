@@ -110,7 +110,7 @@ umount "${MOUNT_POINT}"
 # from http://paulscott.co.za/blog/full-raspberry-pi-raspbian-emulation-with-qemu/
 # ssh pi@localhost -p10022
 # as of stretch with newer kernels, the versatile-pb.dtb file is necessary
-QEMU_OPTS=(-kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -dtb versatile-pb.dtb -no-reboot -serial stdio -append 'root=/dev/sda2 rootfstype=ext4 rw' -hda posbox.img -net user,hostfwd=tcp::10022-:22,hostfwd=tcp::18069-:8069 -net nic)
+QEMU_OPTS=(-kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -dtb versatile-pb.dtb -no-reboot -serial stdio -append 'root=/dev/sda2 rootfstype=ext4 rw' -hda posbox.img -net user,hostfwd=tcp::10022-:22,hostfwd=tcp::17073-:7073 -net nic)
 if [ -z ${DISPLAY:-} ] ; then
     QEMU_OPTS+=(-nographic)
 fi

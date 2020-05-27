@@ -9,6 +9,7 @@ from flectra.tools import consteq, float_round, image_resize_images, image_resiz
 from flectra.addons.base.module import module
 from flectra.exceptions import ValidationError
 from flectra import api, SUPERUSER_ID
+from flectra.http import request
 
 _logger = logging.getLogger(__name__)
 
@@ -184,9 +185,13 @@ class PaymentAcquirer(models.Model):
     def _check_required_if_provider(self):
         """ If the field has 'required_if_provider="<provider>"' attribute, then it
         required if record.provider is <provider>. """
+        empty_field = []
         for acquirer in self:
-            if any(getattr(f, 'required_if_provider', None) == acquirer.provider and not acquirer[k] for k, f in self._fields.items()):
-                return False
+            for k, f in acquirer._fields.items():
+                if getattr(f, 'required_if_provider', None) == acquirer.provider and not acquirer[k]:
+                    empty_field.append(self.env['ir.model.fields'].search([('name', '=', k), ('model', '=', acquirer._name)]).field_description)
+        if empty_field:
+            raise ValidationError((', ').join(empty_field))
         return True
 
     _constraints = [
@@ -302,7 +307,7 @@ class PaymentAcquirer(models.Model):
             company = self.env.user.company_id
         if not partner:
             partner = self.env.user.partner_id
-        active_acquirers = self.sudo().search([('website_published', '=', True), ('company_id', '=', company.id)])
+        active_acquirers = self.search([('website_published', '=', True), ('company_id', '=', company.id)])
         form_acquirers = active_acquirers.filtered(lambda acq: acq.payment_flow == 'form' and acq.view_template_id)
         s2s_acquirers = active_acquirers.filtered(lambda acq: acq.payment_flow == 's2s' and acq.registration_view_template_id)
         return {
@@ -481,6 +486,9 @@ class PaymentAcquirer(models.Model):
                 'tag': 'reload',
             }
 
+    def get_base_url(self):
+        return request and request.httprequest.url_root or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+
 class PaymentIcon(models.Model):
     _name = 'payment.icon'
     _description = 'Payment Icon'
@@ -644,7 +652,7 @@ class PaymentTransaction(models.Model):
 
             # custom create
             custom_method_name = '%s_create' % acquirer.provider
-            if hasattr(acquirer, custom_method_name):
+            if hasattr(self, custom_method_name):
                 values.update(getattr(self, custom_method_name)(values))
 
         # Default value of reference is
@@ -695,6 +703,14 @@ class PaymentTransaction(models.Model):
             reference = init_ref + 'x' + str(ref_suffix)
             ref_suffix += 1
         return reference
+
+    def _get_json_info(self):
+        self.ensure_one()
+        return {
+            'state': self.state,
+            'acquirer_reference': self.acquirer_reference,
+            'reference': self.reference,
+        }
 
     def _generate_callback_hash(self):
         self.ensure_one()

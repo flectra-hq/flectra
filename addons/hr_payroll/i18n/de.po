@@ -3,28 +3,33 @@
 # * hr_payroll
 # 
 # Translators:
-# Ermin Trevisan <trevi@twanda.com>, 2017
-# Martin Trigaux <mat@odoo.com>, 2017
-# Ralf Hilgenstock <rh@dialoge.info>, 2017
-# Renzo Meister <info@jamotion.ch>, 2017
-# Wolfgang Taferner <wolfgang.transifex@service.wt-io-it.at>, 2017
-# darenkster <inactive+darenkster@transifex.com>, 2017
-# Niki Waibel <niki.waibel@gmail.com>, 2017
 # Anja Funk <anja.funk@afimage.de>, 2017
+# Niki Waibel, 2017
 # JackTheHunter <Maximilian.N98@gmail.com>, 2017
+# Renzo Meister, 2017
+# Henry Mineehen <info@mineehen.de>, 2017
 # Tina Rittmüller <tr@ife.de>, 2017
 # Philipp Hug <philipp@hug.cx>, 2017
-# Henry Mineehen <info@mineehen.de>, 2017
-# Thorsten Vocks <thorsten.vocks@openbig.org>, 2017
-# Gab_Odoo <gab@odoo.com>, 2017
+# Gab_Odoo <gab@flectrahq.com>, 2017
+# darenkster <inactive+darenkster@transifex.com>, 2017
+# Ralf Hilgenstock <rh@dialoge.info>, 2017
+# Ermin Trevisan <trevi@twanda.com>, 2017
 # DE R1 <e2fes1@hotmail.com>, 2017
+# e2f <projects@e2f.com>, 2018
+# Katharina Moritz <kmo@e2f.com>, 2018
+# DE T2 <e2f48d4s5vd1s2@outlook.com>, 2018
+# Thorsten Vocks <thorsten.vocks@openbig.org>, 2018
+# Wolfgang Taferner, 2018
+# Rudolf Schnapka <rs@techno-flex.de>, 2018
+# Martin Trigaux, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-30 13:11+0000\n"
-"PO-Revision-Date: 2017-11-30 13:11+0000\n"
-"Last-Translator: DE R1 <e2fes1@hotmail.com>, 2017\n"
+"POT-Creation-Date: 2019-01-03 15:06+0000\n"
+"PO-Revision-Date: 2017-09-20 10:18+0000\n"
+"Last-Translator: Martin Trigaux, 2019\n"
 "Language-Team: German (https://www.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,13 +54,13 @@ msgid ""
 "                \n"
 "* When user cancel payslip the status is 'Rejected'."
 msgstr ""
-"* Wenn die Lohnabrechnung angelegt wird, ist der Status 'Entwurf'\n"
-"                \n"
-"* Wenn die Lohnabrechnung überprüft wird , ist der Status 'Warteliste'.\n"
-"                \n"
-"* Ist die Lohnabrechnung bestätigt, so ist der Status 'Erledigt'.\n"
-"                \n"
-"* Wenn die Lohnabrechnung storniert wurde, ist der Status'Abgelehnt'."
+"* Bei Erstellung einer Mitarbeiterabrechnung ist der Status zunächst „Entwurf”.\n"
+" \n"
+"* Während der Prüfung ist der Status zwischenzeitlich „Wartend”.\n"
+" \n"
+"* Wenn die Mitarbeiterabrechnung genehmigt wurde, ist der Status „Erledigt”.\n"
+" \n"
+"* Wenn die Mitarbeiterabrechnung abgebrochen wird, ist der Status „Abgelehnt”."
 
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.report_payslip
@@ -144,9 +149,10 @@ msgid ""
 "            payment of the employees. It can be the social security, the\n"
 "            estate or anyone that collect or inject money on payslips."
 msgstr ""
-"Ein Beitragsregister ist ein Dritter, der an der Gehaltszahlung der\n"
-" Mitarbeiter beteiligt ist. Es kann die Sozialversicherung, der Nachlassverwalter \n"
-" oder jeder sein, der Geld auf Lohnabrechnungen sammelt oder einspeist."
+"Ein Beitragsregister ist ein Dritter, der an der Lohnzahlung der "
+"Arbeitnehmer beteiligt ist. Es kann sich um die Sozialversicherung, den "
+"Staat oder eine beliebige Person, die Gelder zu Mitarbeiterabrechnungen "
+"hinzufügt, handeln."
 
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
@@ -173,12 +179,17 @@ msgstr "Interne Anmerkung hinzufügen ..."
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.hr_contract_advantage_template_view_form
 msgid "Advantage Name"
-msgstr "Name Zusatzleistung"
+msgstr "Name Mitarbeitervergütung"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.act_children_salary_rules
 msgid "All Children Rules"
 msgstr "Abhängige Regeln hinzufügen"
+
+#. module: hr_payroll
+#: model:hr.salary.rule.category,name:hr_payroll.ALW
+msgid "Allowance"
+msgstr "Zuwendung"
 
 #. module: hr_payroll
 #: selection:hr.payslip.line,condition_select:0
@@ -224,9 +235,19 @@ msgstr ""
 "1000"
 
 #. module: hr_payroll
+#: model:hr.salary.rule.category,name:hr_payroll.BASIC
+msgid "Basic"
+msgstr "Basisstufe"
+
+#. module: hr_payroll
+#: model:hr.salary.rule,name:hr_payroll.hr_rule_basic
+msgid "Basic Salary"
+msgstr "Grundgehalt"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings_module_l10n_be_hr_payroll
 msgid "Belgium Payroll"
-msgstr "Lohnabrechnung Belgien"
+msgstr "Belgien-Personalabrechnung"
 
 #. module: hr_payroll
 #: selection:hr.contract,schedule_pay:0
@@ -257,7 +278,8 @@ msgstr "Lohnberechnung abbrechen"
 #: code:addons/hr_payroll/models/hr_payslip.py:98
 #, python-format
 msgid "Cannot cancel a payslip that is done."
-msgstr "Eine erledigte Lohnabrechnung kann nicht storniert werden."
+msgstr ""
+"Eine bereits erstellte Mitarbeiterabrechnung kann nicht storniert werden."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line_category_id
@@ -291,7 +313,7 @@ msgstr "Definition von Abhängigkeiten"
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Choose a Payroll Localization"
-msgstr "Wählen Sie das Land für die Lohnabrechnung"
+msgstr "Wählen Sie eine Personalabrechnungslokalisierung"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,help:hr_payroll.action_contribution_register_form
@@ -340,6 +362,7 @@ msgid "Company"
 msgstr "Unternehmen"
 
 #. module: hr_payroll
+#: model:hr.salary.rule.category,name:hr_payroll.COMP
 #: model:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
 msgid "Company Contribution"
 msgstr "Arbeitgeberanteile"
@@ -387,7 +410,7 @@ msgstr "Arbeitsvertrag"
 #: model:ir.actions.act_window,name:hr_payroll.hr_contract_advantage_template_action
 #: model:ir.ui.menu,name:hr_payroll.hr_contract_advantage_template_menu_action
 msgid "Contract Advantage Templates"
-msgstr "Vorlage für Zusatzleistungen"
+msgstr "Vertragsvergütungsvorlagen"
 
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.hr_contribution_register_form
@@ -414,6 +437,16 @@ msgstr "Beitragskonto Lohnkonto Zeilen"
 #: model:ir.ui.view,arch_db:hr_payroll.hr_contribution_register_tree
 msgid "Contribution Registers"
 msgstr "Anteile Arbeitgeber / Arbeitnehmer"
+
+#. module: hr_payroll
+#: model:hr.salary.rule,name:hr_payroll.hr_salary_rule_convanceallowance1
+msgid "Conveyance Allowance"
+msgstr "Fördergeld"
+
+#. module: hr_payroll
+#: model:hr.salary.rule,name:hr_payroll.hr_salary_rule_ca_gravie
+msgid "Conveyance Allowance For Gravie"
+msgstr "Zuwendung für Zusatzdienst"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract_advantage_template_create_uid
@@ -470,9 +503,14 @@ msgid "Date To"
 msgstr "Datum bis"
 
 #. module: hr_payroll
+#: model:hr.salary.rule.category,name:hr_payroll.DED
+msgid "Deduction"
+msgstr "Abzüge"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract_advantage_template_default_value
 msgid "Default value for this advantage"
-msgstr "Standardwert für diese Zusatzleistung"
+msgstr "Standardwert für diese Mitarbeitervergütung"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_contract_schedule_pay
@@ -597,7 +635,7 @@ msgstr "Mitarbeiter-Lohnabrechnung"
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_contract_advantage_template
 msgid "Employee's Advantage on Contract"
-msgstr "Vorlage Zusatzleistungen Mitarbeiter"
+msgstr "Vertragliche Mitarbeitervergütung"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_employees_employee_ids
@@ -612,6 +650,21 @@ msgstr "Personal"
 #, python-format
 msgid "Error ! You cannot create a recursive Salary Structure."
 msgstr "Fehler! Sie dürfen keine Rekursion in der Lohnstruktur erzeugen."
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/models/hr_salary_rule.py:91
+#, python-format
+msgid "Error! You cannot create recursive hierarchy of Salary Rule Category."
+msgstr ""
+"Fehler! Sie dürfen die Struktur der Kategorien für Gehaltsregeln nicht "
+"rekursiv anlegen."
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/models/hr_salary_rule.py:176
+#, python-format
+msgid "Error! You cannot create recursive hierarchy of Salary Rules."
+msgstr ""
+"Fehler! Sie dürfen die Struktur der Gehaltsregeln nicht rekursiv anlegen."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_line_register_id
@@ -637,7 +690,7 @@ msgstr "zB 50.0 für 50%"
 #: code:addons/hr_payroll/report/report_contribution_register.py:34
 #, python-format
 msgid "Form content is missing, this report cannot be printed."
-msgstr "Der Formularinhalt fehlt, dieser Bericht kann nicht gedruckt werden."
+msgstr "Der Formularinhalt fehlt; dieser Bericht kann nicht gedruckt werden."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings_module_l10n_fr_hr_payroll
@@ -666,11 +719,33 @@ msgid "Generate payslips for all selected employees"
 msgstr "Lohnabrechnungen für alle ausgewählten Mitarbeiter erzeugen"
 
 #. module: hr_payroll
+#: model:hr.salary.rule,name:hr_payroll.hr_salary_rule_sales_commission
+msgid "Get 1% of sales"
+msgstr "Erhalte 1% der Umsätze"
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/models/hr_payslip.py:183
+#, python-format
+msgid "Global Leaves"
+msgstr "Globale Urlaubstage"
+
+#. module: hr_payroll
+#: model:hr.salary.rule,name:hr_payroll.hr_rule_taxable
+#: model:hr.salary.rule.category,name:hr_payroll.GROSS
+msgid "Gross"
+msgstr "Brutto"
+
+#. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_filter
 #: model:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_line_filter
 #: model:ir.ui.view,arch_db:hr_payroll.view_hr_rule_filter
 msgid "Group By"
 msgstr "Gruppieren nach"
+
+#. module: hr_payroll
+#: model:hr.salary.rule,name:hr_payroll.hr_salary_rule_houserentallowance1
+msgid "House Rent Allowance"
+msgstr "Zuwendung für Hausmiete"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract_advantage_template_id
@@ -716,7 +791,8 @@ msgstr "Indische Lohnabrechnung"
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_credit_note
 msgid "Indicates this payslip has a refund of another"
-msgstr "Zeigt an, dass dieses Lohnkonto eine Rückerstattung eines anderen beinhaltet"
+msgstr ""
+"Zeigt an, dass dieses Lohnkonto eine Rückerstattung eines anderen beinhaltet"
 
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
@@ -748,10 +824,10 @@ msgid ""
 "for Meal Voucher having fixed amount of 1€ per worked day can have its "
 "quantity defined in expression like worked_days.WORK100.number_of_days."
 msgstr ""
-"Wird bei der Berechnung von Prozentsatz und Festbetrag verwendet. "
-"So kann z.B. eine Regel für 'Essensgutscheine mit einem Festbetrag von "
-"1€ pro Arbeitstag' die Anzahl Arbeitstage mittels Ausdruck "
-"worked_days.WORK100.number_of_days ermittelt werden."
+"Wird zur Berechnung für prozentuale und feste Beträge verwendet. Wenn Sie "
+"beispielsweise eine Regel für Essensgutscheine mit einem festen Betrag von 1"
+" € pro gearbeitetem Tag festgelegt haben, kann diese Menge in einem Ausdruck"
+" wie work_days.WORK100.number_of_days definiert werden."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_input_amount
@@ -761,8 +837,7 @@ msgid ""
 "inputs.SALEURO.amount * contract.wage*0.01."
 msgstr ""
 "Dieses Feld wird für Berechnungen verwendet.\n"
-"Eine Regel für 1% Verkaufskommission auf das Grundgehalt lautet zB: result = "
-"inputs.SALEURO.amount * contract.wage*0.01"
+"Eine Regel für 1% Verkaufskommission auf das Grundgehalt lautet zB: result = inputs.SALEURO.amount * contract.wage*0.01"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract_advantage_template___last_update
@@ -829,12 +904,14 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract_advantage_template_lower_bound
 msgid "Lower Bound"
-msgstr "Untergrenze"
+msgstr "Untere Begrenzung"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_contract_advantage_template_lower_bound
 msgid "Lower bound authorized by the employer for this advantage"
-msgstr "Untergrenze für diese Zusatzleistung"
+msgstr ""
+"Untere Begrenzung genehmigt durch den Arbeitgeber für diese "
+"Mitarbeitervergütung"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_paid
@@ -851,6 +928,11 @@ msgstr "Manager"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule_condition_range_max
 msgid "Maximum Range"
 msgstr "Maximaler Bereich"
+
+#. module: hr_payroll
+#: model:hr.salary.rule,name:hr_payroll.hr_salary_rule_meal_voucher
+msgid "Meal Voucher"
+msgstr "Essensbeleg"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line_condition_range_min
@@ -883,7 +965,17 @@ msgid "Name"
 msgstr "Name"
 
 #. module: hr_payroll
-#: code:addons/hr_payroll/models/hr_payslip.py:197
+#: model:hr.salary.rule.category,name:hr_payroll.NET
+msgid "Net"
+msgstr "Netto"
+
+#. module: hr_payroll
+#: model:hr.salary.rule,name:hr_payroll.hr_rule_net
+msgid "Net Salary"
+msgstr "Nettogehalt"
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/models/hr_payslip.py:199
 #, python-format
 msgid "Normal Working Days paid at 100%"
 msgstr "Normale Arbeitstage zu 100% bezahlt"
@@ -985,12 +1077,12 @@ msgstr "Personalabrechnung"
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Payroll Entries"
-msgstr "Lohnbuchungen"
+msgstr "Einträge für Personalabrechnung"
 
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Payroll Rules"
-msgstr "Regeln Lohnabrechnung"
+msgstr "Personalabrechnungsregeln"
 
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.view_hr_payroll_structure_filter
@@ -1000,7 +1092,7 @@ msgstr "Lohnkonto Strukturen"
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Payroll rules that apply to your country"
-msgstr "Abrechnungsregeln, die für Ihr Land gelten"
+msgstr "Personalabrechnungsregeln für Ihr Land"
 
 #. module: hr_payroll
 #: model:ir.actions.report,name:hr_payroll.action_report_payslip
@@ -1015,6 +1107,7 @@ msgid "Payslip 'Date From' must be before 'Date To'."
 msgstr "Lohnzettel Datum von muss vor Datum bis liegen."
 
 #. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payslip_run
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_payslip_run_id
 #: model:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_filter
 msgid "Payslip Batches"
@@ -1055,17 +1148,12 @@ msgstr "Lohnkonto Zeilen"
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.report_payslipdetails
 msgid "Payslip Lines by Contribution Register"
-msgstr "Lohnabrechnungszeilen nach Sozialabgaben"
+msgstr "Gehaltsabrechnungszeilen nach Sozialabgaben"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_name
 msgid "Payslip Name"
-msgstr "Bezeichnung Lohnabrechnung"
-
-#. module: hr_payroll
-#: model:ir.model,name:hr_payroll.model_hr_payslip_run
-msgid "Payslip Run"
-msgstr "Lohnabrechnungslauf"
+msgstr "Bezeichnung Gehaltsabrechnung"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_worked_days
@@ -1121,12 +1209,22 @@ msgstr "Periode"
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Post payroll slips in accounting"
-msgstr "Verbuchen der Lohnabrechnung in der Buchhaltung"
+msgstr "Mitarbeiterabrechnungen in Buchhaltung einfügen"
 
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.view_payslip_lines_contribution_register
 msgid "Print"
 msgstr "Drucken"
+
+#. module: hr_payroll
+#: model:hr.salary.rule,name:hr_payroll.hr_salary_rule_professionaltax1
+msgid "Professional Tax"
+msgstr "Lohnsteuer"
+
+#. module: hr_payroll
+#: model:hr.salary.rule,name:hr_payroll.hr_salary_rule_providentfund1
+msgid "Provident Fund"
+msgstr "Vorsorgeeinzahlungen"
 
 #. module: hr_payroll
 #: selection:hr.payslip.line,amount_select:0
@@ -1202,7 +1300,7 @@ msgstr "Rückerstattung"
 #: code:addons/hr_payroll/models/hr_payslip.py:104
 #, python-format
 msgid "Refund: "
-msgstr "Storno: "
+msgstr "Storno:"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contribution_register_register_line_ids
@@ -1233,16 +1331,9 @@ msgstr "Vergütungsberechnung"
 #: model:ir.actions.act_window,name:hr_payroll.action_hr_salary_rule_category
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_salary_rule_category
 #: model:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_category_tree
-#: model:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_category_tree_view
 #: model:ir.ui.view,arch_db:hr_payroll.view_hr_salary_rule_category_filter
 msgid "Salary Rule Categories"
 msgstr "Lohnartenkategorien"
-
-#. module: hr_payroll
-#: model:ir.actions.act_window,name:hr_payroll.action_hr_salary_rule_category_tree_view
-#: model:ir.ui.menu,name:hr_payroll.menu_hr_salary_rule_category_tree_view
-msgid "Salary Rule Categories Hierarchy"
-msgstr "Hierarchie der Lohnartenkategorien"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_salary_rule_category
@@ -1344,7 +1435,7 @@ msgstr "Einstellungen"
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_filter
 msgid "States"
-msgstr "Status"
+msgstr "Bundesländer"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run_state
@@ -1372,7 +1463,7 @@ msgstr ""
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_worked_days_code
 #: model:ir.model.fields,help:hr_payroll.field_hr_rule_input_code
 msgid "The code that can be used in the salary rules"
-msgstr "Der Code welcher in Lohnarten verwendet werden kann"
+msgstr "Die Formel, die in Lohnarten verwendet werden kann"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_line_amount_select
@@ -1429,17 +1520,19 @@ msgstr "Total"
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Total Working Days"
-msgstr "Total Arbeitstage"
+msgstr "Gesamt Arbeitstage"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract_advantage_template_upper_bound
 msgid "Upper Bound"
-msgstr "Obergrenze"
+msgstr "Obere Begrenzung"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_contract_advantage_template_upper_bound
 msgid "Upper bound authorized by the employer for this advantage"
-msgstr "Obergrenze für diese Zusatzleistung"
+msgstr ""
+"Obere Begrenzung genehmigt durch den Arbeitgeber für diese "
+"Mitarbeitervergütung"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_line_sequence
@@ -1523,13 +1616,15 @@ msgstr ""
 #, python-format
 msgid "You must select employee(s) to generate payslip(s)."
 msgstr ""
-"Sie müssen Mitarbeiter für die zu erstellende Lohnabrechnung wählen"
+"Sie müssen Mitarbeiter für die zu erstellende Gehaltsabrechnung wählen"
 
 #. module: hr_payroll
 #: code:addons/hr_payroll/models/hr_payslip.py:517
 #, python-format
 msgid "You must set a contract to create a payslip line."
-msgstr "Sie müssen einen Vertrag auswählen zur Generierung der Lohnabrechnung."
+msgstr ""
+"Sie müssen einen Vertrag festlegen, um eine Mitarbeiterabrechnungsposition "
+"zu erstellen."
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_salary_rule

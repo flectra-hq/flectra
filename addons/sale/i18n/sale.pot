@@ -1,13 +1,13 @@
-# Translation of Flectra Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
 #	* sale
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Flectra Server 1.5\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 12:03+0000\n"
-"PO-Revision-Date: 2019-03-26 12:03+0000\n"
+"POT-Creation-Date: 2019-01-03 15:07+0000\n"
+"PO-Revision-Date: 2019-01-03 15:07+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -137,7 +137,7 @@ msgid "<html>\n"
 "                      <!-- HEADER -->\n"
 "                      <tr>\n"
 "                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                          <table width=\"590\" border=\"0\" cellpadding=\"0\" bgcolor=\"#875A7B\" style=\"min-width: 590px; background-color: rgb(0,158,251); padding: 20px; border-collapse:separate;\">\n"
+"                          <table width=\"590\" border=\"0\" cellpadding=\"0\" bgcolor=\"#009efb\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px; border-collapse:separate;\">\n"
 "                            <tr>\n"
 "                              <td valign=\"middle\">\n"
 "                                  <span style=\"font-size:20px; color:white; font-weight: bold;\">\n"
@@ -168,7 +168,7 @@ msgid "<html>\n"
 "                      <!-- FOOTER -->\n"
 "                      <tr>\n"
 "                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                          <table width=\"590\" border=\"0\" cellpadding=\"0\" bgcolor=\"#875A7B\" style=\"min-width: 590px; background-color: rgb(0,158,251); padding: 20px; border-collapse:separate;\">\n"
+"                          <table width=\"590\" border=\"0\" cellpadding=\"0\" bgcolor=\"#009efb\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px; border-collapse:separate;\">\n"
 "                            <tr>\n"
 "                              <td valign=\"middle\" align=\"left\" style=\"color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;\">\n"
 "                                ${company.name}<br/>\n"
@@ -188,13 +188,11 @@ msgid "<html>\n"
 "                          </table>\n"
 "                        </td>\n"
 "                      </tr>\n"
-"                      <!--\n"
 "                      <tr>\n"
 "                        <td align=\"center\">\n"
-"                            Powered by <a target=\"_blank\" href=\"https://www.flectrahq.com\">Flectra</a>.\n"
+"                            Powered by <a target=\"_blank\" href=\"https://www.flectrahq.com\">Odoo</a>.\n"
 "                        </td>\n"
 "                      </tr>\n"
-"                       -->\n"
 "                    </tbody>\n"
 "                </table>\n"
 "                </body>\n"
@@ -274,11 +272,6 @@ msgstr ""
 #. module: sale
 #: model:ir.ui.view,arch_db:sale.report_saleorder_document
 msgid "<span>Pro-Forma Invoice # </span>"
-msgstr ""
-
-#. module: sale
-#: model:ir.ui.view,arch_db:sale.report_saleorder_document
-msgid "<strong>Branch:</strong>"
 msgstr ""
 
 #. module: sale
@@ -527,8 +520,8 @@ msgid "Blocking Message"
 msgstr ""
 
 #. module: sale
-#: model:ir.model.fields,field_description:sale.field_sale_order_line_branch_id
-msgid "Branch"
+#: model:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "Boost your sales with two kinds of discount programs: promotions and coupon codes. Specific conditions can be set (products, customers, minimum purchase amount, period). Rewards can be discounts (% or amount) or free products."
 msgstr ""
 
 #. module: sale
@@ -614,19 +607,37 @@ msgstr ""
 
 #. module: sale
 #: model:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "Compute shipping costs and ship with DHL"
+msgstr ""
+
+#. module: sale
+#: model:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "Compute shipping costs and ship with FedEx"
+msgstr ""
+
+#. module: sale
+#: model:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "Compute shipping costs and ship with UPS"
+msgstr ""
+
+#. module: sale
+#: model:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "Compute shipping costs and ship with USPS"
+msgstr ""
+
+#. module: sale
+#: model:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "Compute shipping costs and ship with bpost"
+msgstr ""
+
+#. module: sale
+#: model:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Compute shipping costs on orders"
 msgstr ""
 
 #. module: sale
 #: model:ir.ui.menu,name:sale.menu_sale_config
 msgid "Configuration"
-msgstr ""
-
-#. module: sale
-#: code:addons/sale/models/sale.py:187
-#, python-format
-msgid "Configuration Error of Company:\n"
-"The Sales Order Company (%s) and the Company (%s) of Branch must be the same!"
 msgstr ""
 
 #. module: sale
@@ -637,13 +648,17 @@ msgstr ""
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order_confirmation_date
 #: model:ir.model.fields,field_description:sale.field_sale_report_confirmation_date
-#: model:ir.ui.view,arch_db:sale.view_order_tree
 msgid "Confirmation Date"
 msgstr ""
 
 #. module: sale
 #: model:ir.model,name:sale.model_res_partner
 msgid "Contact"
+msgstr ""
+
+#. module: sale
+#: model:ir.model.fields,field_description:sale.field_res_config_settings_module_sale_coupon
+msgid "Coupons & Promotions"
 msgstr ""
 
 #. module: sale
@@ -761,7 +776,7 @@ msgid "Delivered"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:897
+#: code:addons/sale/models/sale.py:844
 #: model:ir.ui.view,arch_db:sale.view_order_form
 #, python-format
 msgid "Delivered Quantity"
@@ -931,7 +946,7 @@ msgid "Extended Filters"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:880
+#: code:addons/sale/models/sale.py:827
 #, python-format
 msgid "Extra line with %s "
 msgstr ""
@@ -1110,7 +1125,7 @@ msgid "Invoiced"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:898
+#: code:addons/sale/models/sale.py:845
 #: model:ir.ui.view,arch_db:sale.view_order_form
 #, python-format
 msgid "Invoiced Quantity"
@@ -1193,14 +1208,14 @@ msgid "Is expired"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:917
+#: code:addons/sale/models/sale.py:864
 #, python-format
 msgid "It is forbidden to modify the following fields in a locked order:\n"
 "%s"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:575
+#: code:addons/sale/models/sale.py:551
 #, python-format
 msgid "It is not allowed to confirm an order in the following states: %s"
 msgstr ""
@@ -1271,6 +1286,11 @@ msgstr ""
 #. module: sale
 #: selection:sale.order,state:0
 msgid "Locked"
+msgstr ""
+
+#. module: sale
+#: model:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "Manage promotion &amp; coupon programs"
 msgstr ""
 
 #. module: sale
@@ -1346,10 +1366,10 @@ msgid "Name"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:130
-#: code:addons/sale/models/sale.py:301
-#: code:addons/sale/models/sale.py:303
-#: code:addons/sale/models/sale.py:305
+#: code:addons/sale/models/sale.py:115
+#: code:addons/sale/models/sale.py:275
+#: code:addons/sale/models/sale.py:277
+#: code:addons/sale/models/sale.py:279
 #, python-format
 msgid "New"
 msgstr ""
@@ -1417,7 +1437,7 @@ msgstr ""
 
 #. module: sale
 #. flectra-web
-#: code:addons/sale/static/src/js/sale.js:49
+#: code:addons/sale/static/src/js/sale.js:32
 #, python-format
 msgid "Only Integer Value should be valid."
 msgstr ""
@@ -1446,6 +1466,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale.field_sale_order_date_order
 #: model:ir.ui.view,arch_db:sale.portal_my_orders
 #: model:ir.ui.view,arch_db:sale.portal_my_quotations
+#: model:ir.ui.view,arch_db:sale.view_order_tree
 #, python-format
 msgid "Order Date"
 msgstr ""
@@ -1508,7 +1529,7 @@ msgid "Ordered Qty"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:894
+#: code:addons/sale/models/sale.py:841
 #: model:ir.ui.view,arch_db:sale.view_order_form
 #, python-format
 msgid "Ordered Quantity"
@@ -1600,13 +1621,13 @@ msgid "Personalize sales order and invoice report"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:379
+#: code:addons/sale/models/sale.py:353
 #, python-format
 msgid "Please define an accounting sales journal for this company."
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:1004
+#: code:addons/sale/models/sale.py:949
 #, python-format
 msgid "Please define income account for this product: \"%s\" (id:%d) - or for its category: \"%s\"."
 msgstr ""
@@ -2148,7 +2169,7 @@ msgstr ""
 
 #. module: sale
 #. flectra-web
-#: code:addons/sale/static/src/js/sale.js:26
+#: code:addons/sale/static/src/js/sale.js:25
 #, python-format
 msgid "Set an invoicing target: "
 msgstr ""
@@ -2412,8 +2433,8 @@ msgid "There is no income account defined for this product: \"%s\". You may have
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:465
-#: code:addons/sale/models/sale.py:470
+#: code:addons/sale/models/sale.py:438
+#: code:addons/sale/models/sale.py:442
 #, python-format
 msgid "There is no invoiceable line."
 msgstr ""
@@ -2476,7 +2497,6 @@ msgstr ""
 #: model:ir.ui.view,arch_db:sale.portal_my_orders
 #: model:ir.ui.view,arch_db:sale.portal_my_quotations
 #: model:ir.ui.view,arch_db:sale.report_configuration_search_view
-#: model:ir.ui.view,arch_db:sale.report_invoice_layouted
 #: model:ir.ui.view,arch_db:sale.view_order_line_tree
 msgid "Total"
 msgstr ""
@@ -2500,7 +2520,7 @@ msgid "Track Service"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:615
+#: code:addons/sale/models/sale.py:578
 #, python-format
 msgid "Uncategorized"
 msgstr ""
@@ -2584,7 +2604,7 @@ msgid "Warning"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:1093
+#: code:addons/sale/models/sale.py:1037
 #, python-format
 msgid "Warning for %s"
 msgstr ""
@@ -2612,19 +2632,19 @@ msgstr ""
 
 #. module: sale
 #. flectra-web
-#: code:addons/sale/static/src/js/sale.js:49
+#: code:addons/sale/static/src/js/sale.js:32
 #, python-format
 msgid "Wrong value entered!"
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:214
+#: code:addons/sale/models/sale.py:188
 #, python-format
 msgid "You can not delete a sent quotation or a sales order! Try to cancel it before."
 msgstr ""
 
 #. module: sale
-#: code:addons/sale/models/sale.py:1154
+#: code:addons/sale/models/sale.py:1098
 #, python-format
 msgid "You can not remove a sales order line.\n"
 "Discard changes and try setting the quantity to 0."

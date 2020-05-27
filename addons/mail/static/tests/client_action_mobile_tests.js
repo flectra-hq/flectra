@@ -1,4 +1,4 @@
-odoo.define('mail.client_action_mobile_tests', function (require) {
+flectra.define('mail.client_action_mobile_tests', function (require) {
 "use strict";
 
 var session = require('web.session');

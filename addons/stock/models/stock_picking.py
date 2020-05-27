@@ -303,7 +303,7 @@ class Picking(models.Model):
                                'initial demand. When the picking is done this allows '
                                'changing the done quantities.')
     # Used to search on pickings
-    product_id = fields.Many2one('product.product', 'Product', related='move_lines.product_id')
+    product_id = fields.Many2one('product.product', 'Product', related='move_lines.product_id', readonly=True)
     show_operations = fields.Boolean(compute='_compute_show_operations')
     show_lots_text = fields.Boolean(compute='_compute_show_lots_text')
     has_tracking = fields.Boolean(compute='_compute_has_tracking')
@@ -543,7 +543,7 @@ class Picking(models.Model):
     @api.multi
     def unlink(self):
         self.mapped('move_lines')._action_cancel()
-        self.mapped('move_lines').unlink() # Checks if moves are not done
+        self.with_context(prefetch_fields=False).mapped('move_lines').unlink()  # Checks if moves are not done
         return super(Picking, self).unlink()
 
     # Actions
@@ -731,8 +731,6 @@ class Picking(models.Model):
                 if product and product.tracking != 'none':
                     if not line.lot_name and not line.lot_id:
                         raise UserError(_('You need to supply a lot/serial number for %s.') % product.display_name)
-                    elif line.qty_done == 0:
-                        raise UserError(_('You cannot validate a transfer if you have not processed any quantity for %s.') % product.display_name)
 
         if no_quantities_done:
             view = self.env.ref('stock.view_immediate_transfer')
@@ -913,4 +911,13 @@ class Picking(models.Model):
         packages = self.move_line_ids.mapped('result_package_id')
         action['domain'] = [('id', 'in', packages.ids)]
         action['context'] = {'picking_id': self.id}
+        return action
+
+    def action_picking_move_tree(self):
+        action = self.env.ref('stock.stock_move_action').read()[0]
+        action['views'] = [
+            (self.env.ref('stock.view_picking_move_tree').id, 'tree'),
+        ]
+        action['context'] = self.env.context
+        action['domain'] = [('picking_id', 'in', self.ids)]
         return action

@@ -1,10 +1,10 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_bank_statement_import
-#
+# 
 # Translators:
 # Evgeny <transingularity@gmail.com>, 2017
-# Martin Trigaux <mat@odoo.com>, 2017
+# Martin Trigaux <mat@flectrahq.com>, 2017
 # Viktor Pogrebniak <vp@aifil.ru>, 2017
 # Yuriy Ney <k_wizard@mail.ru>, 2017
 # Sergey Vilizhanin <sv@grimmette.ru>, 2017
@@ -19,27 +19,26 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-30 13:11+0000\n"
-"PO-Revision-Date: 2019-08-19 22:34+0300\n"
+"PO-Revision-Date: 2017-11-30 13:11+0000\n"
 "Last-Translator: Max Belyanin <maxbelyanin@gmail.com>, 2017\n"
 "Language-Team: Russian (https://www.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Poedit 2.2.3\n"
 
 #. module: account_bank_statement_import
 #: code:addons/account_bank_statement_import/account_bank_statement_import.py:241
 #, python-format
 msgid "%d transactions had already been imported and were ignored."
-msgstr "%d транзакций уже импортировались ранее и были проигнорированы."
+msgstr "%d транзакций уже импортировались ранее и были проигнорированы"
 
 #. module: account_bank_statement_import
 #: code:addons/account_bank_statement_import/account_bank_statement_import.py:241
 #, python-format
 msgid "1 transaction had already been imported and was ignored."
-msgstr "1 транзакция уже импортировалась ранее и была проигнорирована."
+msgstr "1 транзакция уже импортировалась ранее и была проигнорирована"
 
 #. module: account_bank_statement_import
 #: sql_constraint:account.bank.statement.line:0
@@ -59,7 +58,7 @@ msgstr "Допустимые типы счетов"
 #. module: account_bank_statement_import
 #: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_account_control_ids
 msgid "Accounts Allowed"
-msgstr "Допустимых счетах"
+msgstr "допустимых счетах"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_active
@@ -88,7 +87,8 @@ msgid "At Least One Outbound"
 msgstr "Хотя бы один исходящий"
 
 #. module: account_bank_statement_import
-#: code:addons/account_bank_statement_import/account_bank_statement_import.py:78 model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_bank_id
+#: code:addons/account_bank_statement_import/account_bank_statement_import.py:78
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_bank_id
 #, python-format
 msgid "Bank"
 msgstr "Банк"
@@ -121,7 +121,7 @@ msgstr "Позиция банковской выписки"
 #. module: account_bank_statement_import
 #: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_account_setup_bank_data_done
 msgid "Bank setup marked as done"
-msgstr "Настройка банка отмечена, как завершённая"
+msgstr "Настройка банка отмечена, как завершённая."
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_belongs_to_company
@@ -129,25 +129,38 @@ msgid "Belong to the user's current company"
 msgstr "Соответствует пользователю данной компании"
 
 #. module: account_bank_statement_import
-#: model:ir.ui.view,arch_db:account_bank_statement_import.account_bank_statement_import_journal_creation_view model:ir.ui.view,arch_db:account_bank_statement_import.account_bank_statement_import_view
+#: model:ir.ui.view,arch_db:account_bank_statement_import.account_bank_statement_import_journal_creation_view
+#: model:ir.ui.view,arch_db:account_bank_statement_import.account_bank_statement_import_view
 msgid "Cancel"
 msgstr "Отменить"
 
 #. module: account_bank_statement_import
 #: code:addons/account_bank_statement_import/account_bank_statement_import.py:167
 #, python-format
-msgid "Cannot find in which journal import this statement. Please manually select a journal."
-msgstr "Непонятно, в какой журнал импортировать эту выписку. Пожалуйста, вручную выберите журнал."
+msgid ""
+"Cannot find in which journal import this statement. Please manually select a"
+" journal."
+msgstr ""
+"Непонятно, в какой журнал импортировать эту выписку. Пожалуйста, вручную "
+"выберите журнал."
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_refund_sequence
-msgid "Check this box if you don't want to share the same sequence for invoices and credit notes made from this journal"
-msgstr "Отметьте, если не хотите сквозную нумерацию счетов и кредитных обязательств, относящихся к этому журналу"
+msgid ""
+"Check this box if you don't want to share the same sequence for invoices and"
+" credit notes made from this journal"
+msgstr ""
+"Отметьте, если не хотите сквозную нумерацию счетов и кредитных обязательств,"
+" относящихся к этому журналу "
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_update_posted
-msgid "Check this box if you want to allow the cancellation the entries related to this journal or of the invoice related to this journal"
-msgstr "Отметьте, если вы хотите включить возможность отмены проводок, связанных с этим журналом, или позиций из счетов, связанных с этим журналом"
+msgid ""
+"Check this box if you want to allow the cancellation the entries related to "
+"this journal or of the invoice related to this journal"
+msgstr ""
+"Отметьте, если вы хотите включить возможность отмены проводок, связанных с "
+"этим журналом, или позиций из счетов, связанных с этим журналом"
 
 #. module: account_bank_statement_import
 #: model:ir.ui.view,arch_db:account_bank_statement_import.account_bank_statement_import_view
@@ -180,12 +193,14 @@ msgstr ""
 "Хотите установить модуль для поддержки данного типа файлов?"
 
 #. module: account_bank_statement_import
-#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_create_uid model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_create_uid
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_create_uid
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_create_uid
 msgid "Created by"
 msgstr "Создано"
 
 #. module: account_bank_statement_import
-#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_create_date model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_create_date
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_create_date
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_create_date
 msgid "Created on"
 msgstr "Создан"
 
@@ -225,14 +240,19 @@ msgid "Default Debit Account"
 msgstr "Дебетовый счет по умолчанию"
 
 #. module: account_bank_statement_import
-#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_display_name model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_display_name
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_display_name
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_display_name
 msgid "Display Name"
 msgstr "Отображаемое Имя"
 
 #. module: account_bank_statement_import
 #: model:ir.ui.view,arch_db:account_bank_statement_import.account_bank_statement_import_view
-msgid "Download a bank statement from your bank and import it here. Supported formats:"
-msgstr "Скачать Банковскую Выписку из Вашего банка и импортировать можно здесь. Поддерживаемые форматы:"
+msgid ""
+"Download a bank statement from your bank and import it here. Supported "
+"formats:"
+msgstr ""
+"Скачать Банковскую Выписку из Вашего банка и импортировать можно здесь. "
+"Поддерживаемые форматы:"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_sequence_id
@@ -246,8 +266,12 @@ msgstr "Имя файла"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_data_file
-msgid "Get you bank statements in electronic format from your bank and select them here."
-msgstr "Получайте выписки из вашего банка в электронном формате и выбирайте их здесь."
+msgid ""
+"Get you bank statements in electronic format from your bank and select them "
+"here."
+msgstr ""
+"Получайте выписки из вашего банка в электронном формате и выбирайте их "
+"здесь."
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_group_invoice_lines
@@ -255,14 +279,19 @@ msgid "Group Invoice Lines"
 msgstr "Группировать позиции счета"
 
 #. module: account_bank_statement_import
-#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_id model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_id
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_id
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_id
 msgid "ID"
 msgstr "Номер"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_group_invoice_lines
-msgid "If this box is checked, the system will try to group the accounting lines when generating them from invoices."
-msgstr "Если отмечено, система попытается сгруппировать проводки при создании их из счета."
+msgid ""
+"If this box is checked, the system will try to group the accounting lines "
+"when generating them from invoices."
+msgstr ""
+"Если отмечено, система попытается сгруппировать проводки при создании их из "
+"счета."
 
 #. module: account_bank_statement_import
 #: model:ir.actions.act_window,name:account_bank_statement_import.action_account_bank_statement_import
@@ -305,12 +334,14 @@ msgid "It acts as a default account for debit amount"
 msgstr "Выступает в качестве счета по умолчанию для сумм по дебету"
 
 #. module: account_bank_statement_import
-#: model:ir.model,name:account_bank_statement_import.model_account_journal model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_journal_id
+#: model:ir.model,name:account_bank_statement_import.model_account_journal
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_journal_id
 msgid "Journal"
 msgstr "Журнал"
 
 #. module: account_bank_statement_import
-#: code:addons/account_bank_statement_import/account_bank_statement_import.py:69 model:ir.ui.view,arch_db:account_bank_statement_import.account_bank_statement_import_journal_creation_view
+#: code:addons/account_bank_statement_import/account_bank_statement_import.py:69
+#: model:ir.ui.view,arch_db:account_bank_statement_import.account_bank_statement_import_journal_creation_view
 #, python-format
 msgid "Journal Creation"
 msgstr "Создание журнала"
@@ -322,8 +353,12 @@ msgstr "Название журнала"
 
 #. module: account_bank_statement_import
 #: model:ir.ui.view,arch_db:account_bank_statement_import.account_bank_statement_import_journal_creation_view
-msgid "Just click OK to create the account/journal and finish the import. If this was a mistake, hit cancel to abort the import."
-msgstr "Для создания Счёта/Журнала нажмите OK и завершите импорт. Если Вы ошиблись, нажмите cancel для отмены импорта."
+msgid ""
+"Just click OK to create the account/journal and finish the import. If this "
+"was a mistake, hit cancel to abort the import."
+msgstr ""
+"Для создания Счёта/Журнала нажмите OK и завершите импорт. Если Вы ошиблись, "
+"нажмите cancel для отмены импорта."
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_kanban_dashboard
@@ -336,17 +371,20 @@ msgid "Kanban Dashboard Graph"
 msgstr "График информационной панели Канбан"
 
 #. module: account_bank_statement_import
-#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import___last_update model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation___last_update
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import___last_update
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation___last_update
 msgid "Last Modified on"
 msgstr "Последнее изменение"
 
 #. module: account_bank_statement_import
-#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_write_uid model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_write_uid
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_write_uid
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_write_uid
 msgid "Last Updated by"
 msgstr "Последний раз обновил"
 
 #. module: account_bank_statement_import
-#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_write_date model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_write_date
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_write_date
+#: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_write_date
 msgid "Last Updated on"
 msgstr "Последнее обновление"
 
@@ -429,7 +467,7 @@ msgstr "Нумерация"
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_active
 msgid "Set active to false to hide the Journal without removing it."
-msgstr "Переключите \"активный\" в \"ЛОЖЬ\", для сокрытия Журнала без его удаления."
+msgstr "Переключите \"активный\" в \"ЛОЖЬ\", для сокрытия Журнала без его удаления"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_import_journal_creation_code
@@ -444,24 +482,35 @@ msgstr "Показать журнал на информационной пане
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_account_setup_bank_data_done
 msgid "Technical field used in the special view for the setup bar step."
-msgstr "Техническое поле, используемое в специальном представлении для шага установки панели."
+msgstr ""
+"Техническое поле, используемое в специальном представлении для шага "
+"установки панели"
 
 #. module: account_bank_statement_import
 #: model:ir.ui.view,arch_db:account_bank_statement_import.account_bank_statement_import_journal_creation_view
-msgid "The account of the statement you are importing is not yet recorded in Odoo. In order to proceed with the import, you need to create a bank journal for this account."
-msgstr "Счёт для импортируемой Вами Выписки ещё не записан в системе Odoo. Для того, чтобы продолжить импортирование, Вы должны создать Банковский Журнал для данного Счёта."
+msgid ""
+"The account of the statement you are importing is not yet recorded in Odoo. "
+"In order to proceed with the import, you need to create a bank journal for "
+"this account."
+msgstr ""
+"Счёт для импортируемой Вами Выписки ещё не записан в системе Odoo. Для того,"
+" чтобы продолжить импортирование, Вы должны создать Банковский Журнал для "
+"данного Счёта."
 
 #. module: account_bank_statement_import
 #: code:addons/account_bank_statement_import/account_bank_statement_import.py:153
 #, python-format
-msgid "The account of this statement (%s) is not the same as the journal (%s)."
+msgid ""
+"The account of this statement (%s) is not the same as the journal (%s)."
 msgstr "Счёт этой Выписки (%s) не совпадает с Журналом (%s)."
 
 #. module: account_bank_statement_import
 #: code:addons/account_bank_statement_import/account_bank_statement_import.py:163
 #, python-format
-msgid "The currency of the bank statement (%s) is not the same as the currency of the journal (%s) !"
-msgstr "Валюта Банковской Выписки (%s) не совпадает с валютой журнала (%s) !"
+msgid ""
+"The currency of the bank statement (%s) is not the same as the currency of "
+"the journal (%s) !"
+msgstr "Валюта Банковской Выписки (%s) не совпадает с валютой Журнала (%s)."
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_currency_id
@@ -476,28 +525,37 @@ msgstr "Записи этого журнала будут называться �
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_refund_sequence_number_next
 msgid "The next sequence number will be used for the next credit note."
-msgstr "Последующий номер будет использован для нумерации следующего кредитного обязательства."
+msgstr ""
+"Последующий номер будет использован для нумерации следующего кредитного "
+"обязательства."
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_sequence_number_next
 msgid "The next sequence number will be used for the next invoice."
-msgstr "Последующий номер будет использован для нумерации следующего счета."
+msgstr "Последующий номер будет использован для нумерации следующего счета"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_refund_sequence_id
-msgid "This field contains the information related to the numbering of the credit note entries of this journal."
-msgstr "Это поле содержит информацию о нумерации записей о кредитных обязательств в этом журнале."
+msgid ""
+"This field contains the information related to the numbering of the credit "
+"note entries of this journal."
+msgstr ""
+"Это поле содержит информацию о нумерации записей о кредитных обязательств в "
+"этом журнале"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_sequence_id
-msgid "This field contains the information related to the numbering of the journal entries of this journal."
-msgstr "Это поле содержит информацию, связанную с нумерацией проводок этого журнала."
+msgid ""
+"This field contains the information related to the numbering of the journal "
+"entries of this journal."
+msgstr ""
+"Это поле содержит информацию, связанную с нумерацией проводок этого журнала."
 
 #. module: account_bank_statement_import
 #: code:addons/account_bank_statement_import/account_bank_statement_import.py:113
 #, python-format
 msgid "This file doesn't contain any statement."
-msgstr "Данный файл не содержит ни одной выписки."
+msgstr "Данный файл не содержит ни одной выписки"
 
 #. module: account_bank_statement_import
 #: code:addons/account_bank_statement_import/account_bank_statement_import.py:121
@@ -513,17 +571,27 @@ msgstr "Тип"
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_sequence
 msgid "Used to order Journals in the dashboard view"
-msgstr "Используется, чтобы упорядочить журналы в представлении информационной панели"
+msgstr ""
+"Используется, чтобы упорядочить журналы в представлении информационной "
+"панели"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_loss_account_id
-msgid "Used to register a loss when the ending balance of a cash register differs from what the system computes"
-msgstr "Используется для регистрации потери, когда конечный баланс  кассового аппарата отличается от того, что вычисляет система"
+msgid ""
+"Used to register a loss when the ending balance of a cash register differs "
+"from what the system computes"
+msgstr ""
+"Используется для регистрации потери, когда конечный баланс  кассового "
+"аппарата отличается от того, что вычисляет система"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_profit_account_id
-msgid "Used to register a profit when the ending balance of a cash register differs from what the system computes"
-msgstr "Используется для регистрации прибыли, когда конечный баланс  кассового аппарата отличается от того, что вычисляет система"
+msgid ""
+"Used to register a profit when the ending balance of a cash register differs"
+" from what the system computes"
+msgstr ""
+"Используется для регистрации прибыли, когда конечный баланс  кассового "
+"аппарата отличается от того, что вычисляет система"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,help:account_bank_statement_import.field_account_bank_statement_import_journal_creation_show_on_dashboard
@@ -539,8 +607,12 @@ msgstr "Вы уже импортировали данный файл."
 #. module: account_bank_statement_import
 #: code:addons/account_bank_statement_import/account_bank_statement_import.py:47
 #, python-format
-msgid "You have to set a Default Debit Account and a Default Credit Account for the journal: %s"
-msgstr "Вам необходимо установить Дебетовый счёт по умолчанию и Кредитовый счёт по умолчанию для отображения в журнале: %s"
+msgid ""
+"You have to set a Default Debit Account and a Default Credit Account for the"
+" journal: %s"
+msgstr ""
+"Вам необходимо установить Дебетовый счёт по умолчанию и Кредитовый счёт по "
+"умолчанию для отображения в журнале %s."
 
 #. module: account_bank_statement_import
 #: model:ir.ui.view,arch_db:account_bank_statement_import.account_bank_statement_import_view

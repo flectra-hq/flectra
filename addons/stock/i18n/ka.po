@@ -3,32 +3,63 @@
 # * stock
 # 
 # Translators:
-# Martin Trigaux <mat@odoo.com>, 2017
+# Saba Khmaladze <skhmaladze@uglt.org>, 2018
+# Giorgi Melitauri <gmelitauri@live.com>, 2018
+# Gizo Kobakhidze <040168@gmail.com>, 2018
+# David Machakhelidze <david.machakhelidze@gmail.com>, 2018
+# Martin Trigaux, 2018
+# Temur, 2019
+# Gvantsa Gvinianidze <gvantsa@live.com>, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-30 13:11+0000\n"
-"PO-Revision-Date: 2017-11-30 13:11+0000\n"
-"Last-Translator: Martin Trigaux <mat@odoo.com>, 2017\n"
+"POT-Creation-Date: 2019-01-03 15:06+0000\n"
+"PO-Revision-Date: 2017-09-20 10:24+0000\n"
+"Last-Translator: Gvantsa Gvinianidze <gvantsa@live.com>, 2019\n"
 "Language-Team: Georgian (https://www.transifex.com/odoo/teams/41243/ka/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: ka\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:308
+#: code:addons/stock/models/stock_move.py:340
+#, python-format
+msgid ""
+"\n"
+"\n"
+"%s --> Product UoM is %s (%s) - Move UoM is %s (%s)"
+msgstr ""
+"\n"
+"\n"
+"%s --> პროდუქტის UoM is %s (%s) - გადაადგილების UoM is %s (%s)"
+
+#. module: stock
+#: code:addons/stock/models/stock_move.py:341
+#, python-format
+msgid ""
+"\n"
+"\n"
+"Blocking: %s"
+msgstr ""
+"\n"
+"\n"
+"ბლოკირებული: %s"
+
+#. module: stock
+#: code:addons/stock/models/stock_move.py:328
 #, python-format
 msgid " (%s reserved)"
-msgstr ""
+msgstr " (%s რეზერვირებული)"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:311
+#: code:addons/stock/models/stock_move.py:331
 #, python-format
 msgid " (reserved)"
-msgstr ""
+msgstr " (რეზერვირებული)"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_state
@@ -40,23 +71,29 @@ msgid ""
 " * Done: has been processed, can't be modified or cancelled anymore.\n"
 " * Cancelled: has been cancelled, can't be confirmed anymore."
 msgstr ""
+" * დრაფტი: ჯერ არ არის დამტკიცებული და დამტკიცებამდე არ დაიგეგმება.\n"
+" * ველოდებით სხვა ოპერაციას: ველოდებით სხვა გადაადგილების დასრულებას, რომ მარაგები გახდეს ავტომატურად ხელმისაწვდომი (მაგ. დამზადებულია-შეკვეთით მოძრაობებში).\n"
+" * მოლოდინი: იმშემთხვევაში, თუ საქონლის გაგზავნა არ არის შესაძლებელი, რადგან ვერ მოხერხდა პროდუქტების დაჯავშნა. \n"
+" * მზადაა: პროდუქცია დაჯავშნილია და მზად არის გასაგზავნად. თუ გაგზავნის პოლიტიკაა, რომ \"გაიგზავნოს რაც შეიძლება სწრაფად\", მაშინ ეს მოხდება პროდუქციის დაჯავშნისთანავე. \n"
+" * შესრულებულია: დამუშავდა და უკვე არ არის შესაძლებელი მისი გაუქმება ან ცვლილება.\n"
+" * გაუქმებულია: გაუქმებულია და მისი დამტკიცება შეუძლებელია. "
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_move_picking_form
 msgid "#Products"
-msgstr ""
+msgstr "#პროდუქტები"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:481
+#: code:addons/stock/models/stock_warehouse.py:486
 #, python-format
 msgid "%s: Supply Product from %s"
-msgstr ""
+msgstr "%s: მიაწოდე პროდუქტები %s-დან"
 
 #. module: stock
 #: code:addons/stock/models/res_company.py:24
 #, python-format
 msgid "%s: Transit Location"
-msgstr ""
+msgstr "%s: ტრანზიტული ლოკაცია"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_line_state
@@ -85,12 +122,12 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid ", if accounting or purchase is installed"
-msgstr ""
+msgstr "თუ აღწერა ან შეძენა დადასტურებულია"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "- The Odoo Team"
-msgstr ""
+msgstr "- Odoo-ს გუნდი"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_form_view
@@ -98,6 +135,8 @@ msgid ""
 "<br/>\n"
 "                    <strong>Here is your current inventory: </strong>"
 msgstr ""
+"<br/>\n"
+"                    <strong>აქ არის თქვენი მიმდინარე მარაგები: </strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -165,13 +204,13 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
 msgid "<span class=\"o_stat_text\">Details</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">დეტალები</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.product_form_view_procurement_button
 #: model:ir.ui.view,arch_db:stock.product_template_form_view_procurement_button
 msgid "<span class=\"o_stat_text\">Forecasted</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">პროგნოზი</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.product_form_view_procurement_button
@@ -179,6 +218,8 @@ msgid ""
 "<span class=\"o_stat_text\">Min :</span>\n"
 "                                <span class=\"o_stat_text\">Max:</span>"
 msgstr ""
+"<span class=\"o_stat_text\">მინ :</span>\n"
+"                                <span class=\"o_stat_text\">მაქს:</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.product_template_form_view_procurement_button
@@ -186,6 +227,8 @@ msgid ""
 "<span class=\"o_stat_text\">Min:</span>\n"
 "                                <span class=\"o_stat_text\">Max:</span>"
 msgstr ""
+"<span class=\"o_stat_text\">მინ:</span>\n"
+"                                <span class=\"o_stat_text\">მაქს:</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -195,7 +238,7 @@ msgid ""
 "                                        <strong>Import a file</strong><br/>\n"
 "                                        <span class=\"small\">Recommended if &gt;100 products</span>\n"
 "                                    </span>"
-msgstr ""
+msgstr "იმპორტი ფაილში"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -255,12 +298,12 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.report_delivery_document
 #: model:ir.ui.view,arch_db:stock.report_picking
 msgid "<span><strong>Customer Address:</strong></span>"
-msgstr ""
+msgstr "<span><strong>კლიენტის მისამართი:</strong></span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_picking
 msgid "<span><strong>Delivery Address:</strong></span>"
-msgstr ""
+msgstr "<span><strong>მიწოდების მისამართი:</strong></span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_picking
@@ -270,12 +313,12 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_picking
 msgid "<span><strong>Warehouse Address:</strong></span>"
-msgstr ""
+msgstr "<span><strong>საწყობის მისამართი:</strong></span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_picking_type_kanban
 msgid "<span>New</span>"
-msgstr ""
+msgstr "ახალი"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_picking
@@ -285,7 +328,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_picking_type_kanban
 msgid "<span>View</span>"
-msgstr ""
+msgstr "ხედი"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -323,6 +366,9 @@ msgid ""
 "                The done move line has been corrected.\n"
 "            </strong>"
 msgstr ""
+"<strong>\n"
+"                შესრულებული სტრიქონი შესწორდა.\n"
+"            </strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -373,12 +419,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.report_delivery_document
 #: model:ir.ui.view,arch_db:stock.report_inventory
 msgid "<strong>Date</strong>"
-msgstr ""
-
-#. module: stock
-#: model:ir.ui.view,arch_db:stock.report_delivery_document
-msgid "<strong>Delivered Quantity</strong>"
-msgstr ""
+msgstr "<strong>თარიღი</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -393,12 +434,12 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_inventory
 msgid "<strong>Inventory</strong>"
-msgstr ""
+msgstr "<strong>მარაგები</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_inventory
 msgid "<strong>Location</strong>"
-msgstr ""
+msgstr "<strong>ადგილი</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -428,12 +469,12 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_stock_warehouse_orderpoint_kanban
 msgid "<strong>Max qty :</strong>"
-msgstr ""
+msgstr "<strong>მაქს.რაოდ: </strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_stock_warehouse_orderpoint_kanban
 msgid "<strong>Min qty :</strong>"
-msgstr ""
+msgstr "<strong>მინ. რაოდ:</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -478,40 +519,36 @@ msgid "<strong>Order (Origin)</strong>"
 msgstr ""
 
 #. module: stock
-#: model:ir.ui.view,arch_db:stock.report_delivery_document
-msgid "<strong>Ordered Quantity</strong>"
-msgstr ""
-
-#. module: stock
 #: model:ir.ui.view,arch_db:stock.report_inventory
 msgid "<strong>Package</strong>"
-msgstr ""
+msgstr "<strong>შეფუთვა</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_delivery_document
 #: model:ir.ui.view,arch_db:stock.report_inventory
 msgid "<strong>Product</strong>"
-msgstr ""
+msgstr "<strong>პროდუქტი</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_inventory
 msgid "<strong>Production Lot</strong>"
-msgstr ""
+msgstr "<strong>წარმოების ლოტი</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_stock_move_kanban
 msgid "<strong>Qty: </strong>"
-msgstr ""
+msgstr "<strong>რაოდენობა: </strong>"
 
 #. module: stock
+#: model:ir.ui.view,arch_db:stock.report_delivery_document
 #: model:ir.ui.view,arch_db:stock.report_inventory
 msgid "<strong>Quantity</strong>"
-msgstr ""
+msgstr "<strong>რაოდენობა</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_picking
 msgid "<strong>Scheduled Date</strong>"
-msgstr ""
+msgstr "<strong>დაგეგმილი თარიღი</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -523,7 +560,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_picking
 msgid "<strong>State</strong>"
-msgstr ""
+msgstr "<strong>მდგომარეობა</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -535,12 +572,12 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.message_head
 msgid "<strong>The initial demand has been updated.</strong>"
-msgstr ""
+msgstr "<strong>საწყისი მოთხოვნა შეიცვალა.</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_inventory
 msgid "<strong>Total Quantity</strong>"
-msgstr ""
+msgstr "<strong>ჯამური რაოდენობა</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -556,10 +593,10 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:115
+#: code:addons/stock/models/stock_inventory.py:122
 #, python-format
 msgid "A Pack"
-msgstr ""
+msgstr "შეფუთვა"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -572,10 +609,10 @@ msgid "A classic sales flow looks like the following:"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:86
+#: code:addons/stock/models/stock_move_line.py:93
 #, python-format
 msgid "A done move line should never have a reserved quantity."
-msgstr ""
+msgstr "შესრულებული გადაადგილების ხაზზე არ უნდა იყოს დაჯავშნილი რაოდენობა."
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -586,10 +623,10 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:76
+#: code:addons/stock/models/stock_quant.py:80
 #, python-format
 msgid "A serial number should only be linked to a single product."
-msgstr ""
+msgstr "სერიული ნომერი უნდა უკავშირდებოდეს მხოლოდ ერთ პროდუქტს."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_product_type
@@ -603,7 +640,7 @@ msgstr ""
 #. module: stock
 #: model:res.groups,name:stock.group_warning_stock
 msgid "A warning can be set on a partner (Stock)"
-msgstr ""
+msgstr "გაფრთხილება შეიძლება ამოქმედდეს პარტნიორზე (საქონელის ნაშთზე)"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -618,7 +655,7 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_procurement_rule_action
 msgid "Action"
-msgstr ""
+msgstr "ქმედება"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_procurement_rule_active
@@ -630,6 +667,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_active
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_orderpoint_active
 msgid "Active"
+msgstr "აქტიური"
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.view_picking_form
+msgid ""
+"Add an internal note that will be printed on the Picking Operations sheet"
 msgstr ""
 
 #. module: stock
@@ -652,18 +695,18 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
 msgid "Additional Info"
-msgstr ""
+msgstr "დამატებითი ინფო"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_location_comment
 #: model:ir.ui.view,arch_db:stock.view_location_form
 msgid "Additional Information"
-msgstr ""
+msgstr "დამატებითი ინფორმაცია"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_partner_id
 msgid "Address"
-msgstr ""
+msgstr "მისამართი"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -683,7 +726,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_picking_type_kanban
 msgid "All"
-msgstr ""
+msgstr "ყველა"
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_picking_type_list
@@ -693,12 +736,12 @@ msgstr ""
 #. module: stock
 #: model:ir.actions.act_window,name:stock.stock_picking_action_picking_type
 msgid "All Transfers"
-msgstr ""
+msgstr "ყველა ტრანსფერი"
 
 #. module: stock
 #: selection:procurement.group,move_type:0
 msgid "All at once"
-msgstr ""
+msgstr "ყველა ერთად "
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_delivery_document
@@ -706,28 +749,24 @@ msgid ""
 "All items couldn't be shipped, the remaining ones will be shipped as soon as"
 " they become available."
 msgstr ""
+"ყველა ნივთის გაგზავნა არ არის შესაძლებელი, დარჩენილი პროდუქტები გაიგზავნება "
+"როგორც კი მარაგები ხელმისაწვდომი გახდება."
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:105
+#: code:addons/stock/models/stock_inventory.py:112
 #, python-format
 msgid "All products"
-msgstr ""
+msgstr "ყველა პროდუქტი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_returned_move_ids
 msgid "All returned moves"
-msgstr ""
+msgstr "ყველა დაბრუნებული გადაადგილება"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_picking_type_entire_packs
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_show_entire_packs
 msgid "Allow moving packs"
-msgstr ""
-
-#. module: stock
-#: code:addons/stock/models/stock_quant.py:82
-#, python-format
-msgid "An incoming date cannot be set to an untracked product."
 msgstr ""
 
 #. module: stock
@@ -775,7 +814,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.view_procurement_rule_filter
 #: model:ir.ui.view,arch_db:stock.warehouse_orderpoint_search
 msgid "Archived"
-msgstr ""
+msgstr "დაარქივებული"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_form_view
@@ -783,20 +822,34 @@ msgid ""
 "Are you sure you want to confirm this operation? This may lead to "
 "inconsistencies in your inventory."
 msgstr ""
+"დარწმუნებული ხართ, რომ გსურთ ამ ოპერაციის დადასტურება? ამან შესაძლოა "
+"გამოიწვიოს შეუსაბამობა თქვენს მარაგებში."
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_overprocessed_transfer
 msgid "Are you sure you want to validate this picking?"
-msgstr ""
+msgstr "გსურთ, რომ დაამტკიცოთ ეს აკრეფა?"
 
 #. module: stock
 #: selection:stock.picking,move_type:0
 msgid "As soon as possible"
-msgstr ""
+msgstr "რაც შეიძლება მალე"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
 msgid "Assign Owner"
+msgstr "დაავალე პასუხისმგებელ პირს"
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.view_picking_form
+msgid "Assign Partner"
+msgstr ""
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.view_picking_form
+msgid ""
+"Assign the partner to the Operations. Use only if the partner is manually "
+"changed!"
 msgstr ""
 
 #. module: stock
@@ -807,7 +860,7 @@ msgstr ""
 #. module: stock
 #: selection:stock.quantity.history,compute_at_date:0
 msgid "At a Specific Date"
-msgstr ""
+msgstr "განსაზღვრულ დღეს"
 
 #. module: stock
 #: model:ir.ui.menu,name:stock.menu_variants_action
@@ -833,17 +886,17 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_string_availability_info
 msgid "Availability"
-msgstr ""
+msgstr "ხელმისაწვდომობა"
 
 #. module: stock
 #: selection:stock.move,state:0
 msgid "Available"
-msgstr ""
+msgstr "ხელმისაწვდომია"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.product_template_search_form_view_stock
 msgid "Available Products"
-msgstr ""
+msgstr "ხელმისაწვდომი პროდუქტები"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_backorder_id
@@ -860,12 +913,6 @@ msgstr ""
 #: code:addons/stock/wizard/stock_backorder_confirmation.py:20
 #, python-format
 msgid "Back order <em>%s</em> <b>cancelled</b>."
-msgstr ""
-
-#. module: stock
-#: code:addons/stock/models/stock_picking.py:790
-#, python-format
-msgid "Back order <em>%s</em> <b>created</b>."
 msgstr ""
 
 #. module: stock
@@ -894,7 +941,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock.field_stock_location_barcode
 #: model:ir.ui.view,arch_db:stock.report_picking
 msgid "Barcode"
-msgstr ""
+msgstr "ბარკოდი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_barcode_nomenclature_id
@@ -964,7 +1011,7 @@ msgid "By Unique Serial Number"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:612
+#: code:addons/stock/models/stock_move.py:644
 #, python-format
 msgid ""
 "By changing this quantity here, you accept the new quantity as complete: "
@@ -982,10 +1029,10 @@ msgstr ""
 #: model:ir.model.fields,help:stock.field_stock_move_procure_method
 msgid ""
 "By default, the system will take from the stock in the source location and "
-"passively wait for availability.The other possibility allows you to directly"
-" create a procurement on the source location (and thus ignore its current "
-"stock) to gather products. If we want to chain moves and have this one to "
-"wait for the previous,this second option should be chosen."
+"passively wait for availability. The other possibility allows you to "
+"directly create a procurement on the source location (and thus ignore its "
+"current stock) to gather products. If we want to chain moves and have this "
+"one to wait for the previous, this second option should be chosen."
 msgstr ""
 
 #. module: stock
@@ -1026,13 +1073,13 @@ msgid "Calendar View"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:428
+#: code:addons/stock/models/stock_warehouse.py:432
 #, python-format
 msgid "Can't find any customer or supplier location."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:476
+#: code:addons/stock/models/stock_warehouse.py:481
 #, python-format
 msgid "Can't find any generic Make To Order route."
 msgstr ""
@@ -1051,7 +1098,7 @@ msgstr "შეწყვეტა"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
 msgid "Cancel Inventory"
-msgstr ""
+msgstr "მარაგების გაუქმება"
 
 #. module: stock
 #: selection:stock.inventory,state:0 selection:stock.move,state:0
@@ -1060,7 +1107,7 @@ msgid "Cancelled"
 msgstr "გაუქმებულია"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:468
+#: code:addons/stock/models/stock_move.py:499
 #, python-format
 msgid "Cannot unreserve a done move"
 msgstr ""
@@ -1079,37 +1126,37 @@ msgstr ""
 #. module: stock
 #: model:ir.model,name:stock.model_stock_change_product_qty
 msgid "Change Product Quantity"
-msgstr ""
+msgstr "შეცვალე პროდუქტის რაოდენობა"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 msgid "Change must be higher than"
-msgstr ""
+msgstr "საჭიროა მეტი ცვლილება"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_line_move_id
 msgid "Change to a better name"
-msgstr ""
+msgstr "შეცვალე უკეთესი სახელით"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
 msgid "Check Availability"
-msgstr ""
+msgstr "შეამოწმე არის თუ არა მარაგში"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_has_packages
 msgid "Check the existence of destination packages on move lines"
-msgstr ""
+msgstr "გადატანის სტრიქონებში შეამოწმე დანიშნულების პაკეტების არსებობა"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_move_line_exist
 msgid "Check the existence of pack operation on the picking"
-msgstr ""
+msgstr "არის თუ არა შეფუთვის ოპერაცია აკრებაზე"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_return_location
 msgid "Check this box to allow using this location as a return location."
-msgstr ""
+msgstr "მონიშნე, თუ გსურს ამ ადგილის გამოყენება დაბრუნებული პროდუქციისთვის"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_scrap_location
@@ -1117,27 +1164,30 @@ msgstr ""
 msgid ""
 "Check this box to allow using this location to put scrapped/damaged goods."
 msgstr ""
+"მონიშნე, თუ გსურს ამ ადგილის გამოყენება დაზიანებული / წუნდებული საქონლისთვის"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_line_product_qty
 msgid "Checked Quantity"
-msgstr ""
+msgstr "შემოწმებული რაოდენობა"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_quantity_history_date
 msgid "Choose a date to get the inventory at that date"
-msgstr ""
+msgstr "აირჩიე თარიღი, რომ მიიღო მარაგების ოდენობა ამ თარიღისთვის"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_quantity_history_compute_at_date
 msgid ""
 "Choose to analyze the current inventory or from a specific date in the past."
 msgstr ""
+"აირჩიე მარაგების ანალიზი ახლანდელი მდგომარეობით, ან წარსულში განსაზღვრული "
+"თარიღისთვის"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_stock_quantity_history
 msgid "Choose your date"
-msgstr ""
+msgstr "აირჩიე თარიღი"
 
 #. module: stock
 #: model:ir.actions.act_window,help:stock.action_picking_form
@@ -1220,12 +1270,12 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_incoterms_code
 msgid "Code"
-msgstr ""
+msgstr "კოდი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_color
 msgid "Color"
-msgstr ""
+msgstr "ფერი"
 
 #. module: stock
 #: model:ir.model,name:stock.model_res_company
@@ -1257,54 +1307,54 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_quantity_history_compute_at_date
 msgid "Compute"
-msgstr ""
+msgstr "გამოთვალე"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 msgid "Compute shipping costs and ship with DHL"
-msgstr ""
+msgstr "გამოთვალე ტრანსპორტირების ხარჯი და გაგზავნე DHL-ით"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 msgid "Compute shipping costs and ship with FedEx"
-msgstr ""
+msgstr "გამოთვალე ტრანსპორტირების ხარჯი და გაგზავნე FedEx-ით"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 msgid "Compute shipping costs and ship with UPS"
-msgstr ""
+msgstr "გამოთვალე ტრანსპორტირების ხარჯი და გაგზავნე UPS-ით"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 msgid "Compute shipping costs and ship with USPS"
-msgstr ""
+msgstr "გამოთვალე ტრანსპორტირების ხარჯი და გაგზავნე USPS-ით"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 msgid "Compute shipping costs and ship with bpost"
-msgstr ""
+msgstr "გამოთვალე ტრანსპორტირების ხარჯი და გაგზავნე bpost-ით"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_move_picking_form
 msgid "Conditions"
-msgstr ""
+msgstr "პირობები"
 
 #. module: stock
 #: model:ir.ui.menu,name:stock.menu_stock_config_settings
 msgid "Configuration"
-msgstr ""
+msgstr "კონფიგურაცია"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_form_view
 #: model:ir.ui.view,arch_db:stock.view_overprocessed_transfer
 #: model:ir.ui.view,arch_db:stock.view_stock_move_operations
 msgid "Confirm"
-msgstr ""
+msgstr "დამოწმება"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_internal_search
 msgid "Confirmed"
-msgstr ""
+msgstr "დამოწმებული"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_internal_search
@@ -1319,7 +1369,7 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_config_settings_group_stock_tracking_owner
 msgid "Consignment"
-msgstr ""
+msgstr "ტვირთი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_consume_line_ids
@@ -1329,22 +1379,22 @@ msgstr ""
 #. module: stock
 #: model:ir.model,name:stock.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "კონტაქტი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_location_child_ids
 msgid "Contains"
-msgstr ""
+msgstr "შეიცავს"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_quant_package_form
 msgid "Content"
-msgstr ""
+msgstr "შინაარსი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_location_posx
 msgid "Corridor (X)"
-msgstr ""
+msgstr "Corridor (X)"
 
 #. module: stock
 #: code:addons/stock/wizard/stock_immediate_transfer.py:24
@@ -1353,31 +1403,33 @@ msgid ""
 "Could not reserve all requested products. Please use the 'Mark as Todo' "
 "button to handle the reservation manually."
 msgstr ""
+"ყველა მოთხოვნილი პროდუქტის დაჯავშნა არ მოხდა. ხელით დასაჯავშნად გამოიყენეთ "
+"ღილაკი \"მონიშნე შესასრულებლად\""
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_count_picking
 msgid "Count Picking"
-msgstr ""
+msgstr "დათვალე აკრეფების რაოდენობა"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_count_picking_backorders
 msgid "Count Picking Backorders"
-msgstr ""
+msgstr "დათვალე ასაკრეფი პროდუქტების ბარკოდები"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_count_picking_draft
 msgid "Count Picking Draft"
-msgstr ""
+msgstr "დათვალე აკრეფების დრაფტი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_count_picking_late
 msgid "Count Picking Late"
-msgstr ""
+msgstr "დათვალე გვიან ასაკრეფი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_count_picking_ready
 msgid "Count Picking Ready"
-msgstr ""
+msgstr "დათვალე ასაკრეფად მომზადებული"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_count_picking_waiting
@@ -1395,7 +1447,7 @@ msgid "Create Backorder"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:715
+#: code:addons/stock/models/stock_picking.py:766
 #, python-format
 msgid "Create Backorder?"
 msgstr ""
@@ -1403,12 +1455,12 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_scrap_tree_view
 msgid "Create Date"
-msgstr ""
+msgstr "შექმნის თარიღი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_use_create_lots
 msgid "Create New Lots/Serial Numbers"
-msgstr ""
+msgstr "შექმენი ახალი ლოტები / სერიული ნომრები"
 
 #. module: stock
 #: selection:procurement.rule,procure_method:0
@@ -1451,7 +1503,7 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_move_ids
 msgid "Created Moves"
-msgstr ""
+msgstr "შექმენი გადატანა"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_procurement_group_create_uid
@@ -1529,7 +1581,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_move_search
 msgid "Creation"
-msgstr ""
+msgstr "შექმნა"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_create_date
@@ -1544,7 +1596,7 @@ msgid "Creation Date, usually the time of the order"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:433
+#: code:addons/stock/models/stock_warehouse.py:437
 #, python-format
 msgid "Cross-Dock"
 msgstr ""
@@ -1560,6 +1612,11 @@ msgid "Cumulative Quantity"
 msgstr ""
 
 #. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_quant_package_current_destination_location_id
+msgid "Current Destination Location"
+msgstr ""
+
+#. module: stock
 #: selection:stock.quantity.history,compute_at_date:0
 msgid "Current Inventory"
 msgstr ""
@@ -1572,6 +1629,11 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_quant_package_current_picking_move_line_ids
 msgid "Current Picking Move Line"
+msgstr ""
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_quant_package_current_source_location_id
+msgid "Current Source Location"
 msgstr ""
 
 #. module: stock
@@ -1619,7 +1681,7 @@ msgstr ""
 #: model:stock.location,name:stock.stock_location_customers
 #: selection:stock.picking.type,code:0
 msgid "Customers"
-msgstr ""
+msgstr "კლიენტები"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_stock_body_print
@@ -1676,7 +1738,7 @@ msgstr ""
 #: model:ir.ui.menu,name:stock.stock_picking_type_menu
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "Dashboard"
-msgstr ""
+msgstr "დაფა"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_report_stock_forecast_date
@@ -1684,7 +1746,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_date
 #: model:ir.ui.view,arch_db:stock.stock_move_tree
 msgid "Date"
-msgstr ""
+msgstr "თარიღ"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_move_tree
@@ -1814,7 +1876,7 @@ msgid "Delay (days)"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:332
+#: code:addons/stock/models/product.py:334
 #, python-format
 msgid "Delivered Qty"
 msgstr ""
@@ -1825,7 +1887,7 @@ msgid "Deliveries"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:209
+#: code:addons/stock/models/stock_warehouse.py:213
 #: model:stock.picking.type,name:stock.chi_picking_type_out
 #: model:stock.picking.type,name:stock.picking_type_out
 #, python-format
@@ -1907,7 +1969,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.report_picking
 #: model:ir.ui.view,arch_db:stock.view_move_search
 msgid "Destination"
-msgstr ""
+msgstr "სამიზნე"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_partner_id
@@ -1949,7 +2011,7 @@ msgid "Destination route"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:446
+#: code:addons/stock/models/stock_move.py:468
 #: model:ir.ui.view,arch_db:stock.view_picking_form
 #, python-format
 msgid "Detailed Operations"
@@ -1958,7 +2020,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_location_path_form
 msgid "Details"
-msgstr ""
+msgstr "დეტალები"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_show_details_visible
@@ -1977,7 +2039,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_form_view
 #: model:ir.ui.view,arch_db:stock.view_stock_move_operations
 msgid "Discard"
-msgstr ""
+msgstr "გაუქმება"
 
 #. module: stock
 #: model:stock.location,name:stock.location_dispatch_zone
@@ -2038,7 +2100,7 @@ msgstr ""
 #: selection:stock.move,state:0 selection:stock.picking,state:0
 #: selection:stock.scrap,state:0
 msgid "Done"
-msgstr ""
+msgstr "დასრულებულია"
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_picking_tree_done
@@ -2095,11 +2157,21 @@ msgid "End"
 msgstr ""
 
 #. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_picking_entire_package_ids
+msgid "Entire Package"
+msgstr ""
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_picking_entire_package_detail_ids
+msgid "Entire Package Detail"
+msgstr ""
+
+#. module: stock
 #. flectra-web
 #: code:addons/stock/static/src/xml/stock_traceability_report_backend.xml:14
 #, python-format
 msgid "Error"
-msgstr ""
+msgstr "შეცდომა"
 
 #. module: stock
 #: model:stock.location,name:stock.stock_location_7
@@ -2117,7 +2189,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:407
+#: code:addons/stock/models/stock_quant.py:453
 #, python-format
 msgid "Everything inside a package should be in the same location"
 msgstr ""
@@ -2177,7 +2249,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.quant_search_view
 msgid "Filters"
-msgstr ""
+msgstr "ფილტრები"
 
 #. module: stock
 #: selection:procurement.rule,group_propagation_option:0
@@ -2226,7 +2298,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:327
+#: code:addons/stock/models/product.py:329
 #: model:ir.model.fields,field_description:stock.field_product_template_virtual_available
 #: model:ir.model.fields,field_description:stock.field_stock_move_availability
 #, python-format
@@ -2236,8 +2308,9 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_location_id
 #: model:ir.ui.view,arch_db:stock.view_move_tree
+#: model:ir.ui.view,arch_db:stock.view_quant_package_picking_tree
 msgid "From"
-msgstr ""
+msgstr "გამგზავნი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_from_loc
@@ -2257,34 +2330,34 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_internal_search
 msgid "Future Activities"
-msgstr ""
+msgstr "მომავალი ქმედებები"
 
 #. module: stock
-#: code:addons/stock/models/product.py:330
+#: code:addons/stock/models/product.py:332
 #, python-format
 msgid "Future Deliveries"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:335
+#: code:addons/stock/models/product.py:337
 #, python-format
 msgid "Future P&L"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:345
+#: code:addons/stock/models/product.py:347
 #, python-format
 msgid "Future Productions"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:340
+#: code:addons/stock/models/product.py:342
 #, python-format
 msgid "Future Qty"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:322
+#: code:addons/stock/models/product.py:324
 #, python-format
 msgid "Future Receipts"
 msgstr ""
@@ -2325,7 +2398,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.stock_location_path_filter
 #: model:ir.ui.view,arch_db:stock.view_procurement_rule_filter
 msgid "Global"
-msgstr ""
+msgstr "გლობალური"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_default_resupply_wh_id
@@ -2335,7 +2408,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_stock_level_forecast_filter
 msgid "Graph"
-msgstr ""
+msgstr "გრაფიკი"
 
 #. module: stock
 #: model:stock.inventory.line,product_name:stock.stock_inventory_line_1
@@ -2366,6 +2439,11 @@ msgid "HDD SH-1"
 msgstr ""
 
 #. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_move_has_move_lines
+msgid "Has Move Lines"
+msgstr ""
+
+#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_move_line_exist
 msgid "Has Pack Operations"
 msgstr ""
@@ -2378,6 +2456,11 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_has_scrap_move
 msgid "Has Scrap Moves"
+msgstr ""
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_picking_has_tracking
+msgid "Has Tracking"
 msgstr ""
 
 #. module: stock
@@ -2436,7 +2519,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_id
 #: model:ir.model.fields,field_description:stock.field_stock_production_lot_id
 #: model:ir.model.fields,field_description:stock.field_stock_quant_id
-#: model:ir.model.fields,field_description:stock.field_stock_quant_package_id_6904
+#: model:ir.model.fields,field_description:stock.field_stock_quant_package_id_6916
 #: model:ir.model.fields,field_description:stock.field_stock_quantity_history_id
 #: model:ir.model.fields,field_description:stock.field_stock_return_picking_id
 #: model:ir.model.fields,field_description:stock.field_stock_return_picking_line_id
@@ -2451,7 +2534,7 @@ msgid "ID"
 msgstr "იდენტიფიკატორი"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:412
+#: code:addons/stock/models/stock_inventory.py:421
 #, python-format
 msgid "INV:"
 msgstr ""
@@ -2643,7 +2726,7 @@ msgid "Immediate Transfer"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:678
+#: code:addons/stock/models/stock_picking.py:729
 #, python-format
 msgid "Immediate Transfer?"
 msgstr ""
@@ -2664,6 +2747,11 @@ msgid "Import using the top left button in"
 msgstr ""
 
 #. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_move_line_in_entire_package
+msgid "In Entire Package"
+msgstr ""
+
+#. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid ""
 "In Odoo, <strong>Reordering Rules</strong> are used to replenish your products.\n"
@@ -2674,7 +2762,7 @@ msgstr ""
 #. module: stock
 #: selection:stock.inventory,state:0
 msgid "In Progress"
-msgstr ""
+msgstr "მიმდინარე"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_in_type_id
@@ -2770,7 +2858,7 @@ msgid "Input Location"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_scrap.py:131
+#: code:addons/stock/models/stock_scrap.py:135
 #, python-format
 msgid "Insufficient Quantity"
 msgstr ""
@@ -2804,7 +2892,7 @@ msgid "Internal Reference"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:231
+#: code:addons/stock/models/stock_warehouse.py:235
 #: model:stock.picking.type,name:stock.picking_type_internal
 #, python-format
 msgid "Internal Transfers"
@@ -2828,19 +2916,19 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:240
+#: code:addons/stock/models/product.py:253
 #, python-format
 msgid "Invalid domain left operand %s"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:242
+#: code:addons/stock/models/product.py:255
 #, python-format
 msgid "Invalid domain operator %s"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:244
+#: code:addons/stock/models/product.py:257
 #, python-format
 msgid "Invalid domain right operand %s"
 msgstr ""
@@ -3016,6 +3104,11 @@ msgid "Is Locked"
 msgstr ""
 
 #. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_quant_package_is_processed
+msgid "Is Processed"
+msgstr ""
+
+#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_location_return_location
 msgid "Is a Return Location?"
 msgstr ""
@@ -3044,14 +3137,14 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:254
+#: code:addons/stock/models/stock_quant.py:265
 #, python-format
 msgid ""
 "It is not possible to reserve more products of %s than you have in stock."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:256
+#: code:addons/stock/models/stock_quant.py:270
 #, python-format
 msgid ""
 "It is not possible to unreserve more products of %s than you have in stock."
@@ -3226,7 +3319,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_internal_search
 msgid "Late Activities"
-msgstr ""
+msgstr "ბოლო აქტივობები"
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_picking_tree_late
@@ -3284,7 +3377,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_location_form
 msgid "Localization"
-msgstr ""
+msgstr "ლოკალიზაცია"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_production_lot_form
@@ -3292,7 +3385,6 @@ msgid "Locate"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/barcode.py:12
 #: model:ir.model.fields,field_description:stock.field_product_product_location_id
 #: model:ir.model.fields,field_description:stock.field_product_template_location_id
 #: model:ir.model.fields,field_description:stock.field_stock_change_product_qty_location_id
@@ -3311,7 +3403,6 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.stock_scrap_search_view
 #: model:ir.ui.view,arch_db:stock.view_move_search
 #: model:ir.ui.view,arch_db:stock.warehouse_orderpoint_search
-#, python-format
 msgid "Location"
 msgstr ""
 
@@ -3371,10 +3462,8 @@ msgid "Logistics"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/barcode.py:13
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_lot_id
 #: model:ir.model.fields,field_description:stock.field_stock_scrap_lot_id
-#, python-format
 msgid "Lot"
 msgstr ""
 
@@ -3406,7 +3495,6 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.report_lot_barcode
 #: model:ir.ui.view,arch_db:stock.report_package_barcode
 #: model:ir.ui.view,arch_db:stock.report_picking
-#: model:ir.ui.view,arch_db:stock.view_move_line_form
 #: model:res.request.link,name:stock.req_link_tracking
 msgid "Lot/Serial Number"
 msgstr ""
@@ -3445,7 +3533,7 @@ msgid "Lots/Serial Numbers"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:541
+#: code:addons/stock/models/stock_warehouse.py:547
 #, python-format
 msgid "MTO"
 msgstr ""
@@ -3456,7 +3544,7 @@ msgid "MTO rule"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:474
+#: code:addons/stock/models/stock_warehouse.py:479
 #: model:stock.location.route,name:stock.route_warehouse0_mto
 #, python-format
 msgid "Make To Order"
@@ -3522,7 +3610,7 @@ msgstr ""
 #. module: stock
 #: model:res.groups,name:stock.group_stock_manager
 msgid "Manager"
-msgstr ""
+msgstr "მმართველი"
 
 #. module: stock
 #: selection:stock.location.path,auto:0
@@ -3542,7 +3630,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_move_line_view_search
 msgid "Manufacturing"
-msgstr ""
+msgstr "წარმოება"
 
 #. module: stock
 #: selection:stock.picking.type,code:0
@@ -3573,7 +3661,7 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_product_removal_method
 msgid "Method"
-msgstr ""
+msgstr "მეთოდი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_company_propagation_minimum_delta
@@ -3699,7 +3787,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_internal_search
 msgid "My Activities"
-msgstr ""
+msgstr "ჩემი აქტივობები"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_procurement_rule_name
@@ -3708,7 +3796,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock.field_stock_incoterms_name
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_orderpoint_name
 msgid "Name"
-msgstr ""
+msgstr "სახელი"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.product_template_search_form_view_stock
@@ -3717,16 +3805,16 @@ msgid "Negative Stock"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_scrap.py:20
-#: code:addons/stock/models/stock_scrap.py:64
-#: code:addons/stock/models/stock_scrap.py:65 selection:stock.move,state:0
+#: code:addons/stock/models/stock_scrap.py:24
+#: code:addons/stock/models/stock_scrap.py:68
+#: code:addons/stock/models/stock_scrap.py:69 selection:stock.move,state:0
 #, python-format
 msgid "New"
-msgstr ""
+msgstr "ახალი"
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:173
-#: code:addons/stock/models/stock_picking.py:597
+#: code:addons/stock/models/stock_move_line.py:174
+#: code:addons/stock/models/stock_picking.py:639
 #, python-format
 msgid "New Move:"
 msgstr ""
@@ -3749,7 +3837,7 @@ msgstr ""
 #. module: stock
 #: selection:res.partner,picking_warn:0
 msgid "No Message"
-msgstr ""
+msgstr "შეტყობინება არ არის"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_config_settings_propagation_minimum_delta
@@ -3763,7 +3851,7 @@ msgid "No Tracking"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:389
+#: code:addons/stock/models/stock_move_line.py:408
 #, python-format
 msgid "No negative quantities allowed"
 msgstr ""
@@ -3774,14 +3862,14 @@ msgid "No operation made on this lot."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/procurement.py:185
+#: code:addons/stock/models/procurement.py:184
 #, python-format
 msgid ""
 "No procurement rule found. Please verify the configuration of your routes"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/wizard/stock_picking_return.py:55
+#: code:addons/stock/wizard/stock_picking_return.py:58
 #, python-format
 msgid ""
 "No products to return (only lines in Done state and not fully returned yet "
@@ -3802,7 +3890,7 @@ msgstr ""
 #. module: stock
 #: selection:stock.move,priority:0 selection:stock.picking,priority:0
 msgid "Normal"
-msgstr ""
+msgstr "ნორმალური"
 
 #. module: stock
 #: selection:stock.move,priority:0 selection:stock.picking,priority:0
@@ -3810,14 +3898,19 @@ msgid "Not urgent"
 msgstr ""
 
 #. module: stock
+#: model:ir.ui.view,arch_db:stock.view_picking_form
+msgid "Note"
+msgstr "შენიშვნა"
+
+#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_note
 #: model:ir.model.fields,field_description:stock.field_stock_picking_note
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
 msgid "Notes"
-msgstr ""
+msgstr "ჩანაწერები"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:544
+#: code:addons/stock/models/stock_picking.py:587
 #, python-format
 msgid "Nothing to check the availability for."
 msgstr ""
@@ -3848,7 +3941,7 @@ msgstr ""
 #: code:addons/stock/models/stock_picking.py:75
 #, python-format
 msgid "OK"
-msgstr ""
+msgstr "კარგი"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -3911,33 +4004,38 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:113
+#: code:addons/stock/models/stock_inventory.py:120
 #, python-format
 msgid "One Lot/Serial Number"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:111
+#: code:addons/stock/models/stock_inventory.py:118
 #, python-format
 msgid "One owner only"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:106
+#: code:addons/stock/models/stock_inventory.py:113
 #, python-format
 msgid "One product category"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:111
+#: code:addons/stock/models/stock_inventory.py:118
 #, python-format
 msgid "One product for a specific owner"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:107
+#: code:addons/stock/models/stock_inventory.py:114
 #, python-format
 msgid "One product only"
+msgstr ""
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.view_quant_package_form
+msgid "Ongoing Package Creation: Content"
 msgstr ""
 
 #. module: stock
@@ -4115,7 +4213,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.quant_search_view
 #: model:ir.ui.view,arch_db:stock.view_move_line_form
 msgid "Owner"
-msgstr ""
+msgstr "მფლობელი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_restrict_partner_id
@@ -4138,7 +4236,7 @@ msgid "Owner of the quants"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:337
+#: code:addons/stock/models/product.py:339
 #, python-format
 msgid "P&L Qty"
 msgstr ""
@@ -4157,7 +4255,7 @@ msgid "PRODUCT"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:216
+#: code:addons/stock/models/stock_warehouse.py:220
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_line_package_id
 #, python-format
 msgid "Pack"
@@ -4169,14 +4267,14 @@ msgid "Pack Type"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/barcode.py:14
 #: model:ir.model.fields,field_description:stock.field_stock_quant_package_id
 #: model:ir.model.fields,field_description:stock.field_stock_scrap_package_id
 #: model:ir.ui.view,arch_db:stock.quant_package_search_view
 #: model:ir.ui.view,arch_db:stock.quant_search_view
+#: model:ir.ui.view,arch_db:stock.report_picking
 #: model:ir.ui.view,arch_db:stock.view_quant_package_form
+#: model:ir.ui.view,arch_db:stock.view_quant_package_picking_tree
 #: model:ir.ui.view,arch_db:stock.view_quant_package_tree
-#, python-format
 msgid "Package"
 msgstr ""
 
@@ -4191,6 +4289,11 @@ msgid "Package BarCode with Contents"
 msgstr ""
 
 #. module: stock
+#: model:ir.ui.view,arch_db:stock.report_package_barcode
+msgid "Package Content"
+msgstr ""
+
+#. module: stock
 #: model:ir.ui.view,arch_db:stock.quant_package_search_view
 msgid "Package Name"
 msgstr ""
@@ -4202,6 +4305,11 @@ msgid "Package Reference"
 msgstr ""
 
 #. module: stock
+#: model:ir.ui.view,arch_db:stock.report_package_barcode_small
+msgid "Package Reference:"
+msgstr ""
+
+#. module: stock
 #: model:ir.ui.view,arch_db:stock.view_quant_package_form
 msgid "Package Transfers"
 msgstr ""
@@ -4209,6 +4317,12 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_quant_package_packaging_id
 msgid "Package Type"
+msgstr ""
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.report_package_barcode
+#: model:ir.ui.view,arch_db:stock.report_package_barcode_small
+msgid "Package Type:"
 msgstr ""
 
 #. module: stock
@@ -4324,7 +4438,7 @@ msgid "Physical Packages"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:224
+#: code:addons/stock/models/stock_warehouse.py:228
 #: model:ir.model.fields,field_description:stock.field_stock_backorder_confirmation_pick_ids
 #: model:ir.model.fields,field_description:stock.field_stock_immediate_transfer_pick_ids
 #, python-format
@@ -4332,13 +4446,13 @@ msgid "Pick"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:435
+#: code:addons/stock/models/stock_warehouse.py:439
 #, python-format
 msgid "Pick + Pack + Ship"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:434
+#: code:addons/stock/models/stock_warehouse.py:438
 #, python-format
 msgid "Pick + Ship"
 msgstr ""
@@ -4414,22 +4528,22 @@ msgstr ""
 #. module: stock
 #: model:ir.model,name:stock.model_web_planner
 msgid "Planner"
-msgstr ""
+msgstr "დამგეგმავი"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:649
+#: code:addons/stock/models/stock_picking.py:699
 #, python-format
 msgid "Please add some lines to move"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:823
+#: code:addons/stock/models/stock_picking.py:868
 #, python-format
 msgid "Please process some quantities to put in the pack first!"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/wizard/stock_picking_return.py:126
+#: code:addons/stock/wizard/stock_picking_return.py:130
 #, python-format
 msgid "Please specify at least one non-zero quantity."
 msgstr ""
@@ -4464,7 +4578,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock.field_stock_move_priority
 #: model:ir.model.fields,field_description:stock.field_stock_picking_priority
 msgid "Priority"
-msgstr ""
+msgstr "პრიორიტეტი"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_priority
@@ -4545,7 +4659,7 @@ msgstr ""
 #. module: stock
 #: model:stock.location,name:stock.location_procurement
 msgid "Procurements"
-msgstr ""
+msgstr "შესყიდვები"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_produce_line_ids
@@ -4553,7 +4667,7 @@ msgid "Produce Line"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:347
+#: code:addons/stock/models/product.py:349
 #, python-format
 msgid "Produced Qty"
 msgstr ""
@@ -4586,19 +4700,19 @@ msgid "Product"
 msgstr "პროდუქტი"
 
 #. module: stock
-#: code:addons/stock/models/stock_location.py:180
+#: code:addons/stock/models/stock_location.py:193
 #: model:ir.model.fields,field_description:stock.field_stock_location_route_categ_ids
 #: model:ir.ui.menu,name:stock.menu_product_category_config_stock
 #: model:ir.ui.view,arch_db:stock.stock_location_route_form_view
 #, python-format
 msgid "Product Categories"
-msgstr ""
+msgstr "პროდუქტის კატეგორიები"
 
 #. module: stock
 #: model:ir.model,name:stock.model_product_category
 #: model:ir.model.fields,field_description:stock.field_stock_fixed_putaway_strat_category_id
 msgid "Product Category"
-msgstr ""
+msgstr "პროდუქტის კატეგორია"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_line_product_code
@@ -4631,7 +4745,7 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_line_product_name
 msgid "Product Name"
-msgstr ""
+msgstr "პროდუქტის სახელი"
 
 #. module: stock
 #: model:ir.ui.menu,name:stock.menu_product_packagings
@@ -4645,7 +4759,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock.field_stock_move_product_tmpl_id
 #: model:ir.model.fields,field_description:stock.field_stock_quant_product_tmpl_id
 msgid "Product Template"
-msgstr ""
+msgstr "პროდუქტის შაბლონი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_product_type
@@ -4658,6 +4772,7 @@ msgid "Product Types"
 msgstr ""
 
 #. module: stock
+#: model:ir.model,name:stock.model_product_uom
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_line_product_uom_id
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_orderpoint_product_uom
 msgid "Product Unit of Measure"
@@ -4694,7 +4809,7 @@ msgid "Production Location"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_location.py:170
+#: code:addons/stock/models/stock_location.py:183
 #: code:addons/stock/wizard/stock_quantity_history.py:29
 #: model:ir.actions.act_window,name:stock.act_product_location_open
 #: model:ir.actions.act_window,name:stock.product_template_action_product
@@ -4709,7 +4824,7 @@ msgid "Products"
 msgstr "პროდუქტები"
 
 #. module: stock
-#: code:addons/stock/models/product.py:310
+#: code:addons/stock/models/product.py:312
 #, python-format
 msgid "Products: "
 msgstr ""
@@ -4770,6 +4885,11 @@ msgid "Put Away Strategy"
 msgstr ""
 
 #. module: stock
+#: model:ir.ui.view,arch_db:stock.view_picking_form
+msgid "Put in Pack"
+msgstr ""
+
+#. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 msgid "Put your products in packs (e.g. parcels, boxes) and track them"
 msgstr ""
@@ -4799,7 +4919,7 @@ msgstr ""
 #: code:addons/stock/models/stock_warehouse.py:98
 #, python-format
 msgid "Quality Control"
-msgstr ""
+msgstr "ხარისხის კონტროლი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_wh_qc_stock_loc_id
@@ -4866,7 +4986,7 @@ msgid "Quantity cannot be negative."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:611
+#: code:addons/stock/models/stock_move.py:643
 #, python-format
 msgid "Quantity decreased!"
 msgstr ""
@@ -4927,7 +5047,7 @@ msgid "Quants"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:70
+#: code:addons/stock/models/stock_quant.py:74
 #, python-format
 msgid "Quants cannot be created for consumables or services."
 msgstr ""
@@ -4973,25 +5093,25 @@ msgid "Receipt Route"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:432
+#: code:addons/stock/models/stock_warehouse.py:436
 #, python-format
 msgid "Receipt in 1 step"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:432
+#: code:addons/stock/models/stock_warehouse.py:436
 #, python-format
 msgid "Receipt in 2 steps"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:433
+#: code:addons/stock/models/stock_warehouse.py:437
 #, python-format
 msgid "Receipt in 3 steps"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:202
+#: code:addons/stock/models/stock_warehouse.py:206
 #: model:stock.picking.type,name:stock.chi_picking_type_in
 #: model:stock.picking.type,name:stock.picking_type_in
 #, python-format
@@ -5004,7 +5124,7 @@ msgid "Receive goods directly in stock (1 step)"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:324
+#: code:addons/stock/models/product.py:326
 #, python-format
 msgid "Received Qty"
 msgstr ""
@@ -5027,7 +5147,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.view_move_tree_receipt_picking
 #: model:ir.ui.view,arch_db:stock.view_move_tree_receipt_picking_board
 msgid "Reference"
-msgstr ""
+msgstr "წყარო"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_sequence_id
@@ -5045,6 +5165,7 @@ msgid "Reference of the document"
 msgstr ""
 
 #. module: stock
+#: model:ir.ui.view,arch_db:stock.view_move_kandan
 #: model:ir.ui.view,arch_db:stock.view_picking_form
 msgid "Register lots, packs, location"
 msgstr ""
@@ -5066,7 +5187,7 @@ msgid "Removal Strategy"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:111
+#: code:addons/stock/models/stock_quant.py:109
 #, python-format
 msgid "Removal strategy %s not implemented."
 msgstr ""
@@ -5163,7 +5284,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock.field_product_product_responsible_id
 #: model:ir.model.fields,field_description:stock.field_product_template_responsible_id
 msgid "Responsible"
-msgstr ""
+msgstr "პასუხისმგებელი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_resupply_route_ids
@@ -5197,13 +5318,13 @@ msgid "Return Picking"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/wizard/stock_picking_return.py:97
+#: code:addons/stock/wizard/stock_picking_return.py:101
 #, python-format
 msgid "Return of %s"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/wizard/stock_picking_return.py:147
+#: code:addons/stock/wizard/stock_picking_return.py:151
 #, python-format
 msgid "Returned Picking"
 msgstr ""
@@ -5266,7 +5387,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_warehouse_orderpoint_form
 msgid "Rules"
-msgstr ""
+msgstr "წესები"
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_procurement_compute
@@ -5312,7 +5433,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:836
+#: code:addons/stock/models/stock_picking.py:881
 #: model:ir.model.fields,field_description:stock.field_stock_move_scrap_ids
 #: model:ir.model.fields,field_description:stock.field_stock_warn_insufficient_qty_scrap_scrap_id
 #: model:ir.ui.menu,name:stock.menu_stock_scrap
@@ -5383,7 +5504,7 @@ msgid "Search Stock Location Paths"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:108
+#: code:addons/stock/models/stock_inventory.py:115
 #, python-format
 msgid "Select products manually"
 msgstr ""
@@ -5418,31 +5539,31 @@ msgid "Sequence"
 msgstr "მიმდევრობა"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:685
+#: code:addons/stock/models/stock_warehouse.py:699
 #, python-format
 msgid "Sequence in"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:689
+#: code:addons/stock/models/stock_warehouse.py:719
 #, python-format
 msgid "Sequence internal"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:686
+#: code:addons/stock/models/stock_warehouse.py:704
 #, python-format
 msgid "Sequence out"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:687
+#: code:addons/stock/models/stock_warehouse.py:709
 #, python-format
 msgid "Sequence packing"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:688
+#: code:addons/stock/models/stock_warehouse.py:714
 #, python-format
 msgid "Sequence picking"
 msgstr ""
@@ -5520,7 +5641,7 @@ msgstr ""
 #: model:ir.ui.menu,name:stock.menu_stock_general_settings
 #: model:ir.ui.view,arch_db:stock.stock_picking_type_kanban
 msgid "Settings"
-msgstr ""
+msgstr "პარამეტრები"
 
 #. module: stock
 #: model:stock.location,name:stock.stock_location_components
@@ -5538,7 +5659,7 @@ msgid "Shelves (Y)"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:434
+#: code:addons/stock/models/stock_warehouse.py:438
 #, python-format
 msgid "Ship Only"
 msgstr ""
@@ -5616,6 +5737,8 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.view_picking_internal_search
 msgid "Show all records which has next action date is before today"
 msgstr ""
+"ყველა ჩანაწერის ჩვენება, რომლებსაც შემდეგი მოქმედების თარიღი აქვს დღევანდელ "
+"დღემდე"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_string_availability_info
@@ -5631,7 +5754,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.report_picking
 #: model:ir.ui.view,arch_db:stock.view_move_search
 msgid "Source"
-msgstr ""
+msgstr "წყარო"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_origin
@@ -5954,14 +6077,14 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_change_product_qty_product_tmpl_id
 msgid "Template"
-msgstr ""
+msgstr "შაბლონი"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_path_auto
 msgid ""
-"The 'Manual Operation' value will create a stock move after the current "
-"one.With 'Automatic No Step Added', the location is replaced in the original"
-" move."
+"The 'Manual Operation' value will create a stock move after the current one."
+" With 'Automatic No Step Added', the location is replaced in the original "
+"move."
 msgstr ""
 
 #. module: stock
@@ -5979,7 +6102,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:1065
+#: code:addons/stock/models/stock_picking.py:836
 #, python-format
 msgid ""
 "The backorder <a href=# data-oe-model=stock.picking data-oe-id=%d>%s</a> has"
@@ -6031,13 +6154,6 @@ msgid ""
 " reverse order from the endpoint with the original demand to the starting "
 "point. That way, it is always known where we need to go and that is why they"
 " are preferred over push rules."
-msgstr ""
-
-#. module: stock
-#: model:ir.ui.view,arch_db:stock.product_category_form_view_inherit
-msgid ""
-"The following routes will apply to the products in this category taking into"
-" account parent categories:"
 msgstr ""
 
 #. module: stock
@@ -6099,12 +6215,23 @@ msgid "The push rule that created this stock move"
 msgstr ""
 
 #. module: stock
+#: code:addons/stock/models/stock_move_line.py:377
+#, python-format
+msgid ""
+"The quantity done for the product \"%s\" doesn't respect the rounding "
+"precision                                   defined on the unit of measure "
+"\"%s\". Please change the quantity done or the"
+"                                   rounding precision of your unit of "
+"measure."
+msgstr ""
+
+#. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "The quotation becomes a Sales Order and a Transfer Order is created"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:266
+#: code:addons/stock/models/stock_move.py:283
 #: code:addons/stock/models/stock_move_line.py:80
 #, python-format
 msgid ""
@@ -6113,10 +6240,10 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:144
-#: code:addons/stock/models/stock_inventory.py:146
-#: code:addons/stock/models/stock_inventory.py:148
-#: code:addons/stock/models/stock_inventory.py:150
+#: code:addons/stock/models/stock_inventory.py:151
+#: code:addons/stock/models/stock_inventory.py:153
+#: code:addons/stock/models/stock_inventory.py:155
+#: code:addons/stock/models/stock_inventory.py:157
 #, python-format
 msgid "The selected inventory options are not coherent."
 msgstr ""
@@ -6224,7 +6351,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_location.py:87
+#: code:addons/stock/models/stock_location.py:85
 #, python-format
 msgid ""
 "This location's usage cannot be changed to view as it contains products."
@@ -6248,7 +6375,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_template_property_form
 msgid "This note will show up on delivery orders."
-msgstr ""
+msgstr "ეს შენიშვნა ასევე გამოჩნდება მიტანის შეკვეთებზე."
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_template_property_form
@@ -6317,10 +6444,24 @@ msgid ""
 msgstr ""
 
 #. module: stock
+#: model:ir.model.fields,help:stock.field_stock_picking_entire_package_detail_ids
+msgid ""
+"Those are the entire packages of a picking shown in the view of detailed "
+"operations"
+msgstr ""
+
+#. module: stock
+#: model:ir.model.fields,help:stock.field_stock_picking_entire_package_ids
+msgid ""
+"Those are the entire packages of a picking shown in the view of operations"
+msgstr ""
+
+#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_location_dest_id
 #: model:ir.ui.view,arch_db:stock.view_move_tree
+#: model:ir.ui.view,arch_db:stock.view_quant_package_picking_tree
 msgid "To"
-msgstr ""
+msgstr "მიმღები"
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_picking_tree_ready
@@ -6328,7 +6469,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.stock_picking_type_kanban
 #: model:ir.ui.view,arch_db:stock.view_move_search
 msgid "To Do"
-msgstr ""
+msgstr "გასაკეთებელია"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_to_loc
@@ -6375,17 +6516,17 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_move_search
 msgid "Today"
-msgstr ""
+msgstr "დღეს"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_internal_search
 msgid "Today Activities"
-msgstr ""
+msgstr "დღევანდელი აქტივობები"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_total_qty
 msgid "Total Quantity"
-msgstr ""
+msgstr "ჯამური რაოდენობა"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_product_category_total_route_ids
@@ -6393,11 +6534,9 @@ msgid "Total routes"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_production_lot.py:53
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 #: model:ir.ui.view,arch_db:stock.view_template_property_form
-#, python-format
 msgid "Traceability"
 msgstr ""
 
@@ -6437,41 +6576,41 @@ msgstr ""
 #: model:ir.model,name:stock.model_stock_picking
 #: model:ir.ui.view,arch_db:stock.view_picking_form
 msgid "Transfer"
-msgstr ""
+msgstr "ტრანსფერი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_picking_partner_id
 msgid "Transfer Destination Address"
-msgstr ""
+msgstr "ტრანსფერის დანიშნულების ადგილი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_picking_id
 msgid "Transfer Reference"
-msgstr ""
+msgstr "ტრანსფერის მითითება"
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_picking_tree
 #: model:ir.ui.menu,name:stock.all_picking
 #: model:ir.ui.view,arch_db:stock.stock_picking_type_kanban
 msgid "Transfers"
-msgstr ""
+msgstr "ტრანსფერები"
 
 #. module: stock
 #: selection:stock.location,usage:0
 msgid "Transit Location"
-msgstr ""
+msgstr "ტრანზიტული ლოკაცია"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.quant_search_view
 msgid "Transit Locations"
-msgstr ""
+msgstr "ტრანზიტული ლოკაციები"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_picking_code
 #: model:ir.model.fields,field_description:stock.field_stock_picking_picking_type_code
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_code
 msgid "Type of Operation"
-msgstr ""
+msgstr "ოპერაციის ტიპი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_config_settings_module_delivery_ups
@@ -6487,23 +6626,24 @@ msgstr ""
 #: model:ir.model.fields,help:stock.field_stock_inventory_line_prodlot_name
 #: model:ir.model.fields,help:stock.field_stock_production_lot_name
 msgid "Unique Lot/Serial Number"
-msgstr ""
+msgstr "უნიკალური ლოტი / სერიული ნომერი"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_move_picking_form
 msgid "Unit Of Measure"
-msgstr ""
+msgstr "საზომი ერთეული"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_price_unit
 msgid "Unit Price"
-msgstr ""
+msgstr "ერთეულის ფასი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_product_uom_id
 #: model:ir.model.fields,field_description:stock.field_stock_move_product_uom
 #: model:ir.model.fields,field_description:stock.field_stock_production_lot_product_uom_id
 #: model:ir.model.fields,field_description:stock.field_stock_quant_product_uom_id
+#: model:ir.model.fields,field_description:stock.field_stock_return_picking_line_uom_id
 #: model:ir.model.fields,field_description:stock.field_stock_scrap_product_uom_id
 #: model:ir.ui.view,arch_db:stock.stock_move_tree
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
@@ -6517,27 +6657,27 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.view_stock_move_line_kanban
 #: model:ir.ui.view,arch_db:stock.view_stock_move_line_operation_tree
 msgid "Unit of Measure"
-msgstr ""
+msgstr "საზომი ერთეული"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 msgid "Units Of Measure"
-msgstr ""
+msgstr "საზომი ერთეულები"
 
 #. module: stock
 #: model:ir.ui.menu,name:stock.menu_stock_unit_measure_stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "Units of Measure"
-msgstr ""
+msgstr "საზომი ერთეულები"
 
 #. module: stock
 #: model:ir.ui.menu,name:stock.product_uom_menu
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "Units of Measures"
-msgstr ""
+msgstr "საზომი ერთეულები"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:321
+#: code:addons/stock/models/stock_quant.py:336
 #, python-format
 msgid "Unknown Pack"
 msgstr ""
@@ -6572,7 +6712,7 @@ msgid "Unpack"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:342
+#: code:addons/stock/models/product.py:344
 #, python-format
 msgid "Unplanned Qty"
 msgstr ""
@@ -6580,19 +6720,19 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
 msgid "Unreserve"
-msgstr ""
+msgstr "რეზერვაციის გაუქმება"
 
 #. module: stock
 #: model:ir.ui.menu,name:stock.menu_stock_uom_form_action
 #: model:ir.ui.view,arch_db:stock.stock_inventory_line_tree2
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
 msgid "UoM"
-msgstr ""
+msgstr "საზ. ერთეულები"
 
 #. module: stock
 #: model:ir.ui.menu,name:stock.menu_stock_uom_categ_form_action
 msgid "UoM Categories"
-msgstr ""
+msgstr "საზ. ერთეულების კატეგორიები"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
@@ -6604,14 +6744,14 @@ msgstr ""
 #: model:ir.actions.act_window,name:stock.action_view_change_product_quantity
 #: model:ir.ui.view,arch_db:stock.view_change_product_quantity
 msgid "Update Product Quantity"
-msgstr ""
+msgstr "გააახლე პროდუქტის რაოდენობა"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.product_form_view_procurement_button
 #: model:ir.ui.view,arch_db:stock.product_product_view_form_easy_inherit_stock
 #: model:ir.ui.view,arch_db:stock.product_template_form_view_procurement_button
 msgid "Update Qty On Hand"
-msgstr ""
+msgstr "გააახლე ხელზე არსებული რაოდენობა"
 
 #. module: stock
 #. flectra-web
@@ -6625,12 +6765,12 @@ msgstr ""
 #. module: stock
 #: selection:stock.move,priority:0 selection:stock.picking,priority:0
 msgid "Urgent"
-msgstr ""
+msgstr "სასწრაფო"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_use_existing_lots
 msgid "Use Existing Lots/Serial Numbers"
-msgstr ""
+msgstr "გამოიყენე არსებული ლოტი / სერიული ნომრები"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
@@ -6645,23 +6785,23 @@ msgstr ""
 #. module: stock
 #: model:res.groups,name:stock.group_stock_user
 msgid "User"
-msgstr ""
+msgstr "მომხმარებელი"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_scrap_form_view
 #: model:ir.ui.view,arch_db:stock.view_picking_form
 msgid "Validate"
-msgstr ""
+msgstr "დაადასტურე"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
 msgid "Validate Inventory"
-msgstr ""
+msgstr "დაადასტურე მარაგები"
 
 #. module: stock
 #: selection:stock.inventory,state:0
 msgid "Validated"
-msgstr ""
+msgstr "დადასტურებულია"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_change_product_qty_product_variant_count
@@ -6671,40 +6811,40 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_location_search
 msgid "Vendor"
-msgstr ""
+msgstr "მომწოდებელი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_partner_property_stock_supplier
 #: model:ir.model.fields,field_description:stock.field_res_users_property_stock_supplier
 #: selection:stock.location,usage:0
 msgid "Vendor Location"
-msgstr ""
+msgstr "მომწოდებლის ლოკაცია"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_location_search
 msgid "Vendor Locations"
-msgstr ""
+msgstr "მომწოდებლის ლოკაციები"
 
 #. module: stock
 #: model:stock.location,name:stock.stock_location_suppliers
 #: selection:stock.picking.type,code:0
 msgid "Vendors"
-msgstr ""
+msgstr "მომწოდებლები"
 
 #. module: stock
 #: selection:stock.move,priority:0 selection:stock.picking,priority:0
 msgid "Very Urgent"
-msgstr ""
+msgstr "ძალიან სასწრაფოა"
 
 #. module: stock
 #: selection:stock.location,usage:0
 msgid "View"
-msgstr ""
+msgstr "ხედი"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_view_location_id
 msgid "View Location"
-msgstr ""
+msgstr "იხილე ლოკაცია"
 
 #. module: stock
 #: model:stock.location,name:stock.stock_location_locations_virtual
@@ -6720,33 +6860,33 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.stock_picking_type_kanban
 #: selection:stock.picking,state:0
 msgid "Waiting"
-msgstr ""
+msgstr "მოლოდინი"
 
 #. module: stock
 #: selection:stock.move,state:0
 msgid "Waiting Another Move"
-msgstr ""
+msgstr "შემდეგი გადაადგილების ლოდინი"
 
 #. module: stock
 #: selection:stock.picking,state:0
 msgid "Waiting Another Operation"
-msgstr ""
+msgstr "შემდეგი ოპერაციის ლოდინი"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_internal_search
 #: selection:stock.move,state:0
 msgid "Waiting Availability"
-msgstr ""
+msgstr "მარაგში არსებობის ლოდინი"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_internal_search
 msgid "Waiting Moves"
-msgstr ""
+msgstr "გადაადგილებების ლოდინი"
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_picking_tree_waiting
 msgid "Waiting Transfers"
-msgstr ""
+msgstr "ტრანსფერების ლოდინი"
 
 #. module: stock
 #: model:ir.model,name:stock.model_stock_warehouse
@@ -6763,17 +6903,17 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.view_warehouse_tree
 #: model:ir.ui.view,arch_db:stock.warehouse_orderpoint_search
 msgid "Warehouse"
-msgstr ""
+msgstr "საწყობი"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_warehouse
 msgid "Warehouse Configuration"
-msgstr ""
+msgstr "საწყობის კონფიგურაცია"
 
 #. module: stock
 #: model:ir.ui.menu,name:stock.menu_warehouse_config
 msgid "Warehouse Management"
-msgstr ""
+msgstr "საწყობის მართვა"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_name
@@ -6786,7 +6926,7 @@ msgid "Warehouse to Propagate"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:711
+#: code:addons/stock/models/stock_warehouse.py:744
 #, python-format
 msgid "Warehouse's Routes"
 msgstr ""
@@ -6798,30 +6938,31 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 #: model:ir.ui.view,arch_db:stock.stock_location_route_form_view
 msgid "Warehouses"
-msgstr ""
+msgstr "საწყობები"
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:110
+#: code:addons/stock/models/stock_move_line.py:134
+#: code:addons/stock/models/stock_move_line.py:146
 #: selection:res.partner,picking_warn:0
 #, python-format
 msgid "Warning"
-msgstr ""
+msgstr "გაფრთხილება"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_partner_stock_warnings_form
 msgid "Warning on the Picking"
-msgstr ""
+msgstr "გაფრთხილება აკრეფაზე"
 
 #. module: stock
-#: code:addons/stock/models/product.py:303
+#: code:addons/stock/models/product.py:305
 #, python-format
 msgid "Warning!"
-msgstr ""
+msgstr "ყურადღება!"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_config_settings_group_warning_stock
 msgid "Warnings"
-msgstr ""
+msgstr "გაფრთხილებები"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -6847,12 +6988,6 @@ msgid "We hope this guide helped you implement Odoo Inventory."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/barcode.py:11
-#, python-format
-msgid "Weighted Product"
-msgstr ""
-
-#. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "Welcome"
 msgstr ""
@@ -6875,11 +7010,15 @@ msgid ""
 " can be overridden by the routes on the Product/Product Categories or by the"
 " Preferred Routes on the Procurement"
 msgstr ""
+"როდესაც მონიშნულია საწყობი ამ მარშრუტისთვის, ეს მარშრუტი უნდე მიიჩნეოდეს "
+"ძირიდად როდესაც პროდუქტი გაივლის ამ საწყობს. ამ მარშრუტზე უპირატესად "
+"შესაძლოა ჩაითვალოს პროდუქტის / პროდუქტის კატეგორიაში მითითებული მარსრუტები, "
+"ან შესყიდვებში შერჩეული პრივილეგირებული მარშრუტები. "
 
 #. module: stock
 #: selection:stock.picking,move_type:0
 msgid "When all products are ready"
-msgstr ""
+msgstr "როდესაც ყველა პროდუქტი მზადაა"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_route_product_selectable
@@ -6887,6 +7026,9 @@ msgid ""
 "When checked, the route will be selectable in the Inventory tab of the "
 "Product form.  It will take priority over the Warehouse route. "
 msgstr ""
+"როდესაც მონიშნავთ, მარშრუტის შერჩევა მოხდება პროდუქტის ფორმის მარაგების "
+"ცხრილში.  არჩეული მარშრუტი ჩაითვლება უპირატესად საწყობის მარშრუტთან "
+"შედარებით."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_route_product_categ_selectable
@@ -6894,6 +7036,8 @@ msgid ""
 "When checked, the route will be selectable on the Product Category.  It will"
 " take priority over the Warehouse route. "
 msgstr ""
+"მონიშნვნისას, მარშრუტის შერჩევა მოხდება პროდუქტის კატეგორიაზე. არჩეული "
+"მარშრუტი ჩაითვლება უპირატესად საწყობის მარშრუტთან შედარებით."
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -6912,6 +7056,9 @@ msgid ""
 "When the picking is not done this allows changing the initial demand. When "
 "the picking is done this allows changing the done quantities."
 msgstr ""
+"როდესაც აკრეფა არ ხორციელდება, ეს საშუალებას გვაძლევს საწყისი მოთხოვნა "
+"შევცვალოთ. თუ აკრება შესრულდა ეს გვაძლევს შესაძლებლობას, რომ შევცვალოთ "
+"შესრულებული რაოდენობები. "
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint_product_min_qty
@@ -6957,6 +7104,15 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_return_picking_line_wizard_id
 msgid "Wizard"
+msgstr "ვიზარდი"
+
+#. module: stock
+#: code:addons/stock/models/stock_production_lot.py:45
+#, python-format
+msgid ""
+"You are not allowed to change the product linked to a serial or lot number "
+"if some stock moves have already been created with that number. This would "
+"lead to inconsistencies in your stock."
 msgstr ""
 
 #. module: stock
@@ -6966,7 +7122,7 @@ msgid "You are not allowed to create a lot for this picking type"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:636
+#: code:addons/stock/models/stock_move.py:668
 #, python-format
 msgid ""
 "You are using a unit of measure smaller than the one you are using in order "
@@ -6999,7 +7155,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
 msgid "You can delete lines to ignore some products."
-msgstr ""
+msgstr "შეგიძლიათ სტრიქონების წაშლა, რამდენიმე პროდუქტის უგულებელსაყოფად."
 
 #. module: stock
 #: model:ir.actions.act_window,help:stock.action_picking_form
@@ -7018,7 +7174,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:511
+#: code:addons/stock/models/product.py:522
 #, python-format
 msgid ""
 "You can not change the type of a product that is currently reserved on a "
@@ -7027,7 +7183,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:502
+#: code:addons/stock/models/product.py:513
 #, python-format
 msgid ""
 "You can not change the unit of measure of a product that has already been "
@@ -7036,7 +7192,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:338
+#: code:addons/stock/models/stock_move_line.py:339
 #, python-format
 msgid ""
 "You can not delete product moves if the picking is done. You can only "
@@ -7044,25 +7200,25 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:116
+#: code:addons/stock/models/stock_move_line.py:152
 #, python-format
 msgid "You can not enter negative quantities!"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:398
+#: code:addons/stock/models/stock_inventory.py:407
 #, python-format
 msgid "You can only adjust stockable products."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:1073
+#: code:addons/stock/models/stock_move.py:1142
 #, python-format
 msgid "You can only delete draft moves."
-msgstr ""
+msgstr "შეგიძლიათ მხოლოდ დრაფტი გადაადგილებების წაშლა."
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:126
+#: code:addons/stock/models/stock_move_line.py:145
 #, python-format
 msgid "You can only process 1.0 %s for products with unique serial number."
 msgstr ""
@@ -7073,29 +7229,51 @@ msgid "You can review and edit the predefined units via the"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:936
+#: code:addons/stock/models/stock_move.py:1006
 #, python-format
 msgid "You cannot cancel a stock move that has been set to 'Done'."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_scrap.py:71
+#: code:addons/stock/models/stock_location.py:96
+#, python-format
+msgid ""
+"You cannot change the location type or its use as a scrap location as there "
+"are products reserved in this location. Please unreserve the products first."
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/product.py:606
+#, python-format
+msgid ""
+"You cannot change the ratio of this unit of mesure as some products with "
+"this UoM have already been moved or are currently reserved."
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/stock_scrap.py:75
 #, python-format
 msgid "You cannot delete a scrap which is done."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:386
+#: code:addons/stock/models/stock_inventory.py:104
 #, python-format
-msgid ""
-"You cannot have two inventory adjustements in state 'in Progress' with the "
-"same product(%s), same location(%s), same package, same owner and same lot. "
-"Please first validatethe first inventory adjustement with this product "
-"before creating another one."
+msgid "You cannot delete a validated inventory adjustement."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:159
+#: code:addons/stock/models/stock_inventory.py:394
+#, python-format
+msgid ""
+"You cannot have two inventory adjustements in state 'in Progress' with the "
+"same product (%s), same location (%s), same package, same owner and same "
+"lot. Please first validate the first inventory adjustement with this product"
+" before creating another one."
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/stock_inventory.py:166
 #, python-format
 msgid ""
 "You cannot set a negative product quantity in an inventory line:\n"
@@ -7103,19 +7281,19 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:1101
+#: code:addons/stock/models/stock_move.py:1173
 #, python-format
 msgid "You cannot split a draft move. It needs to be confirmed first."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:1097
+#: code:addons/stock/models/stock_move.py:1169
 #, python-format
 msgid "You cannot split a move done"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:88
+#: code:addons/stock/models/stock_quant.py:86
 #, python-format
 msgid ""
 "You cannot take products from or deliver products to a location of type "
@@ -7123,26 +7301,22 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:152
-#: code:addons/stock/models/stock_move_line.py:158
+#: code:addons/stock/models/stock_move_line.py:127
+#: code:addons/stock/models/stock_move_line.py:131
 #, python-format
 msgid ""
 "You cannot use the same serial number twice. Please correct the serial "
 "numbers encoded."
 msgstr ""
+"არ შეიძლება ერთი და იგივე სერიის ორჯერ გამოყენება. გთხოვთ შეასწორეთ სერიული "
+"ნომრები. "
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:672
+#: code:addons/stock/models/stock_picking.py:709
 #, python-format
 msgid ""
-"You cannot validate a transfer if you have not processed any quantity for "
-"%s."
-msgstr ""
-
-#. module: stock
-#: code:addons/stock/models/stock_picking.py:656
-#, python-format
-msgid "You cannot validate a transfer if you have not processed any quantity."
+"You cannot validate a transfer if you have not processed any quantity. You "
+"should rather cancel the transfer."
 msgstr ""
 
 #. module: stock
@@ -7153,15 +7327,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:132
-#, python-format
-msgid ""
-"You have already assigned this serial number to this product. Please correct"
-" the serial numbers encoded."
-msgstr ""
-
-#. module: stock
-#: code:addons/stock/wizard/stock_picking_return.py:106
+#: code:addons/stock/wizard/stock_picking_return.py:110
 #, python-format
 msgid "You have manually created product lines, please delete them to proceed"
 msgstr ""
@@ -7179,7 +7345,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:304
+#: code:addons/stock/models/product.py:306
 #, python-format
 msgid ""
 "You have products in stock that have no lot number.  You can assign serial "
@@ -7187,7 +7353,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:795
+#: code:addons/stock/models/stock_warehouse.py:828
 #, python-format
 msgid ""
 "You have to select a product unit of measure in the same category than the "
@@ -7195,10 +7361,10 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_location.py:98
+#: code:addons/stock/models/stock_location.py:111
 #, python-format
 msgid "You have to set a name for this location."
-msgstr ""
+msgstr "მიუთითეთ ამ ლოკაციის დასახელება."
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_immediate_transfer
@@ -7208,7 +7374,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/wizard/stock_picking_return.py:44
+#: code:addons/stock/wizard/stock_picking_return.py:46
 #, python-format
 msgid "You may only return Done pickings"
 msgstr ""
@@ -7217,32 +7383,34 @@ msgstr ""
 #: code:addons/stock/models/stock_inventory.py:22
 #, python-format
 msgid "You must define a warehouse for the company: %s."
-msgstr ""
+msgstr "გთხოვთ მიუთითეთ საწყობი კომპანიისთვის: %s."
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:387
-#: code:addons/stock/models/stock_picking.py:670
+#: code:addons/stock/models/stock_move_line.py:406
+#: code:addons/stock/models/stock_picking.py:721
 #, python-format
 msgid "You need to supply a lot/serial number for %s."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:1047
+#: code:addons/stock/models/stock_move.py:1126
 #, python-format
 msgid "You should not put the contents of a package in different locations."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:369
-#: code:addons/stock/models/product.py:504
+#: code:addons/stock/models/product.py:373
+#: code:addons/stock/models/product.py:515
 #, python-format
 msgid ""
 "You still have some active reordering rules on this product. Please archive "
 "or delete them first."
 msgstr ""
+"მოცემულ პროდუქტზე თქვენ კვლავ გაქვთ აქტიული შეკვეთის წესები. დასაწყისითვის "
+"გთხოვთ წაშალეთ ან დააარქივეთ ეს წესები."
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:318
+#: code:addons/stock/models/stock_move.py:338
 #, python-format
 msgid ""
 "You try to move a product using a UoM that is not compatible with the UoM of"
@@ -7273,13 +7441,13 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.view_change_product_quantity
 #: model:ir.ui.view,arch_db:stock.view_immediate_transfer
 msgid "_Apply"
-msgstr ""
+msgstr "_Apply"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_backorder_confirmation
 #: model:ir.ui.view,arch_db:stock.view_change_product_quantity
 msgid "_Cancel"
-msgstr ""
+msgstr "_Cancel"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -7321,7 +7489,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
 msgid "e.g. Annual inventory"
-msgstr ""
+msgstr "მაგ. წლიური მარაგი"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_procurement_rule_form
@@ -7332,12 +7500,12 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.view_production_lot_form
 #: model:ir.ui.view,arch_db:stock.view_production_lot_form_simple
 msgid "e.g. LOT/0001/20121"
-msgstr ""
+msgstr "მაგ. LOT/0001/20121"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
 msgid "e.g. PO0032"
-msgstr ""
+msgstr "მაგ. PO0032"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -7356,7 +7524,7 @@ msgstr ""
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid "feedback@mail.odoo.com"
+msgid "feedback@mail.flectrahq.com"
 msgstr ""
 
 #. module: stock
@@ -7389,7 +7557,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_form_view
 msgid "in"
-msgstr ""
+msgstr "ში"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -7401,7 +7569,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_form_view
 msgid "is not available in sufficient quantity"
-msgstr ""
+msgstr "არ არის საკმარისი რაოდენობა"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -7491,11 +7659,12 @@ msgid "with the <i>Validate</i> button"
 msgstr ""
 
 #. module: stock
-#: model:ir.ui.view,arch_db:stock.view_picking_form
-msgid "↳Put in Pack"
-msgstr ""
-
-#. module: stock
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
 msgid "⇒ Set quantities to 0"
+msgstr "⇒ დასვი რეოდენობები 0-ზე"
+
+#. module: stock
+#: code:addons/stock/models/stock_move_line.py:223
+#, python-format
+msgid "Changing the product is only allowed in 'Draft' state."
 msgstr ""

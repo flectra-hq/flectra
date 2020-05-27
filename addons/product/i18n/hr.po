@@ -3,22 +3,26 @@
 # * product
 # 
 # Translators:
-# Bole <bole@dajmi5.com>, 2017
-# Tina Milas <tina@uvid.hr>, 2017
-# Martin Trigaux <mat@odoo.com>, 2017
 # Mario Jureša <mario.juresa@uvid.hr>, 2017
-# Karolina Tonković <karolina.tonkovic@storm.hr>, 2017
-# Đurđica Žarković <durdica.zarkovic@storm.hr>, 2017
-# Vladimir Olujić <olujic.vladimir@storm.hr>, 2017
-# Ivica Dimjašević <ivica.dimjasevic@storm.hr>, 2017
 # Filip Cuk <filipcuk2@gmail.com>, 2017
+# Ivica Dimjašević <ivica.dimjasevic@storm.hr>, 2017
+# Tina Milas, 2017
+# Vladimir Olujić <olujic.vladimir@storm.hr>, 2017
+# Đurđica Žarković <durdica.zarkovic@storm.hr>, 2018
+# Martin Trigaux, 2018
+# Ivan Marijanović <ivanm101@yahoo.com>, 2018
+# Karolina Tonković <karolina.tonkovic@storm.hr>, 2018
+# Ana-Maria Olujić <ana-maria.olujic@slobodni-programi.hr>, 2019
+# Milan Tribuson <one.mile.code@gmail.com>, 2019
+# Bole <bole@dajmi5.com>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 11:26+0000\n"
-"PO-Revision-Date: 2017-10-02 11:26+0000\n"
-"Last-Translator: Filip Cuk <filipcuk2@gmail.com>, 2017\n"
+"POT-Creation-Date: 2019-03-29 09:08+0000\n"
+"PO-Revision-Date: 2017-09-20 10:22+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>, 2020\n"
 "Language-Team: Croatian (https://www.transifex.com/odoo/teams/41243/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +59,7 @@ msgid "%s %% discount and %s surcharge"
 msgstr "%s %% popust i %s naplate"
 
 #. module: product
-#: code:addons/product/models/product_template.py:324
+#: code:addons/product/models/product_template.py:333
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (kopija)"
@@ -718,9 +722,7 @@ msgid "Computer SC234"
 msgstr "Computer SC234"
 
 #. module: product
-#: code:addons/product/models/product_template.py:50
 #: selection:product.template,type:0
-#, python-format
 msgid "Consumable"
 msgstr "Potrošni"
 
@@ -756,6 +758,12 @@ msgstr ""
 #: selection:product.pricelist.item,base:0
 msgid "Cost"
 msgstr "Trošak"
+
+#. module: product
+#: model:ir.model.fields,field_description:product.field_product_product_cost_currency_id
+#: model:ir.model.fields,field_description:product.field_product_template_cost_currency_id
+msgid "Cost Currency"
+msgstr ""
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_product_standard_price
@@ -926,6 +934,11 @@ msgstr "Opis"
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_template_form_view
 msgid "Description for Customers"
+msgstr "Opis za kupce"
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_form_view
+msgid "Description for Internal"
 msgstr ""
 
 #. module: product
@@ -1006,19 +1019,19 @@ msgid "Ending valid for the pricelist item validation"
 msgstr ""
 
 #. module: product
-#: code:addons/product/models/product.py:53
+#: code:addons/product/models/product.py:56
 #, python-format
 msgid "Error ! You cannot create recursive categories."
 msgstr "Greška! Ne možete kreirati rekurzivne kategorije."
 
 #. module: product
-#: code:addons/product/models/product_attribute.py:101
+#: code:addons/product/models/product_attribute.py:102
 #, python-format
 msgid "Error ! You cannot use this attribute with the following value."
 msgstr "Greška ! Ne možete koristiti ovu značajku sa sljedećim vrijednostima."
 
 #. module: product
-#: code:addons/product/models/product.py:283
+#: code:addons/product/models/product.py:293
 #, python-format
 msgid ""
 "Error! It is not allowed to choose more than one value for a given "
@@ -1043,7 +1056,7 @@ msgstr ""
 "cjenika!"
 
 #. module: product
-#: code:addons/product/models/product_template.py:274
+#: code:addons/product/models/product_template.py:283
 #, python-format
 msgid ""
 "Error: The default Unit of Measure and the purchase Unit of Measure must be "
@@ -1171,6 +1184,11 @@ msgstr ""
 #: model:product.template,website_description:product.product_product_8_product_template
 msgid "Friendly to the environment."
 msgstr "Prijateljski prema okolišu."
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Future Activities"
+msgstr "Buduće aktivnosti"
 
 #. module: product
 #: model:product.product,name:product.product_product_1
@@ -1433,6 +1451,16 @@ msgid "Inventory"
 msgstr "Skladište"
 
 #. module: product
+#: model:ir.model.fields,field_description:product.field_product_product_is_product_variant
+msgid "Is Product Variant"
+msgstr "Je Varijanta proizvoda"
+
+#. module: product
+#: model:ir.model.fields,field_description:product.field_product_template_is_product_variant
+msgid "Is a product variant"
+msgstr "Je varijanta proizvoda"
+
+#. module: product
 #: model:product.product,website_description:product.product_product_7
 #: model:product.template,website_description:product.product_product_7_product_template
 msgid "Keep it clean."
@@ -1513,6 +1541,11 @@ msgstr "Promijenio"
 #: model:ir.model.fields,field_description:product.field_product_uom_write_date
 msgid "Last Updated on"
 msgstr "Vrijeme promjene"
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Late Activities"
+msgstr "Posljednje aktivnosti"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_supplierinfo_delay
@@ -2050,7 +2083,7 @@ msgid "Products Price Search"
 msgstr "Pretraživanje cijena proizvoda"
 
 #. module: product
-#: code:addons/product/models/product.py:448
+#: code:addons/product/models/product.py:464
 #, python-format
 msgid "Products: "
 msgstr "Proizvodi: "
@@ -2060,6 +2093,11 @@ msgstr "Proizvodi: "
 #: selection:product.pricelist.item,base:0
 msgid "Public Price"
 msgstr "Javna cijena"
+
+#. module: product
+#: model:product.pricelist,name:product.list0
+msgid "Public Pricelist"
+msgstr "Javni cjenik"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product_description_purchase
@@ -2134,7 +2172,7 @@ msgstr ""
 #: model:product.product,name:product.product_product_6c
 #: model:product.template,name:product.product_product_6c_product_template
 msgid "Repair"
-msgstr ""
+msgstr "Popravak"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_category_parent_right
@@ -2264,9 +2302,7 @@ msgid "Server"
 msgstr "Poslužitelj"
 
 #. module: product
-#: code:addons/product/models/product_template.py:51
 #: selection:product.template,type:0
-#, python-format
 msgid "Service"
 msgstr "Usluga"
 
@@ -2299,6 +2335,11 @@ msgid ""
 " * Checked : Product are visible for every company, even if a company is defined on the partner.\n"
 " * Unchecked : Each company can see only its product (product where company is defined). Product not related to a company are visible for all companies."
 msgstr ""
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Show all records which has next action date is before today"
+msgstr "Prikazuje sve zapise kojima je sljedeći datum akcije prije danas"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_res_config_settings_group_product_pricelist
@@ -2571,7 +2612,7 @@ msgid ""
 msgstr ""
 
 #. module: product
-#: code:addons/product/models/product_attribute.py:74
+#: code:addons/product/models/product_attribute.py:75
 #, python-format
 msgid ""
 "The operation cannot be completed:\n"
@@ -2727,6 +2768,11 @@ msgstr ""
 
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_template_form_view
+msgid "This note is only for internal purposes."
+msgstr ""
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_form_view
 msgid "This note will show up on sales orders."
 msgstr ""
 
@@ -2759,6 +2805,11 @@ msgstr ""
 "prazno ukoliko želite ispisati interni naziv."
 
 #. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Today Activities"
+msgstr "Današnje aktivnosti"
+
+#. module: product
 #: model:product.product,website_description:product.product_product_7
 #: model:product.template,website_description:product.product_product_7_product_template
 msgid "Two is better than one."
@@ -2776,11 +2827,6 @@ msgid ""
 "USB port allows for software update to ensure ongoing Bluetooth device "
 "compatibility"
 msgstr ""
-
-#. module: product
-#: model:product.pricelist,name:product.list0
-msgid "USD"
-msgstr "USD"
 
 #. module: product
 #: model:product.product,website_description:product.product_product_6

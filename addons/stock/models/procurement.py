@@ -92,7 +92,7 @@ class ProcurementRule(models.Model):
         # it is possible that we've already got some move done, so check for the done qty and create
         # a new move with the correct qty
         qty_left = product_qty
-        vals = {
+        return {
             'name': name[:2000],
             'company_id': self.company_id.id or self.location_src_id.company_id.id or self.location_id.company_id.id or values['company_id'].id,
             'product_id': product_id.id,
@@ -266,6 +266,9 @@ class ProcurementGroup(models.Model):
 
         # Merge duplicated quants
         self.env['stock.quant']._merge_quants()
+        self.env['stock.quant']._unlink_zero_quants()
+        if use_new_cursor:
+            self._cr.commit()
 
     @api.model
     def run_scheduler(self, use_new_cursor=False, company_id=False):

@@ -3,24 +3,26 @@
 # * mass_mailing
 # 
 # Translators:
-# Martin Trigaux <mat@odoo.com>, 2017
-# Martin Wilderoth <martin.wilderoth@linserv.se>, 2017
-# Anders Wallenquist <anders.wallenquist@vertel.se>, 2017
-# Kristoffer Grundström <kristoffer.grundstrom1983@gmail.com>, 2017
-# Lord Cobol <mattias@invaliddesign.com>, 2017
-# Frida E <frida.eddestal@gmail.com>, 2017
-# Patrik Lermon <patrik.lermon@gmail.com>, 2017
-# Robert Frykelius <robert.frykelius@linserv.se>, 2017
+# 03992e16f8df6e39b9d1cc0ff635887e, 2017
+# Frida E, 2017
 # Haojun Zou <apollo_zhj@msn.com>, 2017
 # Daniel Forslund <daniel.forslund@gmail.com>, 2017
-# Kim Asplund <kim.asplund@gmail.com>, 2017
+# Martin Wilderoth <martin.wilderoth@linserv.se>, 2017
+# Robert Frykelius <robert.frykelius@linserv.se>, 2017
+# Patrik Lermon <patrik.lermon@gmail.com>, 2017
+# Anders Wallenquist <anders.wallenquist@vertel.se>, 2017
+# Kristoffer Grundström <hamnisdude@gmail.com>, 2017
+# Martin Trigaux, 2019
+# Chrille Hedberg <hedberg.chrille@gmail.com>, 2019
+# Kim Asplund <kim.asplund@gmail.com>, 2020
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-16 08:08+0000\n"
-"PO-Revision-Date: 2017-11-16 08:08+0000\n"
-"Last-Translator: Kim Asplund <kim.asplund@gmail.com>, 2017\n"
+"POT-Creation-Date: 2019-03-29 09:08+0000\n"
+"PO-Revision-Date: 2017-09-20 10:19+0000\n"
+"Last-Translator: Kim Asplund <kim.asplund@gmail.com>, 2020\n"
 "Language-Team: Swedish (https://www.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,7 +66,7 @@ msgstr "%s (kopia)"
 #: model:ir.ui.view,arch_db:mass_mailing.s_mail_block_header_social
 #: model:ir.ui.view,arch_db:mass_mailing.s_mail_block_header_text_social
 msgid "&amp;nbsp;"
-msgstr ""
+msgstr "&amp;nbsp;"
 
 #. module: mass_mailing
 #: model:ir.ui.view,arch_db:mass_mailing.s_mail_block_steps
@@ -647,6 +649,11 @@ msgid "Email Statistics"
 msgstr ""
 
 #. module: mass_mailing
+#: model:ir.model,name:mass_mailing.model_mail_template
+msgid "Email Templates"
+msgstr "E-postmallar"
+
+#. module: mass_mailing
 #: model:ir.model,name:mass_mailing.model_mail_thread
 msgid "Email Thread"
 msgstr "E-posttråd"
@@ -713,6 +720,11 @@ msgstr "Facebookkonto"
 #: model:ir.model.fields,field_description:mass_mailing.field_mail_mass_mailing_failed
 msgid "Failed"
 msgstr "Misslyckades"
+
+#. module: mass_mailing
+#: model:ir.model,name:mass_mailing.model_ir_model_fields
+msgid "Fields"
+msgstr "Fält"
 
 #. module: mass_mailing
 #: model:mail.mass_mailing,name:mass_mailing.mass_mail_1
@@ -931,7 +943,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mass_mailing.field_mail_mass_mailing_list_name
 #: model:ir.model.fields,field_description:mass_mailing.field_survey_mail_compose_message_mailing_list_ids
 msgid "Mailing List"
-msgstr ""
+msgstr "Mail Lista"
 
 #. module: mass_mailing
 #: model:ir.actions.act_window,name:mass_mailing.action_view_mass_mailing_lists
@@ -1003,6 +1015,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:mass_mailing.field_mail_compose_message_mass_mailing_name
 #: model:ir.model.fields,field_description:mass_mailing.field_mail_mail_mailing_id
 #: model:ir.model.fields,field_description:mass_mailing.field_mail_mail_statistics_mass_mailing_id
+#: model:ir.model.fields,field_description:mass_mailing.field_survey_mail_compose_message_mass_mailing_id
+#: model:ir.model.fields,field_description:mass_mailing.field_survey_mail_compose_message_mass_mailing_name
 #: model:ir.ui.view,arch_db:mass_mailing.view_mail_mail_statistics_search
 #: model:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_form
 #: model:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_graph
@@ -1021,6 +1035,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mass_mailing.field_mail_compose_message_mass_mailing_campaign_id
 #: model:ir.model.fields,field_description:mass_mailing.field_mail_mail_statistics_mass_mailing_campaign_id
 #: model:ir.model.fields,field_description:mass_mailing.field_mail_mass_mailing_mass_mailing_campaign_id
+#: model:ir.model.fields,field_description:mass_mailing.field_survey_mail_compose_message_mass_mailing_campaign_id
 #: model:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_campaign_form
 #: model:ir.ui.view,arch_db:mass_mailing.view_mail_statistics_report_search
 msgid "Mass Mailing Campaign"
@@ -1721,11 +1736,6 @@ msgid "Total"
 msgstr "Totalt"
 
 #. module: mass_mailing
-#: model:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_links_search
-msgid "Tracked Link"
-msgstr ""
-
-#. module: mass_mailing
 #: model:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_campaign_form
 msgid "Tracking"
 msgstr "Tracking"
@@ -1744,6 +1754,12 @@ msgstr "Avsluta prenumeration"
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mail_mass_mailing_contact_unsubscription_date
 msgid "Unsubscription Date"
+msgstr ""
+
+#. module: mass_mailing
+#: code:addons/mass_mailing/models/mass_mailing.py:639
+#, python-format
+msgid "Unsupported mass mailing model %s"
 msgstr ""
 
 #. module: mass_mailing
@@ -1889,4 +1905,4 @@ msgstr ""
 #. module: mass_mailing
 #: model:ir.model,name:mass_mailing.model_res_config_settings
 msgid "res.config.settings"
-msgstr ""
+msgstr "res.config.settings"

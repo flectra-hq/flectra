@@ -3,17 +3,20 @@
 # * payment
 # 
 # Translators:
-# Martin Trigaux <mat@odoo.com>, 2017
-# Jorunn D. Newth <jdn@eyenetworks.no>, 2017
 # Viktor Basso <viktor@voit.no>, 2017
 # Jan Pedro Tumusok <jpt@eyenetworks.no>, 2017
+# Aleksander, 2018
+# Martin Trigaux, 2018
+# Jorunn D. Newth, 2019
+# Marius Stedjan <marius@stedjan.com>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 09:53+0000\n"
-"PO-Revision-Date: 2017-09-20 09:53+0000\n"
-"Last-Translator: Jan Pedro Tumusok <jpt@eyenetworks.no>, 2017\n"
+"POT-Creation-Date: 2019-07-17 15:01+0000\n"
+"PO-Revision-Date: 2017-09-20 10:20+0000\n"
+"Last-Translator: Marius Stedjan <marius@stedjan.com>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/odoo/teams/41243/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,14 +25,43 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: payment
+#: model:ir.ui.view,arch_db:payment.payment_confirmation_status
+msgid "&amp;times;"
+msgstr "&amp;times;"
+
+#. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_html_3ds
 msgid "3D Secure HTML"
 msgstr "3D Secure HTML"
 
 #. module: payment
+#: model:ir.ui.view,arch_db:payment.pay
+msgid "<b>Amount:</b>"
+msgstr "<b>Beløp:</b>"
+
+#. module: payment
+#: model:ir.ui.view,arch_db:payment.pay
+msgid "<b>Reference:</b>"
+msgstr "<b>Referanse:</b>"
+
+#. module: payment
 #: model:ir.ui.view,arch_db:payment.confirm
 msgid "<i class=\"fa fa-arrow-circle-right\"/> Back to My Account"
 msgstr "<i class=\"fa fa-arrow-circle-right\"/> Tilbake til kontoen min"
+
+#. module: payment
+#: model:ir.ui.view,arch_db:payment.payment_tokens_list
+msgid ""
+"<i class=\"fa fa-check text-success\" title=\"This payment method is "
+"verified by our system.\"/>"
+msgstr ""
+
+#. module: payment
+#: model:ir.ui.view,arch_db:payment.payment_tokens_list
+msgid ""
+"<i class=\"fa fa-close text-danger\" title=\"This payment method has not "
+"been verified by our system.\"/>"
+msgstr ""
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.payment_tokens_list
@@ -47,66 +79,42 @@ msgid "<i class=\"fa fa-trash\"/> Delete"
 msgstr "<i class=\"fa fa-trash\"/> Slett"
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:76
-#: code:addons/payment/static/src/js/payment_form.js:219
+#: code:addons/payment/models/payment_acquirer.py:122
 #, python-format
-msgid "<p>Please fill all the inputs required.</p>"
+msgid "<i>Cancel,</i> Your payment has been cancelled."
+msgstr "<i>Avbryt,</i> Betalingen din ble avbrutt."
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:118
+#, python-format
+msgid ""
+"<i>Done,</i> Your online payment has been successfully processed. Thank you "
+"for your order."
+msgstr ""
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:126
+#, python-format
+msgid ""
+"<i>Error,</i> Please be aware that an error occurred during the transaction."
+" The order has been confirmed but will not be paid. Do not hesitate to "
+"contact us if you have any questions on the status of your order."
+msgstr ""
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:114
+#, python-format
+msgid ""
+"<i>Pending,</i> Your online payment has been successfully processed. But "
+"your order is not validated yet."
 msgstr ""
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:180
-#, python-format
-msgid "<p>Please select a payment method.</p>"
-msgstr "<p>Velg en betalingsmetode.</p>"
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:274
-#, python-format
-msgid "<p>Please select the option to add a new payment method.</p>"
-msgstr ""
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:315
+#: code:addons/payment/static/src/js/payment_form.js:350
 #, python-format
 msgid "<p>This card is currently linked to the following records:<p/>"
-msgstr ""
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:108
-#: code:addons/payment/static/src/js/payment_form.js:120
-#: code:addons/payment/static/src/js/payment_form.js:254
-#: code:addons/payment/static/src/js/payment_form.js:267
-#, python-format
-msgid "<p>We are not able to add your payment method at the moment.</p>"
-msgstr "<p>Vi kan ikke legge til betalingsmetoden for øyeblikket.</p>"
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:298
-#: code:addons/payment/static/src/js/payment_form.js:333
-#, python-format
-msgid "<p>We are not able to delete your payment method at the moment.</p>"
-msgstr "<p>Vi får ikke til å slette betalingsmetoden din for øyeblikket.</p>"
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:155
-#: code:addons/payment/static/src/js/payment_form.js:161
-#, python-format
-msgid "<p>We are not able to redirect you to the payment form.</p>"
-msgstr "<p>Kunne ikke videresende deg til betalingsskjemaet.</p>"
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:169
-#, python-format
-msgid "<p>We're unable to process your payment.</p>"
-msgstr "<p>Vi får ikke prosessert betalingen din.</p>"
+msgstr "<p>Dette kortet er tillknyttet følgende dokumenter:<p/>"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
@@ -199,27 +207,27 @@ msgstr ""
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_acquirer_id
 msgid "Acquirer"
-msgstr ""
+msgstr "Innløser"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_token_acquirer_id
 msgid "Acquirer Account"
-msgstr ""
+msgstr "Innløserkonto"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_token_acquirer_ref
 msgid "Acquirer Ref."
-msgstr ""
+msgstr "Innløserreferanse"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_acquirer_reference
 msgid "Acquirer Reference"
-msgstr ""
+msgstr "Innløserreferanse"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_icon_acquirer_ids
 msgid "Acquirers"
-msgstr ""
+msgstr "Innløsere"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.payment_icon_form_view
@@ -239,7 +247,7 @@ msgstr "Aktiv"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_fees_active
 msgid "Add Extra Fees"
-msgstr ""
+msgstr "Legg til ekstra avgifter"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_address
@@ -262,14 +270,13 @@ msgstr "Alltid"
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_amount
 #: model:ir.model.fields,help:payment.field_payment_transaction_amount
 #: model:ir.ui.view,arch_db:payment.confirm
-#: model:ir.ui.view,arch_db:payment.pay
 msgid "Amount"
 msgstr "Beløp"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_authorize_implemented
 msgid "Authorize Mechanism Supported"
-msgstr ""
+msgstr "Autoriseringsmekanisme støttes"
 
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_authorize
@@ -297,26 +304,26 @@ msgstr "Buckaroo"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_callback_res_id
 msgid "Callback Document ID"
-msgstr ""
+msgstr "Callback Dokument ID"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_callback_model_id
 msgid "Callback Document Model"
-msgstr ""
+msgstr "Callback Dokument Modell"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_callback_hash
 msgid "Callback Hash"
-msgstr ""
+msgstr "Callback Hashß"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_callback_method
 msgid "Callback Method"
-msgstr ""
+msgstr "Callback Metode"
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:323
+#: code:addons/payment/static/src/js/payment_form.js:358
 #, python-format
 msgid "Cancel"
 msgstr "Avbryt"
@@ -333,25 +340,31 @@ msgstr "Kansellert"
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:168
+#: code:addons/payment/static/src/js/payment_form.js:188
 #, python-format
 msgid "Cannot set-up the payment"
 msgstr "Kan ikke sette opp betalingen"
 
 #. module: payment
+#: code:addons/payment/controllers/portal.py:111
+#, python-format
+msgid "Cannot setup the payment."
+msgstr "Kan ikke uføre betalingen."
+
+#. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_capture_manually
 msgid "Capture Amount Manually"
-msgstr ""
+msgstr "Trekk beløp manuelt"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.transaction_form
 msgid "Capture Transaction"
-msgstr ""
+msgstr "Valider transaksjon"
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_capture_manually
 msgid "Capture the amount from Odoo, when the delivery is completed."
-msgstr ""
+msgstr "Trekk beløpet fra Odoo når leveringen er utført."
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_city
@@ -362,7 +375,7 @@ msgstr "By"
 #. module: payment
 #: model:ir.actions.act_window,help:payment.action_payment_acquirer
 msgid "Click to create a payment acquirer."
-msgstr ""
+msgstr "Klikk for å opprette en betalingshåndterer."
 
 #. module: payment
 #: model:ir.actions.act_window,help:payment.action_payment_icon
@@ -392,7 +405,7 @@ msgstr "Sett opp"
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:322
+#: code:addons/payment/static/src/js/payment_form.js:357
 #, python-format
 msgid "Confirm Deletion"
 msgstr "Bekreft sletting"
@@ -411,7 +424,7 @@ msgstr "Tilsvarende modul"
 #: model:ir.model.fields,field_description:payment.field_res_partner_payment_token_count
 #: model:ir.model.fields,field_description:payment.field_res_users_payment_token_count
 msgid "Count Payment Token"
-msgstr ""
+msgstr "Antall Betalingstokener"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_country_ids
@@ -495,7 +508,7 @@ msgstr "Fullført"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_done_msg
 msgid "Done Message"
-msgstr ""
+msgstr "Melding ved fullført"
 
 #. module: payment
 #: selection:payment.transaction,state:0
@@ -535,7 +548,7 @@ msgstr "Feilmelding"
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:372
+#: code:addons/payment/static/src/js/payment_form.js:428
 #, python-format
 msgid "Error: "
 msgstr "Feil:"
@@ -548,27 +561,29 @@ msgstr "Avgifter"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_fees_implemented
 msgid "Fees Computation Supported"
-msgstr ""
+msgstr "Større for utregning av gebyrer"
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_transaction_fees
 msgid "Fees amount; set by the system because depends on the acquirer"
-msgstr ""
+msgstr "Avgiftsbeløp: satt av systemet fordi det avhenger av innløseren"
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_transaction_state_message
 msgid "Field used to store error and/or validation messages for information"
 msgstr ""
+"Felt brukt til å lagre feil og/eller valideringsmeldinger for "
+"informasjonsformål"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_fees_dom_fixed
 msgid "Fixed domestic fees"
-msgstr ""
+msgstr "Faste avgifter innland"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_fees_int_fixed
 msgid "Fixed international fees"
-msgstr ""
+msgstr "Faste avgifter utland"
 
 #. module: payment
 #: selection:payment.transaction,type:0
@@ -583,7 +598,7 @@ msgstr "Mal for skjemaknapp"
 #. module: payment
 #: selection:payment.transaction,type:0
 msgid "Form with tokenization"
-msgstr ""
+msgstr "Skjema med tokenisering"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.confirm
@@ -624,7 +639,7 @@ msgstr "Bilde"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_icon_image_payment_form
 msgid "Image displayed on the payment form"
-msgstr ""
+msgstr "Bilde som vises på betalingsskjemaet"
 
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_ogone
@@ -640,12 +655,12 @@ msgstr "Installasjon"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_module_state
 msgid "Installation State"
-msgstr ""
+msgstr "Installasjonsstatus"
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_transaction_reference
 msgid "Internal reference of the TX"
-msgstr ""
+msgstr "Intern referanse for transaksjonen"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_lang
@@ -684,12 +699,12 @@ msgstr "La kunden avgjøre"
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_icon_acquirer_ids
 msgid "List of Acquirers supporting this payment icon."
-msgstr ""
+msgstr "Liste over innløsere som støtter dette betalingsikonet."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_website_published
 msgid "Make this payment acquirer available (Customer invoices, etc.)"
-msgstr ""
+msgstr "Gjør denne betalingsinnløseren tilgjengelig (Kundefaktura, osv.)"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.pay_methods
@@ -731,12 +746,12 @@ msgstr "Melding"
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_post_msg
 msgid "Message displayed after having done the payment process."
-msgstr ""
+msgstr "Meldiong som vises etter man har avsluttet en betalingsprosess."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_pre_msg
 msgid "Message displayed to explain and help the payment process."
-msgstr ""
+msgstr "Melding vist for å forklare og hjelpe til under betalingsprosessen."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_error_msg
@@ -746,14 +761,14 @@ msgstr ""
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_cancel_msg
 msgid "Message displayed, if order is cancel during the payment process."
-msgstr ""
+msgstr "Melding som vises når ordrer blir avbrutt under betalingsprosessen."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_done_msg
 msgid ""
 "Message displayed, if order is done successfully after having done the "
 "payment process."
-msgstr ""
+msgstr "Melding som vises når ordrer blir godkjent etter betalingsprosessen."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_pending_msg
@@ -761,6 +776,8 @@ msgid ""
 "Message displayed, if order is in pending state after having done the "
 "payment process."
 msgstr ""
+"Meldinger som vises når ordrer har status som avventende etter "
+"betalingsprosessen."
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
@@ -768,18 +785,10 @@ msgid "Messages"
 msgstr "Meldinger"
 
 #. module: payment
-#: code:addons/payment/models/payment_acquirer.py:395
+#: code:addons/payment/models/payment_acquirer.py:455
 #, python-format
 msgid "Missing partner reference when trying to create a new payment token"
-msgstr ""
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:75
-#: code:addons/payment/static/src/js/payment_form.js:218
-#, python-format
-msgid "Missing values"
-msgstr "Manglende verdier"
+msgstr "Manglende partnerreferanse ved oppretting av ny betalingstoken"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_name
@@ -794,7 +803,7 @@ msgstr "Navn"
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_token_name
 msgid "Name of the payment token"
-msgstr ""
+msgstr "Navn på betalingstoken"
 
 #. module: payment
 #: selection:payment.acquirer,save_token:0
@@ -802,9 +811,14 @@ msgid "Never"
 msgstr "Aldri"
 
 #. module: payment
+#: model:ir.ui.view,arch_db:payment.pay
+msgid "No payment acquirer found."
+msgstr "Ingen betalingsinnløser funnet."
+
+#. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:179
-#: code:addons/payment/static/src/js/payment_form.js:273
+#: code:addons/payment/static/src/js/payment_form.js:199
+#: code:addons/payment/static/src/js/payment_form.js:308
 #, python-format
 msgid "No payment method selected"
 msgstr "Ingen betalingsmetode valgt"
@@ -815,6 +829,8 @@ msgid ""
 "Note that tokens from acquirers set to only authorize transactions (instead "
 "of capturing the amount) are not available."
 msgstr ""
+"Merk at tokener fra innløsere, som er satt til å kun autorisere "
+"transaksjoner (istedenfor å trekke beløpet), ikke er tilgjengelig."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_payment_flow
@@ -822,6 +838,8 @@ msgid ""
 "Note: Subscriptions does not take this field in account, it uses server to "
 "server by default."
 msgstr ""
+"Merk: Abonnementer tar ikke dette feltet i betraktning. De bruker som "
+"standard server til server ."
 
 #. module: payment
 #: selection:payment.acquirer,provider:0
@@ -830,19 +848,19 @@ msgstr "Ogone"
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:376
+#: code:addons/payment/static/src/js/payment_form.js:432
 #, python-format
 msgid "Ok"
 msgstr "OK"
 
 #. module: payment
-#: code:addons/payment/models/payment_acquirer.py:759
+#: code:addons/payment/models/payment_acquirer.py:824
 #, python-format
 msgid "Only transactions in the Authorized status can be captured."
 msgstr ""
 
 #. module: payment
-#: code:addons/payment/models/payment_acquirer.py:766
+#: code:addons/payment/models/payment_acquirer.py:831
 #, python-format
 msgid "Only transactions in the Authorized status can be voided."
 msgstr ""
@@ -856,12 +874,6 @@ msgstr "Partner"
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_name
 msgid "Partner Name"
 msgstr "Partnernavn"
-
-#. module: payment
-#: code:addons/payment/controllers/portal.py:39
-#, python-format
-msgid "Pay Now"
-msgstr "Betal nå"
 
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_payu
@@ -889,6 +901,11 @@ msgid "Payment Acquirers"
 msgstr "Betalingsløsninger"
 
 #. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_payment_flow
+msgid "Payment Flow"
+msgstr "Betalingsflyt"
+
+#. module: payment
 #: model:ir.model,name:payment.model_payment_icon
 #: model:ir.ui.view,arch_db:payment.payment_icon_form_view
 msgid "Payment Icon"
@@ -903,7 +920,7 @@ msgstr "Betalingsikoner"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_journal_id
 msgid "Payment Journal"
-msgstr ""
+msgstr "Betalingsjournal"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.pay_methods
@@ -913,7 +930,7 @@ msgstr "Betalingsmetoder"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_payment_token_id
 msgid "Payment Token"
-msgstr ""
+msgstr "Betalingstoken"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_res_partner_payment_token_ids
@@ -922,7 +939,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:payment.payment_token_tree_view
 #: model:ir.ui.view,arch_db:payment.payment_token_view_search
 msgid "Payment Tokens"
-msgstr ""
+msgstr "Betalingstokener"
 
 #. module: payment
 #: model:ir.model,name:payment.model_payment_transaction
@@ -941,15 +958,22 @@ msgid "Payment Transactions"
 msgstr "Betalingstransaksjoner"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_payment_flow
-msgid "Payment flow"
-msgstr "Betalingsflyt"
+#: selection:payment.acquirer,payment_flow:0
+msgid "Payment from Odoo"
+msgstr "Betaling sendt fra Odoo"
 
 #. module: payment
 #: code:addons/payment/models/account_payment.py:59
 #, python-format
 msgid "Payment transaction failed (%s)"
 msgstr "Betalingstransaksjon mislyktes (%s)"
+
+#. module: payment
+#: code:addons/payment/controllers/portal.py:131
+#: code:addons/payment/controllers/portal.py:135
+#, python-format
+msgid "Payment transaction failed."
+msgstr ""
 
 #. module: payment
 #: model:ir.model,name:payment.model_account_payment
@@ -992,6 +1016,25 @@ msgid "Phone"
 msgstr "Telefon"
 
 #. module: payment
+#: model:ir.ui.view,arch_db:payment.pay
+msgid "Please configure a payment acquirer."
+msgstr "Konfigurer en betalingsinnløser."
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:200
+#, python-format
+msgid "Please select a payment method."
+msgstr "Velg en betalingsmetode."
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:309
+#, python-format
+msgid "Please select the option to add a new payment method."
+msgstr "Velg alternativet for å opprette en ny betalingsmetode."
+
+#. module: payment
 #: model:payment.acquirer,post_msg:payment.payment_acquirer_custom
 #: model:payment.acquirer,post_msg:payment.payment_acquirer_transfer
 msgid "Please use the following transfer details"
@@ -1005,7 +1048,6 @@ msgstr "Vær vennlig å bruke ordrenavn som kommunikasjonsreferanse."
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.confirm
-#: model:ir.ui.view,arch_db:payment.pay
 msgid "Processed by"
 msgstr "Behandlet av"
 
@@ -1022,16 +1064,34 @@ msgid "Provider"
 msgstr "Tilbyder"
 
 #. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_translations.js:9
+#, python-format
+msgid "Publish"
+msgstr "Publiser"
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_translations.js:8
+#, python-format
+msgid "Published"
+msgstr "Publisert"
+
+#. module: payment
+#: selection:payment.acquirer,payment_flow:0
+msgid "Redirection to the acquirer website"
+msgstr "Videresending til innløsers nettside"
+
+#. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction_reference
 #: model:ir.ui.view,arch_db:payment.confirm
-#: model:ir.ui.view,arch_db:payment.pay
 msgid "Reference"
 msgstr "Referanse"
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_transaction_acquirer_reference
 msgid "Reference of the TX as stored in the acquirer database"
-msgstr ""
+msgstr "Transaksjonreferanse lagret i innløsers database"
 
 #. module: payment
 #: selection:payment.transaction,state:0
@@ -1051,7 +1111,7 @@ msgstr "Påkrevde felter ikke fylt ut"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_registration_view_template_id
 msgid "S2S Form Template"
-msgstr ""
+msgstr "S2S Skjemamal"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_save_token
@@ -1072,12 +1132,12 @@ msgstr "Lagrede betalingsdata."
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_account_payment_payment_token_id
 msgid "Saved payment token"
-msgstr ""
+msgstr "Lagrede betalingstokener"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_token_implemented
 msgid "Saving Card Data supported"
-msgstr ""
+msgstr "Lagring av kortdata støttet"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_sequence
@@ -1086,13 +1146,13 @@ msgstr "Sekvens"
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:107
 #: code:addons/payment/static/src/js/payment_form.js:119
-#: code:addons/payment/static/src/js/payment_form.js:154
-#: code:addons/payment/static/src/js/payment_form.js:160
-#: code:addons/payment/static/src/js/payment_form.js:253
-#: code:addons/payment/static/src/js/payment_form.js:297
+#: code:addons/payment/static/src/js/payment_form.js:134
+#: code:addons/payment/static/src/js/payment_form.js:173
+#: code:addons/payment/static/src/js/payment_form.js:179
+#: code:addons/payment/static/src/js/payment_form.js:285
 #: code:addons/payment/static/src/js/payment_form.js:332
+#: code:addons/payment/static/src/js/payment_form.js:367
 #, python-format
 msgid "Server Error"
 msgstr "Serverfeil"
@@ -1104,7 +1164,7 @@ msgstr "Server til server"
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:266
+#: code:addons/payment/static/src/js/payment_form.js:300
 #, python-format
 msgid "Server error"
 msgstr "Serverfeil"
@@ -1118,7 +1178,7 @@ msgstr "Kortnavn"
 #: model:payment.acquirer,name:payment.payment_acquirer_sips
 #: selection:payment.acquirer,provider:0
 msgid "Sips"
-msgstr ""
+msgstr "Sips"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_image_small
@@ -1159,7 +1219,7 @@ msgstr "Støttede betalingsikoner"
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_registration_view_template_id
 msgid "Template for method registration"
-msgstr ""
+msgstr "Mal for registrering av metode"
 
 #. module: payment
 #: selection:payment.acquirer,environment:0
@@ -1172,23 +1232,14 @@ msgid "Thanks Message"
 msgstr "Takkemelding"
 
 #. module: payment
-#: code:addons/payment/models/payment_acquirer.py:570
+#: code:addons/payment/models/payment_acquirer.py:627
 #, python-format
 msgid "The %s payment acquirers are not allowed to manual capture mode!"
 msgstr ""
+"Betalingsinnløserne %s er ikke tillatt å bruke funksjon for manuelt trekk."
 
 #. module: payment
-#: selection:payment.acquirer,payment_flow:0
-msgid "The customer encode his payment details on the website."
-msgstr ""
-
-#. module: payment
-#: selection:payment.acquirer,payment_flow:0
-msgid "The customer is redirected to the website of the acquirer."
-msgstr "Kunden videresendes til tilbyders nettsted."
-
-#. module: payment
-#: code:addons/payment/models/payment_acquirer.py:563
+#: code:addons/payment/models/payment_acquirer.py:620
 #, python-format
 msgid "The payment transaction reference must be unique!"
 msgstr "Referansen til betalingstransaksjon må være unik!"
@@ -1222,10 +1273,14 @@ msgstr ""
 #: model:ir.model.fields,help:payment.field_payment_acquirer_save_token
 msgid ""
 "This option allows customers to save their credit card as a payment token "
-"and to reuse it for a later purchase.If you manage subscriptions (recurring "
-"invoicing), you need it to automatically charge the customer when you issue "
-"an invoice."
+"and to reuse it for a later purchase. If you manage subscriptions (recurring"
+" invoicing), you need it to automatically charge the customer when you issue"
+" an invoice."
 msgstr ""
+"Dette alternativet lar kunder lagre sitt kort som en betalingstoken. De kan "
+"da bruke det for fremtidige kjøp. Hvis du bruker abonnement (gjentakende "
+"fakturering), trenger du dette for å automatisk belaste kunden når du "
+"utsteder faktura."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_country_ids
@@ -1233,6 +1288,8 @@ msgid ""
 "This payment gateway is available for selected countries. If none is "
 "selected it is available for all countries."
 msgstr ""
+"Denne betalingsmetoden er tilgjengelig for valgte land. Om ingen er valg, er"
+" den tilgjengelig for alle land. "
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
@@ -1265,12 +1322,12 @@ msgstr "Validering av bankkortet"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_fees_dom_var
 msgid "Variable domestic fees (in percents)"
-msgstr ""
+msgstr "Varible avgifter innland (i prosent)"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_fees_int_var
 msgid "Variable international fees (in percents)"
-msgstr ""
+msgstr "Variable avgifter utland (i prosent)"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_token_verified
@@ -1285,14 +1342,57 @@ msgstr "Synlig i portal / nettsted"
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.transaction_form
 msgid "Void Transaction"
+msgstr "Annuller transaksjon"
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:353
+#, python-format
+msgid "Warning!"
+msgstr "Advarsel!"
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:135
+#, python-format
+msgid "We are not able to add your payment method at the moment."
+msgstr "Vi kan for øyeblikket ikke legge til betalingsmetoden."
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:301
+#, python-format
+msgid "We are not able to add your payment method at the moment.</p>"
+msgstr "Vi kan for øyeblikket ikke legge til betalingsmetoden.</p>"
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:333
+#: code:addons/payment/static/src/js/payment_form.js:368
+#, python-format
+msgid "We are not able to delete your payment method at the moment."
+msgstr "Vi kan for øyeblikket ikke slette betalingsmetoden."
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:174
+#, python-format
+msgid "We are not able to redirect you to the payment form."
+msgstr "Vi kan ikke videresende deg til betalingsskjemaet."
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:180
+#, python-format
+msgid "We are not able to redirect you to the payment form. "
 msgstr ""
 
 #. module: payment
 #. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:318
+#: code:addons/payment/static/src/js/payment_form.js:189
 #, python-format
-msgid "Warning!"
-msgstr "Advarsel!"
+msgid "We're unable to process your payment."
+msgstr "Vi kan ikke behandle din betaling."
 
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_transfer
@@ -1360,6 +1460,11 @@ msgid ""
 msgstr ""
 
 #. module: payment
+#: model:ir.ui.view,arch_db:payment.payment_confirmation_status
+msgid "Your payment has been authorized."
+msgstr "Betalingen din er autorisert."
+
+#. module: payment
 #: model:ir.ui.view,arch_db:payment.transaction_form
 msgid "ZIP"
 msgstr "Postnummer"
@@ -1372,12 +1477,12 @@ msgstr "Postnummer"
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
 msgid "acquirer: payment.acquirer browse record"
-msgstr ""
+msgstr "acquirer: betalingsinnløseren bla igjennom poster"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
 msgid "amount: the transaction amount, a float"
-msgstr ""
+msgstr "amount: transaksjonsbeløpet, flyttall"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.payment_tokens_list
@@ -1387,17 +1492,25 @@ msgstr "og mer"
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
 msgid "context: the current context dictionary"
-msgstr ""
+msgstr "context: den gjeldene kontekst-ordlisten"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
 msgid "currency: the transaction currency browse record"
-msgstr ""
+msgstr "currency: transaksjonsvaluta bla igjennom poster"
+
+#. module: payment
+#. flectra-web
+#: code:addons/payment/static/src/js/payment_form.js:120
+#: code:addons/payment/static/src/js/payment_form.js:286
+#, python-format
+msgid "e.g. Your credit card details are wrong. Please verify."
+msgstr "f.eks: Kortinformasjonen er feil. Verifiser og prøv på nytt."
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
 msgid "partner: the buyer partner browse record, not necessarily set"
-msgstr ""
+msgstr "partner: kjøperen bla igjennom poster, ikke nødvendigvis satt"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
@@ -1405,6 +1518,8 @@ msgid ""
 "partner_values: specific values about the buyer, for example coming from a "
 "shipping form"
 msgstr ""
+"partner_values: spesifikke verdier om kjøperen f.eks kommer fra et "
+"fraktskjema "
 
 #. module: payment
 #: model:ir.model,name:payment.model_payment_token
@@ -1429,4 +1544,9 @@ msgstr "tx_values: Transaksjonsverdier"
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_form
 msgid "user: current user browse record"
-msgstr ""
+msgstr "user: gjeldene bruker bla igjennom poster"
+
+#. module: payment
+#: model:ir.model,name:payment.model_wizard_multi_charts_accounts
+msgid "wizard.multi.charts.accounts"
+msgstr "wizard.multi.charts.accounts"

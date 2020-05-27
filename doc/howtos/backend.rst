@@ -258,6 +258,13 @@ be declared in the ``'data'`` list (always loaded) or in the ``'demo'`` list
 
         .. patch::
 
+.. tip:: The content of the data files is only loaded when a module is
+    installed or updated.
+
+    After making some changes, do not forget to use
+    :ref:`flectra-bin -u openacademy <reference/cmdline>` to save the changes
+    to your database.
+
 Actions and Menus
 -----------------
 
@@ -1036,9 +1043,9 @@ their most common attributes are:
 ``date_start``
     record's field holding the start date/time for the event
 ``date_stop`` (optional)
-    record's field holding the end date/time for the event
-
-field (to define the label for each calendar event)
+    record's field holding the end date/time for the event
+``string``
+    record's field to define the label for each calendar event
 
 .. code-block:: xml
 
@@ -1467,17 +1474,21 @@ for editing and merging PO/POT files.
    .. only:: solutions
 
         #. Create a directory ``openacademy/i18n/``
+        #. You will need to activate the developer mode
+           to access the menus mentioned below (
+           :menuselection:`Settings --> Activate the developer mode`
+           )
         #. Install whichever language you want (
-           :menuselection:`Administration --> Translations --> Load an
-           Official Translation`)
-        #. Synchronize translatable terms (:menuselection:`Administration -->
-           Translations --> Application Terms --> Synchronize Translations`)
+           :menuselection:`Settings --> Translations --> Load a
+           Translation`)
+        #. Generate the missing terms (:menuselection:`Settings -->
+           Translations --> Application Terms --> Generate Missing Terms`)
         #. Create a template translation file by exporting (
-           :menuselection:`Administration --> Translations -> Import/Export
+           :menuselection:`Settings --> Translations -> Import/Export
            --> Export Translation`) without specifying a language, save in
            ``openacademy/i18n/``
         #. Create a translation file by exporting (
-           :menuselection:`Administration --> Translations --> Import/Export
+           :menuselection:`Settings --> Translations --> Import/Export
            --> Export Translation`) and specifying a language. Save it in
            ``openacademy/i18n/``
         #. Open the exported translation file (with a basic text editor or a
@@ -1549,9 +1560,9 @@ A report is a combination two elements:
 Because reports are standard web pages, they are available through a URL and
 output parameters can be manipulated through this URL, for instance the HTML
 version of the *Invoice* report is available through
-http://localhost:8069/report/html/account.report_invoice/1 (if ``account`` is
+http://localhost:7073/report/html/account.report_invoice/1 (if ``account`` is
 installed) and the PDF version through
-http://localhost:8069/report/pdf/account.report_invoice/1.
+http://localhost:7073/report/pdf/account.report_invoice/1.
 
 .. _reference/backend/reporting/printed-reports/pdf-without-styles:
 
@@ -1571,7 +1582,7 @@ http://localhost:8069/report/pdf/account.report_invoice/1.
     adding one of these system parameters:
 
     - ``report.url``, pointing to an URL reachable from your server
-      (probably ``http://localhost:8069`` or something similar). It will be
+      (probably ``http://localhost:7073`` or something similar). It will be
       used for this particular purpose only.
 
     - ``web.base.url.freeze``, when set to ``True``, will stop the
@@ -1663,7 +1674,7 @@ server with the library ``xmlrpc.client``::
             import functools
             import xmlrpc.client
             HOST = 'localhost'
-            PORT = 8069
+            PORT = 7073
             DB = 'openacademy'
             USER = 'admin'
             PASS = 'admin'
@@ -1707,6 +1718,12 @@ with the standard Python libraries ``urllib.request`` and ``json``::
     import random
     import urllib.request
 
+    HOST = 'localhost'
+    PORT = 7073
+    DB = 'openacademy'
+    USER = 'admin'
+    PASS = 'admin'
+
     def json_rpc(url, method, params):
         data = {
             "jsonrpc": "2.0",
@@ -1717,7 +1734,7 @@ with the standard Python libraries ``urllib.request`` and ``json``::
         req = urllib.request.Request(url=url, data=json.dumps(data).encode(), headers={
             "Content-Type":"application/json",
         })
-        reply = json.load(urllib.request.urlopen(req))
+        reply = json.loads(urllib.request.urlopen(req).read().decode('UTF-8'))
         if reply.get("error"):
             raise Exception(reply["error"])
         return reply["result"]

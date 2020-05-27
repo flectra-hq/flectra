@@ -46,7 +46,7 @@ class PosConfig(models.Model):
         return self.env['account.journal'].search([('type', '=', 'sale'), ('company_id', '=', self.env.user.company_id.id)], limit=1)
 
     def _default_pricelist(self):
-        return self.env['product.pricelist'].search([('currency_id', '=', self.env.user.company_id.currency_id.id)], limit=1)
+        return self.env['product.pricelist'].search([('company_id', 'in', (False, self.env.user.company_id.id)), ('currency_id', '=', self.env.user.company_id.currency_id.id)], limit=1)
 
     def _get_default_location(self):
         return self.env['stock.warehouse'].search([('company_id', '=', self.env.user.company_id.id)], limit=1).lot_stock_id
@@ -61,6 +61,7 @@ class PosConfig(models.Model):
         return self.env['ir.qweb'].render('point_of_sale.customer_facing_display_html')
 
     name = fields.Char(string='Point of Sale Name', index=True, required=True, help="An internal identification of the point of sale.")
+
     journal_ids = fields.Many2many(
         'account.journal', 'pos_config_journal_rel',
         'pos_config_id', 'journal_id', string='Available Payment Methods',

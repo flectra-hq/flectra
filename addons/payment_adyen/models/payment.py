@@ -150,7 +150,7 @@ class AcquirerAdyen(models.Model):
 
     @api.multi
     def adyen_form_generate_values(self, values):
-        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        base_url = self.get_base_url()
         # tmp
         import datetime
         from dateutil import relativedelta
@@ -170,7 +170,7 @@ class AcquirerAdyen(models.Model):
                 'sessionValidity': tmp_date.isoformat('T')[:19] + "Z",
                 'resURL': urls.url_join(base_url, AdyenController._return_url),
                 'merchantReturnData': json.dumps({'return_url': '%s' % values.pop('return_url')}) if values.get('return_url', '') else False,
-                'shopperEmail': values.get('partner_email', ''),
+                'shopperEmail': values.get('partner_email') or values.get('billing_partner_email') or '',
             })
             values['merchantSig'] = self._adyen_generate_merchant_sig_sha256('in', values)
 

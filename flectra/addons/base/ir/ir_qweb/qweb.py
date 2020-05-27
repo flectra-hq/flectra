@@ -48,7 +48,7 @@ arg = getattr(ast, 'arg', lambda arg, annotation: ast.Name(id=arg, ctx=ast.Param
 # so add a shim for *that* based on the signature of Python 3 I guess?
 arguments = ast.arguments
 if pycompat.PY2:
-    arguments = lambda args, vararg, kwonlyargs, kw_defaults, kwarg, defaults: ast.arguments(args=args, vararg=vararg, kwarg=kwarg, defaults=defaults)
+    arguments = lambda args, vararg, kwarg, defaults, **kwargs: ast.arguments(args=args, vararg=vararg, kwarg=kwarg, defaults=defaults)
 ####################################
 ###          qweb tools          ###
 ####################################
@@ -109,6 +109,7 @@ class Contextifier(ast.NodeTransformer):
                 # handle that cross-version
                 kwonlyargs=[],
                 kw_defaults=[],
+                posonlyargs=[],
             ),
             body=Contextifier(self._safe_names + tuple(names)).visit(node.body)
         ), node)
@@ -554,7 +555,7 @@ class QWeb(object):
                 arg(arg='values', annotation=None),
                 arg(arg='options', annotation=None),
                 arg(arg='log', annotation=None),
-            ], defaults=[], vararg=None, kwarg=None, kwonlyargs=[], kw_defaults=[]),
+            ], defaults=[], vararg=None, kwarg=None, posonlyargs=[], kwonlyargs=[], kw_defaults=[]),
             body=body or [ast.Return()],
             decorator_list=[])
         if lineno is not None:

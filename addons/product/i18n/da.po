@@ -3,24 +3,26 @@
 # * product
 # 
 # Translators:
-# Martin Trigaux <mat@odoo.com>, 2017
-# Pernille Kristensen <pernillekristensen1994@gmail.com>, 2017
-# Ejner Sønniksen <ejner@vkdata.dk>, 2017
-# Sanne Kristensen <sanne@vkdata.dk>, 2017
 # peso <peer.sommerlund@gmail.com>, 2017
-# Morten Schou <ms@msteknik.dk>, 2017
 # Visti Kristensen <visti@vkdata.dk>, 2017
 # Jesper Carstensen <jc@danodoo.dk>, 2017
 # Hans Henrik Gabelgaard <hhg@gabelgaard.org>, 2017
 # Jesper Carstensen <info@danodoo.dk>, 2017
-# lhmflexerp <lhm@flexerp.dk>, 2017
+# Morten Schou <ms@msteknik.dk>, 2017
+# Pernille Kristensen <pernillekristensen1994@gmail.com>, 2017
+# Ejner Sønniksen <ejner@vkdata.dk>, 2018
+# Martin Trigaux, 2018
+# Sanne Kristensen <sanne@vkdata.dk>, 2018
+# Joe Hansen <joedalton2@yahoo.dk>, 2019
+# lhmflexerp <lhm@flexerp.dk>, 2019
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 11:26+0000\n"
-"PO-Revision-Date: 2017-10-02 11:26+0000\n"
-"Last-Translator: lhmflexerp <lhm@flexerp.dk>, 2017\n"
+"POT-Creation-Date: 2019-03-29 09:08+0000\n"
+"PO-Revision-Date: 2017-09-20 10:22+0000\n"
+"Last-Translator: lhmflexerp <lhm@flexerp.dk>, 2019\n"
 "Language-Team: Danish (https://www.transifex.com/odoo/teams/41243/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -57,7 +59,7 @@ msgid "%s %% discount and %s surcharge"
 msgstr "%s %% rabat og %s ekstragebyr"
 
 #. module: product
-#: code:addons/product/models/product_template.py:324
+#: code:addons/product/models/product_template.py:333
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (kopi)"
@@ -433,7 +435,7 @@ msgstr "Stregkode"
 #. module: product
 #: model:ir.model.fields,help:product.field_product_packaging_barcode
 msgid "Barcode used for packaging identification."
-msgstr ""
+msgstr "Stegkode brugt til identifikation af pakning."
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_pricelist_item_base
@@ -741,9 +743,7 @@ msgid "Computer SC234"
 msgstr "Computer SC234"
 
 #. module: product
-#: code:addons/product/models/product_template.py:50
 #: selection:product.template,type:0
-#, python-format
 msgid "Consumable"
 msgstr "Kan forbruges"
 
@@ -778,6 +778,12 @@ msgstr ""
 #: selection:product.pricelist.item,base:0
 msgid "Cost"
 msgstr "Kostpris"
+
+#. module: product
+#: model:ir.model.fields,field_description:product.field_product_product_cost_currency_id
+#: model:ir.model.fields,field_description:product.field_product_template_cost_currency_id
+msgid "Cost Currency"
+msgstr ""
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_product_standard_price
@@ -956,6 +962,11 @@ msgid "Description for Customers"
 msgstr "Beskrivelse til Kunder"
 
 #. module: product
+#: model:ir.ui.view,arch_db:product.product_template_form_view
+msgid "Description for Internal"
+msgstr ""
+
+#. module: product
 #: model:product.product,website_description:product.product_product_11
 #: model:product.product,website_description:product.product_product_11b
 #: model:product.template,website_description:product.product_product_11_product_template
@@ -1038,19 +1049,19 @@ msgid "Ending valid for the pricelist item validation"
 msgstr "Gyldig afslutning til validering af prisliste"
 
 #. module: product
-#: code:addons/product/models/product.py:53
+#: code:addons/product/models/product.py:56
 #, python-format
 msgid "Error ! You cannot create recursive categories."
 msgstr "Fejl! Du kan ikke oprette rekursive kategorier."
 
 #. module: product
-#: code:addons/product/models/product_attribute.py:101
+#: code:addons/product/models/product_attribute.py:102
 #, python-format
 msgid "Error ! You cannot use this attribute with the following value."
 msgstr "Fejl! Du kan ikke bruge denne egenskab med følgende værdi."
 
 #. module: product
-#: code:addons/product/models/product.py:283
+#: code:addons/product/models/product.py:293
 #, python-format
 msgid ""
 "Error! It is not allowed to choose more than one value for a given "
@@ -1074,7 +1085,7 @@ msgstr ""
 "Fejl! Du kan ikke tildele hovedprislisten som anden prisliste i prislisten!"
 
 #. module: product
-#: code:addons/product/models/product_template.py:274
+#: code:addons/product/models/product_template.py:283
 #, python-format
 msgid ""
 "Error: The default Unit of Measure and the purchase Unit of Measure must be "
@@ -1209,6 +1220,11 @@ msgstr ""
 #: model:product.template,website_description:product.product_product_8_product_template
 msgid "Friendly to the environment."
 msgstr "Miljøvenlig."
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Future Activities"
+msgstr "Fremtidige aktiviteter"
 
 #. module: product
 #: model:product.product,name:product.product_product_1
@@ -1483,6 +1499,16 @@ msgid "Inventory"
 msgstr "Lager"
 
 #. module: product
+#: model:ir.model.fields,field_description:product.field_product_product_is_product_variant
+msgid "Is Product Variant"
+msgstr ""
+
+#. module: product
+#: model:ir.model.fields,field_description:product.field_product_template_is_product_variant
+msgid "Is a product variant"
+msgstr ""
+
+#. module: product
 #: model:product.product,website_description:product.product_product_7
 #: model:product.template,website_description:product.product_product_7_product_template
 msgid "Keep it clean."
@@ -1563,6 +1589,11 @@ msgstr "Sidst opdateret af"
 #: model:ir.model.fields,field_description:product.field_product_uom_write_date
 msgid "Last Updated on"
 msgstr "Sidst opdateret den"
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Late Activities"
+msgstr "Forsinkede aktiviteter"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_supplierinfo_delay
@@ -2023,7 +2054,7 @@ msgstr "Produktnavn"
 #: model:ir.model.fields,field_description:product.field_res_config_settings_group_stock_packaging
 #: model:ir.ui.view,arch_db:product.product_packaging_tree_view
 msgid "Product Packages"
-msgstr ""
+msgstr "Produktindpakninger"
 
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_packaging_form_view
@@ -2105,7 +2136,7 @@ msgid "Products Price Search"
 msgstr "Prissøgning på varer"
 
 #. module: product
-#: code:addons/product/models/product.py:448
+#: code:addons/product/models/product.py:464
 #, python-format
 msgid "Products: "
 msgstr "Varer "
@@ -2115,6 +2146,11 @@ msgstr "Varer "
 #: selection:product.pricelist.item,base:0
 msgid "Public Price"
 msgstr "Officiel pris"
+
+#. module: product
+#: model:product.pricelist,name:product.list0
+msgid "Public Pricelist"
+msgstr "Offentlig prisliste"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product_description_purchase
@@ -2189,7 +2225,7 @@ msgstr ""
 #: model:product.product,name:product.product_product_6c
 #: model:product.template,name:product.product_product_6c_product_template
 msgid "Repair"
-msgstr ""
+msgstr "Reparation"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_category_parent_right
@@ -2319,9 +2355,7 @@ msgid "Server"
 msgstr "Server"
 
 #. module: product
-#: code:addons/product/models/product_template.py:51
 #: selection:product.template,type:0
-#, python-format
 msgid "Service"
 msgstr "Ydelse"
 
@@ -2354,6 +2388,11 @@ msgid ""
 " * Checked : Product are visible for every company, even if a company is defined on the partner.\n"
 " * Unchecked : Each company can see only its product (product where company is defined). Product not related to a company are visible for all companies."
 msgstr ""
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Show all records which has next action date is before today"
+msgstr "Vis alle poster, hvor den næste handlingsdato er før i dag"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_res_config_settings_group_product_pricelist
@@ -2630,7 +2669,7 @@ msgid ""
 msgstr ""
 
 #. module: product
-#: code:addons/product/models/product_attribute.py:74
+#: code:addons/product/models/product_attribute.py:75
 #, python-format
 msgid ""
 "The operation cannot be completed:\n"
@@ -2787,6 +2826,11 @@ msgstr "Dette er summen af ekstra pris på alle egenskaber"
 
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_template_form_view
+msgid "This note is only for internal purposes."
+msgstr "Denne note er kun til interne formål."
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_form_view
 msgid "This note will show up on sales orders."
 msgstr "Denne note vil blive vist på salgsordrer."
 
@@ -2815,6 +2859,11 @@ msgid ""
 msgstr ""
 
 #. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Today Activities"
+msgstr "Dagens aktiviteter"
+
+#. module: product
 #: model:product.product,website_description:product.product_product_7
 #: model:product.template,website_description:product.product_product_7_product_template
 msgid "Two is better than one."
@@ -2831,11 +2880,6 @@ msgstr "Type"
 msgid ""
 "USB port allows for software update to ensure ongoing Bluetooth device "
 "compatibility"
-msgstr ""
-
-#. module: product
-#: model:product.pricelist,name:product.list0
-msgid "USD"
 msgstr ""
 
 #. module: product
@@ -3164,6 +3208,7 @@ msgid ""
 "You must define at least one product category in order to be able to create "
 "products."
 msgstr ""
+"Du skal definere mindst en produktkategori for at kunne oprette produkter."
 
 #. module: product
 #: model:product.product,website_description:product.product_product_11

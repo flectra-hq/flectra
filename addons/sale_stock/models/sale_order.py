@@ -4,7 +4,7 @@
 from datetime import datetime, timedelta
 
 from flectra import api, fields, models, _
-from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_compare
+from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_compare, float_round
 from flectra.exceptions import UserError
 
 
@@ -251,7 +251,7 @@ class SaleOrderLine(models.Model):
             if line.state != 'sale' or not line.product_id.type in ('consu','product'):
                 continue
             qty = line._get_qty_procurement()
-            if float_compare(qty, line.product_uom_qty, precision_digits=precision) == 0:
+            if float_compare(qty, line.product_uom_qty, precision_digits=precision) >= 0:
                 continue
 
             group_id = line.order_id.procurement_group_id
@@ -300,13 +300,8 @@ class SaleOrderLine(models.Model):
             if move.location_dest_id.usage == "customer":
                 if not move.origin_returned_move_id or (move.origin_returned_move_id and move.to_refund):
                     qty += move.product_uom._compute_quantity(move.product_uom_qty, self.product_uom)
-            elif move.location_id.usage == "customer":
-                if not move.origin_returned_move_id or (move.origin_returned_move_id and move.to_refund):
-                    qty -= move.product_uom._compute_quantity(move.product_uom_qty, self.product_uom)
             elif move.location_dest_id.usage != "customer" and move.to_refund:
                 qty -= move.product_uom._compute_quantity(move.product_uom_qty, self.product_uom)
-            elif move.location_id.usage != "customer" and move.to_refund:
-                qty += move.product_uom._compute_quantity(move.product_uom_qty, self.product_uom)
         return qty
 
     @api.multi
@@ -315,7 +310,18 @@ class SaleOrderLine(models.Model):
         pack = self.product_packaging
         qty = self.product_uom_qty
         q = default_uom._compute_quantity(pack.qty, self.product_uom)
-        if qty and q and (qty % q):
+        # We do not use the modulo operator to check if qty is a mltiple of q. Indeed the quantity
+        # per package might be a float, leading to incorrect results. For example:
+        # 8 % 1.6 = 1.5999999999999996
+        # 5.4 % 1.8 = 2.220446049250313e-16
+        if (
+            qty
+            and q
+            and float_compare(
+                qty / q, float_round(qty / q, precision_rounding=1.0), precision_rounding=0.001
+            )
+            != 0
+        ):
             newqty = qty - (qty % q) + q
             return {
                 'warning': {

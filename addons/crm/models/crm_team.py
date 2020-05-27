@@ -146,7 +146,7 @@ class Team(models.Model):
     as a member of one of the sales channel.
 </p>"""
             if user_team_id:
-                action['help'] += "<p>As you don't belong to any sales channel, Flectra opens the first one by default.</p>"
+                action['help'] += "<p>As you don't belong to any sales channel, Odoo opens the first one by default.</p>"
 
         action_context = safe_eval(action['context'], {'uid': self.env.uid})
         if user_team_id:

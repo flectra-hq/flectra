@@ -3,17 +3,20 @@
 # * product
 # 
 # Translators:
-# Martin Trigaux <mat@odoo.com>, 2017
 # Kovács Tibor <kovika@gmail.com>, 2017
-# krnkris <krnkris@freemail.hu>, 2017
-# gezza <geza.nagy@oregional.hu>, 2017
+# krnkris, 2018
+# Martin Trigaux, 2018
+# Kisrobert <kisrobi@gmail.com>, 2018
+# Ákos Nagy <akos.nagy@oregional.hu>, 2019
+# gezza <geza.nagy@oregional.hu>, 2019
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 11:26+0000\n"
-"PO-Revision-Date: 2017-10-02 11:26+0000\n"
-"Last-Translator: gezza <geza.nagy@oregional.hu>, 2017\n"
+"POT-Creation-Date: 2019-03-29 09:08+0000\n"
+"PO-Revision-Date: 2017-09-20 10:22+0000\n"
+"Last-Translator: gezza <geza.nagy@oregional.hu>, 2019\n"
 "Language-Team: Hungarian (https://www.transifex.com/odoo/teams/41243/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +53,7 @@ msgid "%s %% discount and %s surcharge"
 msgstr "%s %% árengedmény és %s pótdíj"
 
 #. module: product
-#: code:addons/product/models/product_template.py:324
+#: code:addons/product/models/product_template.py:333
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (másolat)"
@@ -744,9 +747,7 @@ msgid "Computer SC234"
 msgstr "Számítógép SC234"
 
 #. module: product
-#: code:addons/product/models/product_template.py:50
 #: selection:product.template,type:0
-#, python-format
 msgid "Consumable"
 msgstr "Fogyóeszköz"
 
@@ -783,12 +784,21 @@ msgid "Cost"
 msgstr "Költség"
 
 #. module: product
+#: model:ir.model.fields,field_description:product.field_product_product_cost_currency_id
+#: model:ir.model.fields,field_description:product.field_product_template_cost_currency_id
+msgid "Cost Currency"
+msgstr "Költség pénznem"
+
+#. module: product
 #: model:ir.model.fields,help:product.field_product_product_standard_price
 msgid ""
 "Cost used for stock valuation in standard price and as a first price to set "
 "in average/fifo. Also used as a base price for pricelists. Expressed in the "
 "default unit of measure of the product."
 msgstr ""
+"Készletértékeléshez használt költség alapár, átlagár/FIFO esetén az első ár."
+" Szintén alapárként kerül felhasználásra az árlistákhoz. A termék "
+"alapértelmezett mértékegységében kifejezve."
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_template_standard_price
@@ -960,6 +970,11 @@ msgid "Description for Customers"
 msgstr "Leírás a vevő részére"
 
 #. module: product
+#: model:ir.ui.view,arch_db:product.product_template_form_view
+msgid "Description for Internal"
+msgstr ""
+
+#. module: product
 #: model:product.product,website_description:product.product_product_11
 #: model:product.product,website_description:product.product_product_11b
 #: model:product.template,website_description:product.product_product_11_product_template
@@ -1042,19 +1057,19 @@ msgid "Ending valid for the pricelist item validation"
 msgstr "Befejező érvényesítés az árlista tételének jóváhagyásához"
 
 #. module: product
-#: code:addons/product/models/product.py:53
+#: code:addons/product/models/product.py:56
 #, python-format
 msgid "Error ! You cannot create recursive categories."
 msgstr "Hiba! Nem tud ismétlődő kategóriát létrehozni."
 
 #. module: product
-#: code:addons/product/models/product_attribute.py:101
+#: code:addons/product/models/product_attribute.py:102
 #, python-format
 msgid "Error ! You cannot use this attribute with the following value."
 msgstr "Hiba ! Nem használhatja ezt a tulajdonságot a következő értékkel."
 
 #. module: product
-#: code:addons/product/models/product.py:283
+#: code:addons/product/models/product.py:293
 #, python-format
 msgid ""
 "Error! It is not allowed to choose more than one value for a given "
@@ -1079,7 +1094,7 @@ msgstr ""
 "Hiba! Nem csatolhatja a fő árlistát mint más árlista az árlista tételben!"
 
 #. module: product
-#: code:addons/product/models/product_template.py:274
+#: code:addons/product/models/product_template.py:283
 #, python-format
 msgid ""
 "Error: The default Unit of Measure and the purchase Unit of Measure must be "
@@ -1230,6 +1245,11 @@ msgstr ""
 #: model:product.template,website_description:product.product_product_8_product_template
 msgid "Friendly to the environment."
 msgstr "Környezetbarát."
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Future Activities"
+msgstr "Jövőbeli tevékenységek"
 
 #. module: product
 #: model:product.product,name:product.product_product_1
@@ -1513,6 +1533,16 @@ msgid "Inventory"
 msgstr "Készlet"
 
 #. module: product
+#: model:ir.model.fields,field_description:product.field_product_product_is_product_variant
+msgid "Is Product Variant"
+msgstr "Termékváltozat"
+
+#. module: product
+#: model:ir.model.fields,field_description:product.field_product_template_is_product_variant
+msgid "Is a product variant"
+msgstr "Ez egy termék változat"
+
+#. module: product
 #: model:product.product,website_description:product.product_product_7
 #: model:product.template,website_description:product.product_product_7_product_template
 msgid "Keep it clean."
@@ -1593,6 +1623,11 @@ msgstr "Utoljára frissítette"
 #: model:ir.model.fields,field_description:product.field_product_uom_write_date
 msgid "Last Updated on"
 msgstr "Utoljára frissítve "
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Late Activities"
+msgstr "Késő tevékenységek"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_supplierinfo_delay
@@ -2139,7 +2174,7 @@ msgid "Products Price Search"
 msgstr "Termékár keresése"
 
 #. module: product
-#: code:addons/product/models/product.py:448
+#: code:addons/product/models/product.py:464
 #, python-format
 msgid "Products: "
 msgstr "Termékek: "
@@ -2149,6 +2184,11 @@ msgstr "Termékek: "
 #: selection:product.pricelist.item,base:0
 msgid "Public Price"
 msgstr "Nyilvános ár"
+
+#. module: product
+#: model:product.pricelist,name:product.list0
+msgid "Public Pricelist"
+msgstr "Nyilvános árlista"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product_description_purchase
@@ -2371,9 +2411,7 @@ msgid "Server"
 msgstr "Szerver"
 
 #. module: product
-#: code:addons/product/models/product_template.py:51
 #: selection:product.template,type:0
-#, python-format
 msgid "Service"
 msgstr "Szolgáltatás"
 
@@ -2410,6 +2448,13 @@ msgstr ""
 "Ossza meg termékeit az összes meghatározott vállalata között.\n"
 " * Bejelölt: Termékek láthatóak mindegyik vállalata részéről, még akkor is, ha a vállalat a termékre definiált.\n"
 " * Nem bejelölt: Mindegyik vállalat csak a saját termékeit látja  (termékek, melyek a vállalathoz kapcsoltak). Termékek, melyek egyik vállalathoz sem tartoznak azok az összes vállalat számára láthatóak."
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Show all records which has next action date is before today"
+msgstr ""
+"Mutassa az összes rekordot melyre a következő műveleti dátum a mai nap "
+"előtti"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_res_config_settings_group_product_pricelist
@@ -2716,7 +2761,7 @@ msgstr ""
 "tekintetbe)"
 
 #. module: product
-#: code:addons/product/models/product_attribute.py:74
+#: code:addons/product/models/product_attribute.py:75
 #, python-format
 msgid ""
 "The operation cannot be completed:\n"
@@ -2893,6 +2938,11 @@ msgstr ""
 
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_template_form_view
+msgid "This note is only for internal purposes."
+msgstr "Ez a megjegyzés belső használatra szolgál."
+
+#. module: product
+#: model:ir.ui.view,arch_db:product.product_template_form_view
 msgid "This note will show up on sales orders."
 msgstr "Ez a megjegyzés látható lesz a vevői megrendelésekjen..."
 
@@ -2925,6 +2975,11 @@ msgstr ""
 "üresen a belső megnevezés használatához."
 
 #. module: product
+#: model:ir.ui.view,arch_db:product.product_template_search_view
+msgid "Today Activities"
+msgstr "Mai napi tevékenységek"
+
+#. module: product
 #: model:product.product,website_description:product.product_product_7
 #: model:product.template,website_description:product.product_product_7_product_template
 msgid "Two is better than one."
@@ -2944,11 +2999,6 @@ msgid ""
 msgstr ""
 "USB csatlakozó a szoftver frissítéseknél biztosítja az eszközök Bluetooth "
 "kompatibilitását"
-
-#. module: product
-#: model:product.pricelist,name:product.list0
-msgid "USD"
-msgstr "USD"
 
 #. module: product
 #: model:product.product,website_description:product.product_product_6

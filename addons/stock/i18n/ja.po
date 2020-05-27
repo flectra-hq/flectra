@@ -3,22 +3,28 @@
 # * stock
 # 
 # Translators:
-# Norimichi Sugimoto <norimichi.sugimoto@tls-ltd.co.jp>, 2017
-# Yoshi Tashiro <tashiro@roomsfor.hk>, 2017
-# Martin Trigaux <mat@odoo.com>, 2017
-# SHIMIZU Taku <shimizu.taku@gmail.com>, 2017
-# 高木正勝 <masakatsu.takagi@pro-spire.co.jp>, 2017
 # Kohji Katayama <kohji.katayama@dreamyard.co.jp>, 2017
+# 高木正勝 <masakatsu.takagi@pro-spire.co.jp>, 2017
 # Manami Hashi <manami@roomsfor.hk>, 2017
 # NOKA Shigekazu <shigekazu.noka@gmail.com>, 2017
-# Tim Siu Lai <tl@roomsfor.hk>, 2017
+# SHIMIZU Taku <shimizu.taku@gmail.com>, 2017
+# Martin Trigaux, 2017
+# 城谷 龍弥 <tatsuya.shirotani@pro-spire.co.jp>, 2018
+# Masako Ogawa <masako.ogawa@pro-spire.co.jp>, 2018
+# 森岡広道 <hiromichi.morioka@pro-spire.co.jp>, 2018
+# Takuya Sawada <takuya@tuntunkun.com>, 2018
+# Norimichi Sugimoto <norimichi.sugimoto@tls-ltd.co.jp>, 2019
+# Tim Siu Lai <tl@roomsfor.hk>, 2019
+# Yoshi Tashiro <tashiro@roomsfor.hk>, 2020
+# Hau Dao <hau@quartile.co>, 2020
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-30 13:11+0000\n"
-"PO-Revision-Date: 2017-11-30 13:11+0000\n"
-"Last-Translator: Tim Siu Lai <tl@roomsfor.hk>, 2017\n"
+"POT-Creation-Date: 2019-01-03 15:06+0000\n"
+"PO-Revision-Date: 2017-09-20 10:24+0000\n"
+"Last-Translator: Hau Dao <hau@quartile.co>, 2020\n"
 "Language-Team: Japanese (https://www.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,13 +33,31 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:308
+#: code:addons/stock/models/stock_move.py:340
+#, python-format
+msgid ""
+"\n"
+"\n"
+"%s --> Product UoM is %s (%s) - Move UoM is %s (%s)"
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/stock_move.py:341
+#, python-format
+msgid ""
+"\n"
+"\n"
+"Blocking: %s"
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/stock_move.py:328
 #, python-format
 msgid " (%s reserved)"
 msgstr "(%s 引当済)"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:311
+#: code:addons/stock/models/stock_move.py:331
 #, python-format
 msgid " (reserved)"
 msgstr " (引当済)"
@@ -55,7 +79,7 @@ msgid "#Products"
 msgstr "プロダクト数量"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:481
+#: code:addons/stock/models/stock_warehouse.py:486
 #, python-format
 msgid "%s: Supply Product from %s"
 msgstr "%s: 製品はここから供給されています %s"
@@ -347,7 +371,7 @@ msgstr "<span>kg</span>"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_template_property_form
 msgid "<span>m³</span>"
-msgstr ""
+msgstr "<span>m³</span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.message_head
@@ -409,11 +433,6 @@ msgstr "<strong>消耗品</strong>は常に在庫に十分な量があるとみ�
 #: model:ir.ui.view,arch_db:stock.report_inventory
 msgid "<strong>Date</strong>"
 msgstr "<strong>日付</strong>"
-
-#. module: stock
-#: model:ir.ui.view,arch_db:stock.report_delivery_document
-msgid "<strong>Delivered Quantity</strong>"
-msgstr "<strong>納入数量</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -521,11 +540,6 @@ msgid "<strong>Order (Origin)</strong>"
 msgstr "<strong>オーダ (要求元)</strong>"
 
 #. module: stock
-#: model:ir.ui.view,arch_db:stock.report_delivery_document
-msgid "<strong>Ordered Quantity</strong>"
-msgstr "<strong>注文数</strong>"
-
-#. module: stock
 #: model:ir.ui.view,arch_db:stock.report_inventory
 msgid "<strong>Package</strong>"
 msgstr "<strong>パッケージ</strong>"
@@ -544,9 +558,10 @@ msgstr "<strong>製造ロット</strong>"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_stock_move_kanban
 msgid "<strong>Qty: </strong>"
-msgstr ""
+msgstr "<strong>数量: </strong>"
 
 #. module: stock
+#: model:ir.ui.view,arch_db:stock.report_delivery_document
 #: model:ir.ui.view,arch_db:stock.report_inventory
 msgid "<strong>Quantity</strong>"
 msgstr "<strong>数量</strong>"
@@ -601,7 +616,7 @@ msgstr ""
 "アイコンをクリックすると、<strong>入荷、内部転送、または配送を処理する際に</strong>、製品にロット番号または違うロット番号またはシリアル番号を割り当てることができます"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:115
+#: code:addons/stock/models/stock_inventory.py:122
 #, python-format
 msgid "A Pack"
 msgstr "1梱包"
@@ -617,7 +632,7 @@ msgid "A classic sales flow looks like the following:"
 msgstr "従来型の販売フローは次のようになります:"
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:86
+#: code:addons/stock/models/stock_move_line.py:93
 #, python-format
 msgid "A done move line should never have a reserved quantity."
 msgstr ""
@@ -632,10 +647,10 @@ msgstr ""
 "優れた在庫管理は、在庫レベルを最適化することを目指しています。多すぎず(製品が場所を占有し、価値を失う可能性があります)、少なすぎず(在庫切れの可能性もあります)です。"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:76
+#: code:addons/stock/models/stock_quant.py:80
 #, python-format
 msgid "A serial number should only be linked to a single product."
-msgstr ""
+msgstr "シリアル番号は1つのプロダクトのみに紐付けられます。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_product_type
@@ -681,6 +696,12 @@ msgstr "アクション"
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_orderpoint_active
 msgid "Active"
 msgstr "有効"
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.view_picking_form
+msgid ""
+"Add an internal note that will be printed on the Picking Operations sheet"
+msgstr "ピッキング作業シートに印刷される内部ノートを追加する"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_res_config_settings_group_stock_adv_location
@@ -743,7 +764,7 @@ msgstr "全てのオペレーション"
 #. module: stock
 #: model:ir.actions.act_window,name:stock.stock_picking_action_picking_type
 msgid "All Transfers"
-msgstr "全ての移動"
+msgstr "全ての運送"
 
 #. module: stock
 #: selection:procurement.group,move_type:0
@@ -758,7 +779,7 @@ msgid ""
 msgstr "すべてのアイテムは出荷できませんでした。残りのアイテムは、使用可能になるとすぐに出荷されます。"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:105
+#: code:addons/stock/models/stock_inventory.py:112
 #, python-format
 msgid "All products"
 msgstr "全プロダクト"
@@ -773,12 +794,6 @@ msgstr "全ての返品移動"
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_show_entire_packs
 msgid "Allow moving packs"
 msgstr "梱包の移動を許可"
-
-#. module: stock
-#: code:addons/stock/models/stock_quant.py:82
-#, python-format
-msgid "An incoming date cannot be set to an untracked product."
-msgstr ""
 
 #. module: stock
 #: model:stock.inventory.line,product_name:stock.stock_inventory_line_2
@@ -850,6 +865,18 @@ msgid "Assign Owner"
 msgstr "オーナーを割当"
 
 #. module: stock
+#: model:ir.ui.view,arch_db:stock.view_picking_form
+msgid "Assign Partner"
+msgstr ""
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.view_picking_form
+msgid ""
+"Assign the partner to the Operations. Use only if the partner is manually "
+"changed!"
+msgstr ""
+
+#. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_internal_search
 msgid "Assigned Moves"
 msgstr "割当済移動"
@@ -857,7 +884,7 @@ msgstr "割当済移動"
 #. module: stock
 #: selection:stock.quantity.history,compute_at_date:0
 msgid "At a Specific Date"
-msgstr ""
+msgstr "指定日時"
 
 #. module: stock
 #: model:ir.ui.menu,name:stock.menu_variants_action
@@ -911,12 +938,6 @@ msgstr "バックオーダ"
 #, python-format
 msgid "Back order <em>%s</em> <b>cancelled</b>."
 msgstr "バックオーダー <em>%s</em> <b>キャンセルされました</b>"
-
-#. module: stock
-#: code:addons/stock/models/stock_picking.py:790
-#, python-format
-msgid "Back order <em>%s</em> <b>created</b>."
-msgstr "バックオーダー<em>%s</em> <b>作成済み</b>"
 
 #. module: stock
 #: model:ir.model,name:stock.model_stock_backorder_confirmation
@@ -1014,7 +1035,7 @@ msgid "By Unique Serial Number"
 msgstr "シリアル番号"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:612
+#: code:addons/stock/models/stock_move.py:644
 #, python-format
 msgid ""
 "By changing this quantity here, you accept the new quantity as complete: "
@@ -1032,13 +1053,12 @@ msgstr "デフォルトでは、Odooは製品を「単位」で測定します�
 #: model:ir.model.fields,help:stock.field_stock_move_procure_method
 msgid ""
 "By default, the system will take from the stock in the source location and "
-"passively wait for availability.The other possibility allows you to directly"
-" create a procurement on the source location (and thus ignore its current "
-"stock) to gather products. If we want to chain moves and have this one to "
-"wait for the previous,this second option should be chosen."
+"passively wait for availability. The other possibility allows you to "
+"directly create a procurement on the source location (and thus ignore its "
+"current stock) to gather products. If we want to chain moves and have this "
+"one to wait for the previous, this second option should be chosen."
 msgstr ""
-"デフォルトでは、出荷元ロケーションの在庫からシステムが取得され、受注を受動的に待機します。もう1つの方法では、出荷元ロケーションに調達を直接作成して(つまり、現在の在庫を無視して)製品を集めることができます。"
-" 移動を連鎖させて、前のものを待つようにしたい場合は、この2番目のオプションを選択する必要があります。"
+"デフォルトでは、システムはソースの場所での在庫から取得し、利用可能になるまで受動的に待機します。他の方法としては、ソースの場所で調達を直接作成して（したがって、現在の在庫を無視する）製品を収集することができます。動きを連鎖させて、これを前のものを待つようにしたい場合は、この2番目のオプションを選択した方が良いです。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_active
@@ -1078,13 +1098,13 @@ msgid "Calendar View"
 msgstr "カレンダビュー"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:428
+#: code:addons/stock/models/stock_warehouse.py:432
 #, python-format
 msgid "Can't find any customer or supplier location."
 msgstr "顧客またはサプライヤの場所を見つけることができません。"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:476
+#: code:addons/stock/models/stock_warehouse.py:481
 #, python-format
 msgid "Can't find any generic Make To Order route."
 msgstr "オーダ基準調達のルートが見つかりません。"
@@ -1112,7 +1132,7 @@ msgid "Cancelled"
 msgstr "取消済"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:468
+#: code:addons/stock/models/stock_move.py:499
 #, python-format
 msgid "Cannot unreserve a done move"
 msgstr "完了済の移動は引当解除できません"
@@ -1146,7 +1166,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
 msgid "Check Availability"
-msgstr ""
+msgstr "利用可能確認"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_has_packages
@@ -1202,7 +1222,7 @@ msgstr "日付を選択"
 #: model:ir.actions.act_window,help:stock.action_picking_tree_waiting
 #: model:ir.actions.act_window,help:stock.stock_picking_action_picking_type
 msgid "Click here to create a new transfer."
-msgstr "クリックして移動を新規作成してください。"
+msgstr "クリックして運送を新規作成してください。"
 
 #. module: stock
 #: model:ir.actions.act_window,help:stock.action_stock_scrap
@@ -1304,12 +1324,12 @@ msgstr "会社"
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_date_done
 msgid "Completion Date of Transfer"
-msgstr "発送の完了日"
+msgstr "運送完了日"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_quantity_history_compute_at_date
 msgid "Compute"
-msgstr "計算"
+msgstr "集計日"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
@@ -1447,7 +1467,7 @@ msgid "Create Backorder"
 msgstr "バックオーダを作成"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:715
+#: code:addons/stock/models/stock_picking.py:766
 #, python-format
 msgid "Create Backorder?"
 msgstr "バックオーダを作成しますか？"
@@ -1596,7 +1616,7 @@ msgid "Creation Date, usually the time of the order"
 msgstr "作成日は通常オーダーされた時です"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:433
+#: code:addons/stock/models/stock_warehouse.py:437
 #, python-format
 msgid "Cross-Dock"
 msgstr "クロスドッキング"
@@ -1612,9 +1632,14 @@ msgid "Cumulative Quantity"
 msgstr "累積数量"
 
 #. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_quant_package_current_destination_location_id
+msgid "Current Destination Location"
+msgstr ""
+
+#. module: stock
 #: selection:stock.quantity.history,compute_at_date:0
 msgid "Current Inventory"
-msgstr ""
+msgstr "現在"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_quant_package_current_picking_id
@@ -1624,6 +1649,11 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_quant_package_current_picking_move_line_ids
 msgid "Current Picking Move Line"
+msgstr ""
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_quant_package_current_source_location_id
+msgid "Current Source Location"
 msgstr ""
 
 #. module: stock
@@ -1751,7 +1781,7 @@ msgstr "予定日"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_date_done
 msgid "Date of Transfer"
-msgstr "移動日"
+msgstr "運送日"
 
 #. module: stock
 #: selection:stock.warehouse.orderpoint,lead_type:0
@@ -1885,7 +1915,7 @@ msgid "Delay (days)"
 msgstr "遅延 (日数)"
 
 #. module: stock
-#: code:addons/stock/models/product.py:332
+#: code:addons/stock/models/product.py:334
 #, python-format
 msgid "Delivered Qty"
 msgstr "配送数量"
@@ -1896,7 +1926,7 @@ msgid "Deliveries"
 msgstr "配送"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:209
+#: code:addons/stock/models/stock_warehouse.py:213
 #: model:stock.picking.type,name:stock.chi_picking_type_out
 #: model:stock.picking.type,name:stock.picking_type_out
 #, python-format
@@ -1949,7 +1979,7 @@ msgstr "配送オーダ用説明"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_template_property_form
 msgid "Description for Internal Transfers"
-msgstr "内部転送用説明"
+msgstr "内部運送用説明"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_template_property_form
@@ -2020,11 +2050,11 @@ msgid "Destination route"
 msgstr "宛先ルート"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:446
+#: code:addons/stock/models/stock_move.py:468
 #: model:ir.ui.view,arch_db:stock.view_picking_form
 #, python-format
 msgid "Detailed Operations"
-msgstr ""
+msgstr "詳細オペレーション"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_location_path_form
@@ -2115,7 +2145,7 @@ msgstr "完了"
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_picking_tree_done
 msgid "Done Transfers"
-msgstr "実行済の移動"
+msgstr "完了済の運送"
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_picking_tree_done_grouped
@@ -2167,6 +2197,16 @@ msgid "End"
 msgstr "終了"
 
 #. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_picking_entire_package_ids
+msgid "Entire Package"
+msgstr ""
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_picking_entire_package_detail_ids
+msgid "Entire Package Detail"
+msgstr ""
+
+#. module: stock
 #. flectra-web
 #: code:addons/stock/static/src/xml/stock_traceability_report_backend.xml:14
 #, python-format
@@ -2192,7 +2232,7 @@ msgstr ""
 "各レポートは、物理的、パートナーまたは仮想のロケーションにて実行できます。"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:407
+#: code:addons/stock/models/stock_quant.py:453
 #, python-format
 msgid "Everything inside a package should be in the same location"
 msgstr "パッケージ内のすべてが同じロケーションにある必要があります"
@@ -2307,7 +2347,7 @@ msgstr ""
 "それ以外の場合は、「内部」タイプの在庫ロケーションに保管されている製品が含まれます。"
 
 #. module: stock
-#: code:addons/stock/models/product.py:327
+#: code:addons/stock/models/product.py:329
 #: model:ir.model.fields,field_description:stock.field_product_template_virtual_available
 #: model:ir.model.fields,field_description:stock.field_stock_move_availability
 #, python-format
@@ -2317,6 +2357,7 @@ msgstr "見通し数量"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_location_id
 #: model:ir.ui.view,arch_db:stock.view_move_tree
+#: model:ir.ui.view,arch_db:stock.view_quant_package_picking_tree
 msgid "From"
 msgstr "移動元"
 
@@ -2341,31 +2382,31 @@ msgid "Future Activities"
 msgstr "将来の活動"
 
 #. module: stock
-#: code:addons/stock/models/product.py:330
+#: code:addons/stock/models/product.py:332
 #, python-format
 msgid "Future Deliveries"
 msgstr "配送予定"
 
 #. module: stock
-#: code:addons/stock/models/product.py:335
+#: code:addons/stock/models/product.py:337
 #, python-format
 msgid "Future P&L"
 msgstr "将来の損益計算書"
 
 #. module: stock
-#: code:addons/stock/models/product.py:345
+#: code:addons/stock/models/product.py:347
 #, python-format
 msgid "Future Productions"
 msgstr "将来の製品"
 
 #. module: stock
-#: code:addons/stock/models/product.py:340
+#: code:addons/stock/models/product.py:342
 #, python-format
 msgid "Future Qty"
 msgstr "将来の数量"
 
 #. module: stock
-#: code:addons/stock/models/product.py:322
+#: code:addons/stock/models/product.py:324
 #, python-format
 msgid "Future Receipts"
 msgstr "入荷予定"
@@ -2447,6 +2488,11 @@ msgid "HDD SH-1"
 msgstr "HDD SH-1"
 
 #. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_move_has_move_lines
+msgid "Has Move Lines"
+msgstr ""
+
+#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_move_line_exist
 msgid "Has Pack Operations"
 msgstr "梱包作業あり"
@@ -2460,6 +2506,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock.field_stock_picking_has_scrap_move
 msgid "Has Scrap Moves"
 msgstr "廃棄移動あり"
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_picking_has_tracking
+msgid "Has Tracking"
+msgstr ""
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_location_posz
@@ -2518,7 +2569,7 @@ msgstr "ロットトラッキングの使い方："
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_id
 #: model:ir.model.fields,field_description:stock.field_stock_production_lot_id
 #: model:ir.model.fields,field_description:stock.field_stock_quant_id
-#: model:ir.model.fields,field_description:stock.field_stock_quant_package_id_6904
+#: model:ir.model.fields,field_description:stock.field_stock_quant_package_id_6916
 #: model:ir.model.fields,field_description:stock.field_stock_quantity_history_id
 #: model:ir.model.fields,field_description:stock.field_stock_return_picking_id
 #: model:ir.model.fields,field_description:stock.field_stock_return_picking_line_id
@@ -2533,7 +2584,7 @@ msgid "ID"
 msgstr "ID"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:412
+#: code:addons/stock/models/stock_inventory.py:421
 #, python-format
 msgid "INV:"
 msgstr "請求書："
@@ -2740,7 +2791,7 @@ msgid "Immediate Transfer"
 msgstr "今すぐ移動"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:678
+#: code:addons/stock/models/stock_picking.py:729
 #, python-format
 msgid "Immediate Transfer?"
 msgstr "今すぐ移動しますか？"
@@ -2753,12 +2804,17 @@ msgstr "今すぐ移動しますか？"
 #. module: stock
 #: selection:res.config.settings,module_procurement_jit:0
 msgid "Immediately after sales order confirmation"
-msgstr "受注確認後即時"
+msgstr "販売オーダ確認後即時"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "Import using the top left button in"
 msgstr "左上のボタンを使用してインポート"
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_move_line_in_entire_package
+msgid "In Entire Package"
+msgstr ""
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -2874,10 +2930,10 @@ msgid "Input Location"
 msgstr "入荷ロケーション"
 
 #. module: stock
-#: code:addons/stock/models/stock_scrap.py:131
+#: code:addons/stock/models/stock_scrap.py:135
 #, python-format
 msgid "Insufficient Quantity"
-msgstr ""
+msgstr "不十分な数量"
 
 #. module: stock
 #: model:stock.location,name:stock.stock_location_inter_wh
@@ -2908,11 +2964,11 @@ msgid "Internal Reference"
 msgstr "内部参照"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:231
+#: code:addons/stock/models/stock_warehouse.py:235
 #: model:stock.picking.type,name:stock.picking_type_internal
 #, python-format
 msgid "Internal Transfers"
-msgstr "内部移動"
+msgstr "内部運送"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_company_internal_transit_location_id
@@ -2932,19 +2988,19 @@ msgid ""
 msgstr "メーカーのロット/シリアル番号と異なる場合の内部参照番号"
 
 #. module: stock
-#: code:addons/stock/models/product.py:240
+#: code:addons/stock/models/product.py:253
 #, python-format
 msgid "Invalid domain left operand %s"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:242
+#: code:addons/stock/models/product.py:255
 #, python-format
 msgid "Invalid domain operator %s"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:244
+#: code:addons/stock/models/product.py:257
 #, python-format
 msgid "Invalid domain right operand %s"
 msgstr ""
@@ -3071,7 +3127,7 @@ msgstr "棚卸参照"
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_stock_quantity_history
 msgid "Inventory Report"
-msgstr ""
+msgstr "在庫レポート"
 
 #. module: stock
 #: model:ir.model,name:stock.model_stock_location_route
@@ -3104,7 +3160,7 @@ msgstr "理論数量と実地数量の比較により在庫調整レコードを
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_quantity_history_date
 msgid "Inventory at Date"
-msgstr "時点在庫"
+msgstr "日時"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_filter
@@ -3117,6 +3173,11 @@ msgstr "棚卸対象"
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_is_locked
 #: model:ir.model.fields,field_description:stock.field_stock_picking_is_locked
 msgid "Is Locked"
+msgstr "ロック済"
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_quant_package_is_processed
+msgid "Is Processed"
 msgstr ""
 
 #. module: stock
@@ -3150,14 +3211,14 @@ msgstr ""
 "                         それをしたい場合は、あなたのOdooプロジェクトマネジャーに連絡してください。"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:254
+#: code:addons/stock/models/stock_quant.py:265
 #, python-format
 msgid ""
 "It is not possible to reserve more products of %s than you have in stock."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:256
+#: code:addons/stock/models/stock_quant.py:270
 #, python-format
 msgid ""
 "It is not possible to unreserve more products of %s than you have in stock."
@@ -3339,7 +3400,7 @@ msgstr "遅れた活動"
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_picking_tree_late
 msgid "Late Transfers"
-msgstr "レイト・トランスファー"
+msgstr "運送遅れ"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_orderpoint_lead_days
@@ -3402,7 +3463,6 @@ msgid "Locate"
 msgstr "おいてある"
 
 #. module: stock
-#: code:addons/stock/models/barcode.py:12
 #: model:ir.model.fields,field_description:stock.field_product_product_location_id
 #: model:ir.model.fields,field_description:stock.field_product_template_location_id
 #: model:ir.model.fields,field_description:stock.field_stock_change_product_qty_location_id
@@ -3421,7 +3481,6 @@ msgstr "おいてある"
 #: model:ir.ui.view,arch_db:stock.stock_scrap_search_view
 #: model:ir.ui.view,arch_db:stock.view_move_search
 #: model:ir.ui.view,arch_db:stock.warehouse_orderpoint_search
-#, python-format
 msgid "Location"
 msgstr "ロケーション"
 
@@ -3481,10 +3540,8 @@ msgid "Logistics"
 msgstr "ロジスティクス"
 
 #. module: stock
-#: code:addons/stock/models/barcode.py:13
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_lot_id
 #: model:ir.model.fields,field_description:stock.field_stock_scrap_lot_id
-#, python-format
 msgid "Lot"
 msgstr "ロット"
 
@@ -3516,7 +3573,6 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.report_lot_barcode
 #: model:ir.ui.view,arch_db:stock.report_package_barcode
 #: model:ir.ui.view,arch_db:stock.report_picking
-#: model:ir.ui.view,arch_db:stock.view_move_line_form
 #: model:res.request.link,name:stock.req_link_tracking
 msgid "Lot/Serial Number"
 msgstr "ロット/シリアル番号"
@@ -3555,7 +3611,7 @@ msgid "Lots/Serial Numbers"
 msgstr "ロット/シリアル番号"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:541
+#: code:addons/stock/models/stock_warehouse.py:547
 #, python-format
 msgid "MTO"
 msgstr "受注生産"
@@ -3566,7 +3622,7 @@ msgid "MTO rule"
 msgstr "MTO規則"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:474
+#: code:addons/stock/models/stock_warehouse.py:479
 #: model:stock.location.route,name:stock.route_warehouse0_mto
 #, python-format
 msgid "Make To Order"
@@ -3831,16 +3887,16 @@ msgid "Negative Stock"
 msgstr "マイナス在庫"
 
 #. module: stock
-#: code:addons/stock/models/stock_scrap.py:20
-#: code:addons/stock/models/stock_scrap.py:64
-#: code:addons/stock/models/stock_scrap.py:65 selection:stock.move,state:0
+#: code:addons/stock/models/stock_scrap.py:24
+#: code:addons/stock/models/stock_scrap.py:68
+#: code:addons/stock/models/stock_scrap.py:69 selection:stock.move,state:0
 #, python-format
 msgid "New"
 msgstr "新規"
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:173
-#: code:addons/stock/models/stock_picking.py:597
+#: code:addons/stock/models/stock_move_line.py:174
+#: code:addons/stock/models/stock_picking.py:639
 #, python-format
 msgid "New Move:"
 msgstr ""
@@ -3853,7 +3909,7 @@ msgstr "手元の新しい数量"
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_picking_form
 msgid "New Transfer"
-msgstr "新規移動"
+msgstr "新規運送"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_backorder_confirmation
@@ -3877,7 +3933,7 @@ msgid "No Tracking"
 msgstr "追跡なし"
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:389
+#: code:addons/stock/models/stock_move_line.py:408
 #, python-format
 msgid "No negative quantities allowed"
 msgstr "マイナスの量は許可されません"
@@ -3888,14 +3944,14 @@ msgid "No operation made on this lot."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/procurement.py:185
+#: code:addons/stock/models/procurement.py:184
 #, python-format
 msgid ""
 "No procurement rule found. Please verify the configuration of your routes"
-msgstr ""
+msgstr "調達規則が見つかりません。ルート設定を確認してください。"
 
 #. module: stock
-#: code:addons/stock/wizard/stock_picking_return.py:55
+#: code:addons/stock/wizard/stock_picking_return.py:58
 #, python-format
 msgid ""
 "No products to return (only lines in Done state and not fully returned yet "
@@ -3924,6 +3980,11 @@ msgid "Not urgent"
 msgstr "急がない"
 
 #. module: stock
+#: model:ir.ui.view,arch_db:stock.view_picking_form
+msgid "Note"
+msgstr "ノート"
+
+#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_note
 #: model:ir.model.fields,field_description:stock.field_stock_picking_note
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
@@ -3931,7 +3992,7 @@ msgid "Notes"
 msgstr "ノート"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:544
+#: code:addons/stock/models/stock_picking.py:587
 #, python-format
 msgid "Nothing to check the availability for."
 msgstr "可用性をチェックするものはありません。"
@@ -4032,34 +4093,39 @@ msgstr ""
 "倉庫の写真をお送りいただければ幸いです"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:113
+#: code:addons/stock/models/stock_inventory.py:120
 #, python-format
 msgid "One Lot/Serial Number"
 msgstr "一つの ロット/シリアル番号"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:111
+#: code:addons/stock/models/stock_inventory.py:118
 #, python-format
 msgid "One owner only"
 msgstr "1オーナーのみ"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:106
+#: code:addons/stock/models/stock_inventory.py:113
 #, python-format
 msgid "One product category"
 msgstr "プロダクトカテゴリごと"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:111
+#: code:addons/stock/models/stock_inventory.py:118
 #, python-format
 msgid "One product for a specific owner"
 msgstr "1ロット/シリアル番号"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:107
+#: code:addons/stock/models/stock_inventory.py:114
 #, python-format
 msgid "One product only"
 msgstr "1プロダクトのみ"
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.view_quant_package_form
+msgid "Ongoing Package Creation: Content"
+msgstr ""
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_location_path_name
@@ -4158,7 +4224,7 @@ msgstr "オーダ処理"
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_ordered_qty
 #: model:ir.model.fields,field_description:stock.field_stock_move_ordered_qty
 msgid "Ordered Quantity"
-msgstr "受注数量"
+msgstr "オーダ数量"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_move_search
@@ -4259,7 +4325,7 @@ msgid "Owner of the quants"
 msgstr "保管ロットのオーナー"
 
 #. module: stock
-#: code:addons/stock/models/product.py:337
+#: code:addons/stock/models/product.py:339
 #, python-format
 msgid "P&L Qty"
 msgstr "損益計算書数量"
@@ -4278,7 +4344,7 @@ msgid "PRODUCT"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:216
+#: code:addons/stock/models/stock_warehouse.py:220
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_line_package_id
 #, python-format
 msgid "Pack"
@@ -4290,14 +4356,14 @@ msgid "Pack Type"
 msgstr "梱包タイプ"
 
 #. module: stock
-#: code:addons/stock/models/barcode.py:14
 #: model:ir.model.fields,field_description:stock.field_stock_quant_package_id
 #: model:ir.model.fields,field_description:stock.field_stock_scrap_package_id
 #: model:ir.ui.view,arch_db:stock.quant_package_search_view
 #: model:ir.ui.view,arch_db:stock.quant_search_view
+#: model:ir.ui.view,arch_db:stock.report_picking
 #: model:ir.ui.view,arch_db:stock.view_quant_package_form
+#: model:ir.ui.view,arch_db:stock.view_quant_package_picking_tree
 #: model:ir.ui.view,arch_db:stock.view_quant_package_tree
-#, python-format
 msgid "Package"
 msgstr "梱包"
 
@@ -4312,6 +4378,11 @@ msgid "Package BarCode with Contents"
 msgstr "梱包バーコードとその内容"
 
 #. module: stock
+#: model:ir.ui.view,arch_db:stock.report_package_barcode
+msgid "Package Content"
+msgstr ""
+
+#. module: stock
 #: model:ir.ui.view,arch_db:stock.quant_package_search_view
 msgid "Package Name"
 msgstr "梱包名"
@@ -4323,6 +4394,11 @@ msgid "Package Reference"
 msgstr "梱包参照"
 
 #. module: stock
+#: model:ir.ui.view,arch_db:stock.report_package_barcode_small
+msgid "Package Reference:"
+msgstr ""
+
+#. module: stock
 #: model:ir.ui.view,arch_db:stock.view_quant_package_form
 msgid "Package Transfers"
 msgstr "梱包移動"
@@ -4331,6 +4407,12 @@ msgstr "梱包移動"
 #: model:ir.model.fields,field_description:stock.field_stock_quant_package_packaging_id
 msgid "Package Type"
 msgstr "梱包タイプ"
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.report_package_barcode
+#: model:ir.ui.view,arch_db:stock.report_package_barcode_small
+msgid "Package Type:"
+msgstr ""
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_package_view
@@ -4451,7 +4533,7 @@ msgid "Physical Packages"
 msgstr "実梱包"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:224
+#: code:addons/stock/models/stock_warehouse.py:228
 #: model:ir.model.fields,field_description:stock.field_stock_backorder_confirmation_pick_ids
 #: model:ir.model.fields,field_description:stock.field_stock_immediate_transfer_pick_ids
 #, python-format
@@ -4459,13 +4541,13 @@ msgid "Pick"
 msgstr "集荷"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:435
+#: code:addons/stock/models/stock_warehouse.py:439
 #, python-format
 msgid "Pick + Pack + Ship"
 msgstr "集荷 + 梱包 + 出荷"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:434
+#: code:addons/stock/models/stock_warehouse.py:438
 #, python-format
 msgid "Pick + Ship"
 msgstr "集荷 + 出荷"
@@ -4536,7 +4618,7 @@ msgstr "ピボット"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_picking_type_kanban
 msgid "Planned Transfer"
-msgstr ""
+msgstr "予定運送"
 
 #. module: stock
 #: model:ir.model,name:stock.model_web_planner
@@ -4544,19 +4626,19 @@ msgid "Planner"
 msgstr "プランナー"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:649
+#: code:addons/stock/models/stock_picking.py:699
 #, python-format
 msgid "Please add some lines to move"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:823
+#: code:addons/stock/models/stock_picking.py:868
 #, python-format
 msgid "Please process some quantities to put in the pack first!"
 msgstr "始めに梱包に入れる数量を処理してください。"
 
 #. module: stock
-#: code:addons/stock/wizard/stock_picking_return.py:126
+#: code:addons/stock/wizard/stock_picking_return.py:130
 #, python-format
 msgid "Please specify at least one non-zero quantity."
 msgstr "少なくとも1つ、ゼロではない量を指定してください。"
@@ -4564,7 +4646,7 @@ msgstr "少なくとも1つ、ゼロではない量を指定してください�
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.quant_search_view
 msgid "Positive Stock"
-msgstr ""
+msgstr "プラス在庫"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_product_packaging
@@ -4680,7 +4762,7 @@ msgid "Produce Line"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:347
+#: code:addons/stock/models/product.py:349
 #, python-format
 msgid "Produced Qty"
 msgstr "プロダクト数量"
@@ -4713,7 +4795,7 @@ msgid "Product"
 msgstr "プロダクト"
 
 #. module: stock
-#: code:addons/stock/models/stock_location.py:180
+#: code:addons/stock/models/stock_location.py:193
 #: model:ir.model.fields,field_description:stock.field_stock_location_route_categ_ids
 #: model:ir.ui.menu,name:stock.menu_product_category_config_stock
 #: model:ir.ui.view,arch_db:stock.stock_location_route_form_view
@@ -4785,6 +4867,7 @@ msgid "Product Types"
 msgstr "プロダクトタイプ"
 
 #. module: stock
+#: model:ir.model,name:stock.model_product_uom
 #: model:ir.model.fields,field_description:stock.field_stock_inventory_line_product_uom_id
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_orderpoint_product_uom
 msgid "Product Unit of Measure"
@@ -4821,7 +4904,7 @@ msgid "Production Location"
 msgstr "製造ロケーション"
 
 #. module: stock
-#: code:addons/stock/models/stock_location.py:170
+#: code:addons/stock/models/stock_location.py:183
 #: code:addons/stock/wizard/stock_quantity_history.py:29
 #: model:ir.actions.act_window,name:stock.act_product_location_open
 #: model:ir.actions.act_window,name:stock.product_template_action_product
@@ -4836,7 +4919,7 @@ msgid "Products"
 msgstr "プロダクト"
 
 #. module: stock
-#: code:addons/stock/models/product.py:310
+#: code:addons/stock/models/product.py:312
 #, python-format
 msgid "Products: "
 msgstr "プロダクト:"
@@ -4895,6 +4978,11 @@ msgstr "置き場方法"
 #: model:ir.model.fields,field_description:stock.field_stock_location_putaway_strategy_id
 msgid "Put Away Strategy"
 msgstr "置き場方針"
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.view_picking_form
+msgid "Put in Pack"
+msgstr "梱包する"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
@@ -4993,7 +5081,7 @@ msgid "Quantity cannot be negative."
 msgstr "負の数は入力できません。"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:611
+#: code:addons/stock/models/stock_move.py:643
 #, python-format
 msgid "Quantity decreased!"
 msgstr ""
@@ -5054,7 +5142,7 @@ msgid "Quants"
 msgstr "保管ロット"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:70
+#: code:addons/stock/models/stock_quant.py:74
 #, python-format
 msgid "Quants cannot be created for consumables or services."
 msgstr ""
@@ -5100,25 +5188,25 @@ msgid "Receipt Route"
 msgstr "入荷ルート"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:432
+#: code:addons/stock/models/stock_warehouse.py:436
 #, python-format
 msgid "Receipt in 1 step"
 msgstr "1ステップで入荷"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:432
+#: code:addons/stock/models/stock_warehouse.py:436
 #, python-format
 msgid "Receipt in 2 steps"
 msgstr "2ステップで入荷"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:433
+#: code:addons/stock/models/stock_warehouse.py:437
 #, python-format
 msgid "Receipt in 3 steps"
 msgstr "3ステップで入荷"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:202
+#: code:addons/stock/models/stock_warehouse.py:206
 #: model:stock.picking.type,name:stock.chi_picking_type_in
 #: model:stock.picking.type,name:stock.picking_type_in
 #, python-format
@@ -5131,7 +5219,7 @@ msgid "Receive goods directly in stock (1 step)"
 msgstr "在庫ロケーションに直接入荷 (1ステップ)"
 
 #. module: stock
-#: code:addons/stock/models/product.py:324
+#: code:addons/stock/models/product.py:326
 #, python-format
 msgid "Received Qty"
 msgstr "入荷済数量"
@@ -5172,6 +5260,7 @@ msgid "Reference of the document"
 msgstr "ドキュメントの参照"
 
 #. module: stock
+#: model:ir.ui.view,arch_db:stock.view_move_kandan
 #: model:ir.ui.view,arch_db:stock.view_picking_form
 msgid "Register lots, packs, location"
 msgstr ""
@@ -5193,7 +5282,7 @@ msgid "Removal Strategy"
 msgstr "引当方針"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:111
+#: code:addons/stock/models/stock_quant.py:109
 #, python-format
 msgid "Removal strategy %s not implemented."
 msgstr "削除戦略 %s は実装されていません。"
@@ -5305,7 +5394,7 @@ msgstr "補充元倉庫"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_stock_quantity_history
 msgid "Retrieve the Inventory Quantities"
-msgstr ""
+msgstr "在庫数の集計"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
@@ -5324,13 +5413,13 @@ msgid "Return Picking"
 msgstr "ピッキングの戻し"
 
 #. module: stock
-#: code:addons/stock/wizard/stock_picking_return.py:97
+#: code:addons/stock/wizard/stock_picking_return.py:101
 #, python-format
 msgid "Return of %s"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/wizard/stock_picking_return.py:147
+#: code:addons/stock/wizard/stock_picking_return.py:151
 #, python-format
 msgid "Returned Picking"
 msgstr "返送品の選別"
@@ -5439,7 +5528,7 @@ msgid ""
 msgstr "出荷の最初の部分が処理される予定時刻。 ここで手動で値を設定すると、すべての在庫移動の予定日として設定されます。"
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:836
+#: code:addons/stock/models/stock_picking.py:881
 #: model:ir.model.fields,field_description:stock.field_stock_move_scrap_ids
 #: model:ir.model.fields,field_description:stock.field_stock_warn_insufficient_qty_scrap_scrap_id
 #: model:ir.ui.menu,name:stock.menu_stock_scrap
@@ -5477,7 +5566,7 @@ msgstr "廃棄済"
 msgid ""
 "Scrapping a product will remove it from your stock. The product will\n"
 "                end up in a scrap location that can be used for reporting purpose."
-msgstr ""
+msgstr "プロダクト廃棄により在庫が引き落とされます。プロダクトは廃棄ロケーションに移動され、この実績はレポーティングに使用されます。"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
@@ -5492,7 +5581,7 @@ msgstr "在庫の検索"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_inventory_line_search
 msgid "Search Inventory Lines"
-msgstr ""
+msgstr "棚卸明細検索"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_procurement_rule_filter
@@ -5510,7 +5599,7 @@ msgid "Search Stock Location Paths"
 msgstr "在庫ロケーションのパスを検索する"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:108
+#: code:addons/stock/models/stock_inventory.py:115
 #, python-format
 msgid "Select products manually"
 msgstr "マニュアルでプロダクト選択"
@@ -5546,31 +5635,31 @@ msgid "Sequence"
 msgstr "付番"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:685
+#: code:addons/stock/models/stock_warehouse.py:699
 #, python-format
 msgid "Sequence in"
 msgstr "入荷採番"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:689
+#: code:addons/stock/models/stock_warehouse.py:719
 #, python-format
 msgid "Sequence internal"
 msgstr "内部移動採番"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:686
+#: code:addons/stock/models/stock_warehouse.py:704
 #, python-format
 msgid "Sequence out"
 msgstr "出荷採番"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:687
+#: code:addons/stock/models/stock_warehouse.py:709
 #, python-format
 msgid "Sequence packing"
 msgstr "パッキング採番"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:688
+#: code:addons/stock/models/stock_warehouse.py:714
 #, python-format
 msgid "Sequence picking"
 msgstr "ピッキング採番"
@@ -5588,12 +5677,12 @@ msgstr "調達倉庫"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 msgid "Set Putaway Strategies on Locations"
-msgstr ""
+msgstr "ロケーションに置き場方針を設定"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 msgid "Set Warehouse Routes"
-msgstr ""
+msgstr "倉庫ルートを設定"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_product_category_removal_strategy_id
@@ -5605,7 +5694,7 @@ msgstr "この製品カテゴリのソースの場所に関係なく使用され
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 msgid "Set expiration dates on lots &amp; serial numbers"
-msgstr ""
+msgstr "有効期日をロット/シリアル番号に指定"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
@@ -5666,7 +5755,7 @@ msgid "Shelves (Y)"
 msgstr "棚 (Y)"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:434
+#: code:addons/stock/models/stock_warehouse.py:438
 #, python-format
 msgid "Ship Only"
 msgstr "出荷のみ"
@@ -5743,7 +5832,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_internal_search
 msgid "Show all records which has next action date is before today"
-msgstr ""
+msgstr "次のアクションの日付が今日より前のすべてのレコードを表示する"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move_string_availability_info
@@ -6089,15 +6178,15 @@ msgstr "テンプレート"
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_path_auto
 msgid ""
-"The 'Manual Operation' value will create a stock move after the current "
-"one.With 'Automatic No Step Added', the location is replaced in the original"
-" move."
-msgstr "マニュアル操作 の値は、現在のものの後に在庫移動を作成します。自動Noステップが追加されましたでは、元の移動で置き換えられます。"
+"The 'Manual Operation' value will create a stock move after the current one."
+" With 'Automatic No Step Added', the location is replaced in the original "
+"move."
+msgstr ""
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "The RFQ becomes a Purchase Order and a Transfer Order is created"
-msgstr "RFQが購買発注となり、転送オーダが登録されます。"
+msgstr "RFQが購買オーダとなり、転送オーダが登録されます。"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_product_product_sale_delay
@@ -6109,7 +6198,7 @@ msgid ""
 msgstr "顧客注文の確認から完成品の配送までの平均遅延日数です。あなたが顧客に約束する時間です。"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:1065
+#: code:addons/stock/models/stock_picking.py:836
 #, python-format
 msgid ""
 "The backorder <a href=# data-oe-model=stock.picking data-oe-id=%d>%s</a> has"
@@ -6162,13 +6251,6 @@ msgid ""
 "point. That way, it is always known where we need to go and that is why they"
 " are preferred over push rules."
 msgstr ""
-
-#. module: stock
-#: model:ir.ui.view,arch_db:stock.product_category_form_view_inherit
-msgid ""
-"The following routes will apply to the products in this category taking into"
-" account parent categories:"
-msgstr "次のルートを関連のプロダクトに適用 (親カテゴリも参照):"
 
 #. module: stock
 #: sql_constraint:stock.warehouse:0
@@ -6229,12 +6311,23 @@ msgid "The push rule that created this stock move"
 msgstr "この在庫移動を作成したプッシュ規則"
 
 #. module: stock
+#: code:addons/stock/models/stock_move_line.py:377
+#, python-format
+msgid ""
+"The quantity done for the product \"%s\" doesn't respect the rounding "
+"precision                                   defined on the unit of measure "
+"\"%s\". Please change the quantity done or the"
+"                                   rounding precision of your unit of "
+"measure."
+msgstr ""
+
+#. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "The quotation becomes a Sales Order and a Transfer Order is created"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:266
+#: code:addons/stock/models/stock_move.py:283
 #: code:addons/stock/models/stock_move_line.py:80
 #, python-format
 msgid ""
@@ -6244,10 +6337,10 @@ msgstr ""
 "`product_uom_qty`の代わりに` product_qty`フィールドを設定するプログラミングエラーのため、要求された操作は処理できません。"
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:144
-#: code:addons/stock/models/stock_inventory.py:146
-#: code:addons/stock/models/stock_inventory.py:148
-#: code:addons/stock/models/stock_inventory.py:150
+#: code:addons/stock/models/stock_inventory.py:151
+#: code:addons/stock/models/stock_inventory.py:153
+#: code:addons/stock/models/stock_inventory.py:155
+#: code:addons/stock/models/stock_inventory.py:157
 #, python-format
 msgid "The selected inventory options are not coherent."
 msgstr "選択した在庫オプションは一貫していません。"
@@ -6362,7 +6455,7 @@ msgstr ""
 "在庫の立場から見た製品の数量です。「完了」状態で移動した場合、実際に移動した製品の数量です。他の状態で移動した場合、移動を予定している製品の数量です。この数量が低下してもバックオーダは生成しません。指定された移動で数量が変化すると、製品の予約に影響するため注意してください。"
 
 #. module: stock
-#: code:addons/stock/models/stock_location.py:87
+#: code:addons/stock/models/stock_location.py:85
 #, python-format
 msgid ""
 "This location's usage cannot be changed to view as it contains products."
@@ -6383,19 +6476,19 @@ msgstr ""
 msgid ""
 "This note will show up  on internal transfer orders (e.g. where to pick the "
 "product in the warehouse)."
-msgstr ""
+msgstr "このノートは内部転送オーダに表示されます (例: 倉庫のどこでプロダクトをピッキングするか)。"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_template_property_form
 msgid "This note will show up on delivery orders."
-msgstr ""
+msgstr "このノートは配送オーダに表示されます。"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_template_property_form
 msgid ""
 "This note will show up on the receipt orders (e.g. where to store the "
 "product in the warehouse)."
-msgstr ""
+msgstr "このノートは入荷オーダに表示されます(例: 倉庫のどこにプロダクトを補完するか)。"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_stock_return_picking_form
@@ -6459,8 +6552,22 @@ msgid ""
 msgstr "この在庫場所は、棚卸しの実行で生成される在庫移動の元の場所として、デフォルトの代わりに使用されます。"
 
 #. module: stock
+#: model:ir.model.fields,help:stock.field_stock_picking_entire_package_detail_ids
+msgid ""
+"Those are the entire packages of a picking shown in the view of detailed "
+"operations"
+msgstr ""
+
+#. module: stock
+#: model:ir.model.fields,help:stock.field_stock_picking_entire_package_ids
+msgid ""
+"Those are the entire packages of a picking shown in the view of operations"
+msgstr ""
+
+#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_line_location_dest_id
 #: model:ir.ui.view,arch_db:stock.view_move_tree
+#: model:ir.ui.view,arch_db:stock.view_quant_package_picking_tree
 msgid "To"
 msgstr "移動先"
 
@@ -6541,18 +6648,16 @@ msgid "Total routes"
 msgstr "合計ルート"
 
 #. module: stock
-#: code:addons/stock/models/stock_production_lot.py:53
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 #: model:ir.ui.view,arch_db:stock.res_config_settings_view_form
 #: model:ir.ui.view,arch_db:stock.view_template_property_form
-#, python-format
 msgid "Traceability"
 msgstr "トレーサビリティ"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_stock_body_print
 msgid "Traceability Report"
-msgstr ""
+msgstr "トレーサビリティレポート"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_res_config_settings_module_product_expiry
@@ -6585,24 +6690,24 @@ msgstr "追跡"
 #: model:ir.model,name:stock.model_stock_picking
 #: model:ir.ui.view,arch_db:stock.view_picking_form
 msgid "Transfer"
-msgstr "移動"
+msgstr "運送"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_picking_partner_id
 msgid "Transfer Destination Address"
-msgstr "移動先アドレス"
+msgstr "運送先アドレス"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_picking_id
 msgid "Transfer Reference"
-msgstr "移動参照"
+msgstr "運送参照"
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_picking_tree
 #: model:ir.ui.menu,name:stock.all_picking
 #: model:ir.ui.view,arch_db:stock.stock_picking_type_kanban
 msgid "Transfers"
-msgstr "倉庫間の在庫移動"
+msgstr "運送"
 
 #. module: stock
 #: selection:stock.location,usage:0
@@ -6652,6 +6757,7 @@ msgstr "単価"
 #: model:ir.model.fields,field_description:stock.field_stock_move_product_uom
 #: model:ir.model.fields,field_description:stock.field_stock_production_lot_product_uom_id
 #: model:ir.model.fields,field_description:stock.field_stock_quant_product_uom_id
+#: model:ir.model.fields,field_description:stock.field_stock_return_picking_line_uom_id
 #: model:ir.model.fields,field_description:stock.field_stock_scrap_product_uom_id
 #: model:ir.ui.view,arch_db:stock.stock_move_tree
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
@@ -6685,7 +6791,7 @@ msgid "Units of Measures"
 msgstr "単位"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:321
+#: code:addons/stock/models/stock_quant.py:336
 #, python-format
 msgid "Unknown Pack"
 msgstr "不明な梱包"
@@ -6720,7 +6826,7 @@ msgid "Unpack"
 msgstr "開梱"
 
 #. module: stock
-#: code:addons/stock/models/product.py:342
+#: code:addons/stock/models/product.py:344
 #, python-format
 msgid "Unplanned Qty"
 msgstr "未計画の数量"
@@ -6740,7 +6846,7 @@ msgstr "単位"
 #. module: stock
 #: model:ir.ui.menu,name:stock.menu_stock_uom_categ_form_action
 msgid "UoM Categories"
-msgstr ""
+msgstr "単位カテゴリ"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
@@ -6894,7 +7000,7 @@ msgstr "移動待ち"
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_picking_tree_waiting
 msgid "Waiting Transfers"
-msgstr "発送待ち"
+msgstr "運送待ち"
 
 #. module: stock
 #: model:ir.model,name:stock.model_stock_warehouse
@@ -6934,7 +7040,7 @@ msgid "Warehouse to Propagate"
 msgstr "展開先倉庫"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:711
+#: code:addons/stock/models/stock_warehouse.py:744
 #, python-format
 msgid "Warehouse's Routes"
 msgstr "倉庫ルート"
@@ -6949,7 +7055,8 @@ msgid "Warehouses"
 msgstr "倉庫"
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:110
+#: code:addons/stock/models/stock_move_line.py:134
+#: code:addons/stock/models/stock_move_line.py:146
 #: selection:res.partner,picking_warn:0
 #, python-format
 msgid "Warning"
@@ -6961,7 +7068,7 @@ msgid "Warning on the Picking"
 msgstr "ピッキング時に警告"
 
 #. module: stock
-#: code:addons/stock/models/product.py:303
+#: code:addons/stock/models/product.py:305
 #, python-format
 msgid "Warning!"
 msgstr "警告！"
@@ -7000,12 +7107,6 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock.inventory_planner
 msgid "We hope this guide helped you implement Odoo Inventory."
 msgstr "このガイドがOdoo 在庫を実装するのに役立つことを願っています。"
-
-#. module: stock
-#: code:addons/stock/models/barcode.py:11
-#, python-format
-msgid "Weighted Product"
-msgstr "計量対象プロダクト"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -7119,13 +7220,22 @@ msgid "Wizard"
 msgstr "ウィザード"
 
 #. module: stock
+#: code:addons/stock/models/stock_production_lot.py:45
+#, python-format
+msgid ""
+"You are not allowed to change the product linked to a serial or lot number "
+"if some stock moves have already been created with that number. This would "
+"lead to inconsistencies in your stock."
+msgstr ""
+
+#. module: stock
 #: code:addons/stock/models/stock_production_lot.py:37
 #, python-format
 msgid "You are not allowed to create a lot for this picking type"
 msgstr "このピッキングタイプではロットは作成できません。"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:636
+#: code:addons/stock/models/stock_move.py:668
 #, python-format
 msgid ""
 "You are using a unit of measure smaller than the one you are using in order "
@@ -7182,7 +7292,7 @@ msgid ""
 msgstr "すぐにそれを行うことも、将来の処理のために処理準備とすることもできます。 スキャナを使用して、配送された量をより迅速に検証します。"
 
 #. module: stock
-#: code:addons/stock/models/product.py:511
+#: code:addons/stock/models/product.py:522
 #, python-format
 msgid ""
 "You can not change the type of a product that is currently reserved on a "
@@ -7191,7 +7301,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:502
+#: code:addons/stock/models/product.py:513
 #, python-format
 msgid ""
 "You can not change the unit of measure of a product that has already been "
@@ -7200,7 +7310,7 @@ msgid ""
 msgstr "すでに在庫移動で使用されている製品の計量単位は変更できません。 測定単位を変更する必要がある場合は、この製品を無効にします。"
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:338
+#: code:addons/stock/models/stock_move_line.py:339
 #, python-format
 msgid ""
 "You can not delete product moves if the picking is done. You can only "
@@ -7208,25 +7318,25 @@ msgid ""
 msgstr "ピッキングが完了済のプロダクト移動は削除できません。完了済数量の修正のみ可能です。"
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:116
+#: code:addons/stock/models/stock_move_line.py:152
 #, python-format
 msgid "You can not enter negative quantities!"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:398
+#: code:addons/stock/models/stock_inventory.py:407
 #, python-format
 msgid "You can only adjust stockable products."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:1073
+#: code:addons/stock/models/stock_move.py:1142
 #, python-format
 msgid "You can only delete draft moves."
 msgstr "ドラフト移動のみ削除ができます。"
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:126
+#: code:addons/stock/models/stock_move_line.py:145
 #, python-format
 msgid "You can only process 1.0 %s for products with unique serial number."
 msgstr ""
@@ -7237,29 +7347,51 @@ msgid "You can review and edit the predefined units via the"
 msgstr "事前定義されたユニットを確認および編集することができます。 "
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:936
+#: code:addons/stock/models/stock_move.py:1006
 #, python-format
 msgid "You cannot cancel a stock move that has been set to 'Done'."
 msgstr "「完了」に設定されている在庫移動を取り消すことはできません。"
 
 #. module: stock
-#: code:addons/stock/models/stock_scrap.py:71
+#: code:addons/stock/models/stock_location.py:96
+#, python-format
+msgid ""
+"You cannot change the location type or its use as a scrap location as there "
+"are products reserved in this location. Please unreserve the products first."
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/product.py:606
+#, python-format
+msgid ""
+"You cannot change the ratio of this unit of mesure as some products with "
+"this UoM have already been moved or are currently reserved."
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/stock_scrap.py:75
 #, python-format
 msgid "You cannot delete a scrap which is done."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:386
+#: code:addons/stock/models/stock_inventory.py:104
 #, python-format
-msgid ""
-"You cannot have two inventory adjustements in state 'in Progress' with the "
-"same product(%s), same location(%s), same package, same owner and same lot. "
-"Please first validatethe first inventory adjustement with this product "
-"before creating another one."
+msgid "You cannot delete a validated inventory adjustement."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_inventory.py:159
+#: code:addons/stock/models/stock_inventory.py:394
+#, python-format
+msgid ""
+"You cannot have two inventory adjustements in state 'in Progress' with the "
+"same product (%s), same location (%s), same package, same owner and same "
+"lot. Please first validate the first inventory adjustement with this product"
+" before creating another one."
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/stock_inventory.py:166
 #, python-format
 msgid ""
 "You cannot set a negative product quantity in an inventory line:\n"
@@ -7269,19 +7401,19 @@ msgstr ""
 "⇥%s - 数量: %s"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:1101
+#: code:addons/stock/models/stock_move.py:1173
 #, python-format
 msgid "You cannot split a draft move. It needs to be confirmed first."
 msgstr "ドラフトの移動を分割することはできません。 最初に確認する必要があります。"
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:1097
+#: code:addons/stock/models/stock_move.py:1169
 #, python-format
 msgid "You cannot split a move done"
 msgstr "完了した移動を分割することはできません"
 
 #. module: stock
-#: code:addons/stock/models/stock_quant.py:88
+#: code:addons/stock/models/stock_quant.py:86
 #, python-format
 msgid ""
 "You cannot take products from or deliver products to a location of type "
@@ -7289,8 +7421,8 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:152
-#: code:addons/stock/models/stock_move_line.py:158
+#: code:addons/stock/models/stock_move_line.py:127
+#: code:addons/stock/models/stock_move_line.py:131
 #, python-format
 msgid ""
 "You cannot use the same serial number twice. Please correct the serial "
@@ -7298,17 +7430,11 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:672
+#: code:addons/stock/models/stock_picking.py:709
 #, python-format
 msgid ""
-"You cannot validate a transfer if you have not processed any quantity for "
-"%s."
-msgstr ""
-
-#. module: stock
-#: code:addons/stock/models/stock_picking.py:656
-#, python-format
-msgid "You cannot validate a transfer if you have not processed any quantity."
+"You cannot validate a transfer if you have not processed any quantity. You "
+"should rather cancel the transfer."
 msgstr ""
 
 #. module: stock
@@ -7321,15 +7447,7 @@ msgstr ""
 "確認するには、予約 ボタンをクリックしてください。"
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:132
-#, python-format
-msgid ""
-"You have already assigned this serial number to this product. Please correct"
-" the serial numbers encoded."
-msgstr ""
-
-#. module: stock
-#: code:addons/stock/wizard/stock_picking_return.py:106
+#: code:addons/stock/wizard/stock_picking_return.py:110
 #, python-format
 msgid "You have manually created product lines, please delete them to proceed"
 msgstr "製品ラインを手動で作成しました。続行する場合は削除してください"
@@ -7344,10 +7462,10 @@ msgstr "初期要求より少ない数量を処理しています。"
 msgid ""
 "You have processed more than what was initially\n"
 "                    planned for the product"
-msgstr ""
+msgstr "初期要求より大きい数量が処理されています。"
 
 #. module: stock
-#: code:addons/stock/models/product.py:304
+#: code:addons/stock/models/product.py:306
 #, python-format
 msgid ""
 "You have products in stock that have no lot number.  You can assign serial "
@@ -7355,7 +7473,7 @@ msgid ""
 msgstr "ロット番号のない商品が在庫されています。 インベントリを実行してシリアル番号を割り当てることができます。"
 
 #. module: stock
-#: code:addons/stock/models/stock_warehouse.py:795
+#: code:addons/stock/models/stock_warehouse.py:828
 #, python-format
 msgid ""
 "You have to select a product unit of measure in the same category than the "
@@ -7363,7 +7481,7 @@ msgid ""
 msgstr "製品のデフォルトの測定単位と同じカテゴリの製品単位を選択する必要があります"
 
 #. module: stock
-#: code:addons/stock/models/stock_location.py:98
+#: code:addons/stock/models/stock_location.py:111
 #, python-format
 msgid "You have to set a name for this location."
 msgstr ""
@@ -7373,10 +7491,10 @@ msgstr ""
 msgid ""
 "You haven't entered <i>done</i> quantities, by clicking on <i>apply</i>\n"
 "                        Odoo will process all the <i>reserved</i> quantities."
-msgstr ""
+msgstr "<i>完了</i> 数量の指定がありません。<i>適用</i>ボタンを押すと、全<i>引当済</i>数量が処理されます。"
 
 #. module: stock
-#: code:addons/stock/wizard/stock_picking_return.py:44
+#: code:addons/stock/wizard/stock_picking_return.py:46
 #, python-format
 msgid "You may only return Done pickings"
 msgstr "完了したピッキングのみ返却することができます"
@@ -7388,21 +7506,21 @@ msgid "You must define a warehouse for the company: %s."
 msgstr "会社に倉庫を設定してください: %s."
 
 #. module: stock
-#: code:addons/stock/models/stock_move_line.py:387
-#: code:addons/stock/models/stock_picking.py:670
+#: code:addons/stock/models/stock_move_line.py:406
+#: code:addons/stock/models/stock_picking.py:721
 #, python-format
 msgid "You need to supply a lot/serial number for %s."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:1047
+#: code:addons/stock/models/stock_move.py:1126
 #, python-format
 msgid "You should not put the contents of a package in different locations."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/product.py:369
-#: code:addons/stock/models/product.py:504
+#: code:addons/stock/models/product.py:373
+#: code:addons/stock/models/product.py:515
 #, python-format
 msgid ""
 "You still have some active reordering rules on this product. Please archive "
@@ -7410,7 +7528,7 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_move.py:318
+#: code:addons/stock/models/stock_move.py:338
 #, python-format
 msgid ""
 "You try to move a product using a UoM that is not compatible with the UoM of"
@@ -7524,8 +7642,8 @@ msgstr "プロダクトラインの完了数量を手動で更新するか、ま
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
-msgid "feedback@mail.odoo.com"
-msgstr "feedback@mail.odoo.com"
+msgid "feedback@mail.flectrahq.com"
+msgstr "feedback@mail.flectrahq.com"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -7619,7 +7737,7 @@ msgstr "stock.scrap"
 #. module: stock
 #: model:ir.model,name:stock.model_stock_traceability_report
 msgid "stock.traceability.report"
-msgstr ""
+msgstr "在庫追跡情報"
 
 #. module: stock
 #: model:ir.model,name:stock.model_stock_warn_insufficient_qty
@@ -7662,11 +7780,12 @@ msgid "with the <i>Validate</i> button"
 msgstr "その <i>検証</i> ボタンで"
 
 #. module: stock
-#: model:ir.ui.view,arch_db:stock.view_picking_form
-msgid "↳Put in Pack"
-msgstr "↳梱包する"
-
-#. module: stock
 #: model:ir.ui.view,arch_db:stock.view_inventory_form
 msgid "⇒ Set quantities to 0"
 msgstr "⇒ 数量を 0 に設定"
+
+#. module: stock
+#: code:addons/stock/models/stock_move_line.py:223
+#, python-format
+msgid "Changing the product is only allowed in 'Draft' state."
+msgstr ""

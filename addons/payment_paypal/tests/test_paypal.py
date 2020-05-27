@@ -35,8 +35,7 @@ class PaypalForm(PaypalCommon):
     def test_10_paypal_form_render(self):
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
         # be sure not to do stupid things
-        self.paypal.write({'paypal_email_account': 'tde+paypal-facilitator@flectrahq.com',
-                           'fees_active': False})
+        self.paypal.write({'paypal_email_account': 'tde+paypal-facilitator@odoo.com', 'fees_active': False})
         self.assertEqual(self.paypal.environment, 'test', 'test without test environment')
 
         # ----------------------------------------
@@ -56,6 +55,7 @@ class PaypalForm(PaypalCommon):
             'first_name': 'Norbert',
             'last_name': 'Buyer',
             'amount': '0.01',
+            'bn': 'OdooInc_SP',
             'currency_code': 'EUR',
             'address1': 'Huge Street 2/543',
             'city': 'Sin City',

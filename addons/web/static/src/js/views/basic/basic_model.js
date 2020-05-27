@@ -726,6 +726,7 @@ var BasicModel = AbstractModel.extend({
         });
         _.each(fields, function (field) {
             var dataPoint;
+            record.data[field.name] = null;
             if (field.type === 'many2one') {
                 if (field.value) {
                     var id = _.isArray(field.value) ? field.value[0] : field.value;
@@ -3208,6 +3209,7 @@ var BasicModel = AbstractModel.extend({
         _.each(element._changes, function (command) {
             if (command.operation === 'DELETE' ||
                     command.operation === 'FORGET' ||
+                    (command.operation === 'ADD' &&  !command.isNew)||
                     command.operation === 'REMOVE_ALL') {
                 return;
             }
@@ -3636,8 +3638,12 @@ var BasicModel = AbstractModel.extend({
         var fields = view ? view.fields : fieldInfo.relatedFields;
         var viewType = view ? view.type : fieldInfo.viewType;
 
+        // remove default_* keys from parent context to avoid issue of same field name in x2m
+        var parentContext = _.omit(record.context, function (val, key) {
+            return _.str.startsWith(key, 'default_');
+        });
         var x2manyList = self._makeDataPoint({
-            context: record.context,
+            context: parentContext,
             fieldsInfo: fieldsInfo,
             fields: fields,
             limit: fieldInfo.limit,

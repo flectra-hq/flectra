@@ -230,8 +230,7 @@ Possible children elements of the list view are:
         context of the current row's record, if ``True`` the corresponding
         attribute is set on the cell.
 
-        Possible attributes are ``invisible`` (hides the button) and
-        ``readonly`` (disables the button but still shows it)
+        Possible attribute is ``invisible`` (hides the button).
     ``states``
         shorthand for ``invisible`` ``attrs``: a list of states, comma separated,
         requires that the model has a ``state`` field and that it is
@@ -246,9 +245,6 @@ Possible children elements of the list view are:
             unexpected results as domains are combined with a logical AND.
     ``context``
         merged into the view's context when performing the button's Flectra call
-    ``confirm``
-        confirmation message to display (and for the user to accept) before
-        performing the button's Flectra call
 
     .. declared but unused: help
 
@@ -363,6 +359,9 @@ system. Available semantic components are:
   ``special``
     for form views opened in dialogs: ``save`` to save the record and close the
     dialog, ``cancel`` to close the dialog without saving.
+  ``confirm``
+    confirmation message to display (and for the user to accept) before
+    performing the button's Odoo call (also works in Kanban views).
 
 ``field``
   renders (and allow edition of, possibly) a single field of the current
@@ -521,7 +520,7 @@ attribute ``statusbar_visible``.
 ::
 
     <field name="state" widget="statusbar"
-        statusbar_visible="draft,sent,sale,done,cancel" />
+        statusbar_visible="draft,sent,progress,invoiced,done" />
 
 The Sheet
 '''''''''
@@ -569,23 +568,13 @@ blocks): content following the field will be displayed on the same line rather
 than on the line below it. The form above is produced by the following XML::
 
     <label for="name" class="oe_edit_only"/>
-    <h1><field name="name" placeholder="e.g. Product Pricing"/></h1>
-    <h2 class="o_row">
-        <div>
-            <label for="planned_revenue" class="oe_edit_only" />
-            <div class="o_row">
-                <field name="company_currency" invisible="1"/>
-                <field name="planned_revenue" widget='monetary' options="{'currency_field': 'company_currency'}"/>
-                <span class="oe_grey"> at </span>
-            </div>
-        </div>
-        <div>
-            <label for="probability" class="oe_edit_only"/>
-            <div class="o_row">
-                <field name="probability" widget="integer"/>
-                <span>%%</span>
-            </div>
-        </div>
+    <h1><field name="name"/></h1>
+
+    <label for="planned_revenue" class="oe_edit_only"/>
+    <h2>
+        <field name="planned_revenue" class="oe_inline"/>
+        <field name="company_currency" class="oe_inline oe_edit_only"/> at
+        <field name="probability" class="oe_inline"/> % success rate
     </h2>
 
 Button Box
@@ -606,8 +595,8 @@ block on the top of the sheet.
 ::
 
     <div class="oe_button_box" name="button_box">
-        <button class="oe_stat_button" type="object" context="{'partner_id': partner_id}" name="action_schedule_meeting" icon="fa-calendar">
-        <button class="oe_stat_button" type="action" name=".." icon="fa-pencil-square-o" context="{'default_partner_id': partner_id, 'search_default_draft': 1}">
+        <button string="Schedule/Log Call" name="..." type="action"/>
+        <button string="Schedule Meeting" name="action_makeMeeting" type="object"/>
     </div>
 
 Groups and Titles
@@ -621,11 +610,10 @@ optional title.
 
 ::
 
-     <group string="Marketing">
-        <field name="campaign_id"/>
-        <field name="medium_id"/>
-        <field name="source_id"/>
-     </group>
+    <group string="Payment Options">
+        <field name="writeoff_amount"/>
+        <field name="payment_option"/>
+    </group>
 
 It is recommended to have two columns of fields on the form. For this, simply
 put the ``<group>`` elements that contain the fields inside a top-level
@@ -645,16 +633,12 @@ Some classes are defined to render subtotals like in invoice forms:
 
 ::
 
-     <group class="oe_subtotal_footer oe_right">
+    <group class="oe_subtotal_footer">
         <field name="amount_untaxed"/>
         <field name="amount_tax"/>
         <field name="amount_total" class="oe_subtotal_footer_separator"/>
-        <field name="payments_widget" colspan="2" nolabel="1" widget="payment"/>
-        <field name="residual" class="oe_subtotal_footer_separator" attrs="{'invisible': [('state', '=', 'draft')]}"/>
-        <field name="reconciled" invisible="1"/>
-        <field name="outstanding_credits_debits_widget" colspan="2" nolabel="1" widget="payment" attrs="{'invisible': [('state', 'not in', 'open')]}"/>
-     </group>
-
+        <field name="residual" style="margin-top: 10px"/>
+    </group>
 
 Placeholders and Inline Fields
 ..............................
@@ -688,10 +672,10 @@ inline fields (zip and city).
         <label for="street" string="Address"/>
         <div>
             <field name="street" placeholder="Street..."/>
-            <field name="street2"  placeholder="Street 2..."/>
+            <field name="street2"/>
             <div>
-                <field name="zip" class="o_address_zip" placeholder="ZIP"/>
-                <field name="city" class="o_address_city" placeholder="City"/>
+                <field name="zip" class="oe_inline" placeholder="ZIP"/>
+                <field name="city" class="oe_inline" placeholder="City"/>
             </div>
             <field name="state_id" placeholder="State"/>
             <field name="country_id" placeholder="Country"/>
@@ -701,7 +685,7 @@ inline fields (zip and city).
 Images
 ......
 
-Images, like avatars, By default avatars should be displayed on the left of the sheet.  The
+Images, like avatars, should be displayed on the right of the sheet.  The
 product form looks like:
 
 .. image:: forms/screenshot-02.png
@@ -711,7 +695,7 @@ The form above contains a <sheet> element that starts with:
 
 ::
 
-    <field name="image_medium" widget="image" class="oe_avatar"/>
+    <field name="product_image" widget="image" class="oe_avatar oe_right"/>
 
 Tags
 ....
@@ -730,7 +714,7 @@ Configuration forms guidelines
 ------------------------------
 
 Examples of configuration forms: Stages, Leave Type, etc.  This concerns all
-menu items under Configuration of each application (like CRM/Configuration).
+menu items under Configuration of each application (like Sales/Configuration).
 
 .. image:: forms/nosheet.png
    :class: img-responsive
@@ -741,16 +725,19 @@ menu items under Configuration of each application (like CRM/Configuration).
 Dialog forms guidelines
 -----------------------
 
-Example: "Create Invoice" from a sale order.
+Example: "Schedule a Call" from an opportunity.
 
 .. image:: forms/flectra_wizard_popup.png
    :class: img-responsive
 
 1. avoid separators (the title is already in the popup title bar, so another
    separator is not relevant)
-2. action buttons must be highlighted (red)
-3. when there is a text area, use a placeholder instead of a label or a
+2. avoid cancel buttons (user generally close the popup window to get the same
+   effect)
+3. action buttons must be highlighted (red)
+4. when there is a text area, use a placeholder instead of a label or a
    separator
+5. like in regular form views, put buttons in the <header> element
 
 Configuration Wizards guidelines
 --------------------------------
@@ -821,6 +808,18 @@ element is ``<pivot>`` which can take the following attributes:
 
 The elements allowed within a pivot view are the same as for the graph view.
 
+In Pivot view a ``field`` can have a ``widget`` attribute to dictate its format.
+The widget should be a field formatter, of which the most interesting are
+``date``, ``datetime``, ``float_time``, and ``monetary``.
+
+For instance a timesheet pivot view could be defined as::
+
+    <pivot string="Timesheet">
+        <field name="employee_id" type="row"/>
+        <field name="date" interval="month" type="col"/>
+        <field name="unit_amount" type="measure" widget="float_time"/>
+    </pivot>
+
 .. _reference/views/kanban:
 
 Kanban
@@ -853,7 +852,7 @@ attributes:
 ``quick_create``
   whether it should be possible to create records without switching to the
   form view. By default, ``quick_create`` is enabled when the Kanban view is
-  grouped, and disabled when not.
+  grouped by many2one, char or boolean fields, and disabled when not.
 
   Set to ``true`` to always enable it, and to ``false`` to always disable it.
 
@@ -967,7 +966,9 @@ calendar view are:
 ``readonly_form_view_id``
     view to open in readonly mode
 ``form_view_id``
-    view to open when the user create or edit an event
+    view to open when the user create or edit an event. Note that if this attribute
+    is not set, the calendar view will fall back to the id of the form view in the
+    current action, if any.
 ``event_open_popup``
     If the option 'event_open_popup' is set to true, then the calendar view will
     open events (or records) in a FormViewDialog. Otherwise, it will open events
@@ -1068,6 +1069,10 @@ take the following attributes:
   dictionary with the "group by" field as key and the maximum consolidation
   value that can be reached before displaying the cell in red
   (e.g. ``{"user_id": 100}``)
+``consolidation_exclude``
+  name of the field that describe if the task has to be excluded
+  from the consolidation
+  if set to true it displays a striped zone in the consolidation line
 
   .. warning::
       The dictionnary definition must use double-quotes, ``{'user_id': 100}`` is
@@ -1082,11 +1087,9 @@ take the following attributes:
 ``drag_resize``
   resizing of the tasks, default is ``true``
 
-.. ``progress``
-    name of a field providing the completion percentage for the record's event,
-    between 0 and 100
-.. consolidation_exclude
-.. consolidation_color
+``progress``
+  name of a field providing the completion percentage for the record's event,
+  between 0 and 100
 
 .. _reference/views/diagram:
 

@@ -2,13 +2,17 @@
 
 # Copyright 2015 Eezee-It
 
+from dateutil import parser
 import json
 import logging
+import pytz
+import re
 from hashlib import sha256
 
 from werkzeug import urls
 
 from flectra import models, fields, api
+from flectra.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from flectra.tools.float_utils import float_compare
 from flectra.tools.translate import _
 from flectra.addons.payment.models.payment_acquirer import ValidationError
@@ -42,8 +46,8 @@ class AcquirerSips(models.Model):
     provider = fields.Selection(selection_add=[('sips', 'Sips')])
     sips_merchant_id = fields.Char('Merchant ID', help="Used for production only", required_if_provider='sips', groups='base.group_user')
     sips_secret = fields.Char('Secret Key', size=64, required_if_provider='sips', groups='base.group_user')
-    sips_test_url = fields.Char("Test's url", required_if_provider='sips', groups='base.group_no_one', default='https://payment-webinit.sips-atos.com/paymentInit')
-    sips_prod_url = fields.Char("Prod's url", required_if_provider='sips', groups='base.group_no_one', default='https://payment-webinit.simu.sips-atos.com/paymentInit')
+    sips_test_url = fields.Char("Test's url", required_if_provider='sips', groups='base.group_no_one', default='https://payment-webinit.simu.sips-atos.com/paymentInit')
+    sips_prod_url = fields.Char("Prod's url", required_if_provider='sips', groups='base.group_no_one', default='https://payment-webinit.sips-atos.com/paymentInit')
     sips_version = fields.Char("Interface Version", required_if_provider='sips', groups='base.group_no_one', default='HP_2.3')
 
     def _sips_generate_shasign(self, values):
@@ -67,12 +71,12 @@ class AcquirerSips(models.Model):
     @api.multi
     def sips_form_generate_values(self, values):
         self.ensure_one()
-        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        base_url = self.get_base_url()
         currency = self.env['res.currency'].sudo().browse(values['currency_id'])
         currency_code = CURRENCY_CODES.get(currency.name, False)
         if not currency_code:
             raise ValidationError(_('Currency not supported by Wordline'))
-        amount = int(values['amount'] * 100)
+        amount = round(values['amount'] * 100)
         if self.environment == 'prod':
             # For production environment, key version 2 is required
             merchant_id = getattr(self, 'sips_merchant_id')
@@ -184,11 +188,22 @@ class TxSips(models.Model):
     def _sips_form_validate(self, data):
         data = self._sips_data_to_object(data.get('Data'))
         status = data.get('responseCode')
+        date = data.get('transactionDateTime')
+        if date:
+            try:
+                # dateutil.parser 2.5.3 and up should handle dates formatted as
+                # '2020-04-08T05:54:18+02:00', which strptime does not
+                # (+02:00 does not work as %z expects +0200 before Python 3.7)
+                # See odoo/odoo#49160
+                date = parser.parse(date).astimezone(pytz.utc).replace(tzinfo=None)
+            except:
+                # will fallback on now in the write to avoid failing to
+                # register the payment because a provider formats their 
+                # dates badly or because some local library is not behaving
+                date = False
         data = {
             'acquirer_reference': data.get('transactionReference'),
-            'partner_reference': data.get('customerId'),
-            'date_validate': data.get('transactionDateTime',
-                                      fields.Datetime.now())
+            'date_validate': date or fields.Datetime.now(),
         }
         res = False
         if status in self._sips_valid_tx_status:

@@ -1,34 +1,34 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * gamification
-#
+# 
 # Translators:
-# Martin Trigaux <mat@odoo.com>, 2017
-# Эдуард Манятовский <manyatovskiy@gmail.com>, 2017
-# SV <sv@grimmette.ru>, 2017
-# Max Belyanin <maxbelyanin@gmail.com>, 2017
 # Denis Trepalin <zekarious@gmail.com>, 2017
 # Harry <harrierr@mail.ru>, 2017
-# Максим Дронь <dronmax@gmail.com>, 2017
-# Viktor Pogrebniak <vp@aifil.ru>, 2017
 # KingOPl Slav <87slava13@gmail.com>, 2017
-# Masha Koc <mariya.kos.ua@gmail.com>, 2017
+# Viktor Pogrebniak <vp@aifil.ru>, 2017
+# sergeiruzkiicode <sergei.ruzki@icode.by>, 2017
 # Русский «kolobok2048» Ивашка <kolobok2048@gmail.com>, 2017
+# Masha Koc <mariya.kos.ua@gmail.com>, 2017
+# Максим Дронь <dronmax@gmail.com>, 2017
+# Sergey Vilizhanin, 2017
+# Collex100, 2017
+# Martin Trigaux, 2017
+# Max Belyanin <maxbelyanin@gmail.com>, 2017
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 11:27+0000\n"
-"PO-Revision-Date: 2019-08-17 20:10+0300\n"
-"Last-Translator: Русский «kolobok2048» Ивашка <kolobok2048@gmail.com>, 2017\n"
+"POT-Creation-Date: 2019-01-03 15:07+0000\n"
+"PO-Revision-Date: 2017-09-20 10:17+0000\n"
+"Last-Translator: Max Belyanin <maxbelyanin@gmail.com>, 2017\n"
 "Language-Team: Russian (https://www.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
-"|| n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Poedit 2.2.3\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: gamification
 #: model:mail.template,body_html:gamification.simple_report_template
@@ -38,58 +38,44 @@ msgid ""
 "% set record = ctx.get('record')\n"
 "% set company = record and record.company_id or user.company_id\n"
 "% set challenge_lines = ctx.get('challenge_lines', [])     \n"
-"<table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"font-family: 'Helvetica'; "
-"background-color: #EEE; border-collapse: collapse;\">\n"
+"<table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"font-family: 'Helvetica'; background-color: #EEE; border-collapse: collapse;\">\n"
 "<tr>\n"
 "    <td valign=\"top\" align=\"center\">\n"
-"        <table cellspacing=\"0\" cellpadding=\"0\" width=\"600\" style=\"margin: 0 auto; "
-"width: 600px;\">\n"
+"        <table cellspacing=\"0\" cellpadding=\"0\" width=\"600\" style=\"margin: 0 auto; width: 600px;\">\n"
 "            <tr><td>\n"
 "                <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n"
 "                    <tr>\n"
 "                        <td valign=\"middle\" align=\"left\" style=\"padding:30px 15px;\">\n"
-"                            <img width=\"90\" src=\"/logo.png?company=${user.company_id."
-"id}\" style=\"width:80px;\"/>\n"
+"                            <img width=\"90\" src=\"/logo.png?company=${user.company_id.id}\" style=\"width:80px;\"/>\n"
 "                        </td>\n"
 "                        % if object.visibility_mode == 'ranking':\n"
 "                            <td style=\"padding:15px;\">\n"
-"                                <p style=\"font-size:20px;color:#666666;\" align=\"right"
-"\">Leaderboard</p>\n"
+"                                <p style=\"font-size:20px;color:#666666;\" align=\"right\">Leaderboard</p>\n"
 "                            </td>\n"
 "                        % endif\n"
 "                    </tr>\n"
 "                </table>\n"
-"                <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" bgcolor=\"#fff\" "
-"style=\"background-color:#fff;\">\n"
+"                <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" bgcolor=\"#fff\" style=\"background-color:#fff;\">\n"
 "                    <tr><td style=\"padding: 15px;\">\n"
 "                        % if object.visibility_mode == 'personal':\n"
-"                            <span style=\"color:#666666;font-size:13px;\">Here is your "
-"current progress in the challenge <strong>${object.name}</strong>.</span>\n"
-"                            <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style="
-"\"margin-top:20px;\">\n"
+"                            <span style=\"color:#666666;font-size:13px;\">Here is your current progress in the challenge <strong>${object.name}</strong>.</span>\n"
+"                            <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"margin-top:20px;\">\n"
 "                                <tr>\n"
 "                                    <td align=\"center\">\n"
-"                                        <p style=\"font-size:27px;color:#666666;\">Personal "
-"Performance</p>\n"
+"                                        <p style=\"font-size:27px;color:#666666;\">Personal Performance</p>\n"
 "                                    </td>\n"
 "                                </tr>\n"
 "                            </table>\n"
-"                            <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style="
-"\"margin-top:30px;color:#666666;\">\n"
+"                            <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"margin-top:30px;color:#666666;\">\n"
 "                                <thead>\n"
 "                                    <tr style=\"color:#9A6C8E; font-size:12px;\">\n"
-"                                        <th align=\"left\" style=\"padding-bottom: 0px;"
-"width:40%;text-align:left;\">Goals</th>\n"
-"                                        <th style=\"width:20%;text-align:right;\" align="
-"\"left\">Target</th>\n"
-"                                        <th style=\"width:20%;text-align:right;\" align="
-"\"right\">Current</th>\n"
-"                                        <th style=\"width:20%;text-align:right;\" align="
-"\"right\">Completeness</th>\n"
+"                                        <th align=\"left\" style=\"padding-bottom: 0px;width:40%;text-align:left;\">Goals</th>\n"
+"                                        <th style=\"width:20%;text-align:right;\" align=\"left\">Target</th>\n"
+"                                        <th style=\"width:20%;text-align:right;\" align=\"right\">Current</th>\n"
+"                                        <th style=\"width:20%;text-align:right;\" align=\"right\">Completeness</th>\n"
 "                                    </tr>\n"
 "                                    <tr>\n"
-"                                        <td colspan=\"5\" style=\"height:1px;background-"
-"color:#9A6C8E;\"></td>\n"
+"                                        <td colspan=\"5\" style=\"height:1px;background-color:#9A6C8E;\"></td>\n"
 "                                    </tr>\n"
 "                                </thead>\n"
 "                                <tbody>\n"
@@ -105,24 +91,20 @@ msgid ""
 "                                                (${line['full_suffix']})\n"
 "                                            % endif\n"
 "                                        </td>\n"
-"                                        <td style=\"padding: 20px 0;\" align=\"right\">"
-"${\"%.2f\" % line['target']}\n"
+"                                        <td style=\"padding: 20px 0;\" align=\"right\">${\"%.2f\" % line['target']}\n"
 "                                            % if line['suffix']:\n"
 "                                                ${line['suffix']}\n"
 "                                            % endif\n"
 "                                        </td>\n"
-"                                        <td style=\"padding: 20px 0;\" align=\"right\">"
-"${\"%.2f\" % line['current']}\n"
+"                                        <td style=\"padding: 20px 0;\" align=\"right\">${\"%.2f\" % line['current']}\n"
 "                                            % if line['suffix']:\n"
 "                                                ${line['suffix']}\n"
 "                                            % endif\n"
 "                                        </td>\n"
-"                                        <td style=\"padding: 20px 0;font-size:25px;color:"
-"#9A6C8E;\" align=\"right\"><strong>${line['completeness']| int}%</strong></td>\n"
+"                                        <td style=\"padding: 20px 0;font-size:25px;color:#9A6C8E;\" align=\"right\"><strong>${line['completeness']| int}%</strong></td>\n"
 "                                    </tr>\n"
 "                                    <tr>\n"
-"                                        <td colspan=\"5\" style=\"height:1px;background-"
-"color:#e3e3e3;\"></td>\n"
+"                                        <td colspan=\"5\" style=\"height:1px;background-color:#e3e3e3;\"></td>\n"
 "                                    </tr>\n"
 "                                % endfor        \n"
 "                                </tbody>\n"
@@ -133,31 +115,24 @@ msgid ""
 "                            </span> \n"
 "                            % for line in challenge_lines:\n"
 "                                <!-- Header + Button table -->\n"
-"                                <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%"
-"\"style=\"margin-top:35px;\">\n"
+"                                <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\"style=\"margin-top:35px;\">\n"
 "                                    <tr>\n"
 "                                        <td width=\"50%\">\n"
-"                                            <p style=\"font-size:22px;color:#666666;\">Top "
-"Achievers for goal <strong>${line['name']}</strong></p>\n"
+"                                            <p style=\"font-size:22px;color:#666666;\">Top Achievers for goal <strong>${line['name']}</strong></p>\n"
 "                                        </td>\n"
 "                                    </tr>\n"
 "                                </table>\n"
 "                                <!-- Podium -->\n"
 "                                % if len(line['goals'])>2:\n"
-"                                    <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%"
-"\" style=\"margin-top:10px;\">\n"
+"                                    <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"margin-top:10px;\">\n"
 "                                        <tr><td style=\"padding:0 30px;\">\n"
-"                                            <table cellspacing=\"0\" cellpadding=\"0\" width="
-"\"100%\" style=\"table-layout: fixed;\">\n"
+"                                            <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"table-layout: fixed;\">\n"
 "                                                <tr>\n"
-"                                                    % set top_goals = [line['goals'][1], "
-"line['goals'][0], line['goals'][2]]\n"
+"                                                    % set top_goals = [line['goals'][1], line['goals'][0], line['goals'][2]]\n"
 "                                                    % for goal in top_goals:\n"
-"                                                        <td align=\"center\" style="
-"\"width:32%;\">\n"
+"                                                        <td align=\"center\" style=\"width:32%;\">\n"
 "                                                            % if loop.index == 1:\n"
-"                                                                % set extra_div = '<div "
-"style=\"height:40px;\"></div>'\n"
+"                                                                % set extra_div = '<div style=\"height:40px;\"></div>'\n"
 "                                                                % set heightA = 95\n"
 "                                                                % set heightB = 75\n"
 "                                                                % set bgColor = '#b898b0'\n"
@@ -171,45 +146,31 @@ msgid ""
 "                                                                % set fontSize = 85\n"
 "                                                                % set podiumPosition = '1'\n"
 "                                                            % elif loop.index == 3:\n"
-"                                                                % set extra_div = '<div "
-"style=\"height:60px;\"></div>'\n"
+"                                                                % set extra_div = '<div style=\"height:60px;\"></div>'\n"
 "                                                                % set heightA = 115\n"
 "                                                                % set heightB = 55\n"
 "                                                                % set bgColor = '#c8afc1'\n"
 "                                                                % set fontSize = 35\n"
 "                                                                % set podiumPosition = '3'\n"
 "                                                            % endif\n"
-"                                                            <div style=\"margin:0 3px 0 3px;"
-"height:220px;\">\n"
-"                                                                <div style=\"height:"
-"${heightA}px;\">\n"
+"                                                            <div style=\"margin:0 3px 0 3px;height:220px;\">\n"
+"                                                                <div style=\"height:${heightA}px;\">\n"
 "                                                                    ${extra_div | safe}   \n"
-"                                                                    <div style=\"height:55px;"
-"\">\n"
-"                                                                        % set path = object."
-"env['res.users'].browse(goal['user_id']).partner_id.image_small\n"
-"                                                                        <img style=\"margin-"
-"bottom:5px;width:50px;height:50px;border-radius:50%;\" src=\"data:image/jpeg;base64,"
-"${path}\" alt=\"${goal['name']}\"/>\n"
+"                                                                    <div style=\"height:55px;\">\n"
+"                                                                        % set path = object.env['res.users'].browse(goal['user_id']).partner_id.image_small\n"
+"                                                                        <img style=\"margin-bottom:5px;width:50px;height:50px;border-radius:50%;\" src=\"data:image/jpeg;base64,${path}\" alt=\"${goal['name']}\"/>\n"
 "                                                                    </div> \n"
-"                                                                    <div align=\"center\" "
-"style =\"color:${bgColor};height:20px\">\n"
+"                                                                    <div align=\"center\" style =\"color:${bgColor};height:20px\">\n"
 "                                                                        ${goal['name']}\n"
 "                                                                    </div \n"
 "                                                                </div>\n"
-"                                                                <div style=\"background-"
-"color:${bgColor | safe};height:${heightB}px;\">\n"
-"                                                                    <strong><span style="
-"\"color:#fff;font-size:${fontSize}px;\">${podiumPosition | safe}</span></strong>\n"
+"                                                                <div style=\"background-color:${bgColor | safe};height:${heightB}px;\">\n"
+"                                                                    <strong><span style=\"color:#fff;font-size:${fontSize}px;\">${podiumPosition | safe}</span></strong>\n"
 "                                                                </div>\n"
-"                                                                <div style=\"height:30px;"
-"\">\n"
-"                                                                    <p style=\"color:#9A6C8E;"
-"font-size:20px;margin-top:10px;\">\n"
-"                                                                        ${\"%.2f\" % "
-"goal['current']}\n"
-"                                                                        % if line['suffix'] "
-"or line['monetary']:\n"
+"                                                                <div style=\"height:30px;\">\n"
+"                                                                    <p style=\"color:#9A6C8E;font-size:20px;margin-top:10px;\">\n"
+"                                                                        ${\"%.2f\" % goal['current']}\n"
+"                                                                        % if line['suffix'] or line['monetary']:\n"
 "                                                                            ${line['full_suffix']}\n"
 "                                                                        % endif\n"
 "                                                                    </p>\n"
@@ -224,34 +185,25 @@ msgid ""
 "                                    </table>\n"
 "                                % endif\n"
 "                                <!-- data table -->\n"
-"                                <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" "
-"style=\"margin-bottom:5px\">\n"
+"                                <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"margin-bottom:5px\">\n"
 "                                    <tr>\n"
 "                                        <td>\n"
-"                                            <table cellspacing=\"0\" cellpadding=\"0\" width="
-"\"100%\" style=\"margin-top:30px;margin-bottom:5px;color:#666666;\">\n"
+"                                            <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"margin-top:30px;margin-bottom:5px;color:#666666;\">\n"
 "                                                <thead>\n"
-"                                                    <tr style=\"color:#9A6C8E; font-"
-"size:12px;\">\n"
-"                                                        <th style=\"width:15%;text-align:"
-"center;\">Rank</th>\n"
-"                                                        <th style=\"width:25%;text-align:"
-"left;\">Name</th>\n"
-"                                                        <th style=\"width:30%;text-align:"
-"right;\">Performance \n"
+"                                                    <tr style=\"color:#9A6C8E; font-size:12px;\">\n"
+"                                                        <th style=\"width:15%;text-align:center;\">Rank</th>\n"
+"                                                        <th style=\"width:25%;text-align:left;\">Name</th>\n"
+"                                                        <th style=\"width:30%;text-align:right;\">Performance \n"
 "                                                            % if line['suffix']:\n"
 "                                                                (${line['suffix']})\n"
 "                                                            % elif line['monetary']:\n"
-"                                                                (${company.currency_id."
-"symbol})\n"
+"                                                                (${company.currency_id.symbol})\n"
 "                                                            % endif\n"
 "                                                        </th>\n"
-"                                                        <th style=\"width:30%;text-align:"
-"right;\"\">Completeness</th>\n"
+"                                                        <th style=\"width:30%;text-align:right;\"\">Completeness</th>\n"
 "                                                    </tr>\n"
 "                                                    <tr>\n"
-"                                                        <td colspan=\"5\" style=\"height:1px;"
-"background-color:#9A6C8E;\"></td>\n"
+"                                                        <td colspan=\"5\" style=\"height:1px;background-color:#9A6C8E;\"></td>\n"
 "                                                    </tr>\n"
 "                                                </thead>\n"
 "                                                <tbody>\n"
@@ -260,27 +212,16 @@ msgid ""
 "                                                            % set tdBgColor = '#fff'\n"
 "                                                            % set tdColor = 'gray'\n"
 "                                                            % set mutedColor = '#AAAAAA'\n"
-"                                                            % set tdPercentageColor = "
-"'#9A6C8E'\n"
-"                                                            <td width=\"15%\" align=\"center"
-"\" valign=\"middle\" style=\"background-color:${tdBgColor};padding :5px 0;font-size:20px;\">"
-"${goal['rank']+1}\n"
+"                                                            % set tdPercentageColor = '#9A6C8E'\n"
+"                                                            <td width=\"15%\" align=\"center\" valign=\"middle\" style=\"background-color:${tdBgColor};padding :5px 0;font-size:20px;\">${goal['rank']+1}\n"
 "                                                            </td>\n"
-"                                                            <td width=\"25%\" align=\"left\" "
-"valign=\"middle\" style=\"background-color:${tdBgColor};padding :5px 0;font-size:13px;\">"
-"${goal['name']}</td>\n"
-"                                                            <td width=\"30%\" align=\"right"
-"\" style=\"background-color:${tdBgColor};padding:5px 0;line-height:1;\">${\"%.2f\" % "
-"goal['current']}<br/><span style=\"font-size:13px;color:${mutedColor};\">on ${\"%.2f\" % "
-"line['target']}</span>\n"
+"                                                            <td width=\"25%\" align=\"left\" valign=\"middle\" style=\"background-color:${tdBgColor};padding :5px 0;font-size:13px;\">${goal['name']}</td>\n"
+"                                                            <td width=\"30%\" align=\"right\" style=\"background-color:${tdBgColor};padding:5px 0;line-height:1;\">${\"%.2f\" % goal['current']}<br/><span style=\"font-size:13px;color:${mutedColor};\">on ${\"%.2f\" % line['target']}</span>\n"
 "                                                            </td>\n"
-"                                                            <td width=\"30%\" style=\"color:"
-"${tdPercentageColor};background-color:${tdBgColor};padding-right:15px;font-size:22px;\" "
-"align=\"right\"><strong>${goal['completeness'] | int}%</strong></td>\n"
+"                                                            <td width=\"30%\" style=\"color:${tdPercentageColor};background-color:${tdBgColor};padding-right:15px;font-size:22px;\" align=\"right\"><strong>${goal['completeness'] | int}%</strong></td>\n"
 "                                                        </tr>\n"
 "                                                        <tr>\n"
-"                                                            <td colspan=\"5\" style="
-"\"height:1px;background-color:#DADADA;\"></td>\n"
+"                                                            <td colspan=\"5\" style=\"height:1px;background-color:#DADADA;\"></td>\n"
 "                                                        </tr>\n"
 "                                                    % endfor\n"
 "                                                </tbody>\n"
@@ -292,27 +233,21 @@ msgid ""
 "                        % endif\n"
 "                    </td></tr>\n"
 "                </table>\n"
-"                <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"padding: "
-"15px; color: #666666;margin-bottom: 5px;\">\n"
+"                <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"padding: 15px; color: #666666;margin-bottom: 5px;\">\n"
 "                    <tr>\n"
 "                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                            <table width=\"580\" border=\"0\" cellpadding=\"0\" style=\"min-"
-"width: 580px; font-size: 12px;\">\n"
+"                            <table width=\"580\" border=\"0\" cellpadding=\"0\" style=\"min-width: 580px; font-size: 12px;\">\n"
 "                                <tr>\n"
-"                                    <td valign=\"middle\" align=\"left\" style=\"padding-"
-"top: 10px; padding-bottom: 10px;\">\n"
+"                                    <td valign=\"middle\" align=\"left\" style=\"padding-top: 10px; padding-bottom: 10px;\">\n"
 "                                        ${company.name}<br/>\n"
 "                                        ${company.phone or ''}\n"
 "                                    </td>\n"
-"                                    <td valign=\"middle\" align=\"right\" style=\"padding-"
-"top: 10px; padding-bottom: 10px;\">\n"
+"                                    <td valign=\"middle\" align=\"right\" style=\"padding-top: 10px; padding-bottom: 10px;\">\n"
 "                                        % if company.email:\n"
-"                                            <a href=\"mailto:${company.email}\" style=\"text-"
-"decoration:none; color: #666666;\">${company.email}</a><br/>\n"
+"                                            <a href=\"mailto:${company.email}\" style=\"text-decoration:none; color: #666666;\">${company.email}</a><br/>\n"
 "                                        % endif\n"
 "                                        % if company.website:\n"
-"                                            <a href=\"${company.website}\" style=\"text-"
-"decoration:none; color: #666666;\">\n"
+"                                            <a href=\"${company.website}\" style=\"text-decoration:none; color: #666666;\">\n"
 "                                               ${company.website}\n"
 "                                            </a>\n"
 "                                        % endif\n"
@@ -323,8 +258,7 @@ msgid ""
 "                    </tr> \n"
 "                    <tr>\n"
 "                        <td align=\"center\">\n"
-"                            Powered by <a target=\"_blank\" href=\"https://www.odoo.com"
-"\">Odoo</a>.\n"
+"                            Powered by <a target=\"_blank\" href=\"https://www.flectrahq.com\">Odoo</a>.\n"
 "                        </td>\n"
 "                    </tr>\n"
 "                </table>\n"
@@ -345,9 +279,7 @@ msgid ""
 "        <strong>Reminder ${object.name}</strong>\n"
 "    </p>\n"
 "    \n"
-"    <p>You have not updated your progress for the goal ${object.definition_id.name} "
-"(currently reached at ${object.completeness}%) for at least ${object.remind_update_delay} "
-"days. Do not forget to do it.</p>\n"
+"    <p>You have not updated your progress for the goal ${object.definition_id.name} (currently reached at ${object.completeness}%) for at least ${object.remind_update_delay} days. Do not forget to do it.</p>\n"
 "            "
 msgstr ""
 "\n"
@@ -355,9 +287,7 @@ msgstr ""
 "        <strong>Напоминание ${object.name}</strong>\n"
 "    </p>\n"
 "    \n"
-"    <p>Вы не обновили свой прогресс для достижения цели ${object.definition_id.name} (в "
-"настоящее время достигнуто на ${object.completeness}%) по крайней мере ${object."
-"remind_update_delay} дней. Не забудьте сделать этоt.</p>\n"
+"    <p>Вы не обновили свой прогресс для достижения цели ${object.definition_id.name} (в настоящее время достигнуто на ${object.completeness}%) по крайней мере ${object.remind_update_delay} дней. Не забудьте сделать этоt.</p>\n"
 "            "
 
 #. module: gamification
@@ -382,12 +312,10 @@ msgid ""
 "</div>\n"
 "<div>\n"
 "% if object.badge_id.description\n"
-"<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"width: 600px; margin-top: "
-"5px;\">\n"
+"<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"width: 600px; margin-top: 5px;\">\n"
 "<tbody><tr>\n"
 "    <td valign=\"center\">\n"
-"        <img src=\"/web/image/gamification.badge/${object.badge_id.id}/image/80x80\" style="
-"\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${user.company_id.name}\"/>\n"
+"        <img src=\"/web/image/gamification.badge/${object.badge_id.id}/image/80x80\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${user.company_id.name}\"/>\n"
 "    </td>\n"
 "    <td valign=\"center\">\n"
 "        <cite>${object.badge_id.description}</cite>\n"
@@ -417,12 +345,10 @@ msgstr ""
 "</div>\n"
 "<div>\n"
 "% if object.badge_id.description\n"
-"<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"width: 600px; margin-top: "
-"5px;\">\n"
+"<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"width: 600px; margin-top: 5px;\">\n"
 "<tbody><tr>\n"
 "    <td valign=\"center\">\n"
-"        <img src=\"/web/image/gamification.badge/${object.badge_id.id}/image/80x80\" style="
-"\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${user.company_id.name}\"/>\n"
+"        <img src=\"/web/image/gamification.badge/${object.badge_id.id}/image/80x80\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${user.company_id.name}\"/>\n"
 "    </td>\n"
 "    <td valign=\"center\">\n"
 "        <cite>${object.badge_id.description}</cite>\n"
@@ -454,25 +380,45 @@ msgstr "<br/> %(rank)d. %(user_name)s - %(reward_name)s"
 #. module: gamification
 #: code:addons/gamification/models/challenge.py:652
 #, python-format
-msgid "<br/>Nobody has succeeded to reach every goal, no badge is rewarded for this challenge."
-msgstr "<br/>Никому не удалось достигнуть каждой цели, за эту задачу не выдан ни один значок."
+msgid ""
+"<br/>Nobody has succeeded to reach every goal, no badge is rewarded for this"
+" challenge."
+msgstr ""
+"<br/>Никому не удалось достигнуть каждой цели, за эту задачу не выдан ни "
+"один значок."
 
 #. module: gamification
 #: code:addons/gamification/models/challenge.py:650
 #, python-format
 msgid "<br/>Reward (badge %s) for every succeeding user was sent to %s."
 msgstr ""
-"<br/>Вознаграждение (значок %s) для каждого последующего пользователя было отправлено %s."
+"<br/>Вознаграждение (значок %s) для каждого последующего пользователя было "
+"отправлено %s."
 
 #. module: gamification
 #: code:addons/gamification/models/challenge.py:660
 #, python-format
 msgid ""
-"<br/>Special rewards were sent to the top competing users. The ranking for this challenge "
-"is :"
+"<br/>Special rewards were sent to the top competing users. The ranking for "
+"this challenge is :"
 msgstr ""
-"<br/>Специальные вознаграждения были отправлены главным конкурирующим пользователям. Рейтинг "
-"для этой задачи :"
+"<br/>Специальные вознаграждения были отправлены главным конкурирующим "
+"пользователям. Рейтинг для этой задачи :"
+
+#. module: gamification
+#: model:ir.ui.view,arch_db:gamification.goal_kanban_view
+msgid "<i class=\"fa fa-clock-o fa-3x\" title=\"Goal in Progress\"/>"
+msgstr ""
+
+#. module: gamification
+#: model:ir.ui.view,arch_db:gamification.goal_kanban_view
+msgid "<i class=\"o_green fa fa-check fa-3x\" title=\"Goal Reached\"/>"
+msgstr ""
+
+#. module: gamification
+#: model:ir.ui.view,arch_db:gamification.goal_kanban_view
+msgid "<i class=\"o_red fa fa-times fa-3x\" title=\"Goal Failed\"/>"
+msgstr ""
 
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.challenge_form_view
@@ -487,13 +433,11 @@ msgstr ""
 #: model:ir.actions.act_window,help:gamification.badge_list_action
 msgid ""
 "A badge is a symbolic token granted to a user as a sign of reward.\n"
-"                It can be deserved automatically when some conditions are met or manually by "
-"users.\n"
+"                It can be deserved automatically when some conditions are met or manually by users.\n"
 "                Some badges are harder than others to get with specific conditions."
 msgstr ""
 "Значок является символическим маркером, предоставленных пользователю как знак поощрения.\n"
-"                Он может заслужить автоматически при соблюдении некоторых условий или "
-"вручную пользователями.\n"
+"                Он может заслужить автоматически при соблюдении некоторых условий или вручную пользователями.\n"
 "                Некоторые значки сложнее, чем другие, чтобы получить с особыми условиями."
 
 #. module: gamification
@@ -502,8 +446,7 @@ msgid ""
 "A goal definition is a technical model of goal defining a condition to reach.\n"
 "                The dates, values to reach or users are defined in goal instance."
 msgstr ""
-"Определение цели представляет собой техническую модель цели определения условия для "
-"достижения.\n"
+"Определение цели представляет собой техническую модель цели определения условия для достижения.\n"
 "                 Даты, значения для достижения или пользователи определены в экземпляре цели."
 
 #. module: gamification
@@ -511,10 +454,11 @@ msgstr ""
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition_condition
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition_condition_3120
 msgid ""
-"A goal is considered as completed when the current value is compared to the value to reach"
+"A goal is considered as completed when the current value is compared to the "
+"value to reach"
 msgstr ""
-"Цель считается выполненной, когда текущее значение сравнивается со значением, которое нужно "
-"достичь"
+"Цель считается выполненной, когда текущее значение сравнивается со "
+"значением, которое нужно достичь"
 
 #. module: gamification
 #: model:ir.actions.act_window,help:gamification.goal_list_action
@@ -569,13 +513,11 @@ msgstr "Назначить задачу для"
 #: model:ir.actions.act_window,help:gamification.challenge_list_action
 msgid ""
 "Assign a list of goals to chosen users to evaluate them.\n"
-"                The challenge can use a period (weekly, monthly...) for automatic creation "
-"of goals.\n"
+"                The challenge can use a period (weekly, monthly...) for automatic creation of goals.\n"
 "                The goals are created for the specified users or member of the group."
 msgstr ""
 "Назначьте список целей для выбора пользователей и оценки их.\n"
-"                  Соревнование могут использовать периоды(еженедельно, ежемесячно...) для "
-"автоматического создания целей.\n"
+"                  Соревнование могут использовать периоды(еженедельно, ежемесячно...) для автоматического создания целей.\n"
 "                  Цели создаются для конкретных пользователей или членов группы."
 
 #. module: gamification
@@ -637,13 +579,15 @@ msgstr "Значки"
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.challenge_form_view
 msgid ""
-"Badges are granted when a challenge is finished. This is either at the end of a running "
-"period (eg: end of the month for a monthly challenge), at the end date of a challenge (if no "
-"periodicity is set) or when the challenge is manually closed."
+"Badges are granted when a challenge is finished. This is either at the end "
+"of a running period (eg: end of the month for a monthly challenge), at the "
+"end date of a challenge (if no periodicity is set) or when the challenge is "
+"manually closed."
 msgstr ""
-"Значки предоставляют, когда задача выполнена. Это может быть как в конце текущего периода "
-"(например: конец месяца для ежемесячной задачи), так и в дату окончания задачи (если не "
-"установлен промежуток времени) или когда задача закрыта вручную."
+"Значки предоставляют, когда задача выполнена. Это может быть как в конце "
+"текущего периода (например: конец месяца для ежемесячной задачи), так и в "
+"дату окончания задачи (если не установлен промежуток времени) или когда "
+"задача закрыта вручную."
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_goal_definition_batch_mode
@@ -658,7 +602,7 @@ msgstr "Блестяще"
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.badge_kanban_view
 msgid "Can not grant"
-msgstr "Невозможно вознаградить"
+msgstr "Невозможно наградить"
 
 #. module: gamification
 #: code:addons/gamification/models/goal.py:412
@@ -711,11 +655,11 @@ msgstr "Возникновение задачи"
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal_challenge_id
 msgid ""
-"Challenge that generated the goal, assign challenge to users to generate goals with a value "
-"in this field."
+"Challenge that generated the goal, assign challenge to users to generate "
+"goals with a value in this field."
 msgstr ""
-"Задача, которая произвела цель, назначает задачу пользователям произвести цели со значением "
-"в этом поле."
+"Задача, которая произвела цель, назначает задачу пользователям произвести "
+"цели со значением в этом поле."
 
 #. module: gamification
 #: model:ir.actions.act_window,name:gamification.challenge_list_action
@@ -728,12 +672,13 @@ msgstr "Соревнования"
 #: model:ir.model.fields,help:gamification.field_gamification_badge_rule_max
 msgid "Check to set a monthly limit per person of sending this badge"
 msgstr ""
-"Поставьте галочку, чтобы установить ежемесячный предел на человека отправки этого значка"
+"Поставьте галочку, чтобы установить ежемесячный предел на человека отправки "
+"этого значка"
 
 #. module: gamification
 #: model:ir.actions.act_window,help:gamification.badge_list_action
 msgid "Click to create a badge."
-msgstr "Нажмите, чтобы создать бэйдж."
+msgstr "Нажмите, чтобы создать бэйдж"
 
 #. module: gamification
 #: model:ir.actions.act_window,help:gamification.challenge_list_action
@@ -743,7 +688,7 @@ msgstr "Нажмите, чтобы создать соревнование."
 #. module: gamification
 #: model:ir.actions.act_window,help:gamification.goal_definition_list_action
 msgid "Click to create a goal definition."
-msgstr "Нажмите, чтобы создать определение цели."
+msgstr "Нажмите, чтобы создать определение цели"
 
 #. module: gamification
 #: model:ir.actions.act_window,help:gamification.goal_list_action
@@ -791,14 +736,15 @@ msgstr "Создайте пользователя"
 #. module: gamification
 #: model:ir.actions.act_window,help:gamification.action_new_simplified_res_users
 msgid ""
-"Create and manage users that will connect to the system. Users can be deactivated should "
-"there be a period of time during which they will/should not connect to the system. You can "
-"assign them groups in order to give them specific access to the applications they need to "
-"use in the system."
+"Create and manage users that will connect to the system. Users can be "
+"deactivated should there be a period of time during which they will/should "
+"not connect to the system. You can assign them groups in order to give them "
+"specific access to the applications they need to use in the system."
 msgstr ""
-"Создавайте пользователей и управляйте их доступом к системе. Пользователи могут быть "
-"деактивированы при окончании периода их неактивности в системе. Пользователям могут быть "
-"назначены группы с целью предоставить им особый доступ к приложениям внутри системы."
+"Создавайте пользователей и управляйте их доступом к системе. Пользователи "
+"могут быть деактивированы при окончании периода их неактивности в системе. "
+"Пользователям могут быть назначены группы с целью предоставить им особый "
+"доступ к приложениям внутри системы."
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_badge_user_create_date
@@ -867,10 +813,11 @@ msgstr "Определите видимость задачи через меню
 #: model:ir.model.fields,help:gamification.field_gamification_goal_computation_mode
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition_computation_mode
 msgid ""
-"Defined how will be computed the goals. The result of the operation will be stored in the "
-"field 'Current'."
+"Defined how will be computed the goals. The result of the operation will be "
+"stored in the field 'Current'."
 msgstr ""
-"Заданный, как будут вычисляться цели. Результат операции будет сохранен в поле \"Текущее\"."
+"Заданный, как будут вычисляться цели. Результат операции будет сохранен в "
+"поле \"Текущее\"."
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_goal_definition_description_3119
@@ -880,17 +827,22 @@ msgstr "Описание формулировки"
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.challenge_form_view
 msgid "Depending on the Display mode, reports will be individual or shared."
-msgstr "В зависимости от режима отображения отчеты будут индивидуальными или общими."
+msgstr ""
+"В зависимости от режима отображения отчеты будут индивидуальными или общими."
 
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.challenge_form_view
-msgid "Describe the challenge: what is does, who it targets, why it matters..."
-msgstr "Опишите задачу: что делает, для кого предназначается, почему имеет значение..."
+msgid ""
+"Describe the challenge: what is does, who it targets, why it matters..."
+msgstr ""
+"Опишите задачу: что делает, для кого предназначается, почему имеет "
+"значение..."
 
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.view_badge_wizard_grant
 msgid "Describe what they did and why it matters (will be public)"
-msgstr "Опишите, что они сделали и почему это важно (будет в публичном доступе)"
+msgstr ""
+"Опишите, что они сделали и почему это важно (будет в публичном доступе)"
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_badge_description
@@ -929,13 +881,14 @@ msgstr "Отличительное поле для пакетного польз
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition_domain
 msgid ""
-"Domain for filtering records. General rule, not user depending, e.g. [('state', '=', "
-"'done')]. The expression can contain reference to 'user' which is a browse record of the "
-"current user if not in batch mode."
+"Domain for filtering records. General rule, not user depending, e.g. "
+"[('state', '=', 'done')]. The expression can contain reference to 'user' "
+"which is a browse record of the current user if not in batch mode."
 msgstr ""
-"Домен для фильтрации записей. Общее правило, не зависящее от пользователя, например, "
-"[('state', '=', 'done')]. Выражение может содержать ссылку на 'пользователя', который "
-"является записью просмотра текущего пользователя, если не в пакетном режиме."
+"Домен для фильтрации записей. Общее правило, не зависящее от пользователя, "
+"например, [('state', '=', 'done')]. Выражение может содержать ссылку на "
+"'пользователя', который является записью просмотра текущего пользователя, "
+"если не в пакетном режиме."
 
 #. module: gamification
 #: selection:gamification.challenge,state:0
@@ -944,7 +897,8 @@ msgid "Done"
 msgstr "Сделано"
 
 #. module: gamification
-#: selection:gamification.challenge,state:0 selection:gamification.goal,state:0
+#: selection:gamification.challenge,state:0
+#: selection:gamification.goal,state:0
 #: model:ir.ui.view,arch_db:gamification.goal_search_view
 msgid "Draft"
 msgstr "Черновик"
@@ -1241,29 +1195,31 @@ msgstr "Выполняется"
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.goal_definition_form_view
 msgid ""
-"In batch mode, the domain is evaluated globally. If enabled, do not use keyword 'user' in "
-"above filter domain."
+"In batch mode, the domain is evaluated globally. If enabled, do not use "
+"keyword 'user' in above filter domain."
 msgstr ""
-"В пакетном режиме домен оценивается глобально. Если активирован, не используйте ключевое "
-"слово 'пользователь' в вышеупомянутом домене фильтра."
+"В пакетном режиме домен оценивается глобально. Если активирован, не "
+"используйте ключевое слово 'пользователь' в вышеупомянутом домене фильтра."
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition_batch_distinctive_field
 msgid ""
-"In batch mode, this indicates which field distinct one user form the other, e.g. user_id, "
-"partner_id..."
+"In batch mode, this indicates which field distinct one user form the other, "
+"e.g. user_id, partner_id..."
 msgstr ""
-"В пакетном режиме указывает, какая область отличает одного пользователя от другого, "
-"например, user_id, partner_id..."
+"В пакетном режиме указывает, какая область отличает одного пользователя от "
+"другого, например, user_id, partner_id..."
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal_last_update
 msgid ""
-"In case of manual goal, reminders are sent if the goal as not been updated for a while "
-"(defined in challenge). Ignored in case of non-manual goal or goal not linked to a challenge."
+"In case of manual goal, reminders are sent if the goal as not been updated "
+"for a while (defined in challenge). Ignored in case of non-manual goal or "
+"goal not linked to a challenge."
 msgstr ""
-"В случае ручной цели напоминания отправляются, если цель некоторое время не обновлялась "
-"(определено в задаче). Игнорируется в случае неручной цели или цели, не связанной с задачей."
+"В случае ручной цели напоминания отправляются, если цель некоторое время не "
+"обновлялась (определено в задаче). Игнорируется в случае неручной цели или "
+"цели, не связанной с задачей."
 
 #. module: gamification
 #: selection:gamification.goal,state:0
@@ -1458,7 +1414,8 @@ msgstr "Никто не назначен через задачи"
 #: code:addons/gamification/models/challenge.py:667
 #, python-format
 msgid "Nobody reached the required conditions to receive special badges."
-msgstr "Никто не достиг необходимых условий для получения специальных значков."
+msgstr ""
+"Никто не достиг необходимых условий для получения специальных значков."
 
 #. module: gamification
 #: selection:gamification.challenge,period:0
@@ -1508,7 +1465,7 @@ msgstr "Владельцы"
 #. module: gamification
 #: selection:gamification.badge,rule_auth:0
 msgid "People having some badges"
-msgstr "Люди с некоторыми значками"
+msgstr "Люди со значками"
 
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.challenge_search_view
@@ -1517,8 +1474,12 @@ msgstr "Период"
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_challenge_period
-msgid "Period of automatic goal assigment. If none is selected, should be launched manually."
-msgstr "Период автоматического назначения цели. Если не выбрано, нужно запустить вручную."
+msgid ""
+"Period of automatic goal assigment. If none is selected, should be launched "
+"manually."
+msgstr ""
+"Период автоматического назначения цели. Если не выбрано, нужно запустить "
+"вручную."
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_challenge_period
@@ -1543,11 +1504,12 @@ msgstr "Код на Python"
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition_compute_code
 msgid ""
-"Python code to be executed for each user. 'result' should contains the new current value. "
-"Evaluated user can be access through object.user_id."
+"Python code to be executed for each user. 'result' should contains the new "
+"current value. Evaluated user can be access through object.user_id."
 msgstr ""
-"Код Python, который должен быть выполнен для каждого пользователя. 'результат' должен "
-"содержать новое текущее значение. Оцененный пользователь может быть доступен object.user_id."
+"Код Python, который должен быть выполнен для каждого пользователя. "
+"'результат' должен содержать новое текущее значение. Оцененный пользователь "
+"может быть доступен object.user_id."
 
 #. module: gamification
 #: selection:gamification.goal,state:0
@@ -1557,7 +1519,7 @@ msgstr "Достигнуто"
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.goal_form_view
 msgid "Reached when current value is"
-msgstr "Достигнуто, когда текущее значение"
+msgstr "Достигнуто, когда текущее значение -"
 
 #. module: gamification
 #: selection:gamification.goal.definition,computation_mode:0
@@ -1582,7 +1544,7 @@ msgstr "Связанные цели"
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_badge_user_wizard_user_id
 msgid "Related user name for the resource to manage its access."
-msgstr "Пользователь управляющий доступом к ресурсу."
+msgstr "Пользователь управляющий доступом к ресурсу"
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_badge_remaining_sending
@@ -1628,12 +1590,14 @@ msgstr "Ответственный"
 #: code:addons/gamification/models/challenge.py:490
 #, python-format
 msgid "Retrieving progress for personal challenge without user information"
-msgstr "Восстановление прогресса для персональной задачи без информации о пользователе"
+msgstr ""
+"Восстановление прогресса для персональной задачи без информации о "
+"пользователе"
 
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.challenge_form_view
 msgid "Reward"
-msgstr "Вознаграждение"
+msgstr "Награда"
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_challenge_reward_failure
@@ -1648,7 +1612,7 @@ msgstr "Наградить, как только каждая цель будет
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_badge_challenge_ids
 msgid "Reward of Challenges"
-msgstr "Вознаграждение задач"
+msgstr "Награды за задачи"
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_badge_goal_definition_ids
@@ -1693,11 +1657,11 @@ msgstr "Искать цели"
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.badge_form_view
 msgid ""
-"Security rules to define who is allowed to manually grant badges. Not enforced for "
-"administrator."
+"Security rules to define who is allowed to manually grant badges. Not "
+"enforced for administrator."
 msgstr ""
-"Правила безопасности, чтобы определить, кому разрешено вручную награждать значками. Не "
-"обязательно для администратора."
+"Правила безопасности, чтобы определить, кому разрешено вручную награждать "
+"значками. Не обязательно для администратора."
 
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.challenge_form_view
@@ -1816,7 +1780,8 @@ msgstr "Задание: меньше, чем"
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition_action_id
 msgid "The action that will be called to update the goal value."
-msgstr "Действие, которое нужно будет выполнить, чтобы обновить значение цели."
+msgstr ""
+"Действие, которое нужно будет выполнить, чтобы обновить значение цели."
 
 #. module: gamification
 #: code:addons/gamification/models/challenge.py:646
@@ -1839,20 +1804,21 @@ msgstr "Дата для оцененного периода времени"
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_challenge_end_date
 msgid ""
-"The day a new challenge will be automatically closed. If no periodicity is set, will use "
-"this date as the goal end date."
+"The day a new challenge will be automatically closed. If no periodicity is "
+"set, will use this date as the goal end date."
 msgstr ""
-"День, когда новая задача будет автоматически закрыта. Если периодичность не установлена, то "
-"будет использоваться эта дата в качестве даты окончания цели."
+"День, когда новая задача будет автоматически закрыта. Если периодичность не "
+"установлена, то будет использоваться эта дата в качестве даты окончания "
+"цели."
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_challenge_start_date
 msgid ""
-"The day a new challenge will be automatically started. If no periodicity is set, will use "
-"this date as the goal start date."
+"The day a new challenge will be automatically started. If no periodicity is "
+"set, will use this date as the goal start date."
 msgstr ""
-"День, когда автоматически начнется новая задача. Если периодичность не установлена, то будет "
-"использоваться эта дата в качестве даты начала цели."
+"День, когда автоматически начнется новая задача. Если периодичность не "
+"установлена, то будет использоваться эта дата в качестве даты начала цели."
 
 #. module: gamification
 #: code:addons/gamification/models/goal.py:93
@@ -1874,10 +1840,11 @@ msgstr "Поле, содержащее значение для оценки"
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition_res_id_field
 msgid ""
-"The field name on the user profile (res.users) containing the value for res_id for action."
+"The field name on the user profile (res.users) containing the value for "
+"res_id for action."
 msgstr ""
-"Название поля на профиле пользователя (res.users), содержащего значение для res_id для "
-"действия."
+"Название поля на профиле пользователя (res.users), содержащего значение для "
+"res_id для действия."
 
 #. module: gamification
 #: selection:gamification.goal.definition,condition:0
@@ -1901,9 +1868,11 @@ msgstr "Чем ниже, тем лучше"
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_badge_rule_max_number
-msgid "The maximum number of time this badge can be sent per month per person."
+msgid ""
+"The maximum number of time this badge can be sent per month per person."
 msgstr ""
-"Максимальное количество раз, сколько этот значок может быть отправлен в месяц на человека."
+"Максимальное количество раз, сколько этот значок может быть отправлен в "
+"месяц на человека."
 
 #. module: gamification
 #: code:addons/gamification/models/goal.py:110
@@ -1937,15 +1906,17 @@ msgstr "Объект модели для поля к оценке"
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal_remind_update_delay
 msgid ""
-"The number of days after which the user assigned to a manual goal will be reminded. Never "
-"reminded if no value is specified."
+"The number of days after which the user assigned to a manual goal will be "
+"reminded. Never reminded if no value is specified."
 msgstr ""
-"Числу дней, после которых пользователю, назначенному на ручную цель, придет напоминание. "
-"Напоминания не будут приходить, если не указано никакое значение."
+"Числу дней, после которых пользователю, назначенному на ручную цель, придет "
+"напоминание. Напоминания не будут приходить, если не указано никакое "
+"значение."
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_badge_stat_my_this_month
-msgid "The number of time the current user has received this badge this month."
+msgid ""
+"The number of time the current user has received this badge this month."
 msgstr "Сколько раз текущий пользователь получил этот значок в этом месяце."
 
 #. module: gamification
@@ -1997,18 +1968,22 @@ msgstr "Пользователь, отправивший значок"
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_badge_goal_definition_ids
-msgid "The users that have succeeded theses goals will receive automatically the badge."
-msgstr "Пользователи, которые достигли этих целей, автоматически получат значок."
+msgid ""
+"The users that have succeeded theses goals will receive automatically the "
+"badge."
+msgstr ""
+"Пользователи, которые достигли этих целей, автоматически получат значок."
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition_batch_user_expression
 msgid ""
-"The value to compare with the distinctive field. The expression can contain reference to "
-"'user' which is a browse record of the current user, e.g. user.id, user.partner_id.id..."
+"The value to compare with the distinctive field. The expression can contain "
+"reference to 'user' which is a browse record of the current user, e.g. "
+"user.id, user.partner_id.id..."
 msgstr ""
-"Значение для сравнения с отличительным полем. Выражение может содержать ссылку на "
-"'пользователя', который является записью просмотра текущего пользователя, например, user.id, "
-"user.partner_id.id..."
+"Значение для сравнения с отличительным полем. Выражение может содержать "
+"ссылку на 'пользователя', который является записью просмотра текущего "
+"пользователя, например, user.id, user.partner_id.id..."
 
 #. module: gamification
 #: model:ir.actions.act_window,help:gamification.goals_from_challenge_act
@@ -2033,7 +2008,9 @@ msgstr "Этот значок не может отправляться поль�
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_badge_image
 msgid "This field holds the image used for the badge, limited to 256x256"
-msgstr "Это поле содержит изображение, используемое для значка, размер ограничен до 256x256"
+msgstr ""
+"Это поле содержит изображение, используемое для значка, размер ограничен до "
+"256x256"
 
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.goal_kanban_view
@@ -2118,16 +2095,16 @@ msgstr "Кого бы вы хотели наградить?"
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_challenge_reward_realtime
 msgid ""
-"With this option enabled, a user can receive a badge only once. The top 3 badges are still "
-"rewarded only at the end of the challenge."
+"With this option enabled, a user can receive a badge only once. The top 3 "
+"badges are still rewarded only at the end of the challenge."
 msgstr ""
-"Если эта опция активирована, пользователь может получить значок только один раз. Лучшие 3 "
-"значка все еще будут отданы только в конце задачи."
+"Если эта опция активирована, пользователь может получить значок только один "
+"раз. Лучшие 3 значка все еще будут отданы только в конце задачи."
 
 #. module: gamification
 #: model:gamification.badge,description:gamification.badge_idea
 msgid "With your brilliant ideas, you are an inspiration to others."
-msgstr "Своими блестящими идеями, вы вдохновляете других."
+msgstr "Своими блестящими идеями, Вы вдохновляете других"
 
 #. module: gamification
 #: selection:gamification.challenge,period:0
@@ -2161,7 +2138,7 @@ msgstr "Вы все еще можете наградить"
 #. module: gamification
 #: model:gamification.badge,description:gamification.badge_good_job
 msgid "You did great at your job."
-msgstr "Вы великолепно выполняете свою работу."
+msgstr "Вы великолепно выполняете свою работу"
 
 #. module: gamification
 #: code:addons/gamification/models/badge.py:214
@@ -2204,11 +2181,11 @@ msgstr "например, дни"
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.goal_definition_form_view
 msgid ""
-"e.g. result = env['mail.followers'].search_count([('res_model', '=', 'mail.channel'), "
-"('partner_id', '=', object.user_id.partner_id.id)])"
+"e.g. result = env['mail.followers'].search_count([('res_model', '=', "
+"'mail.channel'), ('partner_id', '=', object.user_id.partner_id.id)])"
 msgstr ""
-"e.g. result = env['mail.followers'].search_count([('res_model', '=', 'mail.channel'), "
-"('partner_id', '=', object.user_id.partner_id.id)])"
+"e.g. result = env['mail.followers'].search_count([('res_model', '=', "
+"'mail.channel'), ('partner_id', '=', object.user_id.partner_id.id)])"
 
 #. module: gamification
 #: model:ir.ui.view,arch_db:gamification.goal_definition_form_view

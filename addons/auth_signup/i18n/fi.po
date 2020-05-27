@@ -3,21 +3,23 @@
 # * auth_signup
 # 
 # Translators:
-# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2017
 # Teija Hölttä <teija.holtta@gmail.com>, 2017
-# Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2017
 # Miku Laitinen <miku.laitinen@gmail.com>, 2017
-# Martin Trigaux <mat@odoo.com>, 2017
-# salmemik <salmemik@gmail.com>, 2017
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2017
+# Martin Trigaux, 2017
+# Mikko Salmela <salmemik@gmail.com>, 2017
 # Jukka Paulin <jukka.paulin@gmail.com>, 2017
+# Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2018
+# Tuomas Lyyra <tuomas.lyyra@legenda.fi>, 2019
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 11:26+0000\n"
-"PO-Revision-Date: 2017-10-02 11:26+0000\n"
-"Last-Translator: Jukka Paulin <jukka.paulin@gmail.com>, 2017\n"
+"POT-Creation-Date: 2018-07-27 11:56+0000\n"
+"PO-Revision-Date: 2017-09-20 10:15+0000\n"
+"Last-Translator: Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2020\n"
 "Language-Team: Finnish (https://www.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +45,7 @@ msgid ""
 "    <p>A password reset was requested for the Odoo account linked to this email.</p>\n"
 "    <p>You may change your password by following this link which will remain valid during 24 hours:</p>\n"
 "    <div style=\"text-align: center; margin-top: 16px;\">\n"
-"        <a href=\"${object.signup_url}\" style=\"padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px\">Change password</a>\n"
+"        <a href=\"${object.signup_url}\" style=\"padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#009efb; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #009efb; border: 1px solid #009efb; border-radius:3px\">Change password</a>\n"
 "    </div>\n"
 "    <p>If you do not expect this, you can safely ignore this email.</p>\n"
 "    <p>Best regards,</p>\n"
@@ -51,7 +53,7 @@ msgid ""
 "<div style=\"padding:0px;width:600px;margin:auto; margin-top: 10px; background: #fff repeat top /100%;color:#777777\">\n"
 "    ${user.signature | safe}\n"
 "    <p style=\"font-size: 11px; margin-top: 10px;\">\n"
-"        <strong>Sent by ${user.company_id.name} using <a href=\"www.odoo.com\" style=\"text-decoration:none; color: #875A7B;\">Odoo</a></strong>\n"
+"        <strong>Sent by ${user.company_id.name} using <a href=\"www.flectrahq.com\" style=\"text-decoration:none; color: #009efb;\">Odoo</a></strong>\n"
 "    </p>\n"
 "</div>"
 msgstr ""
@@ -78,14 +80,14 @@ msgid ""
 "        To accept the invitation, click on the following link:\n"
 "    </p>\n"
 "    <div style=\"text-align: center; margin-top: 16px;\">\n"
-"         <a href=\"${object.signup_url}\" style=\"padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px\">Accept invitation to \"${object.company_id.name}\"</a>\n"
+"         <a href=\"${object.signup_url}\" style=\"padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#009efb; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #009efb; border: 1px solid #009efb; border-radius:3px\">Accept invitation to \"${object.company_id.name}\"</a>\n"
 "    </div>\n"
 "    <p>Best regards,</p>\n"
 "</div>\n"
 "<div style=\"padding:0px;width:600px;margin:auto; margin-top: 10px; background: #fff repeat top /100%;color:#777777\">\n"
 "    ${user.signature | safe}\n"
 "    <p style=\"font-size: 11px; margin-top: 10px;\">\n"
-"        <strong>Sent by ${user.company_id.name} using <a href=\"www.odoo.com\" style=\"text-decoration:none; color: #875A7B;\">Odoo</a></strong>\n"
+"        <strong>Sent by ${user.company_id.name} using <a href=\"www.flectrahq.com\" style=\"text-decoration:none; color: #009efb;\">Odoo</a></strong>\n"
 "    </p>\n"
 "</div>"
 msgstr ""
@@ -115,20 +117,19 @@ msgid ""
 "    <p>\n"
 "        Your login: ${object.email}\n"
 "        <br/>\n"
-"        Your password: ${ctx['password']}\n"
 "    </p>\n"
 "    <p>\n"
 "        To gain access to your account, you can use the following link:\n"
 "    </p>\n"
 "    <div style=\"text-align: center; margin-top: 16px;\">\n"
-"        <a href=\"/web/login?${ctx['auth_login']}\" style=\"padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px\">Go to My Account</a>\n"
+"        <a href=\"/web/login?${ctx['auth_login']}\" style=\"padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#009efb; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #009efb; border: 1px solid #009efb; border-radius:3px\">Go to My Account</a>\n"
 "    </div>\n"
 "    <p>Best regards,</p>\n"
 "</div>\n"
 "<div style=\"padding:0px;width:600px;margin:auto; margin-top: 10px; background: #fff repeat top /100%;color:#777777\">\n"
 "    ${user.signature | safe}\n"
 "    <p style=\"font-size: 11px; margin-top: 10px;\">\n"
-"        <strong>Sent by ${user.company_id.name} using <a href=\"www.odoo.com\" style=\"text-decoration:none; color: #875A7B;\">Odoo</a></strong>\n"
+"        <strong>Sent by ${user.company_id.name} using <a href=\"www.flectrahq.com\" style=\"text-decoration:none; color: #009efb;\">Odoo</a></strong>\n"
 "    </p>\n"
 "</div>"
 msgstr ""
@@ -139,6 +140,8 @@ msgid ""
 "<strong>A password reset has been requested for this user. An email "
 "containing the following link has been sent:</strong>"
 msgstr ""
+"<strong>Tämä käyttäjä on pyytänyt salasanan nollausta. Tämä linkki on "
+"lähetetty sähköpostilla:</strong>"
 
 #. module: auth_signup
 #: model:ir.ui.view,arch_db:auth_signup.res_users_form_view
@@ -151,25 +154,25 @@ msgstr ""
 #. module: auth_signup
 #: model:ir.ui.view,arch_db:auth_signup.signup
 msgid "Already have an account?"
-msgstr ""
+msgstr "Oletko jo rekisteröitynyt?"
 
 #. module: auth_signup
-#: code:addons/auth_signup/controllers/main.py:78
+#: code:addons/auth_signup/controllers/main.py:79
 #, python-format
 msgid "An email has been sent with credentials to reset your password"
 msgstr "Salasanan nollaamisen mahdollistava sähköposti on lähetetty"
 
 #. module: auth_signup
-#: code:addons/auth_signup/controllers/main.py:52
+#: code:addons/auth_signup/controllers/main.py:51
 #, python-format
 msgid "Another user is already registered using this email address."
 msgstr "Toinen käyttäjä on jo rekisteröitynyt tällä sähköpostiosoitteella."
 
 #. module: auth_signup
-#: code:addons/auth_signup/controllers/main.py:133
+#: code:addons/auth_signup/controllers/main.py:136
 #, python-format
 msgid "Authentication Failed."
-msgstr ""
+msgstr "Todennus epäonnistui."
 
 #. module: auth_signup
 #: model:ir.ui.view,arch_db:auth_signup.reset_password
@@ -181,6 +184,7 @@ msgstr "Paluu kirjautumiseen"
 #, python-format
 msgid "Cannot send email: user %s has no email address."
 msgstr ""
+"Sähköpostia ei voida lähettää: käyttäjällä %s ei ole sähköpostiosoitetta."
 
 #. module: auth_signup
 #: model:ir.ui.view,arch_db:auth_signup.reset_password
@@ -203,18 +207,13 @@ msgid "Contact"
 msgstr "Kontakti"
 
 #. module: auth_signup
-#: model:ir.ui.view,arch_db:auth_signup.res_config_settings_view_form
-msgid "Copy access rights from"
-msgstr ""
-
-#. module: auth_signup
-#: code:addons/auth_signup/controllers/main.py:55
+#: code:addons/auth_signup/controllers/main.py:54
 #, python-format
 msgid "Could not create a new account."
 msgstr "Ei voitu luoda uutta tunnusta."
 
 #. module: auth_signup
-#: code:addons/auth_signup/controllers/main.py:80
+#: code:addons/auth_signup/controllers/main.py:83
 #, python-format
 msgid "Could not reset your password"
 msgstr "Salasanaasi ei pystytty nollaamaan"
@@ -222,23 +221,28 @@ msgstr "Salasanaasi ei pystytty nollaamaan"
 #. module: auth_signup
 #: model:ir.model.fields,field_description:auth_signup.field_res_config_settings_auth_signup_uninvited
 msgid "Customer Account"
-msgstr ""
+msgstr "Asiakastili"
 
 #. module: auth_signup
 #: model:ir.ui.view,arch_db:auth_signup.res_config_settings_view_form
 msgid "Default Access Rights"
-msgstr ""
+msgstr "Oletuskäyttöoikeudet"
 
 #. module: auth_signup
 #: model:ir.ui.view,arch_db:auth_signup.login
 msgid "Don't have an account?"
-msgstr ""
+msgstr "Rekisteröidy käyttäjäksi"
 
 #. module: auth_signup
 #: model:ir.model.fields,field_description:auth_signup.field_res_config_settings_auth_signup_reset_password
 #: model:ir.ui.view,arch_db:auth_signup.res_config_settings_view_form
 msgid "Enable password reset from Login page"
 msgstr "Salli salasanan nollaus kirjautumissivulta"
+
+#. module: auth_signup
+#: model:ir.model,name:auth_signup.model_ir_model_fields
+msgid "Fields"
+msgstr "Kentät"
 
 #. module: auth_signup
 #: selection:res.config.settings,auth_signup_uninvited:0
@@ -256,7 +260,7 @@ msgid "If unchecked, only invited users may sign up."
 msgstr "Jos tämä ei ole valittu, vain kutsutut käyttäjät voivat kirjautua."
 
 #. module: auth_signup
-#: code:addons/auth_signup/controllers/main.py:111
+#: code:addons/auth_signup/controllers/main.py:114
 #, python-format
 msgid "Invalid signup token"
 msgstr "Rekisteröitymisavain ei kelpaa"
@@ -272,10 +276,10 @@ msgid "Never Connected"
 msgstr "Ei kirjautumista"
 
 #. module: auth_signup
-#: code:addons/auth_signup/controllers/main.py:73
+#: code:addons/auth_signup/controllers/main.py:74
 #, python-format
 msgid "No login provided."
-msgstr ""
+msgstr "Kirjautumistunnusta ei annettu."
 
 #. module: auth_signup
 #: selection:res.config.settings,auth_signup_uninvited:0
@@ -290,7 +294,7 @@ msgstr "Salasana"
 #. module: auth_signup
 #: model:ir.ui.view,arch_db:auth_signup.res_config_settings_view_form
 msgid "Password Reset"
-msgstr ""
+msgstr "Salasanan nollaus"
 
 #. module: auth_signup
 #: model:mail.template,subject:auth_signup.reset_password_email
@@ -298,10 +302,10 @@ msgid "Password reset"
 msgstr "Salasanan nollaus"
 
 #. module: auth_signup
-#: code:addons/auth_signup/controllers/main.py:121
+#: code:addons/auth_signup/controllers/main.py:124
 #, python-format
 msgid "Passwords do not match; please retype them."
-msgstr ""
+msgstr "Salasanat eivät täsmää; ole hyvä ja kirjoita ne uudelleen."
 
 #. module: auth_signup
 #: model:ir.ui.view,arch_db:auth_signup.login
@@ -333,13 +337,13 @@ msgstr "Rekisteröidy"
 #: model:ir.model.fields,field_description:auth_signup.field_res_partner_signup_expiration
 #: model:ir.model.fields,field_description:auth_signup.field_res_users_signup_expiration
 msgid "Signup Expiration"
-msgstr ""
+msgstr "Kirjautumisen vanheneminen"
 
 #. module: auth_signup
 #: model:ir.model.fields,field_description:auth_signup.field_res_partner_signup_token
 #: model:ir.model.fields,field_description:auth_signup.field_res_users_signup_token
 msgid "Signup Token"
-msgstr ""
+msgstr "Rekisteröitymisavain"
 
 #. module: auth_signup
 #: model:ir.model.fields,field_description:auth_signup.field_res_partner_signup_type
@@ -363,19 +367,19 @@ msgstr "Rekisteröitymisen osoite"
 #: code:addons/auth_signup/models/res_users.py:88
 #, python-format
 msgid "Signup is not allowed for uninvited users"
-msgstr ""
+msgstr "Rekisteröitymistä ei ole sallittu ilman kutsua"
 
 #. module: auth_signup
-#: code:addons/auth_signup/models/res_partner.py:146
+#: code:addons/auth_signup/models/res_partner.py:147
 #, python-format
 msgid "Signup token '%s' is no longer valid"
-msgstr ""
+msgstr "Rekisteröitymisavain '%s' ei ole enää voimassa"
 
 #. module: auth_signup
-#: code:addons/auth_signup/models/res_partner.py:142
+#: code:addons/auth_signup/models/res_partner.py:143
 #, python-format
 msgid "Signup token '%s' is not valid"
-msgstr ""
+msgstr "Rekisteröitymisavain '%s' ei ole voimassa"
 
 #. module: auth_signup
 #: model:ir.model.fields,field_description:auth_signup.field_res_users_state
@@ -388,10 +392,10 @@ msgid "Template user for new users created through signup"
 msgstr "Mallikäyttäjä rekisteröitymisen kautta luotaville käyttäjille"
 
 #. module: auth_signup
-#: code:addons/auth_signup/controllers/main.py:119
+#: code:addons/auth_signup/controllers/main.py:122
 #, python-format
 msgid "The form was not properly filled in."
-msgstr ""
+msgstr "Lomaketta ei ole täytetty asianmukaisesti."
 
 #. module: auth_signup
 #: model:ir.model,name:auth_signup.model_res_users
@@ -401,7 +405,7 @@ msgstr "Käyttäjät"
 #. module: auth_signup
 #: model:mail.template,subject:auth_signup.mail_template_user_signup_account_created
 msgid "Welcome to ${object.company_id.name}!"
-msgstr ""
+msgstr "${object.company_id.name} toivottaa sinut tervetulleeksi!"
 
 #. module: auth_signup
 #: model:ir.ui.view,arch_db:auth_signup.fields

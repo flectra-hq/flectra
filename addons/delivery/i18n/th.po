@@ -3,14 +3,20 @@
 # * delivery
 # 
 # Translators:
-# Martin Trigaux <mat@odoo.com>, 2017
+# Martin Trigaux, 2018
+# Seksan Poltree <seksan.poltree@gmail.com>, 2018
+# Khwunchai Jaengsawang <khwunchai.j@ku.th>, 2018
+# Prawit Boonthue <prawit.boonthue@gmail.com>, 2018
+# monchai7 <montchye@gmail.com>, 2018
+# Pornvibool Tippayawat <pornvibool.t@gmail.com>, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-30 13:12+0000\n"
-"PO-Revision-Date: 2017-11-30 13:12+0000\n"
-"Last-Translator: Martin Trigaux <mat@odoo.com>, 2017\n"
+"POT-Creation-Date: 2019-07-17 15:01+0000\n"
+"PO-Revision-Date: 2017-09-20 10:16+0000\n"
+"Last-Translator: Pornvibool Tippayawat <pornvibool.t@gmail.com>, 2019\n"
 "Language-Team: Thai (https://www.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +38,7 @@ msgstr ""
 #. module: delivery
 #: model:mail.template,subject:delivery.mail_template_data_delivery_notification
 msgid "${object.subject}"
-msgstr ""
+msgstr "${object.subject}"
 
 #. module: delivery
 #: model:mail.template,body_html:delivery.mail_template_data_delivery_confirmation
@@ -64,7 +70,7 @@ msgid ""
 "            <!-- HEADER -->\n"
 "            <tr>\n"
 "              <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                <table width=\"650\" border=\"0\" cellpadding=\"0\" bgcolor=\"#875A7B\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
+"                <table width=\"650\" border=\"0\" cellpadding=\"0\" bgcolor=\"#009efb\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
 "                  <tr>\n"
 "                    <td valign=\"middle\">\n"
 "                      <span style=\"font-size:20px; color:white; font-weight: bold;\">${object.record_name}</span>\n"
@@ -89,7 +95,7 @@ msgid ""
 "            <!-- FOOTER -->\n"
 "            <tr>\n"
 "              <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                <table width=\"650\" border=\"0\" cellpadding=\"0\" bgcolor=\"#875A7B\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
+"                <table width=\"650\" border=\"0\" cellpadding=\"0\" bgcolor=\"#009efb\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
 "                  <tr>\n"
 "                    <td valign=\"middle\" align=\"left\" style=\"color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;\">${user.company_id.name}<br/>${user.company_id.phone or ''}</td>\n"
 "                    <td valign=\"middle\" align=\"right\" style=\"color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;\">\n"
@@ -105,7 +111,7 @@ msgid ""
 "              </td>\n"
 "            </tr>\n"
 "            <tr>\n"
-"              <td align=\"center\">Powered by <a href=\"https://www.odoo.com\">Odoo</a>.</td>\n"
+"              <td align=\"center\">Powered by <a href=\"https://www.flectrahq.com\">Odoo</a>.</td>\n"
 "            </tr>\n"
 "          </tbody>\n"
 "        </table>\n"
@@ -151,12 +157,12 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_active
 msgid "Active"
-msgstr ""
+msgstr "เปิดใช้งาน"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_amount
 msgid "Amount"
-msgstr ""
+msgstr "จำนวน"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_amount
@@ -168,7 +174,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_search
 msgid "Archived"
-msgstr ""
+msgstr "ถูกเก็บ"
 
 #. module: delivery
 #: selection:delivery.carrier,delivery_type:0
@@ -221,17 +227,17 @@ msgstr "บริษัท"
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_delivery_price_rule_form
 msgid "Condition"
-msgstr ""
+msgstr "เงื่อนไข"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "ผู้ติดต่อ"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_country_ids
 msgid "Countries"
-msgstr ""
+msgstr "ประเทศ"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_choose_delivery_package_create_uid
@@ -253,9 +259,16 @@ msgid "Debug logging"
 msgstr ""
 
 #. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:13
+#, python-format
+msgid "Debug requests"
+msgstr ""
+
+#. module: delivery
 #: model:ir.ui.menu,name:delivery.menu_delivery
 msgid "Delivery"
-msgstr ""
+msgstr "การจัดส่ง"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_search
@@ -282,7 +295,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:delivery.field_res_users_property_delivery_carrier_id
 #: model:ir.model.fields,field_description:delivery.field_sale_order_carrier_id
 msgid "Delivery Method"
-msgstr ""
+msgstr "วิธีการจัดส่งสินค้า"
 
 #. module: delivery
 #: model:ir.actions.act_window,name:delivery.action_delivery_carrier_form
@@ -318,7 +331,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_product_id
 msgid "Delivery Product"
-msgstr ""
+msgstr "สินค้าจัดส่ง"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_sale_order_delivery_rating_success
@@ -336,9 +349,16 @@ msgid "Determine the display order"
 msgstr ""
 
 #. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:14
+#, python-format
+msgid "Disable debug"
+msgstr ""
+
+#. module: delivery
 #: model:ir.ui.view,arch_db:delivery.choose_delivery_package_view_form
 msgid "Discard"
-msgstr ""
+msgstr "ยกเลิก"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_choose_delivery_package_display_name
@@ -356,15 +376,28 @@ msgid ""
 msgstr ""
 
 #. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:16
+#, python-format
+msgid "Enable debug"
+msgstr ""
+
+#. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_prod_environment
 msgid "Environment"
 msgstr ""
 
 #. module: delivery
-#: code:addons/delivery/models/delivery_grid.py:50
 #: code:addons/delivery/models/delivery_grid.py:109
 #, python-format
 msgid "Error: no matching grid."
+msgstr ""
+
+#. module: delivery
+#: code:addons/delivery/models/delivery_carrier.py:206
+#: code:addons/delivery/models/delivery_grid.py:50
+#, python-format
+msgid "Error: this delivery method is not available for this address."
 msgstr ""
 
 #. module: delivery
@@ -388,9 +421,10 @@ msgstr ""
 #: selection:delivery.carrier,delivery_type:0
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_fixed_price
 msgid "Fixed Price"
-msgstr ""
+msgstr "ราคาคงที่"
 
 #. module: delivery
+#: model:delivery.carrier,name:delivery.free_delivery_carrier
 #: model:product.product,name:delivery.product_product_delivery
 #: model:product.template,name:delivery.product_product_delivery_product_template
 msgid "Free delivery charges"
@@ -473,7 +507,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_sale_order_line_is_delivery
 msgid "Is a Delivery"
-msgstr ""
+msgstr "เป็นการจัดส่ง"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_choose_delivery_package___last_update
@@ -519,7 +553,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_margin
 msgid "Margin"
-msgstr ""
+msgstr "อัตรากำไรขั้นต้น"
 
 #. module: delivery
 #: sql_constraint:delivery.carrier:0
@@ -556,7 +590,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_name
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_form
 msgid "Name"
-msgstr ""
+msgstr "ชื่อ"
 
 #. module: delivery
 #: selection:product.packaging,package_carrier_type:0
@@ -570,12 +604,20 @@ msgid "No carrier set for this order."
 msgstr ""
 
 #. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:15
+#, python-format
+msgid "No debug"
+msgstr ""
+
+#. module: delivery
 #: code:addons/delivery/models/delivery_grid.py:100
 #, python-format
 msgid "No price rule matching this order; delivery cost cannot be computed."
 msgstr ""
 
 #. module: delivery
+#: model:delivery.carrier,name:delivery.normal_delivery_carrier
 #: model:product.product,name:delivery.product_product_delivery_normal
 #: model:product.template,name:delivery.product_product_delivery_normal_product_template
 msgid "Normal Delivery Charges"
@@ -589,12 +631,12 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_operator
 msgid "Operator"
-msgstr ""
+msgstr "ผู้ปฏิบัติการ"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.choose_delivery_package_view_form
 msgid "Package"
-msgstr ""
+msgstr "หีบห่อ"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_product_packaging_shipper_package_code
@@ -611,17 +653,17 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_package_ids
 msgid "Packages"
-msgstr ""
+msgstr "หีบห่อ"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_product_packaging
 msgid "Packaging"
-msgstr ""
+msgstr "การบรรจุหีบห่อ"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_stock_move_line
 msgid "Packing Operation"
-msgstr ""
+msgstr "การดำเนินการการรับสินค้า"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_choose_delivery_package_stock_quant_package_id
@@ -631,7 +673,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model,name:delivery.model_stock_quant_package
 msgid "Physical Packages"
-msgstr ""
+msgstr "หีบห่อกายภาพ"
 
 #. module: delivery
 #: code:addons/delivery/models/sale_order.py:75
@@ -669,11 +711,18 @@ msgid "Product Template"
 msgstr "รูปแบบสินค้า"
 
 #. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:9
+#, python-format
+msgid "Production Environment"
+msgstr ""
+
+#. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_delivery_type
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_delivery_type
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_search
 msgid "Provider"
-msgstr ""
+msgstr "ผู้ให้บริการ"
 
 #. module: delivery
 #: selection:delivery.price.rule,variable:0
@@ -690,7 +739,7 @@ msgstr "ใบเสนอราคา"
 #. module: delivery
 #: model:ir.model,name:delivery.model_stock_return_picking
 msgid "Return Picking"
-msgstr ""
+msgstr "ส่งคืนการหยิบ"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_list_base_price
@@ -700,7 +749,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_list_price
 msgid "Sale Price"
-msgstr ""
+msgstr "ราคาขาย"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_sale_order_line
@@ -710,7 +759,7 @@ msgstr "รายการคำสั่งขาย"
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.choose_delivery_package_view_form
 msgid "Save"
-msgstr ""
+msgstr "บันทึก"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_picking_withcarrier_out_form
@@ -731,7 +780,7 @@ msgstr "กำหนดเลขที่เอกสาร"
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_order_form_with_carrier
 msgid "Set price"
-msgstr ""
+msgstr "ตั้งราคา"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_prod_environment
@@ -749,13 +798,19 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_carrier_price
 msgid "Shipping Cost"
-msgstr ""
+msgstr "ค่าใช้จ่ายในการจัดส่ง"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_choose_delivery_package_shipping_weight
 #: model:ir.model.fields,field_description:delivery.field_stock_quant_package_shipping_weight
 msgid "Shipping Weight"
-msgstr ""
+msgstr "น้ำหนักการจัดส่ง"
+
+#. module: delivery
+#: model:ir.ui.view,arch_db:delivery.report_package_barcode_delivery
+#: model:ir.ui.view,arch_db:delivery.report_package_barcode_small_delivery
+msgid "Shipping Weight:"
+msgstr "น้ำหนักจัดส่ง:"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_product_product_hs_code
@@ -766,14 +821,36 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_state_ids
 msgid "States"
-msgstr ""
+msgstr "จังหวัด"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_stock_move
 msgid "Stock Move"
+msgstr "ย้ายสต็อก"
+
+#. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:12
+#, python-format
+msgid "Switch to production environment"
 msgstr ""
 
 #. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:10
+#, python-format
+msgid "Switch to test environment"
+msgstr ""
+
+#. module: delivery
+#. flectra-web
+#: code:addons/delivery/static/src/js/delivery_translations.js:11
+#, python-format
+msgid "Test Environment"
+msgstr ""
+
+#. module: delivery
+#: model:delivery.carrier,name:delivery.delivery_carrier
 #: model:product.product,name:delivery.product_product_delivery_poste
 #: model:product.template,name:delivery.product_product_delivery_poste_product_template
 msgid "The Poste"
@@ -801,7 +878,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_picking_withcarrier_out_form
 msgid "Tracking"
-msgstr ""
+msgstr "การติดตาม"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_carrier_tracking_ref
@@ -816,7 +893,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model,name:delivery.model_stock_picking
 msgid "Transfer"
-msgstr ""
+msgstr "การโอน"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_weight_uom_id
@@ -832,12 +909,12 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_stock_picking_weight_uom_id
 msgid "Unit of measurement for Weight"
-msgstr ""
+msgstr "หน่วยวัดสำหรับน้ำหนัก"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_variable
 msgid "Variable"
-msgstr ""
+msgstr "ตัวแปล"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_variable_factor
@@ -849,7 +926,7 @@ msgstr ""
 #: selection:delivery.price.rule,variable_factor:0
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_volume
 msgid "Volume"
-msgstr ""
+msgstr "ปริมาตร"
 
 #. module: delivery
 #: selection:delivery.price.rule,variable:0
@@ -859,13 +936,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:delivery.field_stock_quant_package_weight
 #: model:ir.ui.view,arch_db:delivery.view_picking_withcarrier_out_form
 msgid "Weight"
-msgstr ""
+msgstr "น้ำหนัก"
 
 #. module: delivery
 #: selection:delivery.price.rule,variable:0
 #: selection:delivery.price.rule,variable_factor:0
 msgid "Weight * Volume"
-msgstr ""
+msgstr "น้ำหนัก * ปริมาตร"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_stock_move_weight_uom_id
@@ -875,6 +952,12 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_shipping_weight
 msgid "Weight for Shipping"
+msgstr ""
+
+#. module: delivery
+#: model:ir.ui.view,arch_db:delivery.report_package_barcode_delivery
+#: model:ir.ui.view,arch_db:delivery.report_package_barcode_small_delivery
+msgid "Weight:"
 msgstr ""
 
 #. module: delivery

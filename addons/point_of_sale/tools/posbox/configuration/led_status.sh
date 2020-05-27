@@ -6,7 +6,7 @@ set_brightness() {
 
 check_status_loop() {
     while true ; do
-	if wget --quiet localhost:8069/hw_proxy/hello -O /dev/null ; then
+	if wget --quiet localhost:7073/hw_proxy/hello -O /dev/null ; then
 	    set_brightness 255
 	else
 	    set_brightness 0

@@ -391,7 +391,7 @@ class Users(models.Model):
     @api.multi
     def unlink(self):
         if SUPERUSER_ID in self.ids:
-            raise UserError(_('You can not remove the admin user as it is used internally for resources created by Flectra (updates, module installation, ...)'))
+            raise UserError(_('You can not remove the admin user as it is used internally for resources created by Odoo (updates, module installation, ...)'))
         db = self._cr.dbname
         for id in self.ids:
             self.__uid_cache[db].pop(id, None)
@@ -875,9 +875,9 @@ class UsersView(models.Model):
         group_multi_company = self.env.ref('base.group_multi_company', False)
         if group_multi_company and 'company_ids' in values:
             if len(user.company_ids) <= 1 and user.id in group_multi_company.users.ids:
-                group_multi_company.write({'users': [(3, user.id)]})
+                user.write({'groups_id': [(3, group_multi_company.id)]})
             elif len(user.company_ids) > 1 and user.id not in group_multi_company.users.ids:
-                group_multi_company.write({'users': [(4, user.id)]})
+                user.write({'groups_id': [(4, group_multi_company.id)]})
         return user
 
     @api.multi
@@ -888,9 +888,9 @@ class UsersView(models.Model):
         if group_multi_company and 'company_ids' in values:
             for user in self:
                 if len(user.company_ids) <= 1 and user.id in group_multi_company.users.ids:
-                    group_multi_company.write({'users': [(3, user.id)]})
+                    user.write({'groups_id': [(3, group_multi_company.id)]})
                 elif len(user.company_ids) > 1 and user.id not in group_multi_company.users.ids:
-                    group_multi_company.write({'users': [(4, user.id)]})
+                    user.write({'groups_id': [(4, group_multi_company.id)]})
         return res
 
     def _remove_reified_groups(self, values):
