@@ -13,6 +13,32 @@ So, users can consider this **CHANGELOG** to find the differences between **Flec
 Introduction
 
 
+## [1.7.0] - Firecrown - 2020-05-29
+### Added
+
+- Upstream patches and Security Fixes
+- Allow admins to select chatter position (bottom or sidebar).
+- Allow enabling debug mode from environment variable FLECTRA_DEBUG_MODE
+
+### Fixes
+- #184 Inconsistent access to res.config.settings in multiple modules made only for flectra
+- #186 Error: ‘ir.mail_server’ object has no attribute ‘keep_days’ while selecting outgoing mail server in invoice template
+- #196 Unable to archive project
+- #217 Enhance and fix tests for default discount modules
+- #218 Helpdesk Stage: wrong security rule
+- #225 GitLab CI logic breaks building needed packages
+- #228 Checksum file size/check sum error on deb package 1.6.20200201
+- #230 Overlapping on multi line fields
+- #234 Debian archive InRelease hash mismatch; no packages since 03-19
+- #235 TypeError: required field "posonlyargs" missing from arguments
+- #238 Account cash rounding must be company specific
+- [FIX] website_sale wrong images displayed in products view
+- [FIX] rest_api when single database
+- [FIX] Use of negative qty in sale orders of stock products
+- [FIX] allow BOM with same template but different variants
+- [IMP] [Project.Task] Remove confusing priority field from the title.
+
+
 ## [1.6.0] - Firecrown - 2019-03-28
 ### Added
 

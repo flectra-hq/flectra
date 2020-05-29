@@ -5,7 +5,7 @@
 {
     'name': 'Base',
     'author': 'Odoo S.A',
-    'version': '1.6',
+    'version': '1.7',
     'category': 'Hidden',
     'description': """
 The kernel of Odoo, needed for all installation.
