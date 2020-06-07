@@ -107,7 +107,7 @@ class PurchaseOrder(models.Model):
     def _check_branch(self):
         for order in self:
             warehouse_branch_id = order.picking_type_id.warehouse_id.branch_id
-            if order.branch_id and warehouse_branch_id != order.branch_id:
+            if order.branch_id and order.picking_type_id.warehouse_id and warehouse_branch_id != order.branch_id:
                 raise ValidationError(
                     _('Configuration Error of Branch:\n'
                       'The Purchase Order Branch (%s) and '
