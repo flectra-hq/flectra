@@ -14,7 +14,7 @@ except ImportError:
                     "Install it to support more countries, for example with `easy_install vatnumber`.")
     vatnumber = None
 
-from flectra import api, models, _
+from flectra import api, models, tools, _
 from flectra.tools.misc import ustr
 from flectra.exceptions import ValidationError
 
