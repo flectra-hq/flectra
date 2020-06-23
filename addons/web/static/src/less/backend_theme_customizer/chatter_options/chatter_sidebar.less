@@ -1,4 +1,3 @@
-@screen-lg-max: 1534px;
 @media (min-width: @screen-lg-max) {
     .o_form_view {
         -webkit-flex-flow: row nowrap;
@@ -8,7 +7,7 @@
             -webkit-flex: 1 1 auto;
             flex: 1 1 auto;
             overflow: auto;
-            width: 66%;
+            width: 100%;
             padding: 0 16px;
         }
         .oe_chatter {
@@ -16,12 +15,17 @@
             -webkit-flex: 1 1 auto;
             flex: 1 1 auto;
             overflow: auto;
-            width: 33%;
+            width: 570px;
+            min-width: 570px;
             border-left: 1px solid @gray-lighter-darker;
         }
         .o_form_statusbar {
+            min-width: 100%;
             margin-left: -16px;
             margin-right: -16px;
+            h4 {
+                margin-left: 16px;
+            }
         }
     }
 }

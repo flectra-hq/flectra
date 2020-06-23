@@ -2,6 +2,7 @@ flectra.define('web.datepicker', function (require) {
 "use strict";
 
 var core = require('web.core');
+var config = require("web.config");
 var field_utils = require('web.field_utils');
 var time = require('web.time');
 var Widget = require('web.Widget');
@@ -12,14 +13,18 @@ var DateWidget = Widget.extend({
     template: "web.datepicker",
     type_of_date: "date",
     events: {
+        'dp.error': 'errorDatetime',
         'dp.change': 'changeDatetime',
+        'dp.hide': '_onHide',
         'dp.show': '_onShow',
+        'keydown': '_onKeydown',
+        'click input': '_onInputClicked',
         'change .o_datepicker_input': 'changeDatetime',
     },
     /**
      * @override
      */
-    init: function(parent, options) {
+    init: function (parent, options) {
         this._super.apply(this, arguments);
 
         this.name = parent.name;
@@ -42,21 +47,30 @@ var DateWidget = Widget.extend({
             keyBinds: null,
             widgetParent: 'body',
             useCurrent: false,
+            ignoreReadonly: true,
         });
+
+        // datepicker doesn't offer any elegant way to check whether the
+        // datepicker is open or not, so we have to listen to hide/show events
+        // and manually keep track of the 'open' state
+        this.__isOpen = false;
     },
     /**
      * @override
      */
-    start: function() {
+    start: function () {
         this.$input = this.$('input.o_datepicker_input');
         this.$input.datetimepicker(this.options);
         this.picker = this.$input.data('DateTimePicker');
-        this._setReadonly(false);
+        this._setReadonly(config.device.isMobile);
     },
     /**
      * @override
      */
-    destroy: function() {
+    destroy: function () {
+        if (this._onScroll) {
+            window.removeEventListener('wheel', this._onScroll, true);
+        }
         this.picker.destroy();
         this._super.apply(this, arguments);
     },
@@ -69,8 +83,8 @@ var DateWidget = Widget.extend({
      * set datetime value
      */
     changeDatetime: function () {
+        var oldValue = this.getValue();
         if (this.isValid()) {
-            var oldValue = this.getValue();
             this._setValueFromUi();
             var newValue = this.getValue();
             var hasChanged = !oldValue !== !newValue;
@@ -82,11 +96,26 @@ var DateWidget = Widget.extend({
                 }
             }
             if (hasChanged) {
-                // The condition is strangely written; this is because the
-                // values can be false/undefined
                 this.trigger("datetime_changed");
             }
+        } else {
+            var formattedValue = oldValue ? this._formatClient(oldValue) : null;
+            this.$input.val(formattedValue);
         }
+    },
+    /**
+     * Library clears the wrong date format so just ignore error
+     */
+    errorDatetime: function (e) {
+        return false;
+    },
+    /**
+     * Focuses the datepicker input. This function must be called in order to
+     * prevent 'input' events triggered by the lib to bubble up, and to cause
+     * unwanted effects (like triggering 'field_changed' events)
+     */
+    focus: function () {
+        this.$input.focus();
     },
     /**
      * @returns {Moment|false}
@@ -100,13 +129,13 @@ var DateWidget = Widget.extend({
      */
     isValid: function () {
         var value = this.$input.val();
-        if(value === "") {
+        if (value === "") {
             return true;
         } else {
             try {
                 this._parseClient(value);
                 return true;
-            } catch(e) {
+            } catch (e) {
                 return false;
             }
         }
@@ -156,7 +185,7 @@ var DateWidget = Widget.extend({
      *
      * @private
      */
-    _setValueFromUi: function() {
+    _setValueFromUi: function () {
         var value = this.$input.val() || false;
         this.setValue(this._parseClient(value));
     },
@@ -166,24 +195,67 @@ var DateWidget = Widget.extend({
     //--------------------------------------------------------------------------
 
     /**
-     * set the date of the picker by the current date or the today date
+     * Reacts to the datetimepicker being hidden
+     * Used to unbind the scroll event from the datetimepicker
+     *
+     * @private
+     */
+    _onHide: function () {
+        this.__isOpen = false;
+        this.changeDatetime();
+        if (this._onScroll) {
+            window.removeEventListener('wheel', this._onScroll, true);
+        }
+        this.changeDatetime();
+    },
+    /**
+     * Reacts to the datetimepicker being shown
+     * Could set/verify our widget value
+     * And subsequently update the datetimepicker
      *
      * @private
      */
     _onShow: function () {
-        //when opening datetimepicker the date and time by default should be the one from
-        //the input field if any or the current day otherwise
+        this.__isOpen = true;
         if(this.$input.val().length !== 0 && this.isValid()) {
             var value = this._parseClient(this.$input.val());
             this.picker.date(value);
             this.$input.select();
         }
+        var self = this;
+        this._onScroll = function (ev) {
+            if (ev.target !== self.$input.get(0)) {
+                self.picker.hide();
+            }
+        };
+        window.addEventListener('wheel', this._onScroll, true);
+    },
+    /**
+     * @private
+     * @param {KeyEvent} ev
+     */
+    _onKeydown: function (ev) {
+        if (ev.which === $.ui.keyCode.ESCAPE) {
+            if (this.__isOpen) {
+                // we don't want any other effects than closing the datepicker,
+                // like leaving the edition of a row in editable list view
+                ev.stopImmediatePropagation();
+                this.picker.hide();
+            }
+        }
+    },
+    /**
+     * @private
+     */
+    _onInputClicked: function () {
+        this.picker.toggle();
+        this.focus();
     },
 });
 
 var DateTimeWidget = DateWidget.extend({
     type_of_date: "datetime",
-    init: function() {
+    init: function () {
         this._super.apply(this, arguments);
         this.options = _.defaults(this.options, {
             showClose: true,
