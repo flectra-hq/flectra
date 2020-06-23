@@ -2,7 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from lxml import etree
-from datetime import date
+from datetime import date, timedelta
 from flectra import api, fields, models, tools, SUPERUSER_ID, _
 from flectra.exceptions import UserError, AccessError, ValidationError
 from flectra.tools.safe_eval import safe_eval
