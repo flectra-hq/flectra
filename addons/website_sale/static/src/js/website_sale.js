@@ -349,7 +349,7 @@ flectra.define('website_sale.website_sale', function (require) {
                 }
             }
             else {
-                $img = $(event_source).closest('tr.js_product, .oe_website_sale').find('span[data-oe-model^="product."][data-oe-type="image"] img:first, img.product_detail_img');
+                $img = $(event_source).closest('tr.js_product, .oe_website_sale').find('span[data-oe-model^="product."][data-oe-type="image"] img.product_detail_img');
                 $img.attr("src", "/web/image/product.product/" + product_id + "/image");
                 $img.parent().attr('data-oe-model', 'product.product').attr('data-oe-id', product_id)
                     .data('oe-model', 'product.product').data('oe-id', product_id);
