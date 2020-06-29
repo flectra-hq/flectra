@@ -30,6 +30,12 @@ RUN npm install -g less less-plugin-clean-css -y
 RUN curl -SsLO https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb && \
     apt-get install -f ./wkhtmltox_0.12.5-1.bionic_amd64.deb
 
+# Replace wkhtmltopdf 0.12.5 with 0.12.4 because of memory problems with 0.12.5 :-((
+RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
+    tar xvf ./wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
+    mv wkhtmltox/bin/wkhtmlto* /usr/bin/ && \
+    ln -nfs /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
+
 # install CI tools
 RUN pip3 install coverage coveralls codecov simplejson pyserial pyyaml unittest2 pyopenssl>=16.2.0 \
                  validate_email zpl2 unidecode shapely-geojson simplejson shapely geojson unidecode \
