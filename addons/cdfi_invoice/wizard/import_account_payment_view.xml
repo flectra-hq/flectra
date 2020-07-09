@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data>
+        
+        <record id="view_import_xml_payment_in_payment_form_view" model="ir.ui.view">
+            <field name="name">Import XML Payment Form from Payment Form Button</field>
+            <field name="model">import.account.payment.from.xml</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <form string="Importar CEP">
+                	<group>
+                		<field name="import_file" required="1" filename="file_name"/>
+                		<field name="file_name" invisible="1"/>
+                		<field name="payment_id" invisible="1"/>
+                	</group>
+                	<footer>
+                        <button name="import_xml_file_button" string="Importar" type="object" class="oe_highlight"/> 
+                        <button string="Cancelar" class="oe_highlight" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        
+    </data>
+</flectra> 
