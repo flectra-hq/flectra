@@ -415,10 +415,10 @@ class Task(models.Model):
     name = fields.Char(string='Task Title', track_visibility='always', required=True, index=True)
     description = fields.Html(string='Description')
     priority = fields.Selection([
-        ('l', 'Low'),
-        ('m', 'Medium'),
-        ('h', 'High')
-        ], default='l', index=True, string="Priority")
+        ('2', 'Low'),
+        ('1', 'Medium'),
+        ('0', 'High')
+        ], default='2', index=True, string="Priority")
     sequence = fields.Integer(string='Sequence', index=True, default=10,
         help="Gives the sequence order when displaying a list of tasks.")
     stage_id = fields.Many2one('project.task.type', string='Stage', track_visibility='onchange', index=True,
@@ -506,9 +506,9 @@ class Task(models.Model):
     def task_deadline(self):
         if self.project_id and self.priority:
             days = 0
-            if self.priority == "l":
+            if self.priority == "2":
                 days = int(self.project_id.low)
-            elif self.priority == "m":
+            elif self.priority == "1":
                 days = int(self.project_id.medium)
             else:
                 days = int(self.project_id.high)

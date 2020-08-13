@@ -121,8 +121,8 @@ class Location(models.Model):
                     _('Configuration Error of Branch:\n'
                       'The Location Branch (%s) and '
                       'the Branch (%s) of Parent Location must '
-                      'be the same branch!') % (recordord.branch_id.name,
-                                                recordord.location_id.branch_id.name)
+                      'be the same branch!') % (record.branch_id.name,
+                                                record.location_id.branch_id.name)
                 )
 
     @api.multi
