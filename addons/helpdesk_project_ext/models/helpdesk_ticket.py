@@ -21,7 +21,7 @@ class HelpdeskTicket(models.Model):
                 'description':
                     self.name or '' + '<br/>' + self.description or '',
                 'user_id': user and user.id or False,
-                'priority': 'l',
+                'priority': '2',
                 }
         config_data = self.env['res.config.settings'].sudo().get_values()
         if config_data.get('use_project'):
