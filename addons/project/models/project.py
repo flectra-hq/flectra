@@ -382,7 +382,7 @@ class Task(models.Model):
     _date_name = "date_start"
     _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin', 'ir.branch.company.mixin']
     _mail_post_access = 'read'
-    _order = "priority desc, sequence, id desc"
+    _order = "priority, sequence, id desc"
 
     def _get_default_partner(self):
         if 'default_project_id' in self.env.context:
