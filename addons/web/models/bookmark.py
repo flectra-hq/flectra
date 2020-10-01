@@ -43,6 +43,8 @@ class MenuBookmark(models.Model):
 
     @api.multi
     def is_bookmark(self, menu_id):
+        if not menu_id:
+            return False
         menu = self.env['ir.ui.menu'].browse(int(menu_id))
         if (menu and menu.action):
             rec = self.sudo().search(
