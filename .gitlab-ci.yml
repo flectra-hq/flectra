@@ -43,6 +43,11 @@ variables:
     - name: postgres:12-alpine
       alias: postgres12
 
+.psql13:template:
+  services: &psql13_definition
+    - name: postgres:13-alpine
+      alias: postgres13
+
 .unittest:template: &unittest_definition
   image: ${UBUNTU_BASE_IMAGE}:latest
   stage: unittest
@@ -129,12 +134,34 @@ test:pg11_all:
     - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres11"
 
+test:pg12_base:
+  <<: *unittest_definition
+  services: *psql12_definition
+  script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres12"
+
 test:pg12_all:
   <<: *unittest_definition
   services: *psql12_definition
   script:
     - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres12"
+
+test:pg13_base:
+  <<: *unittest_definition
+  services: *psql13_definition
+  script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres13"
+
+test:pg13_all:
+  <<: *unittest_definition
+  services: *psql13_definition
+  script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres13"
+
 #--------------------------------------------------------------------
 # Jobs of stage build
 #--------------------------------------------------------------------
