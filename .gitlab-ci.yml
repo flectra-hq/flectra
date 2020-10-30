@@ -175,6 +175,8 @@ itest:ubuntu_pg11_all:
 build:flectra_ubuntu_dev:
   <<: *build_definition
   stage: builddev
+  needs:
+    - itest:ubuntu_pg10_all
   only:
     - tags
   script:
@@ -194,6 +196,8 @@ build:flectra_ubuntu_dev:
 deploy:flectra_gitlab:
   <<: *build_definition
   stage: deploy
+  needs:
+    - build:flectra_ubuntu_dev
   only:
     - tags
   script:
@@ -207,6 +211,8 @@ deploy:flectra_gitlab:
 deploy:flectradev_gitlab:
   <<: *build_definition
   stage: deploy
+  needs:
+    - itest:ubuntu_pg10_all
   only:
     - tags
   script:
@@ -220,6 +226,8 @@ deploy:flectradev_gitlab:
 deploy:flectra_dockerhub:
   <<: *build_definition
   stage: deploy
+  needs:
+    - itest:ubuntu_pg10_all
   only:
     - tags
   script:
