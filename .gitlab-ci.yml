@@ -2,7 +2,6 @@ stages:
   - unittest
   - build
   - integrationtest
-  - builddev
   - deploy
   - package
 
@@ -38,6 +37,11 @@ variables:
   services: &psql11_definition
     - name: postgres:11-alpine
       alias: postgres11
+
+.psql12:template:
+  services: &psql12_definition
+    - name: postgres:12-alpine
+      alias: postgres12
 
 .unittest:template: &unittest_definition
   image: ${UBUNTU_BASE_IMAGE}:latest
@@ -125,6 +129,12 @@ test:pg11_all:
     - cp -rp requirements.txt setup/docker/requirements.txt
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres11"
 
+test:pg12_all:
+  <<: *unittest_definition
+  services: *psql12_definition
+  script:
+    - cp -rp requirements.txt setup/docker/requirements.txt
+    - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --host=postgres12"
 #--------------------------------------------------------------------
 # Jobs of stage build
 #--------------------------------------------------------------------
@@ -169,27 +179,13 @@ itest:ubuntu_pg11_all:
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres11
 
-#--------------------------------------------------------------------
-# Jobs of stage builddev
-#--------------------------------------------------------------------
-build:flectra_ubuntu_dev:
-  <<: *build_definition
-  stage: builddev
-  needs:
-    - itest:ubuntu_pg10_all
-  only:
-    - tags
+itest:ubuntu_pg12_all:
+  <<: *integrationtest_definition
+  services: *psql12_definition
+  image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
-    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
-    - docker pull ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA || true
-    - docker build --cache-from ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
-      --build-arg BASE_IMAGE=${UBUNTU_FLECTRA_IMAGE}
-      --build-arg BASE_TAG=${CI_COMMIT_SHA}
-      --file ./setup/docker/flectra/dev/Dockerfile
-      --tag ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_SHA
-      ./setup/docker/
-    - docker push ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_SHA
-
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres12
+    -
 #--------------------------------------------------------------------
 # Jobs of stage deploy
 #--------------------------------------------------------------------
@@ -197,7 +193,7 @@ deploy:flectra_gitlab:
   <<: *build_definition
   stage: deploy
   needs:
-    - build:flectra_ubuntu_dev
+    - itest:ubuntu_pg10_all
   only:
     - tags
   script:
@@ -207,21 +203,6 @@ deploy:flectra_gitlab:
     - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTU_FLECTRA_IMAGE}:latest
     - docker push ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_TAG
     - docker push ${UBUNTU_FLECTRA_IMAGE}:latest
-
-deploy:flectradev_gitlab:
-  <<: *build_definition
-  stage: deploy
-  needs:
-    - itest:ubuntu_pg10_all
-  only:
-    - tags
-  script:
-    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
-    - docker pull ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_SHA
-    - docker tag ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_TAG
-    - docker tag ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTUDEV_FLECTRA_IMAGE}:latest
-    - docker push ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_TAG
-    - docker push ${UBUNTUDEV_FLECTRA_IMAGE}:latest
 
 deploy:flectra_dockerhub:
   <<: *build_definition
