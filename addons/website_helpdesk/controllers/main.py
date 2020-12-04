@@ -37,9 +37,10 @@ class HelpdeskTicket(http.Controller):
         helpdesk_team = request.env["helpdesk.team"].sudo().search([('issue_type_ids', 'in',
                                                   ticket.issue_type_id.id)])
         for team_id in helpdesk_team:
+            stage_id = team_id.stage_ids[0]
             ticket.update({
                 'team_id': team_id.id,
-                'stage_id': request.env.ref('helpdesk_basic.helpdesk_stage_draft')
+                'stage_id': stage_id.id
             })
             if request.env.user.partner_id:
                 ticket.partner_id = request.env.user.partner_id or False
