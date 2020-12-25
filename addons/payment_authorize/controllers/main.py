@@ -3,9 +3,9 @@ import pprint
 import logging
 from werkzeug import urls, utils
 
-from flectra import http
+from flectra import http, _
 from flectra.http import request
-from flectra.exceptions import ValidationError
+from flectra.exceptions import ValidationError, UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -20,31 +20,21 @@ class AuthorizeController(http.Controller):
     ], type='http', auth='public', csrf=False)
     def authorize_form_feedback(self, **post):
         _logger.info('Authorize: entering form_feedback with post data %s', pprint.pformat(post))
-        return_url = '/'
         if post:
             request.env['payment.transaction'].sudo().form_feedback(post, 'authorize')
-            return_url = post.pop('return_url', '/')
         base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
         # Authorize.Net is expecting a response to the POST sent by their server.
         # This response is in the form of a URL that Authorize.Net will pass on to the
         # client's browser to redirect them to the desired location need javascript.
         return request.render('payment_authorize.payment_authorize_redirect', {
-            'return_url': urls.url_join(base_url, return_url)
+            'return_url': urls.url_join(base_url, "/payment/process")
         })
-
-    @http.route(['/payment/authorize/s2s/create_json'], type='json', auth='public')
-    def authorize_s2s_create_json(self, **kwargs):
-        acquirer_id = int(kwargs.get('acquirer_id'))
-        acquirer = request.env['payment.acquirer'].browse(acquirer_id)
-        if not kwargs.get('partner_id'):
-            kwargs = dict(kwargs, partner_id=request.env.user.partner_id.id)
-        return acquirer.s2s_process(kwargs).id
 
     @http.route(['/payment/authorize/s2s/create_json_3ds'], type='json', auth='public', csrf=False)
     def authorize_s2s_create_json_3ds(self, verify_validity=False, **kwargs):
         token = False
         acquirer = request.env['payment.acquirer'].browse(int(kwargs.get('acquirer_id')))
-        
+
         try:
             if not kwargs.get('partner_id'):
                 kwargs = dict(kwargs, partner_id=request.env.user.partner_id.id)
@@ -52,18 +42,22 @@ class AuthorizeController(http.Controller):
         except ValidationError as e:
             message = e.args[0]
             if isinstance(message, dict) and 'missing_fields' in message:
-                msg = _("The transaction cannot be processed because some contact details are missing or invalid: ")
-                message = msg + ', '.join(message['missing_fields']) + '. '
                 if request.env.user._is_public():
-                    message += _("Please sign in to complete your profile.")
+                    message = _("Please sign in to complete the payment.")
                     # update message if portal mode = b2b
                     if request.env['ir.config_parameter'].sudo().get_param('auth_signup.allow_uninvited', 'False').lower() == 'false':
-                        message += _("If you don't have any account, please ask your salesperson to update your profile. ")
+                        message += _(" If you don't have any account, ask your salesperson to grant you a portal access. ")
                 else:
+                    msg = _("The transaction cannot be processed because some contact details are missing or invalid: ")
+                    message = msg + ', '.join(message['missing_fields']) + '. '
                     message += _("Please complete your profile. ")
 
             return {
                 'error': message
+            }
+        except UserError as e:
+            return {
+                'error': e.args[0],
             }
 
         if not token:
@@ -92,4 +86,4 @@ class AuthorizeController(http.Controller):
         acquirer_id = int(post.get('acquirer_id'))
         acquirer = request.env['payment.acquirer'].browse(acquirer_id)
         acquirer.s2s_process(post)
-        return utils.redirect(post.get('return_url', '/'))
+        return utils.redirect("/payment/process")

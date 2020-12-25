@@ -5,49 +5,26 @@
 
 from collections import defaultdict
 import glob
+import importlib.util
 import logging
 import os
 from os.path import join as opj
 
 from flectra.modules.module import get_resource_path
 import flectra.release as release
-import flectra.tools as tools
+import flectra.upgrade
 from flectra.tools.parse_version import parse_version
-from flectra.tools import pycompat
-
-if pycompat.PY2:
-    import imp
-    def load_script(path, module_name):
-        fp, fname = tools.file_open(path, pathinfo=True)
-        fp2 = None
-
-        # pylint: disable=file-builtin,undefined-variable
-        if not isinstance(fp, file):
-            # imp.load_source need a real file object, so we create
-            # one from the file-like object we get from file_open
-            fp2 = os.tmpfile()
-            fp2.write(fp.read())
-            fp2.seek(0)
-
-        try:
-            return imp.load_source(module_name, fname, fp2 or fp)
-        finally:
-            if fp:
-                fp.close()
-            if fp2:
-                fp2.close()
-
-else:
-    import importlib.util
-    def load_script(path, module_name):
-        full_path = get_resource_path(*path.split(os.path.sep))
-        spec = importlib.util.spec_from_file_location(module_name, full_path)
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        return module
-
 
 _logger = logging.getLogger(__name__)
+
+
+def load_script(path, module_name):
+    full_path = get_resource_path(*path.split(os.path.sep)) if not os.path.isabs(path) else path
+    spec = importlib.util.spec_from_file_location(module_name, full_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
 
 class MigrationManager(object):
     """
@@ -85,6 +62,13 @@ class MigrationManager(object):
         self._get_files()
 
     def _get_files(self):
+        def _get_upgrade_path(pkg):
+            for path in flectra.upgrade.__path__:
+                upgrade_path = opj(path, pkg)
+                if os.path.exists(upgrade_path):
+                    return upgrade_path
+            return None
+
         def get_scripts(path):
             if not path:
                 return {}
@@ -101,7 +85,8 @@ class MigrationManager(object):
 
             self.migrations[pkg.name] = {
                 'module': get_scripts(get_resource_path(pkg.name, 'migrations')),
-                'maintenance': get_scripts(get_resource_path('base', 'maintenance', 'migrations', pkg.name)),
+                'module_upgrades': get_scripts(get_resource_path(pkg.name, 'upgrades')),
+                'upgrade': get_scripts(_get_upgrade_path(pkg.name)),
             }
 
     def migrate_module(self, pkg, stage):
@@ -145,8 +130,13 @@ class MigrationManager(object):
 
             mapping = {
                 'module': opj(pkg.name, 'migrations'),
-                'maintenance': opj('base', 'maintenance', 'migrations', pkg.name),
+                'module_upgrades': opj(pkg.name, 'upgrades'),
             }
+
+            for path in flectra.upgrade.__path__:
+                if os.path.exists(opj(path, pkg.name)):
+                    mapping['upgrade'] = opj(path, pkg.name)
+                    break
 
             for x in mapping:
                 if version in m.get(x):

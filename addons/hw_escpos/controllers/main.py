@@ -18,10 +18,7 @@ try:
 except ImportError:
     escpos = printer = None
 
-try:
-    from queue import Queue
-except ImportError:
-    from Queue import Queue # pylint: disable=deprecated-module
+from queue import Queue
 from threading import Thread, Lock
 
 try:
@@ -30,9 +27,7 @@ except ImportError:
     usb = None
 
 from flectra import http, _
-from flectra.addons.hw_proxy.controllers import main as hw_proxy
-
-from uuid import getnode as get_mac
+from flectra.addons.hw_drivers.controllers import proxy
 
 _logger = logging.getLogger(__name__)
 
@@ -83,7 +78,7 @@ class EscposDriver(Thread):
 
         for printer in printers:
             try:
-                description = usb.util.get_string(printer, 256, printer.iManufacturer) + " " + usb.util.get_string(printer, 256, printer.iProduct)
+                description = usb.util.get_string(printer, printer.iManufacturer) + " " + usb.util.get_string(printer, printer.iProduct)
             except Exception as e:
                 _logger.error("Can not get printer description: %s" % e)
                 description = 'Unknown printer'
@@ -97,7 +92,7 @@ class EscposDriver(Thread):
 
     def lockedstart(self):
         with self.lock:
-            if not self.isAlive():
+            if not self.is_alive():
                 self.daemon = True
                 self.start()
     
@@ -105,7 +100,14 @@ class EscposDriver(Thread):
   
         printers = self.connected_usb_devices()
         if len(printers) > 0:
-            print_dev = Usb(printers[0]['vendor'], printers[0]['product'])
+            try:
+                print_dev = Usb(printers[0]['vendor'], printers[0]['product'])
+            except HandleDeviceError:
+                # Escpos printers are now integrated to PrinterDriver, if the IoTBox is printing
+                # through Cups at the same time, we get an USBError(16, 'Resource busy'). This means
+                # that the Flectra instance connected to this IoTBox is up to date and no longer uses
+                # this escpos library.
+                return None
             self.set_status(
                 'connected',
                 "Connected to %s (in=0x%02x,out=0x%02x)" % (printers[0]['name'], print_dev.in_ep, print_dev.out_ep)
@@ -168,8 +170,6 @@ class EscposDriver(Thread):
                 elif task == 'cashbox':
                     if timestamp >= time.time() - 12:
                         self.open_cashbox(printer)
-                elif task == 'printstatus':
-                    self.print_status(printer)
                 elif task == 'status':
                     pass
                 error = False
@@ -177,67 +177,25 @@ class EscposDriver(Thread):
             except NoDeviceError as e:
                 print("No device found %s" % e)
             except HandleDeviceError as e:
+                printer = None
                 print("Impossible to handle the device due to previous error %s" % e)
             except TicketNotPrinted as e:
                 print("The ticket does not seems to have been fully printed %s" % e)
             except NoStatusError as e:
                 print("Impossible to get the status of the printer %s" % e)
             except Exception as e:
-                self.set_status('error', e)
-                _logger.exception()
+                self.set_status('error')
+                _logger.exception(e)
             finally:
                 if error:
                     self.queue.put((timestamp, task, data))
                 if printer:
                     printer.close()
+                    printer = None
 
     def push_task(self,task, data = None):
         self.lockedstart()
         self.queue.put((time.time(),task,data))
-
-    def print_status(self,eprint):
-        localips = ['0.0.0.0','127.0.0.1','127.0.1.1']
-        hosting_ap = os.system('pgrep hostapd') == 0
-        ssid = subprocess.check_output('iwconfig 2>&1 | grep \'ESSID:"\' | sed \'s/.*"\\(.*\\)"/\\1/\'', shell=True).decode('utf-8').rstrip()
-        mac = get_mac()
-        h = iter(hex(mac)[2:].zfill(12))
-        mac = ":".join(i + next(h) for i in h)
-        interfaces = ni.interfaces()
-        ips = []
-        for iface_id in interfaces:
-            iface_obj = ni.ifaddresses(iface_id)
-            ifconfigs = iface_obj.get(ni.AF_INET, [])
-            for conf in ifconfigs:
-                if conf.get('addr'):
-                    ips.append(conf.get('addr'))
-        eprint.text('\n\n')
-        eprint.set(align='center',type='b',height=2,width=2)
-        eprint.text('PosBox Status\n')
-        eprint.text('\n')
-        eprint.set(align='center')
-
-        if hosting_ap:
-            eprint.text('Wireless network:\nPosbox\n\n')
-        elif ssid:
-            eprint.text('Wireless network:\n' + ssid + '\n\n')
-
-        if len(ips) == 0:
-            eprint.text('ERROR: Could not connect to LAN\n\nPlease check that the PosBox is correc-\ntly connected with a network cable,\n that the LAN is setup with DHCP, and\nthat network addresses are available')
-        elif len(ips) == 1:
-            eprint.text('IP Address:\n'+ips[0]+'\n')
-        else:
-            eprint.text('IP Addresses:\n')
-            for ip in ips:
-                eprint.text(ip+'\n')
-
-        if len(ips) >= 1:
-            ips_filtered = [i for i in ips if i != '127.0.0.1']
-            main_ips = ips_filtered and ips_filtered[0] or '127.0.0.1'
-            eprint.text('\nMAC Address:\n' + str(mac) + '\n')
-            eprint.text('\nHomepage:\nhttp://' + main_ips + ':7073\n')
-
-        eprint.text('\n\n')
-        eprint.cut()
 
     def print_receipt_body(self,eprint,receipt):
 
@@ -307,13 +265,13 @@ class EscposDriver(Thread):
         eprint.set(align='center')
         for line in receipt['orderlines']:
             pricestr = price(line['price_display'])
-            if line['discount'] == 0 and line['unit_name'] == 'Unit(s)' and line['quantity'] == 1:
+            if line['discount'] == 0 and line['unit_name'] == 'Units' and line['quantity'] == 1:
                 eprint.text(printline(line['product_name'],pricestr,ratio=0.6))
             else:
                 eprint.text(printline(line['product_name'],ratio=0.6))
                 if line['discount'] != 0:
                     eprint.text(printline('Discount: '+str(line['discount'])+'%', ratio=0.6, indent=2))
-                if line['unit_name'] == 'Unit(s)':
+                if line['unit_name'] == 'Units':
                     eprint.text( printline( quantity(line['quantity']) + ' x ' + price(line['price']), pricestr, ratio=0.6, indent=2))
                 else:
                     eprint.text( printline( quantity(line['quantity']) + line['unit_name'] + ' x ' + price(line['price']), pricestr, ratio=0.6, indent=2))
@@ -365,11 +323,10 @@ class EscposDriver(Thread):
 
 driver = EscposDriver()
 
-driver.push_task('printstatus')
+proxy.proxy_drivers['escpos'] = driver
 
-hw_proxy.drivers['escpos'] = driver
 
-class EscposProxy(hw_proxy.Proxy):
+class EscposProxy(proxy.ProxyController):
     
     @http.route('/hw_proxy/open_cashbox', type='json', auth='none', cors='*')
     def open_cashbox(self):

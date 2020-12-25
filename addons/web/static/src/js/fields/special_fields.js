@@ -4,9 +4,11 @@ flectra.define('web.special_fields', function (require) {
 var core = require('web.core');
 var field_utils = require('web.field_utils');
 var relational_fields = require('web.relational_fields');
+var AbstractField = require('web.AbstractField');
 
 var FieldSelection = relational_fields.FieldSelection;
 var _t = core._t;
+var _lt = core._lt;
 
 
 /**
@@ -50,7 +52,7 @@ var FieldTimezoneMismatch = FieldSelection.extend({
      * @private
      */
     _renderDateTimeTimezone: function () {
-        if (!this.mismatch) {
+        if (!this.mismatch || !this.$option.html()) {
             return;
         }
         var offset = this.recordData.tz_offset.match(/([+-])([0-9]{2})([0-9]{2})/);
@@ -62,7 +64,7 @@ var FieldTimezoneMismatch = FieldSelection.extend({
     },
     /**
      * Display the timezone alert
-     * 
+     *
      * Note: timezone alert is a span that is added after $el, and $el is now a
      * set of two elements
      *
@@ -73,8 +75,9 @@ var FieldTimezoneMismatch = FieldSelection.extend({
         this.$el.last().filter('.o_tz_warning').remove();
         this.$el = this.$el.first();
         var value = this.$el.val();
+        var $span = $('<span class="fa fa-exclamation-triangle o_tz_warning"/>');
 
-        if (this.$option) {
+        if (this.$option && this.$option.html()) {
             this.$option.html(this.$option.html().split(' ')[0]);
         }
 
@@ -89,21 +92,171 @@ var FieldTimezoneMismatch = FieldSelection.extend({
         }
 
         if (this.mismatch){
-            var $span = $('<span class="fa fa-exclamation-triangle o_tz_warning"/>');
             $span.insertAfter(this.$el);
-            $span.attr('title', _t("Timezone Mismatch : The timezone of your browser doesn't match the selected one. The time in Flectra is displayed according to your field timezone."));
+            $span.attr('title', _t("Timezone Mismatch : This timezone is different from that of your browser.\nPlease, set the same timezone as your browser's to avoid time discrepancies in your system."));
             this.$el = this.$el.add($span);
 
             this.$option = this.$('option').filter(function () {
                 return $(this).attr('value') === value;
             });
             this._renderDateTimeTimezone();
+        } else if (value == "false") {
+            $span.insertAfter(this.$el);
+            $span.attr('title', _t("Set a timezone on your user"));
+            this.$el = this.$el.add($span);
         }
+    },
+    /**
+     * @override
+     * @private
+     * this.$el can have other elements than select
+     * that should not be touched
+     */
+    _renderEdit: function () {
+        // FIXME: hack to handle multiple root elements
+        // in this.$el , which is a bad idea
+        // In master we should make this.$el a wrapper
+        // around multiple subelements
+        var $otherEl = this.$el.not('select');
+        this.$el = this.$el.first();
+
+        this._super.apply(this, arguments);
+
+        $otherEl.insertAfter(this.$el);
+        this.$el = this.$el.add($otherEl);
     },
 });
 
+var FieldReportLayout = relational_fields.FieldMany2One.extend({
+    // this widget is not generic, so we disable its studio use
+    // supportedFieldTypes: ['many2one', 'selection'],
+    events: _.extend({}, relational_fields.FieldMany2One.prototype.events, {
+        'click img': '_onImgClicked',
+    }),
+
+    willStart: function () {
+        var self = this;
+        this.previews = {};
+        return this._super()
+            .then(function () {
+                return self._rpc({
+                    model: 'report.layout',
+                    method: "search_read"
+                }).then(function (values) {
+                    self.previews = values;
+                });
+            });
+    },
+
+    //--------------------------------------------------------------------------
+    // Private
+    //--------------------------------------------------------------------------
+
+    /**
+     * @override
+     * @private
+     */
+    _render: function () {
+        var self = this;
+        this.$el.empty();
+        var value = _.isObject(this.value) ? this.value.data.id : this.value;
+        _.each(this.previews, function (val) {
+            var $container = $('<div>').addClass('col-3 text-center');
+            var $img = $('<img>')
+                .addClass('img img-fluid img-thumbnail ml16')
+                .toggleClass('btn-info', val.view_id[0] === value)
+                .attr('src', val.image)
+                .data('key', val.view_id[0]);
+            $container.append($img);
+            if (val.pdf) {
+                var $previewLink = $('<a>')
+                    .text('Example')
+                    .attr('href', val.pdf)
+                    .attr('target', '_blank');
+                $container.append($previewLink);
+            }
+            self.$el.append($container);
+        });
+    },
+
+    //--------------------------------------------------------------------------
+    // Handlers
+    //--------------------------------------------------------------------------
+
+    /**
+     * @override
+     * @private
+     * @param {MouseEvent} event
+     */
+    _onImgClicked: function (event) {
+        this._setValue($(event.currentTarget).data('key'));
+    },
+});
+
+
+const IframeWrapper = AbstractField.extend({
+    description: _lt("Wrap raw html within an iframe"),
+
+    // If HTML, don't forget to adjust the sanitize options to avoid stripping most of the metadata
+    supportedFieldTypes: ['text', 'html'],
+
+    template: "web.IframeWrapper",
+
+    _render() {
+
+        const spinner = this.el.querySelector('.o_iframe_wrapper_spinner');
+        const iframe = this.el.querySelector('.o_preview_iframe');
+
+        iframe.style.display = 'none';
+        spinner.style.display = 'block';
+
+        // Promise for tests
+        let resolver;
+        $(iframe).data('ready', new Promise((resolve) => {
+            resolver = resolve;
+        }));
+
+        /**
+         * Certain browser don't trigger onload events of iframe for particular cases.
+         * In our case, chrome and safari could be problematic depending on version and environment.
+         * This rather unorthodox solution replace the onload event handler. (jquery on('load') doesn't fix it)
+         */
+        const onloadReplacement = setInterval(() => {
+            const iframeDoc = iframe.contentDocument;
+            if (iframeDoc && (iframeDoc.readyState === 'complete' || iframeDoc.readyState === 'interactive')) {
+
+                /**
+                 * The document.write is not recommended. It is better to manipulate the DOM through $.appendChild and
+                 * others. In our case though, we deal with an iframe without src attribute and with metadata to put in
+                 * head tag. If we use the usual dom methods, the iframe is automatically created with its document
+                 * component containing html > head & body. Therefore, if we want to make it work that way, we would
+                 * need to receive each piece at a time to  append it to this document (with this.record.data and extra
+                 * model fields or with an rpc). It also cause other difficulties getting attribute on the most parent
+                 * nodes, parsing to HTML complex elements, etc.
+                 * Therefore, document.write makes it much more trivial in our situation.
+                 */
+                iframeDoc.open();
+                iframeDoc.write(this.value);
+                iframeDoc.close();
+
+                iframe.style.display = 'block';
+                spinner.style.display = 'none';
+
+                resolver();
+
+                clearInterval(onloadReplacement);
+            }
+        }, 100);
+
+    }
+
+});
+
+
 return {
     FieldTimezoneMismatch: FieldTimezoneMismatch,
+    FieldReportLayout: FieldReportLayout,
+    IframeWrapper,
 };
 
 });

@@ -1,24 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * sale_crm
+# 	* sale_crm
 # 
 # Translators:
-# Wolfgang Taferner, 2017
-# Martin Trigaux, 2017
-# darenkster <inactive+darenkster@transifex.com>, 2017
-# Ermin Trevisan <trevi@twanda.com>, 2017
-# JackTheHunter <Maximilian.N98@gmail.com>, 2017
-# key six <mobile.umts@gmail.com>, 2017
-# Malte Jansen <work@maltejansen.de>, 2017
-# e2f <projects@e2f.com>, 2018
-# Katharina Moritz <kmo@e2f.com>, 2018
+# Martin Trigaux, 2020
+# Leon Grill <leg@odoo.com>, 2020
+# Christian Mahlich <c.mahlich@gmail.com>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server saas~13.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 09:53+0000\n"
-"PO-Revision-Date: 2017-09-20 09:53+0000\n"
-"Last-Translator: Katharina Moritz <kmo@e2f.com>, 2018\n"
+"POT-Creation-Date: 2020-04-21 10:46+0000\n"
+"PO-Revision-Date: 2020-09-07 08:18+0000\n"
+"Last-Translator: Christian Mahlich <c.mahlich@gmail.com>, 2020\n"
 "Language-Team: German (https://www.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,24 +22,84 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: sale_crm
-#: model:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "<span class=\"o_stat_text\"> Orders</span>"
 msgstr "<span class=\"o_stat_text\"> Aufträge</span>"
 
 #. module: sale_crm
-#: model:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
-msgid "<span class=\"o_stat_text\"> Quotation(s) </span>"
-msgstr "<span class=\"o_stat_text\">Angebot(e)</span>"
+#: model:ir.model.fields,field_description:sale_crm.field_crm_quotation_partner__lead_id
+msgid "Associated Lead"
+msgstr ""
 
 #. module: sale_crm
-#: model:ir.model,name:sale_crm.model_account_invoice
-msgid "Invoice"
-msgstr "Rechnung"
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_quotation_partner_view_form
+msgid "Cancel"
+msgstr "Abbrechen"
 
 #. module: sale_crm
-#: model:ir.model.fields,field_description:sale_crm.field_res_users_target_sales_invoiced
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_quotation_partner_view_form
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#. module: sale_crm
+#: model:ir.model.fields.selection,name:sale_crm.selection__crm_quotation_partner__action__create
+msgid "Create a new customer"
+msgstr "Neuen Kunden anlegen"
+
+#. module: sale_crm
+#: model:ir.model,name:sale_crm.model_crm_quotation_partner
+msgid "Create new or use existing Customer on new Quotation"
+msgstr ""
+
+#. module: sale_crm
+#: model:ir.model.fields,field_description:sale_crm.field_crm_quotation_partner__create_uid
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: sale_crm
+#: model:ir.model.fields,field_description:sale_crm.field_crm_quotation_partner__create_date
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: sale_crm
+#: model:ir.model.fields,field_description:sale_crm.field_crm_quotation_partner__partner_id
+msgid "Customer"
+msgstr "Kunde"
+
+#. module: sale_crm
+#: model:ir.model.fields,field_description:sale_crm.field_crm_quotation_partner__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: sale_crm
+#: model:ir.model.fields.selection,name:sale_crm.selection__crm_quotation_partner__action__nothing
+msgid "Do not link to a customer"
+msgstr "Nicht mit einem Kunden verknüpfen"
+
+#. module: sale_crm
+#: model:ir.model.fields,field_description:sale_crm.field_crm_quotation_partner__id
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_crm
+#: model:ir.model.fields,field_description:sale_crm.field_res_users__target_sales_invoiced
 msgid "Invoiced in Sales Orders Target"
 msgstr "Fakturiert im Kaufauftragsziel"
+
+#. module: sale_crm
+#: model:ir.model.fields,field_description:sale_crm.field_crm_quotation_partner____last_update
+msgid "Last Modified on"
+msgstr "Zuletzt geändert am"
+
+#. module: sale_crm
+#: model:ir.model.fields,field_description:sale_crm.field_crm_quotation_partner__write_uid
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert durch"
+
+#. module: sale_crm
+#: model:ir.model.fields,field_description:sale_crm.field_crm_quotation_partner__write_date
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
 
 #. module: sale_crm
 #: model:ir.model,name:sale_crm.model_crm_lead
@@ -52,35 +107,46 @@ msgid "Lead/Opportunity"
 msgstr "Interessent / Chance"
 
 #. module: sale_crm
-#: model:ir.ui.view,arch_db:sale_crm.sale_view_inherit123
-msgid "Log in the chatter from which opportunity the order originates"
-msgstr "Melden Sie sich im Chatter an, aus dessen Chance der Auftrag stammt."
+#: model:ir.model.fields.selection,name:sale_crm.selection__crm_quotation_partner__action__exist
+msgid "Link to an existing customer"
+msgstr "Verknüpfe mit Bestandskunde"
 
 #. module: sale_crm
-#: model:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.sale_view_inherit123
+msgid "Log in the chatter from which opportunity the order originates"
+msgstr "Melden Sie sich im Chatter an, aus dessen Chance der Auftrag stammt"
+
+#. module: sale_crm
+#: model:ir.ui.menu,name:sale_crm.sale_order_menu_quotations_crm
+msgid "My Quotations"
+msgstr "Meine Angebote"
+
+#. module: sale_crm
+#: model:ir.actions.act_window,name:sale_crm.crm_quotation_partner_action
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_quotation_partner_view_form
 msgid "New Quotation"
 msgstr "Neues Angebot"
 
 #. module: sale_crm
-#: model:ir.model.fields,field_description:sale_crm.field_crm_lead_sale_number
+#: model:ir.model.fields,field_description:sale_crm.field_crm_lead__quotation_count
 msgid "Number of Quotations"
 msgstr "Anzahl der Angebote"
 
 #. module: sale_crm
-#: model:ir.model.fields,field_description:sale_crm.field_sale_order_opportunity_id
+#: model:ir.model.fields,field_description:sale_crm.field_crm_lead__sale_order_count
+msgid "Number of Sale Orders"
+msgstr "Anzahl der Verkaufsaufträge"
+
+#. module: sale_crm
+#: model:ir.model.fields,field_description:sale_crm.field_sale_order__opportunity_id
 msgid "Opportunity"
 msgstr "Chance"
 
 #. module: sale_crm
-#: model:ir.model.fields,field_description:sale_crm.field_crm_lead_order_ids
+#: model:ir.model.fields,field_description:sale_crm.field_crm_lead__order_ids
 msgid "Orders"
 msgstr "Aufträge"
-
-#. module: sale_crm
-#: code:addons/sale_crm/models/crm_team.py:12
-#, python-format
-msgid "Pipeline"
-msgstr "Pipeline"
 
 #. module: sale_crm
 #: model:ir.actions.act_window,name:sale_crm.sale_action_quotations_new
@@ -88,20 +154,20 @@ msgid "Quotation"
 msgstr "Angebot"
 
 #. module: sale_crm
-#: model:ir.actions.act_window,name:sale_crm.sale_action_quotations
-#: model:ir.ui.menu,name:sale_crm.sale_order_menu_quotations_crm
+#: model:ir.model.fields,field_description:sale_crm.field_crm_quotation_partner__action
+msgid "Quotation Customer"
+msgstr ""
+
+#. module: sale_crm
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Quotations"
 msgstr "Angebote"
 
 #. module: sale_crm
-#: model:ir.actions.act_window,name:sale_crm.sale_action_orders
-msgid "Sale orders"
-msgstr "Verkaufsaufträge"
-
-#. module: sale_crm
-#: model:ir.model,name:sale_crm.model_crm_team
-msgid "Sales Channel"
-msgstr "Vertriebskanal"
+#: code:addons/sale_crm/models/crm_team.py:0
+#, python-format
+msgid "Sales Analysis"
+msgstr "Statistik Verkaufsaufträge"
 
 #. module: sale_crm
 #: model:ir.model,name:sale_crm.model_sale_order
@@ -109,17 +175,23 @@ msgid "Sales Order"
 msgstr "Verkaufsauftrag"
 
 #. module: sale_crm
-#: model:ir.model.fields,field_description:sale_crm.field_crm_lead_sale_amount_total
+#: model:ir.model,name:sale_crm.model_crm_team
+msgid "Sales Team"
+msgstr "Verkaufsteam"
+
+#. module: sale_crm
+#: code:addons/sale_crm/models/crm_team.py:0
+#, python-format
+msgid "Sales: Untaxed Total"
+msgstr "Umsatz: Unversteuerte Summe"
+
+#. module: sale_crm
+#: model:ir.model.fields,field_description:sale_crm.field_crm_lead__sale_amount_total
 msgid "Sum of Orders"
 msgstr "Summe der Aufträge"
 
 #. module: sale_crm
-#: model:ir.model.fields,field_description:sale_crm.field_sale_order_tag_ids
-msgid "Tags"
-msgstr "Stichwörter"
-
-#. module: sale_crm
-#: model:ir.model.fields,help:sale_crm.field_crm_lead_sale_amount_total
+#: model:ir.model.fields,help:sale_crm.field_crm_lead__sale_amount_total
 msgid "Untaxed Total of Confirmed Orders"
 msgstr "Unversteuerter Gesamtbetrag der bestätigten Aufträge"
 
@@ -127,3 +199,9 @@ msgstr "Unversteuerter Gesamtbetrag der bestätigten Aufträge"
 #: model:ir.model,name:sale_crm.model_res_users
 msgid "Users"
 msgstr "Benutzer"
+
+#. module: sale_crm
+#: code:addons/sale_crm/wizard/crm_opportunity_to_quotation.py:0
+#, python-format
+msgid "You can only apply this action from a lead."
+msgstr ""

@@ -4,6 +4,7 @@
 # Copyright (C) 2010 Savoir-faire Linux (<https://www.savoirfairelinux.com>).
 
 from flectra import api, SUPERUSER_ID
+from . import models
 
 
 def load_translations(cr, registry):

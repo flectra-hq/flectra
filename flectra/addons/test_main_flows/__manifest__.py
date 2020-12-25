@@ -2,16 +2,16 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Test Main Flow',
-    'author': 'Odoo S.A',
     'version': '1.0',
-    'category': 'Tools',
+    'category': 'Hidden/Tests',
     'description': """
-This module will test the main workflow of Odoo, Flectra.
+This module will test the main workflow of Odoo.
 It will install some main apps and will try to execute the most important actions.
 """,
-    'depends': ['crm', 'sale_timesheet', 'purchase', 'mrp', 'account'],
+    'depends': ['web_tour', 'crm', 'sale_timesheet', 'purchase_stock', 'mrp', 'account'],
     'data': [
-        'views/templates.xml',
-    ], 
+        'views/assets.xml',
+    ],
     'installable': True,
+    'post_init_hook': '_auto_install_enterprise_dependencies',
 }

@@ -38,7 +38,9 @@ function connect () {
 
 	logger -t posbox_connect_to_wifi "Connecting to ${ESSID}"
 	sudo service hostapd stop
-	sudo service isc-dhcp-server stop
+	sudo killall nginx
+	sudo service nginx restart
+	sudo service dnsmasq stop
 
 	sudo pkill wpa_supplicant
 	sudo ifconfig wlan0 down
@@ -50,7 +52,7 @@ function connect () {
 	else
 		# Necessary in stretch: https://www.raspberrypi.org/forums/viewtopic.php?t=196927
 		sudo cp /etc/wpa_supplicant/wpa_supplicant.conf "${WPA_PASS_FILE}"
-		chmod 777 ${WPA_PASS_FILE}
+		sudo chmod 777 "${WPA_PASS_FILE}"
 		sudo wpa_passphrase "${ESSID}" "${PASSWORD}" >> "${WPA_PASS_FILE}"
 		sudo wpa_supplicant -B -i wlan0 -c "${WPA_PASS_FILE}"
 	fi
@@ -62,17 +64,18 @@ function connect () {
 	timeout 30 sh -c 'until ifconfig wlan0 | grep "inet " ; do sleep 0.1 ; done'
 	TIMEOUT_RETURN=$?
 
+
 	if [ ${TIMEOUT_RETURN} -eq 124 ] && [ -z "${NO_AP}" ] ; then
 		logger -t posbox_connect_to_wifi "Failed to connect, forcing Posbox AP"
-		sudo /home/pi/flectra/addons/point_of_sale/tools/posbox/configuration/wireless_ap.sh "force" &
+		sudo /home/pi/odoo/addons/point_of_sale/tools/posbox/configuration/wireless_ap.sh "force" &
 	else
 		if [ ${TIMEOUT_RETURN} -ne 124 ] ; then
 			rm -f "${LOST_WIFI_FILE}"
 		fi
 
 		if [ ! -f "${LOST_WIFI_FILE}" ] ; then
-			logger -t posbox_connect_to_wifi "Restarting flectra"
-			sudo service flectra restart
+			logger -t posbox_connect_to_wifi "Restarting odoo"
+			sudo service odoo restart
 		fi
 
 		if [ ${WIFI_WAS_LOST} -eq 0 ] ; then
@@ -80,7 +83,7 @@ function connect () {
 		fi
 
 		logger -t posbox_connect_to_wifi "Starting wifi keep alive script"
-		/home/pi/flectra/addons/point_of_sale/tools/posbox/configuration/keep_wifi_alive.sh &
+		/home/pi/odoo/addons/point_of_sale/tools/posbox/configuration/keep_wifi_alive.sh &
 	fi
 }
 

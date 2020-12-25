@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+
 import flectra.tests
+from flectra import tools
 
 
-@flectra.tests.common.at_install(False)
-@flectra.tests.common.post_install(True)
+@flectra.tests.tagged('post_install', '-at_install')
 class TestUi(flectra.tests.HttpCase):
     def test_admin(self):
-        self.phantom_js("/", "flectra.__DEBUG__.services['web_tour.tour'].run('event')", "flectra.__DEBUG__.services['web_tour.tour'].tours.event.ready", login='admin')
+        self.start_tour("/", 'event', login='admin', step_delay=100)

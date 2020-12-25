@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="ISO-8859-15"?>
 <flectra>
-        <!--     
-        Plan comptable général pour le Maroc.
+        <!--
+        Plan comptable gï¿œnï¿œral pour le Maroc.
     Version du fichier : 13-10-2010
-    Mis en place par la société Kazacube - partenaire OpenERP au Maroc
-    Vérifié et validé par le cabinet SEDDIK d'expertise comptable, Casablanca.
-      --> 
-    <menuitem id="account_reports_ma_statements_menu" name="Morocco" parent="account.menu_finance_reports" sequence="0" groups="account.group_account_user"/>
+    Mis en place par la sociï¿œtï¿œ Kazacube - partenaire OpenERP au Maroc
+    Vï¿œrifiï¿œ et validï¿œ par le cabinet SEDDIK d'expertise comptable, Casablanca.
+      -->
+    <menuitem id="account_reports_ma_statements_menu" name="Morocco" parent="account.menu_finance_reports" sequence="0" groups="account.group_account_readonly"/>
 
-    <record id="pcg_5115" model="account.account.template">
-      <field name="name">Virement de fonds</field>
-      <field name="code">5115</field>
-      <field name="reconcile" eval='True'/>
-      <field name="user_type_id" ref="account.data_account_type_current_assets"/>
-    </record>
     <record id="l10n_kzc_temp_chart" model="account.chart.template">
         <field name="name">Plan comptable marocain</field>
         <field name="code_digits">6</field>
         <field name="currency_id" ref="base.MAD"/>
         <field name="bank_account_code_prefix">5141</field>
         <field name="cash_account_code_prefix">5161</field>
-        <field name="transfer_account_id" ref="pcg_5115"/>
-    </record>
-    <record id="pcg_5115" model="account.account.template">
-        <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
+        <field name="transfer_account_code_prefix">5115</field>
     </record>
 
   <record id="pcg_1111" model="account.account.template">
@@ -51,13 +42,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1119" model="account.account.template">
-    <field name="name">Actionnaires, capital souscrit-non appelé</field>
+    <field name="name">Actionnaires, capital souscrit-non appelï¿œ</field>
     <field name="code">1119</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1121" model="account.account.template">
-    <field name="name">Primes d'émission</field>
+    <field name="name">Primes d'ï¿œmission</field>
     <field name="code">1121</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -75,73 +66,73 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1130" model="account.account.template">
-    <field name="name">Écarts de réévaluation</field>
+    <field name="name">ï¿œcarts de rï¿œï¿œvaluation</field>
     <field name="code">1130</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1140" model="account.account.template">
-    <field name="name">Réserve légale</field>
+    <field name="name">Rï¿œserve lï¿œgale</field>
     <field name="code">1140</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1151" model="account.account.template">
-    <field name="name">Réserves statutaires ou contractuelles</field>
+    <field name="name">Rï¿œserves statutaires ou contractuelles</field>
     <field name="code">1151</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1152" model="account.account.template">
-    <field name="name">Réserves facultatives</field>
+    <field name="name">Rï¿œserves facultatives</field>
     <field name="code">1152</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1155" model="account.account.template">
-    <field name="name">Réserves réglementées</field>
+    <field name="name">Rï¿œserves rï¿œglementï¿œes</field>
     <field name="code">1155</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1161" model="account.account.template">
-    <field name="name">Report à  nouveau (solde créditeur)</field>
+    <field name="name">Report ï¿œ nouveau (solde crï¿œditeur)</field>
     <field name="code">1161</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1169" model="account.account.template">
-    <field name="name">Report à  nouveau (solde débiteur)</field>
+    <field name="name">Report ï¿œ nouveau (solde dï¿œbiteur)</field>
     <field name="code">1169</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1181" model="account.account.template">
-    <field name="name">Résultats nets en instance d'affectation (solde créditeur)</field>
+    <field name="name">Rï¿œsultats nets en instance d'affectation (solde crï¿œditeur)</field>
     <field name="code">1181</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1189" model="account.account.template">
-    <field name="name">Résultats nets en instance d'affectation (solde débiteur)</field>
+    <field name="name">Rï¿œsultats nets en instance d'affectation (solde dï¿œbiteur)</field>
     <field name="code">1189</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1191" model="account.account.template">
-    <field name="name">Résultat net de l'exercice (solde créditeur)</field>
+    <field name="name">Rï¿œsultat net de l'exercice (solde crï¿œditeur)</field>
     <field name="code">1191</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1199" model="account.account.template">
-    <field name="name">Résultat net de l'exercice (solde débiteur)</field>
+    <field name="name">Rï¿œsultat net de l'exercice (solde dï¿œbiteur)</field>
     <field name="code">1199</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1311" model="account.account.template">
-    <field name="name">Subventions d'investissement reçues</field>
+    <field name="name">Subventions d'investissement reï¿œues</field>
     <field name="code">1311</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -153,7 +144,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1351" model="account.account.template">
-    <field name="name">Provisions pour amortissements dérogatoires</field>
+    <field name="name">Provisions pour amortissements dï¿œrogatoires</field>
     <field name="code">1351</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -183,7 +174,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1358" model="account.account.template">
-    <field name="name">Autres provisions réglementées</field>
+    <field name="name">Autres provisions rï¿œglementï¿œes</field>
     <field name="code">1358</field>
     <field name="user_type_id" ref="account.data_account_type_equity"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -195,7 +186,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1481" model="account.account.template">
-    <field name="name">Emprunts auprès des établissements de crédit</field>
+    <field name="name">Emprunts auprï¿œs des ï¿œtablissements de crï¿œdit</field>
     <field name="code">1481</field>
     <field name="user_type_id" ref="account.data_account_type_non_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -207,7 +198,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1483" model="account.account.template">
-    <field name="name">Dettes rattachées à  des participations</field>
+    <field name="name">Dettes rattachï¿œes ï¿œ des participations</field>
     <field name="code">1483</field>
     <field name="user_type_id" ref="account.data_account_type_non_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -219,7 +210,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1485" model="account.account.template">
-    <field name="name">Avances reçues et comptes courants bloqués</field>
+    <field name="name">Avances reï¿œues et comptes courants bloquï¿œs</field>
     <field name="code">1485</field>
     <field name="user_type_id" ref="account.data_account_type_non_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -231,7 +222,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1487" model="account.account.template">
-    <field name="name">Dépôts et cautionnements reçues</field>
+    <field name="name">Dï¿œpï¿œts et cautionnements reï¿œues</field>
     <field name="code">1487</field>
     <field name="user_type_id" ref="account.data_account_type_non_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -249,7 +240,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1512" model="account.account.template">
-    <field name="name">Provisions pour garanties données aux clients</field>
+    <field name="name">Provisions pour garanties donnï¿œes aux clients</field>
     <field name="code">1512</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -261,13 +252,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1514" model="account.account.template">
-    <field name="name">Provision pour pertes sur marchés à  terme</field>
+    <field name="name">Provision pour pertes sur marchï¿œs ï¿œ terme</field>
     <field name="code">1514</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1515" model="account.account.template">
-    <field name="name">Provisions pour amendes, double droits, pénalités</field>
+    <field name="name">Provisions pour amendes, double droits, pï¿œnalitï¿œs</field>
     <field name="code">1515</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -285,7 +276,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1551" model="account.account.template">
-    <field name="name">Provisions pour impôts</field>
+    <field name="name">Provisions pour impï¿œts</field>
     <field name="code">1551</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -297,7 +288,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1555" model="account.account.template">
-    <field name="name">Provisions pour charges à  répartir sur plusieurs exercices</field>
+    <field name="name">Provisions pour charges ï¿œ rï¿œpartir sur plusieurs exercices</field>
     <field name="code">1555</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -309,19 +300,19 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1601" model="account.account.template">
-    <field name="name">Comptes de liaison du siège</field>
+    <field name="name">Comptes de liaison du siï¿œge</field>
     <field name="code">1601</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1605" model="account.account.template">
-    <field name="name">Comptes de liaison des établissements</field>
+    <field name="name">Comptes de liaison des ï¿œtablissements</field>
     <field name="code">1605</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_1710" model="account.account.template">
-    <field name="name">Augmentation des créances immobilisées</field>
+    <field name="name">Augmentation des crï¿œances immobilisï¿œes</field>
     <field name="code">1710</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -339,7 +330,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2112" model="account.account.template">
-    <field name="name">Frais préalables au démarrage</field>
+    <field name="name">Frais prï¿œalables au dï¿œmarrage</field>
     <field name="code">2112</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -351,7 +342,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2114" model="account.account.template">
-    <field name="name">Frais sur opérations de fusions, scissions et transformations</field>
+    <field name="name">Frais sur opï¿œrations de fusions, scissions et transformations</field>
     <field name="code">2114</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -363,13 +354,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2117" model="account.account.template">
-    <field name="name">Frais de publicité</field>
+    <field name="name">Frais de publicitï¿œ</field>
     <field name="code">2117</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2118" model="account.account.template">
-    <field name="name">Autres frais préliminaires</field>
+    <field name="name">Autres frais prï¿œliminaires</field>
     <field name="code">2118</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -381,13 +372,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2125" model="account.account.template">
-    <field name="name">Frais d'émission des emprunts</field>
+    <field name="name">Frais d'ï¿œmission des emprunts</field>
     <field name="code">2125</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2128" model="account.account.template">
-    <field name="name">Autres charges à  répartir</field>
+    <field name="name">Autres charges ï¿œ rï¿œpartir</field>
     <field name="code">2128</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -399,7 +390,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2210" model="account.account.template">
-    <field name="name">Immobilisation en recherche et développement</field>
+    <field name="name">Immobilisation en recherche et dï¿œveloppement</field>
     <field name="code">2210</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -429,13 +420,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2312" model="account.account.template">
-    <field name="name">Terrains aménagés</field>
+    <field name="name">Terrains amï¿œnagï¿œs</field>
     <field name="code">2312</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2313" model="account.account.template">
-    <field name="name">Terrains bâtis</field>
+    <field name="name">Terrains bï¿œtis</field>
     <field name="code">2313</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -447,7 +438,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2316" model="account.account.template">
-    <field name="name">Agencements et aménagements de terrains</field>
+    <field name="name">Agencements et amï¿œnagements de terrains</field>
     <field name="code">2316</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -459,19 +450,19 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_23211" model="account.account.template">
-    <field name="name">Bâtiments industriels (A,B,,,)</field>
+    <field name="name">Bï¿œtiments industriels (A,B,,,)</field>
     <field name="code">23211</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_23214" model="account.account.template">
-    <field name="name">Bâtiments Administratifs et commerciaux</field>
+    <field name="name">Bï¿œtiments Administratifs et commerciaux</field>
     <field name="code">23214</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_23218" model="account.account.template">
-    <field name="name">Autres bâtiments</field>
+    <field name="name">Autres bï¿œtiments</field>
     <field name="code">23218</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -489,7 +480,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2327" model="account.account.template">
-    <field name="name">Agencements et aménagements des constructions</field>
+    <field name="name">Agencements et amï¿œnagements des constructions</field>
     <field name="code">2327</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -507,7 +498,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_23321" model="account.account.template">
-    <field name="name">Matériel</field>
+    <field name="name">Matï¿œriel</field>
     <field name="code">23321</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -519,19 +510,19 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2333" model="account.account.template">
-    <field name="name">Emballages récupérables identifiables</field>
+    <field name="name">Emballages rï¿œcupï¿œrables identifiables</field>
     <field name="code">2333</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2338" model="account.account.template">
-    <field name="name">Autres installations techniques, matériel et outillage</field>
+    <field name="name">Autres installations techniques, matï¿œriel et outillage</field>
     <field name="code">2338</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2340" model="account.account.template">
-    <field name="name">Matériel de transport</field>
+    <field name="name">Matï¿œriel de transport</field>
     <field name="code">2340</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -543,25 +534,25 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2352" model="account.account.template">
-    <field name="name">Matériel de bureau</field>
+    <field name="name">Matï¿œriel de bureau</field>
     <field name="code">2352</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2355" model="account.account.template">
-    <field name="name">Matériel informatique</field>
+    <field name="name">Matï¿œriel informatique</field>
     <field name="code">2355</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2356" model="account.account.template">
-    <field name="name">Agencements, installations et aménagements divers (biens n'appartenant pas à  l'entreprise)</field>
+    <field name="name">Agencements, installations et amï¿œnagements divers (biens n'appartenant pas ï¿œ l'entreprise)</field>
     <field name="code">2356</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2358" model="account.account.template">
-    <field name="name">Autres mobilier, matériel de bureau et aménagements divers</field>
+    <field name="name">Autres mobilier, matï¿œriel de bureau et amï¿œnagements divers</field>
     <field name="code">2358</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -579,25 +570,25 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2393" model="account.account.template">
-    <field name="name">Immobilisations corporelles en cours des installations techniques, matériel et outillage</field>
+    <field name="name">Immobilisations corporelles en cours des installations techniques, matï¿œriel et outillage</field>
     <field name="code">2393</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2394" model="account.account.template">
-    <field name="name">Immobilisations corporelles en cours de matériel de transport</field>
+    <field name="name">Immobilisations corporelles en cours de matï¿œriel de transport</field>
     <field name="code">2394</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2395" model="account.account.template">
-    <field name="name">Immobilisations corporelles en cours de mobilier, matériel de bureau et aménagements divers</field>
+    <field name="name">Immobilisations corporelles en cours de mobilier, matï¿œriel de bureau et amï¿œnagements divers</field>
     <field name="code">2395</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2397" model="account.account.template">
-    <field name="name">Avances et acomptes versés sur commandes d'immobilisations corporelles</field>
+    <field name="name">Avances et acomptes versï¿œs sur commandes d'immobilisations corporelles</field>
     <field name="code">2397</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -609,13 +600,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2411" model="account.account.template">
-    <field name="name">Prêts au personnel</field>
+    <field name="name">Prï¿œts au personnel</field>
     <field name="code">2411</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2415" model="account.account.template">
-    <field name="name">Prêts aux associés</field>
+    <field name="name">Prï¿œts aux associï¿œs</field>
     <field name="code">2415</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -627,7 +618,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2418" model="account.account.template">
-    <field name="name">Autres prêts</field>
+    <field name="name">Autres prï¿œts</field>
     <field name="code">2418</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -639,7 +630,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_24813" model="account.account.template">
-    <field name="name">Bons d'équipement</field>
+    <field name="name">Bons d'ï¿œquipement</field>
     <field name="code">24813</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -651,13 +642,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2483" model="account.account.template">
-    <field name="name">Créances rattachées à  des participations</field>
+    <field name="name">Crï¿œances rattachï¿œes ï¿œ des participations</field>
     <field name="code">2483</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_24861" model="account.account.template">
-    <field name="name">Dépôts</field>
+    <field name="name">Dï¿œpï¿œts</field>
     <field name="code">24861</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -669,13 +660,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2487" model="account.account.template">
-    <field name="name">Créances immobilisées</field>
+    <field name="name">Crï¿œances immobilisï¿œes</field>
     <field name="code">2487</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2488" model="account.account.template">
-    <field name="name">Créances financières diverses</field>
+    <field name="name">Crï¿œances financiï¿œres diverses</field>
     <field name="code">2488</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -699,7 +690,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2710" model="account.account.template">
-    <field name="name">Diminution des créances immobilisées</field>
+    <field name="name">Diminution des crï¿œances immobilisï¿œes</field>
     <field name="code">2710</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -717,7 +708,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28112" model="account.account.template">
-    <field name="name">Amortissements des frais préliminaires au démarrage</field>
+    <field name="name">Amortissements des frais prï¿œliminaires au dï¿œmarrage</field>
     <field name="code">28112</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -729,7 +720,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28114" model="account.account.template">
-    <field name="name">Amortissements des frais sur opérations de fusions, scissions, et transformations</field>
+    <field name="name">Amortissements des frais sur opï¿œrations de fusions, scissions, et transformations</field>
     <field name="code">28114</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -741,13 +732,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28117" model="account.account.template">
-    <field name="name">Amortissements des frais de publicité</field>
+    <field name="name">Amortissements des frais de publicitï¿œ</field>
     <field name="code">28117</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28118" model="account.account.template">
-    <field name="name">Amortissements des autres frais préliminaires</field>
+    <field name="name">Amortissements des autres frais prï¿œliminaires</field>
     <field name="code">28118</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -759,19 +750,19 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28125" model="account.account.template">
-    <field name="name">Amortissements des frais d'émission des emprunts</field>
+    <field name="name">Amortissements des frais d'ï¿œmission des emprunts</field>
     <field name="code">28125</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28128" model="account.account.template">
-    <field name="name">Amortissements des autres charges à  répartir</field>
+    <field name="name">Amortissements des autres charges ï¿œ rï¿œpartir</field>
     <field name="code">28128</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2821" model="account.account.template">
-    <field name="name">Amortissements de l'immobilisation en recherche et développement</field>
+    <field name="name">Amortissements de l'immobilisation en recherche et dï¿œveloppement</field>
     <field name="code">2821</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -801,13 +792,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28312" model="account.account.template">
-    <field name="name">Amortissements des terrains aménagés</field>
+    <field name="name">Amortissements des terrains amï¿œnagï¿œs</field>
     <field name="code">28312</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28313" model="account.account.template">
-    <field name="name">Amortissements des terrains bâtis</field>
+    <field name="name">Amortissements des terrains bï¿œtis</field>
     <field name="code">28313</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -819,7 +810,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28316" model="account.account.template">
-    <field name="name">Amortissements des agencements et aménagements de terrains</field>
+    <field name="name">Amortissements des agencements et amï¿œnagements de terrains</field>
     <field name="code">28316</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -831,7 +822,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28321" model="account.account.template">
-    <field name="name">Amortissements des bâtiments</field>
+    <field name="name">Amortissements des bï¿œtiments</field>
     <field name="code">28321</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -849,7 +840,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28327" model="account.account.template">
-    <field name="name">Amortissements des installations, agencements et aménagements des constructions</field>
+    <field name="name">Amortissements des installations, agencements et amï¿œnagements des constructions</field>
     <field name="code">28327</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -867,25 +858,25 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28332" model="account.account.template">
-    <field name="name">Amortissements du matériel et outillage</field>
+    <field name="name">Amortissements du matï¿œriel et outillage</field>
     <field name="code">28332</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28333" model="account.account.template">
-    <field name="name">Amortissements des emballages récupérables identifiables</field>
+    <field name="name">Amortissements des emballages rï¿œcupï¿œrables identifiables</field>
     <field name="code">28333</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28338" model="account.account.template">
-    <field name="name">Amortissements des autres installations techniques, matériel et outillage</field>
+    <field name="name">Amortissements des autres installations techniques, matï¿œriel et outillage</field>
     <field name="code">28338</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2834" model="account.account.template">
-    <field name="name">Amortissements du matériel de transport</field>
+    <field name="name">Amortissements du matï¿œriel de transport</field>
     <field name="code">2834</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -897,25 +888,25 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28352" model="account.account.template">
-    <field name="name">Amortissements du matériel de bureau</field>
+    <field name="name">Amortissements du matï¿œriel de bureau</field>
     <field name="code">28352</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28355" model="account.account.template">
-    <field name="name">Amortissements du matériel informatique</field>
+    <field name="name">Amortissements du matï¿œriel informatique</field>
     <field name="code">28355</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28356" model="account.account.template">
-    <field name="name">Amortissements des agencements, installations et aménagements divers</field>
+    <field name="name">Amortissements des agencements, installations et amï¿œnagements divers</field>
     <field name="code">28356</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_28358" model="account.account.template">
-    <field name="name">Amortissements des autres mobilier, matériel de bureau et aménagements divers</field>
+    <field name="name">Amortissements des autres mobilier, matï¿œriel de bureau et amï¿œnagements divers</field>
     <field name="code">28358</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -927,37 +918,37 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2920" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des immobilisations incorporelles</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des immobilisations incorporelles</field>
     <field name="code">2920</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2930" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des immobilisations corporelles</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des immobilisations corporelles</field>
     <field name="code">2930</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2941" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des prêts immobilisés</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des prï¿œts immobilisï¿œs</field>
     <field name="code">2941</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2948" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des autres créances financières</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des autres crï¿œances financiï¿œres</field>
     <field name="code">2948</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2951" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des titres de participation</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des titres de participation</field>
     <field name="code">2951</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_2958" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des autres titres immobilisés</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des autres titres immobilisï¿œs</field>
     <field name="code">2958</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -987,25 +978,25 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_31211" model="account.account.template">
-    <field name="name">Matières premières (groupe A)</field>
+    <field name="name">Matiï¿œres premiï¿œres (groupe A)</field>
     <field name="code">31211</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_31212" model="account.account.template">
-    <field name="name">Matières premières (groupe B)</field>
+    <field name="name">Matiï¿œres premiï¿œres (groupe B)</field>
     <field name="code">31212</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_31221" model="account.account.template">
-    <field name="name">Matières consommables (groupe A)</field>
+    <field name="name">Matiï¿œres consommables (groupe A)</field>
     <field name="code">31221</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_31222" model="account.account.template">
-    <field name="name">Matières consommables (groupe B)</field>
+    <field name="name">Matiï¿œres consommables (groupe B)</field>
     <field name="code">31222</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1047,25 +1038,25 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_31232" model="account.account.template">
-    <field name="name">Emballages récupérables non identifiables</field>
+    <field name="name">Emballages rï¿œcupï¿œrables non identifiables</field>
     <field name="code">31232</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_31233" model="account.account.template">
-    <field name="name">Emballages à  usage mixte</field>
+    <field name="name">Emballages ï¿œ usage mixte</field>
     <field name="code">31233</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3126" model="account.account.template">
-    <field name="name">Matières et fournitures consommables en cours de route</field>
+    <field name="name">Matiï¿œres et fournitures consommables en cours de route</field>
     <field name="code">3126</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3128" model="account.account.template">
-    <field name="name">Autres matières et fournitures consommables</field>
+    <field name="name">Autres matiï¿œres et fournitures consommables</field>
     <field name="code">3128</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1077,13 +1068,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_31312" model="account.account.template">
-    <field name="name">Biens intermédiaires en cours</field>
+    <field name="name">Biens intermï¿œdiaires en cours</field>
     <field name="code">31312</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_31317" model="account.account.template">
-    <field name="name">Biens résiduels en cours</field>
+    <field name="name">Biens rï¿œsiduels en cours</field>
     <field name="code">31317</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1095,7 +1086,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_31342" model="account.account.template">
-    <field name="name">Études en cours</field>
+    <field name="name">ï¿œtudes en cours</field>
     <field name="code">31342</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1113,19 +1104,19 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_31411" model="account.account.template">
-    <field name="name">Produits intermédiaires (groupe A)</field>
+    <field name="name">Produits intermï¿œdiaires (groupe A)</field>
     <field name="code">31411</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_31412" model="account.account.template">
-    <field name="name">Produits intermédiaires (groupe B)</field>
+    <field name="name">Produits intermï¿œdiaires (groupe B)</field>
     <field name="code">31412</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_31451" model="account.account.template">
-    <field name="name">Déchets</field>
+    <field name="name">Dï¿œchets</field>
     <field name="code">31451</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1137,13 +1128,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_31453" model="account.account.template">
-    <field name="name">Matières de récupération</field>
+    <field name="name">Matiï¿œres de rï¿œcupï¿œration</field>
     <field name="code">31453</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3148" model="account.account.template">
-    <field name="name">Autres produits intermédiaires et produits résiduels</field>
+    <field name="name">Autres produits intermï¿œdiaires et produits rï¿œsiduels</field>
     <field name="code">3148</field>
     <field name="user_type_id" ref="account.data_account_type_revenue"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1173,39 +1164,41 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3411" model="account.account.template">
-    <field name="name">Fournisseurs - avances et acomptes versés sur commandes d'exploitation</field>
+    <field name="name">Fournisseurs - avances et acomptes versï¿œs sur commandes d'exploitation</field>
     <field name="code">3411</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3413" model="account.account.template">
-    <field name="name">Fournisseurs - créances pour emballages et matériel à  rendre</field>
+    <field name="name">Fournisseurs - crï¿œances pour emballages et matï¿œriel ï¿œ rendre</field>
     <field name="code">3413</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3417" model="account.account.template">
-    <field name="name">Rabais, remises et ristournes à  obtenir - avoirs non encore reçus</field>
+    <field name="name">Rabais, remises et ristournes ï¿œ obtenir - avoirs non encore reï¿œus</field>
     <field name="code">3417</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3418" model="account.account.template">
-    <field name="name">Autres fournisseurs débiteurs</field>
+    <field name="name">Autres fournisseurs dï¿œbiteurs</field>
     <field name="code">3418</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_34211" model="account.account.template">
-    <field name="name">Clients - catégorie A</field>
+    <field name="name">Clients - catï¿œgorie A</field>
     <field name="code">34211</field>
-    <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+    <field name="user_type_id" ref="account.data_account_type_receivable"/>
+    <field name="reconcile" eval='True'/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_34212" model="account.account.template">
-    <field name="name">Clients - catégorie B</field>
+    <field name="name">Clients - catï¿œgorie B</field>
     <field name="code">34212</field>
-    <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+    <field name="user_type_id" ref="account.data_account_type_receivable"/>
+    <field name="reconcile" eval='True'/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3423" model="account.account.template">
@@ -1221,25 +1214,25 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3425" model="account.account.template">
-    <field name="name">Clients - effets à  recevoir</field>
+    <field name="name">Clients - effets ï¿œ recevoir</field>
     <field name="code">3425</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_34271" model="account.account.template">
-    <field name="name">Clients - factures à  établir</field>
+    <field name="name">Clients - factures ï¿œ ï¿œtablir</field>
     <field name="code">34271</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_34272" model="account.account.template">
-    <field name="name">Créances sur travaux non encore facturés</field>
+    <field name="name">Crï¿œances sur travaux non encore facturï¿œs</field>
     <field name="code">34272</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3428" model="account.account.template">
-    <field name="name">Autres clients et comptes rattachés</field>
+    <field name="name">Autres clients et comptes rattachï¿œs</field>
     <field name="code">3428</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1251,170 +1244,177 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3438" model="account.account.template">
-    <field name="name">Personnel - autres débiteurs</field>
+    <field name="name">Personnel - autres dï¿œbiteurs</field>
     <field name="code">3438</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_34511" model="account.account.template">
-    <field name="name">Subventions d'investissement à  recevoir</field>
+    <field name="name">Subventions d'investissement ï¿œ recevoir</field>
     <field name="code">34511</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_34512" model="account.account.template">
-    <field name="name">Subventions d'exploitation à  recevoir</field>
+    <field name="name">Subventions d'exploitation ï¿œ recevoir</field>
     <field name="code">34512</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_34513" model="account.account.template">
-    <field name="name">Subventions d'équilibre à  recevoir</field>
+    <field name="name">Subventions d'ï¿œquilibre ï¿œ recevoir</field>
     <field name="code">34513</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3453" model="account.account.template">
-    <field name="name">Acomptes sur impôts sur les résultats</field>
+    <field name="name">Acomptes sur impï¿œts sur les rï¿œsultats</field>
     <field name="code">3453</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_34551" model="account.account.template">
-    <field name="name">Etat - TVA récupérable sur immobilisations</field>
+    <field name="name">Etat - TVA rï¿œcupï¿œrable sur immobilisations</field>
     <field name="code">34551</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3455207" model="account.account.template">
-    <field name="name">Etat - TVA récupérable sur charges 7%</field>
+    <field name="name">Etat - TVA rï¿œcupï¿œrable sur charges 7%</field>
     <field name="code">3455207</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3455210" model="account.account.template">
-    <field name="name">Etat - TVA récupérable sur charges 10%</field>
+    <field name="name">Etat - TVA rï¿œcupï¿œrable sur charges 10%</field>
     <field name="code">3455210</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3455214" model="account.account.template">
-    <field name="name">Etat - TVA récupérable sur charges 14%</field>
+    <field name="name">Etat - TVA rï¿œcupï¿œrable sur charges 14%</field>
     <field name="code">3455214</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3455220" model="account.account.template">
-    <field name="name">Etat - TVA récupérable sur charges 20%</field>
+    <field name="name">Etat - TVA rï¿œcupï¿œrable sur charges 20%</field>
     <field name="code">3455220</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3456" model="account.account.template">
-    <field name="name">Etat - crédit de TVA (suivant déclaration)</field>
+    <field name="name">Etat - crï¿œdit de TVA (suivant dï¿œclaration)</field>
     <field name="code">3456</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3458" model="account.account.template">
-    <field name="name">Etat - autres comptes débiteurs</field>
+    <field name="name">Etat - autres comptes dï¿œbiteurs</field>
     <field name="code">3458</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3461" model="account.account.template">
-    <field name="name">Associés - comptes d'apport en société</field>
+    <field name="name">Associï¿œs - comptes d'apport en sociï¿œtï¿œ</field>
     <field name="code">3461</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3462" model="account.account.template">
-    <field name="name">Actionnaires - capital souscrit et appelé non versé</field>
+    <field name="name">Actionnaires - capital souscrit et appelï¿œ non versï¿œ</field>
     <field name="code">3462</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3463" model="account.account.template">
-    <field name="name">Comptes courants des associés débiteurs</field>
+    <field name="name">Comptes courants des associï¿œs dï¿œbiteurs</field>
     <field name="code">3463</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3464" model="account.account.template">
-    <field name="name">Associés - opérations faites en commun</field>
+    <field name="name">Associï¿œs - opï¿œrations faites en commun</field>
     <field name="code">3464</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3467" model="account.account.template">
-    <field name="name">Créances rattachées aux comptes d'associés</field>
+    <field name="name">Crï¿œances rattachï¿œes aux comptes d'associï¿œs</field>
     <field name="code">3467</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3468" model="account.account.template">
-    <field name="name">Autres comptes d'associés débiteurs</field>
+    <field name="name">Autres comptes d'associï¿œs dï¿œbiteurs</field>
     <field name="code">3468</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3481" model="account.account.template">
-    <field name="name">Créances sur cessions d'immobilisations</field>
+    <field name="name">Crï¿œances sur cessions d'immobilisations</field>
     <field name="code">3481</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3482" model="account.account.template">
-    <field name="name">Créances sur cessions d'éléments d'actif circulant</field>
+    <field name="name">Crï¿œances sur cessions d'ï¿œlï¿œments d'actif circulant</field>
     <field name="code">3482</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3487" model="account.account.template">
-    <field name="name">Créances rattachées aux autres débiteurs</field>
+    <field name="name">Crï¿œances rattachï¿œes aux autres dï¿œbiteurs</field>
     <field name="code">3487</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3488" model="account.account.template">
-    <field name="name">Divers débiteurs</field>
+    <field name="name">Divers dï¿œbiteurs</field>
     <field name="code">3488</field>
+    <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+    <field name="reconcile" eval='True'/>
+    <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
+  </record>
+  <record id="pcg_3489" model="account.account.template">
+    <field name="name">Divers dï¿œbiteurs (PoS)</field>
+    <field name="code">3489</field>
     <field name="user_type_id" ref="account.data_account_type_receivable"/>
     <field name="reconcile" eval='True'/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3491" model="account.account.template">
-    <field name="name">Charges constatées d'avance</field>
+    <field name="name">Charges constatï¿œes d'avance</field>
     <field name="code">3491</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3493" model="account.account.template">
-    <field name="name">Intérêts courus et non échus à  percevoir</field>
+    <field name="name">Intï¿œrï¿œts courus et non ï¿œchus ï¿œ percevoir</field>
     <field name="code">3493</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3495" model="account.account.template">
-    <field name="name">Comptes de répartition périodique des charges</field>
+    <field name="name">Comptes de rï¿œpartition pï¿œriodique des charges</field>
     <field name="code">3495</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3497" model="account.account.template">
-    <field name="name">Comptes transitoires ou d'attente - débiteurs</field>
+    <field name="name">Comptes transitoires ou d'attente - dï¿œbiteurs</field>
     <field name="code">3497</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3501" model="account.account.template">
-    <field name="name">Actions, partie libérée</field>
+    <field name="name">Actions, partie libï¿œrï¿œe</field>
     <field name="code">3501</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3502" model="account.account.template">
-    <field name="name">Actions, partie non libérée</field>
+    <field name="name">Actions, partie non libï¿œrï¿œe</field>
     <field name="code">3502</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1432,7 +1432,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_35062" model="account.account.template">
-    <field name="name">Bons de trésor</field>
+    <field name="name">Bons de trï¿œsor</field>
     <field name="code">35062</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1444,7 +1444,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3701" model="account.account.template">
-    <field name="name">Diminution des créances circulantes</field>
+    <field name="name">Diminution des crï¿œances circulantes</field>
     <field name="code">3701</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1456,67 +1456,67 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3911" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des marchandises</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des marchandises</field>
     <field name="code">3911</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3912" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des matières et fournitures</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des matiï¿œres et fournitures</field>
     <field name="code">3912</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3913" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des produits en cours</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des produits en cours</field>
     <field name="code">3913</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3914" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des produits intermédiaires</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des produits intermï¿œdiaires</field>
     <field name="code">3914</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3915" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des produits finis</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des produits finis</field>
     <field name="code">3915</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3941" model="account.account.template">
-    <field name="name">Provisions pour dépréciation - fournisseurs débiteurs, avances et acomptes</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation - fournisseurs dï¿œbiteurs, avances et acomptes</field>
     <field name="code">3941</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3942" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des clients et comptes rattachés</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des clients et comptes rattachï¿œs</field>
     <field name="code">3942</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3943" model="account.account.template">
-    <field name="name">Provisions pour dépréciation du personnel - débiteur</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation du personnel - dï¿œbiteur</field>
     <field name="code">3943</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3946" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des comptes d'associés débiteurs</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des comptes d'associï¿œs dï¿œbiteurs</field>
     <field name="code">3946</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3948" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des autres débiteurs</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des autres dï¿œbiteurs</field>
     <field name="code">3948</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_3950" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des titres et valeurs de placement</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des titres et valeurs de placement</field>
     <field name="code">3950</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1524,7 +1524,8 @@
   <record id="pcg_4411" model="account.account.template">
     <field name="name">Fournisseurs</field>
     <field name="code">4411</field>
-    <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+    <field name="user_type_id" ref="account.data_account_type_payable"/>
+    <field name="reconcile" eval='True'/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4413" model="account.account.template">
@@ -1534,7 +1535,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4415" model="account.account.template">
-    <field name="name">Fournisseurs - effets à  payer</field>
+    <field name="name">Fournisseurs - effets ï¿œ payer</field>
     <field name="code">4415</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1546,43 +1547,43 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4418" model="account.account.template">
-    <field name="name">Autres fournisseurs et comptes rattachés</field>
+    <field name="name">Autres fournisseurs et comptes rattachï¿œs</field>
     <field name="code">4418</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4421" model="account.account.template">
-    <field name="name">Clients - avances et acomptes reçus sur commandes en cours</field>
+    <field name="name">Clients - avances et acomptes reï¿œus sur commandes en cours</field>
     <field name="code">4421</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4425" model="account.account.template">
-    <field name="name">Clients - dettes pour emballages et matériel consignés</field>
+    <field name="name">Clients - dettes pour emballages et matï¿œriel consignï¿œs</field>
     <field name="code">4425</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4427" model="account.account.template">
-    <field name="name">Rabais, remises et ristournes à  accorder - avoirs à  établir</field>
+    <field name="name">Rabais, remises et ristournes ï¿œ accorder - avoirs ï¿œ ï¿œtablir</field>
     <field name="code">4427</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4428" model="account.account.template">
-    <field name="name">Autres clients créditeurs</field>
+    <field name="name">Autres clients crï¿œditeurs</field>
     <field name="code">4428</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4432" model="account.account.template">
-    <field name="name">Rémunérations dues au personnel</field>
+    <field name="name">Rï¿œmunï¿œrations dues au personnel</field>
     <field name="code">4432</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4433" model="account.account.template">
-    <field name="name">Dépôts du personnel créditeurs</field>
+    <field name="name">Dï¿œpï¿œts du personnel crï¿œditeurs</field>
     <field name="code">4433</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1594,13 +1595,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4437" model="account.account.template">
-    <field name="name">Charges du personnel à  payer</field>
+    <field name="name">Charges du personnel ï¿œ payer</field>
     <field name="code">4437</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4438" model="account.account.template">
-    <field name="name">Personnel - autres créditeurs</field>
+    <field name="name">Personnel - autres crï¿œditeurs</field>
     <field name="code">4438</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1624,7 +1625,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4447" model="account.account.template">
-    <field name="name">Charges sociales à  payer</field>
+    <field name="name">Charges sociales ï¿œ payer</field>
     <field name="code">4447</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1636,7 +1637,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_44521" model="account.account.template">
-    <field name="name">Etat, taxe urbaine et taxe d'édilité</field>
+    <field name="name">Etat, taxe urbaine et taxe d'ï¿œdilitï¿œ</field>
     <field name="code">44521</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1654,85 +1655,85 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4453" model="account.account.template">
-    <field name="name">Etat, impôts sur les résultats</field>
+    <field name="name">Etat, impï¿œts sur les rï¿œsultats</field>
     <field name="code">4453</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_445507" model="account.account.template">
-    <field name="name">Etat, TVA facturée 7%</field>
+    <field name="name">Etat, TVA facturï¿œe 7%</field>
     <field name="code">445507</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_445510" model="account.account.template">
-    <field name="name">Etat, TVA facturée 10%</field>
+    <field name="name">Etat, TVA facturï¿œe 10%</field>
     <field name="code">445510</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_445514" model="account.account.template">
-    <field name="name">Etat, TVA facturée 14%</field>
+    <field name="name">Etat, TVA facturï¿œe 14%</field>
     <field name="code">445514</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_445520" model="account.account.template">
-    <field name="name">Etat, TVA facturée 20%</field>
+    <field name="name">Etat, TVA facturï¿œe 20%</field>
     <field name="code">445520</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4456" model="account.account.template">
-    <field name="name">Etat, TVA due (suivant déclarations)</field>
+    <field name="name">Etat, TVA due (suivant dï¿œclarations)</field>
     <field name="code">4456</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4457" model="account.account.template">
-    <field name="name">Etat, impôts et taxes à  payer</field>
+    <field name="name">Etat, impï¿œts et taxes ï¿œ payer</field>
     <field name="code">4457</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4458" model="account.account.template">
-    <field name="name">Etat - autres comptes créditeurs</field>
+    <field name="name">Etat - autres comptes crï¿œditeurs</field>
     <field name="code">4458</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4461" model="account.account.template">
-    <field name="name">Associés - capital à  rembourser</field>
+    <field name="name">Associï¿œs - capital ï¿œ rembourser</field>
     <field name="code">4461</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4462" model="account.account.template">
-    <field name="name">Associés - versements reçus sur augmentation de capital</field>
+    <field name="name">Associï¿œs - versements reï¿œus sur augmentation de capital</field>
     <field name="code">4462</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4463" model="account.account.template">
-    <field name="name">Comptes courants des associés créditeurs</field>
+    <field name="name">Comptes courants des associï¿œs crï¿œditeurs</field>
     <field name="code">4463</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4464" model="account.account.template">
-    <field name="name">Associés - opérations faites en commun</field>
+    <field name="name">Associï¿œs - opï¿œrations faites en commun</field>
     <field name="code">4464</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4465" model="account.account.template">
-    <field name="name">Associés - dividendes à  payer</field>
+    <field name="name">Associï¿œs - dividendes ï¿œ payer</field>
     <field name="code">4465</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4468" model="account.account.template">
-    <field name="name">Autres comptes d'associés - créditeurs</field>
+    <field name="name">Autres comptes d'associï¿œs - crï¿œditeurs</field>
     <field name="code">4468</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1750,50 +1751,50 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4484" model="account.account.template">
-    <field name="name">Obligations échues à  rembourser</field>
+    <field name="name">Obligations ï¿œchues ï¿œ rembourser</field>
     <field name="code">4484</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4485" model="account.account.template">
-    <field name="name">Obligations, coupons à  payer</field>
+    <field name="name">Obligations, coupons ï¿œ payer</field>
     <field name="code">4485</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4487" model="account.account.template">
-    <field name="name">Dettes rattachées aux autres créanciers</field>
+    <field name="name">Dettes rattachï¿œes aux autres crï¿œanciers</field>
     <field name="code">4487</field>
     <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4488" model="account.account.template">
-    <field name="name">Divers créanciers</field>
+    <field name="name">Divers crï¿œanciers</field>
     <field name="code">4488</field>
-    <field name="user_type_id" ref="account.data_account_type_payable"/>
+    <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
     <field name="reconcile" eval='True'/>
   </record>
   <record id="pcg_4491" model="account.account.template">
-    <field name="name">Produits constatés d'avance</field>
+    <field name="name">Produits constatï¿œs d'avance</field>
     <field name="code">4491</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4493" model="account.account.template">
-    <field name="name">Intérêts courus et non échus à payer</field>
+    <field name="name">Intï¿œrï¿œts courus et non ï¿œchus ï¿œ payer</field>
     <field name="code">4493</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4495" model="account.account.template">
-    <field name="name">Comptes de répartition périodique des produits</field>
+    <field name="name">Comptes de rï¿œpartition pï¿œriodique des produits</field>
     <field name="code">4495</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4497" model="account.account.template">
-    <field name="name">Comptes transitoires ou d'attente - créditeurs</field>
+    <field name="name">Comptes transitoires ou d'attente - crï¿œditeurs</field>
     <field name="code">4497</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1805,13 +1806,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4502" model="account.account.template">
-    <field name="name">Provisions pour garanties données aux clients</field>
+    <field name="name">Provisions pour garanties donnï¿œes aux clients</field>
     <field name="code">4502</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4505" model="account.account.template">
-    <field name="name">Provisions pour amendes, doubles droits et pénalités</field>
+    <field name="name">Provisions pour amendes, doubles droits et pï¿œnalitï¿œs</field>
     <field name="code">4505</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1823,7 +1824,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4507" model="account.account.template">
-    <field name="name">Provisions pour impôts</field>
+    <field name="name">Provisions pour impï¿œts</field>
     <field name="code">4507</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1835,7 +1836,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_4701" model="account.account.template">
-    <field name="name">Augmentation des créances circulantes</field>
+    <field name="name">Augmentation des crï¿œances circulantes</field>
     <field name="code">4701</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1847,73 +1848,73 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_51111" model="account.account.template">
-    <field name="name">Chèques en portefeuille</field>
+    <field name="name">Chï¿œques en portefeuille</field>
     <field name="code">51111</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_51112" model="account.account.template">
-    <field name="name">Chèques à  l'encaissement</field>
+    <field name="name">Chï¿œques ï¿œ l'encaissement</field>
     <field name="code">51112</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_51131" model="account.account.template">
-    <field name="name">Effets échus à  encaisser</field>
+    <field name="name">Effets ï¿œchus ï¿œ encaisser</field>
     <field name="code">51131</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_51132" model="account.account.template">
-    <field name="name">Effets à  l'encaissement</field>
+    <field name="name">Effets ï¿œ l'encaissement</field>
     <field name="code">51132</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_5118" model="account.account.template">
-    <field name="name">Autres valeurs à  encaisser</field>
+    <field name="name">Autres valeurs ï¿œ encaisser</field>
     <field name="code">5118</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_5146" model="account.account.template">
-    <field name="name">Chèques postaux</field>
+    <field name="name">Chï¿œques postaux</field>
     <field name="code">5146</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_5148" model="account.account.template">
-    <field name="name">Autres établissements financiers et assimilés (soldes débiteurs)</field>
+    <field name="name">Autres ï¿œtablissements financiers et assimilï¿œs (soldes dï¿œbiteurs)</field>
     <field name="code">5148</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_5165" model="account.account.template">
-    <field name="name">Régies d'avances et accréditifs</field>
+    <field name="name">Rï¿œgies d'avances et accrï¿œditifs</field>
     <field name="code">5165</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_5520" model="account.account.template">
-    <field name="name">Crédits d'escompte</field>
+    <field name="name">Crï¿œdits d'escompte</field>
     <field name="code">5520</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_5530" model="account.account.template">
-    <field name="name">Crédits de trésorerie</field>
+    <field name="name">Crï¿œdits de trï¿œsorerie</field>
     <field name="code">5530</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_5548" model="account.account.template">
-    <field name="name">Autres établissements financiers et assimilés (soldes créditeurs)</field>
+    <field name="name">Autres ï¿œtablissements financiers et assimilï¿œs (soldes crï¿œditeurs)</field>
     <field name="code">5548</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_5900" model="account.account.template">
-    <field name="name">Provisions pour dépréciation des comptes de trésorerie</field>
+    <field name="name">Provisions pour dï¿œprï¿œciation des comptes de trï¿œsorerie</field>
     <field name="code">5900</field>
     <field name="user_type_id" ref="account.data_account_type_current_assets"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1937,7 +1938,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6118" model="account.account.template">
-    <field name="name">Achats revendus de marchandises des exercices antérieurs</field>
+    <field name="name">Achats revendus de marchandises des exercices antï¿œrieurs</field>
     <field name="code">6118</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -1949,25 +1950,25 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61211" model="account.account.template">
-    <field name="name">Achats de matières premières A</field>
+    <field name="name">Achats de matiï¿œres premiï¿œres A</field>
     <field name="code">61211</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61212" model="account.account.template">
-    <field name="name">Achats de matières premières B</field>
+    <field name="name">Achats de matiï¿œres premiï¿œres B</field>
     <field name="code">61212</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61221" model="account.account.template">
-    <field name="name">Achats de matières et fournitures A</field>
+    <field name="name">Achats de matiï¿œres et fournitures A</field>
     <field name="code">61221</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61222" model="account.account.template">
-    <field name="name">Achats de matières et fournitures B</field>
+    <field name="name">Achats de matiï¿œres et fournitures B</field>
     <field name="code">61222</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2009,25 +2010,25 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61232" model="account.account.template">
-    <field name="name">Achats d'emballages récupérables non identifiables</field>
+    <field name="name">Achats d'emballages rï¿œcupï¿œrables non identifiables</field>
     <field name="code">61232</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61233" model="account.account.template">
-    <field name="name">Achats d'emballages à  usage mixte</field>
+    <field name="name">Achats d'emballages ï¿œ usage mixte</field>
     <field name="code">61233</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61241" model="account.account.template">
-    <field name="name">Variation des stocks de matières premières</field>
+    <field name="name">Variation des stocks de matiï¿œres premiï¿œres</field>
     <field name="code">61241</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61242" model="account.account.template">
-    <field name="name">Variation des stocks de matières et fournitures consommables</field>
+    <field name="name">Variation des stocks de matiï¿œres et fournitures consommables</field>
     <field name="code">61242</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2039,7 +2040,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61251" model="account.account.template">
-    <field name="name">Achats de fournitures non stockables (eau, électricité,,)</field>
+    <field name="name">Achats de fournitures non stockables (eau, ï¿œlectricitï¿œ,,)</field>
     <field name="code">61251</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2051,7 +2052,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61253" model="account.account.template">
-    <field name="name">Achats de petit outillage et petit équipement</field>
+    <field name="name">Achats de petit outillage et petit ï¿œquipement</field>
     <field name="code">61253</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2069,25 +2070,31 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61262" model="account.account.template">
-    <field name="name">Achats des études</field>
+    <field name="name">Achats des ï¿œtudes</field>
     <field name="code">61262</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
+  <record id="pcg_61263" model="account.account.template">
+    <field name="name">Achats des prestations de service</field>
+    <field name="code">61263</field>
+    <field name="user_type_id" ref="account.data_account_type_expenses"/>
+    <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
+  </record>
   <record id="pcg_6128" model="account.account.template">
-    <field name="name">Achats de matières et de fournitures des exercices antérieurs</field>
+    <field name="name">Achats de matiï¿œres et de fournitures des exercices antï¿œrieurs</field>
     <field name="code">6128</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61291" model="account.account.template">
-    <field name="name">Rabais, remises et ristournes obtenus sur achats de matières premières</field>
+    <field name="name">Rabais, remises et ristournes obtenus sur achats de matiï¿œres premiï¿œres</field>
     <field name="code">61291</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61292" model="account.account.template">
-    <field name="name">Rabais, remises et ristournes obtenus sur achats de matières et fournitures consommables</field>
+    <field name="name">Rabais, remises et ristournes obtenus sur achats de matiï¿œres et fournitures consommables</field>
     <field name="code">61292</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2099,19 +2106,19 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61295" model="account.account.template">
-    <field name="name">Rabais, remises et ristournes obtenus sur achats non stockés</field>
+    <field name="name">Rabais, remises et ristournes obtenus sur achats non stockï¿œs</field>
     <field name="code">61295</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61296" model="account.account.template">
-    <field name="name">Rabais, remises et ristournes obtenus sur achats de travaux, études et prestations de service</field>
+    <field name="name">Rabais, remises et ristournes obtenus sur achats de travaux, ï¿œtudes et prestations de service</field>
     <field name="code">61296</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61298" model="account.account.template">
-    <field name="name">Rabais, remises et ristournes obtenus sur achats de matières et fournitures des exercices antérieurs</field>
+    <field name="name">Rabais, remises et ristournes obtenus sur achats de matiï¿œres et fournitures des exercices antï¿œrieurs</field>
     <field name="code">61298</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2129,25 +2136,25 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61313" model="account.account.template">
-    <field name="name">Locations de matériel et d'outillage</field>
+    <field name="name">Locations de matï¿œriel et d'outillage</field>
     <field name="code">61313</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61314" model="account.account.template">
-    <field name="name">Locations de mobilier et de matériel de bureau</field>
+    <field name="name">Locations de mobilier et de matï¿œriel de bureau</field>
     <field name="code">61314</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61315" model="account.account.template">
-    <field name="name">Locations de matériel informatique</field>
+    <field name="name">Locations de matï¿œriel informatique</field>
     <field name="code">61315</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61316" model="account.account.template">
-    <field name="name">Locations de matériel de transport</field>
+    <field name="name">Locations de matï¿œriel de transport</field>
     <field name="code">61316</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2165,19 +2172,19 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61321" model="account.account.template">
-    <field name="name">Redevances de crédit-bail - mobilier et matériel</field>
+    <field name="name">Redevances de crï¿œdit-bail - mobilier et matï¿œriel</field>
     <field name="code">61321</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61331" model="account.account.template">
-    <field name="name">Entretien et réparations des biens immobiliers</field>
+    <field name="name">Entretien et rï¿œparations des biens immobiliers</field>
     <field name="code">61331</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61332" model="account.account.template">
-    <field name="name">Entretien et réparations des biens mobiliers</field>
+    <field name="name">Entretien et rï¿œparations des biens mobiliers</field>
     <field name="code">61332</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2201,25 +2208,25 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61345" model="account.account.template">
-    <field name="name">Assurances - Matériel de transport</field>
+    <field name="name">Assurances - Matï¿œriel de transport</field>
     <field name="code">61345</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61351" model="account.account.template">
-    <field name="name">Rémunérations du personnel occasionnel</field>
+    <field name="name">Rï¿œmunï¿œrations du personnel occasionnel</field>
     <field name="code">61351</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61352" model="account.account.template">
-    <field name="name">Rémunérations du personnel intérimaire</field>
+    <field name="name">Rï¿œmunï¿œrations du personnel intï¿œrimaire</field>
     <field name="code">61352</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61353" model="account.account.template">
-    <field name="name">Rémunérations du personnel détaché ou prêté à  l'entreprise</field>
+    <field name="name">Rï¿œmunï¿œrations du personnel dï¿œtachï¿œ ou prï¿œtï¿œ ï¿œ l'entreprise</field>
     <field name="code">61353</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2255,7 +2262,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61411" model="account.account.template">
-    <field name="name">Études générales</field>
+    <field name="name">ï¿œtudes gï¿œnï¿œrales</field>
     <field name="code">61411</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2267,7 +2274,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61415" model="account.account.template">
-    <field name="name">Documentation générale</field>
+    <field name="name">Documentation gï¿œnï¿œrale</field>
     <field name="code">61415</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2303,13 +2310,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61431" model="account.account.template">
-    <field name="name">Voyages et déplacements</field>
+    <field name="name">Voyages et dï¿œplacements</field>
     <field name="code">61431</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61433" model="account.account.template">
-    <field name="name">Frais de déménagement</field>
+    <field name="name">Frais de dï¿œmï¿œnagement</field>
     <field name="code">61433</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2321,7 +2328,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61436" model="account.account.template">
-    <field name="name">Réceptions</field>
+    <field name="name">Rï¿œceptions</field>
     <field name="code">61436</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2333,7 +2340,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61442" model="account.account.template">
-    <field name="name">Échantillons, catalogues et imprimés publicitaires</field>
+    <field name="name">ï¿œchantillons, catalogues et imprimï¿œs publicitaires</field>
     <field name="code">61442</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2345,7 +2352,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61444" model="account.account.template">
-    <field name="name">Primes de publicité</field>
+    <field name="name">Primes de publicitï¿œ</field>
     <field name="code">61444</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2357,13 +2364,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61447" model="account.account.template">
-    <field name="name">Cadeaux à  la clientèle</field>
+    <field name="name">Cadeaux ï¿œ la clientï¿œle</field>
     <field name="code">61447</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61448" model="account.account.template">
-    <field name="name">Autres charges de publicité et relations publiques</field>
+    <field name="name">Autres charges de publicitï¿œ et relations publiques</field>
     <field name="code">61448</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2375,7 +2382,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61456" model="account.account.template">
-    <field name="name">Frais de télex et de télégrammes</field>
+    <field name="name">Frais de tï¿œlex et de tï¿œlï¿œgrammes</field>
     <field name="code">61456</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2417,7 +2424,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61611" model="account.account.template">
-    <field name="name">Taxe urbaine et taxe d'édilité</field>
+    <field name="name">Taxe urbaine et taxe d'ï¿œdilitï¿œ</field>
     <field name="code">61611</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2435,7 +2442,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6165" model="account.account.template">
-    <field name="name">Impôts et taxes directs</field>
+    <field name="name">Impï¿œts et taxes directs</field>
     <field name="code">6165</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2453,13 +2460,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61678" model="account.account.template">
-    <field name="name">Autres impôts, taxes et droits assimilés</field>
+    <field name="name">Autres impï¿œts, taxes et droits assimilï¿œs</field>
     <field name="code">61678</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6168" model="account.account.template">
-    <field name="name">Impôts et taxes des exercices antérieurs</field>
+    <field name="name">Impï¿œts et taxes des exercices antï¿œrieurs</field>
     <field name="code">6168</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2471,13 +2478,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_617121" model="account.account.template">
-    <field name="name">Primes de représentation</field>
+    <field name="name">Primes de reprï¿œsentation</field>
     <field name="code">617121</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_617132" model="account.account.template">
-    <field name="name">Indemnités de déplacement</field>
+    <field name="name">Indemnitï¿œs de dï¿œplacement</field>
     <field name="code">617132</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2489,13 +2496,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61715" model="account.account.template">
-    <field name="name">Rémunérations des administrateurs, gérants et associés</field>
+    <field name="name">Rï¿œmunï¿œrations des administrateurs, gï¿œrants et associï¿œs</field>
     <field name="code">61715</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61741" model="account.account.template">
-    <field name="name">Cotisations de sécurité sociale</field>
+    <field name="name">Cotisations de sï¿œcuritï¿œ sociale</field>
     <field name="code">61741</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2543,19 +2550,19 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61764" model="account.account.template">
-    <field name="name">Habillement et vêtements de travail</field>
+    <field name="name">Habillement et vï¿œtements de travail</field>
     <field name="code">61764</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61765" model="account.account.template">
-    <field name="name">Indemnités de préavis et de licenciement</field>
+    <field name="name">Indemnitï¿œs de prï¿œavis et de licenciement</field>
     <field name="code">61765</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61766" model="account.account.template">
-    <field name="name">Médecine de travail, pharmacie</field>
+    <field name="name">Mï¿œdecine de travail, pharmacie</field>
     <field name="code">61766</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2579,55 +2586,55 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6178" model="account.account.template">
-    <field name="name">Charges du personnel des exercices antérieurs</field>
+    <field name="name">Charges du personnel des exercices antï¿œrieurs</field>
     <field name="code">6178</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6181" model="account.account.template">
-    <field name="name">Jetons de présence</field>
+    <field name="name">Jetons de prï¿œsence</field>
     <field name="code">6181</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6182" model="account.account.template">
-    <field name="name">Pertes sur créances irrécouvrables</field>
+    <field name="name">Pertes sur crï¿œances irrï¿œcouvrables</field>
     <field name="code">6182</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6185" model="account.account.template">
-    <field name="name">Pertes sur opérations faites en commun</field>
+    <field name="name">Pertes sur opï¿œrations faites en commun</field>
     <field name="code">6185</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6186" model="account.account.template">
-    <field name="name">Transfert de profits sur opérations faites en commun</field>
+    <field name="name">Transfert de profits sur opï¿œrations faites en commun</field>
     <field name="code">6186</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6188" model="account.account.template">
-    <field name="name">Autres charges d'exploitation des exercices antérieurs</field>
+    <field name="name">Autres charges d'exploitation des exercices antï¿œrieurs</field>
     <field name="code">6188</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61911" model="account.account.template">
-    <field name="name">D.E.A. des frais préliminaires</field>
+    <field name="name">D.E.A. des frais prï¿œliminaires</field>
     <field name="code">61911</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61912" model="account.account.template">
-    <field name="name">D.E.A. des charges à  répartir</field>
+    <field name="name">D.E.A. des charges ï¿œ rï¿œpartir</field>
     <field name="code">61912</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61921" model="account.account.template">
-    <field name="name">D.E.A. de l'immobilisation en recherche et développement</field>
+    <field name="name">D.E.A. de l'immobilisation en recherche et dï¿œveloppement</field>
     <field name="code">61921</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2663,19 +2670,19 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61933" model="account.account.template">
-    <field name="name">D.E.A. des installations techniques, matériel et outillage</field>
+    <field name="name">D.E.A. des installations techniques, matï¿œriel et outillage</field>
     <field name="code">61933</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61934" model="account.account.template">
-    <field name="name">D.E.A. du matériel de transport</field>
+    <field name="name">D.E.A. du matï¿œriel de transport</field>
     <field name="code">61934</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61935" model="account.account.template">
-    <field name="name">D.E.A. des mobiliers, matériels de bureau et aménagements divers</field>
+    <field name="name">D.E.A. des mobiliers, matï¿œriels de bureau et amï¿œnagements divers</field>
     <field name="code">61935</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2687,13 +2694,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61942" model="account.account.template">
-    <field name="name">D.E.P. pour dépréciation des immobilisations incorporelles</field>
+    <field name="name">D.E.P. pour dï¿œprï¿œciation des immobilisations incorporelles</field>
     <field name="code">61942</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61943" model="account.account.template">
-    <field name="name">D.E.P. pour dépréciation des immobilisations corporelles</field>
+    <field name="name">D.E.P. pour dï¿œprï¿œciation des immobilisations corporelles</field>
     <field name="code">61943</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2705,67 +2712,67 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61957" model="account.account.template">
-    <field name="name">D.E.P. pour risques et charges momentanés</field>
+    <field name="name">D.E.P. pour risques et charges momentanï¿œs</field>
     <field name="code">61957</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61961" model="account.account.template">
-    <field name="name">D.E.P. pour dépréciation des stocks</field>
+    <field name="name">D.E.P. pour dï¿œprï¿œciation des stocks</field>
     <field name="code">61961</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61964" model="account.account.template">
-    <field name="name">D.E.P. pour dépréciation des créances de l'actif circulant</field>
+    <field name="name">D.E.P. pour dï¿œprï¿œciation des crï¿œances de l'actif circulant</field>
     <field name="code">61964</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61981" model="account.account.template">
-    <field name="name">D.E. aux amortissements des exercices antérieurs</field>
+    <field name="name">D.E. aux amortissements des exercices antï¿œrieurs</field>
     <field name="code">61981</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_61984" model="account.account.template">
-    <field name="name">D.E. aux provisions des exercices antérieurs</field>
+    <field name="name">D.E. aux provisions des exercices antï¿œrieurs</field>
     <field name="code">61984</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_63111" model="account.account.template">
-    <field name="name">Intérêts des emprunts</field>
+    <field name="name">Intï¿œrï¿œts des emprunts</field>
     <field name="code">63111</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_63113" model="account.account.template">
-    <field name="name">Intérêts des dettes rattachées à  des participations</field>
+    <field name="name">Intï¿œrï¿œts des dettes rattachï¿œes ï¿œ des participations</field>
     <field name="code">63113</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_63114" model="account.account.template">
-    <field name="name">Intérêts des comptes courants et dépôts créditeurs</field>
+    <field name="name">Intï¿œrï¿œts des comptes courants et dï¿œpï¿œts crï¿œditeurs</field>
     <field name="code">63114</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_63115" model="account.account.template">
-    <field name="name">Intérêts bancaires et sur opérations de financement</field>
+    <field name="name">Intï¿œrï¿œts bancaires et sur opï¿œrations de financement</field>
     <field name="code">63115</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_63118" model="account.account.template">
-    <field name="name">Autres intérêts des emprunts et dettes</field>
+    <field name="name">Autres intï¿œrï¿œts des emprunts et dettes</field>
     <field name="code">63118</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6318" model="account.account.template">
-    <field name="name">Charges d'intérêts des exercices antérieurs</field>
+    <field name="name">Charges d'intï¿œrï¿œts des exercices antï¿œrieurs</field>
     <field name="code">6318</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2777,19 +2784,19 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6331" model="account.account.template">
-    <field name="name">Pertes de change propres à  l'exercice</field>
+    <field name="name">Pertes de change propres ï¿œ l'exercice</field>
     <field name="code">6331</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6338" model="account.account.template">
-    <field name="name">Pertes de change des exercices antérieurs</field>
+    <field name="name">Pertes de change des exercices antï¿œrieurs</field>
     <field name="code">6338</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6382" model="account.account.template">
-    <field name="name">Pertes sur créances liées à  des participations</field>
+    <field name="name">Pertes sur crï¿œances liï¿œes ï¿œ des participations</field>
     <field name="code">6382</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2801,13 +2808,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6386" model="account.account.template">
-    <field name="name">Escomptes accordés</field>
+    <field name="name">Escomptes accordï¿œs</field>
     <field name="code">6386</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6388" model="account.account.template">
-    <field name="name">Autres charges financières des exercices antérieurs</field>
+    <field name="name">Autres charges financiï¿œres des exercices antï¿œrieurs</field>
     <field name="code">6388</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2819,103 +2826,103 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6392" model="account.account.template">
-    <field name="name">Dotations aux provisions pour dépréciations des immobilisations financières</field>
+    <field name="name">Dotations aux provisions pour dï¿œprï¿œciations des immobilisations financiï¿œres</field>
     <field name="code">6392</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6393" model="account.account.template">
-    <field name="name">Dotations aux provisions pour risques et charges financières</field>
+    <field name="name">Dotations aux provisions pour risques et charges financiï¿œres</field>
     <field name="code">6393</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6394" model="account.account.template">
-    <field name="name">Dotation aux provisions pour dépréciation des titres et valeurs de placement</field>
+    <field name="name">Dotation aux provisions pour dï¿œprï¿œciation des titres et valeurs de placement</field>
     <field name="code">6394</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6396" model="account.account.template">
-    <field name="name">Dotations aux provisions pour dépréciation des comptes de trésorerie</field>
+    <field name="name">Dotations aux provisions pour dï¿œprï¿œciation des comptes de trï¿œsorerie</field>
     <field name="code">6396</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6398" model="account.account.template">
-    <field name="name">Dotations financières des exercices antérieurs</field>
+    <field name="name">Dotations financiï¿œres des exercices antï¿œrieurs</field>
     <field name="code">6398</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6512" model="account.account.template">
-    <field name="name">VNA des immobilisations incorporelles cédées</field>
+    <field name="name">VNA des immobilisations incorporelles cï¿œdï¿œes</field>
     <field name="code">6512</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6513" model="account.account.template">
-    <field name="name">VNA des immobilisations corporelles cédées</field>
+    <field name="name">VNA des immobilisations corporelles cï¿œdï¿œes</field>
     <field name="code">6513</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6514" model="account.account.template">
-    <field name="name">VNA provisions des immobilisations financières cédées (droits de propriété)</field>
+    <field name="name">VNA provisions des immobilisations financiï¿œres cï¿œdï¿œes (droits de propriï¿œtï¿œ)</field>
     <field name="code">6514</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6518" model="account.account.template">
-    <field name="name">VNA des immobilisations cédées des exercices antérieurs</field>
+    <field name="name">VNA des immobilisations cï¿œdï¿œes des exercices antï¿œrieurs</field>
     <field name="code">6518</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6561" model="account.account.template">
-    <field name="name">Subventions accordées de l'exercice</field>
+    <field name="name">Subventions accordï¿œes de l'exercice</field>
     <field name="code">6561</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6568" model="account.account.template">
-    <field name="name">Subventions accordées des exercices antérieurs</field>
+    <field name="name">Subventions accordï¿œes des exercices antï¿œrieurs</field>
     <field name="code">6568</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_65811" model="account.account.template">
-    <field name="name">Pénalités sur marchés</field>
+    <field name="name">Pï¿œnalitï¿œs sur marchï¿œs</field>
     <field name="code">65811</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_65812" model="account.account.template">
-    <field name="name">Dédits</field>
+    <field name="name">Dï¿œdits</field>
     <field name="code">65812</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6582" model="account.account.template">
-    <field name="name">Rappels d'impôts (autres que l'impôt sur les résultats)</field>
+    <field name="name">Rappels d'impï¿œts (autres que l'impï¿œt sur les rï¿œsultats)</field>
     <field name="code">6582</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_65831" model="account.account.template">
-    <field name="name">Pénalités et amendes fiscales</field>
+    <field name="name">Pï¿œnalitï¿œs et amendes fiscales</field>
     <field name="code">65831</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_65833" model="account.account.template">
-    <field name="name">Pénalités et amendes pénales</field>
+    <field name="name">Pï¿œnalitï¿œs et amendes pï¿œnales</field>
     <field name="code">65833</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6585" model="account.account.template">
-    <field name="name">Créances devenues irrécouvrables</field>
+    <field name="name">Crï¿œances devenues irrï¿œcouvrables</field>
     <field name="code">6585</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2927,7 +2934,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_65862" model="account.account.template">
-    <field name="name">Libéralités</field>
+    <field name="name">Libï¿œralitï¿œs</field>
     <field name="code">65862</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2939,7 +2946,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6588" model="account.account.template">
-    <field name="name">Autres charges non courantes des exercices antérieurs</field>
+    <field name="name">Autres charges non courantes des exercices antï¿œrieurs</field>
     <field name="code">6588</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2963,7 +2970,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_65941" model="account.account.template">
-    <field name="name">D.N.C. pour amortissements dérogatoires</field>
+    <field name="name">D.N.C. pour amortissements dï¿œrogatoires</field>
     <field name="code">65941</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -2999,43 +3006,43 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_65957" model="account.account.template">
-    <field name="name">D.N.C. aux provisions pour risques et charges momentanés</field>
+    <field name="name">D.N.C. aux provisions pour risques et charges momentanï¿œs</field>
     <field name="code">65957</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_65962" model="account.account.template">
-    <field name="name">D.N.C. aux provisions pour dépréciation de l'actif immobilisé</field>
+    <field name="name">D.N.C. aux provisions pour dï¿œprï¿œciation de l'actif immobilisï¿œ</field>
     <field name="code">65962</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_65963" model="account.account.template">
-    <field name="name">D.N.C. aux provisions pour dépréciation de l'actif circulant</field>
+    <field name="name">D.N.C. aux provisions pour dï¿œprï¿œciation de l'actif circulant</field>
     <field name="code">65963</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6598" model="account.account.template">
-    <field name="name">Dotations non courantes des exercices antérieurs</field>
+    <field name="name">Dotations non courantes des exercices antï¿œrieurs</field>
     <field name="code">6598</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6701" model="account.account.template">
-    <field name="name">Impôts sur les bénéfices</field>
+    <field name="name">Impï¿œts sur les bï¿œnï¿œfices</field>
     <field name="code">6701</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6705" model="account.account.template">
-    <field name="name">Imposition minimale annuelle des sociétés</field>
+    <field name="name">Imposition minimale annuelle des sociï¿œtï¿œs</field>
     <field name="code">6705</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_6708" model="account.account.template">
-    <field name="name">Rappels et dégrèvements d'impôts sur les résultats</field>
+    <field name="name">Rappels et dï¿œgrï¿œvements d'impï¿œts sur les rï¿œsultats</field>
     <field name="code">6708</field>
     <field name="user_type_id" ref="account.data_account_type_expenses"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3047,19 +3054,19 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7113" model="account.account.template">
-    <field name="name">Ventes de marchandises à  l'étranger</field>
+    <field name="name">Ventes de marchandises ï¿œ l'ï¿œtranger</field>
     <field name="code">7113</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7118" model="account.account.template">
-    <field name="name">Ventes de marchandises des exercices antérieurs</field>
+    <field name="name">Ventes de marchandises des exercices antï¿œrieurs</field>
     <field name="code">7118</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7119" model="account.account.template">
-    <field name="name">Rabais, remises et ristournes accordés par l'entreprise</field>
+    <field name="name">Rabais, remises et ristournes accordï¿œs par l'entreprise</field>
     <field name="code">7119</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3071,13 +3078,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71212" model="account.account.template">
-    <field name="name">Ventes de produits intermédiaires</field>
+    <field name="name">Ventes de produits intermï¿œdiaires</field>
     <field name="code">71212</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71217" model="account.account.template">
-    <field name="name">Ventes de produits résiduels</field>
+    <field name="name">Ventes de produits rï¿œsiduels</field>
     <field name="code">71217</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3089,7 +3096,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71222" model="account.account.template">
-    <field name="name">Ventes de produits intermédiaires</field>
+    <field name="name">Ventes de produits intermï¿œdiaires</field>
     <field name="code">71222</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3137,31 +3144,31 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71271" model="account.account.template">
-    <field name="name">Locations divers es reçues</field>
+    <field name="name">Locations divers es reï¿œues</field>
     <field name="code">71271</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71272" model="account.account.template">
-    <field name="name">Commissions et courtages reçus</field>
+    <field name="name">Commissions et courtages reï¿œus</field>
     <field name="code">71272</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71273" model="account.account.template">
-    <field name="name">Produits de services exploités dans l'intérêt du personnel</field>
+    <field name="name">Produits de services exploitï¿œs dans l'intï¿œrï¿œt du personnel</field>
     <field name="code">71273</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71275" model="account.account.template">
-    <field name="name">Bonis sur reprises d'emballages consignés</field>
+    <field name="name">Bonis sur reprises d'emballages consignï¿œs</field>
     <field name="code">71275</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71276" model="account.account.template">
-    <field name="name">Ports et frais accessoires facturés</field>
+    <field name="name">Ports et frais accessoires facturï¿œs</field>
     <field name="code">71276</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3173,37 +3180,37 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7128" model="account.account.template">
-    <field name="name">Ventes de biens et services produits des exercices antérieurs</field>
+    <field name="name">Ventes de biens et services produits des exercices antï¿œrieurs</field>
     <field name="code">7128</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71291" model="account.account.template">
-    <field name="name">R,R,R accordées sur ventes au Maroc des biens produits</field>
+    <field name="name">R,R,R accordï¿œes sur ventes au Maroc des biens produits</field>
     <field name="code">71291</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71292" model="account.account.template">
-    <field name="name">R,R,R accordées sur ventes à  l'étranger des biens produits</field>
+    <field name="name">R,R,R accordï¿œes sur ventes ï¿œ l'ï¿œtranger des biens produits</field>
     <field name="code">71292</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71294" model="account.account.template">
-    <field name="name">R,R,R accordées sur ventes au Maroc des services produits</field>
+    <field name="name">R,R,R accordï¿œes sur ventes au Maroc des services produits</field>
     <field name="code">71294</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71295" model="account.account.template">
-    <field name="name">R,R,R accordées sur ventes à  l'étranger des services produits</field>
+    <field name="name">R,R,R accordï¿œes sur ventes ï¿œ l'ï¿œtranger des services produits</field>
     <field name="code">71295</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71298" model="account.account.template">
-    <field name="name">Rabais, remises et ristournes accordés sur ventes de B et S produits des exercices antérieurs</field>
+    <field name="name">Rabais, remises et ristournes accordï¿œs sur ventes de B et S produits des exercices antï¿œrieurs</field>
     <field name="code">71298</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3215,13 +3222,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71312" model="account.account.template">
-    <field name="name">Variation des stocks de produits intermédiaires en cours</field>
+    <field name="name">Variation des stocks de produits intermï¿œdiaires en cours</field>
     <field name="code">71312</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71317" model="account.account.template">
-    <field name="name">Variation des stocks de produits résiduels en cours</field>
+    <field name="name">Variation des stocks de produits rï¿œsiduels en cours</field>
     <field name="code">71317</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3233,13 +3240,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71322" model="account.account.template">
-    <field name="name">Variation des stocks de produits intermédiaires</field>
+    <field name="name">Variation des stocks de produits intermï¿œdiaires</field>
     <field name="code">71322</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71327" model="account.account.template">
-    <field name="name">Variation des stocks de produits résiduels</field>
+    <field name="name">Variation des stocks de produits rï¿œsiduels</field>
     <field name="code">71327</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3251,7 +3258,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71342" model="account.account.template">
-    <field name="name">Variation des stocks d'études en cours</field>
+    <field name="name">Variation des stocks d'ï¿œtudes en cours</field>
     <field name="code">71342</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3281,49 +3288,49 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7148" model="account.account.template">
-    <field name="name">Immobilisations produites des exercices antérieurs</field>
+    <field name="name">Immobilisations produites des exercices antï¿œrieurs</field>
     <field name="code">7148</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7161" model="account.account.template">
-    <field name="name">Subventions d'exploitations reçues de l'exercice</field>
+    <field name="name">Subventions d'exploitations reï¿œues de l'exercice</field>
     <field name="code">7161</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7168" model="account.account.template">
-    <field name="name">Subventions d'exploitation reçues des exercices antérieurs</field>
+    <field name="name">Subventions d'exploitation reï¿œues des exercices antï¿œrieurs</field>
     <field name="code">7168</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7181" model="account.account.template">
-    <field name="name">Jetons de présence reçus</field>
+    <field name="name">Jetons de prï¿œsence reï¿œus</field>
     <field name="code">7181</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7182" model="account.account.template">
-    <field name="name">Revenus des immeubles non affectés à  l'exploitation</field>
+    <field name="name">Revenus des immeubles non affectï¿œs ï¿œ l'exploitation</field>
     <field name="code">7182</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7185" model="account.account.template">
-    <field name="name">Profits sur opérations faites en commun</field>
+    <field name="name">Profits sur opï¿œrations faites en commun</field>
     <field name="code">7185</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7186" model="account.account.template">
-    <field name="name">Transfert de pertes sur opérations faites en commun</field>
+    <field name="name">Transfert de pertes sur opï¿œrations faites en commun</field>
     <field name="code">7186</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7188" model="account.account.template">
-    <field name="name">Autres produits d'exploitation des exercices antérieurs</field>
+    <field name="name">Autres produits d'exploitation des exercices antï¿œrieurs</field>
     <field name="code">7188</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3347,7 +3354,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7194" model="account.account.template">
-    <field name="name">Reprises sur provisions pour dépréciation des immobilisations</field>
+    <field name="name">Reprises sur provisions pour dï¿œprï¿œciation des immobilisations</field>
     <field name="code">7194</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3359,7 +3366,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7196" model="account.account.template">
-    <field name="name">Reprises sur provisions pour dépréciation de l'actif circulant</field>
+    <field name="name">Reprises sur provisions pour dï¿œprï¿œciation de l'actif circulant</field>
     <field name="code">7196</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3371,7 +3378,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71972" model="account.account.template">
-    <field name="name">T,C,E - Achats consommés de matières et fournitures</field>
+    <field name="name">T,C,E - Achats consommï¿œs de matiï¿œres et fournitures</field>
     <field name="code">71972</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3383,7 +3390,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71975" model="account.account.template">
-    <field name="name">T,C,E - Impôts et taxes</field>
+    <field name="name">T,C,E - Impï¿œts et taxes</field>
     <field name="code">71975</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3401,13 +3408,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71981" model="account.account.template">
-    <field name="name">Reprises sur amortissements des exercices antérieurs</field>
+    <field name="name">Reprises sur amortissements des exercices antï¿œrieurs</field>
     <field name="code">71981</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_71984" model="account.account.template">
-    <field name="name">Reprises sur provisions des exercices antérieurs</field>
+    <field name="name">Reprises sur provisions des exercices antï¿œrieurs</field>
     <field name="code">71984</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3419,13 +3426,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7325" model="account.account.template">
-    <field name="name">Revenus des titres immobilisés</field>
+    <field name="name">Revenus des titres immobilisï¿œs</field>
     <field name="code">7325</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7328" model="account.account.template">
-    <field name="name">Produits des titres de participation et des autres titres immobilisés des exercices antérieurs</field>
+    <field name="name">Produits des titres de participation et des autres titres immobilisï¿œs des exercices antï¿œrieurs</field>
     <field name="code">7328</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3437,31 +3444,31 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7331" model="account.account.template">
-    <field name="name">Gains de change propres à  l'exercice</field>
+    <field name="name">Gains de change propres ï¿œ l'exercice</field>
     <field name="code">7331</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7338" model="account.account.template">
-    <field name="name">Gains de change des exercices antérieurs</field>
+    <field name="name">Gains de change des exercices antï¿œrieurs</field>
     <field name="code">7338</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_73811" model="account.account.template">
-    <field name="name">Intérêts des prêts</field>
+    <field name="name">Intï¿œrï¿œts des prï¿œts</field>
     <field name="code">73811</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_73813" model="account.account.template">
-    <field name="name">Revenus des autres créances financières</field>
+    <field name="name">Revenus des autres crï¿œances financiï¿œres</field>
     <field name="code">73813</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7383" model="account.account.template">
-    <field name="name">Revenus des créances rattachées à  des participations</field>
+    <field name="name">Revenus des crï¿œances rattachï¿œes ï¿œ des participations</field>
     <field name="code">7383</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3485,7 +3492,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7388" model="account.account.template">
-    <field name="name">Intérêts et autres produits financiers des exercices antérieurs</field>
+    <field name="name">Intï¿œrï¿œts et autres produits financiers des exercices antï¿œrieurs</field>
     <field name="code">7388</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3497,31 +3504,31 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7392" model="account.account.template">
-    <field name="name">Reprises sur provisions pour dépréciation des immobilisations financières</field>
+    <field name="name">Reprises sur provisions pour dï¿œprï¿œciation des immobilisations financiï¿œres</field>
     <field name="code">7392</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7393" model="account.account.template">
-    <field name="name">Reprises sur provisions pour risques et charges financières</field>
+    <field name="name">Reprises sur provisions pour risques et charges financiï¿œres</field>
     <field name="code">7393</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7394" model="account.account.template">
-    <field name="name">Reprise sur provisions pour dépréciation des titres et valeurs de placement</field>
+    <field name="name">Reprise sur provisions pour dï¿œprï¿œciation des titres et valeurs de placement</field>
     <field name="code">7394</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7396" model="account.account.template">
-    <field name="name">Reprises sur provisions pour dépréciation des comptes de trésorerie</field>
+    <field name="name">Reprises sur provisions pour dï¿œprï¿œciation des comptes de trï¿œsorerie</field>
     <field name="code">7396</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_73971" model="account.account.template">
-    <field name="name">Transfert - Charges d'intérêts</field>
+    <field name="name">Transfert - Charges d'intï¿œrï¿œts</field>
     <field name="code">73971</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3533,13 +3540,13 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_73978" model="account.account.template">
-    <field name="name">Transfert - Autres charges financières</field>
+    <field name="name">Transfert - Autres charges financiï¿œres</field>
     <field name="code">73978</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7398" model="account.account.template">
-    <field name="name">Reprises sur dotations financières des exercices antérieurs</field>
+    <field name="name">Reprises sur dotations financiï¿œres des exercices antï¿œrieurs</field>
     <field name="code">7398</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3557,25 +3564,25 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7514" model="account.account.template">
-    <field name="name">Produits des cessions des immobilisations financières (droits de propriété)</field>
+    <field name="name">Produits des cessions des immobilisations financiï¿œres (droits de propriï¿œtï¿œ)</field>
     <field name="code">7514</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7518" model="account.account.template">
-    <field name="name">Produits des cessions des immobilisations des exercices antérieurs</field>
+    <field name="name">Produits des cessions des immobilisations des exercices antï¿œrieurs</field>
     <field name="code">7518</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7561" model="account.account.template">
-    <field name="name">Subventions d'équilibre reçues de l'exercice</field>
+    <field name="name">Subventions d'ï¿œquilibre reï¿œues de l'exercice</field>
     <field name="code">7561</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7568" model="account.account.template">
-    <field name="name">Subventions d'équilibre reçues des exercices antérieurs</field>
+    <field name="name">Subventions d'ï¿œquilibre reï¿œues des exercices antï¿œrieurs</field>
     <field name="code">7568</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3587,31 +3594,31 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7578" model="account.account.template">
-    <field name="name">Reprises sur subventions d'investissement des exercices antérieurs</field>
+    <field name="name">Reprises sur subventions d'investissement des exercices antï¿œrieurs</field>
     <field name="code">7578</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_75811" model="account.account.template">
-    <field name="name">Pénalités reçues sur marchés</field>
+    <field name="name">Pï¿œnalitï¿œs reï¿œues sur marchï¿œs</field>
     <field name="code">75811</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_75812" model="account.account.template">
-    <field name="name">Dédits reçus</field>
+    <field name="name">Dï¿œdits reï¿œus</field>
     <field name="code">75812</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7582" model="account.account.template">
-    <field name="name">Dégrèvement d'impôts (autres que l'impôt sur les résultats)</field>
+    <field name="name">Dï¿œgrï¿œvement d'impï¿œts (autres que l'impï¿œt sur les rï¿œsultats)</field>
     <field name="code">7582</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7585" model="account.account.template">
-    <field name="name">Rentrées sur créances soldées</field>
+    <field name="name">Rentrï¿œes sur crï¿œances soldï¿œes</field>
     <field name="code">7585</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3623,7 +3630,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_75862" model="account.account.template">
-    <field name="name">Libéralités</field>
+    <field name="name">Libï¿œralitï¿œs</field>
     <field name="code">75862</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3635,7 +3642,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7588" model="account.account.template">
-    <field name="name">Autres produits non courants des exercices antérieurs</field>
+    <field name="name">Autres produits non courants des exercices antï¿œrieurs</field>
     <field name="code">7588</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3659,7 +3666,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_75941" model="account.account.template">
-    <field name="name">Reprises sur amortissements dérogatoires</field>
+    <field name="name">Reprises sur amortissements dï¿œrogatoires</field>
     <field name="code">75941</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3695,19 +3702,19 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_75957" model="account.account.template">
-    <field name="name">Reprises sur provisions pour risques et charges momentanés</field>
+    <field name="name">Reprises sur provisions pour risques et charges momentanï¿œs</field>
     <field name="code">75957</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_75962" model="account.account.template">
-    <field name="name">R,N,C sur provisions pour dépréciation de l'actif immobilisé</field>
+    <field name="name">R,N,C sur provisions pour dï¿œprï¿œciation de l'actif immobilisï¿œ</field>
     <field name="code">75962</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_75963" model="account.account.template">
-    <field name="name">R,N,C sur provisions pour dépréciation de l'actif circulant</field>
+    <field name="name">R,N,C sur provisions pour dï¿œprï¿œciation de l'actif circulant</field>
     <field name="code">75963</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
@@ -3719,7 +3726,7 @@
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>
   </record>
   <record id="pcg_7598" model="account.account.template">
-    <field name="name">Reprises non courantes des exercices antérieurs.</field>
+    <field name="name">Reprises non courantes des exercices antï¿œrieurs.</field>
     <field name="code">7598</field>
     <field name="user_type_id" ref="account.data_account_type_other_income"/>
     <field name="chart_template_id" ref="l10n_kzc_temp_chart"/>

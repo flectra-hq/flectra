@@ -17,7 +17,9 @@ _logger = logging.getLogger(__name__)
 class PaymentAcquirerPayumoney(models.Model):
     _inherit = 'payment.acquirer'
 
-    provider = fields.Selection(selection_add=[('payumoney', 'PayUmoney')])
+    provider = fields.Selection(selection_add=[
+        ('payumoney', 'PayUmoney')
+    ], ondelete={'payumoney': 'set default'})
     payumoney_merchant_key = fields.Char(string='Merchant Key', required_if_provider='payumoney', groups='base.group_user')
     payumoney_merchant_salt = fields.Char(string='Merchant Salt', required_if_provider='payumoney', groups='base.group_user')
 
@@ -52,7 +54,6 @@ class PaymentAcquirerPayumoney(models.Model):
         shasign = hashlib.sha512(sign.encode('utf-8')).hexdigest()
         return shasign
 
-    @api.multi
     def payumoney_form_generate_values(self, values):
         self.ensure_one()
         base_url = self.get_base_url()
@@ -74,10 +75,10 @@ class PaymentAcquirerPayumoney(models.Model):
         payumoney_values['hash'] = self._payumoney_generate_sign('in', payumoney_values)
         return payumoney_values
 
-    @api.multi
     def payumoney_get_form_action_url(self):
         self.ensure_one()
-        return self._get_payumoney_urls(self.environment)['payumoney_form_url']
+        environment = 'prod' if self.state == 'enabled' else 'test'
+        return self._get_payumoney_urls(environment)['payumoney_form_url']
 
 
 class PaymentTransactionPayumoney(models.Model):
@@ -91,7 +92,7 @@ class PaymentTransactionPayumoney(models.Model):
         pay_id = data.get('mihpayid')
         shasign = data.get('hash')
         if not reference or not pay_id or not shasign:
-            raise ValidationError(_('PayUmoney: received data with missing reference (%s) or pay_id (%s) or shashign (%s)') % (reference, pay_id, shasign))
+            raise ValidationError(_('PayUmoney: received data with missing reference (%s) or pay_id (%s) or shasign (%s)') % (reference, pay_id, shasign))
 
         transaction = self.search([('reference', '=', reference)])
 
@@ -108,7 +109,6 @@ class PaymentTransactionPayumoney(models.Model):
             raise ValidationError(_('PayUmoney: invalid shasign, received %s, computed %s, for data %s') % (shasign, shasign_check, data))
         return transaction
 
-    @api.multi
     def _payumoney_form_get_invalid_parameters(self, data):
         invalid_parameters = []
 
@@ -122,34 +122,16 @@ class PaymentTransactionPayumoney(models.Model):
 
         return invalid_parameters
 
-    @api.multi
     def _payumoney_form_validate(self, data):
         status = data.get('status')
-        transaction_status = {
-            'success': {
-                'state': 'done',
-                'acquirer_reference': data.get('payuMoneyId'),
-                'date_validate': fields.Datetime.now(),
-            },
-            'pending': {
-                'state': 'pending',
-                'acquirer_reference': data.get('payuMoneyId'),
-                'date_validate': fields.Datetime.now(),
-            },
-            'failure': {
-                'state': 'cancel',
-                'acquirer_reference': data.get('payuMoneyId'),
-                'date_validate': fields.Datetime.now(),
-            },
-            'error': {
-                'state': 'error',
-                'state_message': data.get('error_Message') or _('PayUmoney: feedback error'),
-                'acquirer_reference': data.get('payuMoneyId'),
-                'date_validate': fields.Datetime.now(),
-            }
-        }
-        vals = transaction_status.get(status, False)
-        if not vals:
-            vals = transaction_status['error']
-            _logger.info(vals['state_message'])
-        return self.write(vals)
+        result = self.write({
+            'acquirer_reference': data.get('payuMoneyId'),
+            'date': fields.Datetime.now(),
+        })
+        if status == 'success':
+            self._set_transaction_done()
+        elif status != 'pending':
+            self._set_transaction_cancel()
+        else:
+            self._set_transaction_pending()
+        return result

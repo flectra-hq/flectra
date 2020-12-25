@@ -3,7 +3,6 @@
 
 {
     'name': 'HR Org Chart',
-    'author' : 'Odoo S.A',
     'category': 'Hidden',
     'version': '1.0',
     'description':
@@ -15,6 +14,7 @@ This module extend the employee form with a organizational chart.
 (N+1, N+2, direct subordinates)
         """,
     'depends': ['hr'],
+    'auto_install': True,
     'data': [
         'views/hr_templates.xml',
         'views/hr_views.xml'

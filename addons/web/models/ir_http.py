@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
-
+import hashlib
 import json
-import base64
 
-from flectra import models,api
+from flectra import api, models
 from flectra.http import request
-from .crypt import *
+from flectra.tools import ustr
+
+from flectra.addons.web.controllers.main import module_boot, HomeStaticTemplateHelpers
 
 import flectra
 
@@ -16,80 +17,75 @@ class Http(models.AbstractModel):
 
     def webclient_rendering_context(self):
         return {
-            'menu_data': request.env['ir.ui.menu'].load_menus(request.debug),
-            'session_info': json.dumps(self.session_info()),
+            'menu_data': request.env['ir.ui.menu'].load_menus(request.session.debug),
+            'session_info': self.session_info(),
         }
 
     def session_info(self):
         user = request.env.user
-        display_switch_company_menu = user.has_group('base.group_multi_company') and len(user.company_ids) > 1
         version_info = flectra.service.common.exp_version()
-        ir_module_module_ids = self.env['ir.module.module'].sudo().search(
-            [('contract_certificate', '!=', False), ('state', '=', 'installed')])
-        IrConfig = request.env['ir.config_parameter'].sudo()
-        contracted_module_list, is_valid = None, False
-        if ir_module_module_ids:
-            contracted_module_list = str(self.get_contracted_modules(ir_module_module_ids=ir_module_module_ids))
-            is_valid = self.check_validate_date(IrConfig)
-        else:
-            is_valid = True
 
-        return {
-            "session_id": request.session.sid,
+        user_context = request.session.get_context() if request.session.uid else {}
+        IrConfigSudo = self.env['ir.config_parameter'].sudo()
+        session_info = {
             "uid": request.session.uid,
-            "is_system": request.env.user._is_system() if request.session.uid else False,
-            "is_superuser": request.env.user._is_superuser() if request.session.uid else False,
+            "is_system": user._is_system() if request.session.uid else False,
+            "is_admin": user._is_admin() if request.session.uid else False,
             "user_context": request.session.get_context() if request.session.uid else {},
             "db": request.session.db,
             "server_version": version_info.get('server_version'),
             "server_version_info": version_info.get('server_version_info'),
             "name": user.name,
             "username": user.login,
-            "company_id": request.env.user.company_id.id if request.session.uid else None,
-            "partner_id": request.env.user.partner_id.id if request.session.uid and request.env.user.partner_id else None,
-            "user_companies": {'current_company': (user.company_id.id, user.company_id.name), 'allowed_companies': [(comp.id, comp.name) for comp in user.company_ids]} if display_switch_company_menu else False,
-            "currencies": self.get_currencies() if request.session.uid else {},
-            "web.base.url": self.env['ir.config_parameter'].sudo().get_param('web.base.url', default=''),
-            'expiration_date' : IrConfig.get_param('database.expiration_date'),
-            'expiration_reason': IrConfig.get_param('database.expiration_reason'),
-            'contracted_module_list': contracted_module_list,
-            'contract_validation':is_valid
+            "partner_display_name": user.partner_id.display_name,
+            "company_id": user.company_id.id if request.session.uid else None,  # YTI TODO: Remove this from the user context
+            "partner_id": user.partner_id.id if request.session.uid and user.partner_id else None,
+            "web.base.url": IrConfigSudo.get_param('web.base.url', default=''),
+            "active_ids_limit": int(IrConfigSudo.get_param('web.active_ids_limit', default='20000')),
         }
+        if self.env.user.has_group('base.group_user'):
+            # the following is only useful in the context of a webclient bootstrapping
+            # but is still included in some other calls (e.g. '/web/session/authenticate')
+            # to avoid access errors and unnecessary information, it is only included for users
+            # with access to the backend ('internal'-type users)
+            mods = module_boot()
+            qweb_checksum = HomeStaticTemplateHelpers.get_qweb_templates_checksum(addons=mods, debug=request.session.debug)
+            lang = user_context.get("lang")
+            translation_hash = request.env['ir.translation'].get_web_translations_hash(mods, lang)
+            menu_json_utf8 = json.dumps(request.env['ir.ui.menu'].load_menus(request.session.debug), default=ustr, sort_keys=True).encode()
+            cache_hashes = {
+                "load_menus": hashlib.sha512(menu_json_utf8).hexdigest()[:64], # sha512/256
+                "qweb": qweb_checksum,
+                "translations": translation_hash,
+            }
+            session_info.update({
+                # current_company should be default_company
+                "user_companies": {'current_company': (user.company_id.id, user.company_id.name), 'allowed_companies': [(comp.id, comp.name) for comp in user.company_ids]},
+                "currencies": self.get_currencies(),
+                "show_effect": True,
+                "display_switch_company_menu": user.has_group('base.group_multi_company') and len(user.company_ids) > 1,
+                "cache_hashes": cache_hashes,
+            })
+        return session_info
+
+    @api.model
+    def get_frontend_session_info(self):
+        session_info = {
+            'is_admin': request.session.uid and self.env.user._is_admin() or False,
+            'is_system': request.session.uid and self.env.user._is_system() or False,
+            'is_website_user': request.session.uid and self.env.user._is_public() or False,
+            'user_id': request.session.uid and self.env.user.id or False,
+            'is_frontend': True,
+        }
+        if request.session.uid:
+            version_info = flectra.service.common.exp_version()
+            session_info.update({
+                'server_version': version_info.get('server_version'),
+                'server_version_info': version_info.get('server_version_info')
+            })
+        return session_info
 
     def get_currencies(self):
         Currency = request.env['res.currency']
         currencies = Currency.search([]).read(['symbol', 'position', 'decimal_places'])
-        return { c['id']: {'symbol': c['symbol'], 'position': c['position'], 'digits': [69,c['decimal_places']]} for c in currencies} 
-
-    def get_contracted_modules(self, type=None, contract_key=None, ir_module_module_ids=None):
-        if ir_module_module_ids:
-            contract_key = contract_key or ''
-            contracted_module_list = ir_module_module_ids.mapped('name')
-            warrant = self.env['publisher_warranty.contract'].sudo()._get_message()
-            warrant.update({
-                'contracts': contracted_module_list,
-                'contract_id': contract_key
-            })
-            if type != 'online':
-                contracts = encrypt(json.dumps(warrant), contract_key)
-            else:
-                contracts = str.encode(json.dumps(warrant))
-            return contracts
-
-    @api.model
-    def contract_validate_file(self, contract_id, type):
-        contracts = []
-        if contract_id:
-            ir_module_module_ids = self.env['ir.module.module'].sudo().search(
-                [('contract_certificate', '!=', False), ('state', '=', 'installed')])
-            contracts = self.get_contracted_modules(type, contract_id, ir_module_module_ids)
-        return json.dumps(base64.encodestring(contracts).decode('ascii'))
-
-    def check_validate_date(self, config):
-        exp_date = config.get_param('database.expiration_date')
-        validity = config.get_param('contract.validity')
-        try:
-            decrypt(base64.decodestring(str.encode(validity)), str(exp_date))
-        except Exception:
-            return False
-        return True
+        return {c['id']: {'symbol': c['symbol'], 'position': c['position'], 'digits': [69,c['decimal_places']]} for c in currencies}

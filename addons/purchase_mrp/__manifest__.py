@@ -4,9 +4,8 @@
 
 {
     'name': 'Purchase and MRP Management',
-    'author': 'Odoo S.A.',
     'version': '1.0',
-    'category': 'Hidden',
+    'category': 'Inventory/Purchase',
     'description': """
 This module provides facility to the user to install mrp and purchase modules at a time.
 ========================================================================================
@@ -14,10 +13,11 @@ This module provides facility to the user to install mrp and purchase modules at
 It is basically used when we want to keep track of production orders generated
 from purchase order.
     """,
-    'website': 'https://flectrahq.com/manufacturing',
-    'depends': ['mrp', 'purchase'],
-    'data': [],
-    'demo': [],
+    'data': [
+        'views/purchase_order_views.xml',
+        'views/mrp_production_views.xml'
+    ],
+    'depends': ['mrp', 'purchase_stock'],
     'installable': True,
     'auto_install': True,
 }

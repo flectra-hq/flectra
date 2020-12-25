@@ -1,22 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * hr_contract
+# 	* hr_contract
 # 
 # Translators:
-# Yihya Hugirat <hugirat@gmail.com>, 2017
-# Martin Trigaux, 2018
-# ilan kl <ilan@qaroads.co.il>, 2018
-# ExcaliberX <excaliberx@gmail.com>, 2018
-# Amit Spilman <amit@laylinetech.com>, 2019
+# Martin Trigaux, 2020
+# ilan kl <ilan@qaroads.co.il>, 2020
+# Fishfur A Banter <fishfurbanter@gmail.com>, 2020
+# Yihya Hugirat <hugirat@gmail.com>, 2020
+# hed shefetr <hed@laylinetech.com>, 2020
+# דודי מלכה <Dudimalka6@gmail.com>, 2020
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2020
+# Amit Spilman <amit@laylinetech.com>, 2020
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server saas~13.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 09:53+0000\n"
-"PO-Revision-Date: 2017-09-20 10:18+0000\n"
-"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2020\n"
+"POT-Creation-Date: 2020-09-01 07:28+0000\n"
+"PO-Revision-Date: 2020-09-07 08:12+0000\n"
+"Last-Translator: Amit Spilman <amit@laylinetech.com>, 2020\n"
 "Language-Team: Hebrew (https://www.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,72 +27,183 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
-msgid "<span class=\"text-muted\">(If fixed-term contract)</span>"
-msgstr "<span class=\"text-muted\">(אם חוזה קובע)</span>"
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
+msgid ""
+"<span attrs=\"{'invisible': ['|', ('calendar_mismatch', '=', False), ('state', '!=', 'open')]}\" class=\"fa fa-exclamation-triangle text-danger o_calendar_warning pl-3\">\n"
+"                                </span>\n"
+"                                <span class=\"o_calendar_warning_tooltip text-danger\">\n"
+"                                    Calendar Mismatch : The employee's calendar does not match this contract's calendar. This could lead to unexpected behaviors.\n"
+"                                </span>"
+msgstr ""
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_hr_employee_view_form2
+msgid ""
+"<span attrs=\"{'invisible': [('calendar_mismatch', '=', False)]}\" class=\"fa fa-exclamation-triangle text-danger o_calendar_warning pl-3\">\n"
+"                            </span>\n"
+"                            <span class=\"o_calendar_warning_tooltip text-danger\">\n"
+"                                Calendar Mismatch : The employee's calendar does not match its current contract calendar. This could lead to unexpected behaviors.\n"
+"                            </span>"
+msgstr ""
+"<span attrs=\"{'invisible': [('calendar_mismatch', '=', False)]}\" class=\"fa fa-exclamation-triangle text-danger o_calendar_warning pl-3\">\n"
+"                            </span>\n"
+"                            <span class=\"o_calendar_warning_tooltip text-danger\">\n"
+"                                אי התאמה בלוח שנה : לוח השנה של העובד אינו תואם את לוח השנה של החוזה הנוכחי. זה יכול להוביל להתנהגויות בלתי צפויות.\n"
+"                            </span>"
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_hr_employee_view_form2
+msgid ""
+"<span class=\"o_stat_text text-danger\" attrs=\"{'invisible' : [('contract_warning', '=', False)]}\" title=\"In Contract Since\">\n"
+"                                    In Contract Since\n"
+"                                </span>"
+msgstr ""
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_hr_employee_view_form2
+msgid ""
+"<span class=\"o_stat_text text-danger\">\n"
+"                                    Contracts\n"
+"                                </span>"
+msgstr ""
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_hr_employee_view_form2
+msgid ""
+"<span class=\"o_stat_text text-success\" attrs=\"{'invisible' : "
+"[('contract_warning', '=', True)]}\" title=\"In Contract Since\"> In "
+"Contract Since</span>"
+msgstr ""
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
 msgid "<span>/ month</span>"
 msgstr "<span>/ חודש</span>"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_advantages
-msgid "Advantages"
-msgstr "יתרונות"
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__message_needaction
+msgid "Action Needed"
+msgstr "נדרשת פעולה"
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
-msgid "Advantages..."
-msgstr "יתרונות..."
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__active
+msgid "Active"
+msgstr "פעיל"
 
 #. module: hr_contract
-#: selection:hr.contract,state:0
-msgid "Cancelled"
-msgstr "בוטלה"
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__activity_ids
+msgid "Activities"
+msgstr "פעילויות"
 
 #. module: hr_contract
-#: model:ir.actions.act_window,help:hr_contract.action_hr_contract
-msgid "Click here to create new contracts."
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "סימון פעילות חריגה"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__activity_state
+msgid "Activity State"
+msgstr "מצב פעילות"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__activity_type_icon
+msgid "Activity Type Icon"
 msgstr ""
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_company_id
+#: model:res.groups,name:hr_contract.group_hr_contract_manager
+msgid "Administrator"
+msgstr "מנהל מערכת"
+
+#. module: hr_contract
+#: code:addons/hr_contract/models/hr_contract.py:0
+#, python-format
+msgid ""
+"An employee can only have one contract at the same time. (Excluding Draft "
+"and Cancelled contracts)"
+msgstr "עובד יכול להיות רק בחוזה אחד בו זמנית. (לא כולל טיוטות וחוזים שבוטלו)"
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
+msgid "Archived"
+msgstr "בארכיון"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__message_attachment_count
+msgid "Attachment Count"
+msgstr "כמות קבצים מצורפים"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_res_users__bank_account_id
+msgid "Bank Account Number"
+msgstr "מספר חשבון בנק"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__calendar_mismatch
+#: model:ir.model.fields,field_description:hr_contract.field_hr_employee__calendar_mismatch
+msgid "Calendar Mismatch"
+msgstr "אי התאמה של לוח השנה"
+
+#. module: hr_contract
+#: model:ir.model.fields.selection,name:hr_contract.selection__hr_contract__state__cancel
+msgid "Cancelled"
+msgstr "בוטל"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__company_id
 msgid "Company"
 msgstr "חברה"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_employee_vehicle
+#: model:ir.model.fields,field_description:hr_contract.field_hr_employee__vehicle
+#: model:ir.model.fields,field_description:hr_contract.field_res_users__vehicle
 msgid "Company Vehicle"
 msgstr "רכב חברה"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_name
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__company_country_id
+msgid "Company country"
+msgstr ""
+
+#. module: hr_contract
+#: model:ir.model,name:hr_contract.model_hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
+msgid "Contract"
+msgstr "חוזה"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_employee__contracts_count
+msgid "Contract Count"
+msgstr "כמות חוזים"
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
+msgid "Contract Details"
+msgstr "פרטי חוזה"
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_departure_wizard_view_form
+msgid "Contract End Date"
+msgstr ""
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__name
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
 msgid "Contract Reference"
 msgstr "מזהה חוזה"
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
-msgid "Contract Terms"
-msgstr "תנאי החוזה"
-
-#. module: hr_contract
-#: model:ir.model,name:hr_contract.model_hr_contract_type
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_type_id_5898
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_type_name
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_type_view_form
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_type_view_search
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_type_view_tree
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
+#: model:ir.model,name:hr_contract.model_hr_payroll_structure_type
+#: model:ir.model.fields,field_description:hr_contract.field_hr_payroll_structure_type__name
 msgid "Contract Type"
 msgstr ""
 
 #. module: hr_contract
-#: model:ir.actions.act_window,name:hr_contract.action_hr_contract_type
-#: model:ir.ui.menu,name:hr_contract.hr_menu_contract_type
-msgid "Contract Types"
-msgstr "סוגי חוזים"
+#: model:ir.model.fields,field_description:hr_contract.field_hr_employee__contract_warning
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_employee_view_search
+msgid "Contract Warning"
+msgstr "אזהרת חוזה"
 
 #. module: hr_contract
 #: model:mail.message.subtype,description:hr_contract.mt_contract_pending
@@ -104,10 +217,10 @@ msgid "Contract expired"
 msgstr "החוזה פג"
 
 #. module: hr_contract
-#: code:addons/hr_contract/models/hr_contract.py:100
+#: code:addons/hr_contract/models/hr_contract.py:0
 #, python-format
-msgid "Contract start date must be less than contract end date."
-msgstr ""
+msgid "Contract start date must be earlier than contract end date."
+msgstr "תאריך ההתחלה של החוזה חייב להיות מוקדם יותר מתאריך הסיום של החוזה."
 
 #. module: hr_contract
 #: model:mail.message.subtype,name:hr_contract.mt_department_contract_pending
@@ -117,120 +230,194 @@ msgstr "חוזה לחידוש"
 #. module: hr_contract
 #: model:ir.actions.act_window,name:hr_contract.act_hr_employee_2_hr_contract
 #: model:ir.actions.act_window,name:hr_contract.action_hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_employee_contract_ids
-#: model:ir.model.fields,field_description:hr_contract.field_hr_employee_contracts_count
 #: model:ir.ui.menu,name:hr_contract.hr_menu_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_tree
-#: model:ir.ui.view,arch_db:hr_contract.hr_hr_employee_view_form2
+#: model:ir.ui.menu,name:hr_contract.menu_human_resources_configuration_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_activity
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_tree
 msgid "Contracts"
 msgstr "חוזים"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_create_uid
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_type_create_uid
-msgid "Created by"
-msgstr "נוצר על ידי"
+#: model:ir.model.fields,field_description:hr_contract.field_hr_payroll_structure_type__country_id
+msgid "Country"
+msgstr "ארץ"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_create_date
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_type_create_date
+#: model_terms:ir.actions.act_window,help:hr_contract.action_hr_contract
+msgid "Create a new contract"
+msgstr "צור חוזה חדש"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__create_uid
+#: model:ir.model.fields,field_description:hr_contract.field_hr_payroll_structure_type__create_uid
+msgid "Created by"
+msgstr "נוצר ע\"י"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__create_date
+#: model:ir.model.fields,field_description:hr_contract.field_hr_payroll_structure_type__create_date
 msgid "Created on"
 msgstr "נוצר ב-"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_currency_id
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__currency_id
 msgid "Currency"
 msgstr "מטבע"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_employee_contract_id
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
-#: model:ir.ui.view,arch_db:hr_contract.hr_hr_employee_view_form2
+#: model:ir.model.fields,field_description:hr_contract.field_hr_employee__contract_id
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
 msgid "Current Contract"
 msgstr "חוזה נוכחי"
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
-msgid "Current Employee"
-msgstr ""
+#: model:ir.model.fields,help:hr_contract.field_hr_employee__contract_id
+msgid "Current contract of the employee"
+msgstr "חוזה נוכחי של העובד"
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_kanban
+#: model:ir.model.fields,field_description:hr_contract.field_hr_payroll_structure_type__default_resource_calendar_id
+msgid "Default Working Hours"
+msgstr "שעות עבודה ברירת מחדל"
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_kanban
 msgid "Delete"
 msgstr "מחק"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_department_id
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__department_id
 msgid "Department"
 msgstr "מחלקה"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_display_name
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_type_display_name
-msgid "Display Name"
-msgstr "השם המוצג"
+#: model:ir.model,name:hr_contract.model_hr_departure_wizard
+msgid "Departure Wizard"
+msgstr "אשף עזיבה"
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_kanban
+#: code:addons/hr_contract/wizard/hr_departure_wizard.py:0
+#, python-format
+msgid ""
+"Departure date can't be earlier than the start date of current contract."
+msgstr ""
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__display_name
+#: model:ir.model.fields,field_description:hr_contract.field_hr_departure_wizard__display_name
+#: model:ir.model.fields,field_description:hr_contract.field_hr_employee__display_name
+#: model:ir.model.fields,field_description:hr_contract.field_hr_payroll_structure_type__display_name
+#: model:ir.model.fields,field_description:hr_contract.field_res_users__display_name
+#: model:ir.model.fields,field_description:hr_contract.field_resource_calendar__display_name
+msgid "Display Name"
+msgstr "שם תצוגה"
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_kanban
+msgid "Dropdown menu"
+msgstr "תפריט נפתח"
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_kanban
 msgid "Edit Contract"
 msgstr "ערוך חוזה"
 
 #. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
+msgid "Employed"
+msgstr "מועסק"
+
+#. module: hr_contract
 #: model:ir.model,name:hr_contract.model_hr_employee
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_employee_id
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__employee_id
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
 msgid "Employee"
 msgstr "עובד"
 
 #. module: hr_contract
-#: model:ir.model,name:hr_contract.model_hr_contract
-msgid "Employee Contract"
-msgstr "חוזה עובד"
+#: model:ir.model.fields,field_description:hr_contract.field_hr_employee__contract_ids
+msgid "Employee Contracts"
+msgstr "חוזי עובד"
 
 #. module: hr_contract
-#: model:ir.model.fields,help:hr_contract.field_hr_contract_wage
+#: model:ir.model.fields,help:hr_contract.field_res_users__bank_account_id
+msgid "Employee bank salary account"
+msgstr "חשבון בנק משכורת עובד"
+
+#. module: hr_contract
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__wage
 msgid "Employee's monthly gross wage."
 msgstr "השכר החודשי של העובד."
 
 #. module: hr_contract
-#: model:ir.model.fields,help:hr_contract.field_hr_contract_resource_calendar_id
-msgid "Employee's working schedule."
-msgstr ""
-
-#. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_date_end
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__date_end
 msgid "End Date"
 msgstr "תאריך סיום"
 
 #. module: hr_contract
-#: model:ir.model.fields,help:hr_contract.field_hr_contract_date_end
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__date_end
 msgid "End date of the contract (if it's a fixed-term contract)."
 msgstr "תאריך סיום החוזה (אם מדובר בחוזה קבוע)."
 
 #. module: hr_contract
-#: model:ir.model.fields,help:hr_contract.field_hr_contract_trial_date_end
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__trial_date_end
 msgid "End date of the trial period (if there is one)."
 msgstr "תאריך הסיום של תקופת הניסיון (אם יש כזה)."
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_trial_date_end
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__trial_date_end
 msgid "End of Trial Period"
 msgstr "סוף תקופת הניסיון"
 
 #. module: hr_contract
-#: selection:hr.contract,state:0
+#: model:ir.model.fields.selection,name:hr_contract.selection__hr_contract__state__close
 #: model:mail.message.subtype,name:hr_contract.mt_contract_close
 msgid "Expired"
 msgstr "פג תוקף"
 
 #. module: hr_contract
-#: model:ir.model.fields,help:hr_contract.field_hr_contract_type_sequence
-msgid "Gives the sequence when displaying a list of Contract."
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__first_contract_date
+#: model:ir.model.fields,field_description:hr_contract.field_hr_employee__first_contract_date
+msgid "First Contract Date"
+msgstr "תאריך תחילת חוזה"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__message_follower_ids
+msgid "Followers"
+msgstr "עוקבים"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "עוקבים (ערוצים)"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "עוקבים (לקוחות/ספקים)"
+
+#. module: hr_contract
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
+msgid "Future Activities"
+msgstr "פעילויות עתידיות"
+
+#. module: hr_contract
+#: model:ir.model.fields.selection,name:hr_contract.selection__hr_contract__kanban_state__done
+msgid "Green"
+msgstr "ירוק"
+
+#. module: hr_contract
+#: model:ir.model.fields.selection,name:hr_contract.selection__hr_contract__kanban_state__normal
+msgid "Grey"
+msgstr "אפור"
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
 msgid "Group By"
 msgstr "קבץ לפי"
 
@@ -242,184 +429,312 @@ msgid "HR Contract: update state"
 msgstr "חוזה משאבי אנוש: עדכון מצב"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_employee_vehicle_distance
-msgid "Home-Work Dist."
-msgstr ""
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__hr_responsible_id
+msgid "HR Responsible"
+msgstr "אחראי משאבי אנוש"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_id
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_type_id
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__id
+#: model:ir.model.fields,field_description:hr_contract.field_hr_departure_wizard__id
+#: model:ir.model.fields,field_description:hr_contract.field_hr_employee__id
+#: model:ir.model.fields,field_description:hr_contract.field_hr_payroll_structure_type__id
+#: model:ir.model.fields,field_description:hr_contract.field_res_users__id
+#: model:ir.model.fields,field_description:hr_contract.field_resource_calendar__id
 msgid "ID"
 msgstr "מזהה"
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
-msgid "Important Messages"
-msgstr "הודעות חשובות"
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__activity_exception_icon
+msgid "Icon"
+msgstr "סמל"
 
 #. module: hr_contract
-#: model:ir.model.fields,help:hr_contract.field_hr_employee_vehicle_distance
-msgid "In kilometers"
-msgstr ""
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "סמל לציון פעילות חריגה."
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_employee_manager
-msgid "Is a Manager"
-msgstr ""
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__message_needaction
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "אם מסומן, הודעות חדשות דורשות את תשומת לבך."
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
-msgid "Job"
-msgstr "תפקיד"
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "אם מסומן, בחלק מההודעות קיימת שגיאת משלוח."
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_job_id
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__message_is_follower
+msgid "Is Follower"
+msgstr "עוקב"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__job_id
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
 msgid "Job Position"
 msgstr "תפקיד"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract___last_update
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_type___last_update
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__kanban_state
+msgid "Kanban State"
+msgstr "מצב קנבן "
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract____last_update
+#: model:ir.model.fields,field_description:hr_contract.field_hr_departure_wizard____last_update
+#: model:ir.model.fields,field_description:hr_contract.field_hr_employee____last_update
+#: model:ir.model.fields,field_description:hr_contract.field_hr_payroll_structure_type____last_update
+#: model:ir.model.fields,field_description:hr_contract.field_res_users____last_update
+#: model:ir.model.fields,field_description:hr_contract.field_resource_calendar____last_update
 msgid "Last Modified on"
-msgstr "תאריך שינוי אחרון"
+msgstr "שונה לאחרונה ב - "
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_type_write_uid
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_write_uid
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__write_uid
+#: model:ir.model.fields,field_description:hr_contract.field_hr_payroll_structure_type__write_uid
 msgid "Last Updated by"
-msgstr "עודכן לאחרונה על ידי"
+msgstr "עודכן לאחרונה ע\"י"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_type_write_date
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_write_date
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__write_date
+#: model:ir.model.fields,field_description:hr_contract.field_hr_payroll_structure_type__write_date
 msgid "Last Updated on"
-msgstr "תאריך עדכון אחרון"
+msgstr "עדכון אחרון ב"
 
 #. module: hr_contract
-#: model:ir.model.fields,help:hr_contract.field_hr_employee_contract_id
-msgid "Latest contract of the employee"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
+msgid "Late Activities"
+msgstr "פעילויות באיחור"
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_hr_employee_view_form2
-msgid "Medical Exam"
-msgstr ""
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "קובץ ראשי מצורף "
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_employee_medic_exam
-msgid "Medical Examination Date"
-msgstr "תאריך בדיקה רפואית"
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__message_has_error
+msgid "Message Delivery error"
+msgstr "הודעת שגיאת שליחה"
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__message_ids
+msgid "Messages"
+msgstr "הודעות"
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
 msgid "Monthly Advantages in Cash"
 msgstr "הטבה חודשית במזומן"
 
 #. module: hr_contract
-#: selection:hr.contract,state:0
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
+msgid "Need Action"
+msgstr "נדרשת פעולה"
+
+#. module: hr_contract
+#: model:ir.model.fields.selection,name:hr_contract.selection__hr_contract__state__draft
 msgid "New"
 msgstr "חדש"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_notes
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "מועד אחרון לפעילות הבאה"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__activity_summary
+msgid "Next Activity Summary"
+msgstr "תיאור הפעילות הבאה "
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__activity_type_id
+msgid "Next Activity Type"
+msgstr "סוג הפעילות הבאה"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__notes
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
 msgid "Notes"
 msgstr "הערות"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_employee_children
-msgid "Number of Children"
-msgstr "מספר הילדים"
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__message_needaction_counter
+msgid "Number of Actions"
+msgstr "מספר פעולות"
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
-msgid "Other Information"
-msgstr "מידע נוסף"
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__message_has_error_counter
+msgid "Number of errors"
+msgstr "מספר השגיאות"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_employee_place_of_birth
-msgid "Place of Birth"
-msgstr "מקום לידה"
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "מספר הודעות המחייבות פעולה"
 
 #. module: hr_contract
-#: selection:hr.contract,state:0
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "מספר הודעות עם שגיאת משלוח"
+
+#. module: hr_contract
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__message_unread_counter
+msgid "Number of unread messages"
+msgstr "מספר ההודעות שלא נקראו"
+
+#. module: hr_contract
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__hr_responsible_id
+msgid "Person responsible for validating the employee's contracts."
+msgstr "האחראי לתיקוף חוזי העובד."
+
+#. module: hr_contract
+#: model:ir.model.fields.selection,name:hr_contract.selection__hr_contract__kanban_state__blocked
+msgid "Red"
+msgstr "אדום"
+
+#. module: hr_contract
+#: model:ir.model,name:hr_contract.model_resource_calendar
+msgid "Resource Working Time"
+msgstr "זמן עבודה של משאב"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__activity_user_id
+msgid "Responsible User"
+msgstr "משתמש אחראי"
+
+#. module: hr_contract
+#: model:ir.model.fields.selection,name:hr_contract.selection__hr_contract__state__open
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
 msgid "Running"
-msgstr "פעיל"
+msgstr "רץ"
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
 msgid "Salary Information"
 msgstr "מידע על שכר"
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__structure_type_id
+msgid "Salary Structure Type"
+msgstr "סוג מבנה השכר"
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
 msgid "Search Contract"
 msgstr "חפש חוזה"
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_type_view_search
-msgid "Search Contract Type"
+#: model:ir.model.fields,field_description:hr_contract.field_hr_departure_wizard__set_date_end
+msgid "Set Contract End Date"
 msgstr ""
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_type_sequence
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_type_view_search
-msgid "Sequence"
-msgstr "רצף"
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_departure_wizard_view_form
+msgid "Set end date to current contract"
+msgstr ""
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_date_start
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
+msgid "Show all records which have a next action date before today"
+msgstr ""
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__date_start
 msgid "Start Date"
-msgstr "תאריך התחלה"
+msgstr "תאריך תחילה"
 
 #. module: hr_contract
-#: model:ir.model.fields,help:hr_contract.field_hr_contract_date_start
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__date_start
 msgid "Start date of the contract."
 msgstr "תאריך התחלת החוזה."
 
 #. module: hr_contract
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
-msgid "State"
-msgstr "מחוז"
-
-#. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_state
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__state
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
 msgid "Status"
 msgstr "סטטוס"
 
 #. module: hr_contract
-#: model:ir.model.fields,help:hr_contract.field_hr_contract_state
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"סטטוס על בסיס פעילויות\n"
+"איחור: תאריך היעד כבר חלף\n"
+"היום: תאריך הפעילות הוא היום\n"
+"מתוכנן: פעילויות עתידיות."
+
+#. module: hr_contract
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__state
 msgid "Status of the contract"
 msgstr "סטטוס החוזה"
 
 #. module: hr_contract
-#: selection:hr.contract,state:0
-#: model:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
+#: code:addons/hr_contract/models/hr_contract.py:0
+#, python-format
+msgid "The contract of %s is about to expire."
+msgstr ""
+
+#. module: hr_contract
 #: model:mail.message.subtype,name:hr_contract.mt_contract_pending
 msgid "To Renew"
 msgstr "לחדש"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_visa_expire
-msgid "Visa Expire Date"
-msgstr "תאריך תפוגה של הויזה"
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_search
+msgid "Today Activities"
+msgstr "פעילויות היום"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_visa_no
+#: model:ir.model.fields,help:hr_contract.field_hr_contract__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "סוג הפעילות החריגה ברשומה."
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__message_unread
+msgid "Unread Messages"
+msgstr "הודעות שלא נקראו"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "מספר ההודעות שלא נקראו"
+
+#. module: hr_contract
+#: model:ir.model,name:hr_contract.model_res_users
+msgid "Users"
+msgstr "משתמשים"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__visa_expire
+msgid "Visa Expire Date"
+msgstr "תאריך תפוגת הויזה"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__visa_no
 msgid "Visa No"
 msgstr "מספר ויזה"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_wage
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__wage
 msgid "Wage"
 msgstr "שכר"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_permit_no
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__permit_no
 msgid "Work Permit No"
 msgstr "מספר אישור עבודה"
 
 #. module: hr_contract
-#: model:ir.model.fields,field_description:hr_contract.field_hr_contract_resource_calendar_id
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__resource_calendar_id
 msgid "Working Schedule"
-msgstr "לוח זמנים עבודה"
+msgstr "לוח זמני עבודה"
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
+msgid "Yearly Advantages"
+msgstr ""

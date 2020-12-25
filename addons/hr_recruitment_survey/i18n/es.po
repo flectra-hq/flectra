@@ -1,20 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * hr_recruitment_survey
+# 	* hr_recruitment_survey
 # 
 # Translators:
-# Luis M. Ontalba <luis.martinez@tecnativa.com>, 2017
-# Martin Trigaux, 2017
-# Carlos Eduardo Rodriguez Rossi <crodriguez@samemotion.com>, 2017
-# Nicolás Broggi <rnbroggi@gmail.com>, 2017
-# RGB Consulting <odoo@rgbconsulting.com>, 2017
+# Pablo Rojas <rojaspablo88@gmail.com>, 2020
+# Jon Perez <jop@odoo.com>, 2020
+# Martin Trigaux, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 09:53+0000\n"
-"PO-Revision-Date: 2017-09-20 09:53+0000\n"
-"Last-Translator: RGB Consulting <odoo@rgbconsulting.com>, 2017\n"
+"POT-Creation-Date: 2020-09-29 13:45+0000\n"
+"PO-Revision-Date: 2020-09-07 08:13+0000\n"
+"Last-Translator: Martin Trigaux, 2020\n"
 "Language-Team: Spanish (https://www.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,56 +22,50 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.recruitment_1_3_1
-msgid "0-15"
-msgstr "0-15"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.recruitment_1_3_2
-msgid "16-20"
-msgstr "16-20"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.recruitment_1_3_3
-msgid "21-30"
-msgstr "21-30"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.recruitment_1_3_4
-msgid "31-40"
-msgstr "31-40"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.recruitment_1_3_5
-msgid "41-50"
-msgstr "41-50"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.recruitment_1_3_6
-msgid "51-60"
-msgstr "51-60"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.recruitment_1_3_7
-msgid "61-70"
-msgstr "61-70"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.recruitment_1_3_8
-msgid "71+"
-msgstr "71+"
-
-#. module: hr_recruitment_survey
-#: model:ir.ui.view,arch_db:hr_recruitment_survey.crm_case_form_view_job_inherit
+#: model:survey.survey,description:hr_recruitment_survey.survey_recruitment_form
 msgid ""
-"<span class=\"o_stat_text\">Print</span>\n"
+"<p>\n"
+"    Please answer those questions to help recruitment officers to preprocess your application.\n"
+"</p>"
+msgstr ""
+
+#. module: hr_recruitment_survey
+#: model:survey.question,description:hr_recruitment_survey.survey_recruitment_form_p1
+msgid ""
+"<p>Please fill information about you: who you are, what are your education, experience, and activities.\n"
+"    It will help us managing your application.</p>"
+msgstr ""
+
+#. module: hr_recruitment_survey
+#: model:survey.question,description:hr_recruitment_survey.survey_recruitment_form_p1_q4
+#: model:survey.question,description:hr_recruitment_survey.survey_recruitment_form_p1_q5
+msgid ""
+"<p>Please summarize your education history: schools, location, diplomas, "
+"...</p>"
+msgstr ""
+
+#. module: hr_recruitment_survey
+#: model:survey.question,description:hr_recruitment_survey.survey_recruitment_form_p1_q7
+msgid ""
+"<p>Please tell us a bit more about yourself: what are your main activities, "
+"...</p>"
+msgstr ""
+
+#. module: hr_recruitment_survey
+#: model:survey.question,description:hr_recruitment_survey.survey_recruitment_form_p1_q6
+msgid ""
+"<p>What are your main knowledge regarding the job you are applying to ?</p>"
+msgstr ""
+
+#. module: hr_recruitment_survey
+#: model_terms:ir.ui.view,arch_db:hr_recruitment_survey.hr_applicant_view_form_inherit
+msgid ""
+"<span class=\"o_stat_text\">Consult</span>\n"
 "                        <span class=\"o_stat_text\">Interview</span>"
 msgstr ""
-"<span class=\"o_stat_text\">Imprimir</span>\n"
-"                        <span class=\"o_stat_text\">entrevista</span>"
 
 #. module: hr_recruitment_survey
-#: model:ir.ui.view,arch_db:hr_recruitment_survey.crm_case_form_view_job_inherit
+#: model_terms:ir.ui.view,arch_db:hr_recruitment_survey.hr_applicant_view_form_inherit
 msgid ""
 "<span class=\"o_stat_text\">Start</span>\n"
 "                        <span class=\"o_stat_text\">Interview</span>"
@@ -81,12 +74,17 @@ msgstr ""
 "                         <span class=\"o_stat_text\">entrevista</span>"
 
 #. module: hr_recruitment_survey
-#: model:survey.question,question:hr_recruitment_survey.recruitment_2_4
+#: model:survey.question,title:hr_recruitment_survey.survey_recruitment_form_p1
+msgid "About you"
+msgstr "Acerca de ti"
+
+#. module: hr_recruitment_survey
+#: model:survey.question,title:hr_recruitment_survey.survey_recruitment_form_p1_q7
 msgid "Activities"
 msgstr "Actividades"
 
 #. module: hr_recruitment_survey
-#: model:ir.ui.view,arch_db:hr_recruitment_survey.crm_case_form_view_job_inherit
+#: model_terms:ir.ui.view,arch_db:hr_recruitment_survey.hr_applicant_view_form_inherit
 msgid "Answer related job question"
 msgstr "Responder pregunta relativa al puesto"
 
@@ -96,117 +94,105 @@ msgid "Applicant"
 msgstr "Candidato"
 
 #. module: hr_recruitment_survey
-#: model:survey.page,title:hr_recruitment_survey.recruitment_1
-msgid "Basic information"
-msgstr "Información básica"
-
-#. module: hr_recruitment_survey
-#: model:ir.model.fields,help:hr_recruitment_survey.field_hr_applicant_survey_id
-#: model:ir.model.fields,help:hr_recruitment_survey.field_hr_job_survey_id
+#: model:ir.model.fields,help:hr_recruitment_survey.field_hr_applicant__survey_id
+#: model:ir.model.fields,help:hr_recruitment_survey.field_hr_job__survey_id
 msgid ""
 "Choose an interview form for this job position and you will be able to "
 "print/answer this interview from all applicants who apply for this job"
 msgstr ""
 "Escoja un formulario de entrevista para este puesto de trabajo y podrá "
-"imprimir/responder esta entrevista para todos los solicitantes que opten por"
-" el puesto."
+"imprimir/responder esta entrevista para todos los solicitantes que opten al "
+"puesto."
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rrow_2_1_4
-msgid "Desk space"
-msgstr "Espacio en el escritorio"
+#: model_terms:ir.ui.view,arch_db:hr_recruitment_survey.view_hr_job_kanban_inherit
+msgid "Create Interview Form"
+msgstr ""
 
 #. module: hr_recruitment_survey
-#: model:ir.ui.view,arch_db:hr_recruitment_survey.hr_job_survey_inherit
-#: model:ir.ui.view,arch_db:hr_recruitment_survey.view_hr_job_kanban_inherit
+#: model_terms:ir.ui.view,arch_db:hr_recruitment_survey.hr_job_survey_inherit
+#: model_terms:ir.ui.view,arch_db:hr_recruitment_survey.view_hr_job_kanban_inherit
 msgid "Display Interview Form"
 msgstr "Mostrar formulario de entrevista"
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rrow_2_1_11
-msgid "Dress code"
-msgstr "Código de vestimenta"
+#: model:ir.model.fields,field_description:hr_recruitment_survey.field_hr_applicant__display_name
+#: model:ir.model.fields,field_description:hr_recruitment_survey.field_hr_job__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
 
 #. module: hr_recruitment_survey
-#: model:survey.question,question:hr_recruitment_survey.recruitment_2_2
+#: model:survey.question,title:hr_recruitment_survey.survey_recruitment_form_p1_q4
 msgid "Education"
 msgstr "Educación"
 
 #. module: hr_recruitment_survey
-#: model:survey.page,title:hr_recruitment_survey.recruitment_2
-msgid "Education and Activities"
-msgstr "Educación y actividades"
+#: model:survey.question,title:hr_recruitment_survey.survey_recruitment_form_p1_q2
+msgid "From which university did or will you graduate ?"
+msgstr "¿De qué universidad te graduaste o te graduarás?"
 
 #. module: hr_recruitment_survey
-#: model:survey.question,question:hr_recruitment_survey.recruitment_2_3
-msgid "Experience"
-msgstr "Experiencia"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.recruitment_1_2_2
-msgid "Female"
-msgstr "Mujer"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rrow_2_1_8
-msgid "Freebies such as tea, coffee and stationery"
-msgstr "Obsequios como té, café y artículos de papelería"
-
-#. module: hr_recruitment_survey
-#: model:survey.question,question:hr_recruitment_survey.recruitment_1_1
-msgid "From which university will you graduate?"
-msgstr "¿En qué universidad se graduó?"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rrow_2_1_2
+#: model:survey.question.answer,value:hr_recruitment_survey.survey_recruitment_form_p1_q8_row2
 msgid "Getting on with colleagues"
 msgstr "Cogeniando con los compañeros"
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rrow_2_1_7
-msgid "Good management"
-msgstr "Buena gestión"
+#: model:survey.question.answer,value:hr_recruitment_survey.survey_recruitment_form_p1_q8_row8
+msgid "Getting perks such as free parking, gym passes"
+msgstr "Obtener beneficios como estacionamiento gratuito, pases de gimnasio"
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rrow_2_1_1
-msgid "Good pay"
-msgstr "Buena paga"
+#: model:survey.question.answer,value:hr_recruitment_survey.survey_recruitment_form_p1_q8_row1
+msgid "Having a good pay"
+msgstr "Tener un buen sueldo"
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rrow_2_1_13
-msgid "Good social life"
-msgstr "Buena vida social"
+#: model:survey.question.answer,value:hr_recruitment_survey.survey_recruitment_form_p1_q8_row3
+msgid "Having a nice office environment"
+msgstr "Tener un buen ambiente de oficina"
 
 #. module: hr_recruitment_survey
-#: model:survey.question,comments_message:hr_recruitment_survey.recruitment_1_1
-#: model:survey.question,comments_message:hr_recruitment_survey.recruitment_1_2
-#: model:survey.question,comments_message:hr_recruitment_survey.recruitment_1_3
-#: model:survey.question,comments_message:hr_recruitment_survey.recruitment_2_1
-#: model:survey.question,comments_message:hr_recruitment_survey.recruitment_2_2
-#: model:survey.question,comments_message:hr_recruitment_survey.recruitment_2_3
-#: model:survey.question,comments_message:hr_recruitment_survey.recruitment_2_4
-#: model:survey.question,comments_message:hr_recruitment_survey.recruitment_3_1
+#: model:survey.question.answer,value:hr_recruitment_survey.survey_recruitment_form_p1_q8_row7
+msgid "Having freebies such as tea, coffee and stationery"
+msgstr "Tener regalos como té, café y papelería."
+
+#. module: hr_recruitment_survey
+#: model:ir.model.fields,field_description:hr_recruitment_survey.field_hr_applicant__id
+#: model:ir.model.fields,field_description:hr_recruitment_survey.field_hr_job__id
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_recruitment_survey
+#: model:survey.question,comments_message:hr_recruitment_survey.survey_recruitment_form_p1
+#: model:survey.question,comments_message:hr_recruitment_survey.survey_recruitment_form_p1_q1
+#: model:survey.question,comments_message:hr_recruitment_survey.survey_recruitment_form_p1_q2
+#: model:survey.question,comments_message:hr_recruitment_survey.survey_recruitment_form_p1_q3
+#: model:survey.question,comments_message:hr_recruitment_survey.survey_recruitment_form_p1_q4
+#: model:survey.question,comments_message:hr_recruitment_survey.survey_recruitment_form_p1_q5
+#: model:survey.question,comments_message:hr_recruitment_survey.survey_recruitment_form_p1_q6
+#: model:survey.question,comments_message:hr_recruitment_survey.survey_recruitment_form_p1_q7
+#: model:survey.question,comments_message:hr_recruitment_survey.survey_recruitment_form_p1_q8
 msgid "If other, please specify:"
 msgstr "Si otra, por favor, precisar:"
 
 #. module: hr_recruitment_survey
-#: model:survey.page,title:hr_recruitment_survey.recruitment_3
-msgid "Importance"
-msgstr "Importancia"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rcol_3_1_3
+#: model:survey.question.answer,value:hr_recruitment_survey.survey_recruitment_form_p1_q8_col2
 msgid "Important"
 msgstr "Importante"
 
 #. module: hr_recruitment_survey
-#: model:ir.model.fields,field_description:hr_recruitment_survey.field_hr_job_survey_id
-#: model:ir.ui.view,arch_db:hr_recruitment_survey.view_hr_job_kanban_inherit
+#: model:ir.model.fields,field_description:hr_recruitment_survey.field_hr_job__survey_id
 msgid "Interview Form"
 msgstr "Formulario de entrevista"
 
 #. module: hr_recruitment_survey
-#: model:ir.ui.view,arch_db:hr_recruitment_survey.res_config_settings_view_form
+#: code:addons/hr_recruitment_survey/models/hr_job.py:0
+#, python-format
+msgid "Interview Form : %s"
+msgstr ""
+
+#. module: hr_recruitment_survey
+#: model_terms:ir.ui.view,arch_db:hr_recruitment_survey.res_config_settings_view_form
 msgid "Interview Forms"
 msgstr "Formularios de entrevista"
 
@@ -216,133 +202,115 @@ msgid "Job Position"
 msgstr "Puesto de trabajo"
 
 #. module: hr_recruitment_survey
-#: model:survey.question,question:hr_recruitment_survey.recruitment_2_1
+#: model:survey.question,title:hr_recruitment_survey.survey_recruitment_form_p1_q6
 msgid "Knowledge"
 msgstr "Conocimiento"
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.recruitment_1_2_1
-msgid "Male"
-msgstr "Hombre"
+#: model:ir.model.fields,field_description:hr_recruitment_survey.field_hr_applicant____last_update
+#: model:ir.model.fields,field_description:hr_recruitment_survey.field_hr_job____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rcol_3_1_5
-msgid "Most important"
-msgstr "Más importante"
+#: model:survey.question.answer,value:hr_recruitment_survey.survey_recruitment_form_p1_q8_row6
+msgid "Management quality"
+msgstr "Calidad de gestión"
 
 #. module: hr_recruitment_survey
-#: model:ir.ui.view,arch_db:hr_recruitment_survey.view_hr_job_kanban_inherit
-msgid "No Interview Form"
-msgstr "Sin formulario de entrevista"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rrow_2_1_10
-msgid "No out of hours working"
-msgstr "No fuera de las horas de trabajo"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rcol_3_1_1
+#: model:survey.question.answer,value:hr_recruitment_survey.survey_recruitment_form_p1_q8_col1
 msgid "Not important"
 msgstr "Sin importancia"
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rrow_2_1_3
-msgid "Office environment"
-msgstr "Entorno de la oficina"
-
-#. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rrow_2_1_6
+#: model:survey.question.answer,value:hr_recruitment_survey.survey_recruitment_form_p1_q8_row5
 msgid "Office location"
 msgstr "Ubicación de la oficina"
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rrow_2_1_9
-msgid "Perks such as free parking, gym passes"
-msgstr "Gratificaciones, como plazas de aparcamiento, gimnasio..."
+#: model:survey.question,title:hr_recruitment_survey.survey_recruitment_form_p1_q5
+msgid "Past work experiences"
+msgstr "Experiencias laborales pasadas"
 
 #. module: hr_recruitment_survey
-#: model:ir.ui.view,arch_db:hr_recruitment_survey.crm_case_form_view_job_inherit
-msgid "Print interview report"
-msgstr "Imprimir informe de entrevista"
+#: model_terms:ir.ui.view,arch_db:hr_recruitment_survey.view_hr_job_kanban_inherit
+msgid "Preview Interview"
+msgstr ""
 
 #. module: hr_recruitment_survey
-#: model:survey.question,question:hr_recruitment_survey.recruitment_3_1
-msgid "Rate the Importance"
-msgstr "Valore la importancia"
-
-#. module: hr_recruitment_survey
-#: model:survey.survey,title:hr_recruitment_survey.recruitment_form
+#: model:survey.survey,title:hr_recruitment_survey.survey_recruitment_form
 msgid "Recruitment Form"
 msgstr "Formulario de selección"
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rrow_2_1_12
-msgid "Regular meetings"
-msgstr "Reuniones regulares"
-
-#. module: hr_recruitment_survey
-#: model:ir.model.fields,field_description:hr_recruitment_survey.field_hr_applicant_response_id
+#: model:ir.model.fields,field_description:hr_recruitment_survey.field_hr_applicant__response_id
 msgid "Response"
 msgstr "Respuesta"
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rcol_3_1_2
-msgid "Somewhat important"
-msgstr "Algo importante"
+#: model_terms:ir.ui.view,arch_db:hr_recruitment_survey.hr_applicant_view_form_inherit
+msgid "See interview report"
+msgstr ""
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rrow_2_1_5
-msgid "State of the art technology"
-msgstr "Última tecnología"
-
-#. module: hr_recruitment_survey
-#: model:ir.model.fields,field_description:hr_recruitment_survey.field_hr_applicant_survey_id
+#: code:addons/hr_recruitment_survey/models/hr_job.py:0
+#: model:ir.model.fields,field_description:hr_recruitment_survey.field_hr_applicant__survey_id
+#, python-format
 msgid "Survey"
 msgstr "Encuesta"
 
 #. module: hr_recruitment_survey
-#: model:survey.question,validation_error_msg:hr_recruitment_survey.recruitment_1_1
-#: model:survey.question,validation_error_msg:hr_recruitment_survey.recruitment_1_2
-#: model:survey.question,validation_error_msg:hr_recruitment_survey.recruitment_1_3
-#: model:survey.question,validation_error_msg:hr_recruitment_survey.recruitment_2_1
-#: model:survey.question,validation_error_msg:hr_recruitment_survey.recruitment_2_2
-#: model:survey.question,validation_error_msg:hr_recruitment_survey.recruitment_2_3
-#: model:survey.question,validation_error_msg:hr_recruitment_survey.recruitment_2_4
-#: model:survey.question,validation_error_msg:hr_recruitment_survey.recruitment_3_1
-msgid "The answer you entered has an invalid format."
-msgstr "La respuesta introducida tiene un formato no válido."
+#: model_terms:survey.survey,description_done:hr_recruitment_survey.survey_recruitment_form
+msgid "Thank you for answering this survey. We will come back to you soon."
+msgstr "Gracias por responder esta encuesta. Volveremos a usted pronto."
 
 #. module: hr_recruitment_survey
-#: model:survey.survey,description:hr_recruitment_survey.recruitment_form
-msgid ""
-"This form is intended to help the responsible of a recruitment interview."
-msgstr ""
-"Este formulario está pensado para ayudar al responsable de las entrevistas "
-"de selección."
+#: model:survey.question,validation_error_msg:hr_recruitment_survey.survey_recruitment_form_p1
+#: model:survey.question,validation_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q1
+#: model:survey.question,validation_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q2
+#: model:survey.question,validation_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q3
+#: model:survey.question,validation_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q4
+#: model:survey.question,validation_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q5
+#: model:survey.question,validation_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q6
+#: model:survey.question,validation_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q7
+#: model:survey.question,validation_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q8
+msgid "The answer you entered is not valid."
+msgstr "La respuesta introducida no es válida."
 
 #. module: hr_recruitment_survey
-#: model:survey.question,constr_error_msg:hr_recruitment_survey.recruitment_1_1
-#: model:survey.question,constr_error_msg:hr_recruitment_survey.recruitment_1_2
-#: model:survey.question,constr_error_msg:hr_recruitment_survey.recruitment_1_3
-#: model:survey.question,constr_error_msg:hr_recruitment_survey.recruitment_2_1
-#: model:survey.question,constr_error_msg:hr_recruitment_survey.recruitment_2_2
-#: model:survey.question,constr_error_msg:hr_recruitment_survey.recruitment_2_3
-#: model:survey.question,constr_error_msg:hr_recruitment_survey.recruitment_2_4
-#: model:survey.question,constr_error_msg:hr_recruitment_survey.recruitment_3_1
+#: model:survey.question,constr_error_msg:hr_recruitment_survey.survey_recruitment_form_p1
+#: model:survey.question,constr_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q1
+#: model:survey.question,constr_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q2
+#: model:survey.question,constr_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q3
+#: model:survey.question,constr_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q4
+#: model:survey.question,constr_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q5
+#: model:survey.question,constr_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q6
+#: model:survey.question,constr_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q7
+#: model:survey.question,constr_error_msg:hr_recruitment_survey.survey_recruitment_form_p1_q8
 msgid "This question requires an answer."
 msgstr "Esta pregunta requiere una respuesta."
 
 #. module: hr_recruitment_survey
-#: model:survey.label,value:hr_recruitment_survey.rcol_3_1_4
+#: model:survey.question.answer,value:hr_recruitment_survey.survey_recruitment_form_p1_q8_col3
 msgid "Very important"
 msgstr "Muy importante"
 
 #. module: hr_recruitment_survey
-#: model:survey.question,question:hr_recruitment_survey.recruitment_1_3
-msgid "What age group do you belong to?"
-msgstr "¿A qué grupo de edad pertenece?"
+#: model:survey.question,title:hr_recruitment_survey.survey_recruitment_form_p1_q3
+msgid "Were you referred by an employee?"
+msgstr ""
 
 #. module: hr_recruitment_survey
-#: model:survey.question,question:hr_recruitment_survey.recruitment_1_2
-msgid "What is your gender?"
-msgstr "¿Cuál es su género?"
+#: model:survey.question,title:hr_recruitment_survey.survey_recruitment_form_p1_q8
+msgid "What is important for you ?"
+msgstr "¿Qué es importante para ti?"
+
+#. module: hr_recruitment_survey
+#: model:survey.question,title:hr_recruitment_survey.survey_recruitment_form_p1_q1
+msgid "Which country are you from ?"
+msgstr "¿De qué país eres ?"
+
+#. module: hr_recruitment_survey
+#: model:survey.question.answer,value:hr_recruitment_survey.survey_recruitment_form_p1_q8_row4
+msgid "Working with state of the art technology"
+msgstr "Trabajando con tecnología moderna"

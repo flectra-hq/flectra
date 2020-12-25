@@ -31,7 +31,6 @@ var KanbanView = require('web.KanbanView');
 var ListView = require('web.ListView');
 var PivotView = require('web.PivotView');
 var CalendarView = require('web.CalendarView');
-var GanttView = require('web.GanttView');
 var view_registry = require('web.view_registry');
 
 view_registry
@@ -40,7 +39,6 @@ view_registry
     .add('kanban', KanbanView)
     .add('graph', GraphView)
     .add('pivot', PivotView)
-    .add('calendar', CalendarView)
-    .add('gantt', GanttView);
+    .add('calendar', CalendarView);
 
 });

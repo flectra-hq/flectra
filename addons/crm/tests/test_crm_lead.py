@@ -1,196 +1,296 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from .common import TestCrmCases
-from flectra.modules.module import get_module_resource
+from flectra.addons.crm.tests.common import TestCrmCommon, INCOMING_EMAIL
+from flectra.addons.phone_validation.tools.phone_validation import phone_format
+from flectra.tests.common import Form, users
 
 
-class TestCRMLead(TestCrmCases):
+class TestCRMLead(TestCrmCommon):
 
-    def test_crm_lead_cancel(self):
-        # I set a new sales team giving access rights of salesman.
-        team = self.env['crm.team'].sudo(self.crm_salemanager.id).create({'name': "Phone Marketing"})
-        lead = self.env.ref('crm.crm_case_1')
-        lead.sudo(self.crm_salemanager.id).write({'team_id': team.id})
-        # Salesmananger check unqualified lead
-        self.assertEqual(lead.stage_id.sequence, 1, 'Lead is in new stage')
+    @classmethod
+    def setUpClass(cls):
+        super(TestCRMLead, cls).setUpClass()
+        cls.country_ref = cls.env.ref('base.be')
+        cls.test_email = '"Test Email" <test.email@example.com>'
+        cls.test_phone = '0485112233'
 
-    def test_crm_lead_copy(self):
-        # I make duplicate the Lead
-        self.env.ref('crm.crm_case_4').copy()
+    @users('user_sales_leads')
+    def test_crm_lead_creation_no_partner(self):
+        lead_data = {
+            'name': 'Test',
+            'country_id': self.country_ref.id,
+            'email_from': self.test_email,
+            'phone': self.test_phone,
+        }
+        lead = self.env['crm.lead'].new(lead_data)
+        # get the street should not trigger cache miss
+        lead.street
+        # Create the lead and the write partner_id = False: country should remain
+        lead = self.env['crm.lead'].create(lead_data)
+        self.assertEqual(lead.country_id, self.country_ref, "Country should be set on the lead")
+        self.assertEqual(lead.email_from, self.test_email)
+        self.assertEqual(lead.phone, self.test_phone)
+        lead.partner_id = False
+        self.assertEqual(lead.country_id, self.country_ref, "Country should still be set on the lead")
+        self.assertEqual(lead.email_from, self.test_email)
+        self.assertEqual(lead.phone, self.test_phone)
 
-    def test_crm_lead_unlink(self):
-        # Only Sales manager Unlink the Lead so test with Manager's access rights
-        self.env.ref('crm.crm_case_4').sudo(self.crm_salemanager.id).unlink()
-
-    def test_find_stage(self):
-        # I create a new lead
-        branch = self.env.ref('base_branch_company.data_branch_1')
+    @users('user_sales_manager')
+    def test_crm_lead_creation_partner(self):
         lead = self.env['crm.lead'].create({
-            'type': "lead",
-            'branch_id': branch.id,
-            'name': "Test lead new",
-            'partner_id': self.env.ref("base.res_partner_1").id,
-            'description': "This is the description of the test new lead.",
-            'team_id': self.env.ref("sales_team.team_sales_department").id
+            'name': 'TestLead',
+            'contact_name': 'Raoulette TestContact',
+            'email_from': '"Raoulette TestContact" <raoulette@test.example.com>',
         })
-        # I change type from lead to opportunity
-        lead.convert_opportunity(self.env.ref("base.res_partner_2").id)
-        # I check default stage of opportunity
-        self.assertLessEqual(lead.stage_id.sequence, 1, "Default stage of lead is incorrect!")
+        self.assertEqual(lead.type, 'lead')
+        self.assertEqual(lead.user_id, self.user_sales_manager)
+        self.assertEqual(lead.team_id, self.sales_team_1)
+        self.assertEqual(lead.stage_id, self.stage_team1_1)
+        self.assertEqual(lead.contact_name, 'Raoulette TestContact')
+        self.assertEqual(lead.email_from, '"Raoulette TestContact" <raoulette@test.example.com>')
 
-        # Now I change the stage of opportunity to won.
+        # update to a partner, should udpate address
+        lead.write({'partner_id': self.contact_1.id})
+        self.assertEqual(lead.partner_name, self.contact_company_1.name)
+        self.assertEqual(lead.contact_name, self.contact_1.name)
+        self.assertEqual(lead.email_from, self.contact_1.email)
+        self.assertEqual(lead.street, self.contact_1.street)
+        self.assertEqual(lead.city, self.contact_1.city)
+        self.assertEqual(lead.zip, self.contact_1.zip)
+        self.assertEqual(lead.country_id, self.contact_1.country_id)
+
+    def test_crm_lead_creation_partner_address(self):
+        """ Test that an address erases all lead address fields (avoid mixed addresses) """
+        other_country = self.env.ref('base.fr')
+        empty_partner = self.env['res.partner'].create({
+            'name': 'Empty partner',
+            'country_id': other_country.id,
+        })
+        lead_data = {
+            'name': 'Test',
+            'street': 'My street',
+            'street2': 'My street',
+            'city': 'My city',
+            'zip': 'test@flectra.com',
+            'state_id': self.env['res.country.state'].create({
+                'name': 'My state',
+                'country_id': self.country_ref.id,
+                'code': 'MST',
+            }).id,
+            'country_id': self.country_ref.id,
+        }
+        lead = self.env['crm.lead'].create(lead_data)
+        lead.partner_id = empty_partner
+        # PARTNER_ADDRESS_FIELDS_TO_SYNC
+        self.assertEqual(lead.street, empty_partner.street, "Street should be sync from the Partner")
+        self.assertEqual(lead.street2, empty_partner.street2, "Street 2 should be sync from the Partner")
+        self.assertEqual(lead.city, empty_partner.city, "City should be sync from the Partner")
+        self.assertEqual(lead.zip, empty_partner.zip, "Zip should be sync from the Partner")
+        self.assertEqual(lead.state_id, empty_partner.state_id, "State should be sync from the Partner")
+        self.assertEqual(lead.country_id, empty_partner.country_id, "Country should be sync from the Partner")
+
+    def test_crm_lead_creation_partner_no_address(self):
+        """ Test that an empty address on partner does not void its lead values """
+        empty_partner = self.env['res.partner'].create({
+            'name': 'Empty partner',
+            'is_company': True,
+            'mobile': '123456789',
+            'title': self.env.ref('base.res_partner_title_mister').id,
+            'function': 'My function',
+        })
+        lead_data = {
+            'name': 'Test',
+            'contact_name': 'Test',
+            'street': 'My street',
+            'country_id': self.country_ref.id,
+            'email_from': self.test_email,
+            'phone': self.test_phone,
+            'mobile': '987654321',
+            'website': 'http://mywebsite.org',
+        }
+        lead = self.env['crm.lead'].create(lead_data)
+        lead.partner_id = empty_partner
+        # SPECIFIC FIELDS
+        self.assertEqual(lead.contact_name, lead_data['contact_name'], "Contact should remain")
+        self.assertEqual(lead.email_from, lead_data['email_from'], "Email From should keep its initial value")
+        self.assertEqual(lead.partner_name, empty_partner.name, "Partner name should be set as contact is a company")
+        # PARTNER_ADDRESS_FIELDS_TO_SYNC
+        self.assertEqual(lead.street, lead_data['street'], "Street should remain since partner has no address field set")
+        self.assertEqual(lead.street2, False, "Street2 should remain since partner has no address field set")
+        self.assertEqual(lead.country_id, self.country_ref, "Country should remain since partner has no address field set")
+        self.assertEqual(lead.city, False, "City should remain since partner has no address field set")
+        self.assertEqual(lead.zip, False, "Zip should remain since partner has no address field set")
+        self.assertEqual(lead.state_id, self.env['res.country.state'], "State should remain since partner has no address field set")
+        # PARTNER_FIELDS_TO_SYNC
+        self.assertEqual(lead.phone, lead_data['phone'], "Phone should keep its initial value")
+        self.assertEqual(lead.mobile, empty_partner.mobile, "Mobile from partner should be set on the lead")
+        self.assertEqual(lead.title, empty_partner.title, "Title from partner should be set on the lead")
+        self.assertEqual(lead.function, empty_partner.function, "Function from partner should be set on the lead")
+        self.assertEqual(lead.website, lead_data['website'], "Website should keep its initial value")
+
+    @users('user_sales_manager')
+    def test_crm_lead_partner_sync(self):
+        lead, partner = self.lead_1.with_user(self.env.user), self.contact_2
+        partner_email, partner_phone = self.contact_2.email, self.contact_2.phone
+        lead.partner_id = partner
+
+        # email & phone must be automatically set on the lead
+        lead.partner_id = partner
+        self.assertEqual(lead.email_from, partner_email)
+        self.assertEqual(lead.phone, partner_phone)
+
+        # writing on the lead field must change the partner field
+        lead.email_from = '"John Zoidberg" <john.zoidberg@test.example.com>'
+        lead.phone = '+1 202 555 7799'
+        self.assertEqual(partner.email, '"John Zoidberg" <john.zoidberg@test.example.com>')
+        self.assertEqual(partner.email_normalized, 'john.zoidberg@test.example.com')
+        self.assertEqual(partner.phone, '+1 202 555 7799')
+
+        # writing on the partner must change the lead values
+        partner.email = partner_email
+        partner.phone = '+1 202 555 6666'
+        self.assertEqual(lead.email_from, partner_email)
+        self.assertEqual(lead.phone, '+1 202 555 6666')
+
+        # resetting lead values also resets partner
+        lead.email_from, lead.phone = False, False
+        self.assertFalse(partner.email)
+        self.assertFalse(partner.email_normalized)
+        self.assertFalse(partner.phone)
+
+    @users('user_sales_manager')
+    def test_crm_lead_partner_sync_email_phone(self):
+        """ Specifically test synchronize between a lead and its partner about
+        phone and email fields. Phone especially has some corner cases due to
+        automatic formatting (notably with onchange in form view). """
+        lead, partner = self.lead_1.with_user(self.env.user), self.contact_2
+        lead_form = Form(lead)
+
+        # reset partner phone to a local number
+        partner_phone, partner_email = '202 555 0999', partner.email
+        partner_phone_formatted = phone_format(partner_phone, 'US', '1')
+        partner_phone_sanitized = phone_format(partner_phone, 'US', '1', force_format='E164')
+        self.assertEqual(partner_phone_formatted, '+1 202-555-0999')
+        self.assertEqual(partner_phone_sanitized, '+12025550999')
+        partner.phone = partner_phone
+
+        # email & phone must be automatically set on the lead
+        lead_form.partner_id = partner
+        self.assertEqual(lead_form.email_from, partner_email)
+        self.assertEqual(lead_form.phone, partner_phone_formatted)
+        self.assertFalse(lead_form.ribbon_message)
+
+        lead_form.save()
+        self.assertEqual(partner.phone, partner_phone)
+        self.assertEqual(lead.phone, partner_phone_formatted)
+        self.assertEqual(lead.phone_sanitized, partner_phone_sanitized)
+
+        # writing on the lead field must change the partner field
+        new_email = '"John Zoidberg" <john.zoidberg@test.example.com>'
+        new_email_normalized = 'john.zoidberg@test.example.com'
+        lead_form.email_from = new_email
+        self.assertIn('the customer email will', lead_form.ribbon_message)
+        new_phone = '+1 202 555 7799'
+        new_phone_formatted = phone_format(new_phone, 'US', '1')
+        lead_form.phone = new_phone
+        self.assertEqual(lead_form.phone, new_phone_formatted)
+        self.assertIn('the customer email and phone number will', lead_form.ribbon_message)
+
+        lead_form.save()
+        self.assertEqual(partner.email, new_email)
+        self.assertEqual(partner.email_normalized, new_email_normalized)
+        self.assertEqual(partner.phone, new_phone_formatted)
+
+        # resetting lead values also resets partner
+        lead_form.email_from, lead_form.phone = False, False
+        self.assertIn('the customer email and phone number will', lead_form.ribbon_message)
+        lead_form.save()
+        self.assertFalse(partner.email)
+        self.assertFalse(partner.email_normalized)
+        self.assertFalse(partner.phone)
+
+    @users('user_sales_manager')
+    def test_crm_lead_stages(self):
+        lead = self.lead_1.with_user(self.env.user)
+        self.assertEqual(lead.team_id, self.sales_team_1)
+
+        lead.convert_opportunity(self.contact_1.id)
+        self.assertEqual(lead.team_id, self.sales_team_1)
+
         lead.action_set_won()
-        # I check stage of opp should won, after change stage.
-        stage_id = lead._stage_find(domain=[('probability', '=', 100.0)])
-        self.assertEqual(stage_id, lead.stage_id, "Stage of opportunity is incorrect!")
+        self.assertEqual(lead.probability, 100.0)
+        self.assertEqual(lead.stage_id, self.stage_gen_won)  # generic won stage has lower sequence than team won stage
 
-    def test_crm_lead_message(self):
-        # Give the access rights of Salesman to communicate with customer
-        # Customer interested in our product, so he sends request by email to get more details.
-        # Mail script will fetch his request from mail server. Then I process that mail after read EML file.
-        request_file = open(get_module_resource('crm', 'tests', 'customer_request.eml'), 'rb')
-        request_message = request_file.read()
-        self.env['mail.thread'].sudo(self.crm_salesman).message_process('crm.lead', request_message)
-
-        # After getting the mail, I check details of new lead of that customer
-        lead = self.env['crm.lead'].sudo(self.crm_salesman).search([('email_from', '=', 'Mr. John Right <info@customer.com>')], limit=1)
-        self.assertTrue(lead.ids, 'Fail to create merge opportunity wizard')
-        self.assertFalse(lead.partner_id, 'Customer should be a new one')
-        self.assertEqual(lead.name, 'Fournir votre devis avec le meilleur prix.', 'Subject does not match')
-
-        # I reply his request with welcome message.
-        # TODO revert mail.mail to mail.compose.message (conversion to customer should be automatic).
-        lead = self.env['crm.lead'].search([('email_from', '=', 'Mr. John Right <info@customer.com>')], limit=1)
-        mail = self.env['mail.compose.message'].with_context(active_model='crm.lead', active_id=lead.id).create({
-            'body': "Merci de votre intérêt pour notre produit, nous vous contacterons bientôt. Bien à vous",
-            'email_from': 'sales@mycompany.com'
+    @users('user_sales_leads')
+    def test_crm_lead_update_contact(self):
+        # ensure initial data, especially for corner cases
+        self.assertFalse(self.contact_company_1.phone)
+        self.assertEqual(self.contact_company_1.country_id.code, "US")
+        lead = self.env['crm.lead'].create({
+            'name': 'Test',
+            'country_id': self.country_ref.id,
+            'email_from': self.test_email,
+            'phone': self.test_phone,
         })
-        try:
-            mail.send_mail()
-        except:
-            pass
+        self.assertEqual(lead.country_id, self.country_ref, "Country should be set on the lead")
+        lead.partner_id = False
+        self.assertEqual(lead.country_id, self.country_ref, "Country should still be set on the lead")
+        self.assertEqual(lead.email_from, self.test_email)
+        self.assertEqual(lead.phone, self.test_phone)
+        self.assertEqual(lead.email_state, 'correct')
+        self.assertEqual(lead.phone_state, 'correct')
 
-        # Now, I convert him into customer and put him into regular customer list
-        lead = self.env['crm.lead'].search([('email_from', '=', 'Mr. John Right <info@customer.com>')], limit=1)
-        lead.handle_partner_assignation()
+        lead.partner_id = self.contact_company_1
+        self.assertEqual(lead.country_id, self.contact_company_1.country_id, "Country should still be the one set on partner")
+        self.assertEqual(lead.email_from, self.contact_company_1.email)
+        self.assertEqual(lead.phone, self.test_phone)
+        self.assertEqual(lead.email_state, 'correct')
+        # currently we keep phone as partner as a void one -> may lead to inconsistencies
+        self.assertEqual(lead.phone_state, 'incorrect', "Belgian phone with US country -> considered as incorrect")
 
-    def test_crm_message_default_alias(self):
-        alias_domain = 'example.com'
-        self.env['ir.config_parameter'].set_param('mail.catchall.domain', alias_domain)
-        alias_name = self.env['ir.config_parameter'].search([('key', '=', 'mail.catchall.alias')]).value
+        lead.email_from = 'broken'
+        lead.phone = 'alsobroken'
+        self.assertEqual(lead.email_state, 'incorrect')
+        self.assertEqual(lead.phone_state, 'incorrect')
+        self.assertEqual(self.contact_company_1.email, 'broken')
+        self.assertEqual(self.contact_company_1.phone, 'alsobroken')
 
-        lead = self.env['crm.lead'].create({'name': 'test'})
-        lead.write({'team_id': False})
-        msg = self.env['mail.message'].create({
-            'model': 'crm.lead',
-            'res_id': lead.id
+    @users('user_sales_manager')
+    def test_crm_team_alias(self):
+        new_team = self.env['crm.team'].create({
+            'name': 'TestAlias',
+            'use_leads': True,
+            'use_opportunities': True,
+            'alias_name': 'test.alias'
         })
-        self.assertIn('<%s@%s>' % (alias_name, alias_domain), msg.reply_to)
+        self.assertEqual(new_team.alias_id.alias_name, 'test.alias')
+        self.assertEqual(new_team.alias_name, 'test.alias')
 
-    def test_crm_lead_merge(self):
-        # During a mixed merge (involving leads and opps), data should be handled a certain way following their type (m2o, m2m, text, ...)  Start by creating two leads and an opp and giving the rights of Sales manager.
-        default_stage_id = self.ref("crm.stage_lead1")
-        LeadSalesmanager = self.env['crm.lead'].sudo(self.crm_salemanager.id)
-        branch = self.env.ref('base_branch_company.data_branch_1')
-        # TEST CASE 1
-        test_crm_opp_01 = LeadSalesmanager.create({
-            'type': 'opportunity',
-            'name': 'Test opportunity 1',
-            'branch_id': branch.id,
-            'partner_id': self.env.ref("base.res_partner_3").id,
-            'stage_id': default_stage_id,
-            'description': 'This is the description of the test opp 1.'
+        new_team.write({
+            'use_leads': False,
+            'use_opportunities': False,
         })
+        # self.assertFalse(new_team.alias_id.alias_name)
+        # self.assertFalse(new_team.alias_name)
 
-        test_crm_lead_01 = LeadSalesmanager.create({
-            'type': 'lead',
-            'name': 'Test lead first',
-            'partner_id': self.env.ref("base.res_partner_1").id,
-            'stage_id': default_stage_id,
-            'description': 'This is the description of the test lead first.'
-        })
+    def test_mailgateway(self):
+        new_lead = self.format_and_process(
+            INCOMING_EMAIL,
+            'unknown.sender@test.example.com',
+            '%s@%s' % (self.sales_team_1.alias_name, self.alias_domain),
+            subject='Delivery cost inquiry',
+            target_model='crm.lead',
+        )
+        self.assertEqual(new_lead.email_from, 'unknown.sender@test.example.com')
+        self.assertFalse(new_lead.partner_id)
+        self.assertEqual(new_lead.name, 'Delivery cost inquiry')
 
-        test_crm_lead_02 = LeadSalesmanager.create({
-            'type': 'lead',
-            'name': 'Test lead second',
-            'partner_id': self.env.ref("base.res_partner_1").id,
-            'stage_id': default_stage_id, 'branch_id': branch.id,
-            'description': 'This is the description of the test lead second.'
-        })
+        message = new_lead.with_user(self.user_sales_manager).message_post(
+            body='Here is my offer !',
+            subtype_xmlid='mail.mt_comment')
+        self.assertEqual(message.author_id, self.user_sales_manager.partner_id)
 
-        lead_ids = [test_crm_opp_01.id, test_crm_lead_01.id, test_crm_lead_02.id]
-        additionnal_context = {'active_model': 'crm.lead', 'active_ids': lead_ids, 'active_id': lead_ids[0]}
-
-        # I create a merge wizard and merge the leads and opp together in the first item of the list.
-        merge_opp_wizard_01 = self.env['crm.merge.opportunity'].sudo(self.crm_salemanager.id).with_context(**additionnal_context).create({})
-        merge_opp_wizard_01.action_merge()
-
-        # I check for the resulting merged opp (based on name and partner)
-        merged_lead = self.env['crm.lead'].search([('name', '=', 'Test opportunity 1'), ('partner_id', '=', self.env.ref("base.res_partner_3").id)], limit=1)
-        self.assertTrue(merged_lead, 'Fail to create merge opportunity wizard')
-        self.assertEqual(merged_lead.description, 'This is the description of the test opp 1.\n\nThis is the description of the test lead first.\n\nThis is the description of the test lead second.', 'Description mismatch: when merging leads/opps with different text values, these values should get concatenated and separated with line returns')
-        self.assertEqual(merged_lead.type, 'opportunity', 'Type mismatch: when at least one opp in involved in the merge, the result should be a new opp (instead of %s)' % merged_lead.type)
-
-        # The other (tailing) leads/opps shouldn't exist anymore
-        self.assertFalse(test_crm_lead_01.exists(), 'This tailing lead (id %s) should not exist anymore' % test_crm_lead_02.id)
-        self.assertFalse(test_crm_lead_02.exists(), 'This tailing opp (id %s) should not exist anymore' % test_crm_opp_01.id)
-
-        # TEST CASE 2
-        # I want to test leads merge.  Start by creating two leads (with the same partner)
-        test_crm_lead_03 = LeadSalesmanager.create({
-            'type': 'lead',
-            'name': 'Test lead 3', 'branch_id': branch.id,
-            'partner_id': self.env.ref("base.res_partner_1").id,
-            'stage_id': default_stage_id
-        })
-
-        test_crm_lead_04 = LeadSalesmanager.create({
-            'type': 'lead',
-            'name': 'Test lead 4', 'branch_id': branch.id,
-            'partner_id': self.env.ref("base.res_partner_1").id,
-            'stage_id': default_stage_id
-        })
-
-        lead_ids = [test_crm_lead_03.id, test_crm_lead_04.id]
-        additionnal_context = {'active_model': 'crm.lead', 'active_ids': lead_ids, 'active_id': lead_ids[0]}
-
-        # I create a merge wizard and merge the leads together.
-        merge_opp_wizard_02 = self.env['crm.merge.opportunity'].sudo(self.crm_salemanager.id).with_context(**additionnal_context).create({})
-        merge_opp_wizard_02.action_merge()
-
-        # I check for the resulting merged lead (based on name and partner)
-        merged_lead = self.env['crm.lead'].search([('name', '=', 'Test lead 3'), ('partner_id', '=', self.env.ref("base.res_partner_1").id)], limit=1)
-        self.assertTrue(merged_lead, 'Fail to create merge opportunity wizard')
-        self.assertEqual(merged_lead.partner_id.id, self.env.ref("base.res_partner_1").id, 'Partner mismatch')
-        self.assertEqual(merged_lead.type, 'lead', 'Type mismatch: when leads get merged together, the result should be a new lead (instead of %s)' % merged_lead.type)
-        self.assertFalse(test_crm_lead_04.exists(), 'This tailing lead (id %s) should not exist anymore' % test_crm_lead_04.id)
-
-        # TEST CASE 3
-        # I want to test opps merge.  Start by creating two opportunities (with the same partner).
-        test_crm_opp_02 = LeadSalesmanager.create({
-            'type': 'opportunity',
-            'name': 'Test opportunity 2', 'branch_id': branch.id,
-            'partner_id': self.env.ref("base.res_partner_3").id,
-            'stage_id': default_stage_id
-        })
-
-        test_crm_opp_03 = LeadSalesmanager.create({
-            'type': 'opportunity',
-            'name': 'Test opportunity 3', 'branch_id': branch.id,
-            'partner_id': self.env.ref("base.res_partner_3").id,
-            'stage_id': default_stage_id
-        })
-
-        opportunity_ids = [test_crm_opp_02.id, test_crm_opp_03.id]
-        additionnal_context = {'active_model': 'crm.lead', 'active_ids': opportunity_ids, 'active_id': opportunity_ids[0]}
-
-        # I create a merge wizard and merge the opps together.
-        merge_opp_wizard_03 = self.env['crm.merge.opportunity'].sudo(self.crm_salemanager.id).with_context(**additionnal_context).create({})
-        merge_opp_wizard_03.action_merge()
-
-        merged_opportunity = self.env['crm.lead'].search([('name', '=', 'Test opportunity 2'), ('partner_id', '=', self.env.ref("base.res_partner_3").id)], limit=1)
-        self.assertTrue(merged_opportunity, 'Fail to create merge opportunity wizard')
-        self.assertEqual(merged_opportunity.partner_id.id, self.env.ref("base.res_partner_3").id, 'Partner mismatch')
-        self.assertEqual(merged_opportunity.type, 'opportunity', 'Type mismatch: when opps get merged together, the result should be a new opp (instead of %s)' % merged_opportunity.type)
-        self.assertFalse(test_crm_opp_03.exists(), 'This tailing opp (id %s) should not exist anymore' % test_crm_opp_03.id)
+        new_lead.handle_partner_assignment(create_missing=True)
+        self.assertEqual(new_lead.partner_id.email, 'unknown.sender@test.example.com')
+        self.assertEqual(new_lead.partner_id.team_id, self.sales_team_1)

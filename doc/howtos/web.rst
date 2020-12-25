@@ -1,17 +1,22 @@
-:banner: banners/flectra_building_interface_extensions.jpg
+:banner: banners/build_interface_ext.jpg
 
 =============================
-Building Interface Extensions
+Customizing the web client
 =============================
+
+Note: this section is really really out of date. It will be updated someday,
+but meanwhile, this tutorial will probably be frustrating to follow, since it
+was written a long time ago.
+
 
 .. highlight:: javascript
 
 .. default-domain:: js
 
-This guide is about creating modules for Flectra's web client.
+This guide is about creating modules for Odoo's web client.
 
-To create websites with Flectra, see :doc:`website`; to add business capabilities
-or extend existing business systems of Flectra, see :doc:`backend`.
+To create websites with Odoo, see :doc:`website`; to add business capabilities
+or extend existing business systems of Odoo, see :doc:`backend`.
 
 .. warning::
 
@@ -21,13 +26,13 @@ or extend existing business systems of Flectra, see :doc:`backend`.
     * jQuery_
     * `Underscore.js`_
 
-    It also requires :ref:`an installed Flectra <setup/install>`, and Git_.
+    It also requires :ref:`an installed Odoo <setup/install>`, and Git_.
 
 
 A Simple Module
 ===============
 
-Let's start with a simple Flectra module holding basic web component
+Let's start with a simple Odoo module holding basic web component
 configuration and letting us test the web framework.
 
 The example module is available online and can be downloaded using the
@@ -35,11 +40,11 @@ following command:
 
 .. code-block:: console
 
-    $ git clone http://github.com/flectra/petstore
+    $ git clone http://github.com/odoo/petstore
 
 This will create a ``petstore`` folder wherever you executed the command.
-You then need to add that folder to Flectra's
-:option:`addons path <flectra-bin --addons-path>`, create a new database and
+You then need to add that folder to Odoo's
+:option:`addons path <odoo-bin --addons-path>`, create a new database and
 install the ``oepetstore`` module.
 
 If you browse the ``petstore`` folder, you should see the following content:
@@ -72,7 +77,7 @@ The module already holds various server customizations. We'll come back to
 these later, for now let's focus on the web-related content, in the ``static``
 folder.
 
-Files used in the "web" side of an Flectra module must be placed in a ``static``
+Files used in the "web" side of an Odoo module must be placed in a ``static``
 folder so they are available to a web browser, files outside that folder can
 not be fetched by browsers. The ``src/css``, ``src/js`` and ``src/xml``
 sub-folders are conventional and not strictly necessary.
@@ -86,7 +91,7 @@ sub-folders are conventional and not strictly necessary.
     application (or at least its web-browser side) as javascript. It should
     currently look like::
 
-        flectra.oepetstore = function(instance, local) {
+        odoo.oepetstore = function(instance, local) {
             var _t = instance.web._t,
                 _lt = instance.web._lt;
             var QWeb = instance.web.qweb;
@@ -113,11 +118,15 @@ The files in the ``static`` folder, need to be defined within the module in orde
     One of the drawback is debugging becomes more difficult as
     individual files disappear and the code is made significantly less
     readable. It is possible to disable this process by enabling the
-    "developer mode": log into your Flectra instance (user *admin* password
-    *admin* by default) open the settings menu and select :guilabel:`Activate
+    "developer mode": log into your Odoo instance (user *admin* password
+    *admin* by default) open the user menu (in the top-right corner of the
+    Odoo screen) and select :guilabel:`About Odoo` then :guilabel:`Activate
     the developer mode`:
 
-     .. image:: web/devmode.png
+    .. image:: web/about_odoo.png
+        :align: center
+
+    .. image:: web/devmode.png
         :align: center
 
     This will reload the web client with optimizations disabled, making
@@ -125,37 +134,37 @@ The files in the ``static`` folder, need to be defined within the module in orde
 
 .. todo:: qweb files hooked via __manifest__.py, but js and CSS use bundles
 
-Flectra JavaScript Module
-=========================
+Odoo JavaScript Module
+======================
 
 Javascript doesn't have built-in modules. As a result variables defined in
 different files are all mashed together and may conflict. This has given rise
 to various module patterns used to build clean namespaces and limit risks of
 naming conflicts.
 
-The Flectra framework uses one such pattern to define modules within web addons,
+The Odoo framework uses one such pattern to define modules within web addons,
 in order to both namespace code and correctly order its loading.
 
 ``oepetstore/static/js/petstore.js`` contains a module declaration::
 
-    flectra.oepetstore = function(instance, local) {
+    odoo.oepetstore = function(instance, local) {
         local.xxx = ...;
     }
 
-In Flectra web, modules are declared as functions set on the global ``flectra``
+In Odoo web, modules are declared as functions set on the global ``odoo``
 variable. The function's name must be the same as the addon (in this case
 ``oepetstore``) so the framework can find it, and automatically initialize it.
 
 When the web client loads your module it will call the root function
 and provide two parameters:
 
-* the first parameter is the current instance of the Flectra web client, it gives
-  access to various capabilities defined by the Flectra (translations,
+* the first parameter is the current instance of the Odoo web client, it gives
+  access to various capabilities defined by the Odoo (translations,
   network services) as well as objects defined by the core or by other
   modules.
 * the second parameter is your own local namespace automatically created by
   the web client. Objects and variables which should be accessible from
-  outside your module (either because the Flectra web client needs to call them
+  outside your module (either because the Odoo web client needs to call them
   or because others may want to customize them) should be set inside that
   namespace.
 
@@ -166,11 +175,11 @@ Much as modules, and contrary to most object-oriented languages, javascript
 does not build in *classes*\ [#classes]_ although it provides roughly
 equivalent (if lower-level and more verbose) mechanisms.
 
-For simplicity and developer-friendliness Flectra web provides a class
+For simplicity and developer-friendliness Odoo web provides a class
 system based on John Resig's `Simple JavaScript Inheritance`_.
 
-New classes are defined by calling the :func:`~flectra.web.Class.extend`
-method of :class:`flectra.web.Class`::
+New classes are defined by calling the :func:`~odoo.web.Class.extend`
+method of :class:`odoo.web.Class`::
 
     var MyClass = instance.web.Class.extend({
         say_hello: function() {
@@ -178,7 +187,7 @@ method of :class:`flectra.web.Class`::
         },
     });
 
-The :func:`~flectra.web.Class.extend` method takes a dictionary describing
+The :func:`~odoo.web.Class.extend` method takes a dictionary describing
 the new class's content (methods and static attributes). In this case, it will
 only have a ``say_hello`` method which takes no parameters.
 
@@ -219,8 +228,8 @@ parameters passed when using the ``new`` operator::
     // print "hello Bob" in the console
 
 It is also possible to create subclasses from existing (used-defined) classes
-by calling :func:`~flectra.web.Class.extend` on the parent class, as is done
-to subclass :class:`~flectra.web.Class`::
+by calling :func:`~odoo.web.Class.extend` on the parent class, as is done
+to subclass :class:`~odoo.web.Class`::
 
     var MySpanishClass = MyClass.extend({
         say_hello: function() {
@@ -273,14 +282,14 @@ call the original method::
 Widgets Basics
 ==============
 
-The Flectra web client bundles jQuery_ for easy DOM manipulation. It is useful
+The Odoo web client bundles jQuery_ for easy DOM manipulation. It is useful
 and provides a better API than standard `W3C DOM`_\ [#dombugs]_, but
 insufficient to structure complex applications leading to difficult
 maintenance.
 
 Much like object-oriented desktop UI toolkits (e.g. Qt_, Cocoa_ or GTK_),
-Flectra Web makes specific components responsible for sections of a page. In
-Flectra web, the base for such components is the :class:`~flectra.Widget`
+Odoo Web makes specific components responsible for sections of a page. In
+Odoo web, the base for such components is the :class:`~odoo.Widget`
 class, a component specialized in handling a page section and displaying
 information for the user.
 
@@ -295,8 +304,8 @@ The initial demonstration module already provides a basic widget::
         },
     });
 
-It extends :class:`~flectra.Widget` and overrides the standard method
-:func:`~flectra.Widget.start`, which — much like the previous ``MyClass``
+It extends :class:`~odoo.Widget` and overrides the standard method
+:func:`~odoo.Widget.start`, which — much like the previous ``MyClass``
 — does little for now.
 
 This line at the end of the file::
@@ -323,14 +332,14 @@ Widgets have a number of methods and features, but the basics are simple:
 * format the widget's data
 * display the widget
 
-The ``HomePage`` widget already has a :func:`~flectra.Widget.start`
+The ``HomePage`` widget already has a :func:`~odoo.Widget.start`
 method. That method is part of the normal widget lifecycle and automatically
 called once the widget is inserted in the page. We can use it to display some
 content.
 
-All widgets have a :attr:`~flectra.Widget.$el` which represents the
+All widgets have a :attr:`~odoo.Widget.$el` which represents the
 section of page they're in charge of (as a jQuery_ object). Widget content
-should be inserted there. By default, :attr:`~flectra.Widget.$el` is an
+should be inserted there. By default, :attr:`~odoo.Widget.$el` is an
 empty ``<div>`` element.
 
 A ``<div>`` element is usually invisible to the user if it has no content (or
@@ -341,7 +350,7 @@ Let's add some content to the widget's root element, using jQuery::
 
     local.HomePage = instance.Widget.extend({
         start: function() {
-            this.$el.append("<div>Hello dear Flectra user!</div>");
+            this.$el.append("<div>Hello dear Odoo user!</div>");
         },
     });
 
@@ -350,10 +359,10 @@ That message will now appear when you open :menuselection:`Pet Store
 
 .. note::
 
-    to refresh the javascript code loaded in Flectra Web, you will need to reload
-    the page. There is no need to restart the Flectra server.
+    to refresh the javascript code loaded in Odoo Web, you will need to reload
+    the page. There is no need to restart the Odoo server.
 
-The ``HomePage`` widget is used by Flectra Web and managed automatically.
+The ``HomePage`` widget is used by Odoo Web and managed automatically.
 To learn how to use a widget "from scratch" let's create a new one::
 
     local.GreetingsWidget = instance.Widget.extend({
@@ -363,11 +372,11 @@ To learn how to use a widget "from scratch" let's create a new one::
     });
 
 We can now add our ``GreetingsWidget`` to the ``HomePage`` by using the
-``GreetingsWidget``'s :func:`~flectra.Widget.appendTo` method::
+``GreetingsWidget``'s :func:`~odoo.Widget.appendTo` method::
 
     local.HomePage = instance.Widget.extend({
         start: function() {
-            this.$el.append("<div>Hello dear Flectra user!</div>");
+            this.$el.append("<div>Hello dear Odoo user!</div>");
             var greeting = new local.GreetingsWidget(this);
             return greeting.appendTo(this.$el);
         },
@@ -376,17 +385,17 @@ We can now add our ``GreetingsWidget`` to the ``HomePage`` by using the
 * ``HomePage`` first adds its own content to its DOM root
 * ``HomePage`` then instantiates ``GreetingsWidget``
 * Finally it tells ``GreetingsWidget`` where to insert itself, delegating part
-  of its :attr:`~flectra.Widget.$el` to the ``GreetingsWidget``.
+  of its :attr:`~odoo.Widget.$el` to the ``GreetingsWidget``.
 
-When the :func:`~flectra.Widget.appendTo` method is called, it asks the
+When the :func:`~odoo.Widget.appendTo` method is called, it asks the
 widget to insert itself at the specified position and to display its content.
-The :func:`~flectra.Widget.start` method will be called during the call
-to :func:`~flectra.Widget.appendTo`.
+The :func:`~odoo.Widget.start` method will be called during the call
+to :func:`~odoo.Widget.appendTo`.
 
 To see what happens under the displayed interface, we will use the browser's
 DOM Explorer. But first let's alter our widgets slightly so we can more easily
 find where they are, by :attr:`adding a class to their root elements
-<flectra.Widget.className>`::
+<odoo.Widget.className>`::
 
     local.HomePage = instance.Widget.extend({
         className: 'oe_petstore_homepage',
@@ -403,14 +412,14 @@ then :guilabel:`Inspect Element`), it should look like this:
 .. code-block:: html
 
     <div class="oe_petstore_homepage">
-        <div>Hello dear Flectra user!</div>
+        <div>Hello dear Odoo user!</div>
         <div class="oe_petstore_greetings">
             <div>We are so happy to see you again in this menu!</div>
         </div>
     </div>
 
 Which clearly shows the two ``<div>`` elements automatically created by
-:class:`~flectra.Widget`, because we added some classes on them.
+:class:`~odoo.Widget`, because we added some classes on them.
 
 We can also see the two message-holding divs we added ourselves
 
@@ -438,7 +447,7 @@ of another widget, and exist on behalf of it. We call the container the
 Due to multiple technical and conceptual reasons, it is necessary for a widget
 to know who is its parent and who are its children.
 
-:func:`~flectra.Widget.getParent`
+:func:`~odoo.Widget.getParent`
     can be used to get the parent of a widget::
 
         local.GreetingsWidget = instance.Widget.extend({
@@ -448,7 +457,7 @@ to know who is its parent and who are its children.
             },
         });
 
-:func:`~flectra.Widget.getChildren`
+:func:`~odoo.Widget.getChildren`
     can be used to get a list of its children::
 
         local.HomePage = instance.Widget.extend({
@@ -460,7 +469,7 @@ to know who is its parent and who are its children.
             },
         });
 
-When overriding the :func:`~flectra.Widget.init` method of a widget it is
+When overriding the :func:`~odoo.Widget.init` method of a widget it is
 *of the utmost importance* to pass the parent to the ``this._super()`` call,
 otherwise the relation will not be set up correctly::
 
@@ -480,20 +489,20 @@ Destroying Widgets
 ------------------
 
 If you can display content to your users, you should also be able to erase
-it. This is done via the :func:`~flectra.Widget.destroy` method::
+it. This is done via the :func:`~odoo.Widget.destroy` method::
 
     greeting.destroy();
 
 When a widget is destroyed it will first call
-:func:`~flectra.Widget.destroy` on all its children. Then it erases itself
+:func:`~odoo.Widget.destroy` on all its children. Then it erases itself
 from the DOM. If you have set up permanent structures in
-:func:`~flectra.Widget.init` or :func:`~flectra.Widget.start` which
+:func:`~odoo.Widget.init` or :func:`~odoo.Widget.start` which
 must be explicitly cleaned up (because the garbage collector will not handle
-them), you can override :func:`~flectra.Widget.destroy`.
+them), you can override :func:`~odoo.Widget.destroy`.
 
 .. danger::
 
-    when overriding :func:`~flectra.Widget.destroy`, ``_super()``
+    when overriding :func:`~odoo.Widget.destroy`, ``_super()``
     *must always* be called otherwise the widget and its children are not
     correctly cleaned up leaving possible memory leaks and "phantom events",
     even if no error is displayed
@@ -504,14 +513,14 @@ The QWeb Template Engine
 In the previous section we added content to our widgets by directly
 manipulating (and adding to) their DOM::
 
-    this.$el.append("<div>Hello dear Flectra user!</div>");
+    this.$el.append("<div>Hello dear Odoo user!</div>");
 
 This allows generating and displaying any type of content, but gets unwieldy
 when generating significant amounts of DOM (lots of duplication, quoting
 issues, ...)
 
-As many other environments, Flectra's solution is to use a `template engine`_.
-Flectra's template engine is called :ref:`reference/qweb`.
+As many other environments, Odoo's solution is to use a `template engine`_.
+Odoo's template engine is called :ref:`reference/qweb`.
 
 QWeb is an XML-based templating language, similar to `Genshi
 <http://en.wikipedia.org/wiki/Genshi_(templating_language)>`_, `Thymeleaf
@@ -521,21 +530,21 @@ characteristics:
 
 * It's implemented fully in JavaScript and rendered in the browser
 * Each template file (XML files) contains multiple templates
-* It has special support in Flectra Web's :class:`~flectra.Widget`, though it
-  can be used outside of Flectra's web client (and it's possible to use
-  :class:`~flectra.Widget` without relying on QWeb)
+* It has special support in Odoo Web's :class:`~odoo.Widget`, though it
+  can be used outside of Odoo's web client (and it's possible to use
+  :class:`~odoo.Widget` without relying on QWeb)
 
 .. note::
 
     The rationale behind using QWeb instead of existing javascript template
     engines is the extensibility of pre-existing (third-party) templates, much
-    like Flectra :ref:`views <reference/views>`.
+    like Odoo :ref:`views <reference/views>`.
 
     Most javascript template engines are text-based which precludes easy
     structural extensibility where an XML-based templating engine can be
     generically altered using e.g. XPath or CSS and a tree-alteration DSL (or
     even just XSLT). This flexibility and extensibility is a core
-    characteristic of Flectra, and losing it was considered unacceptable.
+    characteristic of Odoo, and losing it was considered unacceptable.
 
 Using QWeb
 ----------
@@ -565,9 +574,9 @@ template defined in the XML file::
 :func:`QWeb.render` looks for the specified template, renders it to a string
 and returns the result.
 
-However, because :class:`~flectra.Widget` has special integration for QWeb
+However, because :class:`~odoo.Widget` has special integration for QWeb
 the template can be set directly on the widget via its
-:attr:`~flectra.Widget.template` attribute::
+:attr:`~odoo.Widget.template` attribute::
 
     local.HomePage = instance.Widget.extend({
         template: "HomePageTemplate",
@@ -580,7 +589,7 @@ Although the result looks similar, there are two differences between these
 usages:
 
 * with the second version, the template is rendered right before
-  :func:`~flectra.Widget.start` is called
+  :func:`~odoo.Widget.start` is called
 * in the first version the template's content is added to the widget's root
   element, whereas in the second version the template's root element is
   directly *set as* the widget's root element. Which is why the "greetings"
@@ -589,7 +598,7 @@ usages:
 .. warning::
 
     templates should have a single non-``t`` root element, especially if
-    they're set as a widget's :attr:`~flectra.Widget.template`. If there are
+    they're set as a widget's :attr:`~odoo.Widget.template`. If there are
     multiple "root elements", results are undefined (usually only the first
     root element will be used and the others will be ignored)
 
@@ -617,11 +626,11 @@ will result in:
 
     <div>Hello Klaus</div>
 
-When using :class:`~flectra.Widget`'s integration it is not possible to
+When using :class:`~odoo.Widget`'s integration it is not possible to
 provide additional data to the template. The template will be given a single
 ``widget`` context variable, referencing the widget being rendered right
-before :func:`~flectra.Widget.start` is called (the widget's state will
-essentially be that set up by :func:`~flectra.Widget.init`):
+before :func:`~odoo.Widget.start` is called (the widget's state will
+essentially be that set up by :func:`~odoo.Widget.init`):
 
 .. code-block:: xml
 
@@ -846,7 +855,7 @@ Exercise
 
         ::
 
-            flectra.oepetstore = function(instance, local) {
+            odoo.oepetstore = function(instance, local) {
                 var _t = instance.web._t,
                     _lt = instance.web._lt;
                 var QWeb = instance.web.qweb;
@@ -899,6 +908,10 @@ Exercise
                 border-radius: 3px;
             }
 
+        .. image:: web/qweb.*
+           :align: center
+           :width: 70%
+
 Widget Helpers
 ==============
 
@@ -910,8 +923,8 @@ Selecting DOM elements within a widget can be performed by calling the
 
     this.$el.find("input.my_input")...
 
-But because it's a common operation, :class:`~flectra.Widget` provides an
-equivalent shortcut through the :func:`~flectra.Widget.$` method::
+But because it's a common operation, :class:`~odoo.Widget` provides an
+equivalent shortcut through the :func:`~odoo.Widget.$` method::
 
     local.MyWidget = instance.Widget.extend({
         start: function() {
@@ -955,7 +968,7 @@ While this works it has a few issues:
 3. it requires dealing with ``this``-binding issues
 
 Widgets thus provide a shortcut to DOM event binding via
-:attr:`~flectra.Widget.events`::
+:attr:`~odoo.Widget.events`::
 
     local.MyWidget = instance.Widget.extend({
         events: {
@@ -966,7 +979,7 @@ Widgets thus provide a shortcut to DOM event binding via
         }
     });
 
-:attr:`~flectra.Widget.events` is an object (mapping) of an event to the
+:attr:`~odoo.Widget.events` is an object (mapping) of an event to the
 function or method to call when the event is triggered:
 
 * the key is an event name, possibly refined with a CSS selector in which
@@ -1017,12 +1030,12 @@ This widget acts as a facade, transforming user input (through DOM events)
 into a documentable internal event to which parent widgets can bind
 themselves.
 
-:func:`~flectra.Widget.trigger` takes the name of the event to trigger as
+:func:`~odoo.Widget.trigger` takes the name of the event to trigger as
 its first (mandatory) argument, any further arguments are treated as event
 data and passed directly to listeners.
 
 We can then set up a parent event instantiating our generic widget and
-listening to the ``user_chose`` event using :func:`~flectra.Widget.on`::
+listening to the ``user_chose`` event using :func:`~odoo.Widget.on`::
 
     local.HomePage = instance.Widget.extend({
         start: function() {
@@ -1039,11 +1052,11 @@ listening to the ``user_chose`` event using :func:`~flectra.Widget.on`::
         },
     });
 
-:func:`~flectra.Widget.on` binds a function to be called when the
+:func:`~odoo.Widget.on` binds a function to be called when the
 event identified by ``event_name`` is. The ``func`` argument is the
 function to call and ``object`` is the object to which that function is
 related if it is a method. The bound function will be called with the
-additional arguments of :func:`~flectra.Widget.trigger` if it has
+additional arguments of :func:`~odoo.Widget.trigger` if it has
 any. Example::
 
     start: function() {
@@ -1059,9 +1072,9 @@ any. Example::
 .. note::
 
     Triggering events on an other widget is generally a bad idea. The main
-    exception to that rule is ``flectra.web.bus`` which exists specifically
+    exception to that rule is ``odoo.web.bus`` which exists specifically
     to broadcasts evens in which any widget could be interested throughout
-    the Flectra web application.
+    the Odoo web application.
 
 Properties
 ----------
@@ -1079,10 +1092,10 @@ that they trigger events when set::
         console.log("The new value of the property 'name' is", this.widget.get("name"));
     }
 
-* :func:`~flectra.Widget.set` sets the value of a property and triggers
+* :func:`~odoo.Widget.set` sets the value of a property and triggers
   :samp:`change:{propname}` (where *propname* is the property name passed as
-  first parameter to :func:`~flectra.Widget.set`) and ``change``
-* :func:`~flectra.Widget.get` retrieves the value of a property.
+  first parameter to :func:`~odoo.Widget.set`) and ``change``
+* :func:`~odoo.Widget.get` retrieves the value of a property.
 
 Exercise
 --------
@@ -1111,7 +1124,7 @@ Exercise
 
         ::
 
-            flectra.oepetstore = function(instance, local) {
+            odoo.oepetstore = function(instance, local) {
                 var _t = instance.web._t,
                     _lt = instance.web._lt;
                 var QWeb = instance.web.qweb;
@@ -1180,8 +1193,8 @@ Exercise
 Modify existing widgets and classes
 ===================================
 
-The class system of the Flectra web framework allows direct modification of
-existing classes using the :func:`~flectra.web.Class.include` method::
+The class system of the Odoo web framework allows direct modification of
+existing classes using the :func:`~odoo.web.Class.include` method::
 
     var TestClass = instance.web.Class.extend({
         testMethod: function() {
@@ -1204,9 +1217,9 @@ target class in-place instead of creating a new class.
 In that case, ``this._super()`` will call the original implementation of a
 method being replaced/redefined. If the class already had sub-classes, all
 calls to ``this._super()`` in sub-classes will call the new implementations
-defined in the call to :func:`~flectra.web.Class.include`. This will also work
+defined in the call to :func:`~odoo.web.Class.include`. This will also work
 if some instances of the class (or of any of its sub-classes) were created
-prior to the call to :func:`~flectra.Widget.include`.
+prior to the call to :func:`~odoo.Widget.include`.
 
 Translations
 ============
@@ -1223,11 +1236,11 @@ JavaScript module. They are used thus::
 
     this.$el.text(_t("Hello user!"));
 
-In Flectra, translations files are automatically generated by scanning the source
+In Odoo, translations files are automatically generated by scanning the source
 code. All piece of code that calls a certain function are detected and their
 content is added to a translation file that will then be sent to the
 translators. In Python, the function is ``_()``. In JavaScript the function is
-:func:`~flectra.web._t` (and also :func:`~flectra.web._lt`).
+:func:`~odoo.web._t` (and also :func:`~odoo.web._lt`).
 
 ``_t()`` will return the translation defined for the text it is given. If no
 translation is defined for that text, it will return the original text as-is.
@@ -1247,7 +1260,7 @@ translation is defined for that text, it will return the original text as-is.
     This makes translatable strings more readable to translators, and gives
     them more flexibility to reorder or ignore parameters.
 
-:func:`~flectra.web._lt` ("lazy translate") is similar but somewhat more
+:func:`~odoo.web._lt` ("lazy translate") is similar but somewhat more
 complex: instead of translating its parameter immediately, it returns
 an object which, when converted to a string, will perform the translation.
 
@@ -1255,19 +1268,19 @@ It is used to define translatable terms before the translations system is
 initialized, for class attributes for instance (as modules are loaded before
 the user's language is configured and translations are downloaded).
 
-Communication with the Flectra Server
-=====================================
+Communication with the Odoo Server
+==================================
 
 Contacting Models
 -----------------
 
-Most operations with Flectra involve communicating with *models* implementing
+Most operations with Odoo involve communicating with *models* implementing
 business concern, these models will then (potentially) interact with some
 storage engine (usually PostgreSQL_).
 
 Although jQuery_ provides a `$.ajax`_ function for network interactions,
-communicating with Flectra requires additional metadata whose setup before every
-call would be verbose and error-prone. As a result, Flectra web provides
+communicating with Odoo requires additional metadata whose setup before every
+call would be verbose and error-prone. As a result, Odoo web provides
 higher-level communication primitives.
 
 To demonstrate this, the file ``petstore.py`` already contains a small model
@@ -1301,12 +1314,12 @@ Here is a sample widget that calls ``my_method()`` and displays the result::
         },
     });
 
-The class used to call Flectra models is :class:`flectra.Model`. It is
-instantiated with the Flectra model's name as first parameter
+The class used to call Odoo models is :class:`odoo.Model`. It is
+instantiated with the Odoo model's name as first parameter
 (``oepetstore.message_of_the_day`` here).
 
-:func:`~flectra.web.Model.call` can be used to call any (public) method of an
-Flectra model. It takes the following positional arguments:
+:func:`~odoo.web.Model.call` can be used to call any (public) method of an
+Odoo model. It takes the following positional arguments:
 
 ``name``
   The name of the method to call, ``my_method`` here
@@ -1341,7 +1354,7 @@ Flectra model. It takes the following positional arguments:
       model.call("my_method", [], {a: 1, b: 2, c: 3, ...
       // with this a=1, b=2 and c=3
 
-:func:`~flectra.Widget.call` returns a deferred resolved with the value
+:func:`~odoo.Widget.call` returns a deferred resolved with the value
 returned by the model's method as first argument.
 
 CompoundContext
@@ -1356,19 +1369,19 @@ The context is like a "magic" argument that the web client will always give to
 the server when calling a method. The context is a dictionary containing
 multiple keys. One of the most important key is the language of the user, used
 by the server to translate all the messages of the application. Another one is
-the time zone of the user, used to compute correctly dates and times if Flectra
+the time zone of the user, used to compute correctly dates and times if Odoo
 is used by people in different countries.
 
 The ``argument`` is necessary in all methods, otherwise bad things could
 happen (such as the application not being translated correctly). That's why,
 when you call a model's method, you should always provide that argument. The
-solution to achieve that is to use :class:`flectra.web.CompoundContext`.
+solution to achieve that is to use :class:`odoo.web.CompoundContext`.
 
-:class:`~flectra.web.CompoundContext` is a class used to pass the user's
+:class:`~odoo.web.CompoundContext` is a class used to pass the user's
 context (with language, time zone, etc...) to the server as well as adding new
 keys to the context (some models' methods use arbitrary keys added to the
 context). It is created by giving to its constructor any number of
-dictionaries or other :class:`~flectra.web.CompoundContext` instances. It will
+dictionaries or other :class:`~odoo.web.CompoundContext` instances. It will
 merge all those contexts before sending them to the server.
 
 .. code-block:: javascript
@@ -1383,19 +1396,19 @@ merge all those contexts before sending them to the server.
         // will print: {'lang': 'en_US', 'new_key': 'key_value', 'tz': 'Europe/Brussels', 'uid': 1}
 
 You can see the dictionary in the argument ``context`` contains some keys that
-are related to the configuration of the current user in Flectra plus the
+are related to the configuration of the current user in Odoo plus the
 ``new_key`` key that was added when instantiating
-:class:`~flectra.web.CompoundContext`.
+:class:`~odoo.web.CompoundContext`.
 
 Queries
 -------
 
-While :func:`~flectra.Model.call` is sufficient for any interaction with Flectra
-models, Flectra Web provides a helper for simpler and clearer querying of models
+While :func:`~odoo.Model.call` is sufficient for any interaction with Odoo
+models, Odoo Web provides a helper for simpler and clearer querying of models
 (fetching of records based on various conditions):
-:func:`~flectra.Model.query` which acts as a shortcut for the common
-combination of :py:meth:`~flectra.models.Model.search` and
-::py:meth:`~flectra.models.Model.read`. It provides a clearer syntax to search
+:func:`~odoo.Model.query` which acts as a shortcut for the common
+combination of :py:meth:`~odoo.models.Model.search` and
+::py:meth:`~odoo.models.Model.read`. It provides a clearer syntax to search
 and read models::
 
     model.query(['name', 'login', 'user_email', 'signature'])
@@ -1415,19 +1428,19 @@ versus::
             // do work with users records
         });
 
-* :func:`~flectra.web.Model.query` takes an optional list of fields as
+* :func:`~odoo.web.Model.query` takes an optional list of fields as
   parameter (if no field is provided, all fields of the model are fetched). It
-  returns a :class:`flectra.web.Query` which can be further customized before
+  returns a :class:`odoo.web.Query` which can be further customized before
   being executed
-* :class:`~flectra.web.Query` represents the query being built. It is
+* :class:`~odoo.web.Query` represents the query being built. It is
   immutable, methods to customize the query actually return a modified copy,
   so it's possible to use the original and the new version side-by-side. See
-  :class:`~flectra.web.Query` for its customization options.
+  :class:`~odoo.web.Query` for its customization options.
 
 When the query is set up as desired, simply call
-:func:`~flectra.web.Query.all` to execute it and return a
+:func:`~odoo.web.Query.all` to execute it and return a
 deferred to its result. The result is the same as
-:py:meth:`~flectra.models.Model.read`'s, an array of dictionaries where each
+:py:meth:`~odoo.models.Model.read`'s, an array of dictionaries where each
 dictionary is a requested record, with each requested field a dictionary key.
 
 Exercises
@@ -1445,7 +1458,7 @@ Exercises
 
         .. code-block:: javascript
 
-            flectra.oepetstore = function(instance, local) {
+            odoo.oepetstore = function(instance, local) {
                 var _t = instance.web._t,
                     _lt = instance.web._lt;
                 var QWeb = instance.web.qweb;
@@ -1511,7 +1524,7 @@ Exercises
     need to explore ``product.product`` to create the right domain to
     select just pet toys.
 
-    In Flectra, images are generally stored in regular fields encoded as
+    In Odoo, images are generally stored in regular fields encoded as
     base64_, HTML supports displaying images straight from base64 with
     :samp:`<img src="data:{mime_type};base64,{base64_image_data}"/>`
 
@@ -1523,7 +1536,7 @@ Exercises
 
         .. code-block:: javascript
 
-            flectra.oepetstore = function(instance, local) {
+            odoo.oepetstore = function(instance, local) {
                 var _t = instance.web._t,
                     _lt = instance.web._lt;
                 var QWeb = instance.web.qweb;
@@ -1531,10 +1544,10 @@ Exercises
                 local.HomePage = instance.Widget.extend({
                     template: "HomePage",
                     start: function () {
-                        return $.when(
+                        return Promise.all([
                             new local.PetToysList(this).appendTo(this.$('.oe_petstore_homepage_left')),
                             new local.MessageOfTheDay(this).appendTo(this.$('.oe_petstore_homepage_right'))
-                        );
+                        ]);
                     }
                 });
                 instance.web.client_actions.add('petstore.homepage', 'instance.oepetstore.HomePage');
@@ -1640,7 +1653,7 @@ Existing web components
 The Action Manager
 ------------------
 
-In Flectra, many operations start from an :ref:`action <reference/actions>`:
+In Odoo, many operations start from an :ref:`action <reference/actions>`:
 opening a menu item (to a view), printing a report, ...
 
 Actions are pieces of data describing how a client should react to the
@@ -1648,7 +1661,7 @@ activation of a piece of content. Actions can be stored (and read through a
 model) or they can be generated on-the fly (locally to the client by
 javascript code, or remotely by a method of a model).
 
-In Flectra Web, the component responsible for handling and reacting to these
+In Odoo Web, the component responsible for handling and reacting to these
 actions is the *Action Manager*.
 
 Using the Action Manager
@@ -1658,7 +1671,7 @@ The action manager can be invoked explicitly from javascript code by creating
 a dictionary describing :ref:`an action <reference/actions>` of the right
 type, and calling an action manager instance with it.
 
-:func:`~flectra.Widget.do_action` is a shortcut of :class:`~flectra.Widget`
+:func:`~odoo.Widget.do_action` is a shortcut of :class:`~odoo.Widget`
 looking up the "current" action manager and executing the action::
 
     instance.web.TestWidget = instance.Widget.extend({
@@ -1745,11 +1758,11 @@ Client Actions
 
 Throughout this guide, we used a simple ``HomePage`` widget which the web
 client automatically starts when we select the right menu item. But how did
-the Flectra web know to start this widget? Because the widget is registered as
+the Odoo web know to start this widget? Because the widget is registered as
 a *client action*.
 
 A client action is (as its name implies) an action type defined almost
-entirely in the client, in javascript for Flectra web. The server simply sends
+entirely in the client, in javascript for Odoo web. The server simply sends
 an action tag (an arbitrary name), and optionally adds a few parameters, but
 beyond that *everything* is handled by custom client code.
 
@@ -1758,11 +1771,11 @@ Our widget is registered as the handler for the client action through this::
     instance.web.client_actions.add('petstore.homepage', 'instance.oepetstore.HomePage');
 
 
-``instance.web.client_actions`` is a :class:`~flectra.web.Registry` in which
+``instance.web.client_actions`` is a :class:`~odoo.web.Registry` in which
 the action manager looks up client action handlers when it needs to execute
-one. The first parameter of :class:`~flectra.web.Registry.add` is the name
+one. The first parameter of :class:`~odoo.web.Registry.add` is the name
 (tag) of the client action, and the second parameter is the path to the widget
-from the Flectra web client root.
+from the Odoo web client root.
 
 When a client action must be executed, the action manager looks up its tag
 in the registry, walks the specified path and displays the widget it finds at
@@ -1790,7 +1803,7 @@ and a menu opening the action:
 Architecture of the Views
 -------------------------
 
-Much of Flectra web's usefulness (and complexity) resides in views. Each view
+Much of Odoo web's usefulness (and complexity) resides in views. Each view
 type is a way of displaying a model in the client.
 
 The View Manager
@@ -1808,26 +1821,26 @@ multiple views depending on the original action's requirements:
 The Views
 '''''''''
 
-Most :ref:`Flectra views <reference/views>` are implemented through a subclass
-of :class:`flectra.web.View` which provides a bit of generic basic structure
+Most :ref:`Odoo views <reference/views>` are implemented through a subclass
+of :class:`odoo.web.View` which provides a bit of generic basic structure
 for handling events and displaying model information.
 
-The *search view* is considered a view type by the main Flectra framework, but
+The *search view* is considered a view type by the main Odoo framework, but
 handled separately by the web client (as it's a more permanent fixture and
 can interact with other views, which regular views don't do).
 
 A view is responsible for loading its own description XML (using
-:py:class:`~flectra.models.Model.fields_view_get`) and any other data source
+:py:class:`~odoo.models.Model.fields_view_get`) and any other data source
 it needs. To that purpose, views are provided with an optional view
-identifier set as the :attr:`~flectra.web.View.view_id` attribute.
+identifier set as the :attr:`~odoo.web.View.view_id` attribute.
 
-Views are also provided with a :class:`~flectra.web.DataSet` instance which
+Views are also provided with a :class:`~odoo.web.DataSet` instance which
 holds most necessary model information (the model name and possibly various
 record ids).
 
 Views may also want to handle search queries by overriding
-:func:`~flectra.web.View.do_search`, and updating their
-:class:`~flectra.web.DataSet` as necessary.
+:func:`~odoo.web.View.do_search`, and updating their
+:class:`~odoo.web.DataSet` as necessary.
 
 The Form View Fields
 --------------------
@@ -1839,7 +1852,7 @@ All built-in fields have a default display implementation, a new
 form widget may be necessary to correctly interact with a new field type
 (e.g. a :term:`GIS` field) or to provide new representations and ways to
 interact with existing field types (e.g. validate
-:py:class:`~flectra.fields.Char` fields which should contain email addresses
+:py:class:`~odoo.fields.Char` fields which should contain email addresses
 and display them as email links).
 
 To explicitly specify which form widget should be used to display a field,
@@ -1851,12 +1864,12 @@ simply use the ``widget`` attribute in the view's XML description:
 
 .. note::
 
-    * the same widget is used in both "view" (read-only) and "edition" modes
+    * the same widget is used in both "view" (read-only) and "edit" modes
       of a form view, it's not possible to use a widget in one and an other
       widget in the other
     * and a given field (name) can not be used multiple times in the same form
     * a widget may ignore the current mode of the form view and remain the
-      same in both view and edition
+      same in both view and edit modes
 
 .. todo:: most of this should probably move to an advanced form view guide
 
@@ -1872,7 +1885,7 @@ Here are some of the responsibilities of a field class:
 
 * The field class must display and allow the user to edit the value of the field.
 * It must correctly implement the 3 field attributes available in all fields
-  of Flectra. The ``AbstractField`` class already implements an algorithm that
+  of Odoo. The ``AbstractField`` class already implements an algorithm that
   dynamically calculates the value of these attributes (they can change at any
   moment because their value change according to the value of other
   fields). Their values are stored in *Widget Properties* (the widget
@@ -1888,7 +1901,7 @@ Here are some of the responsibilities of a field class:
     ``AbstractField`` class already has a basic implementation of this
     behavior that fits most fields.
   * ``readonly``: When ``true``, the field must not be editable by the
-    user. Most fields in Flectra have a completely different behavior depending
+    user. Most fields in Odoo have a completely different behavior depending
     on the value of ``readonly``. As example, the ``FieldChar`` displays an
     HTML ``<input>`` when it is editable and simply displays the text when
     it is read-only. This also means it has much more code it would need to
@@ -1898,10 +1911,10 @@ Here are some of the responsibilities of a field class:
 * Fields have two methods, ``set_value()`` and ``get_value()``, which are
   called by the form view to give it the value to display and get back the new
   value entered by the user. These methods must be able to handle the value as
-  given by the Flectra server when a ``read()`` is performed on a model and give
+  given by the Odoo server when a ``read()`` is performed on a model and give
   back a valid value for a ``write()``.  Remember that the JavaScript/Python
   data types used to represent the values given by ``read()`` and given to
-  ``write()`` is not necessarily the same in Flectra. As example, when you read a
+  ``write()`` is not necessarily the same in Odoo. As example, when you read a
   many2one, it is always a tuple whose first value is the id of the pointed
   record and the second one is the name get (ie: ``(15, "Agrolait")``). But
   when you write a many2one it must be a single integer, not a tuple
@@ -1911,7 +1924,7 @@ Here are some of the responsibilities of a field class:
 
 Please note that, to better understand how to implement fields, you are
 strongly encouraged to look at the definition of the ``FieldInterface``
-interface and the ``AbstractField`` class directly in the code of the Flectra web
+interface and the ``AbstractField`` class directly in the code of the Odoo web
 client.
 
 Creating a New Type of Field
@@ -1965,7 +1978,7 @@ Read-Write Field
 """"""""""""""""
 
 Read-only fields, which only display content and don't allow the
-user to modify it can be useful, but most fields in Flectra also allow editing.
+user to modify it can be useful, but most fields in Odoo also allow editing.
 This makes the field classes more complicated, mostly because fields are
 supposed to handle both editable and non-editable mode, those modes are
 often completely different (for design and usability purpose) and the fields
@@ -2142,7 +2155,7 @@ abstract class.
 
 Form widgets can interact with form fields by listening for their changes and
 fetching or altering their values. They can access form fields through
-their :attr:`~flectra.web.form.FormWidget.field_manager` attribute::
+their :attr:`~odoo.web.form.FormWidget.field_manager` attribute::
 
     local.WidgetMultiplication = instance.web.form.FormWidget.extend({
         start: function() {
@@ -2160,14 +2173,14 @@ their :attr:`~flectra.web.form.FormWidget.field_manager` attribute::
 
     instance.web.form.custom_widgets.add('multiplication', 'instance.oepetstore.WidgetMultiplication');
 
-:attr:`~flectra.web.form.FormWidget` is generally the
-:class:`~flectra.web.form.FormView` itself, but features used from it should
-be limited to those defined by :class:`~flectra.web.form.FieldManagerMixin`,
+:attr:`~odoo.web.form.FormWidget` is generally the
+:class:`~odoo.web.form.FormView` itself, but features used from it should
+be limited to those defined by :class:`~odoo.web.form.FieldManagerMixin`,
 the most useful being:
 
-* :func:`~flectra.web.form.FieldManagerMixin.get_field_value(field_name)`
+* :func:`~odoo.web.form.FieldManagerMixin.get_field_value(field_name)`
   which returns the value of a field.
-* :func:`~flectra.web.form.FieldManagerMixin.set_values(values)` sets multiple
+* :func:`~odoo.web.form.FieldManagerMixin.set_values(values)` sets multiple
   field values, takes a mapping of ``{field_name: value_to_set}``
 * An event :samp:`field_changed:{field_name}` is triggered any time the value
   of the field called ``field_name`` is changed
@@ -2312,4 +2325,4 @@ the most useful being:
 .. _PostgreSQL: http://en.wikipedia.org/wiki/PostgreSQL
 .. _positional arguments:
 .. _keyword arguments:
-    https://docs.python.org/3/glossary.html#term-argument
+    https://docs.python.org/2/glossary.html#term-argument

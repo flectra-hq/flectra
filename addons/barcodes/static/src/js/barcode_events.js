@@ -1,6 +1,7 @@
 flectra.define('barcodes.BarcodeEvents', function(require) {
 "use strict";
 
+var config = require('web.config');
 var core = require('web.core');
 var mixins = require('web.mixins');
 var session = require('web.session');
@@ -46,14 +47,7 @@ var BarcodeEvents = core.Class.extend(mixins.PropertiesMixin, {
         $(_.bind(this.start, this, false));
 
         // Mobile device detection
-        var isMobile = navigator.userAgent.match(/Android/i) ||
-                       navigator.userAgent.match(/webOS/i) ||
-                       navigator.userAgent.match(/iPhone/i) ||
-                       navigator.userAgent.match(/iPad/i) ||
-                       navigator.userAgent.match(/iPod/i) ||
-                       navigator.userAgent.match(/BlackBerry/i) ||
-                       navigator.userAgent.match(/Windows Phone/i);
-        this.isChromeMobile = isMobile && navigator.userAgent.match(/Chrome/i);
+        this.isChromeMobile = config.device.isMobileDevice && navigator.userAgent.match(/Chrome/i);
 
         // Creates an input who will receive the barcode scanner value.
         this.$barcodeInput = $('<input/>', {
@@ -64,6 +58,7 @@ var BarcodeEvents = core.Class.extend(mixins.PropertiesMixin, {
                 'top': '50%',
                 'transform': 'translateY(-50%)',
                 'z-index': '-1',
+                'opacity': '0',
             },
         });
         // Avoid to show autocomplete for a non appearing input
@@ -191,7 +186,7 @@ var BarcodeEvents = core.Class.extend(mixins.PropertiesMixin, {
         e.preventDefault();
         e.stopImmediatePropagation();
 
-        // Handle buffered keys immediately if the the keypress marks the end
+        // Handle buffered keys immediately if the keypress marks the end
         // of a barcode or after x milliseconds without a new keypress
         clearTimeout(this.timeout);
         if (String.fromCharCode(e.which).match(this.suffix)) {
@@ -286,9 +281,9 @@ var BarcodeEvents = core.Class.extend(mixins.PropertiesMixin, {
     },
 
     stop: function(){
-        $('body').unbind("keypress", this.__handler);
-        $('body').unbind("keydown", this.__keydown_handler);
-        $('body').unbind('keyup', this.__keyup_handler);
+        $('body').off("keypress", this.__handler);
+        $('body').off("keydown", this.__keydown_handler);
+        $('body').off('keyup', this.__keyup_handler);
     },
 });
 

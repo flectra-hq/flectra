@@ -1,17 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * payment_transfer
+# 	* payment_transfer
 # 
 # Translators:
-# Jorunn D. Newth, 2017
+# Martin Trigaux, 2020
 # Marius Stedjan <marius@stedjan.com>, 2020
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server saas~13.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 09:53+0000\n"
-"PO-Revision-Date: 2017-09-20 10:20+0000\n"
+"POT-Creation-Date: 2020-09-01 07:29+0000\n"
+"PO-Revision-Date: 2020-09-07 08:16+0000\n"
 "Last-Translator: Marius Stedjan <marius@stedjan.com>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/odoo/teams/41243/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -21,19 +21,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: payment_transfer
-#: code:addons/payment_transfer/models/payment.py:70
+#: code:addons/payment_transfer/models/payment.py:0
 #, python-format
 msgid "; multiple order found"
 msgstr "; flere ordrer funnet"
 
 #. module: payment_transfer
-#: code:addons/payment_transfer/models/payment.py:68
+#: code:addons/payment_transfer/models/payment.py:0
 #, python-format
 msgid "; no order found"
 msgstr "; ingen ordre funnet"
 
 #. module: payment_transfer
-#: code:addons/payment_transfer/models/payment.py:28
+#: code:addons/payment_transfer/models/payment.py:0
 #, python-format
 msgid ""
 "<div>\n"
@@ -53,21 +53,44 @@ msgstr ""
 "</div>"
 
 #. module: payment_transfer
-#: code:addons/payment_transfer/models/payment.py:26
+#: code:addons/payment_transfer/models/payment.py:0
 #, python-format
 msgid "Bank Account"
 msgstr "Bankkonto"
 
 #. module: payment_transfer
-#: code:addons/payment_transfer/models/payment.py:26
+#: code:addons/payment_transfer/models/payment.py:0
 #, python-format
 msgid "Bank Accounts"
 msgstr "Bankkonti"
 
 #. module: payment_transfer
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_acquirer__display_name
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_transaction__display_name
+msgid "Display Name"
+msgstr "Visningsnavn"
+
+#. module: payment_transfer
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_acquirer__id
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_transaction__id
+msgid "ID"
+msgstr "ID"
+
+#. module: payment_transfer
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_acquirer____last_update
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_transaction____last_update
+msgid "Last Modified on"
+msgstr "Sist endret"
+
+#. module: payment_transfer
+#: model:ir.model.fields.selection,name:payment_transfer.selection__payment_acquirer__provider__transfer
+msgid "Manual Payment"
+msgstr "Manuell betaling"
+
+#. module: payment_transfer
 #: model:ir.model,name:payment_transfer.model_payment_acquirer
 msgid "Payment Acquirer"
-msgstr "Betalingsløsning"
+msgstr "Betalingsinnløser"
 
 #. module: payment_transfer
 #: model:ir.model,name:payment_transfer.model_payment_transaction
@@ -75,7 +98,12 @@ msgid "Payment Transaction"
 msgstr "Betalingstransaksjon"
 
 #. module: payment_transfer
-#: code:addons/payment_transfer/models/payment.py:66
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_acquirer__provider
+msgid "Provider"
+msgstr "Innløser"
+
+#. module: payment_transfer
+#: code:addons/payment_transfer/models/payment.py:0
 #, python-format
 msgid "received data for reference %s"
 msgstr "mottatt data for referanse %s"

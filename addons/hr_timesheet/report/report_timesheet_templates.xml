@@ -6,56 +6,72 @@
                 <t t-set="show_project" t-value="len(docs.mapped('project_id')) > 1"/>
                 <div class="page">
                     <div class="oe_structure"/>
-                    <div class="row">
-                        <div class="col-md-12">
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-lg-12">
                             <h2>
-                                <span>Timesheet Entries</span>
+                                <span>Timesheet Entries
+                                    <t t-if="len(docs.mapped('project_id')) == 1">
+                                        for the <t t-esc="docs.mapped('project_id')[0].name"/> Project
+                                    </t>
+                                </span>
                             </h2>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-condensed">
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-lg-12">
+                            <t t-set='is_uom_day' t-value='docs._is_timesheet_encode_uom_day()'/>
+                            <table class="table table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Responsible</th>
-                                        <th>Description</th>
-                                        <th t-if="show_task"><t t-if="show_project">Project - </t>Task</th>
-                                        <th class="text-right">Time</th>
+                                        <th class="align-middle"><span>Date</span></th>
+                                        <th class="align-middle"><span>Responsible</span></th>
+                                        <th class="align-middle"><span>Description</span></th>
+                                        <th class="align-middle" t-if="show_project"><span>Project</span></th>
+                                        <th class="align-middle" t-if="show_task"><span>Task</span></th>
+                                        <th class="text-right">
+                                            <span t-if="is_uom_day">Time Spent (Days)</span>
+                                            <span t-else="">Time Spent (Hours)</span>
+                                        </th>
                                     </tr>
                                </thead>
                                <tbody>
-                                    <t t-foreach="docs" t-as="l">
-                                        <tr>
-                                            <td>
-                                               <span t-field="l.date"/>
-                                            </td>
-                                            <td>
-                                               <span t-field="l.user_id.partner_id.name"/>
-                                            </td>
-                                            <td >
-                                                <span t-field="l.name" t-options="{'widget': 'text'}"/>
-                                            </td>
-                                            <td t-if="show_task or show_project">
-                                                <t t-if="show_project"><span t-field="l.project_id.name"/></t>
-                                                <t t-if="show_project and l.task_id"> - </t>
-                                                <t t-if="l.task_id"><span t-field="l.task_id.name"/></t>
-                                            </td>
-                                            <td class="text-right">
-                                                <span t-field="l.unit_amount" t-options="{'widget': 'float_time'}"/>
-                                            </td>
-                                        </tr>
-                                    </t>
+                                    <tr t-foreach="docs" t-as="l">
+                                        <td>
+                                           <span t-field="l.date"/>
+                                        </td>
+                                        <td>
+                                           <span t-field="l.user_id.partner_id.name"/>
+                                           <span t-if="not l.user_id.partner_id.name" t-field="l.employee_id"/>
+                                        </td>
+                                        <td >
+                                            <span t-field="l.name" t-options="{'widget': 'text'}"/>
+                                        </td>
+                                        <td t-if="show_project">
+                                            <span t-field="l.project_id.sudo().name"/>
+                                        </td>
+                                        <td t-if="show_task">
+                                            <t t-if="l.task_id"><span t-field="l.task_id.sudo().name"/></t>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-if="is_uom_day" t-esc="l._get_timesheet_time_day()" t-options="{'widget': 'timesheet_uom'}"/>
+                                            <span t-else="" t-field="l.unit_amount" t-options="{'widget': 'duration', 'digital': True, 'unit': 'hour', 'round': 'minute'}"/>
+                                        </td>
+                                    </tr>
                                     <tr>
-                                        <td />
-                                        <td />
-                                        <td t-if="show_task"/>
-                                        <td class="text-right"><strong>Total</strong></td>
-                                        <t t-set="total_value" t-value="sum(docs.mapped('unit_amount'))" />
-                                        <t t-set="sign" t-value="'-' if total_value &lt; 0 else ''"/>
-                                        <td class="text-right"><strong t-esc="sign + '%02d:%02.0f' % tuple(int(round(x)) for x in divmod(abs(total_value)*60,60))"/></td>
+                                        <t t-set="nbCols" t-value="4"/>
+                                        <t t-if="show_project" t-set="nbCols" t-value="nbCols + 1"/>
+                                        <t t-if="show_task" t-set="nbCols" t-value="nbCols + 1"/>
+                                        <td class="text-right" t-attf-colspan="{{nbCols}}">
+                                            <strong t-if="is_uom_day">
+                                                <span style="margin-right: 15px;">Total (Days)</span>
+                                                <t t-esc="docs._convert_hours_to_days(sum(docs.mapped('unit_amount')))" t-options="{'widget': 'timesheet_uom'}"/>
+                                            </strong>
+                                            <strong t-else="">
+                                                <span style="margin-right: 15px;">Total (Hours)</span>
+                                                <t t-esc="sum(docs.mapped('unit_amount'))" t-options="{'widget': 'duration', 'digital': True, 'unit': 'hour', 'round': 'minute'}"/>
+                                            </strong>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -67,11 +83,13 @@
         </t>
     </template>
 
-    <report id="timesheet_report"
-            model="account.analytic.line"
-            string="Timesheet Entries"
-            report_type="qweb-pdf"
-            name="hr_timesheet.report_timesheet"
-            file="report_timesheet"
-    />
+    <record id="timesheet_report" model="ir.actions.report">
+        <field name="name">Timesheet Entries</field>
+        <field name="model">account.analytic.line</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr_timesheet.report_timesheet</field>
+        <field name="report_file">report_timesheet</field>
+        <field name="binding_model_id" ref="model_account_analytic_line"/>
+        <field name="binding_type">report</field>
+    </record>
 </flectra>

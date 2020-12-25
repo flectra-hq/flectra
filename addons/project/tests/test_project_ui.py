@@ -3,9 +3,8 @@
 import flectra.tests
 
 
-@flectra.tests.common.at_install(False)
-@flectra.tests.common.post_install(True)
+@flectra.tests.tagged('post_install', '-at_install')
 class TestUi(flectra.tests.HttpCase):
 
     def test_01_project_tour(self):
-        self.phantom_js("/web", "flectra.__DEBUG__.services['web_tour.tour'].run('project_tour')", "flectra.__DEBUG__.services['web_tour.tour'].tours.project_tour.ready", login="admin")
+        self.start_tour("/web", 'project_tour', login="admin")

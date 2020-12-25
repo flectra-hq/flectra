@@ -1,10 +1,10 @@
-:banner: banners/flectra_deploying.jpg
+:banner: banners/deploying_odoo.jpg
 
-=================
-Deploying Flectra
-=================
+==============
+Deploying Odoo
+==============
 
-This document describes basic steps to set up Flectra in production or on an
+This document describes basic steps to set up Odoo in production or on an
 internet-facing server. It follows :ref:`installation <setup/install>`, and is
 not generally necessary for a development systems that is not exposed on the
 internet.
@@ -17,7 +17,7 @@ internet.
 dbfilter
 ========
 
-Flectra is a multi-tenant system: a single Flectra system may run and serve a number
+Odoo is a multi-tenant system: a single Odoo system may run and serve a number
 of database instances. It is also highly customizable, with customizations
 (starting from the modules being loaded) depending on the "current database".
 
@@ -26,12 +26,12 @@ company user: the database can be selected when logging in, and customizations
 loaded afterwards.
 
 However it is an issue for non-logged users (portal, website) which aren't
-bound to a database: Flectra needs to know which database should be used to load
+bound to a database: Odoo needs to know which database should be used to load
 the website page or perform the operation. If multi-tenancy is not used that is not an
 issue, there's only one database to use, but if there are multiple databases
-accessible Flectra needs a rule to know which one it should use.
+accessible Odoo needs a rule to know which one it should use.
 
-That is one of the purposes of :option:`--db-filter <flectra-bin --db-filter>`:
+That is one of the purposes of :option:`--db-filter <odoo-bin --db-filter>`:
 it specifies how the database should be selected based on the hostname (domain)
 that is being requested. The value is a `regular expression`_, possibly
 including the dynamically injected hostname (``%h``) or the first subdomain
@@ -46,7 +46,7 @@ Configuration samples
 
 * Show only databases with names beginning with 'mycompany'
 
-in ``/etc/flectra.conf`` set:
+in ``/etc/odoo.conf`` set:
 
 .. code-block:: ini
 
@@ -58,7 +58,7 @@ in ``/etc/flectra.conf`` set:
   was sent to ``www.mycompany.com`` or ``mycompany.co.uk``, but not
   for ``www2.mycompany.com`` or ``helpdesk.mycompany.com``.
 
-in ``/etc/flectra.conf`` set:
+in ``/etc/odoo.conf`` set:
 
 .. code-block:: ini
 
@@ -66,7 +66,7 @@ in ``/etc/flectra.conf`` set:
   dbfilter = ^%d$
 
 .. note::
-  Setting a proper :option:`--db-filter <flectra-bin --db-filter>` is an important part
+  Setting a proper :option:`--db-filter <odoo-bin --db-filter>` is an important part
   of securing your deployment.
   Once it is correctly working and only matching a single database per hostname, it
   is strongly recommended to block access to the database manager screens,
@@ -82,17 +82,17 @@ By default, PostgreSQL only allows connection over UNIX sockets and loopback
 connections (from "localhost", the same machine the PostgreSQL server is
 installed on).
 
-UNIX socket is fine if you want Flectra and PostgreSQL to execute on the same
-machine, and is the default when no host is provided, but if you want Flectra and
+UNIX socket is fine if you want Odoo and PostgreSQL to execute on the same
+machine, and is the default when no host is provided, but if you want Odoo and
 PostgreSQL to execute on different machines [#different-machines]_ it will
 need to `listen to network interfaces`_ [#remote-socket]_, either:
 
 * Only accept loopback connections and `use an SSH tunnel`_ between the
-  machine on which Flectra runs and the one on which PostgreSQL runs, then
-  configure Flectra to connect to its end of the tunnel
-* Accept connections to the machine on which Flectra is installed, possibly
+  machine on which Odoo runs and the one on which PostgreSQL runs, then
+  configure Odoo to connect to its end of the tunnel
+* Accept connections to the machine on which Odoo is installed, possibly
   over ssl (see `PostgreSQL connection settings`_ for details), then configure
-  Flectra to connect over the network
+  Odoo to connect over the network
 
 Configuration sample
 --------------------
@@ -109,25 +109,25 @@ in ``/etc/postgresql/9.5/main/pg_hba.conf`` set:
   host    all             all             192.168.1.0/24          md5
 
 in ``/etc/postgresql/9.5/main/postgresql.conf`` set:
-  
+
 .. code-block:: text
-  
+
   listen_addresses = 'localhost,192.168.1.2'
   port = 5432
   max_connections = 80
 
-.. _setup/deploy/flectra:
+.. _setup/deploy/odoo:
 
-Configuring Flectra
--------------------
+Configuring Odoo
+----------------
 
-Out of the box, Flectra connects to a local postgres over UNIX socket via port
+Out of the box, Odoo connects to a local postgres over UNIX socket via port
 5432. This can be overridden using :ref:`the database options
 <reference/cmdline/server/database>` when your Postgres deployment is not
 local and/or does not use the installation defaults.
 
 The :ref:`packaged installers <setup/install/packaged>` will automatically
-create a new user (``flectra``) and set it as the database user.
+create a new user (``odoo``) and set it as the database user.
 
 * The database management screens are protected by the ``admin_passwd``
   setting. This setting can only be set using configuration files, and is
@@ -149,11 +149,11 @@ Configuration sample
 
 * connect to a PostgreSQL server on 192.168.1.2
 * port 5432
-* using an 'flectra' user account,
+* using an 'odoo' user account,
 * with 'pwd' as a password
 * filtering only db with a name beginning with 'mycompany'
 
-in ``/etc/flectra.conf`` set:
+in ``/etc/odoo.conf`` set:
 
 .. code-block:: ini
 
@@ -161,16 +161,28 @@ in ``/etc/flectra.conf`` set:
   admin_passwd = mysupersecretpassword
   db_host = 192.168.1.2
   db_port = 5432
-  db_user = flectra
+  db_user = odoo
   db_password = pwd
   dbfilter = ^mycompany.*$
+
+.. _postgresql_ssl_connect:
+
+SSL Between Odoo and PostgreSQL
+-------------------------------
+
+Since Odoo 11.0, you can enforce ssl connection between Odoo and PostgreSQL.
+in Odoo the db_sslmode control the ssl security of the connection
+with value choosed out of 'disable', 'allow', 'prefer', 'require', 'verify-ca'
+or 'verify-full'
+
+`PostgreSQL Doc <https://www.postgresql.org/docs/current/static/libpq-ssl.html>`_
 
 .. _builtin_server:
 
 Builtin server
 ==============
 
-Flectra includes built-in HTTP servers, using either multithreading or
+Odoo includes built-in HTTP servers, using either multithreading or
 multiprocessing.
 
 For production use, it is recommended to use the multiprocessing server as it
@@ -178,7 +190,7 @@ increases stability, makes somewhat better use of computing resources and can
 be better monitored and resource-restricted.
 
 * Multiprocessing is enabled by configuring :option:`a non-zero number of
-  worker processes <flectra-bin --workers>`, the number of workers should be based
+  worker processes <odoo-bin --workers>`, the number of workers should be based
   on the number of cores in the machine (possibly with some room for cron
   workers depending on how much cron work is predicted)
 * Worker limits can be configured based on the hardware configuration to avoid
@@ -198,7 +210,7 @@ memory size calculation
 -----------------------
 
 * We consider 20% of the requests are heavy requests, while 80% are simpler ones
-* A heavy worker, when all computed field are well designed, SQL requests are well designed, ... is estimated to consume around 1Go of RAM
+* A heavy worker, when all computed field are well designed, SQL requests are well designed, ... is estimated to consume around 1GB of RAM
 * A lighter worker, in the same scenario, is estimated to consume around 150MB of RAM
 
 Needed RAM = #worker * ( (light_worker_ratio * light_worker_ram_estimation) + (heavy_worker_ratio * heavy_worker_ram_estimation) )
@@ -207,12 +219,19 @@ LiveChat
 --------
 
 In multiprocessing, a dedicated LiveChat worker is automatically started and
-listening on :option:`the longpolling port <flectra-bin --longpolling-port>` but
+listening on :option:`the longpolling port <odoo-bin --longpolling-port>` but
 the client will not connect to it.
 
 Instead you must have a proxy redirecting requests whose URL starts with
 ``/longpolling/`` to the longpolling port. Other request should be proxied to
-the :option:`normal HTTP port <flectra-bin --http-port>`
+the :option:`normal HTTP port <odoo-bin --http-port>`
+
+To achieve such a thing, you'll need to deploy a reverse proxy in front of Odoo,
+like nginx or apache. When doing so, you'll need to forward some more http Headers
+to Odoo, and activate the proxy_mode in Odoo configuration to have Odoo read those
+headers.
+
+
 
 Configuration sample
 --------------------
@@ -223,9 +242,9 @@ Configuration sample
 * 60 users / 6 = 10 <- theorical number of worker needed
 * (4 * 2) + 1 = 9 <- theorical maximal number of worker
 * We'll use 8 workers + 1 for cron. We'll also use a monitoring system to measure cpu load, and check if it's between 7 and 7.5 .
-* RAM = 9 * ((0.8*150) + (0.2*1024)) ~= 3Go RAM for Flectra
+* RAM = 9 * ((0.8*150) + (0.2*1024)) ~= 3Go RAM for Odoo
 
-in ``/etc/flectra.conf``:
+in ``/etc/odoo.conf``:
 
 .. code-block:: ini
 
@@ -243,127 +262,114 @@ in ``/etc/flectra.conf``:
 HTTPS
 =====
 
-Whether it's accessed via website/web client or web service, Flectra transmits
+Whether it's accessed via website/web client or web service, Odoo transmits
 authentication information in cleartext. This means a secure deployment of
-Flectra must use HTTPS\ [#switching]_. SSL termination can be implemented via
+Odoo must use HTTPS\ [#switching]_. SSL termination can be implemented via
 just about any SSL termination proxy, but requires the following setup:
 
-* Enable Flectra's :option:`proxy mode <flectra-bin --proxy-mode>`. This should only be enabled when Flectra is behind a reverse proxy
+* Enable Odoo's :option:`proxy mode <odoo-bin --proxy-mode>`. This should only be enabled when Odoo is behind a reverse proxy
 * Set up the SSL termination proxy (`Nginx termination example`_)
 * Set up the proxying itself (`Nginx proxying example`_)
 * Your SSL termination proxy should also automatically redirect non-secure
   connections to the secure port
 
-.. warning::
-
-  In case you are using the Point of Sale module in combination with a `POSBox`_,
-  you must disable the HTTPS configuration for the route ``/pos/web`` to avoid
-  mixed-content errors.
-
 Configuration sample
 --------------------
 
 * Redirect http requests to https
-* Proxy requests to flectra
+* Proxy requests to odoo
 
-in ``/etc/flectra.conf`` set:
+in ``/etc/odoo.conf`` set:
 
 .. code-block:: ini
 
   proxy_mode = True
 
-in ``/etc/nginx/sites-enabled/flectra.conf`` set:
+in ``/etc/nginx/sites-enabled/odoo.conf`` set:
 
 .. code-block:: nginx
 
-  #flectra server
-  upstream flectra {
-   server 127.0.0.1:7073;
+  #odoo server
+  upstream odoo {
+   server 127.0.0.1:8069;
   }
-  upstream flectrachat {
+  upstream odoochat {
    server 127.0.0.1:8072;
   }
-  
+
   # http -> https
   server {
      listen 80;
-     server_name flectra.mycompany.com;
+     server_name odoo.mycompany.com;
      rewrite ^(.*) https://$host$1 permanent;
   }
-  
+
   server {
-   listen 443 ssl http2;
-   server_name flectra.mycompany.com;
+   listen 443;
+   server_name odoo.mycompany.com;
    proxy_read_timeout 720s;
    proxy_connect_timeout 720s;
    proxy_send_timeout 720s;
 
-
-   # Add Headers for flectra proxy mode
-  proxy_set_header Host $host;
-  proxy_set_header remote_addr $remote_addr;
-  proxy_next_upstream error timeout invalid_header http_500 http_502 http_503;
-  
+   # Add Headers for odoo proxy mode
    proxy_set_header X-Forwarded-Host $host;
    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
    proxy_set_header X-Forwarded-Proto $scheme;
    proxy_set_header X-Real-IP $remote_addr;
 
-  proxy_set_header X-Forward-For $proxy_add_x_forwarded_for;
-  proxy_redirect off;
-  proxy_buffering off;
-   
    # SSL parameters
    ssl on;
    ssl_certificate /etc/ssl/nginx/server.crt;
    ssl_certificate_key /etc/ssl/nginx/server.key;
    ssl_session_timeout 30m;
-   ssl_protocols TLSv1.2 TLSv1.3;
+   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
    ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
    ssl_prefer_server_ciphers on;
-   
+
    # log
-   access_log /var/log/nginx/flectra.access.log;
-   error_log /var/log/nginx/flectra.error.log;
-   
-   # Redirect requests to flectra backend server
+   access_log /var/log/nginx/odoo.access.log;
+   error_log /var/log/nginx/odoo.error.log;
+
+   # Redirect longpoll requests to odoo longpolling port
+   location /longpolling {
+   proxy_pass http://odoochat;
+   }
+
+   # Redirect requests to odoo backend server
    location / {
      proxy_redirect off;
-     proxy_pass http://flectra;
+     proxy_pass http://odoo;
    }
-   location /longpolling {
-       proxy_pass http://flectrachat;
-   }
- 
+
    # common gzip
-   gzip_types text/css text/less text/plain text/xml application/xml application/json application/javascript;
+   gzip_types text/css text/scss text/plain text/xml application/xml application/json application/javascript;
    gzip on;
   }
- 
-Flectra as a WSGI Application
-=============================
 
-It is also possible to mount Flectra as a standard WSGI_ application. Flectra
-provides the base for a WSGI launcher script as ``flectra-wsgi.example.py``. That
+Odoo as a WSGI Application
+==========================
+
+It is also possible to mount Odoo as a standard WSGI_ application. Odoo
+provides the base for a WSGI launcher script as ``odoo-wsgi.example.py``. That
 script should be customized (possibly after copying it from the setup directory) to correctly set the
-configuration directly in :mod:`flectra.tools.config` rather than through the
+configuration directly in :mod:`odoo.tools.config` rather than through the
 command-line or a configuration file.
 
 However the WSGI server will only expose the main HTTP endpoint for the web
-client, website and webservice API. Because Flectra does not control the creation
+client, website and webservice API. Because Odoo does not control the creation
 of workers anymore it can not setup cron or livechat workers
 
 Cron Workers
 ------------
 
-To run cron jobs for an Flectra deployment as a WSGI application requires
+To run cron jobs for an Odoo deployment as a WSGI application requires
 
-* A classical Flectra (run via ``flectra-bin``)
+* A classical Odoo (run via ``odoo-bin``)
 * Connected to the database in which cron jobs have to be run (via
-  :option:`flectra-bin -d`)
+  :option:`odoo-bin -d`)
 * Which should not be exposed to the network. To ensure cron runners are not
   network-accessible, it is possible to disable the built-in HTTP server
-  entirely with :option:`flectra-bin --no-http` or setting ``http_enable = False``
+  entirely with :option:`odoo-bin --no-http` or setting ``http_enable = False``
   in the configuration file
 
 LiveChat
@@ -381,22 +387,22 @@ notifications.
 
 The solutions to support livechat/motifications in a WSGI application are:
 
-* Deploy a threaded version of Flectra (instread of a process-based preforking
+* Deploy a threaded version of Odoo (instread of a process-based preforking
   one) and redirect only requests to URLs starting with ``/longpolling/`` to
-  that Flectra, this is the simplest and the longpolling URL can double up as
+  that Odoo, this is the simplest and the longpolling URL can double up as
   the cron instance.
-* Deploy an evented Flectra via ``flectra-gevent`` and proxy requests starting
+* Deploy an evented Odoo via ``odoo-gevent`` and proxy requests starting
   with ``/longpolling/`` to
-  :option:`the longpolling port <flectra-bin --longpolling-port>`.
+  :option:`the longpolling port <odoo-bin --longpolling-port>`.
 
 Serving Static Files
 ====================
 
-For development convenience, Flectra directly serves all static files in its
+For development convenience, Odoo directly serves all static files in its
 modules. This may not be ideal when it comes to performances, and static
 files should generally be served by a static HTTP server.
 
-Flectra static files live in each module's ``static/`` folder, so static files
+Odoo static files live in each module's ``static/`` folder, so static files
 can be served by intercepting all requests to :samp:`/{MODULE}/static/{FILE}`,
 and looking up the right module (and file) in the various addons paths.
 
@@ -430,41 +436,81 @@ security-related topics:
   only for controlling/managing the installation.
   *Never* use any default passwords like admin/admin, even for test/staging databases.
 
-- Use appropriate database filters ( :option:`--db-filter <flectra-bin --db-filter>`)
+- Do **not** install demo data on internet-facing servers. Databases with demo data contain
+  default logins and passwords that can be used to get into your systems and cause significant
+  trouble, even on staging/dev systems.
+
+- Use appropriate database filters ( :option:`--db-filter <odoo-bin --db-filter>`)
   to restrict the visibility of your databases according to the hostname.
   See :ref:`db_filter`.
-  You may also use :option:`-d <flectra-bin -d>` to provide your own (comma-separated)
+  You may also use :option:`-d <odoo-bin -d>` to provide your own (comma-separated)
   list of available databases to filter from, instead of letting the system fetch
   them all from the database backend.
 
 - Once your ``db_name`` and ``db_filter`` are configured and only match a single database
   per hostname, you should set ``list_db`` configuration option to ``False``, to prevent
   listing databases entirely, and to block access to the database management screens
-  (this is also exposed as the :option:`--no-database-list <flectra-bin --no-database-list>`
+  (this is also exposed as the :option:`--no-database-list <odoo-bin --no-database-list>`
   command-line option)
 
-- Make sure the PostgreSQL user (:option:`--db_user <flectra-bin --db_user>`) is *not* a super-user,
+- Make sure the PostgreSQL user (:option:`--db_user <odoo-bin --db_user>`) is *not* a super-user,
   and that your databases are owned by a different user. For example they could be owned by
   the ``postgres`` super-user if you are using a dedicated non-privileged ``db_user``.
-  See also :ref:`setup/deploy/flectra`.
+  See also :ref:`setup/deploy/odoo`.
 
 - Keep installations updated by regularly installing the latest builds,
   either via GitHub or by downloading the latest version from
-  https://flectrahq.com/download
+  https://flectrahq.com/download or http://nightly.odoo.com
 
 - Configure your server in multi-process mode with proper limits matching your typical
   usage (memory/CPU/timeouts). See also :ref:`builtin_server`.
 
-- Run Flectra behind a web server providing HTTPS termination with a valid SSL certificate,
+- Run Odoo behind a web server providing HTTPS termination with a valid SSL certificate,
   in order to prevent eavesdropping on cleartext communications. SSL certificates are
   cheap, and many free options exist.
   Configure the web proxy to limit the size of requests, set appropriate timeouts,
-  and then enable the :option:`proxy mode <flectra-bin --proxy-mode>` option.
+  and then enable the :option:`proxy mode <odoo-bin --proxy-mode>` option.
   See also :ref:`https_proxy`.
+
+- If you need to allow remote SSH access to your servers, make sure to set a strong password
+  for **all** accounts, not just `root`. It is strongly recommended to entirely disable
+  password-based authentication, and only allow public key authentication. Also consider
+  restricting access via a VPN, allowing only trusted IPs in the firewall, and/or
+  running a brute-force detection system such as `fail2ban` or equivalent.
+
+- Consider installing appropriate rate-limiting on your proxy or firewall, to prevent
+  brute-force attacks and denial of service attacks. See also :ref:`login_brute_force`
+  for specific measures.
+
+  Many network providers provide automatic mitigation for Distributed Denial of
+  Service attacks (DDOS), but this is often an optional service, so you should consult
+  with them.
 
 - Whenever possible, host your public-facing demo/test/staging instances on different
   machines than the production ones. And apply the same security precautions as for
   production.
+
+- If your public-facing Odoo server has access to sensitive internal network resources
+  or services (e.g. via a private VLAN), implement appropriate firewall rules to
+  protect those internal resources. This will ensure that the Odoo server cannot
+  be used accidentally (or as a result of malicious user actions) to access or disrupt
+  those internal resources.
+  Typically this can be done by applying an outbound default DENY rule on the firewall,
+  then only explicitly authorizing access to internal resources that the Odoo server
+  needs to access.
+  `Systemd IP traffic access control <http://0pointer.net/blog/ip-accounting-and-access-lists-with-systemd.html>`_
+  may also be useful to implement per-process network access control.
+
+- If your public-facing Odoo server is behind a Web Application Firewall, a load-balancer,
+  a transparent DDoS protection service (like CloudFlare) or a similar network-level
+  device, you may wish to avoid direct access to the Odoo system. It is generally
+  difficult to keep the endpoint IP addresses of your Odoo servers secret. For example
+  they can appear in web server logs when querying public systems, or in the headers
+  of emails posted from Odoo.
+  In such a situation you may want to configure your firewall so that the endpoints
+  are not accessible publicly except from the specific IP addresses of your WAF,
+  load-balancer or proxy service. Service providers like CloudFlare usually maintain
+  a public list of their IP address ranges for this purpose.
 
 - If you are hosting multiple customers, isolate customer data and files from each other
   using containers or appropriate "jail" techniques.
@@ -473,19 +519,76 @@ security-related topics:
   archiving server that is not accessible from the server itself.
 
 
+.. _login_brute_force:
+
+Blocking Brute Force Attacks
+----------------------------
+For internet-facing deployments, brute force attacks on user passwords are very common, and this
+threat should not be neglected for Odoo servers. Odoo emits a log entry whenever a login attempt
+is performed, and reports the result: success or failure, along with the target login and source IP.
+
+The log entries will have the following form.
+
+Failed login::
+
+      2018-07-05 14:56:31,506 24849 INFO db_name odoo.addons.base.res.res_users: Login failed for db:db_name login:admin from 127.0.0.1
+
+Successful login::
+
+      2018-07-05 14:56:31,506 24849 INFO db_name odoo.addons.base.res.res_users: Login successful for db:db_name login:admin from 127.0.0.1
+
+
+These logs can be easily analyzed by an intrusion prevention system such as `fail2ban`.
+
+For example, the following fail2ban filter definition should match a
+failed login::
+
+    [Definition]
+    failregex = ^ \d+ INFO \S+ \S+ Login failed for db:\S+ login:\S+ from <HOST>
+    ignoreregex =
+
+This could be used with a jail definition to block the attacking IP on HTTP(S).
+
+Here is what it could look like for blocking the IP for 15 minutes when
+10 failed login attempts are detected from the same IP within 1 minute::
+
+    [odoo-login]
+    enabled = true
+    port = http,https
+    bantime = 900  ; 15 min ban
+    maxretry = 10  ; if 10 attempts
+    findtime = 60  ; within 1 min  /!\ Should be adjusted with the TZ offset
+    logpath = /var/log/odoo.log  ;  set the actual odoo log path here
+
+
+
+
 .. _db_manager_security:
 
 Database Manager Security
 -------------------------
 
-:ref:`setup/deploy/flectra` mentioned ``admin_passwd`` in passing.
+:ref:`setup/deploy/odoo` mentioned ``admin_passwd`` in passing.
 
 This setting is used on all database management screens (to create, delete,
 dump or restore databases).
 
 If the management screens must not be accessible at all, you should set ``list_db``
 configuration option to ``False``, to block access to all the database selection and
-management screens. But be sure to setup an appropriate ``db_name`` parameter
+management screens.
+
+.. warning::
+
+  It is strongly recommended to disable the Database Manager for any internet-facing
+  system! It is meant as a development/demo tool, to make it easy to quickly create
+  and manage databases. It is not designed for use in production, and may even expose
+  dangerous features to attackers. It is also not designed to handle large databases,
+  and may trigger memory limits.
+
+  On production systems, database management operations should always be performed by
+  the system administrator, including provisioning of new databases and automated backups.
+
+Be sure to setup an appropriate ``db_name`` parameter
 (and optionally, ``db_filter`` too) so that the system can determine the target database
 for each request, otherwise users will be blocked as they won't be allowed to choose the
 database themselves.
@@ -509,15 +612,27 @@ which will generate a 32 characters pseudorandom printable string.
 Supported Browsers
 ==================
 
-Flectra is supported by multiple browsers for each of its versions. No 
-distinction is made according to the browser version in order to be
-up-to-date. Flectra is supported on the current browser version. The list 
-of the supported browsers by Flectra version is the following:
+Odoo supports all the major desktop and mobile browsers available on the market,
+as long as they are supported by their publishers.
 
-- **Flectra 1.0+:** Mozilla Firefox, Google Chrome, Safari, Microsoft Edge
+Here are the supported browsers:
+
+- Google Chrome
+- Mozilla Firefox
+- Microsoft Edge
+- Apple Safari
+
+.. warning:: Please make sure your browser is up-to-date and still supported by
+    its publisher before filing a bug report.
+
+
+.. note::
+
+    Since Odoo 13.0, ES6 is supported.  Therefore, IE support is dropped.
+
 
 .. [#different-machines]
-    to have multiple Flectra installations use the same PostgreSQL database,
+    to have multiple Odoo installations use the same PostgreSQL database,
     or to provide more computing resources to both software.
 .. [#remote-socket]
     technically a tool like socat_ can be used to proxy UNIX sockets across
@@ -532,16 +647,16 @@ of the supported browsers by Flectra version is the following:
     environment than over the internet.
 
 .. _regular expression: https://docs.python.org/3/library/re.html
-.. _ARP spoofing: http://en.wikipedia.org/wiki/ARP_spoofing
+.. _ARP spoofing: https://en.wikipedia.org/wiki/ARP_spoofing
 .. _Nginx termination example:
-    http://nginx.com/resources/admin-guide/nginx-ssl-termination/
+    https://nginx.com/resources/admin-guide/nginx-ssl-termination/
 .. _Nginx proxying example:
-    http://nginx.com/resources/admin-guide/reverse-proxy/
+    https://nginx.com/resources/admin-guide/reverse-proxy/
 .. _socat: http://www.dest-unreach.org/socat/
 .. _PostgreSQL connection settings:
 .. _listen to network interfaces:
-    http://www.postgresql.org/docs/9.3/static/runtime-config-connection.html
+    https://www.postgresql.org/docs/9.6/static/runtime-config-connection.html
 .. _use an SSH tunnel:
-    http://www.postgresql.org/docs/9.3/static/ssh-tunnels.html
-.. _WSGI: http://wsgi.readthedocs.org/
-.. _POSBox: https://flectrahq.com/point-of-sale
+    https://www.postgresql.org/docs/9.6/static/ssh-tunnels.html
+.. _WSGI: https://wsgi.readthedocs.org/
+.. _POSBox: https://flectrahq.com/point-of-sale-hardware#part_2

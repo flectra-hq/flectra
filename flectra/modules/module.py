@@ -2,27 +2,19 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import ast
-import functools
-import imp
+import collections.abc
 import importlib
-import inspect
-import itertools
 import logging
 import os
 import pkg_resources
 import re
 import sys
-import time
-import types
-import unittest
-import threading
-from operator import itemgetter
+import warnings
 from os.path import join as opj
 
 import flectra
 import flectra.tools as tools
 import flectra.release as release
-from flectra import SUPERUSER_ID, api
 from flectra.tools import pycompat
 
 MANIFEST_NAMES = ('__manifest__.py', '__openerp__.py')
@@ -31,63 +23,39 @@ README = ['README.rst', 'README.md', 'README.txt']
 _logger = logging.getLogger(__name__)
 
 # addons path as a list
-ad_paths = []
-hooked = False
+# ad_paths is a deprecated alias, please use flectra.addons.__path__
+@tools.lazy
+def ad_paths():
+    warnings.warn(
+        '"flectra.modules.module.ad_paths" is a deprecated proxy to '
+        '"flectra.addons.__path__".', DeprecationWarning, stacklevel=2)
+    return flectra.addons.__path__
 
 # Modules already loaded
 loaded = []
 
 class AddonsHook(object):
-    """ Makes modules accessible through openerp.addons.* and flectra.addons.* """
+    """ Makes modules accessible through openerp.addons.* """
 
     def find_module(self, name, path=None):
-        if name.startswith(('flectra.addons.', 'openerp.addons.'))\
-                and name.count('.') == 2:
+        if name.startswith('openerp.addons.') and name.count('.') == 2:
+            warnings.warn(
+                '"openerp.addons" is a deprecated alias to "flectra.addons".',
+                DeprecationWarning, stacklevel=2)
             return self
 
     def load_module(self, name):
         assert name not in sys.modules
 
-        # get canonical names
         flectra_name = re.sub(r'^openerp.addons.(\w+)$', r'flectra.addons.\g<1>', name)
-        openerp_name = re.sub(r'^flectra.addons.(\w+)$', r'openerp.addons.\g<1>', flectra_name)
 
-        assert flectra_name not in sys.modules
-        assert openerp_name not in sys.modules
+        flectra_module = sys.modules.get(flectra_name)
+        if not flectra_module:
+            flectra_module = importlib.import_module(flectra_name)
 
-        # get module name in addons paths
-        _1, _2, addon_name = name.split('.')
-        # load module
-        f, path, (_suffix, _mode, type_) = imp.find_module(addon_name, ad_paths)
-        if f: f.close()
+        sys.modules[name] = flectra_module
 
-        # TODO: fetch existing module from sys.modules if reloads permitted
-        # create empty flectra.addons.* module, set name
-        new_mod = types.ModuleType(flectra_name)
-        new_mod.__loader__ = self
-
-        # module top-level can only be a package
-        assert type_ == imp.PKG_DIRECTORY, "Flectra addon top-level must be a package"
-        modfile = opj(path, '__init__.py')
-        new_mod.__file__ = modfile
-        new_mod.__path__ = [path]
-        new_mod.__package__ = flectra_name
-
-        # both base and alias should be in sys.modules to handle recursive and
-        # corecursive situations
-        sys.modules[flectra_name] = sys.modules[openerp_name] = new_mod
-
-        # execute source in context of module *after* putting everything in
-        # sys.modules, so recursive import works
-        exec(open(modfile, 'rb').read(), new_mod.__dict__)
-
-        # people import openerp.addons and expect openerp.addons.<module> to work
-        setattr(flectra.addons, addon_name, new_mod)
-
-        return sys.modules[name]
-# need to register loader with setuptools as Jinja relies on it when using
-# PackageLoader
-pkg_resources.register_loader_type(AddonsHook, pkg_resources.DefaultProvider)
+        return flectra_module
 
 class FlectraHook(object):
     """ Makes flectra package also available as openerp """
@@ -96,6 +64,9 @@ class FlectraHook(object):
         # openerp.addons.<identifier> should already be matched by AddonsHook,
         # only framework and subdirectories of modules should match
         if re.match(r'^openerp\b', name):
+            warnings.warn(
+                'openerp is a deprecated alias to flectra.',
+                DeprecationWarning, stacklevel=2)
             return self
 
     def load_module(self, name):
@@ -116,42 +87,49 @@ class FlectraHook(object):
 
         return sys.modules[name]
 
+
 def initialize_sys_path():
     """
-    Setup an import-hook to be able to import OpenERP addons from the different
-    addons paths.
-
-    This ensures something like ``import crm`` (or even
-    ``import flectra.addons.crm``) works even if the addons are not in the
-    PYTHONPATH.
+    Setup the addons path ``flectra.addons.__path__`` with various defaults
+    and explicit directories.
     """
-    global ad_paths
-    global hooked
+    # hook flectra.addons on data dir
+    dd = os.path.normcase(tools.config.addons_data_dir)
+    if os.access(dd, os.R_OK) and dd not in flectra.addons.__path__:
+        flectra.addons.__path__.append(dd)
 
-    dd = tools.config.addons_data_dir
-    if os.access(dd, os.R_OK) and dd not in ad_paths:
-        ad_paths.append(dd)
-
+    # hook flectra.addons on addons paths
     for ad in tools.config['addons_path'].split(','):
         ad = os.path.normcase(os.path.abspath(tools.ustr(ad.strip())))
-        if ad not in ad_paths:
-            ad_paths.append(ad)
+        if ad not in flectra.addons.__path__:
+            flectra.addons.__path__.append(ad)
 
-    # add base module path
+    # hook flectra.addons on base module path
     base_path = os.path.normcase(os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'addons')))
-    if base_path not in ad_paths and os.path.isdir(base_path):
-        ad_paths.append(base_path)
+    if base_path not in flectra.addons.__path__ and os.path.isdir(base_path):
+        flectra.addons.__path__.append(base_path)
 
-    # add flectra.addons.__path__
-    for ad in __import__('flectra.addons').addons.__path__:
-        ad = os.path.abspath(ad)
-        if ad not in ad_paths and os.path.isdir(ad):
-            ad_paths.append(ad)
+    # hook flectra.upgrade on upgrade-path
+    from flectra import upgrade
+    legacy_upgrade_path = os.path.join(base_path, 'base', 'maintenance', 'migrations')
+    for up in (tools.config['upgrade_path'] or legacy_upgrade_path).split(','):
+        up = os.path.normcase(os.path.abspath(tools.ustr(up.strip())))
+        if up not in upgrade.__path__:
+            upgrade.__path__.append(up)
 
-    if not hooked:
+    # create decrecated module alias from flectra.addons.base.maintenance.migrations to flectra.upgrade
+    spec = importlib.machinery.ModuleSpec("flectra.addons.base.maintenance", None, is_package=True)
+    maintenance_pkg = importlib.util.module_from_spec(spec)
+    maintenance_pkg.migrations = upgrade
+    sys.modules["flectra.addons.base.maintenance"] = maintenance_pkg
+    sys.modules["flectra.addons.base.maintenance.migrations"] = upgrade
+
+    # hook deprecated module alias from openerp to flectra and "crm"-like to flectra.addons
+    if not getattr(initialize_sys_path, 'called', False): # only initialize once
         sys.meta_path.insert(0, FlectraHook())
         sys.meta_path.insert(0, AddonsHook())
-        hooked = True
+        initialize_sys_path.called = True
+
 
 def get_module_path(module, downloaded=False, display_warning=True):
     """Return the path of the given module.
@@ -161,8 +139,7 @@ def get_module_path(module, downloaded=False, display_warning=True):
     path if nothing else is found.
 
     """
-    initialize_sys_path()
-    for adp in ad_paths:
+    for adp in flectra.addons.__path__:
         files = [opj(adp, module, manifest) for manifest in MANIFEST_NAMES] +\
                 [opj(adp, module + '.zip')]
         if any(os.path.exists(f) for f in files):
@@ -241,7 +218,7 @@ def get_resource_from_path(path):
     :return: tuple(module_name, relative_path, os_relative_path) if possible, else None
     """
     resource = False
-    for adpath in ad_paths:
+    for adpath in flectra.addons.__path__:
         # force trailing separator
         adpath = os.path.join(adpath, "")
         if os.path.commonprefix([adpath, path]) == adpath:
@@ -272,7 +249,7 @@ def module_manifest(path):
 
 def get_module_root(path):
     """
-    Get closest module's root begining from path
+    Get closest module's root beginning from path
 
         # Given:
         # /foo/bar/module_dir/static/src/...
@@ -309,7 +286,7 @@ def load_information_from_description_file(module, mod_path=None):
         # default values for descriptor
         info = {
             'application': False,
-            'author': 'FlectraHQ',
+            'author': 'FlectraHQ, Odoo S.A.',
             'auto_install': False,
             'category': 'Uncategorized',
             'depends': [],
@@ -320,17 +297,17 @@ def load_information_from_description_file(module, mod_path=None):
             'post_load': None,
             'version': '1.0',
             'web': False,
-            'website': 'https://www.flectrahq.com',
             'sequence': 100,
             'summary': '',
+            'website': '',
         }
-        info.update(pycompat.izip(
+        info.update(zip(
             'depends data demo test init_xml update_xml demo_xml'.split(),
             iter(list, None)))
 
         f = tools.file_open(manifest_file, mode='rb')
         try:
-            info.update(ast.literal_eval(pycompat.to_native(f.read())))
+            info.update(ast.literal_eval(pycompat.to_text(f.read())))
         finally:
             f.close()
 
@@ -338,12 +315,26 @@ def load_information_from_description_file(module, mod_path=None):
             readme_path = [opj(mod_path, x) for x in README
                            if os.path.isfile(opj(mod_path, x))]
             if readme_path:
-                readme_text = tools.file_open(readme_path[0]).read()
-                info['description'] = readme_text
+                with tools.file_open(readme_path[0]) as fd:
+                    info['description'] = fd.read()
 
-        if 'active' in info:
-            # 'active' has been renamed 'auto_install'
-            info['auto_install'] = info['active']
+        # auto_install is set to `False` if disabled, and a set of
+        # auto_install dependencies otherwise. That way, we can set
+        # auto_install: [] to always auto_install a module regardless of its
+        # dependencies
+        auto_install = info.get('auto_install', info.get('active', False))
+        if isinstance(auto_install, collections.abc.Iterable):
+            info['auto_install'] = set(auto_install)
+            non_dependencies = info['auto_install'].difference(info['depends'])
+            assert not non_dependencies,\
+                "auto_install triggers must be dependencies, found " \
+                "non-dependencies [%s] for module %s" % (
+                    ', '.join(non_dependencies), module
+                )
+        elif auto_install:
+            info['auto_install'] = set(info['depends'])
+        else:
+            info['auto_install'] = False
 
         info['version'] = adapt_version(info['version'])
         return info
@@ -363,7 +354,6 @@ def load_openerp_module(module_name):
     if module_name in loaded:
         return
 
-    initialize_sys_path()
     try:
         __import__('flectra.addons.' + module_name)
 
@@ -403,8 +393,7 @@ def get_modules():
         ]
 
     plist = []
-    initialize_sys_path()
-    for ad in ad_paths:
+    for ad in flectra.addons.__path__:
         plist.extend(listdir(ad))
     return list(set(plist))
 
@@ -425,124 +414,4 @@ def adapt_version(version):
         version = '%s.%s' % (serie, version)
     return version
 
-def get_test_modules(module):
-    """ Return a list of module for the addons potentially containing tests to
-    feed unittest.TestLoader.loadTestsFromModule() """
-    # Try to import the module
-    modpath = 'flectra.addons.' + module
-    try:
-        mod = importlib.import_module('.tests', modpath)
-    except ImportError as e:  # will also catch subclass ModuleNotFoundError of P3.6
-        # Hide ImportErrors on `tests` sub-module, but display other exceptions
-        if pycompat.PY2:
-            if e.message.startswith('No module named') and e.message.endswith("tests"):
-                return []
-        else:
-            if e.name == modpath + '.tests' and e.msg.startswith('No module named'):
-                return []
-        _logger.exception('Can not `import %s`.', module)
-        return []
-    except Exception as e:
-        _logger.exception('Can not `import %s`.', module)
-        return []
-    if hasattr(mod, 'fast_suite') or hasattr(mod, 'checks'):
-        _logger.warn(
-            "Found deprecated fast_suite or checks attribute in test module "
-            "%s. These have no effect in or after version 8.0.",
-            mod.__name__)
-
-    result = [mod_obj for name, mod_obj in inspect.getmembers(mod, inspect.ismodule)
-              if name.startswith('test_')]
-    return result
-
-# Use a custom stream object to log the test executions.
-class TestStream(object):
-    def __init__(self, logger_name='flectra.tests'):
-        self.logger = logging.getLogger(logger_name)
-        self.r = re.compile(r'^-*$|^ *... *$|^ok$')
-    def flush(self):
-        pass
-    def write(self, s):
-        if self.r.match(s):
-            return
-        first = True
-        level = logging.ERROR if s.startswith(('ERROR', 'FAIL', 'Traceback')) else logging.INFO
-        for c in s.splitlines():
-            if not first:
-                c = '` ' + c
-            first = False
-            self.logger.log(level, c)
-
 current_test = None
-
-def runs_at(test, hook, default):
-    # by default, tests do not run post install
-    test_runs = getattr(test, hook, default)
-
-    # for a test suite, we're done
-    if not isinstance(test, unittest.TestCase):
-        return test_runs
-
-    # otherwise check the current test method to see it's been set to a
-    # different state
-    method = getattr(test, test._testMethodName)
-    return getattr(method, hook, test_runs)
-
-runs_at_install = functools.partial(runs_at, hook='at_install', default=True)
-runs_post_install = functools.partial(runs_at, hook='post_install', default=False)
-
-def run_unit_tests(module_name, dbname, position=runs_at_install):
-    """
-    :returns: ``True`` if all of ``module_name``'s tests succeeded, ``False``
-              if any of them failed.
-    :rtype: bool
-    """
-    global current_test
-    current_test = module_name
-    mods = get_test_modules(module_name)
-    threading.currentThread().testing = True
-    r = True
-    for m in mods:
-        tests = unwrap_suite(unittest.TestLoader().loadTestsFromModule(m))
-        suite = unittest.TestSuite(t for t in tests if position(t))
-
-        if suite.countTestCases():
-            t0 = time.time()
-            t0_sql = flectra.sql_db.sql_counter
-            _logger.info('%s running tests.', m.__name__)
-            result = unittest.TextTestRunner(verbosity=2, stream=TestStream(m.__name__)).run(suite)
-            if time.time() - t0 > 5:
-                _logger.log(25, "%s tested in %.2fs, %s queries", m.__name__, time.time() - t0, flectra.sql_db.sql_counter - t0_sql)
-            if not result.wasSuccessful():
-                r = False
-                _logger.error("Module %s: %d failures, %d errors", module_name, len(result.failures), len(result.errors))
-
-    current_test = None
-    threading.currentThread().testing = False
-    return r
-
-def unwrap_suite(test):
-    """
-    Attempts to unpack testsuites (holding suites or cases) in order to
-    generate a single stream of terminals (either test cases or customized
-    test suites). These can then be checked for run/skip attributes
-    individually.
-
-    An alternative would be to use a variant of @unittest.skipIf with a state
-    flag of some sort e.g. @unittest.skipIf(common.runstate != 'at_install'),
-    but then things become weird with post_install as tests should *not* run
-    by default there
-    """
-    if isinstance(test, unittest.TestCase):
-        yield test
-        return
-
-    subtests = list(test)
-    # custom test suite (no test cases)
-    if not len(subtests):
-        yield test
-        return
-
-    for item in itertools.chain.from_iterable(
-            unwrap_suite(t) for t in subtests):
-        yield item

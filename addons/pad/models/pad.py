@@ -18,14 +18,18 @@ _logger = logging.getLogger(__name__)
 
 class PadCommon(models.AbstractModel):
     _name = 'pad.common'
+    _description = 'Pad Common'
+
+    def _valid_field_parameter(self, field, name):
+        return name == 'pad_content_field' or super()._valid_field_parameter(field, name)
 
     @api.model
     def pad_is_configured(self):
-        return bool(self.env.user.company_id.pad_server)
+        return bool(self.env.company.pad_server)
 
     @api.model
     def pad_generate_url(self):
-        company = self.env.user.sudo().company_id
+        company = self.env.company.sudo()
 
         pad = {
             "server": company.pad_server,
@@ -49,7 +53,7 @@ class PadCommon(models.AbstractModel):
         url = '%s/p/%s' % (pad["server"], path)
 
         # if create with content
-        if self.env.context.get('field_name') and self.env.context.get('model') and self.env.context.get('object_id'):
+        if self.env.context.get('field_name') and self.env.context.get('model'):
             myPad = EtherpadLiteClient(pad["key"], pad["server"] + '/api')
             try:
                 myPad.createPad(path)
@@ -62,9 +66,9 @@ class PadCommon(models.AbstractModel):
             real_field = field.pad_content_field
 
             # get content of the real field
-            for record in model.browse([self.env.context["object_id"]]):
-                if record[real_field]:
-                    myPad.setHtmlFallbackText(path, record[real_field])
+            for record in model.browse(self.env.context.get("object_id")):
+                    if record[real_field]:
+                        myPad.setHtmlFallbackText(path, record[real_field])
 
         return {
             "server": pad["server"],
@@ -74,7 +78,7 @@ class PadCommon(models.AbstractModel):
 
     @api.model
     def pad_get_content(self, url):
-        company = self.env.user.sudo().company_id
+        company = self.env.company.sudo()
         myPad = EtherpadLiteClient(company.pad_key, (company.pad_server or '') + '/api')
         content = ''
         if url:
@@ -99,7 +103,6 @@ class PadCommon(models.AbstractModel):
     # TODO
     # reverse engineer protocol to be setHtml without using the api key
 
-    @api.multi
     def write(self, vals):
         self._set_field_to_pad(vals)
         self._set_pad_to_field(vals)

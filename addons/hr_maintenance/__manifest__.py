@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': 'HR - Equipments',
-    'author' : 'Odoo S.A',
+    'name': 'Maintenance - HR',
     'version': '1.0',
     'sequence': 125,
+    'category': 'Human Resources',
     'description': """
         Bridge between HR and Maintenance.""",
     'depends': ['hr', 'maintenance'],
@@ -12,6 +12,7 @@
     'data': [
         'security/equipment.xml',
         'views/maintenance_views.xml',
+        'views/hr_views.xml',
     ],
     'demo': [],
     'installable': True,

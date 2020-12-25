@@ -1,24 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * purchase
+# 	* purchase
 # 
 # Translators:
-# Seongseok Shin <shinss61@hotmail.com>, 2018
-# Mark Lee <odoos@soti.33mail.com>, 2018
-# Donam Kim <sstmih@gmail.com>, 2018
-# Martin Trigaux, 2018
-# Goh Gangtai <gangtai.goh@gmail.com>, 2018
-# Link Up링크업 <linkup.way@gmail.com>, 2018
-# Linkup <link-up@naver.com>, 2018
+# Donam Kim <sstmih@gmail.com>, 2020
+# Seongseok Shin <shinss61@hotmail.com>, 2020
+# Martin Trigaux, 2020
+# Goh Gangtai <gangtai.goh@gmail.com>, 2020
 # JH CHOI <hwangtog@gmail.com>, 2020
+# Link Up링크업 <linkup.way@gmail.com>, 2020
+# Linkup <link-up@naver.com>, 2020
+# Mark Lee <odoos@soti.33mail.com>, 2020
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-03 15:06+0000\n"
-"PO-Revision-Date: 2017-09-20 10:22+0000\n"
-"Last-Translator: JH CHOI <hwangtog@gmail.com>, 2020\n"
+"POT-Creation-Date: 2020-11-16 13:33+0000\n"
+"PO-Revision-Date: 2020-09-07 08:17+0000\n"
+"Last-Translator: Mark Lee <odoos@soti.33mail.com>, 2020\n"
 "Language-Team: Korean (https://www.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,316 +27,392 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: purchase
-#: model:mail.template,body_html:purchase.email_template_edi_purchase
+#: model:ir.actions.report,print_report_name:purchase.action_report_purchase_order
 msgid ""
 "\n"
-"<p>Dear\n"
-"% if object.partner_id.is_company and object.partner_id.child_ids:\n"
-"    ${object.partner_id.child_ids[0].name}\n"
-"% else :\n"
-"    ${object.partner_id.name}\n"
-"% endif\n"
-",</p><p>\n"
-"Here is, in attachment, a ${object.state in ('draft', 'sent') and 'request for quotation' or 'purchase order confirmation'} <strong>${object.name}</strong>\n"
-"% if object.partner_ref:\n"
-"    with reference: ${object.partner_ref}\n"
-"% endif\n"
-"% if object.origin:\n"
-"    (RFQ origin: ${object.origin})\n"
-"% endif\n"
-"amounting in <strong>${format_amount(object.amount_total, object.currency_id)}</strong>\n"
-"from ${object.company_id.name}.\n"
-"</p>\n"
-"\n"
-"<p>Do not hesitate to contact us if you have any further question.</p>\n"
-"<p>Best regards,</p>\n"
-"<p style=\"color:#888888;\">\n"
-"% if object.sudo().create_uid and object.sudo().create_uid.signature:\n"
-"    ${object.sudo().create_uid.signature | safe}\n"
-"% endif\n"
-"</p>\n"
+"                (object.state in ('draft', 'sent') and 'Request for Quotation - %s' % (object.name) or\n"
+"                'Purchase Order - %s' % (object.name))"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_res_partner__supplier_invoice_count
+#: model:ir.model.fields,field_description:purchase.field_res_users__supplier_invoice_count
+msgid "# Vendor Bills"
+msgstr "# 공급업체 청구서"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__nbr_lines
+msgid "# of Lines"
+msgstr "# 명세"
+
+#. module: purchase
+#: model:mail.template,subject:purchase.email_template_edi_purchase
+#: model:mail.template,subject:purchase.email_template_edi_purchase_done
+#: model:mail.template,subject:purchase.email_template_edi_purchase_reminder
+msgid "${object.company_id.name} Order (Ref ${object.name or 'n/a' })"
+msgstr "${object.company_id.name} 주문 (Ref ${object.name or 'n/a' })"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.mail_notification_confirm
+msgid "&amp;nbsp;"
+msgstr "&amp;nbsp;"
+
+#. module: purchase
+#: model:ir.actions.report,print_report_name:purchase.report_purchase_quotation
+msgid "'Request for Quotation - %s' % (object.name)"
+msgstr "'견적 요청 - %s' % (object.name)"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "3-way matching"
+msgstr "3가지 일치"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__module_account_3way_match
+msgid "3-way matching: purchases, receptions and bills"
+msgstr "3가지 일치 : 구매, 영수증 및 청구서"
+
+#. module: purchase
+#: model:mail.template,body_html:purchase.email_template_edi_purchase_reminder
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        Dear ${object.partner_id.name}\n"
+"        % if object.partner_id.parent_id:\n"
+"            (${object.partner_id.parent_id.name})\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Here is a reminder that the delivery of the purchase order <strong>${object.name}</strong>\n"
+"        % if object.partner_ref:\n"
+"            <strong>(${object.partner_ref})</strong>\n"
+"        % endif \n"
+"        is expected for \n"
+"        % if object.date_planned:\n"
+"            <strong>${format_date(object.date_planned)}</strong>.\n"
+"        % else:\n"
+"            <strong>undefined</strong>.\n"
+"        % endif\n"
+"        Could you please confirm it will be delivered on time?\n"
+"    </p>\n"
+"</div>"
 msgstr ""
 
 #. module: purchase
 #: model:mail.template,body_html:purchase.email_template_edi_purchase_done
 msgid ""
-"\n"
-"<p>Dear ${object.partner_id.name}\n"
-"% if object.partner_id.parent_id:\n"
-"    (<i>${object.partner_id.parent_id.name}</i>)\n"
-"% endif\n"
-",</p>\n"
-"<p>\n"
-"Please find in attachment a <strong>${object.state in ('draft', 'sent') and 'request for quotation' or 'purchase order confirmation'} ${object.name}</strong>\n"
-"% if object.partner_ref:\n"
-"    with reference: ${object.partner_ref}\n"
-"% endif\n"
-"% if object.origin:\n"
-"    (RFQ origin: ${object.origin})\n"
-"% endif\n"
-"amounting <strong>${format_amount(object.amount_total, object.currency_id)}</strong>\n"
-"from ${object.company_id.name}.\n"
-"</p>\n"
-"\n"
-"<p>You can reply to this email if you have any questions.</p>\n"
-"<p>Thank you,</p>\n"
-"<p style=\"color:#888888;\">\n"
-"% if object.sudo().create_uid and object.sudo().create_uid.signature:\n"
-"    ${object.sudo().create_uid.signature | safe}\n"
-"% endif\n"
-"</p>\n"
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        Dear ${object.partner_id.name}\n"
+"        % if object.partner_id.parent_id:\n"
+"            (${object.partner_id.parent_id.name})\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Here is in attachment a purchase order <strong>${object.name}</strong>\n"
+"        % if object.partner_ref:\n"
+"            with reference: ${object.partner_ref}\n"
+"        % endif\n"
+"        amounting in <strong>${format_amount(object.amount_total, object.currency_id)}</strong>\n"
+"        from ${object.company_id.name}. \n"
+"        <br/><br/>\n"
+"        % if object.date_planned:\n"
+"            The receipt is expected for <strong>${format_date(object.date_planned)}</strong>.\n"
+"            <br/><br/>\n"
+"            Could you please acknowledge the receipt of this order?\n"
+"        % endif\n"
+"    </p>\n"
+"</div>"
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/stock.py:98
+#: model:mail.template,body_html:purchase.email_template_edi_purchase
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        Dear ${object.partner_id.name}\n"
+"        % if object.partner_id.parent_id:\n"
+"            (${object.partner_id.parent_id.name})\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Here is in attachment a request for quotation <strong>${object.name}</strong>\n"
+"        % if object.partner_ref:\n"
+"            with reference: ${object.partner_ref}\n"
+"        % endif\n"
+"        from ${object.company_id.name}.\n"
+"        <br/><br/>\n"
+"        If you have any questions, please do not hesitate to contact us.\n"
+"        <br/><br/>\n"
+"        Best regards,\n"
+"    </p>\n"
+"</div>"
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        ${object.partner_id.name}님\n"
+"        % if object.partner_id.parent_id:\n"
+"            (${object.partner_id.parent_id.name})\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"         <strong>${object.name}</strong> 견적 요청 파일을 첨부했습니다.\n"
+"        % if object.partner_ref:\n"
+"            with reference: ${object.partner_ref}\n"
+"        % endif\n"
+"        from ${object.company_id.name}.\n"
+"        <br/><br/>\n"
+"        궁금한 점이 있으면 언제든지 문의하십시오.\n"
+"        <br/><br/>\n"
+"        감사합니다.\n"
+"    </p>\n"
+"</div>"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+msgid "<i class=\"fa fa-comment\"/> Send message"
+msgstr "<i class=\"fa fa-comment\"/> 메시지 보내기"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+msgid "<i class=\"fa fa-download\"/> Download"
+msgstr "<i class=\"fa fa-download\"/> 내려받기"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_partner_kanban_view
+msgid ""
+"<i class=\"fa fa-fw fa-shopping-cart\" role=\"img\" aria-label=\"Shopping "
+"cart\" title=\"Shopping cart\"/>"
+msgstr ""
+"<i class=\"fa fa-fw fa-shopping-cart\" role=\"img\" aria-label=\"Shopping "
+"cart\" title=\"Shopping cart\"/>"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+msgid "<i class=\"fa fa-print\"/> Print"
+msgstr "<i class=\"fa fa-print\"/> 인쇄"
+
+#. module: purchase
+#: code:addons/purchase/models/purchase.py:0
 #, python-format
-msgid " Buy"
-msgstr " 구입"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_product_product_purchase_count
-#: model:ir.model.fields,field_description:purchase.field_product_template_purchase_count
-msgid "# Purchases"
-msgstr "# 구입"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_partner_supplier_invoice_count
-#: model:ir.model.fields,field_description:purchase.field_res_users_supplier_invoice_count
-msgid "# Vendor Bills"
-msgstr "# 공급업체 청구서"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_invoice_count
-msgid "# of Bills"
-msgstr "청구서의 수"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_nbr_lines
-msgid "# of Lines"
-msgstr "# 명세"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_partner_purchase_order_count
-#: model:ir.model.fields,field_description:purchase.field_res_users_purchase_order_count
-msgid "# of Purchase Order"
-msgstr "# 구매 주문"
-
-#. module: purchase
-#: model:mail.template,subject:purchase.email_template_edi_purchase
-#: model:mail.template,subject:purchase.email_template_edi_purchase_done
-msgid "${object.company_id.name} Order (Ref ${object.name or 'n/a' })"
-msgstr "${object.company_id.name} 주문 (Ref ${object.name or 'n/a' })"
-
-#. module: purchase
-#: model:mail.template,subject:purchase.mail_template_data_notification_email_purchase_order
-msgid "${object.subject}"
-msgstr "${object.subject}"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-msgid "3-way matching"
-msgstr "3 방향 매칭"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_module_account_3way_match
-msgid "3-way matching: purchases, receptions and bills"
-msgstr "3가지 일치 : 구매, 영수증 및 청구서"
-
-#. module: purchase
-#: model:mail.template,body_html:purchase.mail_template_data_notification_email_purchase_order
-msgid ""
-"<html>\n"
-"                <head></head>\n"
-"                % set company = record and record.company_id or ctx.get('company')\n"
-"                <body style=\"margin: 0; padding: 0;\">\n"
-"                <table border=\"0\" width=\"100%\" cellpadding=\"0\" bgcolor=\"#ededed\" style=\"padding: 20px; background-color: #ededed\" summary=\"o_mail_notification\">\n"
-"                    <tbody>\n"
-"\n"
-"                      <!-- HEADER -->\n"
-"                      <tr>\n"
-"                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                          <table width=\"590\" border=\"0\" cellpadding=\"0\" bgcolor=\"#009efb\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
-"                            <tr>\n"
-"                              <td valign=\"middle\">\n"
-"                                  <span style=\"font-size:20px; color:white; font-weight: bold;\">\n"
-"                                      ${object.record_name}\n"
-"                                  </span>\n"
-"                              </td>\n"
-"                              <td valign=\"middle\" align=\"right\">\n"
-"                                  <img src=\"/logo.png?company=${company.id}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${company.name}\">\n"
-"                              </td>\n"
-"                            </tr>\n"
-"                          </table>\n"
-"                        </td>\n"
-"                      </tr>\n"
-"\n"
-"                      <!-- CONTENT -->\n"
-"                      <tr>\n"
-"                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                          <table width=\"590\" border=\"0\" cellpadding=\"0\" bgcolor=\"#ffffff\" style=\"min-width: 590px; background-color: rgb(255, 255, 255); padding: 20px;\">\n"
-"                            <tbody>\n"
-"                              <td valign=\"top\" style=\"font-family:Arial,Helvetica,sans-serif; color: #555; font-size: 14px;\">\n"
-"                                ${object.body | safe}\n"
-"                              </td>\n"
-"                            </tbody>\n"
-"                          </table>\n"
-"                        </td>\n"
-"                      </tr>\n"
-"\n"
-"                      <!-- FOOTER -->\n"
-"                      <tr>\n"
-"                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                          <table width=\"590\" border=\"0\" cellpadding=\"0\" bgcolor=\"#009efb\" style=\"min-width: 590px; background-color: rgb(135,90,123); padding: 20px;\">\n"
-"                            <tr>\n"
-"                              <td valign=\"middle\" align=\"left\" style=\"color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;\">\n"
-"                                ${company.name}<br/>\n"
-"                                ${company.phone or ''}\n"
-"                              </td>\n"
-"                              <td valign=\"middle\" align=\"right\" style=\"color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;\">\n"
-"                                % if company.email:\n"
-"                                <a href=\"mailto:${company.email}\" style=\"text-decoration:none; color: white;\">${company.email}</a><br/>\n"
-"                                % endif\n"
-"                                % if company.website:\n"
-"                                    <a href=\"${company.website}\" style=\"text-decoration:none; color: white;\">\n"
-"                                        ${company.website}\n"
-"                                    </a>\n"
-"                                % endif\n"
-"                              </td>\n"
-"                            </tr>\n"
-"                          </table>\n"
-"                        </td>\n"
-"                      </tr>\n"
-"                      <tr>\n"
-"                        <td align=\"center\">\n"
-"                            Powered by <a href=\"https://www.flectrahq.com\">Odoo</a>.\n"
-"                        </td>\n"
-"                      </tr>\n"
-"                    </tbody>\n"
-"                </table>\n"
-"                </body>\n"
-"                </html>\n"
-"            "
+msgid "<p> %s modified receipt dates for the following products:</p>"
 msgstr ""
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_stock
-msgid ""
-"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
-"specific.\" groups=\"base.group_multi_company\"/>"
+#: code:addons/purchase/models/purchase.py:0
+#: code:addons/purchase/models/purchase.py:0
+#, python-format
+msgid "<p> &nbsp; - %s from %s to %s </p>"
 msgstr ""
-"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
-"specific.\" groups=\"base.group_multi_company\"/>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_orders
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_orders
 msgid ""
-"<span class=\"label label-default\"><i class=\"fa fa-fw fa-remove\"/> "
+"<span class=\"badge badge-info\"><i class=\"fa fa-fw fa-file-text\"/> "
+"Waiting for Bill</span>"
+msgstr ""
+"<span class=\"badge badge-info\"><i class=\"fa fa-fw fa-file-text\"/> 청구서 "
+"대기중</span>"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_orders
+msgid ""
+"<span class=\"badge badge-secondary\"><i class=\"fa fa-fw fa-remove\"/> "
 "Cancelled</span>"
-msgstr "취소됨"
+msgstr ""
+"<span class=\"badge badge-secondary\"><i class=\"fa fa-fw fa-remove\"/> "
+"취소됨</span>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" aria-label=\"Values set here are company-specific.\" "
+"groups=\"base.group_multi_company\" role=\"img\"/>"
+msgstr ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" aria-label=\"Values set here are company-specific.\" "
+"groups=\"base.group_multi_company\" role=\"img\"/>"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid ""
+"<span class=\"o_form_label\" attrs=\"{'invisible': [('state','not in',('draft','sent'))]}\">Request for Quotation </span>\n"
+"                        <span class=\"o_form_label\" attrs=\"{'invisible': [('state','in',('draft','sent'))]}\">Purchase Order </span>"
+msgstr ""
+"<span class=\"o_form_label\" attrs=\"{'invisible': [('state','not in',('draft','sent'))]}\">견적 요청 </span>\n"
+"                        <span class=\"o_form_label\" attrs=\"{'invisible': [('state','in',('draft','sent'))]}\">구매 주문 </span>"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.product_normal_form_view_inherit_purchase
+#: model_terms:ir.ui.view,arch_db:purchase.view_product_template_purchase_buttons_from
+msgid "<span class=\"o_stat_text\">Purchased</span>"
+msgstr "<span class=\"o_stat_text\">구매완료</span>"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid ""
+"<span class=\"text-muted\" attrs=\"{'invisible': "
+"[('mail_reception_confirmed','=', False)]}\">(confirmed by vendor)</span>"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid ""
+"<span class=\"text-muted\" attrs=\"{'invisible': "
+"[('mail_reminder_confirmed', '=', False)]}\">(confirmed by vendor)</span>"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.view_partner_property_form
+msgid "<span> day(s) before</span>"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "<span>Ask confirmation</span>"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+msgid "<strong class=\"d-block mb-1\">From:</strong>"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+msgid "<strong class=\"mr16\">Subtotal</strong>"
+msgstr "<strong class=\"mr16\">소계</strong>"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+msgid "<strong class=\"text-muted\">Purchase Representative</strong>"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
 msgid "<strong>Amount</strong>"
 msgstr "<strong>금액</strong>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order_update_date
+msgid "<strong>Confirmation Date:</strong>"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
 msgid "<strong>Date Req.</strong>"
 msgstr "<strong>요청 일자</strong>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_order
-msgid "<strong>Date:</strong>"
-msgstr "<strong>일자:</strong>"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
-#: model:ir.ui.view,arch_db:purchase.report_purchasequotation_document
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchasequotation_document
 msgid "<strong>Description</strong>"
-msgstr "<strong>제품의 설명</strong>"
+msgstr "<strong>설명</strong>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.report_purchasequotation_document
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchasequotation_document
 msgid "<strong>Expected Date</strong>"
 msgstr "<strong>예정일</strong>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
 msgid "<strong>Order Date:</strong>"
-msgstr "<strong>주문 날짜:</strong>"
+msgstr "<strong>주문 날짜 :</strong>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
-msgid "<strong>Our Order Reference:</strong>"
-msgstr "<strong>우리의 주문 참조: </strong>"
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+msgid "<strong>Purchase Representative:</strong>"
+msgstr "<strong>구매 담당자 :</strong>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_order
-msgid "<strong>Product</strong>"
-msgstr "<strong>제품</strong>"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
-#: model:ir.ui.view,arch_db:purchase.report_purchasequotation_document
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchasequotation_document
 msgid "<strong>Qty</strong>"
 msgstr "<strong>수량</strong>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_order
-msgid "<strong>Quantity</strong>"
-msgstr "<strong>수량</strong>"
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order_update_date
+msgid "<strong>Receipt Date:</strong>"
+msgstr ""
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
-#: model:ir.ui.view,arch_db:purchase.report_purchasequotation_document
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchasequotation_document
 msgid "<strong>Shipping address:</strong>"
-msgstr "<strong>배송주소:</strong>"
+msgstr "<strong>배송주소 :</strong>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_order
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
 msgid "<strong>Subtotal</strong>"
 msgstr "<strong>소계</strong>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order_update_date
+msgid "<strong>Taxes:</strong>"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
 msgid "<strong>Taxes</strong>"
 msgstr "<strong>세금</strong>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.track_po_line_template
+#: model_terms:ir.ui.view,arch_db:purchase.track_po_line_template
 msgid "<strong>The ordered quantity has been updated.</strong>"
 msgstr "<strong>주문 수량이 갱신되었습니다.</strong>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_order
-msgid "<strong>Total:</strong>"
-msgstr "<strong>소계:</strong>"
+#: model_terms:ir.ui.view,arch_db:purchase.track_po_line_qty_received_template
+msgid "<strong>The received quantity has been updated.</strong>"
+msgstr ""
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order_update_date
+msgid "<strong>Total:</strong>"
+msgstr "<strong>소계 :</strong>"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
 msgid "<strong>Total</strong>"
 msgstr "<strong>합계</strong>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_order
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
 msgid "<strong>Unit Price</strong>"
 msgstr "<strong>단가</strong>"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order_update_date
+msgid "<strong>Untaxed Amount:</strong>"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order_update_date
+msgid "<strong>Update Dates Here</strong>"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
 msgid "<strong>Your Order Reference:</strong>"
 msgstr "<strong>주문 참조 :</strong>"
 
 #. module: purchase
-#: code:addons/purchase/models/stock.py:72
+#: code:addons/purchase/models/purchase.py:0
 #, python-format
-msgid ""
-"A sale order that generated this purchase order has been deleted. Check if "
-"an action is needed."
+msgid "A sample email has been sent to %s."
 msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order_line__product_type
+msgid ""
+"A storable product is a product for which you manage stock. The Inventory app has to be installed.\n"
+"A consumable product is a product for which stock is not managed.\n"
+"A service is a non-material product you provide."
+msgstr ""
+"저장 가능 제품은 재고를 관리하는 제품입니다. 창고 앱이 설치되어 있어야 합니다.\n"
+"소모품은 재고가 관리되지 않는 제품입니다.\n"
+"서비스는 귀하가 제공하는 비물질 제품입니다."
 
 #. module: purchase
 #: model:res.groups,name:purchase.group_warning_purchase
@@ -344,142 +420,305 @@ msgid "A warning can be set on a product or a customer (Purchase)"
 msgstr "제품 또는 고객에게 경고를 설정할 수 있습니다 (구매)"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_account_invoice_purchase_id
-msgid "Add Purchase Order"
-msgstr "구매 주문 추가"
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__access_warning
+msgid "Access warning"
+msgstr "사용 권한 경고"
 
 #. module: purchase
-#: code:addons/purchase/controllers/portal.py:53
+#: model:ir.model.fields,help:purchase.field_purchase_order_line__qty_received_method
+msgid ""
+"According to product configuration, the recieved quantity can be automatically computed by mechanism :\n"
+"  - Manual: the quantity is set manually on the line\n"
+"  - Stock Moves: the quantity comes from confirmed pickings\n"
+msgstr ""
+"상품 환경 설정에 따라 수령 수량은 메커니즘에 의해 자동으로 계산 될 수 있습니다. :\n"
+"- 수동 : 내역에서 수량이 수동으로 설정됩니다. \n"
+"- 재고 이동 : 수량은 확정된 불출에서 나옵니다.\n"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_needaction
+msgid "Action Needed"
+msgstr "필요한 조치"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__activity_ids
+msgid "Activities"
+msgstr "활동"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "활동 예외 장식"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__activity_state
+msgid "Activity State"
+msgstr "활동 상태"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Add a note"
+msgstr "노트 추가하기"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Add a product"
+msgstr "상품 추가하기"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Add a section"
+msgstr "섹션 추가하기"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "Add several variants to the purchase order from a grid"
+msgstr "그리드에서 구매 주문에 여러 파생 상품을 추가하기"
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/js/tours/purchase.js:0
+#, python-format
+msgid "Add some products or services to your quotation."
+msgstr ""
+
+#. module: purchase
+#: model:res.groups,name:purchase.group_purchase_manager
+msgid "Administrator"
+msgstr "관리자"
+
+#. module: purchase
+#: code:addons/purchase/controllers/portal.py:0
 #, python-format
 msgid "All"
 msgstr "전체"
 
 #. module: purchase
-#: selection:res.company,po_lock:0
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "All Draft RFQs"
+msgstr ""
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "All Late RFQs"
+msgstr ""
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "All RFQs"
+msgstr ""
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "All Waiting RFQs"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_res_config_settings__group_send_reminder
+msgid "Allow automatically send email to reminde your vendor the receipt date"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields.selection,name:purchase.selection__res_company__po_lock__edit
 msgid "Allow to edit purchase orders"
-msgstr "구매 주문 편집 허용"
+msgstr "구매 주문서 편집 허용"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_account
-msgid "Allows you to specify an analytic account on purchase order lines."
-msgstr "구매 주문서에 분석 계정을 지정할 수 있습니다."
+#: model:ir.model.fields,field_description:purchase.field_purchase_bill_union__amount
+msgid "Amount"
+msgstr "금액"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_account_analytic_id
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_account_analytic_id
+#: model:ir.model.fields,help:purchase.field_purchase_report__delay_pass
+msgid ""
+"Amount of time between date planned and order by date for each purchase "
+"order line."
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_report__avg_days_to_purchase
+msgid ""
+"Amount of time between purchase approval and document creation date. Due to "
+"a hack needed to calculate this,               every record will show the "
+"same average value, therefore only use this as an aggregated value with "
+"group_operator=avg"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_report__delay
+msgid "Amount of time between purchase approval and order by date."
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__account_analytic_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__account_analytic_id
 msgid "Analytic Account"
-msgstr "분석적 계정"
+msgstr "분석 계정"
 
 #. module: purchase
-#: model:res.groups,name:purchase.group_analytic_accounting
-msgid "Analytic Accounting for Purchases"
-msgstr "구매 분석 회계"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_analytic_tag_ids
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__analytic_tag_ids
 msgid "Analytic Tags"
-msgstr "태그 분석"
+msgstr "분석 태그"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_group_analytic_account_for_purchases
-msgid "Analytic accounting for purchases"
-msgstr "구매 분석 회계"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_date_approve
-msgid "Approval Date"
-msgstr "승인일"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Approve Order"
 msgstr "주문 승인"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_account_invoice_line_purchase_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_attachment_count
+msgid "Attachment Count"
+msgstr "첨부 파일 수"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "Attributes"
+msgstr "속성"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.view_move_form_inherit_purchase
+msgid "Auto-Complete"
+msgstr "자동 완료"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_account_bank_statement_line__purchase_vendor_bill_id
+#: model:ir.model.fields,field_description:purchase.field_account_move__purchase_vendor_bill_id
+#: model:ir.model.fields,field_description:purchase.field_account_payment__purchase_vendor_bill_id
+msgid "Auto-complete"
+msgstr "자동 완성"
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_account_bank_statement_line__purchase_vendor_bill_id
+#: model:ir.model.fields,help:purchase.field_account_move__purchase_vendor_bill_id
+#: model:ir.model.fields,help:purchase.field_account_payment__purchase_vendor_bill_id
+msgid "Auto-complete from a past bill / purchase order."
+msgstr "이전 청구서/구매 주문서를 이용해서 자동 완성."
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_account_bank_statement_line__purchase_id
+#: model:ir.model.fields,help:purchase.field_account_move__purchase_id
+#: model:ir.model.fields,help:purchase.field_account_payment__purchase_id
+msgid "Auto-complete from a past purchase order."
+msgstr "이전 구매 주문을 이용해서 자동 완성."
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "Automatically lock confirmed orders to prevent editing"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "Automatically remind the receipt date to your vendors"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__receipt_reminder_email
+#: model:ir.model.fields,help:purchase.field_res_partner__receipt_reminder_email
+#: model:ir.model.fields,help:purchase.field_res_users__receipt_reminder_email
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid ""
-"Associated Purchase Order. Filled in automatically when a PO is chosen on "
-"the vendor bill."
-msgstr "관련 주문서. PO가 공급 업체 청구서에서 선택되면 자동으로 채워집니다."
+"Automatically send a confirmation email to the vendor X days before the "
+"expected receipt date, asking him to confirm the exact date."
+msgstr ""
 
 #. module: purchase
-#: model:ir.filters,name:purchase.filter_purchase_order_average_delivery_time
-msgid "Average Delivery Time"
-msgstr "평균 배달 시간"
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__price_average
+msgid "Average Cost"
+msgstr "평균 비용"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_price_average
-msgid "Average Price"
-msgstr "평균금액"
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__avg_days_to_purchase
+msgid "Average Days to Purchase"
+msgstr ""
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_default_purchase_method
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "Avg Order Value ("
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.mail_notification_confirm
+msgid "Best regards,"
+msgstr "감사합니다."
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__default_purchase_method
 msgid "Bill Control"
 msgstr "청구서 관리"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_invoice_lines
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__invoice_count
+msgid "Bill Count"
+msgstr "청구서 수"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__invoice_lines
 msgid "Bill Lines"
-msgstr "결제선"
+msgstr "청구서 내역"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_qty_invoiced
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Billed"
+msgstr "청구됨"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__qty_invoiced
 msgid "Billed Qty"
-msgstr "청구 수량"
+msgstr "청구된 수량"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.track_po_line_template
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Billed Quantity"
+msgstr "청구된 수량"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.track_po_line_template
 msgid "Billed Quantity:"
 msgstr "청구된 수량 :"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_invoice_status
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__invoice_status
 msgid "Billing Status"
-msgstr "결제 상태"
+msgstr "청구 상태"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_invoice_ids
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__invoice_ids
 msgid "Bills"
-msgstr "청구서"
+msgstr "청구"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
 msgid "Bills Received"
-msgstr "수령 한 청구서"
+msgstr "수령한 청구서"
 
 #. module: purchase
-#: selection:product.template,purchase_line_warn:0
-#: selection:res.partner,purchase_warn:0
+#: model:ir.model.fields.selection,name:purchase.selection__product_template__purchase_line_warn__block
+#: model:ir.model.fields.selection,name:purchase.selection__res_partner__purchase_warn__block
 msgid "Blocking Message"
 msgstr "메시지 차단"
 
 #. module: purchase
-#: code:addons/purchase/models/stock.py:92
-#: model:stock.location.route,name:purchase.route_warehouse0_buy
-#, python-format
-msgid "Buy"
-msgstr "매입"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_stock_warehouse_buy_pull_id
-msgid "Buy rule"
-msgstr "구매 규칙"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-msgid ""
-"By default, vendor prices can be set manually in the product detail form. If"
-" your vendors provide you with pricelist files, this option allows you to "
-"easily import them into the system from ‘Purchase > Vendor Pricelists’ menu."
-msgstr ""
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_calendar
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_calendar
 msgid "Calendar View"
-msgstr "달력 화면"
+msgstr "일정표 화면"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
 msgid ""
 "Calls for tenders are used when you want to generate requests for quotations"
 " to several vendors for a given set of products. You can configure per "
@@ -490,908 +729,1231 @@ msgstr ""
 " 여러 공급업체의 제안을 비교하도록 입찰을 요청하게 상품별로 구성할 수 있습니다."
 
 #. module: purchase
-#: code:addons/purchase/models/stock.py:95
-#, python-format
-msgid "Can't find any generic Buy route."
-msgstr "일반적인 구매 경로를 찾을 수 없습니다."
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Cancel"
 msgstr "취소"
 
 #. module: purchase
-#: code:addons/purchase/controllers/portal.py:55
-#: selection:purchase.order,state:0 selection:purchase.report,state:0
+#: code:addons/purchase/controllers/portal.py:0
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order__state__cancel
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_report__state__cancel
 #, python-format
 msgid "Cancelled"
-msgstr "취소됨"
+msgstr "취소 됨"
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:757
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+msgid "Cancelled Purchase Order #"
+msgstr "취소된 구매 주문 #"
+
+#. module: purchase
+#: code:addons/purchase/models/purchase.py:0
 #, python-format
 msgid "Cannot delete a purchase order line which is in state '%s'."
-msgstr "주문 명세 상태 '%s'는 구매 주문 명세를 삭제할 수 없습니다."
+msgstr "'%s' 상태인 구매 주문 명세는 삭제할 수 없습니다."
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.act_res_partner_2_supplier_invoices
-msgid "Click here to record a vendor bill."
-msgstr "공급 업체 청구서를 기록하려면 여기를 클릭하십시오."
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__product_uom_category_id
+msgid "Category"
+msgstr "범주"
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.purchase_form_action
-msgid ""
-"Click to create a quotation that will be converted into a purchase order."
-msgstr "구매 주문서로 변환 될 견적을 생성하려면 클릭하십시오."
+#. openerp-web
+#: code:addons/purchase/static/src/js/tours/purchase.js:0
+#, python-format
+msgid "Click here to edit or move the quotation line."
+msgstr ""
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.purchase_rfq
-msgid "Click to create a request for quotation."
-msgstr "견적 요청을 하려면 클릭하십시오."
-
-#. module: purchase
-#: model:ir.actions.act_window,help:purchase.action_invoice_pending
-msgid "Click to create a vendor bill."
-msgstr "공급 업체 청구서를 작성하려면 클릭하십시오."
-
-#. module: purchase
-#: model:ir.actions.act_window,help:purchase.product_normal_action_puchased
-#: model:ir.actions.act_window,help:purchase.product_product_action
-msgid "Click to define a new product."
-msgstr "새 제품을 정의하려면 클릭하십시오."
-
-#. module: purchase
-#: model:ir.actions.act_window,help:purchase.purchase_open_invoice
-msgid "Click to record a vendor bill related to this purchase."
-msgstr "이 구매와 관련된 공급 업체 청구서를 기록하려면 클릭하십시오."
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_commercial_partner_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__commercial_partner_id
 msgid "Commercial Entity"
-msgstr "상업적 개체"
+msgstr "상업 항목"
 
 #. module: purchase
 #: model:ir.model,name:purchase.model_res_company
 msgid "Companies"
-msgstr "회사"
+msgstr "회사들"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_company_id
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_company_id
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_company_id
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
+#: model:ir.model.fields,field_description:purchase.field_purchase_bill_union__company_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__company_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__company_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__company_id
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
 msgid "Company"
 msgstr "회사"
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:313
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__company_currency_id
+msgid "Company Currency"
+msgstr "회사 통화"
+
+#. module: purchase
+#: code:addons/purchase/models/purchase.py:0
 #, python-format
 msgid "Compose Email"
-msgstr "메일 작성"
+msgstr "이메일 작성"
+
+#. module: purchase
+#: model:ir.model,name:purchase.model_res_config_settings
+msgid "Config Settings"
+msgstr "설정 구성"
 
 #. module: purchase
 #: model:ir.ui.menu,name:purchase.menu_purchase_config
 msgid "Configuration"
-msgstr "환경설정"
+msgstr "구성"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase.mail_notification_confirm
+msgid "Confirm"
+msgstr "확인"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Confirm Order"
-msgstr "주문 확정"
+msgstr "주문 확인"
 
 #. module: purchase
-#: selection:res.company,po_double_validation:0
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Confirm Receipt Date"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields.selection,name:purchase.selection__res_company__po_double_validation__one_step
 msgid "Confirm purchase orders in one step"
 msgstr "한 번에 구매 주문 승인"
 
 #. module: purchase
-#: selection:res.company,po_lock:0
+#. openerp-web
+#: code:addons/purchase/static/src/js/tours/purchase.js:0
+#, python-format
+msgid "Confirm your purchase."
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__date_approve
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__date_approve
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_orders
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
+msgid "Confirmation Date"
+msgstr "확정일"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
+msgid "Confirmation Date Last Year"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields.selection,name:purchase.selection__res_company__po_lock__lock
 msgid "Confirmed purchase orders are not editable"
-msgstr "승인 된 구매 주문은 편집 할 수 없습니다."
+msgstr "승인된 구매 주문은 편집할 수 없습니다."
 
 #. module: purchase
 #: model:ir.model,name:purchase.model_res_partner
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
 msgid "Contact"
 msgstr "연락처"
 
 #. module: purchase
-#: model:ir.ui.menu,name:purchase.menu_purchase_control
-msgid "Control"
-msgstr "관련작업"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_product_product_purchase_method
-#: model:ir.model.fields,field_description:purchase.field_product_template_purchase_method
+#: model:ir.model.fields,field_description:purchase.field_product_product__purchase_method
+#: model:ir.model.fields,field_description:purchase.field_product_template__purchase_method
 msgid "Control Policy"
-msgstr "작업제어정책"
+msgstr "제어 정책"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_stock_move_created_purchase_line_id
-msgid "Created Purchase Order Line"
-msgstr "생성된 구매 주문 명세"
+#: model:ir.model.fields,help:purchase.field_purchase_order_line__product_uom_category_id
+msgid ""
+"Conversion between Units of Measure can only occur if they belong to the "
+"same category. The conversion will be made based on the ratios."
+msgstr "단위 사이의 변환은 동일 분류 항목에서만 가능합니다. 변환은 비율에 따라 이루어집니다."
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_create_uid
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Create Bill"
+msgstr "청구서 만들기"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_kpis_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_tree
+msgid "Create Bills"
+msgstr ""
+
+#. module: purchase
+#: model:ir.actions.server,name:purchase.action_purchase_batch_bills
+msgid "Create Vendor Bills"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.actions.act_window,help:purchase.product_product_action
+msgid "Create a new product variant"
+msgstr "새 파생 상품 만들기"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__create_uid
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__create_uid
 msgid "Created by"
 msgstr "작성자"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_create_date
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_create_date
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__create_date
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__create_date
 msgid "Created on"
 msgstr "작성일"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_currency_id
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_currency_id
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_currency_id
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_company_currency_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_bill_union__currency_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__currency_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__currency_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__currency_id
 msgid "Currency"
-msgstr "통화"
+msgstr "환율"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_date_approve
-msgid "Date Approved"
-msgstr "승인된 날짜"
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__currency_rate
+msgid "Currency Rate"
+msgstr "환율"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_purchase_report_date_order
-msgid "Date on which this document has been created"
-msgstr "이 문서가 생성된 날짜"
+#: model:ir.model.fields,help:purchase.field_purchase_order__access_url
+msgid "Customer Portal URL"
+msgstr "고객 포털 URL"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_delay_pass
-msgid "Days to Deliver"
-msgstr "납품 소요 날짜"
+#: model:ir.model.fields,field_description:purchase.field_purchase_bill_union__date
+msgid "Date"
+msgstr "날짜"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_delay
-msgid "Days to Validate"
-msgstr "검증 소요 날짜"
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__date_calendar_start
+msgid "Date Calendar Start"
+msgstr ""
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
+#: code:addons/purchase/models/purchase.py:0
+#: code:addons/purchase/models/purchase.py:0
+#, python-format
+msgid "Date Updated"
+msgstr ""
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "Days"
+msgstr "일"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__reminder_date_before_receipt
+#: model:ir.model.fields,field_description:purchase.field_res_partner__reminder_date_before_receipt
+#: model:ir.model.fields,field_description:purchase.field_res_users__reminder_date_before_receipt
+msgid "Days Before Receipt"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__delay
+msgid "Days to Confirm"
+msgstr "확인 날짜"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__delay_pass
+msgid "Days to Receive"
+msgstr "입고 날짜"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Define your terms and conditions ..."
 msgstr "이용 약관 정의 ..."
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_picking_type_id
-msgid "Deliver To"
-msgstr "납품장소"
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__date_planned
+msgid "Delivery Date"
+msgstr "배송일"
 
 #. module: purchase
-#: selection:res.config.settings,default_purchase_method:0
-msgid "Delivered quantities"
-msgstr "납품된 수량"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-msgid "Deliveries & Invoices"
-msgstr "납품 및 송장"
-
-#. module: purchase
-#: model:ir.model.fields,help:purchase.field_purchase_order_date_order
-#: model:ir.model.fields,help:purchase.field_purchase_order_line_date_order
+#: model:ir.model.fields,help:purchase.field_purchase_order_line__date_planned
 msgid ""
-"Depicts the date where the Quotation should be validated and converted into "
-"a purchase order."
-msgstr "견적을 검토하고 구매 주문으로 변환할 수 있는 날짜를 보여줍니다."
+"Delivery date expected from vendor. This date respectively defaults to "
+"vendor pricelist lead time then today's date."
+msgstr ""
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_name
+#: model:ir.model.fields,help:purchase.field_purchase_order__date_planned
+msgid ""
+"Delivery date promised by vendor. This date is used to determine expected "
+"arrival of products."
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_report__date_order
+msgid ""
+"Depicts the date when the Quotation should be validated and converted into a"
+" purchase order."
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__date_order
+#: model:ir.model.fields,help:purchase.field_purchase_order_line__date_order
+msgid ""
+"Depicts the date within which the Quotation should be confirmed and "
+"converted into a purchase order."
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__name
 msgid "Description"
-msgstr "설명"
+msgstr "내용"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_product_supplier_inherit
-msgid "Description for Vendors"
-msgstr "공급 업체에 대한 설명"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_default_location_dest_id_usage
-msgid "Destination Location Type"
-msgstr "목적지 위치 유형"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_display_name
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_display_name
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_display_name
+#: model:ir.model.fields,field_description:purchase.field_account_move__display_name
+#: model:ir.model.fields,field_description:purchase.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:purchase.field_mail_compose_message__display_name
+#: model:ir.model.fields,field_description:purchase.field_product_category__display_name
+#: model:ir.model.fields,field_description:purchase.field_product_product__display_name
+#: model:ir.model.fields,field_description:purchase.field_product_supplierinfo__display_name
+#: model:ir.model.fields,field_description:purchase.field_product_template__display_name
+#: model:ir.model.fields,field_description:purchase.field_purchase_bill_union__display_name
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__display_name
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__display_name
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__display_name
+#: model:ir.model.fields,field_description:purchase.field_res_company__display_name
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:purchase.field_res_partner__display_name
 msgid "Display Name"
-msgstr "표시 이름"
+msgstr "이름 표시"
 
 #. module: purchase
-#: selection:purchase.report,state:0
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__display_type
+msgid "Display Type"
+msgstr "표시 유형"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "Documentation"
+msgstr "문서화"
+
+#. module: purchase
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_report__state__done
 msgid "Done"
 msgstr "완료"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_company_po_double_validation_amount
+#: model:ir.model.fields,field_description:purchase.field_res_company__po_double_validation_amount
 msgid "Double validation amount"
 msgstr "이중 검증 금액"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_move_dest_ids
-msgid "Downstream Moves"
-msgstr "하위로 이동"
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+msgid "Download"
+msgstr "다운로드"
 
 #. module: purchase
-#: selection:purchase.report,state:0
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_report__state__draft
 msgid "Draft RFQ"
-msgstr "견적요청서 초안"
+msgstr "초안 견적요청서"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_dest_address_id
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+msgid "Draft RFQs"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__dest_address_id
 msgid "Drop Ship Address"
 msgstr "드롭 쉽 주소"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_module_stock_dropshipping
-msgid "Dropshipping"
-msgstr "드롭쉬핑"
-
-#. module: purchase
 #: model:ir.model,name:purchase.model_mail_compose_message
 msgid "Email composition wizard"
-msgstr "이메일 작성 마법사"
+msgstr "이메일 구성 마법사"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_account_invoice_purchase_id
-msgid ""
-"Encoding help. When selected, the associated purchase order lines are added "
-"to the vendor bill. Several PO can be selected."
-msgstr "인코딩 도움말. 이 옵션을 선택하면 관련 구매 주문서가 공급 업체 청구서에 추가됩니다. 여러 PO를 선택할 수 있습니다."
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
-msgid "Expected Date"
-msgstr "예상 날짜"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
 msgid "Extended Filters"
 msgstr "확장 필터"
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:590
+#: code:addons/purchase/models/purchase.py:0
 #, python-format
 msgid "Extra line with %s "
-msgstr "%s을 포함한 라인 추가"
+msgstr "%s을 포함한 내역 추가"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_fiscal_position_id
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_fiscal_position_id
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__fiscal_position_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__fiscal_position_id
 msgid "Fiscal Position"
-msgstr "재정 위치"
+msgstr "재정 포지션"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_follower_ids
+msgid "Followers"
+msgstr "팔로워"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "팔로워 (채널)"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "팔로워 (파트너)"
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "멋진 아이콘 폰트 예 : fa-tasks"
+
+#. module: purchase
+#: model:ir.model.constraint,message:purchase.constraint_purchase_order_line_non_accountable_null_fields
+msgid "Forbidden values on non-accountable purchase order line"
+msgstr "회계 처리할 수 없는 구매 주문 내역에서 금지된 값"
+
+#. module: purchase
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order__invoice_status__invoiced
+msgid "Fully Billed"
+msgstr "전체 청구됨"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
 msgid "Future Activities"
 msgstr "향후 활동"
 
 #. module: purchase
-#: selection:res.company,po_double_validation:0
+#: model:ir.model.fields.selection,name:purchase.selection__res_company__po_double_validation__two_step
 msgid "Get 2 levels of approvals to confirm a purchase order"
-msgstr "구매 주문 확인을 위해 2 단계의 승인을 받으십시오."
+msgstr "구매 주문 확인을 위해 2단계의 승인을 받으십시오."
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
 msgid "Get warnings in orders for products or vendors"
 msgstr "제품 또는 공급업체에 대한 주문 경고"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_weight
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__weight
 msgid "Gross Weight"
 msgstr "총중량"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_line_search
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_line_search
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
 msgid "Group By"
-msgstr "그룹화"
+msgstr "그룹별"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_line_search
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_line_search
 msgid "Hide cancelled lines"
 msgstr "취소한 명세 숨기기"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-msgid "How to import"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+msgid "History"
+msgstr "기록"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_id
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_id
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_id
+#: model:ir.model.fields,field_description:purchase.field_account_move__id
+#: model:ir.model.fields,field_description:purchase.field_account_move_line__id
+#: model:ir.model.fields,field_description:purchase.field_mail_compose_message__id
+#: model:ir.model.fields,field_description:purchase.field_product_category__id
+#: model:ir.model.fields,field_description:purchase.field_product_product__id
+#: model:ir.model.fields,field_description:purchase.field_product_supplierinfo__id
+#: model:ir.model.fields,field_description:purchase.field_product_template__id
+#: model:ir.model.fields,field_description:purchase.field_purchase_bill_union__id
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__id
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__id
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__id
+#: model:ir.model.fields,field_description:purchase.field_res_company__id
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__id
+#: model:ir.model.fields,field_description:purchase.field_res_partner__id
 msgid "ID"
 msgstr "ID"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__activity_exception_icon
+msgid "Icon"
+msgstr "아이콘"
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "예외 활동을 표시하기 위한 아이콘"
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__message_needaction
+#: model:ir.model.fields,help:purchase.field_purchase_order__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "만약 선택하였으면, 새 메시지에 주의를 기울여야 합니다."
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__message_has_error
+#: model:ir.model.fields,help:purchase.field_purchase_order__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "이 옵션을 선택하면 일부 정보가 전달 오류를 생성합니다."
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
 msgid ""
 "If enabled, activates 3-way matching on vendor bills : the items must be "
 "received in order to pay the invoice."
 msgstr "사용 가능한 경우 공급업체 청구서에서 3가지 일치를 활성화합니다. 송장을 지불하려면 품목을 수령해야 합니다."
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-msgid "Import vendor pricelists"
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid ""
+"If installed, the product variants will be added to purchase orders through "
+"a grid entry."
+msgstr "설치된 경우, 파생 상품이 그리드 항목을 통해 구매 주문에 추가됩니다."
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.mail_notification_confirm
+msgid "If you have any questions, please do not hesitate to contact us."
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:206
+#: code:addons/purchase/models/product.py:0
+#, python-format
+msgid "Import Template for Products"
+msgstr "제품 서식 가져오기"
+
+#. module: purchase
+#: code:addons/purchase/models/purchase.py:0
 #, python-format
 msgid "In order to delete a purchase order, you must cancel it first."
 msgstr "구매 주문을 삭제하려면 먼저 그것을 취소해야 합니다."
 
 #. module: purchase
-#: model:ir.ui.menu,name:purchase.menu_action_picking_tree_in_move
-msgid "Incoming  Products"
-msgstr "입고중인 제품"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-msgid "Incoming Shipments"
-msgstr "출하 입고예정"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_incoterm_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__incoterm_id
 msgid "Incoterm"
 msgstr "국제 상업 약관"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_purchase_order_incoterm_id
+#. openerp-web
+#: code:addons/purchase/static/src/js/tours/purchase.js:0
+#, python-format
+msgid "Indicate the product quantity you want to order."
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__incoterm_id
 msgid ""
 "International Commercial Terms are a series of predefined commercial terms "
 "used in international transactions."
 msgstr "Incoterm(국제 상업 약관)은 국제 거래에서 사용되는 미리 정의된 상업 용어의 시리즈입니다."
 
 #. module: purchase
-#: model:ir.model,name:purchase.model_account_invoice
-msgid "Invoice"
-msgstr "송장"
-
-#. module: purchase
-#: model:ir.model,name:purchase.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "송장 명세"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Invoices and Incoming Shipments"
-msgstr "송장과 입고 배송중"
+msgstr "청구서와 입고 배송중"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
 msgid "Invoicing"
-msgstr "송장 발행"
+msgstr "청구서 발행"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_is_shipped
-msgid "Is Shipped"
-msgstr "선적 여부"
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_is_follower
+msgid "Is Follower"
+msgstr "팔로워입니다"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_is_installed_sale
-msgid "Is the Sale Module Installed"
-msgstr "판매 모듈 설치 여부"
+#: model:ir.model,name:purchase.model_account_move
+msgid "Journal Entry"
+msgstr "분개"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order___last_update
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line___last_update
-#: model:ir.model.fields,field_description:purchase.field_purchase_report___last_update
+#: model:ir.model,name:purchase.model_account_move_line
+msgid "Journal Item"
+msgstr "분개 항목"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_account_move____last_update
+#: model:ir.model.fields,field_description:purchase.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:purchase.field_mail_compose_message____last_update
+#: model:ir.model.fields,field_description:purchase.field_product_category____last_update
+#: model:ir.model.fields,field_description:purchase.field_product_product____last_update
+#: model:ir.model.fields,field_description:purchase.field_product_supplierinfo____last_update
+#: model:ir.model.fields,field_description:purchase.field_product_template____last_update
+#: model:ir.model.fields,field_description:purchase.field_purchase_bill_union____last_update
+#: model:ir.model.fields,field_description:purchase.field_purchase_order____last_update
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line____last_update
+#: model:ir.model.fields,field_description:purchase.field_purchase_report____last_update
+#: model:ir.model.fields,field_description:purchase.field_res_company____last_update
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:purchase.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr "최근 수정"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_write_uid
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_write_uid
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__write_uid
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__write_uid
 msgid "Last Updated by"
 msgstr "최근 갱신한 사람"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_write_date
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_write_date
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__write_date
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__write_date
 msgid "Last Updated on"
 msgstr "최근 갱신 날짜"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "Late"
+msgstr "지연"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
 msgid "Late Activities"
 msgstr "지연된 활동"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_company_po_double_validation
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+msgid "Late RFQs"
+msgstr ""
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "Lead Time to Purchase"
+msgstr ""
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/js/tours/purchase.js:0
+#, python-format
+msgid "Let's create your first request for quotation."
+msgstr ""
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/js/tours/purchase.js:0
+#: code:addons/purchase/static/src/js/tours/purchase.js:0
+#, python-format
+msgid ""
+"Let's try the Purchase app to manage the flow from purchase to reception and"
+" invoice control."
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_res_company__po_double_validation
 msgid "Levels of Approvals"
 msgstr "승인 수준"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_po_double_validation
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__po_double_validation
 msgid "Levels of Approvals *"
 msgstr "승인 수준 *"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Lock"
 msgstr "잠금"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_lock_confirmed_po
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__lock_confirmed_po
 msgid "Lock Confirmed Orders"
 msgstr "확정된 주문 잠그기"
 
 #. module: purchase
-#: code:addons/purchase/controllers/portal.py:56
-#: selection:purchase.order,state:0
+#: code:addons/purchase/controllers/portal.py:0
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order__state__done
 #, python-format
 msgid "Locked"
 msgstr "잠김"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-msgid "Logistics"
-msgstr "물류"
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "주요 첨부 파일"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
 msgid ""
 "Make sure you only pay bills for which you received the goods you ordered"
 msgstr "주문한 상품을 수령한 청구서만 지불하십시오"
 
 #. module: purchase
-#: model:res.groups,name:purchase.group_manage_vendor_price
-msgid "Manage Vendor Price"
-msgstr "공급 업체 가격 관리"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
 msgid "Manage your purchase agreements (call for tenders, blanket orders)"
 msgstr "구매 계약 관리 (입찰 요청, 일괄 주문 요청)"
 
 #. module: purchase
-#: model:res.groups,name:purchase.group_purchase_manager
-msgid "Manager"
-msgstr "관리자"
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order_line__qty_received_method__manual
+msgid "Manual"
+msgstr "수동"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-msgid "Managers must approve orders"
-msgstr ""
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_line_form2
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_line_form2
 msgid "Manual Invoices"
-msgstr "송장 직접 입력"
+msgstr "청구서 직접 입력"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_res_company_po_lead
-#: model:ir.model.fields,help:purchase.field_res_config_settings_po_lead
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__qty_received_manual
+msgid "Manual Received Qty"
+msgstr "수동 입고 수량"
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_res_company__po_lead
+#: model:ir.model.fields,help:purchase.field_res_config_settings__po_lead
 msgid ""
 "Margin of error for vendor lead times. When the system generates Purchase "
 "Orders for procuring products, they will be scheduled that many days earlier"
 " to cope with unexpected vendor delays."
 msgstr ""
-"공급 업체 리드 타임에 대한 오차 범위. 시스템이 제품 조달을위한 구매 주문을 생성하면 예기치 않은 공급 업체 지연에 대처하기 위해 며칠"
-" 이전으로 스케쥴되어 있습니다."
+"공급업체 리드타임에 대한 오차 범위. 시스템이 제품 구매를 위한 구매 주문을 생성할 때, 예상치 못한 공급업체 지연에 대처하기 위해 그 "
+"며칠 전에 예약될 것입니다."
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_res_config_settings_use_po_lead
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_stock
+#: model:ir.model.fields,help:purchase.field_res_config_settings__use_po_lead
 msgid ""
 "Margin of error for vendor lead times. When the system generates Purchase "
 "Orders for reordering products,they will be scheduled that many days earlier"
 " to cope with unexpected vendor delays."
 msgstr ""
-"공급업체 영업제안 시간에 대한 오차 범위. 시스템이 제품 재구매를 위한 구매 주문을 생성할 때, 예상치 못한 공급업체 지연에 대처하기 "
-"위해 그 며칠 전에 예약될 것입니다."
+"공급업체 리드타임에 대한 오차 범위. 시스템이 제품 재구매를 위한 구매 주문을 생성할 때, 예상치 못한 공급업체 지연에 대처하기 위해 그"
+" 며칠 전에 예약될 것입니다."
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_partner_purchase_warn_msg
-#: model:ir.model.fields,field_description:purchase.field_res_users_purchase_warn_msg
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_has_error
+msgid "Message Delivery error"
+msgstr "메시지 전송 오류"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_res_partner__purchase_warn_msg
+#: model:ir.model.fields,field_description:purchase.field_res_users__purchase_warn_msg
 msgid "Message for Purchase Order"
 msgstr "구매 주문에 대한 메시지"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_product_product_purchase_line_warn_msg
-#: model:ir.model.fields,field_description:purchase.field_product_template_purchase_line_warn_msg
+#: model:ir.model.fields,field_description:purchase.field_product_product__purchase_line_warn_msg
+#: model:ir.model.fields,field_description:purchase.field_product_template__purchase_line_warn_msg
 msgid "Message for Purchase Order Line"
 msgstr "구매 주문 명세에 대한 메시지"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_po_double_validation_amount
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_ids
+msgid "Messages"
+msgstr "메시지"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__po_double_validation_amount
 msgid "Minimum Amount"
 msgstr "최소 금액"
 
 #. module: purchase
-#: model:ir.model,name:purchase.model_stock_warehouse_orderpoint
-msgid "Minimum Inventory Rule"
-msgstr "최소 재고 규칙"
-
-#. module: purchase
-#: model:ir.model.fields,help:purchase.field_res_company_po_double_validation_amount
-#: model:ir.model.fields,help:purchase.field_res_config_settings_po_double_validation_amount
+#: model:ir.model.fields,help:purchase.field_res_company__po_double_validation_amount
+#: model:ir.model.fields,help:purchase.field_res_config_settings__po_double_validation_amount
 msgid "Minimum amount for which a double validation is required"
 msgstr "이중 검증이 필요한 최소 금액"
 
 #. module: purchase
-#: model:ir.filters,name:purchase.filter_purchase_order_monthly_purchases
-msgid "Monthly Purchases"
-msgstr "월별 구입"
+#: model:ir.model.constraint,message:purchase.constraint_purchase_order_line_accountable_required_fields
+msgid "Missing required fields on accountable purchase order line."
+msgstr "회계용 구매 주문 내역에 필수 필드가 없습니다."
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.purchase_rfq
-msgid ""
-"Most propositions of purchase orders are created automatically\n"
-"                by Odoo based on inventory needs."
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "My Draft RFQs"
 msgstr ""
-"대부분의 구매 주문 제안은 재고 요구에 따라\n"
-"              Odoo에 의해 자동으로 생성됩니다.                "
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_stock
-msgid "Move forward expected delivery dates by"
-msgstr "배송 예정일을 다음으로 이동"
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "My Late RFQs"
+msgstr ""
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
-msgid "My Activities"
-msgstr "나의 활동"
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+msgid "My Orders"
+msgstr "나의 주문"
 
 #. module: purchase
-#: code:addons/purchase/controllers/portal.py:44
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+msgid "My Purchases"
+msgstr "나의 구매"
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "My RFQs"
+msgstr ""
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "My Waiting RFQs"
+msgstr ""
+
+#. module: purchase
+#: code:addons/purchase/controllers/portal.py:0
 #, python-format
 msgid "Name"
 msgstr "이름"
 
 #. module: purchase
-#: code:addons/purchase/controllers/portal.py:43
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Name, TIN, Email, or Reference"
+msgstr "이름, TIN, 이메일, 또는 참조"
+
+#. module: purchase
+#: code:addons/purchase/controllers/portal.py:0
 #, python-format
 msgid "Newest"
 msgstr "최신"
 
 #. module: purchase
-#: selection:purchase.order,invoice_status:0
-msgid "No Bill to Receive"
-msgstr ""
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "다음 활동 마감일"
 
 #. module: purchase
-#: selection:product.template,purchase_line_warn:0
-#: selection:res.partner,purchase_warn:0
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__activity_summary
+msgid "Next Activity Summary"
+msgstr "다음 활동 요약"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__activity_type_id
+msgid "Next Activity Type"
+msgstr "다음 활동 유형"
+
+#. module: purchase
+#: model:ir.model.fields.selection,name:purchase.selection__product_template__purchase_line_warn__no-message
+#: model:ir.model.fields.selection,name:purchase.selection__res_partner__purchase_warn__no-message
 msgid "No Message"
 msgstr "메시지 없음"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-msgid "No longer edit orders once confirmed"
-msgstr "한번 승인된 주문은 수정할 수 없습니다"
-
-#. module: purchase
-#: model:ir.model.fields,help:purchase.field_purchase_order_line_product_image
-msgid ""
-"Non-stored related field to allow portal user to see the image of the "
-"product he has ordered"
+#: model_terms:ir.actions.act_window,help:purchase.purchase_action_dashboard_kanban
+#: model_terms:ir.actions.act_window,help:purchase.purchase_action_dashboard_list
+msgid "No RFQs to display"
 msgstr ""
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.actions.act_window,help:purchase.product_normal_action_puchased
+msgid "No product found. Let's create one!"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.actions.act_window,help:purchase.purchase_form_action
+msgid "No purchase order found. Let's create one!"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.actions.act_window,help:purchase.purchase_rfq
+msgid "No request for quotation found. Let's create one!"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.mail_notification_confirm
+msgid "No, Update Dates"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order__priority__0
+msgid "Normal"
+msgstr "일반"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+msgid "Not Acknowledged"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order_line__display_type__line_note
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Note"
+msgstr "메모"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Notes"
-msgstr "노트"
+msgstr "메모"
 
 #. module: purchase
-#: selection:purchase.order,invoice_status:0
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order__invoice_status__no
 msgid "Nothing to Bill"
-msgstr "청구할 것이 없음"
+msgstr "지불할 것이 없음"
 
 #. module: purchase
-#: selection:product.template,purchase_method:0
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_needaction_counter
+msgid "Number of Actions"
+msgstr "작업 수"
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__reminder_date_before_receipt
+#: model:ir.model.fields,help:purchase.field_res_partner__reminder_date_before_receipt
+#: model:ir.model.fields,help:purchase.field_res_users__reminder_date_before_receipt
+msgid "Number of days to send reminder email before the promised receipt date"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_has_error_counter
+msgid "Number of errors"
+msgstr "오류 횟수"
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "조치가 필요한 메시지 수"
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "전송 오류 메시지 수"
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__message_unread_counter
+msgid "Number of unread messages"
+msgstr "읽지 않은 메시지 수"
+
+#. module: purchase
+#: model:ir.model.fields.selection,name:purchase.selection__product_template__purchase_method__purchase
 msgid "On ordered quantities"
 msgstr "주문한 수량"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_product_product_purchase_method
-#: model:ir.model.fields,help:purchase.field_product_template_purchase_method
+#: model:ir.model.fields,help:purchase.field_product_product__purchase_method
+#: model:ir.model.fields,help:purchase.field_product_template__purchase_method
 msgid ""
-"On ordered quantities: control bills based on ordered quantities.\n"
-"On received quantities: control bills based on received quantity."
+"On ordered quantities: Control bills based on ordered quantities.\n"
+"On received quantities: Control bills based on received quantities."
 msgstr ""
-"주문 수량 : 주문 수량을 기준으로 청구서 대조 .\n"
-"수신 된 수량 : 수신 된 수량을 기준으로 청구서를 관리합니다."
+"주문 수량 : 주문 수량을 기준으로 청구서를 관리합니다.\n"
+"수령 수량 : 수령 수량을 기준으로 청구서를 관리합니다."
 
 #. module: purchase
-#: selection:product.template,purchase_method:0
+#: model:ir.model.fields.selection,name:purchase.selection__product_template__purchase_method__receive
 msgid "On received quantities"
-msgstr "수령 한 수량"
+msgstr "수령한 수량"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_po_order_approval
-msgid "Order Approval"
+#. openerp-web
+#: code:addons/purchase/static/src/js/tours/purchase.js:0
+#, python-format
+msgid ""
+"Once you get the price from the vendor, you can complete the purchase order "
+"with the right price."
 msgstr ""
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_date_order
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_date_order
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_date_order
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_orders
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
-msgid "Order Date"
-msgstr "주문 날짜"
+#: model_terms:ir.actions.act_window,help:purchase.purchase_form_action
+msgid ""
+"Once you ordered your products to your supplier, confirm your request for "
+"quotation and it will turn into a purchase order."
+msgstr ""
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_order_line
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__order_id
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+msgid "Order"
+msgstr "주문"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__date_order
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__date_order
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
+msgid "Order Date"
+msgstr "주문일"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__date_order
+msgid "Order Deadline"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__order_line
 msgid "Order Lines"
 msgstr "주문 명세"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
-msgid "Order Month"
-msgstr "주문 달"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_order_id
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_name
-#: model:ir.ui.view,arch_db:purchase.purchase_order_line_search
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__name
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__order_id
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_line_search
 msgid "Order Reference"
 msgstr "주문 참조"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_state
-msgid "Order Status"
-msgstr "주문 상태"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
-msgid "Order of Day"
-msgstr "일별 주문"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.track_po_line_template
+#: model_terms:ir.ui.view,arch_db:purchase.track_po_line_template
 msgid "Ordered Quantity:"
 msgstr "주문한 수량 :"
 
 #. module: purchase
-#: selection:res.config.settings,default_purchase_method:0
+#: model:ir.model.fields.selection,name:purchase.selection__res_config_settings__default_purchase_method__purchase
 msgid "Ordered quantities"
 msgstr "주문한 수량"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_orderpoint_id
-msgid "Orderpoint"
-msgstr "지시점"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
+#: model:ir.ui.menu,name:purchase.menu_procurement_management
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
 msgid "Orders"
 msgstr "주문"
 
 #. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Other Information"
+msgstr "기타 정보"
+
+#. module: purchase
 #: model:mail.template,report_name:purchase.email_template_edi_purchase_done
+#: model:mail.template,report_name:purchase.email_template_edi_purchase_reminder
 msgid "PO_${(object.name or '').replace('/','_')}"
 msgstr "PO_${(object.name or '').replace('/','_')}"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_partner_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__partner_id
 msgid "Partner"
-msgstr "파트너"
+msgstr "협력사"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_country_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__country_id
 msgid "Partner Country"
-msgstr "파트너의 국가"
+msgstr "파트너 국가"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
-msgid "Partner's Country"
-msgstr "파트너의 국가"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_payment_term_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__payment_term_id
 msgid "Payment Terms"
 msgstr "지불 조건"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_product_category_property_account_creditor_price_difference_categ
-#: model:ir.model.fields,field_description:purchase.field_product_product_property_account_creditor_price_difference
-#: model:ir.model.fields,field_description:purchase.field_product_template_property_account_creditor_price_difference
+#: code:addons/purchase/models/purchase.py:0
+#, python-format
+msgid "Please define an accounting purchase journal for the company %s (%s)."
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__access_url
+msgid "Portal Access URL"
+msgstr "포털 접근 URL"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Preview the reminder email by sending it to yourself."
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_product_category__property_account_creditor_price_difference_categ
+#: model:ir.model.fields,field_description:purchase.field_product_product__property_account_creditor_price_difference
+#: model:ir.model.fields,field_description:purchase.field_product_template__property_account_creditor_price_difference
 msgid "Price Difference Account"
 msgstr "가격 차이 계정"
 
 #. module: purchase
-#: model:ir.filters,name:purchase.filter_purchase_order_price_per_supplier
-msgid "Price Per Vendor"
-msgstr "공급 업체별 가격"
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order_update_date
+msgid "Pricing"
+msgstr "가격 책정"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+msgid "Print"
+msgstr "인쇄"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Print RFQ"
 msgstr "견적요청서 인쇄"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_group_id
-msgid "Procurement Group"
-msgstr "조달 그룹"
-
-#. module: purchase
-#: model:ir.model,name:purchase.model_procurement_group
-msgid "Procurement Requisition"
-msgstr "조달 요청"
-
-#. module: purchase
-#: model:ir.model,name:purchase.model_procurement_rule
-msgid "Procurement Rule"
-msgstr "조달 규칙"
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__priority
+msgid "Priority"
+msgstr "우선 순위"
 
 #. module: purchase
 #: model:ir.model,name:purchase.model_product_product
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_product_id
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_product_id
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_product_id
-#: model:ir.ui.view,arch_db:purchase.purchase_order_line_search
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__product_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__product_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__product_id
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order_update_date
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_line_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
 msgid "Product"
-msgstr "제품"
+msgstr "상품"
+
+#. module: purchase
+#: model:ir.ui.menu,name:purchase.menu_product_attribute_action
+msgid "Product Attributes"
+msgstr "상품 속성"
 
 #. module: purchase
 #: model:ir.ui.menu,name:purchase.menu_product_category_config_purchase
 msgid "Product Categories"
-msgstr "제품카테고리"
+msgstr "상품 범주"
 
 #. module: purchase
 #: model:ir.model,name:purchase.model_product_category
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_category_id
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__category_id
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
 msgid "Product Category"
-msgstr "제품카테고리"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_product_image
-msgid "Product Image"
-msgstr "제품 이미지"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_unit_quantity
-msgid "Product Quantity"
-msgstr "상품 수량"
+msgstr "상품 범주"
 
 #. module: purchase
 #: model:ir.model,name:purchase.model_product_template
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_product_tmpl_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__product_tmpl_id
 msgid "Product Template"
-msgstr "제품 양식"
+msgstr "상품 양식"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_product_uom
-msgid "Product Unit of Measure"
-msgstr "제품측정단위"
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__product_type
+msgid "Product Type"
+msgstr "상품 유형"
 
 #. module: purchase
 #: model:ir.actions.act_window,name:purchase.product_product_action
 #: model:ir.ui.menu,name:purchase.product_product_menu
 msgid "Product Variants"
-msgstr "파생 제품"
+msgstr "파생 상품"
 
 #. module: purchase
 #: model:ir.actions.act_window,name:purchase.product_normal_action_puchased
 #: model:ir.ui.menu,name:purchase.menu_procurement_partner_contact_form
 #: model:ir.ui.menu,name:purchase.menu_product_in_config_purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+#: model:ir.ui.menu,name:purchase.menu_purchase_products
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order_update_date
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
 msgid "Products"
-msgstr "제품"
+msgstr "상품"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_price_standard
-msgid "Products Value"
-msgstr "상품 값"
-
-#. module: purchase
-#: model:ir.model.fields,help:purchase.field_res_company_po_double_validation
-#: model:ir.model.fields,help:purchase.field_res_config_settings_po_double_validation
+#: model:ir.model.fields,help:purchase.field_res_company__po_double_validation
+#: model:ir.model.fields,help:purchase.field_res_config_settings__po_double_validation
 msgid "Provide a double validation mechanism for purchases"
 msgstr "구매를 위한 이중 검증 메커니즘 제공"
 
 #. module: purchase
-#: model:ir.ui.menu,name:purchase.menu_procurement_management
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-#: model:ir.ui.view,arch_db:purchase.view_product_supplier_inherit
+#: model:ir.ui.menu,name:purchase.menu_purchase_root
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
 msgid "Purchase"
-msgstr "구매"
+msgstr "매입"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_module_purchase_requisition
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__module_purchase_requisition
 msgid "Purchase Agreements"
 msgstr "구매 계약"
 
 #. module: purchase
 #: model:ir.actions.act_window,name:purchase.action_purchase_order_report_all
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_pivot
 msgid "Purchase Analysis"
-msgstr "구매분석"
+msgstr "구매 분석"
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.action_purchase_order_report_all
+#: model_terms:ir.actions.act_window,help:purchase.action_purchase_order_report_all
 msgid ""
 "Purchase Analysis allows you to easily check and analyse your company "
 "purchase history and performance. From this menu you can track your "
 "negotiation performance, the delivery performance of your vendors, etc."
 msgstr ""
-"구매 분석을 사용하면 회사 구매 내역 및 성과를 쉽게 확인하고 분석 할 수 있습니다. 이 메뉴에서 협상 실적, 공급 업체의 납품 실적 "
-"등을 추적 할 수 있습니다."
+"구매 분석을 사용하면 회사 구매 내역 및 성과를 쉽게 확인하고 분석할 수 있습니다. 이 메뉴에서 협상 실적, 공급업체의 납품 실적 등을 "
+"추적할 수 있습니다."
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_account
-msgid "Purchase Analytics"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:purchase.view_product_supplier_inherit
+msgid "Purchase Description"
+msgstr "구매 설명"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_product_supplier_inherit
-msgid "Purchase Bills"
-msgstr ""
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__module_purchase_product_matrix
+msgid "Purchase Grid Entry"
+msgstr "구매 그리드 항목"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_company_po_lead
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_po_lead
+#: model:ir.model.fields,field_description:purchase.field_res_company__po_lead
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__po_lead
 msgid "Purchase Lead Time"
-msgstr "구매 영업 시간"
+msgstr "구매 리드타임"
 
 #. module: purchase
-#: code:addons/purchase/controllers/portal.py:54
+#: code:addons/purchase/controllers/portal.py:0
+#: code:addons/purchase/models/purchase.py:0
 #: model:ir.actions.report,name:purchase.action_report_purchase_order
 #: model:ir.model,name:purchase.model_purchase_order
-#: model:ir.model.fields,field_description:purchase.field_account_invoice_line_purchase_id
-#: model:ir.model.fields,field_description:purchase.field_res_partner_purchase_warn
-#: model:ir.model.fields,field_description:purchase.field_res_users_purchase_warn
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_order
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-#: model:ir.ui.view,arch_db:purchase.purchase_order_graph
-#: model:ir.ui.view,arch_db:purchase.purchase_order_pivot
-#: model:ir.ui.view,arch_db:purchase.purchase_order_tree
-#: selection:purchase.order,state:0 selection:purchase.report,state:0
-#: model:res.request.link,name:purchase.req_link_purchase_order
+#: model:ir.model.fields,field_description:purchase.field_account_bank_statement_line__purchase_id
+#: model:ir.model.fields,field_description:purchase.field_account_move__purchase_id
+#: model:ir.model.fields,field_description:purchase.field_account_move_line__purchase_order_id
+#: model:ir.model.fields,field_description:purchase.field_account_payment__purchase_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_bill_union__purchase_order_id
+#: model:ir.model.fields,field_description:purchase.field_res_partner__purchase_warn
+#: model:ir.model.fields,field_description:purchase.field_res_users__purchase_warn
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order__state__purchase
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_report__state__purchase
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_graph
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_kpis_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_pivot
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_activity
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_tree
 #, python-format
 msgid "Purchase Order"
 msgstr "구매 주문"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
-msgid "Purchase Order Confirmation #"
-msgstr "구매 주문 확인서 #"
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+msgid "Purchase Order #"
+msgstr "구매 주문 #"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
-msgid "Purchase Order Fiscal Position"
-msgstr "구매 주문서 재정 상태"
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__po_order_approval
+msgid "Purchase Order Approval"
+msgstr "구매 주문 승인"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_res_partner__purchase_order_count
+#: model:ir.model.fields,field_description:purchase.field_res_users__purchase_order_count
+msgid "Purchase Order Count"
+msgstr "구매 주문 수"
 
 #. module: purchase
 #: model:ir.model,name:purchase.model_purchase_order_line
-#: model:ir.model.fields,field_description:purchase.field_account_invoice_line_purchase_line_id
-#: model:ir.model.fields,field_description:purchase.field_product_product_purchase_line_warn
-#: model:ir.model.fields,field_description:purchase.field_product_template_purchase_line_warn
-#: model:ir.model.fields,field_description:purchase.field_stock_move_purchase_line_id
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-#: model:ir.ui.view,arch_db:purchase.purchase_order_line_form2
+#: model:ir.model.fields,field_description:purchase.field_account_move_line__purchase_line_id
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_line_form2
 msgid "Purchase Order Line"
 msgstr "구매 주문 명세"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-#: model:ir.ui.view,arch_db:purchase.purchase_order_line_tree
+#: model:ir.model.fields,field_description:purchase.field_product_product__purchase_line_warn
+#: model:ir.model.fields,field_description:purchase.field_product_template__purchase_line_warn
+msgid "Purchase Order Line Warning"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_line_tree
 msgid "Purchase Order Lines"
 msgstr "구매 주문 명세"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_company_po_lock
+#: model:ir.model.fields,field_description:purchase.field_res_company__po_lock
 msgid "Purchase Order Modification"
 msgstr "구매 주문 수정"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_po_lock
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__po_lock
 msgid "Purchase Order Modification *"
 msgstr "구매 주문 수정 *"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_res_company_po_lock
-#: model:ir.model.fields,help:purchase.field_res_config_settings_po_lock
+#: model:ir.model.fields,help:purchase.field_res_company__po_lock
+#: model:ir.model.fields,help:purchase.field_res_config_settings__po_lock
 msgid ""
 "Purchase Order Modification used when you want to purchase order editable "
 "after confirm"
@@ -1399,114 +1961,164 @@ msgstr "구매 주문 수정을 승인 후 주문을 편집하고자 할 때 사
 
 #. module: purchase
 #: model:ir.actions.act_window,name:purchase.purchase_form_action
-#: model:ir.actions.act_window,name:purchase.purchase_order_action_generic
-#: model:ir.model.fields,field_description:purchase.field_stock_picking_purchase_id
 #: model:ir.ui.menu,name:purchase.menu_purchase_form_action
-#: model:ir.ui.view,arch_db:purchase.portal_my_home_menu_purchase
-#: model:ir.ui.view,arch_db:purchase.portal_my_home_purchase
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_orders
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_home_menu_purchase
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_home_purchase
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_bill_union_filter
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
 msgid "Purchase Orders"
-msgstr "구매주문"
+msgstr "구매 주문"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_orders
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_orders
 msgid "Purchase Orders #"
-msgstr "구매주문 #"
+msgstr "구매 주문 #"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_graph
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_pivot
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_graph
 msgid "Purchase Orders Statistics"
 msgstr "구매 주문 통계"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
-msgid "Purchase orders that have been invoiced."
-msgstr "인보이스된 구매주문건"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
-msgid "Purchase orders that include lines not invoiced."
-msgstr "송장 처리하지 않은 명세를 포함한 구매 주문"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_stock_warehouse_buy_to_resupply
-msgid "Purchase to resupply this warehouse"
-msgstr "창고 재공급을 위한 구매"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_negociation
-msgid "Purchase-Standard Price"
-msgstr "구매-표준 가격"
-
-#. module: purchase
-#: model:ir.actions.act_window,name:purchase.action_purchase_line_product_tree
-#: model:ir.ui.menu,name:purchase.menu_purchase_root
-#: model:ir.ui.view,arch_db:purchase.res_partner_view_purchase_buttons
-#: model:ir.ui.view,arch_db:purchase.view_product_template_purchase_buttons_from
-#: model:ir.ui.view,arch_db:purchase.view_warehouse_orderpoint_purchase_form
-msgid "Purchases"
-msgstr "구매"
-
-#. module: purchase
 #: model:ir.model,name:purchase.model_purchase_report
-msgid "Purchases Orders"
-msgstr "구매주문"
+msgid "Purchase Report"
+msgstr "구매 보고서"
 
 #. module: purchase
-#: model:ir.model,name:purchase.model_stock_location_path
-msgid "Pushed Flow"
-msgstr "푸쉬 흐름"
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__user_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__user_id
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
+msgid "Purchase Representative"
+msgstr "구매 담당자"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_purchase_order_dest_address_id
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__group_warning_purchase
+msgid "Purchase Warnings"
+msgstr "구매 경고"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+msgid "Purchase orders that have been invoiced."
+msgstr "송장 처리된 구매 주문"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+msgid "Purchase orders that include lines not invoiced."
+msgstr "청구서 처리되지 않은 명세를 포함한 구매 주문"
+
+#. module: purchase
+#: model:ir.actions.server,name:purchase.purchase_send_reminder_mail_ir_actions_server
+#: model:ir.cron,cron_name:purchase.purchase_send_reminder_mail
+#: model:ir.cron,name:purchase.purchase_send_reminder_mail
+msgid "Purchase reminder"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "Purchase variants of a product using attributes (size, color, etc.)"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_product_product__purchased_product_qty
+#: model:ir.model.fields,field_description:purchase.field_product_template__purchased_product_qty
+msgid "Purchased"
+msgstr "구매함"
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "Purchased Last 7 Days ("
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.product_normal_form_view_inherit_purchase
+#: model_terms:ir.ui.view,arch_db:purchase.view_product_template_purchase_buttons_from
+msgid "Purchased in the last 365 days"
+msgstr "최근 1년간 구매"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_partner_view_purchase_buttons
+msgid "Purchases"
+msgstr "매입"
+
+#. module: purchase
+#: model:ir.model,name:purchase.model_purchase_bill_union
+msgid "Purchases & Bills Union"
+msgstr "구매 및 청구서 통합"
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__dest_address_id
 msgid ""
 "Put an address if you want to deliver directly from the vendor to the "
 "customer. Otherwise, keep empty to deliver to your own company."
 msgstr "공급 업체에서 고객에게 직접 전달하려는 경우 주소를 입력하십시오. 그렇지 않으면 자신의 회사에 전달하기 위해 비워 두십시오."
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__qty_billed
+msgid "Qty Billed"
+msgstr "청구된 수량"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__qty_ordered
+msgid "Qty Ordered"
+msgstr "수량 주문됨"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__qty_received
+msgid "Qty Received"
+msgstr "입고 수량"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__qty_to_be_billed
+msgid "Qty to be Billed"
+msgstr "청구할 수량"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
 msgid "Quantities billed by vendors"
 msgstr "공급업체가 청구한 수량"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_product_qty
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__product_qty
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order_update_date
 msgid "Quantity"
 msgstr "수량"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
-msgid "Quotations"
-msgstr "견적"
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Quantity:"
+msgstr "수량:"
 
 #. module: purchase
-#: selection:purchase.order,state:0
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order__state__draft
 msgid "RFQ"
 msgstr "견적 요구"
 
 #. module: purchase
 #: model:mail.message.subtype,name:purchase.mt_rfq_approved
 msgid "RFQ Approved"
-msgstr "견적요청서 승인됨"
+msgstr "견적 요청 승인됨"
 
 #. module: purchase
 #: model:mail.message.subtype,name:purchase.mt_rfq_confirmed
 msgid "RFQ Confirmed"
-msgstr "견적요청서 확됨"
+msgstr "견적 요청 확인됨"
 
 #. module: purchase
 #: model:mail.message.subtype,name:purchase.mt_rfq_done
 msgid "RFQ Done"
-msgstr "견적요청서 완료"
+msgstr "견적 요청 완료"
 
 #. module: purchase
-#: selection:purchase.order,state:0 selection:purchase.report,state:0
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order__state__sent
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_report__state__sent
 msgid "RFQ Sent"
-msgstr "보낸 RFQ"
+msgstr "견적 요청 보냄"
 
 #. module: purchase
 #: model:mail.template,report_name:purchase.email_template_edi_purchase
@@ -1514,174 +2126,288 @@ msgid "RFQ_${(object.name or '').replace('/','_')}"
 msgstr "RFQ_${(object.name or '').replace('/','_')}"
 
 #. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+msgid "RFQs"
+msgstr "견적 요청서"
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "RFQs Sent Last 7 Days"
+msgstr ""
+
+#. module: purchase
 #: model:ir.actions.act_window,name:purchase.act_res_partner_2_purchase_order
 msgid "RFQs and Purchases"
-msgstr "견적요청서와 구매"
+msgstr "견적 요청서와 구매"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-msgid "Re-Send RFQ by Email"
-msgstr "이메일로 견적요청서 재전송"
+#: model:ir.model.fields,help:purchase.field_purchase_order__currency_rate
+msgid "Ratio between the purchase order currency and the company currency"
+msgstr "구매 주문 통화와 회사 통화 간의 비율"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-msgid "Receive Products"
-msgstr "제품 입고"
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Re-Send by Email"
+msgstr "이메일로 다시 보내기"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_qty_received
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__date_planned
+msgid "Receipt Date"
+msgstr "영수증 날짜"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__group_send_reminder
+#: model:ir.model.fields,field_description:purchase.field_res_partner__receipt_reminder_email
+#: model:ir.model.fields,field_description:purchase.field_res_users__receipt_reminder_email
+msgid "Receipt Reminder"
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__receipt_reminder_email
+msgid "Receipt Reminder Email"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Received"
+msgstr "수령함"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__qty_received
 msgid "Received Qty"
-msgstr "수령한 수량"
+msgstr "입고 수량"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.track_po_line_template
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__qty_received_method
+msgid "Received Qty Method"
+msgstr "수령 방법"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Received Quantity"
+msgstr "입고 수량"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.track_po_line_qty_received_template
+#: model_terms:ir.ui.view,arch_db:purchase.track_po_line_template
 msgid "Received Quantity:"
 msgstr "입고 수량 :"
 
 #. module: purchase
-#: model:ir.actions.act_window,name:purchase.purchase_open_picking
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_picking_count
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_picking_ids
-msgid "Receptions"
-msgstr "접수"
+#: model:ir.model.fields.selection,name:purchase.selection__res_config_settings__default_purchase_method__receive
+msgid "Received quantities"
+msgstr "입고 수량"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_tree
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__mail_reception_confirmed
+msgid "Reception Confirmed"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.actions.act_window,help:purchase.act_res_partner_2_supplier_invoices
+msgid "Record a new vendor bill"
+msgstr "신규 공급업체 청구서 기록"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_bill_union__name
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_kpis_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_tree
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_bill_union_filter
 msgid "Reference"
 msgstr "참조"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_product_uom
-msgid "Reference Unit of Measure"
-msgstr "측정의 기준 단위"
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_bill_union_tree
+msgid "Reference Document"
+msgstr "참조 문서"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_purchase_order_origin
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__product_uom
+msgid "Reference Unit of Measure"
+msgstr "기준 단위"
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__origin
 msgid ""
 "Reference of the document that generated this purchase order request (e.g. a"
 " sales order)"
 msgstr "이 구매 주문 요청을 생성한 전표 참조 (예 : 판매 주문)"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_purchase_order_partner_ref
+#: model:ir.model.fields,help:purchase.field_purchase_order__partner_ref
 msgid ""
 "Reference of the sales order or bid sent by the vendor. It's used to do the "
 "matching when you receive the products as this reference is usually written "
 "on the delivery order sent by your vendor."
 msgstr ""
-"공급 업체가 보낸 판매 주문 또는 입찰에 대한 참조입니다. 이 참조는 대개 공급 업체가 보낸 배달 주문서에 적혀 있으므로 제품을받을 때 "
-"일치하는 데 사용됩니다."
+"공급업체가 보낸 판매 주문 또는 입찰에 대한 참조입니다. 이 참조는 대개 공급업체가 보낸 배송 주문서에 적혀 있으므로 제품을 받을 때 "
+"일치 여부를 확인하는 데 사용됩니다."
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__mail_reminder_confirmed
+msgid "Reminder Confirmed"
+msgstr ""
 
 #. module: purchase
 #: model:ir.ui.menu,name:purchase.purchase_report
 msgid "Reporting"
-msgstr "보고서"
+msgstr "보고"
 
 #. module: purchase
+#: code:addons/purchase/models/purchase.py:0
 #: model:ir.actions.report,name:purchase.report_purchase_quotation
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-#: model:ir.ui.view,arch_db:purchase.report_purchasequotation_document
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchasequotation_document
+#, python-format
 msgid "Request for Quotation"
-msgstr "견적요청"
+msgstr "견적 요청"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
 msgid "Request for Quotation #"
 msgstr "견적 요청 #"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-msgid "Request your vendors to deliver to your customers"
-msgstr "공급업체에게 고객에게 배달하도록 요청"
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "Request managers to approve orders above a minimum amount"
+msgstr "관리자에게 최소 금액 이상으로 주문 승인 요청"
 
 #. module: purchase
+#: model:ir.actions.act_window,name:purchase.action_rfq_form
+#: model:ir.actions.act_window,name:purchase.purchase_action_dashboard_kanban
+#: model:ir.actions.act_window,name:purchase.purchase_action_dashboard_list
 #: model:ir.actions.act_window,name:purchase.purchase_rfq
 #: model:ir.ui.menu,name:purchase.menu_purchase_rfq
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
 msgid "Requests for Quotation"
-msgstr "견적요청"
+msgstr "견적 요청"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_move_ids
-msgid "Reservation"
-msgstr "예약"
+#: model_terms:ir.actions.act_window,help:purchase.purchase_rfq
+msgid ""
+"Requests for quotation are documents that will be sent to your suppliers to request prices for different products you consider buying.\n"
+"                Once an agreement has been found with the supplier, they will be confirmed and turned into purchase orders."
+msgstr ""
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_create_uid
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_user_id
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
-msgid "Responsible"
-msgstr "담당자"
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__activity_user_id
+msgid "Responsible User"
+msgstr "담당 사용자"
 
 #. module: purchase
-#: model:ir.model,name:purchase.model_stock_return_picking
-msgid "Return Picking"
-msgstr "반환 출고"
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS 전송 에러"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_stock
-msgid "Schedule receivings earlier to avoid delays"
-msgstr "지연을 피하기 위해 수령 일정을 일찍 계획하기"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_date_planned
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_date_planned
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order_update_date
 msgid "Scheduled Date"
-msgstr "예정 날짜"
+msgstr "계획된 날짜"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_line_search
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_line_search
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
 msgid "Search Purchase Order"
 msgstr "구매 주문 검색"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_use_po_lead
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_bill_union_filter
+msgid "Search Reference Document"
+msgstr "참조 문서 검색"
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/js/tours/purchase.js:0
+#, python-format
+msgid "Search a vendor name, or create one on the fly."
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order_line__display_type__line_section
+msgid "Section"
+msgstr "구분"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Section Name (eg. Products, Services)"
+msgstr "영역명 (예. 제품, 서비스)"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__use_po_lead
 msgid "Security Lead Time for Purchase"
 msgstr "상품에 대한 보안 리드타임"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_product_product_purchase_line_warn
-#: model:ir.model.fields,help:purchase.field_product_template_purchase_line_warn
-#: model:ir.model.fields,help:purchase.field_res_partner_purchase_warn
-#: model:ir.model.fields,help:purchase.field_res_users_purchase_warn
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__access_token
+msgid "Security Token"
+msgstr "보안 토큰"
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/js/tours/purchase.js:0
+#, python-format
+msgid "Select a product, or create a new one on the fly."
+msgstr "상품을 선택하거나 즉시 새 상품을 만듭니다."
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.view_move_form_inherit_purchase
+msgid "Select a purchase order or an old bill"
+msgstr "구매 주문서 또는 이전 청구서를 선택하십시오"
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_product_product__purchase_line_warn
+#: model:ir.model.fields,help:purchase.field_product_template__purchase_line_warn
+#: model:ir.model.fields,help:purchase.field_res_partner__purchase_warn
+#: model:ir.model.fields,help:purchase.field_res_users__purchase_warn
 msgid ""
 "Selecting the \"Warning\" option will notify user with the message, "
 "Selecting \"Blocking Message\" will throw an exception with the message and "
 "block the flow. The Message has to be written in the next field."
 msgstr ""
-"\"경고\" 옵션을 선택하면 사용자들이 메시지를 받을 수 있습니다. \"메시지 차단\"을 선택하면, 메시지 흐름이 차단됩니다. 메시지는 "
-"다음 필드에 작성되어야 합니다."
+"\"경고\" 옵션을 선택하면 사용자들이 메시지를 받을 수 있습니다. \"메시지 차단\"을 선택하면, 예외가 발생하고 메시지 흐름이 "
+"차단됩니다. 메시지는 다음 필드에 작성되어야 합니다."
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Send PO by Email"
 msgstr "구매 주문서를 이메일로 발송"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-msgid "Send RFQ by Email"
-msgstr "견적요청서를 이메일로 발송"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_sequence
-msgid "Sequence"
-msgstr "순서"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_account
-msgid "Set analytic accounts in purchase orders"
+#: model:ir.actions.server,name:purchase.action_purchase_send_reminder
+msgid "Send Reminder"
 msgstr ""
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-msgid "Set date to all order lines"
-msgstr "모든 주문서에 날짜 설정"
+#: model:res.groups,name:purchase.group_send_reminder
+msgid "Send an automatic reminder email to confirm delivery"
+msgstr ""
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Send by Email"
+msgstr "이메일로 전송"
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/js/tours/purchase.js:0
+#: code:addons/purchase/static/src/js/tours/purchase.js:0
+#, python-format
+msgid "Send the request for quotation to your vendor."
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__sequence
+msgid "Sequence"
+msgstr "순차적"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Set to Draft"
-msgstr "기안으로 설정"
+msgstr "초안으로 설정"
 
 #. module: purchase
 #: model:ir.actions.act_window,name:purchase.action_purchase_configuration
@@ -1690,331 +2416,329 @@ msgid "Settings"
 msgstr "설정"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-msgid "Shipment"
-msgstr "배송"
+#: model:ir.actions.server,name:purchase.model_purchase_order_action_share
+msgid "Share"
+msgstr "공유"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
 msgid "Show all records which has next action date is before today"
-msgstr "다음 활동 일자가 오늘 이전인 모든 자료 조회"
+msgstr "다음 행동 날짜가 오늘 이전 인 모든 기록보기"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_origin
+#: model:ir.model.fields,field_description:purchase.field_purchase_bill_union__reference
+msgid "Source"
+msgstr "소스"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__origin
 msgid "Source Document"
 msgstr "원본 문서"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_state
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_state
-#: model:ir.ui.view,arch_db:purchase.purchase_order_line_search
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+msgid "Starred"
+msgstr "별표"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__state
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__state
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__state
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_line_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
 msgid "Status"
 msgstr "상태"
 
 #. module: purchase
-#: model:ir.model,name:purchase.model_stock_move
-msgid "Stock Move"
-msgstr "재고이동"
+#: model:ir.model.fields,help:purchase.field_purchase_order__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"활동에 기조한 상태입니다\n"
+"기한초과: 이미 기한이 지났습니다\n"
+"오늘: 활동 날짜가 오늘입니다\n"
+"계획: 향후 활동입니다."
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_line_form2
-msgid "Stock Moves"
-msgstr "재고이동"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_price_subtotal
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__price_subtotal
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order_update_date
 msgid "Subtotal"
 msgstr "소계"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_partner_property_purchase_currency_id
-#: model:ir.model.fields,field_description:purchase.field_res_users_property_purchase_currency_id
+#: model:ir.model.fields,field_description:purchase.field_res_partner__property_purchase_currency_id
+#: model:ir.model.fields,field_description:purchase.field_res_users__property_purchase_currency_id
 msgid "Supplier Currency"
 msgstr "공급업체 통화"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_price_tax
+#: model:ir.model,name:purchase.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr "공급업체 가격표"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__price_tax
 msgid "Tax"
 msgstr "세금"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_amount_tax
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_taxes_id
-#: model:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__amount_tax
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__taxes_id
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
 msgid "Taxes"
 msgstr "세금"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_order
-msgid "Taxes:"
-msgstr "세금:"
+#: model:ir.model.fields,help:purchase.field_purchase_order_line__display_type
+msgid "Technical field for UX purpose."
+msgstr "UX용 기술 필드"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_purchase_order_default_location_dest_id_usage
-msgid "Technical field used to display the Drop Ship Address"
-msgstr "드롭 쉽 주소를 표시하는 데 사용되는 기술 필드"
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_notes
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__notes
 msgid "Terms and Conditions"
 msgstr "이용 약관"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_purchase_order_website_url
-msgid "The full URL to access the document through the website."
-msgstr "웹사이트를 통해 문서에 접근 하는 전체 URL입니다."
-
-#. module: purchase
-#: model:ir.actions.act_window,help:purchase.product_product_action
-msgid ""
-"The product form contains detailed information to improve the\n"
-"                purchase process: prices, procurement logistics, accounting data,\n"
-"                available vendors, etc."
-msgstr ""
-"제품 양식에는 구매 프로세스 개선을위한 \n"
-"자세한 정보 (가격, 조달 물류, 회계 데이터, 사용 가능한 공급 업체 등)가 들어 있습니다."
-
-#. module: purchase
-#: model:ir.actions.act_window,help:purchase.product_normal_action_puchased
-msgid ""
-"The product form contains detailed information to improve the\n"
-"            purchase process: prices, procurement logistics, accounting data,\n"
-"            available vendors, etc."
-msgstr ""
-"제품 양식에는 구매 프로세스 개선을위한 \n"
-" 자세한 정보: 가격, 조달 물류, 회계 데이터, \n"
-" 사용 가능한 공급 업체 등이 들어 있습니다."
-
-#. module: purchase
-#: code:addons/purchase/models/purchase.py:662
-#, python-format
-msgid ""
-"The quantities on your purchase order indicate less than billed. You should "
-"ask for a refund. "
-msgstr "구매 주문 수량이 청구서보다 적습니다. 환불을 요청해야 합니다."
-
-#. module: purchase
-#: model:ir.actions.act_window,help:purchase.purchase_rfq
-msgid ""
-"The quotation contains the history of the discussion/negotiation\n"
-"                you had with your vendor. Once confirmed, a request for\n"
-"                quotation is converted into a purchase order."
-msgstr ""
-"견적에는 공급 업체와의 토론/협상의\n"
-"                기록이 포함되어 있습니다. 확인되면 \n"
-"                견적 요청이 구매 주문으로 변환됩니다."
-
-#. module: purchase
-#: model:ir.actions.act_window,help:purchase.act_res_partner_2_purchase_order
+#: model_terms:ir.actions.act_window,help:purchase.act_res_partner_2_purchase_order
 msgid ""
 "The request for quotation is the first step of the purchases flow. Once\n"
 "                    converted into a purchase order, you will be able to control the receipt\n"
 "                    of the products and the vendor bill."
 msgstr ""
 "견적 요청은 구매 절차의 첫 번째 단계입니다. 구매 주문서로 변환되면\n"
-"                   제품 수령과 공급 업체 청구서를 관리 할 수 있습니다."
+"                   제품 수령과 공급 업체 청구서를 관리할 수 있습니다."
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:898
+#: code:addons/purchase/models/purchase.py:0
 #, python-format
 msgid ""
-"There is no vendor associated to the product %s. Please define a vendor for "
-"this product."
-msgstr "%s 상품과 관련된 공급업체가 없습니다. 이 상품에 대한 공급업체를 정의하십시오."
+"There is no invoiceable line. If a product has a control policy based on "
+"received quantity, please make sure that a quantity has been received."
+msgstr ""
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_product_category_property_account_creditor_price_difference_categ
+#: model:ir.model.fields,help:purchase.field_product_product__property_account_creditor_price_difference
+#: model:ir.model.fields,help:purchase.field_product_template__property_account_creditor_price_difference
+msgid ""
+"This account is used in automated inventory valuation to record the price "
+"difference between a purchase order and its related vendor bill when "
+"validating this vendor bill."
+msgstr ""
+"이 계정은 자동 재고 평가에 사용되어 이 공급업체 청구서를 확인할 때 구매 주문과 관련 공급업체 청구서 간의 가격 차이를 기록합니다."
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_product_category__property_account_creditor_price_difference_categ
 msgid ""
 "This account will be used to value price difference between purchase price "
 "and accounting cost."
 msgstr "이 계정은 구매 가격과 회계 비용 간의 가격 차이를 평가하는 데 사용됩니다."
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_product_product_property_account_creditor_price_difference
-#: model:ir.model.fields,help:purchase.field_product_template_property_account_creditor_price_difference
-msgid ""
-"This account will be used to value price difference between purchase price "
-"and cost price."
-msgstr "이 계정은 구입 가격과 원가 사이의 가격차를 이용합니다."
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
-msgid ""
-"This adds a dropshipping route to apply on products in order to request your"
-" vendors to deliver to your customers. A product to dropship will generate a"
-" purchase request for quotation once the sales order confirmed. This is a "
-"on-demand flow. The requested delivery address will be the customer delivery"
-" address and not your warehouse."
-msgstr ""
-"이는 공급 업체가 고객에게 제공하도록 요청하기 위해 제품에 적용 할 수있는 운송 방법을 추가합니다. 직배송할 상품은 판매 주문이 확인되면"
-" 견적 요청 구매를 생성합니다. 이것은 주문형 흐름입니다. 요청된 배송 주소는 창고가 아닌 고객 배송 주소입니다."
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-msgid "This changes the scheduled date of all order lines to the given date"
-msgstr "이렇게하면 모든 주문 라인의 예정 날짜가 주어진 날짜로 변경됩니다."
-
-#. module: purchase
-#: model:ir.model.fields,help:purchase.field_res_partner_property_purchase_currency_id
-#: model:ir.model.fields,help:purchase.field_res_users_property_purchase_currency_id
+#: model:ir.model.fields,help:purchase.field_res_partner__property_purchase_currency_id
+#: model:ir.model.fields,help:purchase.field_res_users__property_purchase_currency_id
 msgid ""
 "This currency will be used, instead of the default one, for purchases from "
 "the current partner"
-msgstr "이 통화는 현재 파트너의 구매시 설정 된 통화 대신 사용됩니다."
+msgstr "이 통화는 현재 파트너의 구매시 설정된 통화 대신 사용됩니다."
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_res_config_settings_default_purchase_method
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+#: model:ir.model.fields,help:purchase.field_res_config_settings__default_purchase_method
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
 msgid ""
 "This default value is applied to any new product created. This can be "
 "changed in the product detail form."
 msgstr "이 기본값은 생성된 모든 새 상품에 적용됩니다. 상품 세부 사항 양식에서 변경할 수 있습니다."
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_product_supplier_inherit
-msgid "This note will show up on purchase orders."
+#: model_terms:ir.ui.view,arch_db:purchase.view_product_supplier_inherit
+msgid "This note is added to purchase orders."
+msgstr "이 메모는 구매 주문에 추가됩니다."
+
+#. module: purchase
+#: code:addons/purchase/models/account_invoice.py:0
+#, python-format
+msgid "This vendor bill has been created from: %s"
+msgstr "이 공급업체 청구서는 다음에서 작성되었습니다 : %s"
+
+#. module: purchase
+#: code:addons/purchase/models/account_invoice.py:0
+#, python-format
+msgid "This vendor bill has been modified from: %s"
+msgstr "이 공급업체 청구서가 다음에서 수정되었습니다 :%s"
+
+#. module: purchase
+#: model_terms:ir.actions.act_window,help:purchase.act_res_partner_2_purchase_order
+msgid "This vendor has no purchase order. Create a new RfQ"
+msgstr "이 공급업체는 구매 주문이 없습니다. 새로운 견적 요청 만들기"
+
+#. module: purchase
+#: model:digest.tip,name:purchase.digest_tip_purchase_0
+#: model_terms:digest.tip,tip_description:purchase.digest_tip_purchase_0
+msgid "Tip: How to keep late receipts under control?"
 msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/account_invoice.py:218
-#, python-format
-msgid "This vendor bill has been created from: %s"
-msgstr "이 공급 업체 청구서는 다음에서 작성되었습니다:%s"
+#: model:digest.tip,name:purchase.digest_tip_purchase_1
+#: model_terms:digest.tip,tip_description:purchase.digest_tip_purchase_1
+msgid "Tip: Never miss a purchase order"
+msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/account_invoice.py:232
-#, python-format
-msgid "This vendor bill has been modified from: %s"
-msgstr "이 공급 업체 청구서가 다음에서 수정되었습니다:%s"
-
-#. module: purchase
-#: model:ir.actions.act_window,help:purchase.act_res_partner_2_purchase_order
-msgid "This vendor has no purchase order. Click to create a new RfQ."
-msgstr "이 공급 업체에는 구매 오더가 없습니다. 새 견적요청를 만들려면 클릭하십시오."
-
-#. module: purchase
-#: model:ir.model.fields,help:purchase.field_purchase_order_picking_type_id
-msgid "This will determine operation type of incoming shipment"
-msgstr "이것은 입고 선적의 운영 유형을 결정합니다"
-
-#. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
-#: selection:purchase.order,state:0 selection:purchase.report,state:0
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order__state__to_approve
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_report__state__to_approve
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
 msgid "To Approve"
-msgstr "승인 요청"
+msgstr "결재 대기"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__qty_to_invoice
+msgid "To Invoice Quantity"
+msgstr "송장 수량으로"
+
+#. module: purchase
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "To Send"
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
 msgid "Today Activities"
-msgstr "금일 활동"
+msgstr "오늘 활동"
 
 #. module: purchase
-#: code:addons/purchase/controllers/portal.py:45
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_amount_total
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_price_total
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_orders
+#: code:addons/purchase/controllers/portal.py:0
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__amount_total
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__price_total
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__price_total
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_orders
 #, python-format
 msgid "Total"
-msgstr "총계"
+msgstr "합계"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_price_total
-msgid "Total Price"
-msgstr "총계"
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__product_uom_qty
+msgid "Total Quantity"
+msgstr "전체 수량"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_kpis_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_tree
 msgid "Total Untaxed amount"
 msgstr "공급가액"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_kpis_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_tree
 msgid "Total amount"
 msgstr "총계"
 
 #. module: purchase
-#: model:ir.model,name:purchase.model_stock_picking
-msgid "Transfer"
-msgstr "재고이동"
+#: model:ir.model.fields,help:purchase.field_purchase_order__mail_reception_confirmed
+msgid "True if PO reception is confirmed by the vendor."
+msgstr ""
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:363
+#: model:ir.model.fields,help:purchase.field_purchase_order__mail_reminder_confirmed
+msgid "True if the reminder email is confirmed by the vendor."
+msgstr ""
+
+#. module: purchase
+#: model:ir.model.fields,help:purchase.field_purchase_order__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "레코드에 있는 예외 활동의 유형입니다."
+
+#. module: purchase
+#: code:addons/purchase/models/purchase.py:0
 #, python-format
 msgid ""
-"Unable to cancel purchase order %s as some receptions have already been "
-"done."
-msgstr "일부 접수가 이미 완료되었으므로 구매 주문 %s을 취소 할 수 없습니다."
+"Unable to cancel this purchase order. You must first cancel the related "
+"vendor bills."
+msgstr "이 구매 주문을 취소할 수 없습니다. 먼저 관련 공급업체 청구서를 취소해야 합니다."
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:366
-#, python-format
-msgid ""
-"Unable to cancel this purchase order. You must first cancel related vendor "
-"bills."
-msgstr "이 구매 주문서를 취소 할 수 없습니다. 먼저 관련 공급 업체 청구서를 취소해야합니다."
-
-#. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_price_unit
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__price_unit
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order_update_date
 msgid "Unit Price"
 msgstr "단가"
 
 #. module: purchase
-#: model:ir.ui.menu,name:purchase.menu_purchase_uom_categ_form_action
-msgid "Unit of Measure Categories"
-msgstr "측정단위 카테고리"
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Unit Price:"
+msgstr "단가"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__product_uom
+msgid "Unit of Measure"
+msgstr "단위"
 
 #. module: purchase
 #: model:ir.ui.menu,name:purchase.menu_purchase_uom_form_action
 msgid "Units of Measure"
-msgstr "측정단위"
+msgstr "단위"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model:ir.ui.menu,name:purchase.menu_purchase_uom_categ_form_action
+msgid "Units of Measure Categories"
+msgstr "단위 범주"
+
+#. module: purchase
+#: model:ir.ui.menu,name:purchase.menu_unit_of_measure_in_config_purchase
+msgid "Units of Measures"
+msgstr "단위"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Unlock"
-msgstr "잠금해제"
+msgstr "잠금 해제"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_unread
 msgid "Unread Messages"
-msgstr "읽지 않은 메시지"
+msgstr "읽지 않은 메세지"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.purchase_order_tree
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "읽지 않은 메세지 수"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_kpis_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_tree
 msgid "Untaxed"
 msgstr "공급가격"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_amount_untaxed
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__amount_untaxed
 msgid "Untaxed Amount"
 msgstr "공급가액"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.portal_my_purchase_order
-msgid "Untaxed Amount:"
-msgstr "공급가액 :"
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__untaxed_total
+msgid "Untaxed Total"
+msgstr "공급가액 합계"
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.action_invoice_pending
-msgid ""
-"Use this menu to control the invoices to be received from your\n"
-"            vendors. When registering a new bill, set the purchase order\n"
-"            and Odoo will fill the bill automatically according to ordered\n"
-"            or received quantities."
-msgstr ""
-"이 메뉴를 사용하여 공급 업체로부터 받은 송장을 관리하십시오. 새 청구서를 등록 할 때 주문서를 설정하면 주문량 또는 수령액에 따라 "
-"자동으로 청구서가 기입됩니다."
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "UoM"
+msgstr "단위"
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.purchase_form_action
-msgid ""
-"Use this menu to search within your purchase orders by\n"
-"                references, vendor, products, etc. For each purchase order,\n"
-"                you can track the related discussion with the vendor, control\n"
-"                the products received and control the vendor bills."
-msgstr ""
-"이 메뉴를 사용하여 참조, 공급 업체, 제품 등을 기준으로 구매 주문을 검색합니다. 각 구매 주문에 대해 공급 업체와의 관련 회의록을 "
-"추적하고 수신 된 제품을 제어하고 공급 업체 청구서를 관리 할 수 있습니다."
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order__priority__1
+msgid "Urgent"
+msgstr "긴급"
 
 #. module: purchase
 #: model:res.groups,name:purchase.group_purchase_user
@@ -2022,148 +2746,198 @@ msgid "User"
 msgstr "사용자"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_res_config_settings_company_currency_id
+#: model:ir.model.fields,help:purchase.field_res_config_settings__company_currency_id
 msgid "Utility field to express amount currency"
 msgstr "금액 통화를 나타내는 유틸리티 필드"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_partner_id
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_partner_id
-#: model:ir.ui.view,arch_db:purchase.purchase_order_line_search
-#: model:ir.ui.view,arch_db:purchase.purchase_order_line_tree
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_search
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "Variant Grid Entry"
+msgstr "파생 그리드 항목"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_bill_union__partner_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__partner_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__partner_id
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_line_search
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_line_tree
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
 msgid "Vendor"
 msgstr "공급업체"
 
 #. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_bill_union__vendor_bill_id
+msgid "Vendor Bill"
+msgstr "공급업체 청구서"
+
+#. module: purchase
 #: model:ir.actions.act_window,name:purchase.act_res_partner_2_supplier_invoices
-#: model:ir.actions.act_window,name:purchase.action_invoice_pending
-#: model:ir.actions.act_window,name:purchase.purchase_open_invoice
-#: model:ir.ui.menu,name:purchase.menu_procurement_management_pending_invoice
-#: model:ir.ui.view,arch_db:purchase.purchase_order_form
-#: model:ir.ui.view,arch_db:purchase.res_partner_view_purchase_account_buttons
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase.res_partner_view_purchase_account_buttons
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_bill_union_filter
 msgid "Vendor Bills"
 msgstr "공급업체 청구서"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_group_manage_vendor_price
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
+msgid "Vendor Country"
+msgstr "공급업체 국가"
+
+#. module: purchase
 #: model:ir.ui.menu,name:purchase.menu_product_pricelist_action2_purchase
 msgid "Vendor Pricelists"
 msgstr "공급업체 가격표"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_partner_ref
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__partner_ref
 msgid "Vendor Reference"
 msgstr "공급업체 참조"
 
 #. module: purchase
 #: model:ir.ui.menu,name:purchase.menu_procurement_management_supplier_name
-#: model:ir.ui.view,arch_db:purchase.view_product_supplier_inherit
 msgid "Vendors"
 msgstr "공급업체"
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.act_res_partner_2_supplier_invoices
+#: model_terms:ir.actions.act_window,help:purchase.act_res_partner_2_supplier_invoices
 msgid ""
 "Vendors bills can be pre-generated based on purchase\n"
 "                    orders or receipts. This allows you to control bills\n"
 "                    you receive from your vendor according to the draft\n"
 "                    document in Odoo."
 msgstr ""
-"공급업체 청구서는 구매주문건 또는 영수증을 기준으로 미리 생성 될 수 있습니다. 이를 통해 Odoo의 초안문서에 따라 공급업체로부터 받은"
-" 청구서를 관리 할 수 있습니다."
+"공급업체 청구서는 구매주문건 또는 영수증을 기준으로 미리 생성될 수 있습니다. 이를 통해 Odoo의 초안 문서에 따라 공급업체로부터 받은"
+" 청구서를 관리할 수 있습니다."
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_volume
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__volume
 msgid "Volume"
 msgstr "부피"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
-#: selection:purchase.order,invoice_status:0
+#. openerp-web
+#: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
+#, python-format
+msgid "Waiting"
+msgstr "대기중"
+
+#. module: purchase
+#: model:ir.model.fields.selection,name:purchase.selection__purchase_order__invoice_status__to_invoice
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
 msgid "Waiting Bills"
-msgstr "기다리는 청구서"
+msgstr "청구서 기다리는 중"
 
 #. module: purchase
-#: model:ir.model,name:purchase.model_stock_warehouse
-#: model:ir.model.fields,field_description:purchase.field_purchase_report_picking_type_id
-msgid "Warehouse"
-msgstr "창고"
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+msgid "Waiting RFQs"
+msgstr ""
 
 #. module: purchase
-#: selection:product.template,purchase_line_warn:0
-#: selection:res.partner,purchase_warn:0
+#: model:ir.model.fields.selection,name:purchase.selection__product_template__purchase_line_warn__warning
+#: model:ir.model.fields.selection,name:purchase.selection__res_partner__purchase_warn__warning
 msgid "Warning"
 msgstr "경고"
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:268
-#: code:addons/purchase/models/purchase.py:828
+#: code:addons/purchase/models/purchase.py:0
+#: code:addons/purchase/models/purchase.py:0
 #, python-format
 msgid "Warning for %s"
 msgstr "%s에 대한 경고"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_partner_view_purchase_buttons
+#: model_terms:ir.ui.view,arch_db:purchase.res_partner_view_purchase_buttons
 msgid "Warning on the Purchase Order"
 msgstr "구매 주문 경고"
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.view_product_supplier_inherit
+#: model_terms:ir.ui.view,arch_db:purchase.view_product_supplier_inherit
 msgid "Warning when Purchasing this Product"
 msgstr "이 상품을 구매할 때의 경고"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_res_config_settings_group_warning_purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+#: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
 msgid "Warnings"
 msgstr "경고"
 
 #. module: purchase
-#: model:ir.model.fields,field_description:purchase.field_purchase_order_website_url
-msgid "Website URL"
-msgstr "웹 사이트 URL"
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__website_message_ids
+msgid "Website Messages"
+msgstr "웹사이트 메시지"
 
 #. module: purchase
-#: model:ir.model.fields,help:purchase.field_stock_warehouse_buy_to_resupply
-msgid "When products are bought, they can be delivered to this warehouse"
-msgstr "상품이 도달하면 이 창고로 배송될 것입니다."
+#: model:ir.model.fields,help:purchase.field_purchase_order__website_message_ids
+msgid "Website communication history"
+msgstr "웹사이트 대화 이력"
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.purchase_open_invoice
+#: model_terms:digest.tip,tip_description:purchase.digest_tip_purchase_0
 msgid ""
-"You can control the invoice from your vendor according to\n"
-"            what you purchased (services) or received (products)."
-msgstr "구매 한 (서비스) 또는 수령 한 (제품)에 따라 공급 업체의 송장을 제어 할 수 있습니다."
+"When creating a purchase order, have a look at the vendor's <i>On Time "
+"Delivery</i> rate: the percentage of products shipped on time. If it is too "
+"low, activate the <i>automated reminders</i>. A few days before the due "
+"shipment, Odoo will send the vendor an email to ask confirmation of shipment"
+" dates and keep you informed in case of any delays. To get the vendor's "
+"performance statistics, click on the OTD rate."
+msgstr ""
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.product_product_action
+#: model_terms:digest.tip,tip_description:purchase.digest_tip_purchase_1
 msgid ""
-"You must define a product for everything you purchase, whether\n"
-"                it's a physical product, a consumable or services you buy to\n"
-"                subcontractors."
-msgstr "제품, 소모품 또는 하청 업체에게 구매하는 서비스 이건간에 구매 한 모든 제품을 정의해야합니다."
+"When sending a purchase order by email, Odoo asks the vendor to acknowledge "
+"the reception of the order. When the vendor acknowledges the order by "
+"clicking on a button in the email, the information is added on the purchase "
+"order. Use filters to track orders that have not been acknowledged."
+msgstr ""
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.product_normal_action_puchased
-msgid ""
-"You must define a product for everything you purchase, whether\n"
-"            it's a physical product, a consumable or services you buy to\n"
-"            subcontractors."
-msgstr "제품, 소모품 또는 하청 업체에게 구매하는 서비스 이건간에 구매 한 모든 제품을 정의해야합니다."
+#: model_terms:ir.ui.view,arch_db:purchase.mail_notification_confirm
+msgid "Yes"
+msgstr "예"
 
 #. module: purchase
-#: code:addons/purchase/models/purchase.py:408
+#: model:ir.model.fields,help:purchase.field_purchase_order__partner_id
+#: model:ir.model.fields,help:purchase.field_purchase_order_line__partner_id
+msgid "You can find a vendor by its Name, TIN, Email or Internal Reference."
+msgstr "이름, TIN, 이메일 또는 내부 참조로 공급업체를 찾을 수 있습니다."
+
+#. module: purchase
+#: code:addons/purchase/models/purchase.py:0
 #, python-format
-msgid "You must set a Vendor Location for this partner %s"
-msgstr "이 파트너에 대한 공급 업체 위치를 설정해야합니다%s"
+msgid ""
+"You cannot change the type of a purchase order line. Instead you should "
+"delete the current line and create a new line of the proper type."
+msgstr "구매 주문 내역의 유형을 변경할 수 없습니다. 대신 현재 내역을 삭제하고 적절한 유형의 새 내역을 만들어야 합니다."
 
 #. module: purchase
-#: model:ir.ui.view,arch_db:purchase.res_config_settings_view_form_stock
-msgid "days"
-msgstr "일"
+#: model_terms:ir.actions.act_window,help:purchase.product_product_action
+msgid ""
+"You must define a product for everything you sell or purchase,\n"
+"                whether it's a storable product, a consumable or a service."
+msgstr "판매 또는 구매하는 모든 제품을 정의해야 합니다. 저장 가능한 제품이든 소모품이든 서비스든 상관 없습니다."
 
 #. module: purchase
-#: model:ir.model,name:purchase.model_res_config_settings
-msgid "res.config.settings"
-msgstr "res.config.settings"
+#: model_terms:ir.actions.act_window,help:purchase.product_normal_action_puchased
+msgid ""
+"You must define a product for everything you sell or purchase,\n"
+"            whether it's a storable product, a consumable or a service."
+msgstr ""
+"판매 또는 구매하는 모든 제품을 정의해야 합니다. \n"
+"              저장 가능한 제품이든 소모품이든 서비스든 상관 없습니다."
+
+#. module: purchase
+#: code:addons/purchase/models/purchase.py:0
+#, python-format
+msgid ""
+"Your quotation contains products from company %(product_company)s whereas your quotation belongs to company %(quote_company)s. \n"
+" Please change the company of your quotation or remove the products from other companies (%(bad_products)s)."
+msgstr ""
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "day(s) before"
+msgstr ""

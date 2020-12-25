@@ -26,7 +26,7 @@ EDI_LIKE_HTML_SOURCE = u"""<div style="font-family: 'Lucida Grande', Ubuntu, Ari
        &nbsp;&nbsp;<strong>REFERENCES</strong><br />
        &nbsp;&nbsp;Invoice number: <strong>${object.number}</strong><br />
        &nbsp;&nbsp;Invoice total: <strong>${object.amount_total} ${object.currency_id.name}</strong><br />
-       &nbsp;&nbsp;Invoice date: ${object.date_invoice}<br />
+       &nbsp;&nbsp;Invoice date: ${object.invoice_date}<br />
        &nbsp;&nbsp;Order reference: ${object.origin}<br />
        &nbsp;&nbsp;Your contact: <a href="mailto:${object.user_id.email or ''}?subject=Invoice%20${object.number}">${object.user_id.name}</a>
     </p>
@@ -73,7 +73,7 @@ QUOTE_BLOCKQUOTE = u"""<html>
     </div>
     <blockquote
 cite="mid:CAEJSRZvWvud8c6Qp=wfNG6O1+wK3i_jb33qVrF7XyrgPNjnyUA@mail.gmail.com"
-      type="cite"><base href="https://www.flectrahq.com">
+      type="cite"><base href="https://flectrahq.com">
       <div dir="ltr">Yep Dominique that is true, as Postgres was the
         base of all same as Flectra and MySQL etc came much later.Â 
         <div><br>

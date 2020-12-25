@@ -1,5 +1,5 @@
 :main-title: Developer Documentation
-:banner: banners/flectra_index.jpg
+:banner: banners/index.jpg
 
 =====
 Index

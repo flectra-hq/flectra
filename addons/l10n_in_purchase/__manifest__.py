@@ -3,16 +3,16 @@
 
 {
     'name': 'Indian - Purchase Report(GST)',
-    'author' : 'Odoo S.A',
     'version': '1.0',
     'description': """GST Purchase Report""",
-    'category': 'Localization',
+    'category': 'Accounting/Localizations/Purchase',
     'depends': [
         'l10n_in',
         'purchase',
     ],
     'data': [
         'views/report_purchase_order.xml',
+        'views/purchase_order_views.xml',
     ],
     'installable': True,
     'application': False,

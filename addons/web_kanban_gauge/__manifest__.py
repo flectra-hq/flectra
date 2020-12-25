@@ -3,7 +3,6 @@
 
 {
     'name': 'Gauge Widget for Kanban',
-    'author': 'Odoo S.A.',
     'category': 'Hidden',
     'description': """
 This widget allows to display gauges using d3 library.

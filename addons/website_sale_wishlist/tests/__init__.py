@@ -1,1 +1,1 @@
-# from . import test_wishlist_process
+from . import test_wishlist_process

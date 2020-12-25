@@ -18,11 +18,23 @@
             <field name="state">open</field>
         </record>
 
-        <record model="crm.team" id="sales_team.salesteam_website_sales">
+        <record id="website_sale.sale_ribbon" model="product.ribbon">
+            <field name="html">Sale</field>
+            <field name="html_class">bg-success o_ribbon_left</field>
+        </record>
+
+        <record id="website_sale.sold_out_ribbon" model="product.ribbon">
+            <field name="html">Sold out</field>
+            <field name="html_class">bg-danger o_ribbon_left</field>
+        </record>
+
+        <record id="website_sale.new_ribbon" model="product.ribbon">
+            <field name="html">New!</field>
+            <field name="html_class">bg-primary o_ribbon_left</field>
+        </record>
+
+        <record id="sales_team.salesteam_website_sales" model="crm.team">
             <field name="active" eval="True"/>
-            <field name="dashboard_graph_model">sale.report</field>
-            <field name="dashboard_graph_period">week</field>
-            <field name="company_id" eval="False"/>
         </record>
 
         <record model="website" id="website.default_website">
@@ -30,14 +42,67 @@
         </record>
 
         <record model="product.pricelist" id="product.list0">
-            <field name="selectable" eval="False" />
-            <field name="website_ids" eval="[(4, ref('website.default_website'))]"/>
+            <field name="selectable" eval="True" />
+            <field name="website_id" eval="False"/>
         </record>
+
     </data>
     <data>
-        <record id="sale.model_sale_order" model="ir.model">
-            <field name="website_form_access" eval="True"/>
-            <field name="website_form_label">Sales Order</field>
+        <!-- Action Server for Dynamic Filter -->
+        <record id="dynamic_snippet_products_action" model="ir.actions.server">
+            <field name="name">Products Dynamic Snippet</field>
+            <field name="model_id" ref="model_product_product"/>
+            <field name="state">code</field>
+            <field name="code">
+ProductProduct = model.env['product.product']
+FieldMonetary = model.env['ir.qweb.field.monetary']
+
+website = request.website.get_current_website()
+dynamic_filter = model.env.context.get('dynamic_filter')
+limit = model.env.context.get('limit')
+search_domain = model.env.context.get('search_domain')
+get_rendering_data_structure = model.env.context.get('get_rendering_data_structure')
+escape = dynamic_filter.escape_falsy_as_empty
+
+domain = [('website_published', '=', True)] + website.website_domain() + (search_domain or [])
+products = ProductProduct.search(domain, limit=limit)
+_ = products.mapped('name')
+
+monetary_options = {
+    'display_currency': request.website.get_current_pricelist().currency_id,
+}
+
+max_nb_chars = 100
+res_products = []
+for product in products:
+    res_product = product._read_format(['id', 'name', 'website_url', 'description_sale'])[0]
+    res_product.update(product._get_combination_info_variant())
+
+    if res_product['description_sale'] and len(res_product['description_sale']) > max_nb_chars:
+        res_product['description_sale'] = "%s ..." % res_product['description_sale'][:max_nb_chars]
+    res_product['list_price'] = FieldMonetary.value_to_html(res_product['price'], monetary_options)
+    data = get_rendering_data_structure()
+    for field_name in dynamic_filter.field_names.split(","):
+        field = ProductProduct._fields.get(field_name)
+        if field and field.type == 'binary':
+            data['image_fields'][field_name] = escape(website.image_url(product, field_name))
+        elif field_name == 'list_price':
+            data['fields'][field_name] = res_product[field_name]
+        else:
+            data['fields'][field_name] = escape(res_product[field_name])
+    data['fields']['call_to_action_url'] = escape(product['website_url'])
+    res_products.append(data)
+
+response = res_products
+            </field>
+        </record>
+        <!-- Dynamic Filter -->
+        <record id="dynamic_filter_demo_products" model="website.snippet.filter">
+            <field name="action_server_id" ref="website_sale.dynamic_snippet_products_action"/>
+            <field name="field_names">display_name,description_sale,image_512,list_price</field>
+            <field name="limit" eval="16"/>
+            <field name="name">Products</field>
+            <field name="website_id" ref="website.default_website"/>
         </record>
         <function model="ir.model.fields" name="formbuilder_whitelist">
             <value>sale.order</value>
@@ -47,8 +112,9 @@
         </function>
 
         <record id="base.model_res_partner" model="ir.model">
+            <field name="website_form_key">create_customer</field>
             <field name="website_form_access">True</field>
-            <field name="website_form_label">Customer</field>
+            <field name="website_form_label">Create a Customer</field>
         </record>
         <function model="ir.model.fields" name="formbuilder_whitelist">
             <value>res.partner</value>
@@ -58,16 +124,5 @@
                 'vat', 'company_name'
             ]"/>
         </function>
-    </data>
-    <data noupdate="0">
-        <record id="product_limit_20" model="product.view.limit">
-            <field name="name">20</field>
-        </record>
-        <record id="product_limit_40" model="product.view.limit">
-            <field name="name">40</field>
-        </record>
-        <record id="product_limit_60" model="product.view.limit">
-            <field name="name">60</field>
-        </record>
     </data>
 </flectra>

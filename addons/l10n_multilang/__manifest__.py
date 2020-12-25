@@ -3,9 +3,8 @@
 
 {
     'name': 'Multi Language Chart of Accounts',
-    'author' : 'Odoo S.A',
     'version': '1.1',
-    'category': 'Localization',
+    'category': 'Accounting/Localizations',
     'description': """
     * Multi language support for Chart of Accounts, Taxes, Tax Codes, Journals,
       Accounting Templates, Analytic Chart of Accounts and Analytic Journals.

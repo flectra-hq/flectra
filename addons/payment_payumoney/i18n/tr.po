@@ -1,19 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * payment_payumoney
+# 	* payment_payumoney
 # 
 # Translators:
-# Ediz Duman <neps1192@gmail.com>, 2017
-# Güven YILMAZ <guvenyilmaz@outlook.com.tr>, 2017
-# Martin Trigaux <mat@flectrahq.com>, 2017
-# Murat Kaplan <muratk@projetgrup.com>, 2017
+# Ediz Duman <neps1192@gmail.com>, 2020
+# Martin Trigaux, 2020
+# Levent Karakaş <levent@mektup.at>, 2020
+# Murat Kaplan <muratk@projetgrup.com>, 2020
+# Güven YILMAZ <guvenyilmaz@outlook.com.tr>, 2020
+# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2020
+# Umur Akın <umura@projetgrup.com>, 2020
+# abc Def <hdogan1974@gmail.com>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 09:53+0000\n"
-"PO-Revision-Date: 2017-09-20 09:53+0000\n"
-"Last-Translator: Murat Kaplan <muratk@projetgrup.com>, 2017\n"
+"POT-Creation-Date: 2020-10-02 14:11+0000\n"
+"PO-Revision-Date: 2020-09-07 08:15+0000\n"
+"Last-Translator: abc Def <hdogan1974@gmail.com>, 2020\n"
 "Language-Team: Turkish (https://www.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,45 +27,62 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: payment_payumoney
-#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer_payumoney_merchant_key
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer__display_name
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_transaction__display_name
+msgid "Display Name"
+msgstr "Görünüm Adı"
+
+#. module: payment_payumoney
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer__id
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_transaction__id
+msgid "ID"
+msgstr "ID"
+
+#. module: payment_payumoney
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer____last_update
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_transaction____last_update
+msgid "Last Modified on"
+msgstr "Son Düzenleme"
+
+#. module: payment_payumoney
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer__payumoney_merchant_key
 msgid "Merchant Key"
 msgstr "Ticari Anahtar"
 
 #. module: payment_payumoney
-#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer_payumoney_merchant_salt
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer__payumoney_merchant_salt
 msgid "Merchant Salt"
-msgstr ""
+msgstr "Tüccar Tuzu"
 
 #. module: payment_payumoney
-#: code:addons/payment_payumoney/models/payment.py:146
-#, python-format
-msgid "PayUmoney: feedback error"
-msgstr "PayUmoney: geri bildirim hatası"
+#: model:ir.model.fields.selection,name:payment_payumoney.selection__payment_acquirer__provider__payumoney
+msgid "PayUmoney"
+msgstr "PayUmoney"
 
 #. module: payment_payumoney
-#: code:addons/payment_payumoney/models/payment.py:108
+#: code:addons/payment_payumoney/models/payment.py:0
 #, python-format
 msgid "PayUmoney: invalid shasign, received %s, computed %s, for data %s"
 msgstr ""
 
 #. module: payment_payumoney
-#: code:addons/payment_payumoney/models/payment.py:102
+#: code:addons/payment_payumoney/models/payment.py:0
 #, python-format
 msgid "PayUmoney: received data for reference %s; multiple orders found"
 msgstr ""
 
 #. module: payment_payumoney
-#: code:addons/payment_payumoney/models/payment.py:99
+#: code:addons/payment_payumoney/models/payment.py:0
 #, python-format
 msgid "PayUmoney: received data for reference %s; no order found"
 msgstr ""
 
 #. module: payment_payumoney
-#: code:addons/payment_payumoney/models/payment.py:94
+#: code:addons/payment_payumoney/models/payment.py:0
 #, python-format
 msgid ""
 "PayUmoney: received data with missing reference (%s) or pay_id (%s) or "
-"shashign (%s)"
+"shasign (%s)"
 msgstr ""
 
 #. module: payment_payumoney
@@ -72,3 +94,8 @@ msgstr "Ödeme Alıcısı"
 #: model:ir.model,name:payment_payumoney.model_payment_transaction
 msgid "Payment Transaction"
 msgstr "Ödeme İşlemi"
+
+#. module: payment_payumoney
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer__provider
+msgid "Provider"
+msgstr "Sağlayıcı"

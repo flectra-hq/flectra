@@ -34,7 +34,7 @@ var AbstractFieldUpgrade = {
      * Redirects the user to the flectra-enterprise/uprade page
      *
      * @private
-     * @returns {Deferred}
+     * @returns {Promise}
      */
     _confirmUpgrade: function () {
         return this._rpc({
@@ -43,11 +43,11 @@ var AbstractFieldUpgrade = {
                 args: [[["share", "=", false]]],
             })
             .then(function (data) {
-                framework.redirect("https://www.flectrahq.com/flectra-enterprise/upgrade?num_users=" + data);
+                framework.redirect("https://flectrahq.com/flectra-enterprise/upgrade?num_users=" + data);
             });
     },
     /**
-     * This function is meant to be overriden to insert the 'Enterprise' label
+     * This function is meant to be overridden to insert the 'Enterprise' label
      * JQuery node at the right place.
      *
      * @abstract
@@ -92,14 +92,13 @@ var AbstractFieldUpgrade = {
      */
     _render: function () {
         this._super.apply(this, arguments);
-        // disable enterprise tags
-        // this._insertEnterpriseLabel($("<span>", {
-        //     text: "Enterprise",
-        //     'class': "label label-primary oe_inline o_enterprise_label"
-        // }));
+        this._insertEnterpriseLabel($("<span>", {
+            text: "Enterprise",
+            'class': "badge badge-primary oe_inline o_enterprise_label"
+        }));
     },
     /**
-     * This function is meant to be overriden to reset the $el to its initial
+     * This function is meant to be overridden to reset the $el to its initial
      * state.
      *
      * @abstract

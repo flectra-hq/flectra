@@ -1,4 +1,4 @@
-:banner: banners/flectra_translating_modules.jpg
+:banner: banners/translate.jpg
 
 .. _reference/translations:
 
@@ -6,6 +6,11 @@
 ===================
 Translating Modules
 ===================
+
+This section explains how to provide translation abilities to your module.
+
+.. note:: If you want to contribute to the translation of Odoo itself, please refer to the
+  `Odoo Wiki page <https://github.com/odoo/odoo/wiki/Translations>`_.
 
 Exporting translatable term
 ===========================
@@ -36,8 +41,8 @@ can be created. PO files can be created using msginit_, with a dedicated
 translation tool like POEdit_ or by simply copying the template to a new file
 called :file:`{language}.po`. Translation files should be put in
 :file:`{yourmodule}/i18n/`, next to :file:`{yourmodule}.pot`, and will be
-automatically loaded by Flectra when the corresponding language is installed (via
-:menuselection:`Settings --> Translations --> Load a Translation`)
+automatically loaded by Odoo when the corresponding language is installed (via
+:menuselection:`Settings --> Translations --> Languages`)
 
 .. note:: translations for all loaded languages are also installed or updated
           when installing or updating a module
@@ -45,7 +50,7 @@ automatically loaded by Flectra when the corresponding language is installed (vi
 Implicit exports
 ================
 
-Flectra automatically exports translatable strings from "data"-type content:
+Odoo automatically exports translatable strings from "data"-type content:
 
 * in non-QWeb views, all text nodes are exported as well as the content of
   the ``string``, ``help``, ``sum``, ``confirm`` and ``placeholder``
@@ -54,29 +59,29 @@ Flectra automatically exports translatable strings from "data"-type content:
   exported except inside ``t-translation="off"`` blocks, the content of the
   ``title``, ``alt``, ``label`` and ``placeholder`` attributes are also
   exported
-* for :class:`~flectra.fields.Field`, unless their model is marked with
+* for :class:`~odoo.fields.Field`, unless their model is marked with
   ``_translate = False``:
 
   * their ``string`` and ``help`` attributes are exported
   * if ``selection`` is present and a list (or tuple), it's exported
   * if their ``translate`` attribute is set to ``True``, all of their existing
     values (across all records) are exported
-* help/error messages of :attr:`~flectra.models.Model._constraints` and
-  :attr:`~flectra.models.Model._sql_constraints` are exported
+* help/error messages of :attr:`~odoo.models.Model._constraints` and
+  :attr:`~odoo.models.Model._sql_constraints` are exported
 
 Explicit exports
 ================
 
 When it comes to more "imperative" situations in Python code or Javascript
-code, Flectra cannot automatically export translatable terms so they
+code, Odoo cannot automatically export translatable terms so they
 must be marked explicitly for export. This is done by wrapping a literal
 string in a function call.
 
-In Python, the wrapping function is :func:`flectra._`::
+In Python, the wrapping function is :func:`odoo._`::
 
     title = _("Bank Accounts")
 
-In JavaScript, the wrapping function is generally :js:func:`flectra.web._t`:
+In JavaScript, the wrapping function is generally :js:func:`odoo.web._t`:
 
 .. code-block:: javascript
 
@@ -88,6 +93,10 @@ In JavaScript, the wrapping function is generally :js:func:`flectra.web._t`:
     variables. For situations where strings are formatted, this means the
     format string must be marked, not the formatted string
 
+The lazy version of `_` and `_t` is :func:`odoo._lt` in python and
+:js:func:`odoo.web._lt` in javascript. The translation lookup is executed only
+at rendering and can be used to declare translatable properties in class methods
+of global variables.
 
 Variables
 ^^^^^^^^^
@@ -95,9 +104,10 @@ Variables
 
     _("Scheduled meeting with %s" % invitee.name)
 
-**Do** set the dynamic variables outside of the translation lookup::
+**Do** set the dynamic variables as a parameter of the translation lookup (this
+will fallback on source in case of missing placeholder in the translation)::
 
-    _("Scheduled meeting with %s") % invitee.name
+    _("Scheduled meeting with %s", invitee.name)
 
 
 Blocks
@@ -106,6 +116,7 @@ Blocks
 
     # bad, trailing spaces, blocks out of context
     _("You have ") + len(invoices) + _(" invoices waiting")
+    _t("You have ") + invoices.length + _t(" invoices waiting");
 
     # bad, multiple small translations
     _("Reference of the document that generated ") + \
@@ -115,6 +126,7 @@ Blocks
 
     # good, allow to change position of the number in the translation
     _("You have %s invoices wainting") % len(invoices)
+    _.str.sprintf(_t("You have %s invoices wainting"), invoices.length);
 
     # good, full sentence is understandable
     _("Reference of the document that generated " + \
@@ -124,16 +136,16 @@ Plural
 ^^^^^^
 **Don't** pluralize terms the English-way::
 
-    msg = _("You have %s invoice") % invoice_count
+    msg = _("You have %(count)s invoice", count=invoice_count)
     if invoice_count > 1:
       msg += _("s")
 
 **Do** keep in mind every language has different plural forms::
 
     if invoice_count > 1:
-      msg = _("You have %s invoices") % invoice_count
+      msg = _("You have %(count)s invoices", count=invoice_count)
     else:
-      msg = _("You have %s invoice") % invoice_count
+      msg = _("You have one invoice")
 
 Read vs Run Time
 ^^^^^^^^^^^^^^^^
@@ -142,8 +154,8 @@ Read vs Run Time
 
     ERROR_MESSAGE = {
       # bad, evaluated at server launch with no user language
-      access_error: _('Access Error'),
-      missing_error: _('Missing Record'),
+      'access_error': _('Access Error'),
+      'missing_error': _('Missing Record'),
     }
 
     class Record(models.Model):
@@ -161,10 +173,25 @@ Read vs Run Time
         missing_error: _t('Missing Record'),
     };
 
-**Do** evaluate dynamically the translatable content::
+
+**Do** use lazy translation lookup method::
+
+    ERROR_MESSAGE = {
+      'access_error': _lt('Access Error'),
+      'missing_error': _lt('Missing Record'),
+    }
+
+    class Record(models.Model):
+
+      def _raise_error(self, code):
+        # translation lookup executed at error rendering
+        raise UserError(ERROR_MESSAGE[code])
+
+
+or **do** evaluate dynamically the translatable content::
 
     # good, evaluated at run time
-    def _get_error_message():
+    def _get_error_message(self):
       return {
         access_error: _('Access Error'),
         missing_error: _('Missing Record'),
@@ -182,6 +209,6 @@ Read vs Run Time
     };
 
 
-.. _PO File: http://en.wikipedia.org/wiki/Gettext#Translating
-.. _msginit: http://www.gnu.org/software/gettext/manual/gettext.html#Creating
-.. _POEdit: http://poedit.net/
+.. _PO File: https://en.wikipedia.org/wiki/Gettext#Translating
+.. _msginit: https://www.gnu.org/software/gettext/manual/gettext.html#Creating
+.. _POEdit: https://poedit.net/

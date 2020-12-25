@@ -1,6 +1,5 @@
 {
     'name' : 'IM Bus',
-    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Hidden',
     'complexity': 'easy',

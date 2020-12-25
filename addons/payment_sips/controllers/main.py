@@ -4,6 +4,7 @@
 
 import json
 import logging
+import pprint
 import werkzeug
 
 from flectra import http
@@ -16,16 +17,6 @@ class SipsController(http.Controller):
     _notify_url = '/payment/sips/ipn/'
     _return_url = '/payment/sips/dpn/'
 
-    def _get_return_url(self, **post):
-        """ Extract the return URL from the data coming from sips. """
-        return_url = post.pop('return_url', '')
-        if not return_url:
-            Tx = request.env['payment.transaction']
-            data = Tx._sips_data_to_object(post.get('Data'))
-            custom = json.loads(data.pop('returnContext', False) or '{}')
-            return_url = custom.get('return_url', '/')
-        return return_url
-
     def sips_validate_data(self, **post):
         sips = request.env['payment.acquirer'].search([('provider', '=', 'sips')], limit=1)
         security = sips.sudo()._sips_generate_shasign(post)
@@ -35,14 +26,12 @@ class SipsController(http.Controller):
         _logger.warning('Sips: data are corrupted')
         return False
 
-    @http.route([
-        '/payment/sips/ipn/'],
-        type='http', auth='none', methods=['POST'], csrf=False)
+    @http.route('/payment/sips/ipn/', type='http', auth='public', methods=['POST'], csrf=False)
     def sips_ipn(self, **post):
         """ Sips IPN. """
-        _logger.info('Beginning Sips IPN form_feedback with post data %s', post)  # debug
+        _logger.info('Beginning Sips IPN form_feedback with post data %s', pprint.pformat(post))  # debug
         if not post:
-            # SIPS sometimes send empty notification, the reason why is
+            # SIPS sometimes sends empty notifications, the reason why is
             # unclear but they tend to pollute logs and do not provide any
             # meaningful information; log as a warning instead of a traceback
             _logger.warning('Sips: received empty notification; skip.')
@@ -50,10 +39,12 @@ class SipsController(http.Controller):
             self.sips_validate_data(**post)
         return ''
 
-    @http.route([
-        '/payment/sips/dpn'], type='http', auth="none", methods=['POST'], csrf=False)
+    @http.route('/payment/sips/dpn', type='http', auth="public", methods=['POST'], csrf=False)
     def sips_dpn(self, **post):
         """ Sips DPN """
-        return_url = self._get_return_url(**post)
-        self.sips_validate_data(**post)
-        return werkzeug.utils.redirect(return_url)
+        try:
+            _logger.info('Beginning Sips DPN form_feedback with post data %s', pprint.pformat(post))  # debug
+            self.sips_validate_data(**post)
+        except:
+            pass
+        return werkzeug.utils.redirect('/payment/process')

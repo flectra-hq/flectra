@@ -17,3 +17,4 @@ flectra.define('web.BrowserDetection', function (require) {
     });
     return BrowserDetection;
 });
+

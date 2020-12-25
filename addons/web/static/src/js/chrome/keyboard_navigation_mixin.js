@@ -1,13 +1,15 @@
 flectra.define('web.KeyboardNavigationMixin', function (require) {
     "use strict";
     var BrowserDetection = require('web.BrowserDetection');
+    const core = require('web.core');
 
     /**
-     * list of the key that should not be used as accesskeys. Either because we want to reserve them for a specific behavior in Odoo or
+     * list of the key that should not be used as accesskeys. Either because we want to reserve them for a specific behavior in Flectra or
      * because they will not work in certain browser/OS
      */
     var knownUnusableAccessKeys = [' ',
         'A', // reserved for Flectra Edit
+        'B', // reserved for Flectra Previous Breadcrumb (Back)
         'C', // reserved for Flectra Create
         'H', // reserved for Flectra Home
         'J', // reserved for Flectra Discard
@@ -20,7 +22,7 @@ flectra.define('web.KeyboardNavigationMixin', function (require) {
         'E', // chrome does not support 'E' access key --> go to address bar to search google
         'F', // chrome does not support 'F' access key --> go to menu
         'D', // chrome does not support 'D' access key --> go to address bar
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' // reserved for Odoo menus
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' // reserved for Flectra menus
     ];
 
     var KeyboardNavigationMixin = {
@@ -29,9 +31,35 @@ flectra.define('web.KeyboardNavigationMixin', function (require) {
             'keyup': '_onKeyUp',
         },
 
-        init: function () {
+        /**
+         * @constructor
+         * @param {object} [options]
+         * @param {boolean} [options.autoAccessKeys=true]
+         *      Whether accesskeys should be created automatically for buttons
+         *      without them in the page.
+         */
+        init: function (options) {
+            this.options = Object.assign({
+                autoAccessKeys: true,
+            }, options);
             this._areAccessKeyVisible = false;
             this.BrowserDetection = new BrowserDetection();
+        },
+        /**
+         * @override
+         */
+        start: function () {
+            const temp = this._hideAccessKeyOverlay.bind(this);
+            this._hideAccessKeyOverlay = () => temp();
+            window.addEventListener('blur', this._hideAccessKeyOverlay);
+            core.bus.on('click', null, this._hideAccessKeyOverlay);
+        },
+        /**
+         * @destructor
+         */
+        destroy: function () {
+            window.removeEventListener('blur', this._hideAccessKeyOverlay);
+            core.bus.off('click', null, this._hideAccessKeyOverlay);
         },
 
         //--------------------------------------------------------------------------
@@ -104,7 +132,7 @@ flectra.define('web.KeyboardNavigationMixin', function (require) {
          * Assign access keys to all buttons inside $el and sets an overlay to show the access key
          * The access keys will be assigned using first the name of the button, letter by letter until we find one available,
          * after that we will assign any available letters.
-         * Not all letters should be used as access keys, some of the should be reserved for standard odoo behavior or browser behavior
+         * Not all letters should be used as access keys, some of the should be reserved for standard flectra behavior or browser behavior
          *
          * @private
          * @param keyDownEvent {jQueryKeyboardEvent} the keyboard event triggered
@@ -129,22 +157,24 @@ flectra.define('web.KeyboardNavigationMixin', function (require) {
 
                 var usedAccessKey = this._getAllUsedAccessKeys();
 
-                var buttonsWithoutAccessKey = this.$el.find('button.btn:visible')
-                    .not('[accesskey]')
-                    .not('[disabled]')
-                    .not('[tabindex="-1"]');
-                _.each(buttonsWithoutAccessKey, function (elem) {
-                    var buttonString = [elem.innerText, elem.title, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"].join('');
-                    for (var letterIndex = 0; letterIndex < buttonString.length; letterIndex++) {
-                        var candidateAccessKey = buttonString[letterIndex].toUpperCase();
-                        if (candidateAccessKey >= 'A' && candidateAccessKey <= 'Z' &&
-                            !_.includes(usedAccessKey, candidateAccessKey)) {
-                            elem.accessKey = candidateAccessKey;
-                            usedAccessKey.push(candidateAccessKey);
-                            break;
+                if (this.options.autoAccessKeys) {
+                    var buttonsWithoutAccessKey = this.$el.find('button.btn:visible')
+                        .not('[accesskey]')
+                        .not('[disabled]')
+                        .not('[tabindex="-1"]');
+                    _.each(buttonsWithoutAccessKey, function (elem) {
+                        var buttonString = [elem.innerText, elem.title, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"].join('');
+                        for (var letterIndex = 0; letterIndex < buttonString.length; letterIndex++) {
+                            var candidateAccessKey = buttonString[letterIndex].toUpperCase();
+                            if (candidateAccessKey >= 'A' && candidateAccessKey <= 'Z' &&
+                                !_.includes(usedAccessKey, candidateAccessKey)) {
+                                elem.accessKey = candidateAccessKey;
+                                usedAccessKey.push(candidateAccessKey);
+                                break;
+                            }
                         }
-                    }
-                });
+                    });
+                }
 
                 var elementsWithoutAriaKeyshortcut = this.$el.find('[accesskey]').not('[aria-keyshortcuts]');
                 _.each(elementsWithoutAriaKeyshortcut, function (elem) {

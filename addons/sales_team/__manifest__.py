@@ -1,24 +1,31 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+
 {
-    'name': 'Sales Channels',
-    'author': 'Odoo S.A.',
+    'name': 'Sales Teams',
     'version': '1.0',
-    'category': 'Sales',
-    'summary': 'Sales Channels',
+    'category': 'Sales/Sales',
+    'summary': 'Sales Teams',
     'description': """
-Using this application you can manage Sales Channels  with CRM and/or Sales
-===========================================================================
+Using this application you can manage Sales Teams with CRM and/or Sales
+=======================================================================
  """,
-    'website': 'https://flectrahq.com/page/crm',
-    'depends': ['base', 'mail', 'base_branch_company'],
-    'data': ['security/sales_team_security.xml',
-             'security/ir.model.access.csv',
-             'data/sales_team_data.xml',
-             'views/crm_team_views.xml',
-             'views/sales_team_dashboard.xml',
-             ],
-    'demo': ['data/sales_team_demo.xml'],
+    'website': 'https://flectrahq.com/crm',
+    'depends': ['base', 'mail'],
+    'data': [
+        'security/sales_team_security.xml',
+        'security/ir.model.access.csv',
+        'data/crm_team_data.xml',
+        'views/assets.xml',
+        'views/crm_tag_views.xml',
+        'views/crm_team_views.xml',
+        'views/mail_activity_views.xml',
+        'views/res_partner_views.xml',
+        ],
+    'demo': [
+        'data/crm_team_demo.xml',
+        'data/crm_tag_demo.xml',
+    ],
     'installable': True,
     'auto_install': False,
 }

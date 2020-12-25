@@ -14,7 +14,7 @@ from werkzeug import urls
 from flectra import api, fields, models, tools, _
 from flectra.addons.payment.models.payment_acquirer import ValidationError
 from flectra.addons.payment_adyen.controllers.main import AdyenController
-from flectra.tools.pycompat import to_native
+from flectra.tools.pycompat import to_text
 
 _logger = logging.getLogger(__name__)
 
@@ -47,7 +47,9 @@ CURRENCY_CODE_MAPS = {
 class AcquirerAdyen(models.Model):
     _inherit = 'payment.acquirer'
 
-    provider = fields.Selection(selection_add=[('adyen', 'Adyen')])
+    provider = fields.Selection(selection_add=[
+        ('adyen', 'Adyen')
+    ], ondelete={'adyen': 'set default'})
     adyen_merchant_account = fields.Char('Merchant Account', required_if_provider='adyen', groups='base.group_user')
     adyen_skin_code = fields.Char('Skin Code', required_if_provider='adyen', groups='base.group_user')
     adyen_skin_hmac_key = fields.Char('Skin HMAC Key', required_if_provider='adyen', groups='base.group_user')
@@ -69,12 +71,11 @@ class AcquirerAdyen(models.Model):
             'adyen_form_url': 'https://%s.adyen.com/hpp/pay.shtml' % ('live' if environment == 'prod' else environment),
         }
 
-    @api.multi
     def _adyen_generate_merchant_sig_sha256(self, inout, values):
         """ Generate the shasign for incoming or outgoing communications., when using the SHA-256
         signature.
 
-        :param string inout: 'in' (flectra contacting ogone) or 'out' (adyen
+        :param string inout: 'in' (flectra contacting adyen) or 'out' (adyen
                              contacting flectra). In this last case only some
                              fields should be contained (see e-Commerce basic)
         :param dict values: transaction values
@@ -119,12 +120,11 @@ class AcquirerAdyen(models.Model):
 
         return signParams(raw_values_ordered)
 
-    @api.multi
     def _adyen_generate_merchant_sig(self, inout, values):
         """ Generate the shasign for incoming or outgoing communications, when using the SHA-1
         signature (deprecated by Adyen).
 
-        :param string inout: 'in' (flectra contacting ogone) or 'out' (adyen
+        :param string inout: 'in' (flectra contacting adyen) or 'out' (adyen
                              contacting flectra). In this last case only some
                              fields should be contained (see e-Commerce basic)
         :param dict values: transaction values
@@ -148,7 +148,6 @@ class AcquirerAdyen(models.Model):
         key = self.adyen_skin_hmac_key.encode('ascii')
         return base64.b64encode(hmac.new(key, sign, hashlib.sha1).digest())
 
-    @api.multi
     def adyen_form_generate_values(self, values):
         base_url = self.get_base_url()
         # tmp
@@ -193,9 +192,10 @@ class AcquirerAdyen(models.Model):
 
         return values
 
-    @api.multi
     def adyen_get_form_action_url(self):
-        return self._get_adyen_urls(self.environment)['adyen_form_url']
+        self.ensure_one()
+        environment = 'prod' if self.state == 'enabled' else 'test'
+        return self._get_adyen_urls(environment)['adyen_form_url']
 
 
 class TxAdyen(models.Model):
@@ -229,7 +229,7 @@ class TxAdyen(models.Model):
             shasign_check = tx.acquirer_id._adyen_generate_merchant_sig_sha256('out', data)
         else:
             shasign_check = tx.acquirer_id._adyen_generate_merchant_sig('out', data)
-        if to_native(shasign_check) != to_native(data.get('merchantSig')):
+        if to_text(shasign_check) != to_text(data.get('merchantSig')):
             error_msg = _('Adyen: invalid merchantSig, received %s, computed %s') % (data.get('merchantSig'), shasign_check)
             _logger.warning(error_msg)
             raise ValidationError(error_msg)
@@ -254,24 +254,16 @@ class TxAdyen(models.Model):
     def _adyen_form_validate(self, data):
         status = data.get('authResult', 'PENDING')
         if status == 'AUTHORISED':
-            self.write({
-                'state': 'done',
-                'acquirer_reference': data.get('pspReference'),
-                # 'date_validate': data.get('payment_date', fields.datetime.now()),
-                # 'paypal_txn_type': data.get('express_checkout')
-            })
+            self.write({'acquirer_reference': data.get('pspReference')})
+            self._set_transaction_done()
             return True
         elif status == 'PENDING':
-            self.write({
-                'state': 'pending',
-                'acquirer_reference': data.get('pspReference'),
-            })
+            self.write({'acquirer_reference': data.get('pspReference')})
+            self._set_transaction_pending()
             return True
         else:
             error = _('Adyen: feedback error')
             _logger.info(error)
-            self.write({
-                'state': 'error',
-                'state_message': error
-            })
+            self.write({'state_message': error})
+            self._set_transaction_cancel()
             return False

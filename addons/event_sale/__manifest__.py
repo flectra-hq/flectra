@@ -2,10 +2,9 @@
 
 {
     'name': 'Events Sales',
-    'author' : 'Odoo S.A',
-    'version': '1.1',
-    'category': 'Marketing',
-    'website': 'https://flectrahq.com/page/events',
+    'version': '1.2',
+    'category': 'Marketing/Events',
+    'website': 'https://flectrahq.com/events',
     'description': """
 Creating registration with sales orders.
 ========================================
@@ -21,14 +20,19 @@ this event.
 """,
     'depends': ['event', 'sale_management'],
     'data': [
+        'views/assets.xml',
+        'views/event_ticket_views.xml',
+        'views/event_registration_views.xml',
         'views/event_views.xml',
         'views/product_views.xml',
         'views/sale_order_views.xml',
         'data/event_sale_data.xml',
+        'data/mail_data.xml',
         'report/event_event_templates.xml',
         'security/ir.model.access.csv',
         'security/event_security.xml',
         'wizard/event_edit_registration.xml',
+        'wizard/event_configurator_views.xml',
     ],
     'demo': ['data/event_demo.xml'],
     'installable': True,

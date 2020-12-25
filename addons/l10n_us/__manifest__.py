@@ -3,9 +3,8 @@
 
 {
     'name': 'United States - Accounting',
-    'author' : 'Odoo S.A',
     'version': '1.1',
-    'category': 'Localization',
+    'category': 'Accounting/Localizations/Account Charts',
     'description': """
 United States - Chart of accounts.
 ==================================

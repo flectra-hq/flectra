@@ -6,10 +6,8 @@
 
 {
     'name': 'Accounting Consistency Tests',
-    'author': 'Odoo S.A',
     'version': '1.0',
-    'category': 'Accounting',
-    'website': 'https://flectrahq.com/accounting',
+    'category': 'Accounting/Accounting',
     'description': """
 Asserts on accounting.
 ======================

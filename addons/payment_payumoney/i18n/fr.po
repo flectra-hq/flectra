@@ -1,20 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * payment_payumoney
+# 	* payment_payumoney
 # 
 # Translators:
-# Olivier Lenoir <olivier.lenoir@free.fr>, 2017
-# Sébastien Le Ray <sebastien-github@orniz.org>, 2017
-# Martin Trigaux, 2017
-# fr rev <e2ffr02@hotmail.com>, 2018
-# e2f <projects@e2f.com>, 2018
+# Martin Trigaux, 2020
+# Aurélien Pillevesse <aurelienpillevesse@hotmail.fr>, 2020
+# Cécile Collart <cco@odoo.com>, 2020
+# Gilles Mangin <gilles.mangin@phidias.fr>, 2020
+# Frédéric GILSON <frederic.gilson@logicasoft.eu>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 09:53+0000\n"
-"PO-Revision-Date: 2017-09-20 09:53+0000\n"
-"Last-Translator: e2f <projects@e2f.com>, 2018\n"
+"POT-Creation-Date: 2020-10-02 14:11+0000\n"
+"PO-Revision-Date: 2020-09-07 08:15+0000\n"
+"Last-Translator: Frédéric GILSON <frederic.gilson@logicasoft.eu>, 2020\n"
 "Language-Team: French (https://www.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,30 +24,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: payment_payumoney
-#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer_payumoney_merchant_key
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer__display_name
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_transaction__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: payment_payumoney
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer__id
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_transaction__id
+msgid "ID"
+msgstr "ID"
+
+#. module: payment_payumoney
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer____last_update
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_transaction____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: payment_payumoney
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer__payumoney_merchant_key
 msgid "Merchant Key"
 msgstr "Clé marchand"
 
 #. module: payment_payumoney
-#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer_payumoney_merchant_salt
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer__payumoney_merchant_salt
 msgid "Merchant Salt"
-msgstr "Valeur salt du vendeur"
+msgstr "Salage du vendeur"
 
 #. module: payment_payumoney
-#: code:addons/payment_payumoney/models/payment.py:146
-#, python-format
-msgid "PayUmoney: feedback error"
-msgstr "PayuMoney : erreur de rétroaction"
+#: model:ir.model.fields.selection,name:payment_payumoney.selection__payment_acquirer__provider__payumoney
+msgid "PayUmoney"
+msgstr "PayUmoney"
 
 #. module: payment_payumoney
-#: code:addons/payment_payumoney/models/payment.py:108
+#: code:addons/payment_payumoney/models/payment.py:0
 #, python-format
 msgid "PayUmoney: invalid shasign, received %s, computed %s, for data %s"
 msgstr ""
 "PayUmoney : shasign incorrect, %s reçu, %s calculé pour les données %s"
 
 #. module: payment_payumoney
-#: code:addons/payment_payumoney/models/payment.py:102
+#: code:addons/payment_payumoney/models/payment.py:0
 #, python-format
 msgid "PayUmoney: received data for reference %s; multiple orders found"
 msgstr ""
@@ -54,27 +72,31 @@ msgstr ""
 "trouvées"
 
 #. module: payment_payumoney
-#: code:addons/payment_payumoney/models/payment.py:99
+#: code:addons/payment_payumoney/models/payment.py:0
 #, python-format
 msgid "PayUmoney: received data for reference %s; no order found"
 msgstr ""
 "PayUmoney : données reçues pour la référence %s ; aucune commande trouvée"
 
 #. module: payment_payumoney
-#: code:addons/payment_payumoney/models/payment.py:94
+#: code:addons/payment_payumoney/models/payment.py:0
 #, python-format
 msgid ""
 "PayUmoney: received data with missing reference (%s) or pay_id (%s) or "
-"shashign (%s)"
+"shasign (%s)"
 msgstr ""
-"PayUmoney : données reçues sans référence (%s), pay_id (%s) ou shashign (%s)"
 
 #. module: payment_payumoney
 #: model:ir.model,name:payment_payumoney.model_payment_acquirer
 msgid "Payment Acquirer"
-msgstr "Intermédiaire de Paiement"
+msgstr "Intermédiaire de paiement"
 
 #. module: payment_payumoney
 #: model:ir.model,name:payment_payumoney.model_payment_transaction
 msgid "Payment Transaction"
 msgstr "Transaction"
+
+#. module: payment_payumoney
+#: model:ir.model.fields,field_description:payment_payumoney.field_payment_acquirer__provider
+msgid "Provider"
+msgstr "Transporteur"

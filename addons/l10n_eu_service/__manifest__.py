@@ -3,8 +3,7 @@
 
 {
     'name': 'EU Mini One Stop Shop (MOSS)',
-    'author' : 'Odoo S.A',
-    'category': 'Localization',
+    'category': 'Accounting/Localizations',
     'description': """
 EU Mini One Stop Shop (MOSS) VAT for telecommunications, broadcasting and electronic services
 =============================================================================================
@@ -40,12 +39,6 @@ It creates the corresponding fiscal positions and taxes,
 automatically applicable for EU sales with a customer
 in the selected countries.
 The wizard can be run again for adding more countries.
-
-The wizard creates a separate Chart of Taxes for collecting the
-VAT amounts of the MOSS declaration, so extracting the MOSS
-data should be easy.
-Look for a Chart of Taxes named "EU MOSS VAT Chart" in the
-Taxes Report menu (Generic Accounting Report).
 
 References
 ++++++++++

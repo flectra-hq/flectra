@@ -3,7 +3,6 @@
 
 {
     'name': 'Mass mailing on attendees',
-    'author' : 'Odoo S.A',
     'category': 'Hidden',
     'version': '1.0',
     'description':

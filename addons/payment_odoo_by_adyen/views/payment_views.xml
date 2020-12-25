@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data>
+
+        <record id="acquirer_form_flectra_by_adyen" model="ir.ui.view">
+            <field name="name">acquirer.form.flectra.by.adyen</field>
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment.acquirer_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//group[@name="acquirer"]' position='inside'>
+                    <group attrs="{'invisible': [('provider', '!=', 'flectra_adyen')]}">
+                        <button name="flectra_adyen_create_account" icon="fa-arrow-right" type="object" class="btn-link" string="Create an account in 1 minute"
+                            attrs="{'invisible': [('flectra_adyen_account_id', '!=', False)]}"/>
+                        <field name="flectra_adyen_account_id" readonly="1" attrs="{'invisible': [('flectra_adyen_account_id', '=', False)]}"/>
+                        <field name="flectra_adyen_payout_id" attrs="{'invisible': [('flectra_adyen_account_id', '=', False)], 'required':[('provider', '=', 'flectra_adyen'), ('state', '!=', 'disabled')]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</flectra>

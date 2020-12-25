@@ -12,7 +12,6 @@ class RecruitmentSource(models.Model):
 
     url = fields.Char(compute='_compute_url', string='Url Parameters')
 
-    @api.one
     @api.depends('source_id', 'source_id.name', 'job_id')
     def _compute_url(self):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
@@ -30,42 +29,38 @@ class Applicant(models.Model):
 
     _inherit = 'hr.applicant'
 
-    website_id = fields.Many2one('website', string="Website")
-
     def website_form_input_filter(self, request, values):
         if 'partner_name' in values:
             values.setdefault('name', '%s\'s Application' % values['partner_name'])
+        if values.get('job_id'):
+            stage = self.env['hr.recruitment.stage'].sudo().search([
+                ('fold', '=', False),
+                '|', ('job_ids', '=', False), ('job_ids', '=', values['job_id']),
+            ], order='sequence asc', limit=1)
+            if stage:
+                values['stage_id'] = stage.id
         return values
 
 
 class Job(models.Model):
 
     _name = 'hr.job'
-    _inherit = ['hr.job', 'website.seo.metadata', 'website.published.mixin']
+    _inherit = ['hr.job', 'website.seo.metadata', 'website.published.multi.mixin']
 
     def _get_default_website_description(self):
         default_description = self.env["ir.model.data"].xmlid_to_object("website_hr_recruitment.default_website_description")
-        return (default_description.render() if default_description else "")
+        return (default_description._render() if default_description else "")
 
-    def _default_website(self):
-        default_website_id = self.env.ref('website.default_website')
-        return [default_website_id.id] if default_website_id else None
+    website_description = fields.Html('Website description', translate=html_translate, sanitize_attributes=False, default=_get_default_website_description, prefetch=False, sanitize_form=False)
 
-    website_description = fields.Html('Website description', translate=html_translate, sanitize_attributes=False, default=_get_default_website_description)
-    website_ids = fields.Many2many('website', 'website_hr_job_pub_rel',
-                                   'website_id', 'job_id',
-                                   default=_default_website,
-                                   string='Websites', copy=False,
-                                   help='List of websites in which Job '
-                                        'will published.')
-
-    @api.multi
     def _compute_website_url(self):
         super(Job, self)._compute_website_url()
         for job in self:
             job.website_url = "/jobs/detail/%s" % job.id
 
-    @api.multi
     def set_open(self):
         self.write({'website_published': False})
         return super(Job, self).set_open()
+
+    def get_backend_menu_id(self):
+        return self.env.ref('hr_recruitment.menu_hr_recruitment_root').id

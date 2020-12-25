@@ -206,6 +206,9 @@ define([
       setTimeout(function () {
         var layoutInfo = dom.makeLayoutInfo(target);
         /* FLECTRA: (start_modification */
+        if (!layoutInfo) {
+            return;
+        }
         var $editable = layoutInfo.editable();
         if (event.setStyleInfoFromEditable) {
             var styleInfo = modules.editor.styleFromNode($editable);

@@ -1,4 +1,4 @@
-:banner: banners/flectra_external_api.jpg
+:banner: banners/web_service_api.jpg
 :types: api
 
 
@@ -8,14 +8,14 @@
 External API
 ============
 
-Flectra is usually extended internally via modules, but many of its features and
+Odoo is usually extended internally via modules, but many of its features and
 all of its data are also available from the outside for external analysis or
 integration with various tools. Part of the :ref:`reference/orm/model` API is
 easily available over XML-RPC_ and accessible from a variety of languages.
 
-.. Flectra XML-RPC idiosyncracies:
+.. Odoo XML-RPC idiosyncracies:
    * uses multiple endpoint and a nested call syntax instead of a
-     "hierarchical" server structure (e.g. ``flectra.res.partner.read()``)
+     "hierarchical" server structure (e.g. ``odoo.res.partner.read()``)
    * uses its own own manual auth system instead of basic auth or sessions
      (basic is directly supported the Python and Ruby stdlibs as well as
      ws-xmlrpc, not sure about ripcord)
@@ -32,20 +32,20 @@ Connection
 
     .. rst-class:: setupcode hidden
 
-        .. code-block:: python
+        .. code-block:: python3
 
-            import xmlrpclib
-            info = xmlrpclib.ServerProxy('https://demo.flectrahq.com/start').start()
+            import xmlrpc.client
+            info = xmlrpc.client.ServerProxy('https://demo.odoo.com/start').start()
             url, db, username, password = \
                 info['host'], info['database'], info['user'], info['password']
-            common = xmlrpclib.ServerProxy('{}/xmlrpc/2/common'.format(url))
+            common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(url))
             uid = common.authenticate(db, username, password, {})
-            models = xmlrpclib.ServerProxy('{}/xmlrpc/2/object'.format(url))
+            models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(url))
 
         .. code-block:: ruby
 
             require "xmlrpc/client"
-            info = XMLRPC::Client.new2('https://demo.flectrahq.com/start').call('start')
+            info = XMLRPC::Client.new2('https://demo.odoo.com/start').call('start')
             url, db, username, password = \
                 info['host'], info['database'], info['user'], info['password']
             common = XMLRPC::Client.new2("#{url}/xmlrpc/2/common")
@@ -55,7 +55,7 @@ Connection
         .. code-block:: php
 
             require_once('ripcord.php');
-            $info = ripcord::client('https://demo.flectrahq.com/start')->start();
+            $info = ripcord::client('https://demo.odoo.com/start')->start();
             list($url, $db, $username, $password) =
               array($info['host'], $info['database'], $info['user'], $info['password']);
             $common = ripcord::client("$url/xmlrpc/2/common");
@@ -66,7 +66,7 @@ Connection
 
             final XmlRpcClient client = new XmlRpcClient();
             final XmlRpcClientConfigImpl start_config = new XmlRpcClientConfigImpl();
-            start_config.setServerURL(new URL("https://demo.flectrahq.com/start"));
+            start_config.setServerURL(new URL("https://demo.odoo.com/start"));
             final Map<String, String> info = (Map<String, String>)client.execute(
                 start_config, "start", emptyList());
 
@@ -91,14 +91,14 @@ Connection
 Configuration
 -------------
 
-If you already have an Flectra server installed, you can just use its
+If you already have an Odoo server installed, you can just use its
 parameters
 
 .. warning::
 
-    For Flectra Online instances (<domain>.flectrahq.com), users are created
-    without a *local* password (as a person you are logged in via the
-    Flectra Online authentication system, not by the instance itself). To use XML-RPC on Flectra
+    For Odoo Online instances (<domain>.odoo.com), users are created without a
+    *local* password (as a person you are logged in via the Odoo Online
+    authentication system, not by the instance itself). To use XML-RPC on Odoo
     Online instances, you will need to set a password on the user account you
     want to use:
 
@@ -110,7 +110,7 @@ parameters
       :guilabel:`Change Password`.
 
     The *server url* is the instance's domain (e.g.
-    *https://mycompany.flectrahq.com*), the *database name* is the name of the
+    *https://mycompany.odoo.com*), the *database name* is the name of the
     instance (e.g. *mycompany*). The *username* is the configured user's login
     as shown by the *Change Password* screen.
 
@@ -118,7 +118,7 @@ parameters
 
 .. switcher::
 
-    .. code-block:: python
+    .. code-block:: python3
 
         url = <insert server URL>
         db = <insert database name>
@@ -146,28 +146,72 @@ parameters
                 username = "admin",
                 password = <insert password for your admin user (default: admin)>;
 
+API Keys
+''''''''
+
+.. versionadded:: 14.0
+
+Odoo has support for **api keys** and (depending on modules or settings) may
+**require** these keys to perform webservice operations.
+
+The way to use API Keys in your scripts is to simply replace your **password**
+by the key. The login remains in-use. You should store the API Key as carefully
+as the password as they essentially provide the same access to your user
+account (although they can not be used to log-in via the interface).
+
+In order to add a key to your account, simply go to your
+:guilabel:`Preferences` (or :guilabel:`My Profile`):
+
+.. figure:: images/preferences.png
+    :align: center
+
+then open the :guilabel:`Account Security` tab, and click
+:guilabel:`New API Key`:
+
+.. figure:: images/account-security.png
+    :align: center
+
+Input a description for the key, **this description should be as clear and
+complete as possible**: it is the only way you will have to identify your keys
+later and know whether you should remove them or keep them around.
+
+Click :guilabel:`Generate Key`, then copy the key provided. **Store this key
+carefully**: it is equivalent to your password, and just like your password
+the system will not be able to retrieve or show the key again later on. If you lose
+this key, you will have to create a new one (and probably delete the one you
+lost).
+
+Once you have keys configured on your account, they will appear above the
+:guilabel:`New API Key` button, and you will be able to delete them:
+
+.. figure:: images/delete-key.png
+    :align: center
+
+**A deleted API key can not be undeleted or re-set**. You will have to generate
+a new key and update all the places where you used the old one.
+
 demo
 ''''
 
-To make exploration simpler, you can also ask https://demo.flectrahq.com for
-a test database:
+To make exploration simpler, you can also ask https://demo.odoo.com for a test
+database:
 
 .. rst-class:: setup doc-aside
 
 .. switcher::
 
-    .. code-block:: python
+    .. code-block:: python3
 
-        import xmlrpclib
-        info = xmlrpclib.ServerProxy('https://demo.flectrahq.com/start').start()
+        import xmlrpc.client
+        info = xmlrpc.client.ServerProxy('https://demo.odoo.com/start').start()
         url, db, username, password = \
             info['host'], info['database'], info['user'], info['password']
 
     .. code-block:: ruby
 
         require "xmlrpc/client"
-        info = XMLRPC::Client.new2('https://demo.flectrahq.com/start').call
-        ('start')url, db, username, password = \
+        info = XMLRPC::Client.new2('https://demo.odoo.com/start').call('start')
+        url, db, username, password = \
             info['host'], info['database'], info['user'], info['password']
 
     .. case:: PHP
@@ -175,8 +219,8 @@ a test database:
         .. code-block:: php
 
             require_once('ripcord.php');
-            $info = ripcord::client('https://demo.flectrahq.com/start')
-            ->start();list($url, $db, $username, $password) =
+            $info = ripcord::client('https://demo.odoo.com/start')->start();
+            list($url, $db, $username, $password) =
               array($info['host'], $info['database'], $info['user'], $info['password']);
 
         .. note::
@@ -184,13 +228,13 @@ a test database:
             These examples use the `Ripcord <https://code.google.com/p/ripcord/>`_
             library, which provides a simple XML-RPC API. Ripcord requires that
             `XML-RPC support be enabled
-            <http://php.net/manual/en/xmlrpc.installation.php>`_ in your PHP
+            <https://php.net/manual/en/xmlrpc.installation.php>`_ in your PHP
             installation.
 
             Since calls are performed over
-            `HTTPS <http://en.wikipedia.org/wiki/HTTP_Secure>`_, it also requires that
+            `HTTPS <https://en.wikipedia.org/wiki/HTTP_Secure>`_, it also requires that
             the `OpenSSL extension
-            <http://php.net/manual/en/openssl.installation.php>`_ be enabled.
+            <https://php.net/manual/en/openssl.installation.php>`_ be enabled.
 
     .. case:: Java
 
@@ -199,7 +243,7 @@ a test database:
             final XmlRpcClient client = new XmlRpcClient();
 
             final XmlRpcClientConfigImpl start_config = new XmlRpcClientConfigImpl();
-            start_config.setServerURL(new URL("https://demo.flectrahq.com/start"));
+            start_config.setServerURL(new URL("https://demo.odoo.com/start"));
             final Map<String, String> info = (Map<String, String>)client.execute(
                 start_config, "start", emptyList());
 
@@ -219,7 +263,7 @@ a test database:
 Logging in
 ----------
 
-Flectra requires users of the API to be authenticated before they can query most 
+Odoo requires users of the API to be authenticated before they can query most
 data.
 
 The ``xmlrpc/2/common`` endpoint provides meta-calls which don't require
@@ -234,9 +278,9 @@ the login.
 
 .. switcher::
 
-    .. code-block:: python
+    .. code-block:: python3
 
-        common = xmlrpclib.ServerProxy('{}/xmlrpc/2/common'.format(url))
+        common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(url))
         common.version()
 
     .. code-block:: ruby
@@ -261,9 +305,9 @@ the login.
 .. code-block:: json
 
     {
-        "server_version": "8.0",
-        "server_version_info": [8, 0, 0, "final", 0],
-        "server_serie": "8.0",
+        "server_version": "13.0",
+        "server_version_info": [13, 0, 0, "final", 0],
+        "server_serie": "13.0",
         "protocol_version": 1,
     }
 
@@ -271,7 +315,7 @@ the login.
 
 .. switcher::
 
-    .. code-block:: python
+    .. code-block:: python3
 
         uid = common.authenticate(db, username, password, {})
 
@@ -289,10 +333,12 @@ the login.
             common_config, "authenticate", asList(
                 db, username, password, emptyMap()));
 
+.. _webservices/odoo/calling_methods:
+
 Calling methods
 ===============
 
-The second endpoint is ``xmlrpc/2/object``, is used to call methods of flectra
+The second endpoint is ``xmlrpc/2/object``, is used to call methods of odoo
 models via the ``execute_kw`` RPC function.
 
 Each call to ``execute_kw`` takes the following parameters:
@@ -316,9 +362,9 @@ Each call to ``execute_kw`` takes the following parameters:
 
     .. switcher::
 
-        .. code-block:: python
+        .. code-block:: python3
 
-            models = xmlrpclib.ServerProxy('{}/xmlrpc/2/object'.format(url))
+            models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(url))
             models.execute_kw(db, uid, password,
                 'res.partner', 'check_access_rights',
                 ['read'], {'raise_exception': False})
@@ -360,9 +406,9 @@ Each call to ``execute_kw`` takes the following parameters:
 List records
 ------------
 
-Records can be listed and filtered via :meth:`~flectra.models.Model.search`.
+Records can be listed and filtered via :meth:`~odoo.models.Model.search`.
 
-:meth:`~flectra.models.Model.search` takes a mandatory
+:meth:`~odoo.models.Model.search` takes a mandatory
 :ref:`domain <reference/orm/domains>` filter (possibly empty), and returns the
 database identifiers of all records matching the filter. To list customer
 companies for instance:
@@ -371,24 +417,23 @@ companies for instance:
 
     .. switcher::
 
-        .. code-block:: python
+        .. code-block:: python3
 
             models.execute_kw(db, uid, password,
                 'res.partner', 'search',
-                [[['is_company', '=', True], ['customer', '=', True]]])
+                [[['is_company', '=', True]]])
 
         .. code-block:: ruby
 
             models.execute_kw(db, uid, password,
                 'res.partner', 'search',
-                [[['is_company', '=', true], ['customer', '=', true]]])
+                [[['is_company', '=', true]]])
 
         .. code-block:: php
 
             $models->execute_kw($db, $uid, $password,
                 'res.partner', 'search', array(
-                    array(array('is_company', '=', true),
-                          array('customer', '=', true))));
+                    array(array('is_company', '=', true))));
 
         .. code-block:: java
 
@@ -396,8 +441,7 @@ companies for instance:
                 db, uid, password,
                 "res.partner", "search",
                 asList(asList(
-                    asList("is_company", "=", true),
-                    asList("customer", "=", true)))
+                    asList("is_company", "=", true)))
             )));
 
     .. code-block:: json
@@ -414,88 +458,84 @@ available to only retrieve a subset of all matched records.
 .. container:: doc-aside
 
     .. switcher::
-    
-        .. code-block:: python
-    
+
+        .. code-block:: python3
+
             models.execute_kw(db, uid, password,
                 'res.partner', 'search',
-                [[['is_company', '=', True], ['customer', '=', True]]],
+                [[['is_company', '=', True]]],
                 {'offset': 10, 'limit': 5})
-    
+
         .. code-block:: ruby
-    
+
             models.execute_kw(db, uid, password,
                 'res.partner', 'search',
-                [[['is_company', '=', true], ['customer', '=', true]]],
+                [[['is_company', '=', true]]],
                 {offset: 10, limit: 5})
-    
+
         .. code-block:: php
-    
+
             $models->execute_kw($db, $uid, $password,
                 'res.partner', 'search',
-                array(array(array('is_company', '=', true),
-                            array('customer', '=', true))),
+                array(array(array('is_company', '=', true))),
                 array('offset'=>10, 'limit'=>5));
-    
+
         .. code-block:: java
-    
+
             asList((Object[])models.execute("execute_kw", asList(
                 db, uid, password,
                 "res.partner", "search",
                 asList(asList(
-                    asList("is_company", "=", true),
-                    asList("customer", "=", true))),
+                    asList("is_company", "=", true))),
                 new HashMap() {{ put("offset", 10); put("limit", 5); }}
             )));
-    
+
     .. code-block:: json
-    
+
         [13, 20, 30, 22, 29]
 
 Count records
 -------------
 
 Rather than retrieve a possibly gigantic list of records and count them,
-:meth:`~flectra.models.Model.search_count` can be used to retrieve
+:meth:`~odoo.models.Model.search_count` can be used to retrieve
 only the number of records matching the query. It takes the same
 :ref:`domain <reference/orm/domains>` filter as
-:meth:`~flectra.models.Model.search` and no other parameter.
+:meth:`~odoo.models.Model.search` and no other parameter.
 
 .. container:: doc-aside
 
     .. switcher::
-    
-        .. code-block:: python
-    
+
+        .. code-block:: python3
+
             models.execute_kw(db, uid, password,
                 'res.partner', 'search_count',
-                [[['is_company', '=', True], ['customer', '=', True]]])
-    
+                [[['is_company', '=', True]]])
+
         .. code-block:: ruby
-    
+
             models.execute_kw(db, uid, password,
                 'res.partner', 'search_count',
-                [[['is_company', '=', true], ['customer', '=', true]]])
-    
+                [[['is_company', '=', true]]])
+
         .. code-block:: php
-    
+
             $models->execute_kw($db, $uid, $password,
                 'res.partner', 'search_count',
-                array(array(array('is_company', '=', true),
-                            array('customer', '=', true))));
-    
+                array(array(array('is_company', '=', true))));
+
         .. code-block:: java
-    
+
             (Integer)models.execute("execute_kw", asList(
                 db, uid, password,
                 "res.partner", "search_count",
                 asList(asList(
-                    asList("is_company", "=", true),
-                    asList("customer", "=", true)))
+                    asList("is_company", "=", true)))
             ));
-    
+
     .. code-block:: json
-    
+
         19
 
 .. warning::
@@ -507,59 +547,57 @@ only the number of records matching the query. It takes the same
 Read records
 ------------
 
-Record data is accessible via the :meth:`~flectra.models.Model.read` method,
+Record data is accessible via the :meth:`~odoo.models.Model.read` method,
 which takes a list of ids (as returned by
-:meth:`~flectra.models.Model.search`) and optionally a list of fields to
+:meth:`~odoo.models.Model.search`) and optionally a list of fields to
 fetch. By default, it will fetch all the fields the current user can read,
 which tends to be a huge amount.
 
 .. container:: doc-aside
-    
+
     .. switcher::
-    
-        .. code-block:: python
-    
+
+        .. code-block:: python3
+
             ids = models.execute_kw(db, uid, password,
                 'res.partner', 'search',
-                [[['is_company', '=', True], ['customer', '=', True]]],
+                [[['is_company', '=', True]]],
                 {'limit': 1})
             [record] = models.execute_kw(db, uid, password,
                 'res.partner', 'read', [ids])
             # count the number of fields fetched by default
             len(record)
-    
+
         .. code-block:: ruby
-    
+
             ids = models.execute_kw(db, uid, password,
                 'res.partner', 'search',
-                [[['is_company', '=', true], ['customer', '=', true]]],
+                [[['is_company', '=', true]]],
                 {limit: 1})
             record = models.execute_kw(db, uid, password,
                 'res.partner', 'read', [ids]).first
             # count the number of fields fetched by default
             record.length
-    
+
         .. code-block:: php
-    
+
             $ids = $models->execute_kw($db, $uid, $password,
                 'res.partner', 'search',
-                array(array(array('is_company', '=', true),
-                            array('customer', '=', true))),
+                array(array(array('is_company', '=', true))),
                 array('limit'=>1));
             $records = $models->execute_kw($db, $uid, $password,
                 'res.partner', 'read', array($ids));
             // count the number of fields fetched by default
             count($records[0]);
-    
+
         .. code-block:: java
-    
+
             final List ids = asList((Object[])models.execute(
                 "execute_kw", asList(
                     db, uid, password,
                     "res.partner", "search",
                     asList(asList(
-                        asList("is_company", "=", true),
-                        asList("customer", "=", true))),
+                        asList("is_company", "=", true))),
                     new HashMap() {{ put("limit", 1); }})));
             final Map record = (Map)((Object[])models.execute(
                 "execute_kw", asList(
@@ -570,9 +608,9 @@ which tends to be a huge amount.
             ))[0];
             // count the number of fields fetched by default
             record.size();
-    
+
     .. code-block:: json
-    
+
         121
 
 Conversedly, picking only three fields deemed interesting.
@@ -581,7 +619,7 @@ Conversedly, picking only three fields deemed interesting.
 
     .. switcher::
 
-        .. code-block:: python
+        .. code-block:: python3
 
             models.execute_kw(db, uid, password,
                 'res.partner', 'read',
@@ -620,7 +658,7 @@ Conversedly, picking only three fields deemed interesting.
 Listing record fields
 ---------------------
 
-:meth:`~flectra.models.Model.fields_get` can be used to inspect
+:meth:`~odoo.models.Model.fields_get` can be used to inspect
 a model's fields and check which ones seem to be of interest.
 
 Because it returns a large amount of meta-information (it is also used by client
@@ -633,7 +671,7 @@ updating a record):
 
     .. switcher::
 
-        .. code-block:: python
+        .. code-block:: python3
 
             models.execute_kw(
                 db, uid, password, 'res.partner', 'fields_get',
@@ -704,40 +742,39 @@ updating a record):
 Search and read
 ---------------
 
-Because it is a very common task, Flectra provides a
-:meth:`~flectra.models.Model.search_read` shortcut which as its name suggests is
-equivalent to a :meth:`~flectra.models.Model.search` followed by a
-:meth:`~flectra.models.Model.read`, but avoids having to perform two requests
+Because it is a very common task, Odoo provides a
+:meth:`~odoo.models.Model.search_read` shortcut which as its name suggests is
+equivalent to a :meth:`~odoo.models.Model.search` followed by a
+:meth:`~odoo.models.Model.read`, but avoids having to perform two requests
 and keep ids around.
 
-Its arguments are similar to :meth:`~flectra.models.Model.search`'s, but it
-can also take a list of ``fields`` (like :meth:`~flectra.models.Model.read`,
+Its arguments are similar to :meth:`~odoo.models.Model.search`'s, but it
+can also take a list of ``fields`` (like :meth:`~odoo.models.Model.read`,
 if that list is not provided it will fetch all fields of matched records):
 
 .. container:: doc-aside
 
     .. switcher::
 
-        .. code-block:: python
+        .. code-block:: python3
 
             models.execute_kw(db, uid, password,
                 'res.partner', 'search_read',
-                [[['is_company', '=', True], ['customer', '=', True]]],
+                [[['is_company', '=', True]]],
                 {'fields': ['name', 'country_id', 'comment'], 'limit': 5})
 
         .. code-block:: ruby
 
             models.execute_kw(db, uid, password,
                 'res.partner', 'search_read',
-                [[['is_company', '=', true], ['customer', '=', true]]],
+                [[['is_company', '=', true]]],
                 {fields: %w(name country_id comment), limit: 5})
 
         .. code-block:: php
 
             $models->execute_kw($db, $uid, $password,
                 'res.partner', 'search_read',
-                array(array(array('is_company', '=', true),
-                            array('customer', '=', true))),
+                array(array(array('is_company', '=', true))),
                 array('fields'=>array('name', 'country_id', 'comment'), 'limit'=>5));
 
         .. code-block:: java
@@ -746,8 +783,7 @@ if that list is not provided it will fetch all fields of matched records):
                 db, uid, password,
                 "res.partner", "search_read",
                 asList(asList(
-                    asList("is_company", "=", true),
-                    asList("customer", "=", true))),
+                    asList("is_company", "=", true))),
                 new HashMap() {{
                     put("fields", asList("name", "country_id", "comment"));
                     put("limit", 5);
@@ -793,10 +829,10 @@ if that list is not provided it will fetch all fields of matched records):
 Create records
 --------------
 
-Records of a model are created using :meth:`~flectra.models.Model.create`. The
+Records of a model are created using :meth:`~odoo.models.Model.create`. The
 method will create a single record and return its database identifier.
 
-:meth:`~flectra.models.Model.create` takes a mapping of fields to values, used
+:meth:`~odoo.models.Model.create` takes a mapping of fields to values, used
 to initialize the record. For any field which has a default value and is not
 set through the mapping argument, the default value will be used.
 
@@ -804,7 +840,7 @@ set through the mapping argument, the default value will be used.
 
     .. switcher::
 
-        .. code-block:: python
+        .. code-block:: python3
 
             id = models.execute_kw(db, uid, password, 'res.partner', 'create', [{
                 'name': "New Partner",
@@ -837,21 +873,21 @@ set through the mapping argument, the default value will be used.
 .. warning::
 
     while most value types are what would be expected (integer for
-    :class:`~flectra.fields.Integer`, string for :class:`~flectra.fields.Char`
-    or :class:`~flectra.fields.Text`),
+    :class:`~odoo.fields.Integer`, string for :class:`~odoo.fields.Char`
+    or :class:`~odoo.fields.Text`),
 
-    * :class:`~flectra.fields.Date`, :class:`~flectra.fields.Datetime` and
-      :class:`~flectra.fields.Binary` fields use string values
-    * :class:`~flectra.fields.One2many` and :class:`~flectra.fields.Many2many`
+    * :class:`~odoo.fields.Date`, :class:`~odoo.fields.Datetime` and
+      :class:`~odoo.fields.Binary` fields use string values
+    * :class:`~odoo.fields.One2many` and :class:`~odoo.fields.Many2many`
       use a special command protocol detailed in :meth:`the documentation to
-      the write method <flectra.models.Model.write>`.
+      the write method <odoo.models.Model.write>`.
 
 Update records
 --------------
 
-Records can be updated using :meth:`~flectra.models.Model.write`, it takes
+Records can be updated using :meth:`~odoo.models.Model.write`, it takes
 a list of records to update and a mapping of updated fields to values similar
-to :meth:`~flectra.models.Model.create`.
+to :meth:`~odoo.models.Model.create`.
 
 Multiple records can be updated simultanously, but they will all get the same
 values for the fields being set. It is not currently possible to perform
@@ -862,7 +898,7 @@ a record).
 
     .. switcher::
 
-        .. code-block:: python
+        .. code-block:: python3
 
             models.execute_kw(db, uid, password, 'res.partner', 'write', [[id], {
                 'name': "Newer partner"
@@ -910,14 +946,14 @@ a record).
 Delete records
 --------------
 
-Records can be deleted in bulk by providing their ids to 
-:meth:`~flectra.models.Model.unlink`.
+Records can be deleted in bulk by providing their ids to
+:meth:`~odoo.models.Model.unlink`.
 
 .. container:: doc-aside
 
     .. switcher::
 
-        .. code-block:: python
+        .. code-block:: python3
 
             models.execute_kw(db, uid, password, 'res.partner', 'unlink', [[id]])
             # check if the deleted record is still in the database
@@ -966,8 +1002,8 @@ Inspection and introspection
           xid currently associated with the record. And operating with xids
           isn't exactly fun in RPC.
 
-While we previously used :meth:`~flectra.models.Model.fields_get` to query a
-model and have been using an arbitrary model from the start, Flectra stores
+While we previously used :meth:`~odoo.models.Model.fields_get` to query a
+model and have been using an arbitrary model from the start, Odoo stores
 most model metadata inside a few meta-models which allow both querying the
 system and altering models and fields (with some limitations) on the fly over
 XML-RPC.
@@ -977,7 +1013,7 @@ XML-RPC.
 ``ir.model``
 ''''''''''''
 
-Provides information about Flectra models via its various fields
+Provides information about Odoo models via its various fields
 
 ``name``
     a human-readable description of the model
@@ -987,13 +1023,13 @@ Provides information about Flectra models via its various fields
     whether the model was generated in Python code (``base``) or by creating
     an ``ir.model`` record (``manual``)
 ``field_id``
-    list of the model's fields through a :class:`~flectra.fields.One2many` to
+    list of the model's fields through a :class:`~odoo.fields.One2many` to
     :ref:`reference/webservice/inspection/fields`
 ``view_ids``
-    :class:`~flectra.fields.One2many` to the :ref:`reference/views` defined
+    :class:`~odoo.fields.One2many` to the :ref:`reference/views` defined
     for the model
 ``access_ids``
-    :class:`~flectra.fields.One2many` relation to the
+    :class:`~odoo.fields.One2many` relation to the
     :ref:`reference/security/acl` set on the model
 
 ``ir.model`` can be used to
@@ -1018,7 +1054,7 @@ Provides information about Flectra models via its various fields
 
     .. switcher::
 
-        .. code-block:: python
+        .. code-block:: python3
 
             models.execute_kw(db, uid, password, 'ir.model', 'create', [{
                 'name': "Custom Model",
@@ -1122,11 +1158,11 @@ Provides information about Flectra models via its various fields
 ``ir.model.fields``
 '''''''''''''''''''
 
-Provides information about the fields of Flectra models and allows adding
+Provides information about the fields of Odoo models and allows adding
 custom fields without using Python code
 
 ``model_id``
-    :class:`~flectra.fields.Many2one` to
+    :class:`~odoo.fields.Many2one` to
     :ref:`reference/webservice/inspection/models` to which the field belongs
 ``name``
     the field's technical name (used in ``read`` or ``write``)
@@ -1141,7 +1177,7 @@ custom fields without using Python code
     enables the corresponding flag on the field
 ``groups``
     :ref:`field-level access control <reference/security/fields>`, a
-    :class:`~flectra.fields.Many2many` to ``res.groups``
+    :class:`~odoo.fields.Many2many` to ``res.groups``
 ``selection``, ``size``, ``on_delete``, ``relation``, ``relation_field``, ``domain``
     type-specific properties and customizations, see :ref:`the fields
     documentation <reference/orm/fields>` for details
@@ -1159,7 +1195,7 @@ activated as actual fields on the model.
 
     .. switcher::
 
-        .. code-block:: python
+        .. code-block:: python3
 
             id = models.execute_kw(db, uid, password, 'ir.model', 'create', [{
                 'name': "Custom Model",
@@ -1295,91 +1331,7 @@ activated as actual fields on the model.
             }
         ]
 
-Report printing
----------------
 
-Available reports can be listed by searching the ``ir.actions.report``
-model, fields of interest being
-
-``model``
-    the model on which the report applies, can be used to look for available
-    reports on a specific model
-``name``
-    human-readable report name
-``report_name``
-    the technical name of the report, used to print it
-
-Reports can be printed over RPC with the following information:
-
-* the name of the report (``report_name``)
-* the ids of the records to include in the report
-
-.. container:: doc-aside
-
-    .. switcher::
-
-        .. code-block:: python
-
-            invoice_ids = models.execute_kw(
-                db, uid, password, 'account.invoice', 'search',
-                [[('type', '=', 'out_invoice'), ('state', '=', 'open')]])
-            report = xmlrpclib.ServerProxy('{}/xmlrpc/2/report'.format(url))
-            result = report.render_report(
-                db, uid, password, 'account.report_invoice', invoice_ids)
-            report_data = result['result'].decode('base64')
-
-        .. code-block:: php
-
-            $invoice_ids = $models->execute_kw(
-                $db, $uid, $password,
-                'account.invoice', 'search',
-                array(array(array('type', '=', 'out_invoice'),
-                            array('state', '=', 'open'))));
-            $report = ripcord::client("$url/xmlrpc/2/report");
-            $result = $report->render_report(
-                $db, $uid, $password,
-                'account.report_invoice', $invoice_ids);
-            $report_data = base64_decode($result['result']);
-
-        .. code-block:: ruby
-
-            require 'base64'
-            invoice_ids = models.execute_kw(
-                db, uid, password,
-                'account.invoice', 'search',
-                [[['type', '=', 'out_invoice'], ['state', '=', 'open']]])
-            report = XMLRPC::Client.new2("#{url}/xmlrpc/2/report").proxy
-            result = report.render_report(
-                db, uid, password,
-                'account.report_invoice', invoice_ids)
-            report_data = Base64.decode64(result['result'])
-
-        .. code-block:: java
-
-            final Object[] invoice_ids = (Object[])models.execute(
-                "execute_kw", asList(
-                    db, uid, password,
-                    "account.invoice", "search",
-                    asList(asList(
-                        asList("type", "=", "out_invoice"),
-                        asList("state", "=", "open")))
-            ));
-            final XmlRpcClientConfigImpl report_config = new XmlRpcClientConfigImpl();
-            report_config.setServerURL(
-                new URL(String.format("%s/xmlrpc/2/report", url)));
-            final Map<String, Object> result = (Map<String, Object>)client.execute(
-                report_config, "render_report", asList(
-                    db, uid, password,
-                    "account.report_invoice",
-                    invoice_ids));
-            final byte[] report_data = DatatypeConverter.parseBase64Binary(
-                (String)result.get("result"));
-
-    .. note::
-
-        the report is sent as PDF binary data encoded in base64_, it must be
-        decoded and may need to be saved to disk before use
-
-.. _PostgreSQL: http://www.postgresql.org
-.. _XML-RPC: http://en.wikipedia.org/wiki/XML-RPC
-.. _base64: http://en.wikipedia.org/wiki/Base64
+.. _PostgreSQL: https://www.postgresql.org
+.. _XML-RPC: https://en.wikipedia.org/wiki/XML-RPC
+.. _base64: https://en.wikipedia.org/wiki/Base64

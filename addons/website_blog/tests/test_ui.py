@@ -1,10 +1,19 @@
+# -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import flectra.tests
+from flectra import tools
 
 
-@flectra.tests.common.at_install(False)
-@flectra.tests.common.post_install(True)
+@flectra.tests.tagged('post_install', '-at_install')
 class TestUi(flectra.tests.HttpCase):
     def test_admin(self):
-        self.phantom_js("/", "flectra.__DEBUG__.services['web_tour.tour'].run('blog')", "flectra.__DEBUG__.services['web_tour.tour'].tours.blog.ready", login='admin')
+        self.env['blog.blog'].create({'name': 'Travel'})
+        self.env['ir.attachment'].create({
+            'public': True,
+            'type': 'url',
+            'url': '/web/image/123/transparent.png',
+            'name': 'transparent.png',
+            'mimetype': 'image/png',
+        })
+        self.start_tour("/", 'blog', login='admin')

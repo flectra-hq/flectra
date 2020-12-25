@@ -4,11 +4,10 @@
 
 {
     'name': 'Attendances',
-    'author' : 'Odoo S.A',
     'version': '2.0',
-    'category': 'Human Resources',
-    'sequence': 81,
-    'summary': 'Manage employee attendances',
+    'category': 'Human Resources/Attendances',
+    'sequence': 240,
+    'summary': 'Track employee attendance',
     'description': """
 This module aims to manage employee's attendances.
 ==================================================
@@ -16,14 +15,13 @@ This module aims to manage employee's attendances.
 Keeps account of the attendances of the employees on the basis of the
 actions(Check in/Check out) performed by them.
        """,
-    'website': 'https://flectrahq.com/page/employees',
+    'website': 'https://flectrahq.com/employees',
     'depends': ['hr', 'barcodes'],
     'data': [
         'security/hr_attendance_security.xml',
         'security/ir.model.access.csv',
         'views/web_asset_backend_template.xml',
         'views/hr_attendance_view.xml',
-        'report/hr_employee_badge.xml',
         'views/hr_department_view.xml',
         'views/hr_employee_view.xml',
         'views/res_config_settings_views.xml',

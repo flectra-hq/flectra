@@ -41,18 +41,18 @@ var FieldManagerMixin = {
      * @param {string} dataPointID
      * @param {Object} changes
      * @param {FlectraEvent} event
-     * @returns {Deferred} resolves when the change has been done, and the UI
+     * @returns {Promise} resolves when the change has been done, and the UI
      *   updated
      */
     _applyChanges: function (dataPointID, changes, event) {
         var self = this;
-        var options = _.pick(event.data, 'viewType', 'doNotSetDirty', 'notifyChange');
+        var options = _.pick(event.data, 'context', 'doNotSetDirty', 'notifyChange', 'viewType', 'allowWarning');
         return this.model.notifyChanges(dataPointID, changes, options)
             .then(function (result) {
                 if (event.data.force_save) {
                     return self.model.save(dataPointID).then(function () {
                         return self._confirmSave(dataPointID);
-                    }).fail(function () {
+                    }).guardedCatch(function () {
                         return self._rejectSave(dataPointID);
                     });
                 } else if (options.notifyChange !== false) {
@@ -68,10 +68,10 @@ var FieldManagerMixin = {
      * @param {string} id basicModel Id for the changed record
      * @param {string[]} fields the fields (names) that have been changed
      * @param {FlectraEvent} event the event that triggered the change
-     * @returns {Deferred}
+     * @returns {Promise}
      */
     _confirmChange: function (id, fields, event) {
-        return $.when();
+        return Promise.resolve();
     },
     /**
      * This method will be called whenever a save has been triggered by a change
@@ -81,10 +81,10 @@ var FieldManagerMixin = {
      * @see _onFieldChanged
      * @abstract
      * @param {string} id The basicModel ID for the saved record
-     * @returns {Deferred}
+     * @returns {Promise}
      */
     _confirmSave: function (id) {
-        return $.when();
+        return Promise.resolve();
     },
     /**
      * This method will be called whenever a save has been triggered by a change
@@ -97,7 +97,7 @@ var FieldManagerMixin = {
      * @returns {Deferred}
      */
     _rejectSave: function (id) {
-        return $.when();
+        return Promise.resolve();
     },
 
     //--------------------------------------------------------------------------
@@ -118,9 +118,9 @@ var FieldManagerMixin = {
         // subrecord's form view), otherwise it bubbles up to the main form view
         // but its model doesn't have any data related to the given dataPointID
         event.stopPropagation();
-        this._applyChanges(event.data.dataPointID, event.data.changes, event)
-            .done(event.data.onSuccess || function () {})
-            .fail(event.data.onFailure || function () {});
+        return this._applyChanges(event.data.dataPointID, event.data.changes, event)
+            .then(event.data.onSuccess || function () {})
+            .guardedCatch(event.data.onFailure || function () {});
     },
     /**
      * Some widgets need to trigger a reload of their data.  For example, a

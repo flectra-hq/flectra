@@ -18,8 +18,11 @@ Reference
 
     reference/http
     reference/qweb
-    reference/javascript
+    reference/javascript_cheatsheet
+    reference/javascript_reference
     reference/translations
     reference/reports
     reference/mixins
     reference/guidelines
+    reference/mobile
+    reference/iot

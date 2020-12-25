@@ -2,9 +2,8 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'test-limits',
-    'author': 'Odoo S.A',
     'version': '0.1',
-    'category': 'Tests',
+    'category': 'Hidden/Tests',
     'description': """A module with dummy methods.""",
     'depends': ['base'],
     'data': ['ir.model.access.csv'],

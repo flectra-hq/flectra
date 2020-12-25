@@ -1,4 +1,4 @@
-:banner: banners/flectra_theme_tutorial.jpg
+:banner: banners/build_a_theme.jpg
 
 =====================
 Theme Tutorial
@@ -6,26 +6,26 @@ Theme Tutorial
 
 .. rst-class:: lead
 
-Flectra celebrates freedom. Freedom for the designer to go further and
+Odoo celebrates freedom. Freedom for the designer to go further and
 freedom for the user to customize everything according to their needs.
 
-Ready to create your own theme? Great. Here are some things you should know before you begin. This tutorial is a guide to creating an Flectra theme.
+Ready to create your own theme? Great. Here are some things you should know before you begin. This tutorial is a guide to creating an Odoo theme.
 
-.. image:: theme_tutorial_assets/img/flectra_intro.jpg
+.. image:: theme_tutorial_assets/img/Intro.jpg
 
 
 An introduction for web designers
 =================================
 
-If you are a web designer using Flectra for the first time, you are in the right place.
-This introduction will outline the basics of Flectra theme creation.
+If you are a web designer using Odoo for the first time, you are in the right place.
+This introduction will outline the basics of Odoo theme creation.
 
 .. note::
 
-   Flectra’s team has created a framework that’s powerful and easy to use. There’s no need to know special syntaxes to use this set of tools.
+   Odoo’s team has created a framework that’s powerful and easy to use. There’s no need to know special syntaxes to use this set of tools.
 
-From common CMS to Flectra
---------------------------
+From common CMS to Odoo
+-----------------------
 
 .. note::
 
@@ -35,45 +35,45 @@ From common CMS to Flectra
 
     Where is my header.php file?
 
-This is usually the first question from a web designer used to working with Wordpress or Joomla and coming to Flectra for the first time.
+This is usually the first question from a web designer used to working with Wordpress or Joomla and coming to Odoo for the first time.
 
 .. container:: row
 
-  .. container:: col-sm-5
+  .. container:: col-sm-4
 
-     .. image:: theme_tutorial_assets/img/flectra_cms.jpg
+     .. image:: theme_tutorial_assets/img/cms.jpg
 
   .. container:: col-sm-7
 
     Indeed, when using common CMSs, you have to code several files (like header.php, page.php, post.php, etc.) in order to create a basic structure for your website. With those systems, this base structure acts as a design foundation that you have to update over time to ensure compatibility within your CMS. So, even after you have spent hours coding the files, you have not even started on the design yet.
 
-    This **does not** apply to creating Flectra themes.
+    This **does not** apply to creating Odoo themes.
 
 
 .. note::
    We think that theme design should be simple (and powerful). When we created our Website Builder, we decided to start from scratch instead of relying on what already existed. This approach gave us the freedom to focus on the things that are really important for designers: styles, content and the logic behind them. No more struggling with technical stuff.
 
-Flectra default theme structure
--------------------------------
+Odoo default theme structure
+----------------------------
 
 .. container:: row
 
-  .. container:: col-sm-7
+  .. container:: col-sm-8
 
-    Flectra comes with a default theme structure.
+    Odoo comes with a default theme structure.
     It is a very basic “theme” that provides minimal structure and layout. When you create a new theme, you are actually extending this.
     Indeed it’s always enabled in your setup and it acts exactly like the CMS’s base structure we mentioned above, except that you don’t have to create or maintain it.
-    It will upgrade automatically within your Flectra installation and, since it is included in the Website Builder module, everything is smoothly integrated by default.
+    It will upgrade automatically within your Odoo installation and, since it is included in the Website Builder module, everything is smoothly integrated by default.
 
     As a result, you are totally free to focus on design while this structure does the job of providing integrations and functionality.
 
-  .. container:: col-sm-5
+  .. container:: col-sm-4
 
-     .. image:: theme_tutorial_assets/img/flectra_structure.jpg
+     .. image:: theme_tutorial_assets/img/def_structure.jpg
 
 .. container:: row
 
-  .. container:: col-md-7
+  .. container:: col-md-6
 
      **Main features:**
 
@@ -83,7 +83,7 @@ Flectra default theme structure
      * Automatic Less/Sass compiling
      * Automatic Js and CSS minification and combination
 
-  .. container:: col-md-5
+  .. container:: col-md-6
 
      **Main technologies:**
 
@@ -95,76 +95,70 @@ Flectra default theme structure
 Thinking "modular"
 ==================
 
-An Flectra theme is not a folder containing HTML or PHP files, it’s a modular framework written in XML. Never worked with XML files before? Don’t worry, after following the tutorial, you’ll be able to create your first theme with only basic knowledge of HTML.
+An Odoo theme is not a folder containing HTML or PHP files, it’s a modular framework written in XML. Never worked with XML files before? Don’t worry, after following the tutorial, you’ll be able to create your first theme with only basic knowledge of HTML.
 
 Using classical web design workflows, you usually code the layout of the entire page. The result of this is a “static” web page. You can update the content, of course, but your client will need you to work on making even basic changes.
 
-Creating themes for Flectra is a total change of perspective. Instead of defining the complete layout for a page, you can create blocks (snippets) at let the user choose where to “drag&drop” them, creating the page layout on their own.
+Creating themes for Odoo is a total change of perspective. Instead of defining the complete layout for a page, you can create blocks (snippets) at let the user choose where to “drag&drop” them, creating the page layout on their own.
 We call this modular design.
 
-Imagine an Flectra theme as a “list” of elements and options that you have to create and style.
+Imagine an Odoo theme as a “list” of elements and options that you have to create and style.
 As a designer, your goal is to style these elements in order to achieve a wonderful result, regardless of where the end user chooses to place them.
 
 Let’s take a tour of our “list” elements:
 
 .. container:: row
 
-    .. container:: col-sm-6
+  .. figure:: theme_tutorial_assets/img/snippet.jpg
+     :figclass: col-sm-6
 
-        .. image:: theme_tutorial_assets/img/flectra_snippet.jpg
+     Snippets (or building-blocks)
 
+     A piece of HTML code.  The user  will  drag&drop, modify and combine them using our built-in Website Builder interface. You can define sets of options and styles for each snippet. The user will choose from them according to their needs.
 
-    .. container:: col-sm-6
-
-         Snippets (or building-blocks)
-
-         A piece of HTML code.  The user  will  drag&drop, modify and combine them using our built-in Website Builder interface. You can define sets of options and styles for each snippet. The user will choose from them according to their needs.
-
-
-.. container:: row
-
-    .. container:: col-sm-6
+  .. figure:: theme_tutorial_assets/img/page.jpg
+     :figclass: col-sm-6
 
      Pages
 
      These are normal web pages, except that they will be editable by the final user and that you can define an empty area that the user can “fill” by dragging snippets into it.
 
-    .. container:: col-sm-6
+.. raw:: html
 
-      .. image:: theme_tutorial_assets/img/flectra_page.jpg
+    <div class="clearfix themes"></div>
 
 .. container:: row
 
-  .. figure:: theme_tutorial_assets/img/flectra_styles.jpg
+  .. figure:: theme_tutorial_assets/img/styles.jpg
      :figclass: col-sm-6
 
      Styles
 
      Styles are defined using standard CSS files (or Less/Sass). You can define a style as **default** or **optional**. The default styles are always active in your theme, the optional styles can be enabled or disabled by the user.
 
-  .. figure:: theme_tutorial_assets/img/flectra_functionalities.jpg
+  .. figure:: theme_tutorial_assets/img/functionalities.jpg
      :figclass: col-sm-6
 
      Functionalities
 
-     Thanks to Flectra’s modularity, everything can be personalized even more. This means there are endless possibilities for your creativity. Adding functionalities is easy and it’s simple to provide the end user with customizable options.
+     Thanks to Odoo’s modularity, everything can be personalized even more. This means there are endless possibilities for your creativity. Adding functionalities is easy and it’s simple to provide the end user with customizable options.
 
 
-Flectra's XML files, an overview
---------------------------------
+Odoo's XML files, an overview
+-----------------------------
 
-Any Flectra XML file starts with encoding specifications.
-After that, you have to write your code inside a ``<flectra>`` tag.
+Any Odoo XML file starts with encoding specifications.
+After that, you have to write your code inside a ``<odoo>`` tag.
 
 .. code-block:: xml
 
    [XML]
    <?xml version="1.0" encoding="utf-8" ?>
-   <flectra>
+   <odoo>
      
        ## YOUR CODE HERE
      
-   </flectra>
+   </odoo>
 
 Almost every element and option that you create has to be placed inside a ``<template>`` tag, like in this example.
 
@@ -184,7 +178,7 @@ Almost every element and option that you create has to be placed inside a ``<tem
 
 The previous code defines a title, but it will not be displayed
 anywhere because that *template* is not associated with any part of
-the **Flectra default structure**.  In order to do that you can use
+the **Odoo default structure**.  In order to do that you can use
 **xpath**, **qWeb** or a combination of both.
 
 Keep reading the tutorial to learn to how properly extend it with your own code.
@@ -204,14 +198,14 @@ Update your theme
 
   .. container:: col-sm-5
 
-    .. image:: theme_tutorial_assets/img/flectra_upgrade_module.png
+    .. image:: theme_tutorial_assets/img/upgrade_module.png
 
 
 
 Create a theme module
 ======================
 
-Flectra’s themes are packaged like modules. Even if you are designing a very simple website for your company or client, you need to package the theme like an Flectra module.
+Odoo’s themes are packaged like modules. Even if you are designing a very simple website for your company or client, you need to package the theme like an Odoo module.
 
 ``main folder``
   Create a folder and name it like this: ``theme_`` followed by your
@@ -235,11 +229,11 @@ Flectra’s themes are packaged like modules. Even if you are designing a very s
 .. important::
 
   Use two underscore characters at the beginning
-  and two at the end of flectra and init file names.
+  and two at the end of odoo and init file names.
 
 The final result should be something like this:
 
-.. image:: theme_tutorial_assets/img/folder.jpeg
+.. image:: theme_tutorial_assets/img/folder.jpg
 
 Edit ``__manifest__.py``
 ------------------------
@@ -257,23 +251,23 @@ Open the ``__manifest__.py`` you created and copy/paste the following:
     'data': [
     ],
     'category': 'Theme/Creative',
-    'depends': ['website'],
+    'depends': ['website', 'website_theme_install'],
   }
 
 Replace the first four property’s values with anything you like.
-These values will be used to identify your new theme in Flectra’s backend.
+These values will be used to identify your new theme in Odoo’s backend.
 
 The ``data`` property will contain the xml files list. Right now it’s empty, but we will add any new files created.
 
-``category`` defines your module category (always “Theme”) and, after a slash, the subcategory.You can use one subcategory from the Flectra Apps categories list. (https://store.flectrahq.com/apps/category/2)
+``category`` defines your module category (always “Theme”) and, after a slash, the subcategory. You can use one subcategory from the Odoo Apps categories list. (https://www.odoo.com/apps/themes)
 
 
-``depends`` specifies the modules needed by our theme to work properly. For our tutorial theme, we only need website. If you need blogging or eCommerce features as well, you have to add those modules too.
+``depends`` specifies the modules needed by our theme to work properly. For our tutorial theme, we only need website and website_theme_install to install/update. If you need blogging or eCommerce features as well, you have to add those modules too.
 
 .. code-block:: python
 
    ...
-   'depends': ['website', 'website_blog', 'sale'],
+   'depends': ['website', 'website_theme_install', 'website_blog', 'sale'],
    ...
 
 
@@ -281,21 +275,25 @@ The ``data`` property will contain the xml files list. Right now it’s empty, b
 Installing your theme
 ---------------------
 
-To install your theme, you just place your theme folder inside addons in your Flectra installation.
+To install your theme, you just place your theme folder inside addons in your Odoo installation.
 
-After that, navigate to the Settings page, look for your theme and click on the install button.
+After that, navigate to the Odoo **Website** module, go to
+:menuselection:`Configuration --> Settings`.
 
-Structure of an Flectra page
-============================
+Under **Website** section click the **Pick a Theme** button, then hover over
+your theme and click **Use this theme**.
 
-An Flectra page is the visual result of a combination of 2 kind of elements, **cross-pages** and **unique**.
-By default, Flectra provides you with a **Header** and a **Footer** (cross-pages) and a unique main element that contains the content that makes your page unique.
+Structure of an Odoo page
+=========================
+
+An Odoo page is the visual result of a combination of 2 kind of elements, **cross-pages** and **unique**.
+By default, Odoo provides you with a **Header** and a **Footer** (cross-pages) and a unique main element that contains the content that makes your page unique.
 
 .. note::
 
   Cross-pages elements will be the same on every page. Unique elements are related to a specific page only.
 
-.. image:: theme_tutorial_assets/img/flectra_page_structure.jpg
+.. image:: theme_tutorial_assets/img/page_structure.jpg
 
 To inspect the default layout, simply create a new page using the
 Website Builder.  Click on :menuselection:`Content --> New Page` and
@@ -312,20 +310,20 @@ add a page name.  Inspect the page using your browser.
 Extend the default Header
 -------------------------
 
-By default, Flectra header contains a responsive navigation menu and the company’s logo. You can easily add new elements or style the existing one.
+By default, Odoo header contains a responsive navigation menu and the company’s logo. You can easily add new elements or style the existing one.
 
-To do so, create a **layout.xml** file in your **views** folder and add the default Flectra xml markup.
+To do so, create a **layout.xml** file in your **views** folder and add the default Odoo xml markup.
 
 .. code-block:: xml
 
    <?xml version="1.0" encoding="utf-8" ?>
-   <flectra>
+   <odoo>
 
 
 
-   </flectra>
+   </odoo>
 
-Create a new template into the ``<flectra>`` tag, copy-pasting the following
+Create a new template into the ``<odoo>`` tag, copy-pasting the following
 code.
 
 .. code-block:: xml
@@ -339,7 +337,7 @@ code.
     </xpath>
 
     <!-- Add an element after the top menu  -->
-    <xpath expr="//div[@id='wrapwrap']/header/div" position="after">
+    <xpath expr="//div[@id='wrapwrap']/header/nav" position="after">
       <div class="container">
         <div class="alert alert-info mt16" role="alert">
           <strong>Welcome</strong> in our website!
@@ -354,7 +352,7 @@ target css rules to that element and avoid these affecting other content on the 
 .. warning::
 
   Be careful replacing default elements attributes. As your theme will extend the default one,
-  your changes will take priority in any future Flectra’s update.
+  your changes will take priority in any future Odoo’s update.
 
 The second xpath will add a welcome message just after the navigation menu.
 
@@ -373,7 +371,7 @@ Great! We successfully added an id to the
 header and an element after the navigation menu. These changes will be
 applied to each page of the website.
 
-.. image:: theme_tutorial_assets/img/flectra_after_menu.png
+.. image:: theme_tutorial_assets/img/after-menu.png
    :class: shadow-0
 
 Create a specific page layout
@@ -383,27 +381,37 @@ Imagine that we want to create a specific layout for a Services page.
 For this page, we need to add a list of services to the top and give the client the possibility of setting the rest of the page’s layout using snippets.
 
 Inside your *views* folder, create a **pages.xml** file and add the
-default Flectra markup.  Inside ``<flectra>`` create a ``<template>`` tag, set the
-``page`` attribute to ``True`` and add your code into it.
+default Odoo markup.  Inside ``<odoo>``, instead of defining a ``<template>``,
+we will create a *page* object.
 
 .. code-block:: xml
 
    <?xml version="1.0" encoding="utf-8" ?>
-   <flectra>
+   <odoo>
 
-       <!-- === Services Page === -->
-       <template name="Services page" id="website.services" page="True">
-         <h1>Our Services</h1>
-           <ul class="services">
-             <li>Training</li>
-             <li>Support</li>
-             <li>Development</li>
-           </ul>
-         </template>
+        <!-- === Services Page === -->
+        <record id="services_page" model="website.page">
+            <field name="name">Services page</field>
+            <field name="website_published">True</field>
+            <field name="url">/services</field>
+            <field name="type">qweb</field>
+            <field name="key">theme_tutorial.services_page</field>
+            <field name="arch" type="xml">
+                <t t-name="theme_tutorial.services_page_template">
+                    <h1>Our Services</h1>
+                    <ul class="services">
+                        <li>Cloud Hosting</li>
+                        <li>Support</li>
+                        <li>Unlimited space</li>
+                    </ul>
+                </t>
+            </field>
+        </record>
 
-     </flectra>
+    </odoo>
 
-The page title will be the template ID. In our case *Services* (from ``website.services``)
+As you can see, pages come with many additional properties like the *name* or
+the *url* where it is reachable.
 
 We successfully created a new page layout, but we haven't told the
 system **how to use it**. To do that, we can use **QWeb**. Wrap the
@@ -411,23 +419,32 @@ html code into a ``<t>`` tag, like in this example.
 
 .. code-block:: xml
 
-   <!-- === Services Page === -->
-   <template name="Services page" id="website.services" page="True">
-     <t t-call="website.layout">
-       <div id="wrap">
-         <div class="container">
-           <h1>Our Services</h1>
-           <ul class="services">
-             <li>Training</li>
-             <li>Support</li>
-             <li>Development</li>
-           </ul>
-         </div>
-       </div>
-     </t>
-   </template>
+    <!-- === Services Page === -->
+    <record id="services_page" model="website.page">
+        <field name="name">Services page</field>
+        <field name="website_published">True</field>
+        <field name="url">/services</field>
+        <field name="type">qweb</field>
+        <field name="key">theme_tutorial.services_page</field>
+        <field name="arch" type="xml">
+            <t t-name="theme_tutorial.services_page_template">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="container">
+                            <h1>Our Services</h1>
+                            <ul class="services">
+                                <li>Cloud Hosting</li>
+                                <li>Support</li>
+                                <li>Unlimited space</li>
+                            </ul>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
 
-Using ``<t t-call="website.layout">`` we will extend the Flectra
+Using ``<t t-call="website.layout">`` we will extend the Odoo
 default page layout with our code.
 
 As you can see, we wrapped our code into two ``<div>``,  one with ID ``wrap`` and the other one with class ``container``. This is to provide a minimal layout.
@@ -438,32 +455,79 @@ can fill with snippets. To achieve this, just create a ``div`` with
 
 .. code-block:: xml
 
-   <?xml version="1.0" encoding="utf-8" ?>
-   <flectra>
+    <?xml version="1.0" encoding="utf-8" ?>
+    <odoo>
 
-   <!-- === Services Page === -->
-   <template name="Services page" id="website.services" page="True">
-     <t t-call="website.layout">
-      <div id="wrap">
-        <div class="container">
-          <h1>Our Services</h1>
-          <ul class="services">
-             <li>Training</li>
-             <li>Support</li>
-             <li>Development</li>
-          </ul>
-          <!-- === Snippets' area === -->
-          <div class="oe_structure" />
-        </div>
-      </div>
-     </t>
-   </template>
+        <!-- === Services Page === -->
+        <record id="services_page" model="website.page">
+            <field name="name">Services page</field>
+            <field name="website_published">True</field>
+            <field name="url">/services</field>
+            <field name="type">qweb</field>
+            <field name="key">theme_tutorial.services_page</field>
+            <field name="arch" type="xml">
+                <t t-name="theme_tutorial.services_page_template">
+                    <t t-call="website.layout">
+                        <div id="wrap">
+                            <div class="container">
+                                <h1>Our Services</h1>
+                                <ul class="services">
+                                    <li>Cloud Hosting</li>
+                                    <li>Support</li>
+                                    <li>Unlimited space</li>
+                                </ul>
 
-   </flectra>
+                                <!-- === Snippets' area === -->
+                                <div class="oe_structure" />
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </field>
+        </record>
+
+    </odoo>
 
 .. tip::
 
    You can create as many snippet areas as you like and place them anywhere in your pages.
+
+It is worth mentioning there is an alternative to create pages using the
+``<template>`` directive we saw before.
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8" ?>
+    <odoo>
+
+        <!-- === Services Page === -->
+        <template id="services_page_template">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container">
+                        <h1>Our Services</h1>
+                        <ul class="services">
+                            <li>Cloud Hosting</li>
+                            <li>Support</li>
+                            <li>Unlimited space</li>
+                        </ul>
+
+                        <!-- === Snippets' area === -->
+                        <div class="oe_structure" />
+                    </div>
+                </div>
+            </t>
+        </template>
+        <record id="services_page" model="website.page">
+            <field name="name">Services page</field>
+            <field name="website_published">True</field>
+            <field name="url">/services</field>
+            <field name="view_id" ref="services_page_template"/>
+        </record>
+
+    </odoo>
+
+This would allow your page content to be further customized using ``<xpath>``.
 
 Our page is almost ready. Now all we have to do is add **pages.xml** in our **__manifest__.py** file
 
@@ -478,12 +542,12 @@ Update your theme
 
 .. image:: theme_tutorial_assets/img/restart.png
 
-Great, our Services page is ready and you’ll be able to access it by navigating to ``/yourwebsite/page/services``.
+Great, our Services page is ready and you’ll be able to access it by navigating to ``<yourwebsite>/services`` (the URL we chose above).
 
 You will notice that it's possible to drag/drop snippets underneath the
 *Our Services* list.
 
-.. image:: theme_tutorial_assets/img/flectra_services_page_nostyle.png.png
+.. image:: theme_tutorial_assets/img/services_page_nostyle.png
    :class: shadow-0
 
 Now let's go back to our *pages.xml* and, after our page template,
@@ -493,14 +557,14 @@ copy/paste the following code.
 
   <record id="services_page_link" model="website.menu">
     <field name="name">Services</field>
-    <field name="url">/page/services</field>
+    <field name="page_id" ref="services_page"/>
     <field name="parent_id" ref="website.main_menu" />
     <field name="sequence" type="int">99</field>
   </record>
 
-This code will add a link to the main menu.
+This code will add a link to the main menu, referring to the page we created.
 
-.. image:: theme_tutorial_assets/img/flectra_services_page_menu.png
+.. image:: theme_tutorial_assets/img/services_page_menu.png
    :class: shadow-0
 
 The **sequence** attribute defines the link’s position in the top menu.
@@ -512,12 +576,12 @@ If, for example, you want to place your link in the **middle**, you can set your
 Add Styles
 ==========
 
-Flectra includes Bootstrap by default. This means that you can take advantage of all Bootstrap styles and layout functionalities out of the box.
+Odoo includes Bootstrap by default. This means that you can take advantage of all Bootstrap styles and layout functionalities out of the box.
 
 Of course Bootstrap is not enough if you want to provide a unique design. The following steps will guide you through how to add custom styles to your theme.
 The final result won't be pretty, but will provide you with enough information to build upon on your own.
 
-Let’s start by creating an empty file called **style.less** and place it in a folder called **less** in your static folder.
+Let’s start by creating an empty file called **style.scss** and place it in a folder called **scss** in your static folder.
 The following rules will style our *Services* page. Copy and paste it, then save the file.
 
 .. as of Pygments 2.2, the Less lexer can't handle inline comments or nested
@@ -544,25 +608,25 @@ The following rules will style our *Services* page. Copy and paste it, then save
 
 Our file is ready but it is not included in our theme yet.
 
-Let’s navigate to the view folder and create an XML file called *assets.xml*. Add the default Flectra xml markup and copy/paste the following code. Remember to replace ``theme folder`` with your theme’s main folder name.
+Let’s navigate to the view folder and create an XML file called *assets.xml*. Add the default Odoo xml markup and copy/paste the following code. Remember to replace ``theme folder`` with your theme’s main folder name.
 
 .. code-block:: xml
 
    <template id="mystyle" name="My style" inherit_id="website.assets_frontend">
        <xpath expr="link[last()]" position="after">
-           <link href="/theme folder/static/less/style.less" rel="stylesheet" type="text/less"/>
+           <link rel="stylesheet" type="text/scss" href="/theme folder/static/scss/style.scss"/>
        </xpath>
    </template>
 
-We just created a template specifying our less file. As you can see,
+We just created a template specifying our scss file. As you can see,
 our template has a special attribute called ``inherit_id``.  This
-attribute tells Flectra that our template is referring to another one in
+attribute tells Odoo that our template is referring to another one in
 order to operate.
 
 In this case, we are referring to ``assets_frontend`` template,
 located in the ``website`` module. ``assets_frontend`` specifies the
 list of assets loaded by the website builder and our goal is to add
-our less file to this list.
+our scss file to this list.
 
 This can be achieved using xpath with the attributes
 ``expr="link[last()]"`` and ``position="after"``, which means "*take my
@@ -579,9 +643,9 @@ Update your theme
 .. image:: theme_tutorial_assets/img/restart.png
 
 
-Our less file is now included in our theme, it will be automatically compiled, minified and combined with all Flectra’s assets.
+Our scss file is now included in our theme, it will be automatically compiled, minified and combined with all Odoo’s assets.
 
-.. image:: theme_tutorial_assets/img/flectra_services_page_styled.png
+.. image:: theme_tutorial_assets/img/services_page_styled.png
    :class: shadow-0
 
 Create Snippets
@@ -590,7 +654,7 @@ Create Snippets
 Since snippets are how users design and layout pages, they are the most important element of your design.
 Let’s create a snippet for our Service page. The snippet will display three testimonials and it will be editable by the end user using the Website Builder UI.
 Navigate to the view folder and create an XML file called **snippets.xml**.
-Add the default Flectra xml markup and copy/paste the following code.
+Add the default Odoo xml markup and copy/paste the following code.
 The template contains the HTML markup that will be displayed by the snippet.
 
 .. code-block:: xml
@@ -599,18 +663,18 @@ The template contains the HTML markup that will be displayed by the snippet.
      <section class="snippet_testimonial">
        <div class="container text-center">
          <div class="row">
-           <div class="col-md-4">
-             <img alt="client" class="img-circle" src="/theme_tutorial/static/src/img/client_1.jpg"/>
+           <div class="col-lg-4">
+             <img alt="client" class="rounded-circle" src="/theme_tutorial/static/src/img/client_1.jpg"/>
              <h3>Client Name</h3>
              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
            </div>
-           <div class="col-md-4">
-             <img alt="client" class="img-circle" src="/theme_tutorial/static/src/img/client_2.jpg"/>
+           <div class="col-lg-4">
+             <img alt="client" class="rounded-circle" src="/theme_tutorial/static/src/img/client_2.jpg"/>
              <h3>Client Name</h3>
              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
            </div>
-           <div class="col-md-4">
-             <img alt="client" class="img-circle" src="/theme_tutorial/static/src/img/client_3.jpg"/>
+           <div class="col-lg-4">
+             <img alt="client" class="rounded-circle" src="/theme_tutorial/static/src/img/client_3.jpg"/>
              <h3>Client Name</h3>
              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
            </div>
@@ -626,7 +690,7 @@ The previous code will create the snippet’s content, but we still need to plac
 .. code-block:: xml
 
    <template id="place_into_bar" inherit_id="website.snippets" name="Place into bar">
-     <xpath expr="//div[@id='snippet_content']/div[@class='o_panel_body']" position="inside">
+     <xpath expr="//div[@id='snippet_structure']/div[@class='o_panel_body']" position="inside">
        <t t-snippet="theme_tutorial.snippet_testimonial"
           t-thumbnail="/theme_tutorial/static/src/img/ui/snippet_thumb.jpg"/>
      </xpath>
@@ -693,22 +757,22 @@ Options apply standard CSS classes to the snippet. Depending on the method that 
 
 Let's demonstrate how default options work with a basic example.
 
-We start by adding a new file in our views folder - name it **options.xml** and add the default Flectra XML markup. Create a new template copy/pasting the following
+We start by adding a new file in our views folder - name it **options.xml** and add the default Odoo XML markup. Create a new template copy/pasting the following
 
 
 .. code-block:: xml
 
   <template id="snippet_testimonial_opt" name="Snippet Testimonial Options" inherit_id="website.snippet_options">
-    <xpath expr="//div[@data-js='background']" position="after">
+    <xpath expr="//div[@data-js='Box']" position="after">
       <div data-selector=".snippet_testimonial"> <!-- Options group -->
-        <li class="dropdown-submenu">
-          <a href="#">Your Option</a>
-          <ul class="dropdown-menu"> <!-- Options list -->
-            <li data-select-class="opt_shadow"><a>Shadow Images</a></li>
-            <li data-select-class="opt_grey_bg"><a>Grey Bg</a></li>
-            <li data-select-class=""><a>None</a></li>
-          </ul>
-        </li>
+        <div class="dropdown-submenu">
+              <a href="#" class="dropdown-item">Your Option</a>
+              <div class="dropdown-menu"><!-- Options list -->
+                  <a href="#" class="dropdown-item" data-select-class="opt_shadow">Shadow Images</a>
+                  <a href="#" class="dropdown-item" data-select-class="opt_grey_bg">Grey Bg</a>
+                  <a href="#" class="dropdown-item" data-select-class="">None</a>
+              </div>
+          </div>
       </div>
     </xpath>
    </template>
@@ -737,7 +801,7 @@ Dropping our snippet onto the page, you will notice that our new options are aut
 
 .. image:: theme_tutorial_assets/img/snippet_options.png
 
-Let’s create some css rules in order to provide a visual feedback for our options. Open our **style.less** file and add the following
+Let’s create some css rules in order to provide a visual feedback for our options. Open our **style.scss** file and add the following
 
 .. code-block:: scss
 
@@ -797,27 +861,22 @@ the following code
 
 .. code-block:: javascript
 
-    (function() {
-        'use strict';
-        var website = flectra.website;
-        website.flectra_website = {};
-    })();
+    odoo.define(function (require) {
+       var options = require('web_editor.snippets.options');
+   });
 
 Great, we successfully created our javascript editor file. This file will contain all the javascript functions used by our snippets in edit mode. Let’s create a new function for our testimonial snippet using the ``snippet_testimonial_options`` method that we created before.
 
 .. code-block:: javascript
 
-   (function() {
-       'use strict';
-       var website = flectra.website;
-       website.flectra_website = {};
-
-       website.snippet.options.snippet_testimonial_options = website.snippet.Option.extend({
-           onFocus: function() {
-               alert("On focus!");
-           }
-       })
-   })();
+   odoo.define(function (require) {
+       var options = require('web_editor.snippets.options');
+       options.registry.snippet_testimonial_options = options.Class.extend({
+           onFocus: function () {
+               alert("On focus!")
+           },
+       });
+   });
 
 As you will notice, we used a method called ``onFocus`` to trigger our function. The Website Builder provides several events you can use to trigger your custom functions.
 
@@ -854,7 +913,7 @@ Let’s test our new javascript function. Enter in Edit mode and drop into the p
 You should now see the javascript alert that we bound on the ``onFocus`` event.
 If you close it, then click outside of your snippet and then click in it again, the event will trigger again.
 
-.. image:: theme_tutorial_assets/img/flectra_snippet_custom_method.png
+.. image:: theme_tutorial_assets/img/snippet_custom_method.png
    :class: shadow-0
 
 
@@ -871,8 +930,8 @@ Layout
 ``<section />``
   Any section element can be edited like a block of content. The publisher can move or duplicate it. It’s also possible to set a background image or color. Section is the standard main container of any snippet.
 
-``.row > .col-md-*``
-  Any medium  bootstrap columns  directly descending from a .row element, will be resizable by the publisher.
+``.row > .col-lg-*``
+  Any large bootstrap columns directly descending from a .row element, will be resizable by the publisher.
 
 ``contenteditable="False"``
   This attribute will prevent editing to the element and all its children.

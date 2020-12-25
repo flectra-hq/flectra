@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from contextlib import closing
 from functools import wraps
 import logging
 from psycopg2 import IntegrityError, OperationalError, errorcodes
@@ -8,12 +9,13 @@ import threading
 import time
 
 import flectra
-from flectra.exceptions import UserError, ValidationError, QWebException
+from flectra.exceptions import UserError, ValidationError
 from flectra.models import check_method_name
-from flectra.tools.translate import translate
+from flectra.tools.translate import translate, translate_sql_constraint
 from flectra.tools.translate import _
 
 from . import security
+from ..tools import traverse_containers, lazy
 
 _logger = logging.getLogger(__name__)
 
@@ -21,7 +23,7 @@ PG_CONCURRENCY_ERRORS_TO_RETRY = (errorcodes.LOCK_NOT_AVAILABLE, errorcodes.SERI
 MAX_TRIES_ON_CONCURRENCY_FAILURE = 5
 
 def dispatch(method, params):
-    (db, uid, passwd ) = params[0:3]
+    (db, uid, passwd ) = params[0], int(params[1]), params[2]
 
     # set uid tracker - cleaned up at the WSGI
     # dispatching phase in flectra.service.wsgi_server.application
@@ -73,18 +75,13 @@ def check(f):
 
             # We open a *new* cursor here, one reason is that failed SQL
             # queries (as in IntegrityError) will invalidate the current one.
-            cr = False
-
-            try:
-                cr = flectra.sql_db.db_connect(dbname).cursor()
-                res = translate(cr, name=False, source_type=ttype,
-                                lang=lang, source=src)
-                if res:
-                    return res
+            with closing(flectra.sql_db.db_connect(dbname).cursor()) as cr:
+                if ttype == 'sql_constraint':
+                    res = translate_sql_constraint(cr, key=key, lang=lang)
                 else:
-                    return src
-            finally:
-                if cr: cr.close()
+                    res = translate(cr, name=False, source_type=ttype,
+                                    lang=lang, source=src)
+                return res or src
 
         def _(src):
             return tr(src, 'code')
@@ -95,13 +92,7 @@ def check(f):
                 if flectra.registry(dbname)._init and not flectra.tools.config['test_enable']:
                     raise flectra.exceptions.Warning('Currently, this database is not fully loaded and can not be used.')
                 return f(dbname, *args, **kwargs)
-            except (OperationalError, QWebException) as e:
-                if isinstance(e, QWebException):
-                    cause = e.qweb.get('cause')
-                    if isinstance(cause, OperationalError):
-                        e = cause
-                    else:
-                        raise
+            except OperationalError as e:
                 # Automatically retry the typical transaction serialization errors
                 if e.pgcode not in PG_CONCURRENCY_ERRORS_TO_RETRY:
                     raise
@@ -114,9 +105,9 @@ def check(f):
                 time.sleep(wait_time)
             except IntegrityError as inst:
                 registry = flectra.registry(dbname)
-                for key in registry._sql_error.keys():
-                    if key in inst.pgerror:
-                        raise ValidationError(tr(registry._sql_error[key], 'sql_constraint') or inst.pgerror)
+                key = inst.diag.constraint_name
+                if key in registry._sql_constraints:
+                    raise ValidationError(tr(key, 'sql_constraint') or inst.pgerror)
                 if inst.pgcode in (errorcodes.NOT_NULL_VIOLATION, errorcodes.FOREIGN_KEY_VIOLATION, errorcodes.RESTRICT_VIOLATION):
                     msg = _('The operation cannot be completed:')
                     _logger.debug("IntegrityError", exc_info=True)
@@ -164,8 +155,13 @@ def execute_cr(cr, uid, obj, method, *args, **kw):
     flectra.api.Environment.reset()  # clean cache etc if we retry the same transaction
     recs = flectra.api.Environment(cr, uid, {}).get(obj)
     if recs is None:
-        raise UserError(_("Object %s doesn't exist") % obj)
-    return flectra.api.call_kw(recs, method, args, kw)
+        raise UserError(_("Object %s doesn't exist", obj))
+    result = flectra.api.call_kw(recs, method, args, kw)
+    # force evaluation of lazy values before the cursor is closed, as it would
+    # error afterwards if the lazy isn't already evaluated (and cached)
+    for l in traverse_containers(result, lazy):
+        _0 = l._value
+    return result
 
 
 def execute_kw(db, uid, obj, method, args, kw=None):

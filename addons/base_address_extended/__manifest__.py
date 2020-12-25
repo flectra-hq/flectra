@@ -2,10 +2,9 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Extended Addresses',
-    'author' : 'Odoo S.A',
     'summary': 'Add extra fields on addresses',
     'sequence': '19',
-    'category': 'Base',
+    'category': 'Hidden',
     'complexity': 'easy',
     'description': """
 Extended Addresses Management
@@ -21,4 +20,5 @@ with the street name, the house number, and room number.
         'data/base_address_extended_data.xml',
     ],
     'depends': ['base'],
+    'post_init_hook': '_update_street_format',
 }

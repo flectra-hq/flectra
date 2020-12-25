@@ -1,4 +1,4 @@
-:banner: banners/flectra_data_files.jpg
+:banner: banners/data_files.jpg
 
 .. _reference/data:
 
@@ -6,7 +6,7 @@
 Data Files
 ==========
 
-Flectra is greatly data-driven, and a big part of modules definition is thus
+Odoo is greatly data-driven, and a big part of modules definition is thus
 the definition of the various records it manages: UI (menus and views),
 security (access rights and access rules), reports and plain data are all
 defined via records.
@@ -14,21 +14,41 @@ defined via records.
 Structure
 =========
 
-The main way to define data in Flectra is via XML data files: The broad structure
+The main way to define data in Odoo is via XML data files: The broad structure
 of an XML data file is the following:
 
-* Any number of operation elements within the root element ``flectra``
+* Any number of operation elements within the root element ``odoo``
 
 .. code-block:: xml
 
     <!-- the root elements of the data file -->
-    <flectra>
+    <?xml version="1.0" encoding="UTF-8"?>
+    <odoo>
       <operation/>
       ...
-    </flectra>
+    </odoo>
 
 Data files are executed sequentially, operations can only refer to the result
 of operations defined previously
+
+.. note::
+
+    If the content of the data file is expected to be applied only once, you
+    can specify the odoo flag ``noupdate`` set to 1.  If part of
+    the data in the file is expected to be applied once, you can place this part
+    of the file in a <data noupdate="1"> domain.
+
+    .. code-block:: xml
+
+      <odoo>
+          <data noupdate="1">
+              <!-- Only loaded when installing the module (odoo-bin -i module) -->
+              <operation/>
+          </data>
+
+          <!-- (Re)Loaded at install and update (odoo-bin -i/-u) -->
+          <operation/>
+      </odoo>
 
 Core operations
 ===============
@@ -72,18 +92,18 @@ Nothing
     on the field. Can be used to clear a field, or avoid using a default value
     for the field.
 ``search``
-    for :ref:`relational fields <reference/orm/fields/relational>`, should be
+    for :ref:`relational fields <reference/fields/relational>`, should be
     a :ref:`domain <reference/orm/domains>` on the field's model.
 
     Will evaluate the domain, search the field's model using it and set the
     search's result as the field's value. Will only use the first result if
-    the field is a :class:`~flectra.fields.Many2one`
+    the field is a :class:`~odoo.fields.Many2one`
 ``ref``
     if a ``ref`` attribute is provided, its value must be a valid
     :term:`external id`, which will be looked up and set as the field's value.
 
-    Mostly for :class:`~flectra.fields.Many2one` and
-    :class:`~flectra.fields.Reference` fields
+    Mostly for :class:`~odoo.fields.Many2one` and
+    :class:`~odoo.fields.Reference` fields
 ``type``
     if a ``type`` attribute is provided, it is used to interpret and convert
     the field's content. The field's content can be provided through an
@@ -152,12 +172,35 @@ Parameters can be provided using ``eval`` (should evaluate to a sequence of
 parameters to call the method with) or ``value`` elements (see ``list``
 values).
 
+.. code-block:: xml
+
+  <odoo>
+      <data noupdate="1">
+          <record name="partner_1" model="res.partner">
+              <field name="name">Odude</field>
+          </record>
+
+          <function model="res.partner" name="send_inscription_notice"
+              eval="[[ref('partner_1'), ref('partner_2')]]"/>
+
+          <function model="res.users" name="send_vip_inscription_notice">
+              <function eval="[[('vip','=',True)]]" model="res.partner" name="search"/>
+          </function>
+      </data>
+
+      <record id="model_form_view" model="ir.ui.view">
+
+      </record>
+  </odoo>
+
 .. ignored assert
+
+.. _reference/data/shortcuts:
 
 Shortcuts
 =========
 
-Because some important structural models of Flectra are complex and involved,
+Because some important structural models of Odoo are complex and involved,
 data files provide shorter alternatives to defining them using
 :ref:`record tags <reference/data/record>`:
 
@@ -166,7 +209,7 @@ data files provide shorter alternatives to defining them using
 
 Defines an ``ir.ui.menu`` record with a number of defaults and fallbacks:
 
-Parent menu
+``parent``
     * If a ``parent`` attribute is set, it should be the :term:`external id`
       of an other menu item, used as the new item's parent
     * If no ``parent`` is provided, tries to interpret the ``name`` attribute
@@ -175,10 +218,10 @@ Parent menu
       created
     * Otherwise the menu is defined as a "top-level" menu item (*not* a menu
       with no parent)
-Menu name
+``name``
     If no ``name`` attribute is specified, tries to get the menu name from
     a linked action if any. Otherwise uses the record's ``id``
-Groups
+``groups``
     A ``groups`` attribute is interpreted as a comma-separated sequence of
     :term:`external identifiers` for ``res.groups`` models. If an
     :term:`external identifier` is prefixed with a minus (``-``), the group
@@ -215,15 +258,7 @@ section of the view, and allowing a few *optional* attributes:
     website interface) and its default status. If unset, the view is always
     enabled.
 
-``report``
-----------
-
-Creates a ``ir.actions.report`` record with a few default values.
-
-Mostly just proxies attributes to the corresponding fields on
-``ir.actions.report``, but also automatically creates the item in the
-:guilabel:`More` menu of the report's ``model``.
-
+.. deprecated act_window & report
 .. ignored url, act_window and ir_set
 
 CSV data files
@@ -243,14 +278,13 @@ For this case, data files can also use csv_, this is often the case for
 Here's the first lines of the data file defining US states
 ``res.country.state.csv``
 
-.. literalinclude:: ../../flectra/addons/base/res/res.country.state.csv
+.. literalinclude:: static/res.country.state.csv
     :language: text
-    :lines: 1-15
 
 rendered in a more readable format:
 
 .. csv-table::
-    :file: ../../flectra/addons/base/res/res.country.state.csv
+    :file: static/res.country.state.csv
     :header-rows: 1
     :class: table-striped table-hover table-condensed
 
@@ -263,5 +297,5 @@ For each row (record):
 * the third column is the ``name`` field for ``res.country.state``
 * the fourth column is the ``code`` field for ``res.country.state``
 
-.. _base64: http://tools.ietf.org/html/rfc3548.html#section-3
-.. _csv: http://en.wikipedia.org/wiki/Comma-separated_values
+.. _base64: https://tools.ietf.org/html/rfc3548.html#section-3
+.. _csv: https://en.wikipedia.org/wiki/Comma-separated_values

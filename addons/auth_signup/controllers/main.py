@@ -6,6 +6,7 @@ import werkzeug
 from flectra import http, _
 from flectra.addons.auth_signup.models.res_users import SignupError
 from flectra.addons.web.controllers.main import ensure_db, Home
+from flectra.addons.base_setup.controllers.main import BaseSetup
 from flectra.exceptions import UserError
 from flectra.http import request
 
@@ -36,16 +37,16 @@ class AuthSignupHome(Home):
                 self.do_signup(qcontext)
                 # Send an account creation confirmation email
                 if qcontext.get('token'):
-                    user_sudo = request.env['res.users'].sudo().search([('login', '=', qcontext.get('login'))])
+                    User = request.env['res.users']
+                    user_sudo = User.sudo().search(
+                        User._get_login_domain(qcontext.get('login')), order=User._get_login_order(), limit=1
+                    )
                     template = request.env.ref('auth_signup.mail_template_user_signup_account_created', raise_if_not_found=False)
                     if user_sudo and template:
-                        template.sudo().with_context(
-                            lang=user_sudo.lang,
-                            auth_login=werkzeug.url_encode({'auth_login': user_sudo.email}),
-                        ).send_mail(user_sudo.id, force_send=True)
+                        template.sudo().send_mail(user_sudo.id, force_send=True)
                 return self.web_login(*args, **kw)
             except UserError as e:
-                qcontext['error'] = e.name or e.value
+                qcontext['error'] = e.args[0]
             except (SignupError, AssertionError) as e:
                 if request.env["res.users"].sudo().search([("login", "=", qcontext.get("login"))]):
                     qcontext["error"] = _("Another user is already registered using this email address.")
@@ -78,7 +79,7 @@ class AuthSignupHome(Home):
                     request.env['res.users'].sudo().reset_password(login)
                     qcontext['message'] = _("An email has been sent with credentials to reset your password")
             except UserError as e:
-                qcontext['error'] = e.name or e.value
+                qcontext['error'] = e.args[0]
             except SignupError:
                 qcontext['error'] = _("Could not reset your password")
                 _logger.exception('error when resetting password')
@@ -94,7 +95,7 @@ class AuthSignupHome(Home):
 
         get_param = request.env['ir.config_parameter'].sudo().get_param
         return {
-            'signup_enabled': get_param('auth_signup.allow_uninvited') == 'True',
+            'signup_enabled': request.env['res.users']._get_signup_invitation_scope() == 'b2c',
             'reset_password_enabled': get_param('auth_signup.reset_password') == 'True',
         }
 
@@ -122,9 +123,10 @@ class AuthSignupHome(Home):
             raise UserError(_("The form was not properly filled in."))
         if values.get('password') != qcontext.get('confirm_password'):
             raise UserError(_("Passwords do not match; please retype them."))
-        supported_langs = [lang['code'] for lang in request.env['res.lang'].sudo().search_read([], ['code'])]
-        if request.lang in supported_langs:
-            values['lang'] = request.lang
+        supported_lang_codes = [code for code, _ in request.env['res.lang'].get_installed()]
+        lang = request.context.get('lang', '').split('_')[0]
+        if lang in supported_lang_codes:
+            values['lang'] = lang
         self._signup_with_values(qcontext.get('token'), values)
         request.env.cr.commit()
 
@@ -134,3 +136,10 @@ class AuthSignupHome(Home):
         uid = request.session.authenticate(db, login, password)
         if not uid:
             raise SignupError(_('Authentication Failed.'))
+
+class AuthBaseSetup(BaseSetup):
+    @http.route('/base_setup/data', type='json', auth='user')
+    def base_setup_data(self, **kwargs):
+        res = super().base_setup_data(**kwargs)
+        res.update({'resend_invitation': True})
+        return res

@@ -2,7 +2,6 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Base import module',
-    'author' : 'Odoo S.A',
     'description': """
 Import a custom data module
 ===========================
@@ -10,9 +9,12 @@ Import a custom data module
 This module allows authorized users to import a custom data module (.xml files and static assests)
 for customization purpose.
 """,
-    'category': 'Extra Tools',
+    'category': 'Hidden/Tools',
     'depends': ['web'],
     'installable': True,
     'auto_install': False,
-    'data': ['views/base_import_module_view.xml'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/base_import_module_view.xml'
+    ],
 }

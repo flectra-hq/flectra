@@ -1,4 +1,4 @@
-odoo.define('barcodes.barcode_mobile_tests', function () {
+flectra.define('barcodes.barcode_mobile_tests', function () {
     "use strict";
 
     QUnit.module('Barcodes', {}, function () {
@@ -9,7 +9,7 @@ odoo.define('barcodes.barcode_mobile_tests', function () {
             assert.expect(10);
 
             // Mock Chrome mobile environment
-            var barcodeEvents = odoo.__DEBUG__.services["barcodes.BarcodeEvents"].BarcodeEvents;
+            var barcodeEvents = flectra.__DEBUG__.services["barcodes.BarcodeEvents"].BarcodeEvents;
             var __isChromeMobile = barcodeEvents.isChromeMobile;
             barcodeEvents.isChromeMobile = true;
             // Rebind keyboard events
@@ -69,6 +69,8 @@ odoo.define('barcodes.barcode_mobile_tests', function () {
             // Rebind keyboard events
             barcodeEvents.stop();
             barcodeEvents.start();
+
+            document.querySelector('input[name=barcode]').remove();
         });
     });
     });

@@ -1,14 +1,15 @@
 flectra.define('base.settings', function (require) {
 "use strict";
 
+var BasicModel = require('web.BasicModel');
 var core = require('web.core');
-var config = require('web.config');
 var FormView = require('web.FormView');
 var FormController = require('web.FormController');
 var FormRenderer = require('web.FormRenderer');
 var view_registry = require('web.view_registry');
 
 var QWeb = core.qweb;
+var _t = core._t;
 
 var BaseSettingRenderer = FormRenderer.extend({
     events: _.extend({}, FormRenderer.prototype.events, {
@@ -22,15 +23,39 @@ var BaseSettingRenderer = FormRenderer.extend({
         this.activeTab = false;
     },
 
-    start: function () {
+    /**
+     * @override
+     * overridden to show a message, informing user that there are changes
+     */
+    confirmChange: function () {
+        var self = this;
+        return this._super.apply(this, arguments).then(function () {
+            if (!self.$(".o_dirty_warning").length) {
+                self.$('.o_statusbar_buttons')
+                    .append($('<span/>', {text: _t("Unsaved changes"), class: 'text-muted ml-2 o_dirty_warning'}))
+            }
+        });
+    },
+    /**
+     * @override
+     */
+    on_attach_callback: function () {
         this._super.apply(this, arguments);
-        if (config.device.isMobile) {
-            core.bus.on("DOM_updated", this, function () {
-                this._moveToTab(this.currentIndex || this._currentAppIndex());
-            });
-        }
+        // set default focus on searchInput
+        this.searchInput.focus();
     },
 
+    /**
+     * @override
+     */
+    displayTranslationAlert: function () {
+        // Translation alerts are disabled for res.config.settings:
+        // those are designed to warn user to translate field he just changed, but
+        // * in res.config.settings almost all fields marked as changed (because
+        //   it's not a usual record and all values are set via default_get)
+        // * page is reloaded after saving, so those alerts would be visible
+        //   only for short time after clicking Save
+    },
     /**
      * initialize modules list.
      * remove module that restricted in groups
@@ -78,49 +103,6 @@ var BaseSettingRenderer = FormRenderer.extend({
         }
     },
     /**
-     * In mobile view behaviour is like swipe content left / right and apps tab will be shown on the top.
-     * This method will set the required properties (styling and css).
-     *
-     * @private
-     * @param {int} currentTab
-     */
-    _activateSettingMobileTab: function (currentTab) {
-        var self = this;
-        var moveTo = currentTab;
-        var next = moveTo + 1;
-        var previous = moveTo - 1;
-
-        this.$(".settings .app_settings_block").removeClass("previous next current before after");
-        this.$(".settings_tab .tab").removeClass("previous next current before after");
-        _.each(this.modules, function (module, index) {
-            var tab = self.$(".tab[data-key='" + module.key + "']");
-            var view = module.settingView;
-
-            if (index === previous) {
-                tab.addClass("previous");
-                tab.css("margin-left", "0px");
-                view.addClass("previous");
-            } else if (index === next) {
-                tab.addClass("next");
-                tab.css("margin-left", "-" + tab.outerWidth() + "px");
-                view.addClass("next");
-            } else if (index < moveTo) {
-                tab.addClass("before");
-                tab.css("margin-left", "-" + tab.outerWidth() + "px");
-                view.addClass("before");
-            } else if (index === moveTo) {
-                var marginLeft = tab.outerWidth() / 2;
-                tab.css("margin-left", "-" + marginLeft + "px");
-                tab.addClass("current");
-                view.addClass("current");
-            } else if (index > moveTo) {
-                tab.addClass("after");
-                tab.css("margin-left", "0");
-                view.addClass("after");
-            }
-        });
-    },
-    /**
      * find current app index in modules
      *
      */
@@ -154,19 +136,6 @@ var BaseSettingRenderer = FormRenderer.extend({
         }));
     },
     /**
-     * add placeholder attr in input element
-     * @override
-     * @private
-     * @param {jQueryElement} $el
-     * @param {Object} node
-     */
-    _handleAttributes: function ($el, node) {
-        this._super.apply(this, arguments);
-        if (node.attrs.placeholder) {
-            $el.attr('placeholder', node.attrs.placeholder);
-        }
-    },
-    /**
      * move to selected setting
      *
      * @private
@@ -186,16 +155,12 @@ var BaseSettingRenderer = FormRenderer.extend({
             view.removeClass("o_hidden");
             this.activeView = view;
             this.activeTab = tab;
-
-            if (config.device.isMobile) {
-                this._activateSettingMobileTab(this.currentIndex);
-            } else {
-                tab.addClass("selected");
-            }
+            tab.addClass("selected");
         }
     },
 
     _onSettingTabClick: function (event) {
+        this.searchInput.focus();
         if (this.searchText.length > 0) {
             this.searchInput.val('');
             this.searchText = "";
@@ -210,10 +175,6 @@ var BaseSettingRenderer = FormRenderer.extend({
     _onKeyUpSearch: function (event) {
         this.searchText = this.searchInput.val();
         this.activeTab.removeClass('selected');
-        if (config.device.isMobile) {
-            this.$('.settings_tab').addClass('o_hidden');
-            this.$('.settings').addClass('d-block');
-        }
         this._searchSetting();
     },
     /**
@@ -232,20 +193,15 @@ var BaseSettingRenderer = FormRenderer.extend({
         });
         this.activeTab.removeClass('o_hidden').addClass('selected');
         this.activeView.removeClass('o_hidden');
-        if (config.device.isMobile) {
-            this.$('.settings_tab').removeClass('o_hidden');
-            this.$('.settings').removeClass('d-block');
-        }
     },
 
     _render: function () {
-        var res = this._super.apply(this, arguments);
-        if (!this.modules) {
-            this._initModules();
-        }
-        this._renderLeftPanel();
-        this._initSearch();
-        return res;
+        var self = this;
+        return this._super.apply(this, arguments).then(function() {
+            self._initModules();
+            self._renderLeftPanel();
+            self._initSearch();
+        });
     },
 
     _renderLeftPanel: function () {
@@ -277,7 +233,7 @@ var BaseSettingRenderer = FormRenderer.extend({
             module.settingView.find('h2').addClass('o_hidden');
             module.settingView.find('.settingSearchHeader').addClass('o_hidden');
             module.settingView.find('.o_settings_container').removeClass('mt16');
-            var resultSetting = module.settingView.find("label:containsTextLike('" + self.searchText + "')");
+            var resultSetting = module.settingView.find(".o_form_label:containsTextLike('" + self.searchText + "')");
             if (resultSetting.length > 0) {
                 resultSetting.each(function () {
                     var settingBox = $(this).closest('.o_setting_box');
@@ -315,34 +271,83 @@ var BaseSettingRenderer = FormRenderer.extend({
         }
         var match = text.search(new RegExp(word, "i"));
         word = text.substring(match, match + word.length);
-        var hilitedWord = "<span class='highlighter'>" + word + '</span>';
-        return text.replace(word, hilitedWord);
+        var highlightedWord = "<span class='highlighter'>" + word + '</span>';
+        return text.replace(word, highlightedWord);
     },
 });
 
 var BaseSettingController = FormController.extend({
-    custom_events: _.extend({}, FormController.prototype.custom_events, {}),
-
+    custom_events: _.extend({}, FormController.prototype.custom_events, {
+        button_clicked: '_onButtonClicked',
+    }),
     init: function () {
         this._super.apply(this, arguments);
+        this.disableAutofocus = true;
         this.renderer.activeSettingTab = this.initialState.context.module;
+    },
+    /**
+     * Settings view should always be in edit mode, so we have to override
+     * default behaviour
+     *
+     * @override
+     */
+    willRestore: function () {
+        this.mode = 'edit';
+    },
+
+    //--------------------------------------------------------------------------
+    // Handlers
+    //--------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    _onButtonClicked: function (ev) {
+        var self = this;
+        if (ev.data.attrs.name !== 'execute' && ev.data.attrs.name !== 'cancel') {
+            var recordID = ev.data.recordID;
+            var _super = this._super;
+            var args = arguments;
+            this._discardChanges(recordID, { noAbandon: true }).then(function () {
+                _super.apply(self, args);
+            });
+        } else {
+            this._super.apply(this, arguments);
+        }
+    },
+
+});
+
+var BaseSettingsModel = BasicModel.extend({
+    /**
+     * @override
+     */
+    save: function (recordID) {
+        var self = this;
+        return this._super.apply(this, arguments).then(function (result) {
+            // we remove here the res_id, because the record should still be
+            // considered new.  We want the web client to always perform a
+            // default_get to fetch the settings anew.
+            delete self.localData[recordID].res_id;
+            return result;
+        });
     },
 });
 
 var BaseSettingView = FormView.extend({
+    jsLibs: [],
+
     config: _.extend({}, FormView.prototype.config, {
+        Model: BaseSettingsModel,
         Renderer: BaseSettingRenderer,
         Controller: BaseSettingController,
     }),
-
-    getRenderer: function (parent, state) {
-        return new BaseSettingRenderer(parent, state, this.rendererParams);
-    }
 });
 
 view_registry.add('base_settings', BaseSettingView);
 
 return {
+    Model: BaseSettingsModel,
     Renderer: BaseSettingRenderer,
     Controller: BaseSettingController,
 };

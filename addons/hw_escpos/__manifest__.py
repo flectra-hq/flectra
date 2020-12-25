@@ -3,10 +3,9 @@
 
 {
     'name': 'ESC/POS Hardware Driver',
-    'author' : 'Odoo S.A',
-    'category': 'Point of Sale',
+    'category': 'Sales/Point of Sale',
     'sequence': 6,
-    'website': 'https://flectrahq.com/page/point-of-sale',
+    'website': 'https://flectrahq.com/point-of-sale-hardware',
     'summary': 'Hardware Driver for ESC/POS Printers and Cashdrawers',
     'description': """
 ESC/POS Hardware Driver
@@ -17,8 +16,8 @@ to open ESC/POS controlled cashdrawers in the point of sale and other modules
 that would need such functionality.
 
 """,
-    'depends': ['hw_proxy'],
     'external_dependencies': {
-        'python' : ['usb.core','serial','qrcode'],
+        'python' : ['pyusb','pyserial','qrcode'],
     },
+    'installable': False,
 }

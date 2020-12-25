@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os.path
-import unittest
 
+from flectra.tests.common import BaseCase
 from flectra.tools.mimetypes import guess_mimetype
 
 def contents(extension):
@@ -12,7 +12,8 @@ def contents(extension):
     ), 'rb') as f:
         return f.read()
 
-class TestMimeGuessing(unittest.TestCase):
+
+class TestMimeGuessing(BaseCase):
     def test_doc(self):
         self.assertEqual(
             guess_mimetype(contents('doc')),

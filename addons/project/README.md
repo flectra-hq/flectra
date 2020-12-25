@@ -4,7 +4,7 @@ Project Management
 ### Infinitely flexible. Incredibly easy to use.
 
 
-Odoo's collaborative and realtime <a href="https://www.odoo.com/page/project-management">open source project management</a>
+Odoo's collaborative and realtime <a href="https://flectrahq.com/project-management">open source project management</a>
 helps your team get work done. Keep track of everything, from the big picture
 to the minute details, from the customer contract to the billing.
 
@@ -28,7 +28,7 @@ Work Together
 
 ### Real time chats, document sharing, email integration
 
-Use open chatter to communicate with your team or customers and share comments
+Use the chatter to communicate with your team or customers and share comments
 and documents on tasks and issues. Integrate discussion fast with the email
 integration.
 

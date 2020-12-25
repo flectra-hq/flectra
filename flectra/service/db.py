@@ -10,6 +10,8 @@ import traceback
 from xml.etree import ElementTree as ET
 import zipfile
 
+from psycopg2 import sql
+from pytz import country_timezones
 from functools import wraps
 from contextlib import closing
 from decorator import decorator
@@ -24,7 +26,6 @@ import flectra.sql_db
 import flectra.tools
 from flectra.sql_db import db_connect
 from flectra.release import version_info
-from flectra.tools import pycompat
 
 _logger = logging.getLogger(__name__)
 
@@ -50,7 +51,7 @@ def check_super(passwd):
     raise flectra.exceptions.AccessDenied()
 
 # This should be moved to flectra.modules.db, along side initialize().
-def _initialize_db(id, db_name, demo, lang, user_password, login='admin', country_code=None):
+def _initialize_db(id, db_name, demo, lang, user_password, login='admin', country_code=None, phone=None):
     try:
         db = flectra.sql_db.db_connect(db_name)
         with closing(db.cursor()) as cr:
@@ -69,12 +70,15 @@ def _initialize_db(id, db_name, demo, lang, user_password, login='admin', countr
                 modules._update_translations(lang)
 
             if country_code:
-                countries = env['res.country'].search([('code', 'ilike', country_code)])
-                if countries:
-                    comp_local = {'country_id': countries[0].id}
-                    if countries[0].currency_id:
-                        comp_local['currency_id'] = countries[0].currency_id.id
-                    env['res.company'].browse(1).write(comp_local)
+                country = env['res.country'].search([('code', 'ilike', country_code)])[0]
+                env['res.company'].browse(1).write({'country_id': country_code and country.id, 'currency_id': country_code and country.currency_id.id})
+                if len(country_timezones.get(country_code, [])) == 1:
+                    users = env['res.users'].search([])
+                    users.write({'tz': country_timezones[country_code][0]})
+            if phone:
+                env['res.company'].browse(1).write({'phone': phone})
+            if '@' in login:
+                env['res.company'].browse(1).write({'email': login})
 
             # update admin's password and lang and login
             values = {'password': user_password, 'lang': lang}
@@ -83,7 +87,7 @@ def _initialize_db(id, db_name, demo, lang, user_password, login='admin', countr
                 emails = flectra.tools.email_split(login)
                 if emails:
                     values['email'] = emails[0]
-            env.user.write(values)
+            env.ref('base.user_admin').write(values)
 
             cr.execute('SELECT login, password FROM res_users ORDER BY login')
             cr.commit()
@@ -100,14 +104,29 @@ def _create_empty_database(name):
             raise DatabaseExists("database %r already exists!" % (name,))
         else:
             cr.autocommit(True)     # avoid transaction block
-            cr.execute("""CREATE DATABASE "%s" ENCODING 'unicode' TEMPLATE "%s" """ % (name, chosen_template))
+
+            # 'C' collate is only safe with template0, but provides more useful indexes
+            collate = sql.SQL("LC_COLLATE 'C'" if chosen_template == 'template0' else "")
+            cr.execute(
+                sql.SQL("CREATE DATABASE {} ENCODING 'unicode' {} TEMPLATE {}").format(
+                sql.Identifier(name), collate, sql.Identifier(chosen_template)
+            ))
+
+    if flectra.tools.config['unaccent']:
+        try:
+            db = flectra.sql_db.db_connect(name)
+            with closing(db.cursor()) as cr:
+                cr.execute("CREATE EXTENSION IF NOT EXISTS unaccent")
+                cr.commit()
+        except psycopg2.Error:
+            pass
 
 @check_db_management_enabled
-def exp_create_database(db_name, demo, lang, user_password='admin', login='admin', country_code=None):
+def exp_create_database(db_name, demo, lang, user_password='admin', login='admin', country_code=None, phone=None):
     """ Similar to exp_create but blocking."""
     _logger.info('Create database `%s`.', db_name)
     _create_empty_database(db_name)
-    _initialize_db(id, db_name, demo, lang, user_password, login, country_code)
+    _initialize_db(id, db_name, demo, lang, user_password, login, country_code, phone)
     return True
 
 @check_db_management_enabled
@@ -118,7 +137,10 @@ def exp_duplicate_database(db_original_name, db_name):
     with closing(db.cursor()) as cr:
         cr.autocommit(True)     # avoid transaction block
         _drop_conn(cr, db_original_name)
-        cr.execute("""CREATE DATABASE "%s" ENCODING 'unicode' TEMPLATE "%s" """ % (db_name, db_original_name))
+        cr.execute(sql.SQL("CREATE DATABASE {} ENCODING 'unicode' TEMPLATE {}").format(
+            sql.Identifier(db_name),
+            sql.Identifier(db_original_name)
+        ))
 
     registry = flectra.modules.registry.Registry.new(db_name)
     with registry.cursor() as cr:
@@ -161,7 +183,7 @@ def exp_drop(db_name):
         _drop_conn(cr, db_name)
 
         try:
-            cr.execute('DROP DATABASE "%s"' % db_name)
+            cr.execute(sql.SQL('DROP DATABASE {}').format(sql.Identifier(db_name)))
         except Exception as e:
             _logger.info('DROP DB: %s failed:\n%s', db_name, e)
             raise Exception("Couldn't drop database %s: %s" % (db_name, e))
@@ -207,7 +229,7 @@ def dump_db(db_name, stream, backup_format='zip'):
     cmd.append(db_name)
 
     if backup_format == 'zip':
-        with flectra.tools.osutil.tempdir() as dump_dir:
+        with tempfile.TemporaryDirectory() as dump_dir:
             filestore = flectra.tools.config.filestore(db_name)
             if os.path.exists(filestore):
                 shutil.copytree(filestore, os.path.join(dump_dir, 'filestore'))
@@ -220,7 +242,7 @@ def dump_db(db_name, stream, backup_format='zip'):
             if stream:
                 flectra.tools.osutil.zip_dir(dump_dir, stream, include_dir=False, fnct_sort=lambda file_name: file_name != 'dump.sql')
             else:
-                t=tempfile.NamedTemporaryFile()
+                t=tempfile.TemporaryFile()
                 flectra.tools.osutil.zip_dir(dump_dir, t, include_dir=False, fnct_sort=lambda file_name: file_name != 'dump.sql')
                 t.seek(0)
                 return t
@@ -248,8 +270,8 @@ def exp_restore(db_name, data, copy=False):
     return True
 
 @check_db_management_enabled
-def restore_db(db, dump_file, copy=False, flag=False):
-    assert isinstance(db, pycompat.string_types)
+def restore_db(db, dump_file, copy=False):
+    assert isinstance(db, str)
     if exp_db_exist(db):
         _logger.info('RESTORE DB: %s already exists', db)
         raise Exception("Database already exists")
@@ -257,7 +279,7 @@ def restore_db(db, dump_file, copy=False, flag=False):
     _create_empty_database(db)
 
     filestore_path = None
-    with flectra.tools.osutil.tempdir() as dump_dir:
+    with tempfile.TemporaryDirectory() as dump_dir:
         if zipfile.is_zipfile(dump_file):
             # v8 format
             with zipfile.ZipFile(dump_file, 'r') as z:
@@ -284,23 +306,14 @@ def restore_db(db, dump_file, copy=False, flag=False):
             raise Exception("Couldn't restore database")
 
         registry = flectra.modules.registry.Registry.new(db)
-        if not flag:
-            with registry.cursor() as cr:
-                from flectra import api
-                env = api.Environment(cr, SUPERUSER_ID, {})
-                if copy:
-                    # if it's a copy of a database, force generation of a new dbuuid
-                    env['ir.config_parameter'].init(force=True)
-                if filestore_path:
-                    filestore_dest = env['ir.attachment']._filestore()
-                    shutil.move(filestore_path, filestore_dest)
-
-                if flectra.tools.config['unaccent']:
-                    try:
-                        with cr.savepoint():
-                            cr.execute("CREATE EXTENSION unaccent")
-                    except psycopg2.Error:
-                        pass
+        with registry.cursor() as cr:
+            env = flectra.api.Environment(cr, SUPERUSER_ID, {})
+            if copy:
+                # if it's a copy of a database, force generation of a new dbuuid
+                env['ir.config_parameter'].init(force=True)
+            if filestore_path:
+                filestore_dest = env['ir.attachment']._filestore()
+                shutil.move(filestore_path, filestore_dest)
 
     _logger.info('RESTORE DB: %s', db)
 
@@ -314,7 +327,7 @@ def exp_rename(old_name, new_name):
         cr.autocommit(True)     # avoid transaction block
         _drop_conn(cr, old_name)
         try:
-            cr.execute('ALTER DATABASE "%s" RENAME TO "%s"' % (old_name, new_name))
+            cr.execute(sql.SQL('ALTER DATABASE {} RENAME TO {}').format(sql.Identifier(old_name), sql.Identifier(new_name)))
             _logger.info('RENAME DB: %s -> %s', old_name, new_name)
         except Exception as e:
             _logger.info('RENAME DB: %s -> %s failed:\n%s', old_name, new_name, e)
@@ -370,22 +383,11 @@ def list_dbs(force=False):
     db = flectra.sql_db.db_connect('postgres')
     with closing(db.cursor()) as cr:
         try:
-            db_user = flectra.tools.config["db_user"]
-            if not db_user and os.name == 'posix':
-                import pwd
-                db_user = pwd.getpwuid(os.getuid())[0]
-            if not db_user:
-                cr.execute("select usename from pg_user where usesysid=(select datdba from pg_database where datname=%s)", (flectra.tools.config["db_name"],))
-                res = cr.fetchone()
-                db_user = res and str(res[0])
-            if db_user:
-                cr.execute("select datname from pg_database where datdba=(select usesysid from pg_user where usename=%s) and not datistemplate and datallowconn and datname not in %s order by datname", (db_user, templates_list))
-            else:
-                cr.execute("select datname from pg_database where not datistemplate and datallowconn and datname not in %s order by datname", (templates_list,))
+            cr.execute("select datname from pg_database where datdba=(select usesysid from pg_user where usename=current_user) and not datistemplate and datallowconn and datname not in %s order by datname", (templates_list,))
             res = [flectra.tools.ustr(name) for (name,) in cr.fetchall()]
         except Exception:
+            _logger.exception('Listing databases failed:')
             res = []
-    res.sort()
     return res
 
 def list_db_incompatible(databases):
@@ -426,7 +428,7 @@ def exp_list_lang():
 
 def exp_list_countries():
     list_countries = []
-    root = ET.parse(os.path.join(flectra.tools.config['root_path'], 'addons/base/res/res_country_data.xml')).getroot()
+    root = ET.parse(os.path.join(flectra.tools.config['root_path'], 'addons/base/data/res_country_data.xml')).getroot()
     for country in root.find('data').findall('record[@model="res.country"]'):
         name = country.find('field[@name="name"]').text
         code = country.find('field[@name="code"]').text

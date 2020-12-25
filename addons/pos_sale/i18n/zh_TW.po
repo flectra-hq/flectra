@@ -1,18 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * pos_sale
+# 	* pos_sale
 # 
 # Translators:
-# Martin Trigaux, 2017
-# 敬雲 林 <chingyun@yuanchih-consult.com>, 2017
-# Michael Yeung, 2017
+# 敬雲 林 <chingyun@yuanchih-consult.com>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server saas~13.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 09:52+0000\n"
-"PO-Revision-Date: 2017-09-20 09:52+0000\n"
-"Last-Translator: Michael Yeung, 2017\n"
+"POT-Creation-Date: 2020-09-01 07:28+0000\n"
+"PO-Revision-Date: 2020-09-07 08:16+0000\n"
+"Last-Translator: 敬雲 林 <chingyun@yuanchih-consult.com>, 2020\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,38 +20,54 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: pos_sale
-#: model:ir.model,name:pos_sale.model_report_all_channels_sales
-msgid "All sales orders grouped by sales channels"
-msgstr "所有銷售訂單按銷售渠道分組"
+#: model_terms:ir.ui.view,arch_db:pos_sale.pos_config_view_form_pos_sale
+msgid "<span class=\"o_form_label\">Sales Team</span>"
+msgstr "<span class=\"o_form_label\">銷售團隊</span>"
 
 #. module: pos_sale
-#: code:addons/pos_sale/models/crm_team.py:103
-#, python-format
-msgid "Dashboard"
-msgstr "儀表板"
+#: model:ir.model.fields,field_description:pos_sale.field_pos_order__currency_rate
+msgid "Currency Rate"
+msgstr "匯率"
 
 #. module: pos_sale
-#: selection:crm.team,dashboard_graph_group_pos:0
-msgid "Day"
-msgstr "日"
+#: model:ir.model.fields,field_description:pos_sale.field_crm_team__display_name
+#: model:ir.model.fields,field_description:pos_sale.field_pos_config__display_name
+#: model:ir.model.fields,field_description:pos_sale.field_pos_order__display_name
+#: model:ir.model.fields,field_description:pos_sale.field_pos_session__display_name
+#: model:ir.model.fields,field_description:pos_sale.field_sale_report__display_name
+msgid "Display Name"
+msgstr "顯示名稱"
 
 #. module: pos_sale
-#: model:ir.model.fields,field_description:pos_sale.field_crm_team_dashboard_graph_group_pos
-msgid "Group by"
-msgstr "分組"
+#: model:ir.model.fields,field_description:pos_sale.field_crm_team__id
+#: model:ir.model.fields,field_description:pos_sale.field_pos_config__id
+#: model:ir.model.fields,field_description:pos_sale.field_pos_order__id
+#: model:ir.model.fields,field_description:pos_sale.field_pos_session__id
+#: model:ir.model.fields,field_description:pos_sale.field_sale_report__id
+msgid "ID"
+msgstr "ID"
 
 #. module: pos_sale
-#: model:ir.model.fields,help:pos_sale.field_crm_team_dashboard_graph_group_pos
-msgid "How this channel's dashboard graph will group the results."
-msgstr "這就是渠道的儀表盤圖將會組織的結果"
+#: model:ir.model.fields.selection,name:pos_sale.selection__sale_report__state__invoiced
+msgid "Invoiced"
+msgstr "已開立應收憑單"
 
 #. module: pos_sale
-#: selection:crm.team,dashboard_graph_group_pos:0
-msgid "Month"
-msgstr "月"
+#: model:ir.model.fields,field_description:pos_sale.field_crm_team____last_update
+#: model:ir.model.fields,field_description:pos_sale.field_pos_config____last_update
+#: model:ir.model.fields,field_description:pos_sale.field_pos_order____last_update
+#: model:ir.model.fields,field_description:pos_sale.field_pos_session____last_update
+#: model:ir.model.fields,field_description:pos_sale.field_sale_report____last_update
+msgid "Last Modified on"
+msgstr "最後修改於"
 
 #. module: pos_sale
-#: model:ir.model.fields,field_description:pos_sale.field_crm_team_pos_sessions_open_count
+#: model:ir.model.fields.selection,name:pos_sale.selection__sale_report__state__pos_draft
+msgid "New"
+msgstr "新的"
+
+#. module: pos_sale
+#: model:ir.model.fields,field_description:pos_sale.field_crm_team__pos_sessions_open_count
 msgid "Open POS Sessions"
 msgstr "開啟POS會話"
 
@@ -62,71 +77,87 @@ msgid "Open Sessions"
 msgstr "開啟會話"
 
 #. module: pos_sale
-#: selection:crm.team,dashboard_graph_group_pos:0
-#: model:crm.team,name:pos_sale.pos_sales_team
-msgid "Point of Sale"
-msgstr "POS"
+#: model:ir.model.fields.selection,name:pos_sale.selection__sale_report__state__paid
+msgid "Paid"
+msgstr "已支付"
 
 #. module: pos_sale
-#: model:ir.model.fields,field_description:pos_sale.field_crm_team_pos_config_ids
+#: model:ir.model,name:pos_sale.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "POS配置"
+
+#. module: pos_sale
+#: model:ir.model,name:pos_sale.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "POS訂單"
+
+#. module: pos_sale
+#: model:ir.model,name:pos_sale.model_pos_session
+msgid "Point of Sale Session"
+msgstr "POS前台"
+
+#. module: pos_sale
+#: model:ir.model.fields,field_description:pos_sale.field_crm_team__pos_config_ids
 msgid "Point of Sales"
 msgstr "POS"
 
 #. module: pos_sale
-#: model:ir.ui.view,arch_db:pos_sale.crm_team_salesteams_view_kanban_inherit_pos_sale
-msgid "Sales"
-msgstr "銷售"
+#: model:ir.model.fields.selection,name:pos_sale.selection__sale_report__state__pos_done
+msgid "Posted"
+msgstr "已過帳"
+
+#. module: pos_sale
+#: model:ir.model,name:pos_sale.model_sale_report
+msgid "Sales Analysis Report"
+msgstr "銷售分析報告"
+
+#. module: pos_sale
+#: model_terms:ir.ui.view,arch_db:pos_sale.pos_config_view_form_pos_sale
+msgid "Sales Reporting"
+msgstr "銷售報告"
 
 #. module: pos_sale
 #: model:ir.model,name:pos_sale.model_crm_team
-#: model:ir.model.fields,field_description:pos_sale.field_pos_config_crm_team_id
-#: model:ir.model.fields,field_description:pos_sale.field_pos_session_crm_team_id
-msgid "Sales Channel"
-msgstr "銷售渠道"
+#: model:ir.model.fields,field_description:pos_sale.field_pos_config__crm_team_id
+#: model:ir.model.fields,field_description:pos_sale.field_pos_order__crm_team_id
+#: model:ir.model.fields,field_description:pos_sale.field_pos_session__crm_team_id
+msgid "Sales Team"
+msgstr "銷售團隊"
 
 #. module: pos_sale
-#: code:addons/pos_sale/models/crm_team.py:115
-#, python-format
-msgid "Sales: Untaxed Amount"
-msgstr "銷售：免稅額"
+#: model_terms:ir.ui.view,arch_db:pos_sale.pos_config_view_form_pos_sale
+msgid "Sales are reported to the following sales team"
+msgstr "本POS銷售額將報告給以下銷售團隊"
 
 #. module: pos_sale
-#: selection:crm.team,dashboard_graph_group_pos:0
-msgid "Salesperson"
-msgstr "銷售員"
-
-#. module: pos_sale
-#: model:ir.ui.view,arch_db:pos_sale.crm_team_salesteams_view_kanban_inherit_pos_sale
+#: model_terms:ir.ui.view,arch_db:pos_sale.crm_team_salesteams_view_kanban_inherit_pos_sale
 msgid "Session Running"
 msgstr "會話進行中"
 
 #. module: pos_sale
-#: model:ir.model.fields,field_description:pos_sale.field_crm_team_pos_order_amount_total
+#: model:ir.model.fields,field_description:pos_sale.field_crm_team__pos_order_amount_total
 msgid "Session Sale Amount"
 msgstr "會議銷售金額"
 
 #. module: pos_sale
-#: model:ir.ui.view,arch_db:pos_sale.crm_team_salesteams_view_kanban_inherit_pos_sale
+#: model_terms:ir.ui.view,arch_db:pos_sale.crm_team_salesteams_view_kanban_inherit_pos_sale
 msgid "Sessions Running"
 msgstr "會話進行中"
 
 #. module: pos_sale
-#: model:ir.model.fields,help:pos_sale.field_pos_config_crm_team_id
-#: model:ir.model.fields,help:pos_sale.field_pos_session_crm_team_id
-msgid "This Point of sale's sales will be related to this Sales Channel."
-msgstr "銷售點與本銷售渠道相關"
+#: model:ir.model.fields,field_description:pos_sale.field_sale_report__state
+msgid "Status"
+msgstr "狀態"
 
 #. module: pos_sale
-#: selection:crm.team,dashboard_graph_group_pos:0
-msgid "Week"
-msgstr "周"
+#: model:ir.model.fields,help:pos_sale.field_pos_order__currency_rate
+msgid ""
+"The rate of the currency to the currency of rate applicable at the date of "
+"the order"
+msgstr "貨幣匯率相對於訂單日期適用的匯率貨幣"
 
 #. module: pos_sale
-#: model:ir.model,name:pos_sale.model_pos_config
-msgid "pos.config"
-msgstr "pos.config"
-
-#. module: pos_sale
-#: model:ir.model,name:pos_sale.model_pos_session
-msgid "pos.session"
-msgstr "pos.session"
+#: model:ir.model.fields,help:pos_sale.field_pos_config__crm_team_id
+#: model:ir.model.fields,help:pos_sale.field_pos_session__crm_team_id
+msgid "This Point of sale's sales will be related to this Sales Team."
+msgstr "此POS的銷售額與此銷售團隊相關。"

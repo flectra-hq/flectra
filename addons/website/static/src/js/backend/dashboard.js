@@ -1,165 +1,107 @@
 flectra.define('website.backend.dashboard', function (require) {
 'use strict';
 
+var AbstractAction = require('web.AbstractAction');
 var ajax = require('web.ajax');
-var ControlPanelMixin = require('web.ControlPanelMixin');
 var core = require('web.core');
 var Dialog = require('web.Dialog');
 var field_utils = require('web.field_utils');
+var pyUtils = require('web.py_utils');
 var session = require('web.session');
+var time = require('web.time');
 var web_client = require('web.web_client');
-var Widget = require('web.Widget');
-
-var local_storage = require('web.local_storage');
 
 var _t = core._t;
 var QWeb = core.qweb;
 
-var Dashboard = Widget.extend(ControlPanelMixin, {
-    template: 'website.WebsiteDashboardMain',
-    cssLibs: [
-        '/web/static/lib/nvd3/nv.d3.css'
-    ],
+var COLORS = ["#1f77b4", "#aec7e8"];
+var FORMAT_OPTIONS = {
+    // allow to decide if utils.human_number should be used
+    humanReadable: function (value) {
+        return Math.abs(value) >= 1000;
+    },
+    // with the choices below, 1236 is represented by 1.24k
+    minDigits: 1,
+    decimals: 2,
+    // avoid comma separators for thousands in numbers when human_number is used
+    formatterCallback: function (str) {
+        return str;
+    },
+};
+
+var Dashboard = AbstractAction.extend({
+    hasControlPanel: true,
+    contentTemplate: 'website.WebsiteDashboardMain',
     jsLibs: [
-        '/web/static/lib/nvd3/d3.v3.js',
-        '/web/static/lib/nvd3/nv.d3.js',
-        '/web/static/src/js/libs/nvd3.js'
+        '/web/static/lib/Chart/Chart.js',
     ],
     events: {
         'click .js_link_analytics_settings': 'on_link_analytics_settings',
         'click .o_dashboard_action': 'on_dashboard_action',
         'click .o_dashboard_action_form': 'on_dashboard_action_form',
-        'click .o_dashboard_hide_panel': 'on_dashboard_hide_panel',
-        'click li.js_website_deshboard': 'js_website_deshboard',
     },
 
     init: function(parent, context) {
         this._super(parent, context);
 
+        this.DATE_FORMAT = time.getLangDateFormat();
         this.date_range = 'week';  // possible values : 'week', 'month', year'
-        this.date_from = moment().subtract(1, 'week');
-        this.date_to = moment();
-        this.hidden_apps = JSON.parse(local_storage.getItem('website_dashboard_hidden_app_ids') || '[]');
+        this.date_from = moment.utc().subtract(1, 'week');
+        this.date_to = moment.utc();
 
-        this.dashboards_templates = ['website.dashboard_visits'];
+        this.dashboards_templates = ['website.dashboard_header', 'website.dashboard_content'];
         this.graphs = [];
-        this.is_bound = $.Deferred();
-        this.dashboards_header = ['website.dashboard_header'];
+        this.chartIds = {};
     },
 
     willStart: function() {
         var self = this;
-        return $.when(ajax.loadLibs(this), this._super()).then(function() {
+        return Promise.all([ajax.loadLibs(this), this._super()]).then(function() {
             return self.fetch_data();
+        }).then(function(){
+            var website = _.findWhere(self.websites, {selected: true});
+            self.website_id = website ? website.id : false;
         });
     },
 
     start: function() {
         var self = this;
+        this._computeControlPanelProps();
         return this._super().then(function() {
-            self.update_cp();
-            self.render_dashboards();
             self.render_graphs();
-            self.$el.parent().addClass('oe_background_grey');
-            self.bind_menu();
         });
     },
 
+    on_attach_callback: function () {
+        this._isInDom = true;
+        this.render_graphs();
+        this._super.apply(this, arguments);
+    },
+    on_detach_callback: function () {
+        this._isInDom = false;
+        this._super.apply(this, arguments);
+    },
     /**
      * Fetches dashboard data
      */
-    fetch_data: function(website_id=null) {
+    fetch_data: function() {
         var self = this;
-        return this._rpc({
+        var prom = this._rpc({
             route: '/website/fetch_dashboard_data',
             params: {
+                website_id: this.website_id || false,
                 date_from: this.date_from.year()+'-'+(this.date_from.month()+1)+'-'+this.date_from.date(),
                 date_to: this.date_to.year()+'-'+(this.date_to.month()+1)+'-'+this.date_to.date(),
-                'website_id': website_id,
             },
-        }).done(function(result) {
-            self.website_ids = result.website_ids;
-            self.website = result.website;
-            self.current_website = result.current_website;
+        });
+        prom.then(function (result) {
             self.data = result;
             self.dashboards_data = result.dashboards;
             self.currency_id = result.currency_id;
             self.groups = result.groups;
+            self.websites = result.websites;
         });
-    },
-
-    js_website_deshboard: function(ev){
-        ev.preventDefault();
-        var self = this;
-        $.when(this.fetch_data($(ev.target).data('website_id'))).then(function() {
-            self.$('.o_website_dashboard_content').empty();
-            self.$('.o_dashboard_common').remove();
-            self.render_dashboards();
-            self.render_dashboards_header();
-            self.render_graphs();
-        });
-    },
-
-    render_dashboards_header: function() {
-        var self = this;
-        _.each(this.dashboards_header, function(template) {
-            self.$('.o_website_dashboard_content').prepend(QWeb.render(template, {widget: self}));
-        });
-    },
-
-    bind_menu: function() {
-        var self = this;
-        var lazyreflow = _.debounce(this.reflow.bind(this), 200);
-        core.bus.on('resize', this, function() {
-            if ($(window).width() < 768 ) {
-                lazyreflow('all_outside');
-            } else {
-                lazyreflow();
-            }
-        });
-        core.bus.trigger('resize');
-
-        this.is_bound.resolve();
-    },
-
-    reflow: function(behavior) {
-        var self = this;
-        var $more_container = this.$('#website_more_container').hide();
-        var $more = this.$('#website_more');
-
-        $more.children('li').insertBefore($more_container);
-
-        if (behavior === 'all_outside') {
-            // Show list of menu items
-            self.$el.show();
-            this.$el.find('li').show();
-            $more_container.hide();
-            return;
-        }
-
-        var $toplevel_items = this.$el.find('li').not($more_container).hide();
-
-        self.$el.show();
-        $toplevel_items.each(function() {
-            var remaining_space = self.$el.find('div.navbar-collapse.collapse').width() - $more_container.outerWidth();
-            self.$el.find('div.navbar-collapse.collapse ul.website_tab :visible').each
-            (function() {
-                if($(this).parent("ul").length){
-                    remaining_space -= $(this).width();
-                }
-            });
-            if ($(this).width() >= remaining_space) {
-                return false;
-            }
-            $(this).show();
-        });
-        $more.append($toplevel_items.filter(':hidden').show());
-        $more_container.toggle(!!$more.children().length);
-
-        var $toplevel = self.$el.children("ul.website_tab li:visible");
-        if ($toplevel.length === 1) {
-            $toplevel.hide();
-        }
+        return prom;
     },
 
     on_link_analytics_settings: function(ev) {
@@ -168,7 +110,7 @@ var Dashboard = Widget.extend(ControlPanelMixin, {
         var self = this;
         var dialog = new Dialog(this, {
             size: 'medium',
-            title: _t('Google Analytics'),
+            title: _t('Connect Google Analytics'),
             $content: QWeb.render('website.ga_dialog_content', {
                 ga_key: this.dashboards_data.visits.ga_client_id,
                 ga_analytics_key: this.dashboards_data.visits.ga_analytics_key,
@@ -192,11 +134,18 @@ var Dashboard = Widget.extend(ControlPanelMixin, {
         }).open();
     },
 
+    on_go_to_website: function (ev) {
+        ev.preventDefault();
+        var website = _.findWhere(this.websites, {selected: true});
+        window.location.href = $.param.querystring(website.domain + '/', {'fw': website.id});
+    },
+
     on_save_ga_client_id: function(ga_client_id, ga_analytics_key) {
         var self = this;
         return this._rpc({
             route: '/website/dashboard/set_ga_data',
             params: {
+                'website_id': self.website_id,
                 'ga_client_id': ga_client_id,
                 'ga_analytics_key': ga_analytics_key,
             },
@@ -212,56 +161,114 @@ var Dashboard = Widget.extend(ControlPanelMixin, {
     render_dashboards: function() {
         var self = this;
         _.each(this.dashboards_templates, function(template) {
-            self.$('.o_website_dashboard_content').append(QWeb.render(template, {widget: self}));
+            self.$('.o_website_dashboard').append(QWeb.render(template, {widget: self}));
         });
     },
 
-    render_graph: function(div_to_display, chart_values) {
-        this.$(div_to_display).empty();
-
+    render_graph: function(div_to_display, chart_values, chart_id) {
         var self = this;
-        nv.addGraph(function() {
-            var chart = nv.models.lineChart()
-                .x(function(d) { return self.getDate(d); })
-                .y(function(d) { return self.getValue(d); })
-                .forceY([0]);
-            chart
-                .useInteractiveGuideline(true)
-                .showLegend(false)
-                .showYAxis(true)
-                .showXAxis(true);
 
-            var tick_values = self.getPrunedTickValues(chart_values[0].values, 5);
+        this.$(div_to_display).empty();
+        var $canvasContainer = $('<div/>', {class: 'o_graph_canvas_container'});
+        this.$canvas = $('<canvas/>').attr('id', chart_id);
+        $canvasContainer.append(this.$canvas);
+        this.$(div_to_display).append($canvasContainer);
 
-            chart.xAxis
-                .tickFormat(function(d) { return d3.time.format("%m/%d/%y")(new Date(d)); })
-                .tickValues(_.map(tick_values, function(d) { return self.getDate(d); }))
-                .rotateLabels(-45);
+        var labels = chart_values[0].values.map(function (date) {
+            return moment(date[0], "YYYY-MM-DD", 'en');
+        });
 
-            chart.yAxis
-                .tickFormat(d3.format('.02f'));
+        var datasets = chart_values.map(function (group, index) {
+            return {
+                label: group.key,
+                data: group.values.map(function (value) {
+                    return value[1];
+                }),
+                dates: group.values.map(function (value) {
+                    return value[0];
+                }),
+                fill: false,
+                borderColor: COLORS[index],
+            };
+        });
 
-            var svg = d3.select(div_to_display)
-                .append("svg");
-
-            svg
-                .attr("height", '24em')
-                .datum(chart_values)
-                .call(chart);
-
-            nv.utils.windowResize(chart.update);
-            return chart;
+        var ctx = this.$canvas[0];
+        this.chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: datasets,
+            },
+            options: {
+                legend: {
+                    display: false,
+                },
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        type: 'linear',
+                        ticks: {
+                            beginAtZero: true,
+                            callback: this.formatValue.bind(this),
+                        },
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            callback: function (moment) {
+                                return moment.format(self.DATE_FORMAT);
+                            },
+                        }
+                    }],
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                    bodyFontColor: 'rgba(0,0,0,1)',
+                    titleFontSize: 13,
+                    titleFontColor: 'rgba(0,0,0,1)',
+                    backgroundColor: 'rgba(255,255,255,0.6)',
+                    borderColor: 'rgba(0,0,0,0.2)',
+                    borderWidth: 2,
+                    callbacks: {
+                        title: function (tooltipItems, data) {
+                            return data.datasets[0].label;
+                        },
+                        label: function (tooltipItem, data) {
+                            var moment = data.labels[tooltipItem.index];
+                            var date = tooltipItem.datasetIndex === 0 ?
+                                        moment :
+                                        moment.subtract(1, self.date_range);
+                            return date.format(self.DATE_FORMAT) + ': ' + self.formatValue(tooltipItem.yLabel);
+                        },
+                        labelColor: function (tooltipItem, chart) {
+                            var dataset = chart.data.datasets[tooltipItem.datasetIndex];
+                            return {
+                                borderColor: dataset.borderColor,
+                                backgroundColor: dataset.borderColor,
+                            };
+                        },
+                    }
+                }
+            }
         });
     },
 
     render_graphs: function() {
         var self = this;
-        _.each(this.graphs, function(e) {
-            if (self.groups[e.group]) {
-                self.render_graph('#o_graph_' + e.name, self.dashboards_data[e.name].graph);
-            }
-        });
-        this.render_graph_analytics(this.dashboards_data.visits.ga_client_id);
+        if (this._isInDom) {
+            _.each(this.graphs, function(e) {
+                var renderGraph = self.groups[e.group] &&
+                                    self.dashboards_data[e.name].summary.order_count;
+                if (!self.chartIds[e.name]) {
+                    self.chartIds[e.name] = _.uniqueId('chart_' + e.name);
+                }
+                var chart_id = self.chartIds[e.name];
+                if (renderGraph) {
+                    self.render_graph('.o_graph_' + e.name, self.dashboards_data[e.name].graph, chart_id);
+                }
+            });
+            this.render_graph_analytics(this.dashboards_data.visits.ga_client_id);
+        }
     },
 
     render_graph_analytics: function(client_id) {
@@ -279,7 +286,7 @@ var Dashboard = Widget.extend(ControlPanelMixin, {
 
             $analytics_components.empty();
             // 1. Authorize component
-            var $analytics_auth = $('<div>').addClass('col-md-12');
+            var $analytics_auth = $('<div>').addClass('col-lg-12');
             window.onOriginError = function () {
                 $analytics_components.find('.js_unauthorized_message').remove();
                 self.display_unauthorized_message($analytics_components, 'not_initialized');
@@ -303,34 +310,50 @@ var Dashboard = Widget.extend(ControlPanelMixin, {
     on_date_range_button: function(date_range) {
         if (date_range === 'week') {
             this.date_range = 'week';
-            this.date_from = moment().subtract(1, 'weeks');
+            this.date_from = moment.utc().subtract(1, 'weeks');
         } else if (date_range === 'month') {
             this.date_range = 'month';
-            this.date_from = moment().subtract(1, 'months');
+            this.date_from = moment.utc().subtract(1, 'months');
         } else if (date_range === 'year') {
             this.date_range = 'year';
-            this.date_from = moment().subtract(1, 'years');
+            this.date_from = moment.utc().subtract(1, 'years');
         } else {
             console.log('Unknown date range. Choose between [week, month, year]');
             return;
         }
 
         var self = this;
-        $.when(this.fetch_data()).then(function() {
-            self.$('.o_website_dashboard_content').empty();
+        Promise.resolve(this.fetch_data()).then(function () {
+            self.$('.o_website_dashboard').empty();
             self.render_dashboards();
             self.render_graphs();
         });
 
     },
 
+    on_website_button: function(website_id) {
+        var self = this;
+        this.website_id = website_id;
+        Promise.resolve(this.fetch_data()).then(function () {
+            self.$('.o_website_dashboard').empty();
+            self.render_dashboards();
+            self.render_graphs();
+        });
+    },
+
     on_reverse_breadcrumb: function() {
+        var self = this;
         web_client.do_push_state({});
-        this.update_cp();
+        this.fetch_data().then(function() {
+            self.$('.o_website_dashboard').empty();
+            self.render_dashboards();
+            self.render_graphs();
+        });
     },
 
     on_dashboard_action: function (ev) {
         ev.preventDefault();
+        var self = this
         var $action = $(ev.currentTarget);
         var additional_context = {};
         if (this.date_range === 'week') {
@@ -340,9 +363,18 @@ var Dashboard = Widget.extend(ControlPanelMixin, {
         } else if (this.date_range === 'year') {
             additional_context = {search_default_year: true};
         }
-        this.do_action($action.attr('name'), {
-            additional_context: additional_context,
-            on_reverse_breadcrumb: this.on_reverse_breadcrumb
+        this._rpc({
+            route: '/web/action/load',
+            params: {
+                'action_id': $action.attr('name'),
+            },
+        })
+        .then(function (action) {
+            action.domain = pyUtils.assembleDomains([action.domain, `[('website_id', '=', ${self.website_id})]`]);
+            return self.do_action(action, {
+                'additional_context': additional_context,
+                'on_reverse_breadcrumb': self.on_reverse_breadcrumb
+            });
         });
     },
 
@@ -360,36 +392,28 @@ var Dashboard = Widget.extend(ControlPanelMixin, {
         });
     },
 
-    on_dashboard_hide_panel: function (ev) {
-        ev.preventDefault();
-        ev.stopPropagation();
-        var $action = $(ev.currentTarget);
-        // update hidden module list
-        this.hidden_apps = JSON.parse(local_storage.getItem('website_dashboard_hidden_app_ids') || '[]');
-        this.hidden_apps.push(JSON.parse($action.data('module_id')));
-        local_storage.setItem('website_dashboard_hidden_app_ids', JSON.stringify(this.hidden_apps));
-        // remove box
-        $action.closest(".o_box_item").remove();
-    },
-
-    update_cp: function() {
-        var self = this;
-        if (!this.$searchview) {
-            this.$searchview = $(QWeb.render("website.DateRangeButtons", {
-                widget: this,
-            }));
-            this.$searchview.click('button.js_date_range', function(ev) {
-                self.on_date_range_button($(ev.target).data('date'));
-                $(this).find('button.js_date_range.active').removeClass('active');
-                $(ev.target).addClass('active');
-            });
-        }
-        this.update_control_panel({
-            cp_content: {
-                $searchview: this.$searchview,
-            },
-            breadcrumbs: this.getParent().get_breadcrumbs(),
+    /**
+     * @private
+     */
+    _computeControlPanelProps() {
+        const $searchview = $(QWeb.render("website.DateRangeButtons", {
+            widget: this,
+        }));
+        $searchview.find('button.js_date_range').click((ev) => {
+            $searchview.find('button.js_date_range.active').removeClass('active');
+            $(ev.target).addClass('active');
+            this.on_date_range_button($(ev.target).data('date'));
         });
+        $searchview.find('button.js_website').click((ev) => {
+            $searchview.find('button.js_website.active').removeClass('active');
+            $(ev.target).addClass('active');
+            this.on_website_button($(ev.target).data('website-id'));
+        });
+
+        const $buttons = $(QWeb.render("website.GoToButtons"));
+        $buttons.on('click', this.on_go_to_website.bind(this));
+
+        this.controlPanelProps.cp_content = { $searchview, $buttons };
     },
 
     // Loads Analytics API
@@ -435,7 +459,7 @@ var Dashboard = Widget.extend(ControlPanelMixin, {
         $analytics_users.appendTo($analytics_components);
 
         // 3. View Selector
-        var $analytics_view_selector = $('<div>').addClass('col-md-12 o_properties_selection');
+        var $analytics_view_selector = $('<div>').addClass('col-lg-12 o_properties_selection');
         var viewSelector = new gapi.analytics.ViewSelector({
             container: $analytics_view_selector[0],
         });
@@ -449,7 +473,7 @@ var Dashboard = Widget.extend(ControlPanelMixin, {
         } else if (this.date_range === 'year') {
             start_date = '365daysAgo';
         }
-        var $analytics_chart_2 = $('<div>').addClass('col-md-6 col-xs-12');
+        var $analytics_chart_2 = $('<div>').addClass('col-lg-6 col-12');
         var breakdownChart = new gapi.analytics.googleCharts.DataChart({
             query: {
                 'dimensions': 'ga:date',
@@ -462,14 +486,15 @@ var Dashboard = Widget.extend(ControlPanelMixin, {
                 container: $analytics_chart_2[0],
                 options: {
                     title: 'All',
-                    width: '100%'
+                    width: '100%',
+                    tooltip: {isHtml: true},
                 }
             }
         });
         $analytics_chart_2.appendTo($analytics_components);
 
         // 5. Chart table
-        var $analytics_chart_1 = $('<div>').addClass('col-md-6 col-xs-12');
+        var $analytics_chart_1 = $('<div>').addClass('col-lg-6 col-12');
         var mainChart = new gapi.analytics.googleCharts.DataChart({
             query: {
                 'dimensions': 'ga:medium',
@@ -662,22 +687,18 @@ var Dashboard = Widget.extend(ControlPanelMixin, {
         var loader = '<span class="fa fa-3x fa-spin fa-spinner fa-pulse"/>';
         selector.html("<div class='o_loader'>" + loader + "</div>");
     },
-    getDate: function(d) { return new Date(d[0]); },
     getValue: function(d) { return d[1]; },
-    getPrunedTickValues: function(ticks, nb_desired_ticks) {
-        var nb_values = ticks.length;
-        var keep_one_of = Math.max(1, Math.floor(nb_values / nb_desired_ticks));
-
-        return _.filter(ticks, function(d, i) {
-            return i % keep_one_of === 0;
-        });
-    },
     format_number: function(value, type, digits, symbol) {
         if (type === 'currency') {
             return this.render_monetary_field(value, this.currency_id);
         } else {
             return field_utils.format[type](value || 0, {digits: digits}) + ' ' + symbol;
         }
+    },
+    formatValue: function (value) {
+        var formatter = field_utils.format.float;
+        var formatedValue = formatter(value, undefined, FORMAT_OPTIONS);
+        return formatedValue;
     },
     render_monetary_field: function(value, currency_id) {
         var currency = session.get_currency(currency_id);

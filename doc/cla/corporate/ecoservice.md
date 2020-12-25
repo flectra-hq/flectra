@@ -19,4 +19,3 @@ List of contributors:
 * Jan Brodersen 4rmitxes@gmail.com https://github.com/Armitxes
 * Kamal Prajapati k.prajapati@ecoservice.de https://github.com/kamalprajapati
 * Marcel Much m.much@ecoservice.de https://github.com/mmuch
-

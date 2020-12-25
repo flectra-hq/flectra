@@ -8,7 +8,6 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 
 from flectra import api, exceptions, fields, models, _
-from flectra.tools import pycompat
 
 class SignupError(Exception):
     pass
@@ -19,8 +18,7 @@ def random_token():
     return ''.join(random.SystemRandom().choice(chars) for _ in range(20))
 
 def now(**kwargs):
-    dt = datetime.now() + timedelta(**kwargs)
-    return fields.Datetime.to_string(dt)
+    return datetime.now() + timedelta(**kwargs)
 
 
 class ResPartner(models.Model):
@@ -32,15 +30,13 @@ class ResPartner(models.Model):
     signup_valid = fields.Boolean(compute='_compute_signup_valid', string='Signup Token is Valid')
     signup_url = fields.Char(compute='_compute_signup_url', string='Signup URL')
 
-    @api.multi
     @api.depends('signup_token', 'signup_expiration')
     def _compute_signup_valid(self):
         dt = now()
-        for partner, partner_sudo in pycompat.izip(self, self.sudo()):
+        for partner, partner_sudo in zip(self, self.sudo()):
             partner.signup_valid = bool(partner_sudo.signup_token) and \
             (not partner_sudo.signup_expiration or dt <= partner_sudo.signup_expiration)
 
-    @api.multi
     def _compute_signup_url(self):
         """ proxy for function field towards actual implementation """
         result = self.sudo()._get_signup_url_for_action()
@@ -49,14 +45,13 @@ class ResPartner(models.Model):
                 self.env['res.users'].check_access_rights('write')
             partner.signup_url = result.get(partner.id, False)
 
-    @api.multi
-    def _get_signup_url_for_action(self, action=None, view_type=None, menu_id=None, res_id=None, model=None):
+    def _get_signup_url_for_action(self, url=None, action=None, view_type=None, menu_id=None, res_id=None, model=None):
         """ generate a signup url for the given partner ids and action, possibly overriding
             the url state components (menu_id, id, view_type) """
 
         res = dict.fromkeys(self.ids, False)
-        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         for partner in self:
+            base_url = partner.get_base_url()
             # when required, make sure the partner has a valid signup token
             if self.env.context.get('signup_valid') and not partner.user_ids:
                 partner.sudo().signup_prepare()
@@ -75,28 +70,34 @@ class ResPartner(models.Model):
             else:
                 continue        # no signup token, no user, thus no signup url!
 
-            fragment = dict()
-            base = '/web#'
-            if action == '/mail/view':
-                base = '/mail/view?'
-            elif action:
-                fragment['action'] = action
-            if view_type:
-                fragment['view_type'] = view_type
-            if menu_id:
-                fragment['menu_id'] = menu_id
-            if model:
-                fragment['model'] = model
-            if res_id:
-                fragment['res_id'] = res_id
+            if url:
+                query['redirect'] = url
+            else:
+                fragment = dict()
+                base = '/web#'
+                if action == '/mail/view':
+                    base = '/mail/view?'
+                elif action:
+                    fragment['action'] = action
+                if view_type:
+                    fragment['view_type'] = view_type
+                if menu_id:
+                    fragment['menu_id'] = menu_id
+                if model:
+                    fragment['model'] = model
+                if res_id:
+                    fragment['res_id'] = res_id
 
-            if fragment:
-                query['redirect'] = base + werkzeug.urls.url_encode(fragment)
+                if fragment:
+                    query['redirect'] = base + werkzeug.urls.url_encode(fragment)
 
-            res[partner.id] = werkzeug.urls.url_join(base_url, "/web/%s?%s" % (route, werkzeug.urls.url_encode(query)))
+            url = "/web/%s?%s" % (route, werkzeug.urls.url_encode(query))
+            if not self.env.context.get('relative_url'):
+                url = werkzeug.urls.url_join(base_url, url)
+            res[partner.id] = url
+
         return res
 
-    @api.multi
     def action_signup_prepare(self):
         return self.signup_prepare()
 
@@ -104,23 +105,24 @@ class ResPartner(models.Model):
         """ Get a signup token related to the partner if signup is enabled.
             If the partner already has a user, get the login parameter.
         """
+        if not self.env.user.has_group('base.group_user') and not self.env.is_admin():
+            raise exceptions.AccessDenied()
+
         res = defaultdict(dict)
 
-        allow_signup = self.env['ir.config_parameter'].sudo().get_param('auth_signup.allow_uninvited', 'False').lower() == 'true'
+        allow_signup = self.env['res.users']._get_signup_invitation_scope() == 'b2c'
         for partner in self:
+            partner = partner.sudo()
             if allow_signup and not partner.user_ids:
-                partner = partner.sudo()
                 partner.signup_prepare()
                 res[partner.id]['auth_signup_token'] = partner.signup_token
             elif partner.user_ids:
                 res[partner.id]['auth_login'] = partner.user_ids[0].login
         return res
 
-    @api.multi
     def signup_cancel(self):
         return self.write({'signup_token': False, 'signup_type': False, 'signup_expiration': False})
 
-    @api.multi
     def signup_prepare(self, signup_type="signup", expiration=False):
         """ generate a new token for the partners with the given validity, if necessary
             :param expiration: the expiration datetime of the token (string, optional)
@@ -144,11 +146,11 @@ class ResPartner(models.Model):
         partner = self.search([('signup_token', '=', token)], limit=1)
         if not partner:
             if raise_exception:
-                raise exceptions.UserError(_("Signup token '%s' is not valid") % token)
+                raise exceptions.UserError(_("Signup token '%s' is not valid", token))
             return False
         if check_validity and not partner.signup_valid:
             if raise_exception:
-                raise exceptions.UserError(_("Signup token '%s' is no longer valid") % token)
+                raise exceptions.UserError(_("Signup token '%s' is no longer valid", token))
             return False
         return partner
 

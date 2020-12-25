@@ -8,6 +8,8 @@ import unittest
 
 from flectra import api, registry, SUPERUSER_ID
 from flectra.tests import common
+from flectra.tests.common import BaseCase
+
 from flectra.modules.registry import Registry
 
 
@@ -19,13 +21,13 @@ def environment():
     reg = registry(common.get_db_name())
     with reg.cursor() as cr:
         yield api.Environment(cr, SUPERUSER_ID, {})
-        cr.commit()
 
 
 MODULE = 'test_uninstall'
 MODEL = 'test_uninstall.model'
 
-class TestUninstall(unittest.TestCase):
+
+class TestUninstall(BaseCase):
     """
     Test the install/uninstall of a test module. The module is available in
     `flectra.tests` which should be present in the addons-path.

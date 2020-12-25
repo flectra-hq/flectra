@@ -16,42 +16,24 @@ import flectra.modules.db
 import flectra.modules.graph
 import flectra.modules.migration
 import flectra.modules.registry
-import flectra.tools as tools
-
-from flectra import api, SUPERUSER_ID
-from flectra.modules.module import adapt_version, initialize_sys_path, load_openerp_module
+from .. import SUPERUSER_ID, api, tools
+from .module import adapt_version, initialize_sys_path, load_openerp_module
 
 _logger = logging.getLogger(__name__)
 _test_logger = logging.getLogger('flectra.tests')
 
 
-def load_module_graph(cr, graph, status=None, perform_checks=True,
-                      skip_modules=None, report=None, models_to_check=None):
-    """Migrates+Updates or Installs all module nodes from ``graph``
-       :param graph: graph of module nodes to load
-       :param status: deprecated parameter, unused, left to avoid changing signature in 8.0
-       :param perform_checks: whether module descriptors should be checked for validity (prints warnings
-                              for same cases)
-       :param skip_modules: optional list of module names (packages) which have previously been loaded and can be skipped
-       :return: list of modules that were installed or updated
+def load_data(cr, idref, mode, kind, package):
     """
-    def load_test(module_name, idref, mode):
-        cr.commit()
-        try:
-            _load_data(cr, module_name, idref, mode, 'test')
-            return True
-        except Exception:
-            _test_logger.exception(
-                'module %s: an exception occurred in a test', module_name)
-            return False
-        finally:
-            if tools.config.options['test_commit']:
-                cr.commit()
-            else:
-                cr.rollback()
-                # avoid keeping stale xml_id, etc. in cache
-                flectra.registry(cr.dbname).clear_caches()
 
+    kind: data, demo, test, init_xml, update_xml, demo_xml.
+
+    noupdate is False, unless it is demo data or it is csv data in
+    init mode.
+
+    :returns: Whether a file was loaded
+    :rtype: bool
+    """
 
     def _get_files_of_kind(kind):
         if kind == 'demo':
@@ -66,7 +48,7 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
                 files.append(f)
                 if k.endswith('_xml') and not (k == 'init_xml' and not f.endswith('.xml')):
                     # init_xml, update_xml and demo_xml are deprecated except
-                    # for the case of init_xml with yaml, csv and sql files as
+                    # for the case of init_xml with csv and sql files as
                     # we can't specify noupdate for those file.
                     correct_key = 'demo' if k.count('demo') else 'data'
                     _logger.warning(
@@ -75,28 +57,78 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
                     )
         return files
 
-    def _load_data(cr, module_name, idref, mode, kind):
-        """
+    filename = None
+    try:
+        if kind in ('demo', 'test'):
+            threading.currentThread().testing = True
+        for filename in _get_files_of_kind(kind):
+            _logger.info("loading %s/%s", package.name, filename)
+            noupdate = False
+            if kind in ('demo', 'demo_xml') or (filename.endswith('.csv') and kind in ('init', 'init_xml')):
+                noupdate = True
+            tools.convert_file(cr, package.name, filename, idref, mode, noupdate, kind)
+    finally:
+        if kind in ('demo', 'test'):
+            threading.currentThread().testing = False
 
-        kind: data, demo, test, init_xml, update_xml, demo_xml.
+    return bool(filename)
 
-        noupdate is False, unless it is demo data or it is csv data in
-        init mode.
+def load_demo(cr, package, idref, mode):
+    """
+    Loads demo data for the specified package.
+    """
+    if not package.should_have_demo():
+        return False
 
-        """
-        try:
-            if kind in ('demo', 'test'):
-                threading.currentThread().testing = True
-            for filename in _get_files_of_kind(kind):
-                _logger.info("loading %s/%s", module_name, filename)
-                noupdate = False
-                if kind in ('demo', 'demo_xml') or (filename.endswith('.csv') and kind in ('init', 'init_xml')):
-                    noupdate = True
-                tools.convert_file(cr, module_name, filename, idref, mode, noupdate, kind, report)
-        finally:
-            if kind in ('demo', 'test'):
-                threading.currentThread().testing = False
+    try:
+        _logger.info("Module %s: loading demo", package.name)
+        with cr.savepoint(flush=False):
+            load_data(cr, idref, mode, kind='demo', package=package)
+        return True
+    except Exception as e:
+        # If we could not install demo data for this module
+        _logger.warning(
+            "Module %s demo data failed to install, installed without demo data",
+            package.name, exc_info=True)
 
+        env = api.Environment(cr, SUPERUSER_ID, {})
+        todo = env.ref('base.demo_failure_todo', raise_if_not_found=False)
+        Failure = env.get('ir.demo_failure')
+        if todo and Failure is not None:
+            todo.state = 'open'
+            Failure.create({'module_id': package.id, 'error': str(e)})
+        return False
+
+
+def force_demo(cr):
+    """
+    Forces the `demo` flag on all modules, and installs demo data for all installed modules.
+    """
+    graph = flectra.modules.graph.Graph()
+    cr.execute('UPDATE ir_module_module SET demo=True')
+    cr.execute(
+        "SELECT name FROM ir_module_module WHERE state IN ('installed', 'to upgrade', 'to remove')"
+    )
+    module_list = [name for (name,) in cr.fetchall()]
+    graph.add_modules(cr, module_list, ['demo'])
+
+    for package in graph:
+        load_demo(cr, package, {}, 'init')
+
+    env = api.Environment(cr, SUPERUSER_ID, {})
+    env['ir.module.module'].invalidate_cache(['demo'])
+
+
+def load_module_graph(cr, graph, status=None, perform_checks=True,
+                      skip_modules=None, report=None, models_to_check=None):
+    """Migrates+Updates or Installs all module nodes from ``graph``
+       :param graph: graph of module nodes to load
+       :param status: deprecated parameter, unused, left to avoid changing signature in 8.0
+       :param perform_checks: whether module descriptors should be checked for validity (prints warnings
+                              for same cases)
+       :param skip_modules: optional list of module names (packages) which have previously been loaded and can be skipped
+       :return: list of modules that were installed or updated
+    """
     if models_to_check is None:
         models_to_check = set()
 
@@ -107,11 +139,10 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
     module_count = len(graph)
     _logger.info('loading %d modules...', module_count)
 
-    registry.clear_caches()
-
     # register, instantiate and initialize models for each modules
     t0 = time.time()
-    t0_sql = flectra.sql_db.sql_counter
+    loading_extra_query_count = flectra.sql_db.sql_counter
+    loading_cursor_query_count = cr.sql_log_count
 
     models_updated = set()
 
@@ -122,17 +153,27 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
         if skip_modules and module_name in skip_modules:
             continue
 
-        _logger.debug('loading module %s (%d/%d)', module_name, index, module_count)
+        module_t0 = time.time()
+        module_cursor_query_count = cr.sql_log_count
+        module_extra_query_count = flectra.sql_db.sql_counter
 
         needs_update = (
             hasattr(package, "init")
             or hasattr(package, "update")
             or package.state in ("to install", "to upgrade")
         )
+        module_log_level = logging.DEBUG
+        if needs_update:
+            module_log_level = logging.INFO
+        _logger.log(module_log_level, 'Loading module %s (%d/%d)', module_name, index, module_count)
+
         if needs_update:
             if package.name != 'base':
                 registry.setup_models(cr)
             migrations.migrate_module(package, 'pre')
+            if package.name != 'base':
+                env = api.Environment(cr, SUPERUSER_ID, {})
+                env['base'].flush()
 
         load_openerp_module(package.name)
 
@@ -145,13 +186,16 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
 
         model_names = registry.load(cr, package)
 
+        mode = 'update'
+        if hasattr(package, 'init') or package.state == 'to install':
+            mode = 'init'
+
         loaded_modules.append(package.name)
         if needs_update:
             models_updated |= set(model_names)
             models_to_check -= set(model_names)
             registry.setup_models(cr)
-            registry.init_models(cr, model_names, {'module': package.name})
-            cr.commit()
+            registry.init_models(cr, model_names, {'module': package.name}, new_install)
         elif package.state != 'to remove':
             # The current module has simply been loaded. The models extended by this module
             # and for which we updated the schema, must have their schema checked again.
@@ -162,10 +206,6 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
 
         idref = {}
 
-        mode = 'update'
-        if hasattr(package, 'init') or package.state == 'to install':
-            mode = 'init'
-
         if needs_update:
             env = api.Environment(cr, SUPERUSER_ID, {})
             # Can't put this line out of the loop: ir.module.module will be
@@ -175,15 +215,13 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
             if perform_checks:
                 module._check()
 
-            if package.state=='to upgrade':
+            if package.state == 'to upgrade':
                 # upgrading the module information
                 module.write(module.get_values_from_terp(package.data))
-            _load_data(cr, module_name, idref, mode, kind='data')
-            has_demo = hasattr(package, 'demo') or (package.dbdemo and package.state != 'installed')
-            if has_demo:
-                _load_data(cr, module_name, idref, mode, kind='demo')
-                cr.execute('update ir_module_module set demo=%s where id=%s', (True, module_id))
-                module.invalidate_cache(['demo'])
+            load_data(cr, idref, mode, kind='data', package=package)
+            demo_loaded = package.dbdemo = load_demo(cr, package, idref, mode)
+            cr.execute('update ir_module_module set demo=%s where id=%s', (demo_loaded, module_id))
+            module.invalidate_cache(['demo'])
 
             migrations.migrate_module(package, 'post')
 
@@ -191,29 +229,48 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
             overwrite = flectra.tools.config["overwrite_existing_translations"]
             module.with_context(overwrite=overwrite)._update_translations()
 
-            if package.name is not None:
-                registry._init_modules.add(package.name)
+        if package.name is not None:
+            registry._init_modules.add(package.name)
 
+        if needs_update:
             if new_install:
                 post_init = package.info.get('post_init_hook')
                 if post_init:
                     getattr(py_module, post_init)(cr, registry)
 
-            # validate all the views at a whole
-            env['ir.ui.view']._validate_module_views(module_name)
+            if mode == 'update':
+                # validate the views that have not been checked yet
+                env['ir.ui.view']._validate_module_views(module_name)
 
-            if has_demo:
-                # launch tests only in demo mode, allowing tests to use demo data.
-                if tools.config.options['test_enable']:
-                    # Yamel test
-                    report.record_result(load_test(module_name, idref, mode))
-                    # Python tests
-                    env['ir.http']._clear_routing_map()     # force routing map to be rebuilt
-                    report.record_result(flectra.modules.module.run_unit_tests(module_name, cr.dbname))
-                    # tests may have reset the environment
-                    env = api.Environment(cr, SUPERUSER_ID, {})
-                    module = env['ir.module.module'].browse(module_id)
+            # need to commit any modification the module's installation or
+            # update made to the schema or data so the tests can run
+            # (separately in their own transaction)
+            cr.commit()
 
+        updating = tools.config.options['init'] or tools.config.options['update']
+        test_time = test_queries = 0
+        test_results = None
+        if tools.config.options['test_enable'] and (needs_update or not updating):
+            env = api.Environment(cr, SUPERUSER_ID, {})
+            loader = flectra.tests.loader
+            suite = loader.make_suite(module_name, 'at_install')
+            if suite.countTestCases():
+                if not needs_update:
+                    registry.setup_models(cr)
+                # Python tests
+                env['ir.http']._clear_routing_map()     # force routing map to be rebuilt
+
+                tests_t0, tests_q0 = time.time(), flectra.sql_db.sql_counter
+                test_results = loader.run_suite(suite, module_name)
+                report.update(test_results)
+                test_time = time.time() - tests_t0
+                test_queries = flectra.sql_db.sql_counter - tests_q0
+
+                # tests may have reset the environment
+                env = api.Environment(cr, SUPERUSER_ID, {})
+                module = env['ir.module.module'].browse(module_id)
+
+        if needs_update:
             processed_modules.append(package.name)
 
             ver = adapt_version(package.data['version'])
@@ -226,16 +283,33 @@ def load_module_graph(cr, graph, status=None, perform_checks=True,
             for kind in ('init', 'demo', 'update'):
                 if hasattr(package, kind):
                     delattr(package, kind)
+            module.flush()
 
-        if package.name is not None:
-            registry._init_modules.add(package.name)
-        cr.commit()
+        extra_queries = flectra.sql_db.sql_counter - module_extra_query_count - test_queries
+        extras = []
+        if test_queries:
+            extras.append(f'+{test_queries} test')
+        if extra_queries:
+            extras.append(f'+{extra_queries} other')
+        _logger.log(
+            module_log_level, "Module %s loaded in %.2fs%s, %s queries%s",
+            module_name, time.time() - module_t0,
+            f' (incl. {test_time:.2f}s test)' if test_time else '',
+            cr.sql_log_count - module_cursor_query_count,
+            f' ({", ".join(extras)})' if extras else ''
+        )
+        if test_results and not test_results.wasSuccessful():
+            _logger.error(
+                "Module %s: %d failures, %d errors of %d tests",
+                module_name, len(test_results.failures), len(test_results.errors),
+                test_results.testsRun
+            )
 
-    _logger.log(25, "%s modules loaded in %.2fs, %s queries", len(graph), time.time() - t0, flectra.sql_db.sql_counter - t0_sql)
-
-    registry.clear_caches()
-
-    cr.commit()
+    _logger.runbot("%s modules loaded in %.2fs, %s queries (+%s extra)",
+                   len(graph),
+                   time.time() - t0,
+                   cr.sql_log_count - loading_cursor_query_count,
+                   flectra.sql_db.sql_counter - loading_extra_query_count)  # extra queries: testes, notify, any other closed cursor
 
     return loaded_modules, processed_modules
 
@@ -288,14 +362,15 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
 
     models_to_check = set()
 
-    cr = db.cursor()
-    try:
+    with db.cursor() as cr:
         if not flectra.modules.db.is_initialized(cr):
+            if not update_module:
+                _logger.error("Database %s not initialized, you can force it with `-i base`", cr.dbname)
+                return
             _logger.info("init db")
             flectra.modules.db.initialize(cr)
             update_module = True # process auto-installed modules
             tools.config["init"]["all"] = 1
-            tools.config['update']['all'] = 1
             if not tools.config['without_demo']:
                 tools.config["demo"]['all'] = 1
 
@@ -352,7 +427,7 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
 
             cr.execute("update ir_module_module set state=%s where name=%s", ('installed', 'base'))
             Module.invalidate_cache(['state'])
-
+            Module.flush()
 
         # STEP 3: Load marked modules (skipping base which was done in STEP 1)
         # IMPORTANT: this is done in two parts, first loading all installed or
@@ -379,6 +454,18 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
                     ['to install'], force, status, report,
                     loaded_modules, update_module, models_to_check)
 
+        # check that new module dependencies have been properly installed after a migration/upgrade
+        cr.execute("SELECT name from ir_module_module WHERE state IN ('to install', 'to upgrade')")
+        module_list = [name for (name,) in cr.fetchall()]
+        if module_list:
+            _logger.error("Some modules have inconsistent states, some dependencies may be missing: %s", sorted(module_list))
+
+        # check that all installed modules have been loaded by the registry after a migration/upgrade
+        cr.execute("SELECT name from ir_module_module WHERE state = 'installed' and name != 'studio_customization'")
+        module_list = [name for (name,) in cr.fetchall() if name not in graph]
+        if module_list:
+            _logger.error("Some modules are not loaded, some dependencies or manifest may be missing: %s", sorted(module_list))
+
         registry.loaded = True
         registry.setup_models(cr)
 
@@ -387,36 +474,31 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
         for package in graph:
             migrations.migrate_module(package, 'end')
 
+        # STEP 3.6: apply remaining constraints in case of an upgrade
+        registry.finalize_constraints()
+
         # STEP 4: Finish and cleanup installations
         if processed_modules:
             env = api.Environment(cr, SUPERUSER_ID, {})
             cr.execute("""select model,name from ir_model where id NOT IN (select distinct model_id from ir_model_access)""")
             for (model, name) in cr.fetchall():
-                if model in registry and not registry[model]._abstract and not registry[model]._transient:
+                if model in registry and not registry[model]._abstract:
                     _logger.warning('The model %s has no access rules, consider adding one. E.g. access_%s,access_%s,model_%s,base.group_user,1,0,0,0',
                         model, model.replace('.', '_'), model.replace('.', '_'), model.replace('.', '_'))
-
-            # Temporary warning while we remove access rights on osv_memory objects, as they have
-            # been replaced by owner-only access rights
-            cr.execute("""select distinct mod.model, mod.name from ir_model_access acc, ir_model mod where acc.model_id = mod.id""")
-            for (model, name) in cr.fetchall():
-                if model in registry and registry[model]._transient:
-                    _logger.warning('The transient model %s (%s) should not have explicit access rules!', model, name)
 
             cr.execute("SELECT model from ir_model")
             for (model,) in cr.fetchall():
                 if model in registry:
                     env[model]._check_removed_columns(log=True)
                 elif _logger.isEnabledFor(logging.INFO):    # more an info that a warning...
-                    _logger.warning("Model %s is declared but cannot be loaded! (Perhaps a module was partially removed or renamed)", model)
+                    _logger.runbot("Model %s is declared but cannot be loaded! (Perhaps a module was partially removed or renamed)", model)
 
             # Cleanup orphan records
             env['ir.model.data']._process_end(processed_modules)
+            env['base'].flush()
 
         for kind in ('init', 'demo', 'update'):
             tools.config[kind] = {}
-
-        cr.commit()
 
         # STEP 5: Uninstall modules to remove
         if update_module:
@@ -460,6 +542,7 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
         # STEP 6: verify custom views on every model
         if update_module:
             env = api.Environment(cr, SUPERUSER_ID, {})
+            env['res.groups']._update_user_groups_view()
             View = env['ir.ui.view']
             for model in registry:
                 try:
@@ -467,23 +550,23 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
                 except Exception as e:
                     _logger.warning('invalid custom view(s) for model %s: %s', model, tools.ustr(e))
 
-        if report.failures:
-            _logger.error('At least one test failed when loading the modules.')
-        else:
+        if report.wasSuccessful():
             _logger.info('Modules loaded.')
+        else:
+            _logger.error('At least one test failed when loading the modules.')
 
         # STEP 8: call _register_hook on every model
+        # This is done *exactly once* when the registry is being loaded. See the
+        # management of those hooks in `Registry.setup_models`: all the calls to
+        # setup_models() done here do not mess up with hooks, as registry.ready
+        # is False.
         env = api.Environment(cr, SUPERUSER_ID, {})
         for model in env.values():
             model._register_hook()
+        env['base'].flush()
 
         # STEP 9: save installed/updated modules for post-install tests
         registry.updated_modules += processed_modules
-        cr.commit()
-
-    finally:
-        cr.close()
-
 
 def reset_modules_state(db_name):
     """

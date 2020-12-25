@@ -6,11 +6,11 @@
 #
 # For generic wsgi handlers a global application is defined.
 # For uwsgi this should work:
-#   $ uwsgi_python --http :9090 --pythonpath . --wsgi-file flectra-wsgi.py
+#   $ uwsgi_python --http :9090 --pythonpath . --wsgi-file openerp-wsgi.py
 #
 # For gunicorn additional globals need to be defined in the Gunicorn section.
 # Then the following command should run:
-#   $ gunicorn flectra:service.wsgi_server.application -c flectra-wsgi.py
+#   $ gunicorn flectra:service.wsgi_server.application -c openerp-wsgi.py
 
 import flectra
 
@@ -20,7 +20,7 @@ import flectra
 flectra.multi_process = True # Nah!
 
 # Equivalent of --load command-line option
-flectra.conf.server_wide_modules = ['web']
+flectra.conf.server_wide_modules = ['base', 'web']
 conf = flectra.tools.config
 
 # Path to the OpenERP Addons repository (comma-separated for

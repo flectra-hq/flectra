@@ -1,25 +1,25 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * google_drive
+# 	* google_drive
 # 
 # Translators:
-# Zuhair Hammadi <zuhair12@gmail.com>, 2017
-# Ghaith Gammar <g.gammar@saharaifs.net>, 2017
-# Shaima Safar <shaima.safar@open-inside.com>, 2017
-# Martin Trigaux, 2017
-# amrnegm <amrnegm.01@gmail.com>, 2017
-# Mosaab Alzoubi <moceap@hotmail.com>, 2017
-# Osama Ahmaro <osamaahmaro@gmail.com>, 2017
-# Yihya Hugirat <hugirat@gmail.com>, 2017
-# Mustafa Rawi <mustafa@cubexco.com>, 2019
+# Sherif Abd Ekmoniem <sherif.tsupport@gmail.com>, 2020
+# Mustafa Rawi <mustafa@cubexco.com>, 2020
+# Mosaab Alzoubi <moceap@hotmail.com>, 2020
+# amrnegm <amrnegm.01@gmail.com>, 2020
+# Martin Trigaux, 2020
+# Osama Ahmaro <osamaahmaro@gmail.com>, 2020
+# Zuhair Hammadi <zuhair12@gmail.com>, 2020
+# Shaima Safar <shaima.safar@open-inside.com>, 2020
+# Yihya Hugirat <hugirat@gmail.com>, 2020
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 11:26+0000\n"
-"PO-Revision-Date: 2017-09-20 10:17+0000\n"
-"Last-Translator: Mustafa Rawi <mustafa@cubexco.com>, 2019\n"
+"POT-Creation-Date: 2020-09-29 13:45+0000\n"
+"PO-Revision-Date: 2020-09-07 08:12+0000\n"
+"Last-Translator: Yihya Hugirat <hugirat@gmail.com>, 2020\n"
 "Language-Team: Arabic (https://www.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #. module: google_drive
-#: model:ir.ui.view,arch_db:google_drive.view_google_drive_config_form
+#: model_terms:ir.ui.view,arch_db:google_drive.view_google_drive_config_form
 msgid ""
 "<b>To create a new filter:</b><br/>\n"
 "                                - Go to the Odoo document you want to filter. For instance, go to Opportunities and search on Sales Department.<br/>\n"
@@ -45,38 +45,80 @@ msgstr ""
 "                                - إذا لم يتم تحديد الفلتر، سيظهر رابط مستند جوجل خيار \"المزيد\" لكافة المستخدمين بكافة الفرص."
 
 #. module: google_drive
-#: model:ir.ui.view,arch_db:google_drive.view_google_drive_config_kanban
+#: model_terms:ir.ui.view,arch_db:google_drive.res_config_settings_view_form
+msgid "<i class=\"fa fa-arrow-right\"/> Reset token"
+msgstr ""
+
+#. module: google_drive
+#: model_terms:ir.ui.view,arch_db:google_drive.res_config_settings_view_form
+msgid "<i class=\"fa fa-arrow-right\"/> Set up token"
+msgstr ""
+
+#. module: google_drive
+#: model_terms:ir.ui.view,arch_db:google_drive.res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-exclamation-triangle text-warning\"/> &amp;nbsp; No refresh"
+" token set"
+msgstr ""
+
+#. module: google_drive
+#: model_terms:ir.ui.view,arch_db:google_drive.res_config_settings_view_form
+msgid "<i class=\"text-success fa fa-check\"/> &amp;nbsp; Refresh token set"
+msgstr ""
+
+#. module: google_drive
+#: model_terms:ir.ui.view,arch_db:google_drive.google_drive_auth_code_wizard
+msgid "<span>Get an authorization code and set it in the field below.</span>"
+msgstr ""
+
+#. module: google_drive
+#: model_terms:ir.ui.view,arch_db:google_drive.view_google_drive_config_kanban
 msgid "<strong>Active</strong>"
 msgstr "<strong>نشط</strong>"
 
 #. module: google_drive
-#: model:ir.ui.view,arch_db:google_drive.view_google_drive_config_kanban
+#: model_terms:ir.ui.view,arch_db:google_drive.view_google_drive_config_kanban
 msgid "<strong>Model</strong>"
 msgstr "<strong>كائن</strong>"
 
 #. module: google_drive
-#: model:ir.ui.view,arch_db:google_drive.view_google_drive_config_kanban
+#: model_terms:ir.ui.view,arch_db:google_drive.view_google_drive_config_kanban
 msgid "<strong>Template</strong>"
 msgstr "<strong>قالب</strong>"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_active
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__active
 msgid "Active"
 msgstr "نشط"
 
 #. module: google_drive
-#: code:addons/google_drive/models/google_drive.py:41
-#, python-format
-msgid "At least one key cannot be found in your Google Drive name pattern"
-msgstr ""
+#: model_terms:ir.actions.act_window,help:google_drive.action_google_drive_users_config
+msgid "Add a new template"
+msgstr "إضافة قالب جديد"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_res_config_settings_google_drive_authorization_code
+#: model_terms:ir.ui.view,arch_db:google_drive.google_drive_config_view_search
+msgid "Archived"
+msgstr "مؤرشف"
+
+#. module: google_drive
+#: code:addons/google_drive/models/google_drive.py:0
+#, python-format
+msgid "At least one key cannot be found in your Google Drive name pattern."
+msgstr "تعذّر العثور علي مفتاح واحد علي الأقل في نمط اسم جوجل درايف."
+
+#. module: google_drive
+#: model:ir.model.fields,field_description:google_drive.field_res_config_settings__google_drive_authorization_code
 msgid "Authorization Code"
 msgstr "رمز الترخيص"
 
 #. module: google_drive
-#: model:ir.model.fields,help:google_drive.field_google_drive_config_name_template
+#: model_terms:ir.ui.view,arch_db:google_drive.google_drive_auth_code_wizard
+msgid "Cancel"
+msgstr "الغاء"
+
+#. module: google_drive
+#: model:ir.model.fields,help:google_drive.field_google_drive_config__name_template
 msgid ""
 "Choose how the new google drive will be named, on google side. Eg. "
 "gdoc_%(field_name)s"
@@ -84,22 +126,27 @@ msgstr ""
 "اختر كيفية تسمية جوجل درايف الجديد، من ناحية جوجل. مثال: gdoc_%(field_name)s"
 
 #. module: google_drive
-#: model:ir.actions.act_window,help:google_drive.action_google_drive_users_config
-msgid "Click to add a new template."
-msgstr "انقر لإضافة قالب جديد"
+#: model:ir.model,name:google_drive.model_res_config_settings
+msgid "Config Settings"
+msgstr "ضبط الاعدادات"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_create_uid
+#: model_terms:ir.ui.view,arch_db:google_drive.google_drive_auth_code_wizard
+msgid "Confirm"
+msgstr "تأكيد"
+
+#. module: google_drive
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__create_uid
 msgid "Created by"
 msgstr "أنشئ بواسطة"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_create_date
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__create_date
 msgid "Created on"
 msgstr "أنشئ في"
 
 #. module: google_drive
-#: code:addons/google_drive/models/google_drive.py:157
+#: code:addons/google_drive/models/google_drive.py:0
 #, python-format
 msgid "Creating google drive may only be done by one at a time."
 msgstr "يتم إنشاء جوجل درايف مرة واحدة فقط."
@@ -110,46 +157,47 @@ msgid "Customer"
 msgstr "العميل"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_display_name
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__display_name
+#: model:ir.model.fields,field_description:google_drive.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr "الاسم المعروض"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_filter_id
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__filter_id
 msgid "Filter"
-msgstr "الفرز"
+msgstr "فلتر"
 
 #. module: google_drive
-#: code:addons/google_drive/models/google_drive.py:60
-#: code:addons/google_drive/models/google_drive.py:81
+#: code:addons/google_drive/models/google_drive.py:0
+#: code:addons/google_drive/models/google_drive.py:0
 #, python-format
 msgid "Go to the configuration panel"
-msgstr "انتقل إلى لوحة الإعدادات"
+msgstr "الذهاب للوحة الإعدادات"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_google_drive_client_id
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__google_drive_client_id
 msgid "Google Client"
-msgstr "عميل غوغل"
+msgstr "عميل جوجل"
 
 #. module: google_drive
-#: model:ir.ui.view,arch_db:google_drive.view_google_drive_config_form
-#: model:ir.ui.view,arch_db:google_drive.view_google_drive_config_tree
+#: model_terms:ir.ui.view,arch_db:google_drive.view_google_drive_config_form
+#: model_terms:ir.ui.view,arch_db:google_drive.view_google_drive_config_tree
 msgid "Google Drive Configuration"
-msgstr " اعدادات سواقة غوغل"
+msgstr "إعدادات جوجل درايف"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_name_template
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__name_template
 msgid "Google Drive Name Pattern"
 msgstr "نمط اسم جوجل درايف"
 
 #. module: google_drive
-#: model:ir.ui.view,arch_db:google_drive.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:google_drive.res_config_settings_view_form
 msgid "Google Drive Templates"
 msgstr "قوالب جوجل درايف"
 
 #. module: google_drive
-#: code:addons/google_drive/models/google_drive.py:62
-#: code:addons/google_drive/models/google_drive.py:83
+#: code:addons/google_drive/models/google_drive.py:0
+#: code:addons/google_drive/models/google_drive.py:0
 #, python-format
 msgid "Google Drive is not yet configured. Please contact your administrator."
 msgstr "لم يتم إعداد جوجل درايف بعد. برجاء التوصل مع مشرفك."
@@ -157,30 +205,32 @@ msgstr "لم يتم إعداد جوجل درايف بعد. برجاء التوص
 #. module: google_drive
 #: model:ir.model,name:google_drive.model_google_drive_config
 msgid "Google Drive templates config"
-msgstr "إعدادات قوالب جوجل درايف"
+msgstr "إعداد قوالب جوجل درايف"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_id
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__id
+#: model:ir.model.fields,field_description:google_drive.field_res_config_settings__id
 msgid "ID"
-msgstr "المعرف"
+msgstr "المُعرف"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config___last_update
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config____last_update
+#: model:ir.model.fields,field_description:google_drive.field_res_config_settings____last_update
 msgid "Last Modified on"
 msgstr "آخر تعديل في"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_write_uid
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__write_uid
 msgid "Last Updated by"
 msgstr "آخر تحديث بواسطة"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_write_date
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__write_date
 msgid "Last Updated on"
 msgstr "آخر تحديث في"
 
 #. module: google_drive
-#: model:ir.actions.act_window,help:google_drive.action_google_drive_users_config
+#: model_terms:ir.actions.act_window,help:google_drive.action_google_drive_users_config
 msgid ""
 "Link your own google drive templates to any record of Odoo. If you have "
 "really specific documents you want your collaborator fill in, e.g. Use a "
@@ -194,28 +244,44 @@ msgstr ""
 "وربطهم بأودو واستخدامهم للتعاون مع موظفيك."
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_model_id
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__model_id
 msgid "Model"
-msgstr "النموذج"
+msgstr "الكائن"
 
 #. module: google_drive
-#: code:addons/google_drive/models/google_drive.py:199
+#: code:addons/google_drive/models/google_drive.py:0
 #, python-format
 msgid "Please enter a valid Google Document URL."
 msgstr "برجاء إدخال رابط صالح لمستند جوجل."
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_model
+#: model:ir.model.fields,field_description:google_drive.field_res_config_settings__is_google_drive_token_generated
+msgid "Refresh Token Generated"
+msgstr ""
+
+#. module: google_drive
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__model
 msgid "Related Model"
 msgstr "الكائن ذو الصلة"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_google_drive_resource_id
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__google_drive_resource_id
 msgid "Resource Id"
 msgstr "هوية المصدر"
 
 #. module: google_drive
-#: code:addons/google_drive/models/google_drive.py:80
+#: model_terms:ir.ui.view,arch_db:google_drive.google_drive_config_view_search
+msgid "Search Google Drive Config"
+msgstr ""
+
+#. module: google_drive
+#: code:addons/google_drive/models/res_config_settings.py:0
+#, python-format
+msgid "Set up refresh token"
+msgstr ""
+
+#. module: google_drive
+#: code:addons/google_drive/models/google_drive.py:0
 #, python-format
 msgid ""
 "Something went wrong during the token generation. Please request again an "
@@ -223,12 +289,12 @@ msgid ""
 msgstr "حدث خطأ أثناء إنشاء كلمة السر. الرجاء طلب رمز ترخيص مرة أخرى."
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_name
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__name
 msgid "Template Name"
 msgstr "اسم القالب"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_google_drive_config_google_drive_template_url
+#: model:ir.model.fields,field_description:google_drive.field_google_drive_config__google_drive_template_url
 msgid "Template URL"
 msgstr "عنوان القالب"
 
@@ -238,27 +304,31 @@ msgid "Templates"
 msgstr "قوالب"
 
 #. module: google_drive
-#: code:addons/google_drive/models/google_drive.py:98
+#: code:addons/google_drive/models/google_drive.py:0
 #, python-format
 msgid "The Google Template cannot be found. Maybe it has been deleted."
-msgstr "قالب غوغل لم يوجد. لربما حذف."
+msgstr "تعذّر إيجاد قالب جوجل. ربما يكون حُذف."
 
 #. module: google_drive
-#: model:ir.model.fields,help:google_drive.field_res_config_settings_google_drive_uri
+#: model:ir.model.fields,help:google_drive.field_res_config_settings__google_drive_uri
 msgid "The URL to generate the authorization code from Google"
 msgstr "الرابط المستخدم في إنشاء كود الترخيص من جوجل"
 
 #. module: google_drive
-#: model:ir.ui.view,arch_db:google_drive.view_google_drive_config_form
+#: model_terms:ir.ui.view,arch_db:google_drive.view_google_drive_config_form
 msgid ""
 "The name of the attached document can use fixed or variable data. To distinguish between documents in\n"
-"                                Google Drive, use fixed words and fields. For instance, in the example above, if you wrote Agrolait_%(name)s_Sales\n"
+"                                Google Drive, use fixed words and fields. For instance, in the example above, if you wrote Deco_Addict_%(name)s_Sales\n"
 "                                in the Google Drive name field, the document in your Google Drive and in Odoo attachment will be named\n"
-"                                'Agrolait_SO0001_Sales'."
+"                                'Deco_Addict_SO0001_Sales'."
 msgstr ""
+"يمكن لاسم المستند المرفق استخدام بيانات ثابتة أو متغيرة. للتمييز بين المستندات في\n"
+"                                جوجل درايف، استخدم الكلمات والحقول الثابتة. فمثلًا، في المثال أعلاه، إذا كتبت Deco_Addict_%(name)s_Sales\n"
+"                                في حقل اسم جوجل درايف، سيكون اسم المستند في جوجل درايف وفي مرفق أودو\n"
+"                                'Deco_Addict_SO0001_Sales'."
 
 #. module: google_drive
-#: code:addons/google_drive/models/google_drive.py:134
+#: code:addons/google_drive/models/google_drive.py:0
 #, python-format
 msgid ""
 "The permission 'reader' for 'anyone with the link' has not been written on "
@@ -266,27 +336,21 @@ msgid ""
 msgstr "لم يُمنح الإذن 'قارئ' لـ'أي شخص يملك الرابط' بهذا المستند"
 
 #. module: google_drive
-#: model:ir.model.fields,field_description:google_drive.field_res_config_settings_google_drive_uri
+#: code:addons/google_drive/models/google_drive.py:0
+#, python-format
+msgid ""
+"There is no refresh code set for Google Drive. You can set it up from the "
+"configuration panel."
+msgstr ""
+
+#. module: google_drive
+#: model:ir.model.fields,field_description:google_drive.field_res_config_settings__google_drive_uri
 msgid "URI"
 msgstr "URI"
 
 #. module: google_drive
-#: code:addons/google_drive/models/google_drive.py:59
-#, python-format
-msgid ""
-"You haven't configured 'Authorization Code' generated from google, Please "
-"generate and configure it ."
-msgstr ""
-"لم تقم بإعداد 'رمز الترخيص' الذي تم إنشاؤه من جوجل، الرجاء إنشاءه وإعداده."
-
-#. module: google_drive
-#: model:ir.ui.view,arch_db:google_drive.view_google_drive_config_form
+#: model_terms:ir.ui.view,arch_db:google_drive.view_google_drive_config_form
 msgid ""
 "https://docs.google.com/document/d/1vOtpJK9scIQz6taD9tJRIETWbEw3fSiaQHArsJYcua4/edit"
 msgstr ""
 "https://docs.google.com/document/d/1vOtpJK9scIQz6taD9tJRIETWbEw3fSiaQHArsJYcua4/edit"
-
-#. module: google_drive
-#: model:ir.model,name:google_drive.model_res_config_settings
-msgid "res.config.settings"
-msgstr "الدقة.التكوين.إعدادات"

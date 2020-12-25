@@ -1,21 +1,20 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * website_event_sale
+# 	* website_event_sale
 # 
 # Translators:
-# fanha99 <fanha99@hotmail.com>, 2017
-# Martin Trigaux, 2017
-# Nancy Momoland <thanhnguyen.icsc@gmail.com>, 2019
-# Duy BQ <duybq86@gmail.com>, 2019
-# Chinh Chinh <trinhttp@trobz.com>, 2019
+# Martin Trigaux, 2020
+# Nancy Momoland <thanhnguyen.icsc@gmail.com>, 2020
+# Duy BQ <duybq86@gmail.com>, 2020
+# Trinh Tran Thi Phuong <trinhttp@trobz.com>, 2020
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server saas~13.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-29 09:08+0000\n"
-"PO-Revision-Date: 2017-09-20 10:26+0000\n"
-"Last-Translator: Chinh Chinh <trinhttp@trobz.com>, 2019\n"
+"POT-Creation-Date: 2020-09-01 07:29+0000\n"
+"PO-Revision-Date: 2020-09-07 08:20+0000\n"
+"Last-Translator: Trinh Tran Thi Phuong <trinhttp@trobz.com>, 2020\n"
 "Language-Team: Vietnamese (https://www.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,22 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: website_event_sale
-#: model:ir.ui.view,arch_db:website_event_sale.registration_template
-msgid "<span>Free</span>"
-msgstr "<span>Miễn phí</span>"
-
-#. module: website_event_sale
-#: model:ir.ui.view,arch_db:website_event_sale.registration_template
-msgid "<span>Unlimited</span>"
-msgstr "<span>Không giới hạn</span>"
-
-#. module: website_event_sale
-#: model:ir.ui.view,arch_db:website_event_sale.registration_template
-msgid "<span>left</span>"
-msgstr "<span>trái</span>"
-
-#. module: website_event_sale
-#: code:addons/website_event_sale/models/product_pricelist.py:16
+#: code:addons/website_event_sale/models/product_pricelist.py:0
 #, python-format
 msgid ""
 "A pricelist item with a positive min. quantity cannot be applied to this "
@@ -49,7 +33,7 @@ msgstr ""
 "cho sản phẩm vé sự kiện này."
 
 #. module: website_event_sale
-#: code:addons/website_event_sale/models/product_pricelist.py:13
+#: code:addons/website_event_sale/models/product_pricelist.py:0
 #, python-format
 msgid ""
 "A pricelist item with a positive min. quantity will not be applied to the "
@@ -59,14 +43,51 @@ msgstr ""
 " sản phẩm vé sự kiện này."
 
 #. module: website_event_sale
-#: model:ir.ui.view,arch_db:website_event_sale.index
-msgid "Only"
-msgstr "Chỉ"
+#: model:ir.model.fields,field_description:website_event_sale.field_product_pricelist_item__display_name
+#: model:ir.model.fields,field_description:website_event_sale.field_product_product__display_name
+#: model:ir.model.fields,field_description:website_event_sale.field_sale_order__display_name
+#: model:ir.model.fields,field_description:website_event_sale.field_sale_order_line__display_name
+#: model:ir.model.fields,field_description:website_event_sale.field_website__display_name
+msgid "Display Name"
+msgstr "Tên hiển thị"
+
+#. module: website_event_sale
+#: model:ir.model.fields,field_description:website_event_sale.field_product_product__event_ticket_ids
+msgid "Event Tickets"
+msgstr "Vé Sự kiện"
+
+#. module: website_event_sale
+#: model_terms:ir.ui.view,arch_db:website_event_sale.registration_template
+msgid "Free"
+msgstr "Rảnh"
+
+#. module: website_event_sale
+#: model_terms:ir.ui.view,arch_db:website_event_sale.registration_template
+msgid "From"
+msgstr "Từ"
+
+#. module: website_event_sale
+#: model:ir.model.fields,field_description:website_event_sale.field_product_pricelist_item__id
+#: model:ir.model.fields,field_description:website_event_sale.field_product_product__id
+#: model:ir.model.fields,field_description:website_event_sale.field_sale_order__id
+#: model:ir.model.fields,field_description:website_event_sale.field_sale_order_line__id
+#: model:ir.model.fields,field_description:website_event_sale.field_website__id
+msgid "ID"
+msgstr "ID"
+
+#. module: website_event_sale
+#: model:ir.model.fields,field_description:website_event_sale.field_product_pricelist_item____last_update
+#: model:ir.model.fields,field_description:website_event_sale.field_product_product____last_update
+#: model:ir.model.fields,field_description:website_event_sale.field_sale_order____last_update
+#: model:ir.model.fields,field_description:website_event_sale.field_sale_order_line____last_update
+#: model:ir.model.fields,field_description:website_event_sale.field_website____last_update
+msgid "Last Modified on"
+msgstr "Sửa lần cuối vào"
 
 #. module: website_event_sale
 #: model:ir.model,name:website_event_sale.model_product_pricelist_item
-msgid "Pricelist item"
-msgstr "Quy tắc tính giá"
+msgid "Pricelist Rule"
+msgstr "Qui tắc bảng giá"
 
 #. module: website_event_sale
 #: model:ir.model,name:website_event_sale.model_product_product
@@ -74,34 +95,29 @@ msgid "Product"
 msgstr "Sản phẩm"
 
 #. module: website_event_sale
-#: model:ir.model,name:website_event_sale.model_sale_order
-msgid "Quotation"
-msgstr "Báo giá"
-
-#. module: website_event_sale
-#: code:addons/website_event_sale/controllers/main.py:56
+#: code:addons/website_event_sale/controllers/main.py:0
 #, python-format
 msgid "Registration"
 msgstr "Đăng ký"
 
 #. module: website_event_sale
-#: model:ir.ui.view,arch_db:website_event_sale.index
-msgid "Remaining"
-msgstr "Còn lại"
+#: model:ir.model,name:website_event_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Đơn bán hàng"
 
 #. module: website_event_sale
-#: model:ir.ui.view,arch_db:website_event_sale.index
-msgid "Sold Out"
-msgstr "Bán hết"
+#: model:ir.model,name:website_event_sale.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Chi tiết đơn hàng"
 
 #. module: website_event_sale
-#: code:addons/website_event_sale/models/sale_order.py:71
+#: code:addons/website_event_sale/models/sale_order.py:0
 #, python-format
 msgid "Sorry, The %(ticket)s tickets for the %(event)s event are sold out."
 msgstr "Rất tiếc, Vé %(ticket)s cho sự kiện %(event)s đã được bán hết."
 
 #. module: website_event_sale
-#: code:addons/website_event_sale/models/sale_order.py:77
+#: code:addons/website_event_sale/models/sale_order.py:0
 #, python-format
 msgid ""
 "Sorry, only %(remaining_seats)d seats are still available for the %(ticket)s"
@@ -111,13 +127,13 @@ msgstr ""
 " với sự kiện %(event)s."
 
 #. module: website_event_sale
-#: code:addons/website_event_sale/models/sale_order.py:39
+#: code:addons/website_event_sale/models/sale_order.py:0
 #, python-format
 msgid "The ticket doesn't match with this product."
 msgstr "Vé không phù hợp với sản phẩm này."
 
 #. module: website_event_sale
-#: code:addons/website_event_sale/models/product_pricelist.py:20
+#: code:addons/website_event_sale/models/product_pricelist.py:0
 #, python-format
 msgid "Warning"
 msgstr "Cảnh báo"
@@ -126,3 +142,8 @@ msgstr "Cảnh báo"
 #: model:ir.model,name:website_event_sale.model_website
 msgid "Website"
 msgstr "Trang web"
+
+#. module: website_event_sale
+#: model_terms:ir.ui.view,arch_db:website_event_sale.registration_template
+msgid "to"
+msgstr "đến"

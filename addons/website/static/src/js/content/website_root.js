@@ -1,78 +1,48 @@
-flectra.define('website.WebsiteRoot.instance', function (require) {
+flectra.define('website.root', function (require) {
 'use strict';
 
-require('web.dom_ready');
-var websiteRootData = require('website.WebsiteRoot');
-
-var websiteRoot = new websiteRootData.WebsiteRoot(null);
-return websiteRoot.attachTo(document.body).then(function () {
-    return websiteRoot;
-});
-});
-
-//==============================================================================
-
-flectra.define('website.WebsiteRoot', function (require) {
-'use strict';
-
-var ajax = require('web.ajax');
-var core = require('web.core');
+const ajax = require('web.ajax');
+const {_t} = require('web.core');
 var Dialog = require('web.Dialog');
-var utils = require('web.utils');
-var BodyManager = require('web_editor.BodyManager');
-var weContext = require('web_editor.context');
-var rootWidget = require('web_editor.root_widget');
-var sAnimation = require('website.content.snippets.animation');
-require("website.content.zoomflectra");
+const KeyboardNavigationMixin = require('web.KeyboardNavigationMixin');
+const session = require('web.session');
+var publicRootData = require('web.public.root');
+require("web.zoomflectra");
 
-var _t = core._t;
+var websiteRootRegistry = publicRootData.publicRootRegistry;
 
-var websiteRootRegistry = new rootWidget.RootWidgetRegistry();
-
-// Load localizations outside the WebsiteRoot to not wait for DOM ready (but
-// wait for them in WebsiteRoot)
-var lang = utils.get_cookie('frontend_lang') || weContext.get().lang; // FIXME the cookie value should maybe be in the ctx?
-var localeDef = ajax.loadJS('/web/webclient/locale/' + lang.replace('-', '_'));
-
-var WebsiteRoot = BodyManager.extend({
-    events: _.extend({}, BodyManager.prototype.events || {}, {
+var WebsiteRoot = publicRootData.PublicRoot.extend(KeyboardNavigationMixin, {
+    events: _.extend({}, KeyboardNavigationMixin.events, publicRootData.PublicRoot.prototype.events || {}, {
         'click .js_change_lang': '_onLangChangeClick',
         'click .js_publish_management .js_publish_btn': '_onPublishBtnClick',
-        'submit .js_website_submit_form': '_onWebsiteFormSubmit',
-        'click .js_disable_on_click': '_onDisableOnClick',
+        'click .js_multi_website_switch': '_onWebsiteSwitch',
+        'shown.bs.modal': '_onModalShown',
     }),
-    custom_events: _.extend({}, BodyManager.prototype.custom_events || {}, {
-        animation_start_demand: '_onAnimationStartDemand',
-        animation_stop_demand: '_onAnimationStopDemand',
-        ready_to_clean_for_save: '_onAnimationStopDemand',
+    custom_events: _.extend({}, publicRootData.PublicRoot.prototype.custom_events || {}, {
+        'gmap_api_request': '_onGMapAPIRequest',
+        'gmap_api_key_request': '_onGMapAPIKeyRequest',
+        'ready_to_clean_for_save': '_onWidgetsStopRequest',
+        'seo_object_request': '_onSeoObjectRequest',
     }),
 
-    /**
-     * @constructor
-     */
-    init: function () {
-        this._super.apply(this, arguments);
-        this.animations = [];
-    },
     /**
      * @override
      */
-    willStart: function () {
-        // TODO would be even greater to wait for localeDef only when necessary
-        return $.when(this._super.apply(this, arguments), localeDef);
+    init() {
+        this.isFullscreen = false;
+        KeyboardNavigationMixin.init.call(this, {
+            autoAccessKeys: false,
+        });
+        return this._super(...arguments);
     },
     /**
      * @override
      */
     start: function () {
-        var defs = [this._super.apply(this, arguments)];
-
-        // Animations
-        defs.push(this._startAnimations());
-
+        KeyboardNavigationMixin.start.call(this);
         // Compatibility lang change ?
         if (!this.$('.js_change_lang').length) {
-            var $links = this.$('ul.js_language_selector li a:not([data-oe-id])');
+            var $links = this.$('.js_language_selector a:not([data-oe-id])');
             var m = $(_.min($links, function (l) {
                 return $(l).attr('href').length;
             })).attr('href');
@@ -84,28 +54,17 @@ var WebsiteRoot = BodyManager.extend({
             });
         }
 
-        // Display image thumbnail
-        this.$(".o_image[data-mimetype^='image']").each(function () {
-            var $img = $(this);
-            if (/gif|jpe|jpg|png/.test($img.data('mimetype')) && $img.data('src')) {
-                $img.css('background-image', "url('" + $img.data('src') + "')");
-            }
-        });
-
         // Enable magnify on zommable img
         this.$('.zoomable img[data-zoom]').zoomFlectra();
 
-        // Auto scroll
-        if (window.location.hash.indexOf("scrollTop=") > -1) {
-            this.el.scrollTop = +window.location.hash.match(/scrollTop=([0-9]+)/)[1];
-        }
-
-        // Fix for IE:
-        if ($.fn.placeholder) {
-            $('input, textarea').placeholder();
-        }
-
-        return $.when.apply($, defs);
+        return this._super.apply(this, arguments);
+    },
+    /**
+     * @override
+     */
+    destroy() {
+        KeyboardNavigationMixin.destroy.call(this);
+        return this._super(...arguments);
     },
 
     //--------------------------------------------------------------------------
@@ -113,74 +72,129 @@ var WebsiteRoot = BodyManager.extend({
     //--------------------------------------------------------------------------
 
     /**
-     * As the WebsiteRoot instance is designed to be unique, the associated
-     * registry has been instantiated outside of the class and is simply
-     * returned here.
-     *
-     * @private
      * @override
      */
-    _getRegistry: function () {
-        return websiteRootRegistry;
+    _getContext: function (context) {
+        var html = document.documentElement;
+        return _.extend({
+            'website_id': html.getAttribute('data-website-id') | 0,
+        }, this._super.apply(this, arguments));
     },
     /**
-     * Creates an Animation instance for each DOM element which matches the
-     * `selector` key of one of the registered animations
-     * (@see Animation.selector).
-     *
-     * @private
-     * @param {boolean} [editableMode=false] - true if the page is in edition mode
-     * @param {jQuery} [$from]
-     *        only initialize the animations whose `selector` matches the
-     *        element or one of its descendant (default to the wrapwrap element)
-     * @returns {Deferred}
+     * @override
      */
-    _startAnimations: function (editableMode, $from) {
-        var self = this;
-        editableMode = editableMode || false;
-        if ($from === undefined) {
-            $from = this.$('#wrapwrap');
-        }
-        var defs = _.map(sAnimation.registry, function (Animation) {
-            var selector = Animation.prototype.selector || '';
-            var $target = $from.find(selector).addBack(selector);
-
-            var defs = _.map($target, function (el) {
-                var $snippet = $(el);
-                var animation = $snippet.data('snippet-view');
-                if (animation) {
-                    self.animations = _.without(self.animations, animation);
-                    animation.destroy();
-                }
-                animation = new Animation(self, editableMode);
-                self.animations.push(animation);
-                $snippet.data('snippet-view', animation);
-                return animation.attachTo($snippet);
+    _getExtraContext: function (context) {
+        var html = document.documentElement;
+        return _.extend({
+            'editable': !!(html.dataset.editable || $('[data-oe-model]').length), // temporary hack, this should be done in python
+            'translatable': !!html.dataset.translatable,
+            'edit_translations': !!html.dataset.edit_translations,
+        }, this._super.apply(this, arguments));
+    },
+    /**
+     * @private
+     * @param {boolean} [refetch=false]
+     */
+    async _getGMapAPIKey(refetch) {
+        if (refetch || !this._gmapAPIKeyProm) {
+            this._gmapAPIKeyProm = new Promise(async resolve => {
+                const data = await this._rpc({
+                    route: '/website/google_maps_api_key',
+                });
+                resolve(JSON.parse(data).google_maps_api_key || '');
             });
-            return $.when.apply($, defs);
-        });
-        return $.when.apply($, defs);
+        }
+        return this._gmapAPIKeyProm;
     },
     /**
-     * Destroys all animation instances. Especially needed before saving while
-     * in edition mode for example.
+     * @override
+     */
+    _getPublicWidgetsRegistry: function (options) {
+        var registry = this._super.apply(this, arguments);
+        if (options.editableMode) {
+            return _.pick(registry, function (PublicWidget) {
+                return !PublicWidget.prototype.disabledInEditableMode;
+            });
+        }
+        return registry;
+    },
+    /**
+     * @private
+     * @param {boolean} [editableMode=false]
+     * @param {boolean} [refetch=false]
+     */
+    async _loadGMapAPI(editableMode, refetch) {
+        // Note: only need refetch to reload a configured key and load the
+        // library. If the library was loaded with a correct key and that the
+        // key changes meanwhile... it will not work but we can agree the user
+        // can bother to reload the page at that moment.
+        if (refetch || !this._gmapAPILoading) {
+            this._gmapAPILoading = new Promise(async resolve => {
+                const key = await this._getGMapAPIKey(refetch);
+
+                window.flectra_gmap_api_post_load = (async function flectra_gmap_api_post_load() {
+                    await this._startWidgets(undefined, {editableMode: editableMode});
+                    resolve(key);
+                }).bind(this);
+
+                if (!key) {
+                    if (!editableMode && session.is_admin) {
+                        this.displayNotification({
+                            type: 'warning',
+                            sticky: true,
+                            message:
+                                $('<div/>').append(
+                                    $('<span/>', {text: _t("Cannot load google map.")}),
+                                    $('<br/>'),
+                                    $('<a/>', {
+                                        href: "/web#action=website.action_website_configuration",
+                                        text: _t("Check your configuration."),
+                                    }),
+                                )[0].outerHTML,
+                        });
+                    }
+                    resolve(false);
+                    this._gmapAPILoading = false;
+                    return;
+                }
+                await ajax.loadJS(`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&callback=flectra_gmap_api_post_load&key=${key}`);
+            });
+        }
+        return this._gmapAPILoading;
+    },
+    /**
+     * Toggles the fullscreen mode.
      *
      * @private
-     * @param {jQuery} [$from]
-     *        only stop the animations linked to the given element(s) or one of
-     *        its descendants
+     * @param {boolean} state toggle fullscreen on/off (true/false)
      */
-    _stopAnimations: function ($from) {
-        var removedAnimations = _.map(this.animations, function (animation) {
-            if (!$from
-             || $from.filter(animation.el).length
-             || $from.find(animation.el).length) {
-                animation.destroy();
-                return animation;
+    _toggleFullscreen(state) {
+        this.isFullscreen = state;
+        document.body.classList.add('o_fullscreen_transition');
+        document.body.classList.toggle('o_fullscreen', this.isFullscreen);
+        document.body.style.overflowX = 'hidden';
+        let resizing = true;
+        window.requestAnimationFrame(function resizeFunction() {
+            window.dispatchEvent(new Event('resize'));
+            if (resizing) {
+                window.requestAnimationFrame(resizeFunction);
             }
-            return null;
         });
-        this.animations = _.difference(this.animations, removedAnimations);
+        let stopResizing;
+        const onTransitionEnd = ev => {
+            if (ev.target === document.body && ev.propertyName === 'padding-top') {
+                stopResizing();
+            }
+        };
+        stopResizing = () => {
+            resizing = false;
+            document.body.style.overflowX = '';
+            document.body.removeEventListener('transitionend', onTransitionEnd);
+            document.body.classList.remove('o_fullscreen_transition');
+        };
+        document.body.addEventListener('transitionend', onTransitionEnd);
+        // Safeguard in case the transitionend event doesn't trigger for whatever reason.
+        window.setTimeout(() => stopResizing(), 500);
     },
 
     //--------------------------------------------------------------------------
@@ -188,26 +202,12 @@ var WebsiteRoot = BodyManager.extend({
     //--------------------------------------------------------------------------
 
     /**
-     * Called when the root is notified that the animations have to be
-     * (re)started.
-     *
-     * @private
-     * @param {FlectraEvent} ev
+     * @override
      */
-    _onAnimationStartDemand: function (ev) {
-        this._startAnimations(ev.data.editableMode, ev.data.$target)
-            .done(ev.data.onSuccess)
-            .fail(ev.data.onFailure);
-    },
-    /**
-     * Called when the root is notified that the animations have to be
-     * stopped.
-     *
-     * @private
-     * @param {FlectraEvent} ev
-     */
-    _onAnimationStopDemand: function (ev) {
-        this._stopAnimations(ev.data.$target);
+    _onWidgetsStartRequest: function (ev) {
+        ev.data.options = _.clone(ev.data.options || {});
+        ev.data.options.editableMode = ev.data.editableMode;
+        this._super.apply(this, arguments);
     },
     /**
      * @todo review
@@ -216,14 +216,62 @@ var WebsiteRoot = BodyManager.extend({
     _onLangChangeClick: function (ev) {
         ev.preventDefault();
 
-        var $target = $(ev.target);
+        var $target = $(ev.currentTarget);
         // retrieve the hash before the redirect
         var redirect = {
-            lang: $target.data('lang'),
+            lang: $target.data('url_code'),
             url: encodeURIComponent($target.attr('href').replace(/[&?]edit_translations[^&?]+/, '')),
             hash: encodeURIComponent(window.location.hash)
         };
         window.location.href = _.str.sprintf("/website/lang/%(lang)s?r=%(url)s%(hash)s", redirect);
+    },
+    /**
+     * @private
+     * @param {FlectraEvent} ev
+     */
+    async _onGMapAPIRequest(ev) {
+        ev.stopPropagation();
+        const apiKey = await this._loadGMapAPI(ev.data.editableMode, ev.data.refetch);
+        ev.data.onSuccess(apiKey);
+    },
+    /**
+     * @private
+     * @param {FlectraEvent} ev
+     */
+    async _onGMapAPIKeyRequest(ev) {
+        ev.stopPropagation();
+        const apiKey = await this._getGMapAPIKey(ev.data.refetch);
+        ev.data.onSuccess(apiKey);
+    },
+    /**
+    /**
+     * Checks information about the page SEO object.
+     *
+     * @private
+     * @param {FlectraEvent} ev
+     */
+    _onSeoObjectRequest: function (ev) {
+        var res = this._unslugHtmlDataObject('seo-object');
+        ev.data.callback(res);
+    },
+    /**
+     * Returns a model/id object constructed from html data attribute.
+     *
+     * @private
+     * @param {string} dataAttr
+     * @returns {Object} an object with 2 keys: model and id, or null
+     * if not found
+     */
+    _unslugHtmlDataObject: function (dataAttr) {
+        var repr = $('html').data(dataAttr);
+        var match = repr && repr.match(/(.+)\((\d+),(.*)\)/);
+        if (!match) {
+            return null;
+        }
+        return {
+            model: match[1],
+            id: match[2] | 0,
+        };
     },
     /**
      * @todo review
@@ -231,6 +279,9 @@ var WebsiteRoot = BodyManager.extend({
      */
     _onPublishBtnClick: function (ev) {
         ev.preventDefault();
+        if (document.body.classList.contains('editor_enable')) {
+            return;
+        }
 
         var self = this;
         var $data = $(ev.currentTarget).parents(".js_publish_management:first");
@@ -241,46 +292,54 @@ var WebsiteRoot = BodyManager.extend({
                 object: $data.data('object'),
             },
         })
-        .done(function (result) {
+        .then(function (result) {
             $data.toggleClass("css_unpublished css_published");
             $data.find('input').prop("checked", result);
             $data.parents("[data-publish]").attr("data-publish", +result ? 'on' : 'off');
-        })
-        .fail(function (err, data) {
-            return new Dialog(self, {
-                title: data.data ? data.data.arguments[0] : "",
-                $content: $('<div/>', {
-                    html: (data.data ? data.data.arguments[1] : data.statusText)
-                        + '<br/>'
-                        + _.str.sprintf(
-                            _t('It might be possible to edit the relevant items or fix the issue in <a href="%s">the classic Odoo interface</a>'),
-                            '/web#return_label=Website&model=' + $data.data('object') + '&id=' + $data.data('id')
-                        ),
-                }),
-            }).open();
+            if (result) {
+                self.displayNotification({
+                    type: 'success',
+                    message: $data.data('description') ?
+                        _.str.sprintf(_t("You've published your %s."), $data.data('description')) :
+                        _t("Published with success."),
+                });
+            }
         });
     },
     /**
-     * @todo review
-     * @private
-     */
-    _onWebsiteFormSubmit: function (ev) {
-        var $buttons = $(ev.currentTarget).find('button[type="submit"], a.a-submit');
-        _.each($buttons, function (btn) {
-            var $btn = $(btn);
-            $btn.attr('data-loading-text', '<i class="fa fa-spinner fa-spin"></i> ' + $(btn).text());
-            $btn.button('loading');
-        });
-    },
-    /**
-     * Called when the root is notified that the button should be
-     * disabled after the first click.
-     *
      * @private
      * @param {Event} ev
      */
-    _onDisableOnClick: function (ev) {
-        $(ev.currentTarget).addClass('disabled');
+    _onWebsiteSwitch: function (ev) {
+        var websiteId = ev.currentTarget.getAttribute('website-id');
+        var websiteDomain = ev.currentTarget.getAttribute('domain');
+        var url = window.location.href;
+        if (websiteDomain && window.location.hostname !== websiteDomain) {
+            var path = window.location.pathname + window.location.search + window.location.hash;
+            url = websiteDomain + path;
+        }
+        window.location.href = $.param.querystring(url, {'fw': websiteId});
+    },
+    /**
+     * @private
+     * @param {Event} ev
+     */
+    _onModalShown: function (ev) {
+        $(ev.target).addClass('modal_shown');
+    },
+    /**
+     * @override
+     */
+    _onKeyDown(ev) {
+        if (!session.user_id) {
+            return;
+        }
+        // If document.body doesn't contain the element, it was probably removed as a consequence of pressing Esc.
+        // we don't want to toggle fullscreen as the removal (eg, closing a modal) is the intended action.
+        if (ev.keyCode !== $.ui.keyCode.ESCAPE || !document.body.contains(ev.target) || ev.target.closest('.modal')) {
+            return KeyboardNavigationMixin._onKeyDown.apply(this, arguments);
+        }
+        this._toggleFullscreen(!this.isFullscreen);
     },
 });
 

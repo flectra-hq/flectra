@@ -8,16 +8,16 @@
     'version' : '2.0',
     'author' : 'Grzegorz Grzelak (OpenGLOBE)',
     'website': 'http://www.openglobe.pl',
-    'category': 'Localization',
+    'category': 'Accounting/Localizations/Account Charts',
     'description': """
-This is the module to manage the accounting chart and taxes for Poland in Odoo, Flectra.
+This is the module to manage the accounting chart and taxes for Poland in Odoo.
 ==================================================================================
 
 To jest moduł do tworzenia wzorcowego planu kont, podatków, obszarów podatkowych i
 rejestrów podatkowych. Moduł ustawia też konta do kupna i sprzedaży towarów
 zakładając, że wszystkie towary są w obrocie hurtowym.
 
-Niniejszy moduł jest przeznaczony dla flectra 8.0.
+Niniejszy moduł jest przeznaczony dla odoo 8.0.
 Wewnętrzny numer wersji OpenGLOBE 1.02
     """,
     'depends' : [
@@ -27,11 +27,17 @@ Wewnętrzny numer wersji OpenGLOBE 1.02
     ],
     'data': [
               'data/l10n_pl_chart_data.xml',
+              'data/account.account.template.csv',
+              'data/res.country.state.csv',
+              'data/l10n_pl_chart_post_data.xml',
               'data/account_data.xml',
+              'data/account_tax_report_data.xml',
               'data/account_tax_data.xml',
               'data/account_fiscal_position_data.xml',
-              'data/res_country_state_data.xml',
-              'data/account_chart_template_data.yml'
+              'data/account_chart_template_data.xml'
+    ],
+    'demo': [
+        'demo/demo_company.xml',
     ],
     'post_init_hook': '_preserve_tag_on_taxes',
 }

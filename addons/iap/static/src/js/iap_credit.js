@@ -1,13 +1,11 @@
 flectra.define('iap.redirect_flectra_credit_widget', function(require) {
 "use strict";
 
+var AbstractAction = require('web.AbstractAction');
 var core = require('web.core');
-var framework = require('web.framework');
-var Widget = require('web.Widget');
-var QWeb = core.qweb;
 
 
-var IapFlectraCreditRedirect = Widget.extend({
+var IapFlectraCreditRedirect = AbstractAction.extend({
     template: 'iap.redirect_to_flectra_credit',
     events : {
         "click .redirect_confirm" : "flectra_redirect",

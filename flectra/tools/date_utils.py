@@ -4,8 +4,9 @@ import calendar
 from datetime import date, datetime, time
 import pytz
 from dateutil.relativedelta import relativedelta
-from . import ustr
 
+from . import ustr
+from .func import lazy
 
 def get_month(date):
     ''' Compute the month dates range on which the 'date' parameter belongs to.
@@ -55,14 +56,46 @@ def get_fiscal_year(date, day=31, month=12):
     '''
     max_day = calendar.monthrange(date.year, month)[1]
     date_to = type(date)(date.year, month, min(day, max_day))
+
+    # Force at 29 February instead of 28 in case of leap year.
+    if date_to.month == 2 and date_to.day == 28 and max_day == 29:
+        date_to = type(date)(date.year, 2, 29)
+
     if date <= date_to:
         date_from = date_to - relativedelta(years=1)
+        max_day = calendar.monthrange(date_from.year, date_from.month)[1]
+
+        # Force at 29 February instead of 28 in case of leap year.
+        if date_from.month == 2 and date_from.day == 28 and max_day == 29:
+            date_from = type(date)(date_from.year, 2, 29)
+
         date_from += relativedelta(days=1)
     else:
         date_from = date_to + relativedelta(days=1)
         max_day = calendar.monthrange(date_to.year + 1, date_to.month)[1]
         date_to = type(date)(date.year + 1, month, min(day, max_day))
+
+        # Force at 29 February instead of 28 in case of leap year.
+        if date_to.month == 2 and date_to.day == 28 and max_day == 29:
+            date_to += relativedelta(days=1)
     return date_from, date_to
+
+
+def get_timedelta(qty, granularity):
+    """
+        Helper to get a `relativedelta` object for the given quantity and interval unit.
+        :param qty: the number of unit to apply on the timedelta to return
+        :param granularity: Type of period in string, can be year, quarter, month, week, day or hour.
+
+    """
+    switch = {
+        'hour': relativedelta(hours=qty),
+        'day': relativedelta(days=qty),
+        'week': relativedelta(weeks=qty),
+        'month': relativedelta(months=qty),
+        'year': relativedelta(years=qty),
+    }
+    return switch[granularity]
 
 
 def start_of(value, granularity):
@@ -166,22 +199,24 @@ def subtract(value, *args, **kwargs):
     """
     return value - relativedelta(*args, **kwargs)
 
-
 def json_default(obj):
     """
     Properly serializes date and datetime objects.
     """
     from flectra import fields
+    if isinstance(obj, datetime):
+        return fields.Datetime.to_string(obj)
     if isinstance(obj, date):
-        if isinstance(obj, datetime):
-            return fields.Datetime.to_string(obj)
         return fields.Date.to_string(obj)
+    if isinstance(obj, lazy):
+        return obj._value
     return ustr(obj)
+
 
 def date_range(start, end, step=relativedelta(months=1)):
     """Date range generator with a step interval.
 
-    :param start datetime: begining date of the range.
+    :param start datetime: beginning date of the range.
     :param end datetime: ending date of the range.
     :param step relativedelta: interval of the range.
     :return: a range of datetime from start to end.

@@ -18,12 +18,12 @@ new file mode 100644
 --- /dev/null
 +++ b/academy/data.xml
 @@ -0,0 +1,6 @@
-+<flectra>
++<odoo>
 +  <record model="product.public.category" id="category_courses">
 +    <field name="name">Courses</field>
 +    <field name="parent_id" ref="website_sale.categ_others"/>
 +  </record>
-+</flectra>
++</odoo>
 diff --git a/academy/demo.xml b/academy/demo.xml
 --- a/academy/demo.xml
 +++ b/academy/demo.xml
@@ -35,7 +35,7 @@ diff --git a/academy/demo.xml b/academy/demo.xml
 +            <field name="name">Course 0</field>
 +            <field name="teacher_id" ref="padilla"/>
 +            <field name="public_categ_ids" eval="[(4, ref('academy.category_courses'), False)]"/>
-+            <field name="website_published">True</field>
++            <field name="is_published">True</field>
 +            <field name="list_price" type="float">0</field>
 +            <field name="type">service</field>
 +        </record>
@@ -43,7 +43,7 @@ diff --git a/academy/demo.xml b/academy/demo.xml
 +            <field name="name">Course 1</field>
 +            <field name="teacher_id" ref="padilla"/>
 +            <field name="public_categ_ids" eval="[(4, ref('academy.category_courses'), False)]"/>
-+            <field name="website_published">True</field>
++            <field name="is_published">True</field>
 +            <field name="list_price" type="float">0</field>
 +            <field name="type">service</field>
 +        </record>
@@ -51,12 +51,12 @@ diff --git a/academy/demo.xml b/academy/demo.xml
 +            <field name="name">Course 2</field>
 +            <field name="teacher_id" ref="vaughn"/>
 +            <field name="public_categ_ids" eval="[(4, ref('academy.category_courses'), False)]"/>
-+            <field name="website_published">True</field>
++            <field name="is_published">True</field>
 +            <field name="list_price" type="float">0</field>
 +            <field name="type">service</field>
 +        </record>
 +
- </flectra>
+ </odoo>
 diff --git a/academy/models.py b/academy/models.py
 --- a/academy/models.py
 +++ b/academy/models.py

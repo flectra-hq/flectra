@@ -1,6 +1,8 @@
-=======
-Modules
-=======
+:banner: banners/module.jpg
+
+================
+Module Manifests
+================
 
 
 
@@ -9,7 +11,7 @@ Modules
 Manifest
 ========
 
-The manifest file serves to declare a python package as an Flectra module
+The manifest file serves to declare a python package as an Odoo module
 and to specify module metadata.
 
 It is a file called ``__manifest__.py`` and contains a single Python
@@ -64,7 +66,7 @@ Available manifest fields are:
     * `Other proprietary`
 
 ``category`` (``str``, default: ``Uncategorized``)
-    classification category within Flectra, rough business domain for the module.
+    classification category within Odoo, rough business domain for the module.
 
     Although using `existing categories`_ is recommended, the field is
     freeform and unknown categories are created on-the-fly. Category
@@ -72,7 +74,7 @@ Available manifest fields are:
     will create a category ``Foo``, a category ``Bar`` as child category of
     ``Foo``, and will set ``Bar`` as the module's category.
 ``depends`` (``list(str)``)
-    Flectra modules which must be loaded before this one, either because this
+    Odoo modules which must be loaded before this one, either because this
     module uses features they create or because it alters resources they
     define.
 
@@ -117,7 +119,7 @@ Available manifest fields are:
     located in ``static/src/css`` inside the module.
 ``images`` (``list(str)``)
     Specify image files to be used by the module.
-``installable`` (``bool`` default: ``False``)
+``installable`` (``bool`` default: ``True``)
     Whether a user should be able to install the module from the Web UI or not.
 ``maintainer`` (``str``)
     Person or entity in charge of the maintenance of this module, by default
@@ -138,7 +140,9 @@ Available manifest fields are:
 
     These hooks should only be used when setup/cleanup required for this module
     is either extremely difficult or impossible through the api.
+``active`` (``bool``)
+    This indicates whether this module must install automatically or not.
 
-.. _semantic versioning: http://semver.org
+.. _semantic versioning: https://semver.org
 .. _existing categories:
-     https://github.com/flectra/flectra/blob/master/flectra/addons/base/module/module_data.xml
+     https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml

@@ -4,16 +4,16 @@
 Python 3 compatibility/conversions
 ==================================
 
-Official compatibility: Flectra 1.0 will be the first LTS release to introduce
+Official compatibility: Odoo 11 will be the first LTS release to introduce
 Python 3 compatibility, starting with Python 3.5. It will also be the first
 LTS release to drop official support for Python 2.
 
 Rationale: Python 3 has been around since 2008, and all Python libraries
-used by the official Flectra distribution have been ported and are considered
+used by the official Odoo distribution have been ported and are considered
 stable. Most supported platforms have a Python 3.5 package, or a similar
 way to deploy it. Preserving dual compatibility is therefore considered
 unnecessary, and would represent a significant overhead in testing for the
-lifetime of Flectra 1.0.
+lifetime of Odoo 11.
 
 Python 2 and Python 3 are somewhat different language, but following
 backports, forward ports and cross-compatibility library it is possible to
@@ -26,16 +26,16 @@ with Python 3.
 .. important::
 
     This is not a general-purpose guide for porting Python 2 to Python 3, it's
-    a guide to write 2/3-compatible Flectra code. It does not go through all the
+    a guide to write 2/3-compatible Odoo code. It does not go through all the
     changes in Python but rather through issues which have been found in the
-    standard Flectra distribution in order to show how to evolve such code such
+    standard Odoo distribution in order to show how to evolve such code such
     that it works on both Python 2 and Python 3.
 
 References/useful documents:
 
 * `What's new in Python 3? <https://docs.python.org/3.0/whatsnew/3.0.html>`_
   covers many of the changes between Python 2 and Python 3, though it is
-  missing a number of changes which `were backported to Python 2.7 <https://docs.python.org/3/whatsnew/2.7.html#python-3-1-features>`_
+  missing a number of changes which `were backported to Python 2.7 <https://docs.python.org/2.7/whatsnew/2.7.html#python-3-1-features>`_
   as well as :ref:`some feature reintroductions <p3support>` of later Python 3
   revisions
 * `How do I port to Python 3? <https://eev.ee/blog/2016/07/31/python-faq-how-do-i-port-to-python-3/>`_
@@ -48,7 +48,7 @@ References/useful documents:
 Versions Support
 ================
 
-A cross compatible Flectra would only support Python 2.7 and Python 3.5 and
+A cross compatible Odoo would only support Python 2.7 and Python 3.5 and
 above: Python 2.7 backported some Python 3 features, and Python 2 features
 were reintroduced in various Python 3 in order to make conversion easier.
 Python 3.6 adds great features (f-strings, ...) and performance improvements
@@ -62,16 +62,6 @@ features whereas:
 * Python 3.2 made ``range`` views more list-like (backported to 2.7)and
   reintroduced ``callable``
 
-.. warning::
-
-    While Python 3 adds plenty of great features (keyword-only parameters,
-    generator delegation, pathlib, ...), you must *not* use them in Flectra
-    until Python 2 support is dropped
-
-.. note::
-
-    In the *very rare* cases where you *need* to differentiate between
-    Python 2 and Python 3, use the :data:`flectra.tools.pycompat.PY2` flag.
 
 Semantics changes
 =================
@@ -97,7 +87,7 @@ When discovered, this can be fixed by one of:
 * using different checking method (e.g. when serialising sets or dictionaries
   and checking against the specific serialised value)
 * fixing dependencies
-* using a ``collections.OrderedDict`` or ``flectra.tools.misc.OrderedSet`` instead
+* using a ``collections.OrderedDict`` or ``odoo.tools.misc.OrderedSet`` instead
   of a regular one, they guarantee order of iteration is order of insertion
 * sorting the collection's items before iterating over them (this may require
   adding some sort of iteration key to the items)
@@ -117,7 +107,7 @@ library:
 * ``urllib``, ``urllib2`` and ``urlparse`` were redistributed across
   ``urllib.parse`` and ``urllib.request``.
 
-  Since `requests`_ and `werkzeug`_ are already hard dependencies of Flectra,
+  Since `requests`_ and `werkzeug`_ are already hard dependencies of Odoo,
   replace ``urllib[2].urlopen``/``urllib2.Request`` uses by `requests`_, and
   ``urlparse`` and a few utilty functions (``urllib.quote``,
   ``urllib.urlencode``) are available through ``werkzeug.urls``, a backport
@@ -125,8 +115,8 @@ library:
 
   .. warning:: `requests`_ does not raise by default on non-200 responses
 
-* ``cgi.escape`` (HTML escaping) is deprecated in Python 3, prefer Flectra's own
-  :func:`flectra.tools.misc.html_encode`.
+* ``cgi.escape`` (HTML escaping) is deprecated in Python 3, prefer Odoo's own
+  :func:`odoo.tools.misc.html_encode`.
 * Most of ``types``'s content has been stripped out in Python 3: only
   "internal" interpreter types (e.g. CodeType, FrameType, ...) have been left
   in, other types can be obtained directly from the corresponding builtin or
@@ -149,7 +139,7 @@ PYTHONPATH.
 
 Furthermore if a sibling file is named the same as top-level package, the
 library becomes inaccessible to both the file itself ans siblings, this has
-actually happened in Flectra with :mod:`flectra.tools.mimetypes`.
+actually happened in Odoo with :mod:`odoo.tools.mimetypes`.
 
 Additionally, relative imports allow navigating "up" the tree by using
 multiple leading ``.``.
@@ -299,8 +289,6 @@ under the single ``int`` type.
 
     * the ``L`` suffix for integer literals must be removed
     * calls to ``long`` must be replaced by calls to ``int``
-    * ``(int, long)`` for type-checking purposes must be replaced by
-      :py:data:`flectra.tools.pycompat.integer_types`
 
 
 * the ``L`` suffix on numbers is unsupported in Python 3, and unnecessary in
@@ -310,18 +298,6 @@ under the single ``int`` type.
 * type-testing is the last and bigger issue as in Python 2 ``long`` is not a
   subtype of ``int`` (nor the reverse), and ``isinstance(value, (int, long))``
   is thus generally necessary to catch all integrals.
-
-  For that case, Flectra 11 now provides a compatibility module with an
-  :py:data:`~flectra.tools.pycompat.integer_types` definition which can be used
-  for type-testing.
-
-  It is a tuple of types so when used with ``isinstance`` it can be provided
-  directly or inside an other tuple alongside other types e.g.
-  ``isinstance(value, (BaseModel, integer_types))``.
-
-  However when used with ``type`` directly (which should be avoided) you
-  should use the ``in`` operator, and if you need other types you need to
-  concatenate ``integer_types`` to an other tuple.
 
 ``reduce``
 ##########
@@ -411,18 +387,6 @@ Both versions have the following prefixes for string literals:
 For best cross-version compatibility you should avoid unprefixed string
 literals unless you *specifically* need a "native string" [#native-string]_.
 
-For easier type-testing, :mod:`flectra.tools.pycompat` provides the following
-constants:
-
-* :data:`~flectra.tools.pycompat.string_types` is an alias/type tuple for testing
-  string types, essentially a replacement of testing for ``basestring`` or
-  ``(str, unicode)``.
-* :data:`~flectra.tools.pycompat.text_type` is the proper *text* type for the
-  current version, it should mostly be used for converting non-bytes objects
-  to text.
-* ``bytes`` should be avoided for type conversions, though it can be used to
-  check if an object is a bytestring.
-
 ``open``
 --------
 
@@ -466,12 +430,12 @@ significant ways:
 * Python 3's CSV only works on *text streams* and extract text values
 * And ``io`` doesn't provide "native string" streaming facilities.
 
-However with respect to Flectra it turns out most or all uses of ``csv`` fit
+However with respect to Odoo it turns out most or all uses of ``csv`` fit
 inside a model of *byte stream to and from text values*.
 
 The latter is thus a model implemented by cross-version wrappers
-:func:`flectra.tools.pycompat.csv_reader` and
-:func:`flectra.tools.pycompat.csv_writer`: they take a *UTF-8 byte stream* and
+:func:`odoo.tools.pycompat.csv_reader` and
+:func:`odoo.tools.pycompat.csv_writer`: they take a *UTF-8 byte stream* and
 read or write *text* values.
 
 .. _hash randomisation: http://bugs.python.org/issue13703

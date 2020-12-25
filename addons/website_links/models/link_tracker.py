@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from flectra import models, fields
-
+from flectra import models, _
 
 class LinkTracker(models.Model):
-    _inherit = "link.tracker"
+    _inherit = ['link.tracker']
 
-    website_id = fields.Many2one('website', string='Website',
-                                 help='Define website in which this '
-                                      'link will enabled!')
+    def action_visit_page_statistics(self):
+        return {
+            'name': _("Visit Webpage Statistics"),
+            'type': 'ir.actions.act_url',
+            'url': '%s+' % (self.short_url),
+            'target': 'new',
+        }

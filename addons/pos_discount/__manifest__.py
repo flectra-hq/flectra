@@ -4,15 +4,14 @@
 
 {
     'name': 'Point of Sale Discounts',
-    'author': 'Odoo S.A.',
     'version': '1.0',
-    'category': 'Point of Sale',
+    'category': 'Sales/Point of Sale',
     'sequence': 6,
     'summary': 'Simple Discounts in the Point of Sale ',
     'description': """
 
-This module allows the cashier to quickly give a percentage
-sale discount to a customer.
+This module allows the cashier to quickly give percentage-based
+discount to a customer.
 
 """,
     'depends': ['point_of_sale'],
@@ -21,8 +20,7 @@ sale discount to a customer.
         'views/pos_discount_templates.xml'
     ],
     'qweb': [
-        'static/src/xml/discount_templates.xml',
+        'static/src/xml/DiscountButton.xml',
     ],
     'installable': True,
-    'website': 'https://flectrahq.com/page/point-of-sale',
 }

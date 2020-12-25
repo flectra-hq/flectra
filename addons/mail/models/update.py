@@ -20,6 +20,7 @@ _logger = logging.getLogger(__name__)
 
 class PublisherWarrantyContract(AbstractModel):
     _name = "publisher_warranty.contract"
+    _description = 'Publisher Warranty Contract'
 
     @api.model
     def _get_message(self):
@@ -41,24 +42,24 @@ class PublisherWarrantyContract(AbstractModel):
         user = self.env.user
         domain = [('application', '=', True), ('state', 'in', ['installed', 'to upgrade', 'to remove'])]
         apps = self.env['ir.module.module'].sudo().search_read(domain, ['name'])
-        demo_domain = [('name', 'ilike', 'base'), ('demo', '=', True)]
-        demo_data_ids = self.env['ir.module.module'].sudo().search(demo_domain)
-        demo_data = True
-        if not demo_data_ids:
-            demo_data = False
-        support_code = IrParamSudo.get_param('database.support_code')
+
+        enterprise_code = IrParamSudo.get_param('database.enterprise_code')
 
         web_base_url = IrParamSudo.get_param('web.base.url')
-        msg = {"dbuuid": dbuuid, "nbr_users": nbr_users,
-               "nbr_active_users": nbr_active_users,
-               "nbr_share_users": nbr_share_users,
-               "nbr_active_share_users": nbr_active_share_users,
-               "dbname": self._cr.dbname, "db_create_date": db_create_date,
-               "version": release.version, "language": user.lang,
-               "web_base_url": web_base_url,
-               "apps": [app['name'] for app in apps],
-               "support_code": support_code,
-               "demo_data": demo_data}
+        msg = {
+            "dbuuid": dbuuid,
+            "nbr_users": nbr_users,
+            "nbr_active_users": nbr_active_users,
+            "nbr_share_users": nbr_share_users,
+            "nbr_active_share_users": nbr_active_share_users,
+            "dbname": self._cr.dbname,
+            "db_create_date": db_create_date,
+            "version": release.version,
+            "language": user.lang,
+            "web_base_url": web_base_url,
+            "apps": [app['name'] for app in apps],
+            "enterprise_code": enterprise_code,
+        }
         if user.partner_id.company_id:
             company_id = user.partner_id.company_id
             msg.update(company_id.read(["name", "email", "phone"])[0])
@@ -78,7 +79,6 @@ class PublisherWarrantyContract(AbstractModel):
         r.raise_for_status()
         return literal_eval(r.text)
 
-    @api.multi
     def update_notification(self, cron_mode=True):
         """
         Send a message to Flectra's publisher warranty server to check the
@@ -88,15 +88,10 @@ class PublisherWarrantyContract(AbstractModel):
         @type cron_mode: boolean
         """
         try:
-            # Code will be execute only if parameter value 'True'
-            parameter_id = self.env['ir.config_parameter'].sudo().get_param(
-                'base_setup.send_statistics')
-            if parameter_id != 'true':
-                return True
             try:
                 result = self._get_sys_logs()
             except Exception:
-                if cron_mode:  # we don't want to see any stack trace in cron
+                if cron_mode:   # we don't want to see any stack trace in cron
                     return False
                 _logger.debug("Exception while sending a get logs messages", exc_info=1)
                 raise UserError(_("Error during communication with the publisher warranty server."))
@@ -109,23 +104,22 @@ class PublisherWarrantyContract(AbstractModel):
                 poster = user
             for message in result["messages"]:
                 try:
-                    poster.message_post(body=message, subtype='mt_comment', partner_ids=[user.partner_id.id])
+                    poster.message_post(body=message, subtype_xmlid='mail.mt_comment', partner_ids=[user.partner_id.id])
                 except Exception:
                     pass
-            if result.get('support_info'):
+            if result.get('enterprise_info'):
                 # Update expiration date
                 set_param = self.env['ir.config_parameter'].sudo().set_param
-                set_param('database.expiration_date',
-                          result['support_info'].get('expiration_date'))
-                set_param('database.expiration_reason',
-                          result['support_info'].get('expiration_reason',
-                                                     'trial'))
-                set_param('database.support_code',
-                          result['support_info'].get('support_code'))
+                set_param('database.expiration_date', result['enterprise_info'].get('expiration_date'))
+                set_param('database.expiration_reason', result['enterprise_info'].get('expiration_reason', 'trial'))
+                set_param('database.enterprise_code', result['enterprise_info'].get('enterprise_code'))
+                set_param('database.already_linked_subscription_url', result['enterprise_info'].get('database_already_linked_subscription_url'))
+                set_param('database.already_linked_email', result['enterprise_info'].get('database_already_linked_email'))
+                set_param('database.already_linked_send_mail_url', result['enterprise_info'].get('database_already_linked_send_mail_url'))
 
         except Exception:
             if cron_mode:
-                return False  # we don't want to see any stack trace in cron
+                return False    # we don't want to see any stack trace in cron
             else:
                 raise
         return True

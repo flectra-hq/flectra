@@ -1,18 +1,83 @@
-flectra.define('google_calendar.google_calendar', function (require) {
+flectra.define('google_calendar.CalendarView', function (require) {
 "use strict";
 
 var core = require('web.core');
 var Dialog = require('web.Dialog');
 var framework = require('web.framework');
-var CalendarRenderer = require('web.CalendarRenderer');
-var CalendarController = require('web.CalendarController');
+const CalendarView = require('calendar.CalendarView');
+const CalendarRenderer = require('calendar.CalendarRenderer');
+const CalendarController = require('calendar.CalendarController');
+const CalendarModel = require('calendar.CalendarModel');
+const viewRegistry = require('web.view_registry');
 
 var _t = core._t;
 
-CalendarController.include({
+const GoogleCalendarModel = CalendarModel.include({
+
+    /**
+     * @override
+     */
+    init: function () {
+        this._super.apply(this, arguments);
+        this.google_is_sync = true;
+    },
+
+    /**
+     * @override
+     */
+    __get: function () {
+        var result = this._super.apply(this, arguments);
+        result.google_is_sync = this.google_is_sync;
+        return result;
+    },
+
+
+    /**
+     * @override
+     * @returns {Promise}
+     */
+    async _loadCalendar() {
+        const _super = this._super.bind(this);
+        try {
+            await Promise.race([
+                new Promise(resolve => setTimeout(resolve, 1000)),
+                this._syncGoogleCalendar(true)
+            ]);
+        } catch (error) {
+            if (error.event) {
+                error.event.preventDefault();
+            }
+            console.error("Could not synchronize Google events now.", error);
+        }
+        return _super(...arguments);
+    },
+
+    _syncGoogleCalendar(shadow = false) {
+        var self = this;
+        var context = this.getSession().user_context;
+        return this._rpc({
+            route: '/google_calendar/sync_data',
+            params: {
+                model: this.modelName,
+                fromurl: window.location.href,
+                local_context: context, // LUL TODO remove this local_context
+            }
+        }, {shadow}).then(function (result) {
+            if (result.status === "need_config_from_admin" || result.status === "need_auth") {
+                self.google_is_sync = false;
+            } else if (result.status === "no_new_event_from_google" || result.status === "need_refresh") {
+                self.google_is_sync = true;
+            }
+            return result
+        });
+    },
+})
+
+const GoogleCalendarController = CalendarController.include({
     custom_events: _.extend({}, CalendarController.prototype.custom_events, {
-        syncCalendar: '_onSyncCalendar',
+        syncGoogleCalendar: '_onGoogleSyncCalendar',
     }),
+
 
     //--------------------------------------------------------------------------
     // Handlers
@@ -26,18 +91,10 @@ CalendarController.include({
      * @private
      * @returns {FlectraEvent} event
      */
-    _onSyncCalendar: function (event) {
+    _onGoogleSyncCalendar: function (event) {
         var self = this;
-        var context = this.getSession().user_context;
 
-        this._rpc({
-            route: '/google_calendar/sync_data',
-            params: {
-                model: this.modelName,
-                fromurl: window.location.href,
-                local_context: context,
-            }
-        }).then(function (o) {
+        return this.model._syncGoogleCalendar().then(function (o) {
             if (o.status === "need_auth") {
                 Dialog.alert(self, _t("You will be redirected to Google to authorize access to your calendar!"), {
                     confirm_callback: function() {
@@ -60,44 +117,14 @@ CalendarController.include({
                 }
             } else if (o.status === "need_refresh") {
                 self.reload();
-            } else if (o.status === "need_reset") {
-                var confirmText1 = _t("The account you are trying to synchronize (%s) is not the same as the last one used (%s)!");
-                var confirmText2 = _t("In order to do this, you first need to disconnect all existing events from the old account.");
-                var confirmText3 = _t("Do you want to do this now?");
-                var text = _.str.sprintf(confirmText1 + "\n" + confirmText2 + "\n\n" + confirmText3, o.info.new_name, o.info.old_name);
-                Dialog.confirm(self, text, {
-                    confirm_callback: function() {
-                        self._rpc({
-                                route: '/google_calendar/remove_references',
-                                params: {
-                                    model: self.state.model,
-                                    local_context: context,
-                                },
-                            })
-                            .done(function(o) {
-                                if (o.status === "OK") {
-                                    Dialog.alert(self, _t("All events have been disconnected from your previous account. You can now restart the synchronization"), {
-                                        title: _t('Event disconnection success'),
-                                    });
-                                } else if (o.status === "KO") {
-                                    Dialog.alert(self, _t("An error occured while disconnecting events from your previous account. Please retry or contact your administrator."), {
-                                        title: _t('Event disconnection error'),
-                                    });
-                                } // else NOP
-                            });
-                    },
-                    title: _t('Accounts'),
-                });
             }
-        }).always(function () {
-            event.data.on_always();
-        });
+        }).then(event.data.on_always, event.data.on_always);
     }
 });
 
-CalendarRenderer.include({
+const GoogleCalendarRenderer = CalendarRenderer.include({
     events: _.extend({}, CalendarRenderer.prototype.events, {
-        'click .o_google_sync_button': '_onSyncCalendar',
+        'click .o_google_sync_button': '_onGoogleSyncCalendar',
     }),
 
     //--------------------------------------------------------------------------
@@ -114,12 +141,16 @@ CalendarRenderer.include({
         this._super.apply(this, arguments);
         this.$googleButton = $();
         if (this.model === "calendar.event") {
-            this.$googleButton = $('<button/>', {type: 'button', html: _t("Sync with <b>Google</b>")})
-                                .addClass('o_google_sync_button oe_button btn btn-sm btn-default')
-                                .prepend($('<img/>', {
-                                    src: "/google_calendar/static/src/img/calendar_32.png",
-                                }))
+            if (this.state.google_is_sync) {
+                this.$googleButton = $('<span/>', {html: _t("Synched with Google")})
+                                .addClass('o_google_sync badge badge-pill badge-success')
+                                .prepend($('<i/>', {class: "fa mr-2 fa-check"}))
                                 .appendTo(self.$sidebar);
+            } else {
+                this.$googleButton = $('<button/>', {type: 'button', html: _t("Sync with <b>Google</b>")})
+                                .addClass('o_google_sync_button oe_button btn btn-secondary')
+                                .appendTo(self.$sidebar);
+            }
         }
     },
 
@@ -132,16 +163,22 @@ CalendarRenderer.include({
      *
      * @private
      */
-    _onSyncCalendar: function () {
+    _onGoogleSyncCalendar: function () {
         var self = this;
         var context = this.getSession().user_context;
         this.$googleButton.prop('disabled', true);
-        this.trigger_up('syncCalendar', {
+        this.trigger_up('syncGoogleCalendar', {
             on_always: function () {
                 self.$googleButton.prop('disabled', false);
             },
         });
     },
 });
+
+return {
+    GoogleCalendarController,
+    GoogleCalendarModel,
+    GoogleCalendarRenderer,
+};
 
 });

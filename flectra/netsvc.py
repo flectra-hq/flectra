@@ -6,14 +6,12 @@ import logging.handlers
 import os
 import platform
 import pprint
-from . import release
 import sys
 import threading
 import time
+import warnings
 
-import psycopg2
-
-import flectra
+from . import release
 from . import sql_db
 from . import tools
 
@@ -26,10 +24,8 @@ def log(logger, level, prefix, msg, depth=None):
         logger.log(level, indent+line)
         indent=indent_after
 
-path_prefix = os.path.realpath(os.path.dirname(os.path.dirname(__file__)))
-
 class PostgreSQLHandler(logging.Handler):
-    """ PostgreSQL Loggin Handler will store logs in the database, by default
+    """ PostgreSQL Logging Handler will store logs in the database, by default
     the current database, can be set using --log-db=DBNAME
     """
     def emit(self, record):
@@ -50,7 +46,7 @@ class PostgreSQLHandler(logging.Handler):
             # we do not use record.levelname because it may have been changed by ColoredFormatter.
             levelname = logging.getLevelName(record.levelno)
 
-            val = ('server', ct_db, record.name, levelname, msg, record.pathname[len(path_prefix)+1:], record.lineno, record.funcName)
+            val = ('server', ct_db, record.name, levelname, msg, record.pathname, record.lineno, record.funcName)
             cr.execute("""
                 INSERT INTO ir_logging(create_date, type, dbname, name, level, message, path, line, func)
                 VALUES (NOW() at time zone 'UTC', %s, %s, %s, %s, %s, %s, %s, %s)
@@ -104,7 +100,7 @@ class ColoredPerfFilter(PerfFilter):
 class DBFormatter(logging.Formatter):
     def format(self, record):
         record.pid = os.getpid()
-        record.dbname = getattr(threading.currentThread(), 'dbname', '?')
+        record.dbname = getattr(threading.current_thread(), 'dbname', '?')
         return logging.Formatter.format(self, record)
 
 class ColoredFormatter(DBFormatter):
@@ -127,8 +123,21 @@ def init_logger():
         return record
     logging.setLogRecordFactory(record_factory)
 
-    logging.addLevelName(25, "INFO")
-    logging.captureWarnings(True)
+    # enable deprecation warnings (disabled by default)
+    warnings.filterwarnings('default', category=DeprecationWarning)
+    # ignore deprecation warnings from invalid escape (there's a ton and it's
+    # pretty likely a super low-value signal)
+    warnings.filterwarnings('ignore', r'^invalid escape sequence \\.', category=DeprecationWarning)
+    # recordsets are both sequence and set so trigger warning despite no issue
+    warnings.filterwarnings('ignore', r'^Sampling from a set', category=DeprecationWarning, module='flectra')
+    # ignore a bunch of warnings we can't really fix ourselves
+    for module in [
+        'babel.util', # deprecated parser module, no release yet
+        'zeep.loader',# zeep using defusedxml.lxml
+        'reportlab.lib.rl_safe_eval',# reportlab importing ABC from collections
+        'ofxparse',# ofxparse importing ABC from collections
+    ]:
+        warnings.filterwarnings('ignore', category=DeprecationWarning, module=module)
 
     from .tools.translate import resetlocale
     resetlocale()
@@ -157,16 +166,7 @@ def init_logger():
             dirname = os.path.dirname(logf)
             if dirname and not os.path.isdir(dirname):
                 os.makedirs(dirname)
-            if tools.config['logrotate'] is not False:
-                if tools.config['workers'] and tools.config['workers'] > 1:
-                    # TODO: fallback to regular file logging in master for safe(r) defaults?
-                    #
-                    # Doing so here would be a good idea but also might break
-                    # situations were people do log-shipping of rotated data?
-                    _logger.warn("WARNING: built-in log rotation is not reliable in multi-worker scenarios and may incur significant data loss. "
-                                 "It is strongly recommended to use an external log rotation utility or use system loggers (--syslog) instead.")
-                handler = logging.handlers.TimedRotatingFileHandler(filename=logf, when='D', interval=1, backupCount=30)
-            elif os.name == 'posix':
+            if os.name == 'posix':
                 handler = logging.handlers.WatchedFileHandler(logf)
             else:
                 handler = logging.FileHandler(logf)
@@ -209,7 +209,7 @@ def init_logger():
 
     logging_configurations = DEFAULT_LOG_CONFIGURATION + pseudo_config + logconfig
     for logconfig_item in logging_configurations:
-        loggername, level = logconfig_item.split(':')
+        loggername, level = logconfig_item.strip().split(':')
         level = getattr(logging, level, logging.INFO)
         logger = logging.getLogger(loggername)
         logger.setLevel(level)
@@ -229,7 +229,16 @@ PSEUDOCONFIG_MAPPER = {
     'debug': ['flectra:DEBUG', 'flectra.sql_db:INFO'],
     'debug_sql': ['flectra.sql_db:DEBUG'],
     'info': [],
+    'runbot': ['flectra:RUNBOT', 'werkzeug:WARNING'],
     'warn': ['flectra:WARNING', 'werkzeug:WARNING'],
     'error': ['flectra:ERROR', 'werkzeug:ERROR'],
     'critical': ['flectra:CRITICAL', 'werkzeug:CRITICAL'],
 }
+
+logging.RUNBOT = 25
+logging.addLevelName(logging.RUNBOT, "INFO") # displayed as info in log
+logging.captureWarnings(True)
+
+def runbot(self, message, *args, **kws):
+    self.log(logging.RUNBOT, message, *args, **kws)
+logging.Logger.runbot = runbot

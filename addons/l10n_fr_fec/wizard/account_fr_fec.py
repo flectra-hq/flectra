@@ -5,11 +5,10 @@
 
 import base64
 import io
-from datetime import datetime
 
 from flectra import api, fields, models, _
-from flectra.exceptions import Warning
-from flectra.tools import float_is_zero, pycompat, DEFAULT_SERVER_DATE_FORMAT
+from flectra.exceptions import UserError
+from flectra.tools import float_is_zero, pycompat
 
 
 class AccountFrFec(models.TransientModel):
@@ -18,12 +17,18 @@ class AccountFrFec(models.TransientModel):
 
     date_from = fields.Date(string='Start Date', required=True)
     date_to = fields.Date(string='End Date', required=True)
-    fec_data = fields.Binary('FEC File', readonly=True)
+    fec_data = fields.Binary('FEC File', readonly=True, attachment=False)
     filename = fields.Char(string='Filename', size=256, readonly=True)
+    test_file = fields.Boolean()
     export_type = fields.Selection([
         ('official', 'Official FEC report (posted entries only)'),
         ('nonofficial', 'Non-official FEC report (posted and unposted entries)'),
         ], string='Export Type', required=True, default='official')
+
+    @api.onchange('test_file')
+    def _onchange_export_file(self):
+        if not self.test_file:
+            self.export_type = 'official'
 
     def do_query_unaffected_earnings(self):
         ''' Compute the sum of ending balances for all accounts that are of a type that does not bring forward the balance in new fiscal years.
@@ -58,7 +63,7 @@ class AccountFrFec(models.TransientModel):
         WHERE
             am.date < %s
             AND am.company_id = %s
-            AND aat.include_initial_balance = 'f'
+            AND aat.include_initial_balance IS NOT TRUE
             AND (aml.debit != 0 OR aml.credit != 0)
         '''
         # For official report: only use posted entries
@@ -66,9 +71,9 @@ class AccountFrFec(models.TransientModel):
             sql_query += '''
             AND am.state = 'posted'
             '''
-        company = self.env.user.company_id
-        formatted_date_from = self.date_from.replace('-', '')
-        date_from = datetime.strptime(self.date_from, DEFAULT_SERVER_DATE_FORMAT)
+        company = self.env.company
+        formatted_date_from = fields.Date.to_string(self.date_from).replace('-', '')
+        date_from = self.date_from
         formatted_date_year = date_from.year
         self._cr.execute(
             sql_query, (formatted_date_year, formatted_date_from, formatted_date_from, formatted_date_from, self.date_from, company.id))
@@ -88,17 +93,14 @@ class AccountFrFec(models.TransientModel):
         dom_tom_group = self.env.ref('l10n_fr.dom-tom')
         is_dom_tom = company.country_id.code in dom_tom_group.country_ids.mapped('code')
         if not is_dom_tom and not company.vat:
-            raise Warning(
-                _("Missing VAT number for company %s") % company.name)
+            raise UserError(_("Missing VAT number for company %s", company.name))
         if not is_dom_tom and company.vat[0:2] != 'FR':
-            raise Warning(
-                _("FEC is for French companies only !"))
+            raise UserError(_("FEC is for French companies only !"))
 
         return {
             'siren': company.vat[4:13] if not is_dom_tom else '',
         }
 
-    @api.multi
     def generate_fec(self):
         self.ensure_one()
         # We choose to implement the flat file instead of the XML
@@ -109,7 +111,13 @@ class AccountFrFec(models.TransientModel):
         # 2) CSV files are easier to read/use for a regular accountant.
         # So it will be easier for the accountant to check the file before
         # sending it to the fiscal administration
-        company = self.env.user.company_id
+        today = fields.Date.today()
+        if self.date_from > today or self.date_to > today:
+            raise UserError(_('You could not set the start date or the end date in the future.'))
+        if self.date_from >= self.date_to:
+            raise UserError(_('The start date must be inferior to the end date.'))
+
+        company = self.env.company
         company_legal_data = self._get_company_legal_data(company)
 
         header = [
@@ -186,8 +194,8 @@ class AccountFrFec(models.TransientModel):
         HAVING round(sum(aml.balance), %s) != 0
         AND aat.type not in ('receivable', 'payable')
         '''
-        formatted_date_from = self.date_from.replace('-', '')
-        date_from = datetime.strptime(self.date_from, DEFAULT_SERVER_DATE_FORMAT)
+        formatted_date_from = fields.Date.to_string(self.date_from).replace('-', '')
+        date_from = self.date_from
         formatted_date_year = date_from.year
         currency_digits = 2
 
@@ -236,12 +244,19 @@ class AccountFrFec(models.TransientModel):
             %s AS EcritureDate,
             MIN(aa.code) AS CompteNum,
             replace(MIN(aa.name), '|', '/') AS CompteLib,
-            CASE WHEN rp.ref IS null OR rp.ref = ''
-            THEN COALESCE('ID ' || rp.id, '')
-            ELSE replace(rp.ref, '|', '/')
+            CASE WHEN MIN(aat.type) IN ('receivable', 'payable')
+            THEN
+                CASE WHEN rp.ref IS null OR rp.ref = ''
+                THEN rp.id::text
+                ELSE replace(rp.ref, '|', '/')
+                END
+            ELSE ''
             END
             AS CompAuxNum,
-            COALESCE(replace(rp.name, '|', '/'), '') AS CompAuxLib,
+            CASE WHEN aat.type IN ('receivable', 'payable')
+            THEN COALESCE(replace(rp.name, '|', '/'), '')
+            ELSE ''
+            END AS CompAuxLib,
             '-' AS PieceRef,
             %s AS PieceDate,
             '/' AS EcritureLib,
@@ -294,12 +309,19 @@ class AccountFrFec(models.TransientModel):
             TO_CHAR(am.date, 'YYYYMMDD') AS EcritureDate,
             aa.code AS CompteNum,
             replace(replace(aa.name, '|', '/'), '\t', '') AS CompteLib,
-            CASE WHEN rp.ref IS null OR rp.ref = ''
-            THEN COALESCE('ID ' || rp.id, '')
-            ELSE replace(rp.ref, '|', '/')
+            CASE WHEN aat.type IN ('receivable', 'payable')
+            THEN
+                CASE WHEN rp.ref IS null OR rp.ref = ''
+                THEN rp.id::text
+                ELSE replace(rp.ref, '|', '/')
+                END
+            ELSE ''
             END
             AS CompAuxNum,
-            COALESCE(replace(replace(rp.name, '|', '/'), '\t', ''), '') AS CompAuxLib,
+            CASE WHEN aat.type IN ('receivable', 'payable')
+            THEN COALESCE(replace(replace(rp.name, '|', '/'), '\t', ''), '')
+            ELSE ''
+            END AS CompAuxLib,
             CASE WHEN am.ref IS null OR am.ref = ''
             THEN '-'
             ELSE replace(replace(am.ref, '|', '/'), '\t', '')
@@ -325,6 +347,7 @@ class AccountFrFec(models.TransientModel):
             LEFT JOIN res_partner rp ON rp.id=aml.partner_id
             JOIN account_journal aj ON aj.id = am.journal_id
             JOIN account_account aa ON aa.id = aml.account_id
+            LEFT JOIN account_account_type aat ON aa.user_type_id = aat.id
             LEFT JOIN res_currency rc ON rc.id = aml.currency_id
             LEFT JOIN account_full_reconcile rec ON rec.id = aml.full_reconcile_id
         WHERE
@@ -353,24 +376,27 @@ class AccountFrFec(models.TransientModel):
             rows_to_write.append(list(row))
 
         fecvalue = self._csv_write_rows(rows_to_write)
-        end_date = self.date_to.replace('-', '')
+        end_date = fields.Date.to_string(self.date_to).replace('-', '')
         suffix = ''
         if self.export_type == "nonofficial":
             suffix = '-NONOFFICIAL'
 
         self.write({
-            'fec_data': base64.encodestring(fecvalue),
+            'fec_data': base64.encodebytes(fecvalue),
             # Filename = <siren>FECYYYYMMDD where YYYMMDD is the closing date
             'filename': '%sFEC%s%s.csv' % (company_legal_data['siren'], end_date, suffix),
             })
 
-        action = {
+        # Set fiscal year lock date to the end date (not in test)
+        fiscalyear_lock_date = self.env.company.fiscalyear_lock_date
+        if not self.test_file and (not fiscalyear_lock_date or fiscalyear_lock_date < self.date_to):
+            self.env.company.write({'fiscalyear_lock_date': self.date_to})
+        return {
             'name': 'FEC',
             'type': 'ir.actions.act_url',
             'url': "web/content/?model=account.fr.fec&id=" + str(self.id) + "&filename_field=filename&field=fec_data&download=true&filename=" + self.filename,
             'target': 'self',
-            }
-        return action
+        }
 
     def _csv_write_rows(self, rows, lineterminator=u'\r\n'):
         """

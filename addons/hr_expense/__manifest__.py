@@ -3,12 +3,11 @@
 
 
 {
-    'name': 'Expense Tracker',
-    'author' : 'Odoo S.A',
+    'name': 'Expenses',
     'version': '2.0',
-    'category': 'Human Resources',
-    'sequence': 95,
-    'summary': 'Expenses Validation, Invoicing',
+    'category': 'Human Resources/Expenses',
+    'sequence': 70,
+    'summary': 'Submit, validate and reinvoice employee expenses',
     'description': """
 Manage expenses by Employees
 ============================
@@ -26,24 +25,31 @@ The whole flow is implemented as:
 
 This module also uses analytic accounting and is compatible with the invoice on timesheet module so that you are able to automatically re-invoice your customers' expenses if your work by project.
     """,
-    'website': 'https://flectrahq.com/page/expenses',
-    'depends': ['hr_contract', 'account'],
+    'website': 'https://flectrahq.com/expenses',
+    'depends': ['hr_contract', 'account', 'web_tour'],
     'data': [
         'security/hr_expense_security.xml',
         'security/ir.model.access.csv',
-        'data/hr_expense_data.xml',
+        'data/digest_data.xml',
+        'data/mail_data.xml',
         'data/hr_expense_sequence.xml',
+        'data/hr_expense_data.xml',
         'wizard/hr_expense_refuse_reason_views.xml',
-        'wizard/hr_expense_sheet_register_payment.xml',
         'views/hr_expense_views.xml',
+        'views/mail_activity_views.xml',
         'security/ir_rule.xml',
-        'report/report_expense_sheet.xml',
-        'views/hr_dashboard.xml',
-        'views/hr_expense.xml',
+        'report/hr_expense_report.xml',
+        'views/hr_department_views.xml',
+        'views/assets.xml',
         'views/res_config_settings_views.xml',
-        'data/web_planner_data.xml',
+        'views/account_journal_dashboard.xml',
     ],
     'demo': ['data/hr_expense_demo.xml'],
+    'qweb': [
+        "static/src/xml/documents_upload_views.xml",
+        "static/src/xml/expense_dashboard.xml",
+        "static/src/xml/expense_qr_modal_template.xml",
+    ],
     'installable': True,
     'application': True,
 }

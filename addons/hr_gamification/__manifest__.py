@@ -2,10 +2,8 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'HR Gamification',
-    'author' : 'Odoo S.A',
     'version': '1.0',
     'category': 'Human Resources',
-    'website': 'https://flectrahq.com/page/employees',
     'depends': ['gamification', 'hr'],
     'description': """Use the HR resources for the gamification process.
 

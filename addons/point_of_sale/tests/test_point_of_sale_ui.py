@@ -1,11 +1,16 @@
+# -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-import flectra.tests
+from flectra.tests import HttpCase, tagged
+from flectra import tools
 
 
-@flectra.tests.common.at_install(False)
-@flectra.tests.common.post_install(True)
-class TestUi(flectra.tests.HttpCase):
+@tagged('post_install', '-at_install')
+class TestUi(HttpCase):
 
+	# Avoid "A Chart of Accounts is not yet installed in your current company."
+	# Everything is set up correctly even without installed CoA
+    @tools.mute_logger('flectra.http')
     def test_01_point_of_sale_tour(self):
-        self.phantom_js("/web", "flectra.__DEBUG__.services['web_tour.tour'].run('point_of_sale_tour')", "flectra.__DEBUG__.services['web_tour.tour'].tours.point_of_sale_tour.ready", login="admin")
+
+        self.start_tour("/web", 'point_of_sale_tour', login="admin")

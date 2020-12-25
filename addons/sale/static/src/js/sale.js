@@ -39,16 +39,20 @@ KanbanRecord.include({
      * Mostly a handler for what happens to the input "this.$target_input"
      *
      * @private
-     * @param {JqueryEvent} ev
      *
      */
     _onSalesTeamTargetSet: function () {
         var self = this;
         var value = Number(this.$target_input.val());
         if (isNaN(value)) {
-            this.do_warn(_t("Wrong value entered!"), _t("Only Integer Value should be valid."));
+            this.do_warn(false, _t("Please enter an integer value"));
         } else {
-            this.trigger_up('kanban_record_update', {invoiced_target: value});
+            this.trigger_up('kanban_record_update', {
+                invoiced_target: value,
+                onSuccess: function () {
+                    self.trigger_up('reload');
+                },
+            });
         }
     },
 });

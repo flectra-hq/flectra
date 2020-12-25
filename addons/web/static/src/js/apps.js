@@ -1,78 +1,66 @@
 flectra.define('web.Apps', function (require) {
 "use strict";
 
+var AbstractAction = require('web.AbstractAction');
+var config = require('web.config');
 var core = require('web.core');
-var Widget = require('web.Widget');
-var Dialog = require('web.Dialog');
 var framework = require('web.framework');
+var session = require('web.session');
 
 var _t = core._t;
-var QWeb = core.qweb;
 
-var Apps = Widget.extend({
-    template: 'AppStore',
-    events: {
-        'click [app-action="download"]': '_onDownload',
-        'click [app-action="install"]': '_onInstall',
-        'click [app-action="uninstall"]': '_onUninstall',
-        'click [app-action="view-info"]': '_onClickViewDetails',
-        'click .load-more': '_onLoadMore',
-        'click #try-again': '_onTryAgain',
-        'keypress #input-module-search': '_onEnterSearch',
-        'click #btn-module-search': '_onClickSearch',
-        'click .top': '_onClickTop',
-    },
-    init: function (parent, action) {
+var apps_client = null;
+
+var Apps = AbstractAction.extend({
+    contentTemplate: 'EmptyComponent',
+    remote_action_tag: 'loempia.embed',
+    failback_action_id: 'base.open_module_tree',
+
+    init: function(parent, action) {
         this._super(parent, action);
         var options = action.params || {};
-        this.context = {};
-        this.params = options;
+        this.params = options;  // NOTE forwarded to embedded client action
     },
-    willStart: function () {
-        var self = this;
-        var def = this._rpc({
-            route: '/web/get_app_store_mode',
-        });
-        return $.when(def, this._super.apply(this, arguments)).then(function (mode) {
-            self.mode = mode;
-            framework.blockUI();
-            if (self.mode != 'disable') {
-                self._rpc({
-                    route: '/web/get_modules',
-                }).done(function (data) {
-                    if (data) {
-                        self.all_app = [];
-                        _.each(data.modules, function (categ) {
-                            self.all_app = self.all_app.concat(categ);
-                        });
-                        self.active_categ = data.categ[0][0];
-                        self.store_url = data.store_url;
-                        self.search_categ = '';
-                        self.$el.html(QWeb.render('AppStore.Content', {
-                            modules: data.modules,
-                            categ: data.categ,
-                            installed_modules: data.installed_modules,
-                            mode: self.mode,
-                            store_url: data.store_url
-                        }));
-                        if (data.banner) {
-                            self.$el.find('.banner').html(data.banner);
-                        } else {
-                            self.$el.find('.banner').html('<h2 class="text-center">FlectraHQ Store</h2>');
-                        }
-                        self.$el.find('ul.nav.category a:first').tab('show');
-                        self.$el.find('a[data-toggle="tab"]').on('shown.bs.tab', self._onChangeTab.bind(self));
-                        self.context.categ = self.prepareContext(data.categ);
-                        self.context.limit = data.limit;
-                    } else {
-                        self.$el.html(QWeb.render('AppStore.TryError', {}));
+
+    get_client: function() {
+        // return the client via a promise, resolved or rejected depending if
+        // the remote host is available or not.
+        var check_client_available = function(client) {
+            var i = new Image();
+            var def = new Promise(function (resolve, reject) {
+                i.onerror = function() {
+                    reject(client);
+                };
+                i.onload = function() {
+                    resolve(client);
+                };
+            });
+            var ts = new Date().getTime();
+            i.src = _.str.sprintf('%s/web/static/src/img/sep-a.gif?%s', client.origin, ts);
+            return def;
+        };
+        if (apps_client) {
+            return check_client_available(apps_client);
+        } else {
+            return this._rpc({model: 'ir.module.module', method: 'get_apps_server'})
+                .then(function(u) {
+                    var link = $(_.str.sprintf('<a href="%s"></a>', u))[0];
+                    var host = _.str.sprintf('%s//%s', link.protocol, link.host);
+                    var dbname = link.pathname;
+                    if (dbname[0] === '/') {
+                        dbname = dbname.substr(1);
                     }
-                    framework.unblockUI();
+                    var client = {
+                        origin: host,
+                        dbname: dbname
+                    };
+                    apps_client = client;
+                    return check_client_available(client);
                 });
-            }
-        });
+        }
     },
-    destroy: function () {
+
+    destroy: function() {
         $(window).off("message." + this.uniq);
         if (this.$ifr) {
             this.$ifr.remove();
@@ -80,200 +68,94 @@ var Apps = Widget.extend({
         }
         return this._super();
     },
-    start: function () {
-        if (this.mode == 'disable') {
-            this.$el.html(QWeb.render('AppStore.Disable', {}));
-            framework.unblockUI();
+
+    _on_message: function($e) {
+        var self = this, client = this.client, e = $e.originalEvent;
+
+        if (e.origin !== client.origin) {
+            return;
         }
-        return this._super.apply(this, arguments);
-    },
-    prepareContext: function (data) {
-        var context = {};
-        _.each(data, function (value) {
-            context[value[0]] = {
-                offset: 0,
-                search: ''
-            }
-        });
-        return context
-    },
-    _openDialogAfterAction: function (data) {
-        if (!_.isEmpty(data)) {
-            if (data.success) {
-                window.location.reload();
-                return;
-            }
-            var buttons = [{
-                text: _t("OK"),
-                classes: 'btn-success',
-                close: true,
-            }];
-            var dialog = new Dialog(this, {
-                size: 'medium',
-                buttons: buttons,
-                $content: $("<h4>" + data.error + "</h4>"),
-                title: _t("Error"),
-            });
-            dialog.open();
+
+        var dispatcher = {
+            'event': function(m) { self.trigger('message:' + m.event, m); },
+            'action': function(m) {
+                self.do_action(m.action).then(function(r) {
+                    var w = self.$ifr[0].contentWindow;
+                    w.postMessage({id: m.id, result: r}, client.origin);
+                });
+            },
+            'rpc': function(m) {
+                return self._rpc({route: m.args[0], params: m.args[1]}).then(function(r) {
+                    var w = self.$ifr[0].contentWindow;
+                    w.postMessage({id: m.id, result: r}, client.origin);
+                });
+            },
+            'Model': function(m) {
+                return self._rpc({model: m.model, method: m.args[0], args: m.args[1]})
+                    .then(function(r) {
+                        var w = self.$ifr[0].contentWindow;
+                        w.postMessage({id: m.id, result: r}, client.origin);
+                    });
+            },
+        };
+        // console.log(e.data);
+        if (!_.isObject(e.data)) { return; }
+        if (dispatcher[e.data.type]) {
+            dispatcher[e.data.type](e.data);
         }
     },
-    _onUninstall: function (e) {
-        e.preventDefault();
+
+    start: function() {
         var self = this;
-        var id = $(e.target).data("module-id");
-        var data = _.findWhere(this.all_app, {id: id});
-        if (!_.isEmpty(data)) {
-            this._rpc({
-                route: '/web/app_action',
-                params: {
-                    action: "uninstall",
-                    module_name: data['technical_name'],
-                },
-            }).then(function (data) {
-                self._openDialogAfterAction(data);
-            })
-        }
-    },
-    _onDownload: function (e) {
-        e.preventDefault();
-        var href = $(e.currentTarget).attr('href').trim();
-        if (href) {
-            window.location = href;
-        }
-    },
-    _onInstall: function (e) {
-        e.preventDefault();
-        var self = this;
-        var id = $(e.target).data("module-id");
-        var data = _.findWhere(this.all_app, {id: id});
-        self._rpc({
-            route: '/web/app_download_install',
-            params: {
-                id: data['md5_val'],
-                checksum: data['checksum'],
-                module_name: data['technical_name']
-            }
-        }).then(function (data) {
-            self._openDialogAfterAction(data);
-        });
-    },
-    _onChangeTab: function (e) {
-        this.active_categ = $(e.target).data("category-id");
-        this.$el.find('#input-module-search').val(this.context.categ[this.active_categ]['search']);
-    },
-    _onLoadMore: function (e) {
-        e.preventDefault();
-        var self = this;
-        framework.blockUI();
-        this.context.categ[this.active_categ]['offset'] += this.context.limit;
-        this._rpc({
-            route: '/web/get_modules',
-            params: {
-                offset: this.context.categ[this.active_categ]['offset'],
-                categ: this.active_categ,
-                search: this.context.categ[this.active_categ]['search']
-            }
-        }).done(function (data) {
-            if (data) {
-                self.all_app = self.all_app.concat(data.modules[self.active_categ]);
-                self.$el.find('#' + self.active_categ + " .module-kanban:last")
-                    .after(QWeb.render('AppStore.ModuleBoxContainer', {
-                        modules: data.modules[self.active_categ],
-                        installed_modules: data.installed_modules,
-                        mode: self.mode,
-                        store_url: data.store_url
-                    }));
-                if (!_.isEmpty(data.modules[self.active_categ]) && data.modules[self.active_categ].length == data.limit) {
-                    self.$el.find('#' + self.active_categ + " .load-more").show();
-                } else {
-                    var $rec = self.$el.find('#' + self.active_categ + " .module-kanban ");
-                    var $load_more = self.$el.find('#' + self.active_categ + " .load-more");
-                    $load_more.hide().next('h3').remove();
-                    if (!$rec.length) {
-                        $load_more.after('<h3>No such module(s) found.</h3>');
-                    }
+        return new Promise(function (resolve, reject) {
+            self.get_client().then(function (client) {
+                self.client = client;
+
+                var qs = {db: client.dbname};
+                if (config.isDebug()) {
+                    qs.debug = flectra.debug;
                 }
-            } else {
-                self.$el.html(QWeb.render('AppStore.TryError', {}));
-            }
-            framework.unblockUI();
-        });
-    },
-    _onTryAgain: function (e) {
-        e.preventDefault();
-        var self = this;
-        this._rpc({
-            route: '/web/action/load',
-            params: {action_id: "base.modules_act_cl"},
-        }).then(function (action) {
-            self.do_action(action);
-        });
-    },
-    _onEnterSearch: function (e) {
-        if (e.keyCode == 13) {
-            e.preventDefault();
-            this._onModuleSearch(e);
-        }
-    },
-    _onClickSearch: function (e) {
-        e.preventDefault();
-        this._onModuleSearch(e);
-    },
-    _onModuleSearch: function (e) {
-        var search = this.$el.find('#input-module-search').val().trim();
-        var self = this;
-        framework.blockUI();
-        this._rpc({
-            route: '/web/get_modules',
-            params: {
-                offset: 0,
-                categ: this.active_categ,
-                search: search
-            }
-        }).done(function (data) {
-            if (data) {
-                self.all_app = self.all_app.concat(data.modules[self.active_categ]);
-                self.$el.find('#' + self.active_categ).find('.module-kanban').remove();
-                self.context.categ[self.active_categ]['search'] = search;
-                self.context.categ[self.active_categ]['offset'] = 0;
-                $(QWeb.render('AppStore.ModuleBoxContainer', {
-                    modules: data.modules[self.active_categ],
-                    installed_modules: data.installed_modules,
-                    mode: self.mode,
-                    store_url: data.store_url
-                })).prependTo(self.$el.find('#' + self.active_categ + " .o_kanban_view"));
-                if (!_.isEmpty(data.modules[self.active_categ]) && data.modules[self.active_categ].length == data.limit) {
-                    self.$el.find('#' + self.active_categ + " .load-more").show().next('h3').remove();
-                } else {
-                    var $rec = self.$el.find('#' + self.active_categ + " .module-kanban ");
-                    var $load_more = self.$el.find('#' + self.active_categ + " .load-more");
-                    $load_more.hide().next('h3').remove();
-                    if (!$rec.length) {
-                        $load_more.after('<h3>No such module(s) found.</h3>');
-                    }
-                }
-            } else {
-                self.$el.html(QWeb.render('AppStore.TryError', {}));
-            }
-            framework.unblockUI();
-        });
-    },
-    _onClickViewDetails: function (e) {
-        e.preventDefault();
-        var id = $(e.currentTarget).data('module-id');
-        var data = _.findWhere(this.all_app, {id: id});
-        if (!_.isEmpty(data)) {
-            var dialog = new Dialog(this, {
-                size: 'medium',
-                $content: $(QWeb.render('AppStore.ViewDetails', {app: data, store_url: this.store_url})),
-                title: _t('Module'),
+                var u = $.param.querystring(client.origin + "/apps/embed/client", qs);
+                var css = {width: '100%', height: '750px'};
+                self.$ifr = $('<iframe>').attr('src', u);
+
+                self.uniq = _.uniqueId('apps');
+                $(window).on("message." + self.uniq, self.proxy('_on_message'));
+
+                self.on('message:ready', self, function(m) {
+                    var w = this.$ifr[0].contentWindow;
+                    var act = {
+                        type: 'ir.actions.client',
+                        tag: this.remote_action_tag,
+                        params: _.extend({}, this.params, {
+                            db: session.db,
+                            origin: session.origin,
+                        })
+                    };
+                    w.postMessage({type:'action', action: act}, client.origin);
+                });
+
+                self.on('message:set_height', self, function(m) {
+                    this.$ifr.height(m.height);
+                });
+
+                self.on('message:blockUI', self, function() { framework.blockUI(); });
+                self.on('message:unblockUI', self, function() { framework.unblockUI(); });
+                self.on('message:warn', self, function(m) {self.do_warn(m.title, m.message, m.sticky); });
+
+                self.$ifr.appendTo(self.$('.o_content')).css(css).addClass('apps-client');
+
+                resolve();
+            }, function() {
+                self.do_warn(_t('Flectra Apps will be available soon'), _t('Showing locally available modules'), true);
+                return self._rpc({
+                    route: '/web/action/load',
+                    params: {action_id: self.failback_action_id},
+                }).then(function(action) {
+                    return self.do_action(action);
+                }).then(reject, reject);
             });
-            dialog.open();
-        }
-    },
-    _onClickTop: function (e) {
-        e.preventDefault();
-        this.$el.parents('.o_content').animate({scrollTop:0}, 500, 'swing');
+        });
     }
 });
 

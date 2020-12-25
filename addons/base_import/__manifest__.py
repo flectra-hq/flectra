@@ -1,6 +1,5 @@
 {
     'name': 'Base import',
-    'author' : 'Odoo S.A',
     'description': """
 New extensible file import for Odoo
 ======================================
@@ -23,7 +22,7 @@ Re-implement Odoo's file import system:
   need or want an online import can avoid it being available to users.
 """,
     'depends': ['web'],
-    'category': 'Extra Tools',
+    'category': 'Hidden/Tools',
     'installable': True,
     'auto_install': True,
     'data': [

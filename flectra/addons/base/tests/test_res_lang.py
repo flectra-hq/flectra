@@ -6,7 +6,7 @@ from flectra.tests.common import TransactionCase
 class test_res_lang(TransactionCase):
 
     def test_00_intersperse(self):
-        from flectra.addons.base.res.res_lang import intersperse
+        from flectra.addons.base.models.res_lang import intersperse
 
         assert intersperse("", []) == ("", 0)
         assert intersperse("0", []) == ("0", 0)

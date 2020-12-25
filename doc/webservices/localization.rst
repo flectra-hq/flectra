@@ -1,4 +1,4 @@
-:banner: banners/flectra_creating_localization.jpg
+:banner: banners/localization.jpg
 
 =======================
 Creating a Localization
@@ -6,7 +6,7 @@ Creating a Localization
 
 .. warning::
 
-    This tutorial requires knowledges about how to build a module in Flectra (see
+    This tutorial requires knowledges about how to build a module in Odoo (see
     :doc:`../../howtos/backend`).
 
 Building a localization module
@@ -17,19 +17,21 @@ In case of no country code set or no localization module found, the ``l10n_gener
 
 For example, ``l10n_be`` will be installed if the company has ``Belgium`` as country.
 
-This behavior is allowed by the presence of a *.yml* file containing the following code:
+This behavior is allowed by the presence of a *.xml* file containing the following code:
 
 .. code-block:: xml
 
-    -
-      !python {model: account.chart.template, id: pl_chart_template}: |
-        self[0].try_loading_for_current_company()
+   <function model="account.chart.template" name="try_loading_for_current_company">
+      <value eval="[ref(module.template_xmlid)]"/>
+   </function>
+
+Where ``module.template_xmlid`` is the **fully-qualified** xmlid of the corresponding template.
 
 Usually located in the ``data`` folder, it must be loaded at the very last in the ``__manifest__.py`` file.
 
 .. danger::
 
-    If the *.yml* file is missing, the right chart of accounts won't be loaded on time!
+    If the *.xml* file is missing, the right chart of accounts won't be loaded on time!
 
 
 Configuring my own Chart of Accounts?
@@ -136,7 +138,7 @@ Each ``account.account.template`` is able to create an ``account.account`` for e
 Some of the described fields above deserve a bit more explanation.
 
 The ``user_type_id`` field requires a value of type ``account.account.type``.
-Although some additional types could be created in a localization module, we encourage the usage of the existing types in the `account/data/data_account_type.xml <https://github.com/flectra/flectra/blob/11.0/addons/account/data/data_account_type.xml>`_ file.
+Although some additional types could be created in a localization module, we encourage the usage of the existing types in the `account/data/data_account_type.xml <https://github.com/odoo/odoo/blob/14.0/addons/account/data/data_account_type.xml>`_ file.
 The usage of these generic types ensures the generic reports working correctly in addition to those that you could create in your localization module.
 
 .. warning::
@@ -211,7 +213,6 @@ The only difference being that you must use the ``account.tax.template`` model.
 
         <!-- [Optional] Define the tax's type.
         'sale', 'purchase' or 'none' are the allowed values. 'sale' is the default value.
-        'adjustment' is also available to do some tax adjustments.
         Note: 'none' means a tax can't be used by itself, however it can still be used in a group. -->
         <field name="type_tax_use">...</field>
 
@@ -290,9 +291,7 @@ Adding a new fiscal position to my Chart of Accounts
 ####################################################
 
 .. note::
-    If you need more information about what is a fiscal position and how it
-    works in Flectra, please refer to `How to adapt taxes to my customer
-    status or localization <https://userdoc.flectrahq.com/accounting/others/taxes/application.html>`_.
+    If you need more information about what is a fiscal position and how it works in Odoo, please refer to `How to adapt taxes to my customer status or localization <https://www.odoo.com/documentation/user/online/accounting/others/taxes/application.html>`_.
 
 To create a new fiscal position, simply use the ``account.fiscal.position.template`` model:
 
@@ -318,7 +317,7 @@ This must be done after the creation of accounts before each one must be linked 
 .. code-block:: xml
 
     <?xml version="1.0" encoding="utf-8"?>
-    <flectra>
+    <odoo>
         <record id="l10n_xx_chart_template" model="account.chart.template">
 
             <!-- Define receivable/payable accounts. -->
@@ -343,7 +342,7 @@ This must be done after the creation of accounts before each one must be linked 
             <!-- Define a transfer account. -->
             <field name="transfer_account_id" ref="..."/>
         </record>
-    </flectra>
+    </odoo>
 
 For example, let's come back to the Belgium PCMN. This chart of accounts is override in this way to add some properties.
 
@@ -363,8 +362,8 @@ How to create a new bank operation model?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. note::
-    How a bank operation model works exactly in Flectra? See `Configure model of entries <https://userdoc.flectrahq.com/accounting/bank/reconciliation/configure.html>`_.
-accounting/bank/reconciliation/configure.html
+    How a bank operation model works exactly in Odoo? See `Configure model of entries <https://www.odoo.com/documentation/user/online/accounting/bank/reconciliation/configure.html>`_.
+
 Since ``V10``, a new feature is available in the bank statement reconciliation widget: the bank operation model.
 This allows the user to pre-fill some accounting entries with a single click.
 The creation of an ``account.reconcile.model.template`` record is quite easy:
@@ -409,3 +408,16 @@ The creation of an ``account.reconcile.model.template`` record is quite easy:
         <field name="second_amount">...</field>
         <field name="second_tax_id" ref="..."/>
    </record>
+
+How to create a new dynamic report?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you need to add some reports on your localization, you need to create a new module named **l10n_xx_reports**.
+Furthermore, this additional module must be present in the ``enterprise`` repository and must have at least two dependencies,
+one to bring all the stuff for your localization module and one more, ``account_reports``, to design dynamic reports.
+
+.. code-block:: py
+
+    'depends': ['l10n_xx', 'account_reports'],
+
+Once it's done, you can start the creation of your report statements. The documentation is available in the following `slides <https://www.odoo.com/slides/slide/how-to-create-custom-accounting-report-415>`_.

@@ -1,23 +1,20 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * hr_attendance
+# 	* hr_attendance
 # 
 # Translators:
-# Onii Onii <onii0223@yahoo.com>, 2018
-# Martin Trigaux, 2018
-# Otgonbayar.A <gobi.mn@gmail.com>, 2018
-# nasaaskii <nasaaskii@gmail.com>, 2018
-# Batzul B <batzul.active@gmail.com>, 2018
-# Khishigbat Ganbold <khishigbat@asterisk-tech.mn>, 2018
-# Khoschuluu Khuderchuluu <khoschuluu@gmail.com>, 2019
+# Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2020
+# Martin Trigaux, 2020
+# tserendavaa tsogtoo <tseegii011929@gmail.com>, 2020
+# Khoschuluu Khuderchuluu <khoschuluu@gmail.com>, 2020
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server saas~13.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-16 08:08+0000\n"
-"PO-Revision-Date: 2017-09-20 10:17+0000\n"
-"Last-Translator: Khoschuluu Khuderchuluu <khoschuluu@gmail.com>, 2019\n"
+"POT-Creation-Date: 2020-09-01 07:28+0000\n"
+"PO-Revision-Date: 2020-09-07 08:12+0000\n"
+"Last-Translator: Khoschuluu Khuderchuluu <khoschuluu@gmail.com>, 2020\n"
 "Language-Team: Mongolian (https://www.transifex.com/odoo/teams/41243/mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,38 +23,113 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: hr_attendance
-#: code:addons/hr_attendance/models/hr_attendance.py:55
+#: code:addons/hr_attendance/models/hr_attendance.py:0
 #, python-format
 msgid "\"Check Out\" time cannot be earlier than \"Check In\" time."
 msgstr "\"Гарсан\" цаг \"Орсон\" цагаас эрт байж болохгүй."
 
 #. module: hr_attendance
-#: code:addons/hr_attendance/models/hr_attendance.py:29
+#: code:addons/hr_attendance/models/hr_attendance.py:0
 #, python-format
 msgid "%(empl_name)s from %(check_in)s"
 msgstr "%(empl_name)s %(check_in)s-с"
 
 #. module: hr_attendance
-#: code:addons/hr_attendance/models/hr_attendance.py:34
+#: code:addons/hr_attendance/models/hr_attendance.py:0
 #, python-format
 msgid "%(empl_name)s from %(check_in)s to %(check_out)s"
 msgstr "%(empl_name)s %(check_in)s-с %(check_out)sхүртэл"
 
 #. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.view_employee_form_inherit_hr_attendance
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
+#, python-format
+msgid ""
+"<b>Warning! Last check in was over 12 hours ago.</b><br/>If this isn't "
+"right, please contact Human Resource staff"
+msgstr ""
+"<b>Сануулга! Хамгийн сүүлд, Орсон цаг 12 цагийн ѳмнѳ байна.</b><br/>Хэрвээ "
+"та үүнийг буруу гэж үзэж байвал Хүний нѳѳцийн ажилтанд хандана уу."
+
+#. module: hr_attendance
+#: model_terms:ir.ui.view,arch_db:hr_attendance.view_hr_attendance_kanban
+msgid "<i class=\"fa fa-calendar\" aria-label=\"Period\" role=\"img\" title=\"Period\"/>"
+msgstr "<i class=\"fa fa-calendar\" aria-label=\"Мѳчлѳг\" role=\"img\" title=\"Мѳчлѳг\"/>"
+
+#. module: hr_attendance
+#: model_terms:ir.ui.view,arch_db:hr_attendance.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Employee PIN</span>"
+msgstr "<span class=\"o_form_label\">Ажилтны ПИН</span>"
+
+#. module: hr_attendance
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_user_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance.view_employee_form_inherit_hr_attendance
+msgid ""
+"<span class=\"o_stat_text\">\n"
+"                            Last Month\n"
+"                        </span>"
+msgstr ""
+
+#. module: hr_attendance
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_user_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance.view_employee_form_inherit_hr_attendance
 msgid "<span class=\"o_stat_text\">Attendance</span>"
 msgstr "<span class=\"o_stat_text\">Ирц</span>"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:117
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_user_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance.view_employee_form_inherit_hr_attendance
+msgid "<span class=\"o_stat_text\">Attended Since</span>"
+msgstr ""
+
+#. module: hr_attendance
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_user_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance.view_employee_form_inherit_hr_attendance
+msgid "<span class=\"o_stat_text\">Not Attended Since</span>"
+msgstr ""
+
+#. module: hr_attendance
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_employees_view_kanban
+msgid ""
+"<span id=\"oe_hr_attendance_status\" class=\"fa fa-circle "
+"oe_hr_attendance_status_green\" role=\"img\" aria-label=\"Available\" "
+"title=\"Available\"/>"
+msgstr ""
+"<span id=\"oe_hr_attendance_status\" class=\"fa fa-circle "
+"oe_hr_attendance_status_green\" role=\"img\" aria-label=\"Боломжтой\" "
+"title=\"Боломжтой\"/>"
+
+#. module: hr_attendance
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_employees_view_kanban
+msgid ""
+"<span id=\"oe_hr_attendance_status\" class=\"fa fa-circle oe_hr_attendance_status_orange\" role=\"img\" aria-label=\"Not available\" title=\"Not available\">\n"
+"                                    </span>"
+msgstr ""
+
+#. module: hr_attendance
+#: model_terms:ir.actions.act_window,help:hr_attendance.hr_employee_attendance_action_kanban
+msgid ""
+"Add a few employees to be able to select an employee here and perform his check in / check out.\n"
+"                To create employees go to the Employees menu."
+msgstr ""
+"Эндээс та ажилтны Орсон / Гарсан бүртгэлийг оруулахын тулд цѳѳн тооны ажилчдыг сонгох боломжтой юм.\n"
+"Хэрэв та шинээр ажилтан үүсгэх бол Ажилчид цэс үрүү орно уу."
+
+#. module: hr_attendance
+#: model:res.groups,name:hr_attendance.group_hr_attendance_manager
+msgid "Administrator"
+msgstr "Администратор"
+
+#. module: hr_attendance
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "An apple a day keeps the doctor away"
 msgstr "Өдөрт нэг алим идсэнээр эмнэлэг зүглэх шаардлагагүй болно"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:106
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "Another good day's work! See you soon!"
 msgstr "Бас нэгэн ажлын сайхан өдөр! Дараа уулзая!"
@@ -65,11 +137,11 @@ msgstr "Бас нэгэн ажлын сайхан өдөр! Дараа уулз�
 #. module: hr_attendance
 #: model:ir.actions.client,name:hr_attendance.hr_attendance_action_my_attendances
 #: model:ir.model,name:hr_attendance.model_hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_attendance_ids
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_attendance_state
-#: model:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_graph
-#: model:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_pivot
-#: model:ir.ui.view,arch_db:hr_attendance.view_employee_form_inherit_hr_attendance
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee__attendance_ids
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_base__attendance_ids
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_public__attendance_ids
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_graph
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_pivot
 msgid "Attendance"
 msgstr "Ирц"
 
@@ -80,23 +152,41 @@ msgid "Attendance Analysis"
 msgstr "Ирцийн шинжилгээ"
 
 #. module: hr_attendance
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee__attendance_state
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_base__attendance_state
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_public__attendance_state
+#: model:ir.model.fields,field_description:hr_attendance.field_res_users__attendance_state
+msgid "Attendance Status"
+msgstr "Ирцийн статус"
+
+#. module: hr_attendance
 #: model:ir.actions.act_window,name:hr_attendance.hr_attendance_action
 #: model:ir.actions.act_window,name:hr_attendance.hr_attendance_action_employee
 #: model:ir.actions.client,name:hr_attendance.hr_attendance_action_kiosk_mode
 #: model:ir.ui.menu,name:hr_attendance.menu_hr_attendance_root
 #: model:ir.ui.menu,name:hr_attendance.menu_hr_attendance_view_attendances
-#: model:ir.ui.view,arch_db:hr_attendance.hr_department_view_kanban
-#: model:ir.ui.view,arch_db:hr_attendance.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_department_view_kanban
+#: model_terms:ir.ui.view,arch_db:hr_attendance.res_config_settings_view_form
 msgid "Attendances"
 msgstr "Ирц"
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_barcode
-msgid "Badge ID"
-msgstr "Медалын ID"
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_user_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance.view_employee_form_inherit_hr_attendance
+#, python-format
+msgid "Available"
+msgstr "Идэвхтэй"
 
 #. module: hr_attendance
-#: code:addons/hr_attendance/models/hr_attendance.py:85
+#: model:ir.model,name:hr_attendance.model_hr_employee_base
+msgid "Basic Employee"
+msgstr "Үндсэн ажилтан"
+
+#. module: hr_attendance
+#: code:addons/hr_attendance/models/hr_attendance.py:0
 #, python-format
 msgid ""
 "Cannot create new attendance record for %(empl_name)s, the employee hasn't "
@@ -106,8 +196,8 @@ msgstr ""
 "хойш гараагүй."
 
 #. module: hr_attendance
-#: code:addons/hr_attendance/models/hr_attendance.py:72
-#: code:addons/hr_attendance/models/hr_attendance.py:98
+#: code:addons/hr_attendance/models/hr_attendance.py:0
+#: code:addons/hr_attendance/models/hr_attendance.py:0
 #, python-format
 msgid ""
 "Cannot create new attendance record for %(empl_name)s, the employee was "
@@ -117,13 +207,7 @@ msgstr ""
 "аль хэдийнээ орсон байна"
 
 #. module: hr_attendance
-#: code:addons/hr_attendance/models/hr_employee.py:108
-#, python-format
-msgid "Cannot perform check in or check out on multiple employees."
-msgstr "Олон ажилтан дээр орсон эсвэл гарсан үйлдлийг гүйцэтгэх боломжгүй."
-
-#. module: hr_attendance
-#: code:addons/hr_attendance/models/hr_employee.py:122
+#: code:addons/hr_attendance/models/hr_employee.py:0
 #, python-format
 msgid ""
 "Cannot perform check out on %(empl_name)s, could not find corresponding "
@@ -134,7 +218,12 @@ msgstr ""
 "алга. Таны ирцийг хүний нөөцөөс засварлаж байж болох юм."
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance_check_in
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance__check_in
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee__last_check_in
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_base__last_check_in
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_public__last_check_in
+#: model:ir.model.fields,field_description:hr_attendance.field_res_users__last_check_in
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
 msgid "Check In"
 msgstr "Орсон"
 
@@ -144,74 +233,67 @@ msgid "Check In / Check Out"
 msgstr "Орсон / Гарсан"
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance_check_out
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance__check_out
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee__last_check_out
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_base__last_check_out
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_public__last_check_out
+#: model:ir.model.fields,field_description:hr_attendance.field_res_users__last_check_out
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
 msgid "Check Out"
 msgstr "Гарсан"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:53
-#, python-format
-msgid "Check in"
-msgstr "Орсон"
-
-#. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:49
-#, python-format
-msgid "Check out"
-msgstr "Гарсан"
-
-#. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance.res_config_settings_view_form
 msgid "Check-In/Out"
 msgstr "Орох/Гарах"
 
 #. module: hr_attendance
-#: selection:hr.employee,attendance_state:0
+#: model:ir.model.fields.selection,name:hr_attendance.selection__hr_employee__attendance_state__checked_in
+#: model:ir.model.fields.selection,name:hr_attendance.selection__hr_employee_base__attendance_state__checked_in
+#: model:ir.model.fields.selection,name:hr_attendance.selection__hr_employee_public__attendance_state__checked_in
 msgid "Checked in"
 msgstr "Орсон"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:109
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
 msgid "Checked in at"
 msgstr "Орсон"
 
 #. module: hr_attendance
-#: selection:hr.employee,attendance_state:0
+#: model:ir.model.fields.selection,name:hr_attendance.selection__hr_employee__attendance_state__checked_out
+#: model:ir.model.fields.selection,name:hr_attendance.selection__hr_employee_base__attendance_state__checked_out
+#: model:ir.model.fields.selection,name:hr_attendance.selection__hr_employee_public__attendance_state__checked_out
 msgid "Checked out"
 msgstr "Гарсан"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:97
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
 msgid "Checked out at"
 msgstr "Гарсан"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:27
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
-msgid "Click to check in"
-msgstr "Орохдоо дарна уу"
+msgid "Click to"
+msgstr "Дараад"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:31
-#, python-format
-msgid "Click to check out"
-msgstr "Гарахдаа дарна уу"
-
-#. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:12
-#: model:ir.ui.view,arch_db:hr_attendance.print_employee_badge
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
 msgid "Company Logo"
 msgstr "Компанийн лого"
+
+#. module: hr_attendance
+#: model:ir.model,name:hr_attendance.model_res_config_settings
+msgid "Config Settings"
+msgstr "Тохиргооны тохируулга"
 
 #. module: hr_attendance
 #: model:ir.ui.menu,name:hr_attendance.menu_hr_attendance_settings
@@ -219,49 +301,43 @@ msgid "Configuration"
 msgstr "Тохиргоо"
 
 #. module: hr_attendance
-#: model:ir.actions.act_window,help:hr_attendance.hr_employee_attendance_action_kanban
-msgid ""
-"Create a few employees to be able to select an employee here and perform his"
-" check in / check out."
-msgstr ""
-"Өөр ажилтныг сонгож гарсан / орсон -г бүртгэх боломжтой хэдэн ажилтанг "
-"үүсгэнэ үү."
+#: model_terms:ir.actions.act_window,help:hr_attendance.hr_employee_attendance_action_kanban
+msgid "Create a new employee"
+msgstr "Шинээр ажилтан үүсгэх"
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance_create_uid
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance__create_uid
 msgid "Created by"
-msgstr "Үүсгэгч"
+msgstr "Үүсгэсэн этгээд"
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance_create_date
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance__create_date
 msgid "Created on"
-msgstr "Үүсгэсэн"
+msgstr "Үүсгэсэн огноо"
 
 #. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
-msgid "Current Month"
-msgstr "Энэ сар"
-
-#. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance_department_id
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance__department_id
 msgid "Department"
-msgstr "Хэлтэс"
+msgstr "Алба нэгж"
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance_display_name
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance__display_name
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_base__display_name
+#: model:ir.model.fields,field_description:hr_attendance.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:hr_attendance.field_res_users__display_name
 msgid "Display Name"
-msgstr "Дэлгэцийн Нэр"
+msgstr "Дэлгэрэнгүй нэр"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:123
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "Early to bed and early to rise, makes a man healthy, wealthy and wise"
 msgstr "Эрт унтаж эрт босох нь хүний эрүүл, чийрэг, сэргэлэн байх үндэс"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:115
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "Eat breakfast as a king, lunch as a merchant and supper as a beggar"
 msgstr ""
@@ -269,39 +345,28 @@ msgstr ""
 " ид. "
 
 #. module: hr_attendance
-#: model:ir.model,name:hr_attendance.model_hr_employee
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance_employee_id
-#: model:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance__employee_id
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_employees_view_kanban
 msgid "Employee"
 msgstr "Ажилтан"
 
 #. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.print_employee_badge
-msgid "Employee Image"
-msgstr "Ажилтны зураг"
-
-#. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_res_config_settings_group_attendance_use_pin
-#: model:ir.ui.view,arch_db:hr_attendance.res_config_settings_view_form
+#: model:ir.model.fields,field_description:hr_attendance.field_res_config_settings__group_attendance_use_pin
 msgid "Employee PIN"
 msgstr "Ажилтны PIN"
 
 #. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_form
-#: model:ir.ui.view,arch_db:hr_attendance.view_attendance_tree
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance.view_attendance_tree
 msgid "Employee attendances"
 msgstr "Ажилчдын ирц"
-
-#. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.view_employee_kanban_inherit_hr_attendance
-msgid "Employee's Name"
-msgstr "Ажилтны Нэр"
 
 #. module: hr_attendance
 #: model:ir.actions.act_window,name:hr_attendance.hr_employee_attendance_action_kanban
 #: model:ir.ui.menu,name:hr_attendance.menu_hr_attendance_view_employees_kanban
 msgid "Employees"
-msgstr "Ажилчид"
+msgstr "Ажилтнууд"
 
 #. module: hr_attendance
 #: model:res.groups,name:hr_attendance.group_hr_attendance_use_pin
@@ -309,175 +374,210 @@ msgid "Enable PIN use"
 msgstr "PIN идэвхжүүлэх"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/my_attendances.js:29
-#, python-format
-msgid "Error : Could not find employee linked to user"
-msgstr "Алдаа : Хэрэглэгчтэй холбогдсон ажилтанг олсонгүй"
-
-#. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:35
-#, python-format
-msgid "Error : Could not find employee linked to user."
-msgstr "Алдаа : Хэрэглэгчтэй холбогдсон ажилтанг олсонгүй."
-
-#. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:81
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
 msgid "Error: could not find corresponding employee."
 msgstr "Алдаа: харгалзах ажилтанг олсонгүй."
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:70
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "First come, first served"
 msgstr "Түрүүлж ирвэл түрүүлж үйлчлүүлнэ"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:85
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "Glad to have you back, it's been a while!"
 msgstr "Таны эргэн ирсэн баяртай байна, нэлээд уджээ!"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:76
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Go back"
+msgstr "Буцах"
+
+#. module: hr_attendance
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "Good afternoon"
 msgstr "Өдрийн мэнд"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:78
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "Good evening"
 msgstr "Оройн мэнд"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:73
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "Good morning"
 msgstr "Өглөөний мэнд"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:64
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:80
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "Good night"
 msgstr "Сайхан амраарай"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:100
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
 msgid "Goodbye"
 msgstr "Баяртай"
 
 #. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
 msgid "Group By"
-msgstr "Бүлэглэх"
+msgstr "Бүлэглэлт"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:120
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "Have a good afternoon"
 msgstr "Үдийг сайхан өнгөрүүлээрэй"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:111
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "Have a good day!"
 msgstr "Өдрийг сайхан өнгөрүүлээрэй"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:125
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "Have a good evening"
 msgstr "Оройг сайхан өнгөрүүлээрэй"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:113
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "Have a nice lunch!"
 msgstr "Сайхан хооллоорой!"
 
 #. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_user_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance.view_employee_form_inherit_hr_attendance
+msgid "Hours"
+msgstr "Цаг"
+
+#. module: hr_attendance
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee__hours_last_month
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_base__hours_last_month
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_public__hours_last_month
+#: model:ir.model.fields,field_description:hr_attendance.field_res_users__hours_last_month
+msgid "Hours Last Month"
+msgstr ""
+
+#. module: hr_attendance
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee__hours_last_month_display
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_base__hours_last_month_display
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_public__hours_last_month_display
+#: model:ir.model.fields,field_description:hr_attendance.field_res_users__hours_last_month_display
+msgid "Hours Last Month Display"
+msgstr ""
+
+#. module: hr_attendance
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee__hours_today
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_base__hours_today
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_public__hours_today
+msgid "Hours Today"
+msgstr ""
+
+#. module: hr_attendance
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
 msgid "Hr Attendance Search"
 msgstr "Ирцээс хайх"
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance_id
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance__id
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_base__id
+#: model:ir.model.fields,field_description:hr_attendance.field_res_config_settings__id
+#: model:ir.model.fields,field_description:hr_attendance.field_res_users__id
 msgid "ID"
 msgstr "ID"
 
 #. module: hr_attendance
-#: model:ir.model.fields,help:hr_attendance.field_hr_employee_barcode
-msgid "ID used for employee identification."
-msgstr "ажилтанг ялгахад хэрэглэддэг  ID."
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Identify Manually"
+msgstr ""
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:88
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "If a job is worth doing, it is worth doing well!"
 msgstr "Хэрэв ажил нь хийх үнэ цэнэтэй бол энэ нь сайн хийх үнэ цэнэтэй!"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:120
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
 msgid "Invalid request, please return to the main menu."
 msgstr "Буруу хүсэлт, үндсэн меню рүү буцна уу."
 
 #. module: hr_attendance
-#: model:ir.ui.menu,name:hr_attendance.menu_hr_attendance_kiosk_mode
+#: model:res.groups,name:hr_attendance.group_hr_attendance_kiosk
+msgid "Kiosk Attendance"
+msgstr ""
+
+#. module: hr_attendance
+#: model:ir.ui.menu,name:hr_attendance.menu_hr_attendance_kiosk_no_user_mode
 msgid "Kiosk Mode"
 msgstr "Киоск горим"
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_last_attendance_id
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee__last_attendance_id
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_base__last_attendance_id
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_public__last_attendance_id
 msgid "Last Attendance"
 msgstr "Сүүлийн Ирц"
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance___last_update
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance____last_update
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_base____last_update
+#: model:ir.model.fields,field_description:hr_attendance.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:hr_attendance.field_res_users____last_update
 msgid "Last Modified on"
-msgstr "Сүүлийн зассан хийсэн огноо"
+msgstr "Сүүлд зассан огноо"
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance_write_uid
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance__write_uid
 msgid "Last Updated by"
-msgstr "Сүүлийн засвар хийсэн"
+msgstr "Сүүлд зассан этгээд"
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance_write_date
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance__write_date
 msgid "Last Updated on"
-msgstr "Сүүлийн засвар хийсэн огноо"
+msgstr "Сүүлд зассан огноо"
 
 #. module: hr_attendance
 #: model:ir.ui.menu,name:hr_attendance.menu_hr_attendance_manage_attendances
-msgid "Manage Attendances"
-msgstr "Ирцүүдийг удирдах"
-
-#. module: hr_attendance
-#: model:res.groups,name:hr_attendance.group_hr_attendance_manager
 msgid "Manager"
-msgstr "Менежер"
+msgstr "Удирдлага"
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_manual_attendance
 #: model:res.groups,name:hr_attendance.group_hr_attendance
 msgid "Manual Attendance"
 msgstr "Гар Ирц"
@@ -488,30 +588,49 @@ msgid "Message"
 msgstr "Зурвас"
 
 #. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
-msgid "Month"
-msgstr "Сар"
-
-#. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
 msgid "My Attendances"
 msgstr "Миний ирцүүд"
 
 #. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
 msgid "No Check Out"
 msgstr "Гарсан алга"
 
 #. module: hr_attendance
-#: model:ir.actions.act_window,help:hr_attendance.hr_attendance_action_employee
-msgid "No attendance records to display."
+#: model_terms:ir.actions.act_window,help:hr_attendance.hr_attendance_action
+msgid "No attendance records found"
+msgstr "Ирцийн бүртгэл олдсонгүй"
+
+#. module: hr_attendance
+#: model_terms:ir.actions.act_window,help:hr_attendance.hr_attendance_action_employee
+msgid "No attendance records to display"
+msgstr "Дэлгэцэд харуулах ирцийн бүртгэл байхгүй байна"
+
+#. module: hr_attendance
+#: model_terms:ir.actions.act_window,help:hr_attendance.hr_attendance_action_graph
+#: model_terms:ir.actions.act_window,help:hr_attendance.hr_attendance_action_graph_filtered
+msgid "No data yet!"
 msgstr ""
 
 #. module: hr_attendance
-#: code:addons/hr_attendance/models/hr_employee.py:72
+#: code:addons/hr_attendance/models/hr_employee.py:0
 #, python-format
-msgid "No employee corresponding to barcode %(barcode)s"
-msgstr "%(barcode)s зураасан кодод харгалзах ажилтан байхгүй"
+msgid "No employee corresponding to Badge ID '%(barcode)s.'"
+msgstr ""
+
+#. module: hr_attendance
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_user_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance.view_employee_form_inherit_hr_attendance
+msgid "Not available"
+msgstr "Идэвхгүй"
+
+#. module: hr_attendance
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#, python-format
+msgid "OK"
+msgstr "OK"
 
 #. module: hr_attendance
 #: model:res.groups,name:hr_attendance.group_hr_attendance_user
@@ -519,72 +638,33 @@ msgid "Officer"
 msgstr "Мэргэжилтэн"
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_employee_pin
-msgid "PIN"
-msgstr "PIN"
-
-#. module: hr_attendance
-#: model:ir.model.fields,help:hr_attendance.field_hr_employee_pin
-msgid "PIN used to Check In/Out in Kiosk Mode (if enabled in Configuration)."
-msgstr ""
-"Киоск горимд Гарсан/Орсон-д хэрэглэгдэх  PIN код (хэрэв тохиргоонд "
-"зөвшөөрсөн бол)."
-
-#. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:62
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
-msgid "Please enter your PIN to check in"
-msgstr "Орохдоо PIN кодоо оруулна уу"
+msgid "Please enter your PIN to"
+msgstr "ПИН код оруулна уу. Нэвтрэх горим: "
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:59
-#, python-format
-msgid "Please enter your PIN to check out"
-msgstr "Гарахдаа PIN кодоо оруулна уу"
-
-#. module: hr_attendance
-#: model:ir.actions.act_window,help:hr_attendance.hr_attendance_action
-msgid ""
-"Please make sure you're using the correct filter if you expected to see any."
-msgstr ""
-"Ямар нэг зүйл харна гэж бодсон бол зөв шүүлтүүр хэрэглэж байгаа эсэхээ "
-"нягтлана уу."
-
-#. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:82
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
 msgid "Please return to the main menu."
 msgstr "Үндсэн меню рүү буцна уу."
 
 #. module: hr_attendance
-#: model:ir.actions.report,name:hr_attendance.hr_employee_print_badge
-msgid "Print Badge"
-msgstr "Медаль хэвлэх"
-
-#. module: hr_attendance
 #: model:ir.ui.menu,name:hr_attendance.menu_hr_attendance_report
 msgid "Reporting"
-msgstr "Тайлангууд"
+msgstr "Тайлан"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:13
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
 msgid "Scan your badge"
 msgstr "Үнэмлэхээ уншуулна уу"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:15
-#, python-format
-msgid "Select Employee"
-msgstr "Ажилтан сонгох"
-
-#. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance.res_config_settings_view_form
 msgid "Set PIN codes in the employee detail form (in HR Settings tab)."
 msgstr ""
 "Ажилтны хувийн хэргийн бүртгэл дэх (HR тохиргоо) цэсээр орон ПИН тохируулах."
@@ -595,46 +675,51 @@ msgid "Settings"
 msgstr "Тохиргоо"
 
 #. module: hr_attendance
-#: code:addons/hr_attendance/models/hr_employee.py:155
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Sign in"
+msgstr "Нэвтрэх"
+
+#. module: hr_attendance
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Sign out"
+msgstr "Гарах"
+
+#. module: hr_attendance
+#: code:addons/hr_attendance/models/hr_employee.py:0
 #, python-format
 msgid "Such grouping is not allowed."
-msgstr "Ийм бүлэглэлийг зѳвшѳѳрѳхгүй."
+msgstr "Ийм бүлэглэлийг зѳвшѳѳрѳхгүй."
 
 #. module: hr_attendance
-#: sql_constraint:hr.employee:0
-msgid ""
-"The Badge ID must be unique, this one is already assigned to another "
-"employee."
-msgstr ""
-"Үнэмлэхний ID үл давтагдах байх ёстой, энэ нь өөр ажилтанд аль хэдийнээ "
-"олгогдсон байна."
-
-#. module: hr_attendance
-#: code:addons/hr_attendance/models/hr_employee.py:63
-#, python-format
-msgid "The PIN must be a sequence of digits."
-msgstr "PIN нь цифрүүдийн дараалал байх ёстой."
-
-#. module: hr_attendance
-#: model:ir.actions.act_window,help:hr_attendance.hr_attendance_action
+#: model_terms:ir.actions.act_window,help:hr_attendance.hr_attendance_action
+#: model_terms:ir.actions.act_window,help:hr_attendance.hr_attendance_action_employee
 msgid "The attendance records of your employees will be displayed here."
 msgstr "Танай ажилтнуудын ирцүүд энэ дэлгэцэнд энд харагдана."
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:68
+#. openerp-web
+#: code:addons/hr_attendance/static/src/js/greeting_message.js:0
 #, python-format
 msgid "The early bird catches the worm"
 msgstr "Эртэч шувууд өтийг барьдаг"
 
 #. module: hr_attendance
-#: model:ir.model.fields,help:hr_attendance.field_hr_employee_manual_attendance
+#: model:res.groups,comment:hr_attendance.group_hr_attendance_kiosk
 msgid ""
-"The employee will have access to the \"My Attendances\" menu to check in and"
-" out from his session"
+"The user will be able to open the kiosk mode and validate the employee PIN."
 msgstr ""
-"Ажилтан нь \"Миний ирц\" менюрүү хандаж чадах бөгөөд өөрийн орсон гарсан "
-"цагаа харах боломжтой"
 
 #. module: hr_attendance
 #: model:res.groups,comment:hr_attendance.group_hr_attendance
@@ -655,84 +740,120 @@ msgstr ""
 "оруулах ёстой."
 
 #. module: hr_attendance
-#: model:ir.actions.act_window,help:hr_attendance.hr_employee_attendance_action_kanban
-msgid "To create employees go to the Employees menu."
-msgstr "Ажилчдыг үүсгэхдээ Ажилчид менюрүү очно уу."
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Today's work hours:"
+msgstr ""
 
 #. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.hr_attendance_view_filter
-msgid "Today"
-msgstr "Өнөөдөр"
-
-#. module: hr_attendance
-#: model:ir.ui.view,arch_db:hr_attendance.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance.res_config_settings_view_form
 msgid "Use PIN codes to check in in Kiosk Mode"
-msgstr "Киоск Горимоор ѳѳрийн Пин кодыг оруулан, орох боломжтой"
+msgstr "Киоск Горимоор ПИН код ашиглан орох"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/js/greeting_message.js:102
+#: model:ir.model,name:hr_attendance.model_res_users
+msgid "Users"
+msgstr "Хэрэглэгчид"
+
+#. module: hr_attendance
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Want to check out?"
+msgstr "Та гармаар байна уу?"
+
+#. module: hr_attendance
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
 msgid ""
-"Warning! Last check in was over 12 hours ago.<br/>If this isn't right, "
-"please contact Human Resources."
+"Warning : Your user should be linked to an employee to use attendance. "
+"Please contact your administrator."
 msgstr ""
-"Анхааруулга! Сүүлийн орсон цаг 12-с их цагийн өмнө байсан.<br/>хэрэв энэ зөв"
-" биш бол Хүний Нөөцдөө хандана уу."
+"Сануулга: Ирцийг ашиглахын тулд хэрэглэгчийн мэдээллийг ажилтны мэдээлэлтэй "
+"холбох шаардлагатай юм. Та Администратор-той холбогдоно уу."
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:25
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:46
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:112
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
 msgid "Welcome"
-msgstr "Тавтай морил"
+msgstr "Тавтай морилно уу"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:11
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
 msgid "Welcome to"
 msgstr "Тавтай морил"
 
 #. module: hr_attendance
-#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance_worked_hours
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Welcome!"
+msgstr "Тавтай морилно уу!"
+
+#. module: hr_attendance
+#: model_terms:ir.ui.view,arch_db:hr_attendance.view_attendance_tree
+msgid "Work Hours"
+msgstr "Ажлын цаг"
+
+#. module: hr_attendance
+#: model:ir.model.fields,field_description:hr_attendance.field_hr_attendance__worked_hours
 msgid "Worked Hours"
 msgstr "Ажилласан цаг"
 
 #. module: hr_attendance
-#: code:addons/hr_attendance/models/hr_employee.py:79
+#: model_terms:ir.ui.view,arch_db:hr_attendance.hr_user_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance.view_employee_form_inherit_hr_attendance
+msgid "Worked hours last month"
+msgstr ""
+
+#. module: hr_attendance
+#: code:addons/hr_attendance/models/hr_employee.py:0
 #, python-format
 msgid "Wrong PIN"
 msgstr "Буруу PIN"
 
 #. module: hr_attendance
-#: code:addons/hr_attendance/models/hr_attendance.py:105
+#: code:addons/hr_attendance/models/hr_attendance.py:0
 #, python-format
 msgid "You cannot duplicate an attendance."
 msgstr "Ирцийг хувилах боломжгүй."
 
 #. module: hr_attendance
-#: model:ir.model.fields,help:hr_attendance.field_hr_employee_attendance_ids
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#, python-format
+msgid "check in"
+msgstr "oрох"
+
+#. module: hr_attendance
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
+#, python-format
+msgid "check out"
+msgstr "гарах"
+
+#. module: hr_attendance
+#: model:ir.model.fields,help:hr_attendance.field_hr_employee__attendance_ids
+#: model:ir.model.fields,help:hr_attendance.field_hr_employee_base__attendance_ids
+#: model:ir.model.fields,help:hr_attendance.field_hr_employee_public__attendance_ids
 msgid "list of attendances for the employee"
 msgstr "ажилтны ирцийн жагсаалт"
 
 #. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:123
-#, python-format
-msgid "ok"
-msgstr "ok"
-
-#. module: hr_attendance
-#. flectra-web
-#: code:addons/hr_attendance/static/src/xml/attendance.xml:14
+#. openerp-web
+#: code:addons/hr_attendance/static/src/xml/attendance.xml:0
 #, python-format
 msgid "or"
 msgstr "эсвэл"
-
-#. module: hr_attendance
-#: model:ir.model,name:hr_attendance.model_res_config_settings
-msgid "res.config.settings"
-msgstr "res.config.settings"

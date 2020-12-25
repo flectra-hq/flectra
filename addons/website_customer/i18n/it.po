@@ -1,20 +1,20 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * website_customer
+# 	* website_customer
 # 
 # Translators:
-# Martin Trigaux, 2017
-# Paolo Valier, 2017
-# Luigi Di Naro <gigidn@gmail.com>, 2018
-# Francesco Garganese <francesco.garganese@aeromnia.aero>, 2018
-# Léonie Bouchat <lbo@flectrahq.com>, 2018
+# Martin Trigaux, 2020
+# Paolo Valier, 2020
+# Léonie Bouchat <lbo@odoo.com>, 2020
+# Sergio Zanchetta <primes2h@gmail.com>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server saas~13.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 09:54+0000\n"
-"PO-Revision-Date: 2017-09-20 09:54+0000\n"
-"Last-Translator: Léonie Bouchat <lbo@flectrahq.com>, 2018\n"
+"POT-Creation-Date: 2020-09-01 07:29+0000\n"
+"PO-Revision-Date: 2020-09-07 08:20+0000\n"
+"Last-Translator: Sergio Zanchetta <primes2h@gmail.com>, 2020\n"
 "Language-Team: Italian (https://www.transifex.com/odoo/teams/41243/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,46 +23,65 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_customer
-#: model:ir.ui.view,arch_db:website_customer.opt_tag_list
+#: model_terms:ir.ui.view,arch_db:website_customer.opt_tag_list
 msgid "<span class=\"fa fa-1x fa-tags\"/> All"
 msgstr "<span class=\"fa fa-1x fa-tags\"/> Tutti"
 
 #. module: website_customer
-#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag_active
+#: model_terms:ir.ui.view,arch_db:website_customer.opt_country
+msgid ""
+"<span class=\"fa fa-external-link\" role=\"img\" aria-label=\"External "
+"link\" title=\"External link\"/>"
+msgstr ""
+"<span class=\"fa fa-external-link\" role=\"img\" aria-label=\"External "
+"link\" title=\"Collegamento esterno\"/>"
+
+#. module: website_customer
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__active
 msgid "Active"
 msgstr "Attivo"
 
 #. module: website_customer
-#: code:addons/website_customer/controllers/main.py:80
+#: code:addons/website_customer/controllers/main.py:0
 #, python-format
 msgid "All Countries"
-msgstr "Tutte le Nazioni"
+msgstr "Tutte le nazioni"
 
 #. module: website_customer
-#: code:addons/website_customer/controllers/main.py:61
+#: code:addons/website_customer/controllers/main.py:0
 #, python-format
-msgid "All Sectors of Activity"
-msgstr "Tutti i settori di attività"
+msgid "All Industries"
+msgstr "Tutti i settori"
 
 #. module: website_customer
-#: model:ir.model.fields,help:website_customer.field_res_partner_tag_classname
+#: model_terms:ir.ui.view,arch_db:website_customer.res_partner_tag_view_search
+msgid "Archived"
+msgstr "In archivio"
+
+#. module: website_customer
+#: model:ir.model.fields,help:website_customer.field_res_partner_tag__classname
 msgid "Bootstrap class to customize the color"
 msgstr "Classe Bootstrap per personalizzare il colore"
 
 #. module: website_customer
-#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag_name
-msgid "Category Name"
-msgstr "Nome Categoria"
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__can_publish
+msgid "Can Publish"
+msgstr "Può pubblicare"
 
 #. module: website_customer
-#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag_classname
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__name
+msgid "Category Name"
+msgstr "Nome categoria"
+
+#. module: website_customer
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__classname
 msgid "Class"
 msgstr "Classe"
 
 #. module: website_customer
-#: model:ir.actions.act_window,help:website_customer.action_partner_tag_form
-msgid "Click to create a new partner tag."
-msgstr "Clicca per creare un nuovo tag partner."
+#: model_terms:ir.ui.view,arch_db:website_customer.opt_country
+msgid "Close"
+msgstr "Chiudi"
 
 #. module: website_customer
 #: model:ir.model,name:website_customer.model_res_partner
@@ -70,140 +89,177 @@ msgid "Contact"
 msgstr "Contatto"
 
 #. module: website_customer
-#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag_create_uid
+#: model_terms:ir.actions.act_window,help:website_customer.action_partner_tag_form
+msgid "Create a new contact tag"
+msgstr "Crea una nuova etichetta contatto"
+
+#. module: website_customer
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__create_uid
 msgid "Created by"
 msgstr "Creato da"
 
 #. module: website_customer
-#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag_create_date
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__create_date
 msgid "Created on"
 msgstr "Creato il"
 
 #. module: website_customer
-#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag_display_name
+#: model:ir.model.fields,field_description:website_customer.field_res_partner__display_name
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__display_name
+#: model:ir.model.fields,field_description:website_customer.field_website__display_name
 msgid "Display Name"
-msgstr "Visualizza Nome"
+msgstr "Nome visualizzato"
 
 #. module: website_customer
-#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag_id
+#: model:ir.model.fields,field_description:website_customer.field_res_partner__id
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__id
+#: model:ir.model.fields,field_description:website_customer.field_website__id
 msgid "ID"
 msgstr "ID"
 
 #. module: website_customer
-#: model:ir.ui.view,arch_db:website_customer.implemented_by_block
+#: model_terms:ir.ui.view,arch_db:website_customer.implemented_by_block
 msgid "Implemented By"
 msgstr "Implementato da"
 
 #. module: website_customer
-#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag___last_update
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__is_published
+msgid "Is Published"
+msgstr "È pubblicato"
+
+#. module: website_customer
+#: model:ir.model.fields,field_description:website_customer.field_res_partner____last_update
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag____last_update
+#: model:ir.model.fields,field_description:website_customer.field_website____last_update
 msgid "Last Modified on"
-msgstr "Data di ultima modifica"
-
-#. module: website_customer
-#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag_write_uid
-msgid "Last Updated by"
-msgstr "Ultima modifica di"
-
-#. module: website_customer
-#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag_write_date
-msgid "Last Updated on"
 msgstr "Ultima modifica il"
 
 #. module: website_customer
-#: model:ir.actions.act_window,help:website_customer.action_partner_tag_form
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: website_customer
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: website_customer
+#: model_terms:ir.actions.act_window,help:website_customer.action_partner_tag_form
 msgid ""
-"Manage the partner tags to better classify them on your website.\n"
-"                    You can add the filter by tag on your website in the \"Customize\" menu."
+"Manage contact tags to better classify them for tracking and analysis "
+"purposes."
 msgstr ""
-"Gestisce i tag del partner per classificarli nel sito web.\n"
-"È possibile aggiungere il filtro per tag nel sito web dal menu \"Personalizza\"."
+"Gestisci le etichette di contatto per meglio classificarle a scopo di "
+"monitoraggio e di analisi."
 
 #. module: website_customer
-#: model:ir.ui.view,arch_db:website_customer.index
+#: model_terms:ir.ui.view,arch_db:website_customer.index
 msgid "No result found"
-msgstr "Nessun risultato"
+msgstr "Nessun risultato trovato"
 
 #. module: website_customer
-#: model:ir.ui.view,arch_db:website_customer.details
-#: model:ir.ui.view,arch_db:website_customer.footer_custom
-#: model:ir.ui.view,arch_db:website_customer.index
+#: model_terms:ir.ui.view,arch_db:website_customer.details
+#: model_terms:ir.ui.view,arch_db:website_customer.index
 msgid "Our References"
-msgstr "I nostri riferimenti"
+msgstr "Le nostre referenze"
 
 #. module: website_customer
-#: model:ir.ui.view,arch_db:website_customer.view_partner_tag_form
+#: model_terms:ir.ui.view,arch_db:website_customer.view_partner_tag_form
 msgid "Partner Tag"
-msgstr "Tag Partner"
+msgstr "Etichetta partner"
 
 #. module: website_customer
 #: model:ir.model,name:website_customer.model_res_partner_tag
 msgid ""
 "Partner Tags - These tags can be used on website to find customers by "
-"sector, or ... "
+"sector, or ..."
 msgstr ""
-"Tag Partner - Questi tag possono essere usati nel sito web per trovare "
-"clienti per settore, o ..."
+"Etichette partner - Queste etichette possono essere usate nel sito web per "
+"trovare clienti per settore, o ..."
 
 #. module: website_customer
-#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag_partner_ids
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__partner_ids
 msgid "Partners"
 msgstr "Partner"
 
 #. module: website_customer
-#: model:ir.ui.view,arch_db:website_customer.references_block
+#: code:addons/website_customer/models/website.py:0
+#: model_terms:ir.ui.view,arch_db:website_customer.references_block
+#, python-format
 msgid "References"
-msgstr "Riferimenti"
+msgstr "Referenze"
 
 #. module: website_customer
-#: model:ir.ui.view,arch_db:website_customer.opt_country_list
+#: model_terms:ir.ui.view,arch_db:website_customer.opt_country_list
 msgid "References by Country"
-msgstr "Referenze per Nazione"
+msgstr "Referenze per nazione"
 
 #. module: website_customer
-#: model:ir.ui.view,arch_db:website_customer.opt_industry_list
-msgid "References by Sectors of Activity"
-msgstr "Settori per Settori di Attività"
+#: model_terms:ir.ui.view,arch_db:website_customer.opt_industry_list
+msgid "References by Industries"
+msgstr ""
 
 #. module: website_customer
-#: model:ir.ui.view,arch_db:website_customer.opt_tag_list
+#: model_terms:ir.ui.view,arch_db:website_customer.opt_tag_list
 msgid "References by Tag"
-msgstr "Referenze per Tag"
+msgstr "Referenze per etichetta"
 
 #. module: website_customer
-#: model:ir.ui.view,arch_db:website_customer.index
+#: model_terms:ir.ui.view,arch_db:website_customer.index
 msgid "Search"
-msgstr "Ricerca"
+msgstr "Cerca"
 
 #. module: website_customer
-#: model:ir.ui.view,arch_db:website_customer.index
+#: model_terms:ir.ui.view,arch_db:website_customer.res_partner_tag_view_search
+msgid "Search Partner Tag"
+msgstr ""
+
+#. module: website_customer
+#: model:ir.model.fields,help:website_customer.field_res_partner_tag__website_url
+msgid "The full URL to access the document through the website."
+msgstr "URL completo per accedere al documento dal sito web."
+
+#. module: website_customer
+#: model_terms:ir.ui.view,arch_db:website_customer.index
 msgid "Trusted by millions worldwide"
 msgstr "Scelto da milioni di persone in tutto il mondo"
 
 #. module: website_customer
-#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag_website_published
-msgid "Visible in Website"
-msgstr "Visibile sul sito web"
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__website_published
+msgid "Visible on current website"
+msgstr "Visibile nel sito web corrente"
+
+#. module: website_customer
+#: model:ir.model,name:website_customer.model_website
+msgid "Website"
+msgstr "Sito web"
 
 #. module: website_customer
 #: model:ir.actions.act_window,name:website_customer.action_partner_tag_form
 #: model:ir.ui.menu,name:website_customer.menu_partner_tag_form
-#: model:ir.ui.view,arch_db:website_customer.view_partner_tag_list
-#: model:ir.ui.view,arch_db:website_customer.view_partners_form_website
+#: model_terms:ir.ui.view,arch_db:website_customer.view_partner_tag_list
+#: model_terms:ir.ui.view,arch_db:website_customer.view_partners_form_website
 msgid "Website Tags"
-msgstr "Tag sito web"
+msgstr "Etichette sito web"
 
 #. module: website_customer
-#: model:ir.model.fields,field_description:website_customer.field_res_partner_website_tag_ids
-#: model:ir.model.fields,field_description:website_customer.field_res_users_website_tag_ids
+#: model:ir.model.fields,field_description:website_customer.field_res_partner_tag__website_url
+msgid "Website URL"
+msgstr "URL sito web"
+
+#. module: website_customer
+#: model:ir.model.fields,field_description:website_customer.field_res_partner__website_tag_ids
+#: model:ir.model.fields,field_description:website_customer.field_res_users__website_tag_ids
 msgid "Website tags"
-msgstr "Tag sito web"
+msgstr "Etichette sito web"
 
 #. module: website_customer
-#: model:ir.ui.view,arch_db:website_customer.opt_country
+#: model_terms:ir.ui.view,arch_db:website_customer.opt_country
 msgid "World Map"
 msgstr "Mappa del mondo"
 
 #. module: website_customer
-#: model:ir.ui.view,arch_db:website_customer.implemented_by_block
+#: model_terms:ir.ui.view,arch_db:website_customer.implemented_by_block
 msgid "reference(s))"
-msgstr "riferimento(i))"
+msgstr "referenza/e)"

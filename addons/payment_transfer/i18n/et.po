@@ -1,20 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * payment_transfer
+# 	* payment_transfer
 # 
 # Translators:
-# Arma Gedonsky <armagedonsky@hot.ee>, 2017
-# Egon Raamat <egon@avalah.ee>, 2017
-# Martin Trigaux, 2017
-# Eneli Õigus <enelioigus@gmail.com>, 2017
-# Martin Aavastik <martin@avalah.ee>, 2018
+# Triine Aavik <triine@avalah.ee>, 2020
+# Martin Trigaux, 2020
+# Eneli Õigus <enelioigus@gmail.com>, 2020
+# Marek Pontus, 2020
+# Martin Aavastik <martin@avalah.ee>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server saas~13.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 09:53+0000\n"
-"PO-Revision-Date: 2017-09-20 09:53+0000\n"
-"Last-Translator: Martin Aavastik <martin@avalah.ee>, 2018\n"
+"POT-Creation-Date: 2020-09-01 07:29+0000\n"
+"PO-Revision-Date: 2020-09-07 08:16+0000\n"
+"Last-Translator: Martin Aavastik <martin@avalah.ee>, 2020\n"
 "Language-Team: Estonian (https://www.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,19 +24,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: payment_transfer
-#: code:addons/payment_transfer/models/payment.py:70
+#: code:addons/payment_transfer/models/payment.py:0
 #, python-format
 msgid "; multiple order found"
 msgstr "; multiple order found"
 
 #. module: payment_transfer
-#: code:addons/payment_transfer/models/payment.py:68
+#: code:addons/payment_transfer/models/payment.py:0
 #, python-format
 msgid "; no order found"
 msgstr "; no order found"
 
 #. module: payment_transfer
-#: code:addons/payment_transfer/models/payment.py:28
+#: code:addons/payment_transfer/models/payment.py:0
 #, python-format
 msgid ""
 "<div>\n"
@@ -55,16 +56,39 @@ msgstr ""
 "</div>"
 
 #. module: payment_transfer
-#: code:addons/payment_transfer/models/payment.py:26
+#: code:addons/payment_transfer/models/payment.py:0
 #, python-format
 msgid "Bank Account"
 msgstr "Pangakonto"
 
 #. module: payment_transfer
-#: code:addons/payment_transfer/models/payment.py:26
+#: code:addons/payment_transfer/models/payment.py:0
 #, python-format
 msgid "Bank Accounts"
 msgstr "Pangakontod"
+
+#. module: payment_transfer
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_acquirer__display_name
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_transaction__display_name
+msgid "Display Name"
+msgstr "Kuva nimi"
+
+#. module: payment_transfer
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_acquirer__id
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_transaction__id
+msgid "ID"
+msgstr "ID"
+
+#. module: payment_transfer
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_acquirer____last_update
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_transaction____last_update
+msgid "Last Modified on"
+msgstr "Viimati muudetud (millal)"
+
+#. module: payment_transfer
+#: model:ir.model.fields.selection,name:payment_transfer.selection__payment_acquirer__provider__transfer
+msgid "Manual Payment"
+msgstr ""
 
 #. module: payment_transfer
 #: model:ir.model,name:payment_transfer.model_payment_acquirer
@@ -74,10 +98,15 @@ msgstr "Makse saaja"
 #. module: payment_transfer
 #: model:ir.model,name:payment_transfer.model_payment_transaction
 msgid "Payment Transaction"
-msgstr "Makse ülekanne"
+msgstr "Maksetehing"
 
 #. module: payment_transfer
-#: code:addons/payment_transfer/models/payment.py:66
+#: model:ir.model.fields,field_description:payment_transfer.field_payment_acquirer__provider
+msgid "Provider"
+msgstr "Varustaja"
+
+#. module: payment_transfer
+#: code:addons/payment_transfer/models/payment.py:0
 #, python-format
 msgid "received data for reference %s"
 msgstr "received data for reference %s"

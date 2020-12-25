@@ -1,14 +1,15 @@
 flectra.define('hr_attendance.greeting_message', function (require) {
 "use strict";
 
+var AbstractAction = require('web.AbstractAction');
 var core = require('web.core');
-var Widget = require('web.Widget');
+var time = require('web.time');
 
 var _t = core._t;
 
 
-var GreetingMessage = Widget.extend({
-    template: 'HrAttendanceGreetingMessage',
+var GreetingMessage = AbstractAction.extend({
+    contentTemplate: 'HrAttendanceGreetingMessage',
 
     events: {
         "click .o_hr_attendance_button_dismiss": function() { this.do_action(this.next_action, {clear_breadcrumbs: true}); },
@@ -47,9 +48,15 @@ var GreetingMessage = Widget.extend({
         this.previous_attendance_change_date = action.previous_attendance_change_date && moment.utc(action.previous_attendance_change_date).local();
 
         // check in/out times displayed in the greeting message template.
-        this.format_time = 'HH:mm:ss';
+        this.format_time = time.getLangTimeFormat();
         this.attendance.check_in_time = this.attendance.check_in && this.attendance.check_in.format(this.format_time);
         this.attendance.check_out_time = this.attendance.check_out && this.attendance.check_out.format(this.format_time);
+
+        if (action.hours_today) {
+            var duration = moment.duration(action.hours_today, "hours");
+            this.hours_today = duration.hours() + ' hours, ' + duration.minutes() + ' minutes';
+        }
+
         this.employee_name = action.employee_name;
         this.attendanceBarcode = action.barcode;
     },
@@ -61,6 +68,7 @@ var GreetingMessage = Widget.extend({
         if (this.activeBarcode) {
             core.bus.on('barcode_scanned', this, this._onBarcodeScanned);
         }
+        return this._super.apply(this, arguments);
     },
 
     welcome_message: function() {
@@ -107,7 +115,7 @@ var GreetingMessage = Widget.extend({
         if(this.previous_attendance_change_date){
             var last_check_in_date = this.previous_attendance_change_date.clone();
             if(now - last_check_in_date > 1000*60*60*12){
-                this.$('.o_hr_attendance_warning_message').append(_t("Warning! Last check in was over 12 hours ago.<br/>If this isn't right, please contact Human Resources."));
+                this.$('.o_hr_attendance_warning_message').show().append(_t("<b>Warning! Last check in was over 12 hours ago.</b><br/>If this isn't right, please contact Human Resource staff"));
                 clearTimeout(this.return_to_main_menu);
                 this.activeBarcode = false;
             } else if(now - last_check_in_date > 1000*60*60*8){

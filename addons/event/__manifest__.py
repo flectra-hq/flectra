@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Events Organization',
-    'author': 'Odoo S.A',
-    'version': '1.0',
-    'website': 'https://flectrahq.com/page/events',
-    'category': 'Marketing',
+    'version': '1.3',
+    'website': 'https://flectrahq.com/events',
+    'category': 'Marketing/Events',
     'summary': 'Trainings, Conferences, Meetings, Exhibitions, Registrations',
     'description': """
 Organization and management of Events.
@@ -18,12 +17,14 @@ Key Features
 * Manage your Events and Registrations
 * Use emails to automatically confirm and send acknowledgments for any event registration
 """,
-    'depends': ['base_setup', 'mail'],
+    'depends': ['base_setup', 'mail', 'portal', 'utm'],
     'data': [
         'security/event_security.xml',
         'security/ir.model.access.csv',
-        'wizard/event_confirm_view.xml',
+        'views/event_menu_views.xml',
+        'views/event_ticket_views.xml',
         'views/event_views.xml',
+        'views/event_stage_views.xml',
         'report/event_event_templates.xml',
         'report/event_event_reports.xml',
         'data/email_template_data.xml',
@@ -31,9 +32,14 @@ Key Features
         'views/res_config_settings_views.xml',
         'views/event_templates.xml',
         'views/res_partner_views.xml',
+        'views/event_tag_views.xml'
     ],
     'demo': [
+        'data/res_users_demo.xml',
+        'data/res_partner_demo.xml',
+        'data/event_demo_misc.xml',
         'data/event_demo.xml',
+        'data/event_registration_demo.xml',
     ],
     'installable': True,
     'auto_install': False,

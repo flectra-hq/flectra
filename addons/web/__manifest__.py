@@ -3,7 +3,6 @@
 
 {
     'name': 'Web',
-    'author': 'Odoo S.A.',
     'category': 'Hidden',
     'version': '1.0',
     'description':
@@ -17,18 +16,25 @@ This module provides the core of the Odoo Web Client.
     'auto_install': True,
     'data': [
         'security/ir.model.access.csv',
-        'views/res_users_views.xml',
         'views/webclient_templates.xml',
         'views/report_templates.xml',
+        'views/base_document_layout_views.xml',
+        'data/report_layout.xml',
     ],
     'qweb': [
         "static/src/xml/base.xml",
+        "static/src/xml/chart.xml",
+        "static/src/xml/fields.xml",
+        "static/src/xml/file_upload_progress_bar.xml",
+        "static/src/xml/file_upload_progress_card.xml",
         "static/src/xml/kanban.xml",
+        "static/src/xml/menu.xml",
+        "static/src/xml/notification.xml",
+        "static/src/xml/pivot.xml",
         "static/src/xml/rainbow_man.xml",
         "static/src/xml/report.xml",
+        "static/src/xml/search_panel.xml",
         "static/src/xml/web_calendar.xml",
-        "static/src/xml/backend_theme.xml",
-        "static/src/xml/backend_theme_customizer.xml",
     ],
     'bootstrap': True,  # load translations for login screen
 }

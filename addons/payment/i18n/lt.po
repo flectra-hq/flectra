@@ -1,26 +1,28 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * payment
+# 	* payment
 # 
 # Translators:
-# Aleksandr Jadov <a.jadov@tata.lt>, 2017
-# Rolandas <info@paninfo.lt>, 2017
-# UAB "Draugiški sprendimai" <transifex@draugiskisprendimai.lt>, 2017
-# Audrius Palenskis <audrius.palenskis@gmail.com>, 2017
-# Šarūnas Ažna <sarunas.azna@gmail.com>, 2017
-# Martin Trigaux, 2017
-# Silvija Butko <silvija.butko@gmail.com>, 2018
-# Edgaras Kriukonis <edgaras@focusate.eu>, 2018
-# Antanas Muliuolis <an.muliuolis@gmail.com>, 2018
-# digitouch UAB <digitouchagencyeur@gmail.com>, 2018
+# Arminas Grigonis <arminas@versada.lt>, 2019
+# vaalds <vaalds@gmail.com>, 2019
+# Šarūnas Ažna <sarunas.azna@gmail.com>, 2019
+# Vytautas Stanaitis <vytautas@basas.lt>, 2019
+# Edgaras Kriukonis <edgaras@focusate.eu>, 2019
+# Aleksandr Jadov <a.jadov@tata.lt>, 2019
+# Martin Trigaux, 2019
+# UAB "Draugiški sprendimai" <transifex@draugiskisprendimai.lt>, 2019
+# Silvija Butko <silvija.butko@gmail.com>, 2019
+# Audrius Palenskis <audrius.palenskis@gmail.com>, 2019
+# Antanas Muliuolis <an.muliuolis@gmail.com>, 2019
+# digitouch UAB <digitouchagencyeur@gmail.com>, 2019
 # Linas Versada <linaskrisiukenas@gmail.com>, 2019
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server saas~12.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-17 15:01+0000\n"
-"PO-Revision-Date: 2017-09-20 10:20+0000\n"
+"POT-Creation-Date: 2019-09-09 12:17+0000\n"
+"PO-Revision-Date: 2019-08-26 09:12+0000\n"
 "Last-Translator: Linas Versada <linaskrisiukenas@gmail.com>, 2019\n"
 "Language-Team: Lithuanian (https://www.transifex.com/odoo/teams/41243/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -30,406 +32,503 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.payment_confirmation_status
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__invoice_ids_nbr
+msgid "# of Invoices"
+msgstr "# sąskaitų-faktūrų"
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.payment_confirmation_status
 msgid "&amp;times;"
 msgstr "&amp;times;"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_html_3ds
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__html_3ds
 msgid "3D Secure HTML"
 msgstr "3D Saugus HTML"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.pay
+#: model_terms:ir.ui.view,arch_db:payment.pay
 msgid "<b>Amount:</b>"
 msgstr "<b>Suma:</b>"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.pay
+#: model_terms:ir.ui.view,arch_db:payment.payment_confirmation_status
+msgid "<b>Communication: </b>"
+msgstr "<b>Komunikacija: </b>"
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.pay
 msgid "<b>Reference:</b>"
 msgstr "<b>Numeris:</b>"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.confirm
+#: code:addons/payment/wizards/payment_acquirer_onboarding_wizard.py:0
+#, python-format
+msgid ""
+"<h3>Please make a payment to: </h3><ul><li>Bank: %s</li><li>Account Number: "
+"%s</li><li>Account Holder: %s</li></ul>"
+msgstr ""
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.confirm
 msgid "<i class=\"fa fa-arrow-circle-right\"/> Back to My Account"
 msgstr "<i class=\"fa fa-arrow-circle-right\"/> Grįžti į mano paskyrą"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.payment_tokens_list
+#: model_terms:ir.ui.view,arch_db:payment.payment_tokens_list
+msgid ""
+"<i class=\"fa fa-check text-muted\" title=\"This payment method has not been"
+" verified by our system.\" role=\"img\" aria-label=\"Not verified\"/>"
+msgstr ""
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.payment_tokens_list
 msgid ""
 "<i class=\"fa fa-check text-success\" title=\"This payment method is "
-"verified by our system.\"/>"
+"verified by our system.\" role=\"img\" aria-label=\"Ok\"/>"
 msgstr ""
-"<i class=\"fa fa-check text-success\" title=\"This payment method is "
-"verified by our system.\"/>"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.payment_tokens_list
-msgid ""
-"<i class=\"fa fa-close text-danger\" title=\"This payment method has not "
-"been verified by our system.\"/>"
+#: model_terms:ir.ui.view,arch_db:payment.pay_methods
+msgid "<i class=\"fa fa-home\" role=\"img\" aria-label=\"Home\" title=\"Home\"/>"
 msgstr ""
-"<i class=\"fa fa-close text-danger\" title=\"This payment method has not "
-"been verified by our system.\"/>"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.payment_tokens_list
-msgid "<i class=\"fa fa-lock\"> Pay</i>"
-msgstr "<i class=\"fa fa-lock\"> Mokėti</i>"
+#: model_terms:ir.ui.view,arch_db:payment.payment_tokens_list
+msgid "<i class=\"fa fa-lock\"/> Pay"
+msgstr ""
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.payment_tokens_list
-msgid "<i class=\"fa fa-plus-circle\"> Add new card</i>"
-msgstr "<i class=\"fa fa-plus-circle\"> Pridėti naują kortelę</i>"
+#: model_terms:ir.ui.view,arch_db:payment.payment_tokens_list
+msgid "<i class=\"fa fa-plus-circle\"/> Add new card"
+msgstr ""
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.payment_tokens_list
+#: model_terms:ir.ui.view,arch_db:payment.payment_tokens_list
 msgid "<i class=\"fa fa-trash\"/> Delete"
 msgstr "<i class=\"fa fa-trash\"/> Ištrinti"
 
 #. module: payment
-#: code:addons/payment/models/payment_acquirer.py:122
-#, python-format
-msgid "<i>Cancel,</i> Your payment has been cancelled."
-msgstr "<i>Atšaukti,</i> jūsų mokėjimas buvo atšauktas."
-
-#. module: payment
-#: code:addons/payment/models/payment_acquirer.py:118
-#, python-format
-msgid ""
-"<i>Done,</i> Your online payment has been successfully processed. Thank you "
-"for your order."
-msgstr ""
-"<i>Atlikta,</i> jūsų internetinis mokėjimas buvo sėkmingai apdorotas. "
-"Dėkojame už jūsų užsakymą."
-
-#. module: payment
-#: code:addons/payment/models/payment_acquirer.py:126
-#, python-format
-msgid ""
-"<i>Error,</i> Please be aware that an error occurred during the transaction."
-" The order has been confirmed but will not be paid. Do not hesitate to "
-"contact us if you have any questions on the status of your order."
-msgstr ""
-"<i>Klaida,</i> Turėkite omenyje, kad klaida įvyko operacijos metu. Užsakymas"
-" buvo patvirtintas, bet nebus apmokėtas. Nedvejokite ir susisiekite su "
-"mumis, jei turite klausimų dėl savo užsakymo būsenos."
-
-#. module: payment
-#: code:addons/payment/models/payment_acquirer.py:114
-#, python-format
-msgid ""
-"<i>Pending,</i> Your online payment has been successfully processed. But "
-"your order is not validated yet."
-msgstr ""
-"<i>Laukia,</i> jūsų mokėjimas buvo sėkmingai apdorotas, tačiau jūsų "
-"užsakymas dar neapdorotas."
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:350
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "<p>This card is currently linked to the following records:<p/>"
 msgstr "<p>Ši kortelė šiuo metu yra susieta su šiais įrašais:<p/>"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
-msgid ""
-"<span class=\"o_warning_text\">Test</span>\n"
-"                                    <span class=\"o_stat_text\">Environment</span>"
+#: model_terms:ir.ui.view,arch_db:payment.payment_tokens_list
+msgid "<small class=\"text-muted\">(Some fees may apply)</small>"
 msgstr ""
-"<span class=\"o_warning_text\">Testinė</span>\n"
-"                                    <span class=\"o_stat_text\">Aplinka</span>"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_kanban
 msgid ""
-"<span class=\"text-success\">Production</span>\n"
-"                                    <span class=\"o_stat_text\">Environment</span>"
+"<span class=\"badge badge-primary oe_inline "
+"o_enterprise_label\">Enterprise</span>"
 msgstr ""
-"<span class=\"text-success\">Produkcinė</span>\n"
-"                                    <span class=\"o_stat_text\">Aplinka</span>"
 
 #. module: payment
-#: model:payment.acquirer,cancel_msg:payment.payment_acquirer_adyen
-#: model:payment.acquirer,cancel_msg:payment.payment_acquirer_authorize
-#: model:payment.acquirer,cancel_msg:payment.payment_acquirer_buckaroo
-#: model:payment.acquirer,cancel_msg:payment.payment_acquirer_custom
-#: model:payment.acquirer,cancel_msg:payment.payment_acquirer_ogone
-#: model:payment.acquirer,cancel_msg:payment.payment_acquirer_paypal
-#: model:payment.acquirer,cancel_msg:payment.payment_acquirer_payu
-#: model:payment.acquirer,cancel_msg:payment.payment_acquirer_sips
-#: model:payment.acquirer,cancel_msg:payment.payment_acquirer_stripe
-#: model:payment.acquirer,cancel_msg:payment.payment_acquirer_transfer
-msgid "<span><i>Cancel,</i> Your payment has been cancelled.</span>"
-msgstr "<span><i>Atšaukti,</i> Jūsų mokėjimas buvo atšauktas.</span>"
+#: model_terms:ir.ui.view,arch_db:payment.payment_acquirer_onboarding_wizard_form
+msgid "<span class=\"fa fa-arrow-right\"> Get my Stripe keys</span>"
+msgstr "<span class=\"fa fa-arrow-right\">Gauti mano Stripe raktus</span>"
 
 #. module: payment
-#: model:payment.acquirer,done_msg:payment.payment_acquirer_adyen
-#: model:payment.acquirer,done_msg:payment.payment_acquirer_authorize
-#: model:payment.acquirer,done_msg:payment.payment_acquirer_buckaroo
-#: model:payment.acquirer,done_msg:payment.payment_acquirer_custom
-#: model:payment.acquirer,done_msg:payment.payment_acquirer_ogone
-#: model:payment.acquirer,done_msg:payment.payment_acquirer_paypal
-#: model:payment.acquirer,done_msg:payment.payment_acquirer_payu
-#: model:payment.acquirer,done_msg:payment.payment_acquirer_sips
-#: model:payment.acquirer,done_msg:payment.payment_acquirer_stripe
-#: model:payment.acquirer,done_msg:payment.payment_acquirer_transfer
+#: model_terms:ir.ui.view,arch_db:payment.payment_acquirer_onboarding_wizard_form
 msgid ""
-"<span><i>Done,</i> Your online payment has been successfully processed. "
-"Thank you for your order.</span>"
+"<span class=\"fa fa-arrow-right\"> How to configure your PayPal "
+"account</span>"
 msgstr ""
-"<span><i>Atlikta,</i> Jūsų mokėjimas buvo sėkmingai apdorotas. Ačiū už "
-"užsakymą.</span>"
 
 #. module: payment
-#: model:payment.acquirer,error_msg:payment.payment_acquirer_adyen
-#: model:payment.acquirer,error_msg:payment.payment_acquirer_authorize
-#: model:payment.acquirer,error_msg:payment.payment_acquirer_buckaroo
-#: model:payment.acquirer,error_msg:payment.payment_acquirer_custom
-#: model:payment.acquirer,error_msg:payment.payment_acquirer_ogone
-#: model:payment.acquirer,error_msg:payment.payment_acquirer_paypal
-#: model:payment.acquirer,error_msg:payment.payment_acquirer_payu
-#: model:payment.acquirer,error_msg:payment.payment_acquirer_sips
-#: model:payment.acquirer,error_msg:payment.payment_acquirer_stripe
-#: model:payment.acquirer,error_msg:payment.payment_acquirer_transfer
+#: model_terms:ir.ui.view,arch_db:payment.view_partners_form_payment_defaultcreditcard
+msgid "<span class=\"o_stat_text\">Credit Cards</span>"
+msgstr ""
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.payment_acquirer_onboarding_wizard_form
 msgid ""
-"<span><i>Error,</i> Please be aware that an error occurred during the "
-"transaction. The order has been confirmed but will not be paid. Do not "
-"hesitate to contact us if you have any questions on the status of your "
-"order.</span>"
+"<span>Start selling directly without an account; an email will be sent by "
+"Paypal to create your new account and collect your payments.</span>"
 msgstr ""
-"<span><i>Klaida,</i>atkreipkite dėmesį, kad operacijos metu įvyko klaida. "
-"Užsakymas buvo patvirtintas, tačiau ne apmokėtas. Nedvejokite ir susisiekite"
-" su mumis, jei turite klausimų dėl savo užsakymo būsenos. </span>"
 
 #. module: payment
-#: model:payment.acquirer,pending_msg:payment.payment_acquirer_adyen
-#: model:payment.acquirer,pending_msg:payment.payment_acquirer_authorize
-#: model:payment.acquirer,pending_msg:payment.payment_acquirer_buckaroo
-#: model:payment.acquirer,pending_msg:payment.payment_acquirer_custom
-#: model:payment.acquirer,pending_msg:payment.payment_acquirer_ogone
-#: model:payment.acquirer,pending_msg:payment.payment_acquirer_paypal
-#: model:payment.acquirer,pending_msg:payment.payment_acquirer_payu
-#: model:payment.acquirer,pending_msg:payment.payment_acquirer_sips
-#: model:payment.acquirer,pending_msg:payment.payment_acquirer_stripe
-msgid ""
-"<span><i>Pending,</i> Your online payment has been successfully processed. "
-"But your order is not validated yet.</span>"
-msgstr ""
-"<span><i>Laukia,</i> jūsų mokėjimas buvo sėkmingai apdorotas, tačiau jūsų "
-"užsakymas dar neapdorotas.</span>"
+#: code:addons/payment/models/account_invoice.py:0
+#, python-format
+msgid "A journal must be specified of the acquirer %s."
+msgstr "Surinkėjo %s žurnalas turi būti nustatytas."
 
 #. module: payment
-#: model:payment.acquirer,pending_msg:payment.payment_acquirer_transfer
-msgid ""
-"<span><i>Pending</i>... The order will be validated after the "
-"payment.</span>"
-msgstr ""
-"<span><i>Laukiama</i>... Užsakymas bus patvirtintas po mokėjimo.</span>"
+#: code:addons/payment/models/account_invoice.py:0
+#, python-format
+msgid "A payment acquirer is required to create a transaction."
+msgstr "Norint sukurti operaciją, reikalingas mokėjimo surinkėjas."
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_acquirer_id
+#: code:addons/payment/models/account_payment.py:0
+#, python-format
+msgid "A payment transaction already exists."
+msgstr "Mokėjimo operacija jau egzistuoja."
+
+#. module: payment
+#: code:addons/payment/models/account_payment.py:0
+#, python-format
+msgid "A token is required to create a new payment transaction."
+msgstr "Naujos mokėjimo operacijos sukūrimui reikalingas prieigos raktas."
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid "A transaction %s with %s initiated using %s credit card."
+msgstr "Operacija %s su %s pradėta naudojant %s kreditinę kortelę."
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid "A transaction %s with %s initiated."
+msgstr "Operacija %s su %s pradėta."
+
+#. module: payment
+#: code:addons/payment/models/account_invoice.py:0
+#, python-format
+msgid "A transaction can't be linked to invoices having different currencies."
+msgstr ""
+"Operacija negali būti susieta su sąskaitomis, turinčiomis skirtingas "
+"valiutas."
+
+#. module: payment
+#: code:addons/payment/models/account_invoice.py:0
+#, python-format
+msgid "A transaction can't be linked to invoices having different partners."
+msgstr ""
+"Operacija negali būti susieta su sąskaitomis, turinčiomis skirtingus "
+"partnerius."
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__access_token
+msgid "Access Token"
+msgstr "Prieigos raktas"
+
+#. module: payment
+#: code:addons/payment/wizards/payment_acquirer_onboarding_wizard.py:0
+#, python-format
+msgid "Account"
+msgstr "Sąskaita"
+
+#. module: payment
+#: model:ir.model,name:payment.model_account_chart_template
+msgid "Account Chart Template"
+msgstr "Sąskaitų plano šablonas"
+
+#. module: payment
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_transfer
+msgid "Account Holder:"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__acc_number
+msgid "Account Number"
+msgstr "Sąskaitos numeris"
+
+#. module: payment
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_transfer
+msgid "Account Number:"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__acquirer_id
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_kanban
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_search
 msgid "Acquirer"
 msgstr "Surinkėjas"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_token_acquirer_id
+#: model:ir.model.fields,field_description:payment.field_payment_token__acquirer_id
 msgid "Acquirer Account"
 msgstr "Surinkėjo sąskaita"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_token_acquirer_ref
+#: model:ir.model.fields,field_description:payment.field_payment_token__acquirer_ref
 msgid "Acquirer Ref."
 msgstr "Surinkėjo nr."
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_acquirer_reference
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__acquirer_reference
 msgid "Acquirer Reference"
 msgstr "Surinkėjo numeris"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_icon_acquirer_ids
+#: model:ir.model.fields,field_description:payment.field_payment_icon__acquirer_ids
 msgid "Acquirers"
-msgstr "Gavėjai"
+msgstr "Surinkėjai"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.payment_icon_form_view
+#: model_terms:ir.ui.view,arch_db:payment.payment_icon_form_view
 msgid "Acquirers list"
-msgstr "Gavėjų sąrašas"
+msgstr "Surinkėjų sąrašas"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_kanban
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_kanban
 msgid "Activate"
 msgstr "Aktyvuoti"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_token_active
+#: model:ir.model.fields,field_description:payment.field_payment_token__active
 msgid "Active"
 msgstr "Aktyvus"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_fees_active
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__fees_active
 msgid "Add Extra Fees"
 msgstr "Pridėti papildomus mokesčius"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_address
-#: model:ir.ui.view,arch_db:payment.transaction_form
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__partner_address
+#: model_terms:ir.ui.view,arch_db:payment.transaction_form
 msgid "Address"
 msgstr "Adresas"
 
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_adyen
-#: selection:payment.acquirer,provider:0
 msgid "Adyen"
 msgstr "Adyen"
 
 #. module: payment
-#: selection:payment.acquirer,save_token:0
+#: model:payment.acquirer,name:payment.payment_acquirer_alipay
+msgid "Alipay"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer__save_token__always
 msgid "Always"
 msgstr "Visada"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_amount
-#: model:ir.model.fields,help:payment.field_payment_transaction_amount
-#: model:ir.ui.view,arch_db:payment.confirm
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__amount
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__amount
+#: model_terms:ir.ui.view,arch_db:payment.confirm
 msgid "Amount"
 msgstr "Suma"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_authorize_implemented
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__amount_max
+msgid "Amount Max"
+msgstr ""
+
+#. module: payment
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "An error occured during the processing of this payment."
+msgstr "Apdorojant šį mokėjimą įvyko klaida."
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.payment_acquirer_onboarding_wizard_form
+msgid "Apply"
+msgstr "Taikyti"
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.payment_token_view_search
+msgid "Archived"
+msgstr "Archyvuotas"
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.account_invoice_view_form_inherit_payment
+#: model_terms:ir.ui.view,arch_db:payment.transaction_form
+msgid ""
+"Are you sure you want to void the authorized transaction? This action can't "
+"be undone."
+msgstr ""
+"Ar tikrai norite anuliuoti patvirtintą operaciją? Šio veiksmo atšaukti "
+"negalėsite."
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__authorize_implemented
 msgid "Authorize Mechanism Supported"
 msgstr "Palaikomas patvirtinimo mechanizmas"
 
 #. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__auth_msg
+msgid "Authorize Message"
+msgstr ""
+
+#. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_authorize
-#: selection:payment.acquirer,provider:0
 msgid "Authorize.Net"
 msgstr "Authorize.Net"
 
 #. module: payment
-#: selection:payment.transaction,state:0
+#: model:ir.model.fields.selection,name:payment.selection__payment_transaction__state__authorized
 msgid "Authorized"
 msgstr "Patvirtinta"
 
 #. module: payment
-#: model:payment.acquirer,post_msg:payment.payment_acquirer_custom
-#: model:payment.acquirer,post_msg:payment.payment_acquirer_transfer
-msgid "Bank Account"
-msgstr "Banko sąskaita"
+#: model:ir.model.fields,field_description:payment.field_account_move__authorized_transaction_ids
+msgid "Authorized Transactions"
+msgstr "Patvirtintos operacijos"
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
+msgid "Availability"
+msgstr "Pasiekiamumas"
+
+#. module: payment
+#: code:addons/payment/wizards/payment_acquirer_onboarding_wizard.py:0
+#, python-format
+msgid "Bank"
+msgstr "Bankas"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__journal_name
+msgid "Bank Name"
+msgstr "Banko pavadinimas"
+
+#. module: payment
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_transfer
+msgid "Bank:"
+msgstr ""
 
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_buckaroo
-#: selection:payment.acquirer,provider:0
 msgid "Buckaroo"
 msgstr "Buckaroo"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_callback_res_id
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__callback_res_id
 msgid "Callback Document ID"
 msgstr "Atgalinio kreipimosi dokumento ID"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_callback_model_id
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__callback_model_id
 msgid "Callback Document Model"
 msgstr "Atgalinio kreipimosi dokumento modelis"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_callback_hash
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__callback_hash
 msgid "Callback Hash"
 msgstr "Atgalinio kreipimosi maiša"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_callback_method
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__callback_method
 msgid "Callback Method"
 msgstr "Atgalinio kreipimosi metodas"
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:358
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
+#: model_terms:ir.ui.view,arch_db:payment.payment_acquirer_onboarding_wizard_form
 #, python-format
 msgid "Cancel"
 msgstr "Atšaukti"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_cancel_msg
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__cancel_msg
 msgid "Cancel Message"
 msgstr "Atšaukti pranešimą"
 
 #. module: payment
-#: selection:payment.transaction,state:0
+#: model:ir.model.fields.selection,name:payment.selection__payment_transaction__state__cancel
 msgid "Canceled"
 msgstr "Atšaukta"
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:188
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "Cancelled payments"
+msgstr "Atšaukti mokėjimai"
+
+#. module: payment
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "Cannot set-up the payment"
 msgstr "Negalima nustatyti mokėjimo"
 
 #. module: payment
-#: code:addons/payment/controllers/portal.py:111
+#: code:addons/payment/controllers/portal.py:0
 #, python-format
 msgid "Cannot setup the payment."
 msgstr "Negalima nustatyti mokėjimo."
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_capture_manually
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__capture_manually
 msgid "Capture Amount Manually"
 msgstr "Fiksuoti kiekį rankiniu būdu"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.transaction_form
+#: model_terms:ir.ui.view,arch_db:payment.account_invoice_view_form_inherit_payment
+#: model_terms:ir.ui.view,arch_db:payment.transaction_form
 msgid "Capture Transaction"
 msgstr "Fiksuoti operaciją"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_capture_manually
+#: model:ir.model.fields,help:payment.field_payment_acquirer__capture_manually
 msgid "Capture the amount from Odoo, when the delivery is completed."
 msgstr "Kai pristatymas atliktas, fiksuokite sumą iš \"Odoo\"."
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_city
-#: model:ir.ui.view,arch_db:payment.transaction_form
+#: model_terms:ir.ui.view,arch_db:payment.payment_acquirer_onboarding_wizard_form
+msgid "Check here"
+msgstr "Paspauskite čia"
+
+#. module: payment
+#: model:ir.actions.act_window,name:payment.action_open_payment_onboarding_payment_acquirer_wizard
+#: model_terms:ir.ui.view,arch_db:payment.payment_acquirer_onboarding_wizard_form
+msgid "Choose a payment method"
+msgstr "Pasirinkti mokėjimo būdą"
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
+msgid "Choose your default customer payment method."
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__partner_city
+#: model_terms:ir.ui.view,arch_db:payment.transaction_form
 msgid "City"
 msgstr "Miestas"
 
 #. module: payment
-#: model:ir.actions.act_window,help:payment.action_payment_acquirer
-msgid "Click to create a payment acquirer."
-msgstr "Paspauskite, jei norite sukurti mokėjimo surinkėją."
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "Click here to be redirected to the confirmation page."
+msgstr "Paspauskite čia, kad būtumėte nukreiptas į patvirtinimo puslapį."
 
 #. module: payment
-#: model:ir.actions.act_window,help:payment.action_payment_icon
-msgid "Click to create a payment icon."
-msgstr "Paspauskite, kad sukurtumėte mokėjimo piktogramą."
+#: model_terms:ir.ui.view,arch_db:payment.payment_confirmation_status
+#: model_terms:ir.ui.view,arch_db:payment.payment_link_wizard_view_form
+msgid "Close"
+msgstr "Uždaryti"
 
 #. module: payment
-#: model:payment.acquirer,post_msg:payment.payment_acquirer_custom
-#: model:payment.acquirer,post_msg:payment.payment_acquirer_transfer
-msgid "Communication"
-msgstr "Komunikacija"
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__color
+msgid "Color"
+msgstr "Spalva"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_company_id
+#: model:ir.model,name:payment.model_res_company
+msgid "Companies"
+msgstr "Įmonės"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__company_id
 msgid "Company"
 msgstr "Įmonė"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
 msgid "Configuration"
-msgstr "Nustatymai"
+msgstr "Konfigūracija"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_kanban
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_kanban
 msgid "Configure"
-msgstr "Nustatyti"
+msgstr "Konfigūruoti"
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:357
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "Confirm Deletion"
 msgstr "Patvirtinti ištrynimą"
@@ -437,110 +536,199 @@ msgstr "Patvirtinti ištrynimą"
 #. module: payment
 #: model:ir.model,name:payment.model_res_partner
 msgid "Contact"
-msgstr "Kontaktas"
+msgstr "Kontaktai"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_module_id
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__module_id
 msgid "Corresponding Module"
 msgstr "Susijęs modulis"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_res_partner_payment_token_count
-#: model:ir.model.fields,field_description:payment.field_res_users_payment_token_count
+#: model:ir.model.fields,field_description:payment.field_res_partner__payment_token_count
+#: model:ir.model.fields,field_description:payment.field_res_users__payment_token_count
 msgid "Count Payment Token"
 msgstr "Skaičiuoti mokėjimo prieigos kodą"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_country_ids
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__country_ids
 msgid "Countries"
 msgstr "Valstybės"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_country_id
-#: model:ir.ui.view,arch_db:payment.transaction_form
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__partner_country_id
+#: model_terms:ir.ui.view,arch_db:payment.transaction_form
 msgid "Country"
 msgstr "Valstybė"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_create_uid
-#: model:ir.model.fields,field_description:payment.field_payment_icon_create_uid
-#: model:ir.model.fields,field_description:payment.field_payment_token_create_uid
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_create_uid
+#: model_terms:ir.actions.act_window,help:payment.action_payment_acquirer
+msgid "Create a new payment acquirer"
+msgstr "Sukurkite naują mokėjimo surinkėją"
+
+#. module: payment
+#: model_terms:ir.actions.act_window,help:payment.action_payment_transaction
+msgid "Create a new payment transaction"
+msgstr "Sukurkite naują mokėjimo operaciją"
+
+#. module: payment
+#: model_terms:ir.actions.act_window,help:payment.action_payment_icon
+msgid "Create a payment icon"
+msgstr "Sukurti mokėjimo piktogramą"
+
+#. module: payment
+#: model_terms:ir.actions.act_window,help:payment.payment_token_action
+msgid "Create a saved payment data"
+msgstr "Sukurti išsaugoto mokėjimo duomenis"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__create_uid
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__create_uid
+#: model:ir.model.fields,field_description:payment.field_payment_icon__create_uid
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__create_uid
+#: model:ir.model.fields,field_description:payment.field_payment_token__create_uid
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__create_uid
 msgid "Created by"
 msgstr "Sukūrė"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_create_date
-#: model:ir.model.fields,field_description:payment.field_payment_icon_create_date
-#: model:ir.model.fields,field_description:payment.field_payment_token_create_date
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__create_date
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__create_date
+#: model:ir.model.fields,field_description:payment.field_payment_icon__create_date
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__create_date
+#: model:ir.model.fields,field_description:payment.field_payment_token__create_date
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__create_date
 msgid "Created on"
 msgstr "Sukurta"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_create_date
-msgid "Creation Date"
-msgstr "Sukūrimo data"
-
-#. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
 msgid "Credentials"
 msgstr "Duomenys"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.view_partners_form_payment_defaultcreditcard
-msgid "Credit card(s)"
-msgstr "Kreditinė(s) kortelė(s)"
+#: model:payment.acquirer,display_as:payment.payment_acquirer_adyen
+msgid "Credit Card (powered by Adyen)"
+msgstr ""
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_currency_id
+#: model:payment.acquirer,display_as:payment.payment_acquirer_alipay
+msgid "Credit Card (powered by Alipay)"
+msgstr ""
+
+#. module: payment
+#: model:payment.acquirer,display_as:payment.payment_acquirer_authorize
+msgid "Credit Card (powered by Authorize)"
+msgstr ""
+
+#. module: payment
+#: model:payment.acquirer,display_as:payment.payment_acquirer_buckaroo
+msgid "Credit Card (powered by Buckaroo)"
+msgstr ""
+
+#. module: payment
+#: model:payment.acquirer,display_as:payment.payment_acquirer_ingenico
+msgid "Credit Card (powered by Ingenico)"
+msgstr ""
+
+#. module: payment
+#: model:payment.acquirer,display_as:payment.payment_acquirer_payulatam
+msgid "Credit Card (powered by PayU Latam)"
+msgstr ""
+
+#. module: payment
+#: model:payment.acquirer,display_as:payment.payment_acquirer_payu
+msgid "Credit Card (powered by PayUmoney)"
+msgstr ""
+
+#. module: payment
+#: model:payment.acquirer,display_as:payment.payment_acquirer_sips
+msgid "Credit Card (powered by Sips)"
+msgstr ""
+
+#. module: payment
+#: model:payment.acquirer,display_as:payment.payment_acquirer_stripe
+msgid "Credit Card (powered by Stripe)"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer_onboarding_wizard__payment_method__stripe
+msgid "Credit card (via Stripe)"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__currency_id
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__currency_id
 msgid "Currency"
 msgstr "Valiuta"
 
 #. module: payment
-#: model:payment.acquirer,name:payment.payment_acquirer_custom
-msgid "Custom"
-msgstr "Pasirinktinis"
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer__provider__manual
+msgid "Custom Payment Form"
+msgstr ""
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_id
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer_onboarding_wizard__payment_method__manual
+msgid "Custom payment instructions"
+msgstr "Nestandartinio mokėjimo instrukcija"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__partner_id
 msgid "Customer"
 msgstr "Klientas"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_description
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__description
 msgid "Description"
 msgstr "Aprašymas"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_sequence
+#: model:ir.model.fields,help:payment.field_payment_acquirer__sequence
 msgid "Determine the display order"
 msgstr "Nustatoma atvaizdavimo tvarka"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_display_name
-#: model:ir.model.fields,field_description:payment.field_payment_icon_display_name
-#: model:ir.model.fields,field_description:payment.field_payment_token_display_name
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_display_name
-msgid "Display Name"
-msgstr "Vaizduojamas pavadinimas"
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer__state__disabled
+msgid "Disabled"
+msgstr "Išjungta"
 
 #. module: payment
-#: selection:payment.transaction,state:0
+#: model_terms:ir.ui.view,arch_db:payment.payment_confirmation_status
+msgid "Dismiss"
+msgstr "Pašalinti"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__display_name
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__display_name
+#: model:ir.model.fields,field_description:payment.field_payment_icon__display_name
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__display_name
+#: model:ir.model.fields,field_description:payment.field_payment_token__display_name
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__display_name
+msgid "Display Name"
+msgstr "Rodomas pavadinimas"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__display_as
+msgid "Displayed as"
+msgstr "Rodomas kaip"
+
+#. module: payment
+#: model:ir.model.fields.selection,name:payment.selection__payment_transaction__state__done
+#: model:ir.model.fields.selection,name:payment.selection__res_company__payment_acquirer_onboarding_state__done
 msgid "Done"
 msgstr "Atlikta"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_done_msg
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__done_msg
 msgid "Done Message"
 msgstr "Atlikimo žinutė"
 
 #. module: payment
-#: selection:payment.transaction,state:0
+#: model:ir.model.fields.selection,name:payment.selection__payment_transaction__state__draft
 msgid "Draft"
 msgstr "Juodraštis"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.transaction_form
+#: model_terms:ir.ui.view,arch_db:payment.transaction_form
 msgid "E-mail"
 msgstr "El. paštas"
 
@@ -550,302 +738,443 @@ msgid "Electronic"
 msgstr "Elektroninis"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_email
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__paypal_email_account
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__partner_email
+#: model_terms:ir.ui.view,arch_db:payment.payment_acquirer_onboarding_wizard_form
 msgid "Email"
 msgstr "El. paštas"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_environment
-#: model:ir.ui.view,arch_db:payment.acquirer_search
-msgid "Environment"
-msgstr "Aplinka"
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer__state__enabled
+msgid "Enabled"
+msgstr ""
 
 #. module: payment
-#: selection:payment.transaction,state:0
+#: model:ir.model.fields.selection,name:payment.selection__payment_transaction__state__error
 msgid "Error"
 msgstr "Klaida"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_error_msg
-msgid "Error Message"
-msgstr "Klaidos pranešimas"
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:428
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "Error: "
 msgstr "Klaida:"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_fees
+#: model_terms:ir.ui.view,arch_db:payment.payment_tokens_list
+msgid "Fee"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__fees
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
 msgid "Fees"
 msgstr "Mokesčiai"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_fees_implemented
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__fees_implemented
 msgid "Fees Computation Supported"
 msgstr "Palaikomas mokesčių skaičiavimas"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_transaction_fees
+#: model:ir.model.fields,help:payment.field_payment_transaction__fees
 msgid "Fees amount; set by the system because depends on the acquirer"
 msgstr "Mokesčių kiekis, nustatomas sistemos, nes priklauso nuo surinkėjo"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_transaction_state_message
+#: model:ir.model.fields,help:payment.field_payment_transaction__state_message
 msgid "Field used to store error and/or validation messages for information"
 msgstr "Laukas, naudojamas patvirtinimo ir/ar klaidos žinučių saugojimui"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_fees_dom_fixed
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__fees_dom_fixed
 msgid "Fixed domestic fees"
 msgstr "Fiksuoti vietiniai mokėjimai"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_fees_int_fixed
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__fees_int_fixed
 msgid "Fixed international fees"
 msgstr "Fiksuoti tarptautiniai mokėjimai"
 
 #. module: payment
-#: selection:payment.transaction,type:0
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__inbound_payment_method_ids
+msgid "For Incoming Payments"
+msgstr "Įeinantiems mokėjimams"
+
+#. module: payment
+#: model:ir.model.fields.selection,name:payment.selection__payment_transaction__type__form
 msgid "Form"
 msgstr "Forma"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_view_template_id
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__view_template_id
 msgid "Form Button Template"
 msgstr "Formos mygtuko šablonas"
 
 #. module: payment
-#: selection:payment.transaction,type:0
+#: model:ir.model.fields.selection,name:payment.selection__payment_transaction__type__form_save
 msgid "Form with tokenization"
 msgstr "Forma su prieigos raktu"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.confirm
+#: model_terms:ir.ui.view,arch_db:payment.confirm
 msgid "From"
 msgstr "Nuo"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_search
+#: model_terms:ir.ui.view,arch_db:payment.payment_link_wizard_view_form
+msgid "Generate Payment Link"
+msgstr ""
+
+#. module: payment
+#: model:ir.model,name:payment.model_payment_link_wizard
+msgid "Generate Sales Payment Link"
+msgstr ""
+
+#. module: payment
+#: model:ir.actions.act_window,name:payment.action_invoice_order_generate_link
+msgid "Generate a Payment Link"
+msgstr ""
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_search
 msgid "Group By"
 msgstr "Grupuoti pagal"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_pre_msg
+#: model:ir.model,name:payment.model_ir_http
+msgid "HTTP Routing"
+msgstr "HTTP nukreipimas"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__is_processed
+msgid "Has the payment been post processed"
+msgstr "Ar mokėjimas buvo vėliau apdorotas"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__pre_msg
 msgid "Help Message"
 msgstr "Pagalbos pranešimas"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_id
-#: model:ir.model.fields,field_description:payment.field_payment_icon_id
-#: model:ir.model.fields,field_description:payment.field_payment_token_id
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_id
+#: model:ir.model.fields,help:payment.field_payment_acquirer__display_as
+msgid "How the acquirer is displayed to the customers."
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer_onboarding_wizard__paypal_user_type__new_user
+msgid "I don't have a Paypal account"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer_onboarding_wizard__paypal_user_type__existing_user
+msgid "I have a Paypal account"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__id
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__id
+#: model:ir.model.fields,field_description:payment.field_payment_icon__id
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__id
+#: model:ir.model.fields,field_description:payment.field_payment_token__id
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__id
 msgid "ID"
 msgstr "ID"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_specific_countries
-msgid ""
-"If you leave it empty, the payment acquirer will be available for all the "
-"countries."
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
+msgid "If not defined, the acquirer name will be used."
 msgstr ""
-"Jei paliksite tuščią, šis mokėjimų surinkėjas bus pasiekiamas visoms šalims."
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_image
-#: model:ir.model.fields,field_description:payment.field_payment_icon_image
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "If, the payment hasn't been confirmed you can contact us."
+msgstr "Jei mokėjimas nebuvo patvirtintas, galite susisiekti su mumis."
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__image_128
+#: model:ir.model.fields,field_description:payment.field_payment_icon__image
 msgid "Image"
 msgstr "Paveikslėlis"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_icon_image_payment_form
+#: model:ir.model.fields,field_description:payment.field_payment_icon__image_payment_form
 msgid "Image displayed on the payment form"
 msgstr "Paveikslėlis, rodomas mokėjimo formoje"
 
 #. module: payment
-#: model:payment.acquirer,name:payment.payment_acquirer_ogone
+#: model:ir.model.fields,help:payment.field_payment_acquirer__state
+msgid ""
+"In test mode, a fake payment is processed through a test\n"
+"             payment interface. This mode is advised when setting up the\n"
+"             acquirer. Watch out, test and production modes require\n"
+"             different credentials."
+msgstr ""
+
+#. module: payment
+#: model:payment.acquirer,name:payment.payment_acquirer_ingenico
 msgid "Ingenico"
 msgstr "Ingenico"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
-#: model:ir.ui.view,arch_db:payment.acquirer_kanban
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_kanban
 msgid "Install"
 msgstr "Diegti"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_module_state
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__module_state
 msgid "Installation State"
 msgstr "Diegimo būsena"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_transaction_reference
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_search
+msgid "Installed"
+msgstr "Įdiegta"
+
+#. module: payment
+#: model:ir.model.fields,help:payment.field_payment_transaction__reference
 msgid "Internal reference of the TX"
 msgstr "VIdinis TX numeris"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_lang
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "Internal server error"
+msgstr "Vidinė serverio klaida"
+
+#. module: payment
+#: code:addons/payment/models/account_invoice.py:0
+#, python-format
+msgid "Invalid token found! Token acquirer %s != %s"
+msgstr "Rastas netinkamas prieigos raktas! Rakto surinkėjas %s != %s"
+
+#. module: payment
+#: code:addons/payment/models/account_invoice.py:0
+#, python-format
+msgid "Invalid token found! Token partner %s != %s"
+msgstr "Rastas netinkamas prieigos raktas! Rakto partneris %s != %s"
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.transaction_form
+msgid "Invoice(s)"
+msgstr "Sąskaita (-os)"
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__invoice_ids
+#, python-format
+msgid "Invoices"
+msgstr "Sąskaitos-faktūros"
+
+#. module: payment
+#: model:ir.model,name:payment.model_account_move
+msgid "Journal Entries"
+msgstr "Žurnalo įrašai"
+
+#. module: payment
+#: model:ir.model.fields,help:payment.field_payment_acquirer__journal_id
+msgid "Journal where the successful transactions will be posted"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields.selection,name:payment.selection__res_company__payment_acquirer_onboarding_state__just_done
+msgid "Just done"
+msgstr "Ką tik atlikta"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__partner_lang
 msgid "Language"
 msgstr "Kalba"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer___last_update
-#: model:ir.model.fields,field_description:payment.field_payment_icon___last_update
-#: model:ir.model.fields,field_description:payment.field_payment_token___last_update
-#: model:ir.model.fields,field_description:payment.field_payment_transaction___last_update
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer____last_update
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard____last_update
+#: model:ir.model.fields,field_description:payment.field_payment_icon____last_update
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard____last_update
+#: model:ir.model.fields,field_description:payment.field_payment_token____last_update
+#: model:ir.model.fields,field_description:payment.field_payment_transaction____last_update
 msgid "Last Modified on"
 msgstr "Paskutinį kartą keista"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_write_uid
-#: model:ir.model.fields,field_description:payment.field_payment_icon_write_uid
-#: model:ir.model.fields,field_description:payment.field_payment_token_write_uid
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_write_uid
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__write_uid
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__write_uid
+#: model:ir.model.fields,field_description:payment.field_payment_icon__write_uid
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__write_uid
+#: model:ir.model.fields,field_description:payment.field_payment_token__write_uid
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__write_uid
 msgid "Last Updated by"
 msgstr "Paskutinį kartą atnaujino"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_write_date
-#: model:ir.model.fields,field_description:payment.field_payment_icon_write_date
-#: model:ir.model.fields,field_description:payment.field_payment_token_write_date
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_write_date
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__write_date
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__write_date
+#: model:ir.model.fields,field_description:payment.field_payment_icon__write_date
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__write_date
+#: model:ir.model.fields,field_description:payment.field_payment_token__write_date
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__write_date
 msgid "Last Updated on"
 msgstr "Paskutinį kartą atnaujinta"
 
 #. module: payment
-#: selection:payment.acquirer,save_token:0
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer__save_token__ask
 msgid "Let the customer decide"
 msgstr "Leiskite klientui nuspręsti"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_icon_acquirer_ids
+#: model:ir.model.fields,help:payment.field_payment_icon__acquirer_ids
 msgid "List of Acquirers supporting this payment icon."
 msgstr "Mokėjimo gavėjų, palaikančių šią mokėjimo piktogramą, sąrašas."
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_website_published
-msgid "Make this payment acquirer available (Customer invoices, etc.)"
-msgstr "Padaryti šį mokėjimų surinkėją pasiekiamu (kliento sąskaitos ir t.t.)"
+#: model_terms:ir.ui.view,arch_db:payment.pay_methods
+msgid "Manage Payment Methods"
+msgstr ""
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.pay_methods
-msgid "Manage your Payment Methods"
-msgstr "Valdykite savo mokėjimo būdus"
+#: model_terms:ir.ui.view,arch_db:payment.pay_meth_link
+msgid "Manage payment methods"
+msgstr ""
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.pay_meth_link
+#: model_terms:ir.ui.view,arch_db:payment.payment_tokens_list
 msgid "Manage your payment methods"
 msgstr "Tvarkyti mokėjimo būdus"
 
 #. module: payment
-#: selection:payment.acquirer,provider:0
-msgid "Manual Configuration"
-msgstr "Konfigūracija rankiniu būdu"
+#: model:ir.model.fields.selection,name:payment.selection__res_company__payment_onboarding_payment_method__manual
+msgid "Manual"
+msgstr "Rankinis"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_image_medium
-msgid "Medium-sized image"
-msgstr "Vidutinio dydžio paveikslėlis"
-
-#. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_image_medium
+#: model:ir.model.fields,help:payment.field_payment_acquirer__inbound_payment_method_ids
 msgid ""
-"Medium-sized image of this provider. It is automatically resized as a "
-"128x128px image, with aspect ratio preserved. Use this field in form views "
-"or some kanban views."
+"Manual: Get paid by cash, check or any other method outside of Odoo.\n"
+"Electronic: Get paid automatically through a payment acquirer by requesting a transaction on a card saved by the customer when buying or subscribing online (payment token).\n"
+"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Odoo,you are suggested to reconcile the transaction with the batch deposit. Enable this option from the settings."
 msgstr ""
-"Vidutinio dydžio tikėjo paveikslėlis. Nuotraukos dydis automatiškai "
-"sumažinamas į 128x128px, kai nuotrauka viršija minėtą dydį. Naudokite šį "
-"lauką paprastose arba Kanban formose."
+"Rankinis: priimkite mokėjimus grynaisiais, čekiais ar bet kokiu kitu metodu už \"Odoo\" ribų.\n"
+"Elektroninis: priimkite apmokėjimus automatiškai per mokėjimo surinkėją, prašant operacijos kliento kortele.\n"
+"Grupinis depozitas: sugrupuokite kelis čekius iš karto sugeneruodami grupinį depozitą. Kai sukeliate banko išrašą į \"Odoo\", jums pasiūloma sudengti operacijas grupiniu depozitu. Įjunkite šį pasirinkimą nustatymuose."
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_state_message
-#: model:ir.ui.view,arch_db:payment.transaction_form
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__paypal_seller_account
+msgid "Merchant Account ID"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__state_message
+#: model_terms:ir.ui.view,arch_db:payment.transaction_form
 msgid "Message"
-msgstr "Pranešimas"
+msgstr "Žinutė"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_post_msg
-msgid "Message displayed after having done the payment process."
-msgstr "Žinutė, rodoma atlikus mokėjimo procesą."
+#: model:ir.model.fields,help:payment.field_payment_acquirer__auth_msg
+msgid "Message displayed if payment is authorized."
+msgstr ""
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_pre_msg
+#: model:ir.model.fields,help:payment.field_payment_acquirer__pre_msg
 msgid "Message displayed to explain and help the payment process."
 msgstr "Žinutė, paaiškinanti ir padedanti mokėjimo procese."
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_error_msg
-msgid "Message displayed, if error is occur during the payment process."
-msgstr "Žinutė, rodoma, jei mokėjimo proceso metu įvyko klaida."
-
-#. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_cancel_msg
+#: model:ir.model.fields,help:payment.field_payment_acquirer__cancel_msg
 msgid "Message displayed, if order is cancel during the payment process."
 msgstr "Žinutė, rodoma, jei užsakymas yra atšaukiamas apmokėjimo metu."
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_done_msg
+#: model:ir.model.fields,help:payment.field_payment_acquirer__done_msg
 msgid ""
 "Message displayed, if order is done successfully after having done the "
 "payment process."
 msgstr "Žinutė, rodoma, jei užsakymas po apmokėjimo yra sėkmingai atliktas."
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_pending_msg
+#: model:ir.model.fields,help:payment.field_payment_acquirer__pending_msg
 msgid ""
 "Message displayed, if order is in pending state after having done the "
 "payment process."
 msgstr "Žinutė, rodoma, jei užsakymas po apmokėjimo yra laukimo būsenoje."
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
 msgid "Messages"
-msgstr "Pranešimai"
+msgstr "Žinutės"
 
 #. module: payment
-#: code:addons/payment/models/payment_acquirer.py:455
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__manual_name
+msgid "Method"
+msgstr "Būdas"
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
 #, python-format
 msgid "Missing partner reference when trying to create a new payment token"
 msgstr "Bandant sukurti naują mokėjimo kodą, trūksta partnerio numerio"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_name
-#: model:ir.model.fields,field_description:payment.field_payment_icon_name
-#: model:ir.model.fields,field_description:payment.field_payment_token_name
-#: model:ir.ui.view,arch_db:payment.acquirer_form
-#: model:ir.ui.view,arch_db:payment.payment_icon_form_view
-#: model:ir.ui.view,arch_db:payment.transaction_form
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__name
+#: model:ir.model.fields,field_description:payment.field_payment_icon__name
+#: model:ir.model.fields,field_description:payment.field_payment_token__name
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
+#: model_terms:ir.ui.view,arch_db:payment.payment_icon_form_view
+#: model_terms:ir.ui.view,arch_db:payment.transaction_form
 msgid "Name"
-msgstr "Pavadinimas"
+msgstr "Vardas"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_token_name
+#: model:ir.model.fields,help:payment.field_payment_token__name
 msgid "Name of the payment token"
 msgstr "Mokėjimo rakto pavadinimas"
 
 #. module: payment
-#: selection:payment.acquirer,save_token:0
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer__save_token__none
 msgid "Never"
 msgstr "Niekada"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.pay
+#: code:addons/payment/wizards/payment_acquirer_onboarding_wizard.py:0
+#, python-format
+msgid ""
+"No manual payment method could be found for this company. Please create one "
+"from the Payment Acquirer menu."
+msgstr ""
+"Šiai įmonei nerastas joks rankinis mokėjimo būdas. Sukurkite jį iš mokėjimo "
+"surinkėjų meniu."
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.pay
 msgid "No payment acquirer found."
 msgstr "Nerastas mokėjimo surinkėjas."
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:199
-#: code:addons/payment/static/src/js/payment_form.js:308
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "No payment has been processed."
+msgstr "Neapdorotas joks mokėjimas."
+
+#. module: payment
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "No payment method selected"
 msgstr "Nepasirinktas mokėjimo būdas"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_account_payment_payment_token_id
+#: model:ir.model.fields.selection,name:payment.selection__res_company__payment_acquirer_onboarding_state__not_done
+msgid "Not done"
+msgstr "Neatlikta"
+
+#. module: payment
+#: model:ir.model.fields,help:payment.field_account_payment__payment_token_id
 msgid ""
 "Note that tokens from acquirers set to only authorize transactions (instead "
 "of capturing the amount) are not available."
@@ -854,7 +1183,7 @@ msgstr ""
 "patvirtinimui (o ne sumos fiksavimui), yra negalimi."
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_payment_flow
+#: model:ir.model.fields,help:payment.field_payment_acquirer__payment_flow
 msgid ""
 "Note: Subscriptions does not take this field in account, it uses server to "
 "server by default."
@@ -863,72 +1192,146 @@ msgstr ""
 "serverį į serverį."
 
 #. module: payment
-#: selection:payment.acquirer,provider:0
-msgid "Ogone"
-msgstr "Ogone"
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__module_to_buy
+msgid "Odoo Enterprise Module"
+msgstr ""
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:432
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "Ok"
 msgstr "Ok"
 
 #. module: payment
-#: code:addons/payment/models/payment_acquirer.py:824
+#: code:addons/payment/wizards/payment_acquirer_onboarding_wizard.py:0
 #, python-format
-msgid "Only transactions in the Authorized status can be captured."
-msgstr "Fiksuojamos gali būti tik operacijos, turinčios patvirtintą statusą."
+msgid "Only administrators can access this data."
+msgstr "Tik administratoriai gali pasiekti šiuos duomenis."
 
 #. module: payment
-#: code:addons/payment/models/payment_acquirer.py:831
+#: code:addons/payment/models/payment_acquirer.py:0
 #, python-format
-msgid "Only transactions in the Authorized status can be voided."
-msgstr "Anuliuojamos gali būti tik operacijos, turinčios patvirtintą statusą."
+msgid "Only draft transaction can be authorized."
+msgstr "Patvirtinta gali būti tik juodraštinė operacija."
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_token_partner_id
+#: code:addons/payment/models/payment_acquirer.py:0
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid "Only draft transaction can be processed."
+msgstr "Patvirtinta gali būti tik juodraštinė operacija."
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid "Only draft/authorized transaction can be cancelled."
+msgstr "Atšaukta gali būti tik juodraštinė/patvirtinta operacija."
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid "Only draft/authorized transaction can be posted."
+msgstr "Registruojama gali būti tik juodraštinė/patvirtinta operacija."
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid "Only transactions having the capture status can be captured."
+msgstr "Fiksuojamos gali būti tik operacijos, turinčios fiksavimo būseną."
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid "Only transactions having the capture status can be voided."
+msgstr "Anuliuojamos gali būti tik operacijos, turinčios fiksavimo būseną."
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.confirm
+#: model_terms:ir.ui.view,arch_db:payment.payment_confirmation_status
+msgid "Or scan me with your banking app."
+msgstr "Arba nuskenuokite mane su savo banko programėle."
+
+#. module: payment
+#: model:ir.model.fields.selection,name:payment.selection__res_company__payment_onboarding_payment_method__other
+msgid "Other"
+msgstr "Kita"
+
+#. module: payment
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer_onboarding_wizard__payment_method__other
+msgid "Other payment acquirer"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__paypal_pdt_token
+msgid "PDT Identity Token"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__partner_id
+#: model:ir.model.fields,field_description:payment.field_payment_token__partner_id
 msgid "Partner"
 msgstr "Partneris"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_name
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__partner_name
 msgid "Partner Name"
 msgstr "Partnerio pavadinimas"
 
 #. module: payment
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer_onboarding_wizard__payment_method__paypal
+#: model:ir.model.fields.selection,name:payment.selection__res_company__payment_onboarding_payment_method__paypal
+msgid "PayPal"
+msgstr "PayPal"
+
+#. module: payment
+#: model:payment.acquirer,name:payment.payment_acquirer_payulatam
+msgid "PayU Latam"
+msgstr ""
+
+#. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_payu
-#: selection:payment.acquirer,provider:0
 msgid "PayUmoney"
 msgstr "PayUmoney"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.confirm
-#: model:ir.ui.view,arch_db:payment.pay
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__payment_id
+#: model_terms:ir.ui.view,arch_db:payment.confirm
+#: model_terms:ir.ui.view,arch_db:payment.pay
 msgid "Payment"
 msgstr "Mokėjimas"
 
 #. module: payment
 #: model:ir.model,name:payment.model_payment_acquirer
-#: model:ir.ui.view,arch_db:payment.acquirer_form
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
 msgid "Payment Acquirer"
 msgstr "Mokėjimo surinkėjas"
 
 #. module: payment
 #: model:ir.actions.act_window,name:payment.action_payment_acquirer
 #: model:ir.ui.menu,name:payment.payment_acquirer_menu
-#: model:ir.ui.view,arch_db:payment.acquirer_list
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_list
 msgid "Payment Acquirers"
-msgstr "Mokėjimų gavimas"
+msgstr "Mokėjimų surinkėjai"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_payment_flow
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__payment_flow
 msgid "Payment Flow"
 msgstr "Mokėjimo procesas"
 
 #. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
+msgid "Payment Followup"
+msgstr ""
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
+msgid "Payment Form"
+msgstr ""
+
+#. module: payment
 #: model:ir.model,name:payment.model_payment_icon
-#: model:ir.ui.view,arch_db:payment.payment_icon_form_view
+#: model_terms:ir.ui.view,arch_db:payment.payment_icon_form_view
 msgid "Payment Icon"
 msgstr "Mokėjimo piktograma"
 
@@ -936,218 +1339,252 @@ msgstr "Mokėjimo piktograma"
 #: model:ir.actions.act_window,name:payment.action_payment_icon
 #: model:ir.ui.menu,name:payment.payment_icon_menu
 msgid "Payment Icons"
-msgstr "Mokėjimų ikonos"
+msgstr "Mokėjimų piktogramos"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_journal_id
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__manual_post_msg
+msgid "Payment Instructions"
+msgstr "Mokėjimo instrukcijos"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__journal_id
 msgid "Payment Journal"
-msgstr "Mokėjimo žurnalas"
+msgstr "Mokėjimų žurnalas"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.pay_methods
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__link
+msgid "Payment Link"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__payment_method
+#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
+msgid "Payment Method"
+msgstr "Mokėjimo būdas"
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.pay_methods
 msgid "Payment Methods"
 msgstr "Mokėjimo būdai"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_payment_token_id
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__description
+msgid "Payment Ref"
+msgstr ""
+
+#. module: payment
+#: model:ir.model,name:payment.model_payment_token
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__payment_token_id
 msgid "Payment Token"
 msgstr "Mokėjimo raktas"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_res_partner_payment_token_ids
-#: model:ir.model.fields,field_description:payment.field_res_users_payment_token_ids
-#: model:ir.ui.view,arch_db:payment.payment_token_form_view
-#: model:ir.ui.view,arch_db:payment.payment_token_tree_view
-#: model:ir.ui.view,arch_db:payment.payment_token_view_search
+#: model:ir.model.fields,field_description:payment.field_res_partner__payment_token_ids
+#: model:ir.model.fields,field_description:payment.field_res_users__payment_token_ids
+#: model_terms:ir.ui.view,arch_db:payment.payment_token_form_view
+#: model_terms:ir.ui.view,arch_db:payment.payment_token_tree_view
+#: model_terms:ir.ui.view,arch_db:payment.payment_token_view_search
 msgid "Payment Tokens"
 msgstr "Mokėjimo raktai"
 
 #. module: payment
 #: model:ir.model,name:payment.model_payment_transaction
-#: model:ir.model.fields,field_description:payment.field_account_payment_payment_transaction_id
+#: model:ir.model.fields,field_description:payment.field_account_payment__payment_transaction_id
 msgid "Payment Transaction"
 msgstr "Mokėjimo operacija"
 
 #. module: payment
 #: model:ir.actions.act_window,name:payment.action_payment_transaction
 #: model:ir.actions.act_window,name:payment.action_payment_tx_ids
-#: model:ir.model.fields,field_description:payment.field_payment_token_payment_ids
+#: model:ir.model.fields,field_description:payment.field_payment_token__payment_ids
 #: model:ir.ui.menu,name:payment.payment_transaction_menu
-#: model:ir.ui.view,arch_db:payment.transaction_form
-#: model:ir.ui.view,arch_db:payment.transaction_list
+#: model_terms:ir.ui.view,arch_db:payment.transaction_form
+#: model_terms:ir.ui.view,arch_db:payment.transaction_list
 msgid "Payment Transactions"
 msgstr "Mokėjimo operacijos"
 
 #. module: payment
-#: selection:payment.acquirer,payment_flow:0
+#: model:ir.model,name:payment.model_payment_acquirer_onboarding_wizard
+msgid "Payment acquire onboarding wizard"
+msgstr "Mokėjimo surinkimo pradžios vedlys"
+
+#. module: payment
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer__payment_flow__s2s
 msgid "Payment from Odoo"
 msgstr "Mokėjimas iš \"Odoo\""
 
 #. module: payment
-#: code:addons/payment/models/account_payment.py:59
-#, python-format
-msgid "Payment transaction failed (%s)"
-msgstr "Mokėjimo operacija nepavyko (%s)"
-
-#. module: payment
-#: code:addons/payment/controllers/portal.py:131
-#: code:addons/payment/controllers/portal.py:135
-#, python-format
-msgid "Payment transaction failed."
-msgstr "Mokėjimo operacija nepavyko."
+#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
+msgid "Payment method set!"
+msgstr "Mokėjimo būdas nustatytas!"
 
 #. module: payment
 #: model:ir.model,name:payment.model_account_payment
-#: model:ir.ui.menu,name:payment.root_payment_menu
-#: model:ir.ui.view,arch_db:payment.payment_token_form_view
+#: model_terms:ir.ui.view,arch_db:payment.payment_token_form_view
 msgid "Payments"
 msgstr "Mokėjimai"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_journal_id
-msgid ""
-"Payments will be registered into this journal. If you get paid straight on your bank account,\n"
-"                select your bank account. If you get paid in batch for several transactions, create a specific\n"
-"                payment journal for this payment acquirer to easily manage the bank reconciliation. You hold\n"
-"                the amount in a temporary transfer account of your books (created automatically when you create\n"
-"                the payment journal). Then when you get paid on your bank account by the payment acquirer, you\n"
-"                reconcile the bank statement line with this temporary transfer account. Use reconciliation\n"
-"                templates to do it in one-click."
-msgstr ""
-"Mokėjimai bus registruojami šiame žurnale. Jei gaunate mokėjimus tiesiogiai į savo banko sąskaitą,\n"
-"pasirinkite ją. Jei gaunate mokėjimus už kelias operacijas kartu, sukurkite konkretų mokėjimo\n"
-"žurnalą šiam mokėjimo gavimui, kad galėtumėte lengvai valdyti banko suderinimus. Jūs\n"
-"turite sumą laikinoje pervedimo įrašų sąskaitoje (sukuriama automatiškai, kai sukuriate\n"
-"mokėjimo žurnalą). Kai jūs gaunate mokėjimą į savo banko sąskaitą, jūs suderinate\n"
-"banko išrašo eilutę su šia laikina perkėlimo sąskaita. Naudokite suderinimo šablonus, \n"
-"kad galėtumėte tai atlikti vienu paspaudimu."
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "Payments failed"
+msgstr "Nepavykę mokėjimai"
+
+#. module: payment
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "Payments received"
+msgstr "Gauti mokėjimai"
 
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_paypal
-#: selection:payment.acquirer,provider:0
 msgid "Paypal"
 msgstr "Paypal"
 
 #. module: payment
-#: selection:payment.transaction,state:0
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__paypal_user_type
+msgid "Paypal User Type"
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields.selection,name:payment.selection__payment_transaction__state__pending
 msgid "Pending"
 msgstr "Laukia"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_pending_msg
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__pending_msg
 msgid "Pending Message"
 msgstr "Laukianti žinutė"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_phone
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__partner_phone
 msgid "Phone"
 msgstr "Telefonas"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.pay
+#: model_terms:ir.ui.view,arch_db:payment.pay
 msgid "Please configure a payment acquirer."
 msgstr "Nustatykite mokėjimo surinkėją."
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:200
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_transfer
+msgid "Please make a payment to:"
+msgstr ""
+
+#. module: payment
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "Please select a payment method."
 msgstr "Pasirinkite mokėjimo būdą."
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:309
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "Please select the option to add a new payment method."
 msgstr "Norėdami pridėti mokėjimo metodą, pasirinkite nustatymą."
 
 #. module: payment
-#: model:payment.acquirer,post_msg:payment.payment_acquirer_custom
-#: model:payment.acquirer,post_msg:payment.payment_acquirer_transfer
-msgid "Please use the following transfer details"
-msgstr "Naudokite šiuos pervedimo duomenis"
+#: code:addons/payment/wizards/payment_link_wizard.py:0
+#, python-format
+msgid "Please set an amount smaller than %s."
+msgstr ""
 
 #. module: payment
-#: model:payment.acquirer,post_msg:payment.payment_acquirer_custom
-#: model:payment.acquirer,post_msg:payment.payment_acquirer_transfer
-msgid "Please use the order name as communication reference."
-msgstr "Naudokite užsakymo pavadinimą kaip nuorodą tolimesnei komunikacijai."
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "Please wait ..."
+msgstr "Palaukite..."
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.confirm
+#: model:ir.actions.server,name:payment.cron_post_process_payment_tx_ir_actions_server
+#: model:ir.cron,cron_name:payment.cron_post_process_payment_tx
+#: model:ir.cron,name:payment.cron_post_process_payment_tx
+msgid "Post process payment transactions"
+msgstr "Papildomo apdorojimo mokėjimų operacijos"
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.confirm
 msgid "Processed by"
 msgstr "Apdorojo"
 
 #. module: payment
-#: selection:payment.acquirer,environment:0
-msgid "Production"
-msgstr "Gamyba"
-
-#. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_provider
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_provider
-#: model:ir.ui.view,arch_db:payment.acquirer_search
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__provider
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__provider
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_search
 msgid "Provider"
 msgstr "Tiekėjas"
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_translations.js:9
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
 #, python-format
-msgid "Publish"
-msgstr "Skelbti"
+msgid "Reason:"
+msgstr "Priežastis:"
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_translations.js:8
-#, python-format
-msgid "Published"
-msgstr "Paskelbtas"
-
-#. module: payment
-#: selection:payment.acquirer,payment_flow:0
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer__payment_flow__form
 msgid "Redirection to the acquirer website"
 msgstr "Nukreipimas į mokėjimo surinkėjo svetainę"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_reference
-#: model:ir.ui.view,arch_db:payment.confirm
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__reference
+#: model_terms:ir.ui.view,arch_db:payment.confirm
 msgid "Reference"
 msgstr "Numeris"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_transaction_acquirer_reference
+#: model:ir.model.constraint,message:payment.constraint_payment_transaction_reference_uniq
+msgid "Reference must be unique!"
+msgstr "Numeris turi būti unikalus!"
+
+#. module: payment
+#: model:ir.model.fields,help:payment.field_payment_transaction__acquirer_reference
 msgid "Reference of the TX as stored in the acquirer database"
-msgstr "TX nuoroda, kuri laikoma mokėjimų surinkėjo duomenų bazėje"
+msgstr "TX numeris, kuris saugomas mokėjimų surinkėjo duomenų bazėje"
 
 #. module: payment
-#: selection:payment.transaction,state:0
-msgid "Refunded"
-msgstr "Grąžintas mokėjimas"
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__res_id
+msgid "Related Document ID"
+msgstr "Susijusio dokumento ID"
 
 #. module: payment
-#: selection:payment.transaction,state:0
-msgid "Refunding"
-msgstr "Mokėjimo grąžinimas"
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__res_model
+msgid "Related Document Model"
+msgstr "Susijusio dokumento modelis"
 
 #. module: payment
-#: constraint:payment.acquirer:0
-msgid "Required fields not filled"
-msgstr "Neužpildyti būtini laukai"
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid "Required fields not filled: %s"
+msgstr ""
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_registration_view_template_id
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__return_url
+msgid "Return URL after payment"
+msgstr "Grąžinti nuorodą po mokėjimo"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__registration_view_template_id
 msgid "S2S Form Template"
 msgstr "S2S Iš šablono"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_save_token
+#: model:payment.acquirer,name:payment.payment_acquirer_sepa_direct_debit
+msgid "SEPA Direct Debit"
+msgstr "SEPA Tiesigoinis Debitas"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__save_token
 msgid "Save Cards"
 msgstr "Išsaugoti korteles"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.payment_tokens_list
+#: model_terms:ir.ui.view,arch_db:payment.payment_tokens_list
 msgid "Save my payment data"
 msgstr "Išaugoti mano mokėjimo duomenis"
 
@@ -1158,149 +1595,215 @@ msgid "Saved Payment Data"
 msgstr "Išsaugoti mokėjimo duomenys"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_account_payment_payment_token_id
+#: model:ir.model.fields,field_description:payment.field_account_payment__payment_token_id
 msgid "Saved payment token"
 msgstr "Išsaugotas mokėjimo raktas"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_token_implemented
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__token_implemented
 msgid "Saving Card Data supported"
 msgstr "Kortelės duomenų išsaugojimas palaikomas"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_sequence
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
+msgid "Select countries. Leave empty to use everywhere."
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_res_company__payment_onboarding_payment_method
+msgid "Selected onboarding payment method"
+msgstr "Pasirinktas pradinis mokėjimo būdas"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__sequence
 msgid "Sequence"
 msgstr "Seka"
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:119
-#: code:addons/payment/static/src/js/payment_form.js:134
-#: code:addons/payment/static/src/js/payment_form.js:173
-#: code:addons/payment/static/src/js/payment_form.js:179
-#: code:addons/payment/static/src/js/payment_form.js:285
-#: code:addons/payment/static/src/js/payment_form.js:332
-#: code:addons/payment/static/src/js/payment_form.js:367
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
+#: code:addons/payment/static/src/js/payment_form.js:0
+#: code:addons/payment/static/src/js/payment_form.js:0
+#: code:addons/payment/static/src/js/payment_form.js:0
+#: code:addons/payment/static/src/js/payment_form.js:0
+#: code:addons/payment/static/src/js/payment_form.js:0
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "Server Error"
 msgstr "Serverio klaida"
 
 #. module: payment
-#: selection:payment.transaction,type:0
+#: model:ir.model.fields.selection,name:payment.selection__payment_transaction__type__server2server
 msgid "Server To Server"
 msgstr "Serveris į serverį"
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:300
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "Server error"
 msgstr "Serverio klaida"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_token_short_name
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "Server error:"
+msgstr "Serverio klaida:"
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
+msgid "Set payments"
+msgstr "Nustatyti mokėjimus"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_token__short_name
 msgid "Short name"
 msgstr "Trumpasis pavadinimas"
 
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_sips
-#: selection:payment.acquirer,provider:0
 msgid "Sips"
 msgstr "Sips"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_image_small
-msgid "Small-sized image"
-msgstr "Mažo dydžio paveikslėlis"
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__state
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_search
+msgid "State"
+msgstr "Būsena"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_image_small
-msgid ""
-"Small-sized image of this provider. It is automatically resized as a 64x64px"
-" image, with aspect ratio preserved. Use this field anywhere a small image "
-"is required."
-msgstr ""
-"Šio tiekėjo mažo dydžio paveikslėlis. Automatiškai pakeičiamas į 64x64px "
-"paveikslėlį, išlaikant kraštinių santykį. Naudokite šitą laukelį visur, kur "
-"reikalingas mažas paveikslėlis."
+#: model:ir.model.fields,field_description:payment.field_res_company__payment_acquirer_onboarding_state
+msgid "State of the onboarding payment acquirer step"
+msgstr "Pradinio mokėjimo surinkėjo žingsnio būsena"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_specific_countries
-msgid "Specific Countries"
-msgstr "Konkrečios šalys"
-
-#. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_state
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__state
 msgid "Status"
 msgstr "Būsena"
 
 #. module: payment
+#: model:ir.model.fields.selection,name:payment.selection__res_company__payment_onboarding_payment_method__stripe
 #: model:payment.acquirer,name:payment.payment_acquirer_stripe
-#: selection:payment.acquirer,provider:0
 msgid "Stripe"
 msgstr "Stripe"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_payment_icon_ids
-msgid "Supported Payment Icons"
-msgstr "Palaikomų mokėjimų ikonos"
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__stripe_publishable_key
+msgid "Stripe Publishable Key"
+msgstr "Stripe skelbiamas raktas"
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_registration_view_template_id
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__stripe_secret_key
+msgid "Stripe Secret Key"
+msgstr "Stripe slaptas raktas"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__payment_icon_ids
+msgid "Supported Payment Icons"
+msgstr "Palaikomų mokėjimų piktogramos"
+
+#. module: payment
+#: model:ir.model.fields,help:payment.field_payment_acquirer__registration_view_template_id
 msgid "Template for method registration"
 msgstr "Būdo registravimo šablonas"
 
 #. module: payment
-#: selection:payment.acquirer,environment:0
-msgid "Test"
-msgstr "Testas"
+#: model:ir.model.fields.selection,name:payment.selection__payment_acquirer__state__test
+#: model_terms:ir.ui.view,arch_db:payment.payment_tokens_list
+msgid "Test Mode"
+msgstr "Testinis režimas"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_post_msg
-msgid "Thanks Message"
-msgstr "Padėkos žinutė"
-
-#. module: payment
-#: code:addons/payment/models/payment_acquirer.py:627
+#: code:addons/payment/models/payment_acquirer.py:0
 #, python-format
 msgid "The %s payment acquirers are not allowed to manual capture mode!"
 msgstr "%smokėjimų gavėjai neleidžiami rankinio fiksavimo režime!"
 
 #. module: payment
-#: code:addons/payment/models/payment_acquirer.py:620
-#, python-format
-msgid "The payment transaction reference must be unique!"
-msgstr "Mokėjimo operacijos numeris turi būti unikalus!"
+#: model_terms:ir.ui.view,arch_db:payment.confirm
+#: model_terms:ir.ui.view,arch_db:payment.payment_confirmation_status
+msgid "The SEPA QR Code informations are not set correctly."
+msgstr "SEPA QR kodo informacija nustatyta neteisingai."
 
 #. module: payment
-#: code:addons/payment/models/account_payment.py:42
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid "The customer has selected %s to pay this document."
+msgstr "Klientas pasirinko %s šio dokumento apmokėjimui."
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
 #, python-format
 msgid ""
-"This feature is not available for payment acquirers set to the \"Authorize\" mode.\n"
-"Please use a token from another provider than %s."
+"The transaction %s with %s for %s has been authorized. Waiting for "
+"capture..."
 msgstr ""
-"Ši funkcija negalima mokėjimų gavėjams, nustatytiems \"Patvirtinimo\" režimu.\n"
-"Naudokite raktą iš kito tiekėjo nei %s."
+"Operacija %s su %s, skirta %s, buvo patvirtinta. Laukiama fiksavimo..."
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_icon_image
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid ""
+"The transaction %s with %s for %s has been cancelled with the following "
+"message: %s"
+msgstr "Operacija %s su %s, skirta %s, buvo atšaukta su šiuo pranešimu: %s"
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid "The transaction %s with %s for %s has been cancelled."
+msgstr "Operacija %s su %s, skirta %s, buvo atšaukta."
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid ""
+"The transaction %s with %s for %s has been confirmed. The related payment is"
+" posted: %s"
+msgstr ""
+"Operacija %s su %s, skirta %s, buvo patvirtinta. Susijęs mokėjimas yra "
+"registruotas: %s"
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid ""
+"The transaction %s with %s for %s has return failed with the following error"
+" message: %s"
+msgstr ""
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid "The transaction %s with %s for %s is pending."
+msgstr "Operacija %s su %s, skirta %s, laukia."
+
+#. module: payment
+#: code:addons/payment/wizards/payment_link_wizard.py:0
+#, python-format
+msgid "The value of the payment amount must be positive."
+msgstr ""
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid ""
+"This Transaction was automatically processed & refunded in order to validate"
+" a new credit card."
+msgstr ""
+
+#. module: payment
+#: model:ir.model.fields,help:payment.field_payment_icon__image
 msgid ""
 "This field holds the image used for this payment icon, limited to "
 "1024x1024px"
 msgstr ""
-"Šiame lauke saugomas paveikslėlis, kuris naudojamas kaip mokėjimo ikona. "
-"Maksimalus dydis 1024x1024px."
+"Šiame lauke saugomas paveikslėlis, kuris naudojamas kaip mokėjimo "
+"piktograma. Maksimalus dydis 1024x1024px."
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_image
-msgid ""
-"This field holds the image used for this provider, limited to 1024x1024px"
-msgstr ""
-"Šiame lauke saugomas paveikslėlis, naudojamas šiam tiekėjui. Maksimalus "
-"dydis 1024x1024px."
-
-#. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_save_token
+#: model:ir.model.fields,help:payment.field_payment_acquirer__save_token
 msgid ""
 "This option allows customers to save their credit card as a payment token "
 "and to reuse it for a later purchase. If you manage subscriptions (recurring"
@@ -1313,7 +1816,7 @@ msgstr ""
 "nuskaičiuotų pinigus iš kliento tada, kai išrašote sąskaitą."
 
 #. module: payment
-#: model:ir.model.fields,help:payment.field_payment_acquirer_country_ids
+#: model:ir.model.fields,help:payment.field_payment_acquirer__country_ids
 msgid ""
 "This payment gateway is available for selected countries. If none is "
 "selected it is available for all countries."
@@ -1322,258 +1825,348 @@ msgstr ""
 "nepasirinkta, jis pasiekiamas visoms šalims."
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
+#: model:ir.model.fields,help:payment.field_payment_acquirer__view_template_id
 msgid ""
 "This template renders the acquirer button with all necessary values.\n"
-"                                            It is rendered with qWeb with the following evaluation context:"
+"It is rendered with qWeb with the following evaluation context:\n"
+"tx_url: transaction URL to post the form\n"
+"acquirer: payment.acquirer browse record\n"
+"user: current user browse record\n"
+"reference: the transaction reference number\n"
+"currency: the transaction currency browse record\n"
+"amount: the transaction amount, a float\n"
+"partner: the buyer partner browse record, not necessarily set\n"
+"partner_values: specific values about the buyer, for example coming from a shipping form\n"
+"tx_values: transaction values\n"
+"context: the current context dictionary"
 msgstr ""
-"Šis šablonas atvaizduoja mokėjimo surinkėjo mygtuką su visomis\n"
-"reikiamomis reikšmėmis. Jis atvaizduojamas su qWeb pagal įvertinimo kontekstą:"
 
 #. module: payment
-#: model:payment.acquirer,pre_msg:payment.payment_acquirer_transfer
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "This transaction has been cancelled."
+msgstr "Operacija buvo atšaukta."
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_account_move__transaction_ids
+msgid "Transactions"
+msgstr "Operacijos"
+
+#. module: payment
+#: model:ir.model.fields,help:payment.field_payment_acquirer__check_validity
 msgid ""
-"Transfer information will be provided after choosing the payment aquirer."
+"Trigger a transaction of 1 currency unit and its refund to check the validity of new credit cards entered in the customer portal.\n"
+"        Without this check, the validity will be verified at the very first transaction."
 msgstr ""
-"Operacijos informacija bus pateikta po mokėjimo surinkėjo pasirinkimo."
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_type
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__type
 msgid "Type"
 msgstr "Tipas"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_date_validate
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "Unable to contact the Odoo server."
+msgstr "Nepavyko susisiekti su \"Odoo\" serveriu."
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_kanban
+msgid "Upgrade"
+msgstr "Atnaujinti"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__qr_code
+msgid "Use SEPA QR Code"
+msgstr "Naudoti SEPA QR kodą"
+
+#. module: payment
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__date
 msgid "Validation Date"
 msgstr "Patvirtinimo data"
 
 #. module: payment
-#: selection:payment.transaction,type:0
+#: model:ir.model.fields.selection,name:payment.selection__payment_transaction__type__validation
 msgid "Validation of the bank card"
 msgstr "Banko kortelės patvirtinimas"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_fees_dom_var
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__fees_dom_var
 msgid "Variable domestic fees (in percents)"
 msgstr "Kintantys vietiniai mokesčiai (procentais)"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_fees_int_var
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__fees_int_var
 msgid "Variable international fees (in percents)"
 msgstr "Kintantys tarptautiniai mokesčiai (procentais)"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_token_verified
+#: model:ir.model.fields,field_description:payment.field_payment_token__verified
 msgid "Verified"
 msgstr "Patvirtintas"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_acquirer_website_published
-msgid "Visible in Portal / Website"
-msgstr "Matomas portale / svetainėje"
+#: model:ir.model.fields,field_description:payment.field_payment_acquirer__check_validity
+msgid "Verify Card Validity"
+msgstr ""
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.transaction_form
+#: model_terms:ir.ui.view,arch_db:payment.account_invoice_view_form_inherit_payment
+#: model_terms:ir.ui.view,arch_db:payment.transaction_form
 msgid "Void Transaction"
 msgstr "Anuliuoti operaciją"
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:353
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "Waiting for payment"
+msgstr "Laukiama mokėjimo"
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#, python-format
+msgid "Waiting for payment confirmation..."
+msgstr "Laukiama mokėjimo patvirtinimo..."
+
+#. module: payment
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "Warning!"
 msgstr "Įspėjimas!"
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:135
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "We are not able to add your payment method at the moment."
 msgstr "Mums nepavyko pridėti jūsų mokėjimo būdo."
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:301
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "We are not able to add your payment method at the moment.</p>"
 msgstr "Mums nepavyko pridėti jūsų mokėjimo būdo.</p>"
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:333
-#: code:addons/payment/static/src/js/payment_form.js:368
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "We are not able to delete your payment method at the moment."
 msgstr "Mums nepavyko ištrinti jūsų mokėjimo būdo."
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:174
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "We are not able to find your payment, but don't worry."
+msgstr "Mums nepavyko rasti jūsų mokėjimo, tačiau nereikia jaudintis."
+
+#. module: payment
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "We are not able to redirect you to the payment form."
 msgstr "Mums nepavyko nukreipti jūsų į mokėjimo formą."
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:180
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "We are not able to redirect you to the payment form. "
 msgstr "Mums nepavyko nukreipti jūsų į mokėjimo formą."
 
 #. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:189
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_processing.js:0
+#, python-format
+msgid "We are processing your payment, please wait ..."
+msgstr ""
+
+#. module: payment
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "We are waiting for the payment acquirer to confirm the payment."
+msgstr "Laukiame, kol mokėjimo surinkėjas patvirtins mokėjimą."
+
+#. module: payment
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "We're unable to process your payment."
 msgstr "Mums nepavyksta apdoroti jūsų mokėjimo."
 
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_transfer
-#: selection:payment.acquirer,provider:0
 msgid "Wire Transfer"
-msgstr "Pavedimu"
+msgstr "Piniginė perlaida"
 
 #. module: payment
-#: model:payment.acquirer,pre_msg:payment.payment_acquirer_stripe
-msgid "You will be prompt with Stripe Payment page for payment information."
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "You can click here to be redirected to the confirmation page."
+msgstr "Galite paspausti čia, kad būtumėte nukreiptas į patvirtinimo puslapį."
+
+#. module: payment
+#: code:addons/payment/wizards/payment_acquirer_onboarding_wizard.py:0
+#, python-format
+msgid "You have to set a journal for your payment acquirer %s."
+msgstr "Turite nustatyti žurnalą savo mokėjimų surinkėjui %s."
+
+#. module: payment
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "You should receive an email confirming your payment in a few minutes."
 msgstr ""
-"Būsite nukreipti į \"Stripe\" mokėjimo puslapį tolesnei mokėjimo "
-"informacijai."
+"Turėtumėte gauti laišką, patvirtinantį jūsų mokėjimą, per kelias minutes."
 
 #. module: payment
-#: model:payment.acquirer,pre_msg:payment.payment_acquirer_adyen
-msgid ""
-"You will be redirected to the Adyen website after clicking on the payment "
-"button."
-msgstr "Paspaudę mokėjimo mygtuką būsite nukreipti į Adyen svetainę."
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "You will be notified when the payment is confirmed."
+msgstr "Būsite informuotas, kai mokėjimas bus patvirtintas."
 
 #. module: payment
-#: model:payment.acquirer,pre_msg:payment.payment_acquirer_authorize
-msgid ""
-"You will be redirected to the Authorize website after clicking on the "
-"payment button."
-msgstr "Paspaudę mokėjimo mygtuką būsite nukreipti į Authorize svetainę."
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "You will be notified when the payment is fully confirmed."
+msgstr "Būsite informuotas, kai mokėjimas bus pilnai patvirtintas."
 
 #. module: payment
-#: model:payment.acquirer,pre_msg:payment.payment_acquirer_buckaroo
-msgid ""
-"You will be redirected to the Buckaroo website after clicking on the payment"
-" button."
-msgstr "Paspaudę mokėjimo mygtuką būsite nukreipti į Buckaroo svetainę."
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "Your order has been processed."
+msgstr "Jūsų užsakymas buvo apdorotas."
 
 #. module: payment
-#: model:payment.acquirer,pre_msg:payment.payment_acquirer_ogone
-msgid ""
-"You will be redirected to the Ingenico website after clicking on the payment"
-" button."
-msgstr "Paspaudę mokėjimo mygtuką būsite nukreipti į Ingenico svetainę."
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "Your order is being processed, please wait ..."
+msgstr "Jūsų užsakymas apdorojamas, palaukite..."
 
 #. module: payment
-#: model:payment.acquirer,pre_msg:payment.payment_acquirer_payu
-msgid ""
-"You will be redirected to the PayUmoney website after clicking on the "
-"payment button."
-msgstr "Paspaudę mokėjimo mygtuką būsite nukreipti į PayUmoney svetainę."
-
-#. module: payment
-#: model:payment.acquirer,pre_msg:payment.payment_acquirer_paypal
-msgid ""
-"You will be redirected to the Paypal website after clicking on the payment "
-"button."
-msgstr "Paspaudę mokėjimo mygtuką būsite nukreipti į Paypal svetainę."
-
-#. module: payment
-#: model:payment.acquirer,pre_msg:payment.payment_acquirer_sips
-msgid ""
-"You will be redirected to the Sips website after clicking on payment button."
-msgstr "Paspaudę mokėjimo mygtuką būsite nukreipti į Sips svetainę."
-
-#. module: payment
-#: model:ir.ui.view,arch_db:payment.payment_confirmation_status
+#: code:addons/payment/models/payment_acquirer.py:0
+#: model_terms:payment.acquirer,auth_msg:payment.payment_acquirer_adyen
+#: model_terms:payment.acquirer,auth_msg:payment.payment_acquirer_alipay
+#: model_terms:payment.acquirer,auth_msg:payment.payment_acquirer_authorize
+#: model_terms:payment.acquirer,auth_msg:payment.payment_acquirer_buckaroo
+#: model_terms:payment.acquirer,auth_msg:payment.payment_acquirer_ingenico
+#: model_terms:payment.acquirer,auth_msg:payment.payment_acquirer_paypal
+#: model_terms:payment.acquirer,auth_msg:payment.payment_acquirer_payu
+#: model_terms:payment.acquirer,auth_msg:payment.payment_acquirer_payulatam
+#: model_terms:payment.acquirer,auth_msg:payment.payment_acquirer_sepa_direct_debit
+#: model_terms:payment.acquirer,auth_msg:payment.payment_acquirer_sips
+#: model_terms:payment.acquirer,auth_msg:payment.payment_acquirer_stripe
+#: model_terms:payment.acquirer,auth_msg:payment.payment_acquirer_transfer
+#, python-format
 msgid "Your payment has been authorized."
 msgstr "Jūsų mokėjimas buvo patvirtintas."
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.transaction_form
+#: code:addons/payment/models/payment_acquirer.py:0
+#: model_terms:payment.acquirer,cancel_msg:payment.payment_acquirer_adyen
+#: model_terms:payment.acquirer,cancel_msg:payment.payment_acquirer_alipay
+#: model_terms:payment.acquirer,cancel_msg:payment.payment_acquirer_authorize
+#: model_terms:payment.acquirer,cancel_msg:payment.payment_acquirer_buckaroo
+#: model_terms:payment.acquirer,cancel_msg:payment.payment_acquirer_ingenico
+#: model_terms:payment.acquirer,cancel_msg:payment.payment_acquirer_paypal
+#: model_terms:payment.acquirer,cancel_msg:payment.payment_acquirer_payu
+#: model_terms:payment.acquirer,cancel_msg:payment.payment_acquirer_payulatam
+#: model_terms:payment.acquirer,cancel_msg:payment.payment_acquirer_sepa_direct_debit
+#: model_terms:payment.acquirer,cancel_msg:payment.payment_acquirer_sips
+#: model_terms:payment.acquirer,cancel_msg:payment.payment_acquirer_stripe
+#: model_terms:payment.acquirer,cancel_msg:payment.payment_acquirer_transfer
+#, python-format
+msgid "Your payment has been cancelled."
+msgstr ""
+
+#. module: payment
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "Your payment has been received but need to be confirmed manually."
+msgstr "Jūsų mokėjimas gautas, tačiau turi būti patvirtintas rankiniu būdu."
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_adyen
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_alipay
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_authorize
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_buckaroo
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_ingenico
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_paypal
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_payu
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_payulatam
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_sepa_direct_debit
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_sips
+#: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_stripe
+#, python-format
+msgid ""
+"Your payment has been successfully processed but is waiting for approval."
+msgstr ""
+
+#. module: payment
+#: code:addons/payment/models/payment_acquirer.py:0
+#: model_terms:payment.acquirer,done_msg:payment.payment_acquirer_adyen
+#: model_terms:payment.acquirer,done_msg:payment.payment_acquirer_alipay
+#: model_terms:payment.acquirer,done_msg:payment.payment_acquirer_authorize
+#: model_terms:payment.acquirer,done_msg:payment.payment_acquirer_buckaroo
+#: model_terms:payment.acquirer,done_msg:payment.payment_acquirer_ingenico
+#: model_terms:payment.acquirer,done_msg:payment.payment_acquirer_paypal
+#: model_terms:payment.acquirer,done_msg:payment.payment_acquirer_payu
+#: model_terms:payment.acquirer,done_msg:payment.payment_acquirer_payulatam
+#: model_terms:payment.acquirer,done_msg:payment.payment_acquirer_sepa_direct_debit
+#: model_terms:payment.acquirer,done_msg:payment.payment_acquirer_sips
+#: model_terms:payment.acquirer,done_msg:payment.payment_acquirer_stripe
+#: model_terms:payment.acquirer,done_msg:payment.payment_acquirer_transfer
+#, python-format
+msgid "Your payment has been successfully processed. Thank you!"
+msgstr ""
+
+#. module: payment
+#. openerp-web
+#: code:addons/payment/static/src/xml/payment_processing.xml:0
+#, python-format
+msgid "Your payment is in pending state."
+msgstr "Jūsų mokėjimas yra laukiančioje būsenoje."
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.transaction_form
 msgid "ZIP"
 msgstr "Pašto kodas"
 
 #. module: payment
-#: model:ir.model.fields,field_description:payment.field_payment_transaction_partner_zip
+#: model:ir.model.fields,field_description:payment.field_payment_transaction__partner_zip
 msgid "Zip"
 msgstr "Pašto kodas"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
-msgid "acquirer: payment.acquirer browse record"
-msgstr "surinkėjas: payment.acquirer naršymo įrašas"
-
-#. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
-msgid "amount: the transaction amount, a float"
-msgstr "suma: operacijos suma, pilnas skaičius"
-
-#. module: payment
-#: model:ir.ui.view,arch_db:payment.payment_tokens_list
+#: model_terms:ir.ui.view,arch_db:payment.payment_tokens_list
 msgid "and more"
 msgstr "ir dar daugiau"
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
-msgid "context: the current context dictionary"
-msgstr "kontekstas: dabartinis konteksto žodynas"
-
-#. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
-msgid "currency: the transaction currency browse record"
-msgstr "valiuta: operacijos valiutos naršymo istorija"
-
-#. module: payment
-#. flectra-web
-#: code:addons/payment/static/src/js/payment_form.js:120
-#: code:addons/payment/static/src/js/payment_form.js:286
+#. openerp-web
+#: code:addons/payment/static/src/js/payment_form.js:0
+#: code:addons/payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "e.g. Your credit card details are wrong. Please verify."
 msgstr "pvz., jūsų kortelės duomenys neteisingi. Patikrinkite juos."
 
 #. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
-msgid "partner: the buyer partner browse record, not necessarily set"
-msgstr "partneris: pirkėjo partnerio naršymo istorija, nebūtinai nustatyta"
-
-#. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
-msgid ""
-"partner_values: specific values about the buyer, for example coming from a "
-"shipping form"
-msgstr "partner_values: tam tikros reikšmės apie pirkėją, pvz., iš kur atėjo"
-
-#. module: payment
-#: model:ir.model,name:payment.model_payment_token
-msgid "payment.token"
-msgstr "payment.token"
-
-#. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
-msgid "reference: the transaction reference number"
-msgstr "numeris: operacijos numeris"
-
-#. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
-msgid "tx_url: transaction URL to post the form"
-msgstr "tx_url: operacijos URL paskelbimui formoje"
-
-#. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
-msgid "tx_values: transaction values"
-msgstr "tx_values: operacijos reikšmės"
-
-#. module: payment
-#: model:ir.ui.view,arch_db:payment.acquirer_form
-msgid "user: current user browse record"
-msgstr "vartotojas: esamo vartotojo naršymo įrašas"
-
-#. module: payment
-#: model:ir.model,name:payment.model_wizard_multi_charts_accounts
-msgid "wizard.multi.charts.accounts"
-msgstr "wizard.multi.charts.accounts"
+#: model_terms:ir.ui.view,arch_db:payment.payment_acquirer_onboarding_wizard_form
+msgid "to choose another payment method."
+msgstr "pasirinkti kitą mokėjimo būdą."

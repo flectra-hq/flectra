@@ -4,6 +4,7 @@
 from flectra import http, _
 from flectra.addons.http_routing.models.ir_http import slug
 from flectra.http import request
+from werkzeug.exceptions import NotFound
 
 
 class WebsiteHrRecruitment(http.Controller):
@@ -28,9 +29,8 @@ class WebsiteHrRecruitment(http.Controller):
         Jobs = env['hr.job']
 
         # List jobs available to current UID
-        job_ids = Jobs.search([], order="website_published desc,no_of_recruitment desc").ids
-        if not request.env['res.users'].has_group('website.group_website_publisher'):
-            job_ids = Jobs.search([('website_ids', 'in', request.website.id)], order="website_published desc, no_of_recruitment desc").ids
+        domain = request.website.website_domain()
+        job_ids = Jobs.search(domain, order="is_published desc, no_of_recruitment desc").ids
         # Browse jobs as superuser, because address is restricted
         jobs = Jobs.sudo().browse(job_ids)
 
@@ -80,18 +80,21 @@ class WebsiteHrRecruitment(http.Controller):
         })
         return request.redirect("/jobs/detail/%s?enable_editor=1" % slug(job))
 
-    @http.route('/jobs/detail/<model("hr.job"):job>', type='http', auth="public", website=True)
+    @http.route('''/jobs/detail/<model("hr.job"):job>''', type='http', auth="public", website=True, sitemap=True)
     def jobs_detail(self, job, **kwargs):
-        if not request.env.user.has_group('website.group_website_publisher') \
-                and request.website.id not in job.website_ids.ids:
-            return request.render('website.404')
+        if not job.can_access_from_current_website():
+            raise NotFound()
+
         return request.render("website_hr_recruitment.detail", {
             'job': job,
             'main_object': job,
         })
 
-    @http.route('/jobs/apply/<model("hr.job"):job>', type='http', auth="public", website=True)
+    @http.route('''/jobs/apply/<model("hr.job"):job>''', type='http', auth="public", website=True, sitemap=True)
     def jobs_apply(self, job, **kwargs):
+        if not job.can_access_from_current_website():
+            raise NotFound()
+
         error = {}
         default = {}
         if 'website_hr_recruitment_error' in request.session:

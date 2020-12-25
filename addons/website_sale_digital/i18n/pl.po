@@ -1,20 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * website_sale_digital
+# 	* website_sale_digital
 # 
 # Translators:
-# zbik2607 <darek@krokus.com.pl>, 2017
-# Judyta Kaźmierczak <judyta.kazmierczak@openglobe.pl>, 2017
-# Piotr Szlązak <szlazakpiotr@gmail.com>, 2017
-# Tomasz Leppich <t.leppich@gmail.com>, 2018
-# Maja Stawicka <mjstwck@wp.pl>, 2018
+# Martin Trigaux, 2020
+# Grzegorz Grzelak <grzegorz.grzelak@openglobe.pl>, 2020
+# Judyta Kaźmierczak <judyta.kazmierczak@openglobe.pl>, 2020
+# Tomasz Leppich <t.leppich@gmail.com>, 2020
+# Piotr Szlązak <szlazakpiotr@gmail.com>, 2020
+# Marcin Młynarczyk <mlynarczyk@gmail.com>, 2020
+# Paweł Wodyński <pw@myodoo.pl>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 11:26+0000\n"
-"PO-Revision-Date: 2017-10-02 11:26+0000\n"
-"Last-Translator: Maja Stawicka <mjstwck@wp.pl>, 2018\n"
+"POT-Creation-Date: 2020-09-29 13:46+0000\n"
+"PO-Revision-Date: 2020-09-07 08:22+0000\n"
+"Last-Translator: Paweł Wodyński <pw@myodoo.pl>, 2020\n"
 "Language-Team: Polish (https://www.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,73 +26,68 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #. module: website_sale_digital
-#: model:product.template,description_sale:website_sale_digital.product_1
-msgid ""
-"Alice's Adventures in Wonderland (commonly shortened to Alice in Wonderland)"
-" is an 1865 novel written by English author Charles Lutwidge Dodgson under "
-"the pseudonym Lewis Carroll. It tells of a girl named Alice falling through "
-"a rabbit hole into a fantasy world populated by peculiar, anthropomorphic "
-"creatures. The tale plays with logic, giving the story lasting popularity "
-"with adults as well as with children. It is considered to be one of the best"
-" examples of the literary nonsense genre. Its narrative course and "
-"structure, characters and imagery have been enormously influential in both "
-"popular culture and literature, especially in the fantasy genre."
-msgstr ""
-"Przygody Alicji w Krainie Czarów (zwykle skrócona do Alicji w Krainie "
-"Czarów) to powieść z 1865 roku napisana przez angielskiego pisarza Charlesa "
-"Lutwidge'a Dodgsona pod pseudonimem Lewis Carroll. Opowiada o dziewczynie o "
-"imieniu Alice, która wpada przez króliczą dziurę do fantastycznego świata "
-"zamieszkałego przez osobliwe, antropomorficzne stworzenia. Opowieść gra "
-"logicznie, zyskując nieprzerwaną popularność zarówno wśród dorosłych, jak i "
-"dzieci. Jest uważana za jeden z najlepszych przykładów gatunku literackiego "
-"nonsens. Jego narracyjny kurs i struktura, postacie i wizerunki miały "
-"ogromny wpływ zarówno w kulturze popularnej, jak i literaturze, szczególnie "
-"w gatunku fantasy."
+#: model:ir.model,name:website_sale_digital.model_ir_attachment
+msgid "Attachment"
+msgstr "Załącznik"
 
 #. module: website_sale_digital
-#: model:product.template,name:website_sale_digital.product_1
-msgid "Alice's Adventures in Wonderland - Lewis Caroll"
-msgstr "Przygody Alicji w Krainie Czarów - Lewis Caroll"
-
-#. module: website_sale_digital
-#: code:addons/website_sale_digital/models/product.py:23
-#: code:addons/website_sale_digital/models/product.py:54
+#: code:addons/website_sale_digital/models/product.py:0
+#: code:addons/website_sale_digital/models/product.py:0
 #, python-format
 msgid "Digital Attachments"
 msgstr "Załączniki cyfrowe"
 
 #. module: website_sale_digital
-#: model:ir.model.fields,field_description:website_sale_digital.field_ir_attachment_product_downloadable
-#: model:ir.model.fields,field_description:website_sale_digital.field_mrp_document_product_downloadable
+#: model_terms:ir.ui.view,arch_db:website_sale_digital.product_product_view_form_inherit_digital
+#: model_terms:ir.ui.view,arch_db:website_sale_digital.product_template_view_form_inherit_digital
+msgid "Digital Files"
+msgstr ""
+
+#. module: website_sale_digital
+#: model:ir.model.fields,field_description:website_sale_digital.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:website_sale_digital.field_ir_attachment__display_name
+#: model:ir.model.fields,field_description:website_sale_digital.field_product_product__display_name
+#: model:ir.model.fields,field_description:website_sale_digital.field_product_template__display_name
+msgid "Display Name"
+msgstr "Nazwa wyświetlana"
+
+#. module: website_sale_digital
+#: model:ir.model.fields,field_description:website_sale_digital.field_ir_attachment__product_downloadable
+#: model:ir.model.fields,field_description:website_sale_digital.field_mrp_document__product_downloadable
 msgid "Downloadable from product portal"
 msgstr "Do pobrania z portalu produktu"
 
 #. module: website_sale_digital
-#: model:ir.ui.view,arch_db:website_sale_digital.portal_order_page_downloads
-msgid "Downloads <span class=\"caret\"/>"
-msgstr "Pobrane <span class=\"caret\"/>"
+#: model_terms:ir.ui.view,arch_db:website_sale_digital.sale_order_portal_content_inherit_website_sale_digital
+msgid "Downloads"
+msgstr ""
 
 #. module: website_sale_digital
-#: model:ir.model.fields,field_description:website_sale_digital.field_product_product_attachment_count
-#: model:ir.model.fields,field_description:website_sale_digital.field_product_template_attachment_count
+#: model:ir.model.fields,field_description:website_sale_digital.field_product_product__attachment_count
+#: model:ir.model.fields,field_description:website_sale_digital.field_product_template__attachment_count
 msgid "File"
 msgstr "Plik"
 
 #. module: website_sale_digital
-#: model:ir.model,name:website_sale_digital.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Pozycja faktury"
+#: model:ir.model.fields,field_description:website_sale_digital.field_account_move_line__id
+#: model:ir.model.fields,field_description:website_sale_digital.field_ir_attachment__id
+#: model:ir.model.fields,field_description:website_sale_digital.field_product_product__id
+#: model:ir.model.fields,field_description:website_sale_digital.field_product_template__id
+msgid "ID"
+msgstr "ID"
 
 #. module: website_sale_digital
-#: model:product.template,description:website_sale_digital.product_1
-msgid "Novel by Lewis Caroll."
-msgstr "Nowela przez Lewis Caroll."
+#: model:ir.model,name:website_sale_digital.model_account_move_line
+msgid "Journal Item"
+msgstr "Pozycja zapisu"
 
 #. module: website_sale_digital
-#: model:ir.ui.view,arch_db:website_sale_digital.product_product_view_form_inherit_digital
-#: model:ir.ui.view,arch_db:website_sale_digital.product_template_view_form_inherit_digital
-msgid "Portal Files"
-msgstr "Pliki w Portalu"
+#: model:ir.model.fields,field_description:website_sale_digital.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:website_sale_digital.field_ir_attachment____last_update
+#: model:ir.model.fields,field_description:website_sale_digital.field_product_product____last_update
+#: model:ir.model.fields,field_description:website_sale_digital.field_product_template____last_update
+msgid "Last Modified on"
+msgstr "Data ostatniej modyfikacji"
 
 #. module: website_sale_digital
 #: model:ir.model,name:website_sale_digital.model_product_product
@@ -102,6 +100,11 @@ msgid "Product Template"
 msgstr "Szablon produktu"
 
 #. module: website_sale_digital
-#: model:ir.model,name:website_sale_digital.model_ir_attachment
-msgid "ir.attachment"
-msgstr "ir.attachment"
+#: model:product.template,uom_name:website_sale_digital.product_1
+msgid "Units"
+msgstr "Jednostki"
+
+#. module: website_sale_digital
+#: model:product.template,name:website_sale_digital.product_1
+msgid "eBook: Office Renovation for Dummies"
+msgstr ""

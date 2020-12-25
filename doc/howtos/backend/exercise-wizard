@@ -1,7 +1,7 @@
 Index: addons/openacademy/__init__.py
 ===================================================================
---- addons.orig/openacademy/__init__.py	2014-08-27 14:19:23.023111330 +0200
-+++ addons/openacademy/__init__.py	2014-08-27 14:22:25.043108628 +0200
+--- addons.orig/openacademy/__init__.py
++++ addons/openacademy/__init__.py
 @@ -2,3 +2,4 @@
  from . import controllers
  from . import models
@@ -9,16 +9,28 @@ Index: addons/openacademy/__init__.py
 +from . import wizard
 Index: addons/openacademy/wizard.py
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ addons/openacademy/wizard.py	2014-08-27 14:24:39.195106637 +0200
-@@ -0,0 +1,10 @@
+--- /dev/null
++++ addons/openacademy/wizard.py
+@@ -0,0 +1,11 @@
 +# -*- coding: utf-8 -*-
 +
-+from flectra import models, fields, api
++from odoo import models, fields, api
 +
 +class Wizard(models.TransientModel):
 +    _name = 'openacademy.wizard'
++    _description = "Wizard: Quick Registration of Attendees to Sessions"
 +
 +    session_id = fields.Many2one('openacademy.session',
 +        string="Session", required=True)
 +    attendee_ids = fields.Many2many('res.partner', string="Attendees")
+Index: foo/openacademy/security/ir.model.access.csv
+===================================================================
+--- foo.orig/openacademy/security/ir.model.access.csv
++++ foo/openacademy/security/ir.model.access.csv
+@@ -1,5 +1,6 @@
+ id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+ course_manager,course manager,model_openacademy_course,group_manager,1,1,1,1
+ session_manager,session manager,model_openacademy_session,group_manager,1,1,1,1
++wizard_manager,wizard session manager,model_openacademy_wizard,group_manager,1,1,1,1
+ course_read_all,course all,model_openacademy_course,,1,0,0,0
+ session_read_all,session all,model_openacademy_session,,1,0,0,0

@@ -10,7 +10,7 @@ from flectra.exceptions import AccessDenied, UserError
 from flectra.addons.auth_signup.models.res_users import SignupError
 
 from flectra.addons import base
-base.res.res_users.USER_PRIVATE_FIELDS.append('oauth_access_token')
+base.models.res_users.USER_PRIVATE_FIELDS.append('oauth_access_token')
 
 class ResUsers(models.Model):
     _inherit = 'res.users'
@@ -109,14 +109,16 @@ class ResUsers(models.Model):
         # return user credentials
         return (self.env.cr.dbname, login, access_token)
 
-    @api.model
-    def check_credentials(self, password):
+    def _check_credentials(self, password, env):
         try:
-            return super(ResUsers, self).check_credentials(password)
+            return super(ResUsers, self)._check_credentials(password, env)
         except AccessDenied:
-            res = self.sudo().search([('id', '=', self.env.uid), ('oauth_access_token', '=', password)])
-            if not res:
-                raise
+            passwd_allowed = env['interactive'] or not self.env.user._rpc_api_keys_only()
+            if passwd_allowed and self.env.user.active:
+                res = self.sudo().search([('id', '=', self.env.uid), ('oauth_access_token', '=', password)])
+                if res:
+                    return
+            raise
 
     def _get_session_token_fields(self):
         return super(ResUsers, self)._get_session_token_fields() | {'oauth_access_token'}

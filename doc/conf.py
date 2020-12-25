@@ -6,11 +6,11 @@ import sphinx
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 DIR = os.path.dirname(__file__)
-sys.path.append(
+sys.path.insert(0,
     os.path.abspath(
         os.path.join(DIR, '_extensions')))
-# autodoc
-sys.path.append(os.path.abspath(os.path.join(DIR, '..')))
+# put current flectra's source on PYTHONPATH for autodoc
+sys.path.insert(0, os.path.abspath(os.path.join(DIR, '..')))
 
 # -- General configuration -----------------------------------------------------
 
@@ -25,8 +25,8 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
     'sphinx.ext.linkcode',
-    'autojsdoc.ext',
-    'gitlab_link',
+    # 'autojsdoc.ext',
+    'github_link',
     'flectra_ext',
     'html_domain',
     'exercise_admonition',
@@ -47,16 +47,16 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'flectra'
-copyright = u'Flectra S.A.'
+copyright = u'FlectraHQ, Odoo S.A.'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = '1.0'
+version = '14.0'
 # The full version, including alpha/beta/rc tags.
-release = '1.0'
+release = '14.0'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -95,7 +95,7 @@ pygments_style = 'flectra'
 # a list of builtin themes.
 html_theme = 'flectra_ext'
 
-flectra_cover_default = 'banners/flectra_modules.jpg'
+flectra_cover_default = 'banners/installing_flectra.jpg'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -180,12 +180,10 @@ todo_include_todos = False
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
     'werkzeug': ('http://werkzeug.pocoo.org/docs/', None),
-    'sqlalchemy': ('http://docs.sqlalchemy.org/en/rel_0_9/', None),
-    'django': ('https://django.readthedocs.org/en/latest/', None),
 }
 
-gitlab_user = 'flectra-hq'
-gitlab_project = 'flectra'
+github_user = 'flectra'
+github_project = 'flectra'
 
 # monkeypatch PHP lexer to not require <?php
 from sphinx.highlighting import lexers

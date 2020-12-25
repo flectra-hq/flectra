@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
+from flectra import tools
 from flectra.api import Environment
 from flectra.tools import DEFAULT_SERVER_DATE_FORMAT
 from datetime import date, timedelta
@@ -8,48 +9,188 @@ from datetime import date, timedelta
 import flectra.tests
 
 
-class TestUi(flectra.tests.HttpCase):
-    def test_01_pos_basic_order(self):
-        cr = self.registry.cursor()
-        assert cr == self.registry.test_cr
-        env = Environment(cr, self.uid, {})
+class TestPointOfSaleHttpCommon(flectra.tests.HttpCase):
 
-        # By default parent_store computation is deferred until end of
-        # tests. Pricelist items however are sorted based on these
-        # fields, so they need to be computed.
-        env['product.category']._parent_store_compute()
+    def setUp(self):
+        super().setUp()
+        env = self.env(user=self.env.ref('base.user_admin'))
 
         journal_obj = env['account.journal']
         account_obj = env['account.account']
         main_company = env.ref('base.main_company')
-        main_pos_config = env.ref('point_of_sale.pos_config_main')
+        self.main_pos_config = env.ref('point_of_sale.pos_config_main')
+
+        env['res.partner'].create({
+            'name': 'Deco Addict',
+        })
 
         account_receivable = account_obj.create({'code': 'X1012',
                                                  'name': 'Account Receivable - Test',
                                                  'user_type_id': env.ref('account.data_account_type_receivable').id,
                                                  'reconcile': True})
-        field = self.env['ir.model.fields'].search([('name', '=', 'property_account_receivable_id'),
-                                                    ('model', '=', 'res.partner'),
-                                                    ('relation', '=', 'account.account')], limit=1)
-        env['ir.property'].create({'name': 'property_account_receivable_id',
-                                   'company_id': main_company.id,
-                                   'fields_id': field.id,
-                                   'value': 'account.account,' + str(account_receivable.id)})
+        self.env.company.account_default_pos_receivable_account_id = account_receivable
+
+        self.env['ir.property']._set_default('property_account_receivable_id', 'res.partner', account_receivable, main_company)
+
+        cash_journal = journal_obj.create({
+            'name': 'Cash Test',
+            'type': 'cash',
+            'company_id': main_company.id,
+            'code': 'CSH',
+            'sequence': 10,
+        })
+
+        # Archive all existing product to avoid noise during the tours
+        all_pos_product = self.env['product.product'].search([('available_in_pos', '=', True)])
+        discount = self.env.ref('point_of_sale.product_product_consumable')
+        self.tip = self.env.ref('point_of_sale.product_product_tip')
+        (all_pos_product - discount - self.tip)._write({'active': False})
+
+        # In DESKS categ: Desk Pad
+        pos_categ_desks = env.ref('point_of_sale.pos_category_desks')
+
+        # In DESKS categ: Whiteboard Pen
+        pos_categ_misc = env.ref('point_of_sale.pos_category_miscellaneous')
+
+        # In CHAIR categ: Letter Tray
+        pos_categ_chairs = env.ref('point_of_sale.pos_category_chairs')
 
         # test an extra price on an attribute
-        pear = env.ref('point_of_sale.poire_conference')
+        pear = env['product.product'].create({
+            'name': 'Whiteboard Pen',
+            'available_in_pos': True,
+            'list_price': 1.20,
+            'taxes_id': False,
+            'weight': 0.01,
+            'to_weight': True,
+            'pos_categ_id': pos_categ_misc.id,
+        })
+        wall_shelf = env['product.product'].create({
+            'name': 'Wall Shelf Unit',
+            'available_in_pos': True,
+            'list_price': 1.98,
+            'taxes_id': False,
+        })
+        small_shelf = env['product.product'].create({
+            'name': 'Small Shelf',
+            'available_in_pos': True,
+            'list_price': 2.83,
+            'taxes_id': False,
+        })
+        magnetic_board = env['product.product'].create({
+            'name': 'Magnetic Board',
+            'available_in_pos': True,
+            'list_price': 1.98,
+            'taxes_id': False,
+        })
+        monitor_stand = env['product.product'].create({
+            'name': 'Monitor Stand',
+            'available_in_pos': True,
+            'list_price': 3.19,
+            'taxes_id': False,
+        })
+        desk_pad = env['product.product'].create({
+            'name': 'Desk Pad',
+            'available_in_pos': True,
+            'list_price': 1.98,
+            'taxes_id': False,
+            'pos_categ_id': pos_categ_desks.id,
+        })
+        letter_tray = env['product.product'].create({
+            'name': 'Letter Tray',
+            'available_in_pos': True,
+            'list_price': 4.80,
+            'taxes_id': False,
+            'pos_categ_id': pos_categ_chairs.id,
+        })
+        desk_organizer = env['product.product'].create({
+            'name': 'Desk Organizer',
+            'available_in_pos': True,
+            'list_price': 5.10,
+            'taxes_id': False,
+        })
+        configurable_chair = env['product.product'].create({
+            'name': 'Configurable Chair',
+            'available_in_pos': True,
+            'list_price': 10,
+            'taxes_id': False,
+        })
+
+        attribute = env['product.attribute'].create({
+            'name': 'add 2',
+        })
         attribute_value = env['product.attribute.value'].create({
             'name': 'add 2',
-            'product_ids': [(6, 0, [pear.id])],
-            'attribute_id': env['product.attribute'].create({
-                'name': 'add 2',
-            }).id,
+            'attribute_id': attribute.id,
         })
-        env['product.attribute.price'].create({
+        line = env['product.template.attribute.line'].create({
             'product_tmpl_id': pear.product_tmpl_id.id,
-            'price_extra': 2,
-            'value_id': attribute_value.id,
+            'attribute_id': attribute.id,
+            'value_ids': [(6, 0, attribute_value.ids)]
         })
+        line.product_template_value_ids[0].price_extra = 2
+
+        chair_color_attribute = env['product.attribute'].create({
+            'name': 'Color',
+            'display_type': 'color',
+            'create_variant': 'no_variant',
+        })
+        chair_color_red = env['product.attribute.value'].create({
+            'name': 'Red',
+            'attribute_id': chair_color_attribute.id,
+            'html_color': '#ff0000',
+        })
+        chair_color_blue = env['product.attribute.value'].create({
+            'name': 'Blue',
+            'attribute_id': chair_color_attribute.id,
+            'html_color': '#0000ff',
+        })
+        chair_color_line = env['product.template.attribute.line'].create({
+            'product_tmpl_id': configurable_chair.product_tmpl_id.id,
+            'attribute_id': chair_color_attribute.id,
+            'value_ids': [(6, 0, [chair_color_red.id, chair_color_blue.id])]
+        })
+        chair_color_line.product_template_value_ids[0].price_extra = 1
+
+        chair_legs_attribute = env['product.attribute'].create({
+            'name': 'Chair Legs',
+            'display_type': 'select',
+            'create_variant': 'no_variant',
+        })
+        chair_legs_metal = env['product.attribute.value'].create({
+            'name': 'Metal',
+            'attribute_id': chair_legs_attribute.id,
+        })
+        chair_legs_wood = env['product.attribute.value'].create({
+            'name': 'Wood',
+            'attribute_id': chair_legs_attribute.id,
+        })
+        chair_legs_line = env['product.template.attribute.line'].create({
+            'product_tmpl_id': configurable_chair.product_tmpl_id.id,
+            'attribute_id': chair_legs_attribute.id,
+            'value_ids': [(6, 0, [chair_legs_metal.id, chair_legs_wood.id])]
+        })
+
+        chair_fabrics_attribute = env['product.attribute'].create({
+            'name': 'Fabrics',
+            'display_type': 'radio',
+            'create_variant': 'no_variant',
+        })
+        chair_fabrics_leather = env['product.attribute.value'].create({
+            'name': 'Leather',
+            'attribute_id': chair_fabrics_attribute.id,
+        })
+        chair_fabrics_other = env['product.attribute.value'].create({
+            'name': 'Other',
+            'attribute_id': chair_fabrics_attribute.id,
+            'is_custom': True,
+        })
+        chair_fabrics_line = env['product.template.attribute.line'].create({
+            'product_tmpl_id': configurable_chair.product_tmpl_id.id,
+            'attribute_id': chair_fabrics_attribute.id,
+            'value_ids': [(6, 0, [chair_fabrics_leather.id, chair_fabrics_other.id])]
+        })
+        chair_color_line.product_template_value_ids[1].is_custom = True
 
         fixed_pricelist = env['product.pricelist'].create({
             'name': 'Fixed',
@@ -60,12 +201,12 @@ class TestUi(flectra.tests.HttpCase):
                 'compute_price': 'fixed',
                 'fixed_price': 2,
                 'applied_on': '0_product_variant',
-                'product_id': env.ref('point_of_sale.boni_orange').id,
+                'product_id': wall_shelf.id,
             }), (0, 0, {
                 'compute_price': 'fixed',
                 'fixed_price': 13.95,  # test for issues like in 7f260ab517ebde634fc274e928eb062463f0d88f
                 'applied_on': '0_product_variant',
-                'product_id': env.ref('point_of_sale.papillon_orange').id,
+                'product_id': small_shelf.id,
             })],
         })
 
@@ -75,17 +216,17 @@ class TestUi(flectra.tests.HttpCase):
                 'compute_price': 'percentage',
                 'percent_price': 100,
                 'applied_on': '0_product_variant',
-                'product_id': env.ref('point_of_sale.boni_orange').id,
+                'product_id': wall_shelf.id,
             }), (0, 0, {
                 'compute_price': 'percentage',
                 'percent_price': 99,
                 'applied_on': '0_product_variant',
-                'product_id': env.ref('point_of_sale.papillon_orange').id,
+                'product_id': small_shelf.id,
             }), (0, 0, {
                 'compute_price': 'percentage',
                 'percent_price': 0,
                 'applied_on': '0_product_variant',
-                'product_id': env.ref('point_of_sale.citron').id,
+                'product_id': magnetic_board.id,
             })],
         })
 
@@ -96,33 +237,33 @@ class TestUi(flectra.tests.HttpCase):
                 'price_discount': 6,
                 'price_surcharge': 5,
                 'applied_on': '0_product_variant',
-                'product_id': env.ref('point_of_sale.boni_orange').id,
+                'product_id': wall_shelf.id,
             }), (0, 0, {
                 # .99 prices
                 'compute_price': 'formula',
                 'price_surcharge': -0.01,
                 'price_round': 1,
                 'applied_on': '0_product_variant',
-                'product_id': env.ref('point_of_sale.papillon_orange').id,
+                'product_id': small_shelf.id,
             }), (0, 0, {
                 'compute_price': 'formula',
                 'price_min_margin': 10,
                 'price_max_margin': 100,
                 'applied_on': '0_product_variant',
-                'product_id': env.ref('point_of_sale.citron').id,
+                'product_id': magnetic_board.id,
             }), (0, 0, {
                 'compute_price': 'formula',
                 'price_surcharge': 10,
                 'price_max_margin': 5,
                 'applied_on': '0_product_variant',
-                'product_id': env.ref('point_of_sale.limon').id,
+                'product_id': monitor_stand.id,
             }), (0, 0, {
                 'compute_price': 'formula',
                 'price_discount': -100,
                 'price_min_margin': 5,
                 'price_max_margin': 20,
                 'applied_on': '0_product_variant',
-                'product_id': env.ref('point_of_sale.pamplemousse_rouge_pamplemousse').id,
+                'product_id': desk_pad.id,
             })],
         })
 
@@ -133,13 +274,13 @@ class TestUi(flectra.tests.HttpCase):
                 'fixed_price': 1,
                 'applied_on': '0_product_variant',
                 'min_quantity': 2,
-                'product_id': env.ref('point_of_sale.boni_orange').id,
+                'product_id': wall_shelf.id,
             }), (0, 0, {
                 'compute_price': 'fixed',
                 'fixed_price': 2,
                 'applied_on': '0_product_variant',
                 'min_quantity': 1,
-                'product_id': env.ref('point_of_sale.boni_orange').id,
+                'product_id': wall_shelf.id,
             }), (0, 0, {
                 'compute_price': 'fixed',
                 'fixed_price': 2,
@@ -155,11 +296,16 @@ class TestUi(flectra.tests.HttpCase):
                 'compute_price': 'fixed',
                 'fixed_price': 1,
                 'applied_on': '1_product',
-                'product_tmpl_id': env.ref('point_of_sale.boni_orange_product_template').id,
+                'product_tmpl_id': wall_shelf.product_tmpl_id.id,
             }), (0, 0, {
                 'compute_price': 'fixed',
                 'fixed_price': 2,
             })],
+        })
+
+        product_category_3 = env['product.category'].create({
+            'name': 'Services',
+            'parent_id': env.ref('product.product_category_1').id,
         })
 
         env['product.pricelist'].create({
@@ -169,7 +315,7 @@ class TestUi(flectra.tests.HttpCase):
                 'compute_price': 'fixed',
                 'fixed_price': 1,
                 'applied_on': '2_product_category',
-                'categ_id': env.ref('product.product_category_3').id,  # All / Saleable / Services
+                'categ_id': product_category_3.id,  # All / Saleable / Services
             }), (0, 0, {
                 'compute_price': 'fixed',
                 'fixed_price': 2,
@@ -187,7 +333,7 @@ class TestUi(flectra.tests.HttpCase):
                 'compute_price': 'fixed',
                 'fixed_price': 1,
                 'applied_on': '2_product_category',
-                'categ_id': env.ref('product.product_category_3').id,  # All / Saleable / Services
+                'categ_id': product_category_3.id,  # All / Saleable / Services
             })],
         })
 
@@ -263,7 +409,16 @@ class TestUi(flectra.tests.HttpCase):
         excluded_pricelist = env['product.pricelist'].create({
             'name': 'Not loaded'
         })
-        env.ref('base.res_partner_18').property_product_pricelist = excluded_pricelist
+        res_partner_18 = self.env['res.partner'].create({
+            'name': 'Lumber Inc',
+            'is_company': True,
+        })
+        res_partner_18.property_product_pricelist = excluded_pricelist
+
+        partner = self.env['res.partner'].create({
+            'name': 'TEST PARTNER',
+            'email': 'test@partner.com',
+        })
 
         # set the company currency to USD, otherwise it will assume
         # euro's. this will cause issues as the sales journal is in
@@ -279,46 +434,92 @@ class TestUi(flectra.tests.HttpCase):
         all_pricelists = env['product.pricelist'].search([('id', '!=', excluded_pricelist.id)])
         all_pricelists.write(dict(currency_id=main_company.currency_id.id))
 
-        main_pos_config.write({
+        src_tax = env['account.tax'].create({'name': "SRC", 'amount': 10})
+        dst_tax = env['account.tax'].create({'name': "DST", 'amount': 5})
+
+        letter_tray.taxes_id = [(6, 0, [src_tax.id])]
+
+        self.main_pos_config.write({
+            'tax_regime_selection': True,
+            'fiscal_position_ids': [(0, 0, {
+                                            'name': "FP-POS-2M",
+                                            'tax_ids': [
+                                                (0,0,{'tax_src_id': src_tax.id,
+                                                      'tax_dest_id': src_tax.id}),
+                                                (0,0,{'tax_src_id': src_tax.id,
+                                                      'tax_dest_id': dst_tax.id})]
+                                            })],
             'journal_id': test_sale_journal.id,
             'invoice_journal_id': test_sale_journal.id,
-            'journal_ids': [(0, 0, {'name': 'Cash Journal - Test',
-                                                       'code': 'TSC',
-                                                       'type': 'cash',
-                                                       'company_id': main_company.id,
-                                                       'journal_user': True})],
+            'payment_method_ids': [(0, 0, { 'name': 'Cash',
+                                            'is_cash_count': True,
+                                            'cash_journal_id': cash_journal.id,
+                                            'receivable_account_id': account_receivable.id,
+            })],
+            'use_pricelist': True,
             'pricelist_id': public_pricelist.id,
             'available_pricelist_ids': [(4, pricelist.id) for pricelist in all_pricelists],
+            'module_pos_loyalty': False,
         })
 
         # Change the default sale pricelist of customers,
         # so the js tests can expect deterministically this pricelist when selecting a customer.
-        field = env['ir.model.fields']._get('res.partner', 'property_product_pricelist')
-        env['ir.property'].search([
-            ('name', '=', 'property_product_pricelist'),
-            ('fields_id', '=', field.id),
-            ('res_id', '=', False)
-        ]).write({'value_reference': 'product.pricelist,%s' % public_pricelist.id})
+        env['ir.property']._set_default(
+            "property_product_pricelist",
+            "res.partner",
+            public_pricelist,
+        )
 
-        # open a session, the /pos/web controller will redirect to it
-        main_pos_config.open_session_cb()
+
+@flectra.tests.tagged('post_install', '-at_install')
+class TestUi(TestPointOfSaleHttpCommon):
+    def test_01_pos_basic_order(self):
+
+        self.main_pos_config.write({
+            'iface_tipproduct': True,
+            'tip_product_id': self.tip.id,
+        })
+
+        # open a session, the /pos/ui controller will redirect to it
+        self.main_pos_config.open_session_cb(check_coa=False)
 
         # needed because tests are run before the module is marked as
         # installed. In js web will only load qweb coming from modules
         # that are returned by the backend in module_boot. Without
         # this you end up with js, css but no qweb.
-        env['ir.module.module'].search([('name', '=', 'point_of_sale')], limit=1).state = 'installed'
-        cr.release()
+        self.env['ir.module.module'].search([('name', '=', 'point_of_sale')], limit=1).state = 'installed'
 
-        self.phantom_js("/pos/web",
-                        "flectra.__DEBUG__.services['web_tour.tour'].run('pos_pricelist')",
-                        "flectra.__DEBUG__.services['web_tour.tour'].tours.pos_pricelist.ready",
-                        login="admin")
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'pos_pricelist', login="admin")
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'pos_basic_order', login="admin")
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'ProductScreenTour', login="admin")
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'PaymentScreenTour', login="admin")
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'ReceiptScreenTour', login="admin")
 
-        self.phantom_js("/pos/web",
-                        "flectra.__DEBUG__.services['web_tour.tour'].run('pos_basic_order')",
-                        "flectra.__DEBUG__.services['web_tour.tour'].tours.pos_basic_order.ready",
-                        login="admin")
-
-        for order in env['pos.order'].search([]):
+        for order in self.env['pos.order'].search([]):
             self.assertEqual(order.state, 'paid', "Validated order has payment of " + str(order.amount_paid) + " and total of " + str(order.amount_total))
+
+        # check if email from ReceiptScreenTour is properly sent
+        email_count = self.env['mail.mail'].search_count([('email_to', '=', 'test@receiptscreen.com')])
+        self.assertEqual(email_count, 1)
+
+    def test_02_pos_with_invoiced(self):
+        self.main_pos_config.open_session_cb(check_coa=False)
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'ChromeTour', login="admin")
+        n_invoiced = self.env['pos.order'].search_count([('state', '=', 'invoiced')])
+        n_paid = self.env['pos.order'].search_count([('state', '=', 'paid')])
+        self.assertEqual(n_invoiced, 1, 'There should be 1 invoiced order.')
+        self.assertEqual(n_paid, 2, 'There should be 2 paid order.')
+
+    def test_03_order_management(self):
+        self.main_pos_config.write({ 'manage_orders': True, 'module_account': True })
+        self.main_pos_config.open_session_cb(check_coa=False)
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'OrderManagementScreenTour', login="admin")
+
+    def test_04_product_configurator(self):
+        self.main_pos_config.write({ 'product_configurator': True })
+        self.main_pos_config.open_session_cb(check_coa=False)
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config, 'ProductConfiguratorTour', login="admin")
+
+    def test_05_ticket_screen(self):
+        self.main_pos_config.open_session_cb(check_coa=False)
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'TicketScreenTour', login="admin")

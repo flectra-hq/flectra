@@ -105,14 +105,13 @@ def profile(method=None, whitelist=None, blacklist=(None,), files=None,
             @profile                    # log only this create method
             def create(self, vals):
             ...
-            @api.multi
             @profile()                  # log all methods for all flectra models
             def unlink(self):
             ...
             @profile(whitelist=['sale.order', 'ir.model.data'])
             def action_quotation_send(self):
             ...
-            @profile(files=['/home/flectra/flectra/flectra/addons/sale/models/sale.py'])
+            @profile(files=['/home/openerp/flectra/flectra/addons/sale/models/sale.py'])
             def write(self):
             ...
 

@@ -1,22 +1,9 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-import logging
-_logger = logging.getLogger(__name__)
-
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 from flectra.tests import common
 from flectra.exceptions import ValidationError
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
+from unittest.mock import patch
 
-try:
-    import vatnumber
-except ImportError:
-    _logger.warning("VAT validation partially unavailable because the `vatnumber` Python library cannot be found. "
-    "Install it to support more countries, for example with `easy_install vatnumber`.")
-    vatnumber = lambda: False
-    vatnumber.check_vies = lambda: False  # dummy method for mock
+from stdnum.eu import vat
 
 class TestStructure(common.TransactionCase):
 
@@ -29,6 +16,15 @@ class TestStructure(common.TransactionCase):
         with self.assertRaises(ValidationError):
             partner.vat = '11111111111'
         partner.vat = '20507822470'
+
+    def test_vat_country_difference(self):
+        """Test the validation when country code is different from vat code"""
+        partner = self.env['res.partner'].create({
+            'name': "Test",
+            'country_id': self.env.ref('base.mx').id,
+            'vat': 'RORO790707I47',
+        })
+        self.assertEqual(partner.vat, 'RORO790707I47', "Partner VAT should not be altered")
 
     def test_parent_validation(self):
         """Test the validation with company and contact"""
@@ -52,6 +48,6 @@ class TestStructure(common.TransactionCase):
             return vat_number == 'BE0987654321'
 
         # reactivate it and correct the vat number
-        with patch.object(vatnumber, 'check_vies', mock_check_vies):
+        with patch.object(vat, 'check_vies', mock_check_vies):
             self.env.user.company_id.vat_check_vies = True
             company.vat = "BE0987654321"

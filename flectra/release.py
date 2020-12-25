@@ -12,7 +12,7 @@ RELEASE_LEVELS_DISPLAY = {ALPHA: ALPHA,
 # properly comparable using normal operarors, for example:
 #  (6,1,0,'beta',0) < (6,1,0,'candidate',1) < (6,1,0,'candidate',2)
 #  (6,1,0,'candidate',2) < (6,1,0,'final',0) < (6,1,2,'final',0)
-version_info = (1, 7, 0, FINAL, 0, '')
+version_info = (2, 0, 0, ALPHA, 0, '')
 version = '.'.join(str(s) for s in version_info[:2]) + RELEASE_LEVELS_DISPLAY[version_info[3]] + str(version_info[4] or '') + version_info[5]
 series = serie = major_version = '.'.join(str(s) for s in version_info[:2])
 
@@ -29,8 +29,8 @@ License :: OSI Approved :: GNU Lesser General Public License v3
 
 Programming Language :: Python
 """
-url = 'https://www.flectrahq.com'
-author = 'OpenERP S.A., FlectraHQ'
+url = 'https://flectrahq.com'
+author = 'FlectraHQ, OpenERP S.A.'
 author_email = 'info@flectrahq.com'
 license = 'LGPL-3'
 

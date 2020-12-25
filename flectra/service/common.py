@@ -4,9 +4,8 @@ import logging
 
 import flectra.release
 import flectra.tools
+from flectra.exceptions import AccessDenied
 from flectra.tools.translate import _
-
-from . import security
 
 _logger = logging.getLogger(__name__)
 
@@ -18,16 +17,16 @@ RPC_VERSION_1 = {
 }
 
 def exp_login(db, login, password):
-    # TODO: legacy indirection through 'security', should use directly
-    # the res.users model
-    res = security.login(db, login, password)
-    msg = res and 'successful login' or 'bad login or password'
-    _logger.info("%s from '%s' using database '%s'", msg, login, db.lower())
-    return res or False
+    return exp_authenticate(db, login, password, None)
 
 def exp_authenticate(db, login, password, user_agent_env):
+    if not user_agent_env:
+        user_agent_env = {}
     res_users = flectra.registry(db)['res.users']
-    return res_users.authenticate(db, login, password, user_agent_env)
+    try:
+        return res_users.authenticate(db, login, password, {**user_agent_env, 'interactive': False})
+    except AccessDenied:
+        return False
 
 def exp_version():
     return RPC_VERSION_1
@@ -39,7 +38,7 @@ def exp_about(extended=False):
     @return string if extended is False else tuple
     """
 
-    info = _('See http://flectrahq.com')
+    info = _('See http://openerp.com')
 
     if extended:
         return info, flectra.release.version

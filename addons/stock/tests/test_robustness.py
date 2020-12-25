@@ -2,20 +2,21 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from flectra.exceptions import UserError, ValidationError
-from flectra.tests.common import TransactionCase
+from flectra.tests.common import SavepointCase
 
 
-class TestRobustness(TransactionCase):
-    def setUp(self):
-        super(TestRobustness, self).setUp()
-        self.stock_location = self.env.ref('stock.stock_location_stock')
-        self.customer_location = self.env.ref('stock.stock_location_customers')
-        self.uom_unit = self.env.ref('product.product_uom_unit')
-        self.uom_dozen = self.env.ref('product.product_uom_dozen')
-        self.product1 = self.env['product.product'].create({
+class TestRobustness(SavepointCase):
+    @classmethod
+    def setUpClass(cls):
+        super(TestRobustness, cls).setUpClass()
+        cls.stock_location = cls.env.ref('stock.stock_location_stock')
+        cls.customer_location = cls.env.ref('stock.stock_location_customers')
+        cls.uom_unit = cls.env.ref('uom.product_uom_unit')
+        cls.uom_dozen = cls.env.ref('uom.product_uom_dozen')
+        cls.product1 = cls.env['product.product'].create({
             'name': 'Product A',
             'type': 'product',
-            'categ_id': self.env.ref('product.product_category_all').id,
+            'categ_id': cls.env.ref('product.product_category_all').id,
         })
 
     def test_uom_factor(self):
@@ -70,19 +71,23 @@ class TestRobustness(TransactionCase):
         consistent with the `reserved_quantity` on the quants.
         """
         # change stock usage
-        self.stock_location.scrap_location = True
+        test_stock_location = self.env['stock.location'].create({
+            'name': "Test Location",
+            'location_id': self.stock_location.id,
+        })
+        test_stock_location.scrap_location = True
 
         # make some stock
         self.env['stock.quant']._update_available_quantity(
             self.product1,
-            self.stock_location,
+            test_stock_location,
             1,
         )
 
         # reserve a unit
         move1 = self.env['stock.move'].create({
             'name': 'test_location_archive',
-            'location_id': self.stock_location.id,
+            'location_id': test_stock_location.id,
             'location_dest_id': self.customer_location.id,
             'product_id': self.product1.id,
             'product_uom': self.uom_unit.id,
@@ -93,7 +98,7 @@ class TestRobustness(TransactionCase):
         self.assertEqual(move1.state, 'assigned')
         quant = self.env['stock.quant']._gather(
             self.product1,
-            self.stock_location,
+            test_stock_location,
         )
 
         # assert the reservation
@@ -103,7 +108,7 @@ class TestRobustness(TransactionCase):
         # change the stock usage
         with self.assertRaises(UserError):
             with self.cr.savepoint():
-                self.stock_location.scrap_location = False
+                test_stock_location.scrap_location = False
 
         # unreserve
         move1._do_unreserve()
@@ -135,9 +140,9 @@ class TestRobustness(TransactionCase):
         move1._action_confirm()
         move1._action_assign()
 
-        move1.result_package_id = False
-
+        self.assertEqual(move1.move_line_ids.package_id, package)
         package.unpack()
+        self.assertEqual(move1.move_line_ids.package_id, self.env['stock.quant.package'])
 
         # unreserve
         move1._do_unreserve()
@@ -166,10 +171,13 @@ class TestRobustness(TransactionCase):
         lot1 = self.env['stock.production.lot'].create({
             'name': 'lot1',
             'product_id': product1.id,
+            'company_id': self.env.company.id,
+
         })
         lot2 = self.env['stock.production.lot'].create({
             'name': 'lot2',
             'product_id': product2.id,
+            'company_id': self.env.company.id,
         })
 
         self.env['stock.quant']._update_available_quantity(product1, self.stock_location, 1, lot_id=lot1)

@@ -9,15 +9,14 @@
 # Carlos Liébana <carlos.liebana@factorlibre.com>
 # Hugo Santos <hugo.santos@factorlibre.com>
 # Albert Cabedo <albert@gafic.com>
-# Olivier Colson <oco@flectrahq.com>
+# Olivier Colson <oco@odoo.com>
 # Roberto Lizana <robertolizana@trey.es>
 
 {
     "name" : "Spain - Accounting (PGCE 2008)",
     "version" : "4.0",
     "author" : "Spanish Localization Team",
-    'website' : 'https://launchpad.net/openerp-spain',
-    'category': 'Localization',
+    'category': 'Accounting/Localizations/Account Charts',
     "description": """
 Spanish charts of accounts (PGCE 2008).
 ========================================
@@ -37,16 +36,19 @@ Spanish charts of accounts (PGCE 2008).
         "base_vat",
     ],
     "data" : [
-        'data/account_group.xml',
         'data/account_chart_template_data.xml',
-        'data/account_account_template_common_data.xml',
-        'data/account_account_template_pymes_data.xml',
-        'data/account_account_template_assoc_data.xml',
-        'data/account_account_template_full_data.xml',
+        'data/account_group.xml',
+        'data/account.account.template-common.csv',
+        'data/account.account.template-pymes.csv',
+        'data/account.account.template-assoc.csv',
+        'data/account.account.template-full.csv',
         'data/account_chart_template_account_account_link.xml',
         'data/account_data.xml',
         'data/account_tax_data.xml',
         'data/account_fiscal_position_template_data.xml',
-        'data/account_chart_template_data.yml',
+        'data/account_chart_template_configure_data.xml',
+    ],
+    'demo': [
+        'demo/demo_company.xml',
     ],
 }

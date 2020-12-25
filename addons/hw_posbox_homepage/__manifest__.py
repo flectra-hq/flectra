@@ -2,24 +2,22 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'PosBox Homepage',
-    'author' : 'Odoo S.A',
-    'category': 'Point of Sale',
+    'name': 'IoT Box Homepage',
+    'category': 'Sales/Point of Sale',
     'sequence': 6,
-    'website': 'https://flectrahq.com/page/point-of-sale',
-    'summary': 'A homepage for the PosBox',
+    'website': 'https://flectrahq.com/point-of-sale-hardware',
+    'summary': 'A homepage for the IoT Box',
     'description': """
-PosBox Homepage
-===============
+IoT Box Homepage
+================
 
 This module overrides Odoo web interface to display a simple
-Homepage that explains what's the posbox and show the status,
+Homepage that explains what's the iotbox and shows the status,
 and where to find documentation.
 
 If you activate this module, you won't be able to access the 
 regular Odoo interface anymore.
 
 """,
-    'depends': ['hw_proxy'],
     'installable': False,
 }

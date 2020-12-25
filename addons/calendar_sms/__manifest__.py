@@ -2,14 +2,14 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': "Calendar SMS",
-    'author' : 'Odoo S.A',
+    'name': "Calendar - SMS",
     'summary': 'Send text messages as event reminders',
     'description': "Send text messages as event reminders",
     'category': 'Hidden',
     'version': '1.0',
     'depends': ['calendar', 'sms'],
     'data': [
+        'data/sms_data.xml',
         'views/calendar_views.xml',
     ],
     'application': False,

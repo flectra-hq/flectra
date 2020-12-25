@@ -3,10 +3,10 @@
 
 {
     'name': 'Dashboards',
-    'author' : 'Odoo S.A',
     'version': '1.0',
-    'category': 'Extra Tools',
-    'summary': 'Create your custom dashboard',
+    'category': 'Productivity',
+    'sequence': 225,
+    'summary': 'Build your own dashboards',
     'description': """
 Lets the user create a custom dashboard.
 ========================================

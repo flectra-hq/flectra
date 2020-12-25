@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
+# pylint: disable=sql-injection
+
 import logging
 import psycopg2
 
@@ -46,11 +48,24 @@ def table_kind(cr, tablename):
     cr.execute(query, (tablename,))
     return cr.fetchone()[0] if cr.rowcount else None
 
-def create_model_table(cr, tablename, comment=None):
+def create_model_table(cr, tablename, comment=None, columns=()):
     """ Create the table for a model. """
-    cr.execute('CREATE TABLE "{}" (id SERIAL NOT NULL, PRIMARY KEY(id))'.format(tablename))
+    colspecs = ['id SERIAL NOT NULL'] + [
+        '"{}" {}'.format(columnname, columntype)
+        for columnname, columntype, columncomment in columns
+    ]
+    cr.execute('CREATE TABLE "{}" ({}, PRIMARY KEY(id))'.format(tablename, ", ".join(colspecs)))
+
+    queries, params = [], []
     if comment:
-        cr.execute('COMMENT ON TABLE "{}" IS %s'.format(tablename), (comment,))
+        queries.append('COMMENT ON TABLE "{}" IS %s'.format(tablename))
+        params.append(comment)
+    for columnname, columntype, columncomment in columns:
+        queries.append('COMMENT ON COLUMN "{}"."{}" IS %s'.format(tablename, columnname))
+        params.append(columncomment)
+    if queries:
+        cr.execute("; ".join(queries), params)
+
     _schema.debug("Table %r: created", tablename)
 
 def table_columns(cr, tablename):
@@ -74,7 +89,8 @@ def column_exists(cr, tablename, columnname):
 
 def create_column(cr, tablename, columnname, columntype, comment=None):
     """ Create a column with the given type. """
-    cr.execute('ALTER TABLE "{}" ADD COLUMN "{}" {}'.format(tablename, columnname, columntype))
+    coldefault = (columntype.upper()=='BOOLEAN') and 'DEFAULT false' or ''
+    cr.execute('ALTER TABLE "{}" ADD COLUMN "{}" {} {}'.format(tablename, columnname, columntype, coldefault))
     if comment:
         cr.execute('COMMENT ON COLUMN "{}"."{}" IS %s'.format(tablename, columnname), (comment,))
     _schema.debug("Table %r: added column %r of type %s", tablename, columnname, columntype)
@@ -87,7 +103,7 @@ def rename_column(cr, tablename, columnname1, columnname2):
 def convert_column(cr, tablename, columnname, columntype):
     """ Convert the column to the given type. """
     try:
-        with cr.savepoint():
+        with cr.savepoint(flush=False):
             cr.execute('ALTER TABLE "{}" ALTER COLUMN "{}" TYPE {}'.format(tablename, columnname, columntype),
                        log_exceptions=False)
     except psycopg2.NotSupportedError:
@@ -105,40 +121,44 @@ def set_not_null(cr, tablename, columnname):
     """ Add a NOT NULL constraint on the given column. """
     query = 'ALTER TABLE "{}" ALTER COLUMN "{}" SET NOT NULL'.format(tablename, columnname)
     try:
-        with cr.savepoint():
-            cr.execute(query)
+        with cr.savepoint(flush=False):
+            cr.execute(query, log_exceptions=False)
             _schema.debug("Table %r: column %r: added constraint NOT NULL", tablename, columnname)
     except Exception:
-        msg = "Table %r: unable to set NOT NULL on column %r!\n" \
-              "If you want to have it, you should update the records and execute manually:\n%s"
-        _schema.warning(msg, tablename, columnname, query, exc_info=True)
+        raise Exception("Table %r: unable to set NOT NULL on column %r", tablename, columnname)
 
 def drop_not_null(cr, tablename, columnname):
     """ Drop the NOT NULL constraint on the given column. """
     cr.execute('ALTER TABLE "{}" ALTER COLUMN "{}" DROP NOT NULL'.format(tablename, columnname))
     _schema.debug("Table %r: column %r: dropped constraint NOT NULL", tablename, columnname)
 
-def constraint_definition(cr, constraintname):
+def constraint_definition(cr, tablename, constraintname):
     """ Return the given constraint's definition. """
-    cr.execute("SELECT pg_get_constraintdef(oid) FROM pg_constraint WHERE conname=%s", (constraintname,))
+    query = """
+        SELECT COALESCE(d.description, pg_get_constraintdef(c.oid))
+        FROM pg_constraint c
+        JOIN pg_class t ON t.oid = c.conrelid
+        LEFT JOIN pg_description d ON c.oid = d.objoid
+        WHERE t.relname = %s AND conname = %s;"""
+    cr.execute(query, (tablename, constraintname))
     return cr.fetchone()[0] if cr.rowcount else None
 
 def add_constraint(cr, tablename, constraintname, definition):
     """ Add a constraint on the given table. """
-    query = 'ALTER TABLE "{}" ADD CONSTRAINT "{}" {}'.format(tablename, constraintname, definition)
+    query1 = 'ALTER TABLE "{}" ADD CONSTRAINT "{}" {}'.format(tablename, constraintname, definition)
+    query2 = 'COMMENT ON CONSTRAINT "{}" ON "{}" IS %s'.format(constraintname, tablename)
     try:
-        with cr.savepoint():
-            cr.execute(query)
+        with cr.savepoint(flush=False):
+            cr.execute(query1, log_exceptions=False)
+            cr.execute(query2, (definition,), log_exceptions=False)
             _schema.debug("Table %r: added constraint %r as %s", tablename, constraintname, definition)
     except Exception:
-        msg = "Table %r: unable to add constraint %r!\n" \
-              "If you want to have it, you should update the records and execute manually:\n%s"
-        _schema.warning(msg, tablename, constraintname, query, exc_info=True)
+        raise Exception("Table %r: unable to add constraint %r as %s", tablename, constraintname, definition)
 
 def drop_constraint(cr, tablename, constraintname):
     """ drop the given constraint. """
     try:
-        with cr.savepoint():
+        with cr.savepoint(flush=False):
             cr.execute('ALTER TABLE "{}" DROP CONSTRAINT "{}"'.format(tablename, constraintname))
             _schema.debug("Table %r: dropped constraint %r", tablename, constraintname)
     except Exception:
@@ -233,3 +253,27 @@ def reverse_order(order):
         direction = 'asc' if item[1:] == ['desc'] else 'desc'
         items.append('%s %s' % (item[0], direction))
     return ', '.join(items)
+
+
+def increment_field_skiplock(record, field):
+    """
+        Increment 'friendly' the [field] of the current [record](s)
+        If record is locked, we just skip the update.
+        It doesn't invalidate the cache since the update is not critical.
+
+        :rtype: bool - if field has been incremented or not
+    """
+    if not record:
+        return False
+
+    assert record._fields[field].type == 'integer'
+
+    cr = record._cr
+    query = """
+        UPDATE {table} SET {field} = {field} + 1 WHERE id IN (
+            SELECT id from {table} WHERE id in %(ids)s FOR UPDATE SKIP LOCKED
+        ) RETURNING id
+    """.format(table=record._table, field=field)
+    cr.execute(query, {'ids': tuple(record.ids)})
+
+    return bool(cr.fetchone())

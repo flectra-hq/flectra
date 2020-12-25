@@ -2,17 +2,15 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': "pos_cache",
-    'author': 'Odoo S.A.',
-    'summary': """
-        Enable a cache on products for a lower POS loading time.""",
+
+    'summary': "Enable a cache on products for a lower POS loading time.",
 
     'description': """
 This creates a product cache per POS config. It drastically lowers the
 time it takes to load a POS session with a lot of products.
     """,
 
-    'website': "https://flectrahq.com/page/point-of-sale",
-    'category': 'Point Of Sale',
+    'category': 'Sales/Point of Sale',
     'version': '1.0',
     'depends': ['point_of_sale'],
     'data': [
