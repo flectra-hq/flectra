@@ -1,10 +1,6 @@
-#Partially from Odoo's dockerfile
-#github.com/odoo/docker
-
 ARG BASE_IMAGE
-ARG BASE_TAG
-FROM ${BASE_IMAGE}:${BASE_TAG}
-LABEL maintainer="FlectraHQ <flectra@flectrahq.com>"
+FROM ${BASE_IMAGE}
+LABEL maintainer="Jamotion <info@jamotion.ch>"
 LABEL authors="FlectraHQ,Jamotion"
 
 ENV LC_ALL en_US.UTF-8
@@ -25,7 +21,9 @@ RUN mkdir -p /var/run/sshd \
     && sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config
 
 # add special scripts for development
-ADD flectra/dev/bin /usr/local/bin
+ADD bin /usr/local/bin
+
+RUN pip3 install inotify
 
 VOLUME ["/opt/flectra", "/etc/flectra", "/var/log/flectra"]
 
