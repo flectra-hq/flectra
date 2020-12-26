@@ -49,7 +49,7 @@ variables:
       alias: postgres13
 
 .unittest:template: &unittest_definition
-  image: ${UBUNTU_BASE_IMAGE}:latest
+  image: ${UBUNTU_BASE_IMAGE}:2-latest
   stage: unittest
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
@@ -172,8 +172,8 @@ build:flectra_ubuntu:
     - tags
   script:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
-    - docker pull ${UBUNTU_FLECTRA_IMAGE}:latest || true
-    - docker build --cache-from ${UBUNTU_FLECTRA_IMAGE}:latest
+    - docker pull ${UBUNTU_FLECTRA_IMAGE}:2-latest || true
+    - docker build --cache-from ${UBUNTU_FLECTRA_IMAGE}:2-latest
       --build-arg BASE_IMAGE=${UBUNTU_BASE_IMAGE}
       --build-arg GITLAB_OWNER=${CI_PROJECT_NAMESPACE}
       --build-arg GITLAB_COMMIT=${CI_COMMIT_SHA}
@@ -227,9 +227,9 @@ deploy:flectra_gitlab:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
     - docker pull ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
     - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_TAG
-    - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTU_FLECTRA_IMAGE}:latest
+    - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTU_FLECTRA_IMAGE}:2-latest
     - docker push ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_TAG
-    - docker push ${UBUNTU_FLECTRA_IMAGE}:latest
+    - docker push ${UBUNTU_FLECTRA_IMAGE}:2-latest
 
 deploy:flectra_dockerhub:
   <<: *build_definition
@@ -242,9 +242,9 @@ deploy:flectra_dockerhub:
     - echo -n $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USER --password-stdin https://index.docker.io/v1/
     - docker pull ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
     - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${DOCKER_HUB_ROOT}/flectra:$CI_COMMIT_TAG
-    - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${DOCKER_HUB_ROOT}/flectra:latest
+    - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${DOCKER_HUB_ROOT}/flectra:2-latest
     - docker push ${DOCKER_HUB_ROOT}/flectra:$CI_COMMIT_TAG
-    - docker push ${DOCKER_HUB_ROOT}/flectra:latest
+    - docker push ${DOCKER_HUB_ROOT}/flectra:2-latest
 
 .deploy:flectra_bin:
   services:
@@ -280,7 +280,7 @@ build:base_ubuntu:
   <<: *build_base_definition
   script:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
-    - docker pull ${UBUNTU_BASE_IMAGE}:latest || true
-    - docker build --cache-from ${UBUNTU_BASE_IMAGE}:latest -f ./setup/docker/base/ubuntu/Dockerfile ./setup/docker/ --tag ${UBUNTU_BASE_IMAGE}:latest
-    - docker push ${UBUNTU_BASE_IMAGE}:latest
+    - docker pull ${UBUNTU_BASE_IMAGE}:2-latest || true
+    - docker build --cache-from ${UBUNTU_BASE_IMAGE}:2-latest -f ./setup/docker/base/ubuntu/Dockerfile ./setup/docker/ --tag ${UBUNTU_BASE_IMAGE}:2-latest
+    - docker push ${UBUNTU_BASE_IMAGE}:2-latest
 
