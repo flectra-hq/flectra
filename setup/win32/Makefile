@@ -8,8 +8,8 @@ FILES_DIRECTORY=release
 MAKENSIS_ARGUMENTS=/DVERSION=$(VERSION) /DSERVICENAME=${SERVICENAME} /DPYTHONVERSION=${PYTHON_VERSION}
 
 LAUNCH_MAKENSIS=/cygdrive/c/tools/cygwin/makensis $(MAKENSIS_ARGUMENTS) setup.nsi
-WINPY32_DIR=/cygdrive/c/odoobuild/WinPy32/python-${PYTHON_VERSION}
-WINPY64_DIR=/cygdrive/c/odoobuild/WinPy64/python-${PYTHON_VERSION}.amd64
+WINPY32_DIR=/cygdrive/c/flectrabuild/WinPy32/python-${PYTHON_VERSION}
+WINPY64_DIR=/cygdrive/c/flectrabuild/WinPy64/python-${PYTHON_VERSION}.amd64
 
 default: allinone
 
@@ -38,5 +38,5 @@ allinone: server_clean
 	rm $(WINPY64_DIR)/requirements.txt
 	(cd $(SERVER_DIRECTORY)/setup/win32 && $(LAUNCH_MAKENSIS))
 	(cd $(SERVER_DIRECTORY)/setup/win32 && mkdir -p $(FILES_DIRECTORY))
-	(cd $(SERVER_DIRECTORY)/setup/win32 && cp odoo_setup_*.exe $(FILES_DIRECTORY)/)
-	(cd $(SERVER_DIRECTORY)/setup/win32/$(FILES_DIRECTORY) && chmod 0766 odoo_setup_*.exe)
+	(cd $(SERVER_DIRECTORY)/setup/win32 && cp flectra_setup_*.exe $(FILES_DIRECTORY)/)
+	(cd $(SERVER_DIRECTORY)/setup/win32/$(FILES_DIRECTORY) && chmod 0766 flectra_setup_*.exe)

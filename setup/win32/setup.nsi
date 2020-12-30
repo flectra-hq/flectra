@@ -63,7 +63,7 @@ Unicode True
 !endif
 
 !ifndef SERVICENAME
-	!define SERVICENAME 'odoo-server-${VERSION}'
+	!define SERVICENAME 'flectra-server-${VERSION}'
 !endif
 
 !ifndef TOOLSDIR
@@ -116,12 +116,12 @@ Var HWNDPostgreSQLPassword
 !define PIXMAPS_PATH "${STATIC_PATH}\pixmaps"
 
 !define MUI_ABORTWARNING
-!define MUI_ICON "${PIXMAPS_PATH}\odoo-icon.ico"
+!define MUI_ICON "${PIXMAPS_PATH}\flectra-icon.ico"
 
-!define MUI_WELCOMEFINISHPAGE_BITMAP "${PIXMAPS_PATH}\odoo-intro.bmp"
-!define MUI_UNWELCOMEFINISHPAGE_BITMAP "${PIXMAPS_PATH}\odoo-intro.bmp"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "${PIXMAPS_PATH}\flectra-intro.bmp"
+!define MUI_UNWELCOMEFINISHPAGE_BITMAP "${PIXMAPS_PATH}\flectra-intro.bmp"
 !define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "${PIXMAPS_PATH}\odoo-slogan.bmp"
+!define MUI_HEADERIMAGE_BITMAP "${PIXMAPS_PATH}\flectra-slogan.bmp"
 !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADER_TRANSPARENT_TEXT ""
 
@@ -229,27 +229,27 @@ Section $(TITLE_Odoo_Server) SectionOdoo_Server
     File /r "${STATIC_PATH}\wkhtmltopdf\*"
 
     # If there is a previous install of the Odoo Server, keep the login/password from the config file
-    WriteIniStr "$INSTDIR\server\odoo.conf" "options" "db_host" $TextPostgreSQLHostname
-    WriteIniStr "$INSTDIR\server\odoo.conf" "options" "db_user" $TextPostgreSQLUsername
-    WriteIniStr "$INSTDIR\server\odoo.conf" "options" "db_password" $TextPostgreSQLPassword
-    WriteIniStr "$INSTDIR\server\odoo.conf" "options" "db_port" $TextPostgreSQLPort
+    WriteIniStr "$INSTDIR\server\flectra.conf" "options" "db_host" $TextPostgreSQLHostname
+    WriteIniStr "$INSTDIR\server\flectra.conf" "options" "db_user" $TextPostgreSQLUsername
+    WriteIniStr "$INSTDIR\server\flectra.conf" "options" "db_password" $TextPostgreSQLPassword
+    WriteIniStr "$INSTDIR\server\flectra.conf" "options" "db_port" $TextPostgreSQLPort
     # Fix the addons path
-    WriteIniStr "$INSTDIR\server\odoo.conf" "options" "addons_path" "$INSTDIR\server\odoo\addons"
-    WriteIniStr "$INSTDIR\server\odoo.conf" "options" "bin_path" "$INSTDIR\thirdparty"
+    WriteIniStr "$INSTDIR\server\flectra.conf" "options" "addons_path" "$INSTDIR\server\flectra\addons"
+    WriteIniStr "$INSTDIR\server\flectra.conf" "options" "bin_path" "$INSTDIR\thirdparty"
 
     # if we're going to install postgresql force it's path,
     # otherwise we consider it's always done and/or correctly tune by users
     ${If} $HasPostgreSQL == 0
-        WriteIniStr "$INSTDIR\server\odoo.conf" "options" "pg_path" "$INSTDIR\PostgreSQL\bin"
+        WriteIniStr "$INSTDIR\server\flectra.conf" "options" "pg_path" "$INSTDIR\PostgreSQL\bin"
     ${EndIf}
 
     DetailPrint "Installing Windows service"
-    nsExec::ExecTOLog '"$INSTDIR\python\python.exe" "$INSTDIR\server\odoo-bin" --stop-after-init --logfile "$INSTDIR\server\odoo.log" -s'
+    nsExec::ExecTOLog '"$INSTDIR\python\python.exe" "$INSTDIR\server\flectra-bin" --stop-after-init --logfile "$INSTDIR\server\flectra.log" -s'
     ${If} ${RunningX64}
-      nsExec::ExecToLog '"$INSTDIR\nssm\win64\nssm.exe" install ${SERVICENAME} "$INSTDIR\python\python.exe" "\"$INSTDIR\server\odoo-bin\""'
+      nsExec::ExecToLog '"$INSTDIR\nssm\win64\nssm.exe" install ${SERVICENAME} "$INSTDIR\python\python.exe" "\"$INSTDIR\server\flectra-bin\""'
       nsExec::ExecToLog '"$INSTDIR\nssm\win64\nssm.exe" set ${SERVICENAME} AppDirectory "$\"$INSTDIR\server$\""'
     ${Else}
-      nsExec::ExecToLog '"$INSTDIR\nssm\win32\nssm.exe" install ${SERVICENAME} "$INSTDIR\python\python.exe" "\"$INSTDIR\server\odoo-bin\""'
+      nsExec::ExecToLog '"$INSTDIR\nssm\win32\nssm.exe" install ${SERVICENAME} "$INSTDIR\python\python.exe" "\"$INSTDIR\server\flectra-bin\""'
       nsExec::ExecToLog '"$INSTDIR\nssm\win32\nssm.exe" set ${SERVICENAME} AppDirectory "$\"$INSTDIR\server$\""'
     ${EndIf}
 
@@ -302,10 +302,10 @@ Section -Post
     WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "DisplayName" "${DISPLAY_NAME}"
     WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "DisplayVersion" "${MAJOR_VERSION}.${MINOR_VERSION}"
     WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "Publisher" "${PUBLISHER}"
-    WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "HelpLink" "support@odoo.com"
+    WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "HelpLink" "support@flectrahq.com"
     WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "HelpTelephone" "+32.81.81.37.00"
-    WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "URLInfoAbout" "https://www.odoo.com"
-    WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "Contact" "sales@odoo.com"
+    WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "URLInfoAbout" "https://www.flectrahq.com"
+    WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "Contact" "sales@flectrahq.com"
     WriteRegDWORD HKLM     "${UNINSTALL_REGISTRY_KEY}" "NoModify" "1"
     WriteRegDWORD HKLM     "${UNINSTALL_REGISTRY_KEY}" "NoRepair" "1"
     WriteUninstaller "$INSTDIR\Uninstall.exe"
