@@ -114,12 +114,12 @@ from bravado.client import SwaggerClient
 
 http_client = RequestsClient()
 http_client.set_basic_auth('yourdomain.example.com', 'DATABASE-NAME', 'USER-TOKEN')
-odoo = SwaggerClient.from_url(
+flectra = SwaggerClient.from_url(
     'https://yourdomain.example.com/api/v1/demo/swagger.json?token=demo_token&db=source',
     http_client=http_client
 )
 
-result = odoo.res_partner.callMethodForResPartnerModel(
+result = flectra.res_partner.callMethodForResPartnerModel(
     method_name="search",
     body={
         'args': [[('email', '=', 'sync@it-projects.info')]]
@@ -129,13 +129,13 @@ result = odoo.res_partner.callMethodForResPartnerModel(
 partner_id = result and result[0]
 
 if not partner_id:
-    result = odoo.res_partner.addResPartner(body={
+    result = flectra.res_partner.addResPartner(body={
         "name": "OpenAPI Support",
         "email": "sync@it-projects.info"
     }).response().result
     partner_id = result.id
 
-odoo.res_partner.callMethodForResPartnerSingleRecord(
+flectra.res_partner.callMethodForResPartnerSingleRecord(
   id=partner_id,
   method_name="message_post",
   body={
@@ -195,8 +195,8 @@ Comming soon...
                 your code. For a simple integration as well as cases when you want to use any of AWS Services it's the
                 best option. <b>No extra module is needed!</b> Check out detailed instruction:
             <ul>
-                <li><a href="https://itpp.dev/sync/x2odoo/telegram2odoo-via-lambda/documentation.html">Create Notes in
-                        Odoo from messages sent to Telegram bot</a></li>
+                <li><a href="https://itpp.dev/sync/x2flectra/telegram2flectra-via-lambda/documentation.html">Create Notes in
+                        Flectra from messages sent to Telegram bot</a></li>
             </ul>
 
             </p>
@@ -219,10 +219,10 @@ Comming soon...
         <div class="oe_span6">
             <p class="oe_mt32">
                 <a href="https://syndesis.io/">Syndesis</a> is an integration platform. Syndesis allows to make data
-                mapping from/to Odoo without any programming. <b>No extra module is needed!</b> Check out detailed
+                mapping from/to Flectra without any programming. <b>No extra module is needed!</b> Check out detailed
                 intruction:
             <ul>
-                <li><a href="https://itpp.dev/sync/odoo2odoo/syndesis/documentation.html">Odoo2odoo integration (via
+                <li><a href="https://itpp.dev/sync/flectra2flectra/syndesis/documentation.html">Flectra2flectra integration (via
                         Syndesis)</a></li>
             </ul>
 
@@ -238,7 +238,7 @@ Comming soon...
                 <a href="https://www.dataiku.com/">Dataiku</a> is platform to analyze data. <b>No extra module is
                     needed!</b> Check out detailed instruction:
             <ul>
-                <li><a href="https://itpp.dev/sync/odoo2x/odoo2dataiku/documentation.html">Analyzing Odoo GEO
+                <li><a href="https://itpp.dev/sync/flectra2x/flectra2dataiku/documentation.html">Analyzing Flectra GEO
                         Information in Dataiku</a></li>
             </ul>
 
@@ -264,7 +264,7 @@ Comming soon...
                 <a href="https://powerbi.microsoft.com/">Power BI</a> is a service to visualize and analyzing data.
                 <b>No extra module is needed!</b> Check out detailed intruction:
             <ul>
-                <li><a href="https://itpp.dev/sync/odoo2x/odoo2powerbi/documentation.html">Analyzing Odoo GEO
+                <li><a href="https://itpp.dev/sync/flectra2x/flectra2powerbi/documentation.html">Analyzing Flectra GEO
                         Information in Power BI</a></li>
             </ul>
 
@@ -313,7 +313,7 @@ Comming soon...
     <div class="oe_row oe_spaced">
         <div class="oe_span6">
             <p class="oe_mt32">
-                Need more? Anything with REST API support can be connected to Odoo <b>just with this module</b>!
+                Need more? Anything with REST API support can be connected to Flectra <b>just with this module</b>!
             </p>
         </div>
         <div class="oe_span6">
@@ -331,7 +331,7 @@ Comming soon...
 
             <div class="alert alert-success oe_mt32 oe_centered" align="center"
                 style="padding:1.3em 0.6em; font-size: 150%;">
-                As a buyer, you are granted to use the module in as many Odoo instances as you need!
+                As a buyer, you are granted to use the module in as many Flectra instances as you need!
             </div>
 
         </div>
@@ -386,7 +386,7 @@ Comming soon...
                             -o-transform: rotate(3deg);
                             -moz-transform: rotate(3deg);
                             -ms-transform: rotate(3deg);">
-                    Tested on Odoo<br />13.0 community
+                    Tested on Flectra<br />
                 </div>
                 <div style="margin-top: 15px;
                             position: relative;
@@ -403,9 +403,9 @@ Comming soon...
                             -o-transform: rotate(-8deg);
                             -moz-transform: rotate(-8deg);
                             -ms-transform: rotate(-8deg);">
-                    Tested on Odoo<br />13.0 enterprise
+                    Tested on Flectra<br />
                 </div>
             </div>
         </div>
     </div>
-</section>
+</section> 

@@ -6,8 +6,8 @@ import json
 from bravado_core.spec import Spec
 from swagger_spec_validator import SwaggerValidationError
 
-from odoo.tests import tagged
-from odoo.tests.common import PORT, HttpCase
+from flectra.tests import tagged
+from flectra.tests.common import PORT, HttpCase
 
 
 @tagged("post_install", "at_install")

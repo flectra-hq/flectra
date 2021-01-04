@@ -8,9 +8,9 @@ import types
 import urllib.parse as urlparse
 from inspect import getmro, isclass
 
-from odoo import _, api, exceptions, fields, models
+from flectra import _, api, exceptions, fields, models
 
-from odoo.addons.base_api.lib.pinguin import transform_strfields_to_dict
+from flectra.addons.base_api.lib.pinguin import transform_strfields_to_dict
 
 from ..controllers import pinguin
 
@@ -504,7 +504,7 @@ def getmembers(obj, predicate=None):
     for key in names:
         if key == "_cache":
             # NEW
-            # trying to read this key will return error in odoo 11.0+
+            # trying to read this key will return error in flectra 11.0+
             # AssertionError: Unexpected RecordCache(res.partner())
             continue
         # First try to get the value via getattr.  Some descriptors don't

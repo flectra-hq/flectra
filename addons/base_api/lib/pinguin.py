@@ -15,8 +15,8 @@ import six
 import werkzeug.wrappers
 from psycopg2.extensions import ISOLATION_LEVEL_READ_COMMITTED
 
-import odoo
-from odoo.http import request
+import flectra
+from flectra.http import request
 
 try:
     import simplejson as json
@@ -175,7 +175,7 @@ def transform_dictfields_to_list_of_tuples(record, dct, ENV=False):
     }
     the result will be
     ['name', 'email', ('bank_ids', ['bank_name', ('bank_id', ('id',))])]
-    :param odoo.models.Model record: The model object.
+    :param flectra.models.Model record: The model object.
     :param dict dct: The dictionary.
     :returns: The list of transformed fields.
     :rtype: list
@@ -271,7 +271,7 @@ def get_model_for_read(model, ENV=False):
     :param str model: The model to retrieve from the environment.
     :param object env: Environment
     :returns: the framework model if exist, otherwise raises.
-    :rtype: odoo.models.Model
+    :rtype: flectra.models.Model
     :raise: werkzeug.exceptions.HTTPException if the model not found in env.
     """
     if ENV:
@@ -280,7 +280,7 @@ def get_model_for_read(model, ENV=False):
     test_mode = request.registry.test_cr
     if not test_mode:
         # Permit parallel query execution on read
-        # Contrary to ISOLATION_LEVEL_SERIALIZABLE as per Odoo Standard
+        # Contrary to ISOLATION_LEVEL_SERIALIZABLE as per Flectra Standard
         cr._cnx.set_isolation_level(ISOLATION_LEVEL_READ_COMMITTED)
     try:
         return request.env(cr, uid)[model]
@@ -300,7 +300,7 @@ def get_dict_from_record(
     """Generates nested python dict representing one record.
     Going down to the record level, as the framework does not support nested
     data queries natively as they are typical for a REST API.
-    :param odoo.models.Model record: The singleton record to load.
+    :param flectra.models.Model record: The singleton record to load.
     :param tuple spec: The field spec to load.
     :param tuple include_fields: The extra fields.
     :param tuple exclude_fields: The excluded fields.
@@ -335,8 +335,8 @@ def get_dict_from_record(
         # Normal field, or unspecified relational
         elif isinstance(field, six.string_types):
             if not hasattr(record, field):
-                raise odoo.exceptions.ValidationError(
-                    odoo._('The model "%s" has no such field: "%s".')
+                raise flectra.exceptions.ValidationError(
+                    flectra._('The model "%s" has no such field: "%s".')
                     % (record._name, field)
                 )
 

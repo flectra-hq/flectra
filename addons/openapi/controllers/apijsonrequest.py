@@ -7,8 +7,8 @@ import time
 
 import werkzeug.wrappers
 
-import odoo
-from odoo.http import (
+import flectra
+from flectra.http import (
     AuthenticationError,
     Response,
     Root,
@@ -19,8 +19,8 @@ from odoo.http import (
     rpc_response,
     serialize_exception,
 )
-from odoo.service.server import memory_info
-from odoo.tools import date_utils
+from flectra.service.server import memory_info
+from flectra.tools import date_utils
 
 try:
     import psutil
@@ -111,16 +111,16 @@ class ApiJsonRequest(WebRequest):
             if not isinstance(
                 exception,
                 (
-                    odoo.exceptions.Warning,
+                    flectra.exceptions.Warning,
                     SessionExpiredException,
-                    odoo.exceptions.except_orm,
+                    flectra.exceptions.except_orm,
                     werkzeug.exceptions.NotFound,
                 ),
             ):
                 _logger.exception("Exception during JSON request handling.")
             error = {
                 "code": exception.response.status_code,
-                "message": "Odoo Server Error",
+                "message": "Flectra Server Error",
                 "data": serialize_exception(exception),
                 "openapi_message": json.loads(exception.response.response[0]),
             }
@@ -130,10 +130,10 @@ class ApiJsonRequest(WebRequest):
                 error["message"] = "404: Not Found"
             if isinstance(exception, AuthenticationError):
                 error["code"] = 100
-                error["message"] = "Odoo Session Invalid"
+                error["message"] = "Flectra Session Invalid"
             if isinstance(exception, SessionExpiredException):
                 error["code"] = 100
-                error["message"] = "Odoo Session Expired"
+                error["message"] = "Flectra Session Expired"
             return self._json_response(error=error)
 
     def dispatch(self):

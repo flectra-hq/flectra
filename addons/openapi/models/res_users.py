@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import uuid
 
-from odoo import api, fields, models
+from flectra import api, fields, models
 
 
 class ResUsers(models.Model):

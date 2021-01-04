@@ -6,7 +6,7 @@
     "category": "",
     # "live_test_url": "",
     "images": ["images/openapi-swagger.png"],
-    "version": "13.0.1.2.1",
+    "version": "2.0.1.2.1",
     "application": False,
     "author": "FlectraHQ, IT-Projects LLC, Ivan Yelizariev",
     "license": "LGPL-3",

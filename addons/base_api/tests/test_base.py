@@ -1,8 +1,8 @@
 # Copyright 2019 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2019 Anvar Kildebekov <https://it-projects.info/team/fedoranvar>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
-from odoo.tests import tagged
-from odoo.tests.common import TransactionCase
+from flectra.tests import tagged
+from flectra.tests.common import TransactionCase
 
 prefix = "__base_api__."
 
