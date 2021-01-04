@@ -7,9 +7,9 @@ import collections
 import urllib.parse as urlparse
 import uuid
 
-from odoo import api, fields, models
+from flectra import api, fields, models
 
-from odoo.addons.base_api.lib import pinguin
+from flectra.addons.base_api.lib import pinguin
 
 
 class Namespace(models.Model):

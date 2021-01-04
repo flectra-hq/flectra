@@ -6,9 +6,9 @@ import logging
 
 import requests
 
-from odoo import api
-from odoo.tests import tagged
-from odoo.tests.common import PORT, HttpCase, get_db_name
+from flectra import api
+from flectra.tests import tagged
+from flectra.tests.common import PORT, HttpCase, get_db_name
 
 from ..controllers import pinguin
 

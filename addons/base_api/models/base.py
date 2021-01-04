@@ -2,7 +2,7 @@
 # Copyright 2019 Anvar Kildebekov <https://it-projects.info/team/fedoranvar>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, models
+from flectra import api, models
 
 from ..lib import pinguin
 
