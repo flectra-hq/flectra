@@ -130,8 +130,79 @@ flectra.define("web_responsive", function (require) {
             this._super.apply(this, arguments);
         },
     });
-
+    var dragCount = 0;
     FormRenderer.include({
+        start: function (){
+            var superMethod = this._super.apply(this, arguments);
+            this.dropTemplateAvailable = false;
+            document.addEventListener('dragenter', this._onDragEnterForm.bind(this), true);
+            document.addEventListener('dragover', this._onDragOver.bind(this), true);
+            document.addEventListener('dragleave', this._onDragLeaveForm.bind(this), true);
+            document.addEventListener('drop', this._onDropFile.bind(this), true);
+            return superMethod;
+        },
+        _onDragEnterForm: function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if(dragCount == 0){
+                if(!this.dropTemplateAvailable){
+                    $('.o_content').append($(core.qweb.render('drop_template',{mode: this.mode})));
+                    this.dropTemplateAvailable = true;
+                }
+            }
+            dragCount++;
+        },
+        _onDragOver: function(e){
+            e.preventDefault();
+            e.stopPropagation();
+        },
+        async _onDropFile(e){
+            e.preventDefault();
+            var self = this;
+            if(this.mode == 'readonly'){
+                if(e.dataTransfer.files.length != 0){
+                    for(var file=0; file <  e.dataTransfer.files.length; file++){
+                        var attachment = e.dataTransfer.files[file];
+                        await this._createAttachment(e.dataTransfer.files[file]);
+                    }
+                    this.trigger('o-attachments-changed');
+                    this._onDragLeaveForm(e);
+                }else{
+                    return;
+                }
+            }else{
+                return;
+            }
+        },
+        _createAttachment: function(attachment){
+            var self = this;
+            var fileReader = new FileReader();
+            fileReader.onload = function(){
+                return self._rpc({
+                    model: "ir.attachment",
+                    method: "create",
+                    args: [{
+                        name: attachment.name,
+                        datas: base64js.fromByteArray(new Uint8Array(fileReader.result)),
+                        res_model: self.state.model,
+                        res_id: self.state.res_id,
+                    }],
+                });
+            };
+            fileReader.readAsArrayBuffer(attachment);
+            this.trigger('o-attachments-changed');
+        },
+        _onDragLeaveForm: function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            dragCount--;
+            if(dragCount == 0 ){
+                if(this.dropTemplateAvailable){
+                    this.dropTemplateAvailable = false;
+                    $('.drag_zone').remove();
+                }
+            }
+        },
         _renderHeaderButtons: function () {
             const $buttons = this._super.apply(this, arguments);
             if (
