@@ -134,4 +134,21 @@
             </div>
         </t>
     </t>
+
+    <t t-name="drop_template">
+        <t t-if="mode == 'readonly'">
+            <div class="drag_zone" style="top:0;left:0;background:#afc9d88c;position:absolute;width:100%;height:100%;">
+                <div style="position:absolute;top:50%;left:50%;">
+                    <h4>Drop Files Here!</h4>
+                </div>
+            </div>
+        </t>
+        <t t-if="mode == 'edit'">
+            <div class="drag_zone" style="top:0;left:0;background:#d7d8af8c;position:absolute;width:100%;height:100%;">
+                <div style="position:absolute;top:50%;left:50%;">
+                    <h4>Please Save Your Record!</h4>
+                </div>
+            </div>
+        </t>
+    </t>
 </templates>
