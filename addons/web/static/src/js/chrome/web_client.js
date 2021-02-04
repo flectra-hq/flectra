@@ -157,8 +157,6 @@ return AbstractWebClient.extend({
                     return self.menu_dp.add(self.do_action(action_id, {clear_breadcrumbs: true})).then(function () {
                         core.bus.trigger('change_menu_section', state.menu_id);
                     });
-                } else {
-                    self.menu.openFirstApp();
                 }
             }
             self._current_state = stringstate;

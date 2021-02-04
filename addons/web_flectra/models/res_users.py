@@ -8,11 +8,10 @@ class ResUsers(models.Model):
 
     _inherit = 'res.users'
 
-    sidebar_visible = fields.Boolean("Show App Sidebar", default=False)
     chatter_position = fields.Selection(
-        [("normal", "Normal"), ("sided", "Sided")],
+        [("bottom", "Bottom"), ("sided", "Sided")],
         string="Chatter Position",
-        default="normal",
+        default="sided",
     )
     dark_mode = fields.Boolean(default=False)
 
@@ -22,15 +21,9 @@ class ResUsers(models.Model):
             on some specific fields defined in self.SELF_{READ/WRITE}ABLE_FIELDS.
         """
         super(ResUsers, self).__init__(pool, cr)
-        # duplicate list to avoid modifying the original reference
-        type(self).SELF_WRITEABLE_FIELDS = list(self.SELF_WRITEABLE_FIELDS)
-        type(self).SELF_WRITEABLE_FIELDS.extend(['sidebar_visible'])
-        # duplicate list to avoid modifying the original reference
-        type(self).SELF_READABLE_FIELDS = list(self.SELF_READABLE_FIELDS)
-        type(self).SELF_READABLE_FIELDS.extend(['sidebar_visible'])
 
         type(self).SELF_WRITEABLE_FIELDS = list(self.SELF_WRITEABLE_FIELDS)
         type(self).SELF_WRITEABLE_FIELDS.extend(["chatter_position"])
         # duplicate list to avoid modifying the original reference
         type(self).SELF_READABLE_FIELDS = list(self.SELF_READABLE_FIELDS)
-        type(self).SELF_READABLE_FIELDS.extend(["chatter_position"])  
+        type(self).SELF_READABLE_FIELDS.extend(["chatter_position"])
