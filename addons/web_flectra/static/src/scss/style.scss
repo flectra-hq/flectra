@@ -1,24 +1,11 @@
 /* Copyright 2016, 2019 Openworx.
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
-
-
-$brand-primary: #009feb;
-$brand-secondary: #009feb;
-$gray-base:              #000;
-$gray-darker:            lighten($gray-base, 13.5%);
-$gray-dark:              #666;
-$gray:                   #777;
-$gray-light:             #AEA79F;
-$gray-lighter: lighten($gray-base, 93.5%);
+$brand-primary: $o-brand-primary;
+$brand-secondary: $o-brand-secondary;
 
 $brand-primary-dark: darken($brand-primary, 10%);
 $brand-secondary-dark: darken($brand-secondary, 10%);
-
-body {
-
-    font-family: "Roboto";
-}
 
 .o_loading {
     background-color: $brand-primary;
@@ -45,32 +32,6 @@ body {
 
 }
 
-//.app-sidebar {
-//    display: none;
-//}
-
-// Sidebar
-html .o_web_client {
-    flex-flow: row wrap;
-
-    >header {
-        flex: 0 0 100%;
-    }
-
-    >.o_action_manager {
-        @media (max-width: 768px) {
-            flex: 0 0 100%;
-        }
-        background-color: #f3f3f3;
-        flex: 0 0 calc(100% - 180px);
-        height: calc(100% - 55px) !important;
-    }
-
-    .toggle-sidebar~.o_action_manager {
-        flex: 0 0 100%;
-    }
-}
-
 // Fix color Add file button
 .o_control_panel .o_cp_sidebar .o_hidden_input_file .o_form_binary_form span {
     color: $gray-dark !important;
@@ -79,22 +40,8 @@ html .o_web_client {
 // Buttons
 
 .btn {
-    border-radius: 0px;
-}
-
-.btn-primary {
-
-    color: #fff;
-    background-color: $brand-secondary;
-    border-color: $brand-secondary;
-
-}
-
-.btn-primary:hover {
-
-    color: #fff;
-    background-color: $brand-secondary-dark;
-    border-color: $brand-secondary-dark;
+    border-radius: 3px !important;
+    font-size: 0.95rem;
 }
 
 .btn:active, .btn.active {
@@ -103,12 +50,33 @@ html .o_web_client {
     background-color: #eee !important;
 }
 
+.btn-primary {
+    color: #fff;
+    background-color: $brand-primary;
+    border-color: $brand-primary;
+}
+
+.btn-primary:hover {
+    color: $brand-primary;
+    background-color: $o-view-background-color;
+    border-color: $brand-primary;
+}
+
+.btn-primary:focus{
+    box-shadow: none;
+}
+
+.btn-secondary:hover {
+    color: #fff !important;
+    border-color: #fff !important;
+    background-color: $brand-primary !important;
+}
+
 .btn-group.open .dropdown-toggle {
     -webkit-box-shadow: none;
     box-shadow: none;
     background-color: #eee !important;
 }
-
 
 .btn-link {
     color: $brand-secondary;
@@ -120,6 +88,10 @@ html .o_web_client {
 
 .o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button:not(.disabled):hover {
     color: $brand-primary;
+}
+
+.o_control_panel .o_cp_bottom_left > .o_cp_action_menus .o_dropdown_toggler_btn {
+    margin: 0;
 }
 
 .o_dropdown_toggler_btn, .o_dropdown_toggler_btn:hover, .o_dropdown_toggler_btn:focus, .o_dropdown_toggler_btn:hover, .o_dropdown_toggler_btn:focus, .btn-icon, .o_graph_button {
@@ -293,15 +265,15 @@ textarea, select, .o_form_view.o_form_editable .o_form_field_many2manytags,
 .o_list_view.table thead, .o_list_view.table tfoot, .o_list_view.table td,.o_list_view.table th {
     border: none;
 }
- 
+
 .o_list_view.table thead {
     background-color: #e2e2e0;
 }
- 
+
 .o_list_view.table thead > tr > th.o_column_sortable:hover {
     background-color: #D6D6D3;
 }
- 
+
 .o_list_view.table tbody tr.o_group_header {
     background-color: #dfdfdf;
     background-image: none;
@@ -345,17 +317,17 @@ textarea, select, .o_form_view.o_form_editable .o_form_field_many2manytags,
 
      .o_form_sheet_bg {
         background: none !important;
-        background-color: #f3f3f3 !important;
+        background-color: $o-brand-background-color !important;
         padding: 0px;
         .o_form_sheet {
             border: 1px solid #d9d7d7;
             box-shadow: 0 5px 20px -15px black;
         }
-    } 
+    }
 
     .o_form_statusbar {
         //margin: -16px;
-  
+
         .o_statusbar_status {
             > .o_arrow_button {
                 background: #ffffff;
@@ -371,6 +343,7 @@ textarea, select, .o_form_view.o_form_editable .o_form_field_many2manytags,
     background-color:#f9f9f9 !important;
     background-origin: border-box;
     background-size: cover;
+    background-position: center;
     height: calc(100vh);
     max-height: calc(100vh);
     //margin-top: $o-navbar-height ;

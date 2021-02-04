@@ -1,0 +1,123 @@
+.f-theme-customizer-panel {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    width: 395px;
+    right: -395px;
+    z-index: 1001;
+    padding: 0;
+    margin-bottom: 55px;
+    overflow: auto;
+    background-color: #FFF;
+    color: #000;
+    border-left: 1px solid rgba(0, 0, 0, .05);
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+    -webkit-transition: right .4s cubic-bezier(.05, .74, .2, .99);
+    transition: right .4s cubic-bezier(.05, .74, .2, .99);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    &.open {
+        right: 0
+    }
+
+    & .label {
+        width: 125px;
+    }
+
+    & .f-theme-customizer-header {
+        .header > h3 {
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+        .close {
+            a {
+                color: #000;
+            }
+            position: absolute;
+            right: 15px;
+        }
+        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.1)
+    }
+
+    & .f-theme-customizer-content {
+        margin-bottom: 55px;
+        overflow: auto;
+
+        & .section {
+            margin: 18px -18px 18px -18px;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            h4 {
+                margin-bottom: 0;
+            }
+        }
+
+        & .sub_section {
+            border-bottom: 1px solid #ddd;
+            margin: 18px -18px 18px -18px;
+            label {
+                padding-left: 18px;
+            }
+        }
+
+        & .color_picker {
+            .label {
+                width: 250px;
+                label {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        & .switch_checkbox {
+            input[type=checkbox]{
+                height: 0;
+                width: 0;
+                visibility: hidden;
+                display: none;
+            }
+            label {
+                cursor: pointer;
+                text-indent: -9999px;
+                width: 50px;
+                height: 25px;
+                margin: 0;
+                padding: 0;
+                background: grey;
+                display: block;
+                border-radius: 50px;
+                position: relative;
+            }
+            label:after {
+                content: '';
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 21px;
+                height: 21px;
+                background: #fff;
+                border-radius: 25px;
+                transition: 0.3s;
+            }
+            input:checked + label {
+                background: #009feb;
+            }
+            input:checked + label:after {
+                left: calc(100% - 2px);
+                transform: translateX(-100%);
+            }
+            label:active:after {
+                width: 50px;
+            }
+        }
+    }
+
+    & .f-theme-customizer-footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        box-shadow: 0px -2px 5px 0px rgba(0,0,0,0.1)
+    }
+}

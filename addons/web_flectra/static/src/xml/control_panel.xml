@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+    Copyright (c) 2017-today MuK IT GmbH.
+
+    This file is part of MuK Grid Snippets
+    (see https://mukit.at).
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+  -->
+
+<templates xml:space="preserve">
+
+    <t t-inherit="web.ControlPanel" t-inherit-mode="extension">
+        <xpath expr="//nav[hasclass('o_cp_switch_buttons')]" position="replace">
+        	<nav 
+        		t-if="props.views.length gt 1" 
+        		class="btn-group o_cp_switch_buttons"
+	            role="toolbar" 
+	            aria-label="View switcher"
+	            t-att-class="{ show: state and state.showViewSwitcherButtons }" 
+	       	>	
+	       		<t t-if="isMobile">
+		            <button 
+		            	type="button" 
+		            	class="btn btn-link btn-sm" 
+		            	t-on-click="state.showViewSwitcherButtons = !state.showViewSwitcherButtons"
+		            >
+		                <span 
+		                	class="fa fa-lg" 
+		                	t-att-class="_getCurrentViewIcon()"
+		                />
+		            </button>
+		            <ul t-if="state.showViewSwitcherButtons" 
+		            	t-att-class="{ show: state.showViewSwitcherButtons }"
+		            	class="dropdown-menu dropdown-menu-right"
+		            >
+		                <li t-foreach="props.views" t-as="view" t-key="view.type">
+		                    <t t-call="web.ViewSwitcherButton"/>
+		                </li>
+		            </ul>
+	            </t>
+	            <t t-else="">
+	            	<t t-foreach="props.views" t-as="view" t-key="view.type">
+                        <t t-call="web.ViewSwitcherButton"/>
+                    </t>
+	            </t>
+	        </nav>
+        </xpath>
+    </t>
+
+</templates>

@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <flectra>
-    <template id="_assets_helpers" name="_assets_helpers ( Backend Theme Assets )" inherit_id="web._assets_primary_variables">
+	<template id="_assets_primary_variables" name="Colors" inherit_id="web._assets_primary_variables" priority="15">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/backend_theme_customizer/colors.scss' />
+        </xpath>
+    </template>
+    <template id="_assets_helpers" name="_assets_helpers ( Backend Theme Assets )" inherit_id="web._assets_primary_variables" priority="16">
         <xpath expr="." position="inside">
             <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/variables.scss'/>
-            <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/primary_variables.scss'/>
+            <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/color_palettes.scss'/>
         </xpath>
     </template>
     <template id="assets_backend" name="assets_backend ( Backend Theme Assets )" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <link href="/web_flectra/static/src/scss/fonts.scss" rel="stylesheet" type="text/scss"/>
-            <link href="/web_flectra/static/src/scss/font_rubik.scss" rel="stylesheet" type="text/scss"/>
-            <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/theme_changer.scss' />
+            <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/backend_theme_customizer/dark_mode.scss' />
+            <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/backend_theme_customizer/style.scss' />
+            <link rel="stylesheet" type="text/scss" href="/web_flectra/static/src/scss/fonts.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_flectra/static/src/scss/font_rubik.scss"/>
             <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/navbar.scss' />
             <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/apps_menu.scss' />
             <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/web_responsive.scss'/>
@@ -23,19 +28,25 @@
             <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/common_style.scss' />
             <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/style.scss' />
             <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/sidebar.scss' />
-
             <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/kanban_view.scss' />
 
             <script type="text/javascript" src="/web_flectra/static/src/js/base64js.min.js" />
-            <script type="text/javascript" src="/web_flectra/static/src/js/SystrayMenu_backend.js" />
             <script type="text/javascript" src="/web_flectra/static/src/js/web_client.js" />
             <script type="text/javascript" src="/web_flectra/static/src/js/apps_menu.js" />
             <script type="text/javascript" src="/web_flectra/static/src/js/menu.js" />
             <script type="text/javascript" src="/web_flectra/static/src/js/systray_activity_menu.js" />
             <script type="text/javascript" src="/web_flectra/static/src/js/sidebar.js" />
-            <script type="text/javascript" src="/web_flectra/static/src/js/sidebar-toggle.js" />
 	        <script type="text/javascript" src="/web_flectra/static/src/js/field_upgrade.js"/>
-	    <script type="text/javascript" src="/web_flectra/static/src/js/web_responsive.js"/>
+	        <script type="text/javascript" src="/web_flectra/static/src/js/web_responsive.js"/>
+	        <script type="text/javascript" src="/web_flectra/static/src/js/pwa.js"/>
+            <script type="text/javascript" src="/web_flectra/static/src/js/backend_theme_customizer.js" />
+            <script type="text/javascript" src="/web_flectra/static/src/js/control_panel.js" />
+
+            <link rel="stylesheet" type="text/scss" href='/web_flectra/static/lib/bootstrap.colorpicker/css/bootstrap-colorpicker.css' />
+
+            <script type="text/javascript" src="/web_flectra/static/lib/bootstrap.colorpicker/js/bootstrap-colorpicker.js" />
+            <script type="text/javascript" src="/web_flectra/static/lib/jquery.touchSwipe/jquery.touchSwipe.js"></script>
+
         </xpath>
     </template>
 </flectra>
