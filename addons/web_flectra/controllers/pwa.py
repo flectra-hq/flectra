@@ -11,6 +11,9 @@ _logger = logging.getLogger(__name__)
 
 
 class ProgressiveWebApp(Controller):
+    def _get_pwa_config(self, company_id):
+        return request.env['pwa.config'].sudo().search([('pwa_company_id', '=', int(company_id))], limit=1)
+
     def _get_asset_urls(self, asset_xml_id):
         qweb = request.env["ir.qweb"].sudo()
         assets = qweb._get_asset_nodes(asset_xml_id, {}, True, True)
@@ -23,27 +26,33 @@ class ProgressiveWebApp(Controller):
         return urls
 
     def _get_manifest(self, company_id):
-        file = get_resource_path('web_flectra', 'static', 'src', 'manifest.json')
-        response = send_file(file, filename='manifest.json', mimetype='application/json')
-
-        config = request.env['pwa.config'].sudo().search([('pwa_company_id', '=', int(company_id))], limit=1)
-        vals = {
-            "start_url": "/web",
-        }
-
+        config = self._get_pwa_config(company_id)
         if config:
-            if config.pwa_name:
-                vals.update({'name': config.pwa_name})
-            if config.pwa_short_name:
-                vals.update({'short_name': config.pwa_short_name})
-            if config.pwa_background_color:
-                vals.update({'background_color': config.pwa_background_color})
-            if config.pwa_theme_color:
-                vals.update({'theme_color': config.pwa_theme_color})
-            if config.pwa_display:
-                vals.update({'display': config.pwa_display})
-
             icons = []
+            manifest = {
+                "start_url": "/web",
+                "scope": "/web",
+            }
+            if config.pwa_name:
+                manifest.update({
+                    'name': config.pwa_name
+                })
+            if config.pwa_short_name:
+                manifest.update({
+                    'short_name': config.pwa_short_name
+                })
+            if config.pwa_background_color:
+                manifest.update({
+                    'background_color': config.pwa_background_color
+                })
+            if config.pwa_theme_color:
+                manifest.update({
+                    'theme_color': config.pwa_theme_color
+                })
+            if config.pwa_display:
+                manifest.update({
+                    'display': config.pwa_display
+                })
             if config.pwa_icon_128:
                 icons.append({
                     'src': '/pwa/icon/128/%s' % str(company_id),
@@ -63,20 +72,20 @@ class ProgressiveWebApp(Controller):
                     'sizes': "512x512",
                 })
             if len(icons) == 0:
-                icons = [
-                    {
-                        "src": "/web_flectra/static/img/icons/icon-512x512.png",
-                        "sizes": "512x512",
-                        "type": "image/png"
-                    }
-                ]
-            vals.update({'icons': icons})
-            return json.dumps(vals)
+                icons = [{
+                    "src": "/web_flectra/static/img/icons/icon-512x512.png",
+                    "type": "image/png",
+                    "sizes": "512x512",
+                    }]
+            manifest.update({'icons': icons})
+            return json.dumps(manifest)
         else:
+            file = get_resource_path('web_flectra', 'static', 'src', 'manifest.json')
+            response = send_file(file, filename='manifest.json', mimetype='application/json')
             return response
 
     def _get_icon(self, icon_size, company_id):
-        config = request.env['pwa.config'].sudo().search([('pwa_company_id', '=', int(company_id))], limit=1)
+        config = self._get_pwa_config(company_id)
         if config:
             if icon_size == 128:
                 icon = config.pwa_icon_128
@@ -84,7 +93,6 @@ class ProgressiveWebApp(Controller):
                 icon = config.pwa_icon_192
             elif icon_size == 512:
                 icon = config.pwa_icon_512
-
             if icon:
                 icon = BytesIO(base64.b64decode(icon))
                 return request.make_response(icon.read(), [('Content-Type', 'image/png')])
