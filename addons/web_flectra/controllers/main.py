@@ -36,21 +36,19 @@ class DasboardBackground(Controller):
         user = request.env['res.users'].sudo().search(
             [('id', '=', request.env.user.id)])
         company = user.company_id
-
-        result = {}
-        user_settings = {'chatter_position': user.chatter_position,
-                         'dark_mode': user.dark_mode}
-        if user.has_group('base.group_erp_manager'):
-            result['user_settings'] = user_settings
-            result['company_settings'] = {'theme_menu_style': company.theme_menu_style,
-                                          'theme_font_name': company.theme_font_name,
-                                          'theme_color_brand': company.theme_color_brand,
-                                          'theme_background_color': company.theme_background_color,
-                                          'theme_sidebar_color': company.theme_sidebar_color}
-        else:
-            result['user_settings'] = user_settings
-            result['company_settings'] = {}
-        return result
+        return {
+            'user_settings': {
+                'chatter_position': user.chatter_position,
+                'dark_mode': user.dark_mode
+            },
+            'company_settings': {
+                'theme_menu_style': company.theme_menu_style,
+                'theme_font_name': company.theme_font_name,
+                'theme_color_brand': company.theme_color_brand,
+                'theme_background_color': company.theme_background_color,
+                'theme_sidebar_color': company.theme_sidebar_color
+             }
+        }
 
     @route(['/web/backend_theme_customizer/write'], type='json', website=True, auth="user", methods=['POST'])
     def customizer_write(self, **post):
@@ -62,6 +60,8 @@ class DasboardBackground(Controller):
             company_settings = post['company_settings']
             for entry in company_settings:
                 if entry == 'theme_menu_style':
+                    result.update({entry: company_settings[entry]})
+                elif entry == 'theme_font_name':
                     result.update({entry: company_settings[entry]})
                 elif entry == 'theme_color_brand':
                     result.update({entry: company_settings[entry]})

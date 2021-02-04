@@ -37,7 +37,6 @@ ControlPanel.patch('web_flectra.ControlPanel', T => {
     class ControlPanelPatch extends T {
         constructor() {
             super(...arguments);
-            console.log('test')
             this.state = useState({
                 showViewSwitcherButtons: false,
             });
