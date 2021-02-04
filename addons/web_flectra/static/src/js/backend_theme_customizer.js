@@ -192,7 +192,9 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
             this.$('.f-theme-customizer-panel').removeClass('open')
             $('body').append(this.loader);
             this._save_customizer_data();
-            window.location.reload()
+            setTimeout(function () {
+                window.location.reload();
+            }, 2000);
         },
     });
     SystrayMenu.Items.push(BackendThemeCustomizer);
