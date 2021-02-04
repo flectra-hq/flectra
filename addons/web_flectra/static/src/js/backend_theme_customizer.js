@@ -189,6 +189,7 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
 
         _on_save_btn: function (event) {
             event.preventDefault();
+            this.$el.find('.f-theme-customizer-content .color_picker_component').colorpicker('destroy')
             this.$('.f-theme-customizer-panel').removeClass('open')
             $('body').append(this.loader);
             this._save_customizer_data();

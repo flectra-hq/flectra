@@ -24,7 +24,6 @@ class ResCompany(models.Model):
     dashboard_background = fields.Binary(attachment=True)
 
     def set_values(self):
-        print('here I am')
         variables = [
             'theme-brand-primary',
             'theme-brand-background-color',
@@ -46,7 +45,6 @@ class ResCompany(models.Model):
                 {'name': 'theme-root-font-family', 'value': self.theme_font_name or "Rubik"},
                 {'name': 'theme-sidebar-color', 'value': self.theme_sidebar_color or "#212529"},
             ]
-            print(variables)
             self.env['web_flectra.scss_editor'].replace_values(
                 SCSS_URL, XML_ID, variables
             )
