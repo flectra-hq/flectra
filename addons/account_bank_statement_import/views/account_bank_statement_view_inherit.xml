@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="account_bank_statement_form_view_inherit" model="ir.ui.view">
+        <field name="name">account.bank.statement.form.inherit</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//header' position='inside'>
+                <field name="all_lines_reconciled" invisible="1"/>
+                <button name="action_bank_reconcile_bank_statements" string="Reconcile" type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible':['|','|',('all_lines_reconciled','=',True),('line_ids','=',[]),('state', '!=', 'posted')]}"/>
+            </xpath>
+        </field>
+    </record>
+</flectra>
