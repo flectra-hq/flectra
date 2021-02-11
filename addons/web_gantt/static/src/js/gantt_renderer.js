@@ -71,6 +71,7 @@ return AbstractRenderer.extend({
                 type: data.type || '',
                 progress: progress_bar ? progress_bar : 0,
                 parent: data.parent ? data.parent : false,
+                readonly: self.state.lockedIDs.includes(data.resId),
             });
         });
     },
@@ -101,6 +102,12 @@ return AbstractRenderer.extend({
                 this.chart = gantt;
                 this.chart.attachEvent("onBeforeLightbox", function(){
                     return false;
+                });
+                this.chart.attachEvent("onBeforeTaskDrag", function(id, mode, e){
+                    if(self.state.lockedIDs.includes(parseInt(id))){
+                        return false;
+                    }
+                    return true;
                 });
                 this.chart.attachEvent("onAfterTaskDrag", function(id, mode, e){
                     var currentTask = this.getTask(id);
