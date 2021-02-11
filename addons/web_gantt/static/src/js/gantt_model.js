@@ -7,6 +7,7 @@ const { DEFAULT_INTERVAL, rankInterval } = require('web.searchUtils');
 var _t = core._t;
 
 var AbstractModel = require('web.AbstractModel');
+var Domain = require('web.Domain');
 
 return AbstractModel.extend({
     /**
@@ -17,6 +18,7 @@ return AbstractModel.extend({
         this._super.apply(this, arguments);
         this.chart = null;
         this.GanttData = [];
+        this.lockedIDs = [];
     },
 
     __get: function () {
@@ -34,6 +36,7 @@ return AbstractModel.extend({
             groupBy: params.groupedBy.length ? params.groupedBy : groupBys,
             measure: params.context.graph_measure || params.measure,
             mode: params.context.graph_mode || params.mode,
+            lockDomain: Domain.prototype.normalizeArray(Domain.prototype.stringToArray(params.lockState)),
             origins: [],
             stacked: params.stacked,
             timeRanges: params.timeRanges,
@@ -110,6 +113,7 @@ return AbstractModel.extend({
         var self = this;
         this.chart.dataPoints = [];
         this.chart.GanttData = [];
+        this.chart.lockedIDs = [];
         var groupBy = this.chart.processedGroupBy;
         var fields = _.map(groupBy, function (groupBy) {
             return groupBy.split(':')[0];
@@ -138,6 +142,15 @@ return AbstractModel.extend({
             context: context,
             domain: this.chart.domain,
         }).then(self._processGanttData.bind(self)));
+        if(this.chart.lockDomain.length !== 0){
+            proms.push(this._rpc({
+                route: '/web/dataset/search_read',
+                model: this.modelName,
+                fields: fields,
+                context: context,
+                domain: this.chart.lockDomain,
+            }).then(self._processLockedState.bind(self)));
+        }
         return Promise.all(proms);
     },
     _processGanttData: async function(rawData) {
@@ -175,6 +188,12 @@ return AbstractModel.extend({
             }
         });
         return Promise.all(proms);
+    },
+    _processLockedState: async function(data){
+        var self = this;
+        data.records.forEach(function (dataPt){
+            self.chart.lockedIDs.push(dataPt.id);
+        });
     },
     _processGanttChildData: async function(data,rawData){
         var self = this;

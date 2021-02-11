@@ -17,7 +17,7 @@
         <field name="name">project.task.gantt</field>
         <field name="model">project.task</field>
         <field name="arch" type="xml">
-            <gantt string="Project Tasks" mode="day">
+            <gantt string="Project Tasks" mode="day" lock="[('user_id', '=', False)]">
                 <field name="progress" type="progress" scale="10"/>
                 <field name="start_date" type="start"/>
                 <field name="end_date" type="end"/>

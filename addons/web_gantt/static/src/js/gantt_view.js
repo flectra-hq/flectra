@@ -157,6 +157,7 @@ var GanttView = AbstractView.extend({
         this.loadParams.titleField = 'display_name';
         this.loadParams.mode = this.arch.attrs.type || 'day';
         this.loadParams.orderBy = this.arch.attrs.order;
+        this.loadParams.lockState = this.arch.attrs.lock || '';
         this.loadParams.measure = measure || '__count__';
         this.loadParams.groupBys = groupBys;
         this.loadParams.fields = this.fields;
