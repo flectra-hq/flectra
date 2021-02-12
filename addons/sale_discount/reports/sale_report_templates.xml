@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@id='total']/div/table/tr[1]" position="before">
+            <t t-if="doc.amount_gross != doc.amount_untaxed">
+                <tr class="border-black o_subtotal" style="">
+                    <td name="td_amount_gross_label">
+                        <strong>Gross</strong>
+                    </td>
+                    <td name="td_amount_gross" class="text-right">
+                        <span t-field="doc.amount_gross"/>
+                    </td>
+                </tr>
+                <tr style="">
+                    <td name="td_document_discount_label">
+                        <t t-if="doc.discount_type == 'percent'">
+                            <span t-field="doc.discount_value_percent"/>
+                            <span>% Discount</span>
+                        </t>
+                        <t t-else="">
+                            <strong>Fixed Discount</strong>
+                        </t>
+
+                    </td>
+                    <td name="td_document_discount" class="text-right">
+                        <span t-field="doc.document_discount"/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+    </template>
+</flectra>
