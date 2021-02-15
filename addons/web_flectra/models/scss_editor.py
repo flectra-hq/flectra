@@ -120,7 +120,6 @@ class ScssEditor(models.AbstractModel):
             view_to_xpath = self.env["ir.ui.view"].get_related_views(
                 xmlid, bundles=True
             ).filtered(lambda v: v.arch.find(url) >= 0)
-
             self.env["ir.ui.view"].create({
                 'name': custom_url,
                 'key': 'web_editor.scss_%s' % str(uuid.uuid4())[:6],
@@ -140,6 +139,7 @@ class ScssEditor(models.AbstractModel):
                     'new_url': custom_url,
                 }
             })
+        self.env["ir.qweb"].clear_caches()
 
     def replace_values(self, url, xmlid, variables):
         content = self._replace_variables(

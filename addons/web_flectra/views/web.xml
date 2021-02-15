@@ -37,37 +37,6 @@
             </t>
         </xpath>
     </template>
-    <template id="pwa_offline">
-        <t t-call="web.frontend_layout">
-            <div id="wrap">
-                <t t-raw="0"/>
-                <div class="oe_structure oe_empty">
-                    <section class="pt128 pb104">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6 text-center text-md-right my-md-auto mb-5 mb-md-0">
-                                    <img class="img img-fluid" src="/web_flectra/static/src/img/icons/icon-256x256.png"/>
-                                </div>
-                                <div class="col-md-6 text-center text-md-left my-auto">
-                                    <h1 class="mt-5">You are offline</h1>
-                                    <p><b>Don't panic.</b> The requested URL is not working right now, because you have lost internet connection.</p>
-                                </div>
-                                <div class="col-12 pt40 pb24">
-                                    <hr/>
-                                </div>
-                                <div class="col-12">
-                                    <p class="text-center pt24"><b>Please reload the page after your connection goes back online.</b></p>
-                                    <ul class="list-inline text-center">
-                                        <li class="list-inline-item mb-2"><a class="btn btn-secondary" href="javascript:window.location.reload(true)">Reload Page</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </t>
-    </template>
     <template id="service_worker_settings" name="PWA service worker settings">
 const CACHE_NAME = '<t t-esc="pwa_cache_name" />';
 const FILES_TO_CACHE = [

@@ -11,6 +11,11 @@
             <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/color_palettes.scss'/>
         </xpath>
     </template>
+    <template id="assets_common" name="Common Assets (used in backend interface and website)" inherit_id="web.assets_common">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/web_flectra/static/src/js/pwa.js"/>
+        </xpath>
+    </template>
     <template id="assets_backend" name="assets_backend ( Backend Theme Assets )" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <link rel="stylesheet" type="text/scss" href='/web_flectra/static/src/scss/backend_theme_customizer/dark_mode.scss' />
@@ -38,7 +43,6 @@
             <script type="text/javascript" src="/web_flectra/static/src/js/sidebar.js" />
 	        <script type="text/javascript" src="/web_flectra/static/src/js/field_upgrade.js"/>
 	        <script type="text/javascript" src="/web_flectra/static/src/js/web_responsive.js"/>
-	        <script type="text/javascript" src="/web_flectra/static/src/js/pwa.js"/>
             <script type="text/javascript" src="/web_flectra/static/src/js/backend_theme_customizer.js" />
             <script type="text/javascript" src="/web_flectra/static/src/js/control_panel.js" />
 

@@ -121,7 +121,6 @@ class ProgressiveWebApp(Controller):
             '/web_flectra/static/src/img/icons/icon-192x192.png',
             '/web_flectra/static/src/img/icons/icon-256x256.png',
             '/web_flectra/static/src/img/icons/icon-512x512.png',
-            '/pwa/offline',
         ])
         cache_version = "-".join(version_list)
         mimetype = "text/javascript;charset=utf-8"
@@ -138,10 +137,6 @@ class ProgressiveWebApp(Controller):
         else:
             company_id = kwargs.get('company_id')
         return self._get_manifest(company_id)
-
-    @route('/pwa/offline', type='http', auth="public", website=True)
-    def pwa_offline(self):
-        return request.render("web_flectra.pwa_offline")
 
     @route('/pwa/icon/128/<int:company_id>', type='http', auth="public")
     def icon_128(self, **kwargs):
