@@ -93,7 +93,7 @@ var SideMenu = Widget.extend({
      * @param {Number} action id of the menu entry to select
      */
     set_menu: function (app) {
-        if (!app.actionID) {
+        if (!app.actionID || !app.menuID) {
             return;
         }
         var $main_menu = $('.f_launcher_content');
