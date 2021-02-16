@@ -83,7 +83,9 @@ var SideMenu = Widget.extend({
         if (self.current_menu) {
             self.open_menu(self.current_menu);
         }
-        this.is_bound.resolve();
+        this.is_bound.resolve().done(function(){
+            $('#menu_launcher').removeClass('d-none');
+        });
     },
 
     /**
@@ -333,7 +335,7 @@ flectra.define('web_flectra.sidemenu.webclient', function(require) {
             this.sidemenu.on('menu_click', this, this.on_menu_action);
             this.sidemenu.set_menu(app);
 
-            this.bind_hashchange();
+            //this.bind_hashchange();
             return this._super.apply(this, arguments);
         },
 

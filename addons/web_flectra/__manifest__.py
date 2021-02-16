@@ -13,6 +13,7 @@
     'depends': ['base_setup'],
     'data': [
         'security/ir.model.access.csv',
+        'data/theme_config.xml',
         'views/assets.xml',
         'views/pwa_config_view.xml',
         'views/res_company_view.xml',
