@@ -59,7 +59,7 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
         ////////////////////////
         /// Data methods
         ////////////////////////
-        _save_customizer_data: function () {
+        async _save_customizer_data() {
             /* Get company_settings from ui. */
             var company_settings = {}
             var company_settings_old = this.company_settings
@@ -77,7 +77,7 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
             })
 
             company_settings = this._diff(company_settings, company_settings_old);
-            this._write_data('company_settings', company_settings);
+            await this._write_data('company_settings', company_settings);
 
             /* Get user_settings from ui. */
             var user_settings = {}
@@ -88,7 +88,8 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
             user_settings['chatter_position'] = user_container.find('#select_chatter option:selected').val()
 
             user_settings = this._diff(user_settings, user_settings_old);
-            this._write_data('user_settings', user_settings);
+            const data = await this._write_data('user_settings', user_settings);
+            return true;
         },
 
         _diff: function(dict1, dict2) {
@@ -108,7 +109,7 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
             }) ;
         },
 
-        _write_data: function (setting_type, data) {
+        async _write_data(setting_type, data) {
             var result = {}
             if (setting_type && data) {
                 result[setting_type] = data;
@@ -192,10 +193,9 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
             this.$el.find('.f-theme-customizer-content .color_picker_component').colorpicker('destroy')
             this.$('.f-theme-customizer-panel').removeClass('open')
             $('body').append(this.loader);
-            this._save_customizer_data();
-            setTimeout(function () {
+            this._save_customizer_data().then(function(){
                 window.location.reload();
-            }, 2000);
+            });
         },
     });
     SystrayMenu.Items.push(BackendThemeCustomizer);

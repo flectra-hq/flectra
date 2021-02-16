@@ -4,8 +4,6 @@
 
 import base64
 from flectra.http import Controller, request, route
-from werkzeug.utils import redirect
-
 
 
 class DasboardBackground(Controller):
@@ -70,7 +68,6 @@ class DasboardBackground(Controller):
                 elif entry == 'theme_sidebar_color':
                     result.update({entry: company_settings[entry]})
             company.update(result)
-            company.set_values()
         elif 'user_settings' in post:
             result = {}
             user_settings = post['user_settings']
