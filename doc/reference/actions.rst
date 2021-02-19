@@ -80,7 +80,7 @@ Its fields are:
     an optional database id (or ``False``). If no id is provided, the client
     should fetch the default view of the specified type for the requested
     model (this is automatically done by
-    :meth:`~odoo.models.Model.fields_view_get`). The first type of the
+    :meth:`~flectra.models.Model.fields_view_get`). The first type of the
     list is the default view type and will be open by default when the action
     is executed. Each view type should be present at most once in the list
 ``res_id`` (optional)
@@ -188,7 +188,7 @@ The server-side composition of the ``views`` sequence is the following:
 URL Actions (``ir.actions.act_url``)
 ====================================
 
-Allow opening a URL (website/web page) via an Odoo action. Can be customized
+Allow opening a URL (website/web page) via an Flectra action. Can be customized
 via two fields:
 
 ``url``
@@ -201,18 +201,18 @@ via two fields:
 
     {
         "type": "ir.actions.act_url",
-        "url": "https://odoo.com",
+        "url": "https://flectra.com",
         "target": "self",
     }
 
-will replace the current content section by the Odoo home page.
+will replace the current content section by the Flectra home page.
 
 .. _reference/actions/server:
 
 Server Actions (``ir.actions.server``)
 ======================================
 
-.. autoclass:: odoo.addons.base.models.ir_actions.IrActionsServer
+.. autoclass:: flectra.addons.base.models.ir_actions.IrActionsServer
 
 Allow triggering complex server code from any valid action location. Only
 two fields are relevant to clients:
@@ -227,7 +227,7 @@ specific or generic actions based on their ``state``. Some fields (and
 corresponding behaviors) are shared between states:
 
 ``model_id``
-    Odoo model linked to the action.
+    Flectra model linked to the action.
 
 ``state``
 
@@ -297,7 +297,7 @@ The concerned state is given after each field.
 
 ``fields_lines`` (create/write)
     fields to override when creating or copying the record.
-    :class:`~odoo.fields.One2many` with the fields:
+    :class:`~flectra.fields.One2many` with the fields:
 
     ``col1``
         ``ir.model.fields`` to set in the concerned model
@@ -324,7 +324,7 @@ server actions:
 
 * ``model`` model object linked to the action via ``model_id``
 * ``record``/``records`` record/recorset on which the action is triggered, can be void.
-* ``env`` Odoo Environment
+* ``env`` Flectra Environment
 * ``datetime``, ``dateutil``, ``time``, ``timezone`` corresponding Python modules
 * ``log: log(message, level='info')`` logging function to record debug information in ir.logging table
 * ``Warning`` constructor for the ``Warning`` exception
@@ -356,12 +356,12 @@ not necessary to set ``binding_type`` to ``report``, since
 ``print_report_name``
     python expression defining the name of the report.
 ``groups_id``
-    :class:`~odoo.fields.Many2many` field to the groups allowed to view/use
+    :class:`~flectra.fields.Many2many` field to the groups allowed to view/use
     the current report
 ``multi``
     if set to ``True``, the action will not be displayed on a form view.
 ``paperformat_id``
-    :class:`~odoo.fields.Many2one` field to the paper format you wish to
+    :class:`~flectra.fields.Many2one` field to the paper format you wish to
     use for this report (if not specified, the company format will be used)
 ``attachment_use``
     if set to ``True``, the report is only generated once the first time it is

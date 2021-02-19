@@ -4,10 +4,10 @@
 
 
 ===============
-Testing Odoo
+Testing Flectra
 ===============
 
-There are many ways to test an application.  In Odoo, we have three kinds of
+There are many ways to test an application.  In Flectra, we have three kinds of
 tests
 
 - Python unit tests (see `Testing Python code`_): useful for testing model business logic
@@ -18,7 +18,7 @@ tests
 Testing Python code
 ===================
 
-Odoo provides support for testing modules using unittest.
+Flectra provides support for testing modules using unittest.
 
 To write tests, simply define a ``tests`` sub-package in your module, it will
 be automatically inspected for test modules. Test modules should have a name
@@ -44,28 +44,28 @@ and ``__init__.py`` contains::
     run
 
 The test runner will simply run any test case, as described in the official
-`unittest documentation`_, but Odoo provides a number of utilities and helpers
-related to testing Odoo content (modules, mainly):
+`unittest documentation`_, but Flectra provides a number of utilities and helpers
+related to testing Flectra content (modules, mainly):
 
-.. autoclass:: odoo.tests.common.TransactionCase
+.. autoclass:: flectra.tests.common.TransactionCase
     :members: browse_ref, ref
 
-.. autoclass:: odoo.tests.common.SingleTransactionCase
+.. autoclass:: flectra.tests.common.SingleTransactionCase
     :members: browse_ref, ref
 
-.. autoclass:: odoo.tests.common.SavepointCase
+.. autoclass:: flectra.tests.common.SavepointCase
 
-.. autoclass:: odoo.tests.common.HttpCase
+.. autoclass:: flectra.tests.common.HttpCase
     :members: browse_ref, ref, url_open, browser_js
 
-.. autofunction:: odoo.tests.common.tagged
+.. autofunction:: flectra.tests.common.tagged
 
 By default, tests are run once right after the corresponding module has been
 installed. Test cases can also be configured to run after all modules have
 been installed, and not run right after the module installation::
 
   # coding: utf-8
-  from odoo.tests import HttpCase, tagged
+  from flectra.tests import HttpCase, tagged
 
   # This test should only be executed after all modules have been installed.
   @tagged('-at_install', 'post_install')
@@ -74,7 +74,7 @@ been installed, and not run right after the module installation::
         Page = self.env['website.page']
 
 The most common situation is to use
-:class:`~odoo.tests.common.TransactionCase` and test a property of a model
+:class:`~flectra.tests.common.TransactionCase` and test a property of a model
 in each method::
 
     class TestModelA(common.TransactionCase):
@@ -91,52 +91,52 @@ in each method::
 
     Test methods must start with ``test_``
 
-.. autoclass:: odoo.tests.common.Form
+.. autoclass:: flectra.tests.common.Form
     :members:
 
-.. autoclass:: odoo.tests.common.M2MProxy
+.. autoclass:: flectra.tests.common.M2MProxy
     :members: add, remove, clear
 
-.. autoclass:: odoo.tests.common.O2MProxy
+.. autoclass:: flectra.tests.common.O2MProxy
     :members: new, edit, remove
 
 Running tests
 -------------
 
 Tests are automatically run when installing or updating modules if
-:option:`--test-enable <odoo-bin --test-enable>` was enabled when starting the
-Odoo server.
+:option:`--test-enable <flectra-bin --test-enable>` was enabled when starting the
+Flectra server.
 
 .. _unittest documentation: https://docs.python.org/3/library/unittest.html
 
 Test selection
 --------------
 
-In Odoo, Python tests can be tagged to facilitate the test selection when
+In Flectra, Python tests can be tagged to facilitate the test selection when
 running tests.
 
-Subclasses of :class:`odoo.tests.common.BaseCase` (usually through
-:class:`~odoo.tests.common.TransactionCase`,
-:class:`~odoo.tests.common.SavepointCase` or
-:class:`~odoo.tests.common.HttpCase`) are automatically tagged with
+Subclasses of :class:`flectra.tests.common.BaseCase` (usually through
+:class:`~flectra.tests.common.TransactionCase`,
+:class:`~flectra.tests.common.SavepointCase` or
+:class:`~flectra.tests.common.HttpCase`) are automatically tagged with
 ``standard``, ``at_install`` and their source module's name by default.
 
 Invocation
 ^^^^^^^^^^
 
-:option:`--test-tags <odoo-bin --test-tags>` can be used to select/filter tests
+:option:`--test-tags <flectra-bin --test-tags>` can be used to select/filter tests
 to run on the command-line.
 
 This option defaults to ``+standard`` meaning tests tagged ``standard``
-(explicitly or implicitly) will be run by default when starting Odoo
-with :option:`--test-enable <odoo-bin --test-enable>`.
+(explicitly or implicitly) will be run by default when starting Flectra
+with :option:`--test-enable <flectra-bin --test-enable>`.
 
-When writing tests, the :func:`~odoo.tests.common.tagged` decorator can be
+When writing tests, the :func:`~flectra.tests.common.tagged` decorator can be
 used on **test classes** to add or remove tags.
 
 The decorator's arguments are tag names, as strings.
 
-.. danger:: :func:`~odoo.tests.common.tagged` is a class decorator, it has no
+.. danger:: :func:`~flectra.tests.common.tagged` is a class decorator, it has no
             effect on functions or methods
 
 Tags can be prefixed with the minus (``-``) sign, to *remove* them instead of
@@ -145,7 +145,7 @@ default you can remove the ``standard`` tag:
 
 .. code-block:: python
 
-    from odoo.tests import TransactionCase, tagged
+    from flectra.tests import TransactionCase, tagged
 
     @tagged('-standard', 'nice')
     class NiceTest(TransactionCase):
@@ -156,16 +156,16 @@ have to be selected explicitely:
 
 .. code-block:: console
 
-    $ odoo-bin --test-enable --test-tags nice
+    $ flectra-bin --test-enable --test-tags nice
 
 Note that only the tests tagged ``nice`` are going to be executed. To run
 *both* ``nice`` and ``standard`` tests, provide multiple values to
-:option:`--test-tags <odoo-bin --test-tags>`: on the command-line, values
+:option:`--test-tags <flectra-bin --test-tags>`: on the command-line, values
 are *additive* (you're selecting all tests with *any* of the specified tags)
 
 .. code-block:: console
 
-    $ odoo-bin --test-enable --test-tags nice,standard
+    $ flectra-bin --test-enable --test-tags nice,standard
 
 The config switch parameter also accepts the ``+`` and ``-`` prefixes. The
 ``+`` prefix is implied and therefore, totaly optional. The ``-`` (minus)
@@ -176,10 +176,10 @@ ones:
 
 .. code-block:: console
 
-    $ odoo-bin --test-enable --test-tags 'standard,-slow'
+    $ flectra-bin --test-enable --test-tags 'standard,-slow'
 
 When you write a test that does not inherit from the
-:class:`~odoo.tests.common.BaseCase`, this test will not have the default tags,
+:class:`~flectra.tests.common.BaseCase`, this test will not have the default tags,
 you have to add them explicitely to have the test included in the default test
 suite.  This is a common issue when using a simple ``unittest.TestCase`` as
 they're not going to get run:
@@ -187,7 +187,7 @@ they're not going to get run:
 .. code-block:: python
 
     import unittest
-    from odoo.tests import tagged
+    from flectra.tests import tagged
 
     @tagged('standard', 'at_install')
     class SmallTest(unittest.TestCase):
@@ -196,9 +196,9 @@ they're not going to get run:
 Special tags
 ^^^^^^^^^^^^
 
-- ``standard``: All Odoo tests that inherit from
-  :class:`~odoo.tests.common.BaseCase` are implicitely tagged standard.
-  :option:`--test-tags <odoo-bin --test-tags>` also defaults to ``standard``.
+- ``standard``: All Flectra tests that inherit from
+  :class:`~flectra.tests.common.BaseCase` are implicitely tagged standard.
+  :option:`--test-tags <flectra-bin --test-tags>` also defaults to ``standard``.
 
   That means untagged test will be executed by default when tests are enabled.
 - ``at_install``: Means that the test will be executed right after the module
@@ -210,15 +210,15 @@ Special tags
   Note that this is *not exclusive* with ``at_install``, however since you
   will generally not want both ``post_install`` is usually paired with
   ``-at_install`` when tagging a test class.
-- *module_name*: Odoo tests classes extending
-  :class:`~odoo.tests.common.BaseCase` are implicitely tagged with the
+- *module_name*: Flectra tests classes extending
+  :class:`~flectra.tests.common.BaseCase` are implicitely tagged with the
   technical name of their module. This allows easily selecting or excluding
   specific modules when testing e.g. if you want to only run tests from
   ``stock_account``:
 
   .. code-block:: console
 
-      $ odoo-bin --test-enable --test-tags stock_account
+      $ flectra-bin --test-enable --test-tags stock_account
 
 Examples
 ^^^^^^^^
@@ -226,27 +226,27 @@ Examples
 .. important::
 
     Tests will be executed only in the installed or updated modules.  So
-    modules have to be selected with the :option:`-u <odoo-bin -u>` or
-    :option:`-i <odoo-bin -i>` switches.  For simplicity, those switches are
+    modules have to be selected with the :option:`-u <flectra-bin -u>` or
+    :option:`-i <flectra-bin -i>` switches.  For simplicity, those switches are
     not specified in the examples below.
 
 Run only the tests from the sale module:
 
 .. code-block:: console
 
-    $ odoo-bin --test-enable --test-tags sale
+    $ flectra-bin --test-enable --test-tags sale
 
 Run the tests from the sale module but not the ones tagged as slow:
 
 .. code-block:: console
 
-    $ odoo-bin --test-enable --test-tags 'sale,-slow'
+    $ flectra-bin --test-enable --test-tags 'sale,-slow'
 
 Run only the tests from stock or tagged as slow:
 
 .. code-block:: console
 
-    $ odoo-bin --test-enable --test-tags '-standard, slow, stock'
+    $ flectra-bin --test-enable --test-tags '-standard, slow, stock'
 
 .. note:: ``-standard`` is implicit (not required), and present for clarity
 
@@ -254,7 +254,7 @@ Testing JS code
 ===============
 
 Testing a complex system is an important safeguard to prevent regressions and to
-guarantee that some basic functionality still works. Since Odoo has a non trivial
+guarantee that some basic functionality still works. Since Flectra has a non trivial
 codebase in Javascript, it is necessary to test it. In this section, we will
 discuss the practice of testing JS code in isolation: these tests stay in the
 browser, and are not supposed to reach the server.
@@ -262,7 +262,7 @@ browser, and are not supposed to reach the server.
 Qunit test suite
 ----------------
 
-The Odoo framework uses the QUnit_ library testing framework as a test runner.
+The Flectra framework uses the QUnit_ library testing framework as a test runner.
 QUnit defines the concepts of *tests* and *modules* (a set of related tests),
 and gives us a web based interface to execute the tests.
 
@@ -281,7 +281,7 @@ For example, here is what a pyUtils test could look like:
         assert.strictEqual(result, 2, "should properly evaluate modulo operator");
     });
 
-The main way to run the test suite is to have a running Odoo server, then
+The main way to run the test suite is to have a running Flectra server, then
 navigate a web browser to ``/web/tests``.  The test suite will then be executed
 by the web browser Javascript engine.
 
@@ -334,7 +334,7 @@ infrastructure:
 Modularity and testing
 ----------------------
 
-With the way Odoo is designed, any addon can modify the behaviour of other parts
+With the way Flectra is designed, any addon can modify the behaviour of other parts
 of the system.  For example, the *voip* addon can modify the *FieldPhone* widget
 to use extra features.  This is not really good from the perspective of the
 testing system, since this means that a test in the addon web will fail whenever
@@ -363,7 +363,7 @@ the following:
 
     .. code-block:: javascript
 
-        odoo.define('my_addon.utils_tests', function (require) {
+        flectra.define('my_addon.utils_tests', function (require) {
         "use strict";
 
         var utils = require('my_addon.utils');
@@ -381,13 +381,13 @@ the following:
     .. code-block:: xml
 
         <?xml version="1.0" encoding="utf-8"?>
-        <odoo>
+        <flectra>
             <template id="qunit_suite_tests" name="my addon tests" inherit_id="web.qunit_suite_tests">
                 <xpath expr="//script[last()]" position="after">
                     <script type="text/javascript" src="/my_addon/static/tests/utils_tests.js"/>
                 </xpath>
             </template>
-        </odoo>
+        </flectra>
 
 3. Restart the server and update *my_addon*, or do it from the interface (to
    make sure the new test file is loaded)
@@ -408,13 +408,13 @@ the following:
 Helper functions and specialized assertions
 -------------------------------------------
 
-Without help, it is quite difficult to test some parts of Odoo. In particular,
+Without help, it is quite difficult to test some parts of Flectra. In particular,
 views are tricky, because they communicate with the server and may perform many
 rpcs, which needs to be mocked.  This is why we developed some specialized
 helper functions, located in `test_utils.js`_.
 
 - Mock test functions: these functions help setting up a test environment. The
-  most important use case is mocking the answers given by the Odoo server. These
+  most important use case is mocking the answers given by the Flectra server. These
   functions use a `mock server`_. This is a javascript class that simulates
   answers to the most common model methods: read, search_read, nameget, ...
 
@@ -429,7 +429,7 @@ helper functions, located in `test_utils.js`_.
   real conditions.  The most important is certainly `createView`_.
 
 - `qunit assertions`_: QUnit can be extended with specialized assertions. For
-  Odoo, we frequently test some DOM properties. This is why we made some
+  Flectra, we frequently test some DOM properties. This is why we made some
   assertions to help with that.  For example, the *containsOnce* assertion takes
   a widget/jQuery/HtmlElement and a selector, then checks if the target contains
   exactly one match for the css selector.
@@ -520,10 +520,10 @@ taken at the moment of the failure and written in
 
 .. code-block:: console
 
-  '/tmp/odoo_tests/{db_name}/screenshots/'
+  '/tmp/flectra_tests/{db_name}/screenshots/'
 
-Two new command line arguments were added since Odoo 13.0 to control this behavior:
-:option:`--screenshots <odoo-bin --screenshots>` and :option:`--screencasts <odoo-bin --screencasts>`
+Two new command line arguments were added since Flectra 13.0 to control this behavior:
+:option:`--screenshots <flectra-bin --screenshots>` and :option:`--screencasts <flectra-bin --screencasts>`
 
 
 Performance Testing
@@ -534,7 +534,7 @@ Query counts
 
 One of the ways to test performance is to measure database queries. Manually, this can be tested with the
 `--log-sql` CLI parameter. If you want to establish the maximum number of queries for an operation,
-you can use the :meth:`~odoo.tests.common.BaseCase.assertQueryCount` method, integrated in Odoo test classes.
+you can use the :meth:`~flectra.tests.common.BaseCase.assertQueryCount` method, integrated in Flectra test classes.
 
 .. code-block:: python
 
@@ -546,11 +546,11 @@ you can use the :meth:`~odoo.tests.common.BaseCase.assertQueryCount` method, int
 Database population
 -------------------
 
-Odoo CLI offers a :ref:`database population<reference/cmdline/populate>` feature.
+Flectra CLI offers a :ref:`database population<reference/cmdline/populate>` feature.
 
 .. code-block:: console
 
-    odoo-bin populate
+    flectra-bin populate
 
 Instead of the tedious manual, or programmatic, specification of test data,
 one can use this feature to fill a database on demand with the desired number of test data.
@@ -560,7 +560,7 @@ This can be used to detect diverse bugs or performance issues in tested flows.
 
 To specify this feature for a given model, the following methods and attributes can be defined.
 
-.. currentmodule:: odoo.models
+.. currentmodule:: flectra.models
 
 .. autoattribute:: Model._populate_sizes
 .. autoattribute:: Model._populate_dependencies
@@ -569,7 +569,7 @@ To specify this feature for a given model, the following methods and attributes 
 
 .. note::
 
-    You have to define at least :meth:`~odoo.models.Model._populate` or :meth:`~odoo.models.Model._populate_factories`
+    You have to define at least :meth:`~flectra.models.Model._populate` or :meth:`~flectra.models.Model._populate_factories`
     on the model to enable database population.
 
 Example model
@@ -577,7 +577,7 @@ Example model
 
 .. code-block:: python
 
-    from odoo.tools import populate
+    from flectra.tools import populate
 
     class CustomModel(models.Model)
         _inherit = "custom.some_model"
@@ -622,17 +622,17 @@ Population tools
 Multiple population tools are available to easily create
 the needed data generators.
 
-.. automodule:: odoo.tools.populate
+.. automodule:: flectra.tools.populate
     :members: cartesian, compute, constant, iterate, randint, randomize
 
 .. _qunit: https://qunitjs.com/
-.. _qunit_config.js: https://github.com/odoo/odoo/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/static/tests/helpers/qunit_config.js#L49
-.. _web.tests_assets: https://github.com/odoo/odoo/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/views/webclient_templates.xml#L594
-.. _web.qunit_suite: https://github.com/odoo/odoo/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/views/webclient_templates.xml#L660
-.. _web.qunit_suite_tests: https://github.com/odoo/odoo/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/views/webclient_templates.xml#L680
-.. _controller: https://github.com/odoo/odoo/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/controllers/main.py#L637
-.. _test_js.py: https://github.com/odoo/odoo/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/tests/test_js.py#L13
-.. _test_utils.js: https://github.com/odoo/odoo/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/static/tests/helpers/test_utils.js
-.. _mock server: https://github.com/odoo/odoo/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/static/tests/helpers/mock_server.js
-.. _qunit assertions: https://github.com/odoo/odoo/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/static/tests/helpers/qunit_asserts.js
-.. _createView: https://github.com/odoo/odoo/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/static/tests/helpers/test_utils_create.js#L267
+.. _qunit_config.js: https://github.com/flectra/flectra/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/static/tests/helpers/qunit_config.js#L49
+.. _web.tests_assets: https://github.com/flectra/flectra/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/views/webclient_templates.xml#L594
+.. _web.qunit_suite: https://github.com/flectra/flectra/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/views/webclient_templates.xml#L660
+.. _web.qunit_suite_tests: https://github.com/flectra/flectra/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/views/webclient_templates.xml#L680
+.. _controller: https://github.com/flectra/flectra/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/controllers/main.py#L637
+.. _test_js.py: https://github.com/flectra/flectra/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/tests/test_js.py#L13
+.. _test_utils.js: https://github.com/flectra/flectra/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/static/tests/helpers/test_utils.js
+.. _mock server: https://github.com/flectra/flectra/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/static/tests/helpers/mock_server.js
+.. _qunit assertions: https://github.com/flectra/flectra/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/static/tests/helpers/qunit_asserts.js
+.. _createView: https://github.com/flectra/flectra/blob/51ee0c3cb59810449a60dae0b086b49b1ed6f946/addons/web/static/tests/helpers/test_utils_create.js#L267

@@ -8,10 +8,10 @@
 Installation
 ============
 
-* `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way
-* Add ``openapi`` to `--load parameter <https://odoo-development.readthedocs.io/en/latest/admin/server_wide_modules.html>`__, e.g.::
+* `Install <https://flectra-development.readthedocs.io/en/latest/flectra/usage/install-module.html>`__ this module in a usual way
+* Add ``openapi`` to `--load parameter <https://flectra-development.readthedocs.io/en/latest/admin/server_wide_modules.html>`__, e.g.::
 
-    ./odoo-bin --workers=2 --load openapi,base,web --config=/path/to/odoo.conf
+    ./flectra-bin --workers=2 --load openapi,base,web --config=/path/to/flectra.conf
 
   + Note: Skipping this step may lead to error response::
 
@@ -66,7 +66,7 @@ Activating and customization
 Authentication
 --------------
 
-* `Activate Developer Mode <https://odoo-development.readthedocs.io/en/latest/odoo/usage/debug-mode.html>`__
+* `Activate Developer Mode <https://flectra-development.readthedocs.io/en/latest/flectra/usage/debug-mode.html>`__
 * Open menu ``[[ Settings ]] >> Users & Companies >> Users``
 * Select a user that will be used for iteracting over API
 * In **Allowed Integration** select some integrations
@@ -91,7 +91,7 @@ As the simplest example, you can try API in Swagger Editor. It allows to review 
   * **Password** -- set **OpenAPI Token** (how to get one is described in `authentication <#authentication>`__ above)
 
 Note:
-  The Swagger Editor sends requests directly from browser which leads to CORS error and work with it is not available in `odoo.sh`.
+  The Swagger Editor sends requests directly from browser which leads to CORS error and work with it is not available in `flectra.sh`.
   The easiest solution is to simply copy-past the curl command from Swagger Editor and run it from the terminal.
 
   Alternatively, you can grant CORS headers in your web server. Below is example for Nginx::

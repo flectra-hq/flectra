@@ -3,7 +3,7 @@
 .. _reference/cmdline:
 
 ================================
-Command-line interface: odoo-bin
+Command-line interface: flectra-bin
 ================================
 
 .. _reference/cmdline/server:
@@ -11,7 +11,7 @@ Command-line interface: odoo-bin
 Running the server
 ==================
 
-.. program:: odoo-bin
+.. program:: flectra-bin
 
 .. option:: -d <database>, --database <database>
 
@@ -45,7 +45,7 @@ Running the server
 .. option:: -s, --save
 
     saves the server configuration to the current configuration file
-    (:file:`{$HOME}/.odoorc` by default, and can be overridden using
+    (:file:`{$HOME}/.flectrarc` by default, and can be overridden using
     :option:`-c`).
 
 .. option:: --without-demo
@@ -64,7 +64,7 @@ Running the server
 .. option:: --screenshots
 
     Specify directory where to write screenshots when an HttpCase.browser_js test
-    fails. It defaults to :file:`/tmp/odoo_tests/{db_name}/screenshots`
+    fails. It defaults to :file:`/tmp/flectra_tests/{db_name}/screenshots`
 
 .. option:: --screencasts
 
@@ -103,12 +103,12 @@ Database
 
     - ``%h`` is replaced by the whole hostname the request is made on.
     - ``%d`` is replaced by the subdomain the request is made on, with the
-      exception of ``www`` (so domain ``odoo.com`` and ``www.odoo.com`` both
-      match the database ``odoo``).
+      exception of ``www`` (so domain ``flectra.com`` and ``www.flectra.com`` both
+      match the database ``flectra``).
 
       These operations are case sensitive. Add option ``(?i)`` to match all
-      databases (so domain ``odoo.com`` using ``(?i)%d`` matches the database
-      ``Odoo``).
+      databases (so domain ``flectra.com`` using ``(?i)%d`` matches the database
+      ``Flectra``).
 
     Since version 11, it's also possible to restrict access to a given database
     listen by using the --database parameter and specifying a comma-separated
@@ -120,19 +120,19 @@ Database
 
     .. code-block:: bash
 
-        $ odoo-bin --db-filter ^11.*$
+        $ flectra-bin --db-filter ^11.*$
 
     Restrict access to databases whose name starts with 11
 
     .. code-block:: bash
 
-        $ odoo-bin --database 11firstdatabase,11seconddatabase
+        $ flectra-bin --database 11firstdatabase,11seconddatabase
 
     Restrict access to only two databases, 11firstdatabase and 11seconddatabase
 
     .. code-block:: bash
 
-        $ odoo-bin --database 11firstdatabase,11seconddatabase -u base
+        $ flectra-bin --database 11firstdatabase,11seconddatabase -u base
 
     Restrict access to only two databases, 11firstdatabase and 11seconddatabase,
     and update base module on one database: 11firstdatabase.
@@ -141,7 +141,7 @@ Database
 
     .. code-block:: bash
 
-        $ odoo-bin --db-filter ^11.*$ --database 11firstdatabase,11seconddatabase -u base
+        $ flectra-bin --db-filter ^11.*$ --database 11firstdatabase,11seconddatabase -u base
 
     Restrict access to databases whose name starts with 11,
     and update base module on one database: 11firstdatabase.
@@ -165,7 +165,7 @@ Database
 
 .. option:: --db_sslmode
 
-    Control the SSL security of the connection between Odoo and PostgreSQL.
+    Control the SSL security of the connection between Flectra and PostgreSQL.
     Value should bve one of 'disable', 'allow', 'prefer', 'require',
     'verify-ca' or 'verify-full'
     Default value is 'prefer'
@@ -177,7 +177,7 @@ Emails
 
 .. option:: --email-from <address>
 
-    Email address used as <FROM> when Odoo needs to send mails
+    Email address used as <FROM> when Flectra needs to send mails
 
 .. option:: --smtp <server>
 
@@ -187,7 +187,7 @@ Emails
 
 .. option:: --smtp-ssl
 
-    If set, odoo should use SSL/STARTSSL SMTP connections
+    If set, flectra should use SSL/STARTSSL SMTP connections
 
 .. option:: --smtp-user <name>
 
@@ -202,7 +202,7 @@ Emails
 Internationalisation
 --------------------
 
-Use these options to translate Odoo to another language. See i18n section of
+Use these options to translate Flectra to another language. See i18n section of
 the user manual. Option '-d' is mandatory. Option '-l' is mandatory in case
 of importation
 
@@ -287,7 +287,7 @@ HTTP
 .. option:: --longpolling-port <port>
 
     TCP port for long-polling connections in multiprocessing or gevent mode,
-    defaults to 8072. Not used in default (threaded) mode.
+    defaults to 7072. Not used in default (threaded) mode.
 
 .. option:: --proxy-mode
 
@@ -302,7 +302,7 @@ HTTP
 Logging
 '''''''
 
-By default, Odoo displays all logging of level_ ``info`` except for workflow
+By default, Flectra displays all logging of level_ ``info`` except for workflow
 logging (``warning`` only), and log output is sent to ``stdout``. Various
 options are available to redirect logging to other destinations and to
 customize the amount of logging output.
@@ -330,7 +330,7 @@ customize the amount of logging output.
 .. option:: --log-handler <handler-spec>
 
     :samp:`{LOGGER}:{LEVEL}`, enables ``LOGGER`` at the provided ``LEVEL``
-    e.g. ``odoo.models:DEBUG`` will enable all logging messages at or above
+    e.g. ``flectra.models:DEBUG`` will enable all logging messages at or above
     ``DEBUG`` level in the models.
 
     * The colon ``:`` is mandatory
@@ -341,36 +341,36 @@ customize the amount of logging output.
 
     .. code-block:: console
 
-        $ odoo-bin --log-handler :DEBUG --log-handler werkzeug:CRITICAL --log-handler odoo.fields:WARNING
+        $ flectra-bin --log-handler :DEBUG --log-handler werkzeug:CRITICAL --log-handler flectra.fields:WARNING
 
 .. option:: --log-request
 
     enable DEBUG logging for RPC requests, equivalent to
-    ``--log-handler=odoo.http.rpc.request:DEBUG``
+    ``--log-handler=flectra.http.rpc.request:DEBUG``
 
 .. option:: --log-response
 
     enable DEBUG logging for RPC responses, equivalent to
-    ``--log-handler=odoo.http.rpc.response:DEBUG``
+    ``--log-handler=flectra.http.rpc.response:DEBUG``
 
 .. option:: --log-web
 
     enables DEBUG logging of HTTP requests and responses, equivalent to
-    ``--log-handler=odoo.http:DEBUG``
+    ``--log-handler=flectra.http:DEBUG``
 
 .. option:: --log-sql
 
     enables DEBUG logging of SQL querying, equivalent to
-    ``--log-handler=odoo.sql_db:DEBUG``
+    ``--log-handler=flectra.sql_db:DEBUG``
 
 .. option:: --log-level <level>
 
     Shortcut to more easily set predefined levels on specific loggers. "real"
     levels (``critical``, ``error``, ``warn``, ``debug``) are set on the
-    ``odoo`` and ``werkzeug`` loggers (except for ``debug`` which is only
-    set on ``odoo``).
+    ``flectra`` and ``werkzeug`` loggers (except for ``debug`` which is only
+    set on ``flectra``).
 
-    Odoo also provides debugging pseudo-levels which apply to different sets
+    Flectra also provides debugging pseudo-levels which apply to different sets
     of loggers:
 
     ``debug_sql``
@@ -378,11 +378,11 @@ customize the amount of logging output.
 
         equivalent to ``--log-sql``
     ``debug_rpc``
-        sets the ``odoo`` and HTTP request loggers to ``debug``
+        sets the ``flectra`` and HTTP request loggers to ``debug``
 
         equivalent to ``--log-level debug --log-request``
     ``debug_rpc_answer``
-        sets the ``odoo`` and HTTP request and response loggers to
+        sets the ``flectra`` and HTTP request and response loggers to
         ``debug``
 
         equivalent to ``--log-level debug --log-request --log-response``
@@ -458,7 +458,7 @@ Multiprocessing
 Configuration file
 ==================
 
-.. program:: odoo-bin
+.. program:: flectra-bin
 
 Most of the command-line options can also be specified via a configuration
 file. Most of the time, they use similar names with the prefix ``-`` removed
@@ -477,9 +477,9 @@ Some conversions don't match the pattern:
 * :option:`--i18n-import` and :option:`--i18n-export` aren't available at all
   from configuration files
 
-The default configuration file is :file:`{$HOME}/.odoorc` which
-can be overridden using :option:`--config <odoo-bin -c>`. Specifying
-:option:`--save <odoo-bin -s>` will save the current configuration state back
+The default configuration file is :file:`{$HOME}/.flectrarc` which
+can be overridden using :option:`--config <flectra-bin -c>`. Specifying
+:option:`--save <flectra-bin -s>` will save the current configuration state back
 to that file. The configuration items relative to the command-line are to be
 specified in the section ``[options]``.
 
@@ -488,8 +488,8 @@ Here is a sample file:
 .. code-block:: ini
 
    [options]
-   db_user=odoo
-   dbfilter=odoo
+   db_user=flectra
+   dbfilter=flectra
 
 .. _jinja2: http://jinja.pocoo.org
 .. _regular expression: https://docs.python.org/3/library/re.html
@@ -509,13 +509,13 @@ Here is a sample file:
 Shell
 =====
 
-Odoo command-line also allows to launch odoo as a python console environment.
+Flectra command-line also allows to launch flectra as a python console environment.
 This enables direct interaction with the :ref:`orm <reference/orm>` and its functionalities.
 
 
 .. code-block:: console
 
-   $ odoo_bin shell
+   $ flectra_bin shell
 
 .. option:: --shell-interface (ipython|ptpython|bpython|python)
 
@@ -527,18 +527,18 @@ This enables direct interaction with the :ref:`orm <reference/orm>` and its func
 Scaffolding
 ===========
 
-.. program:: odoo-bin scaffold
+.. program:: flectra-bin scaffold
 
 Scaffolding is the automated creation of a skeleton structure to simplify
-bootstrapping (of new modules, in the case of Odoo). While not necessary it
+bootstrapping (of new modules, in the case of Flectra). While not necessary it
 avoids the tedium of setting up basic structures and looking up what all
 starting requirements are.
 
-Scaffolding is available via the :command:`odoo-bin scaffold` subcommand.
+Scaffolding is available via the :command:`flectra-bin scaffold` subcommand.
 
 .. code-block:: console
 
-    $ odoo_bin scaffold my_module /addons/
+    $ flectra_bin scaffold my_module /addons/
 
 .. option:: name (required)
 
@@ -563,15 +563,15 @@ This will create module *my_module* in directory */addons/*.
 Database Population
 ===================
 
-.. program:: odoo-bin populate
+.. program:: flectra-bin populate
 
-Odoo CLI supports database population features. If the feature is
+Flectra CLI supports database population features. If the feature is
 :ref:`implemented on a given model <reference/testing/populate/methods>`, it allows automatic data
 generation of the model's records to test your modules in databases containing non-trivial amounts of records.
 
 .. code-block:: console
 
-    $ odoo_bin populate
+    $ flectra_bin populate
 
 .. option:: --models
 
@@ -580,7 +580,7 @@ generation of the model's records to test your modules in databases containing n
 .. option:: --size (small|medium|large)
 
     population size, the actual records number depends on the model's `_populate_sizes` attribute.
-    The generated records content is specified by the :meth:`~odoo.models._populate_factories` method
+    The generated records content is specified by the :meth:`~flectra.models._populate_factories` method
     of a given model (cf. the :file:`populate` folder of modules for further details).
 
 .. seealso::
@@ -591,9 +591,9 @@ generation of the model's records to test your modules in databases containing n
 Cloc
 ====
 
-.. program:: odoo-bin cloc
+.. program:: flectra-bin cloc
 
-Odoo Cloc is a tool to count the number of relevant lines written in
+Flectra Cloc is a tool to count the number of relevant lines written in
 Python, Javascript or XML. This can be used as a rough metric for pricing
 maintenance of extra modules.
 
@@ -612,7 +612,7 @@ Command-line options
 
 .. code-block:: console
 
-   $ odoo-bin cloc --addons-path=addons -d my_database
+   $ flectra-bin cloc --addons-path=addons -d my_database
 
 .. seealso::
    - :ref:`reference/cmdline/cloc/database-option`
@@ -627,14 +627,14 @@ Command-line options
 
 .. code-block:: console
 
-   $ odoo-bin cloc -p addons/account
+   $ flectra-bin cloc -p addons/account
 
 
 Multiple paths can be provided by repeating the option.
 
 .. code-block:: console
 
-   $ odoo-bin cloc -p addons/account -p addons/sale
+   $ flectra-bin cloc -p addons/account -p addons/sale
 
 .. seealso::
    - :ref:`reference/cmdline/cloc/path-option`
@@ -653,7 +653,7 @@ Specify a configuration file to use in place of the :option:`--addons-path` opti
 
 .. code-block:: console
 
-    $ odoo-bin cloc -c config.conf -d my_database
+    $ flectra-bin cloc -c config.conf -d my_database
 
 
 .. option:: -v, --verbose
@@ -669,7 +669,7 @@ Processed files
 With the :option:`--database` option
 ''''''''''''''''''''''''''''''''''''
 
-Odoo Cloc counts the lines in each file of extra installed modules in a
+Flectra Cloc counts the lines in each file of extra installed modules in a
 given database. In addition, it counts the Python lines of server actions and
 custom computed fields that have been directly created in the database or
 imported.
@@ -682,7 +682,7 @@ Some files are excluded from the count by default:
 - The migrations scripts defined in the folder :file:`migrations`
 - The XML files declared in the ``demo`` or ``demo_xml`` sections of the manifest
 
-For special cases, a list of files that should be ignored by Odoo Cloc can be defined
+For special cases, a list of files that should be ignored by Flectra Cloc can be defined
 per module. This is specified by the ``cloc_exclude`` entry of the manifest:
 
 .. code-block:: python
@@ -713,7 +713,7 @@ folder. Otherwise, it counts all files.
 Identifying Extra Modules
 -------------------------
 
-To distinguish between standard and extra modules, Odoo Cloc uses the following heuristic:
+To distinguish between standard and extra modules, Flectra Cloc uses the following heuristic:
 modules that are located (real file system path, after following symbolic links)
 in the same parent directory as the ``base``, ``web`` or ``web_enterprise``
 standard modules are considered standard. Other modules are treated as extra modules.
@@ -722,13 +722,13 @@ standard modules are considered standard. Other modules are treated as extra mod
 Error Handling
 --------------
 
-Some file cannot be counted by Odoo Cloc.
+Some file cannot be counted by Flectra Cloc.
 Those file are reported at the end of the output.
 
 Max file size exceeded
 ''''''''''''''''''''''
 
-Odoo Cloc rejects any file larger than 25MB. Usually, source files are smaller
+Flectra Cloc rejects any file larger than 25MB. Usually, source files are smaller
 than 1 MB. If a file is rejected, it may be:
 
 - A generated XML file that contains lots of data. It should be excluded in the manifest.
@@ -737,7 +737,7 @@ than 1 MB. If a file is rejected, it may be:
 Syntax Error
 ''''''''''''
 
-Odoo Cloc cannot count the lines of code of a Python file with a syntax problem.
+Flectra Cloc cannot count the lines of code of a Python file with a syntax problem.
 If an extra module contains such files, they should be fixed to allow the module to
 load. If the module works despite the presence of those files, they are probably
 not loaded and should therefore be removed from the module, or at least excluded

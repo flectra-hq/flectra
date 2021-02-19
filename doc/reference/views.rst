@@ -38,15 +38,15 @@ Fields
 
 View objects expose a number of fields. They are optional unless specified otherwise.
 
-* ``name`` (mandatory) :class:`~odoo.fields.Char`
+* ``name`` (mandatory) :class:`~flectra.fields.Char`
 
   Only useful as a mnemonic/description of the view when looking for one in a list of some sort.
 
-* ``model`` :class:`~odoo.fields.Char`
+* ``model`` :class:`~flectra.fields.Char`
 
   The model linked to the view, if applicable.
 
-* ``priority`` :class:`~odoo.fields.Integer`
+* ``priority`` :class:`~flectra.fields.Integer`
 
   When a view is requested by ``(model, type)``, the view matching the model and
   the type, with the lowest priority will be returned (it is the default view).
@@ -54,14 +54,14 @@ View objects expose a number of fields. They are optional unless specified other
   It also defines the order of views application during :ref:`view
   inheritance <reference/views/inheritance>`.
 
-* ``groups_id`` :class:`~odoo.fields.Many2many` -> :class:`odoo.addons.base.models.res_users.Groups`
+* ``groups_id`` :class:`~flectra.fields.Many2many` -> :class:`flectra.addons.base.models.res_users.Groups`
 
   The groups allowed to use/access the current view.
 
   If the view extends an existing view, the extension will only be applied
   for a given user if the user has access to the provided ``groups_id``.
 
-* ``arch`` :class:`~odoo.fields.Text`
+* ``arch`` :class:`~flectra.fields.Text`
 
   The description of the view layout.
 
@@ -165,7 +165,7 @@ an impact on all view types.
 
   .. code-block:: python
 
-      class MyController(odoo.http.Controller):
+      class MyController(flectra.http.Controller):
           @http.route('/module_name/hello', auth='user', type='json')
           def hello(self):
               return {
@@ -187,10 +187,10 @@ Inheritance
 Inheritance fields
 ------------------
 
-The two following :class:`~odoo.addons.base.ir_ui_view.View` fields are used to specify
+The two following :class:`~flectra.addons.base.ir_ui_view.View` fields are used to specify
 inherited views.
 
-* ``inherit_id`` :class:`~odoo.fields.Many2one`
+* ``inherit_id`` :class:`~flectra.fields.Many2one`
 
   the current view's parent view, unset by default. Specify the parent using
   the `ref` attribute:
@@ -199,7 +199,7 @@ inherited views.
 
       <field name="inherit_id" ref="library.view_book_form"/>
 
-* ``mode`` :class:`~odoo.fields.Selection`: `extension / primary`
+* ``mode`` :class:`~flectra.fields.Selection`: `extension / primary`
 
   inheritance mode, ``extension`` by default if ``inherit_id`` is set,
   ``primary`` otherwise.
@@ -635,7 +635,7 @@ There are 5 possible type of tags in a dashboard view:
         If not provided, By default, the group_operator from the field definition is used.
         Note that no aggregation of field values is achieved if the group_operator value is "".
 
-        .. note:: The special aggregate function ``count_distinct`` (defined in odoo) can also be used here
+        .. note:: The special aggregate function ``count_distinct`` (defined in flectra) can also be used here
 
         .. code-block:: xml
 
@@ -783,11 +783,11 @@ logic. They are used as elements or sets of elements in form views.
 Semantic components
 ~~~~~~~~~~~~~~~~~~~
 
-Semantic components tie into and allow interaction with the Odoo
+Semantic components tie into and allow interaction with the Flectra
 system. Available semantic components are:
 
 ``button``
-  call into the Odoo system, similar to :ref:`list view buttons
+  call into the Flectra system, similar to :ref:`list view buttons
   <reference/views/list/button>`. In addition, the following attribute can be
   specified:
 
@@ -796,7 +796,7 @@ system. Available semantic components are:
     dialog, ``cancel`` to close the dialog without saving.
   ``confirm``
     confirmation message to display (and for the user to accept) before
-    performing the button's Odoo call (also works in Kanban views).
+    performing the button's Flectra call (also works in Kanban views).
 
 ``field``
   renders (and allow editing of, possibly) a single field of the current
@@ -812,8 +812,8 @@ system. Available semantic components are:
     the view (see ``label`` component below). Default is the field name.
   ``widget``
     fields have a default rendering based on their type
-    (e.g. :class:`~odoo.fields.Char`,
-    :class:`~odoo.fields.Many2one`). The ``widget`` attributes allows using
+    (e.g. :class:`~flectra.fields.Char`,
+    :class:`~flectra.fields.Many2one`). The ``widget`` attributes allows using
     a different rendering method and context.
 
     .. todo:: list of widgets
@@ -843,7 +843,7 @@ system. Available semantic components are:
 
     .. deprecated:: 8.0
 
-       Use :func:`odoo.api.onchange` on the model
+       Use :func:`flectra.api.onchange` on the model
 
   ``attrs``
     dynamic meta-parameters based on record values
@@ -866,7 +866,7 @@ system. Available semantic components are:
     complex forms. *Should not* be an example of data as users are liable to
     confuse placeholder text with filled fields
   ``mode``
-    for :class:`~odoo.fields.One2many`, display mode (view type) to use for
+    for :class:`~flectra.fields.One2many`, display mode (view type) to use for
     the field's linked records. One of ``tree``, ``form``, ``kanban`` or
     ``graph``. The default is ``tree`` (a list display)
   ``help``
@@ -875,7 +875,7 @@ system. Available semantic components are:
     for binary fields, name of the related field providing the name of the
     file
   ``password``
-    indicates that a :class:`~odoo.fields.Char` field stores a password and
+    indicates that a :class:`~flectra.fields.Char` field stores a password and
     that its data shouldn't be displayed
   ``kanban_view_ref``
     for opening specific kanban view when selecting records from m2o/m2m in mobile
@@ -1198,7 +1198,7 @@ attributes:
 ``class``
   adds HTML classes to the root HTML element of the Kanban view
 ``examples``
-  if set to a key in the `KanbanExamplesRegistry`_, examples on column setups will be available in the grouped kanban view. `Here <https://github.com/odoo/odoo/blob/99821fdcf89aa66ac9561a972c6823135ebf65c0/addons/project/static/src/js/project_task_kanban_examples.js#L27>`_ is an example of how to define those setups.
+  if set to a key in the `KanbanExamplesRegistry`_, examples on column setups will be available in the grouped kanban view. `Here <https://github.com/flectra/flectra/blob/99821fdcf89aa66ac9561a972c6823135ebf65c0/addons/project/static/src/js/project_task_kanban_examples.js#L27>`_ is an example of how to define those setups.
 ``group_create``
   whether the "Add a new column" bar is visible or not. Default: true.
 ``group_delete``
@@ -1267,9 +1267,9 @@ Possible children of the view element are:
     an object with all the requested fields as its attributes. Each field has
     two attributes ``value`` and ``raw_value``, the former is formatted
     according to current user parameters, the latter is the direct value from
-    a :meth:`~odoo.models.Model.read` (except for date and datetime fields
+    a :meth:`~flectra.models.Model.read` (except for date and datetime fields
     that are `formatted according to user's locale
-    <https://github.com/odoo/odoo/blob/a678bd4e/addons/web_kanban/static/src/js/kanban_record.js#L102>`_)
+    <https://github.com/flectra/flectra/blob/a678bd4e/addons/web_kanban/static/src/js/kanban_record.js#L102>`_)
   ``context``
     the current context, coming from the action, and the one2many or many2many
     field in the case of a Kanban view embedded in a Form view
@@ -1300,13 +1300,13 @@ Possible children of the view element are:
 
       .. todo:: list widgets?
 
-    * buttons and links with a ``type`` attribute become perform Odoo-related
+    * buttons and links with a ``type`` attribute become perform Flectra-related
       operations rather than their standard HTML function. Possible types are:
 
       ``action``, ``object``
-        standard behavior for :ref:`Odoo buttons
+        standard behavior for :ref:`Flectra buttons
         <reference/views/list/button>`, most attributes relevant to standard
-        Odoo buttons can be used.
+        Flectra buttons can be used.
       ``open``
         opens the card's record in the form view in read-only mode
       ``edit``
@@ -1396,7 +1396,7 @@ root can have the following attributes:
     the `multi_edit=1`
 
 ``default_order``
-    overrides the ordering of the view, replacing the model's order (:attr:`~odoo.models.BaseModel._order` model attribute).
+    overrides the ordering of the view, replacing the model's order (:attr:`~flectra.models.BaseModel._order` model attribute).
     The value is a comma-separated list of fields, postfixed by ``desc`` to
     sort in reverse order:
 
@@ -1436,7 +1436,7 @@ Possible children elements of the list view are:
         * if there is no ``icon``, the button's text
         * if there is an ``icon``, ``alt`` text for the icon
     ``type``
-        type of button, indicates how it clicking it affects Odoo:
+        type of button, indicates how it clicking it affects Flectra:
 
         ``object``
             call a method on the list's model. The button's ``name`` is the
@@ -1479,7 +1479,7 @@ Possible children elements of the list view are:
             Using ``states`` in combination with ``attrs`` may lead to
             unexpected results as domains are combined with a logical AND.
     ``context``
-        merged into the view's context when performing the button's Odoo call
+        merged into the view's context when performing the button's Flectra call
 
     .. todo:: declared but unused: help
 
@@ -1864,7 +1864,7 @@ Possible children elements of the search view are:
     ``context``
         allows adding context keys, including the user-provided values (which
         as for ``domain`` are available as a ``self`` variable, an array of
-        values e.g. ``[id_1, id_2]`` for a :class:`~odoo.fields.Many2one` field).
+        values e.g. ``[id_1, id_2]`` for a :class:`~flectra.fields.Many2one` field).
         By default, fields don't generate domains.
 
         .. note:: the domain and context are inclusive and both are generated
@@ -1875,7 +1875,7 @@ Possible children elements of the search view are:
         make the field only available to specific users
     ``domain``
         if the field can provide an auto-completion
-        (e.g. :class:`~odoo.fields.Many2one`), filters the possible
+        (e.g. :class:`~flectra.fields.Many2one`), filters the possible
         completion results.
 
 ``filter``
@@ -1889,7 +1889,7 @@ Possible children elements of the search view are:
     ``string`` (required)
         the label of the filter
     ``domain`` (optional)
-        an Odoo :ref:`domain <reference/orm/domains>`, will be appended to the
+        an Flectra :ref:`domain <reference/orm/domains>`, will be appended to the
         action's domain as part of the search domain.
     ``date`` (optional)
         the name of a field of type ``date`` or ``datetime``.
@@ -1971,7 +1971,7 @@ Possible children elements of the search view are:
         .. note::
            The results of read_groups grouped on a field may be influenced by its group_expand attribute,
            allowing to display empty groups when needed.  For more information, please refer to
-           :class:`~odoo.fields.Field` attributes documentation.
+           :class:`~flectra.fields.Field` attributes documentation.
 
     ``name``
         logical name for the filter, can be used to :ref:`enable it by default
@@ -2136,4 +2136,4 @@ has the effect to activate first ``bar`` then ``foo``.
 .. _kanban board: https://en.wikipedia.org/wiki/Kanban_board
 .. _pivot table: https://en.wikipedia.org/wiki/Pivot_table
 .. _XPath: https://en.wikipedia.org/wiki/XPath
-.. _KanbanExamplesRegistry: https://github.com/odoo/odoo/blob/99821fdcf89aa66ac9561a972c6823135ebf65c0/addons/web/static/src/js/views/kanban/kanban_examples_registry.js
+.. _KanbanExamplesRegistry: https://github.com/flectra/flectra/blob/99821fdcf89aa66ac9561a972c6823135ebf65c0/addons/web/static/src/js/views/kanban/kanban_examples_registry.js

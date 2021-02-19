@@ -6,7 +6,7 @@
 ORM API
 =======
 
-.. automodule:: odoo.models
+.. automodule:: flectra.models
 
 .. _reference/orm/models:
 .. _reference/orm/model:
@@ -16,7 +16,7 @@ Models
 
 Model fields are defined as attributes on the model itself::
 
-    from odoo import models, fields
+    from flectra import models, fields
     class AModel(models.Model):
         _name = 'a.model.name'
 
@@ -47,7 +47,7 @@ value::
 
 .. rubric:: API
 
-.. autoclass:: odoo.models.BaseModel()
+.. autoclass:: flectra.models.BaseModel()
 
     .. autoattribute:: _auto
     .. attribute:: _log_access
@@ -85,12 +85,12 @@ value::
 AbstractModel
 -------------
 
-.. autoclass:: odoo.models.AbstractModel()
+.. autoclass:: flectra.models.AbstractModel()
 
 Model
 -----
 
-.. autoclass:: odoo.models.Model()
+.. autoclass:: flectra.models.Model()
 
       .. autoattribute:: _auto
       .. autoattribute:: _abstract
@@ -99,7 +99,7 @@ Model
 TransientModel
 --------------
 
-.. autoclass:: odoo.models.TransientModel()
+.. autoclass:: flectra.models.TransientModel()
 
       .. autoattribute:: _auto
       .. autoattribute:: _abstract
@@ -111,7 +111,7 @@ TransientModel
 Fields
 ======
 
-.. currentmodule:: odoo.fields
+.. currentmodule:: flectra.fields
 
 .. autoclass:: Field()
 
@@ -153,10 +153,10 @@ Advanced Fields
 Date(time) Fields
 '''''''''''''''''
 
-:class:`Dates <odoo.fields.Date>` and :class:`Datetimes <odoo.fields.Datetime>`
+:class:`Dates <flectra.fields.Date>` and :class:`Datetimes <flectra.fields.Datetime>`
 are very important fields in any kind of business application.
 Their misuse can create invisible yet painful bugs, this section
-aims to provide Odoo developers with the knowledge required
+aims to provide Flectra developers with the knowledge required
 to avoid misusing these fields.
 
 When assigning a value to a Date/Datetime field, the following options are valid:
@@ -164,16 +164,16 @@ When assigning a value to a Date/Datetime field, the following options are valid
 * A `date` or `datetime` object.
 * A string in the proper server format:
 
-  * ``YYYY-MM-DD`` for :class:`~odoo.fields.Date` fields,
-  * ``YYYY-MM-DD HH:MM:SS`` for :class:`~odoo.fields.Datetime` fields.
+  * ``YYYY-MM-DD`` for :class:`~flectra.fields.Date` fields,
+  * ``YYYY-MM-DD HH:MM:SS`` for :class:`~flectra.fields.Datetime` fields.
 
 * `False` or `None`.
 
 The Date and Datetime fields class have helper methods to attempt conversion
 into a compatible type:
 
-* :func:`~odoo.fields.Date.to_date` will convert to a :class:`datetime.date`
-* :func:`~odoo.fields.Datetime.to_datetime` will convert to a :class:`datetime.datetime`.
+* :func:`~flectra.fields.Date.to_date` will convert to a :class:`datetime.date`
+* :func:`~flectra.fields.Datetime.to_datetime` will convert to a :class:`datetime.datetime`.
 
 .. admonition:: Example
 
@@ -194,13 +194,13 @@ Date / Datetime comparison best practices:
 
 Common operations with dates and datetimes such as addition, substraction or
 fetching the start/end of a period are exposed through both
-:class:`~odoo.fields.Date` and :class:`~odoo.fields.Datetime`.
-These helpers are also available by importing `odoo.tools.date_utils`.
+:class:`~flectra.fields.Date` and :class:`~flectra.fields.Datetime`.
+These helpers are also available by importing `flectra.tools.date_utils`.
 
 .. note:: Timezones
 
     Datetime fields are stored as `timestamp without timezone` columns in the database and are stored
-    in the UTC timezone. This is by design, as it makes the Odoo database independent from the timezone
+    in the UTC timezone. This is by design, as it makes the Flectra database independent from the timezone
     of the hosting server system. Timezone conversion is managed entirely by the client side.
 
 .. autoclass:: Date()
@@ -235,9 +235,9 @@ Computed Fields
 Fields can be computed (instead of read straight from the database) using the
 ``compute`` parameter. **It must assign the computed value to the field**. If
 it uses the values of other *fields*, it should specify those fields using
-:func:`~odoo.api.depends`. ::
+:func:`~flectra.api.depends`. ::
 
-    from odoo import api
+    from flectra import api
     total = fields.Float(compute='_compute_total')
 
     @api.depends('value', 'tax')
@@ -350,10 +350,10 @@ dependencies are modified.
 
 .. warning::
 
-    You cannot chain :class:`~odoo.fields.Many2many` or :class:`~odoo.fields.One2many` fields in ``related`` fields dependencies.
+    You cannot chain :class:`~flectra.fields.Many2many` or :class:`~flectra.fields.One2many` fields in ``related`` fields dependencies.
 
-    ``related`` can be used to refer to a :class:`~odoo.fields.One2many` or
-    :class:`~odoo.fields.Many2many` field on another model on the
+    ``related`` can be used to refer to a :class:`~flectra.fields.One2many` or
+    :class:`~flectra.fields.Many2many` field on another model on the
     condition that it's done through a ``Many2one`` relation on the current model.
     ``One2many`` and ``Many2many`` are not supported and the results will not be
     aggregated correctly::
@@ -377,7 +377,7 @@ Automatic fields
 
 .. attribute:: id
 
-    Identifier :class:`field <odoo.fields.Field>`
+    Identifier :class:`field <flectra.fields.Field>`
 
     If length of current recordset is 1, return id of unique record in it.
 
@@ -389,33 +389,33 @@ Access Log fields
 '''''''''''''''''
 
 These fields are automatically set and updated if
-:attr:`~odoo.models.BaseModel._log_access` is enabled. It can be
+:attr:`~flectra.models.BaseModel._log_access` is enabled. It can be
 disabled to avoid creating or updating those fields on tables for which they are
 not useful.
 
-By default, :attr:`~odoo.models.BaseModel._log_access` is set to the same value
-as :attr:`~odoo.models.BaseModel._auto`
+By default, :attr:`~flectra.models.BaseModel._log_access` is set to the same value
+as :attr:`~flectra.models.BaseModel._auto`
 
 .. attribute:: create_date
 
-    Stores when the record was created, :class:`~odoo.fields.Datetime`
+    Stores when the record was created, :class:`~flectra.fields.Datetime`
 
 .. attribute:: create_uid
 
-    Stores *who* created the record, :class:`~odoo.fields.Many2one` to a
+    Stores *who* created the record, :class:`~flectra.fields.Many2one` to a
     ``res.users``.
 
 .. attribute:: write_date
 
-    Stores when the record was last updated, :class:`~odoo.fields.Datetime`
+    Stores when the record was last updated, :class:`~flectra.fields.Datetime`
 
 .. attribute:: write_uid
 
-    Stores who last updated the record, :class:`~odoo.fields.Many2one` to a
+    Stores who last updated the record, :class:`~flectra.fields.Many2one` to a
     ``res.users``.
 
-.. warning:: :attr:`~odoo.models.BaseModel._log_access` *must* be enabled on
-             :class:`~odoo.models.TransientModel`.
+.. warning:: :attr:`~flectra.models.BaseModel._log_access` *must* be enabled on
+             :class:`~flectra.models.TransientModel`.
 
 .. _reference/orm/fields/reserved:
 
@@ -428,32 +428,32 @@ behavior is desired:
 
 .. attribute:: name
 
-  default value for :attr:`~odoo.models.BaseModel._rec_name`, used to
+  default value for :attr:`~flectra.models.BaseModel._rec_name`, used to
   display records in context where a representative "naming" is
   necessary.
 
-  :class:`~odoo.fields.Char`
+  :class:`~flectra.fields.Char`
 
 .. attribute:: active
 
   toggles the global visibility of the record, if ``active`` is set to
   ``False`` the record is invisible in most searches and listing.
 
-  :class:`~odoo.fields.Boolean`
+  :class:`~flectra.fields.Boolean`
 
 .. .. attribute:: sequence
 ..
 ..   Alterable ordering criteria, allows drag-and-drop reordering of models
 ..   in list views.
 ..
-..   :class:`~odoo.fields.Integer`
+..   :class:`~flectra.fields.Integer`
 
 .. attribute:: state
 
   lifecycle stages of the object, used by the ``states`` attribute on
-  :class:`fields <odoo.fields.Field>`.
+  :class:`fields <flectra.fields.Field>`.
 
-  :class:`~odoo.fields.Selection`
+  :class:`~flectra.fields.Selection`
 
 .. attribute:: parent_id
 
@@ -461,7 +461,7 @@ behavior is desired:
   records in a tree structure and enables the ``child_of``
   and ``parent_of`` operators in domains.
 
-  :class:`~odoo.fields.Many2one`
+  :class:`~flectra.fields.Many2one`
 
 .. attribute:: parent_path
 
@@ -470,18 +470,18 @@ behavior is desired:
   ``child_of`` and ``parent_of`` in search domains.
   It must be declared with ``index=True`` for proper operation.
 
-  :class:`~odoo.fields.Char`
+  :class:`~flectra.fields.Char`
 
 .. attribute:: company_id
 
-  Main field name used for Odoo multi-company behavior.
+  Main field name used for Flectra multi-company behavior.
 
-  Used by `:meth:~odoo.models._check_company` to check multi company consistency.
+  Used by `:meth:~flectra.models._check_company` to check multi company consistency.
   Defines whether a record is shared between companies (no value) or only
   accessible by the users of a given company.
 
-  :class:`~odoo.fields.Many2one`
-  :type: :class:`~odoo.addons.base.models.res_company`
+  :class:`~flectra.fields.Many2one`
+  :type: :class:`~flectra.addons.base.models.res_company`
 
 Recordsets
 ==========
@@ -520,7 +520,7 @@ written directly from the record as attributes.
 .. note::
 
     When accessing non-relational fields on a recordset of potentially multiple
-    records, use :meth:`~odoo.models.BaseModel.mapped`::
+    records, use :meth:`~flectra.models.BaseModel.mapped`::
 
         total_qty = sum(self.mapped('qty'))
 
@@ -542,21 +542,21 @@ Setting a field's value triggers an update to the database::
     Trying to read a field on multiple records will raise an error for non relational
     fields.
 
-Accessing a relational field (:class:`~odoo.fields.Many2one`,
-:class:`~odoo.fields.One2many`, :class:`~odoo.fields.Many2many`)
+Accessing a relational field (:class:`~flectra.fields.Many2one`,
+:class:`~flectra.fields.One2many`, :class:`~flectra.fields.Many2many`)
 *always* returns a recordset, empty if the field is not set.
 
 Record cache and prefetching
 ----------------------------
 
-Odoo maintains a cache for the fields of the records, so that not every field
+Flectra maintains a cache for the fields of the records, so that not every field
 access issues a database request, which would be terrible for performance. The
 following example queries the database only for the first statement::
 
     record.name             # first access reads value from database
     record.name             # second access gets value from cache
 
-To avoid reading one field on one record at a time, Odoo *prefetches* records
+To avoid reading one field on one record at a time, Flectra *prefetches* records
 and fields following some heuristics to get good performance. Once a field must
 be read on a given record, the ORM actually reads that field on a larger
 recordset, and stores the returned values in cache for later use. The prefetched
@@ -591,10 +591,10 @@ for partners and one for countries::
 Method decorators
 =================
 
-.. automodule:: odoo.api
+.. automodule:: flectra.api
     :members: depends, depends_context, constrains, onchange, returns, autovacuum, model, model_create_multi
 
-.. .. currentmodule:: odoo.api
+.. .. currentmodule:: flectra.api
 
 .. .. autodata:: model
 .. .. autodata:: depends
@@ -620,18 +620,18 @@ Method decorators
 Environment
 ===========
 
-The :class:`~odoo.api.Environment` stores various contextual data used by
+The :class:`~flectra.api.Environment` stores various contextual data used by
 the ORM: the database cursor (for database queries), the current user
 (for access rights checking) and the current context (storing arbitrary
 metadata). The environment also stores caches.
 
 All recordsets have an environment, which is immutable, can be accessed
-using :attr:`~odoo.models.Model.env` and gives access to:
+using :attr:`~flectra.models.Model.env` and gives access to:
 
-* the current user (:attr:`~odoo.api.Environment.user`)
-* the cursor (:attr:`~odoo.api.Environment.cr`)
-* the superuser flag (:attr:`~odoo.api.Environment.su`)
-* or the context (:attr:`~odoo.api.Environment.context`)
+* the current user (:attr:`~flectra.api.Environment.user`)
+* the cursor (:attr:`~flectra.api.Environment.cr`)
+* the superuser flag (:attr:`~flectra.api.Environment.su`)
+* or the context (:attr:`~flectra.api.Environment.context`)
 
 .. code-block:: bash
 
@@ -651,7 +651,7 @@ other model, and query that model::
     >>> self.env['res.partner'].search([['is_company', '=', True], ['customer', '=', True]])
     res.partner(7, 18, 12, 14, 17, 19, 8, 31, 26, 16, 13, 20, 30, 22, 29, 15, 23, 28, 74)
 
-.. currentmodule:: odoo.api
+.. currentmodule:: flectra.api
 
 .. automethod:: Environment.ref
 
@@ -668,7 +668,7 @@ other model, and query that model::
 Altering the environment
 ------------------------
 
-.. currentmodule:: odoo.models
+.. currentmodule:: flectra.models
 
 .. automethod:: Model.with_context
 
@@ -685,14 +685,14 @@ Altering the environment
 SQL Execution
 -------------
 
-The :attr:`~odoo.api.Environment.cr` attribute on environments is the
+The :attr:`~flectra.api.Environment.cr` attribute on environments is the
 cursor for the current database transaction and allows executing SQL directly,
 either for queries which are difficult to express using the ORM (e.g. complex
 joins) or for performance reasons::
 
     self.env.cr.execute("some_sql", param1, param2, param3)
 
-Because models use the same cursor and the :class:`~odoo.api.Environment`
+Because models use the same cursor and the :class:`~flectra.api.Environment`
 holds various caches, these caches must be invalidated when *altering* the
 database in raw SQL, or further uses of models may become incoherent. It is
 necessary to clear caches when using ``CREATE``, ``UPDATE`` or ``DELETE`` in
@@ -700,12 +700,12 @@ SQL, but not ``SELECT`` (which simply reads the database).
 
 .. note::
     Clearing caches can be performed using the
-    :meth:`~odoo.models.Model.invalidate_cache` method.
+    :meth:`~flectra.models.Model.invalidate_cache` method.
 
 .. automethod:: Model.invalidate_cache
 
 .. warning::
-    Executing raw SQL bypasses the ORM, and by consequent, Odoo security rules.
+    Executing raw SQL bypasses the ORM, and by consequent, Flectra security rules.
     Please make sure your queries are sanitized when using user input and prefer using
     ORM utilities if you don't really need to use SQL queries.
 
@@ -715,7 +715,7 @@ SQL, but not ``SELECT`` (which simply reads the database).
 Common ORM methods
 ==================
 
-.. currentmodule:: odoo.models
+.. currentmodule:: flectra.models
 
 Create/update
 -------------
@@ -766,7 +766,7 @@ A domain is a list of criteria, each criterion being a triple (either a
 
 * ``field_name`` (``str``)
     a field name of the current model, or a relationship traversal through
-    a :class:`~odoo.fields.Many2one` using dot-notation e.g. ``'street'``
+    a :class:`~flectra.fields.Many2one` using dot-notation e.g. ``'street'``
     or ``'partner_id.country'``
 
 * ``operator`` (``str``)
@@ -814,14 +814,14 @@ A domain is a list of criteria, each criterion being a triple (either a
 
         Takes the semantics of the model into account (i.e following the
         relationship field named by
-        :attr:`~odoo.models.Model._parent_name`).
+        :attr:`~flectra.models.Model._parent_name`).
     ``parent_of``
         is a parent (ascendant) of a ``value`` record (value can be either
         one item or a list of items).
 
         Takes the semantics of the model into account (i.e following the
         relationship field named by
-        :attr:`~odoo.models.Model._parent_name`).
+        :attr:`~flectra.models.Model._parent_name`).
 
 * ``value``
     variable type, must be comparable (through ``operator``) to the named
@@ -875,7 +875,7 @@ Record(set) information
 
     Returns the environment of the given recordset.
 
-    :type: :class:`~odoo.api.Environment`
+    :type: :class:`~flectra.api.Environment`
 
 .. todo:: Environment documentation
 
@@ -952,7 +952,7 @@ Sort
 Inheritance and extension
 =========================
 
-Odoo provides three different mechanisms to extend models in a modular way:
+Flectra provides three different mechanisms to extend models in a modular way:
 
 * creating a new model from an existing one, adding new information to the
   copy but leaving the original module as-is
@@ -966,25 +966,25 @@ Odoo provides three different mechanisms to extend models in a modular way:
 Classical inheritance
 ---------------------
 
-When using the :attr:`~odoo.models.Model._inherit` and
-:attr:`~odoo.models.Model._name` attributes together, Odoo creates a new
+When using the :attr:`~flectra.models.Model._inherit` and
+:attr:`~flectra.models.Model._name` attributes together, Flectra creates a new
 model using the existing one (provided via
-:attr:`~odoo.models.Model._inherit`) as a base. The new model gets all the
+:attr:`~flectra.models.Model._inherit`) as a base. The new model gets all the
 fields, methods and meta-information (defaults & al) from its base.
 
-.. literalinclude:: ../../odoo/addons/test_documentation_examples/inheritance.py
+.. literalinclude:: ../../flectra/addons/test_documentation_examples/inheritance.py
     :language: python
     :lines: 6-
 
 and using them:
 
-.. literalinclude:: ../../odoo/addons/test_documentation_examples/tests/test_inheritance.py
+.. literalinclude:: ../../flectra/addons/test_documentation_examples/tests/test_inheritance.py
     :language: python
     :lines: 10,11,14,19
 
 will yield:
 
-.. literalinclude:: ../../odoo/addons/test_documentation_examples/tests/test_inheritance.py
+.. literalinclude:: ../../flectra/addons/test_documentation_examples/tests/test_inheritance.py
     :language: text
     :lines: 16,21
 
@@ -995,23 +995,23 @@ the second model has inherited from the first model's ``check`` method and its
 Extension
 ---------
 
-When using :attr:`~odoo.models.Model._inherit` but leaving out
-:attr:`~odoo.models.Model._name`, the new model replaces the existing one,
+When using :attr:`~flectra.models.Model._inherit` but leaving out
+:attr:`~flectra.models.Model._name`, the new model replaces the existing one,
 essentially extending it in-place. This is useful to add new fields or methods
 to existing models (created in other modules), or to customize or reconfigure
 them (e.g. to change their default sort order):
 
-.. literalinclude:: ../../odoo/addons/test_documentation_examples/extension.py
+.. literalinclude:: ../../flectra/addons/test_documentation_examples/extension.py
     :language: python
     :lines: 6-
 
-.. literalinclude:: ../../odoo/addons/test_documentation_examples/tests/test_extension.py
+.. literalinclude:: ../../flectra/addons/test_documentation_examples/tests/test_extension.py
     :language: python
     :lines: 10,15
 
 will yield:
 
-.. literalinclude:: ../../odoo/addons/test_documentation_examples/tests/test_extension.py
+.. literalinclude:: ../../flectra/addons/test_documentation_examples/tests/test_extension.py
     :language: text
     :lines: 13
 
@@ -1024,33 +1024,33 @@ Delegation
 ----------
 
 The third inheritance mechanism provides more flexibility (it can be altered
-at runtime) but less power: using the :attr:`~odoo.models.Model._inherits`
+at runtime) but less power: using the :attr:`~flectra.models.Model._inherits`
 a model *delegates* the lookup of any field not found on the current model
 to "children" models. The delegation is performed via
-:class:`~odoo.fields.Reference` fields automatically set up on the parent
+:class:`~flectra.fields.Reference` fields automatically set up on the parent
 model.
 
 The main difference is in the meaning. When using Delegation, the model
 **has one** instead of **is one**, turning the relationship in a composition
 instead of inheritance:
 
-.. literalinclude:: ../../odoo/addons/test_documentation_examples/delegation.py
+.. literalinclude:: ../../flectra/addons/test_documentation_examples/delegation.py
     :language: python
     :lines: 5-
 
-.. literalinclude:: ../../odoo/addons/test_documentation_examples/tests/test_delegation.py
+.. literalinclude:: ../../flectra/addons/test_documentation_examples/tests/test_delegation.py
     :language: python
     :lines: 11-14,23,28
 
 will result in:
 
-.. literalinclude:: ../../odoo/addons/test_documentation_examples/tests/test_delegation.py
+.. literalinclude:: ../../flectra/addons/test_documentation_examples/tests/test_delegation.py
     :language: text
     :lines: 25,30
 
 and it's possible to write directly on the delegated field:
 
-.. literalinclude:: ../../odoo/addons/test_documentation_examples/tests/test_delegation.py
+.. literalinclude:: ../../flectra/addons/test_documentation_examples/tests/test_delegation.py
     :language: python
     :lines: 45
 
@@ -1088,5 +1088,5 @@ For instance, the second class below only adds a tooltip on the field
 Error management
 ================
 
-.. automodule:: odoo.exceptions
+.. automodule:: flectra.exceptions
     :members: AccessDenied, AccessError, CacheMiss, MissingError, RedirectWarning, UserError, ValidationError

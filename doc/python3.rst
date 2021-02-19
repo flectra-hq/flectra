@@ -4,16 +4,16 @@
 Python 3 compatibility/conversions
 ==================================
 
-Official compatibility: Odoo 11 will be the first LTS release to introduce
+Official compatibility: Flectra 11 will be the first LTS release to introduce
 Python 3 compatibility, starting with Python 3.5. It will also be the first
 LTS release to drop official support for Python 2.
 
 Rationale: Python 3 has been around since 2008, and all Python libraries
-used by the official Odoo distribution have been ported and are considered
+used by the official Flectra distribution have been ported and are considered
 stable. Most supported platforms have a Python 3.5 package, or a similar
 way to deploy it. Preserving dual compatibility is therefore considered
 unnecessary, and would represent a significant overhead in testing for the
-lifetime of Odoo 11.
+lifetime of Flectra 11.
 
 Python 2 and Python 3 are somewhat different language, but following
 backports, forward ports and cross-compatibility library it is possible to
@@ -26,9 +26,9 @@ with Python 3.
 .. important::
 
     This is not a general-purpose guide for porting Python 2 to Python 3, it's
-    a guide to write 2/3-compatible Odoo code. It does not go through all the
+    a guide to write 2/3-compatible Flectra code. It does not go through all the
     changes in Python but rather through issues which have been found in the
-    standard Odoo distribution in order to show how to evolve such code such
+    standard Flectra distribution in order to show how to evolve such code such
     that it works on both Python 2 and Python 3.
 
 References/useful documents:
@@ -48,7 +48,7 @@ References/useful documents:
 Versions Support
 ================
 
-A cross compatible Odoo would only support Python 2.7 and Python 3.5 and
+A cross compatible Flectra would only support Python 2.7 and Python 3.5 and
 above: Python 2.7 backported some Python 3 features, and Python 2 features
 were reintroduced in various Python 3 in order to make conversion easier.
 Python 3.6 adds great features (f-strings, ...) and performance improvements
@@ -87,7 +87,7 @@ When discovered, this can be fixed by one of:
 * using different checking method (e.g. when serialising sets or dictionaries
   and checking against the specific serialised value)
 * fixing dependencies
-* using a ``collections.OrderedDict`` or ``odoo.tools.misc.OrderedSet`` instead
+* using a ``collections.OrderedDict`` or ``flectra.tools.misc.OrderedSet`` instead
   of a regular one, they guarantee order of iteration is order of insertion
 * sorting the collection's items before iterating over them (this may require
   adding some sort of iteration key to the items)
@@ -107,7 +107,7 @@ library:
 * ``urllib``, ``urllib2`` and ``urlparse`` were redistributed across
   ``urllib.parse`` and ``urllib.request``.
 
-  Since `requests`_ and `werkzeug`_ are already hard dependencies of Odoo,
+  Since `requests`_ and `werkzeug`_ are already hard dependencies of Flectra,
   replace ``urllib[2].urlopen``/``urllib2.Request`` uses by `requests`_, and
   ``urlparse`` and a few utilty functions (``urllib.quote``,
   ``urllib.urlencode``) are available through ``werkzeug.urls``, a backport
@@ -115,8 +115,8 @@ library:
 
   .. warning:: `requests`_ does not raise by default on non-200 responses
 
-* ``cgi.escape`` (HTML escaping) is deprecated in Python 3, prefer Odoo's own
-  :func:`odoo.tools.misc.html_encode`.
+* ``cgi.escape`` (HTML escaping) is deprecated in Python 3, prefer Flectra's own
+  :func:`flectra.tools.misc.html_encode`.
 * Most of ``types``'s content has been stripped out in Python 3: only
   "internal" interpreter types (e.g. CodeType, FrameType, ...) have been left
   in, other types can be obtained directly from the corresponding builtin or
@@ -139,7 +139,7 @@ PYTHONPATH.
 
 Furthermore if a sibling file is named the same as top-level package, the
 library becomes inaccessible to both the file itself ans siblings, this has
-actually happened in Odoo with :mod:`odoo.tools.mimetypes`.
+actually happened in Flectra with :mod:`flectra.tools.mimetypes`.
 
 Additionally, relative imports allow navigating "up" the tree by using
 multiple leading ``.``.
@@ -430,12 +430,12 @@ significant ways:
 * Python 3's CSV only works on *text streams* and extract text values
 * And ``io`` doesn't provide "native string" streaming facilities.
 
-However with respect to Odoo it turns out most or all uses of ``csv`` fit
+However with respect to Flectra it turns out most or all uses of ``csv`` fit
 inside a model of *byte stream to and from text values*.
 
 The latter is thus a model implemented by cross-version wrappers
-:func:`odoo.tools.pycompat.csv_reader` and
-:func:`odoo.tools.pycompat.csv_writer`: they take a *UTF-8 byte stream* and
+:func:`flectra.tools.pycompat.csv_reader` and
+:func:`flectra.tools.pycompat.csv_writer`: they take a *UTF-8 byte stream* and
 read or write *text* values.
 
 .. _hash randomisation: http://bugs.python.org/issue13703

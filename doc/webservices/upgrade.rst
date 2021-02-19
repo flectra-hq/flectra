@@ -13,11 +13,11 @@ Database Upgrade
 Introduction
 ~~~~~~~~~~~~
 
-This document describes the API used to upgrade an Odoo database to a
+This document describes the API used to upgrade an Flectra database to a
 higher version.
 
 It allows a database to be upgraded without ressorting to the html form at
-https://upgrade.odoo.com
+https://upgrade.flectra.com
 Although the database will follow the same process described on that form.
 
 
@@ -41,24 +41,24 @@ This action creates a database request with the following information:
 
 * your contract reference
 * your email address
-* the target version (the Odoo version you want to upgrade to)
+* the target version (the Flectra version you want to upgrade to)
 * the purpose of your request (test or production)
 * the database dump name (required but purely informative)
-* optionally the server timezone (for Odoo source version < 6.1)
+* optionally the server timezone (for Flectra source version < 6.1)
 
 The ``create`` method
 ---------------------
 
-.. py:function:: https://upgrade.odoo.com/database/v1/create
+.. py:function:: https://upgrade.flectra.com/database/v1/create
 
     Creates a database upgrade request
 
     :param str contract: (required) your enterprise contract reference
     :param str email: (required) your email address
-    :param str target: (required) the Odoo version you want to upgrade to. Valid choices: 11.0, 12.0, 13.0
+    :param str target: (required) the Flectra version you want to upgrade to. Valid choices: 11.0, 12.0, 13.0
     :param str aim: (required) the purpose of your upgrade database request. Valid choices: test, production.
     :param str filename: (required) a purely informative name for you database dump file
-    :param str timezone: (optional) the timezone used by your server. Only for Odoo source version < 6.1
+    :param str timezone: (optional) the timezone used by your server. Only for Flectra source version < 6.1
     :return: request result
     :rtype: JSON dictionary
 
@@ -146,7 +146,7 @@ Here are 2 examples of database upgrade request creation using:
 
         import requests
 
-        CREATE_URL = "https://upgrade.odoo.com/database/v1/create"
+        CREATE_URL = "https://upgrade.flectra.com/database/v1/create"
         CONTRACT = "M123456-abcdef"
         AIM = "test"
         TARGET = "12.0"
@@ -171,7 +171,7 @@ Here are 2 examples of database upgrade request creation using:
         TARGET=12.0
         EMAIL=john.doe@example.com
         FILENAME=db_name.dump
-        CREATE_URL="https://upgrade.odoo.com/database/v1/create"
+        CREATE_URL="https://upgrade.flectra.com/database/v1/create"
         URL_PARAMS="contract=${CONTRACT}&aim=${AIM}&target=${TARGET}&email=${EMAIL}&filename=${FILENAME}"
         curl -sS "${CREATE_URL}?${URL_PARAMS}" > create_result.json
 
@@ -198,7 +198,7 @@ The ``upload`` method
 It's the most simple and most straightforward way of uploading your database dump.
 It uses the HTTPS protocol.
 
-.. py:function:: https://upgrade.odoo.com/database/v1/upload
+.. py:function:: https://upgrade.flectra.com/database/v1/upload
 
     Uploads a database dump
 
@@ -221,7 +221,7 @@ should be empty if everything went fine.
 
         import requests
 
-        UPLOAD_URL = "https://upgrade.odoo.com/database/v1/upload"
+        UPLOAD_URL = "https://upgrade.flectra.com/database/v1/upload"
         DUMPFILE = "/tmp/dump.sql"
 
         fields = dict([
@@ -235,7 +235,7 @@ should be empty if everything went fine.
 
     .. code-block:: bash
 
-        UPLOAD_URL="https://upgrade.odoo.com/database/v1/upload"
+        UPLOAD_URL="https://upgrade.flectra.com/database/v1/upload"
         DUMPFILE="openchs.70.cdump"
         KEY="Aw7pItGVKFuZ_FOR3U8VFQ=="
         REQUEST_ID="10534"
@@ -254,7 +254,7 @@ It uses the SFTP protocol and supports resuming.
 It will create a temporary SFTP server where you can connect to and allow you
 to upload your database dump using an SFTP client.
 
-.. py:function:: https://upgrade.odoo.com/database/v1/request_sftp_access
+.. py:function:: https://upgrade.flectra.com/database/v1/request_sftp_access
 
     Creates an SFTP server
 
@@ -283,7 +283,7 @@ The ``request_sftp_access`` method returns a JSON dictionary containing the foll
 
         import requests
 
-        UPLOAD_URL = "https://upgrade.odoo.com/database/v1/request_sftp_access"
+        UPLOAD_URL = "https://upgrade.flectra.com/database/v1/request_sftp_access"
         SSH_KEY = "$HOME/.ssh/id_rsa.pub"
         SSH_KEY_CONTENT = open(SSH_KEY,'r').read()
 
@@ -298,7 +298,7 @@ The ``request_sftp_access`` method returns a JSON dictionary containing the foll
 
     .. code-block:: bash
 
-        REQUEST_SFTP_ACCESS_URL="https://upgrade.odoo.com/database/v1/request_sftp_access"
+        REQUEST_SFTP_ACCESS_URL="https://upgrade.flectra.com/database/v1/request_sftp_access"
         SSH_KEYS=/path/to/your/authorized_keys
         KEY="Aw7pItGVKFuZ_FOR3U8VFQ=="
         REQUEST_ID="10534"
@@ -347,8 +347,8 @@ your database dump. Here is a sample session using the 'sftp' client:
 
 ::
 
-    $ sftp -P 2200 user_10534@upgrade.odoo.com
-    Connected to upgrade.odoo.com.
+    $ sftp -P 2200 user_10534@upgrade.flectra.com
+    Connected to upgrade.flectra.com.
     sftp> put /path/to/openchs.70.cdump openchs.70.cdump
     Uploading /path/to/openchs.70.cdump to /openchs.70.cdump
     sftp> ls -l openchs.70.cdump
@@ -367,7 +367,7 @@ database upgrade using a script, you can use a batch file or pipe your commands 
 
 ::
 
-  echo "put /path/to/openchs.70.cdump openchs.70.cdump" | sftp -b - -P 2200 user_10534@upgrade.odoo.com
+  echo "put /path/to/openchs.70.cdump openchs.70.cdump" | sftp -b - -P 2200 user_10534@upgrade.flectra.com
 
 The ``-b`` parameter takes a filename. If the filename is ``-``, it reads the commands from standard input.
 
@@ -382,7 +382,7 @@ This action ask the Upgrade Platform to process your database dump.
 The ``process`` method
 ----------------------
 
-.. py:function:: https://upgrade.odoo.com/database/v1/process
+.. py:function:: https://upgrade.flectra.com/database/v1/process
 
     Process a database dump
 
@@ -405,7 +405,7 @@ should be empty if everything went fine.
 
         import requests
 
-        PROCESS_URL = "https://upgrade.odoo.com/database/v1/process"
+        PROCESS_URL = "https://upgrade.flectra.com/database/v1/process"
 
         fields = dict([
             ('request', '10534'),
@@ -417,7 +417,7 @@ should be empty if everything went fine.
 
     .. code-block:: bash
 
-        PROCESS_URL="https://upgrade.odoo.com/database/v1/process"
+        PROCESS_URL="https://upgrade.flectra.com/database/v1/process"
         KEY="Aw7pItGVKFuZ_FOR3U8VFQ=="
         REQUEST_ID="10534"
         URL_PARAMS="key=${KEY}&request=${REQUEST_ID}"
@@ -430,12 +430,12 @@ Asking to skip the tests
 =========================
 
 This action asks the Upgrade Platform to skip the tests for your request.
-If you don't want Odoo to test and validate the migration, you can bypass the testing stage and directly get the migrated dump.
+If you don't want Flectra to test and validate the migration, you can bypass the testing stage and directly get the migrated dump.
 
 The ``skip_test`` method
 ------------------------
 
-.. py:function:: https://upgrade.odoo.com/database/v1/skip_test
+.. py:function:: https://upgrade.flectra.com/database/v1/skip_test
 
     Skip the tests, deliver the upgraded dump, and set the state to 'delivered'
 
@@ -458,7 +458,7 @@ should be empty if everything went fine.
 
         import requests
 
-        PROCESS_URL = "https://upgrade.odoo.com/database/v1/skip_test"
+        PROCESS_URL = "https://upgrade.flectra.com/database/v1/skip_test"
 
         fields = dict([
             ('request', '10534'),
@@ -470,7 +470,7 @@ should be empty if everything went fine.
 
     .. code-block:: bash
 
-        PROCESS_URL="https://upgrade.odoo.com/database/v1/skip_test"
+        PROCESS_URL="https://upgrade.flectra.com/database/v1/skip_test"
         KEY="Aw7pItGVKFuZ_FOR3U8VFQ=="
         REQUEST_ID="10534"
         URL_PARAMS="key=${KEY}&request=${REQUEST_ID}"
@@ -486,7 +486,7 @@ This action ask the status of your database upgrade request.
 The ``status`` method
 ---------------------
 
-.. py:function:: https://upgrade.odoo.com/database/v1/status
+.. py:function:: https://upgrade.flectra.com/database/v1/status
 
     Ask the status of a database upgrade request
 
@@ -509,7 +509,7 @@ database upgrade request.
 
         import requests
 
-        PROCESS_URL = "https://upgrade.odoo.com/database/v1/status"
+        PROCESS_URL = "https://upgrade.flectra.com/database/v1/status"
 
         fields = dict([
             ('request', '10534'),
@@ -521,7 +521,7 @@ database upgrade request.
 
     .. code-block:: bash
 
-        STATUS_URL="https://upgrade.odoo.com/database/v1/status"
+        STATUS_URL="https://upgrade.flectra.com/database/v1/status"
         KEY="Aw7pItGVKFuZ_FOR3U8VFQ=="
         REQUEST_ID="10534"
         URL_PARAMS="key=${KEY}&request=${REQUEST_ID}"
@@ -539,7 +539,7 @@ The ``request`` key contains various useful information about your request:
 ``email``
     the email address you supplied when creating the request
 ``target``
-    the target Odoo version you supplied when creating the request
+    the target Flectra version you supplied when creating the request
 ``aim``
     the purpose (test, production) of your database upgrade request you supplied when creating the request
 ``filename``
@@ -549,9 +549,9 @@ The ``request`` key contains various useful information about your request:
 ``state``
     the state of your request
 ``issue_stage``
-    the stage of the issue we have create on Odoo main server
+    the stage of the issue we have create on Flectra main server
 ``issue``
-    the id of the issue we have create on Odoo main server
+    the id of the issue we have create on Flectra main server
 ``status_url``
     the URL to access your database upgrade request html page
 ``notes_url``
@@ -583,7 +583,7 @@ The ``request`` key contains various useful information about your request:
 ``customer_message``
     an important message related to your request
 ``database_version``
-    the guessed Odoo version of your uploaded (not upgraded) database
+    the guessed Flectra version of your uploaded (not upgraded) database
 ``postgresql``
     the guessed Postgresql version of your uploaded (not upgraded) database
 ``compressions``
@@ -608,13 +608,13 @@ The ``request`` key contains various useful information about your request:
             "state": "draft",
             "issue_stage": "new",
             "issue": 648398,
-            "status_url": "https://upgrade.odoo.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/status",
-            "notes_url": "https://upgrade.odoo.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/upgraded/notes",
-            "original_sql_url": "https://upgrade.odoo.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/original/sql",
-            "original_dump_url": "https://upgrade.odoo.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/original/archive",
-            "upgraded_sql_url": "https://upgrade.odoo.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/upgraded/sql",
-            "upgraded_dump_url": "https://upgrade.odoo.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/upgraded/archive",
-            "modules_url": "https://upgrade.odoo.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/modules/archive",
+            "status_url": "https://upgrade.flectra.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/status",
+            "notes_url": "https://upgrade.flectra.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/upgraded/notes",
+            "original_sql_url": "https://upgrade.flectra.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/original/sql",
+            "original_dump_url": "https://upgrade.flectra.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/original/archive",
+            "upgraded_sql_url": "https://upgrade.flectra.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/upgraded/sql",
+            "upgraded_dump_url": "https://upgrade.flectra.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/upgraded/archive",
+            "modules_url": "https://upgrade.flectra.com/database/eu1/10534/Aw7pItGVKFuZ_FOR3U8VFQ==/modules/archive",
             "filesize": "912.99 Kb",
             "database_uuid": null,
             "created_at": "2018-09-09 07:13:49",
@@ -652,8 +652,8 @@ your database dump. Here is a sample session using the 'sftp' client:
 
 ::
 
-    $ sftp -P 2200 user_10534@upgrade.odoo.com
-    Connected to upgrade.odoo.com.
+    $ sftp -P 2200 user_10534@upgrade.flectra.com
+    Connected to upgrade.flectra.com.
     sftp> get upgraded_openchs.70.cdump /path/to/upgraded_openchs.70.cdump
     Downloading /upgraded_openchs.70.cdump to /path/to/upgraded_openchs.70.cdump
 

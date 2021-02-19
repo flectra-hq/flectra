@@ -8,7 +8,7 @@ Web Services
 .. toctree::
     :titlesonly:
 
-    webservices/odoo
+    webservices/flectra
     webservices/iap
     webservices/upgrade
     webservices/localization

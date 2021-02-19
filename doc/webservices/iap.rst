@@ -41,21 +41,21 @@
 In-App Purchase
 ===============
 
-In-App Purchase (IAP) allows providers of ongoing services through Odoo apps to
+In-App Purchase (IAP) allows providers of ongoing services through Flectra apps to
 be compensated for ongoing service use rather than — and possibly instead of
 — a sole initial purchase.
 
-In that context, Odoo acts mostly as a *broker* between a client and an Odoo
+In that context, Flectra acts mostly as a *broker* between a client and an Flectra
 App Developer:
 
-* Users purchase service tokens from Odoo.
-* Service providers draw tokens from the user's Odoo account when service
+* Users purchase service tokens from Flectra.
+* Service providers draw tokens from the user's Flectra account when service
   is requested.
 
 .. attention::
 
     This document is intended for *service providers* and presents the latter,
-    which can be done either via direct JSON-RPC2_ or if you are using Odoo
+    which can be done either via direct JSON-RPC2_ or if you are using Flectra
     using the convenience helpers it provides.
 
 Overview
@@ -68,12 +68,12 @@ Overview
 
     * The Service Provider is (probably) you the reader, you will be providing
       value to the client in the form of a service paid per-use.
-    * The Client installed your Odoo App, and from there will request services.
-    * Odoo brokers crediting, the Client adds credit to their account, and you
+    * The Client installed your Flectra App, and from there will request services.
+    * Flectra brokers crediting, the Client adds credit to their account, and you
       can draw credits from there to provide services.
     * The External Service is an optional player: *you* can either provide a
       service directly, or you can delegate the actual service acting as a
-      bridge/translator between an Odoo system and the actual service.
+      bridge/translator between an Flectra system and the actual service.
 
 
 .. figure:: images/credits.jpg
@@ -98,7 +98,7 @@ Overview
     may vary following the countries).
 
     The value of the credits is fixed with the help of prepaid credit packs
-    that the clients can buy on https://iap.odoo.com (see :ref:`Packs <iap-packages>`).
+    that the clients can buy on https://iap.flectra.com (see :ref:`Packs <iap-packages>`).
 
 .. note:: In the following explanations we will ignore the External Service,
           they are just a detail of the service you provide.
@@ -111,12 +111,12 @@ Overview
     If everything goes well, the normal flow is the following:
 
     1. The Client requests a service of some sort.
-    2. The Service Provider asks Odoo if there are enough credits for the
+    2. The Service Provider asks Flectra if there are enough credits for the
        service in the Client's account, and creates a transaction over that
        amount.
     3. The Service Provider provides the service (either on their own or
        calling to External Services).
-    4. The Service Provider goes back to Odoo to capture (if the service could
+    4. The Service Provider goes back to Flectra to capture (if the service could
        be provided) or cancel (if the service could not be provided) the
        transaction created at step 2.
     5. Finally, the Service Provider notifies the Client that the service has
@@ -131,10 +131,10 @@ Overview
     However, if the Client's account lacks credits for the service, the flow will be as follows:
 
     1. The Client requests a service as previously.
-    2. The Service Provider asks Odoo if there are enough credits on the
+    2. The Service Provider asks Flectra if there are enough credits on the
        Client's account and gets a negative reply.
     3. This is signaled back to the Client.
-    4. Who is redirected to their Odoo account to credit it and re-try.
+    4. Who is redirected to their Flectra account to credit it and re-try.
 
 
 Building your service
@@ -151,7 +151,7 @@ For this example, the service we will provide is ~~mining dogecoins~~ burning
 
 .. _register-service:
 
-Register the service on Odoo
+Register the service on Flectra
 ----------------------------
 
 .. queue:: iap_service/series
@@ -160,10 +160,10 @@ Register the service on Odoo
 
 The first step is to register your service on the IAP endpoint (production
 and/or test) before you can actually query user accounts. To create a service,
-go to your *Portal Account* on the IAP endpoint (https://iap.odoo.com for
-production, https://iap-sandbox.odoo.com for testing, the endpoints are
+go to your *Portal Account* on the IAP endpoint (https://iap.flectra.com for
+production, https://iap-sandbox.flectra.com for testing, the endpoints are
 *independent* and *not synchronized*). Alternatively, you can go to your portal
-on Odoo (https://iap.odoo.com/my/home) and select *In-App Services*.
+on Flectra (https://iap.flectra.com/my/home) and select *In-App Services*.
 
 .. note::
 
@@ -178,7 +178,7 @@ Create and provide the informations of your service.
 The service has *seven* important fields:
 
 * :samp:`name` - :class:`ServiceName`: This is the string you will need to provide inside
-  the client's :ref:`app <iap-odoo-app>` when requesting a transaction from Odoo. (e.g.
+  the client's :ref:`app <iap-flectra-app>` when requesting a transaction from Flectra. (e.g.
   :class:`self.env['iap.account].get(name)`). As good practice, this should match the
   technical name of your app.
 
@@ -188,7 +188,7 @@ The service has *seven* important fields:
 
 .. warning::
    Both the :class:`ServiceName` and :class:`Label` are unique. As good practice, the
-   :class:`ServiceName` should usually match the name of your Odoo Client App.
+   :class:`ServiceName` should usually match the name of your Flectra Client App.
 
 * :samp:`icon` - :class:`Icon`: A generic icon that will serve as default for your
   :ref:`packs <iap-packages>`.
@@ -243,7 +243,7 @@ A credit pack is essentially a product with five characteristics:
 
 .. note::
 
-    Odoo takes a 25% commission on all pack sales. Adjust your selling price accordingly.
+    Flectra takes a 25% commission on all pack sales. Adjust your selling price accordingly.
 
 
 .. note::
@@ -255,21 +255,21 @@ A credit pack is essentially a product with five characteristics:
 .. image:: images/package.png
     :align: center
 
-.. _iap-odoo-app:
+.. _iap-flectra-app:
 
-Odoo App
+Flectra App
 --------
 
 .. queue:: iap/series
 
 .. todo:: does this actually require apps?
 
-The second step is to develop an `Odoo App`_ which clients can install in their
-Odoo instance and through which they can *request* the services you provide.
+The second step is to develop an `Flectra App`_ which clients can install in their
+Flectra instance and through which they can *request* the services you provide.
 Our app will just add a button to the Partners form which lets a user request
 burning some CPU time on the server.
 
-First, we will create an *odoo module* depending on ``iap``. IAP is a standard
+First, we will create an *flectra module* depending on ``iap``. IAP is a standard
 V11 module and the dependency ensures a local account is properly set up and
 we will have access to some necessary views and useful helpers.
 
@@ -289,10 +289,10 @@ server*.
 
 There are no requirements when it comes to the server or the communication
 protocol between the app and our server, but ``iap`` provides a
-:func:`~odoo.addons.iap.tools.iap_tools.iap_jsonrpc` helper to call a JSON-RPC2_ endpoint on an
-other Odoo instance and transparently re-raise relevant Odoo exceptions
-(:class:`~odoo.addons.iap.tools.iap_tools.InsufficientCreditError`,
-:class:`odoo.exceptions.AccessError` and :class:`odoo.exceptions.UserError`).
+:func:`~flectra.addons.iap.tools.iap_tools.iap_jsonrpc` helper to call a JSON-RPC2_ endpoint on an
+other Flectra instance and transparently re-raise relevant Flectra exceptions
+(:class:`~flectra.addons.iap.tools.iap_tools.InsufficientCreditError`,
+:class:`flectra.exceptions.AccessError` and :class:`flectra.exceptions.UserError`).
 
 In that call, we will need to provide:
 
@@ -308,17 +308,17 @@ In that call, we will need to provide:
 .. note::
 
     ``iap`` automatically handles
-    :class:`~odoo.addons.iap.tools.iap_tools.InsufficientCreditError` coming from the action
+    :class:`~flectra.addons.iap.tools.iap_tools.InsufficientCreditError` coming from the action
     and prompts the user to add credits to their account.
 
-    :func:`~odoo.addons.iap.tools.iap_tools.iap_jsonrpc` takes care of re-raising
-    :class:`~odoo.addons.iap.models.iap.InsufficientCreditError` for you.
+    :func:`~flectra.addons.iap.tools.iap_tools.iap_jsonrpc` takes care of re-raising
+    :class:`~flectra.addons.iap.models.iap.InsufficientCreditError` for you.
 
 .. danger::
 
-    If you are not using :func:`~odoo.addons.iap.tools.iap_tools.iap_jsonrpc` you *must* be
+    If you are not using :func:`~flectra.addons.iap.tools.iap_tools.iap_jsonrpc` you *must* be
     careful to re-raise
-    :class:`~odoo.addons.iap.tools.iap_tools.InsufficientCreditError` in your handler
+    :class:`~flectra.addons.iap.tools.iap_tools.InsufficientCreditError` in your handler
     otherwise the user will not be prompted to credit their account, and the
     next call will fail the same way.
 
@@ -330,24 +330,24 @@ Service
 .. queue:: iap_service/series
 
 Though that is not *required*, since ``iap`` provides both a client helper
-for JSON-RPC2_ calls (:func:`~odoo.addons.iap.tools.iap_tools.iap_jsonrpc`) and a service helper
-for transactions (:class:`~odoo.addons.iap.tools.iap_tools.iap_charge`) we will also be
-implementing the service side as an Odoo module:
+for JSON-RPC2_ calls (:func:`~flectra.addons.iap.tools.iap_tools.iap_jsonrpc`) and a service helper
+for transactions (:class:`~flectra.addons.iap.tools.iap_tools.iap_charge`) we will also be
+implementing the service side as an Flectra module:
 
 .. patch::
 
 Since the query from the client comes as JSON-RPC2_ we will need the
-corresponding controller which can call :class:`~odoo.addons.iap.tools.iap_tools.iap_charge` and
+corresponding controller which can call :class:`~flectra.addons.iap.tools.iap_tools.iap_charge` and
 perform the service within:
 
 .. patch::
 
-.. todo:: for the actual IAP will the "portal" page be on odoo.com or iap.odoo.com?
+.. todo:: for the actual IAP will the "portal" page be on flectra.com or iap.flectra.com?
 
 .. todo:: "My Account" > "Your InApp Services"?
 
 
-The :class:`~odoo.addons.iap.tools.iap_tools.iap_charge` helper will:
+The :class:`~flectra.addons.iap.tools.iap_tools.iap_charge` helper will:
 
 1. authorize (create) a transaction with the specified number of credits,
    if the account does not have enough credits it will raise the relevant
@@ -361,17 +361,17 @@ The :class:`~odoo.addons.iap.tools.iap_tools.iap_charge` helper will:
 
 .. danger::
 
-    By default, :class:`~odoo.addons.iap.tools.iap_tools.iap_charge` contacts the *production*
-    IAP endpoint, https://iap.odoo.com. While developing and testing your
+    By default, :class:`~flectra.addons.iap.tools.iap_tools.iap_charge` contacts the *production*
+    IAP endpoint, https://iap.flectra.com. While developing and testing your
     service you may want to point it towards the *development* IAP endpoint
-    https://iap-sandbox.odoo.com.
+    https://iap-sandbox.flectra.com.
 
     To do so, set the ``iap.endpoint`` config parameter in your service
-    Odoo: in debug/developer mode, :menuselection:`Setting --> Technical -->
+    Flectra: in debug/developer mode, :menuselection:`Setting --> Technical -->
     Parameters --> System Parameters`, just define an entry for the key
     ``iap.endpoint`` if none already exists).
 
-The :class:`~odoo.addons.iap.tools.iap_tools.iap_charge` helper has two additional optional
+The :class:`~flectra.addons.iap.tools.iap_tools.iap_charge` helper has two additional optional
 parameters we can use to make things clearer to the end-user.
 
 ``description``
@@ -395,14 +395,14 @@ JSON-RPC2_ Transaction API
 .. image:: images/flow.png
     :align: center
 
-* The IAP transaction API does not require using Odoo when implementing your
+* The IAP transaction API does not require using Flectra when implementing your
   server gateway, calls are standard JSON-RPC2_.
 * Calls use different *endpoints* but the same *method* on all endpoints
   (``call``).
 * Exceptions are returned as JSON-RPC2_ errors, the formal exception name is
   available on ``data.name`` for programmatic manipulation.
 
-.. seealso:: `iap.odoo.com documentation`_ for additional information.
+.. seealso:: `iap.flectra.com documentation`_ for additional information.
 
 Authorize
 ---------
@@ -416,7 +416,7 @@ Authorize
     unavailable to further authorize calls.
 
     Returns a :class:`TransactionToken` identifying the pending transaction
-    which can be used to capture (confirm) or cancel said transaction (`iap.odoo.com documentation`_).
+    which can be used to capture (confirm) or cancel said transaction (`iap.flectra.com documentation`_).
 
     :param ServiceKey key:
     :param UserToken account_token:
@@ -426,8 +426,8 @@ Authorize
     :param str dbuuid: optional, allows the user to benefit from trial
                        credits if his database is eligible (see :ref:`Service registration <register-service>`)
     :returns: :class:`TransactionToken` if the authorization succeeded
-    :raises: :class:`~odoo.exceptions.AccessError` if the service token is invalid
-    :raises: :class:`~odoo.addons.iap.models.iap.InsufficientCreditError` if the account does not have enough credits
+    :raises: :class:`~flectra.exceptions.AccessError` if the service token is invalid
+    :raises: :class:`~flectra.addons.iap.models.iap.InsufficientCreditError` if the account does not have enough credits
     :raises: ``TypeError`` if the ``credit`` value is not an integer or a float
 
 .. code-block:: python
@@ -463,7 +463,7 @@ Capture
     :param TransactionToken token:
     :param ServiceKey key:
     :param float credit_to_capture: optional parameter to capture a smaller amount of credits than authorized
-    :raises: :class:`~odoo.exceptions.AccessError`
+    :raises: :class:`~flectra.exceptions.AccessError`
 
 .. code-block:: python
   :emphasize-lines: 8
@@ -495,7 +495,7 @@ Cancel
 
     :param TransactionToken token:
     :param ServiceKey key:
-    :raises: :class:`~odoo.exceptions.AccessError`
+    :raises: :class:`~flectra.exceptions.AccessError`
 
 .. code-block:: python
 
@@ -520,7 +520,7 @@ care how they are implemented.
 
 .. class:: ServiceName
 
-    String identifying your service on https://iap.odoo.com (production) as well
+    String identifying your service on https://iap.flectra.com (production) as well
     as the account related to your service in the client's database.
 
 .. class:: ServiceKey
@@ -545,21 +545,21 @@ care how they are implemented.
     Transaction identifier, returned by the authorization process and consumed
     by either capturing or cancelling the transaction.
 
-.. exception:: odoo.addons.iap.tools.iap_tools.InsufficientCreditError
+.. exception:: flectra.addons.iap.tools.iap_tools.InsufficientCreditError
 
     Raised during transaction authorization if the credits requested are not
     currently available on the account (either not enough credits or too many
     pending transactions/existing holds).
 
-.. exception:: odoo.exceptions.AccessError
+.. exception:: flectra.exceptions.AccessError
     :noindex:
 
     Raised by:
 
     * any operation to which a service token is required, if the service token is invalid; or
-    * any failure in an inter-server call. (typically, in :func:`~odoo.addons.iap.tools.iap_tools.iap_jsonrpc`).
+    * any failure in an inter-server call. (typically, in :func:`~flectra.addons.iap.tools.iap_tools.iap_jsonrpc`).
 
-.. exception:: odoo.exceptions.UserError
+.. exception:: flectra.exceptions.UserError
     :noindex:
 
     Raised by any unexpected behaviour at the discretion of the App developer (*you*).
@@ -578,9 +578,9 @@ In order to test the developped app, we propose a sandbox platform that allows y
 The latter consists in specific tokens that will work on **IAP-Sandbox only**.
 
 * Token ``000000``: Represents a non-existing account. Returns
-  an :class:`~odoo.addons.iap.tools.iap_tools.InsufficientCreditError` on authorize attempt.
+  an :class:`~flectra.addons.iap.tools.iap_tools.InsufficientCreditError` on authorize attempt.
 * Token ``000111``: Represents an account without sufficient credits to perform any service.
-  Returns an :class:`~odoo.addons.iap.tools.iap_tools.InsufficientCreditError` on authorize attempt.
+  Returns an :class:`~flectra.addons.iap.tools.iap_tools.InsufficientCreditError` on authorize attempt.
 * Token ``111111``: Represents an account with enough credits to perform any service.
   An authorize attempt will return a dummy transacion token that is processed by the capture
   and cancel routes.
@@ -591,10 +591,10 @@ The latter consists in specific tokens that will work on **IAP-Sandbox only**.
     * The service key is completely ignored with this flow, If you want to run a robust test
       of your service, you should ignore these tokens.
 
-Odoo Helpers
+Flectra Helpers
 ============
 
-For convenience, if you are implementing your service using Odoo the ``iap``
+For convenience, if you are implementing your service using Flectra the ``iap``
 module provides a few helpers to make IAP flow even simpler.
 
 .. _iap-charging:
@@ -602,7 +602,7 @@ module provides a few helpers to make IAP flow even simpler.
 Charging
 --------
 
-.. class:: odoo.addons.iap.tools.iap_tools.iap_charge(env, key, account_token, credit[, dbuuid, description, credit_template])
+.. class:: flectra.addons.iap.tools.iap_tools.iap_charge(env, key, account_token, credit[, dbuuid, description, credit_template])
 
     A *context manager* for authorizing and automatically capturing or
     cancelling transactions for use in the backend/proxy.
@@ -614,7 +614,7 @@ Charging
     * if the body executes in full without error, captures the transaction;
     * otherwise cancels it.
 
-    :param odoo.api.Environment env: used to retrieve the ``iap.endpoint``
+    :param flectra.api.Environment env: used to retrieve the ``iap.endpoint``
                                      configuration key
     :param ServiceKey key:
     :param UserToken token:
@@ -649,11 +649,11 @@ Charging
 Authorize
 ---------
 
-.. class:: odoo.addons.iap.tools.iap_tools.iap_authorize(env, key, account_token, credit[, dbuuid, description, credit_template])
+.. class:: flectra.addons.iap.tools.iap_tools.iap_authorize(env, key, account_token, credit[, dbuuid, description, credit_template])
 
     Will authorize everything.
 
-    :param odoo.api.Environment env: used to retrieve the ``iap.endpoint``
+    :param flectra.api.Environment env: used to retrieve the ``iap.endpoint``
                                      configuration key
     :param ServiceKey key:
     :param UserToken token:
@@ -690,11 +690,11 @@ Authorize
 Cancel
 ------
 
-.. class:: odoo.addons.iap.tools.iap_tools.iap_cancel(env, transaction_token, key)
+.. class:: flectra.addons.iap.tools.iap_tools.iap_cancel(env, transaction_token, key)
 
     Will cancel an authorized transaction.
 
-    :param odoo.api.Environment env: used to retrieve the ``iap.endpoint``
+    :param flectra.api.Environment env: used to retrieve the ``iap.endpoint``
                                      configuration key
     :param str transaction_token:
     :param ServiceKey key:
@@ -728,11 +728,11 @@ Cancel
 Capture
 -------
 
-.. class:: odoo.addons.iap.tools.iap_tools.iap_capture(env, transaction_token, key, credit)
+.. class:: flectra.addons.iap.tools.iap_tools.iap_capture(env, transaction_token, key, credit)
 
     Will capture the amount ``credit`` on the given transaction.
 
-    :param odoo.api.Environment env: used to retrieve the ``iap.endpoint``
+    :param flectra.api.Environment env: used to retrieve the ``iap.endpoint``
                                      configuration key
     :param str transaction_token:
     :param ServiceKey key:
@@ -766,5 +766,5 @@ Capture
 
 
 .. _JSON-RPC2: https://www.jsonrpc.org/specification
-.. _Odoo App: https://www.odoo.com/apps
-.. _iap.odoo.com documentation: https://iap.odoo.com/iap/1/documentation
+.. _Flectra App: https://www.flectra.com/apps
+.. _iap.flectra.com documentation: https://iap.flectra.com/iap/1/documentation

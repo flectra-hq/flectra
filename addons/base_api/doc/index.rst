@@ -57,7 +57,7 @@ search_or_create
                             'children_ids': [(4,4,0),
                                              (4,5,0)]
                         }
-      - For more information look `here <https://odoo-development.readthedocs.io/en/latest/dev/py/x2many.html>`__
+      - For more information look `here <https://flectra-development.readthedocs.io/en/latest/dev/py/x2many.html>`__
 
 *– Example*:
 
@@ -268,7 +268,7 @@ create_or_update_by_external_id
 *– Notes*:
   - for *x2x*-fields `id` might be *string* (external id)
 
-  - for *x2many*-fields use *tuples* `this <https://odoo-development.readthedocs.io/en/latest/dev/py/x2many.html>`__,
+  - for *x2many*-fields use *tuples* `this <https://flectra-development.readthedocs.io/en/latest/dev/py/x2many.html>`__,
 
   - If `id` of *x2x* fields are not found, it will return error
     (*raise Exception*). In order to avoid this, call the function

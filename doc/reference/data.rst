@@ -6,7 +6,7 @@
 Data Files
 ==========
 
-Odoo is greatly data-driven, and a big part of modules definition is thus
+Flectra is greatly data-driven, and a big part of modules definition is thus
 the definition of the various records it manages: UI (menus and views),
 security (access rights and access rules), reports and plain data are all
 defined via records.
@@ -14,19 +14,19 @@ defined via records.
 Structure
 =========
 
-The main way to define data in Odoo is via XML data files: The broad structure
+The main way to define data in Flectra is via XML data files: The broad structure
 of an XML data file is the following:
 
-* Any number of operation elements within the root element ``odoo``
+* Any number of operation elements within the root element ``flectra``
 
 .. code-block:: xml
 
     <!-- the root elements of the data file -->
     <?xml version="1.0" encoding="UTF-8"?>
-    <odoo>
+    <flectra>
       <operation/>
       ...
-    </odoo>
+    </flectra>
 
 Data files are executed sequentially, operations can only refer to the result
 of operations defined previously
@@ -34,21 +34,21 @@ of operations defined previously
 .. note::
 
     If the content of the data file is expected to be applied only once, you
-    can specify the odoo flag ``noupdate`` set to 1.  If part of
+    can specify the flectra flag ``noupdate`` set to 1.  If part of
     the data in the file is expected to be applied once, you can place this part
     of the file in a <data noupdate="1"> domain.
 
     .. code-block:: xml
 
-      <odoo>
+      <flectra>
           <data noupdate="1">
-              <!-- Only loaded when installing the module (odoo-bin -i module) -->
+              <!-- Only loaded when installing the module (flectra-bin -i module) -->
               <operation/>
           </data>
 
-          <!-- (Re)Loaded at install and update (odoo-bin -i/-u) -->
+          <!-- (Re)Loaded at install and update (flectra-bin -i/-u) -->
           <operation/>
-      </odoo>
+      </flectra>
 
 Core operations
 ===============
@@ -97,13 +97,13 @@ Nothing
 
     Will evaluate the domain, search the field's model using it and set the
     search's result as the field's value. Will only use the first result if
-    the field is a :class:`~odoo.fields.Many2one`
+    the field is a :class:`~flectra.fields.Many2one`
 ``ref``
     if a ``ref`` attribute is provided, its value must be a valid
     :term:`external id`, which will be looked up and set as the field's value.
 
-    Mostly for :class:`~odoo.fields.Many2one` and
-    :class:`~odoo.fields.Reference` fields
+    Mostly for :class:`~flectra.fields.Many2one` and
+    :class:`~flectra.fields.Reference` fields
 ``type``
     if a ``type`` attribute is provided, it is used to interpret and convert
     the field's content. The field's content can be provided through an
@@ -174,7 +174,7 @@ values).
 
 .. code-block:: xml
 
-  <odoo>
+  <flectra>
       <data noupdate="1">
           <record name="partner_1" model="res.partner">
               <field name="name">Odude</field>
@@ -191,7 +191,7 @@ values).
       <record id="model_form_view" model="ir.ui.view">
 
       </record>
-  </odoo>
+  </flectra>
 
 .. ignored assert
 
@@ -200,7 +200,7 @@ values).
 Shortcuts
 =========
 
-Because some important structural models of Odoo are complex and involved,
+Because some important structural models of Flectra are complex and involved,
 data files provide shorter alternatives to defining them using
 :ref:`record tags <reference/data/record>`:
 
