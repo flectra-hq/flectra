@@ -18,6 +18,11 @@ return  WebClient.include({
             menu_clicked: 'on_menu_clicked',
             custom_clicked: 'on_custom_clicked',
         }),
+        start: function(){
+            return this._super.apply(this, arguments).then(function () {
+                $('#menu_launcher').removeClass('d-none');
+            });
+        },
         _on_app_clicked_done: function (ev) {
             var self = this;
             return this._super.apply(this, arguments).then(function () {
@@ -39,6 +44,11 @@ return  WebClient.include({
             }
             if((state.hasOwnProperty('home') && state.home == 'apps') || (Object.keys(state).length === 1 && Object.keys(state)[0] === "cids")){
                 $toggle_btn.removeClass('fa-th');
+                if(this.$el.find('.full > i').hasClass('fa-chevron-left') || this.$el.find('.full > i').hasClass('fa-th')){
+                    this.$el.find('.full').css('pointer-events','all');
+                }else{
+                    this.$el.find('.full').css('pointer-events','none');
+                }
                 $menu_tray.hide();
                 $dashboard.removeClass('d-none');
             }else{

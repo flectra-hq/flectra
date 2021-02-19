@@ -31,6 +31,11 @@ body[data-menu="sidemenu"].o_web_client {
         height: calc(100vH - #{$menu_height});
         font-family: $font_name;
         .f_launcher_content {
+             transition: all 0.4s;
+            &:hover{
+                transform: translate3d(0, 0, 0);
+                -webkit-transform: translate3d(0, 0, 0);
+            }
             position: relative;
             background-color: $theme-sidebar-color;
             height: 100%;

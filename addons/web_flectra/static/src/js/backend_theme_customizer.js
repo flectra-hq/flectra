@@ -17,6 +17,8 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
             "click .f-theme-customizer-toggler": "_on_customizer_toggler",
             "click .f-theme-customizer-close": "_on_customizer_close",
             "click .save-btn": "_on_save_btn",
+            "change #select_font": "_onChangeFont",
+            "input #google_font_val": "_onFontInput",
         }),
 
         willStart: function () {
@@ -68,6 +70,7 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
 
             company_settings['theme_menu_style'] = company_container.find('#select_menu option:selected').val()
             company_settings['theme_font_name'] = company_container.find('#select_font option:selected').val()
+            company_settings['google_font'] = company_container.find('#google_font_val').val().toString();
 
             colorPicker.each(function () {
                 var name = $(this).attr('data-identity')
@@ -90,6 +93,20 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
             user_settings = this._diff(user_settings, user_settings_old);
             const data = await this._write_data('user_settings', user_settings);
             return true;
+        },
+
+        _onChangeFont: function(e){
+            var font = $('#select_font').val();
+            if(font == 'google-font'){
+                $('.google-font-input').show();
+            }else{
+                $('.google-font-input').hide();
+            }
+        },
+
+        _onFontInput: function(e){
+            e.stopPropagation();
+            e.preventDefault();
         },
 
         _diff: function(dict1, dict2) {
@@ -128,6 +145,12 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
             /* Write company_settings to customizer ui. */
             this.$el.find('#select_menu').val(this.company_settings.theme_menu_style);
             this.$el.find('#select_font').val(this.company_settings.theme_font_name);
+            this.$el.find('#google_font_val').val(this.company_settings.google_font);
+            if(this.company_settings.theme_font_name == 'google-font'){
+                this.$el.find(".google-font-input").show();
+            }else{
+                this.$el.find(".google-font-input").hide();
+            }
         },
 
         _init_color_picker: function (item) {

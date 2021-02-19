@@ -83,9 +83,7 @@ var SideMenu = Widget.extend({
         if (self.current_menu) {
             self.open_menu(self.current_menu);
         }
-        this.is_bound.resolve().done(function(){
-            $('#menu_launcher').removeClass('d-none');
-        });
+        this.is_bound.resolve();
     },
 
     /**

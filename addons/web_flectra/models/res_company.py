@@ -19,7 +19,15 @@ class ResCompany(models.Model):
         ('apps', 'Top Menu')], string="Menu Style", default="sidemenu")
     theme_font_name = fields.Selection([
         ('Rubik', 'Rubik'),
-        ('sans-serif', 'sans-serif')], string="Select Font", default='Rubik')
+        ('sans-serif', 'sans-serif'),
+        ('poppins', 'Poppins'),
+        ('lato', 'Lato'),
+        ('merriweather', 'Merriweather'),
+        ('montserrat', 'Montserrat'),
+        ('opensans', 'OpenSans'),
+        ('playfairdisplay', 'PlayfairDisplay'),
+        ('google-font', 'Google Font')], string="Select Font", default='Rubik')
+    google_font = fields.Char('Google Font', default='Roboto')
     theme_color_brand = fields.Char("Theme Brand Color", default="#009efb")
     theme_background_color = fields.Char("Theme Background Color", default="#f2f7fb")
     theme_sidebar_color = fields.Char("Theme Sidebar Color", default="#212529")
@@ -34,11 +42,13 @@ class ResCompany(models.Model):
                     $theme-brand-background-color: %s;
                     $theme-root-font-family: %s;
                     $theme-sidebar-color: %s;
+                    $backend-google-font: %s;
                 """ % (
                     rec.theme_color_brand,
                     rec.theme_background_color,
                     rec.theme_font_name,
                     rec.theme_sidebar_color,
+                    rec.google_font,
                 )
                 IrAttachment = self.env["ir.attachment"]
                 url = "/web_flectra/static/src/scss/backend_theme_customizer/colors.scss"
@@ -75,6 +85,7 @@ class ResCompany(models.Model):
             'theme-brand-background-color',
             'theme-root-font-family',
             'theme-sidebar-color',
+            'google-font'
         ]
         colors = self.env['web_flectra.scss_editor'].get_values(
             SCSS_URL, XML_ID, variables
@@ -84,5 +95,6 @@ class ResCompany(models.Model):
             'theme_background_color': colors['theme-brand-background-color'],
             'theme_font_name': colors['theme-root-font-family'],
             'theme_sidebar_color': colors['theme-sidebar-color'],
+            'google_font': colors['google-font'],
         })
         return res

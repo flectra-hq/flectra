@@ -54,15 +54,18 @@ flectra.define('web_flectra.AppsMenu', function (require) {
             this.$search_container = this.$(".search-container");
             this.$search_input = this.$(".search-input input");
             this.$search_results = this.$(".search-results");
+            this.$theme_search = this.$('input#goolegoogle_font_val');
             this.$('.o_app_search').css('visibility', 'hidden');
            $(window).keypress( function(e){
-                if(self.$el.find('.full > i').hasClass('fa-th') === false){
-                    if((e.key == 'Delete') == false && (e.key == 'Enter') == false){
-                        self.$search_input.val(self.$search_input.val() + e.key);
-                        self._onAppsSearch(e);
-                        self.$('.o_app_search').css('visibility', 'unset');
+                if($(e.target).attr('id') != 'google_font_val'){
+                    if(self.$el.find('.full > i').hasClass('fa-th') === false){
+                        if((e.key == 'Delete') == false && (e.key == 'Enter') == false){
+                            self.$search_input.val(self.$search_input.val() + e.key);
+                            self._onAppsSearch(e);
+                            self.$('.o_app_search').css('visibility', 'unset');
+                        }
+                        self.$search_input.focus();
                     }
-                    self.$search_input.focus();
                 }
             });
             var state = $.bbq.getState();
@@ -208,6 +211,7 @@ flectra.define('web_flectra.AppsMenu', function (require) {
             this.$search_results.empty();
             this.$search_input.val("");
             this.$('.o_app_search').css('visibility', 'hidden');
+            this.$el.find('.full').css('pointer-events','all');
             this._searchApps = this._apps;
             var html = Qweb.render('AppsSearch', {apps: this._searchApps});
             this.$el.find('.o_apps_container').replaceWith(html);
