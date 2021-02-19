@@ -44,7 +44,8 @@ class DasboardBackground(Controller):
                 'theme_font_name': company.theme_font_name,
                 'theme_color_brand': company.theme_color_brand,
                 'theme_background_color': company.theme_background_color,
-                'theme_sidebar_color': company.theme_sidebar_color
+                'theme_sidebar_color': company.theme_sidebar_color,
+                'google_font': company.google_font
              }
         }
 
@@ -66,6 +67,8 @@ class DasboardBackground(Controller):
                 elif entry == 'theme_background_color':
                     result.update({entry: company_settings[entry]})
                 elif entry == 'theme_sidebar_color':
+                    result.update({entry: company_settings[entry]})
+                elif entry == 'google_font':
                     result.update({entry: company_settings[entry]})
             company.update(result)
         elif 'user_settings' in post:

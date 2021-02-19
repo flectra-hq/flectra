@@ -28,8 +28,17 @@ $gray-lighter: lighten($gray-base, 93.5%);
 // Font
 $o-root-font-size: 15px;
 $o-root-font-family: $theme-root-font-family;
-
-body {
-    font-family: $o-root-font-family !important;
-    font-size: $o-root-font-size !important;
+@if $o-root-font-family == 'google-font'{
+    @import url("https://fonts.googleapis.com/css?family=#{$backend-google-font}");
+    body.o_web_client{
+        font-family: $backend-google-font !important;
+        font-size: $o-root-font-size !important;
+    }
 }
+@if $o-root-font-family != 'google-font'{
+    body.o_web_client{
+        font-family: $o-root-font-family !important;
+        font-size: $o-root-font-size !important;
+    }
+}
+
