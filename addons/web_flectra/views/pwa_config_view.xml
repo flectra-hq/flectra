@@ -6,8 +6,10 @@
         <field name="arch" type="xml">
             <form string="PWA Configuration">
                 <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
                     <group string="General">
                         <group>
+                            <field name="active" invisible="1"/>
                             <field name="pwa_name" />
                             <field name="pwa_short_name" />
                             <field name="pwa_company_id" />

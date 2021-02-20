@@ -9,6 +9,7 @@ class ProgressiveWebAppConfig(models.Model):
     _rec_name = 'pwa_name'
     _description = 'Progressive Web App Configuration'
 
+    active = fields.Boolean("Active", default=True)
     pwa_name = fields.Char(
             string='Name',
     )
