@@ -511,8 +511,8 @@ class File(models.Model):
                 ids=", ".join(map(lambda id: "(%s)" % id, directories.ids)),
             )
             query.add_where(where_clause)
-        else:
-            query.where_clause += ["0=1"]
+        # else:
+        #     query.where_clause += tuple("0=1")
         return super(File, self)._read_group_process_groupby(gb, query)
 
     @api.model

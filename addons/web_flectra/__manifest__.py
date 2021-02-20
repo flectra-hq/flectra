@@ -14,6 +14,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/theme_config.xml',
+        'data/pwa_config_data.xml',
         'views/assets.xml',
         'views/pwa_config_view.xml',
         'views/res_company_view.xml',
