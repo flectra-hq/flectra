@@ -3054,7 +3054,7 @@ var JournalDashboardGraph = AbstractField.extend({
         var labels = this.data[0].values.map(function (pt) {
             return pt.x;
         });
-        var borderColor = this.data[0].is_sample_data ? '#dddddd' : '#875a7b';
+        var borderColor = this.data[0].is_sample_data ? '#dddddd' : '#009EFB';
         var backgroundColor = this.data[0].is_sample_data ? '#ebebeb' : '#dcd0d9';
         return {
             type: 'line',
