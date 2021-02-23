@@ -3,10 +3,10 @@
 .. _reference/security:
 
 ================
-Security in Odoo
+Security in Flectra
 ================
 
-Aside from manually managing access using custom code, Odoo provides two main
+Aside from manually managing access using custom code, Flectra provides two main
 data-driven mechanisms to manage or restrict access to data.
 
 Both mechanisms are linked to specific users through *groups*: a user belongs
@@ -76,7 +76,7 @@ This means the first *group rule* restricts access, but any further
 Field Access
 ============
 
-An ORM :class:`~odoo.fields.Field` can have a ``groups`` attribute
+An ORM :class:`~flectra.fields.Field` can have a ``groups`` attribute
 providing a list of groups (as a comma-separated string of
 :term:`external identifiers`).
 
@@ -84,7 +84,7 @@ If the current user is not in one of the listed groups, he will not have
 access to the field:
 
 * restricted fields are automatically removed from requested views
-* restricted fields are removed from :meth:`~odoo.models.Model.fields_get`
+* restricted fields are removed from :meth:`~flectra.models.Model.fields_get`
   responses
 * attempts to (explicitly) read from or write to restricted fields results in
   an access error
@@ -109,7 +109,7 @@ Unsafe Public Methods
 ---------------------
 
 Any public method can be executed via a :ref:`RPC call
-<webservices/odoo/calling_methods>` with the chosen parameters. The methods
+<webservices/flectra/calling_methods>` with the chosen parameters. The methods
 starting with a ``_`` are not callable from an action button or external API.
 
 On public methods, the record on which a method is executed and the parameters
@@ -260,7 +260,7 @@ While formatting the template differently would prevent such vulnerabilities.
 Evaluating content
 ------------------
 Some may want to ``eval`` to parse user provided content. Using ``eval`` should
-be avoided at all cost. A safer, sandboxed, method :class:`~odoo.tools.safe_eval`
+be avoided at all cost. A safer, sandboxed, method :class:`~flectra.tools.safe_eval`
 can be used instead but still gives tremendous capabilities to the user running
 it and must be reserved for trusted privileged users only as it breaks the
 barrier between code and data.
@@ -272,7 +272,7 @@ barrier between code and data.
     return self.search(domain)
 
     # better but still not recommended
-    from odoo.tools import safe_eval
+    from flectra.tools import safe_eval
     domain = safe_eval(self.filter_domain)
     return self.search(domain)
 

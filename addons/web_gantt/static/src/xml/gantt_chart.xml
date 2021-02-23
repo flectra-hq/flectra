@@ -1,0 +1,34 @@
+<templates>
+
+<t t-name="gantt_chart_popover_template">
+    <div class="oe_tooltip_string" role="tooltip">
+        <t t-esc="title"/>
+    </div>
+    <ul class="oe_tooltip_technical" role="tooltip">
+        <li>
+            <span class="oe_tooltip_technical_title">Start Date:</span>
+            <t t-esc="startDate"/>
+        </li>
+        <li data-item="object">
+            <span class="oe_tooltip_technical_title">End Date:</span>
+            <t t-esc="endDate"/>
+        </li>
+    </ul>
+</t>
+
+<t t-name="GanttView.buttons">
+    <button class="btn btn-primary">Add</button>
+    <div class="btn-group" role="toolbar" aria-label="Change Mode">
+        <button class="btn btn-secondary o_gantt_button" title="Month Mode" aria-label="Month Modet" data-mode="month">
+                Month
+        </button>
+        <button class="btn btn-secondary o_gantt_button" title="Week Mode" aria-label="Week Mode" data-mode="week">
+            Week
+        </button>
+        <button class="btn btn-secondary o_gantt_button" title="Day Mode" aria-label="Day Mode" data-mode="day">
+                Day
+        </button>
+    </div>
+</t>
+
+</templates> 

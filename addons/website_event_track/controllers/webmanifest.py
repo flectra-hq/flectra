@@ -29,7 +29,7 @@ class TrackManifest(http.Controller):
             'start_url': url_for('/event'),
             'display': 'standalone',
             'background_color': '#ffffff',
-            'theme_color': '#875A7B',
+            'theme_color': '#009EFB',
         }
         icon_sizes = ['192x192', '512x512']
         manifest['icons'] = [{

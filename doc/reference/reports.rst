@@ -10,7 +10,7 @@
 QWeb Reports
 ============
 
-Reports are written in HTML/QWeb, like website views in Odoo. You can use
+Reports are written in HTML/QWeb, like website views in Flectra. You can use
 the usual :ref:`QWeb control flow tools <reference/qweb>`. The PDF rendering
 itself is performed by wkhtmltopdf_.
 
@@ -250,7 +250,7 @@ the template, such as data from additional models:
 
 .. code-block:: python
 
-    from odoo import api, models
+    from flectra import api, models
 
     class ParticularReport(models.AbstractModel):
         _name = 'report.module.report_name'

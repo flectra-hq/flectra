@@ -1,13 +1,17 @@
-$o-community-color: #009efb;
-$o-brand-odoo:      #009efb;
-$o-brand-primary:   #009efb;
+// Colors
+$o-community-color: $theme-brand-primary;
+$o-brand-odoo:      $theme-brand-primary;
+$o-brand-primary:   $theme-brand-primary;
+$o-brand-secondary: $theme-brand-primary;
+$o-brand-background-color: $theme-brand-background-color;
+
 $o-navbar-height:   55px;
-$brand-info-dark:   #56bf9f;
 $o-mail-thread-avatar-size: 36px !default;
 $o-mail-attachment-image-size: 100px !default;
 
-$primary:       #009efb !default;
-// $primary:       #2496f6 !default;
+$brand-info-dark:   #56bf9f;
+
+$primary:       $theme-brand-primary !default;
 $secondary:     #448AFF !default;
 $success:       #469408 !default;
 $info:          #666666 !default;
@@ -21,7 +25,20 @@ $gray:                   #777;
 $gray-light:             #AEA79F;
 $gray-lighter: lighten($gray-base, 93.5%);
 
-body{
-    font-family: "Rubik",sans-serif !important;
-    font-size:  15px !important;
+// Font
+$o-root-font-size: 15px;
+$o-root-font-family: $theme-root-font-family;
+@if $o-root-font-family == 'google-font'{
+    @import url("https://fonts.googleapis.com/css?family=#{$backend-google-font}");
+    body.o_web_client{
+        font-family: $backend-google-font !important;
+        font-size: $o-root-font-size !important;
+    }
 }
+@if $o-root-font-family != 'google-font'{
+    body.o_web_client{
+        font-family: $o-root-font-family !important;
+        font-size: $o-root-font-size !important;
+    }
+}
+

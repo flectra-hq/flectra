@@ -8,7 +8,7 @@ Multi-company Guidelines
 
 .. warning::
 
-    This tutorial requires good knowledge of Odoo.
+    This tutorial requires good knowledge of Flectra.
     Please refer to the :ref:`basic tutorial <howto/base>` first if needed.
 
 As of version 13.0, a user can be logged in multiple companies at once. This allows the user to
@@ -20,7 +20,7 @@ For instance, a user logged in both companies A and B could create a sales order
 add products belonging to company B to it. It is only when the user will log out from company B that
 access errors will occur for the sales order.
 
-To correctly manage multi-company behaviors, Odoo's ORM provides multiple features:
+To correctly manage multi-company behaviors, Flectra's ORM provides multiple features:
 
 - :ref:`Company-dependent fields <howto/company/company_dependent>`
 - :ref:`Multi-company consistency <howto/company/check_company>`
@@ -41,7 +41,7 @@ For the field of a same record to support several values, it must be defined wit
 
 .. code-block:: python
 
-   from odoo import api, fields, models
+   from flectra import api, fields, models
 
    class Record(models.Model):
        _name = 'record.public'
@@ -56,7 +56,7 @@ For the field of a same record to support several values, it must be defined wit
                record.display_info = record.info + record.company_info
 
 .. note:: The `_compute_display_info` method is decorated with `depends_context('company')`
-          (see :attr:`~odoo.api.depends_context`) to ensure that the computed field is recomputed
+          (see :attr:`~flectra.api.depends_context`) to ensure that the computed field is recomputed
           depending on the current company (`self.env.company`).
 
 When a company-dependent field is read, the current company is used to retrieve its value. In other
@@ -64,7 +64,7 @@ words, if a user is logged in companies A and B with A as main company and creat
 company B, the values of company-dependent fields will be that of company A.
 
 To read the values of company-dependent fields set from another company than the current one, we need
-to ensure the company we are using is the correct one.  This can be done with :meth:`~odoo.models.Model.with_company`,
+to ensure the company we are using is the correct one.  This can be done with :meth:`~flectra.models.Model.with_company`,
 which updates the current company.
 
 .. code-block:: python
@@ -111,12 +111,12 @@ To ensure this multi-company consistency, you must:
 * Define relational fields with the attribute `check_company` set to `True` if their model has a
   `company_id` field.
 
-On each :meth:`~odoo.models.Model.create` and :meth:`~odoo.models.Model.write`, automatic checks
+On each :meth:`~flectra.models.Model.create` and :meth:`~flectra.models.Model.write`, automatic checks
 will be triggered to ensure the multi-company consistency of the record.
 
 .. code-block:: python
 
-   from odoo import fields, models
+   from flectra import fields, models
 
    class Record(models.Model):
        _name = 'record.shareable'
@@ -127,7 +127,7 @@ will be triggered to ensure the multi-company consistency of the record.
 
 .. note:: The field `company_id` must not be defined with `check_company=True`.
 
-.. currentmodule:: odoo.models
+.. currentmodule:: flectra.models
 .. automethod:: Model._check_company
 
 .. warning:: The `check_company` feature performs a strict check ! It means that if a record has no
@@ -151,7 +151,7 @@ multiple companies (i.e. when the user does not have the group `base.group_multi
 
 .. code-block:: python
 
-   from odoo import api, fields, models
+   from flectra import api, fields, models
 
    class Record(models.Model):
        _name = 'record.restricted'

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="pwa_config_view_form" model="ir.ui.view">
+        <field name="name">pwa.config.form</field>
+        <field name="model">pwa.config</field>
+        <field name="arch" type="xml">
+            <form string="PWA Configuration">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <group string="General">
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="pwa_name" />
+                            <field name="pwa_short_name" />
+                            <field name="pwa_company_id" />
+                        </group>
+                        <group>
+                            <field name="pwa_theme_color" widget="color" />
+                            <field name="pwa_background_color" widget="color" />
+                            <field name="pwa_display" />
+                        </group>
+                    </group>
+                    <group string="Icons">
+                        <group>
+                            <field name="pwa_icon_128" widget="image" />
+                        </group>
+                        <group>
+                            <field name="pwa_icon_192" widget="image" />
+                        </group>
+                        <group>
+                            <field name="pwa_icon_512" widget="image" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pwa_config_view_tree" model="ir.ui.view">
+        <field name="name">pwa.config.tree</field>
+        <field name="model">pwa.config</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="pwa_name" />
+                <field name="pwa_short_name" />
+                <field name="pwa_company_id" />
+                <field name="pwa_theme_color" widget="color" />
+                <field name="pwa_background_color" widget="color" />
+                <field name="pwa_display" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="pwa_config_action" model="ir.actions.act_window">
+        <field name="name">Progressive Web App Configuration</field>
+        <field name="res_model">pwa.config</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</flectra>

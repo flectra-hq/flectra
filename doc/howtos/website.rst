@@ -10,23 +10,23 @@ Building a Website
 
     * This guide assumes `basic knowledge of Python
       <http://docs.python.org/2/tutorial/>`_
-    * This guide assumes :ref:`an installed Odoo <setup/install>`
+    * This guide assumes :ref:`an installed Flectra <setup/install>`
 
 Creating a basic module
 =======================
 
-In Odoo, tasks are performed by creating modules.
+In Flectra, tasks are performed by creating modules.
 
-Modules customize the behavior of an Odoo installation, either by adding new
+Modules customize the behavior of an Flectra installation, either by adding new
 behaviors or by altering existing ones (including behaviors added by other
 modules).
 
-:ref:`Odoo's scaffolding <reference/cmdline/scaffold>` can setup a basic
+:ref:`Flectra's scaffolding <reference/cmdline/scaffold>` can setup a basic
 module. To quickly get started simply invoke:
 
 .. code-block:: console
 
-    $ ./odoo-bin scaffold Academy my-modules
+    $ ./flectra-bin scaffold Academy my-modules
 
 This will automatically create a ``my-modules`` *module directory* with an
 ``academy`` module inside. The directory can be an existing module directory
@@ -42,11 +42,11 @@ We have a "complete" module ready for installation.
 
 Although it does absolutely nothing we can install it:
 
-* start the Odoo server
+* start the Flectra server
 
   .. code-block:: console
 
-      $ ./odoo-bin --addons-path addons,my-modules
+      $ ./flectra-bin --addons-path addons,my-modules
 
 * go to http://localhost:8069
 * create a new database including demonstration data
@@ -62,7 +62,7 @@ To the browser
 send data back.
 
 Add a simple controller and ensure it is imported by ``__init__.py`` (so
-Odoo can find it):
+Flectra can find it):
 
 .. patch::
 
@@ -70,7 +70,7 @@ Shut down your server (:kbd:`^C`) then restart it:
 
 .. code-block:: console
 
-    $ ./odoo-bin --addons-path addons,my-modules
+    $ ./flectra-bin --addons-path addons,my-modules
 
 and open a page to http://localhost:8069/academy/academy/, you should see your
 "page" appear:
@@ -83,7 +83,7 @@ Templates
 Generating HTML in Python isn't very pleasant.
 
 The usual solution is templates_, pseudo-documents with placeholders and
-display logic. Odoo allows any Python templating system, but provides its
+display logic. Flectra allows any Python templating system, but provides its
 own :ref:`QWeb <reference/qweb>` templating system which integrates with other
 features.
 
@@ -95,27 +95,27 @@ Create a template and ensure the template file is registered in the
 The templates iterates (``t-foreach``) on all the teachers (passed through the
 *template context*), and prints each teacher in its own paragraph.
 
-Finally restart Odoo and update the module's data (to install the template)
+Finally restart Flectra and update the module's data (to install the template)
 by going to :menuselection:`Settings --> Modules --> Modules -->
 Academy` and clicking :guilabel:`Upgrade`.
 
 .. tip::
 
-    Alternatively, Odoo can be restarted :option:`and update modules at
-    the same time<odoo-bin -u>`:
+    Alternatively, Flectra can be restarted :option:`and update modules at
+    the same time<flectra-bin -u>`:
 
     .. code-block:: console
 
-        $ odoo-bin --addons-path addons,my-modules -d academy -u academy
+        $ flectra-bin --addons-path addons,my-modules -d academy -u academy
 
 Going to http://localhost:8069/academy/academy/ should now result in:
 
 .. image:: website/basic-list.png
 
-Storing data in Odoo
+Storing data in Flectra
 ====================
 
-:ref:`Odoo models <reference/orm/model>` map to database tables.
+:ref:`Flectra models <reference/orm/model>` map to database tables.
 
 In the previous section we just displayed a list of string entered statically
 in the Python code. This doesn't allow modifications or persistent storage
@@ -174,7 +174,7 @@ Accessing the data
 The last step is to alter model and template to use our demonstration data:
 
 #. fetch the records from the database instead of having a static list
-#. Because :meth:`~odoo.models.Model.search` returns a set of records
+#. Because :meth:`~flectra.models.Model.search` returns a set of records
    matching the filter ("all records" here), alter the template to print each
    teacher's ``name``
 
@@ -189,9 +189,9 @@ identifier for the teacher).
 Website support
 ===============
 
-Odoo bundles a module dedicated to building websites.
+Flectra bundles a module dedicated to building websites.
 
-So far we've used controllers fairly directly, but Odoo 8 added deeper
+So far we've used controllers fairly directly, but Flectra 8 added deeper
 integration and a few other services (e.g. default styling, theming) via the
 ``website`` module.
 
@@ -214,7 +214,7 @@ The website layout also provides support for editing tools: click
 :guilabel:`Sign In` (in the top-right), fill the credentials in (``admin`` /
 ``admin`` by default) then click :guilabel:`Log In`.
 
-You're now in Odoo "proper": the administrative interface. For now click on
+You're now in Flectra "proper": the administrative interface. For now click on
 the :guilabel:`Website` menu item (top-left corner.
 
 We're back in the website but as an administrator, with access to advanced
@@ -231,7 +231,7 @@ URLs and routing
 ================
 
 Controller methods are associated with *routes* via the
-:func:`~odoo.http.route` decorator which takes a routing string and a
+:func:`~flectra.http.route` decorator which takes a routing string and a
 number of attributes to customise its behavior or security.
 
 We've seen a "literal" routing string, which matches a URL section exactly,
@@ -241,7 +241,7 @@ create a new controller method which takes a bit of URL and prints it out:
 
 .. patch::
 
-restart Odoo, access http://localhost:8069/academy/Alice/ and
+restart Flectra, access http://localhost:8069/academy/Alice/ and
 http://localhost:8069/academy/Bob/ and see the difference.
 
 As the name indicates, `converter patterns`_ don't just do extraction, they
@@ -250,13 +250,13 @@ to only accept integers:
 
 .. patch::
 
-Restart Odoo, access http://localhost:8069/academy/2, note how the old value
+Restart Flectra, access http://localhost:8069/academy/2, note how the old value
 was a string, but the new one was converted to an integers. Try accessing
 http://localhost:8069/academy/Carol/ and note that the page was not found:
 since "Carol" is not an integer, the route was ignored and no route could be
 found.
 
-Odoo provides an additional converter called ``model`` which provides records
+Flectra provides an additional converter called ``model`` which provides records
 directly when given their id. Let's use this to create a generic page for
 teacher biographies:
 
@@ -266,7 +266,7 @@ then change the list of model to link to our new controller:
 
 .. patch::
 
-Restart Odoo and upgrade the module, then you can visit each teacher's page.
+Restart Flectra and upgrade the module, then you can visit each teacher's page.
 As an exercise, try adding blocks to a teacher's page to write a biography,
 then go to another teacher's page and so forth. You will discover, that your
 biography is shared between all teachers, because blocks are added to the
@@ -281,7 +281,7 @@ add a new biography field to our teachers:
 
 .. patch::
 
-Restart Odoo and update the views, reload the teacher's page and… the field
+Restart Flectra and update the views, reload the teacher's page and… the field
 is invisible since it contains nothing.
 
 .. todo:: the view has been set to noupdate because modified previously,
@@ -293,7 +293,7 @@ interfaces. Change the *person* template to use ``t-field``:
 
 .. patch::
 
-Restart Odoo and upgrade the module, there is now a placeholder under the
+Restart Flectra and upgrade the module, there is now a placeholder under the
 teacher's name and a new zone for blocks in :guilabel:`Edit` mode. Content
 dropped there is stored in the corresponding teacher's ``biography`` field, and
 thus specific to that teacher.
@@ -318,28 +318,28 @@ or a relative display:
 Administration and ERP integration
 ==================================
 
-A brief and incomplete introduction to the Odoo administration
+A brief and incomplete introduction to the Flectra administration
 --------------------------------------------------------------
 
-The Odoo administration was briefly seen during the `website support`_ section.
+The Flectra administration was briefly seen during the `website support`_ section.
 We can go back to it using :menuselection:`Administrator --> Administrator` in
 the menu (or :guilabel:`Sign In` if you're signed out).
 
-The conceptual structure of the Odoo backend is simple:
+The conceptual structure of the Flectra backend is simple:
 
 #. first are menus, a tree (menus can have sub-menus) of records. Menus
    without children map to…
-#. actions. Actions have various types: links, reports, code which Odoo should
+#. actions. Actions have various types: links, reports, code which Flectra should
    execute or data display. Data display actions are called *window actions*,
-   and tell Odoo to display a given *model* according to a set of views…
+   and tell Flectra to display a given *model* according to a set of views…
 #. a view has a type, a broad category to which it corresponds (a list,
    a graph, a calendar) and an *architecture* which customises the way the
    model is displayed inside the view.
 
-Editing in the Odoo administration
+Editing in the Flectra administration
 ----------------------------------
 
-By default, an Odoo model is essentially invisible to a user. To make it
+By default, an Flectra model is essentially invisible to a user. To make it
 visible it must be available through an action, which itself needs to be
 reachable, generally through a menu.
 
@@ -354,7 +354,7 @@ and having opened a listing of teachers. From the listing it is possible to
 view.
 
 If there is no definition of how to present records (a
-:ref:`view <reference/views>`) Odoo will automatically create a basic one
+:ref:`view <reference/views>`) Flectra will automatically create a basic one
 on-the-fly. In our case it works for the "list" view for now (only displays
 the teacher's name) but in the "form" view the HTML ``biography`` field is
 displayed side-by-side with the ``name`` field and not given enough space.
@@ -384,7 +384,7 @@ let's also add views so we can see and edit a course's teacher:
 
 It should also be possible to create new courses directly from a teacher's
 page, or to see all the courses they teach, so add
-:class:`the inverse relationship <odoo.fields.One2many>` to the *teachers*
+:class:`the inverse relationship <flectra.fields.One2many>` to the *teachers*
 model:
 
 .. patch::
@@ -392,13 +392,13 @@ model:
 Discussions and notifications
 -----------------------------
 
-Odoo provides technical models, which don't directly fulfill business needs
+Flectra provides technical models, which don't directly fulfill business needs
 but which add capabilities to business objects without having to build
 them by hand.
 
-One of these is the *Chatter* system, part of Odoo's email and messaging
+One of these is the *Chatter* system, part of Flectra's email and messaging
 system, which can add notifications and discussion threads to any model.
-The model simply has to :attr:`~odoo.models.Model._inherit`
+The model simply has to :attr:`~flectra.models.Model._inherit`
 ``mail.thread``, and add the ``message_ids`` field to its form view to display
 the discussion thread. Discussion threads are per-record.
 
@@ -414,9 +414,9 @@ discussions linked to specific courses.
 Selling courses
 ---------------
 
-Odoo also provides business models which allow using or opting in business
+Flectra also provides business models which allow using or opting in business
 needs more directly. For instance the ``website_sale`` module sets up an
-e-commerce site based on the products in the Odoo system. We can easily make
+e-commerce site based on the products in the Flectra system. We can easily make
 course subscriptions sellable by making our courses specific kinds of
 products.
 
@@ -429,7 +429,7 @@ products (via ``sale``) and the ecommerce interface:
 
 .. patch::
 
-restart Odoo, update your module, there is now a :guilabel:`Shop` section in
+restart Flectra, update your module, there is now a :guilabel:`Shop` section in
 the website, listing a number of pre-filled (via demonstration data) products.
 
 The second step is to replace the *courses* model by ``product.template``,
@@ -443,8 +443,8 @@ though they may have to be looked for.
 .. note::
 
     * to extend a model in-place, it's :attr:`inherited
-      <odoo.models.Model._inherit>` without giving it a new
-      :attr:`~odoo.models.Model._name`
+      <flectra.models.Model._inherit>` without giving it a new
+      :attr:`~flectra.models.Model._name`
     * ``product.template`` already uses the discussions system, so we can
       remove it from our extension model
     * we're creating our courses as *published* by default so they can be

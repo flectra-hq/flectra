@@ -1,26 +1,26 @@
-:banner: banners/installing_odoo.jpg
+:banner: banners/installing_flectra.jpg
 
 
 .. _setup/install:
 
 ===============
-Installing Odoo
+Installing Flectra
 ===============
 
-There are multiple ways to install Odoo, or not install it at all, depending
+There are multiple ways to install Flectra, or not install it at all, depending
 on the intended use case.
 
 This documents attempts to describe most of the installation options.
 
 :ref:`setup/install/online`
-    The easiest way to use Odoo in production or to try it.
+    The easiest way to use Flectra in production or to try it.
 
 :ref:`setup/install/packaged`
-    Suitable for testing Odoo, developing modules and can be used for
+    Suitable for testing Flectra, developing modules and can be used for
     long-term production use with additional deployment and maintenance work.
 
 :ref:`setup/install/source`
-    Provides greater flexibility:  e.g. allow multiple running Odoo versions on
+    Provides greater flexibility:  e.g. allow multiple running Flectra versions on
     the same system. Good for developing modules, can be used as base for
     production deployment.
 
@@ -34,7 +34,7 @@ This documents attempts to describe most of the installation options.
 Editions
 ========
 
-There are two different Editions_ of Odoo: the Community and Enterprise versions.
+There are two different Editions_ of Flectra: the Community and Enterprise versions.
 Using the Enterprise version is possible on our SaaS_ and accessing the code is
 restricted to Enterprise customers and partners. The Community version is freely
 available to anyone.
@@ -51,7 +51,7 @@ Online
 Demo
 ----
 
-To simply get a quick idea of Odoo, demo_ instances are available. They are
+To simply get a quick idea of Flectra, demo_ instances are available. They are
 shared instances which only live for a few hours, and can be used to browse
 around and try things out with no commitment.
 
@@ -60,12 +60,12 @@ Demo_ instances require no local installation, just a web browser.
 SaaS
 ----
 
-Trivial to start with, fully managed and migrated by Odoo S.A., Odoo's SaaS_
+Trivial to start with, fully managed and migrated by Flectra S.A., Flectra's SaaS_
 provides private instances and starts out free. It can be used to discover and
-test Odoo and do non-code customizations (i.e. incompatible with custom modules
-or the Odoo Apps Store) without having to install it locally.
+test Flectra and do non-code customizations (i.e. incompatible with custom modules
+or the Flectra Apps Store) without having to install it locally.
 
-Can be used for both testing Odoo and long-term production use.
+Can be used for both testing Flectra and long-term production use.
 
 Like demo_ instances, SaaS_ instances require no local installation, a web
 browser is sufficient.
@@ -76,7 +76,7 @@ browser is sufficient.
 Packaged installers
 ===================
 
-Odoo provides packaged installers for Windows, deb-based distributions
+Flectra provides packaged installers for Windows, deb-based distributions
 (Debian, Ubuntu, …) and RPM-based distributions (Fedora, CentOS, RHEL, …) for
 both the Community and Enterprise versions.
 
@@ -101,7 +101,7 @@ Windows
 #. Accept the UAC_ prompt.
 #. Go through the various installation steps.
 
-Odoo will automatically be started at the end of the installation.
+Flectra will automatically be started at the end of the installation.
 
 Linux
 -----
@@ -109,14 +109,14 @@ Linux
 Debian/Ubuntu
 '''''''''''''
 
-Odoo 13.0 'deb' package currently supports `Debian Buster`_, `Ubuntu 18.04`_ or above.
+Flectra 13.0 'deb' package currently supports `Debian Buster`_, `Ubuntu 18.04`_ or above.
 
 Prepare
 ^^^^^^^
 
-Odoo needs a `PostgreSQL`_ server to run properly. The default configuration for
-the Odoo 'deb' package is to use the PostgreSQL server on the same host as your
-Odoo instance. Execute the following command in order to install the PostgreSQL server:
+Flectra needs a `PostgreSQL`_ server to run properly. The default configuration for
+the Flectra 'deb' package is to use the PostgreSQL server on the same host as your
+Flectra instance. Execute the following command in order to install the PostgreSQL server:
 
 .. code-block:: console
 
@@ -124,20 +124,20 @@ Odoo instance. Execute the following command in order to install the PostgreSQL 
 
 .. warning:: `wkhtmltopdf` is not installed through **pip** and must be installed manually in
              version `0.12.5 <the wkhtmltopdf download page_>`_ for it to support headers and
-             footers. See our `wiki <https://github.com/odoo/odoo/wiki/Wkhtmltopdf>`_ for more
+             footers. See our `wiki <https://github.com/flectra/flectra/wiki/Wkhtmltopdf>`_ for more
              details on the various versions.
 
 Repository
 ^^^^^^^^^^
 
-Odoo S.A. provides a repository that can be used with  Debian and Ubuntu distributions. It can be
-used to install *Odoo Community Edition* by executing the following commands **as root**:
+Flectra S.A. provides a repository that can be used with  Debian and Ubuntu distributions. It can be
+used to install *Flectra Community Edition* by executing the following commands **as root**:
 
 .. code-block:: console
 
-    # wget -O - https://nightly.odoo.com/odoo.key | apt-key add -
-    # echo "deb http://nightly.odoo.com/14.0/nightly/deb/ ./" >> /etc/apt/sources.list.d/odoo.list
-    # apt-get update && apt-get install odoo
+    # wget -O - https://nightly.flectra.com/flectra.key | apt-key add -
+    # echo "deb http://nightly.flectra.com/14.0/nightly/deb/ ./" >> /etc/apt/sources.list.d/flectra.list
+    # apt-get update && apt-get install flectra
 
 You can then use the usual `apt-get upgrade` command to keep your installation up-to-date.
 
@@ -157,7 +157,7 @@ Next, execute the following commands **as root**:
     # apt-get install -f # should install the missing dependencies
     # dpkg -i <path_to_installation_package>
 
-This will install Odoo as a service, create the necessary PostgreSQL_ user
+This will install Flectra as a service, create the necessary PostgreSQL_ user
 and automatically start the server.
 
 .. warning:: The `python3-xlwt` Debian package does not exists in Debian Buster nor Ubuntu 18.04.
@@ -170,7 +170,7 @@ and automatically start the server.
                 $ sudo pip3 install xlwt
 
 .. warning:: The `num2words` python package does not exists in Debian Buster nor Ubuntu 18.04.
-             Textual amounts will not be rendered by Odoo and this could cause problems with the
+             Textual amounts will not be rendered by Flectra and this could cause problems with the
              `l10n_mx_edi` module.
 
              If you need this feature, you can install manually with:
@@ -182,11 +182,11 @@ and automatically start the server.
 Fedora
 ''''''
 
-Odoo 13.0 'rpm' package supports Fedora 30.
+Flectra 13.0 'rpm' package supports Fedora 30.
 
 Prepare
 ^^^^^^^
-Odoo needs a `PostgreSQL`_ server to run properly. Make sure that the `sudo` command is available
+Flectra needs a `PostgreSQL`_ server to run properly. Make sure that the `sudo` command is available
 and well configured and, only then, execute the following command in order to install the PostgreSQL
 server:
 
@@ -199,22 +199,22 @@ server:
 
 .. warning:: `wkhtmltopdf` is not installed through **pip** and must be installed manually in
              version `0.12.5 <the wkhtmltopdf download page_>`_ for it to support headers and
-             footers. See our `wiki <https://github.com/odoo/odoo/wiki/Wkhtmltopdf>`_ for more
+             footers. See our `wiki <https://github.com/flectra/flectra/wiki/Wkhtmltopdf>`_ for more
              details on the various versions.
 
 Repository
 ^^^^^^^^^^
 
-Odoo S.A. provides a repository that can be used with the Fedora distributions.
-It can be used to install *Odoo Community Edition* by executing the following
+Flectra S.A. provides a repository that can be used with the Fedora distributions.
+It can be used to install *Flectra Community Edition* by executing the following
 commands:
 
 .. code-block:: console
 
-    $ sudo dnf config-manager --add-repo=https://nightly.odoo.com/14.0/nightly/rpm/odoo.repo
-    $ sudo dnf install -y odoo
-    $ sudo systemctl enable odoo
-    $ sudo systemctl start odoo
+    $ sudo dnf config-manager --add-repo=https://nightly.flectra.com/14.0/nightly/rpm/flectra.repo
+    $ sudo dnf install -y flectra
+    $ sudo systemctl enable flectra
+    $ sudo systemctl start flectra
 
 RPM package
 ^^^^^^^^^^^
@@ -226,9 +226,9 @@ Once downloaded, the package can be installed using the 'dnf' package manager:
 
 .. code-block:: console
 
-    $ sudo dnf localinstall odoo_13.0.latest.noarch.rpm
-    $ sudo systemctl enable odoo
-    $ sudo systemctl start odoo
+    $ sudo dnf localinstall flectra_13.0.latest.noarch.rpm
+    $ sudo systemctl enable flectra
+    $ sudo systemctl start flectra
 
 
 .. _setup/install/source:
@@ -236,19 +236,19 @@ Once downloaded, the package can be installed using the 'dnf' package manager:
 Source Install
 ==============
 
-The source "installation" is really about not installing Odoo, and running it directly from source
+The source "installation" is really about not installing Flectra, and running it directly from source
 instead.
 
-This can be more convenient for module developers as the Odoo source is more easily accessible
+This can be more convenient for module developers as the Flectra source is more easily accessible
 than using packaged installation (for information or to build this documentation and have it
 available offline).
 
-It also makes starting and stopping Odoo more flexible and explicit than the services set up by the
+It also makes starting and stopping Flectra more flexible and explicit than the services set up by the
 packaged installations, and allows overriding settings using
 :ref:`command-line parameters <reference/cmdline>` without needing to edit a configuration file.
 
 Finally it provides greater control over the system's set up, and allows to more easily keep
-(and run) multiple versions of Odoo side-by-side.
+(and run) multiple versions of Flectra side-by-side.
 
 Windows
 -------
@@ -256,7 +256,7 @@ Windows
 Fetch the sources
 '''''''''''''''''
 
-There are two ways to obtain the source code of Odoo: as a zip **archive** or through **git**.
+There are two ways to obtain the source code of Flectra: as a zip **archive** or through **git**.
 
 Archive
 ^^^^^^^
@@ -282,20 +282,20 @@ Community Edition:
 
 .. code-block:: doscon
 
-    C:\> git clone https://github.com/odoo/odoo.git
+    C:\> git clone https://github.com/flectra/flectra.git
 
 
 Enterprise Edition: (see :ref:`setup/install/editions` to get access)
 
 .. code-block:: doscon
 
-  C:\> git clone https://github.com/odoo/enterprise.git
+  C:\> git clone https://github.com/flectra/enterprise.git
 
-.. note:: **The Enterprise git repository does not contain the full Odoo source code**. It is only
+.. note:: **The Enterprise git repository does not contain the full Flectra source code**. It is only
           a collection of extra add-ons. The main server code is in the Community version. Running
           the Enterprise version actually means running the server from the Community version with
           the addons-path option set to the folder with the Enterprise version. You need to clone
-          both the Community and Enterprise repository to have a working Odoo Enterprise
+          both the Community and Enterprise repository to have a working Flectra Enterprise
           installation.
 
 Prepare
@@ -304,14 +304,14 @@ Prepare
 Python
 ^^^^^^
 
-Odoo requires Python 3.6 or later to run. Visit `Python's download page <https://www.python.org/downloads/windows/>`_
+Flectra requires Python 3.6 or later to run. Visit `Python's download page <https://www.python.org/downloads/windows/>`_
 to download and install the latest version of Python 3 on your machine.
 
 During installation, check **Add Python 3 to PATH**, then click **Customize Installation** and make
 sure that **pip** is checked.
 
 .. note:: If Python 3 is already installed, make sure that the version is 3.6 or above, as previous
-          versions are not compatible with Odoo.
+          versions are not compatible with Flectra.
 
           .. code-block:: doscon
 
@@ -326,10 +326,10 @@ sure that **pip** is checked.
 PostgreSQL
 ^^^^^^^^^^
 
-Odoo uses PostgreSQL as database management system. `Download and install PostgreSQL <https://www.postgresql.org/download/windows/>`_
+Flectra uses PostgreSQL as database management system. `Download and install PostgreSQL <https://www.postgresql.org/download/windows/>`_
 (supported version: 10.0 and later).
 
-By default, the only user is `postgres` but Odoo forbids connecting as `postgres`, so you need to
+By default, the only user is `postgres` but Flectra forbids connecting as `postgres`, so you need to
 create a new PostgreSQL user:
 
 #. Add PostgreSQL's `bin` directory (by default: `C:\\Program Files\\PostgreSQL\\<version>\\bin`) to
@@ -339,8 +339,8 @@ create a new PostgreSQL user:
    1. Open **pgAdmin**.
    2. Double-click the server to create a connection.
    3. Select :menuselection:`Object --> Create --> Login/Group Role`.
-   4. Enter the username in the **Role Name** field (e.g. `odoo`).
-   5. Open the **Definition** tab and enter the password (e.g. ``odoo``), then click **Save**.
+   4. Enter the username in the **Role Name** field (e.g. `flectra`).
+   5. Open the **Definition** tab and enter the password (e.g. ``flectra``), then click **Save**.
    6. Open the **Privileges** tab and switch **Can login?** to `Yes` and **Create database?** to
       `Yes`.
 
@@ -351,13 +351,13 @@ Before installing the dependencies, you must download and install the
 `Build Tools for Visual Studio <https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019>`_.
 When prompted, select **C++ build tools** in the **Workloads** tab and install them.
 
-Odoo dependencies are listed in the `requirements.txt` file located at the root of the Odoo
+Flectra dependencies are listed in the `requirements.txt` file located at the root of the Flectra
 community directory.
 
-.. tip:: It can be preferable to not mix python modules packages between different instances of Odoo
+.. tip:: It can be preferable to not mix python modules packages between different instances of Flectra
          or with your system. You can use virtualenv_ to create isolated Python environments.
 
-Navigate to the path of your Odoo Community installation (`CommunityPath`) and run **pip**
+Navigate to the path of your Flectra Community installation (`CommunityPath`) and run **pip**
 on the requirements file in a terminal **with Administrator privileges**:
 
 .. code-block:: doscon
@@ -368,7 +368,7 @@ on the requirements file in a terminal **with Administrator privileges**:
 
 .. warning:: `wkhtmltopdf` is not installed through **pip** and must be installed manually in
              version `0.12.5 <the wkhtmltopdf download page_>`_ for it to support headers and
-             footers. See our `wiki <https://github.com/odoo/odoo/wiki/Wkhtmltopdf>`_ for more
+             footers. See our `wiki <https://github.com/flectra/flectra/wiki/Wkhtmltopdf>`_ for more
              details on the various versions.
 
 For languages with right-to-left interface (such as Arabic or Hebrew), the package `rtlcss` is
@@ -384,11 +384,11 @@ needed:
 #. Edit the System Environment's variable `PATH` to add the folder where `rtlcss.cmd` is located
    (typically: `C:\\Users\\<user>\\AppData\\Roaming\\npm\\`).
 
-Running Odoo
+Running Flectra
 ''''''''''''
 
-Once all dependencies are set up, Odoo can be launched by running `odoo-bin`, the
-command-line interface of the server. It is located at the root of the Odoo Community directory.
+Once all dependencies are set up, Flectra can be launched by running `flectra-bin`, the
+command-line interface of the server. It is located at the root of the Flectra Community directory.
 
 To configure the server, you can either specify :ref:`command-line arguments <reference/cmdline/server>` or a
 :ref:`configuration file <reference/cmdline/config>`.
@@ -407,9 +407,9 @@ A typical way to run the server would be:
 .. code-block:: doscon
 
     C:\> cd CommunityPath/
-    C:\> python odoo-bin -r dbuser -w dbpassword --addons-path=addons -d mydb
+    C:\> python flectra-bin -r dbuser -w dbpassword --addons-path=addons -d mydb
 
-Where `CommunityPath` is the path of the Odoo Community installation, `dbuser` is the
+Where `CommunityPath` is the path of the Flectra Community installation, `dbuser` is the
 PostgreSQL login, `dbpassword` is the PostgreSQL password
 and `mydb` is the default database to serve on `localhost:8069`. You can add other
 directory paths separated by a comma to ``addons`` at the end of the addons-path option.
@@ -420,7 +420,7 @@ Linux
 Fetch the sources
 '''''''''''''''''
 
-There are two ways to obtain the source code of Odoo: as a zip **archive** or through **git**.
+There are two ways to obtain the source code of Flectra: as a zip **archive** or through **git**.
 
 Archive
 ^^^^^^^
@@ -446,20 +446,20 @@ Community Edition:
 
 .. code-block:: console
 
-    $ git clone https://github.com/odoo/odoo.git
+    $ git clone https://github.com/flectra/flectra.git
 
 
 Enterprise Edition: (see :ref:`setup/install/editions` to get access)
 
 .. code-block:: console
 
-  $ git clone https://github.com/odoo/enterprise.git
+  $ git clone https://github.com/flectra/enterprise.git
 
-.. note:: **The Enterprise git repository does not contain the full Odoo source code**. It is only
+.. note:: **The Enterprise git repository does not contain the full Flectra source code**. It is only
           a collection of extra add-ons. The main server code is in the Community version. Running
           the Enterprise version actually means running the server from the Community version with
           the addons-path option set to the folder with the Enterprise version. You need to clone
-          both the Community and Enterprise repository to have a working Odoo Enterprise
+          both the Community and Enterprise repository to have a working Flectra Enterprise
           installation.
 
 Prepare
@@ -468,11 +468,11 @@ Prepare
 Python
 ^^^^^^
 
-Odoo requires Python 3.6 or later to run. Use your package manager to download and install Python 3
+Flectra requires Python 3.6 or later to run. Use your package manager to download and install Python 3
 on your machine if it is not already done.
 
 .. note:: If Python 3 is already installed, make sure that the version is 3.6 or above, as previous
-          versions are not compatible with Odoo.
+          versions are not compatible with Flectra.
 
           .. code-block:: console
 
@@ -487,7 +487,7 @@ on your machine if it is not already done.
 PostgreSQL
 ^^^^^^^^^^
 
-Odoo uses PostgreSQL as database management system. Use your package manager to download and install
+Flectra uses PostgreSQL as database management system. Use your package manager to download and install
 PostgreSQL (supported version: 10.0 and later).
 
 On Debian/Unbuntu, it can be achieved by executing the following:
@@ -496,7 +496,7 @@ On Debian/Unbuntu, it can be achieved by executing the following:
 
     $ sudo apt install postgresql postgresql-client
 
-By default, the only user is `postgres` but Odoo forbids connecting as `postgres`, so you need to
+By default, the only user is `postgres` but Flectra forbids connecting as `postgres`, so you need to
 create a new PostgreSQL user:
 
 .. code-block:: console
@@ -511,7 +511,7 @@ Dependencies
 ^^^^^^^^^^^^
 
 For libraries using native code, it is necessary to install development tools and native
-dependencies before the Python dependencies of Odoo. They are available in `-dev` or `-devel`
+dependencies before the Python dependencies of Flectra. They are available in `-dev` or `-devel`
 packages for Python, PostgreSQL, libxml2, libxslt1, libevent, libsasl2 and libldap2.
 
 On Debian/Unbuntu, the following command should install all the required libraries:
@@ -522,13 +522,13 @@ On Debian/Unbuntu, the following command should install all the required librari
         libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev libfreetype6-dev \
         liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev libpq-dev
 
-Odoo dependencies are listed in the `requirements.txt` file located at the root of the Odoo
+Flectra dependencies are listed in the `requirements.txt` file located at the root of the Flectra
 community directory.
 
-.. tip:: It can be preferable to not mix python modules packages between different instances of Odoo
+.. tip:: It can be preferable to not mix python modules packages between different instances of Flectra
          or with your system. You can use virtualenv_ to create isolated Python environments.
 
-Navigate to the path of your Odoo Community installation (`CommunityPath`) and run **pip**
+Navigate to the path of your Flectra Community installation (`CommunityPath`) and run **pip**
 on the requirements file:
 
 .. code-block:: console
@@ -539,7 +539,7 @@ on the requirements file:
 
 .. warning:: `wkhtmltopdf` is not installed through **pip** and must be installed manually in
              version `0.12.5 <the wkhtmltopdf download page_>`_ for it to support headers and
-             footers. See our `wiki <https://github.com/odoo/odoo/wiki/Wkhtmltopdf>`_ for more
+             footers. See our `wiki <https://github.com/flectra/flectra/wiki/Wkhtmltopdf>`_ for more
              details on the various versions.
 
 For languages with right-to-left interface (such as Arabic or Hebrew), the package `rtlcss` is
@@ -552,11 +552,11 @@ needed:
 
        $ sudo npm install -g rtlcss
 
-Running Odoo
+Running Flectra
 ''''''''''''
 
-Once all dependencies are set up, Odoo can be launched by running `odoo-bin`, the
-command-line interface of the server. It is located at the root of the Odoo Community directory.
+Once all dependencies are set up, Flectra can be launched by running `flectra-bin`, the
+command-line interface of the server. It is located at the root of the Flectra Community directory.
 
 To configure the server, you can either specify :ref:`command-line arguments <reference/cmdline/server>` or a
 :ref:`configuration file <reference/cmdline/config>`.
@@ -567,7 +567,7 @@ To configure the server, you can either specify :ref:`command-line arguments <re
 
 Common necessary configurations are:
 
-* PostgreSQL user and password. Odoo has no defaults beyond
+* PostgreSQL user and password. Flectra has no defaults beyond
   `psycopg2's defaults <http://initd.org/psycopg/docs/module.html>`_: connects over a UNIX socket on
   port `5432` with the current user and no password.
 * Custom addon paths beyond the defaults, to load your own modules.
@@ -577,9 +577,9 @@ A typical way to run the server would be:
 .. code-block:: console
 
     $ cd /CommunityPath
-    $ python3 odoo-bin --addons-path=addons -d mydb
+    $ python3 flectra-bin --addons-path=addons -d mydb
 
-Where `CommunityPath` is the path of the Odoo Community installation
+Where `CommunityPath` is the path of the Flectra Community installation
 and `mydb` is the default database to serve on `localhost:8069`. You can add other
 directory paths separated by a comma to ``addons`` at the end of the addons-path option.
 
@@ -589,7 +589,7 @@ Mac OS
 Fetch the sources
 '''''''''''''''''
 
-There are two ways to obtain the source code of Odoo: as a zip **archive** or through **git**.
+There are two ways to obtain the source code of Flectra: as a zip **archive** or through **git**.
 
 Archive
 ^^^^^^^
@@ -615,20 +615,20 @@ Community Edition:
 
 .. code-block:: console
 
-    $ git clone https://github.com/odoo/odoo.git
+    $ git clone https://github.com/flectra/flectra.git
 
 
 Enterprise Edition: (see :ref:`setup/install/editions` to get access)
 
 .. code-block:: console
 
-  $ git clone https://github.com/odoo/enterprise.git
+  $ git clone https://github.com/flectra/enterprise.git
 
-.. note:: **The Enterprise git repository does not contain the full Odoo source code**. It is only
+.. note:: **The Enterprise git repository does not contain the full Flectra source code**. It is only
           a collection of extra add-ons. The main server code is in the Community version. Running
           the Enterprise version actually means running the server from the Community version with
           the addons-path option set to the folder with the Enterprise version. You need to clone
-          both the Community and Enterprise repository to have a working Odoo Enterprise
+          both the Community and Enterprise repository to have a working Flectra Enterprise
           installation.
 
 Prepare
@@ -637,11 +637,11 @@ Prepare
 Python
 ^^^^^^
 
-Odoo requires Python 3.6 or later to run. Use your preferred package manager (homebrew_, macports_)
+Flectra requires Python 3.6 or later to run. Use your preferred package manager (homebrew_, macports_)
 to download and install Python 3 on your machine if it is not already done.
 
 .. note:: If Python 3 is already installed, make sure that the version is 3.6 or above, as previous
-          versions are not compatible with Odoo.
+          versions are not compatible with Flectra.
 
           .. code-block:: console
 
@@ -656,10 +656,10 @@ to download and install Python 3 on your machine if it is not already done.
 PostgreSQL
 ^^^^^^^^^^
 
-Odoo uses PostgreSQL as database management system. Use `postgres.app <https://postgresapp.com>`_
+Flectra uses PostgreSQL as database management system. Use `postgres.app <https://postgresapp.com>`_
 to download and install PostgreSQL (supported version: 10.0 and later).
 
-By default, the only user is `postgres` but Odoo forbids connecting as `postgres`, so you need to
+By default, the only user is `postgres` but Flectra forbids connecting as `postgres`, so you need to
 create a new PostgreSQL user:
 
 .. code-block:: console
@@ -673,13 +673,13 @@ create a new PostgreSQL user:
 Dependencies
 ^^^^^^^^^^^^
 
-Odoo dependencies are listed in the `requirements.txt` file located at the root of the Odoo
+Flectra dependencies are listed in the `requirements.txt` file located at the root of the Flectra
 community directory.
 
-.. tip:: It can be preferable to not mix python modules packages between different instances of Odoo
+.. tip:: It can be preferable to not mix python modules packages between different instances of Flectra
          or with your system. You can use virtualenv_ to create isolated Python environments.
 
-Navigate to the path of your Odoo Community installation (`CommunityPath`) and run **pip**
+Navigate to the path of your Flectra Community installation (`CommunityPath`) and run **pip**
 on the requirements file:
 
 .. code-block:: console
@@ -701,7 +701,7 @@ on the requirements file:
 
 .. warning:: `wkhtmltopdf` is not installed through **pip** and must be installed manually in
              version `0.12.5 <the wkhtmltopdf download page_>`_ for it to support headers and
-             footers. See our `wiki <https://github.com/odoo/odoo/wiki/Wkhtmltopdf>`_ for more
+             footers. See our `wiki <https://github.com/flectra/flectra/wiki/Wkhtmltopdf>`_ for more
              details on the various versions.
 
 For languages with right-to-left interface (such as Arabic or Hebrew), the package `rtlcss` is
@@ -714,11 +714,11 @@ needed:
 
        $ sudo npm install -g rtlcss
 
-Running Odoo
+Running Flectra
 ''''''''''''
 
-Once all dependencies are set up, Odoo can be launched by running `odoo-bin`, the
-command-line interface of the server. It is located at the root of the Odoo Community directory.
+Once all dependencies are set up, Flectra can be launched by running `flectra-bin`, the
+command-line interface of the server. It is located at the root of the Flectra Community directory.
 
 To configure the server, you can either specify :ref:`command-line arguments <reference/cmdline/server>` or a
 :ref:`configuration file <reference/cmdline/config>`.
@@ -729,7 +729,7 @@ To configure the server, you can either specify :ref:`command-line arguments <re
 
 Common necessary configurations are:
 
-* PostgreSQL user and password. Odoo has no defaults beyond
+* PostgreSQL user and password. Flectra has no defaults beyond
   `psycopg2's defaults <http://initd.org/psycopg/docs/module.html>`_: connects over a UNIX socket on
   port `5432` with the current user and no password.
 * Custom addon paths beyond the defaults, to load your own modules.
@@ -739,9 +739,9 @@ A typical way to run the server would be:
 .. code-block:: console
 
     $ cd /CommunityPath
-    $ python3 odoo-bin --addons-path=addons -d mydb
+    $ python3 flectra-bin --addons-path=addons -d mydb
 
-Where `CommunityPath` is the path of the Odoo Community installation
+Where `CommunityPath` is the path of the Flectra Community installation
 and `mydb` is the default database to serve on `localhost:8069`. You can add other
 directory paths separated by a comma to ``addons`` at the end of the addons-path option.
 
@@ -751,11 +751,11 @@ directory paths separated by a comma to ``addons`` at the end of the addons-path
 Docker
 ======
 
-The full documentation on how to use Odoo with Docker can be found on the
-official Odoo `docker image <https://registry.hub.docker.com/_/odoo/>`_ page.
+The full documentation on how to use Flectra with Docker can be found on the
+official Flectra `docker image <https://registry.hub.docker.com/_/flectra/>`_ page.
 
 .. _Debian Buster: https://www.debian.org/releases/buster/
-.. _demo: https://demo.odoo.com
+.. _demo: https://demo.flectra.com
 .. _docker: https://www.docker.com
 .. _download: https://flectrahq.com/download
 .. _Ubuntu 18.04: http://releases.ubuntu.com/18.04/
@@ -776,9 +776,9 @@ official Odoo `docker image <https://registry.hub.docker.com/_/odoo/>`_ page.
 .. _virtualenv: https://pypi.python.org/pypi/virtualenv
 .. _virtualenvwrapper: https://virtualenvwrapper.readthedocs.io/en/latest/
 .. _pywin32: http://sourceforge.net/projects/pywin32/files/pywin32/
-.. _community-repository: https://github.com/odoo/odoo
-.. _enterprise-repository: https://github.com/odoo/enterprise
+.. _community-repository: https://github.com/flectra/flectra
+.. _enterprise-repository: https://github.com/flectra/enterprise
 .. _git: https://git-scm.com/
-.. _Editions: https://www.odoo.com/pricing#pricing_table_features
-.. _nightly: https://nightly.odoo.com/
-.. _extra: https://nightly.odoo.com/extra/
+.. _Editions: https://www.flectra.com/pricing#pricing_table_features
+.. _nightly: https://nightly.flectra.com/
+.. _extra: https://nightly.flectra.com/extra/

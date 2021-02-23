@@ -8,7 +8,7 @@
 Javascript Reference
 =====================
 
-This document presents the Odoo Javascript framework. This
+This document presents the Flectra Javascript framework. This
 framework is not a large application in term of lines of code, but it is quite
 generic, because it is basically a machine to turn a declarative interface
 description into a live application, able to interact with every model and
@@ -23,7 +23,7 @@ The Javascript framework is designed to work with three main use cases:
 - the *web client*: this is the private web application, where one can view and
   edit business data. This is a single page application (the page is never
   reloaded, only the new data is fetched from the server whenever it is needed)
-- the *website*: this is the public part of Odoo.  It allows an unidentified
+- the *website*: this is the public part of Flectra.  It allows an unidentified
   user to browse some content, to shop or to perform many actions, as a client.
   This is a classical website: various routes with controllers and some
   javascript to make it work.
@@ -49,7 +49,7 @@ request a full page from the server each time the user perform an action. Instea
 it only requests what it needs, and then replaces/updates the view. Also, it
 manages the url: it is kept in sync with the web client state.
 
-It means that while a user is working on Odoo, the web client class (and the
+It means that while a user is working on Flectra, the web client class (and the
 action manager) actually creates and destroys many sub components. The state is
 highly dynamic, and each widget could be destroyed at any time.
 
@@ -79,7 +79,7 @@ We only cover the most important files/folders.
 Assets Management
 =================
 
-Managing assets in Odoo is not as straightforward as it is in some other apps.
+Managing assets in Flectra is not as straightforward as it is in some other apps.
 One of the reason is that we have a variety of situations where some, but not all
 the assets are required.  For example, the needs of the web client, the point of
 sale, the website or even the mobile application are different.  Also, some
@@ -87,7 +87,7 @@ assets may be large, but are seldom needed.  In that case, we sometimes want the
 to be loaded lazily.
 
 The main idea is that we define a set of *bundles* in xml.  A bundle is here defined as
-a collection of files (javascript, css, scss). In Odoo, the most important
+a collection of files (javascript, css, scss). In Flectra, the most important
 bundles are defined in the file *addons/web/views/webclient_templates.xml*. It looks
 like this:
 
@@ -134,15 +134,15 @@ them once.
 
 Main bundles
 ------------
-When the Odoo server is started, it checks the timestamp of each file in a bundle,
+When the Flectra server is started, it checks the timestamp of each file in a bundle,
 and if necessary, will create/recreate the corresponding bundles.
 
 Here are some important bundles that most developers will need to know:
 
 - *web.assets_common*: this bundle contains most assets which are common to the
   web client, the website, and also the point of sale. This is supposed to contain
-  lower level building blocks for the odoo framework.  Note that it contains the
-  *boot.js* file, which defines the odoo module system.
+  lower level building blocks for the flectra framework.  Note that it contains the
+  *boot.js* file, which defines the flectra module system.
 
 - *web.assets_backend*: this bundle contains the code specific to the web client
   (notably the web client/action manager/views)
@@ -177,7 +177,7 @@ to add a file from that addon.  In that case, it should be done in three steps:
 .. note ::
 
     Note that the files in a bundle are all loaded immediately when the user loads the
-    odoo web client.  This means that the files are transferred through the network
+    flectra web client.  This means that the files are transferred through the network
     everytime (except when the browser cache is active).  In some cases, it may be
     better to lazyload some assets.  For example, if a widget requires a large
     library, and that widget is not a core part of the experience, then it may be
@@ -217,13 +217,13 @@ Javascript Module System
 ========================
 
 Once we are able to load our javascript files into the browser, we need to make
-sure they are loaded in the correct order.  In order to do that, Odoo has defined
+sure they are loaded in the correct order.  In order to do that, Flectra has defined
 a small module system (located in the file *addons/web/static/src/js/boot.js*,
 which needs to be loaded first).
 
-The Odoo module system, inspired by AMD, works by defining the function *define*
-on the global odoo object. We then define each javascript module by calling that
-function.  In the Odoo framework, a module is a piece of code that will be executed
+The Flectra module system, inspired by AMD, works by defining the function *define*
+on the global flectra object. We then define each javascript module by calling that
+function.  In the Flectra framework, a module is a piece of code that will be executed
 as soon as possible.  It has a name and potentially some dependencies.  When its
 dependencies are loaded, a module will then be loaded as well.  The value of the
 module is then the return value of the function defining the module.
@@ -235,7 +235,7 @@ As an example, it may look like this:
 .. code-block:: javascript
 
     // in file a.js
-    odoo.define('module.A', function (require) {
+    flectra.define('module.A', function (require) {
         "use strict";
 
         var A = ...;
@@ -244,7 +244,7 @@ As an example, it may look like this:
     });
 
     // in file b.js
-    odoo.define('module.B', function (require) {
+    flectra.define('module.B', function (require) {
         "use strict";
 
         var A = require('module.A');
@@ -259,7 +259,7 @@ in the second argument.
 
 .. code-block:: javascript
 
-    odoo.define('module.Something', ['module.A', 'module.B'], function (require) {
+    flectra.define('module.Something', ['module.A', 'module.B'], function (require) {
         "use strict";
 
         var A = require('module.A');
@@ -278,10 +278,10 @@ needs to be careful.
 Defining a module
 -----------------
 
-The *odoo.define* method is given three arguments:
+The *flectra.define* method is given three arguments:
 
 - *moduleName*: the name of the javascript module.  It should be a unique string.
-  The convention is to have the name of the odoo addon followed by a specific
+  The convention is to have the name of the flectra addon followed by a specific
   description. For example, 'web.Widget' describes a module defined in the *web*
   addon, which exports a *Widget* class (because the first letter is capitalized)
 
@@ -297,7 +297,7 @@ The *odoo.define* method is given three arguments:
 
 .. code-block:: javascript
 
-      odoo.define('module.Something', ['web.ajax'], function (require) {
+      flectra.define('module.Something', ['web.ajax'], function (require) {
         "use strict";
 
         var ajax = require('web.ajax');
@@ -338,7 +338,7 @@ wait for the promise to complete before registering the module.
 
 .. code-block:: javascript
 
-    odoo.define('module.Something', function (require) {
+    flectra.define('module.Something', function (require) {
         "use strict";
 
         var ajax = require('web.ajax');
@@ -372,12 +372,12 @@ Best practices
 Class System
 ============
 
-Odoo was developed before ECMAScript 6 classes were available.  In Ecmascript 5,
+Flectra was developed before ECMAScript 6 classes were available.  In Ecmascript 5,
 the standard way to define a class is to define a function and to add methods
 on its prototype object.  This is fine, but it is slightly complex when we want
 to use inheritance, mixins.
 
-For these reasons, Odoo decided to use its own class system, inspired by John
+For these reasons, Flectra decided to use its own class system, inspired by John
 Resig. The base Class is located in *web.Class*, in the file *class.js*.
 
 Creating a subclass
@@ -438,7 +438,7 @@ parent method.
 Mixins
 ------
 
-The odoo Class system does not support multiple inheritance, but for those cases
+The flectra Class system does not support multiple inheritance, but for those cases
 when we need to share some behaviour, we have a mixin system: the *extend*
 method can actually take an arbitrary number of arguments, and will combine all
 of them in the new class.
@@ -482,7 +482,7 @@ This is done by using the *include* method:
 
 
 This is obviously a dangerous operation and should be done with care.  But with
-the way Odoo is structured, it is sometimes necessary in one addon to modify
+the way Flectra is structured, it is sometimes necessary in one addon to modify
 the behavior of a widget/class defined in another addon.  Note that it will
 modify all instances of the class, even if they have already been created.
 
@@ -792,10 +792,10 @@ Widget Guidelines
   as in C or Objective-C).
 
 * Global selectors should be avoided. Because a component may be used several
-  times in a single page (an example in Odoo is dashboards), queries should be
+  times in a single page (an example in Flectra is dashboards), queries should be
   restricted to a given component's scope. Unfiltered selections such as
   ``$(selector)`` or ``document.querySelectorAll(selector)`` will generally
-  lead to unintended or incorrect behavior.  Odoo Web's
+  lead to unintended or incorrect behavior.  Flectra Web's
   :class:`~Widget` has an attribute providing its DOM root
   (:attr:`~Widget.$el`), and a shortcut to select nodes directly
   (:func:`~Widget.$`).
@@ -882,7 +882,7 @@ With this, the *Counter* widget will load the xmlDependencies files in its
 Event system
 ============
 
-There are currently two event systems supported by Odoo: a simple system which
+There are currently two event systems supported by Flectra: a simple system which
 allows adding listeners and triggering events, and a more complete system that
 also makes events 'bubble up'.
 
@@ -935,13 +935,13 @@ The custom event widgets is a more advanced system, which mimic the DOM events
 API.  Whenever an event is triggered, it will 'bubble up' the component tree,
 until it reaches the root widget, or is stopped.
 
-- *trigger_up*: this is the method that will create a small *OdooEvent* and
+- *trigger_up*: this is the method that will create a small *FlectraEvent* and
   dispatch it in the component tree.  Note that it will start with the component
   that triggered the event
 - *custom_events*: this is the equivalent of the *event* dictionary, but for
-  odoo events.
+  flectra events.
 
-The OdooEvent class is very simple.  It has three public attributes: *target*
+The FlectraEvent class is very simple.  It has three public attributes: *target*
 (the widget that triggered the event), *name* (the event name) and *data* (the
 payload).  It also has 2 methods: *stopPropagation* and *is_stopped*.
 
@@ -974,7 +974,7 @@ The previous example can be updated to use the custom event system:
 Registries
 ===========
 
-A common need in the Odoo ecosystem is to extend/change the behaviour of the
+A common need in the Flectra ecosystem is to extend/change the behaviour of the
 base system from the outside (by installing an application, i.e. a different
 module).  For example, one may need to add a new widget type in some views.  In
 that case, and many others, the usual process is to create the desired component,
@@ -1161,7 +1161,7 @@ RPCs
 The rpc functionality is supplied by the ajax service.  But most people will
 probably only interact with the *_rpc* helpers.
 
-There are typically two usecases when working on Odoo: one may need to call a
+There are typically two usecases when working on Flectra: one may need to call a
 method on a (python) model (this goes through a controller *call_kw*), or one
 may need to directly call a controller (available on some route).
 
@@ -1187,7 +1187,7 @@ may need to directly call a controller (available on some route).
 Notifications
 ==============
 
-The Odoo framework has a standard way to communicate various information to the
+The Flectra framework has a standard way to communicate various information to the
 user: notifications, which are displayed on the top right of the user interface.
 
 There are two types of notifications:
@@ -1205,7 +1205,7 @@ could be displayed with two buttons *Accept* and *Decline*.
 Notification system
 -------------------
 
-The notification system in Odoo is designed with the following components:
+The notification system in Flectra is designed with the following components:
 
 - a *Notification* widget: this is a simple widget that is meant to be created
   and displayed with the desired information
@@ -1392,8 +1392,8 @@ to the dictionary.
 
 .. code-block:: python
 
-    from odoo import models
-    from odoo.http import request
+    from flectra import models
+    from flectra.http import request
 
 
     class IrHttp(models.AbstractModel):
@@ -1425,7 +1425,7 @@ The word 'view' has more than one meaning. This section is about the design of
 the javascript code of the views, not the structure of the *arch* or anything
 else.
 
-In 2017, Odoo replaced the previous view code with a new architecture.  The
+In 2017, Flectra replaced the previous view code with a new architecture.  The
 main need was to separate the rendering logic from the model logic.
 
 
@@ -1537,7 +1537,7 @@ The valid decoration names are:
 
 Each decoration *decoration-X* will be mapped to a css class *text-X*, which is
 a standard bootstrap css class (except for *text-it* and *text-bf*, which are
-handled by odoo and correspond to italic and bold, respectively).  Note that the
+handled by flectra and correspond to italic and bold, respectively).  Note that the
 value of the decoration attribute should be a valid python expression, which
 will be evaluated with the record as evaluation context.
 
@@ -2400,7 +2400,7 @@ do that, several steps should be done.
           }
 
 The ``updateControlPanel`` is the main method to customize the content in controlpanel.
-For more information, look into the `control_panel_renderer.js <https://github.com/odoo/odoo/blob/13.0/addons/web/static/src/js/views/control_panel/control_panel_renderer.js#L130>`_ file.
+For more information, look into the `control_panel_renderer.js <https://github.com/flectra/flectra/blob/13.0/addons/web/static/src/js/views/control_panel/control_panel_renderer.js#L130>`_ file.
 
 .. _.appendTo():
     https://api.jquery.com/appendTo/

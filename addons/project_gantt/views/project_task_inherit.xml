@@ -1,0 +1,66 @@
+<flectra>
+
+    <record id="project_task_view_gantt_inherit" model="ir.ui.view">
+        <field name="name">project.task.form.view</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="progress"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_task_gantt" model="ir.ui.view">
+        <field name="name">project.task.gantt</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <gantt string="Project Tasks" mode="day" lock="[('user_id', '=', False)]">
+                <field name="progress" type="progress" scale="10"/>
+                <field name="start_date" type="start"/>
+                <field name="end_date" type="end"/>
+<!--                <field name="child_task_ids" type="child" start="sd" end="ed"/>-->
+            </gantt>
+        </field>
+    </record>
+
+    <record id="action_view_all_task_tree_action_inherit" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="project.view_task_tree2"/>
+        <field name="act_window_id" ref="project.action_view_all_task"/>
+    </record>
+
+    <record id="action_view_all_task_kanban_action_inherit" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="project.view_task_kanban"/>
+        <field name="act_window_id" ref="project.action_view_all_task"/>
+    </record>
+
+    <record id="action_view_all_task_form_action_inherit" model="ir.actions.act_window.view">
+        <field eval="3" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="project.view_task_form2"/>
+        <field name="act_window_id" ref="project.action_view_all_task"/>
+    </record>
+
+    <record id="action_view_all_task_calendar_action_inherit" model="ir.actions.act_window.view">
+        <field eval="4" name="sequence"/>
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="project.view_task_calendar"/>
+        <field name="act_window_id" ref="project.action_view_all_task"/>
+    </record>
+
+
+    <record id="action_view_all_task_gantt_chart_inherit" model="ir.actions.act_window.view">
+        <field eval="5" name="sequence"/>
+        <field name="view_mode">gantt</field>
+        <field name="view_id" ref="project_gantt.view_project_task_gantt"/>
+        <field name="act_window_id" ref="project.action_view_all_task"/>
+    </record>
+
+
+</flectra> 

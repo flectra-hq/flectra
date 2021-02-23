@@ -1,23 +1,23 @@
 ===================
-Profiling Odoo code
+Profiling Flectra code
 ===================
 
 .. warning::
 
-    This tutorial requires :ref:`having installed Odoo <setup/install>`
-    and :doc:`writing Odoo code <backend>`
+    This tutorial requires :ref:`having installed Flectra <setup/install>`
+    and :doc:`writing Flectra code <backend>`
 
 Graph a method
 ==============
 
-Odoo embeds a profiler of code. This embeded profiler output can be used to
+Flectra embeds a profiler of code. This embeded profiler output can be used to
 generate a graph of calls triggered by the method, number of queries, percentage
 of time taken in the method itself as well as the time that the method took and
 its sub-called methods.
 
 .. code:: python
 
-    from odoo.tools.misc import profile
+    from flectra.tools.misc import profile
     [...]
     @profile('/temp/prof.profile')
     def mymethod(...)
@@ -43,7 +43,7 @@ Another profiler can be used to log statistics on a method:
 
 .. code:: python
 
-    from odoo.tools.profiler import profile
+    from flectra.tools.profiler import profile
     [...]
     @profile
     @api.model
@@ -54,9 +54,9 @@ completely reviewed.
 
 .. code:: bash
 
-    2018-03-28 06:18:23,196 22878 INFO openerp odoo.tools.profiler:
+    2018-03-28 06:18:23,196 22878 INFO openerp flectra.tools.profiler:
     calls     queries   ms
-    project.task ------------------------ /home/odoo/src/odoo/addons/project/models/project.py, 638
+    project.task ------------------------ /home/flectra/src/flectra/addons/project/models/project.py, 638
 
     1         0         0.02          @profile
                                       @api.model
@@ -82,15 +82,15 @@ completely reviewed.
 Dump stack
 ==========
 
-Sending the SIGQUIT signal to an Odoo process (only available on POSIX) makes
+Sending the SIGQUIT signal to an Flectra process (only available on POSIX) makes
 this process output the current stack trace to log, with info level. When an
-odoo process seems stucked, sending this signal to the process permit to know
+flectra process seems stucked, sending this signal to the process permit to know
 what the process is doing, and letting the process continue his job.
 
 Tracing code execution
 ======================
 
-Instead of sending the SIGQUIT signal to an Odoo process often enough, to check
+Instead of sending the SIGQUIT signal to an Flectra process often enough, to check
 where the processes are performing worse than expected, we can use the pyflame tool to
 do it for us.
 
@@ -120,7 +120,7 @@ Once done, we'll display them as an execution graph.
 
     pyflame --exclude-idle -s 3600 -r 0.2 -p <PID> -o test.flame
 
-where <PID> is the process ID of the odoo process you want to graph. This will
+where <PID> is the process ID of the flectra process you want to graph. This will
 wait until the dead of the process, with a maximum of one hour, and and get 5
 traces a second. With the output of pyflame, we can produce an SVG graph with
 the flamegraph tool:

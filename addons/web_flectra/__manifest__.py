@@ -3,20 +3,22 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'Flectra Backend Theme',
+    'name': 'Flectra Core Backend',
     'version': '2.0.1.0',
     "category": "Hidden",
     "website": "https://flectrahq.com/",
     "author": "FlectraHQ,Openworx",
     "license": "LGPL-3",
     'summary': 'Backend Theme For Flectra',
-    'depends': [
-        'web'
-    ],
+    'depends': ['base_setup'],
     'data': [
+        'security/ir.model.access.csv',
+        'data/theme_config.xml',
+        'data/pwa_config_data.xml',
         'views/assets.xml',
+        'views/pwa_config_view.xml',
         'views/res_company_view.xml',
-        'views/users.xml',
+        'views/res_config_settings_view.xml',
         'views/sidebar.xml',
         'views/web.xml',
         'views/home.xml',
@@ -24,5 +26,7 @@
     'qweb': [
         'static/src/xml/*.xml'
     ],
+    'installable': True,
     'auto_install': True,
+    "uninstall_hook": "_uninstall_reset_changes",
 }

@@ -6,7 +6,7 @@
 Mixins and Useful Classes
 =========================
 
-Odoo implements some useful classes and mixins that make it easy for you to add
+Flectra implements some useful classes and mixins that make it easy for you to add
 often-used behaviours on your objects. This guide will details most of them, with
 examples and use cases.
 
@@ -232,30 +232,30 @@ subtype of notifications they wish to receive.
 
 Subtypes are created as data in your module; the model has the following fields:
 
-``name`` (mandatory) - :class:`~odoo.fields.Char`
+``name`` (mandatory) - :class:`~flectra.fields.Char`
     name of the subtype, will be displayed in the notification customization
     popup
-``description`` - :class:`~odoo.fields.Char`
+``description`` - :class:`~flectra.fields.Char`
     description that will be added in the message posted for this
     subtype. If void, the name will be added instead
-``internal`` - :class:`~odoo.fields.Boolean`
+``internal`` - :class:`~flectra.fields.Boolean`
     messages with internal subtypes will be visible only by employees,
     aka members of the ``base.group_user`` group
-``parent_id`` - :class:`~odoo.fields.Many2one`
+``parent_id`` - :class:`~flectra.fields.Many2one`
     link subtypes for automatic subscription; for example project subtypes are
     linked to task subtypes through this link. When someone is subscribed to
     a project, he will be subscribed to all tasks of this project with
     subtypes found using the parent subtype
-``relation_field`` - :class:`~odoo.fields.Char`
+``relation_field`` - :class:`~flectra.fields.Char`
     as an example, when linking project and tasks subtypes, the relation
     field is the project_id field of tasks
-``res_model`` - :class:`~odoo.fields.Char`
+``res_model`` - :class:`~flectra.fields.Char`
     model the subtype applies to; if False, this subtype applies to all models
-``default`` - :class:`~odoo.fields.Boolean`
+``default`` - :class:`~flectra.fields.Boolean`
     wether the subtype is activated by default when subscribing
-``sequence`` - :class:`~odoo.fields.Integer`
+``sequence`` - :class:`~flectra.fields.Integer`
     used to order subtypes in the notification customization popup
-``hidden`` - :class:`~odoo.fields.Boolean`
+``hidden`` - :class:`~flectra.fields.Boolean`
     wether the subtype is hidden in the notification customization popup
 
 
@@ -475,7 +475,7 @@ Overriding defaults
 There are several ways you can customize the behaviour of ``mail.thread`` models,
 including (but not limited to):
 
-``_mail_post_access`` - :class:`~odoo.models.Model`  attribute
+``_mail_post_access`` - :class:`~flectra.models.Model`  attribute
     the required access rights to be able to post a message on the model; by
     default a ``write`` access is needed, can be set to ``read`` as well
 
@@ -508,20 +508,20 @@ Aliases are configurable email addresses that are linked to a specific record
 (which usually inherits the ``mail.alias.mixin`` model) that will create new records when
 contacted via e-mail. They are an easy way to make your system accessible from
 the outside, allowing users or customers to quickly create records in your
-database without needing to connect to Odoo directly.
+database without needing to connect to Flectra directly.
 
 Aliases vs. Incoming Mail Gateway
 '''''''''''''''''''''''''''''''''
 
 Some people use the Incoming Mail Gateway for this same purpose. You still need
 a correctly configured mail gateway to use aliases, however a single
-catchall domain will be sufficient since all routing will be done inside Odoo.
+catchall domain will be sufficient since all routing will be done inside Flectra.
 Aliases have several advantages over Mail Gateways:
 
 * Easier to configure
     * A single incoming gateway can be used by many aliases; this avoids having
       to configure multiple emails on your domain name (all configuration is done
-      inside Odoo)
+      inside Flectra)
     * No need for System access rights to configure aliases
 * More coherent
     * Configurable on the related record, not in a Settings submenu
@@ -547,7 +547,7 @@ gets created (for example, every ``project.project`` record having its ``mail.al
 record initialized on creation).
 
 .. note:: Aliases can also be created manually and supported by a simple
-    :class:`~odoo.fields.Many2one` field. This guide assumes you wish a
+    :class:`~flectra.fields.Many2one` field. This guide assumes you wish a
     more complete integration with automatic creation of the alias, record-specific
     default values, etc.
 
@@ -583,22 +583,22 @@ The ``_get_alias_values()`` override is particularly interesting as it allows yo
 to modify the behaviour of your aliases easily. Among the fields that can be set
 on the alias, the following are of particular interest:
 
-``alias_name`` - :class:`~odoo.fields.Char`
+``alias_name`` - :class:`~flectra.fields.Char`
     name of the email alias, e.g. 'jobs' if you want to catch emails for
-    <jobs@example.odoo.com>
-``alias_user_id`` - :class:`~odoo.fields.Many2one` (``res.users``)
+    <jobs@example.flectra.com>
+``alias_user_id`` - :class:`~flectra.fields.Many2one` (``res.users``)
     owner of records created upon receiving emails on this alias;
     if this field is not set the system will attempt to find the right owner
     based on the sender (From) address, or will use the Administrator account
     if no system user is found for that address
-``alias_defaults`` - :class:`~odoo.fields.Text`
+``alias_defaults`` - :class:`~flectra.fields.Text`
     Python dictionary that will be evaluated to provide
     default values when creating new records for this alias
-``alias_force_thread_id`` - :class:`~odoo.fields.Integer`
+``alias_force_thread_id`` - :class:`~flectra.fields.Integer`
     optional ID of a thread (record) to which all incoming messages will be
     attached, even if they did not reply to it; if set, this will disable the
     creation of new records completely
-``alias_contact`` - :class:`~odoo.fields.Selection`
+``alias_contact`` - :class:`~flectra.fields.Selection`
     Policy to post a message on the document using the mailgateway
 
     - *everyone*: everyone can post
@@ -796,18 +796,18 @@ The ``utm.mixin`` class can be used to track online marketing/communication
 campaigns through arguments in links to specified resources. The mixin adds
 3 fields to your model:
 
-* ``campaign_id``: :class:`~odoo.fields.Many2one` field to a ``utm.campaign``
+* ``campaign_id``: :class:`~flectra.fields.Many2one` field to a ``utm.campaign``
   object (i.e. Christmas_Special, Fall_Collection, etc.)
-* ``source_id``: :class:`~odoo.fields.Many2one` field to a ``utm.source``
+* ``source_id``: :class:`~flectra.fields.Many2one` field to a ``utm.source``
   object (i.e. Search Engine, mailing list, etc.)
-* ``medium_id``: :class:`~odoo.fields.Many2one` field to a ``utm.medium``
+* ``medium_id``: :class:`~flectra.fields.Many2one` field to a ``utm.medium``
   object (i.e. Snail Mail, e-Mail, social network update, etc.)
 
 These models have a single field ``name`` (i.e. they are simply there to
 distinguish campaigns but don't have any specific behaviour).
 
 Once a customer visits your website with these parameters set in the url
-(i.e. https://www.odoo.com/?campaign_id=mixin_talk&source_id=www.odoo.com&medium_id=website),
+(i.e. https://www.flectra.com/?campaign_id=mixin_talk&source_id=www.flectra.com&medium_id=website),
 three cookies are set in the visitor's website for these parameters.
 Once a object that inherits the utm.mixin is created from the website (i.e. lead
 form, job application, etc.), the utm.mixin code kicks in and fetches the values
@@ -840,11 +840,11 @@ model should support the *quick create* (i.e. call to ``create()`` with a single
             result = super(MyModel, self).tracking_fields()
             result.append([
             # ("URL_PARAMETER", "FIELD_NAME_MIXIN", "NAME_IN_COOKIES")
-                ('my_field', 'my_field', 'odoo_utm_my_field')
+                ('my_field', 'my_field', 'flectra_utm_my_field')
             ])
             return result
 
-This will tell the system to create a cookie named *odoo_utm_my_field* with the
+This will tell the system to create a cookie named *flectra_utm_my_field* with the
 value found in the url parameter ``my_field``; once a new record of this model is
 created by a call from a website form, the generic override of the ``create()``
 method of ``utm.mixin`` will fetch the default values for this field from the
@@ -855,7 +855,7 @@ You can find concrete examples of integration in the following models:
 
 * ``crm.lead`` in the CRM (*crm*) Application
 * ``hr.applicant`` in the Recruitment Process (*hr_recruitment*) Application
-* ``helpdesk.ticket`` in the Helpdesk (*helpdesk* - Odoo Enterprise only) Application
+* ``helpdesk.ticket`` in the Helpdesk (*helpdesk* - Flectra Enterprise only) Application
 
 .. _reference/mixins/website/published:
 
@@ -880,9 +880,9 @@ To include the functionnality, you only need to inherit ``website.published.mixi
 
 This mixin adds 2 fields on your model:
 
-* ``website_published``: :class:`~odoo.fields.Boolean` field which represents
+* ``website_published``: :class:`~flectra.fields.Boolean` field which represents
   the status of the publication
-* ``website_url``: :class:`~odoo.fields.Char` field which represents
+* ``website_url``: :class:`~flectra.fields.Char` field which represents
   the URL through which the object is accessed
 
 Note that this last field is a computed field and must be implemented for your class:
@@ -951,11 +951,11 @@ pages.
 
 This mixin adds 3 fields on your model:
 
-* ``website_meta_title``: :class:`~odoo.fields.Char` field that allow you to set
+* ``website_meta_title``: :class:`~flectra.fields.Char` field that allow you to set
   an additional title to your page
-* ``website_meta_description``: :class:`~odoo.fields.Char` field that contains a
+* ``website_meta_description``: :class:`~flectra.fields.Char` field that contains a
   short description of the page (sometimes used in search engines results)
-* ``website_meta_keywords``: :class:`~odoo.fields.Char` field that contains some
+* ``website_meta_keywords``: :class:`~flectra.fields.Char` field that contains some
   keywords to help your page to be classified more precisely by search engines; the
   "Promote" tool will help you select lexically-related keywords easily
 
@@ -1073,4 +1073,4 @@ you a quick bird's eye view of your customer ratings.
 You can find concrete examples of integration in the following models:
 
 * ``project.task`` in the Project (*rating_project*) Application
-* ``helpdesk.ticket`` in the Helpdesk (*helpdesk* - Odoo Enterprise only) Application
+* ``helpdesk.ticket`` in the Helpdesk (*helpdesk* - Flectra Enterprise only) Application

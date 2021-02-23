@@ -11,50 +11,50 @@ Building a Module
 
 .. warning::
 
-    This tutorial requires :ref:`having installed Odoo <setup/install>`
+    This tutorial requires :ref:`having installed Flectra <setup/install>`
 
-Start/Stop the Odoo server
+Start/Stop the Flectra server
 ==========================
 
-Odoo uses a client/server architecture in which clients are web browsers
-accessing the Odoo server via RPC.
+Flectra uses a client/server architecture in which clients are web browsers
+accessing the Flectra server via RPC.
 
 Business logic and extension is generally performed on the server side,
 although supporting client features (e.g. new data representation such as
 interactive maps) can be added to the client.
 
-In order to start the server, simply invoke the command :ref:`odoo-bin
+In order to start the server, simply invoke the command :ref:`flectra-bin
 <reference/cmdline>` in the shell, adding the full path to the file if
 necessary:
 
 .. code:: bash
 
-    odoo-bin
+    flectra-bin
 
 The server is stopped by hitting ``Ctrl-C`` twice from the terminal, or by
 killing the corresponding OS process.
 
-Build an Odoo module
+Build an Flectra module
 ====================
 
 Both server and client extensions are packaged as *modules* which are
 optionally loaded in a *database*.
 
-Odoo modules can either add brand new business logic to an Odoo system, or
+Flectra modules can either add brand new business logic to an Flectra system, or
 alter and extend existing business logic: a module can be created to add your
-country's accounting rules to Odoo's generic accounting support, while the
+country's accounting rules to Flectra's generic accounting support, while the
 next module adds support for real-time visualisation of a bus fleet.
 
-Everything in Odoo thus starts and ends with modules.
+Everything in Flectra thus starts and ends with modules.
 
 Composition of a module
 -----------------------
 
-An Odoo module can contain a number of elements:
+An Flectra module can contain a number of elements:
 
 Business objects
     Declared as Python classes, these resources are automatically persisted
-    by Odoo based on their configuration
+    by Flectra based on their configuration
 
 :ref:`Object views <reference/views>`
     Definition of business objects UI display
@@ -77,7 +77,7 @@ Module structure
 ----------------
 
 Each module is a directory within a *module directory*. Module directories
-are specified by using the :option:`--addons-path <odoo-bin --addons-path>`
+are specified by using the :option:`--addons-path <flectra-bin --addons-path>`
 option.
 
 .. tip::
@@ -86,7 +86,7 @@ option.
     most command-line options can also be set using :ref:`a configuration
     file <reference/cmdline/config>`
 
-An Odoo module is declared by its :ref:`manifest <reference/module/manifest>`.
+An Flectra module is declared by its :ref:`manifest <reference/module/manifest>`.
 
 A module is also a
 `Python package <http://docs.python.org/2/tutorial/modules.html#packages>`_
@@ -98,13 +98,13 @@ might contain::
 
     from . import mymodule
 
-Odoo provides a mechanism to help set up a new module, :ref:`odoo-bin
+Flectra provides a mechanism to help set up a new module, :ref:`flectra-bin
 <reference/cmdline/server>` has a subcommand :ref:`scaffold
 <reference/cmdline/scaffold>` to create an empty module:
 
 .. code-block:: console
 
-    $ odoo-bin scaffold <module name> <where to put it>
+    $ flectra-bin scaffold <module name> <where to put it>
 
 The command creates a subdirectory for your module, and automatically creates a
 bunch of standard files for a module. Most of them simply contain commented code
@@ -113,11 +113,11 @@ or XML. The usage of most of those files will be explained along this tutorial.
 .. exercise:: Module creation
 
     Use the command line above to  create an empty module Open Academy, and
-    install it in Odoo.
+    install it in Flectra.
 
     .. only:: solutions
 
-        #. Invoke the command ``odoo-bin scaffold openacademy addons``.
+        #. Invoke the command ``flectra-bin scaffold openacademy addons``.
         #. Adapt the manifest file to your module.
         #. Don't bother about the other files.
 
@@ -126,21 +126,21 @@ or XML. The usage of most of those files will be explained along this tutorial.
 Object-Relational Mapping
 -------------------------
 
-A key component of Odoo is the :abbr:`ORM (Object-Relational Mapping)` layer.
+A key component of Flectra is the :abbr:`ORM (Object-Relational Mapping)` layer.
 This layer avoids having to write most :abbr:`SQL (Structured Query Language)`
 by hand and provides extensibility and security services\ [#rawsql]_.
 
 Business objects are declared as Python classes extending
-:class:`~odoo.models.Model` which integrates them into the automated
+:class:`~flectra.models.Model` which integrates them into the automated
 persistence system.
 
 Models can be configured by setting a number of attributes at their
 definition. The most important attribute is
-:attr:`~odoo.models.Model._name` which is required and defines the name for
-the model in the Odoo system. Here is a minimally complete definition of a
+:attr:`~flectra.models.Model._name` which is required and defines the name for
+the model in the Flectra system. Here is a minimally complete definition of a
 model::
 
-    from odoo import models
+    from flectra import models
     class MinimalModel(models.Model):
         _name = 'test.model'
 
@@ -150,7 +150,7 @@ Model fields
 Fields are used to define what the model can store and where. Fields are
 defined as attributes on the model class::
 
-    from odoo import models, fields
+    from flectra import models, fields
 
     class LessMinimalModel(models.Model):
         _name = 'test.model2'
@@ -167,15 +167,15 @@ configuration attributes as parameters::
 
 Some attributes are available on all fields, here are the most common ones:
 
-:attr:`~odoo.fields.Field.string` (``unicode``, default: field's name)
+:attr:`~flectra.fields.Field.string` (``unicode``, default: field's name)
     The label of the field in UI (visible by users).
-:attr:`~odoo.fields.Field.required` (``bool``, default: ``False``)
+:attr:`~flectra.fields.Field.required` (``bool``, default: ``False``)
     If ``True``, the field can not be empty, it must either have a default
     value or always be given a value when creating a record.
-:attr:`~odoo.fields.Field.help` (``unicode``, default: ``''``)
+:attr:`~flectra.fields.Field.help` (``unicode``, default: ``''``)
     Long-form, provides a help tooltip to users in the UI.
-:attr:`~odoo.fields.Field.index` (``bool``, default: ``False``)
-    Requests that Odoo create a `database index`_ on the column.
+:attr:`~flectra.fields.Field.index` (``bool``, default: ``False``)
+    Requests that Flectra create a `database index`_ on the column.
 
 Simple fields
 #############
@@ -184,33 +184,33 @@ There are two broad categories of fields: "simple" fields which are atomic
 values stored directly in the model's table and "relational" fields linking
 records (of the same model or of different models).
 
-Example of simple fields are :class:`~odoo.fields.Boolean`,
-:class:`~odoo.fields.Date`, :class:`~odoo.fields.Char`.
+Example of simple fields are :class:`~flectra.fields.Boolean`,
+:class:`~flectra.fields.Date`, :class:`~flectra.fields.Char`.
 
 Reserved fields
 ###############
 
-Odoo creates a few fields in all models\ [#autofields]_. These fields are
+Flectra creates a few fields in all models\ [#autofields]_. These fields are
 managed by the system and shouldn't be written to. They can be read if
 useful or necessary:
 
-:attr:`~odoo.fields.Model.id` (:class:`~odoo.fields.Id`)
+:attr:`~flectra.fields.Model.id` (:class:`~flectra.fields.Id`)
     The unique identifier for a record in its model.
-:attr:`~odoo.fields.Model.create_date` (:class:`~odoo.fields.Datetime`)
+:attr:`~flectra.fields.Model.create_date` (:class:`~flectra.fields.Datetime`)
     Creation date of the record.
-:attr:`~odoo.fields.Model.create_uid` (:class:`~odoo.fields.Many2one`)
+:attr:`~flectra.fields.Model.create_uid` (:class:`~flectra.fields.Many2one`)
     User who created the record.
-:attr:`~odoo.fields.Model.write_date` (:class:`~odoo.fields.Datetime`)
+:attr:`~flectra.fields.Model.write_date` (:class:`~flectra.fields.Datetime`)
     Last modification date of the record.
-:attr:`~odoo.fields.Model.write_uid` (:class:`~odoo.fields.Many2one`)
+:attr:`~flectra.fields.Model.write_uid` (:class:`~flectra.fields.Many2one`)
     user who last modified the record.
 
 Special fields
 ##############
 
-By default, Odoo also requires a ``name`` field on all models for various
+By default, Flectra also requires a ``name`` field on all models for various
 display and search behaviors. The field used for these purposes can be
-overridden by setting :attr:`~odoo.models.Model._rec_name`.
+overridden by setting :attr:`~flectra.models.Model._rec_name`.
 
 .. exercise:: Define a model
 
@@ -226,10 +226,10 @@ overridden by setting :attr:`~odoo.models.Model._rec_name`.
 Data files
 ----------
 
-Odoo is a highly data driven system. Although behavior is customized using
+Flectra is a highly data driven system. Although behavior is customized using
 Python_ code part of a module's value is in the data it sets up when loaded.
 
-.. tip:: some modules exist solely to add data into Odoo
+.. tip:: some modules exist solely to add data into Flectra
     :class: aphorism
 
 Module data is declared via :ref:`data files <reference/data>`, XML files with
@@ -238,15 +238,15 @@ record.
 
 .. code-block:: xml
 
-    <odoo>
+    <flectra>
 
             <record model="{model name}" id="{record identifier}">
                 <field name="{a field name}">{a value}</field>
             </record>
 
-    </odoo>
+    </flectra>
 
-* ``model`` is the name of the Odoo model for the record.
+* ``model`` is the name of the Flectra model for the record.
 * ``id`` is an :term:`external identifier`, it allows referring to the record
   (without having to know its in-database identifier).
 * ``<field>`` elements have a ``name`` which is the name of the field in the
@@ -271,7 +271,7 @@ be declared in the ``'data'`` list (always loaded) or in the ``'demo'`` list
     installed or updated.
 
     After making some changes, do not forget to use
-    :ref:`odoo-bin -u openacademy <reference/cmdline>` to save the changes
+    :ref:`flectra-bin -u openacademy <reference/cmdline>` to save the changes
     to your database.
 
 .. _howtos/module/actions:
@@ -474,7 +474,7 @@ composed of fields defining which fields can be searched on:
         <field name="inventor_id"/>
     </search>
 
-If no search view exists for the model, Odoo generates one which only allows
+If no search view exists for the model, Flectra generates one which only allows
 searching on the ``name`` field.
 
 .. exercise:: Search courses
@@ -521,16 +521,16 @@ between different models.
 
 Relational field types are:
 
-:class:`Many2one(other_model, ondelete='set null') <odoo.fields.Many2one>`
+:class:`Many2one(other_model, ondelete='set null') <flectra.fields.Many2one>`
     A simple link to an other object::
 
         print foo.other_id.name
 
     .. seealso:: `foreign keys <http://www.postgresql.org/docs/9.3/static/tutorial-fk.html>`_
 
-:class:`One2many(other_model, related_field) <odoo.fields.One2many>`
-    A virtual relationship, inverse of a :class:`~odoo.fields.Many2one`.
-    A :class:`~odoo.fields.One2many` behaves as a container of records,
+:class:`One2many(other_model, related_field) <flectra.fields.One2many>`
+    A virtual relationship, inverse of a :class:`~flectra.fields.Many2one`.
+    A :class:`~flectra.fields.One2many` behaves as a container of records,
     accessing it results in a (possibly empty) set of records::
 
         for other in foo.other_ids:
@@ -538,11 +538,11 @@ Relational field types are:
 
     .. danger::
 
-        Because a :class:`~odoo.fields.One2many` is a virtual relationship,
-        there *must* be a :class:`~odoo.fields.Many2one` field in the
+        Because a :class:`~flectra.fields.One2many` is a virtual relationship,
+        there *must* be a :class:`~flectra.fields.Many2one` field in the
         :samp:`{other_model}`, and its name *must* be :samp:`{related_field}`
 
-:class:`Many2many(other_model) <odoo.fields.Many2many>`
+:class:`Many2many(other_model) <flectra.fields.Many2many>`
     Bidirectional multiple relationship, any record on one side can be related
     to any number of records on the other side. Behaves as a container of
     records, accessing it also results in a possibly empty set of records::
@@ -602,7 +602,7 @@ Inheritance
 Model inheritance
 -----------------
 
-Odoo provides two *inheritance* mechanisms to extend an existing model in a
+Flectra provides two *inheritance* mechanisms to extend an existing model in a
 modular way.
 
 The first inheritance mechanism allows a module to modify the behavior of a
@@ -623,13 +623,13 @@ fields of the parent record.
 
 .. seealso::
 
-    * :attr:`~odoo.models.Model._inherit`
-    * :attr:`~odoo.models.Model._inherits`
+    * :attr:`~flectra.models.Model._inherit`
+    * :attr:`~flectra.models.Model._inherits`
 
 View inheritance
 ----------------
 
-Instead of modifying existing views in place (by overwriting them), Odoo
+Instead of modifying existing views in place (by overwriting them), Flectra
 provides view inheritance where children "extension" views are applied on top of
 root views, and can add or remove content from their parent.
 
@@ -713,7 +713,7 @@ instead of a single view its ``arch`` field is composed of any number of
 Domains
 #######
 
-In Odoo, :ref:`reference/orm/domains` are values that encode conditions on
+In Flectra, :ref:`reference/orm/domains` are values that encode conditions on
 records. A domain is a  list of criteria used to select a subset of a model's
 records. Each criteria is a triple with a field name, an operator and a value.
 
@@ -776,7 +776,7 @@ retrieved from the database but computed on-the-fly by calling a method of the
 model.
 
 To create a computed field, create a field and set its attribute
-:attr:`~odoo.fields.Field.compute` to the name of a method. The computation
+:attr:`~flectra.fields.Field.compute` to the name of a method. The computation
 method should simply set the value of the field to compute on every record in
 ``self``.
 
@@ -795,7 +795,7 @@ method should simply set the value of the field to compute on every record in
 .. code-block:: python
 
     import random
-    from odoo import models, fields, api
+    from flectra import models, fields, api
 
     class ComputedModel(models.Model):
         _name = 'test.computed'
@@ -812,11 +812,11 @@ Dependencies
 
 The value of a computed field usually depends on the values of other fields on
 the computed record. The ORM expects the developer to specify those dependencies
-on the compute method with the decorator :func:`~odoo.api.depends`.
+on the compute method with the decorator :func:`~flectra.api.depends`.
 The given dependencies are used by the ORM to trigger the recomputation of the
 field whenever some of its dependencies have been modified::
 
-    from odoo import models, fields, api
+    from flectra import models, fields, api
 
     class ComputedModel(models.Model):
         _name = 'test.computed'
@@ -868,7 +868,7 @@ float, string), or a function taking a recordset and returning a value::
 .. exercise:: Active objects – Default values
 
     * Define the start_date default value as today (see
-      :class:`~odoo.fields.Date`).
+      :class:`~flectra.fields.Date`).
     * Add a field ``active`` in the class Session, and set sessions as active by
       default.
 
@@ -878,7 +878,7 @@ float, string), or a function taking a recordset and returning a value::
 
         .. note::
 
-            Odoo has built-in rules making records with an ``active`` field set
+            Flectra has built-in rules making records with an ``active`` field set
             to ``False`` invisible.
 
 Onchange
@@ -891,7 +891,7 @@ to the database.
 For instance, suppose a model has three fields ``amount``, ``unit_price`` and
 ``price``, and you want to update the price on the form when any of the other
 fields is modified. To achieve this, define a method where ``self`` represents
-the record in the form view, and decorate it with :func:`~odoo.api.onchange`
+the record in the form view, and decorate it with :func:`~flectra.api.onchange`
 to specify on which field it has to be triggered. Any change you make on
 ``self`` will be reflected on the form.
 
@@ -933,17 +933,17 @@ the ``taken_seats`` progressbar is automatically updated.
 Model constraints
 =================
 
-Odoo provides two ways to set up automatically verified invariants:
-:func:`Python constraints <odoo.api.constrains>` and
-:attr:`SQL constraints <odoo.models.Model._sql_constraints>`.
+Flectra provides two ways to set up automatically verified invariants:
+:func:`Python constraints <flectra.api.constrains>` and
+:attr:`SQL constraints <flectra.models.Model._sql_constraints>`.
 
 A Python constraint is defined as a method decorated with
-:func:`~odoo.api.constrains`, and invoked on a recordset. The decorator
+:func:`~flectra.api.constrains`, and invoked on a recordset. The decorator
 specifies which fields are involved in the constraint, so that the constraint is
 automatically evaluated when one of them is modified. The method is expected to
 raise an exception if its invariant is not satisfied::
 
-    from odoo.exceptions import ValidationError
+    from flectra.exceptions import ValidationError
 
     @api.constrains('age')
     def _check_something(self):
@@ -962,7 +962,7 @@ raise an exception if its invariant is not satisfied::
         .. patch::
 
 SQL constraints are defined through the model attribute
-:attr:`~odoo.models.Model._sql_constraints`. The latter is assigned to a list
+:attr:`~flectra.models.Model._sql_constraints`. The latter is assigned to a list
 of triples of strings ``(name, sql_definition, message)``, where ``name`` is a
 valid SQL constraint name, ``sql_definition`` is a table_constraint_ expression,
 and ``message`` is the error message.
@@ -1287,7 +1287,7 @@ rights are usually created by a CSV file named after its model:
     access_idea_idea,idea.idea,model_idea_idea,base.group_user,1,1,1,0
     access_idea_vote,idea.vote,model_idea_vote,base.group_user,1,1,1,0
 
-.. exercise:: Add access control through the Odoo interface
+.. exercise:: Add access control through the Flectra interface
 
     Create a new user "John Smith". Then create a group
     "OpenAcademy / Session Read" with read access to the *Session* model.
@@ -1332,7 +1332,7 @@ access rights are limited.
 
 Here is an example of a rule that prevents the deletion of leads that are not
 in state ``cancel``. Notice that the value of the field ``groups`` must follow
-the same convention as the method :meth:`~odoo.models.Model.write` of the ORM.
+the same convention as the method :meth:`~flectra.models.Model.write` of the ORM.
 
 .. code-block:: xml
 
@@ -1367,9 +1367,9 @@ Wizards
 
 Wizards describe interactive sessions with the user (or dialog boxes) through
 dynamic forms. A wizard is simply a model that extends the class
-:class:`~odoo.models.TransientModel` instead of
-:class:`~odoo.models.Model`. The class
-:class:`~odoo.models.TransientModel` extends :class:`~odoo.models.Model`
+:class:`~flectra.models.TransientModel` instead of
+:class:`~flectra.models.Model`. The class
+:class:`~flectra.models.TransientModel` extends :class:`~flectra.models.Model`
 and reuse all its existing mechanisms, with the following particularities:
 
 - Wizard records are not meant to be persistent; they are automatically deleted
@@ -1459,38 +1459,38 @@ Internationalization
 Each module can provide its own translations within the i18n directory, by
 having files named LANG.po where LANG is the locale code for the language, or
 the language and country combination when they differ (e.g. pt.po or
-pt_BR.po). Translations will be loaded automatically by Odoo for all
+pt_BR.po). Translations will be loaded automatically by Flectra for all
 enabled languages. Developers always use English when creating a module, then
-export the module terms using Odoo's gettext POT export feature
+export the module terms using Flectra's gettext POT export feature
 (:menuselection:`Settings --> Translations --> Import/Export --> Export
 Translation` without specifying a language), to create the module template POT
 file, and then derive the translated PO files. Many IDE's have plugins or modes
 for editing and merging PO/POT files.
 
-.. tip:: The Portable Object files generated by Odoo are published on
-         `Transifex <https://www.transifex.com/odoo/public/>`__, making it
+.. tip:: The Portable Object files generated by Flectra are published on
+         `Transifex <https://www.transifex.com/flectra/public/>`__, making it
          easy to translate the software.
 
 .. code-block:: text
 
    |- idea/ # The module directory
       |- i18n/ # Translation files
-         | - idea.pot # Translation Template (exported from Odoo)
+         | - idea.pot # Translation Template (exported from Flectra)
          | - fr.po # French translation
          | - pt_BR.po # Brazilian Portuguese translation
          | (...)
 
 .. tip::
 
-   By default Odoo's POT export only extracts labels inside XML files or
+   By default Flectra's POT export only extracts labels inside XML files or
    inside field definitions in Python code, but any Python string can be
-   translated this way by surrounding it with the function :func:`odoo._`
+   translated this way by surrounding it with the function :func:`flectra._`
    (e.g. ``_("Label")``)
 
 .. exercise:: Translate a module
 
-   Choose a second language for your Odoo installation. Translate your
-   module using the facilities provided by Odoo.
+   Choose a second language for your Flectra installation. Translate your
+   module using the facilities provided by Flectra.
 
    .. only:: solutions
 
@@ -1516,7 +1516,7 @@ for editing and merging PO/POT files.
            terms
 
         #. In ``models.py``, add an import statement for the function
-           ``odoo._`` and mark missing strings as translatable
+           ``flectra._`` and mark missing strings as translatable
 
         #. Repeat steps 3-6
 
@@ -1531,7 +1531,7 @@ Reporting
 Printed reports
 ---------------
 
-Odoo uses a report engine based on :ref:`reference/qweb`,
+Flectra uses a report engine based on :ref:`reference/qweb`,
 `Twitter Bootstrap`_ and Wkhtmltopdf_.
 
 A report is a combination two elements:
@@ -1666,13 +1666,13 @@ Business objects can also be accessed via the distributed object
 mechanism. They can all be modified via the client interface with contextual
 views.
 
-Odoo is accessible through XML-RPC/JSON-RPC interfaces, for which libraries
+Flectra is accessible through XML-RPC/JSON-RPC interfaces, for which libraries
 exist in many languages.
 
 XML-RPC Library
 ---------------
 
-The following example is a Python 3 program that interacts with an Odoo
+The following example is a Python 3 program that interacts with an Flectra
 server with the library ``xmlrpc.client``::
 
    import xmlrpc.client
@@ -1694,7 +1694,7 @@ server with the library ``xmlrpc.client``::
 .. exercise:: Add a new service to the client
 
    Write a Python program able to send XML-RPC requests to a PC running
-   Odoo (yours, or your instructor's). This program should display all
+   Flectra (yours, or your instructor's). This program should display all
    the sessions, and their corresponding number of seats. It should also
    create a new session for one of the courses.
 
@@ -1742,7 +1742,7 @@ server with the library ``xmlrpc.client``::
 JSON-RPC Library
 ----------------
 
-The following example is a Python 3 program that interacts with an Odoo server
+The following example is a Python 3 program that interacts with an Flectra server
 with the standard Python libraries ``urllib.request`` and ``json``. This
 example assumes the **Productivity** app (``note``) is installed::
 
@@ -1790,19 +1790,19 @@ Examples can be easily adapted from XML-RPC to JSON-RPC.
 
 .. note::
 
-    There are a number of high-level APIs in various languages to access Odoo
+    There are a number of high-level APIs in various languages to access Flectra
     systems without *explicitly* going through XML-RPC or JSON-RPC, such as:
 
     * https://github.com/akretion/ooor
-    * https://github.com/OCA/odoorpc
+    * https://github.com/OCA/flectrarpc
     * https://github.com/nicolas-van/openerp-client-lib
-    * http://pythonhosted.org/OdooRPC
+    * http://pythonhosted.org/FlectraRPC
     * https://github.com/abhishek-jaiswal/php-openerp-lib
 
 .. [#autofields] it is possible to :ref:`disable the automatic creation of some
                  fields <reference/fields/automatic/log_access>`
 .. [#rawsql] writing raw SQL queries is possible, but requires care as it
-             bypasses all Odoo authentication and security mechanisms.
+             bypasses all Flectra authentication and security mechanisms.
 
 .. _database index:
     http://use-the-index-luke.com/sql/preface

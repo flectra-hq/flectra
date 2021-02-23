@@ -9,8 +9,8 @@ Translating Modules
 
 This section explains how to provide translation abilities to your module.
 
-.. note:: If you want to contribute to the translation of Odoo itself, please refer to the
-  `Odoo Wiki page <https://github.com/odoo/odoo/wiki/Translations>`_.
+.. note:: If you want to contribute to the translation of Flectra itself, please refer to the
+  `Flectra Wiki page <https://github.com/flectra/flectra/wiki/Translations>`_.
 
 Exporting translatable term
 ===========================
@@ -41,7 +41,7 @@ can be created. PO files can be created using msginit_, with a dedicated
 translation tool like POEdit_ or by simply copying the template to a new file
 called :file:`{language}.po`. Translation files should be put in
 :file:`{yourmodule}/i18n/`, next to :file:`{yourmodule}.pot`, and will be
-automatically loaded by Odoo when the corresponding language is installed (via
+automatically loaded by Flectra when the corresponding language is installed (via
 :menuselection:`Settings --> Translations --> Languages`)
 
 .. note:: translations for all loaded languages are also installed or updated
@@ -50,7 +50,7 @@ automatically loaded by Odoo when the corresponding language is installed (via
 Implicit exports
 ================
 
-Odoo automatically exports translatable strings from "data"-type content:
+Flectra automatically exports translatable strings from "data"-type content:
 
 * in non-QWeb views, all text nodes are exported as well as the content of
   the ``string``, ``help``, ``sum``, ``confirm`` and ``placeholder``
@@ -59,29 +59,29 @@ Odoo automatically exports translatable strings from "data"-type content:
   exported except inside ``t-translation="off"`` blocks, the content of the
   ``title``, ``alt``, ``label`` and ``placeholder`` attributes are also
   exported
-* for :class:`~odoo.fields.Field`, unless their model is marked with
+* for :class:`~flectra.fields.Field`, unless their model is marked with
   ``_translate = False``:
 
   * their ``string`` and ``help`` attributes are exported
   * if ``selection`` is present and a list (or tuple), it's exported
   * if their ``translate`` attribute is set to ``True``, all of their existing
     values (across all records) are exported
-* help/error messages of :attr:`~odoo.models.Model._constraints` and
-  :attr:`~odoo.models.Model._sql_constraints` are exported
+* help/error messages of :attr:`~flectra.models.Model._constraints` and
+  :attr:`~flectra.models.Model._sql_constraints` are exported
 
 Explicit exports
 ================
 
 When it comes to more "imperative" situations in Python code or Javascript
-code, Odoo cannot automatically export translatable terms so they
+code, Flectra cannot automatically export translatable terms so they
 must be marked explicitly for export. This is done by wrapping a literal
 string in a function call.
 
-In Python, the wrapping function is :func:`odoo._`::
+In Python, the wrapping function is :func:`flectra._`::
 
     title = _("Bank Accounts")
 
-In JavaScript, the wrapping function is generally :js:func:`odoo.web._t`:
+In JavaScript, the wrapping function is generally :js:func:`flectra.web._t`:
 
 .. code-block:: javascript
 
@@ -93,8 +93,8 @@ In JavaScript, the wrapping function is generally :js:func:`odoo.web._t`:
     variables. For situations where strings are formatted, this means the
     format string must be marked, not the formatted string
 
-The lazy version of `_` and `_t` is :func:`odoo._lt` in python and
-:js:func:`odoo.web._lt` in javascript. The translation lookup is executed only
+The lazy version of `_` and `_t` is :func:`flectra._lt` in python and
+:js:func:`flectra.web._lt` in javascript. The translation lookup is executed only
 at rendering and can be used to declare translatable properties in class methods
 of global variables.
 

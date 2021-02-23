@@ -3,7 +3,7 @@
 set -e
 
 mkdir -p wkhtmltopdf less
-TEMPDIR=`mktemp -d -t odoo_windows_build_XXXX`
+TEMPDIR=`mktemp -d -t flectra_windows_build_XXXX`
 function cleanup {
   rm -rf $TEMPDIR
 }
