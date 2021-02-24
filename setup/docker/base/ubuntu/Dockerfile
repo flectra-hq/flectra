@@ -1,9 +1,9 @@
-FROM ubuntu:bionic
+FROM ubuntu:focal
 
 LABEL maintainer="FlectraHQ <flectra@flectrahq.com>"
 LABEL authors="FlectraHQ,Jamotion"
 
-ARG POSTGRESQL_VERSION=10
+ARG POSTGRESQL_VERSION=12
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -12,7 +12,7 @@ RUN apt-get update && \
 
 RUN apt-get update && \
     apt-get install git gnupg2 python3 curl expect-dev node-less \
-    python3-pillow python3-lxml python-ldap3 python3-dev python3-pip python3-setuptools python3-passlib \
+    python3-pillow python3-lxml python3-ldap3 python3-dev python3-pip python3-setuptools python3-passlib \
     postgresql-${POSTGRESQL_VERSION} postgresql-server-dev-${POSTGRESQL_VERSION} \
     fontconfig libxfont2 xfonts-encodings xfonts-utils xfonts-base xfonts-75dpi \
     npm nodejs libldap2-dev libsasl2-dev libxml2-dev libxslt1-dev libjpeg-dev zlib1g-dev libfontconfig1 libmagickwand-dev -y
