@@ -230,6 +230,13 @@ itest:ubuntu_pg12_all:
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres12
 
+itest:ubuntu_pg13_all:
+  <<: *integrationtest_definition
+  services: *psql13_definition
+  image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+  script:
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres13
+    -
 #--------------------------------------------------------------------
 # Jobs of stage deploy
 #--------------------------------------------------------------------
@@ -237,7 +244,7 @@ deploy:flectra_gitlab:
   <<: *build_definition
   stage: deploy
   needs:
-    - itest:ubuntu_pg10_all
+    - itest:ubuntu_pg12_all
   only:
     - tags
   script:
@@ -252,7 +259,7 @@ deploy:flectra_dev_gitlab:
   <<: *build_definition
   stage: deploy
   needs:
-    - itest:ubuntu_pg10_all
+    - itest:ubuntu_pg12_all
   only:
     - tags
   script:
@@ -262,48 +269,6 @@ deploy:flectra_dev_gitlab:
     - docker tag ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTUDEV_FLECTRA_IMAGE}:2-latest
     - docker push ${UBUNTUDEV_FLECTRA_IMAGE}:$CI_COMMIT_TAG
     - docker push ${UBUNTUDEV_FLECTRA_IMAGE}:2-latest
-
-
-deploy:flectra_dockerhub:
-  <<: *build_definition
-  stage: deploy
-  needs:
-    - itest:ubuntu_pg10_all
-  only:
-    - tags
-  script:
-    - echo -n $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USER --password-stdin https://index.docker.io/v1/
-    - docker pull ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
-    - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${DOCKER_HUB_ROOT}/flectra:$CI_COMMIT_TAG
-    - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${DOCKER_HUB_ROOT}/flectra:2-latest
-    - docker push ${DOCKER_HUB_ROOT}/flectra:$CI_COMMIT_TAG
-    - docker push ${DOCKER_HUB_ROOT}/flectra:2-latest
-
-.deploy:flectra_bin:
-  services:
-    - name: docker:dind
-    - name: postgres:10-alpine
-      alias: postgres
-  only:
-    - tags
-  image: docker:stable
-  stage: package
-  artifacts:
-    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
-    paths:
-      - build.log
-    when: always
-    expire_in: 1 day
-  script:
-    - apk add python3 python3-dev py-pip build-base rsync dpkg-dev rpm
-    - pip3 install pexpect
-    - mkdir /opt/flectra/
-    - mkdir /opt/flectra/log
-    - mkdir /opt/flectra/build
-    - mkdir /opt/flectra/public
-    - cd ${CI_PROJECT_DIR}/setup && python3 ./package.py -b /opt/flectra/build -p /opt/flectra/public --no-windows > ${CI_PROJECT_DIR}/build.log
-    - find /opt/flectra/public -maxdepth 3
-
 
 #--------------------------------------------------------------------
 # Scheduled jobs of stage build (executed by gitlab scheduler)
