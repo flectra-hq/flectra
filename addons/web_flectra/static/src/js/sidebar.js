@@ -113,6 +113,7 @@ var SideMenu = Widget.extend({
             var $active_menu = $main_menu.find('a.oe_menu_leaf[data-action-id=' + app.actionID + ']').closest('.oe_secondary_menu_section');
             $active_menu.addClass('active');
         }
+        $clicked_menu.closest('.panel').addClass('active')
 
         /** Open secondary submenus. **/
         var $secondary_menu_parents = $clicked_menu.parents('.oe_secondary_submenu');
@@ -201,6 +202,7 @@ var SideMenu = Widget.extend({
             this.$secondary_menus.find('.oe_main_menu_container').removeClass('active');
             $clicked_menu.parents('li.panel').find('.oe_main_menu_container').addClass('active');
         }
+        $clicked_menu.closest('.panel').addClass('active')
         // add a tooltip to cropped menu items
         this.$secondary_menus.find('.oe_secondary_submenu li a span').each(function() {
             $(this).tooltip(this.scrollWidth > this.clientWidth ? {title: $(this).text().trim(), placement: 'right'} :'dispose');
