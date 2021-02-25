@@ -223,6 +223,13 @@ itest:ubuntu_pg11_all:
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres11
 
+itest:ubuntu_pg12_base:
+  <<: *integrationtest_definition
+  services: *psql12_definition
+  image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+  script:
+    - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --server-path=/opt/flectra --host=postgres12
+
 itest:ubuntu_pg12_all:
   <<: *integrationtest_definition
   services: *psql12_definition
@@ -244,7 +251,7 @@ deploy:flectra_gitlab:
   <<: *build_definition
   stage: deploy
   needs:
-    - test:pg12_base
+    - itest:ubuntu_pg12_base
   only:
     - tags
   script:
@@ -259,7 +266,7 @@ deploy:flectra_dev_gitlab:
   <<: *build_definition
   stage: deploy
   needs:
-    - test:pg12_base
+    - itest:ubuntu_pg12_base
   only:
     - tags
   script:
