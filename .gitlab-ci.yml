@@ -244,7 +244,7 @@ deploy:flectra_gitlab:
   <<: *build_definition
   stage: deploy
   needs:
-    - itest:ubuntu_pg12_base
+    - test:pg12_base
   only:
     - tags
   script:
@@ -259,7 +259,7 @@ deploy:flectra_dev_gitlab:
   <<: *build_definition
   stage: deploy
   needs:
-    - itest:ubuntu_pg12_base
+    - test:pg12_base
   only:
     - tags
   script:
