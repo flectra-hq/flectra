@@ -108,6 +108,7 @@ var StatementModel = BasicModel.extend({
     init: function (parent, options) {
         this._super.apply(this, arguments);
         this.reconcileModels = [];
+        this.reconcileModelsLine = [];
         this.lines = {};
         this.valuenow = 0;
         this.valuemax = 0;
@@ -444,6 +445,7 @@ var StatementModel = BasicModel.extend({
             domainReconcile.push(['match_journal_ids', 'in', self.context.active_ids]);
         }
         var def_reconcileModel = this._loadReconciliationModel({domainReconcile: domainReconcile});
+        var def_reconcileModelLine=this._loadreconcileModelLine();
         var def_account = this._rpc({
                 model: 'account.account',
                 method: 'search_read',
@@ -453,7 +455,7 @@ var StatementModel = BasicModel.extend({
                 self.accounts = _.object(_.pluck(accounts, 'id'), _.pluck(accounts, 'code'));
             });
         var def_taxes = self._loadTaxes();
-        return Promise.all([def_statement, def_reconcileModel, def_account, def_taxes]).then(function () {
+        return Promise.all([def_statement, def_reconcileModel, def_reconcileModelLine, def_account, def_taxes]).then(function () {
             _.each(self.lines, function (line) {
                 line.reconcileModels = self.reconcileModels;
             });
@@ -530,6 +532,17 @@ var StatementModel = BasicModel.extend({
                 });
             });
     },
+    _loadreconcileModelLine: function(){
+        var self = this;
+            return this._rpc({
+            model: 'account.reconcile.model.line',
+            method: 'search_read',
+            domain: [],
+            })
+            .then(function (reconcileModelsLine) {
+                self.reconcileModelsLine = reconcileModelsLine;
+            });
+        },
     _loadTaxes: function(){
         var self = this;
         self.taxes = {};
@@ -563,7 +576,7 @@ var StatementModel = BasicModel.extend({
         var self = this;
         var line = this.getLine(handle);
         var reconcileModel = _.find(this.reconcileModels, function (r) {return r.id === reconcileModelId;});
-        var fields = ['account_id', 'amount', 'amount_type', 'analytic_account_id', 'journal_id', 'label', 'force_tax_included', 'tax_ids', 'analytic_tag_ids', 'to_check', 'amount_from_label_regex', 'decimal_separator'];
+        var fields = ['account_id', 'line_ids', 'amount', 'amount_type', 'analytic_account_id', 'journal_id', 'label', 'force_tax_included', 'tax_ids', 'analytic_tag_ids', 'to_check', 'amount_from_label_regex', 'decimal_separator'];
         this._blurProposition(handle);
         var focus = this._formatQuickCreate(line, _.pick(reconcileModel, fields));
         focus.reconcileModelId = reconcileModelId;
@@ -1103,7 +1116,7 @@ var StatementModel = BasicModel.extend({
     _formatMany2ManyTagsTax: function(value) {
         var res = [];
         for (var i=0; i<value.length; i++) {
-            res.push({id: value[i], display_name: this.taxes[value[i]] ? this.taxes[value[i]].display_name : ''});
+            res.push({id: value[i], display_name: this.taxes[value[i]] ? this.taxes[value[i]].display_name : '',});
         }
         return res;
     },
@@ -1293,18 +1306,35 @@ var StatementModel = BasicModel.extend({
             default:
                 amount = values.amount !== undefined ? values.amount : line.balance.amount;
         }
-
-
+        var account_id = false;
+        var tax_ids = false;
+        var analytic_account_id = false;
+        if(Array.isArray(values.line_ids)){
+            if(values.line_ids.length > 0){
+                account_id = {};
+                var get_account_id = _.filter( this.reconcileModelsLine, function(value){
+                   return value.id == values.line_ids[0];
+                });
+                if(get_account_id[0].account_id.length > 0){
+                    account_id['id'] = get_account_id[0].account_id[0];
+                }
+                if(get_account_id[0].tax_ids.length > 0){
+                    tax_ids =  get_account_id[0].tax_ids;
+                }
+                analytic_account_id = get_account_id[0].analytic_account_id;
+            }
+        }
+        var final_account = values.hasOwnProperty('account_id') ? {'id':values.account_id[0]} : account_id;
         var prop = {
             'id': _.uniqueId('createLine'),
             'label': values.label || line.st_line.name,
-            'account_id': account,
-            'account_code': account ? this.accounts[account.id] : '',
-            'analytic_account_id': this._formatNameGet(values.analytic_account_id),
+            'line_ids': values.line_ids || [],
+            'account_id': final_account,
+            'account_code': final_account ? this.accounts[final_account.hasOwnProperty('id') ? final_account.id : final_account ] : '',
+            'analytic_account_id': this._formatNameGet(analytic_account_id),
             'analytic_tag_ids': this._formatMany2ManyTags(values.analytic_tag_ids || []),
             'journal_id': this._formatNameGet(values.journal_id),
-            'tax_ids': this._formatMany2ManyTagsTax(values.tax_ids || []),
-            'tag_ids': values.tag_ids,
+            'tax_ids': this._formatMany2ManyTagsTax(tax_ids || []),
             'tax_repartition_line_id': values.tax_repartition_line_id,
             'debit': 0,
             'credit': 0,
@@ -1315,6 +1345,7 @@ var StatementModel = BasicModel.extend({
             'link': values.link,
             'display': true,
             'invalid': true,
+            'line_ids': values.line_ids || [],
             'to_check': !!values.to_check,
             '__tax_to_recompute': true,
             '__focus': '__focus' in values ? values.__focus : true,
@@ -1455,7 +1486,7 @@ var StatementModel = BasicModel.extend({
  * datas allowing manual reconciliation
  */
 var ManualModel = StatementModel.extend({
-    quickCreateFields: ['account_id', 'journal_id', 'amount', 'analytic_account_id', 'label', 'tax_ids', 'force_tax_included', 'analytic_tag_ids', 'date', 'to_check'],
+    quickCreateFields: ['line_ids', 'account_id', 'journal_id', 'amount', 'analytic_account_id', 'label', 'tax_ids', 'force_tax_included', 'analytic_tag_ids', 'date', 'to_check'],
 
     modes: ['create', 'match'],
 
@@ -1514,9 +1545,10 @@ var ManualModel = StatementModel.extend({
             domainReconcile.push(['company_id', 'in', company_ids]);
         }
         var def_reconcileModel = this._loadReconciliationModel({domainReconcile: domainReconcile});
+        var def_reconcileModelLine = this._loadreconcileModelLine();
         var def_taxes = this._loadTaxes();
 
-        return Promise.all([def_reconcileModel, def_account, def_taxes]).then(function () {
+        return Promise.all([def_reconcileModel, def_account, def_reconcileModelLine, def_taxes]).then(function () {
             switch(context.mode) {
                 case 'customers':
                 case 'suppliers':
@@ -1804,6 +1836,7 @@ var ManualModel = StatementModel.extend({
                 prop.credit = prop.credit !== 0 ? 0 : tmp_value;
                 prop.debit = prop.debit !== 0 ? 0 : tmp_value;
                 prop.amount = -prop.amount;
+//                prop.line_ids = -prop.line_ids;
                 prop.journal_id = self._formatNameGet(prop.journal_id || line.journal_id);
                 prop.to_check = !!prop.to_check;
             });

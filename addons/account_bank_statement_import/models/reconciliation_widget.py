@@ -780,7 +780,7 @@ class AccountReconciliation(models.AbstractModel):
             amount = st_line.amount
             amount_currency = amount
             amount_currency_str = ""
-        amount_str = formatLang(self.env, abs(amount), currency_obj=st_line.currency_id or statement_currency)
+        amount_str = formatLang(self.env, abs(amount), currency_obj=st_line.foreign_currency_id or statement_currency)
 
         data = {
             'id': st_line.id,
