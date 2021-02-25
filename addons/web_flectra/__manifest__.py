@@ -17,6 +17,7 @@
         'data/pwa_config_data.xml',
         'views/assets.xml',
         'views/pwa_config_view.xml',
+        'views/ir_module_view_inherite.xml',
         'views/res_company_view.xml',
         'views/res_config_settings_view.xml',
         'views/sidebar.xml',
