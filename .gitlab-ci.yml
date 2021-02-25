@@ -236,7 +236,7 @@ itest:ubuntu_pg13_all:
   image: ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
   script:
     - cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=all --server-path=/opt/flectra --host=postgres13
-    -
+
 #--------------------------------------------------------------------
 # Jobs of stage deploy
 #--------------------------------------------------------------------
