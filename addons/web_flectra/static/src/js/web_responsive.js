@@ -228,31 +228,6 @@ flectra.define("web_responsive", function (require) {
         },
     });
 
-    var KeyboardNavigationShiftAltMixin = {
-        _shiftPressed: function (keyEvent) {
-            const alt = keyEvent.altKey || keyEvent.key === "Alt",
-                newEvent = _.extend({}, keyEvent),
-                shift = keyEvent.shiftKey || keyEvent.key === "Shift";
-            // Mock event to make it seem like Alt is not pressed
-            if (alt && !shift) {
-                newEvent.altKey = false;
-                if (newEvent.key === "Alt") {
-                    newEvent.key = "Shift";
-                }
-            }
-            return newEvent;
-        },
-
-        _onKeyDown: function (keyDownEvent) {
-            return this._super(this._shiftPressed(keyDownEvent));
-        },
-
-        _onKeyUp: function (keyUpEvent) {
-            return this._super(this._shiftPressed(keyUpEvent));
-        },
-    };
-
-    AbstractWebClient.include(KeyboardNavigationShiftAltMixin);
 
     DocumentViewer.include({
         events: _.extend(
