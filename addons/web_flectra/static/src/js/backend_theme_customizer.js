@@ -74,7 +74,7 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
 
             colorPicker.each(function () {
                 var name = $(this).attr('data-identity')
-                var color_value = $(this).find('input').val()
+                var color_value = $(this).find('input.color-inp-value').val()
                 color_value = _.str.trim(color_value);
                 company_settings[name] = color_value;
             })
@@ -155,30 +155,28 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
 
         _init_color_picker: function (item) {
             var self = this;
-            item.find('.f-theme-customizer-content .color_picker_component')
-                .colorpicker({
-                    format: 'rgba',
-                    extensions: [
-                        {
-                            name: 'swatches',
-                            options: {
-                                colors: {
-                                    'black': '#000000',
-                                    'gray': '#888888',
-                                    'white': '#ffffff',
-                                    'red': 'red',
-                                    'default': '#777777',
-                                    'primary': '#337ab7',
-                                    'success': '#5cb85c',
-                                    'info': '#5bc0de',
-                                    'warning': '#f0ad4e',
-                                    'danger': '#d9534f'
-                                },
-                                namesAsValues: false
-                            }
-                        }
-                    ]
-                })
+            var items = item.find('.color-picker-base-spectrum');
+            items.each(function () {
+                this.spectrum = $(this).spectrum({
+                    color: $(this).val(),
+                    showInput: true,
+                    hideAfterPaletteSelect: true,
+                    clickoutFiresChange: true,
+                    showInitial: true,
+                    preferredFormat: "rgb",
+                });
+                this.spectrum.on("move.spectrum", function(e, tinycolor){
+                    self._OnColorChange(e, tinycolor);
+                });
+            });
+        },
+
+        _OnColorChange :function(e, tinycolor){
+            if($(e.target).hasClass('color-picker-base-spectrum')){
+                var value = tinycolor.toRgbString();
+                $(e.target).val(value);
+                $(e.target).parent().parent().find('.color-inp-value').val(value);
+            }
         },
 
         _render: function() {
@@ -213,7 +211,6 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
 
         _on_save_btn: function (event) {
             event.preventDefault();
-            this.$el.find('.f-theme-customizer-content .color_picker_component').colorpicker('destroy')
             this.$('.f-theme-customizer-panel').removeClass('open')
             $('body').append(this.loader);
             this._save_customizer_data().then(function(){
