@@ -585,7 +585,7 @@ on the alias, the following are of particular interest:
 
 ``alias_name`` - :class:`~flectra.fields.Char`
     name of the email alias, e.g. 'jobs' if you want to catch emails for
-    <jobs@example.flectra.com>
+    <jobs@example.flectrahq.com>
 ``alias_user_id`` - :class:`~flectra.fields.Many2one` (``res.users``)
     owner of records created upon receiving emails on this alias;
     if this field is not set the system will attempt to find the right owner
@@ -807,7 +807,7 @@ These models have a single field ``name`` (i.e. they are simply there to
 distinguish campaigns but don't have any specific behaviour).
 
 Once a customer visits your website with these parameters set in the url
-(i.e. https://www.flectra.com/?campaign_id=mixin_talk&source_id=www.flectra.com&medium_id=website),
+(i.e. https://www.flectrahq.com/?campaign_id=mixin_talk&source_id=www.flectrahq.com&medium_id=website),
 three cookies are set in the visitor's website for these parameters.
 Once a object that inherits the utm.mixin is created from the website (i.e. lead
 form, job application, etc.), the utm.mixin code kicks in and fetches the values

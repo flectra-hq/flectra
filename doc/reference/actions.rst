@@ -201,7 +201,7 @@ via two fields:
 
     {
         "type": "ir.actions.act_url",
-        "url": "https://flectra.com",
+        "url": "https://flectrahq.com",
         "target": "self",
     }
 

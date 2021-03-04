@@ -35,7 +35,7 @@ Connection
         .. code-block:: python3
 
             import xmlrpc.client
-            info = xmlrpc.client.ServerProxy('https://demo.flectra.com/start').start()
+            info = xmlrpc.client.ServerProxy('https://demo.flectrahq.com/start').start()
             url, db, username, password = \
                 info['host'], info['database'], info['user'], info['password']
             common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(url))
@@ -45,7 +45,7 @@ Connection
         .. code-block:: ruby
 
             require "xmlrpc/client"
-            info = XMLRPC::Client.new2('https://demo.flectra.com/start').call('start')
+            info = XMLRPC::Client.new2('https://demo.flectrahq.com/start').call('start')
             url, db, username, password = \
                 info['host'], info['database'], info['user'], info['password']
             common = XMLRPC::Client.new2("#{url}/xmlrpc/2/common")
@@ -55,7 +55,7 @@ Connection
         .. code-block:: php
 
             require_once('ripcord.php');
-            $info = ripcord::client('https://demo.flectra.com/start')->start();
+            $info = ripcord::client('https://demo.flectrahq.com/start')->start();
             list($url, $db, $username, $password) =
               array($info['host'], $info['database'], $info['user'], $info['password']);
             $common = ripcord::client("$url/xmlrpc/2/common");
@@ -66,7 +66,7 @@ Connection
 
             final XmlRpcClient client = new XmlRpcClient();
             final XmlRpcClientConfigImpl start_config = new XmlRpcClientConfigImpl();
-            start_config.setServerURL(new URL("https://demo.flectra.com/start"));
+            start_config.setServerURL(new URL("https://demo.flectrahq.com/start"));
             final Map<String, String> info = (Map<String, String>)client.execute(
                 start_config, "start", emptyList());
 
@@ -96,7 +96,7 @@ parameters
 
 .. warning::
 
-    For Flectra Online instances (<domain>.flectra.com), users are created without a
+    For Flectra Online instances (<domain>.flectrahq.com), users are created without a
     *local* password (as a person you are logged in via the Flectra Online
     authentication system, not by the instance itself). To use XML-RPC on Flectra
     Online instances, you will need to set a password on the user account you
@@ -110,7 +110,7 @@ parameters
       :guilabel:`Change Password`.
 
     The *server url* is the instance's domain (e.g.
-    *https://mycompany.flectra.com*), the *database name* is the name of the
+    *https://mycompany.flectrahq.com*), the *database name* is the name of the
     instance (e.g. *mycompany*). The *username* is the configured user's login
     as shown by the *Change Password* screen.
 
@@ -193,7 +193,7 @@ a new key and update all the places where you used the old one.
 demo
 ''''
 
-To make exploration simpler, you can also ask https://demo.flectra.com for a test
+To make exploration simpler, you can also ask https://demo.flectrahq.com for a test
 database:
 
 .. rst-class:: setup doc-aside
@@ -203,14 +203,14 @@ database:
     .. code-block:: python3
 
         import xmlrpc.client
-        info = xmlrpc.client.ServerProxy('https://demo.flectra.com/start').start()
+        info = xmlrpc.client.ServerProxy('https://demo.flectrahq.com/start').start()
         url, db, username, password = \
             info['host'], info['database'], info['user'], info['password']
 
     .. code-block:: ruby
 
         require "xmlrpc/client"
-        info = XMLRPC::Client.new2('https://demo.flectra.com/start').call('start')
+        info = XMLRPC::Client.new2('https://demo.flectrahq.com/start').call('start')
         url, db, username, password = \
             info['host'], info['database'], info['user'], info['password']
 
@@ -219,7 +219,7 @@ database:
         .. code-block:: php
 
             require_once('ripcord.php');
-            $info = ripcord::client('https://demo.flectra.com/start')->start();
+            $info = ripcord::client('https://demo.flectrahq.com/start')->start();
             list($url, $db, $username, $password) =
               array($info['host'], $info['database'], $info['user'], $info['password']);
 
@@ -243,7 +243,7 @@ database:
             final XmlRpcClient client = new XmlRpcClient();
 
             final XmlRpcClientConfigImpl start_config = new XmlRpcClientConfigImpl();
-            start_config.setServerURL(new URL("https://demo.flectra.com/start"));
+            start_config.setServerURL(new URL("https://demo.flectrahq.com/start"));
             final Map<String, String> info = (Map<String, String>)client.execute(
                 start_config, "start", emptyList());
 

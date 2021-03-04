@@ -29,7 +29,7 @@ Upgrading (an Flectra database)
   Refers to a complex data processing operation where the structure and contents of your
   database is permanently altered to make it compatible with a new release of Flectra.
   This operation is irreversible and typically accomplished via Flectra's
-  `database upgrade service <https://upgrade.flectra.com>`_, when you decide to
+  `database upgrade service <https://upgrade.flectrahq.com>`_, when you decide to
   switch to a newer release of Flectra.
   Historically, this process has also been known as a "migration" because it involves moving data
   around inside the database, even though the database may end up at the same physical location
@@ -37,7 +37,7 @@ Upgrading (an Flectra database)
 
 This page describes the typical steps needed to *update* an Flectra installation to the latest
 version. If you'd like more information about upgrading a database, please visit the
-`Flectra Upgrade page <https://upgrade.flectra.com>`_ instead.
+`Flectra Upgrade page <https://upgrade.flectrahq.com>`_ instead.
 
 
 In a nutshell
@@ -65,7 +65,7 @@ Step 1: Download an updated Flectra version
 ========================================
 
 The central download page is https://flectrahq.com/download. If you see a "Buy" link for the
-Flectra Enterprise download, make sure you are logged into Flectra.com with the same login that is
+Flectra Enterprise download, make sure you are logged into flectrahq.com with the same login that is
 linked to your Flectra Enterprise subscription.
 
 Alternatively, you can use the unique download link that was included with your Flectra Enterprise
@@ -107,7 +107,7 @@ Source Install (Tarball)
 ------------------------
 If you have originally installed Flectra with the "tarball" version (source code archive), you have
 to replace the installation directory with a newer version. First download the latest tarball
-from Flectra.com. They are updated daily and include the latest security fixes (see step #1)
+from flectrahq.com. They are updated daily and include the latest security fixes (see step #1)
 After downloading the package, extract it to a temporary location on your server.
 
 You will get a folder labelled with the version of the source code, for example "flectra-13.0+e.20190719",

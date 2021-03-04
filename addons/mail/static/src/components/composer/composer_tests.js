@@ -927,12 +927,12 @@ QUnit.test('display partner mention suggestions on typing "@"', async function (
 
     this.data['res.partner'].records.push({
         id: 11,
-        email: "testpartner@flectra.com",
+        email: "testpartner@flectrahq.com",
         name: "TestPartner",
     });
     this.data['res.partner'].records.push({
         id: 12,
-        email: "testpartner2@flectra.com",
+        email: "testpartner2@flectrahq.com",
         name: "TestPartner2",
     });
     this.data['res.users'].records.push({
@@ -972,7 +972,7 @@ QUnit.test('mention a partner', async function (assert) {
     assert.expect(4);
 
     this.data['res.partner'].records.push({
-        email: "testpartner@flectra.com",
+        email: "testpartner@flectrahq.com",
         name: "TestPartner",
     });
     await this.start();
@@ -1026,7 +1026,7 @@ QUnit.test('mention a partner after some text', async function (assert) {
     assert.expect(5);
 
     this.data['res.partner'].records.push({
-        email: "testpartner@flectra.com",
+        email: "testpartner@flectrahq.com",
         name: "TestPartner",
     });
     await this.start();
@@ -1089,7 +1089,7 @@ QUnit.test('add an emoji after a partner mention', async function (assert) {
     assert.expect(5);
 
     this.data['res.partner'].records.push({
-        email: "testpartner@flectra.com",
+        email: "testpartner@flectrahq.com",
         name: "TestPartner",
     });
     await this.start();

@@ -135,8 +135,8 @@ used to install *Flectra Community Edition* by executing the following commands 
 
 .. code-block:: console
 
-    # wget -O - https://nightly.flectra.com/flectra.key | apt-key add -
-    # echo "deb http://nightly.flectra.com/14.0/nightly/deb/ ./" >> /etc/apt/sources.list.d/flectra.list
+    # wget -O - https://nightly.flectrahq.com/flectra.key | apt-key add -
+    # echo "deb http://nightly.flectrahq.com/14.0/nightly/deb/ ./" >> /etc/apt/sources.list.d/flectra.list
     # apt-get update && apt-get install flectra
 
 You can then use the usual `apt-get upgrade` command to keep your installation up-to-date.
@@ -211,7 +211,7 @@ commands:
 
 .. code-block:: console
 
-    $ sudo dnf config-manager --add-repo=https://nightly.flectra.com/14.0/nightly/rpm/flectra.repo
+    $ sudo dnf config-manager --add-repo=https://nightly.flectrahq.com/14.0/nightly/rpm/flectra.repo
     $ sudo dnf install -y flectra
     $ sudo systemctl enable flectra
     $ sudo systemctl start flectra
@@ -755,7 +755,7 @@ The full documentation on how to use Flectra with Docker can be found on the
 official Flectra `docker image <https://registry.hub.docker.com/_/flectra/>`_ page.
 
 .. _Debian Buster: https://www.debian.org/releases/buster/
-.. _demo: https://demo.flectra.com
+.. _demo: https://demo.flectrahq.com
 .. _docker: https://www.docker.com
 .. _download: https://flectrahq.com/download
 .. _Ubuntu 18.04: http://releases.ubuntu.com/18.04/
@@ -779,6 +779,6 @@ official Flectra `docker image <https://registry.hub.docker.com/_/flectra/>`_ pa
 .. _community-repository: https://github.com/flectra/flectra
 .. _enterprise-repository: https://github.com/flectra/enterprise
 .. _git: https://git-scm.com/
-.. _Editions: https://www.flectra.com/pricing#pricing_table_features
-.. _nightly: https://nightly.flectra.com/
-.. _extra: https://nightly.flectra.com/extra/
+.. _Editions: https://www.flectrahq.com/pricing#pricing_table_features
+.. _nightly: https://nightly.flectrahq.com/
+.. _extra: https://nightly.flectrahq.com/extra/

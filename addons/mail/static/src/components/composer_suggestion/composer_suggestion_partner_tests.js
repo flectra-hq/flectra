@@ -76,7 +76,7 @@ QUnit.test('partner mention suggestion correct data', async function (assert) {
         model: 'mail.channel',
     });
     const partner = this.env.models['mail.partner'].create({
-        email: "demo_user@flectra.com",
+        email: "demo_user@flectrahq.com",
         id: 7,
         im_status: 'online',
         name: "Demo User",
@@ -115,7 +115,7 @@ QUnit.test('partner mention suggestion correct data', async function (assert) {
     );
     assert.strictEqual(
         document.querySelector(`.o_ComposerSuggestion_part2`).textContent,
-        "(demo_user@flectra.com)",
+        "(demo_user@flectrahq.com)",
         "Partner's email should be displayed"
     );
 });

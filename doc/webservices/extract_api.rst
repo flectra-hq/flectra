@@ -11,14 +11,14 @@ Flectra provides a service allowing you to automate the processing of your invoi
 Character Recognition (OCR) engine and then uses AI-based algorithms to extract the fields of interest such as the total, the due date, or
 the invoice lines. More functional information can be found on the `demo page <https://flectrahq.com/invoice-automation>`_.
 
-This service is a paid service. Each invoice processing will cost you one credit. Three different sized packs can be bought on `iap.flectra.com <https://iap.flectra.com/iap/in-app-services/259?sortby=date>`_.
+This service is a paid service. Each invoice processing will cost you one credit. Three different sized packs can be bought on `iap.flectrahq.com <https://iap.flectrahq.com/iap/in-app-services/259?sortby=date>`_.
 
 You can either use this service directly in the Flectra Accounting App or through the API. The Extract API which is detailed in the next section
 allows you to integrate our service directly into your own projects.
 
 Invoices
 ========
-The extract API use the JSON-RPC2_ protocol. The diffent routes are located at the following address: **https://iap-extract.flectra.com**.
+The extract API use the JSON-RPC2_ protocol. The diffent routes are located at the following address: **https://iap-extract.flectrahq.com**.
 
 Expected successful flow
 ------------------------

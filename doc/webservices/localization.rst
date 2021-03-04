@@ -291,7 +291,7 @@ Adding a new fiscal position to my Chart of Accounts
 ####################################################
 
 .. note::
-    If you need more information about what is a fiscal position and how it works in Flectra, please refer to `How to adapt taxes to my customer status or localization <https://www.flectra.com/documentation/user/online/accounting/others/taxes/application.html>`_.
+    If you need more information about what is a fiscal position and how it works in Flectra, please refer to `How to adapt taxes to my customer status or localization <https://www.flectrahq.com/documentation/user/online/accounting/others/taxes/application.html>`_.
 
 To create a new fiscal position, simply use the ``account.fiscal.position.template`` model:
 
@@ -362,7 +362,7 @@ How to create a new bank operation model?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. note::
-    How a bank operation model works exactly in Flectra? See `Configure model of entries <https://www.flectra.com/documentation/user/online/accounting/bank/reconciliation/configure.html>`_.
+    How a bank operation model works exactly in Flectra? See `Configure model of entries <https://www.flectrahq.com/documentation/user/online/accounting/bank/reconciliation/configure.html>`_.
 
 Since ``V10``, a new feature is available in the bank statement reconciliation widget: the bank operation model.
 This allows the user to pre-fill some accounting entries with a single click.
@@ -420,4 +420,4 @@ one to bring all the stuff for your localization module and one more, ``account_
 
     'depends': ['l10n_xx', 'account_reports'],
 
-Once it's done, you can start the creation of your report statements. The documentation is available in the following `slides <https://www.flectra.com/slides/slide/how-to-create-custom-accounting-report-415>`_.
+Once it's done, you can start the creation of your report statements. The documentation is available in the following `slides <https://www.flectrahq.com/slides/slide/how-to-create-custom-accounting-report-415>`_.

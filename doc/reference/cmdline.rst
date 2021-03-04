@@ -103,11 +103,11 @@ Database
 
     - ``%h`` is replaced by the whole hostname the request is made on.
     - ``%d`` is replaced by the subdomain the request is made on, with the
-      exception of ``www`` (so domain ``flectra.com`` and ``www.flectra.com`` both
+      exception of ``www`` (so domain ``flectrahq.com`` and ``www.flectrahq.com`` both
       match the database ``flectra``).
 
       These operations are case sensitive. Add option ``(?i)`` to match all
-      databases (so domain ``flectra.com`` using ``(?i)%d`` matches the database
+      databases (so domain ``flectrahq.com`` using ``(?i)%d`` matches the database
       ``Flectra``).
 
     Since version 11, it's also possible to restrict access to a given database
