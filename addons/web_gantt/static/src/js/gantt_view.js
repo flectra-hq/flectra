@@ -16,6 +16,7 @@ var _lt = core._lt;
 var searchUtils = require('web.searchUtils');
 
 var GanttView = AbstractView.extend({
+    accesskey: 'o',
     display_name: _lt('Gantt'),
     icon: 'fa-tasks',
     config: _.extend({}, AbstractView.prototype.config, {

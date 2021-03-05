@@ -30,14 +30,6 @@
         </div>
     </t>
     <t t-extend="FormView.buttons">
-        <!-- Change "Edit" button hotkey to "E" -->
-        <t t-jquery=".o_form_button_edit" t-operation="attributes">
-            <attribute name="accesskey">e</attribute>
-        </t>
-        <!-- Change "Discard" button hotkey to "D" -->
-        <t t-jquery=".o_form_button_cancel" t-operation="attributes">
-            <attribute name="accesskey">d</attribute>
-        </t>
         <!-- Add responsive icons to buttons -->
         <t t-jquery=".o_form_button_edit" t-operation="inner">
             <t t-call="web_responsive.icon_button">
@@ -74,10 +66,6 @@
         </t>
     </t>
     <t t-extend="ListView.buttons">
-        <!-- Change "Discard" button hotkey to "D" -->
-        <t t-jquery=".o_list_button_discard" t-operation="attributes">
-            <attribute name="accesskey">d</attribute>
-        </t>
         <!-- Add responsive icons to buttons -->
         <t t-jquery=".o_list_button_add" t-operation="inner">
             <t t-call="web_responsive.icon_button">
