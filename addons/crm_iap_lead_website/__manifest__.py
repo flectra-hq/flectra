@@ -18,5 +18,7 @@
         'views/crm_lead_view.xml',
         'views/crm_reveal_views.xml',
         'views/res_config_settings_views.xml',
-    ]
+    ],
+    'auto_install': False,
+    'installable': False,
 }
