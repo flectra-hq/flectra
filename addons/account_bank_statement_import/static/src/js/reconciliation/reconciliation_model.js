@@ -1309,6 +1309,7 @@ var StatementModel = BasicModel.extend({
         var account_id = false;
         var tax_ids = false;
         var analytic_account_id = false;
+        var force_tax_included = false;
         if(Array.isArray(values.line_ids)){
             if(values.line_ids.length > 0){
                 account_id = {};
@@ -1322,6 +1323,7 @@ var StatementModel = BasicModel.extend({
                     tax_ids =  get_account_id[0].tax_ids;
                 }
                 analytic_account_id = get_account_id[0].analytic_account_id;
+                force_tax_included = get_account_id[0].force_tax_included;
             }
         }
         var final_account = values.hasOwnProperty('account_id') ? {'id':values.account_id[0]} : account_id;
@@ -1341,6 +1343,7 @@ var StatementModel = BasicModel.extend({
             'date': values.date ? values.date : field_utils.parse.date(today, {}, {isUTC: true}),
             'force_tax_included': values.force_tax_included || false,
             'base_amount': amount,
+            'force_tax_included': force_tax_included || false,
             'percent': values.amount_type === "percentage" ? values.amount : null,
             'link': values.link,
             'display': true,
