@@ -19,7 +19,6 @@ class AccountReconciliation(models.AbstractModel):
 
     @api.model
     def process_bank_statement_line(self, st_line_ids, data):
-        print(data,"insideeeeee bank\n\n\n\n\n",st_line_ids)
         """ Handles data sent from the bank statement reconciliation widget
             (and can otherwise serve as an old-API bridge)
 
@@ -866,7 +865,6 @@ class AccountReconciliation(models.AbstractModel):
 
     @api.model
     def _process_move_lines(self, move_line_ids, new_mv_line_dicts):
-        print("insideeeee\n\n\n\n\n\n\n\n\n")
         """ Create new move lines from new_mv_line_dicts (if not empty) then call reconcile_partial on self and new move lines
 
             :param new_mv_line_dicts: list of dicts containing values suitable for account_move_line.create()
@@ -889,7 +887,6 @@ class AccountReconciliation(models.AbstractModel):
             for mv_line_dict in new_mv_line_dicts:
                 if not same_currency:
                     mv_line_dict['amount_currency'] = False
-                print("mv lineeee\n\n\n\n\n\n\n",mv_line_dict)
                 writeoff_lines += account_move_line._create_writeoff([mv_line_dict])
 
             (account_move_line + writeoff_lines).reconcile()
