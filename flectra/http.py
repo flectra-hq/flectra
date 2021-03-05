@@ -781,7 +781,7 @@ class HttpRequest(WebRequest):
 
 Flectra URLs are CSRF-protected by default (when accessed with unsafe
 HTTP methods). See
-https://flectrahq.com/documentation/14.0/reference/http.html#csrf for
+https://doc.flectrahq.com/2.0/reference/http.html#csrf for
 more details.
 
 * if this endpoint is accessed through Flectra via py-QWeb form, embed a CSRF
