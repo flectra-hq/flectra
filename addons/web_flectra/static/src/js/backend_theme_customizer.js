@@ -70,7 +70,9 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
 
             company_settings['theme_menu_style'] = company_container.find('#select_menu option:selected').val()
             company_settings['theme_font_name'] = company_container.find('#select_font option:selected').val()
-            company_settings['google_font'] = company_container.find('#google_font_val').val().toString();
+            if(company_container.find('#google_font_val').val()){
+                company_settings['google_font'] = company_container.find('#google_font_val').val().toString();
+            }
 
             colorPicker.each(function () {
                 var name = $(this).attr('data-identity')
