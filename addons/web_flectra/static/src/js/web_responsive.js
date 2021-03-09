@@ -144,17 +144,26 @@ flectra.define("web_responsive", function (require) {
         _onDragEnterForm: function (e) {
             e.preventDefault();
             e.stopPropagation();
-            if(dragCount == 0){
-                if(!this.dropTemplateAvailable){
-                    $('.o_content').append($(core.qweb.render('drop_template',{mode: this.mode})));
-                    this.dropTemplateAvailable = true;
+            if(this._checkFileType(e)){
+                if(dragCount == 0){
+                    if(!this.dropTemplateAvailable){
+                        $('.o_content').append($(core.qweb.render('drop_template',{mode: this.mode})));
+                        this.dropTemplateAvailable = true;
+                    }
                 }
+                dragCount++;
             }
-            dragCount++;
         },
         _onDragOver: function(e){
             e.preventDefault();
             e.stopPropagation();
+        },
+        _checkFileType: function(e){
+            if(e.dataTransfer.types.length == 1 && e.dataTransfer.types[0] == 'Files'){
+                return true;
+            }else{
+                return false;
+            }
         },
         async _onDropFile(e){
             e.preventDefault();
@@ -195,11 +204,13 @@ flectra.define("web_responsive", function (require) {
         _onDragLeaveForm: function(e){
             e.preventDefault();
             e.stopPropagation();
-            dragCount--;
-            if(dragCount == 0 ){
-                if(this.dropTemplateAvailable){
-                    this.dropTemplateAvailable = false;
-                    $('.drag_zone').remove();
+            if(this._checkFileType(e)){
+                dragCount--;
+                if(dragCount == 0 ){
+                    if(this.dropTemplateAvailable){
+                        this.dropTemplateAvailable = false;
+                        $('.drag_zone').remove();
+                    }
                 }
             }
         },
