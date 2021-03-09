@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<flectra noupdate="1">
+
+    <record id="sale_order_demo_recurring" model="sale.order">
+        <field name="name">SO001</field>
+        <field name="partner_id" ref="base.res_partner_2"/>
+    </record>
+
+    <record id="sale_order_line_demo" model="sale.order.line">
+        <field name="order_id"
+               ref="recurring_sale.sale_order_demo_recurring"/>
+        <field name="product_id" ref="product.product_product_13"/>
+        <field name="product_uom_qty">5</field>
+        <field name="price_unit">60</field>
+    </record>
+
+    <record id="recurring_document_sale0" model="recurring.document">
+        <field eval="1" name="active"/>
+        <field name="model" ref="sale.model_sale_order"/>
+        <field name="name">Sale Recurring Type</field>
+    </record>
+
+    <record id="recurring_document_fields_4" model="recurring.document.fields">
+        <field name="document_id" ref="recurring_document_sale0"/>
+        <field name="field" ref="sale.field_sale_order__name"/>
+        <field name="value">false</field>
+    </record>
+
+    <record id="recurring_sale1" model="recurring">
+        <field name="name">Sale Recurring Document</field>
+        <field name="exec_init">2</field>
+        <field name="interval_type">months</field>
+        <field name="date_init" eval="datetime.now()"/>
+        <field name="doc_source" ref='recurring_sale.sale_order_demo_recurring'/>
+    </record>
+</flectra>
