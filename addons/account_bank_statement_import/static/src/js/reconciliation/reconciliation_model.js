@@ -838,24 +838,9 @@ var StatementModel = BasicModel.extend({
             }
             ids.push(line.id);
             handlesPromises.push(Promise.resolve(computeLinePromise).then(function() {
-                var values_dict = {
-                    "partner_id": line.st_line.partner_id,
-                    "counterpart_aml_dicts": _.map(_.filter(props, function (prop) {
-                        return !isNaN(prop.id) && !prop.already_paid;
-                    }), self._formatToProcessReconciliation.bind(self, line)),
-                    "payment_aml_ids": _.pluck(_.filter(props, function (prop) {
-                        return !isNaN(prop.id) && prop.already_paid;
-                    }), 'id'),
-                    "new_aml_dicts": _.map(_.filter(props, function (prop) {
+                var new_aml_dicts = _.map(_.filter(props, function (prop) {
                         return isNaN(prop.id) && prop.display;
-                    }), self._formatToProcessReconciliation.bind(self, line)),
-                    "to_check": line.to_check,
-                };
-
-                // If the lines are not fully balanced, create an unreconciled amount.
-                // line.st_line.currency_id is never false here because its equivalent to
-                // statement_line.currency_id or statement_line.journal_id.currency_id or statement_line.journal_id.company_id.currency_id (Python-side).
-                // see: get_statement_line_for_reconciliation_widget method in account/models/account_bank_statement.py for more details
+                    }), self._formatToProcessReconciliation.bind(self, line));
                 var currency = session.get_currency(line.st_line.currency_id);
                 var balance = line.balance.amount;
                 if (!utils.float_is_zero(balance, currency.digits[1])) {
@@ -865,10 +850,19 @@ var StatementModel = BasicModel.extend({
                         'debit': balance < 0 ? -balance : 0,
                         'name': line.st_line.name + ' : ' + _t("Open balance"),
                     };
-                    values_dict['new_aml_dicts'].push(unreconciled_amount_dict);
+                    new_aml_dicts.push(unreconciled_amount_dict);
                 }
-                values.push(values_dict);
+                var process_line_vals = _.map(_.filter(props, function (prop) {
+                    return (!isNaN(prop.id) && !prop.is_liquidity_line) || (isNaN(prop.id) && prop.display) || (!isNaN(prop.id) && prop.is_liquidity_line);
+                }), self._formatToProcessReconciliation.bind(self, line));
+                values.push({
+                    partner_id: line.st_line.partner_id,
+                    process_line_vals: process_line_vals,
+                    to_check: line.to_check,
+                    new_aml_dicts:new_aml_dicts,
+                });
                 line.reconciled = true;
+                self.valuenow++;
             }));
 
             _.each(self.lines, function(other_line) {
@@ -892,7 +886,6 @@ var StatementModel = BasicModel.extend({
                 })
                 .then(self._validatePostProcess.bind(self))
                 .then(function () {
-                    self.valuenow += handles.length;
                     return {handles: handles};
                 });
         });
@@ -1447,24 +1440,21 @@ var StatementModel = BasicModel.extend({
 
         var result = {
             name : prop.label,
-            debit : amount > 0 ? amount : 0,
-            credit : amount < 0 ? -amount : 0,
+            balance : amount,
             tax_exigible: prop.tax_exigible,
             analytic_tag_ids: [[6, null, _.pluck(prop.analytic_tag_ids, 'id')]]
         };
         if (!isNaN(prop.id)) {
-            result.counterpart_aml_id = prop.id;
+            result.id = prop.id;
         } else {
             result.account_id = prop.account_id.id;
             if (prop.journal_id) {
                 result.journal_id = prop.journal_id.id;
             }
         }
-        if (!isNaN(prop.id)) result.counterpart_aml_id = prop.id;
         if (prop.analytic_account_id) result.analytic_account_id = prop.analytic_account_id.id;
         if (prop.tax_ids && prop.tax_ids.length) result.tax_ids = [[6, null, _.pluck(prop.tax_ids, 'id')]];
-
-        if (prop.tag_ids && prop.tag_ids.length) result.tag_ids = [[6, null, prop.tag_ids]];
+        if (prop.tax_tag_ids && prop.tax_tag_ids.length) result.tax_tag_ids = [[6, null, _.pluck(prop.tax_tag_ids, 'id')]];
         if (prop.tax_repartition_line_id) result.tax_repartition_line_id = prop.tax_repartition_line_id;
         if (prop.reconcileModelId) result.reconcile_model_id = prop.reconcileModelId
         return result;

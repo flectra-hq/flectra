@@ -30,33 +30,14 @@ class AccountReconciliation(models.AbstractModel):
             :returns dict: used as a hook to add additional keys.
         """
         st_lines = self.env['account.bank.statement.line'].browse(st_line_ids)
-        AccountMoveLine = self.env['account.move.line']
         ctx = dict(self._context, force_price_include=False)
-        processed_moves = self.env['account.move']
-        for st_line, datum in zip(st_lines, copy.deepcopy(data)):
-            payment_aml_rec = AccountMoveLine.browse(datum.get('payment_aml_ids', []))
-
-            for aml_dict in datum.get('counterpart_aml_dicts', []):
-                aml_dict['move_line'] = AccountMoveLine.browse(aml_dict['counterpart_aml_id'])
-                del aml_dict['counterpart_aml_id']
-
-            if datum.get('partner_id') is not None:
-                st_line.write({'partner_id': datum['partner_id']})
-
-            ctx['default_to_check'] = datum.get('to_check')
-            moves = st_line.with_context(ctx).process_reconciliation(
-                datum.get('counterpart_aml_dicts', []),
-                payment_aml_rec,
-                datum.get('new_aml_dicts', []))
-            processed_moves = (processed_moves | moves)
 
         for st_line, datum in zip(st_lines, data):
             if datum.get('partner_id') is not None:
                 st_line.write({'partner_id': datum['partner_id']})
 
-            st_line.with_context(ctx).reconcile(datum.get('lines_vals_list', []), to_check=datum.get('to_check', False))
-        return {'statement_line_ids': st_lines, 'moves': processed_moves.ids,}
-
+            st_line.with_context(ctx).reconcile(datum.get('process_line_vals', []), to_check=datum.get('to_check', False))
+        return {'statement_line_ids': st_lines}
 
     @api.model
     def get_move_lines_for_bank_statement_line(self, st_line_id, partner_id=None, excluded_ids=None, search_str=False,
