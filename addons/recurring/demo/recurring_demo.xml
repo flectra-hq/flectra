@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<flectra noupdate="1">
+    <record id="recurring_document_partner0" model="recurring.document">
+        <field eval="1" name="active"/>
+        <field name="model" ref="account.model_account_move"/>
+        <field name="name">Invoice Recurring Type</field>
+    </record>
+
+    <record id="recurring_document_fields_2" model="recurring.document.fields">
+        <field name="document_id" ref="recurring_document_partner0"/>
+        <field name="field" ref="account.field_account_move__name"/>
+        <field name="value">false</field>
+    </record>
+
+    <record id="recurring_partner0" model="recurring">
+        <field name="name">Invoice Recurring Document</field>
+        <field name="exec_init">5</field>
+        <field name="interval_type">months</field>
+        <field name="date_init" eval="datetime.now()"/>
+        <field name="doc_source" ref='l10n_generic_coa.demo_invoice_1'/>
+    </record>
+</flectra>
