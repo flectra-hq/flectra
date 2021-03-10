@@ -193,7 +193,7 @@ build:flectra_ubuntu:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
     - docker pull ${UBUNTU_FLECTRA_IMAGE}:2-latest || true
     - docker build --cache-from ${UBUNTU_FLECTRA_IMAGE}:2-latest
-      --build-arg BASE_IMAGE=${UBUNTU_BASE_IMAGE}
+      --build-arg BASE_IMAGE=${UBUNTU_BASE_IMAGE}:2-latest
       --build-arg GITLAB_OWNER=${CI_PROJECT_NAMESPACE}
       --build-arg GITLAB_COMMIT=${CI_COMMIT_SHA}
       --file ./setup/docker/flectra/ubuntu/Dockerfile
@@ -212,7 +212,7 @@ build:flectra_ubuntu_dev:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
     - docker pull ${UBUNTUDEV_FLECTRA_IMAGE}:2-latest || true
     - docker build --cache-from ${UBUNTUDEV_FLECTRA_IMAGE}:2-latest
-      --build-arg BASE_IMAGE=${UBUNTU_BASE_IMAGE}
+      --build-arg BASE_IMAGE=${UBUNTU_BASE_IMAGE}:2-latest
       --build-arg GITLAB_OWNER=${CI_PROJECT_NAMESPACE}
       --build-arg GITLAB_COMMIT=${CI_COMMIT_SHA}
       --file ./setup/docker/flectra/dev/Dockerfile
@@ -272,7 +272,7 @@ deploy:flectra_gitlab:
   <<: *build_definition
   stage: deploy
   needs:
-    - test:pg9_base
+    - build:flectra_ubuntu
   only:
     - tags
   script:
@@ -287,7 +287,7 @@ deploy:flectra_dev_gitlab:
   <<: *build_definition
   stage: deploy
   needs:
-    - test:pg9_base
+    - build:flectra_ubuntu_dev
   only:
     - tags
   script:
