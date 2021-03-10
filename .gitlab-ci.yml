@@ -1,5 +1,6 @@
 stages:
   - unittest
+  - unittest2
   - build
   - integrationtest
   - deploy
@@ -63,6 +64,21 @@ variables:
   except:
     - schedules
 
+.unittest2:template: &unittest2_definition
+  image: ${UBUNTU_BASE_IMAGE}:2-latest
+  stage: unittest2
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - flectra.log
+    when: always
+    expire_in: 2 week
+  coverage: '/^TOTAL.*\s+(\d+\%)$/'
+  only:
+    - branches
+  except:
+    - schedules
+
 .build:template: &build_definition
   services:
     - name: docker:dind
@@ -100,7 +116,7 @@ test:pg9_base:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres9"
 
 test:pg9_all:
-  <<: *unittest_definition
+  <<: *unittest2_definition
   services: *psql9_definition
   script:
     - cp -rp requirements.txt setup/docker/requirements.txt
@@ -114,7 +130,7 @@ test:pg10_base:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres10"
 
 test:pg10_all:
-  <<: *unittest_definition
+  <<: *unittest2_definition
   services: *psql10_definition
   script:
     - cp -rp requirements.txt setup/docker/requirements.txt
@@ -128,7 +144,7 @@ test:pg11_base:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres11"
 
 test:pg11_all:
-  <<: *unittest_definition
+  <<: *unittest2_definition
   services: *psql11_definition
   script:
     - cp -rp requirements.txt setup/docker/requirements.txt
@@ -142,7 +158,7 @@ test:pg12_base:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres12"
 
 test:pg12_all:
-  <<: *unittest_definition
+  <<: *unittest2_definition
   services: *psql12_definition
   script:
     - cp -rp requirements.txt setup/docker/requirements.txt
@@ -156,7 +172,7 @@ test:pg13_base:
     - su - flectra -c "cd ${CI_PROJECT_DIR} && ./setup/docker/gitlab-ci/gitlab_test_flectra.py --build=base --host=postgres13"
 
 test:pg13_all:
-  <<: *unittest_definition
+  <<: *unittest2_definition
   services: *psql13_definition
   script:
     - cp -rp requirements.txt setup/docker/requirements.txt
