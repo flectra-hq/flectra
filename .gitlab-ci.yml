@@ -61,6 +61,7 @@ variables:
   coverage: '/^TOTAL.*\s+(\d+\%)$/'
   only:
     - branches
+    - tags
   except:
     - schedules
 
@@ -186,6 +187,8 @@ build:flectra_ubuntu:
   stage: build
   only:
     - tags
+  needs:
+    - test:pg9_base
   script:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
     - docker pull ${UBUNTU_FLECTRA_IMAGE}:2-latest || true
@@ -201,6 +204,8 @@ build:flectra_ubuntu:
 build:flectra_ubuntu_dev:
   <<: *build_definition
   stage: build
+  needs:
+    - test:pg9_base
   only:
     - tags
   script:
@@ -267,7 +272,7 @@ deploy:flectra_gitlab:
   <<: *build_definition
   stage: deploy
   needs:
-    - itest:ubuntu_pg12_base
+    - test:pg9_base
   only:
     - tags
   script:
@@ -282,7 +287,7 @@ deploy:flectra_dev_gitlab:
   <<: *build_definition
   stage: deploy
   needs:
-    - itest:ubuntu_pg12_base
+    - test:pg9_base
   only:
     - tags
   script:
