@@ -113,7 +113,7 @@ Going to http://localhost:8069/academy/academy/ should now result in:
 .. image:: website/basic-list.png
 
 Storing data in Flectra
-====================
+=======================
 
 :ref:`Flectra models <reference/orm/model>` map to database tables.
 
@@ -319,7 +319,7 @@ Administration and ERP integration
 ==================================
 
 A brief and incomplete introduction to the Flectra administration
---------------------------------------------------------------
+-----------------------------------------------------------------
 
 The Flectra administration was briefly seen during the `website support`_ section.
 We can go back to it using :menuselection:`Administrator --> Administrator` in
@@ -337,7 +337,7 @@ The conceptual structure of the Flectra backend is simple:
    model is displayed inside the view.
 
 Editing in the Flectra administration
-----------------------------------
+-------------------------------------
 
 By default, an Flectra model is essentially invisible to a user. To make it
 visible it must be available through an action, which itself needs to be

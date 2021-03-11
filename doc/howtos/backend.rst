@@ -14,7 +14,7 @@ Building a Module
     This tutorial requires :ref:`having installed Flectra <setup/install>`
 
 Start/Stop the Flectra server
-==========================
+=============================
 
 Flectra uses a client/server architecture in which clients are web browsers
 accessing the Flectra server via RPC.
@@ -35,7 +35,7 @@ The server is stopped by hitting ``Ctrl-C`` twice from the terminal, or by
 killing the corresponding OS process.
 
 Build an Flectra module
-====================
+=======================
 
 Both server and client extensions are packaged as *modules* which are
 optionally loaded in a *database*.

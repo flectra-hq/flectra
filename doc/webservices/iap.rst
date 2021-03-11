@@ -152,7 +152,7 @@ For this example, the service we will provide is ~~mining dogecoins~~ burning
 .. _register-service:
 
 Register the service on Flectra
-----------------------------
+-------------------------------
 
 .. queue:: iap_service/series
 
@@ -258,7 +258,7 @@ A credit pack is essentially a product with five characteristics:
 .. _iap-flectra-app:
 
 Flectra App
---------
+-----------
 
 .. queue:: iap/series
 
@@ -592,7 +592,7 @@ The latter consists in specific tokens that will work on **IAP-Sandbox only**.
       of your service, you should ignore these tokens.
 
 Flectra Helpers
-============
+===============
 
 For convenience, if you are implementing your service using Flectra the ``iap``
 module provides a few helpers to make IAP flow even simpler.
