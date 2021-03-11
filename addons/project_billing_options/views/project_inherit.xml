@@ -1,0 +1,93 @@
+<flectra>
+    <record id="project_inherit_form" model="ir.ui.view">
+        <field name="name">project.task.form.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+
+            <field name="sale_line_id" position="after">
+                <field name="timesheet_invoice_type"/>
+                <field name="invoicable_id"/>
+            </field>
+
+            <xpath expr="//group[@name='project_hours']//span[1]" position="replace">
+                <span>
+                    <label class="font-weight-bold" for="total_computed_hours" string="Calculated Hours Spent"
+                           attrs="{'invisible': [('encode_uom_in_days', '=', True)]}"/>
+                    <label class="font-weight-bold" for="total_computed_hours" string="Calculated Days Spent"
+                           attrs="{'invisible': [('encode_uom_in_days', '=', False)]}"/>
+                </span>
+            </xpath>
+
+            <field name="effective_hours" position="replace">
+                <field name="total_computed_hours" widget="timesheet_uom" nolabel="1"/>
+            </field>
+
+        </field>
+    </record>
+
+
+    <record id="view_account_analytic_line_inherit" model="ir.ui.view">
+        <field name="name">account.analytic.line.tree.inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="timesheet_invoice_type" readonly="0"/>
+                <field name="invoicable_id"/>
+                <field name="calculated_hours_invoice" widget="float_time"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--    project task view   -->
+    <record id="view_account_analytic_line_inherit" model="ir.ui.view">
+        <field name="name">project.task.form.inherited</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page/field[@name='timesheet_ids']/tree/field[@name='unit_amount']"
+                   position="after">
+                <field name="invoicable_id" string='Invoicable(%)'/>
+                <field name="calculated_hours_invoice" widget="float_time"/>
+            </xpath>
+
+            <xpath expr="//page/field[@name='timesheet_ids']/tree/field[@name='unit_amount']" position="after">
+                <field name="timesheet_invoice_type" readonly="0"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <!--   project view -->
+    <record id="project_project_form_inherit_view" model="ir.ui.view">
+        <field name="name">project.project.inherit.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@name='options_active']" position="after">
+                <group>
+                    <field name="timesheet_invoice_type" readonly="0"/>
+                    <field name="invoicable_id"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="hr_timesheet_line_tree_inherited" model="ir.ui.view">
+        <field name="name">account.analytic.line.tree.hr_timesheet.inherited</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='unit_amount']" position="after">
+                <field name="invoicable_id"/>
+                <field name="calculated_hours_invoice" widget="float_time" optional="show" sum="Total Calculated Hours"
+                       decoration-danger="calculated_hours_invoice &gt; 24"/>
+            </xpath>
+        </field>
+    </record>
+
+</flectra>
