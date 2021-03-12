@@ -9,7 +9,7 @@ class HelpdeskReport(models.Model):
     _description = "Helpdesk Report"
     _auto = False
 
-    sequence = fields.Char('Sequence', default='New')
+    ticket_seq = fields.Char('Sequence', default='New')
     name = fields.Char('Name', readonly=True)
     partner_id = fields.Many2one('res.partner', string='Related Partner',
                                  readonly=True)
@@ -18,8 +18,6 @@ class HelpdeskReport(models.Model):
     issue_type_id = fields.Many2one('issue.type', string='Issue Type',
                                     readonly=True)
     team_id = fields.Many2one('helpdesk.team', 'Team', readonly=True)
-    # assigned_to_id = fields.Many2one('res.users', string='Assigned To',
-    #                                  readonly=True)
     start_date = fields.Datetime(string='Start Date', readonly=True)
     end_date = fields.Datetime(string='End Date', readonly=True)
     stage_id = fields.Many2one('helpdesk.stage', string='Stage')
@@ -40,7 +38,6 @@ class HelpdeskReport(models.Model):
                        h.user_id as user_id,
                        h.issue_type_id as issue_type_id,
                        h.team_id as team_id,
-                       -- h.assigned_to_id as assigned_to_id,
                        h.start_date as start_date,
                        h.end_date as end_date,
                        h.stage_id as stage_id,

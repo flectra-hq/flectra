@@ -1,4 +1,4 @@
-# Part of flectra See LICENSE file for full copyright and licensing details.
+# Part of flectra. See LICENSE file for full copyright and licensing details.
 
 from flectra import api, fields, models, _
 from flectra.exceptions import AccessError

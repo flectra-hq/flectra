@@ -5,8 +5,8 @@
     'version': '1.0',
     'summary': '''Website Helpdesk''',
     'category': 'Human Resources',
-    'author': 'odooHQ',
-    'website': 'https://odoohq.com',
+    'author': 'FlectraHQ',
+    'website': 'https://flectrahq.com',
     'depends': ['helpdesk_basic', 'website', 'portal', 'rating'],
     'data': [
         'security/ir.model.access.csv',

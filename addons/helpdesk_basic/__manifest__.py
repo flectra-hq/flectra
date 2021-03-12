@@ -25,7 +25,6 @@
         'views/helpdesk_stage_view.xml',
         'views/res_config_setting_view.xml',
         'views/raring_template_view.xml',
-        # 'views/rating_view.xml',
         'report/helpdesk_report_view.xml',
     ],
     'demo': [

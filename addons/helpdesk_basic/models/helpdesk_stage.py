@@ -1,4 +1,4 @@
-# Part of flectra See LICENSE file for full copyright and licensing details.
+# Part of flectra. See LICENSE file for full copyright and licensing details.
 
 from flectra import fields, models, _
 
@@ -18,8 +18,7 @@ class HelpdeskStage(models.Model):
     sequence = fields.Integer('Sequence', default=10)
     stage_type = fields.Selection([('draft', 'Draft'), ('new', 'New'),
                                    ('in_progress', 'In Progress'),
-                                   ('done', 'Done')], string='Stage Type', 
-                                   translate=True,
+                                   ('done', 'Done')], string='Stage Type',
                                    required=True)
     is_close = fields.Boolean(
         'Closing Stage', 

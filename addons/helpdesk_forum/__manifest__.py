@@ -6,16 +6,14 @@
     'summary': '''Helpdesk Forum will provide you forum per
 helpdesk team''',
     'category': 'Human Resources',
-    'author': 'odooHQ',
-    'website': 'https://odoohq.com',
+    'author': 'FlectraHQ',
+    'website': 'https://flectrahq.com',
     'depends': ['helpdesk_basic', 'website_forum'],
     'data': [
         'views/helpdesk_team_view.xml',
         'views/helpdesk_ticket_view.xml',
     ],
-    # 'demo': [
-    #     'demo/helpdesk_demo.xml',
-    # ],
+    
     'installable': True,
     'auto_install': False,
 }

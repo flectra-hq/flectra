@@ -6,7 +6,7 @@
         <field name="model">helpdesk.ticket</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <form string="Helpdesk">
+            <form string="Tickets">
                 <header>
                     <field name="stage_id" widget="statusbar"
                            options="{'clickable': '1', 'fold_field': 'fold'}"/>
@@ -30,7 +30,6 @@
                     </div>
                     <group>
                         <group>
-                            <!-- <field name="access_token"/> -->
                             <field name="user_id"/>
                             <field name="company_id" invisible="1"/>
                             <field name="partner_id" readonly="0"/>
@@ -79,7 +78,6 @@
                 <field name="user_id"/>
                 <field name="partner_id"/>
                 <field name="team_id"/>
-                <!-- <field name="assigned_to_id"/> -->
                 <field name="stage_id"/>
             </tree>
         </field>
@@ -89,8 +87,8 @@
         <field name="name">Helpdesk Search</field>
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
-            <search string="Search for Helpdesk">
-                <field name="issue_name" string="Helpdesk"
+            <search>
+                <field name="issue_name" string="Helpdesk Ticket"
                        filter_domain="[('name','ilike',self)]"/>
                 <field name="team_id" string="Team"/>
                 <field name="user_id" string="Created By"/>
@@ -121,7 +119,7 @@
         <field name="name">helpdesk.pivot</field>
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
-            <pivot string="Helpdesk">
+            <pivot string="Tickets">
                 <field name="issue_name" type="row"/>
                 <field name="user_id" type="col"/>
             </pivot>
@@ -246,7 +244,7 @@
     </record>
 
     <record model="ir.actions.act_window" id="act_helpdesk_view">
-        <field name="name">Helpdesk</field>
+        <field name="name">Tickets</field>
         <field name="res_model">helpdesk.ticket</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,kanban,form,pivot</field>
