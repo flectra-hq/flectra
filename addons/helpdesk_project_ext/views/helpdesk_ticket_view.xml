@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+
+    <record id="view_helpdesk_form_inherited" model="ir.ui.view">
+        <field name="name">Helpdesk Form</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id"
+               ref="helpdesk_basic.view_helpdesk_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object"
+                        name="action_get_tasks" icon="fa-tasks">
+                    <field string="Tasks"
+                           name="task_count" widget="statinfo"/>
+                </button>
+            </xpath>
+            <!--<xpath expr="//header" position="inside">
+                <button name="action_create_task"
+                        string="Create Task" type="object"
+                        groups="helpdesk_basic.helpdesk_group_manager"/>
+            </xpath>-->
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="need_project" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</flectra>
