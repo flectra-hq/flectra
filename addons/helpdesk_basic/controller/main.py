@@ -120,7 +120,6 @@ class Rating(http.Controller):
             3: _("not satisfied"),
             1: _("highly dissatisfied")
         }
-        # rating.write({'rating': rate, 'consumed': True})
         lang = rating.partner_id.lang or get_lang(request.env).code
         return request.env['ir.ui.view'].with_context(lang=lang)._render_template('helpdesk_basic.rating_external_page_submit', {
             'token': token,

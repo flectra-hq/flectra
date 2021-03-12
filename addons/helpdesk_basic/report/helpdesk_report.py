@@ -25,25 +25,24 @@ class HelpdeskReport(models.Model):
     priority = fields.Selection([('low', 'Low'), ('medium', 'Medium'),
                                  ('high', 'High')])
 
-    # @api.model_cr
     def init(self):
         tools.drop_view_if_exists(self._cr, 'helpdesk_report')
         self._cr.execute("""
-                   CREATE VIEW helpdesk_report as (
-                   SELECT
-                       t.id as id,
-                       h.ticket_seq as ticket_seq,
-                       t.name as name,
-                       h.partner_id as partner_id,
-                       h.user_id as user_id,
-                       h.issue_type_id as issue_type_id,
-                       h.team_id as team_id,
-                       h.start_date as start_date,
-                       h.end_date as end_date,
-                       h.stage_id as stage_id,
-                       h.help_description as description,
-                       h.priority as priority
-                   FROM helpdesk_team t
-                   INNER JOIN helpdesk_ticket h
-                   ON (h.team_id = t.id and h.active = True))
-                """)
+                CREATE VIEW helpdesk_report as (
+                SELECT
+                    t.id as id,
+                    h.ticket_seq as ticket_seq,
+                    t.name as name,
+                    h.partner_id as partner_id,
+                    h.user_id as user_id,
+                    h.issue_type_id as issue_type_id,
+                    h.team_id as team_id,
+                    h.start_date as start_date,
+                    h.end_date as end_date,
+                    h.stage_id as stage_id,
+                    h.help_description as description,
+                    h.priority as priority
+                FROM helpdesk_team t
+                INNER JOIN helpdesk_ticket h
+                ON (h.team_id = t.id and h.active = True))
+            """)
