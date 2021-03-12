@@ -1,0 +1,104 @@
+<?xml version="1.0" ?>
+<flectra>
+        <!--Email template -->
+        <record id="ticket_mail_template" model="mail.template">
+            <field name="name">Helpdesk Ticket : Send By Email</field>
+            <field name="subject">Ticket Receive Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="email_to">${object.email}</field>
+            <field name="model_id" ref="helpdesk_basic.model_helpdesk_ticket"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <h2>Dear
+                        % if object.partner_id:
+                            ${object.partner_id.name},
+                        % else:
+                            ${object.user_id.name},
+                        % endif
+                    </h2>
+                    <p>Your request odooo has been received and is being reviewed by our ${object.team_id.name}.<br/><br/>
+                    <div style="margin-top: 20px;">
+                        <a href="/my/ticket/${object.id}"
+                           target="_blank"
+                           style="background-color:#875A7B; padding: 10px; text-decoration: none; color: #fff; border-radius: 5px;">
+                            View Ticket
+                        </a>
+                    </div><br/>
+                    Thank you,<br/><br/>
+                    ${object.team_id.name}</p>
+                </div>
+        </field>
+    </record>
+
+    <record id="ticket_confirm_mail_template" model="mail.template">
+        <field name="name">Helpdesk Ticket : Confirm By Email</field>
+        <field name="subject">Confirm Ticket Mail</field>
+        <field name="email_from">${(user.email or '')|safe}</field>
+        <field name="email_to">${object.email}</field>
+        <field name="model_id" ref="helpdesk_basic.model_helpdesk_ticket"/>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <h2>Dear
+                    % if object.partner_id:
+                        ${object.partner_id.name},
+                    % else:
+                        ${object.user_id.name},
+                    % endif
+                </h2>
+                <p>Your request flectra has been Confirm by our ${object.team_id.name}.<br/><br/>
+                <div style="margin-top: 20px;">
+                    <a href="/my/ticket/${object.id}"
+                       target="_blank"
+                       style="background-color:#875A7B; padding: 10px; text-decoration: none; color: #fff; border-radius: 5px;">
+                        View Ticket
+                    </a></div><br/>
+                Thank you,<br/><br/>
+                ${object.team_id.name}</p>
+            </div>
+        </field>
+    </record>
+
+    <record id="ticket_rating_mail_template" model="mail.template">
+        <field name="name">Helpdesk Ticket : Rating By Email</field>
+        <field name="subject">Rating Request Mail</field>
+        <field name="email_from">${(user.email or '')|safe}</field>
+        <field name="email_to">${object.email}</field>
+        <field name="model_id" ref="helpdesk_basic.model_helpdesk_ticket"/>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                
+                <p>Please take a moment to rate our services related to the ticket ${object.name}.<br/>
+                <tr><td style="text-align: center;">
+                    <table border="0" cellpadding="0" cellspacing="0" summary="o_mail_notification" style="width:100%; margin: 32px 0px 32px 0px;">
+                        <tr><td style="font-size: 14px;">
+                            <strong>Tell us how you feel about our service</strong><br/>
+                            <span style="text-color: #888888">(click on one of these smileys)</span>
+                        </td></tr>
+                        <tr><td style="font-size: 14px;">
+                            <table style="width:100%;text-align:center;">
+                                <tr>
+                                    <td>
+                                        <a href="/rate/${object.access_token}/5">
+                                            <img alt="Satisfied" src="/rating/static/src/img/rating_5.png" title="Satisfied"/>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="/rate/${object.access_token}/3">
+                                            <img alt="Not satisfied" src="/rating/static/src/img/rating_3.png" title="Not satisfied"/>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="/rate/${object.access_token}/1">
+                                            <img alt="Highly Dissatisfied" src="/rating/static/src/img/rating_1.png" title="Highly Dissatisfied"/>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td></tr>
+                    </table>
+                </td></tr>
+                We appreciate your feedback. It helps us to improve continuously.</p>
+            </div>
+        </field>
+    </record>
+</flectra>

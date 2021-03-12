@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra noupdate="1">
+
+    <record id="issue_type_quick_support" model="issue.type">
+        <field name="name">Quick Support</field>
+        <field name="code">Q/S</field>
+        <field name="reporting_template">
+Q. What is the version?
+A.
+
+Q. What is the OS of your system?
+A.
+
+Q. When did you last updated your system?
+A.
+
+        </field>
+    </record>
+
+    <record id="helpdesk_team_quick_support" model="helpdesk.team">
+        <field name="name">Team Quick Support</field>
+        <field name="alias_name">team_quick_support</field>
+        <field name="issue_type_ids"
+               eval="[(6,0,[ref('helpdesk_forum.issue_type_quick_support')])]"/>
+        <field name="assignment_method">random</field>
+        <field name="stage_ids"
+               eval="[(6,0,[ref('helpdesk_basic.helpdesk_stage_draft'), ref('helpdesk_basic.helpdesk_stage_in_progress'),
+                ref('helpdesk_basic.helpdesk_stage_done')])]"/>
+        <field name="member_ids"
+               eval="[(6,0,[ref('base.user_root'), ref('base.user_demo')])]"/>
+               <field name="visibility_member_ids"
+               eval="[(6,0,[ref('base.user_admin'), ref('base.user_demo')])]"/>
+        <field name="mail_template_id" ref="helpdesk_basic.ticket_mail_template"/>
+    </record>
+
+    <record id="helpdesk_ticket1" model="helpdesk.ticket">
+      <field name="issue_name">Quick Support Issue</field>
+      <field name="priority">2</field>
+      <field name="user_id" ref="base.user_admin"/> 
+      <field name="issue_type_id"
+             eval="ref('helpdesk_forum.issue_type_quick_support')"/>
+      <field name="team_id"
+             eval="ref('helpdesk_forum.helpdesk_team_quick_support')"/>
+      <field name="user_id" eval="ref('base.user_demo')"/>
+      <field name="tag_ids"
+             eval="[(6,0,[ref('helpdesk_basic.helpdesk_tag_new')])]"/>
+    </record>
+    
+</flectra>
