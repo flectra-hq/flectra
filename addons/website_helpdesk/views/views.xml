@@ -180,7 +180,7 @@
                         </div>
                         <div>
                             <h4 style="padding-top: 5px;">
-                                <t t-if="display_rating and not rating">
+                                <t t-if="display_rating and not rating and ticket.team_id.is_rating == true">
                                     <button
                                             type="button"
                                             class="btn btn-info"
