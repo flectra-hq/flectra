@@ -12,7 +12,7 @@
     'company': 'FlectraHQ',
     'maintainer': 'FlectraHQ',
     'license': 'LGPL-3',
-    'depends': ['accounting_pdf_reports', 'account_asset',
+    'depends': ['web_flectra','accounting_pdf_reports', 'account_asset',
                 'account_budget', 'account_bank_statement_import'],
     'demo': [],
     'data': [
