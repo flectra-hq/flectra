@@ -133,7 +133,7 @@ class DmsSecurityMixin(models.AbstractModel):
             where_clause = "({groups_clause} OR {exists_clause})".format(
                 groups_clause=where_clause, exists_clause=exists_clause,
             )
-        query.add_where(where_clause,tuple(tuple(str(self.env.user.id))))
+        query.add_where(where_clause, tuple(tuple([self.env.user.id])))
 
     @api.model
     def _apply_ir_rules(self, query, mode="read"):
