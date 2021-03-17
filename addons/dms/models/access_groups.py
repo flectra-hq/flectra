@@ -83,7 +83,7 @@ class DmsAccessGroups(models.Model):
             if "explicit_user_ids" in res and res["explicit_user_ids"]:
                 res["explicit_user_ids"] = res["explicit_user_ids"] + [self.env.uid]
             else:
-                res["explicit_user_ids"] = [self.env.uid]
+                res["explicit_user_ids"] = [(6, 0, [self.env.uid])]
         return res
 
     @api.depends(
