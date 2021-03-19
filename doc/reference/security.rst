@@ -2,9 +2,9 @@
 
 .. _reference/security:
 
-================
+===================
 Security in Flectra
-================
+===================
 
 Aside from manually managing access using custom code, Flectra provides two main
 data-driven mechanisms to manage or restrict access to data.

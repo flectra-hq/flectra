@@ -35,7 +35,7 @@ Once done, you'll have to wait a bit while KeyCDN_ is crawling your website.
           ``http://pulltest-b49.kxcdn.com``
 
 Step 2: Configure the flectra instance with your zone
---------------------------------------------------
+-----------------------------------------------------
 
 In the Flectra back end, go to the :guilabel:`Website Settings`: menu, then
 activate the CDN support and copy/paste your zone URL in the

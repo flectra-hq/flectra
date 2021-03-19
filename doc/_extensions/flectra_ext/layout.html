@@ -51,7 +51,6 @@
       </div>
       <ul class="o_primary_nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle">Apps</a>
           <div class="dropdown-menu o_secondary_nav">
             <div class="container">
               <div class="row">
@@ -149,9 +148,6 @@
             <a href="http://flectrahq.com/apps/modules" class="o_store_link"><i class="fa fa-cube fa-fw"></i> Third party apps</a>
           </div>
         </li>
-        <li><a href="https://flectrahq.com/page/tour">Tour</a></li>
-        <li><a href="https://flectrahq.com/pricing">Pricing</a></li>
-        <li><a href="https://flectrahq.com/page/docs">Docs</a></li>
       </ul>
     </div>
     <nav class="navbar o_sub_nav">
@@ -225,21 +221,25 @@
         <div class="o_content row">
           {% if 'has-toc' not in meta and not (pagename in toc) %}
           <aside>
-            <div class="navbar-aside text-center">
-              {{ toc }}
-              {% if github_link %}
-              <p class="gith-container"><a href="{{ github_link(mode='edit') }}" class="gith-link">
-                  Edit on GitHub
-              </a></p>
-              {% endif %}
-            </div>
+              <div class="navbar-aside text-center">
+                  {{ toc }}
+                  {% if github_link %}
+                  <p class="gith-container"><a
+                          href="{{ github_link(mode='edit') }}"
+                          class="gith-link">
+                      Edit on GitLab
+                  </a></p>
+                  {% endif %}
+              </div>
           </aside>
           {% endif %}
-          <article class="doc-body {% if 'has-toc' in meta %}doc-toc{% endif %}{% if pagename in toc%}index-category{% endif %}">
-            {% endif %}
-            {% block body %} {% endblock %}
-          {% if pagename != master_doc %}</article>
-        </div>
+          <article
+                  class="doc-body {% if 'has-toc' in meta %}doc-toc{% endif %}{% if pagename in toc%}index-category{% endif %}">
+              {% endif %}
+              {% block body %} {% endblock %}
+              {% if pagename != master_doc %}
+          </article>
+      </div>
         {% endif %}
         <div id="mask"></div>
       </main>
@@ -262,77 +262,196 @@
   </div>
   <footer>
     <div id="footer" class="container">
-      <span class="o_logo o_logo_inverse center-block o_footer_logo"></span>
-      <div class="row">
-        <div class="col-sm-7 col-md-7 col-lg-6">
-          <div class="row">
-            <div class="col-xs-6 col-sm-4">
-              <span class="menu_title">Community</span>
-              <ul>
-                <li><a href="https://github.com/flectra/flectra">Github</a></li>
-                <li><a href="http://flectrahq.com/page/download">Download</a></li>
-                <li class="divider"></li>
-                <li><a href="https://runbot.flectrahq.com">Runbot</a></li>
-                <li><a href="https://github.com/flectra/flectra/wiki/Translations">Translations</a></li>
-                <li class="divider"></li>
-                <li><a href="http://flectrahq.com/page/flectra-community">Mailing Lists</a></li>
-                <li><a href="http://flectrahq.com/forum/help-1">Forum</a></li>
-              </ul>
+      <div class="row mt48 mb48">
+        <div class="col-md-12 mb32">
+            <div class="col-md-3 col-sm-6">
+                <h3 class="">
+                    Features
+                </h3>
+                <div class="">
+                    <ul class="pad0">
+                        <li>
+                            <a href="https://flectrahq.com/crm">
+                                CRM
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/sales">
+                                Sales
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/accounting">
+                                Accounting
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/purchase">
+                                Purchase
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/inventory">
+                                Inventory
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-xs-6 col-sm-4">
-              <span class="menu_title">Services</span>
-              <ul>
-                <li><a href="https://www.flectra.sh">Flectra Cloud Platform</a></li>
-                <li class="divider"></li>
-                <li><a href="http://flectrahq.com/help">Support</a></li>
-                <li><a href="https://upgrade.flectrahq.com">Upgrade</a></li>
-                <li class="divider"></li>
-                <li><a href="http://flectrahq.com/partners">Find a partner</a></li>
-                <li><a href="http://flectrahq.com/page/become-a-partner">Become a partner</a></li>
-                <li class="divider"></li>
-                <li><a href="http://training.flectrahq.com/courses/flectra-functional">Training Center</a></li>
-                <li><a href="http://flectrahq.com/page/education-program">Education</a></li>
-                <li class="divider"></li>
-                <li><a href="http://flectrahq.com/page/security">Security</a></li>
-              </ul>
+            <div class="col-md-3 col-sm-6">
+                <h3 class="">
+                    &nbsp;
+                </h3>
+                <div class="">
+                    <ul class="pad0">
+                        <li>
+                            <a href="https://flectrahq.com/human-resource">
+                                Human Resource
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/cms">
+                                CMS
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/point-of-sale">
+                                Point Of Sale
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/manufacturing">
+                                Manufacturing
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/project-management">
+                                Project Management
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-xs-12 col-sm-4 mb64">
-              <span class="menu_title">About us</span>
-              <ul>
-                <li><a href="http://flectrahq.com/page/about-us">Our company</a></li>
-                <li><a href="http://flectrahq.com/page/contactus">Contact</a></li>
-                <li class="divider" />
-                <li><a href="http://flectrahq.com/event">Events</a></li>
-                <li><a href="http://flectrahq.com/blog">Blog</a></li>
-                <li><a href="http://flectrahq.com/blog/6">Customers</a></li>
-                <li class="divider" />
-                <li><a href="http://flectrahq.com/jobs">Jobs</a></li>
-                <li class="divider" />
-                <li><a href="http://flectrahq.com/page/legal">Legal</a> | <a href="http://flectrahq.com/privacy">Privacy</a></li>
-              </ul>
+            <div class="col-md-3 col-sm-6">
+                <h3 class="">
+                    Services
+                </h3>
+                <div class="">
+                    <ul class="pad0">
+                        <li>
+                            <a href="https://flectrahq.com/flectra-erp-implementation">
+                                Implementation
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/flectra-erp-development">
+                                Development
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/flectra-erp-support">
+                                Support
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/flectra-erp-training">
+                                Training
+                            </a>
+                        </li>
+                        <li>
+                          <a href="https://flectrahq.com/online-flectra-pricing">
+                              Pricing
+                          </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/flectra-release-note-1-0">
+                                Release Notes
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-          </div>
+            <div class="col-md-3 col-sm-6">
+                <h3 class="">
+                    &nbsp;
+                </h3>
+                <div class="">
+                    <ul class="pad0">
+                        <li>
+                            <a href="https://doc.flectrahq.com/"
+                               target="_blank">
+                                Documentation
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/become-a-partner">
+                                Become a partner
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/partners">
+                                Partners
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/brand-assets">
+                                Brand Assets
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/flectra-support-plan">
+                                Support Plan
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flectrahq.com/contactus">
+                                Contact Us
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-5 col-md-4 col-md-offset-1 col-lg-5 col-lg-offset-1">
-          <p>
-            <small>
-              Flectra is a suite of open source business apps that cover all your company needs: CRM, eCommerce, accounting, inventory, point of sale, project management, etc.
-              <br/><br/>
-              Flectra's unique value proposition is to be at the same time very easy to use and fully integrated.
-            </small>
-          </p>
+        <div class="col-md-12">
+            <hr>
+            <div class="social-btns text-center">
+                <div class="">
+                    <a class="do-btn-round-outline facebook-footer btn"
+                       href="https://www.facebook.com/flectrahq/"
+                       target="_blank">
+                            <span>Facebook</span>
+                    </a>
+                    <a class="do-btn-round-outline twitter-footer btn"
+                       href="https://twitter.com/flectrahq"
+                       target="_blank">
+                            <span>Twitter</span>
+                    </a>
+                </div>
+            </div>
+            <div class="text-center mt16 mb16 font-14px ext_page">
+                <a href="https://flectrahq.com/trademarks" class="ml8 mr8">
+                    Trademarks
+                </a>
+                <a href="https://flectrahq.com/privacy-policy" class="ml8 mr8">
+                    Privacy Policy
+                </a>
+                <a href="https://flectrahq.com/disclaimer" class="ml8 mr8">
+                    Disclaimer
+                </a>
+            </div>
         </div>
-      </div>
+    </div>
     </div>
     <div class="o_footer_bottom">
       <div class="container">
-        <a class="small" href="http://flectrahq.com/page/website-builder">Website made with <span class="o_logo o_logo_inverse o_logo_15"></span></a>
-        <div class="social-links pull-right">
-          <a href="http://flectrahq.com/web/about/facebook"><i class="fa fa-facebook"></i></a>
-          <a href="http://flectrahq.com/web/about/twitter"><i class="fa fa-twitter"></i></a>
-          <a href="http://flectrahq.com/web/about/linkedin"><i class="fa fa-linkedin"></i></a>
-          <a href="mailto:info@flectrahq.com"><i class="fa fa-envelope"></i></a>
-        </div>
+          <div class="social-links pull-right">
+              <a href="https://www.facebook.com/flectrahq"><i
+                      class="fa fa-facebook"></i></a>
+              <a href="https://twitter.com/flectrahq"><i
+                      class="fa fa-twitter"></i></a>
+              <a href="mailto:info@flectrahq.com"><i
+                      class="fa fa-envelope"></i></a>
+          </div>
       </div>
     </div>
   </footer>

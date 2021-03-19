@@ -110,7 +110,7 @@ Academy` and clicking :guilabel:`Upgrade`.
 
 Going to http://localhost:8069/academy/academy/ should now result in:
 
-.. image:: website/basic-list.png
+.. image:: website/flectra_basic-list.png
 
 Storing data in Flectra
 =======================
@@ -208,7 +208,7 @@ manifest and template) access http://localhost:8069/academy/academy/ should
 yield a nicer looking page with branding and a number of built-in page
 elements (top-level menu, footer, …)
 
-.. image:: website/layout.png
+.. image:: website/flectra_layout.png
 
 The website layout also provides support for editing tools: click
 :guilabel:`Sign In` (in the top-right), fill the credentials in (``admin`` /

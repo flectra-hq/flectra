@@ -509,7 +509,7 @@ database upgrade request.
 
         import requests
 
-        PROCESS_URL = "https://upgrade.flectrahq.com/database/v1/status"
+        PROCESS_URL = "https:/upgrade.flectrahq.com/database/v1/status"
 
         fields = dict([
             ('request', '10534'),
