@@ -27,6 +27,40 @@ class TestMessageValues(TestMailCommon):
         cls.Message = cls.env['mail.message'].with_user(cls.user_employee)
 
     @mute_logger('flectra.models.unlink')
+    def test_mail_message_format(self):
+        record1 = self.env['mail.test.simple'].create({'name': 'Test1'})
+        message = self.env['mail.message'].create([{
+            'model': 'mail.test.simple',
+            'res_id': record1.id,
+        }])
+        res = message.message_format()
+        self.assertEqual(res[0].get('record_name'), 'Test1')
+
+        record1.write({"name": "Test2"})
+        res = message.message_format()
+        self.assertEqual(res[0].get('record_name'), 'Test2')
+
+    @mute_logger('flectra.models.unlink')
+    def test_mail_message_format_access(self):
+        """
+        User that doesn't have access to a record should still be able to fetch
+        the record_name inside message_format.
+        """
+        company_2 = self.env['res.company'].create({'name': 'Second Test Company'})
+        record1 = self.env['mail.test.multi.company'].create({
+            'name': 'Test1',
+            'company_id': company_2.id,
+        })
+        message = record1.message_post(body='', partner_ids=[self.user_employee.partner_id.id])
+        # We need to flush and invalidate the ORM cache since the record_name
+        # is already cached from the creation. Otherwise it will leak inside
+        # message_format.
+        message.flush()
+        message.invalidate_cache()
+        res = message.with_user(self.user_employee).message_format()
+        self.assertEqual(res[0].get('record_name'), 'Test1')
+
+    @mute_logger('flectra.models.unlink')
     def test_mail_message_values_no_document_values(self):
         msg = self.Message.create({
             'reply_to': 'test.reply@example.com',
@@ -326,7 +360,7 @@ class TestMessageAccess(TestMailCommon):
         test_record = self.env['mail.test.simple'].with_context(self._test_context).create({'name': 'Test', 'email_from': 'ignasse@example.com'})
         partner_1 = self.env['res.partner'].create({
             'name': 'Jitendra Prajapati (jpr-flectra)',
-            'email': 'jpr@flectrahq.com',
+            'email': 'jpr@flectra.com',
         })
         test_record.message_subscribe((partner_1 | self.user_admin.partner_id).ids)
 
@@ -400,7 +434,7 @@ class TestMessageAccess(TestMailCommon):
         msg1 = group_private.message_post(body='Test', message_type='comment', subtype_xmlid='mail.mt_comment', partner_ids=[emp_partner.id])
         self._reset_bus()
         emp_partner.env['mail.message'].mark_all_as_read(domain=[])
-        self.assertBusNotifications([(self.cr.dbname, 'res.partner', emp_partner.id)], [{ 'type': 'mark_as_read', 'message_ids': [msg1.id] }])
+        self.assertBusNotifications([(self.cr.dbname, 'res.partner', emp_partner.id)], [{ 'type': 'mark_as_read', 'message_ids': [msg1.id], 'needaction_inbox_counter': 0 }])
         na_count = emp_partner.get_needaction_count()
         self.assertEqual(na_count, 0, "mark all as read should conclude all needactions")
 
@@ -419,7 +453,7 @@ class TestMessageAccess(TestMailCommon):
 
         self._reset_bus()
         emp_partner.env['mail.message'].mark_all_as_read(domain=[])
-        self.assertBusNotifications([(self.cr.dbname, 'res.partner', emp_partner.id)], [{ 'type': 'mark_as_read', 'message_ids': [msg2.id] }])
+        self.assertBusNotifications([(self.cr.dbname, 'res.partner', emp_partner.id)], [{ 'type': 'mark_as_read', 'message_ids': [msg2.id], 'needaction_inbox_counter': 0 }])
         na_count = emp_partner.get_needaction_count()
         self.assertEqual(na_count, 0, "mark all read should conclude all needactions even inacessible ones")
 

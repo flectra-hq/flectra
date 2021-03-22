@@ -102,16 +102,21 @@ class IrMailServer(models.Model):
                                                                   "is used. Default priority is 10 (smaller number = higher priority)")
     active = fields.Boolean(default=True)
 
+    def _get_test_email_addresses(self):
+        self.ensure_one()
+        email_from = self.env.user.email
+        if not email_from:
+            raise UserError(_('Please configure an email on the current user to simulate '
+                              'sending an email message via this outgoing server'))
+        return email_from, 'noreply@flectra.com'
+
     def test_smtp_connection(self):
         for server in self:
             smtp = False
             try:
                 smtp = self.connect(mail_server_id=server.id)
                 # simulate sending an email from current user's address - without sending it!
-                email_from, email_to = self.env.user.email, 'noreply@flectrahq.com'
-                if not email_from:
-                    raise UserError(_('Please configure an email on the current user to simulate '
-                                      'sending an email message via this outgoing server'))
+                email_from, email_to = server._get_test_email_addresses()
                 # Testing the MAIL FROM step should detect sender filter problems
                 (code, repl) = smtp.mail(email_from)
                 if code != 250:
@@ -141,7 +146,7 @@ class IrMailServer(models.Model):
             except smtplib.SMTPResponseException as e:
                 raise UserError(_("Server replied with following exception:\n %s", ustr(e.smtp_error)))
             except smtplib.SMTPException as e:
-                raise UserError(_("An SMTP exception occurred. Check port number and connection security type.\n %s", ustr(e.smtp_error)))
+                raise UserError(_("An SMTP exception occurred. Check port number and connection security type.\n %s", ustr(e)))
             except SSLError as e:
                 raise UserError(_("An SSL exception occurred. Check connection security type.\n %s", ustr(e)))
             except Exception as e:
@@ -236,8 +241,9 @@ class IrMailServer(models.Model):
         if smtp_user:
             # Attempt authentication - will raise if AUTH service not supported
             local, at, domain = smtp_user.rpartition('@')
-            domain = idna.encode(domain).decode('ascii')
-            connection.login(f"{local}{at}{domain}", smtp_password or '')
+            if at:
+                smtp_user = local + at + idna.encode(domain).decode('ascii')
+            connection.login(smtp_user, smtp_password or '')
 
         # Some methods of SMTP don't check whether EHLO/HELO was sent.
         # Anyway, as it may have been sent by login(), all subsequent usages should consider this command as sent.
@@ -288,6 +294,8 @@ class IrMailServer(models.Model):
         body = body or u''
 
         msg = EmailMessage(policy=email.policy.SMTP)
+        msg.set_charset('utf-8')
+
         if not message_id:
             if object_id:
                 message_id = tools.generate_tracking_message_id(object_id)

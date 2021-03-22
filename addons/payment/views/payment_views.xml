@@ -19,9 +19,7 @@
                         <widget name="web_ribbon" title="Disabled" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'disabled')]}"/>
                         <widget name="web_ribbon" title="Test Mode" bg_color="bg-warning" attrs="{'invisible': [('state', '!=', 'test')]}"/>
                         <div class="oe_title">
-                            <h1>
-                                <field name="name" placeholder="Name"/>
-                            </h1>
+                            <h1><field name="name" placeholder="Name"/></h1>
                             <div attrs="{'invisible': ['|', ('module_state', '=', 'installed'), ('module_id', '=', False)]}">
                                 <a attrs="{'invisible': [('module_to_buy', '=', False)]}" href="https://flectrahq.com/pricing?utm_source=db&amp;utm_medium=module" class="btn btn-info" role="button">Upgrade</a>
                                 <button attrs="{'invisible': [('module_to_buy', '=', True)]}" type="object" class="btn btn-primary" name="button_immediate_install" string="Install"/>
@@ -61,7 +59,8 @@
                                         <field name="country_ids" widget="many2many_tags" placeholder="Select countries. Leave empty to use everywhere."/>
                                     </group>
                                     <group string="Payment Followup" name="payment_followup">
-                                        <field name="journal_id" context="{'default_type': 'bank'}" attrs="{'required': [('state', '!=', 'disabled'), ('provider', 'not in', ['manual', 'transfer'])]}"/>
+                                        <field name="journal_id" context="{'default_type': 'bank'}"
+                                          attrs="{'required': [('state', '!=', 'disabled'), ('provider', 'not in', ['manual', 'transfer'])]}"/>
                                     </group>
                                 </group>
                             </page>
@@ -74,7 +73,9 @@
                                     <field name="fees_int_var" attrs="{'invisible': [('fees_active', '=', False)]}"/>
                                 </group>
                             </page>
-                            <page string="Messages" name="messages" attrs="{'invisible': [('module_id', '=', True), ('module_state', '!=', 'installed')]}">
+                            <page string="Messages"
+                                name="messages"
+                                attrs="{'invisible': [('module_id', '=', True), ('module_state', '!=', 'installed')]}">
                                 <group>
                                     <field name="pre_msg"/>
                                     <field name="auth_msg" attrs="{'invisible': [('authorize_implemented', '=', False)]}"/>
@@ -113,9 +114,7 @@
                                     <div class="o_kanban_image">
                                         <img type="open" t-att-src="kanban_image('payment.acquirer', 'image_128', record.id.raw_value)" alt="Acquirer"/>
                                     </div>
-                                    <h3 class="mt4">
-                                        <t t-esc="record.name.value"/>
-                                    </h3>
+                                    <h3 class="mt4"><t t-esc="record.name.value"/></h3>
                                     <t t-if="record.description.raw_value" t-raw="record.description.raw_value"/>
                                 </div>
                                 <div class="o_payment_acquirer_bottom">
@@ -179,7 +178,11 @@
             </field>
         </record>
 
-        <menuitem action='action_payment_acquirer' id='payment_acquirer_menu' parent='account.root_payment_menu' sequence='10' />
+        <menuitem
+            action='action_payment_acquirer'
+            id='payment_acquirer_menu'
+            parent='account.root_payment_menu'
+            sequence='10' />
 
         <!-- Payment transactions -->
         <record id="transaction_form" model="ir.ui.view">
@@ -189,12 +192,15 @@
                 <form string="Payment Transactions" create="false" edit="false">
                     <header>
                         <button type="object" name="action_capture" states="authorized" string="Capture Transaction" class="oe_highlight"/>
-                        <button type="object" name="action_void" states="authorized" string="Void Transaction" confirm="Are you sure you want to void the authorized transaction? This action can't be undone."/>
+                        <button type="object" name="action_void" states="authorized" string="Void Transaction"
+                                confirm="Are you sure you want to void the authorized transaction? This action can't be undone."/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button name="action_view_invoices" type="object" class="oe_stat_button" icon="fa-money" attrs="{'invisible': [('invoice_ids_nbr', '=', 0)]}">
+                            <button name="action_view_invoices" type="object"
+                                    class="oe_stat_button" icon="fa-money"
+                                    attrs="{'invisible': [('invoice_ids_nbr', '=', 0)]}">
                                 <field name="invoice_ids_nbr" widget="statinfo" string="Invoice(s)"/>
                             </button>
                         </div>
@@ -265,14 +271,10 @@
                             <div t-attf-class="oe_kanban_content oe_kanban_global_click">
                                 <div class="row">
                                     <div class="col-6">
-                                        <strong>
-                                            <field name="reference"/>
-                                        </strong>
+                                        <strong><field name="reference"/></strong>
                                     </div>
                                     <div class="col-6">
-                                        <span>
-                                            <field name="partner_name"/>
-                                        </span>
+                                        <span><field name="partner_name"/></span>
                                     </div>
                                     <div class="col-6">
                                         <span class="float-right">
@@ -306,13 +308,18 @@
             <field name="res_model">payment.transaction</field>
             <field name='view_mode'>tree,kanban,form</field>
             <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
+              <p class="o_view_nocontent_smiling_face">
                 Create a new payment transaction
-                </p>
+              </p>
             </field>
         </record>
 
-        <menuitem action='action_payment_transaction' id='payment_transaction_menu' parent='account.root_payment_menu' groups="base.group_no_one" sequence='20' />
+        <menuitem
+            action='action_payment_transaction'
+            id='payment_transaction_menu'
+            parent='account.root_payment_menu'
+            groups="base.group_no_one"
+            sequence='20' />
 
         <!-- Payment Tokens -->
         <record model='ir.ui.view' id='payment_token_tree_view'>
@@ -356,7 +363,8 @@
                 <form string='Payment Tokens' create='false' editable='bottom'>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button class="oe_stat_button" name="%(action_payment_tx_ids)d" type="action" icon="fa-money" string="Payments">
+                            <button class="oe_stat_button" name="%(action_payment_tx_ids)d"
+                                type="action" icon="fa-money" string="Payments">
                             </button>
                         </div>
                         <group>
@@ -384,7 +392,11 @@
             </field>
         </record>
 
-        <menuitem action='payment_token_action' id='payment_token_menu' parent='account.root_payment_menu' groups='base.group_no_one'/>
+        <menuitem
+            action='payment_token_action'
+            id='payment_token_menu'
+            parent='account.root_payment_menu'
+            groups='base.group_no_one'/>
 
         <!-- Payment icons -->
         <record model="ir.ui.view" id="payment_icon_form_view">
@@ -395,9 +407,7 @@
                     <sheet>
                         <field name="image" widget="image" class="oe_avatar"/>
                         <div class="oe_title">
-                            <h1>
-                                <field name="name" placeholder="Name"/>
-                            </h1>
+                            <h1><field name="name" placeholder="Name"/></h1>
                         </div>
                         <notebook>
                             <page string="Acquirers list" name="acquirers">
@@ -420,6 +430,10 @@
             </field>
         </record>
 
-        <menuitem action="action_payment_icon" id="payment_icon_menu" parent="account.root_payment_menu" groups="base.group_no_one"/>
+        <menuitem
+            action="action_payment_icon"
+            id="payment_icon_menu"
+            parent="account.root_payment_menu"
+            groups="base.group_no_one"/>
     </data>
 </flectra>

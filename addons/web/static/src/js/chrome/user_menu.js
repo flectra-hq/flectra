@@ -70,7 +70,7 @@ var UserMenu = Widget.extend({
                     })
                     .guardedCatch(function (result, ev){
                         ev.preventDefault();
-                        framework.redirect('https://accounts.flectrahq.com/account');
+                        framework.redirect('https://accounts.flectra.com/account');
                     });
             },
         });
@@ -79,7 +79,7 @@ var UserMenu = Widget.extend({
      * @private
      */
     _onMenuDocumentation: function () {
-        window.open('https://doc.flectrahq.com/', '_blank');
+        window.open('https://flectrahq.com/documentation/user', '_blank');
     },
     /**
      * @private

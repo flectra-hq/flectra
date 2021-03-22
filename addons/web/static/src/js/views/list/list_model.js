@@ -82,10 +82,17 @@ flectra.define('web.ListModel', function (require) {
                     self._parseServerData(fieldNames, record, record.data);
                 });
             }).then(function () {
-                return Promise.all([
-                    self._fetchX2ManysBatched(list),
-                    self._fetchReferencesBatched(list)
-                ]);
+                if (!list.groupedBy.length) {
+                    return Promise.all([
+                        self._fetchX2ManysBatched(list),
+                        self._fetchReferencesBatched(list)
+                    ]);
+                } else {
+                    return Promise.all([
+                        self._fetchX2ManysSingleBatch(list),
+                        self._fetchReferencesSingleBatch(list)
+                    ]);
+                }
             });
         },
 
@@ -159,6 +166,7 @@ flectra.define('web.ListModel', function (require) {
                         viewType: 'groupby',
                     });
                     dp.groupData = groupDp.id;
+                    self._parseServerData(groupFields, groupDp, groupDp.data);
                 });
             });
         },

@@ -4,7 +4,7 @@
 from flectra import api, models
 from flectra.addons.iap.tools import iap_tools
 
-DEFAULT_ENDPOINT = 'https://iap-sms.flectrahq.com'
+DEFAULT_ENDPOINT = 'https://iap-sms.flectra.com'
 
 
 class SmsApi(models.AbstractModel):

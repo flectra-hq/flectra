@@ -5,7 +5,7 @@ from collections import defaultdict
 from datetime import timedelta
 
 from flectra import api, fields, models, _
-from flectra.exceptions import UserError, ValidationError
+from flectra.exceptions import AccessError, UserError, ValidationError
 from flectra.tools import float_is_zero, float_compare
 
 
@@ -245,7 +245,7 @@ class PosSession(models.Model):
             values = {}
             if not session.start_at:
                 values['start_at'] = fields.Datetime.now()
-            if session.config_id.cash_control:
+            if session.config_id.cash_control and not session.rescue:
                 last_sessions = self.env['pos.session'].search([('config_id', '=', self.config_id.id)]).ids
                 # last session includes the new one already.
                 if len(last_sessions) > 1:
@@ -307,15 +307,13 @@ class PosSession(models.Model):
                 self._create_picking_at_end_of_session()
             # Users without any accounting rights won't be able to create the journal entry. If this
             # case, switch to sudo for creation and posting.
-            sudo = False
-            if (
-                not self.env['account.move'].check_access_rights('create', raise_exception=False)
-                and self.user_has_groups('point_of_sale.group_pos_user')
-            ):
-                sudo = True
-                self.sudo().with_company(self.company_id)._create_account_move()
-            else:
+            try:
                 self.with_company(self.company_id)._create_account_move()
+            except AccessError as e:
+                if self.user_has_groups('point_of_sale.group_pos_user'):
+                    self.sudo().with_company(self.company_id)._create_account_move()
+                else:
+                    raise e
             if self.move_id.line_ids:
                 # Set the uninvoiced orders' state to 'done'
                 self.env['pos.order'].search([('session_id', '=', self.id), ('state', '=', 'paid')]).write({'state': 'done'})
@@ -382,7 +380,8 @@ class PosSession(models.Model):
         return self._credit_amounts(partial_vals, imbalance_amount_session, imbalance_amount)
 
     def _get_balancing_account(self):
-        return self.company_id.account_default_pos_receivable_account_id or self.env['ir.property'].get('property_account_receivable_id', 'res.partner')
+        propoerty_account = self.env['ir.property']._get('property_account_receivable_id', 'res.partner')
+        return self.company_id.account_default_pos_receivable_account_id or propoerty_account or self.env['account.account']
 
     def _create_account_move(self):
         """ Create account.move and account.move.line records for this session.
@@ -729,9 +728,9 @@ class PosSession(models.Model):
         stock_moves = self.env['stock.move'].search([('picking_id', 'in', pickings.ids)])
         stock_account_move_lines = self.env['account.move'].search([('stock_move_id', 'in', stock_moves.ids)]).mapped('line_ids')
         for account_id in stock_output_lines:
-            ( stock_output_lines[account_id].filtered(lambda aml: not aml.reconciled)
+            ( stock_output_lines[account_id]
             | stock_account_move_lines.filtered(lambda aml: aml.account_id == account_id)
-            ).reconcile()
+            ).filtered(lambda aml: not aml.reconciled).reconcile()
         return data
 
     def _prepare_line(self, order_line):

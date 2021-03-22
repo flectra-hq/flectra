@@ -42,7 +42,7 @@ class ConnectionManager(Thread):
 
         try:
             urllib3.disable_warnings()
-            req = requests.post('https://iot-proxy.flectrahq.com/flectra-enterprise/iot/connect-box', json=data, verify=False)
+            req = requests.post('https://iot-proxy.flectra.com/flectra-enterprise/iot/connect-box', json=data, verify=False)
             result = req.json().get('result', {})
             if all(key in result for key in ['pairing_code', 'pairing_uuid']):
                 self.pairing_code = result['pairing_code']
@@ -50,7 +50,7 @@ class ConnectionManager(Thread):
             elif all(key in result for key in ['url', 'token', 'db_uuid', 'enterprise_code']):
                 self._connect_to_server(result['url'], result['token'], result['db_uuid'], result['enterprise_code'])
         except Exception as e:
-            _logger.error('Could not reach iot-proxy.flectrahq.com')
+            _logger.error('Could not reach iot-proxy.flectra.com')
             _logger.error('A error encountered : %s ' % e)
 
     def _connect_to_server(self, url, token, db_uuid, enterprise_code):

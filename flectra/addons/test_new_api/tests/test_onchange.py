@@ -497,13 +497,13 @@ class TestOnChange(SavepointCaseWithUserDemo):
 
         self.env.cache.invalidate()
         Message = self.env['test_new_api.related']
-        result = Message.onchange(value, ['message', 'message_name', 'message_currency'], field_onchange)
+        result = Message.onchange(value, 'message', field_onchange)
 
         self.assertEqual(result['value'], onchange_result)
 
         self.env.cache.invalidate()
         Message = self.env(user=self.user_demo.id)['test_new_api.related']
-        result = Message.onchange(value, ['message', 'message_name', 'message_currency'], field_onchange)
+        result = Message.onchange(value, 'message', field_onchange)
 
         self.assertEqual(result['value'], onchange_result)
 
@@ -741,6 +741,24 @@ class TestComputeOnchange(common.TransactionCase):
         form.foo = "foo6"
         self.assertEqual(form.bar, "foo6r")
         self.assertEqual(form.baz, "baz5")
+
+    def test_onchange_default(self):
+        form = common.Form(self.env['test_new_api.compute.onchange'].with_context(
+            default_active=True, default_foo="foo", default_baz="baz",
+        ))
+        # 'baz' is computed editable, so when given a default value it should
+        # 'not be recomputed, even if a dependency also has a default value
+        self.assertEqual(form.foo, "foo")
+        self.assertEqual(form.bar, "foor")
+        self.assertEqual(form.baz, "baz")
+
+    def test_onchange_once(self):
+        """ Modifies `foo` field which will trigger an onchange method and
+        checks it was triggered only one time. """
+        form = Form(self.env['test_new_api.compute.onchange'].with_context(default_foo="oof"))
+        record = form.save()
+        self.assertEqual(record.foo, "oof")
+        self.assertEqual(record.count, 1, "value onchange must be called only one time")
 
     def test_onchange_one2many(self):
         record = self.env['test_new_api.model_parent_m2o'].create({

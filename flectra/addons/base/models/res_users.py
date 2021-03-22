@@ -948,7 +948,7 @@ class Users(models.Model):
                     "and *might* be a proxy. If your Flectra is behind a proxy, "
                     "it may be mis-configured. Check that you are running "
                     "Flectra in Proxy Mode and that the proxy is properly configured, see "
-                    "https://doc.flectrahq.com/2.0/setup/deploy.html#https for details.",
+                    "https://flectrahq.com/documentation/14.0/setup/deploy.html#https for details.",
                     source
                 )
             raise AccessDenied(_("Too many login failures, please wait a bit before trying again."))
@@ -1658,7 +1658,11 @@ class APIKeys(models.Model):
     def _check_credentials(self, *, scope, key):
         assert scope, "scope is required"
         index = key[:INDEX_SIZE]
-        self.env.cr.execute('SELECT user_id, key FROM res_users_apikeys WHERE index = %s AND (scope IS NULL OR scope = %s)', [index, scope])
+        self.env.cr.execute('''
+            SELECT user_id, key
+            FROM res_users_apikeys INNER JOIN res_users u ON (u.id = user_id)
+            WHERE u.active and index = %s AND (scope IS NULL OR scope = %s)
+        ''', [index, scope])
         for user_id, current_key in self.env.cr.fetchall():
             if KEY_CRYPT_CONTEXT.verify(key, current_key):
                 return user_id

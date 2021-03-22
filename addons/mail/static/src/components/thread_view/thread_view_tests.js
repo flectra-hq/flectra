@@ -1132,7 +1132,7 @@ QUnit.test('Post a message containing an email address followed by a mention on 
     this.data['mail.channel'].records.push({ id: 11 });
     this.data['res.partner'].records.push({
         id: 25,
-        email: "testpartner@flectrahq.com",
+        email: "testpartner@flectra.com",
         name: "TestPartner",
     });
     await this.start();
@@ -1146,7 +1146,7 @@ QUnit.test('Post a message containing an email address followed by a mention on 
     });
     await this.createThreadViewComponent(threadViewer.threadView, { hasComposer: true });
     document.querySelector('.o_ComposerTextInput_textarea').focus();
-    await afterNextRender(() => document.execCommand('insertText', false, "email@flectrahq.com\n"));
+    await afterNextRender(() => document.execCommand('insertText', false, "email@flectra.com\n"));
     await afterNextRender(() => {
         ["@", "T", "e"].forEach((char)=>{
             document.execCommand('insertText', false, char);
@@ -1463,6 +1463,7 @@ QUnit.test('mention 2 different channels that have the same name', async functio
         {
             id: 11,
             name: "my channel",
+            public: 'public', // mentioning another channel is possible only from a public channel
         },
         {
             id: 12,

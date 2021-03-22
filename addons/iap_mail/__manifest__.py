@@ -13,8 +13,8 @@
         'mail',
     ],
     'application': False,
-    'auto_install': False,
-    'installable': False,
+    'installable': True,
+    'auto_install': True,
     'data': [
         'views/mail_templates.xml',
     ],

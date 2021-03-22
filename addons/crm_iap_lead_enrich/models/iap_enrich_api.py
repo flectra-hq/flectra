@@ -8,7 +8,7 @@ from flectra.addons.iap.tools import iap_tools
 class IapEnrichAPI(models.AbstractModel):
     _name = 'iap.enrich.api'
     _description = 'IAP Lead Enrichment API'
-    _DEFAULT_ENDPOINT = 'https://iap-services.flectrahq.com'
+    _DEFAULT_ENDPOINT = 'https://iap-services.flectra.com'
 
     @api.model
     def _contact_iap(self, local_endpoint, params):

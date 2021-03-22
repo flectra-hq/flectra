@@ -17,5 +17,5 @@
     ],
     'depends': ['point_of_sale'],
     'installable': True,
-    'license': 'LGPL-3',
+    'license': 'OEEL-1',
 }

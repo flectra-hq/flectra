@@ -19,7 +19,6 @@ from flectra import registry, SUPERUSER_ID
 from flectra.http import request
 from flectra.tools.safe_eval import safe_eval
 from flectra.osv.expression import FALSE_DOMAIN
-
 from flectra.addons.http_routing.models.ir_http import ModelConverter, _guess_mimetype
 from flectra.addons.portal.controllers.portal import _build_url_w_params
 
@@ -75,9 +74,12 @@ class Http(models.AbstractModel):
     def _slug_matching(cls, adapter, endpoint, **kw):
         for arg in kw:
             if isinstance(kw[arg], models.BaseModel):
-                kw[arg] = kw[arg].with_user(request.uid)
+                kw[arg] = kw[arg].with_context(slug_matching=True)
         qs = request.httprequest.query_string.decode('utf-8')
-        return adapter.build(endpoint, kw) + (qs and '?%s' % qs or '')
+        try:
+            return adapter.build(endpoint, kw) + (qs and '?%s' % qs or '')
+        except flectra.exceptions.MissingError:
+            raise werkzeug.exceptions.NotFound()
 
     @classmethod
     def _match(cls, path_info, key=None):
@@ -160,7 +162,7 @@ class Http(models.AbstractModel):
     @classmethod
     def _dispatch(cls):
         """
-        In case of rerouting for translate (e.g. when visiting flectrahq.com/fr_BE/),
+        In case of rerouting for translate (e.g. when visiting flectra.com/fr_BE/),
         _dispatch calls reroute() that returns _dispatch with altered request properties.
         The second _dispatch will continue until end of process. When second _dispatch is finished, the first _dispatch
         call receive the new altered request and continue.
@@ -419,6 +421,11 @@ class Http(models.AbstractModel):
 
 
 class ModelConverter(ModelConverter):
+
+    def to_url(self, value):
+        if value.env.context.get('slug_matching'):
+            return value.env.context.get('_converter_value', str(value.id))
+        return super().to_url(value)
 
     def generate(self, uid, dom=None, args=None):
         Model = request.env[self.model].with_user(uid)

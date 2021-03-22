@@ -756,7 +756,7 @@ var FieldDateRange = InputField.extend({
      */
     _onDateRangePickerShow() {
         this._onScroll = ev => {
-            if (!this.$pickerContainer.get(0).contains(ev.target)) {
+            if (!config.device.isMobile && !this.$pickerContainer.get(0).contains(ev.target)) {
                 this.$el.data('daterangepicker').hide();
             }
         };
@@ -994,9 +994,9 @@ const RemainingDays = AbstractField.extend({
         } else if (diffDays === 0) {
             text = _t("Today");
         } else if (diffDays < 0) {
-            text = diffDays === -1 ? _t("Yesterday") : _t(`${-diffDays} days ago`);
+            text = diffDays === -1 ? _t("Yesterday") : _.str.sprintf(_t('%s days ago'), -diffDays);
         } else {
-            text = diffDays === 1 ? _t("Tomorrow") : _t(`In ${diffDays} days`);
+            text = diffDays === 1 ? _t("Tomorrow") : _.str.sprintf(_t('In %s days'), diffDays);
         }
         this.$el.text(text).attr('title', this._formatValue(this.value, 'date'));
         this.$el.toggleClass('text-bf', diffDays <= 0);
@@ -1509,7 +1509,9 @@ var FieldEmail = InputField.extend({
      */
     _renderReadonly: function () {
         if (this.value) {
-            this.$el.text(this.value)
+            // Flectra legacy widgets can have multiple nodes inside their $el JQuery object
+            // so, select the proper one (other nodes are assumed not to contain proper data)
+            this.$el.closest("." + this.className).text(this.value)
                 .addClass('o_form_uri o_text_overflow')
                 .attr('href', this.prefix + ':' + this.value);
         } else {
@@ -3054,7 +3056,7 @@ var JournalDashboardGraph = AbstractField.extend({
         var labels = this.data[0].values.map(function (pt) {
             return pt.x;
         });
-        var borderColor = this.data[0].is_sample_data ? '#dddddd' : '#009EFB';
+        var borderColor = this.data[0].is_sample_data ? '#dddddd' : '#875a7b';
         var backgroundColor = this.data[0].is_sample_data ? '#ebebeb' : '#dcd0d9';
         return {
             type: 'line',
@@ -3664,6 +3666,9 @@ var FieldColorPicker = FieldInteger.extend({
 
         }
     },
+    _onNavigationMove() {
+        // disable navigation from FieldInput, to prevent a crash
+    }
 });
 
 return {
