@@ -38,9 +38,9 @@ flectra.define('partner_autocomplete.tests', function (require) {
 
     var suggestions = [{
         name: "Flectra",
-        website: "flectrahq.com",
-        domain: "flectrahq.com",
-        logo: "flectrahq.com/logo.png",
+        website: "flectra.com",
+        domain: "flectra.com",
+        logo: "flectra.com/logo.png",
         vat: "BE0477472701"
     }];
 
@@ -54,7 +54,7 @@ flectra.define('partner_autocomplete.tests', function (require) {
             _.each(fieldsToPatch, function (fieldToPatch) {
                 testUtils.mock.patch(fieldToPatch, {
                     _getBase64Image: function (url) {
-                        return Promise.resolve(url === "flectrahq.com/logo.png" ? "flectrabase64" : "");
+                        return Promise.resolve(url === "flectra.com/logo.png" ? "flectrabase64" : "");
                     },
                     _isOnline: function () {
                         return true;
@@ -101,7 +101,7 @@ flectra.define('partner_autocomplete.tests', function (require) {
                 country_id: 20,
                 state_id: false,
                 partner_gid: 1,
-                website: "flectrahq.com",
+                website: "flectra.com",
                 comment: "Comment on Flectra",
                 street: "40 Chaussée de Namur",
                 city: "Ramillies",
@@ -208,7 +208,7 @@ flectra.define('partner_autocomplete.tests', function (require) {
                 '</form>',
             mockRPC: function (route) {
                 if (route === "/web/static/src/img/placeholder.png"
-                    || route === "flectrahq.com/logo.png"
+                    || route === "flectra.com/logo.png"
                     || route === "data:image/png;base64,flectrabase64") { // land here as it is not valid base64 content
                     return Promise.resolve();
                 }
@@ -233,7 +233,7 @@ flectra.define('partner_autocomplete.tests', function (require) {
             await testUtils.dom.click($dropdown.find("a").first());
             $input = form.$(".o_field_partner_autocomplete > input");
             assert.strictEqual($input.val(), "Flectra", "Input value should have been updated to \"Flectra\"");
-            assert.strictEqual(form.$("input.o_field_widget").val(), "flectrahq.com", "website value should have been updated to \"flectrahq.com\"");
+            assert.strictEqual(form.$("input.o_field_widget").val(), "flectra.com", "website value should have been updated to \"flectra.com\"");
 
             _compareResultFields(assert, form, fields, createData);
 
@@ -281,7 +281,7 @@ flectra.define('partner_autocomplete.tests', function (require) {
                 '</form>',
             mockRPC: function (route) {
                 if (route === "/web/static/src/img/placeholder.png"
-                    || route === "flectrahq.com/logo.png"
+                    || route === "flectra.com/logo.png"
                     || route === "data:image/png;base64,flectrabase64") { // land here as it is not valid base64 content
                     return Promise.resolve();
                 }

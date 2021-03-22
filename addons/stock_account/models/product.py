@@ -3,7 +3,7 @@
 
 from flectra import api, fields, models, _
 from flectra.exceptions import UserError
-from flectra.tools import float_is_zero
+from flectra.tools import float_is_zero, float_repr
 from flectra.exceptions import ValidationError
 
 
@@ -93,8 +93,8 @@ class ProductTemplate(models.Model):
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    value_svl = fields.Float(compute='_compute_value_svl')
-    quantity_svl = fields.Float(compute='_compute_value_svl')
+    value_svl = fields.Float(compute='_compute_value_svl', compute_sudo=True)
+    quantity_svl = fields.Float(compute='_compute_value_svl', compute_sudo=True)
     stock_valuation_layer_ids = fields.One2many('stock.valuation.layer', 'product_id')
     valuation = fields.Selection(related="categ_id.property_valuation", readonly=True)
     cost_method = fields.Selection(related="categ_id.property_cost_method", readonly=True)
@@ -185,6 +185,20 @@ class ProductProduct(models.Model):
         if self.cost_method in ('average', 'fifo'):
             fifo_vals = self._run_fifo(abs(quantity), company)
             vals['remaining_qty'] = fifo_vals.get('remaining_qty')
+            # In case of AVCO, fix rounding issue of standard price when needed.
+            if self.cost_method == 'average':
+                currency = self.env.company.currency_id
+                rounding_error = currency.round(self.standard_price * self.quantity_svl - self.value_svl)
+                if rounding_error:
+                    # If it is bigger than the (smallest number of the currency * quantity) / 2,
+                    # then it isn't a rounding error but a stock valuation error, we shouldn't fix it under the hood ...
+                    if abs(rounding_error) <= (abs(quantity) * currency.rounding) / 2:
+                        vals['value'] += rounding_error
+                        vals['rounding_adjustment'] = '\nRounding Adjustment: %s%s %s' % (
+                            '+' if rounding_error > 0 else '',
+                            float_repr(rounding_error, precision_digits=currency.decimal_places),
+                            currency.symbol
+                        )
             if self.cost_method == 'fifo':
                 vals.update(fifo_vals)
         return vals
@@ -522,7 +536,7 @@ class ProductProduct(models.Model):
                 # FIXME: create an empty layer to track the change?
                 continue
             svsl_vals = product._prepare_out_svl_vals(product.quantity_svl, self.env.company)
-            svsl_vals['description'] = description
+            svsl_vals['description'] = description + svsl_vals.pop('rounding_adjustment', '')
             svsl_vals['company_id'] = self.env.company.id
             empty_stock_svl_list.append(svsl_vals)
         return empty_stock_svl_list, products_orig_quantity_svl, impacted_products

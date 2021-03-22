@@ -149,7 +149,7 @@ flectra.define('point_of_sale.PaymentScreen', function (require) {
             }
         }
         async _finalizeValidation() {
-            if (this.currentOrder.is_paid_with_cash() && this.env.pos.config.iface_cashdrawer) {
+            if ((this.currentOrder.is_paid_with_cash() || this.currentOrder.get_change()) && this.env.pos.config.iface_cashdrawer) {
                 this.env.pos.proxy.printer.open_cashbox();
             }
 
@@ -318,10 +318,11 @@ flectra.define('point_of_sale.PaymentScreen', function (require) {
         async _sendPaymentCancel({ detail: line }) {
             const payment_terminal = line.payment_method.payment_terminal;
             line.set_payment_status('waitingCancel');
-            try {
-                payment_terminal.send_payment_cancel(this.currentOrder, line.cid);
-            } finally {
+            const isCancelSuccessful = await payment_terminal.send_payment_cancel(this.currentOrder, line.cid);
+            if (isCancelSuccessful) {
                 line.set_payment_status('retry');
+            } else {
+                line.set_payment_status('waitingCard');
             }
         }
         async _sendPaymentReverse({ detail: line }) {

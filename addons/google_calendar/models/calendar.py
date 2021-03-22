@@ -5,7 +5,7 @@ import pytz
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 
-from flectra import api, fields, models, _
+from flectra import api, fields, models, tools, _
 
 
 class Meeting(models.Model):
@@ -88,7 +88,7 @@ class Meeting(models.Model):
         attendee_commands = []
         partner_commands = []
         google_attendees = google_event.attendees or []
-        if google_event.organizer and google_event.organizer.get('self', False):
+        if len(google_attendees) == 0 and google_event.organizer and google_event.organizer.get('self', False):
             user = google_event.owner(self.env)
             google_attendees += [{
                 'email': user.partner_id.email,
@@ -98,7 +98,7 @@ class Meeting(models.Model):
         existing_attendees = self.env['calendar.attendee']
         if google_event.exists(self.env):
             existing_attendees = self.browse(google_event.flectra_id(self.env)).attendee_ids
-        attendees_by_emails = {a.email: a for a in existing_attendees}
+        attendees_by_emails = {tools.email_normalize(a.email): a for a in existing_attendees}
         for attendee in google_attendees:
             email = attendee.get('email')
 
@@ -107,14 +107,14 @@ class Meeting(models.Model):
                 attendee_commands += [(1, attendees_by_emails[email].id, {'state': attendee.get('responseStatus')})]
             else:
                 # Create new attendees
-                partner = self.env['res.partner'].find_or_create(attendee.get('email'))
+                partner = self.env.user.partner_id if attendee.get('self') else self.env['res.partner'].find_or_create(attendee.get('email'))
                 attendee_commands += [(0, 0, {'state': attendee.get('responseStatus'), 'partner_id': partner.id})]
                 partner_commands += [(4, partner.id)]
                 if attendee.get('displayName') and not partner.name:
                     partner.name = attendee.get('displayName')
         for flectra_attendee in attendees_by_emails.values():
             # Remove old attendees
-            if flectra_attendee.email not in emails:
+            if tools.email_normalize(flectra_attendee.email) not in emails:
                 attendee_commands += [(2, flectra_attendee.id)]
                 partner_commands += [(3, flectra_attendee.partner_id.id)]
         return attendee_commands, partner_commands
@@ -196,7 +196,7 @@ class Meeting(models.Model):
         }
         if self.privacy:
             values['visibility'] = self.privacy
-        if self.user_id != self.env.user:
+        if self.user_id and self.user_id != self.env.user:
             values['extendedProperties']['shared']['%s_owner_id' % self.env.cr.dbname] = self.user_id.id
 
         if not self.active:

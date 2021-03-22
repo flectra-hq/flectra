@@ -15,5 +15,5 @@
     'installable': True,
     'auto_install': True,
     'application': False,
-    'license': 'LGPL-3',
+    'license': 'OEEL-1',
 }

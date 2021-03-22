@@ -16,9 +16,12 @@ class AccountMove(models.Model):
         for line in line_ids:
             try:
                 line.sale_line_ids.tax_id = line.tax_ids
-                #To keep positive amount on the sale order and to have the right price for the invoice
-                #We need the - before our untaxed_amount_to_invoice
-                line.sale_line_ids.price_unit = -line.sale_line_ids.untaxed_amount_to_invoice
+                if all(line.tax_ids.mapped('price_include')):
+                    line.sale_line_ids.price_unit = line.price_unit
+                else:
+                    #To keep positive amount on the sale order and to have the right price for the invoice
+                    #We need the - before our untaxed_amount_to_invoice
+                    line.sale_line_ids.price_unit = -line.sale_line_ids.untaxed_amount_to_invoice
             except UserError:
                 # a UserError here means the SO was locked, which prevents changing the taxes
                 # just ignore the error - this is a nice to have feature and should not be blocking
@@ -135,6 +138,7 @@ class AccountMoveLine(models.Model):
 
         # create the sale lines in batch
         new_sale_lines = self.env['sale.order.line'].create(sale_line_values_to_create)
+        new_sale_lines._onchange_discount()
 
         # build result map by replacing index with newly created record of sale.order.line
         result = {}

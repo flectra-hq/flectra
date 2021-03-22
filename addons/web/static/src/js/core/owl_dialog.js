@@ -1,5 +1,7 @@
-flectra.define('web.OwlDialog', function () {
+flectra.define('web.OwlDialog', function (require) {
     "use strict";
+
+    const patchMixin = require('web.patchMixin');
 
     const { Component, hooks, misc } = owl;
     const { Portal } = misc;
@@ -269,5 +271,5 @@ flectra.define('web.OwlDialog', function () {
     };
     Dialog.template = 'web.OwlDialog';
 
-    return Dialog;
+    return patchMixin(Dialog);
 });

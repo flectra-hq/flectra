@@ -2,7 +2,7 @@ flectra.define('website_sale.backend', function (require) {
 "use strict";
 
 var WebsiteBackend = require('website.backend.dashboard');
-var COLORS = ['#009EFB', '#21b799', '#E4A900', '#D5653E', '#5B899E', '#E46F78', '#8F8F8F'];
+var COLORS = ['#875a7b', '#21b799', '#E4A900', '#D5653E', '#5B899E', '#E46F78', '#8F8F8F'];
 
 WebsiteBackend.include({
     jsLibs: [

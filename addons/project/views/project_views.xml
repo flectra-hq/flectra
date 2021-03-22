@@ -287,7 +287,7 @@
                     <notebook>
                         <page name="description_page" string="Description">
                             <field name="description" nolabel="1" placeholder="Describe your project..." type="html"/>
-                            <div class="oe_clear"/>
+                            <div class="d-none oe_clear"/>
                         </page>
                         <page name="settings" string="Settings">
                             <group>
@@ -387,10 +387,11 @@
                             </div>
                         </page>
                     </notebook>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" options="{'post_refresh':True}" help="Follow this project to automatically track the events associated to tasks and issues of this project." groups="base.group_user"/>
+                    </div>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" options="{'post_refresh':True}" help="Follow this project to automatically track the events associated to tasks and issues of this project." groups="base.group_user"/>
-                </div>
                 </form>
             </field>
         </record>
@@ -681,7 +682,7 @@
                     <notebook>
                         <page name="description_page" string="Description">
                             <field name="description" type="html"/>
-                            <div class="oe_clear"/>
+                            <div class="d-none oe_clear"/>
                         </page>
                         <page name="recurrence" string="Recurrence" attrs="{'invisible': [('recurring_task', '=', False)]}">
                             <group>

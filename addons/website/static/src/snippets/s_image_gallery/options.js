@@ -17,11 +17,8 @@ options.registry.gallery = options.Class.extend({
     start: function () {
         var self = this;
 
-        // The snippet should not be editable
-        this.$target.addClass('o_fake_not_editable').attr('contentEditable', false);
-
         // Make sure image previews are updated if images are changed
-        this.$target.on('save', 'img', function (ev) {
+        this.$target.on('image_changed', 'img', function (ev) {
             var $img = $(ev.currentTarget);
             var index = self.$target.find('.carousel-item.active').index();
             self.$('.carousel:first li[data-target]:eq(' + index + ')')

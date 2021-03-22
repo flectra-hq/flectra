@@ -12,12 +12,12 @@ class TestAccountIncomingSupplierInvoice(AccountTestInvoicingCommon):
     def setUpClass(cls, chart_template_ref=None):
         super().setUpClass(chart_template_ref=chart_template_ref)
 
-        cls.env['ir.config_parameter'].sudo().set_param('mail.catchall.domain', 'test-company.flectrahq.com')
+        cls.env['ir.config_parameter'].sudo().set_param('mail.catchall.domain', 'test-company.flectra.com')
 
         cls.internal_user = cls.env['res.users'].create({
             'name': 'Internal User',
-            'login': 'internal.user@test.flectrahq.com',
-            'email': 'internal.user@test.flectrahq.com',
+            'login': 'internal.user@test.flectra.com',
+            'email': 'internal.user@test.flectra.com',
         })
 
         cls.supplier_partner = cls.env['res.partner'].create({

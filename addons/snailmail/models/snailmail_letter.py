@@ -7,7 +7,7 @@ from flectra import fields, models, api, _
 from flectra.addons.iap.tools import iap_tools
 from flectra.tools.safe_eval import safe_eval
 
-DEFAULT_ENDPOINT = 'https://iap-snailmail.flectrahq.com'
+DEFAULT_ENDPOINT = 'https://iap-snailmail.flectra.com'
 PRINT_ENDPOINT = '/iap/snailmail/1/print'
 DEFAULT_TIMEOUT = 30
 
@@ -270,7 +270,7 @@ class SnailmailLetter(models.Model):
             return _('You don\'t have enough credits to perform this operation.<br>Please go to your <a href=%s target="new">iap account</a>.', link)
         if error == 'TRIAL_ERROR':
             link = self.env['iap.account'].get_credits_url(service_name='snailmail', trial=True)
-            return _('You don\'t have an IAP account registered for this service.<br>Please go to <a href=%s target="new">iap.flectrahq.com</a> to claim your free credits.', link)
+            return _('You don\'t have an IAP account registered for this service.<br>Please go to <a href=%s target="new">iap.flectra.com</a> to claim your free credits.', link)
         if error == 'NO_PRICE_AVAILABLE':
             return _('The country of the partner is not covered by Snailmail.')
         if error == 'MISSING_REQUIRED_FIELDS':
@@ -300,8 +300,9 @@ class SnailmailLetter(models.Model):
         invalid_address_letters = self - valid_address_letters
         invalid_address_letters._snailmail_print_invalid_address()
         if valid_address_letters and immediate:
-            valid_address_letters._snailmail_print_valid_address()
-        self.env.cr.commit()
+            for letter in valid_address_letters:
+                letter._snailmail_print_valid_address()
+                self.env.cr.commit()
 
     def _snailmail_print_invalid_address(self):
         error = 'MISSING_REQUIRED_FIELDS'

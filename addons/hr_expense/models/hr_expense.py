@@ -541,7 +541,6 @@ Or send your receipts at <a href="mailto:%(email)s?subject=Lunch%%20with%%20cust
                     'amount': abs(total_amount_currency) if different_currency else abs(total_amount),
                     'ref': expense.name,
                 })
-                move_line_dst['payment_id'] = payment.id
 
             # link move lines to move, and move to expense sheet
             move.write({'line_ids': [(0, 0, line) for line in move_line_values]})
@@ -623,6 +622,10 @@ Or send your receipts at <a href="mailto:%(email)s?subject=Lunch%%20with%%20cust
 
         if not company:  # ultimate fallback, since company_id is required on expense
             company = self.env.company
+
+        # The expenses alias is the same for all companies, we need to set the proper context
+        # To select the product account
+        self = self.with_company(company)
 
         product, price, currency_id, expense_description = self._parse_expense_subject(expense_description, currencies)
         vals = {
@@ -969,9 +972,26 @@ class HrExpenseSheet(models.Model):
             if not self.env.user in current_managers and not self.user_has_groups('hr_expense.group_hr_expense_user') and self.employee_id.expense_manager_id != self.env.user:
                 raise UserError(_("You can only approve your department expenses"))
 
-        responsible_id = self.user_id.id or self.env.user.id
-        self.write({'state': 'approve', 'user_id': responsible_id})
+        responsible_id = self.user_id.id or self.env.user.id    
+        notification = {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': _('There are no expense reports to approve.'),
+                'type': 'warning',
+                'sticky': False,  #True/False will display for few seconds if false
+            },
+        }
+        sheet_to_approve = self.filtered(lambda s: s.state in ['submit', 'draft'])
+        if sheet_to_approve:
+            notification['params'].update({
+                'title': _('The expense reports were successfully approved.'),
+                'type': 'success',
+                'next': {'type': 'ir.actions.act_window_close'},
+            })
+            sheet_to_approve.write({'state': 'approve', 'user_id': responsible_id})
         self.activity_update()
+        return notification
 
     def paid_expense_sheets(self):
         self.write({'state': 'done'})
