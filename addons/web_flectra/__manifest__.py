@@ -16,6 +16,7 @@
         'data/theme_config.xml',
         'data/pwa_config_data.xml',
         'views/assets.xml',
+        'views/res_partner_view.xml',
         'views/pwa_config_view.xml',
         'views/ir_module_view_inherit.xml',
         'views/res_company_view.xml',
