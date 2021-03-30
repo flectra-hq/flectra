@@ -2,6 +2,7 @@ stages:
   - unittest
   - unittest2
   - build
+  - builddev
   - integrationtest
   - deploy
   - package
@@ -203,16 +204,16 @@ build:flectra_ubuntu:
 
 build:flectra_ubuntu_dev:
   <<: *build_definition
-  stage: build
+  stage: builddev
   needs:
-    - test:pg9_base
+    - build:flectra_ubuntu
   only:
     - tags
   script:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
-    - docker pull ${UBUNTUDEV_FLECTRA_IMAGE}:2-latest || true
-    - docker build --cache-from ${UBUNTUDEV_FLECTRA_IMAGE}:2-latest
-      --build-arg BASE_IMAGE=${UBUNTU_BASE_IMAGE}:2-latest
+    - docker pull ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA || true
+    - docker build --cache-from ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
+      --build-arg BASE_IMAGE=${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA
       --build-arg GITLAB_OWNER=${CI_PROJECT_NAMESPACE}
       --build-arg GITLAB_COMMIT=${CI_COMMIT_SHA}
       --file ./setup/docker/flectra/dev/Dockerfile

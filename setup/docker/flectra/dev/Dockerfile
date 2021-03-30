@@ -22,6 +22,8 @@ RUN mkdir -p /var/run/sshd \
 
 # add special scripts for development
 ADD flectra/dev/bin /usr/local/bin
+RUN chmod +x /usr/local/bin/run.sh && \
+    chmod +x /usr/local/bin/set_root_pw.sh
 
 RUN pip3 install inotify
 
