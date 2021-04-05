@@ -153,6 +153,9 @@
                 <field name="description"/>
                 <field name="ticket_seq"/>
                 <field name="active"/>
+                <field name="activity_state" />
+                <field name="activity_ids" />
+                <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}' />
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
@@ -221,6 +224,7 @@
                                     <div class="oe_kanban_bottom_left">
                                         <field name="priority"
                                                widget="priority"/>
+                                        <field name="activity_ids" widget="kanban_activity"/>
                                     </div>
                                     <div class="oe_kanban_bottom_right">
                                         <img t-att-src="kanban_image('res.users', 'image_small', record.assigned_to_id.raw_value)"
