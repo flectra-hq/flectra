@@ -177,9 +177,19 @@ flectra.define("web_responsive", function (require) {
                     this.trigger('o-attachments-changed');
                     this._onDragLeaveForm(e);
                 }else{
+                    if(this.dropTemplateAvailable){
+                        this.dropTemplateAvailable = false;
+                        $('.drag_zone').remove();
+                        dragCount = 0;
+                    }
                     return;
                 }
             }else{
+                if(this.dropTemplateAvailable){
+                    this.dropTemplateAvailable = false;
+                    $('.drag_zone').remove();
+                    dragCount = 0;
+                }
                 return;
             }
         },
