@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data>
+        <template id="release_planning_template_id">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="page-break-after: always;" t-foreach="docs" t-as="object">
+                        <div class="oe_structure">
+                            <div class="col-xs-12 mt16">
+                                <table class="table">
+                                    <tr>
+                                        <th>
+                                            <b>Planning Name</b>
+                                        </th>
+                                        <th>
+                                            <b>Sprint</b>
+                                        </th>
+                                        <th>
+                                            <b>Priority</b>
+                                        </th>
+                                        <th>
+                                            <b>Release Date</b>
+                                        </th>
+                                        <th>
+                                            <b>Velocity</b>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <span t-field="object.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="object.sprint_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="object.priority"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="object.release_date"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="object.velocity"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <h3 class="text-center">Task Details</h3>
+                                <table class="table">
+                                    <tr>
+                                        <th>Task Title</th>
+                                        <th>Project</th>
+                                        <th>Assigned To</th>
+                                        <th>Sprint</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Actual End Date</th>
+                                        <th>Velocity</th>
+                                        <th>Stage</th>
+                                    </tr>
+                                    <tr t-foreach="object.task_id" t-as="task">
+                                        <td>
+                                            <span t-field="task.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.project_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.user_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.sprint_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.start_date"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.end_date"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.actual_end_date"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.velocity"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="task.stage_id"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</flectra>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data noupdate="1">
+
+        <!-- Sprint-related subtypes for messaging / Chatter -->
+        <record id="state_sprint_draft" model="mail.message.subtype">
+            <field name="name">Sprint Draft</field>
+            <field name="res_model">project.sprint</field>
+            <field name="default" eval="True"/>
+            <field name="description">Sprint Draft</field>
+        </record>
+
+        <record id="state_sprint_in_progress" model="mail.message.subtype">
+            <field name="name">Sprint In Progress</field>
+            <field name="res_model">project.sprint</field>
+            <field name="default" eval="True"/>
+            <field name="description">Sprint In Progress</field>
+        </record>
+
+        <record id="state_sprint_pending" model="mail.message.subtype">
+            <field name="name">Sprint Pending</field>
+            <field name="res_model">project.sprint</field>
+            <field name="default" eval="True"/>
+            <field name="description">Sprint Pending</field>
+        </record>
+
+        <record id="state_sprint_done" model="mail.message.subtype">
+            <field name="name">Sprint Done</field>
+            <field name="res_model">project.sprint</field>
+            <field name="default" eval="True"/>
+            <field name="description">Sprint Done</field>
+        </record>
+
+        <record id="state_sprint_cancel" model="mail.message.subtype">
+            <field name="name">Sprint Cancel</field>
+            <field name="res_model">project.sprint</field>
+            <field name="default" eval="True"/>
+            <field name="description">Sprint Cancel</field>
+        </record>
+
+
+        <!-- Project-related subtypes for messaging / Chatter -->
+        <record id="state_project_sprint_draft" model="mail.message.subtype">
+            <field name="name">Sprint Draft</field>
+            <field name="sequence">10</field>
+            <field name="res_model">project.team</field>
+            <field name="default" eval="True"/>
+            <field name="parent_id" eval="ref('state_sprint_draft')"/>
+            <field name="relation_field">team_id</field>
+        </record>
+
+        <record id="state_project_sprint_in_progress" model="mail.message.subtype">
+            <field name="name">Sprint In Progress</field>
+            <field name="sequence">10</field>
+            <field name="res_model">project.team</field>
+            <field name="default" eval="True"/>
+            <field name="parent_id" eval="ref('state_sprint_in_progress')"/>
+            <field name="relation_field">team_id</field>
+        </record>
+
+        <record id="state_project_sprint_pending" model="mail.message.subtype">
+            <field name="name">Sprint Pending</field>
+            <field name="sequence">10</field>
+            <field name="res_model">project.team</field>
+            <field name="default" eval="True"/>
+            <field name="parent_id" eval="ref('state_sprint_pending')"/>
+            <field name="relation_field">team_id</field>
+        </record>
+
+        <record id="state_project_sprint_done" model="mail.message.subtype">
+            <field name="name">Sprint Done</field>
+            <field name="sequence">10</field>
+            <field name="res_model">project.team</field>
+            <field name="default" eval="True"/>
+            <field name="parent_id" eval="ref('state_sprint_done')"/>
+            <field name="relation_field">team_id</field>
+        </record>
+
+        <record id="state_project_sprint_cancel" model="mail.message.subtype">
+            <field name="name">Sprint Cancel</field>
+            <field name="sequence">10</field>
+            <field name="res_model">project.team</field>
+            <field name="default" eval="True"/>
+            <field name="parent_id" eval="ref('state_sprint_cancel')"/>
+            <field name="relation_field">team_id</field>
+        </record>
+    </data>
+</flectra>
