@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data>
+        <record id="release_planning_report" model="ir.actions.report">
+            <field name="name">Release Planning Report</field>
+            <field name="model">release.planning</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">project_scrum.release_planning_template_id</field>
+            <field name="report_file">project_scrum.release_planning_template_id</field>
+            <field name="print_report_name">'Release Planning Report - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_release_planning"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="project_sprint_report" model="ir.actions.report">
+            <field name="name">Project Sprint Report</field>
+            <field name="model">project.sprint</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">project_scrum.project_sprint_template_id</field>
+            <field name="report_file">project_scrum.project_sprint_template_id</field>
+            <field name="print_report_name">'Project Sprint Report - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_project_sprint"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</flectra>

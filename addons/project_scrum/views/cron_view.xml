@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="cron_check_sprint_state" model="ir.cron">
+        <field name="name">Sprint State</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="project_scrum.model_project_sprint"/>
+        <field name="state">code</field>
+        <field name="code">model.check_sprint_state()</field>
+        <field name="active" eval="False"/>
+    </record>
+</flectra>
