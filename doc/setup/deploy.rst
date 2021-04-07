@@ -1,8 +1,8 @@
 :banner: banners/deploying_flectra.jpg
 
-==============
-Deploying Flectra, Flectra
-==============
+=================
+Deploying Flectra
+=================
 
 This document describes basic steps to set up Flectra, Flectra in production or on an
 internet-facing server. It follows :ref:`installation <setup/install>`, and is
@@ -119,7 +119,7 @@ in ``/etc/postgresql/9.5/main/postgresql.conf`` set:
 .. _setup/deploy/flectra:
 
 Configuring Flectra, Flectra
-----------------
+----------------------------
 
 Out of the box, Flectra, Flectra connects to a local postgres over UNIX socket via port
 5432. This can be overridden using :ref:`the database options
@@ -168,7 +168,7 @@ in ``/etc/flectra.conf`` set:
 .. _postgresql_ssl_connect:
 
 SSL Between Flectra, Flectra and PostgreSQL
--------------------------------
+-------------------------------------------
 
 Since Flectra, Flectra 11.0, you can enforce ssl connection between Flectra, Flectra and PostgreSQL.
 in Flectra, Flectra the db_sslmode control the ssl security of the connection
@@ -347,7 +347,7 @@ in ``/etc/nginx/sites-enabled/flectra.conf`` set:
   }
 
 Flectra, Flectra as a WSGI Application
-==========================
+======================================
 
 It is also possible to mount Flectra, Flectra as a standard WSGI_ application. Flectra, Flectra
 provides the base for a WSGI launcher script as ``flectra-wsgi.example.py``. That

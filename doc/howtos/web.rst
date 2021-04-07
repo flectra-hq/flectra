@@ -1,8 +1,8 @@
 :banner: banners/build_interface_ext.jpg
 
-=============================
+==========================
 Customizing the web client
-=============================
+==========================
 
 Note: this section is really really out of date. It will be updated someday,
 but meanwhile, this tutorial will probably be frustrating to follow, since it
@@ -119,8 +119,7 @@ The files in the ``static`` folder, need to be defined within the module in orde
     individual files disappear and the code is made significantly less
     readable. It is possible to disable this process by enabling the
     "developer mode": log into your Flectra instance (user *admin* password
-    *admin* by default) open the user menu (in the top-right corner of the
-    Flectra screen) and select :guilabel:`About Flectra` then :guilabel:`Activate
+    *admin* by default) open the setting menu and select :guilabel:`Activate
     the developer mode`:
 
     .. image:: web/about_flectra.png
@@ -135,7 +134,7 @@ The files in the ``static`` folder, need to be defined within the module in orde
 .. todo:: qweb files hooked via __manifest__.py, but js and CSS use bundles
 
 Flectra JavaScript Module
-======================
+=========================
 
 Javascript doesn't have built-in modules. As a result variables defined in
 different files are all mashed together and may conflict. This has given rise
@@ -1269,7 +1268,7 @@ initialized, for class attributes for instance (as modules are loaded before
 the user's language is configured and translations are downloaded).
 
 Communication with the Flectra Server
-==================================
+=====================================
 
 Contacting Models
 -----------------

@@ -3,9 +3,9 @@
 
 .. _setup/install:
 
-===============
+==================
 Installing Flectra
-===============
+==================
 
 There are multiple ways to install Flectra, or not install it at all, depending
 on the intended use case.
@@ -30,17 +30,6 @@ This documents attempts to describe most of the installation options.
 
 
 .. _setup/install/editions:
-
-Editions
-========
-
-There are two different Editions_ of Flectra: the Community and Enterprise versions.
-Using the Enterprise version is possible on our SaaS_ and accessing the code is
-restricted to Enterprise customers and partners. The Community version is freely
-available to anyone.
-
-If you already use the Community version and wish to upgrade to Enterprise, please
-refer to :ref:`setup/enterprise` (except for :ref:`setup/install/source`).
 
 
 .. _setup/install/online:
@@ -78,7 +67,7 @@ Packaged installers
 
 Flectra provides packaged installers for Windows, deb-based distributions
 (Debian, Ubuntu, …) and RPM-based distributions (Fedora, CentOS, RHEL, …) for
-both the Community and Enterprise versions.
+the Community versions.
 
 These packages automatically set up all dependencies (for the Community version),
 but may be difficult to keep up-to-date.
@@ -385,7 +374,7 @@ needed:
    (typically: `C:\\Users\\<user>\\AppData\\Roaming\\npm\\`).
 
 Running Flectra
-''''''''''''
+'''''''''''''''
 
 Once all dependencies are set up, Flectra can be launched by running `flectra-bin`, the
 command-line interface of the server. It is located at the root of the Flectra Community directory.
@@ -553,7 +542,7 @@ needed:
        $ sudo npm install -g rtlcss
 
 Running Flectra
-''''''''''''
+'''''''''''''''
 
 Once all dependencies are set up, Flectra can be launched by running `flectra-bin`, the
 command-line interface of the server. It is located at the root of the Flectra Community directory.
@@ -715,7 +704,7 @@ needed:
        $ sudo npm install -g rtlcss
 
 Running Flectra
-''''''''''''
+'''''''''''''''
 
 Once all dependencies are set up, Flectra can be launched by running `flectra-bin`, the
 command-line interface of the server. It is located at the root of the Flectra Community directory.

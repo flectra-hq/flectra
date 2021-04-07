@@ -2,9 +2,9 @@
 
 .. _setup/update:
 
-=============================
+================================
 Updating an Flectra installation
-=============================
+================================
 
 Introduction
 ============
@@ -62,7 +62,7 @@ because the procedure is very similar.
 
 
 Step 1: Download an updated Flectra version
-========================================
+===========================================
 
 The central download page is https://flectrahq.com/download. If you see a "Buy" link for the
 Flectra Enterprise download, make sure you are logged into flectrahq.com with the same login that is

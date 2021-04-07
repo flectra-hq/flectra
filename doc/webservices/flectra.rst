@@ -193,7 +193,7 @@ a new key and update all the places where you used the old one.
 demo
 ''''
 
-To make exploration simpler, you can also ask https://demo.flectrahq.com for a test
+To make exploration simpler, you can also ask https://demo.f2.flectrahq.org for a test
 database:
 
 .. rst-class:: setup doc-aside
@@ -203,14 +203,14 @@ database:
     .. code-block:: python3
 
         import xmlrpc.client
-        info = xmlrpc.client.ServerProxy('https://demo.flectrahq.com/start').start()
+        info = xmlrpc.client.ServerProxy('https://demo.f2.flectrahq.org/start').start()
         url, db, username, password = \
             info['host'], info['database'], info['user'], info['password']
 
     .. code-block:: ruby
 
         require "xmlrpc/client"
-        info = XMLRPC::Client.new2('https://demo.flectrahq.com/start').call('start')
+        info = XMLRPC::Client.new2('https://demo.f2.flectrahq.org/start').call('start')
         url, db, username, password = \
             info['host'], info['database'], info['user'], info['password']
 
@@ -219,7 +219,7 @@ database:
         .. code-block:: php
 
             require_once('ripcord.php');
-            $info = ripcord::client('https://demo.flectrahq.com/start')->start();
+            $info = ripcord::client('https://demo.f2.flectrahq.org/start')->start();
             list($url, $db, $username, $password) =
               array($info['host'], $info['database'], $info['user'], $info['password']);
 
@@ -243,7 +243,7 @@ database:
             final XmlRpcClient client = new XmlRpcClient();
 
             final XmlRpcClientConfigImpl start_config = new XmlRpcClientConfigImpl();
-            start_config.setServerURL(new URL("https://demo.flectrahq.com/start"));
+            start_config.setServerURL(new URL("https://demo.f2.flectrahq.org/start"));
             final Map<String, String> info = (Map<String, String>)client.execute(
                 start_config, "start", emptyList());
 

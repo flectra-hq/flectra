@@ -1,8 +1,8 @@
 :banner: banners/email_gateway.jpg
 
-==================
+=====================
 Flectra email gateway
-==================
+=====================
 
 The Flectra mail gateway allows you to inject directly all the received emails in Flectra.
 
