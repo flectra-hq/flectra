@@ -58,10 +58,6 @@ class HelpdeskTeam(models.Model):
                 alias_vals = team._alias_get_creation_values()
         return result
 
-    # ------------------------------------------------------------
-    # MESSAGING
-    # ------------------------------------------------------------
-
     def _alias_get_creation_values(self):
         values = super(HelpdeskTeam, self)._alias_get_creation_values()
         values['alias_model_id'] = self.env['ir.model']._get('helpdesk.ticket').id
