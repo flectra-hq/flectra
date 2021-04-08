@@ -23,10 +23,11 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
-            <search string="Search Partner">
+        <xpath expr="//filter[@name='inactive']" position="after">
+                <separator/>
                 <filter string="Customers" name="customer" domain="[('customer','=',1), ('parent_id', '=', False)]"/>
                 <filter string="Vendors" name="supplier" domain="[('supplier','=',1), ('parent_id', '=', False)]"/>
-            </search>
+            </xpath>
         </field>
     </record>
     
