@@ -249,14 +249,15 @@
         <field name="search_view_id" ref="view_helpdesk_search"/>
     </record>
 
-    <menuitem name="Helpdesk" id="menu_main_helpdesk" 
-        web_icon="helpdesk_basic,static/description/icon.png" sequence="60"/>
+    <menuitem name="Helpdesk" 
+            id="helpdesk_basic_root_menu" sequence="60"
+            web_icon="helpdesk_basic,static/description/icon.png"/>
     <menuitem name="Helpdesk" id="menu_helpdesk" 
-        parent="helpdesk_basic.menu_main_helpdesk" sequence="2"/>
+            parent="helpdesk_basic.helpdesk_basic_root_menu"/>
     <menuitem name="Tickets" id="sub_menu_helpdesk"
-              parent="menu_helpdesk" action="act_helpdesk_view" sequence="3"/>
+            parent="menu_helpdesk" action="act_helpdesk_view"/>
     <menuitem id="menu_helpdesk_config" name="Configuration"
-              parent="helpdesk_basic.menu_main_helpdesk" sequence="100"
-              groups="helpdesk_basic.helpdesk_group_manager,base.group_system"/>
+            parent="helpdesk_basic.helpdesk_basic_root_menu" sequence="100"
+            groups="helpdesk_basic.helpdesk_group_manager,base.group_system"/>
 
 </flectra>

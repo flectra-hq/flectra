@@ -1,6 +1,6 @@
 # Part of flectra. See LICENSE file for full copyright and licensing details.
 
-from flectra import api, fields, models, _
+from flectra import api, fields, models, _, tools
 from flectra.exceptions import AccessError
 from datetime import datetime
 import uuid
@@ -71,19 +71,12 @@ class HelpdeskTicket(models.Model):
     is_rating = fields.Boolean("Is Rating")
 
     def _merge_ticket_attachments(self, tickets):
-        """ Move attachments of given tickets to the current one `self`, and rename
-            the attachments having same name than native ones.
-
-        :param tickets: see ``merge_dependences``
-        """
         self.ensure_one()
 
-        # return attachments of ticket
         def _get_attachments(ticket_id):
             return self.env['ir.attachment'].search([('res_model', '=', self._name), ('res_id', '=', ticket_id)])
 
         first_attachments = _get_attachments(self.id)
-        # counter of all attachments to move. Used to make sure the name is different for all attachments
         count = 1
         for ticket in tickets:
             attachments = _get_attachments(ticket.id)
@@ -98,10 +91,7 @@ class HelpdeskTicket(models.Model):
 
     @api.depends('user_id')
     def _compute_team_id(self):
-        """ When changing the user, also set a team_id or restrict team id
-        to the ones user_id is member of. """
         for team in self:
-            # setting user as void should not trigger a new team computation
             if not team.user_id:
                 continue
             user = team.user_id
@@ -112,19 +102,8 @@ class HelpdeskTicket(models.Model):
 
     @api.model
     def message_new(self, msg_dict, custom_values=None):
-        """ Overrides mail_thread message_new that is called by the mailgateway
-            through message_process.
-            This override updates the document according to the email.
-        """
-
-        # remove external users
         if self.env.user.has_group('base.group_portal'):
             self = self.with_context(default_user_id=False)
-
-        # remove default author when going through the mail gateway. Indeed we
-        # do not want to explicitly set user_id to False; however we do not
-        # want the gateway user to be responsible if no other responsible is
-        # found.
         if self._uid == self.env.ref('base.user_root').id:
             self = self.with_context(default_user_id=False)
 
@@ -134,10 +113,9 @@ class HelpdeskTicket(models.Model):
             'issue_name':  msg_dict.get('subject') or _("No Subject"),
             'email': msg_dict.get('from'),
             'partner_id': msg_dict.get('author_id', False),
-            # 'help_description': msg_dict.get('body')
+            'team_id': custom_values.get('team_id', False),
         }
         
-        # assign right company
         if 'company_id' not in defaults and 'team_id' in defaults:
             defaults['company_id'] = self.env['helpdesk.team'].browse(defaults['team_id']).company_id.id
         return super(HelpdeskTicket, self).message_new(msg_dict, custom_values=defaults)
@@ -147,10 +125,14 @@ class HelpdeskTicket(models.Model):
         return uuid.uuid4().hex
 
     access_token = fields.Char('Access Token', default=_default_access_token)
+
     
     @api.model
     def default_get(self, default_fields):
         vals = super(HelpdeskTicket, self).default_get(default_fields)
+        if 'team_id' not in default_fields:
+            team_id = self._default_team_id()
+            vals.update({'team_id': team_id})
         if 'team_id' in vals:
             user_dict = {}  
             team_id = self.env['helpdesk.team'].search(
@@ -173,9 +155,7 @@ class HelpdeskTicket(models.Model):
     def onchange_end_date(self):
         if self.stage_id.stage_type == 'done':
             self.end_date = datetime.today()
-            mail_id = self.team_id.mail_close_tmpl_id
-            if mail_id:
-                mail_id.send_mail(res_id=self._origin.id, force_send=True)
+            
 
     def _creation_subtype(self):
         return self.env.ref('helpdesk_basic.mt_ticket_new')
@@ -196,28 +176,88 @@ class HelpdeskTicket(models.Model):
         try:
             for ticket in self:
                 if ticket.team_id.message_follower_ids:
-                    #for follower in ticket.team_id.message_follower_ids:
-                    pass
-                    # ticket.sudo()._message_add_suggested_recipient(recipients, partner=ticket.partner_id, reason=_('Customer'))
+                    ticket.sudo()._message_add_suggested_recipient(recipients, partner=ticket.partner_id, reason=_('Customer'))
                 elif ticket.email:
-                    pass
-                    # ticket.sudo()._message_add_suggested_recipient(recipients, email=ticket.email, reason=_('Customer Email'))
-        except AccessError:  # no read access rights -> just ignore suggested recipients because this imply modifying followers
+                    ticket.sudo()._message_add_suggested_recipient(recipients, email=ticket.email, reason=_('Customer Email'))
+        except AccessError:
             pass
         return recipients
 
-    @api.model
+    def get_valid_email(self, msg):
+        emails_list = []
+        valid_email = tools.email_split((msg.get('to') or '') + ',' + (msg.get('cc') or ''))
+        team_aliases = self.mapped('team_id.alias_name')
+        for eml in valid_email:
+            if eml.split('@')[0] not in team_aliases:
+                emails_list+= [eml]
+        return emails_list
+ 
+    @api.model_create_multi 
     def create(self, values):
-        if 'ticket_seq' not in values or values['ticket_seq'] == _('New'):
-            values['ticket_seq'] = self.env['ir.sequence'].next_by_code(
-                    'helpdesk.ticket') or _('New')
-        if values.get('team_id'):
-            team = self.team_id.browse(values.get('team_id'))
-            values.update(
-                {'stage_id': team.stage_ids and team.stage_ids[0].id or False})
-        res = super(HelpdeskTicket, self).create(values)
-        if not res.stage_id and res.team_id and res.team_id.stage_ids:
-            res.stage_id = res.team_id.stage_ids[0]
+        for vals in values:
+            if not vals.get('ticket_seq') or vals['ticket_seq'] == _('New'):
+                vals['ticket_seq'] = self.env['ir.sequence'].next_by_code('helpdesk.ticket') or _('New')
+
+            partner_id = vals.get('partner_id', False)
+            partner_name = vals.get('email', False)
+            partner_email = vals.get('email', False)
+            if partner_email and partner_name and not partner_id:
+                try:
+                    vals['partner_id'] = self.env['res.partner'].find_or_create(
+                        self.get_valid_email({'to': partner_email, 'cc':''})[0]).id
+                except UnicodeEncodeError:
+                    
+                    vals['partner_id'] = self.env['res.partner'].create({
+                        'name': partner_name,
+                        'email': partner_email,
+                    }).id
+
+        partners = self.env['res.partner'].browse([vals['partner_id'] for vals in values if 'partner_id' in vals and vals.get('partner_id') and 'email' not in vals])
+        partner_email_map = {partner.id: partner.email for partner in partners}
+        partner_name_map = {partner.id: partner.name for partner in partners}
+
+        for vals in values:
+            if vals.get('issue_type_id'):
+                team = self.env['helpdesk.team'].search([('issue_type_ids', '=', int(vals.get('issue_type_id')))])
+                if team:
+                    vals.update({'team_id': team.id})
+            if vals.get('partner_id') in partner_name_map:
+                vals['partner_name'] = partner_name_map.get(vals['partner_id'])
+
+            if vals.get('team_id'):
+                team = self.team_id.browse(vals.get('team_id'))
+                vals.update(
+                    {'stage_id': team.stage_ids and team.stage_ids[0].id or False})
+            if not self.stage_id and self.team_id and self.team_id.stage_ids:
+                self.stage_id = self.team_id.stage_ids[0]
+
+        tickets = super(HelpdeskTicket, self).create(values)
+        for ticket in tickets:
+            if ticket.partner_id:
+                ticket.message_subscribe(partner_ids=ticket.partner_id.ids)
+
+        return tickets
+
+    def _track_template(self, changes):
+        res = super(HelpdeskTicket, self)._track_template(changes)
+        stage_id = self.env['helpdesk.stage'].search([])
+        ticket = self[0]
+        if ticket.stage_id.stage_type == 'draft':
+            if 'team_id' in changes or ticket.team_id.mail_template_id:
+                res['team_id'] = (ticket.team_id.mail_template_id, {
+                    'auto_delete_message': True,
+                    'subtype_id': self.env['ir.model.data'].xmlid_to_res_id('mail.mt_note'),
+                    'email_layout_xmlid': 'mail.mail_notification_light'
+                }
+            )
+        if ticket.stage_id.stage_type == 'done':
+            if 'team_id' in changes or ticket.team_id.mail_close_tmpl_id:
+                res['team_id'] = (ticket.team_id.mail_close_tmpl_id, {
+                    'auto_delete_message': True,
+                    'subtype_id': self.env['ir.model.data'].xmlid_to_res_id('mail.mt_note'),
+                    'email_layout_xmlid': 'mail.mail_notification_light'
+                }
+            )
         return res
 
     @api.onchange('partner_id')

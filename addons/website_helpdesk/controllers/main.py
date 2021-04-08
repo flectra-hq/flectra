@@ -20,13 +20,11 @@ class HelpdeskTicket(http.Controller):
         config = request.env['res.config.settings'].sudo().search([])
         get_param = request.env['ir.config_parameter'].sudo().get_param
         website_form = get_param('helpdesk_basic.use_website_form')
-        team = request.env['helpdesk.team'].sudo().search([('visibility_member_ids', 'in', request.env.uid)], limit=1).id
         post.update({
             'asignee': request.env.user,
             'email': request.env.user.partner_id.email or '',
             'partner_id': request.env.user.partner_id.id,
             'issue_type': issue_type,
-            'team_ids': team,
             'assign_to_ids': assign_to_ids,
         })
         if website_form:
@@ -48,29 +46,25 @@ class HelpdeskTicket(http.Controller):
                 post_data.pop(k)
         ticket = request.env['helpdesk.ticket'].sudo().create(post_data)
         for rec in team:
-            ticket.update({
-                'team_id': rec[0],
-                'stage_id': request.env.ref('helpdesk_basic.helpdesk_stage_draft')
-            })
-        if rec:
-            user_dict = {}
-            for member in ticket.team_id.member_ids:
-                if rec.assignment_method == 'balanced':
-                    tickets = request.env['helpdesk.ticket'].sudo().search_count([('team_id', '=', rec.id),('user_id', '=', member.id)])
-                    user_dict.update({member: tickets})
-                    temp = min(user_dict.values())
-                    res = [key for key in user_dict if user_dict[key] == temp]
-                    ticket.user_id = res[0]
+            if rec:
+                ticket.update(
+                    {'team_id': rec[0],
+                     'stage_id': rec.stage_ids[0].id or False})
+                user_dict = {}
+                for member in ticket.team_id.member_ids:
+                    if rec.assignment_method == 'balanced':
+                        tickets = request.env['helpdesk.ticket'].sudo().search_count([('team_id', '=', rec.id),('user_id', '=', member.id)])
+                        user_dict.update({member: tickets})
+                        temp = min(user_dict.values())
+                        res = [key for key in user_dict if user_dict[key] == temp]
+                        ticket.user_id = res[0]
 
-                if rec.assignment_method == 'random':
-                    ticket.user_id = member.id
+                    if rec.assignment_method == 'random':
+                        ticket.user_id = member.id
         if request.env.user.partner_id:
             ticket.partner_id = request.env.user.partner_id or False
         values = {'ticket_seq': ticket.ticket_seq}
         file_data = [key for key in post if 'file_data_' in key]
-        mail_id = ticket.team_id.mail_template_id
-        if mail_id:
-            mail_id.sudo().send_mail(res_id=ticket.id, force_send=True)
         for name in file_data:
             attachment_obj.sudo().create(
                 {'name': name,
