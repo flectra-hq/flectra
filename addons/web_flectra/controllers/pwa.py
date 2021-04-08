@@ -6,6 +6,7 @@ from io import BytesIO
 import base64
 import json
 import logging
+import json
 
 _logger = logging.getLogger(__name__)
 
@@ -149,3 +150,27 @@ class ProgressiveWebApp(Controller):
     @route('/pwa/icon/512/<int:company_id>', type='http', auth="public")
     def icon_512(self, **kwargs):
         return self._get_icon(512, kwargs.get('company_id'))
+
+    @route('/onesignal/fetch', type='json', auth='none', csrf=False,
+           methods=['GET', 'POST'])
+    def fetch_onesignal_app_id(self, **kwargs):
+        """Method To Fetch One Signal App ID"""
+        val = {
+            'ONESIGNAL_APP_ID': request.env['ir.config_parameter'].sudo().get_param('onesignal_app_id'),
+        }
+
+        return val
+
+    @route('/onesignal/register', type='json', auth='none', csrf=False,
+           methods=['GET', 'POST'])
+    def register_onesignal_device(self, **kwargs):
+        """Method To Register One Signal Device ID In User"""
+        if kwargs.get('user_id'):
+            user = request.env['res.users'].sudo().search([
+                ('id', '=', int(kwargs.get('user_id')))])
+            if kwargs.get('userdevice_id'):
+                user.update({
+                    'onesignal_device_id': kwargs.get('userdevice_id')
+                })
+                return True
+        return False
