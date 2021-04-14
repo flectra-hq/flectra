@@ -4,10 +4,12 @@
 
 from flectra import models, fields
 
+
 class ResUsers(models.Model):
 
     _inherit = 'res.users'
 
+    onesignal_device_id = fields.Char('One Signal Device ID')
     chatter_position = fields.Selection(
         [("bottom", "Bottom"), ("sided", "Sided")],
         string="Chatter Position",
