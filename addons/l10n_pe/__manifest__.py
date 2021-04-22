@@ -4,7 +4,7 @@
     "version": "2.0",
     'summary': "PCGE Simplified",
     'category': 'Accounting/Localizations/Account Charts',
-    'author': 'Vauxoo, Odoo',
+    'author': 'Vauxoo, Flectra',
     'license': 'LGPL-3',
     'depends': [
         'base_vat',

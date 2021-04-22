@@ -111,7 +111,7 @@ class AccountMove(models.Model):
 
         # <2.2.1>
         for invoice_line in self.invoice_line_ids:
-            if len(invoice_line.tax_ids) != 1:
+            if not invoice_line.display_type and len(invoice_line.tax_ids) != 1:
                 raise UserError(_("You must select one and only one tax by line."))
 
         for tax_line in self.line_ids.filtered(lambda line: line.tax_line_id):
@@ -260,7 +260,7 @@ class AccountMove(models.Model):
         # OVERRIDE
         posted = super()._post(soft=soft)
 
-        for move in posted.filtered(lambda m: m.l10n_it_send_state == 'to_send' and m.move_type == 'out_invoice'):
+        for move in posted.filtered(lambda m: m.l10n_it_send_state == 'to_send' and m.move_type == 'out_invoice' and m.company_id.country_id.code == 'IT'):
             move.send_pec_mail()
 
         return posted

@@ -1,9 +1,9 @@
-Odoo e-Commerce
+Flectra e-Commerce
 ---------------
 
 ### Optimize sales with an awesome online store.
 
-Odoo is an <a href="https://flectrahq.com/e-commerce">Open Source eCommerce</a>
+Flectra is an <a href="https://www.flectrahq.com/page/e-commerce">Open Source eCommerce</a>
 unlike anything you have ever seen before. Get an awesome catalog of products
 and great product description pages.
 
@@ -13,7 +13,7 @@ customizable and super easy.
 Create Awesome Product Pages
 ----------------------------
 
-Odoo's unique *'edit inline'* and building blocks approach makes product pages
+Flectra's unique *'edit inline'* and building blocks approach makes product pages
 creation surprisingly easy. "Want to change the price of a product? or put it
 in bold? Want to add a banner for a specific product?" just click and change.
 What you see is what you get. Really.
@@ -27,7 +27,7 @@ Increase Your Revenue Per Order
 The built-in cross-selling feature helps you offer extra products related to
 what the shopper put in his cart. (e.g. accessories)
 
-Odoo's upselling algorythm allows you to show visitors similar but more
+Flectra's upselling algorythm allows you to show visitors similar but more
 expensive products than the one in view, with incentives.
 
 The inline editing feature allows you to easily change a price, launch a
@@ -36,17 +36,17 @@ promotion or fine tune the description of a product, in a just a click.
 A Clean Google Analytics Integration
 ------------------------------------
 
-Get a clear visibility of your sales funnel. Odoo's Google Analytics trackers
+Get a clear visibility of your sales funnel. Flectra's Google Analytics trackers
 are configured by default to track all kind of events related to shopping
 carts, call-to-actions, etc.
 
-As Odoo marketing tools (mass mailing, campaigns, etc) are also linked with
+As Flectra marketing tools (mass mailing, campaigns, etc) are also linked with
 Google Analytics, you get a complete view of your business.
 
 Target New Markets
 ------------------
 
-Get your website translated in multiple languages with no effort. Odoo proposes
+Get your website translated in multiple languages with no effort. Flectra proposes
 and propagates translations automatically across pages.
 
 Our translation "on demand" features allows you to benefit from professional
@@ -66,7 +66,7 @@ Edit any product inline to make your website evolve with your customer need.
 Acquire New Customers
 ---------------------
 
-SEO tools are ready to use, with no configuration required. Odoo suggests
+SEO tools are ready to use, with no configuration required. Flectra suggests
 keywords according to Google most searched terms, Google Analytics tracks your
 shopping cart events, sitemap are created automatically for Google indexation,
 etc.
@@ -77,7 +77,7 @@ efficiently in Google.
 Leverage Social Media
 ---------------------
 
-Create new landing pages easily with the Odoo inline editing feature. Send
+Create new landing pages easily with the Flectra inline editing feature. Send
 visitors of your different marketing campaigns to specific landing pages to
 optimize conversions.
 
@@ -92,13 +92,13 @@ Promote your resellers online, forward leads to resellers (with built-in
 geolocalisation feature), define specific pricelists, launch a loyalty program
 (offer specific discounts to your best customers or resellers), etc.
 
-Benefit from the power of Odoo, in your online store: a powerfull tax engine,
+Benefit from the power of Flectra, in your online store: a powerfull tax engine,
 flexible pricing structures, a real inventory management solution, a reseller
 interface, support for products with different behaviours; physical goods,
 events, services, variants and options, etc.
 
 You don't need to interface with your warehouse, sales or accounting software.
-Everything is integrated with Odoo. No pain, real time.
+Everything is integrated with Flectra. No pain, real time.
 
 A Clean Checkout Process
 ------------------------

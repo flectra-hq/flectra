@@ -5,7 +5,7 @@
     'name': 'Tours',
     'category': 'Hidden',
     'description': """
-Odoo Web tours.
+Flectra Web tours.
 ========================
 
 """,

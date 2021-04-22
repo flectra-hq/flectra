@@ -8,7 +8,7 @@
     'sequence': 15,
     'summary': 'Track leads and close opportunities',
     'description': "",
-    'website': 'https://flectrahq.com/crm',
+    'website': 'https://www.flectrahq.com/page/crm',
     'depends': [
         'base_setup',
         'sales_team',

@@ -70,7 +70,7 @@ class MicrosoftService(models.AbstractModel):
         }
 
         get_param = self.env['ir.config_parameter'].sudo().get_param
-        base_url = get_param('web.base.url', default='http://flectrahq.com?NoBaseUrl')
+        base_url = get_param('web.base.url', default='http://www.flectrahq.com?NoBaseUrl')
         client_id = get_param('microsoft_%s_client_id' % (service,), default=False)
 
         encoded_params = urls.url_encode({
@@ -90,7 +90,7 @@ class MicrosoftService(models.AbstractModel):
             not be redirected.
         """
         get_param = self.env['ir.config_parameter'].sudo().get_param
-        base_url = get_param('web.base.url', default='http://flectrahq.com?NoBaseUrl')
+        base_url = get_param('web.base.url', default='http://www.flectrahq.com?NoBaseUrl')
         client_id = get_param('microsoft_%s_client_id' % (service,), default=False)
         client_secret = get_param('microsoft_%s_client_secret' % (service,), default=False)
         scope = self._get_calendar_scope()

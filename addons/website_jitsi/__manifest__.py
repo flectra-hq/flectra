@@ -7,7 +7,7 @@
     'category': 'Hidden',
     'version': '1.0',
     "summary": "Create Jitsi room on website.",
-    'website': 'https://flectrahq.com/events',
+    'website': 'https://www.flectrahq.com/page/events',
     "description": "Create Jitsi room on website.",
     "depends": [
         "website"

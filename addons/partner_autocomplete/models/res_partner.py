@@ -10,7 +10,7 @@ from requests.exceptions import ConnectionError, HTTPError
 
 _logger = logging.getLogger(__name__)
 
-DEFAULT_ENDPOINT = 'https://partner-autocomplete.flectra.com'
+DEFAULT_ENDPOINT = 'https://partner-autocomplete.flectrahq.com'
 
 class ResPartner(models.Model):
     _name = 'res.partner'

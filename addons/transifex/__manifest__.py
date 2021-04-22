@@ -13,7 +13,7 @@ Transifex integration
 This module will add a link to the Transifex project in the translation view.
 The purpose of this module is to speed up translations of the main modules.
 
-To work, Odoo uses Transifex configuration files `.tx/config` to detec the
+To work, Flectra uses Transifex configuration files `.tx/config` to detec the
 project source. Custom modules will not be translated (as not published on
 the main Transifex project).
 

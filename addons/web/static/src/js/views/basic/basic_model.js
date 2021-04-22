@@ -2024,7 +2024,9 @@ var BasicModel = AbstractModel.extend({
             case 'UPDATE':
                 list._changes.push({operation: 'UPDATE', id: command.id});
                 if (command.data) {
-                    defs.push(this._applyChange(command.id, command.data, { viewType: view.type }));
+                    defs.push(this._applyChange(command.id, command.data, {
+                        viewType: view && view.type,
+                    }));
                 }
                 break;
             case 'FORGET':
@@ -3146,14 +3148,15 @@ var BasicModel = AbstractModel.extend({
         options = options || {};
         var viewType = options.viewType || record.viewType;
         var changes;
-        if ('changesOnly' in options && !options.changesOnly) {
+        const changesOnly = 'changesOnly' in options ? !!options.changesOnly : true;
+        if (!changesOnly) {
             changes = _.extend({}, record.data, record._changes);
         } else {
             changes = _.extend({}, record._changes);
         }
         var withReadonly = options.withReadonly || false;
         var commands = this._generateX2ManyCommands(record, {
-            changesOnly: 'changesOnly' in options ? options.changesOnly : true,
+            changesOnly: changesOnly,
             withReadonly: withReadonly,
         });
         for (var fieldName in record.fields) {
@@ -3170,7 +3173,7 @@ var BasicModel = AbstractModel.extend({
             var type = record.fields[fieldName].type;
             var value;
             if (type === 'one2many' || type === 'many2many') {
-                if (!options.changesOnly || (commands[fieldName] && commands[fieldName].length)) { // replace localId by commands
+                if (!changesOnly || (commands[fieldName] && commands[fieldName].length)) { // replace localId by commands
                     changes[fieldName] = commands[fieldName];
                 } else { // no command -> no change for that field
                     delete changes[fieldName];

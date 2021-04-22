@@ -17,7 +17,7 @@ It adds a button on the product itself but also an action in the list view of th
 If the automated inventory valuation is active, the necessary accounting entries will be created.
 
 """,
-    'website': 'https://flectrahq.com/manufacturing',
+    'website': 'https://www.flectrahq.com/page/manufacturing',
     'depends': ['mrp', 'stock_account'],
     "init_xml" : [],
     "demo_xml" : [],

@@ -6,7 +6,7 @@
     'summary': 'Chat with your website visitors',
     'category': 'Website/Live Chat',
     'complexity': 'easy',
-    'website': 'https://flectrahq.com/live-chat',
+    'website': 'https://www.flectrahq.com/page/live-chat',
     'description':
         """
 Live Chat Support

@@ -9,7 +9,7 @@
     'website': 'http://gscom.vn',
     'category': 'Accounting/Localizations/Account Charts',
     "description": """
-This is the module to manage the accounting chart for Vietnam in Odoo.
+This is the module to manage the accounting chart for Vietnam in Flectra.
 =========================================================================
 
 This module applies to companies based in Vietnamese Accounting Standard (VAS)

@@ -8,7 +8,7 @@
 Allow users to login through OAuth2 Provider.
 =============================================
 """,
-    'maintainer': 'Odoo S.A.',
+    'maintainer': 'FlectraHQ, Odoo S.A.',
     'depends': ['base', 'web', 'base_setup', 'auth_signup'],
     'data': [
         'data/auth_oauth_data.xml',

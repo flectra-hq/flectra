@@ -8,7 +8,7 @@
     'sequence': 5,
     'summary': 'Turn emails received in your Outlook mailbox into leads and log their content as internal notes.',
     'description': "Turn emails received in your Outlook mailbox into leads and log their content as internal notes.",
-    'website': 'https://flectrahq.com/crm',
+    'website': 'https://www.flectrahq.com/page/crm',
     'depends': [
         'web',
         'crm',

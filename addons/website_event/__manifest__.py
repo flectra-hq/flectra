@@ -7,7 +7,7 @@
     'category': 'Marketing/Events',
     'sequence': 140,
     'summary': 'Publish events, sell tickets',
-    'website': 'https://flectrahq.com/events',
+    'website': 'https://www.flectrahq.com/page/events',
     'description': "",
     'depends': [
         'event',

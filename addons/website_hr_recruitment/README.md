@@ -10,7 +10,7 @@ Create Awsome Job Description Pages
 
 ### Get rid of old WYSIWYG editors
 
-Get a clean and professional look for your job annouces. Odoo's unique *'edit inline'* approach makes website and job descriptions creation surprisingly easy.
+Get a clean and professional look for your job annouces. Flectra's unique *'edit inline'* approach makes website and job descriptions creation surprisingly easy.
 
 Drag & Drop well designed *'Building Blocks'* to create beautifull job descriptions and announces that emphasizes the quality of your company.
 

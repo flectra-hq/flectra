@@ -120,8 +120,8 @@ copy_raspios () {
     find /home/pi -maxdepth 1 -type f ! -name ".*" -exec cp {} raspios/home/pi/config/ \;
 
     # download latest IoT Box image and check integrity
-    wget -c 'https://nightly.odoo.com/master/iotbox/iotbox-latest.zip' -O raspios/iotbox-latest.zip
-    wget -c 'https://nightly.odoo.com/master/iotbox/SHA1SUMS.txt' -O raspios/SHA1SUMS.txt
+    wget -c 'https://nightly.flectrahq.com/master/iotbox/iotbox-latest.zip' -O raspios/iotbox-latest.zip
+    wget -c 'https://nightly.flectrahq.com/master/iotbox/SHA1SUMS.txt' -O raspios/SHA1SUMS.txt
     cd raspios/
     CHECK=$(sha1sum -c --ignore-missing SHA1SUMS.txt)
     cd ..

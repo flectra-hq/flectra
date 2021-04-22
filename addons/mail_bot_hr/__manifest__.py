@@ -2,8 +2,8 @@
 {
     'name': "mail_bot_hr",
     'summary': """Bridge module between hr and mailbot.""",
-    'description': """This module adds the OdooBot state and notifications in the user form modified by hr.""",
-    'website': "https://flectrahq.com/discuss",
+    'description': """This module adds the FlectraBot state and notifications in the user form modified by hr.""",
+    'website': "https://www.flectrahq.com/page/discuss",
     'category': 'Productivity/Discuss',
     'version': '1.0',
     'depends': ['mail_bot', 'hr'],

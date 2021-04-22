@@ -8,7 +8,7 @@ from flectra.addons.iap.tools import iap_tools
 
 _logger = logging.getLogger(__name__)
 
-DEFAULT_ENDPOINT = 'https://iap-services.flectra.com'
+DEFAULT_ENDPOINT = 'https://iap-services.flectrahq.com'
 
 MAX_LEAD = 200
 

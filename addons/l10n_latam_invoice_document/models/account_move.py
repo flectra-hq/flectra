@@ -250,7 +250,7 @@ class AccountMove(models.Model):
             # generate a tax line.
             zero_taxes = set()
             for line in move.line_ids:
-                for tax in line.tax_ids.flatten_taxes_hierarchy():
+                for tax in line.l10n_latam_tax_ids.flatten_taxes_hierarchy():
                     if tax.tax_group_id not in res or tax.id in zero_taxes:
                         res.setdefault(tax.tax_group_id, {'base': 0.0, 'amount': 0.0})
                         res[tax.tax_group_id]['base'] += tax_balance_multiplicator * (line.amount_currency if line.currency_id else line.balance)
@@ -272,7 +272,8 @@ class AccountMove(models.Model):
         """ The constraint _check_unique_sequence_number is valid for customer bills but not valid for us on vendor
         bills because the uniqueness must be per partner """
         for rec in self.filtered(
-                lambda x: x.name and x.name != '/' and x.is_purchase_document() and x.l10n_latam_use_documents):
+                lambda x: x.name and x.name != '/' and x.is_purchase_document() and x.l10n_latam_use_documents
+                            and x.commercial_partner_id):
             domain = [
                 ('move_type', '=', rec.move_type),
                 # by validating name we validate l10n_latam_document_type_id

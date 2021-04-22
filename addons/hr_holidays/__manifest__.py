@@ -7,7 +7,7 @@
     'category': 'Human Resources/Time Off',
     'sequence': 85,
     'summary': 'Allocate time off and follow time off requests',
-    'website': 'https://flectrahq.com/leaves',
+    'website': 'https://www.flectrahq.com/page/leaves',
     'description': """
 Manage time off requests and allocations
 =====================================

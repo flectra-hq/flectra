@@ -3,9 +3,9 @@
 # Author: Gustavo Valverde <gvalverde@iterativo.do> iterativo | Consultores
 # Contributors: Edser Solis - iterativo
 
-# Odoo 8.0 author: Eneldo Serrata <eneldo@marcos.do>
+# Flectra 8.0 author: Eneldo Serrata <eneldo@marcos.do>
 # (Marcos Organizador de Negocios SRL..)
-# Odoo 7.0 author: Jose Ernesto Mendez <tecnologia@obsdr.com>
+# Flectra 7.0 author: Jose Ernesto Mendez <tecnologia@obsdr.com>
 # (Open Business Solutions SRL.)
 
 # Copyright (c) 2016 - Present | iterativo, SRL. - http://iterativo.do
@@ -77,12 +77,12 @@ Estructura de Codificación del Catálogo de Cuentas:
 210101 - Proveedores locales
 
 **Ocho dígitos** son para las cuentas de tercer orden (las visualizadas
-en Odoo):
+en Flectra):
 1101- Efectivo y Equivalentes
 110101- Caja
 11010101 Caja General
     """,
-    'author': 'Gustavo Valverde - iterativo | Consultores de Odoo',
+    'author': 'Gustavo Valverde - iterativo | Consultores de Flectra',
     'website': 'http://iterativo.do',
     'depends': ['account',
                 'base_iban'

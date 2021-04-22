@@ -4,7 +4,7 @@
     'version': '0.1',
     'category': 'Hidden/Tests',
     'description': """A module to verify the Assets Bundle mechanism.""",
-    'maintainer': 'Odoo SA',
+    'maintainer': 'FlectraHQ',
     'depends': ['base'],
     'installable': True,
     'data': [

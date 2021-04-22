@@ -9,7 +9,7 @@
     'description': """
        Auto-complete partner companies' data
     """,
-    'author': "Odoo SA",
+    'author': "FlectraHQ",
     'category': 'Hidden/Tools',
     'version': '1.0',
     'depends': [

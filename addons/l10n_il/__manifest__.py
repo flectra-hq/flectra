@@ -6,7 +6,7 @@
     'version': '1.0',
     'category': 'Accounting/Localizations/Account Charts',
     'description': """
-This is the latest basic Israelian localisation necessary to run Odoo in Israel:
+This is the latest basic Israelian localisation necessary to run Flectra in Israel:
 ================================================================================
 
 This module consists of:
@@ -14,7 +14,7 @@ This module consists of:
  - Taxes and tax report
  - Fiscal position for Palestina
  """,
-    'website': 'http://www.odoo.com/accounting',
+    'website': 'http://www.flectrahq.com/accounting',
     'depends': ['account'],
     'data': [
         'data/account_chart_template_data.xml',

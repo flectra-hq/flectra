@@ -6,7 +6,7 @@
     'version': '1.1',
     'category': 'Accounting/Localizations/Account Charts',
     'description': """
-This is the base module to manage the generic accounting chart in Odoo.
+This is the base module to manage the generic accounting chart in Flectra.
 ==============================================================================
 
 Install some generic chart of accounts.

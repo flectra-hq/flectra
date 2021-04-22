@@ -8,7 +8,7 @@
     'sequence': 95,
     'summary': 'Centralize employee information',
     'description': "",
-    'website': 'https://flectrahq.com/employees',
+    'website': 'https://www.flectrahq.com/page/employees',
     'images': [
         'images/hr_department.jpeg',
         'images/hr_employee.jpeg',

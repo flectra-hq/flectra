@@ -7,7 +7,7 @@
     'category': 'Hidden',
     'version': '1.0',
     'summary': 'Bridge module to support quiz features during "live" tracks. ',
-    'website': 'https://flectrahq.com/events',
+    'website': 'https://www.flectrahq.com/page/events',
     'description': "",
     'depends': [
         'website_event_track_live',

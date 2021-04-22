@@ -131,7 +131,8 @@ class MailComposer(models.TransientModel):
                             help='Whether the message is an internal note (comment mode only)')
     partner_ids = fields.Many2many(
         'res.partner', 'mail_compose_message_res_partner_rel',
-        'wizard_id', 'partner_id', 'Additional Contacts')
+        'wizard_id', 'partner_id', 'Additional Contacts',
+        domain=[('type', '!=', 'private')])
     # mass mode options
     notify = fields.Boolean('Notify followers', help='Notify followers of the document (mass post only)')
     auto_delete = fields.Boolean('Delete Emails',
@@ -245,7 +246,7 @@ class MailComposer(models.TransientModel):
                             subtype_id=subtype_id,
                             email_layout_xmlid=notif_layout,
                             add_sign=not bool(wizard.template_id),
-                            mail_auto_delete=wizard.template_id.auto_delete if wizard.template_id else False,
+                            mail_auto_delete=wizard.template_id.auto_delete if wizard.template_id else self._context.get('mail_auto_delete', True),
                             model_description=model_description)
                         post_params.update(mail_values)
                         if ActiveModel._name == 'mail.thread':

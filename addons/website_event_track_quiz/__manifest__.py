@@ -8,7 +8,7 @@
     'sequence': 1007,
     'version': '1.0',
     'summary': 'Quizzes on tracks',
-    'website': 'https://flectrahq.com/events',
+    'website': 'https://www.flectrahq.com/page/events',
     'description': "",
     'depends': [
         'website_profile',

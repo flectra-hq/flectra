@@ -10,7 +10,7 @@
 Using this application you can manage Sales Teams with CRM and/or Sales
 =======================================================================
  """,
-    'website': 'https://flectrahq.com/crm',
+    'website': 'https://www.flectrahq.com/page/crm',
     'depends': ['base', 'mail'],
     'data': [
         'security/sales_team_security.xml',
