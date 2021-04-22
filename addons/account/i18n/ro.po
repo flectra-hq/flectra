@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* account
 # 
@@ -9,16 +9,16 @@
 # Cozmin Candea <office@terrabit.ro>, 2020
 # Martin Trigaux, 2020
 # Hongu Cosmin <cosmin513@gmail.com>, 2020
-# Dorin Hongu <dhongu@gmail.com>, 2020
-# Foldi Robert <foldirobert@nexterp.ro>, 2020
+# Foldi Robert <foldirobert@nexterp.ro>, 2021
+# Dorin Hongu <dhongu@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-27 15:35+0000\n"
+"POT-Creation-Date: 2021-02-25 10:15+0000\n"
 "PO-Revision-Date: 2020-09-07 08:09+0000\n"
-"Last-Translator: Foldi Robert <foldirobert@nexterp.ro>, 2020\n"
+"Last-Translator: Dorin Hongu <dhongu@gmail.com>, 2021\n"
 "Language-Team: Romanian (https://www.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -155,6 +155,12 @@ msgid ". You might want to put a higher number here."
 msgstr "Poate doriți să puneți un număr mai mare aici."
 
 #. module: account
+#: code:addons/account/wizard/account_resequence.py:0
+#, python-format
+msgid "... (%s other)"
+msgstr "... (%s altul,altele)"
+
+#. module: account
 #: model:account.payment.term,name:account.account_payment_term_15days
 msgid "15 Days"
 msgstr "15 Zile"
@@ -274,6 +280,44 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        Dragă\n"
+"        % if object.partner_id.parent_id:\n"
+"            ${object.partner_id.name} (${object.partner_id.parent_id.name}),\n"
+"        % else:\n"
+"            ${object.partner_id.name},\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Aici este anexată\n"
+"        % if object.name:\n"
+"            factura <strong>${object.name}</strong>\n"
+"        % else:\n"
+"            invoice\n"
+"        %endif\n"
+"        % if object.invoice_origin:\n"
+"            (cu referința: ${object.invoice_origin})\n"
+"        % endif\n"
+"        în valoare de <strong>${format_amount(object.amount_total, object.currency_id)}</strong>\n"
+"        de la ${object.company_id.name}.\n"
+"        % if object.payment_state in ('paid', 'in_payment'):\n"
+"            Factura este deja plătită.\n"
+"        % else:\n"
+"           Vă rugăm să faceți plata cât mai curând posibil.\n"
+"            % if object.payment_reference:\n"
+"                <br/><br/>\n"
+"                Vă rugăm să utilizați următorul text pentru plata dvs. : <strong>${object.payment_reference}</strong>.\n"
+"            % endif\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"       Nu ezitați să ne contactați dacă aveți întrebări.\n"
+"        % if object.invoice_user_id.signature:\n"
+"            <br/>\n"
+"            ${object.invoice_user_id.signature | safe}\n"
+"        % endif\n"
+"    </p>\n"
+"</div>\n"
+"            "
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.portal_my_home_menu_invoice
@@ -335,6 +379,8 @@ msgid ""
 "<li>{amount} ({debit_credit}) from <strong>%s</strong> were transferred to "
 "<strong>{account_target_name}</strong> by {link}</li>"
 msgstr ""
+"<li>{amount} ({debit_credit}) de la <strong>%s</strong> au fost transferate "
+"la <strong>{account_target_name}</strong> după {link}</li>"
 
 #. module: account
 #: code:addons/account/wizard/account_automatic_entry_wizard.py:0
@@ -343,6 +389,8 @@ msgid ""
 "<li>{amount} ({debit_credit}) from {link}, "
 "<strong>%(account_source_name)s</strong></li>"
 msgstr ""
+"<li>{amount} ({debit_credit}) de la {link}, "
+"<strong>%(account_source_name)s</strong></li>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
@@ -1352,12 +1400,12 @@ msgstr "Contul la care să transferi."
 #. module: account
 #: model:ir.model,name:account.model_account_tour_upload_bill
 msgid "Account tour upload bill"
-msgstr ""
+msgstr "Factura de încărcare a turului contului"
 
 #. module: account
 #: model:ir.model,name:account.model_account_tour_upload_bill_email_confirm
 msgid "Account tour upload bill email confirm"
-msgstr ""
+msgstr "Confirmare e-mail factură încărcare tur cont"
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_automatic_entry_wizard__revenue_accrual_account
@@ -1593,7 +1641,7 @@ msgstr "Adaugă"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
 msgid "Add Credit Note"
-msgstr "Stornare"
+msgstr "Notă credit"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_invoice_send__add_sign
@@ -1706,6 +1754,9 @@ msgid ""
 "cancelling {percent:f}%% of {amount}</li><li>%(link0)s postponing it to "
 "{new_date}</li></ul>"
 msgstr ""
+"Au fost create intrări de ajustare pentru această factură:<ul><li>%(link1)s "
+"anulând {percent:f}%% a {amount}</li><li>%(link0)s amânând-o la "
+"{new_date}</li></ul>"
 
 #. module: account
 #: code:addons/account/wizard/account_automatic_entry_wizard.py:0
@@ -2418,7 +2469,7 @@ msgstr "Intrări automate"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_res_company__automatic_entry_default_journal_id
 msgid "Automatic Entry Default Journal"
-msgstr ""
+msgstr "Jurnal implicit de intrare automată"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
@@ -2459,6 +2510,13 @@ msgid "Balance"
 msgstr "Sold"
 
 #. module: account
+#. openerp-web
+#: code:addons/account/static/src/js/account_selection.js:0
+#, python-format
+msgid "Balance Sheet"
+msgstr "Bilanț"
+
+#. module: account
 #: model:ir.model.fields,help:account.field_account_bank_statement__balance_end
 msgid "Balance as calculated based on Opening Balance and transaction lines"
 msgstr "Sold calculat pe baza Balantei de deschidere si a tranzactiilor"
@@ -2479,7 +2537,7 @@ msgstr "Bancă"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
 msgid "Bank &amp; Cash"
-msgstr "Bancă &amp;  Casă"
+msgstr "Bancă &amp; Casă"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_journal__bank_account_id
@@ -2814,7 +2872,7 @@ msgstr "După țară"
 #. module: account
 #: model:ir.filters,name:account.filter_invoice_refund
 msgid "By Credit Note"
-msgstr "Prin stornare"
+msgstr "Prin notă credit"
 
 #. module: account
 #: model:ir.filters,name:account.filter_invoice_product
@@ -3256,7 +3314,7 @@ msgid ""
 " credit notes made from this journal"
 msgstr ""
 "Bifați această casetă dacă nu doriți să utilizați aceleași secvențe pentru "
-"facturi și stornări realizate din acest jurnal"
+"facturi și notă credit realizate din acest jurnal"
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_account_tag__tax_negate
@@ -4049,7 +4107,7 @@ msgstr "Credit Move"
 #: model_terms:ir.ui.view,arch_db:account.report_invoice_document
 #, python-format
 msgid "Credit Note"
-msgstr "Stornare"
+msgstr "Notă credit"
 
 #. module: account
 #: code:addons/account/models/account_move.py:0
@@ -4063,7 +4121,7 @@ msgstr "Nota de credit creată"
 #: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
 #: model_terms:ir.ui.view,arch_db:account.view_account_invoice_report_search
 msgid "Credit Notes"
-msgstr "Stornări"
+msgstr "Note credit"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_tax_adjustments_wizard__credit_account_id
@@ -4125,7 +4183,7 @@ msgstr "Asistent Conversie Valutară"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_res_config_settings__currency_exchange_journal_id
 msgid "Currency Exchange Journal"
-msgstr ""
+msgstr "Jurnal de Schimb Valutar"
 
 #. module: account
 #: code:addons/account/models/account_move.py:0
@@ -4185,7 +4243,7 @@ msgstr "Client"
 #: model:ir.model.fields.selection,name:account.selection__account_invoice_report__move_type__out_refund
 #: model:ir.model.fields.selection,name:account.selection__account_move__move_type__out_refund
 msgid "Customer Credit Note"
-msgstr "Factură de stornare client"
+msgstr "Notă credit client"
 
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_invoice_report__move_type__out_invoice
@@ -4374,10 +4432,10 @@ msgstr "Mod Data"
 #. module: account
 #: model:ir.model.fields,help:account.field_account_financial_year_op__opening_date
 msgid ""
-"Date from which the accounting is managed in Odoo. It is the date of the "
+"Date from which the accounting is managed in Flectra. It is the date of the "
 "opening entry."
 msgstr ""
-"Data de la care se gestionează contabilitatea în Odoo. Este data intrării de"
+"Data de la care se gestionează contabilitatea în Flectra. Este data intrării de"
 " deschidere."
 
 #. module: account
@@ -4926,7 +4984,7 @@ msgstr "Factură ciornă"
 #: code:addons/account/models/account_move.py:0
 #, python-format
 msgid "Draft Credit Note"
-msgstr "Factură stornare ciornă"
+msgstr "Notă credit ciornă"
 
 #. module: account
 #: code:addons/account/models/account_move.py:0
@@ -5021,7 +5079,7 @@ msgid ""
 "Duplicated vendor reference detected. You probably encoded twice the same vendor bill/credit note:\n"
 "%s"
 msgstr ""
-"A fost detectată o referință furnizor dublată. Probabil ați completat de două ori aceeași factură  / stornare:\n"
+"A fost detectată o referință furnizor dublată. Probabil ați completat de două ori aceeași factură  / notă credit:\n"
 "%s"
 
 #. module: account
@@ -5658,7 +5716,7 @@ msgstr "Reconciliere completă"
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_move_reversal__refund_method__cancel
 msgid "Full Refund"
-msgstr "Stornare Completă"
+msgstr "Rambursare Completă"
 
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_move_reversal__refund_method__modify
@@ -6438,7 +6496,9 @@ msgid "Internal Notes"
 msgstr "Note Interne"
 
 #. module: account
+#: code:addons/account/models/account_payment.py:0
 #: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
+#, python-format
 msgid "Internal Transfer"
 msgstr "Transfer intern"
 
@@ -7609,39 +7669,39 @@ msgstr "Manual"
 #. module: account
 #: model:ir.model.fields,help:account.field_account_journal__inbound_payment_method_ids
 msgid ""
-"Manual: Get paid by cash, check or any other method outside of Odoo.\n"
+"Manual: Get paid by cash, check or any other method outside of Flectra.\n"
 "Electronic: Get paid automatically through a payment acquirer by requesting a transaction on a card saved by the customer when buying or subscribing online (payment token).\n"
-"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Odoo,you are suggested to reconcile the transaction with the batch deposit. Enable this option from the settings."
+"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Flectra,you are suggested to reconcile the transaction with the batch deposit. Enable this option from the settings."
 msgstr ""
-"Manual: plătit prin numerar, cec sau orice altă metodă în afara Odoo.\n"
+"Manual: plătit prin numerar, cec sau orice altă metodă în afara Flectra.\n"
 "Electronic: plătite automat prin intermediul unui dobânditor de plăți, solicitând o tranzacție pe un card salvat de client atunci când cumpără sau abonează online (jeton de plată).\n"
-"Depunerea lotului: încurcați mai multe verificări ale clienților simultan, generând un depozit pe care să îl transmiteți băncii dvs. Atunci când codificați extrasul bancar în Odoo, vi se recomandă să reconciliați tranzacția cu depozitul de lot. Activați această opțiune din setări."
+"Depunerea lotului: încurcați mai multe verificări ale clienților simultan, generând un depozit pe care să îl transmiteți băncii dvs. Atunci când codificați extrasul bancar în Flectra, vi se recomandă să reconciliați tranzacția cu depozitul de lot. Activați această opțiune din setări."
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_payment__payment_method_id
 #: model:ir.model.fields,help:account.field_account_payment_register__payment_method_id
 msgid ""
-"Manual: Get paid by cash, check or any other method outside of Odoo.\n"
+"Manual: Get paid by cash, check or any other method outside of Flectra.\n"
 "Electronic: Get paid automatically through a payment acquirer by requesting a transaction on a card saved by the customer when buying or subscribing online (payment token).\n"
-"Check: Pay bill by check and print it from Odoo.\n"
-"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Odoo, you are suggested to reconcile the transaction with the batch deposit.To enable batch deposit, module account_batch_payment must be installed.\n"
+"Check: Pay bill by check and print it from Flectra.\n"
+"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Flectra, you are suggested to reconcile the transaction with the batch deposit.To enable batch deposit, module account_batch_payment must be installed.\n"
 "SEPA Credit Transfer: Pay bill from a SEPA Credit Transfer file you submit to your bank. To enable sepa credit transfer, module account_sepa must be installed "
 msgstr ""
-"Manual: primiți plăți în numerar, cec sau orice altă metodă în afara Odoo.\n"
+"Manual: primiți plăți în numerar, cec sau orice altă metodă în afara Flectra.\n"
 "Electronice: primiți automat plăți prin intermediul unui dobânditor de plăți solicitând o tranzacție pe un card salvat de client atunci când cumpărați sau vă abonați online (jeton de plată).\n"
-"Cec: Plătiți factura prin cec și imprimați-o de la Odoo.\n"
-"Depunere în lot: încasați mai multe cecuri ale clienților simultan, generând o depunere în lot pentru a o trimite la banca dvs. Când codificați extrasul bancar în Odoo, vi se recomandă să reconciliați tranzacția cu depozitul lot. Pentru a activa depunerea lot, trebuie instalat modul account_batch_payment.\n"
+"Cec: Plătiți factura prin cec și imprimați-o de la Flectra.\n"
+"Depunere în lot: încasați mai multe cecuri ale clienților simultan, generând o depunere în lot pentru a o trimite la banca dvs. Când codificați extrasul bancar în Flectra, vi se recomandă să reconciliați tranzacția cu depozitul lot. Pentru a activa depunerea lot, trebuie instalat modul account_batch_payment.\n"
 "Transfer de credit SEPA: Plătiți factura dintr-un fișier de transfer de credit SEPA pe care îl trimiteți băncii dvs. Pentru a activa transferul de credit sepa, trebuie instalat modulul account_sepa"
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_journal__outbound_payment_method_ids
 msgid ""
-"Manual:Pay bill by cash or any other method outside of Odoo.\n"
-"Check:Pay bill by check and print it from Odoo.\n"
+"Manual:Pay bill by cash or any other method outside of Flectra.\n"
+"Check:Pay bill by check and print it from Flectra.\n"
 "SEPA Credit Transfer: Pay bill from a SEPA Credit Transfer file you submit to your bank. Enable this option from the settings."
 msgstr ""
-"Manual: Plătiți factura prin numerar sau orice altă metodă în afara Odoo.\n"
-"Cec: plătiți factura prin cec și imprimați-o de la Odoo.\n"
+"Manual: Plătiți factura prin numerar sau orice altă metodă în afara Flectra.\n"
+"Cec: plătiți factura prin cec și imprimați-o de la Flectra.\n"
 "Transfer de credit SEPA: plătiți factura dintr-un fișier de transfer de credit SEPA pe care îl trimiteți băncii dvs. Activați această opțiune din setări."
 
 #. module: account
@@ -8169,8 +8229,8 @@ msgid ""
 "Note that the easiest way to create a credit note is to do it directly\n"
 "                from the customer invoice."
 msgstr ""
-"Rețineți că cea mai ușoară modalitate de a crea o factură de stornare este "
-"să o faceți direct din factura clientului."
+"Rețineți că cea mai ușoară modalitate de a crea o notă credit este să o "
+"faceți direct din factura clientului."
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.action_move_in_refund_type
@@ -8303,39 +8363,39 @@ msgstr "Octombrie"
 
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_journal__invoice_reference_model__odoo
-msgid "Odoo"
-msgstr "Odoo"
+msgid "Flectra"
+msgstr "Flectra"
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.action_bank_statement_line
 msgid ""
-"Odoo allows you to reconcile a statement line directly with\n"
+"Flectra allows you to reconcile a statement line directly with\n"
 "                the related sale or purchase invoice(s)."
 msgstr ""
-"Odoo vă permite să reconciliați o linie de declarație direct cu\n"
+"Flectra vă permite să reconciliați o linie de declarație direct cu\n"
 "factura (facturile) de vânzare sau cumpărare aferente."
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.action_bank_statement_tree
 msgid ""
-"Odoo allows you to reconcile a statement line directly with\n"
+"Flectra allows you to reconcile a statement line directly with\n"
 "                the related sale or purchase invoices."
 msgstr ""
-"Odoo vă permite să reconciliați o linie de declarație direct cu\n"
+"Flectra vă permite să reconciliați o linie de declarație direct cu\n"
 "                facturile de vânzare sau cumpărare aferente."
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.res_partner_action_customer
-msgid "Odoo helps you easily track all activities related to a customer."
+msgid "Flectra helps you easily track all activities related to a customer."
 msgstr ""
-"Odoo vă ajută să urmăriți cu ușurință toate activitățile legate de un "
+"Flectra vă ajută să urmăriți cu ușurință toate activitățile legate de un "
 "client."
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.res_partner_action_supplier
-msgid "Odoo helps you easily track all activities related to a supplier."
+msgid "Flectra helps you easily track all activities related to a supplier."
 msgstr ""
-"Odoo vă ajută să urmăriți cu ușurință toate activitățile legate de un "
+"Flectra vă ajută să urmăriți cu ușurință toate activitățile legate de un "
 "furnizor."
 
 #. module: account
@@ -8414,6 +8474,7 @@ msgstr "Doar administratorii pot încărca planul de conturi"
 #. module: account
 #: code:addons/account/models/account_move.py:0
 #: code:addons/account/models/account_move.py:0
+#: code:addons/account/models/ir_actions_report.py:0
 #, python-format
 msgid "Only invoices could be printed."
 msgstr "Numai facturile puteau fi tipărite."
@@ -8574,6 +8635,12 @@ msgid "Options"
 msgstr "Opțiuni"
 
 #. module: account
+#: code:addons/account/wizard/account_tour_upload_bill.py:0
+#, python-format
+msgid "Or send a bill to %s@%s"
+msgstr "Sau trimiteți o factură la%s@%s"
+
+#. module: account
 #: model:ir.model.fields,field_description:account.field_account_resequence_wizard__ordering
 msgid "Ordering"
 msgstr "Comandă"
@@ -8596,6 +8663,12 @@ msgstr "Intrare bazată pe numerar origine"
 #: model:ir.actions.report,name:account.action_account_original_vendor_bill
 msgid "Original Bills"
 msgstr "Facturi Originale"
+
+#. module: account
+#: model_terms:ir.ui.view,arch_db:account.view_move_line_tree
+#: model_terms:ir.ui.view,arch_db:account.view_move_line_tree_grouped
+msgid "Original Currency"
+msgstr ""
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line__payment_id
@@ -9655,7 +9728,7 @@ msgstr "Motiv..."
 #: model:ir.ui.menu,name:account.menu_action_move_in_receipt_type
 #: model:ir.ui.menu,name:account.menu_action_move_out_receipt_type
 msgid "Receipts"
-msgstr "Recepții"
+msgstr "Bonuri"
 
 #. module: account
 #: model:account.account.type,name:account.data_account_type_receivable
@@ -9817,7 +9890,7 @@ msgstr "Rambursare Creată"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_move_reversal
 msgid "Refund Date"
-msgstr "Dată stornare"
+msgstr "Dată rambursare"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_tax_repartition_line__refund_tax_id
@@ -9829,7 +9902,7 @@ msgstr "Taxă Rambursare"
 #: model:ir.actions.act_window,name:account.action_move_in_refund_type
 #: model:ir.ui.menu,name:account.menu_action_move_in_refund_type
 msgid "Refunds"
-msgstr "Stornări"
+msgstr "Rambursări"
 
 #. module: account
 #: code:addons/account/models/account_move.py:0
@@ -10625,13 +10698,13 @@ msgid ""
 "\n"
 "Any file extension will be accepted.\n"
 "\n"
-"Only PDF and XML files will be interpreted by Odoo"
+"Only PDF and XML files will be interpreted by Flectra"
 msgstr ""
 "Trimiteți un e-mail separat pentru fiecare factură.\n"
 "\n"
 "Orice extensie de fișier va fi acceptată.\n"
 "\n"
-"Doar fișierele PDF și XML vor fi interpretate de Odoo"
+"Doar fișierele PDF și XML vor fi interpretate de Flectra"
 
 #. module: account
 #: model:ir.actions.act_window,name:account.account_send_payment_receipt_by_email_action
@@ -12012,6 +12085,16 @@ msgid "That is the date of the opening entry."
 msgstr ""
 
 #. module: account
+#: code:addons/account/models/sequence_mixin.py:0
+#, python-format
+msgid ""
+"The %(date_field)s (%(date)s) doesn't match the %(sequence_field)s (%(sequence)s).\n"
+"You might want to clear the field %(sequence_field)s before proceeding with the change of the date."
+msgstr ""
+"%(date_field)s (%(date)s) nu corespund cu %(sequence_field)s (%(sequence)s).\n"
+"Poate doriți să ștergeți câmpul %(sequence_field)s înainte de a continua cu modificarea datei."
+
+#. module: account
 #: model:ir.model.fields,help:account.field_account_account__internal_group
 #: model:ir.model.fields,help:account.field_account_account_type__internal_group
 #: model:ir.model.fields,help:account.field_account_move_line__account_internal_group
@@ -12035,6 +12118,12 @@ msgstr ""
 "diferite tipuri de conturi: tipul de lichiditate este pentru numerar sau "
 "conturi bancare, de plătit / de primit este pentru conturi de vânzător / "
 "client."
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "The Bill/Refund date is required to validate this document."
+msgstr ""
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_bank_statement__country_code
@@ -12078,6 +12167,15 @@ msgstr ""
 #, python-format
 msgid "The account %s (%s) is deprecated."
 msgstr "Contul %s (%s) este depreciat."
+
+#. module: account
+#: code:addons/account/models/account_account.py:0
+#, python-format
+msgid ""
+"This account is configured in %(journal_names)s journal(s) (ids "
+"%(journal_ids)s) as payment debit or credit account. This means that this "
+"account's type should be reconcilable."
+msgstr ""
 
 #. module: account
 #: code:addons/account/models/account_account.py:0
@@ -12303,16 +12401,6 @@ msgstr ""
 " sunt reconciliate. Nu mai este nimic de procesat."
 
 #. module: account
-#: code:addons/account/models/sequence_mixin.py:0
-#, python-format
-msgid ""
-"The %(date_field)s (%(date)s) doesn't match the %(sequence_field)s (%(sequence)s).\n"
-"You might want to clear the field %(sequence_field)s before proceeding with the change of the date."
-msgstr ""
-"%(date_field)s (%(date)s) nu corespund cu %(sequence_field)s (%(sequence)s).\n"
-"Poate doriți să ștergeți câmpul %(sequence_field)s înainte de a continua cu modificarea datei."
-
-#. module: account
 #: code:addons/account/models/account_payment_term.py:0
 #, python-format
 msgid "The day of the month used for this term must be strictly positive."
@@ -12404,6 +12492,13 @@ msgstr ""
 "au adresă de e-mail."
 
 #. module: account
+#: code:addons/account/models/account_reconcile_model.py:0
+#, python-format
+msgid ""
+"The following regular expression is invalid to create a partner mapping: %s"
+msgstr ""
+
+#. module: account
 #: code:addons/account/models/chart_template.py:0
 #, python-format
 msgid ""
@@ -12441,6 +12536,19 @@ msgstr ""
 msgid "The holder of a journal's bank account must be the company (%s)."
 msgstr ""
 "Deținătorul contului bancar al unui jurnal trebuie să fie compania (%s)."
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid ""
+"The invoice already contains lines, it was not updated from the attachment."
+msgstr ""
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "The invoice is not a draft, it was not updated from the attachment."
+msgstr ""
 
 #. module: account
 #: code:addons/account/models/account_bank_statement.py:0
@@ -12801,6 +12909,8 @@ msgid ""
 "The starting balance <b>doesn't match</b> with the ending balance of the "
 "previous bank statement."
 msgstr ""
+"Soldul inițial <b>nu se potrivește</b> cu soldul final al extrasului bancar "
+"anterior."
 
 #. module: account
 #: code:addons/account/models/account_bank_statement.py:0
@@ -13095,8 +13205,11 @@ msgstr ""
 msgid ""
 "This option permanently removes any track of email after it's been sent, "
 "including from the Technical menu in the Settings, in order to preserve "
-"storage space of your Odoo database."
+"storage space of your Flectra database."
 msgstr ""
+"Această opțiune elimină definitiv orice urmă de e-mail după ce a fost "
+"trimisă, inclusiv din meniul Tehnic din Setări, pentru a păstra spațiul de "
+"stocare al bazei de date Flectra"
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_account_template__chart_template_id
@@ -13359,6 +13472,12 @@ msgid "Transfers"
 msgstr "Transferuri"
 
 #. module: account
+#: code:addons/account/wizard/account_tour_upload_bill.py:0
+#, python-format
+msgid "Try a sample vendor bill"
+msgstr ""
+
+#. module: account
 #: model:ir.model.fields,field_description:account.field_account_account__user_type_id
 #: model:ir.model.fields,field_description:account.field_account_account_template__user_type_id
 #: model:ir.model.fields,field_description:account.field_account_account_type__type
@@ -13558,6 +13677,12 @@ msgid "Upload"
 msgstr "Încărcare "
 
 #. module: account
+#: code:addons/account/wizard/account_tour_upload_bill.py:0
+#, python-format
+msgid "Upload your own bill"
+msgstr ""
+
+#. module: account
 #: model:ir.model.fields,field_description:account.field_account_chart_template__use_anglo_saxon
 msgid "Use Anglo-Saxon accounting"
 msgstr "Utilizare contabilitate anglo-saxonă "
@@ -13597,6 +13722,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
 msgid "Use budgets to compare actual with expected revenues and costs"
 msgstr ""
+"Utilizați bugetele pentru a compara veniturile și costurile preconizate"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_invoice_send__template_id
@@ -13616,7 +13742,7 @@ msgstr ""
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_account__used
 msgid "Used"
-msgstr ""
+msgstr "Folosit"
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_account_type__include_initial_balance
@@ -13779,7 +13905,7 @@ msgstr "Facturi furnizor"
 #: model:ir.model.fields.selection,name:account.selection__account_move__move_type__in_refund
 #: model_terms:ir.ui.view,arch_db:account.report_invoice_document
 msgid "Vendor Credit Note"
-msgstr "Stornare furnizori"
+msgstr "Notă credit furnizor"
 
 #. module: account
 #: code:addons/account/models/account_payment.py:0
@@ -13940,7 +14066,7 @@ msgstr "Cu moneda"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_tour_upload_bill
-msgid "With Odoo, you won't have to records bills manually"
+msgid "With Flectra, you won't have to records bills manually"
 msgstr ""
 
 #. module: account
@@ -13987,10 +14113,10 @@ msgstr ""
 #: model:ir.model.fields,help:account.field_account_journal__invoice_reference_model
 msgid ""
 "You can choose different models for each type of reference. The default one "
-"is the Odoo reference."
+"is the Flectra reference."
 msgstr ""
 "Puteți alege diferite modele pentru fiecare tip de referință. Cea implicită "
-"este referința Odoo."
+"este referința Flectra."
 
 #. module: account
 #: code:addons/account/models/account_payment_term.py:0
@@ -14139,6 +14265,8 @@ msgid ""
 "You can't manually change the state of journal entry %s, as it has been "
 "created by bank statement %s."
 msgstr ""
+"Nu puteți modifica manual starea notei contabile%s, aceasta a fost creată de"
+" linia de extras de bancă (registru de casă) %s."
 
 #. module: account
 #: code:addons/account/wizard/account_payment_register.py:0
@@ -14194,6 +14322,8 @@ msgstr ""
 msgid ""
 "You cannot add/modify entries prior to and inclusive of the lock date %s."
 msgstr ""
+"Nu puteți adăuga / modifica intrările anterioare și inclusiv datei de "
+"blocare %s."
 
 #. module: account
 #: code:addons/account/models/account_move.py:0
@@ -14202,8 +14332,8 @@ msgid ""
 "You cannot add/modify entries prior to and inclusive of the lock date %s. "
 "Check the company settings or ask someone with the 'Adviser' role"
 msgstr ""
-"Nu puteți adăuga / modifica intrările anterioare și inclusiv date de blocare"
-" %s. Verificați setările de companie sau solicită pe cineva cu rolul "
+"Nu puteți adăuga / modifica intrările anterioare și inclusiv datei de "
+"blocare %s. Verificați setările de companie sau solicită pe cineva cu rolul "
 "\"Expert contabil\""
 
 #. module: account
@@ -14353,8 +14483,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You cannot reduce the number of decimal places of a currency which has "
-"already been used to make accounting entries. If you really need to do that,"
-" please contact tech support."
+"already been used to make accounting entries."
 msgstr ""
 
 #. module: account
@@ -14443,6 +14572,9 @@ msgid ""
 "create a credit note instead. Use the action menu to transform it into a "
 "credit note or refund."
 msgstr ""
+"Nu puteți valida o factură cu o sumă totală negativă. În schimb, ar trebui "
+"să creați o notă de credit. Utilizați meniul de acțiuni pentru a transforma "
+"documentul într-o notă de credit sau rambursare."
 
 #. module: account
 #: code:addons/account/models/account_move.py:0
@@ -14461,6 +14593,12 @@ msgstr "Aveți"
 msgid ""
 "You have to define an 'Internal Transfer Account' in your cash register's "
 "journal."
+msgstr ""
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "The entry %s (id %s) is already posted."
 msgstr ""
 
 #. module: account
@@ -14516,6 +14654,7 @@ msgstr ""
 #. module: account
 #: code:addons/account/models/account_move.py:0
 #: code:addons/account/wizard/account_automatic_entry_wizard.py:0
+#: code:addons/account/wizard/account_automatic_entry_wizard.py:0
 #, python-format
 msgid "[Not set]"
 msgstr ""
@@ -14548,12 +14687,12 @@ msgstr "code"
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_payment_term_line__option__after_invoice_month
 msgid "days after the end of the invoice month"
-msgstr ""
+msgstr "zile după sfârșitul lunii din data facturii"
 
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_payment_term_line__option__day_after_invoice_date
 msgid "days after the invoice date"
-msgstr ""
+msgstr "zile după data de facturare"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.setup_bank_account_wizard
@@ -14594,6 +14733,8 @@ msgstr "pentru acest client. Puteți să o alocați la această factură ca plat
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
 msgid "for this vendor. You can allocate them to mark this bill as paid."
 msgstr ""
+"pentru acest furnizor. Puteți să le alocați pentru a marca plata acestei "
+"facturi."
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_invoice_send__invoice_without_email
@@ -14650,6 +14791,15 @@ msgstr ""
 #. module: account
 #: model:ir.model.fields,help:account.field_account_bank_statement__previous_statement_id
 msgid "technical field to compute starting balance correctly"
+msgstr ""
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid ""
+"The chosen journal has a type that is not compatible with your invoice type."
+" Sales operations should go to 'sale' journals, and purchase operations to "
+"'purchase' ones."
 msgstr ""
 
 #. module: account

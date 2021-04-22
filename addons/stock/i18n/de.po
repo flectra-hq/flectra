@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* stock
 # 
@@ -18,15 +18,12 @@
 # Christian Oechsner <carinachristian@gmail.com>, 2020
 # Bettina Pfeifer <betzilla@web.de>, 2020
 # Silvan Wyden <silvan.wyden@braintec-group.com>, 2020
-# Niki Waibel, 2020
 # brokemeister <work@maltejansen.de>, 2020
-# Robert Förster <hello@suppliot.eu>, 2020
 # Max-Milan Stoyanov, 2020
-# Wolfgang Taferner, 2020
 # Marcel Trotzek <trotzek@rtg-portale.de>, 2020
-# Leon Grill <leg@odoo.com>, 2020
+# Leon Grill <leg@flectrahq.com>, 2020
 # Patrick Heuel <patrick.heuel@odoo-bs.com>, 2020
-# Kevin Harrings <kha@odoo.com>, 2020
+# Kevin Harrings <kha@flectrahq.com>, 2020
 # e2f <projects@e2f.com>, 2020
 # Martin Trigaux, 2020
 # Thorsten Vocks <thorsten.vocks@openbig.org>, 2020
@@ -34,20 +31,25 @@
 # Andi, 2020
 # Katharina Moritz <kmo@e2f.com>, 2020
 # Bülent Tiknas <btiknas@googlemail.com>, 2020
-# Johannes Croe <jcr@odoo.com>, 2020
-# JEK Odoo <jek@odoo.com>, 2020
+# Johannes Croe <jcr@flectrahq.com>, 2020
+# JEK Flectra <jek@flectrahq.com>, 2020
 # philku79 <philip.kuss@gmx.de>, 2020
 # Florian Pose <fp@igh.de>, 2020
 # Chris Egal <sodaswed@web.de>, 2020
 # Tobias Arndt, 2020
+# TomTietze <t.tietze94@web.de>, 2020
+# Gab_Flectra <gab@flectrahq.com>, 2020
+# Niki Waibel, 2021
+# Robert Förster <hello@suppliot.eu>, 2021
+# Wolfgang Taferner, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-16 13:33+0000\n"
+"POT-Creation-Date: 2020-11-27 11:23+0000\n"
 "PO-Revision-Date: 2020-09-07 08:19+0000\n"
-"Last-Translator: Tobias Arndt, 2020\n"
+"Last-Translator: Wolfgang Taferner, 2021\n"
 "Language-Team: German (https://www.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -185,7 +187,7 @@ msgstr "'Lagerort - %s' % object.name"
 #. module: stock
 #: model:ir.actions.report,print_report_name:stock.action_report_lot_label
 msgid "'Lot-Serial - %s' % object.name"
-msgstr "'Lot-Serialnummer - %s' % object.name"
+msgstr "'Lot-Seriennummer - %s' % object.name"
 
 #. module: stock
 #: model:ir.actions.report,print_report_name:stock.action_report_picking_type_label
@@ -819,18 +821,16 @@ msgid "Allowed Route"
 msgstr ""
 
 #. module: stock
+#: model:ir.model.fields,help:stock.field_stock_inventory__prefill_counted_quantity
+msgid ""
+"Allows to start with a pre-filled counted quantity for each lines or with "
+"all counted quantities set to zero."
+msgstr ""
+
+#. module: stock
 #: model:ir.model.fields,help:stock.field_stock_inventory__start_empty
 msgid "Allows to start with an empty inventory."
 msgstr "Erlaubt es, mit einem leeren Bestand zu beginnen."
-
-#. module: stock
-#: model:ir.model.fields,help:stock.field_stock_inventory__prefill_counted_quantity
-msgid ""
-"Allows to start with prefill counted quantity for each lines or with all "
-"counted quantity set to zero."
-msgstr ""
-"Erlaubt es, mit der Vorfüllung der Zählmenge für jede Zeile oder mit der "
-"Nullsetzung aller Zählmengen zu beginnen."
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_stock_rule_form
@@ -1826,10 +1826,10 @@ msgstr "Standard Routen im Lager"
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_orderpoint
 msgid ""
-"Define a minimum stock rule so that Odoo creates automatically requests for "
+"Define a minimum stock rule so that Flectra creates automatically requests for "
 "quotations or draft manufacturing orders to resupply your stock."
 msgstr ""
-"Definieren Sie eine Mindestbestandsregel, so dass Odoo automatisch "
+"Definieren Sie eine Mindestbestandsregel, so dass Flectra automatisch "
 "Bestellanfragen oder Entwürfe für Fertigungsaufsträge erstellt, um Ihr Lager"
 " wieder zu aufzustocken."
 
@@ -1842,14 +1842,14 @@ msgstr "Neues Lager erstellen"
 #: model_terms:ir.actions.act_window,help:stock.action_location_form
 msgid ""
 "Define your locations to reflect your warehouse structure and\n"
-"            organization. Odoo is able to manage physical locations\n"
+"            organization. Flectra is able to manage physical locations\n"
 "            (warehouses, shelves, bin, etc), partner locations (customers,\n"
 "            vendors) and virtual locations which are the counterpart of\n"
 "            the stock operations like the manufacturing orders\n"
 "            consumptions, inventories, etc."
 msgstr ""
 "Definieren Sie Ihre Standorte, um Ihre Lagerstruktur und\n"
-"-organisation zu reflektieren. Odoo ist in der Lage, physische Standorte \n"
+"-organisation zu reflektieren. Flectra ist in der Lage, physische Standorte \n"
 "(Lagerhallen, Regale, Abfallsysteme usw.), Partnerstandorte (Kunden, \n"
 "Verkäufer) und virtuelle Standorte zu verwalten, die das Gegenstück \n"
 "zu den Vorräten wie der Fertigungsaufträge, Lagerbestände usw. sind."
@@ -2280,7 +2280,7 @@ msgstr "Leeres Lager"
 #. module: stock
 #: model_terms:digest.tip,tip_description:stock.digest_tip_stock_0
 msgid ""
-"Enjoy a quick-paced experience with the Odoo barcode app. It is blazing fast"
+"Enjoy a quick-paced experience with the Flectra barcode app. It is blazing fast"
 " and works even without a stable internet connection. It supports all flows:"
 " inventory adjustments, batch picking, moving lots or pallets, low inventory"
 " checks, etc. Go to the \"Apps\" menu to activate the barcode interface."
@@ -2309,15 +2309,15 @@ msgstr "Fehler"
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_location_form
 msgid ""
-"Every stock operation in Odoo moves the products from one\n"
+"Every stock operation in Flectra moves the products from one\n"
 "            location to another one.  For instance, if you receive products\n"
-"            from a vendor, Odoo will move products from the Vendor\n"
+"            from a vendor, Flectra will move products from the Vendor\n"
 "            location to the Stock location. Each report can be performed on\n"
 "            physical, partner or virtual locations."
 msgstr ""
-"Jeder Lagerbetrieb in Odoo bewegt die Produkte von einem \n"
+"Jeder Lagerbetrieb in Flectra bewegt die Produkte von einem \n"
 "Ort zum anderen. Zum Beispiel, wenn Sie Produkte von einem \n"
-"Lieferanten erhalten, wird Odoo Produkte aus dem \n"
+"Lieferanten erhalten, wird Flectra Produkte aus dem \n"
 "Vendor-Standort an den Lagerort verschieben. Jeder Bericht kann an physischen, Partner- oder virtuellen Orten durchgeführt werden."
 
 #. module: stock
@@ -2895,11 +2895,11 @@ msgstr ""
 #: model:ir.model.fields,help:stock.field_stock_picking__show_reserved
 #: model:ir.model.fields,help:stock.field_stock_picking_type__show_reserved
 msgid ""
-"If this checkbox is ticked, Odoo will automatically pre-fill the detailed "
+"If this checkbox is ticked, Flectra will automatically pre-fill the detailed "
 "operations with the corresponding products, locations and lot/serial "
 "numbers."
 msgstr ""
-"Wenn dieses Kontrollkästchen angekreuzt ist, wird Odoo die detaillierten "
+"Wenn dieses Kontrollkästchen angekreuzt ist, wird Flectra die detaillierten "
 "Bestandsvorgänge automatisch mit den entsprechenden Produkt-, Lagerort- und "
 "Chargen-/Seriennummerinformationen befüllen."
 
@@ -3623,7 +3623,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock.view_picking_type_form
 #: model_terms:ir.ui.view,arch_db:stock.view_warehouse
 msgid "Locations"
-msgstr "Veranstaltungsorte"
+msgstr "Lagerorte"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_picking_form
@@ -3974,7 +3974,6 @@ msgstr "Neu"
 
 #. module: stock
 #: code:addons/stock/models/stock_move_line.py:0
-#: code:addons/stock/models/stock_picking.py:0
 #, python-format
 msgid "New Move:"
 msgstr "Neue Buchung:"
@@ -5094,7 +5093,7 @@ msgstr ""
 #. module: stock
 #: model:ir.model,name:stock.model_stock_putaway_rule
 msgid "Putaway Rule"
-msgstr ""
+msgstr "Einlagerungsregel"
 
 #. module: stock
 #: code:addons/stock/models/product.py:0
@@ -5114,7 +5113,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock.view_putaway_search
 #, python-format
 msgid "Putaway Rules"
-msgstr ""
+msgstr "Einlagerungsregeln"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_stock_rule
@@ -5769,7 +5768,7 @@ msgstr "Scheduler starten"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_config_settings__module_stock_sms
 msgid "SMS Confirmation"
-msgstr ""
+msgstr "SMS Bestätigung"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_inventory__message_has_sms_error
@@ -6335,6 +6334,7 @@ msgstr "Statistik Lagerbuchungen"
 
 #. module: stock
 #: code:addons/stock/models/stock_quant.py:0
+#: model:ir.actions.act_window,name:stock.dashboard_open_quants
 #, python-format
 msgid "Stock On Hand"
 msgstr " Auf Lager"
@@ -6944,6 +6944,16 @@ msgstr ""
 "angewandt werden (was duplizierte Vorgänge erzeugen würde)."
 
 #. module: stock
+#: code:addons/stock/models/product.py:0
+#, python-format
+msgid ""
+"This product has been used in at least one inventory movement. It is not "
+"advised to change the Product Type since it can lead to inconsistencies. A "
+"better solution could be to archive the product and create a new one "
+"instead."
+msgstr ""
+
+#. module: stock
 #: model:ir.model.fields,help:stock.field_stock_change_product_qty__new_quantity
 msgid ""
 "This quantity is expressed in the Default Unit of Measure of the product."
@@ -7267,7 +7277,7 @@ msgstr "Eindeutige Los/Seriennummer"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move__price_unit
 msgid "Unit Price"
-msgstr "Preis pro ME"
+msgstr "Einzelpreis"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move__product_uom
@@ -7729,19 +7739,19 @@ msgstr ""
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint__product_min_qty
 msgid ""
 "When the virtual stock equals to or goes below the Min Quantity specified "
-"for this field, Odoo generates a procurement to bring the forecasted "
+"for this field, Flectra generates a procurement to bring the forecasted "
 "quantity to the Max Quantity."
 msgstr ""
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint__product_max_qty
 msgid ""
-"When the virtual stock goes below the Min Quantity, Odoo generates a "
+"When the virtual stock goes below the Min Quantity, Flectra generates a "
 "procurement to bring the forecasted quantity to the Quantity specified as "
 "Max Quantity."
 msgstr ""
 "Wenn der verfügbare Bestand geringer ist als der hier definierte "
-"Mindestbestand, erstellt Odoo einen Beschaffungsvorschlag zur "
+"Mindestbestand, erstellt Flectra einen Beschaffungsvorschlag zur "
 "Wiederauffüllung des Lagers."
 
 #. module: stock
@@ -8031,6 +8041,9 @@ msgid ""
 "You cannot validate a transfer if no quantities are reserved nor done. To "
 "force the transfer, switch in edit mode and encode the done quantities."
 msgstr ""
+"Sie können einen Transfer nicht validieren, wenn keine Mengen reserviert "
+"oder erledigt sind. Um den Transfer zu erzwingen, wechseln Sie in den "
+"Bearbeitungsmodus und geben Sie die erledigten Mengen ein."
 
 #. module: stock
 #: code:addons/stock/wizard/stock_picking_return.py:0
@@ -8045,7 +8058,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock.view_immediate_transfer
 msgid ""
 "You have not recorded <i>done</i> quantities yet, by clicking on "
-"<i>apply</i> Odoo will process all the quantities."
+"<i>apply</i> Flectra will process all the quantities."
 msgstr ""
 
 #. module: stock
@@ -8244,7 +8257,7 @@ msgstr "von"
 #: code:addons/stock/static/src/xml/popover_widget.xml:0
 #, python-format
 msgid "planned on"
-msgstr ""
+msgstr "geplant am"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.exception_on_picking
@@ -8261,4 +8274,20 @@ msgstr "report_stock_quantity_graph"
 #: code:addons/stock/static/src/xml/stock_orderpoint.xml:0
 #, python-format
 msgid "should be replenished to reach the maximum of"
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"You can't desactivate the multi-location if you have more than once "
+"warehouse by company"
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/stock_warehouse.py:0
+#, python-format
+msgid ""
+"Creating a new warehouse will automatically activate the Storage Locations "
+"setting"
 msgstr ""

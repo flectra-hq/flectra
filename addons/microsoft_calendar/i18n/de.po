@@ -1,10 +1,11 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* microsoft_calendar
 # 
 # Translators:
 # Martin Trigaux, 2020
-# JEK Odoo <jek@odoo.com>, 2020
+# JEK Flectra <jek@flectrahq.com>, 2020
+# Kevin Harrings <kha@flectrahq.com>, 2021
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-27 11:24+0000\n"
 "PO-Revision-Date: 2020-09-07 08:14+0000\n"
-"Last-Translator: JEK Odoo <jek@odoo.com>, 2020\n"
+"Last-Translator: Kevin Harrings <kha@flectrahq.com>, 2021\n"
 "Language-Team: German (https://www.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,7 +117,7 @@ msgstr "Erstellt am"
 
 #. module: microsoft_calendar
 #: model:ir.model.fields.selection,name:microsoft_calendar.selection__microsoft_calendar_account_reset__delete_policy__delete_odoo
-msgid "Delete from Odoo"
+msgid "Delete from Flectra"
 msgstr ""
 
 #. module: microsoft_calendar
@@ -142,9 +143,19 @@ msgstr "Anzeigename"
 #. module: microsoft_calendar
 #: model:ir.model,name:microsoft_calendar.model_calendar_recurrence
 msgid "Event Recurrence Rule"
+msgstr "Regel wiederkehrendes Ereignis"
+
+#. module: microsoft_calendar
+#: code:addons/microsoft_calendar/models/calendar.py:0
+#, python-format
+msgid ""
+"For a correct synchronization between Flectra and Outlook Calendar, all attendees must have an email address. However, some events do not respect this condition. As long as the events are incorrect, the calendars will not be synchronized.\n"
+"Either update the events/attendees or archive these events %s:\n"
+"%s"
 msgstr ""
 
 #. module: microsoft_calendar
+#: model:ir.model.fields,field_description:microsoft_calendar.field_calendar_attendee__id
 #: model:ir.model.fields,field_description:microsoft_calendar.field_calendar_event__id
 #: model:ir.model.fields,field_description:microsoft_calendar.field_calendar_recurrence__id
 #: model:ir.model.fields,field_description:microsoft_calendar.field_microsoft_calendar_account_reset__id

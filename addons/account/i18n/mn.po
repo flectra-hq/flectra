@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* account
 # 
@@ -22,16 +22,17 @@
 # Munkhbaatar Gombosuren <muuguu17@gmail.com>, 2020
 # Cheemee Bumtsend <cheemeesun@gmail.com>, 2020
 # Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2020
-# Martin Trigaux, 2020
 # Батболд <batbold.ts@gmail.com>, 2020
+# Martin Trigaux, 2021
+# Byambajargal Suuri <byambaa08@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-27 15:35+0000\n"
+"POT-Creation-Date: 2021-02-25 10:15+0000\n"
 "PO-Revision-Date: 2020-09-07 08:09+0000\n"
-"Last-Translator: Батболд <batbold.ts@gmail.com>, 2020\n"
+"Last-Translator: Byambajargal Suuri <byambaa08@gmail.com>, 2021\n"
 "Language-Team: Mongolian (https://www.transifex.com/odoo/teams/41243/mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -57,17 +58,17 @@ msgstr ""
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_payment__reconciled_bills_count
 msgid "# Reconciled Bills"
-msgstr ""
+msgstr "Тулгагдсан тооцоонууд"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_payment__reconciled_invoices_count
 msgid "# Reconciled Invoices"
-msgstr ""
+msgstr "Тулгагдсан нэхэмжлэлүүд"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_payment__reconciled_statements_count
 msgid "# Reconciled Statements"
-msgstr ""
+msgstr "Тулгагдсан хуулгууд"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_chart_template__code_digits
@@ -156,6 +157,12 @@ msgstr "-> Хэсэгчлэн тулгагдсан бичилтүүдийг ха
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
 msgid ". You might want to put a higher number here."
+msgstr "Арай өндөр тоо оруулсан дээр байх аа"
+
+#. module: account
+#: code:addons/account/wizard/account_resequence.py:0
+#, python-format
+msgid "... (%s other)"
 msgstr ""
 
 #. module: account
@@ -335,6 +342,8 @@ msgid ""
 "<span attrs=\"{'invisible': ['|', ('state', '!=', 'draft'), ('name', '!=', "
 "'/')]}\">Draft</span>"
 msgstr ""
+"<span attrs=\"{'invisible': ['|', ('state', '!=', 'draft'), ('name', '!=', "
+"'/')]}\">Ноорог</span>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_invoice_send_wizard_form
@@ -364,6 +373,8 @@ msgid ""
 "<span attrs=\"{'invisible': [('reconciled_invoices_count','&gt;', 1)]}\">Invoice</span>\n"
 "                                <span attrs=\"{'invisible': [('reconciled_invoices_count','&lt;=', 1)]}\">Invoices</span>"
 msgstr ""
+"<span attrs=\"{'invisible': [('reconciled_invoices_count','&gt;', 1)]}\">Нэхэмжлэл</span>\n"
+"                                <span attrs=\"{'invisible': [('reconciled_invoices_count','&lt;=', 1)]}\">Нэхэмжлэлүүд</span>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_payment_form
@@ -410,7 +421,7 @@ msgid ""
 "class=\"d-none d-md-inline\"> Cancelled</span></span>"
 msgstr ""
 "<span class=\"badge badge-pill badge-warning\"><i class=\"fa fa-fw fa-"
-"remove\" aria-label=\"Цуцлагдсан\" title=\"Цуцлагдсан\" role=\"img\"/><span "
+"remove\" aria-label=\"Cancelled\" title=\"Cancelled\" role=\"img\"/><span "
 "class=\"d-none d-md-inline\"> Цуцлагдсан</span></span>"
 
 #. module: account
@@ -420,10 +431,9 @@ msgid ""
 "specific.\" aria-label=\"Values set here are company-specific.\" "
 "groups=\"base.group_multi_company\" role=\"img\"/>"
 msgstr ""
-"<span class=\"fa fa-lg fa-building-o\" title=\"Эдгээр утгууд нь зөвхөн "
-"тухайн компаны хувьд хадгалагдана.\" aria-label=\"Эдгээр утгууд нь зөвхөн "
-"тухайн компаны хувьд хадгалагдана.\" groups=\"base.group_multi_company\" "
-"role=\"img\"/>"
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" aria-label=\"Values set here are company-specific.\" "
+"groups=\"base.group_multi_company\" role=\"img\"/>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
@@ -431,8 +441,8 @@ msgid ""
 "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
 "specific.\"/>"
 msgstr ""
-"<span class=\"fa fa-lg fa-building-o\" title=\"Эдгээр утгууд нь зөвхөн "
-"тухайн компаны хувьд хадгалагдана.\"/>"
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\"/>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
@@ -441,6 +451,9 @@ msgid ""
 "('state', '!=', 'draft'), ('invoice_payment_term_id', '!=', False)]}\"> or "
 "</span>"
 msgstr ""
+"<span class=\"o_form_label mx-3 oe_edit_only\" attrs=\"{'invisible': ['|', "
+"('state', '!=', 'draft'), ('invoice_payment_term_id', '!=', False)]}\"> "
+"эсвэл </span>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_reconcile_model_form
@@ -476,8 +489,8 @@ msgid ""
 "<span class=\"o_form_label\">Default Taxes</span>\n"
 "                                    <span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" aria-label=\"Values set here are company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
 msgstr ""
-"<span class=\"o_form_label\">Үндсэн татвар</span>\n"
-"                                    <span class=\"fa fa-lg fa-building-o\" title=\"Эдгээр утгууд нь зөвхөн тухайн компаны хувьд хадгалагдана.\" aria-label=\"Эдгээр утгууд нь зөвхөн тухайн компаны хувьд хадгалагдана.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+"<span class=\"o_form_label\">Үндсэн татварууд</span>\n"
+"                                    <span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" aria-label=\"Values set here are company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
@@ -494,8 +507,8 @@ msgid ""
 "<span class=\"o_form_label\">Main Currency</span>\n"
 "                                    <span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" aria-label=\"Values set here are company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
 msgstr ""
-"<span class=\"o_form_label\">Үндсэн валют</span>\n"
-"                                    <span class=\"fa fa-lg fa-building-o\" title=\"Эдгээр утгууд нь зөвхөн тухайн компаны хувьд хадгалагдана.\" aria-label=\"Эдгээр утгууд нь зөвхөн тухайн компаны хувьд хадгалагдана.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+"<span class=\"o_form_label\">Үндсэн валютууд</span>\n"
+"                                    <span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" aria-label=\"Values set here are company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
@@ -591,7 +604,7 @@ msgstr "<span> Хэнээс </span>"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
 msgid "<span> Manually</span>"
-msgstr ""
+msgstr "<span> Гараар</span>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_position_form
@@ -611,7 +624,7 @@ msgstr "<span>Үлдэгдэл</span>"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
 msgid "<span>Create</span>"
-msgstr ""
+msgstr "<span>Үүсгэх</span>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.report_invoice_document
@@ -698,7 +711,7 @@ msgstr "<span>Нэхэмжлэл байршуулах</span>"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
 msgid "<span>Upload</span>"
-msgstr ""
+msgstr "<span>Ачааллах</span>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
@@ -929,6 +942,7 @@ msgstr ""
 #, python-format
 msgid "A payment must always belongs to a bank or cash journal."
 msgstr ""
+"Төлбөр нь үргэлж банк эсвэл бэлэн мөнгөний журналд бичигдэх шаардлагатай"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
@@ -1259,7 +1273,7 @@ msgid ""
 "Account holder name, in case it is different than the name of the Account "
 "Holder"
 msgstr ""
-"Данс эзэмшигчийн нэр, Данс эзэмшигчийн бүртгэлтэй нэр нь Odoo дээрх нэрээс "
+"Данс эзэмшигчийн нэр, Данс эзэмшигчийн бүртгэлтэй нэр нь Flectra дээрх нэрээс "
 "өөр байх тохиолдолд энэ талбарыг ашиглана"
 
 #. module: account
@@ -2394,6 +2408,13 @@ msgstr "Муу зээлдэгч"
 #: model:ir.model.fields.selection,name:account.selection__account_payment_term_line__value__balance
 msgid "Balance"
 msgstr "Үлдэгдэл"
+
+#. module: account
+#. openerp-web
+#: code:addons/account/static/src/js/account_selection.js:0
+#, python-format
+msgid "Balance Sheet"
+msgstr "Баланс тайлан"
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_bank_statement__balance_end
@@ -4295,10 +4316,10 @@ msgstr ""
 #. module: account
 #: model:ir.model.fields,help:account.field_account_financial_year_op__opening_date
 msgid ""
-"Date from which the accounting is managed in Odoo. It is the date of the "
+"Date from which the accounting is managed in Flectra. It is the date of the "
 "opening entry."
 msgstr ""
-"Odoo-д санхүү бүртгэлээ хөтлөж эхэлсэн огноо. Энэ бол нээлтийн ажил "
+"Flectra-д санхүү бүртгэлээ хөтлөж эхэлсэн огноо. Энэ бол нээлтийн ажил "
 "гүйлгээний огноо юм."
 
 #. module: account
@@ -6305,7 +6326,9 @@ msgid "Internal Notes"
 msgstr "Дотоод тэмдэглэл"
 
 #. module: account
+#: code:addons/account/models/account_payment.py:0
 #: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
+#, python-format
 msgid "Internal Transfer"
 msgstr "Дотоод шилжүүлэг"
 
@@ -7462,39 +7485,39 @@ msgstr "Гараар"
 #. module: account
 #: model:ir.model.fields,help:account.field_account_journal__inbound_payment_method_ids
 msgid ""
-"Manual: Get paid by cash, check or any other method outside of Odoo.\n"
+"Manual: Get paid by cash, check or any other method outside of Flectra.\n"
 "Electronic: Get paid automatically through a payment acquirer by requesting a transaction on a card saved by the customer when buying or subscribing online (payment token).\n"
-"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Odoo,you are suggested to reconcile the transaction with the batch deposit. Enable this option from the settings."
+"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Flectra,you are suggested to reconcile the transaction with the batch deposit. Enable this option from the settings."
 msgstr ""
-"Гараар: Бэлэн мөнгөөр төлөгдөх эсвэл Odoo системээс гадуур ямар нэг төлбөрийн хэрэгслээр төлөгдөх.\n"
+"Гараар: Бэлэн мөнгөөр төлөгдөх эсвэл Flectra системээс гадуур ямар нэг төлбөрийн хэрэгслээр төлөгдөх.\n"
 "Электрон: Ямар нэг онлайн төлбөрийн хэрэгсэлээр төлөлт хийх үед автоматаар захиалагчийн гүйлгээ бүртгэгдэх (төлбөрийн token).\n"
-"Багц төлбөр: Захиалагч хэд хэдэн төлөлтийг нэгтгэн банкнаар нэг төлбөр шилжүүлэх тохиолдол. Odoo-д банкны гүйлгээ хөтлөгдөх үед танд холбогдох нэхэмжлэлүүдийг сонгож тулгах боломж олгогдоно. Энэ боломжыг тохиргооноос идэвхижүүлээрэй."
+"Багц төлбөр: Захиалагч хэд хэдэн төлөлтийг нэгтгэн банкнаар нэг төлбөр шилжүүлэх тохиолдол. Flectra-д банкны гүйлгээ хөтлөгдөх үед танд холбогдох нэхэмжлэлүүдийг сонгож тулгах боломж олгогдоно. Энэ боломжыг тохиргооноос идэвхижүүлээрэй."
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_payment__payment_method_id
 #: model:ir.model.fields,help:account.field_account_payment_register__payment_method_id
 msgid ""
-"Manual: Get paid by cash, check or any other method outside of Odoo.\n"
+"Manual: Get paid by cash, check or any other method outside of Flectra.\n"
 "Electronic: Get paid automatically through a payment acquirer by requesting a transaction on a card saved by the customer when buying or subscribing online (payment token).\n"
-"Check: Pay bill by check and print it from Odoo.\n"
-"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Odoo, you are suggested to reconcile the transaction with the batch deposit.To enable batch deposit, module account_batch_payment must be installed.\n"
+"Check: Pay bill by check and print it from Flectra.\n"
+"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Flectra, you are suggested to reconcile the transaction with the batch deposit.To enable batch deposit, module account_batch_payment must be installed.\n"
 "SEPA Credit Transfer: Pay bill from a SEPA Credit Transfer file you submit to your bank. To enable sepa credit transfer, module account_sepa must be installed "
 msgstr ""
-"Гараар: Бэлэн мөнгөөр төлөгдөх эсвэл Odoo системээс гадуур ямар нэг төлбөрийн хэрэгслээр төлөгдөх.\n"
+"Гараар: Бэлэн мөнгөөр төлөгдөх эсвэл Flectra системээс гадуур ямар нэг төлбөрийн хэрэгслээр төлөгдөх.\n"
 "Электрон: Ямар нэг онлайн төлбөрийн хэрэгсэлээр төлөлт хийх үед автоматаар захиалагчийн гүйлгээ бүртгэгдэх (төлбөрийн token).\n"
-"Чек: Нэхэмжлэлийг чекээр төлж төлбөрийн баримтыг Odoo-с хэвлэх.\n"
-"Багц төлбөр: Захиалагч хэд хэдэн төлөлтийг нэгтгэн банкнаар нэг төлбөр шилжүүлэх тохиолдол. Odoo-д банкны гүйлгээ хөтлөгдөх үед танд холбогдох нэхэмжлэлүүдийг сонгож тулгах боломж олгогдоно. Багц төлөлт бүртгэх боломжыг идэвхижүүлэхийн тулд account_batch_payment модуль суулгах шаардлагатай.\n"
+"Чек: Нэхэмжлэлийг чекээр төлж төлбөрийн баримтыг Flectra-с хэвлэх.\n"
+"Багц төлбөр: Захиалагч хэд хэдэн төлөлтийг нэгтгэн банкнаар нэг төлбөр шилжүүлэх тохиолдол. Flectra-д банкны гүйлгээ хөтлөгдөх үед танд холбогдох нэхэмжлэлүүдийг сонгож тулгах боломж олгогдоно. Багц төлөлт бүртгэх боломжыг идэвхижүүлэхийн тулд account_batch_payment модуль суулгах шаардлагатай.\n"
 "SEPA Credit Transfer: SEPA Credit Transfer систем ашиглан нэхэмжлэлийн төлбөрийг банк руу дамжуулах. Үүний тулд account_sepa модуль суулгах шаардлагатай. "
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_journal__outbound_payment_method_ids
 msgid ""
-"Manual:Pay bill by cash or any other method outside of Odoo.\n"
-"Check:Pay bill by check and print it from Odoo.\n"
+"Manual:Pay bill by cash or any other method outside of Flectra.\n"
+"Check:Pay bill by check and print it from Flectra.\n"
 "SEPA Credit Transfer: Pay bill from a SEPA Credit Transfer file you submit to your bank. Enable this option from the settings."
 msgstr ""
-"Гараар: Бэлэн мөнгөөр төлөгдөх эсвэл Odoo системээс гадуур ямар нэг төлбөрийн хэрэгслээр төлөгдөх.\n"
-"Чек: Нэхэмжлэлийг чекээр төлж төлбөрийн баримтыг Odoo-с хэвлэх.\n"
+"Гараар: Бэлэн мөнгөөр төлөгдөх эсвэл Flectra системээс гадуур ямар нэг төлбөрийн хэрэгслээр төлөгдөх.\n"
+"Чек: Нэхэмжлэлийг чекээр төлж төлбөрийн баримтыг Flectra-с хэвлэх.\n"
 "SEPA Credit Transfer: SEPA Credit Transfer систем ашиглан нэхэмжлэлийн төлбөрийг банк руу дамжуулах. Үүний тулд account_sepa модуль суулгах шаардлагатай. "
 
 #. module: account
@@ -8150,33 +8173,33 @@ msgstr "10-р сар"
 
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_journal__invoice_reference_model__odoo
-msgid "Odoo"
-msgstr "Odoo"
+msgid "Flectra"
+msgstr "Flectra"
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.action_bank_statement_line
 msgid ""
-"Odoo allows you to reconcile a statement line directly with\n"
+"Flectra allows you to reconcile a statement line directly with\n"
 "                the related sale or purchase invoice(s)."
 msgstr ""
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.action_bank_statement_tree
 msgid ""
-"Odoo allows you to reconcile a statement line directly with\n"
+"Flectra allows you to reconcile a statement line directly with\n"
 "                the related sale or purchase invoices."
 msgstr ""
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.res_partner_action_customer
-msgid "Odoo helps you easily track all activities related to a customer."
+msgid "Flectra helps you easily track all activities related to a customer."
 msgstr ""
 "Харилцагчтай холбогдсон бүх үйл ажиллагааг хялбар мөшгөхөд ОДОО танд "
 "туслана."
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.res_partner_action_supplier
-msgid "Odoo helps you easily track all activities related to a supplier."
+msgid "Flectra helps you easily track all activities related to a supplier."
 msgstr ""
 "Нийлүүлэгчтэй холбогдсон бүх үйл ажиллагааг хялбар мөшгөхөд ОДОО танд "
 "туслана."
@@ -8255,6 +8278,7 @@ msgstr "Зөвхөн администратор л дансны модыг ач�
 #. module: account
 #: code:addons/account/models/account_move.py:0
 #: code:addons/account/models/account_move.py:0
+#: code:addons/account/models/ir_actions_report.py:0
 #, python-format
 msgid "Only invoices could be printed."
 msgstr "Зөвхөн нэхэмжлэх хэвлэнэ."
@@ -8410,6 +8434,12 @@ msgid "Options"
 msgstr "Сонголтууд"
 
 #. module: account
+#: code:addons/account/wizard/account_tour_upload_bill.py:0
+#, python-format
+msgid "Or send a bill to %s@%s"
+msgstr ""
+
+#. module: account
 #: model:ir.model.fields,field_description:account.field_account_resequence_wizard__ordering
 msgid "Ordering"
 msgstr ""
@@ -8432,6 +8462,12 @@ msgstr ""
 #: model:ir.actions.report,name:account.action_account_original_vendor_bill
 msgid "Original Bills"
 msgstr "Эх өглөгийн нэхэмжлэх"
+
+#. module: account
+#: model_terms:ir.ui.view,arch_db:account.view_move_line_tree
+#: model_terms:ir.ui.view,arch_db:account.view_move_line_tree_grouped
+msgid "Original Currency"
+msgstr ""
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line__payment_id
@@ -10424,7 +10460,7 @@ msgid ""
 "\n"
 "Any file extension will be accepted.\n"
 "\n"
-"Only PDF and XML files will be interpreted by Odoo"
+"Only PDF and XML files will be interpreted by Flectra"
 msgstr ""
 
 #. module: account
@@ -11759,6 +11795,14 @@ msgid "That is the date of the opening entry."
 msgstr ""
 
 #. module: account
+#: code:addons/account/models/sequence_mixin.py:0
+#, python-format
+msgid ""
+"The %(date_field)s (%(date)s) doesn't match the %(sequence_field)s (%(sequence)s).\n"
+"You might want to clear the field %(sequence_field)s before proceeding with the change of the date."
+msgstr ""
+
+#. module: account
 #: model:ir.model.fields,help:account.field_account_account__internal_group
 #: model:ir.model.fields,help:account.field_account_account_type__internal_group
 #: model:ir.model.fields,help:account.field_account_move_line__account_internal_group
@@ -11781,6 +11825,12 @@ msgstr ""
 "'Дотоод Төрөл' нь дансны төрөл дээр ашиглах нэмэлт төрөл юм. Тухайлбал "
 "Мөнгөн хөрөнгийн төрөлд касс болон банкны дансууд, өглөг/авлага бол "
 "нийлүүлэгч/захиалагчийн дансуудад гэх мэтээр хэрэглэгдэнэ."
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "The Bill/Refund date is required to validate this document."
+msgstr ""
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_bank_statement__country_code
@@ -11820,6 +11870,15 @@ msgstr ""
 #, python-format
 msgid "The account %s (%s) is deprecated."
 msgstr "%s (%s) данс ашиглагдахаа больсон."
+
+#. module: account
+#: code:addons/account/models/account_account.py:0
+#, python-format
+msgid ""
+"This account is configured in %(journal_names)s journal(s) (ids "
+"%(journal_ids)s) as payment debit or credit account. This means that this "
+"account's type should be reconcilable."
+msgstr ""
 
 #. module: account
 #: code:addons/account/models/account_account.py:0
@@ -12018,14 +12077,6 @@ msgid ""
 msgstr ""
 
 #. module: account
-#: code:addons/account/models/sequence_mixin.py:0
-#, python-format
-msgid ""
-"The %(date_field)s (%(date)s) doesn't match the %(sequence_field)s (%(sequence)s).\n"
-"You might want to clear the field %(sequence_field)s before proceeding with the change of the date."
-msgstr ""
-
-#. module: account
 #: code:addons/account/models/account_payment_term.py:0
 #, python-format
 msgid "The day of the month used for this term must be strictly positive."
@@ -12109,6 +12160,13 @@ msgstr ""
 "мэйлээр илгээх боломжгүй байна."
 
 #. module: account
+#: code:addons/account/models/account_reconcile_model.py:0
+#, python-format
+msgid ""
+"The following regular expression is invalid to create a partner mapping: %s"
+msgstr ""
+
+#. module: account
 #: code:addons/account/models/chart_template.py:0
 #, python-format
 msgid ""
@@ -12143,6 +12201,19 @@ msgstr ""
 #, python-format
 msgid "The holder of a journal's bank account must be the company (%s)."
 msgstr "Журналын банкны дансны эзэмшигч нь (%s) компани байх ёстой."
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid ""
+"The invoice already contains lines, it was not updated from the attachment."
+msgstr ""
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "The invoice is not a draft, it was not updated from the attachment."
+msgstr ""
 
 #. module: account
 #: code:addons/account/models/account_bank_statement.py:0
@@ -12835,7 +12906,7 @@ msgstr ""
 msgid ""
 "This option permanently removes any track of email after it's been sent, "
 "including from the Technical menu in the Settings, in order to preserve "
-"storage space of your Odoo database."
+"storage space of your Flectra database."
 msgstr ""
 
 #. module: account
@@ -13108,6 +13179,12 @@ msgid "Transfers"
 msgstr "Барааны шилжүүлэг"
 
 #. module: account
+#: code:addons/account/wizard/account_tour_upload_bill.py:0
+#, python-format
+msgid "Try a sample vendor bill"
+msgstr ""
+
+#. module: account
 #: model:ir.model.fields,field_description:account.field_account_account__user_type_id
 #: model:ir.model.fields,field_description:account.field_account_account_template__user_type_id
 #: model:ir.model.fields,field_description:account.field_account_account_type__type
@@ -13305,6 +13382,12 @@ msgstr "Валютын ханш автоматаар шинэчлэх"
 #, python-format
 msgid "Upload"
 msgstr "Оруулах"
+
+#. module: account
+#: code:addons/account/wizard/account_tour_upload_bill.py:0
+#, python-format
+msgid "Upload your own bill"
+msgstr ""
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_chart_template__use_anglo_saxon
@@ -13694,7 +13777,7 @@ msgstr "Валюттай"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_tour_upload_bill
-msgid "With Odoo, you won't have to records bills manually"
+msgid "With Flectra, you won't have to records bills manually"
 msgstr ""
 
 #. module: account
@@ -13740,7 +13823,7 @@ msgstr ""
 #: model:ir.model.fields,help:account.field_account_journal__invoice_reference_model
 msgid ""
 "You can choose different models for each type of reference. The default one "
-"is the Odoo reference."
+"is the Flectra reference."
 msgstr ""
 
 #. module: account
@@ -14116,8 +14199,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You cannot reduce the number of decimal places of a currency which has "
-"already been used to make accounting entries. If you really need to do that,"
-" please contact tech support."
+"already been used to make accounting entries."
 msgstr ""
 
 #. module: account
@@ -14234,6 +14316,12 @@ msgstr ""
 #. module: account
 #: code:addons/account/models/account_move.py:0
 #, python-format
+msgid "The entry %s (id %s) is already posted."
+msgstr ""
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
 msgid "You need to add a line before posting."
 msgstr ""
 
@@ -14283,6 +14371,7 @@ msgstr "Зип төгсөх хүрээ"
 
 #. module: account
 #: code:addons/account/models/account_move.py:0
+#: code:addons/account/wizard/account_automatic_entry_wizard.py:0
 #: code:addons/account/wizard/account_automatic_entry_wizard.py:0
 #, python-format
 msgid "[Not set]"
@@ -14420,6 +14509,15 @@ msgstr ""
 #. module: account
 #: model:ir.model.fields,help:account.field_account_bank_statement__previous_statement_id
 msgid "technical field to compute starting balance correctly"
+msgstr ""
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid ""
+"The chosen journal has a type that is not compatible with your invoice type."
+" Sales operations should go to 'sale' journals, and purchase operations to "
+"'purchase' ones."
 msgstr ""
 
 #. module: account

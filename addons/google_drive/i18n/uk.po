@@ -1,10 +1,10 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* google_drive
 # 
 # Translators:
-# Alina Lisnenko <alinasemeniuk1@gmail.com>, 2020
 # Martin Trigaux, 2020
+# Alina Lisnenko <alinasemeniuk1@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:45+0000\n"
 "PO-Revision-Date: 2020-09-07 08:12+0000\n"
-"Last-Translator: Martin Trigaux, 2020\n"
+"Last-Translator: Alina Lisnenko <alinasemeniuk1@gmail.com>, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,14 +24,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:google_drive.view_google_drive_config_form
 msgid ""
 "<b>To create a new filter:</b><br/>\n"
-"                                - Go to the Odoo document you want to filter. For instance, go to Opportunities and search on Sales Department.<br/>\n"
+"                                - Go to the Flectra document you want to filter. For instance, go to Opportunities and search on Sales Department.<br/>\n"
 "                                - In this \"Search\" view, select the option \"Save Current Filter\", enter the name (Ex: Sales Department)<br/>\n"
 "                                - If you select \"Share with all users\", link of google document in \"More\" options will appear for all users in opportunities of Sales Department.<br/>\n"
 "                                - If you don't select \"Share with all users\", link of google document in \"More\" options will not appear for other users in opportunities of Sales Department.<br/>\n"
 "                                - If filter is not specified, link of google document will appear in \"More\" option for all users for all opportunities."
 msgstr ""
 "<b>Щоб створити новий фільтр:</b><br/>\n"
-"- Перейдіть в документ Odoo, для якого вам потрібен фільтр. Наприклад, перейдіть в Нагоди та знайдіть Відділ продажів.<br/>\n"
+"- Перейдіть в документ Flectra, для якого вам потрібен фільтр. Наприклад, перейдіть в Нагоди та знайдіть Відділ продажів.<br/>\n"
 "- В цьому \"Пошуці\", виберіть опцію \"Зберегти поточний фільтр\", введіть назву (напр. відділ продажів)<br/>\n"
 "- Якщо виберете \"Поділитися з усіма\", прив'язка Google документа в меню \"Більше\" - буде відкрита для всіх користувачів у нагодах відділу продажів.<br/>\n"
 "- Якщо не виберете \"Поділитися з усіма\", прив'язка Google документа в меню \"Більше\" - буде закритою для інших користувачів у нагодах відділу продажів.<br/>\n"
@@ -54,7 +54,7 @@ msgid ""
 " token set"
 msgstr ""
 "<i class=\"fa fa-exclamation-triangle text-warning\"/> &amp;nbsp; Не "
-"встановлено оновленого токена"
+"встановлено оновленого токену"
 
 #. module: google_drive
 #: model_terms:ir.ui.view,arch_db:google_drive.res_config_settings_view_form
@@ -104,7 +104,7 @@ msgstr "Заархівовано"
 #, python-format
 msgid "At least one key cannot be found in your Google Drive name pattern."
 msgstr ""
-"Принаймні один ключ не може бути знайдено у шаблоні під назвою Google Диска."
+"Принаймні один ключ не може бути знайдено у шаблоні назви Google Диска."
 
 #. module: google_drive
 #: model:ir.model.fields,field_description:google_drive.field_res_config_settings__google_drive_authorization_code
@@ -143,13 +143,23 @@ msgstr "Створив"
 #. module: google_drive
 #: model:ir.model.fields,field_description:google_drive.field_google_drive_config__create_date
 msgid "Created on"
-msgstr "Створено на"
+msgstr "Створено"
 
 #. module: google_drive
 #: code:addons/google_drive/models/google_drive.py:0
 #, python-format
 msgid "Creating google drive may only be done by one at a time."
 msgstr "Кожен може створити Google Диск тільки раз."
+
+#. module: google_drive
+#: code:addons/google_drive/models/google_drive.py:161
+#, python-format
+msgid ""
+"The document filter must not include any 'dynamic' part, so it should not be"
+" based on the current time or current user, for example."
+msgstr ""
+"Фільтр документу не повинен містити жодних 'динамічних' частин, тому він не "
+"повинен базуватися на поточному часі чи користувачі, наприклад."
 
 #. module: google_drive
 #: model:ir.filters,name:google_drive.filter_partner
@@ -219,7 +229,7 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:google_drive.field_google_drive_config____last_update
 #: model:ir.model.fields,field_description:google_drive.field_res_config_settings____last_update
 msgid "Last Modified on"
-msgstr "Останні зміни на"
+msgstr "Останні зміни"
 
 #. module: google_drive
 #: model:ir.model.fields,field_description:google_drive.field_google_drive_config__write_uid
@@ -234,17 +244,17 @@ msgstr "Останнє оновлення"
 #. module: google_drive
 #: model_terms:ir.actions.act_window,help:google_drive.action_google_drive_users_config
 msgid ""
-"Link your own google drive templates to any record of Odoo. If you have "
+"Link your own google drive templates to any record of Flectra. If you have "
 "really specific documents you want your collaborator fill in, e.g. Use a "
 "spreadsheet to control the quality of your product or review the delivery "
 "checklist for each order in a foreign country, ... Its very easy to manage "
-"them, link them to Odoo and use them to collaborate with your employees."
+"them, link them to Flectra and use them to collaborate with your employees."
 msgstr ""
-"Прив'яжіть свої шаблони Google Диска до будь-якого запису в Odoo. Якщо ви "
+"Прив'яжіть свої шаблони Google Диску до будь-якого запису в Flectra. Якщо ви "
 "хочете, щоб ваш співробітник заповнив якісь дуже особливі документи, напр., "
 "використав таблицю для контролю якості товарів, чи переглянув контрольний "
 "перелік доставок з кожного замовлення в інші країни, ... Ними дуже легко "
-"керувати, прив'яжіть їх до Odoo і використовуйте їх в роботі зі "
+"керувати, прив'яжіть їх до Flectra і використовуйте їх в роботі зі "
 "співробітниками."
 
 #. module: google_drive
@@ -325,12 +335,12 @@ msgstr "URL-адреса для генерації коду авторизаці
 msgid ""
 "The name of the attached document can use fixed or variable data. To distinguish between documents in\n"
 "                                Google Drive, use fixed words and fields. For instance, in the example above, if you wrote Deco_Addict_%(name)s_Sales\n"
-"                                in the Google Drive name field, the document in your Google Drive and in Odoo attachment will be named\n"
+"                                in the Google Drive name field, the document in your Google Drive and in Flectra attachment will be named\n"
 "                                'Deco_Addict_SO0001_Sales'."
 msgstr ""
 "Назва доданого документа може використовувати фіксовані або змінні дані. Щоб розрізняти документи\n"
 "                                 Google Диску, використовуйте фіксовані слова та поля. Наприклад, у прикладі вище, якщо ви написали Deco_Addict_%(name)s_Sales\n"
-"                               в полі назви Google Диску буде називатися документ на вашому Google Диску і вкладці Odoo\n"
+"                               в полі назви Google Диску буде називатися документ на вашому Google Диску і вкладці Flectra\n"
 "                                'Deco_Addict_SO0001_Sales'."
 
 #. module: google_drive

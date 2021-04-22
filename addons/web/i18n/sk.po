@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* web
 # 
@@ -12,19 +12,19 @@
 # Pavol Krnáč <pavol.krnac@ekoenergo.sk>, 2020
 # Jaroslav Bosansky <jaro.bosansky@ekoenergo.sk>, 2020
 # gebri <gebri@inmail.sk>, 2020
-# Jan Prokop, 2020
 # Filip Brenčič <brencicf5@gmail.com>, 2020
 # Damian Brencic <brencicdamian12313@gmail.com>, 2020
-# Rastislav Brencic <rastislav.brencic@azet.sk>, 2020
 # karolína schusterová <karolina.schusterova@vdp.sk>, 2020
+# Jan Prokop, 2021
+# Rastislav Brencic <rastislav.brencic@azet.sk>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-29 15:48+0000\n"
+"POT-Creation-Date: 2021-02-25 10:30+0000\n"
 "PO-Revision-Date: 2020-09-07 08:19+0000\n"
-"Last-Translator: karolína schusterová <karolina.schusterova@vdp.sk>, 2020\n"
+"Last-Translator: Rastislav Brencic <rastislav.brencic@azet.sk>, 2021\n"
 "Language-Team: Slovak (https://www.transifex.com/odoo/teams/41243/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,13 +52,6 @@ msgstr " záznamov"
 #, python-format
 msgid "# Code editor"
 msgstr "# editor kódu"
-
-#. module: web
-#. openerp-web
-#: code:addons/web/static/src/js/fields/basic_fields.js:0
-#, python-format
-msgid "${-diffDays} days ago"
-msgstr ""
 
 #. module: web
 #. openerp-web
@@ -104,10 +97,10 @@ msgstr ""
 
 #. module: web
 #. openerp-web
-#: code:addons/web/static/src/xml/notification.xml:0
+#: code:addons/web/static/src/js/fields/basic_fields.js:0
 #, python-format
-msgid "&times;"
-msgstr "&times;"
+msgid "%s days ago"
+msgstr ""
 
 #. module: web
 #. openerp-web
@@ -379,7 +372,7 @@ msgstr "<strong>Dátum splatnosti:</strong>"
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
 msgid "<strong>Invoice Date:</strong>"
-msgstr "<strong>Dátum vystavenia faktúry:</strong>"
+msgstr "<strong>Dátum vystavenia:</strong>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
@@ -479,7 +472,7 @@ msgstr "Aktivovať odstránenie chýb kódu"
 #: code:addons/web/static/src/xml/debug.xml:0
 #, python-format
 msgid "Activate Tests Assets Debugging"
-msgstr "Aktivovať testy odstránenie chýb kódu"
+msgstr "Aktivovať testy odstránenia chýb kódu"
 
 #. module: web
 #. openerp-web
@@ -2020,8 +2013,8 @@ msgstr "Fushia"
 #. openerp-web
 #: code:addons/web/static/src/xml/base.xml:0
 #, python-format
-msgid "Get this feature and much more with Odoo Enterprise!"
-msgstr "Získajte túto funkciu a omnoho viac s Odoo Podnikanie!"
+msgid "Get this feature and much more with Flectra Enterprise!"
+msgstr "Získajte túto funkciu a omnoho viac s Flectra Podnikanie!"
 
 #. module: web
 #. openerp-web
@@ -2042,6 +2035,7 @@ msgstr "Zelená"
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/control_panel/groupby_menu.js:0
+#: code:addons/web/static/src/js/views/graph/graph_controller.js:0
 #, python-format
 msgid "Group By"
 msgstr "Zoskupiť podľa"
@@ -2145,7 +2139,7 @@ msgstr "Obrázok"
 #. openerp-web
 #: code:addons/web/static/src/js/fields/basic_fields.js:0
 #, python-format
-msgid "In ${diffDays} days"
+msgid "In %s days"
 msgstr ""
 
 #. module: web
@@ -2422,6 +2416,13 @@ msgstr "Mac"
 
 #. module: web
 #. openerp-web
+#: code:addons/web/static/src/js/services/crash_manager.js:0
+#, python-format
+msgid "MailDeliveryException"
+msgstr ""
+
+#. module: web
+#. openerp-web
 #: code:addons/web/static/src/xml/base.xml:0
 #: code:addons/web/static/src/xml/base.xml:0
 #: code:addons/web/static/src/xml/base.xml:0
@@ -2497,6 +2498,7 @@ msgstr ""
 
 #. module: web
 #. openerp-web
+#: code:addons/web/static/src/js/views/graph/graph_controller.js:0
 #: code:addons/web/static/src/xml/base.xml:0
 #, python-format
 msgid "Measures"
@@ -2524,13 +2526,6 @@ msgstr "Metadáta (%s)"
 #, python-format
 msgid "Method:"
 msgstr "Metóda:"
-
-#. module: web
-#. openerp-web
-#: code:addons/web/static/src/js/services/crash_manager.js:92
-#, python-format
-msgid "MailDeliveryException"
-msgstr ""
 
 #. module: web
 #. openerp-web
@@ -2613,8 +2608,8 @@ msgstr "Viacriadkový text"
 #. openerp-web
 #: code:addons/web/static/src/xml/base.xml:0
 #, python-format
-msgid "My Odoo.com account"
-msgstr "Môj Odoo.com účet"
+msgid "My Flectrahq.com account"
+msgstr "Môj Flectrahq.com účet"
 
 #. module: web
 #. openerp-web
@@ -2634,7 +2629,7 @@ msgstr "Nové"
 #. openerp-web
 #: code:addons/web/static/src/js/fields/relational_fields.js:0
 #, python-format
-msgid "New ${this.name}"
+msgid "New %s"
 msgstr ""
 
 #. module: web
@@ -2809,15 +2804,15 @@ msgstr "Objekt:"
 #: code:addons/web/static/src/js/core/dialog.js:0
 #: model_terms:ir.ui.view,arch_db:web.brand_promotion_message
 #, python-format
-msgid "Odoo"
-msgstr "Odoo"
+msgid "Flectra"
+msgstr "Flectra"
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/apps.js:0
 #, python-format
-msgid "Odoo Apps will be available soon"
-msgstr "Odoo aplikácie budú dostupné čoskoro"
+msgid "Flectra Apps will be available soon"
+msgstr "Flectra aplikácie budú dostupné čoskoro"
 
 #. module: web
 #. openerp-web
@@ -2826,36 +2821,36 @@ msgstr "Odoo aplikácie budú dostupné čoskoro"
 #: code:addons/web/static/src/js/services/crash_manager.js:0
 #: code:addons/web/static/src/js/services/crash_manager.js:0
 #, python-format
-msgid "Odoo Client Error"
-msgstr "Chyba klienta Odoo"
+msgid "Flectra Client Error"
+msgstr "Chyba klienta Flectra"
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/fields/upgrade_fields.js:0
 #, python-format
-msgid "Odoo Enterprise"
-msgstr "Odoo Enterprise"
+msgid "Flectra Enterprise"
+msgstr "Flectra Enterprise"
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/services/crash_manager.js:0
 #, python-format
-msgid "Odoo Error"
-msgstr "Chyba  Odoo"
+msgid "Flectra Error"
+msgstr "Chyba  Flectra"
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/services/crash_manager.js:0
 #, python-format
-msgid "Odoo Session Expired"
-msgstr "Odoo relácia vypršala"
+msgid "Flectra Session Expired"
+msgstr "Flectra relácia vypršala"
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/services/crash_manager.js:0
 #, python-format
-msgid "Odoo Warning"
-msgstr "Varovanie Odoo"
+msgid "Flectra Warning"
+msgstr "Varovanie Flectra"
 
 #. module: web
 #. openerp-web
@@ -3196,8 +3191,8 @@ msgstr "Poháňaný %s%s"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.login_layout
-msgid "Powered by <span>Odoo</span>"
-msgstr "Poháňané <span>Odoo</span>"
+msgid "Powered by <span>Flectra</span>"
+msgstr "Poháňané <span>Flectra</span>"
 
 #. module: web
 #. openerp-web
@@ -3394,7 +3389,7 @@ msgstr "Červená"
 #: code:addons/web/static/src/xml/debug.xml:0
 #, python-format
 msgid "Regenerate Assets Bundles"
-msgstr "Obnoviť zväzky aktív"
+msgstr "Obnoviť zväzky majetku"
 
 #. module: web
 #. openerp-web
@@ -4465,6 +4460,13 @@ msgstr "Variácia"
 
 #. module: web
 #. openerp-web
+#: code:addons/web/static/src/xml/base.xml:0
+#, python-format
+msgid "View %s"
+msgstr "Pohľad %s"
+
+#. module: web
+#. openerp-web
 #: code:addons/web/static/src/xml/debug.xml:0
 #, python-format
 msgid "View Access Rights"
@@ -4657,10 +4659,10 @@ msgstr ""
 #: code:addons/web/static/src/js/chrome/action_manager_report.js:0
 #, python-format
 msgid ""
-"You need to start Odoo with at least two workers to print a pdf version of "
+"You need to start Flectra with at least two workers to print a pdf version of "
 "the reports."
 msgstr ""
-"Treba nakonfigurovať Odoo: odoo.conf min (workers =2) pre tlač PDF verzie "
+"Treba nakonfigurovať Flectra: odoo.conf min (workers =2) pre tlač PDF verzie "
 "výkazov."
 
 #. module: web
@@ -4680,7 +4682,7 @@ msgstr ""
 #. openerp-web
 #: code:addons/web/static/src/js/services/crash_manager.js:0
 #, python-format
-msgid "Your Odoo session expired. The current page is about to be refreshed."
+msgid "Your Flectra session expired. The current page is about to be refreshed."
 msgstr ""
 
 #. module: web
@@ -5053,13 +5055,6 @@ msgstr "z:"
 #, python-format
 msgid "or"
 msgstr "alebo"
-
-#. module: web
-#. openerp-web
-#: code:addons/web/static/src/xml/colorpicker.xml:0
-#, python-format
-msgid "p-0 border-0 text-center text-monospace bg-transparent text-white"
-msgstr ""
 
 #. module: web
 #. openerp-web

@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* point_of_sale
 # 
@@ -13,35 +13,33 @@
 # 开源智造OSCG-老杨 <yangxunbo@163.com>, 2020
 # Dong <dong@freshoo.cn>, 2020
 # Shiping Lv <lvshiping@sina.com>, 2020
+# as co02 <asco02@163.com>, 2020
 # guohuadeng <guohuadeng@hotmail.com>, 2020
-# liAnGjiA <liangjia@qq.com>, 2020
 # 老窦 北京 <2662059195@qq.com>, 2020
 # Jeff Yu - Elico Corp <jeff.yu@elico-corp.com>, 2020
-# Felix Yuen <fyu@odoo.com>, 2020
+# Felix Yuen <fyu@flectrahq.com>, 2020
 # xu xiaohu <xu.xiaohu@gmail.com>, 2020
 # Jeanphy <hzh0292@qq.com>, 2020
 # Jerry Pan <panjianyu@inspur.com>, 2020
-# John An <johnxan@163.com>, 2020
-# Manga Tsang <mts@odoo.com>, 2020
+# Manga Tsang <mts@flectrahq.com>, 2020
 # Felix Yang - Elico Corp <felixyangsh@aliyun.com>, 2020
-# as co02 <asco02@163.com>, 2020
 # mao luo <dooms21day@163.com>, 2020
 # zilin wu <binggue@qq.com>, 2020
-# Martin Trigaux, 2020
-# Jeffery CHEN Fan <jeffery9@gmail.com>, 2020
 # keecome <7017511@qq.com>, 2020
 # 敬雲 林 <chingyun@yuanchih-consult.com>, 2020
 # inspur qiuguodong <qiuguodong@inspur.com>, 2020
-# 稀饭~~ <wangwhai@qq.com>, 2020
 # ljsrzc007 <ljsrzc007@gmail.com>, 2020
+# Martin Trigaux, 2021
+# Jeffery CHEN Fan <jeffery9@gmail.com>, 2021
+# liAnGjiA <liangjia@qq.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-16 13:33+0000\n"
+"POT-Creation-Date: 2021-01-26 09:03+0000\n"
 "PO-Revision-Date: 2020-09-07 08:16+0000\n"
-"Last-Translator: ljsrzc007 <ljsrzc007@gmail.com>, 2020\n"
+"Last-Translator: liAnGjiA <liangjia@qq.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,7 +87,7 @@ msgstr ""
 #. module: point_of_sale
 #: model:ir.actions.report,print_report_name:point_of_sale.pos_invoice_report
 msgid "'Invoice - %s' % (object.name)"
-msgstr "'发票 - %s' % (object.name)"
+msgstr "'结算单 - %s' % (object.name)"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/models/pos_order.py:0
@@ -366,7 +364,7 @@ msgstr "会计"
 #. module: point_of_sale
 #: model:ir.model.fields,help:point_of_sale.field_pos_config__invoice_journal_id
 msgid "Accounting journal used to create invoices."
-msgstr "创建发票所用的会计日记账"
+msgstr "创建结算单所用的会计日记账"
 
 #. module: point_of_sale
 #: model:ir.model.fields,help:point_of_sale.field_pos_config__journal_id
@@ -480,6 +478,13 @@ msgstr "Adyen支付终端"
 #, python-format
 msgid "All"
 msgstr "全部"
+
+#. module: point_of_sale
+#. openerp-web
+#: code:addons/point_of_sale/static/src/js/Screens/TicketScreen/TicketScreen.js:0
+#, python-format
+msgid "All Tickets"
+msgstr "全部工单"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/models/pos_config.py:0
@@ -808,6 +813,7 @@ msgstr "不能改变无现金支付的方法"
 
 #. module: point_of_sale
 #. openerp-web
+#: code:addons/point_of_sale/static/src/js/Screens/TicketScreen/TicketScreen.js:0
 #: code:addons/point_of_sale/static/src/xml/Screens/TicketScreen/TicketScreen.xml:0
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_payment__cardholder_name
 #, python-format
@@ -1318,6 +1324,7 @@ msgstr "自定义"
 
 #. module: point_of_sale
 #. openerp-web
+#: code:addons/point_of_sale/static/src/js/Screens/TicketScreen/TicketScreen.js:0
 #: code:addons/point_of_sale/static/src/xml/Screens/OrderManagementScreen/OrderList.xml:0
 #: code:addons/point_of_sale/static/src/xml/Screens/PaymentScreen/PaymentScreen.xml:0
 #: code:addons/point_of_sale/static/src/xml/Screens/PaymentScreen/PaymentScreen.xml:0
@@ -1349,7 +1356,7 @@ msgstr "面向客户的显示"
 #: code:addons/point_of_sale/models/pos_order.py:0
 #, python-format
 msgid "Customer Invoice"
-msgstr "客户发票"
+msgstr "客户结算单"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_config__customer_facing_display_html
@@ -1368,6 +1375,7 @@ msgstr "仪表板"
 
 #. module: point_of_sale
 #. openerp-web
+#: code:addons/point_of_sale/static/src/js/Screens/TicketScreen/TicketScreen.js:0
 #: code:addons/point_of_sale/static/src/xml/Screens/OrderManagementScreen/OrderList.xml:0
 #: code:addons/point_of_sale/static/src/xml/Screens/TicketScreen/TicketScreen.xml:0
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_order__date_order
@@ -1511,6 +1519,12 @@ msgstr "桌台"
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_session__cash_real_difference
 msgid "Difference"
 msgstr "差异"
+
+#. module: point_of_sale
+#: code:addons/point_of_sale/models/pos_session.py:0
+#, python-format
+msgid "Difference at closing PoS session"
+msgstr ""
 
 #. module: point_of_sale
 #: model:ir.model.fields,help:point_of_sale.field_pos_session__cash_register_difference
@@ -1781,7 +1795,7 @@ msgstr "启用电子秤集成。"
 #: model:ir.model.fields,help:point_of_sale.field_pos_config__module_account
 #: model:ir.model.fields,help:point_of_sale.field_pos_order__invoice_group
 msgid "Enables invoice generation from the Point of Sale."
-msgstr "通过销售点启用发票生成。"
+msgstr "通过销售点启用结算单生成。"
 
 #. module: point_of_sale
 #. openerp-web
@@ -2066,8 +2080,8 @@ msgstr "ID"
 #. openerp-web
 #: code:addons/point_of_sale/static/src/js/Popups/ErrorTracebackPopup.js:0
 #, python-format
-msgid "IMPORTANT: Bug Report From Odoo Point Of Sale"
-msgstr "重要：来自Odoo POS的Bug报告"
+msgid "IMPORTANT: Bug Report From Flectra Point Of Sale"
+msgstr "重要：来自Flectra POS的Bug报告"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_config__proxy_ip
@@ -2156,7 +2170,7 @@ msgid ""
 "                Invocing/Accounting app will create Bank and Cash payment\n"
 "                methods automatically."
 msgstr ""
-"从常规设置安装会计科目表\n"
+"从基本设置安装会计科目表\n"
 "                开票/会计应用程序将创建银行和现金支付\n"
 "                方法自动化。"
 
@@ -2214,13 +2228,13 @@ msgstr "库存管理"
 #: model_terms:ir.ui.view,arch_db:point_of_sale.view_pos_pos_form
 #, python-format
 msgid "Invoice"
-msgstr "发票"
+msgstr "结算单"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_config__invoice_journal_id
 #: model_terms:ir.ui.view,arch_db:point_of_sale.pos_config_view_form
 msgid "Invoice Journal"
-msgstr "发票日记账"
+msgstr "结算单日记账"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_report_pos_order__invoiced
@@ -2293,7 +2307,7 @@ msgstr ""
 msgid ""
 "It is forbidden to modify a tax used in a POS order not posted. You must "
 "close the POS sessions before modifying the tax."
-msgstr "禁止修改未过账POS订单税金。修改税金前必须关闭POS会话。"
+msgstr "禁止修改未过账POS订单税。修改税前必须关闭POS会话。"
 
 #. module: point_of_sale
 #. openerp-web
@@ -2312,7 +2326,7 @@ msgstr "日记账"
 #: model:ir.model,name:point_of_sale.model_account_move
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_session__move_id
 msgid "Journal Entry"
-msgstr "会计凭证"
+msgstr "日记账分录"
 
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_account_move_line
@@ -2685,13 +2699,13 @@ msgstr "本次工作没有现金记录。不能记录交回的现金."
 #: model_terms:ir.actions.act_window,help:point_of_sale.action_report_pos_order_all
 #: model_terms:ir.actions.act_window,help:point_of_sale.action_report_pos_order_all_filtered
 msgid "No data yet!"
-msgstr "还没有数据！"
+msgstr "还没有数据耶！"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/report/pos_invoice.py:0
 #, python-format
 msgid "No link to an invoice for %s."
-msgstr "该发票没有链接用来%s"
+msgstr "该结算单没有链接用来%s"
 
 #. module: point_of_sale
 #: model_terms:ir.actions.act_window,help:point_of_sale.action_pos_payment_form
@@ -2734,7 +2748,7 @@ msgstr "未开票"
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.view_pos_pos_form
 msgid "Notes"
-msgstr "便签"
+msgstr "备注"
 
 #. module: point_of_sale
 #. openerp-web
@@ -2776,8 +2790,8 @@ msgstr "未读消息数量"
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.customer_facing_display_html
 #: model_terms:pos.config,customer_facing_display_html:point_of_sale.pos_config_main
-msgid "Odoo Logo"
-msgstr "Odoo 徽标"
+msgid "Flectra Logo"
+msgstr "Flectra 徽标"
 
 #. module: point_of_sale
 #. openerp-web
@@ -2802,6 +2816,13 @@ msgstr "离线订单"
 #, python-format
 msgid "Ok"
 msgstr "确定"
+
+#. module: point_of_sale
+#. openerp-web
+#: code:addons/point_of_sale/static/src/js/Screens/TicketScreen/TicketScreen.js:0
+#, python-format
+msgid "Ongoing"
+msgstr "正在进行"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_config__only_round_cash_method
@@ -3115,6 +3136,7 @@ msgstr "支付订单"
 
 #. module: point_of_sale
 #. openerp-web
+#: code:addons/point_of_sale/static/src/js/Screens/TicketScreen/TicketScreen.js:0
 #: code:addons/point_of_sale/static/src/xml/Screens/PaymentScreen/PaymentScreen.xml:0
 #: code:addons/point_of_sale/static/src/xml/Screens/ProductScreen/ActionpadWidget.xml:0
 #: code:addons/point_of_sale/wizard/pos_payment.py:0
@@ -3340,7 +3362,7 @@ msgstr "请为这个产品定义收益科目: \"%s\" (id:%d)."
 #: code:addons/point_of_sale/static/src/js/custom_hooks.js:0
 #, python-format
 msgid "Please print the invoice from the backend"
-msgstr "请从后台打印发票"
+msgstr "请从后台打印结算单"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/models/pos_order.py:0
@@ -3460,7 +3482,7 @@ msgstr "销售网点详情报告"
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_report_point_of_sale_report_invoice
 msgid "Point of Sale Invoice Report"
-msgstr "销售网点发票报告"
+msgstr "销售网点结算单报告"
 
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_pos_make_payment
@@ -3475,7 +3497,7 @@ msgstr "POS管理组"
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_stock_warehouse__pos_type_id
 msgid "Point of Sale Operation Type"
-msgstr "销售点经营类型"
+msgstr "销售点作业类型"
 
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_pos_order_line
@@ -3692,7 +3714,7 @@ msgstr ""
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.pos_config_view_form
 msgid "Print invoices on customer request"
-msgstr "根据客户请求打印发票"
+msgstr "根据客户请求打印结算单"
 
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.pos_config_view_form
@@ -3853,7 +3875,7 @@ msgstr "数量"
 #: model_terms:ir.ui.view,arch_db:point_of_sale.report_saledetails
 #: model_terms:pos.config,customer_facing_display_html:point_of_sale.pos_config_main
 msgid "Quantity"
-msgstr "最少购买量"
+msgstr "数量"
 
 #. module: point_of_sale
 #. openerp-web
@@ -3878,6 +3900,13 @@ msgid "Ready to launch your <b>point of sale</b>?"
 msgstr ""
 
 #. module: point_of_sale
+#. openerp-web
+#: code:addons/point_of_sale/static/src/js/Screens/TicketScreen/TicketScreen.js:0
+#, python-format
+msgid "Receipt"
+msgstr "接收"
+
+#. module: point_of_sale
 #: code:addons/point_of_sale/models/pos_order.py:0
 #, python-format
 msgid "Receipt %s"
@@ -3895,6 +3924,7 @@ msgstr "收据页眉"
 
 #. module: point_of_sale
 #. openerp-web
+#: code:addons/point_of_sale/static/src/js/Screens/TicketScreen/TicketScreen.js:0
 #: code:addons/point_of_sale/static/src/xml/Screens/TicketScreen/TicketScreen.xml:0
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_order__pos_reference
 #, python-format
@@ -4151,6 +4181,20 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:point_of_sale.view_pos_order_filter
 msgid "Search Sales Order"
 msgstr "搜索销售订单"
+
+#. module: point_of_sale
+#. openerp-web
+#: code:addons/point_of_sale/static/src/xml/Screens/TicketScreen/TicketScreen.xml:0
+#, python-format
+msgid "Search Tickets..."
+msgstr ""
+
+#. module: point_of_sale
+#. openerp-web
+#: code:addons/point_of_sale/static/src/js/Misc/SearchBar.js:0
+#, python-format
+msgid "Select"
+msgstr "选择"
 
 #. module: point_of_sale
 #. openerp-web
@@ -4474,7 +4518,7 @@ msgstr "起始余额"
 #: code:addons/point_of_sale/static/src/xml/Screens/ClientListScreen/ClientDetailsEdit.xml:0
 #, python-format
 msgid "State"
-msgstr "省/ 州"
+msgstr "状态"
 
 #. module: point_of_sale
 #. openerp-web
@@ -4600,7 +4644,7 @@ msgstr "拿钱进/出"
 #: model:ir.model,name:point_of_sale.model_account_tax
 #, python-format
 msgid "Tax"
-msgstr "税金"
+msgstr "税"
 
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.report_saledetails
@@ -4703,7 +4747,7 @@ msgstr "将自动检测是否留空硬件代理的主机名或 IP 地址"
 #, python-format
 msgid ""
 "The invoice journal and the point of sale must belong to the same company."
-msgstr "发票日记账和销售点必须属于同一公司"
+msgstr "结算单日记账和销售点必须属于同一公司"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/models/pos_config.py:0
@@ -4711,7 +4755,7 @@ msgstr "发票日记账和销售点必须属于同一公司"
 msgid ""
 "The invoice journal must be in the same currency as the Sales Journal or the"
 " company currency if that is not set."
-msgstr "发票日记账所使用币种在未设置的情况下必须与销售日记账或公司币种一致。"
+msgstr "结算单日记账所使用币种在未设置的情况下必须与销售日记账或公司币种一致。"
 
 #. module: point_of_sale
 #: model:ir.model.constraint,message:point_of_sale.constraint_pos_session_uniq_name
@@ -4738,7 +4782,7 @@ msgstr "因为未知错误，订单不能发送到服务器"
 msgid ""
 "The order has been synchronized earlier. Please make the invoice from the "
 "backend for the order: "
-msgstr "订单已提前同步。请从后台为订单开具发票吧："
+msgstr "订单已提前同步。请从后台为订单开具结算单吧："
 
 #. module: point_of_sale
 #: model:ir.model.fields,help:point_of_sale.field_pos_payment_method__cash_journal_id
@@ -4969,7 +5013,7 @@ msgstr "该字段用于将销售点用户组的 ID 传递到销售点客户端�
 msgid ""
 "This invoice has been created from the point of sale session: <a href=# "
 "data-oe-model=pos.order data-oe-id=%d>%s</a>"
-msgstr "此发票已在销售点会话中创建：<a href=# data-oe-model=pos.order data-oe-id=%d>%s</a>"
+msgstr "此结算单已在销售点会话中创建：<a href=# data-oe-model=pos.order data-oe-id=%d>%s</a>"
 
 #. module: point_of_sale
 #: model:ir.model.fields,help:point_of_sale.field_pos_config__allowed_pricelist_ids
@@ -5018,16 +5062,16 @@ msgstr "本产品用于客户收据的参考。"
 #. module: point_of_sale
 #: model:ir.model.fields,help:point_of_sale.field_pos_config__sequence_line_id
 msgid ""
-"This sequence is automatically created by Odoo but you can change it to "
+"This sequence is automatically created by Flectra but you can change it to "
 "customize the reference numbers of your orders lines."
-msgstr "此序列由 Odoo 自动创建，但您可以进行更改以自定义订单详情的参考号。"
+msgstr "此序列由 Flectra 自动创建，但您可以进行更改以自定义订单详情的参考号。"
 
 #. module: point_of_sale
 #: model:ir.model.fields,help:point_of_sale.field_pos_config__sequence_id
 msgid ""
-"This sequence is automatically created by Odoo but you can change it to "
+"This sequence is automatically created by Flectra but you can change it to "
 "customize the reference numbers of your orders."
-msgstr "此序列由 Odoo 自动创建，但您可以进行更改以自定义订单详情的参考号。"
+msgstr "此序列由 Flectra 自动创建，但您可以进行更改以自定义订单详情的参考号。"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/models/pos_session.py:0
@@ -5088,7 +5132,7 @@ msgstr "称重"
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_order__to_invoice
 msgid "To invoice"
-msgstr "开发票"
+msgstr "开结算单"
 
 #. module: point_of_sale
 #: model_terms:ir.actions.act_window,help:point_of_sale.action_pos_payment_form
@@ -5200,7 +5244,7 @@ msgstr ""
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_stock_picking
 msgid "Transfer"
-msgstr "转账"
+msgstr "调拨"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_barcode_rule__type
@@ -5231,7 +5275,7 @@ msgstr ""
 #: code:addons/point_of_sale/static/src/js/Screens/OrderManagementScreen/ControlButtons/InvoiceButton.js:0
 #, python-format
 msgid "Unable to download invoice."
-msgstr "不能够下载发票"
+msgstr "不能够下载结算单"
 
 #. module: point_of_sale
 #. openerp-web
@@ -5469,7 +5513,7 @@ msgid ""
 "Whenever you close a session, one entry is generated in the following "
 "accounting journal for all the orders not invoiced. Invoices are recorded in"
 " accounting separately."
-msgstr "无论何时关闭会话，都会在所有未开票订单的以下会计日记账中生成一个分录。发票在会计中单独记录。"
+msgstr "无论何时关闭会话，都会在所有未开票订单的以下会计日记账中生成一个分录。结算单在会计中单独记录。"
 
 #. module: point_of_sale
 #: model:product.product,name:point_of_sale.whiteboard

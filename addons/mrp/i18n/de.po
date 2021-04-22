@@ -1,26 +1,27 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* mrp
 # 
 # Translators:
 # Andreas Stauder <andreas.stauder@brain-tec.ch>, 2020
 # Andi, 2020
-# JEK Odoo <jek@odoo.com>, 2020
+# JEK Flectra <jek@flectrahq.com>, 2020
 # Ermin Trevisan <trevi@twanda.com>, 2020
 # Bettina Pfeifer <betzilla@web.de>, 2020
 # Florian Pose <fp@igh.de>, 2020
 # Wolfgang Taferner, 2020
 # Anja Funk <anja.funk@afimage.de>, 2020
-# Johannes Croe <jcr@odoo.com>, 2020
-# Philipp Fürstos <pfu@odoo.com>, 2020
+# Johannes Croe <jcr@flectrahq.com>, 2020
+# Philipp Fürstos <pfu@flectrahq.com>, 2020
 # Max-Milan Stoyanov, 2020
-# Leon Grill <leg@odoo.com>, 2020
+# Leon Grill <leg@flectrahq.com>, 2020
 # e2f <projects@e2f.com>, 2020
 # Constantin Ehrenstein <transifex@skiller.eu>, 2020
-# Martin Trigaux, 2020
 # Katharina Moritz <kmo@e2f.com>, 2020
 # Chris Egal <sodaswed@web.de>, 2020
 # Tobias Arndt, 2020
+# Udo Hennig <info@udohennig.de>, 2021
+# Martin Trigaux, 2021
 # 
 msgid ""
 msgstr ""
@@ -28,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-29 15:48+0000\n"
 "PO-Revision-Date: 2020-09-07 08:14+0000\n"
-"Last-Translator: Tobias Arndt, 2020\n"
+"Last-Translator: Martin Trigaux, 2021\n"
 "Language-Team: German (https://www.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -409,6 +410,13 @@ msgstr ""
 #, python-format
 msgid "A Manufacturing Order is already done or cancelled."
 msgstr "Ein Fertigungsauftrag wurde bereits ausgeführt oder storniert."
+
+#. module: mrp
+#: code:addons/mrp/models/stock_warehouse.py:0
+#, python-format
+msgid ""
+"A product with a kit-type bill of materials can not have a reordering rule."
+msgstr ""
 
 #. module: mrp
 #: code:addons/mrp/models/mrp_workcenter.py:0
@@ -3017,7 +3025,7 @@ msgstr ""
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_consumption_warning_line__mrp_consumption_warning_id
 msgid "Parent Wizard"
-msgstr ""
+msgstr "übergeordneter Assistent"
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_routing_workcenter__worksheet_google_slide
@@ -3158,6 +3166,12 @@ msgstr ""
 #: model:product.product,name:mrp.product_product_plastic_laminate
 #: model:product.template,name:mrp.product_product_plastic_laminate_product_template
 msgid "Plastic Laminate"
+msgstr ""
+
+#. module: mrp
+#: code:addons/mrp/models/stock_move.py:0
+#, python-format
+msgid "Please delete the Manufacture Order first."
 msgstr ""
 
 #. module: mrp
@@ -4868,7 +4882,7 @@ msgstr ""
 #. module: mrp
 #: model_terms:digest.tip,tip_description:mrp.digest_tip_mrp_0
 msgid ""
-"With the Odoo work center control panel, your worker can start work orders "
+"With the Flectra work center control panel, your worker can start work orders "
 "in the shop and follow instructions of the worksheet. Quality tests are "
 "perfectly integrated into the process. Workers can trigger feedback loops, "
 "maintenance alerts, scrap products, etc."
@@ -5121,6 +5135,14 @@ msgstr ""
 #: code:addons/mrp/models/mrp_bom.py:0
 #, python-format
 msgid ""
+"You can not create a kit-type bill of materials for products that have at "
+"least one reordering rule."
+msgstr ""
+
+#. module: mrp
+#: code:addons/mrp/models/mrp_bom.py:0
+#, python-format
+msgid ""
 "You can not delete a Bill of Material with running manufacturing orders.\n"
 "Please close or cancel it first."
 msgstr ""
@@ -5193,13 +5215,13 @@ msgid ""
 "                        </b>"
 msgstr ""
 "Sie verbrauchen für die folgenden Produkte eine andere Menge als erwartet.<b"
-" attrs=\"{'invisible'\\: [('consumption', '=', 'strict')]}\">Bitte "
-"bestätigen Sie, dass dies mit Absicht geschieht.</b> <b "
-"attrs=\"{'invisible'\\: [('consumption', '!=', 'strict')]}\"> Bitte "
-"überprüfen Sie Ihren Komponentenverbrauch oder bitten Sie einen Manager um "
-"eine Validierung <span attrs=\"{'invisible'\\:[('mrp_production_count', "
-"'!=', 1)]}\">für diesen Fertigungsauftrag</span> <span "
-"attrs=\"{'invisible'\\:[('mrp_production_count', '=', 1)]}\">für diese "
+" attrs=\"{'invisible': [('consumption', '=', 'strict')]}\">Bitte bestätigen "
+"Sie, dass dies mit Absicht geschieht.</b> <b attrs=\"{'invisible': "
+"[('consumption', '!=', 'strict')]}\"> Bitte überprüfen Sie Ihren "
+"Komponentenverbrauch oder bitten Sie einen Manager um eine Validierung <span"
+" attrs=\"{'invisible':[('mrp_production_count', '!=', 1)]}\">für diesen "
+"Fertigungsauftrag</span> <span "
+"attrs=\"{'invisible':[('mrp_production_count', '=', 1)]}\">für diese "
 "Fertigungsaufträge</span>. </b> "
 
 #. module: mrp
@@ -5216,7 +5238,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mrp.view_immediate_production
 msgid ""
 "You have not recorded <i>produced</i> quantities yet, by clicking on "
-"<i>apply</i> Odoo will produce all the finished products and consume all "
+"<i>apply</i> Flectra will produce all the finished products and consume all "
 "components."
 msgstr ""
 

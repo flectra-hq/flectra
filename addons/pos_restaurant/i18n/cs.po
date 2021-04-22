@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* pos_restaurant
 # 
@@ -7,17 +7,18 @@
 # Chris <krystof.reklamy13@gmail.com>, 2020
 # Jaroslav Helemik Nemec <nemec@helemik.cz>, 2020
 # Jan Horzinka <jan.horzinka@centrum.cz>, 2020
-# Michal Veselý <michal@veselyberanek.net>, 2020
 # Martin Trigaux, 2020
-# Jiří Podhorecký, 2020
+# karolína schusterová <karolina.schusterova@vdp.sk>, 2021
+# Michal Veselý <michal@veselyberanek.net>, 2021
+# trendspotter, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-29 13:45+0000\n"
+"POT-Creation-Date: 2021-01-26 09:10+0000\n"
 "PO-Revision-Date: 2020-09-07 08:16+0000\n"
-"Last-Translator: Jiří Podhorecký, 2020\n"
+"Last-Translator: trendspotter, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -190,6 +191,8 @@ msgid ""
 "Adjust the amount authorized by payment terminals to add a tip after the "
 "customers left or at the end of the day."
 msgstr ""
+"Upravte částku autorizovanou platebními terminály a přidejte spropitné poté,"
+" co zákazníci odešli, nebo na konci dne."
 
 #. module: pos_restaurant
 #: model:ir.model.fields,help:pos_restaurant.field_pos_config__iface_orderline_notes
@@ -390,7 +393,7 @@ msgstr "Smazat"
 #. module: pos_restaurant
 #: model_terms:ir.ui.view,arch_db:pos_restaurant.pos_config_view_form_inherit_restaurant
 msgid "Design floors and assign orders to tables"
-msgstr ""
+msgstr "Navrhněte lokál a přiřaďte objednávky stolům"
 
 #. module: pos_restaurant
 #: model_terms:pos.config,customer_facing_display_html:pos_restaurant.pos_config_restaurant
@@ -527,6 +530,13 @@ msgstr "Hosté"
 #, python-format
 msgid "Guests ?"
 msgstr "Hosté ?"
+
+#. module: pos_restaurant
+#. openerp-web
+#: code:addons/pos_restaurant/static/src/xml/Screens/ReceiptScreen/OrderReceipt.xml:0
+#, python-format
+msgid "Guests:"
+msgstr "Hostů:"
 
 #. module: pos_restaurant
 #: model:ir.model.fields,field_description:pos_restaurant.field_restaurant_table__height
@@ -725,8 +735,8 @@ msgstr "Počet sedadel ?"
 
 #. module: pos_restaurant
 #: model_terms:pos.config,customer_facing_display_html:pos_restaurant.pos_config_restaurant
-msgid "Odoo Logo"
-msgstr "Odoo Logo"
+msgid "Flectra Logo"
+msgstr "Flectra Logo"
 
 #. module: pos_restaurant
 #. openerp-web
@@ -743,6 +753,13 @@ msgstr "Nepřipojeno"
 #, python-format
 msgid "Ok"
 msgstr "Ok"
+
+#. module: pos_restaurant
+#. openerp-web
+#: code:addons/pos_restaurant/static/src/js/Screens/TicketScreen.js:0
+#, python-format
+msgid "Open"
+msgstr "Otevřít"
 
 #. module: pos_restaurant
 #. openerp-web
@@ -878,7 +895,7 @@ msgstr "Tiskárny"
 #: code:addons/pos_restaurant/static/src/js/Screens/TipScreen.js:0
 #, python-format
 msgid "Printing is not supported on some browsers"
-msgstr ""
+msgstr "Tisk není v některých prohlížečích podporován"
 
 #. module: pos_restaurant
 #. openerp-web
@@ -975,7 +992,7 @@ msgstr "Stůl restaurace"
 #: code:addons/pos_restaurant/static/src/xml/Screens/PaymentScreen/PaymentScreenElectronicPayment.xml:0
 #, python-format
 msgid "Reverse"
-msgstr ""
+msgstr "Zvrátit"
 
 #. module: pos_restaurant
 #. openerp-web
@@ -1226,6 +1243,13 @@ msgstr "Tip"
 #: code:addons/pos_restaurant/static/src/xml/TipReceipt.xml:0
 #, python-format
 msgid "Tip:"
+msgstr "Spropitné:"
+
+#. module: pos_restaurant
+#. openerp-web
+#: code:addons/pos_restaurant/static/src/js/Screens/TicketScreen.js:0
+#, python-format
+msgid "Tipping"
 msgstr ""
 
 #. module: pos_restaurant
@@ -1409,6 +1433,13 @@ msgstr "at"
 
 #. module: pos_restaurant
 #. openerp-web
+#: code:addons/pos_restaurant/static/src/xml/Screens/ReceiptScreen/OrderReceipt.xml:0
+#, python-format
+msgid "at table"
+msgstr "na stole"
+
+#. module: pos_restaurant
+#. openerp-web
 #: code:addons/pos_restaurant/static/src/xml/Screens/FloorScreen/FloorScreen.xml:0
 #, python-format
 msgid "button in the editing toolbar to create new tables."
@@ -1426,4 +1457,4 @@ msgstr "sleva"
 #: code:addons/pos_restaurant/static/src/xml/Screens/PaymentScreen/PaymentScreen.xml:0
 #, python-format
 msgid "env.pos.config.set_tip_after_payment and !currentOrder.is_paid()"
-msgstr ""
+msgstr "env.pos.config.set_tip_after_payment and !currentOrder.is_paid()"

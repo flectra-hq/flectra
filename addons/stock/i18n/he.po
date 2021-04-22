@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* stock
 # 
@@ -15,18 +15,20 @@
 # yizhaq agronov <yizhaq@gmail.com>, 2020
 # Yihya Hugirat <hugirat@gmail.com>, 2020
 # שהאב חוסיין <shhab89@gmail.com>, 2020
-# hed shefetr <hed@laylinetech.com>, 2020
 # דודי מלכה <Dudimalka6@gmail.com>, 2020
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2020
 # Ofir Blum <ofir.blum@gmail.com>, 2020
+# hed shefetr <hed@laylinetech.com>, 2020
+# Lilach Gilliam <lilach@apprcase.com>, 2021
+# Lilach Gilliam <lilach.gilliam@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-16 13:33+0000\n"
+"POT-Creation-Date: 2020-11-27 11:23+0000\n"
 "PO-Revision-Date: 2020-09-07 08:19+0000\n"
-"Last-Translator: Ofir Blum <ofir.blum@gmail.com>, 2020\n"
+"Last-Translator: Lilach Gilliam <lilach.gilliam@gmail.com>, 2021\n"
 "Language-Team: Hebrew (https://www.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -622,7 +624,7 @@ msgstr "מצב פעילות"
 #: model:ir.model.fields,field_description:stock.field_stock_picking__activity_type_icon
 #: model:ir.model.fields,field_description:stock.field_stock_production_lot__activity_type_icon
 msgid "Activity Type Icon"
-msgstr ""
+msgstr "סוג פעילות"
 
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_production_lot_form
@@ -733,18 +735,16 @@ msgid "Allowed Route"
 msgstr ""
 
 #. module: stock
+#: model:ir.model.fields,help:stock.field_stock_inventory__prefill_counted_quantity
+msgid ""
+"Allows to start with a pre-filled counted quantity for each lines or with "
+"all counted quantities set to zero."
+msgstr ""
+
+#. module: stock
 #: model:ir.model.fields,help:stock.field_stock_inventory__start_empty
 msgid "Allows to start with an empty inventory."
 msgstr "מאפשר להתחיל עם מלאי ריק."
-
-#. module: stock
-#: model:ir.model.fields,help:stock.field_stock_inventory__prefill_counted_quantity
-msgid ""
-"Allows to start with prefill counted quantity for each lines or with all "
-"counted quantity set to zero."
-msgstr ""
-"מאפשר להתחיל עם הכמות שנספרה מראש עבור כל שורה או עם כל הכמות שנספרה מוגדרת "
-"לאפס."
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_stock_rule_form
@@ -1725,10 +1725,10 @@ msgstr "מסלולי ברירת מחדל של המחסן"
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_orderpoint
 msgid ""
-"Define a minimum stock rule so that Odoo creates automatically requests for "
+"Define a minimum stock rule so that Flectra creates automatically requests for "
 "quotations or draft manufacturing orders to resupply your stock."
 msgstr ""
-"הגדר כלל למלאי מינימום כך ש Odoo ייצור אוטומטית בקשות להצעות מחיר או טיוטות "
+"הגדר כלל למלאי מינימום כך ש Flectra ייצור אוטומטית בקשות להצעות מחיר או טיוטות "
 "הוראות ייצור כדי לחדש את המלאי."
 
 #. module: stock
@@ -1740,14 +1740,14 @@ msgstr "הגדר מחסן חדש"
 #: model_terms:ir.actions.act_window,help:stock.action_location_form
 msgid ""
 "Define your locations to reflect your warehouse structure and\n"
-"            organization. Odoo is able to manage physical locations\n"
+"            organization. Flectra is able to manage physical locations\n"
 "            (warehouses, shelves, bin, etc), partner locations (customers,\n"
 "            vendors) and virtual locations which are the counterpart of\n"
 "            the stock operations like the manufacturing orders\n"
 "            consumptions, inventories, etc."
 msgstr ""
 "הגדר את האיתורים שלך כך שישקפו את מבנה המחסן \n"
-"והארגון. Odoo מסוגל לנהל איתורים פיזיים\n"
+"והארגון. Flectra מסוגל לנהל איתורים פיזיים\n"
 "(מחסנים, מדפים וכו'), איתורי לקוחות/ספקים\n"
 "וגם מיקומים וירטואליים שמקבילים לפעולות המלאי \n"
 "כמו הוראות ייצור\n"
@@ -2178,7 +2178,7 @@ msgstr "מלאי ריק"
 #. module: stock
 #: model_terms:digest.tip,tip_description:stock.digest_tip_stock_0
 msgid ""
-"Enjoy a quick-paced experience with the Odoo barcode app. It is blazing fast"
+"Enjoy a quick-paced experience with the Flectra barcode app. It is blazing fast"
 " and works even without a stable internet connection. It supports all flows:"
 " inventory adjustments, batch picking, moving lots or pallets, low inventory"
 " checks, etc. Go to the \"Apps\" menu to activate the barcode interface."
@@ -2205,15 +2205,15 @@ msgstr "שגיאה"
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_location_form
 msgid ""
-"Every stock operation in Odoo moves the products from one\n"
+"Every stock operation in Flectra moves the products from one\n"
 "            location to another one.  For instance, if you receive products\n"
-"            from a vendor, Odoo will move products from the Vendor\n"
+"            from a vendor, Flectra will move products from the Vendor\n"
 "            location to the Stock location. Each report can be performed on\n"
 "            physical, partner or virtual locations."
 msgstr ""
-"כל פעולה המתבצעת במלאי Odoo תעביר את המוצרים ממיקום אחד\n"
+"כל פעולה המתבצעת במלאי Flectra תעביר את המוצרים ממיקום אחד\n"
 "לאחר. לדוגמה, אם אתה מקבל מוצרים\n"
-"מהספק, Odoo תעביר מוצרים מהספק\n"
+"מהספק, Flectra תעביר מוצרים מהספק\n"
 "למיקום במלאי. ניתן לבצע  דוח\n"
 "פיזית, שותף או מיקומים וירטואליים."
 
@@ -2359,7 +2359,7 @@ msgstr "עוקבים (לקוחות/ספקים)"
 #: model:ir.model.fields,help:stock.field_stock_picking__activity_type_icon
 #: model:ir.model.fields,help:stock.field_stock_production_lot__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr ""
+msgstr "פונט מדהים למשל עבור משימות fa-tasks"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_product_category__removal_strategy_id
@@ -2785,11 +2785,11 @@ msgstr ""
 #: model:ir.model.fields,help:stock.field_stock_picking__show_reserved
 #: model:ir.model.fields,help:stock.field_stock_picking_type__show_reserved
 msgid ""
-"If this checkbox is ticked, Odoo will automatically pre-fill the detailed "
+"If this checkbox is ticked, Flectra will automatically pre-fill the detailed "
 "operations with the corresponding products, locations and lot/serial "
 "numbers."
 msgstr ""
-"אם מסומנת תיבת סימון זו, Odoo ימלא אוטומטית מראש את הפעולות המפורטות "
+"אם מסומנת תיבת סימון זו, Flectra ימלא אוטומטית מראש את הפעולות המפורטות "
 "במוצרים, באיתורים ובאצוות/ מספרים הסידוריים המתאימים."
 
 #. module: stock
@@ -3846,7 +3846,6 @@ msgstr "חדש"
 
 #. module: stock
 #: code:addons/stock/models/stock_move_line.py:0
-#: code:addons/stock/models/stock_picking.py:0
 #, python-format
 msgid "New Move:"
 msgstr "תנועה חדשה:"
@@ -5384,7 +5383,7 @@ msgstr "אשף רענון מלאי"
 #: model_terms:ir.ui.view,arch_db:stock.report_product_product_replenishment
 #, python-format
 msgid "Replenishment"
-msgstr ""
+msgstr "עיתוד מלאי"
 
 #. module: stock
 #: code:addons/stock/models/stock_orderpoint.py:0
@@ -6191,6 +6190,7 @@ msgstr "ניתוח תנועות מלאי"
 
 #. module: stock
 #: code:addons/stock/models/stock_quant.py:0
+#: model:ir.actions.act_window,name:stock.dashboard_open_quants
 #, python-format
 msgid "Stock On Hand"
 msgstr "מלאי זמין"
@@ -6771,6 +6771,16 @@ msgid ""
 "receive the goods you are returning now, make sure to <b>reverse</b> the "
 "returned picking in order to avoid logistic rules to be applied again (which"
 " would create duplicated operations)"
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/product.py:0
+#, python-format
+msgid ""
+"This product has been used in at least one inventory movement. It is not "
+"advised to change the Product Type since it can lead to inconsistencies. A "
+"better solution could be to archive the product and create a new one "
+"instead."
 msgstr ""
 
 #. module: stock
@@ -7563,20 +7573,20 @@ msgstr ""
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint__product_min_qty
 msgid ""
 "When the virtual stock equals to or goes below the Min Quantity specified "
-"for this field, Odoo generates a procurement to bring the forecasted "
+"for this field, Flectra generates a procurement to bring the forecasted "
 "quantity to the Max Quantity."
 msgstr ""
-"כאשר המלאי הוירטואלי שווה או מתחת לכמות המינימלית שצוינה לשדה זה, Odoo "
+"כאשר המלאי הוירטואלי שווה או מתחת לכמות המינימלית שצוינה לשדה זה, Flectra "
 "מייצרת רכש כדי להביא את הכמות החזויה לכמות המקסימלית."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint__product_max_qty
 msgid ""
-"When the virtual stock goes below the Min Quantity, Odoo generates a "
+"When the virtual stock goes below the Min Quantity, Flectra generates a "
 "procurement to bring the forecasted quantity to the Quantity specified as "
 "Max Quantity."
 msgstr ""
-"כאשר המלאי יורד מתחת לכמות המינימלית, Odoo מייצרת רכש כדי להביא את הכמות "
+"כאשר המלאי יורד מתחת לכמות המינימלית, Flectra מייצרת רכש כדי להביא את הכמות "
 "החזוי לכמות שצוינה כמות מקסימום."
 
 #. module: stock
@@ -7884,7 +7894,7 @@ msgstr "יצרת שורות מוצרים ידנית, מחק אותן כדי לה
 #: model_terms:ir.ui.view,arch_db:stock.view_immediate_transfer
 msgid ""
 "You have not recorded <i>done</i> quantities yet, by clicking on "
-"<i>apply</i> Odoo will process all the quantities."
+"<i>apply</i> Flectra will process all the quantities."
 msgstr ""
 
 #. module: stock
@@ -8094,4 +8104,20 @@ msgstr "report_stock_quantity_graph"
 #: code:addons/stock/static/src/xml/stock_orderpoint.xml:0
 #, python-format
 msgid "should be replenished to reach the maximum of"
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"You can't desactivate the multi-location if you have more than once "
+"warehouse by company"
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/stock_warehouse.py:0
+#, python-format
+msgid ""
+"Creating a new warehouse will automatically activate the Storage Locations "
+"setting"
 msgstr ""

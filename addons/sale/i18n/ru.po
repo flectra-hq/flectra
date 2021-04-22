@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* sale
 # 
@@ -7,7 +7,6 @@
 # Disaster Disasterov <mobarbitr@gmail.com>, 2020
 # Василий Коробатов <boxat@mail.ru>, 2020
 # sorin Rusu <to.rusu.sorin@gmail.com>, 2020
-# Denis Knotko <denis_knotko@yahoo.com>, 2020
 # Максим Дронь <dronmax@gmail.com>, 2020
 # Collex100, 2020
 # Андрей Гусев <gaussgss@gmail.com>, 2020
@@ -16,7 +15,6 @@
 # Ekaterina <nawsikaya@bk.ru>, 2020
 # Denis Baranov <baranov@itlibertas.com>, 2020
 # Martin Trigaux, 2020
-# Ivan Yelizariev <yelizariev@it-projects.info>, 2020
 # Sergey Vilizhanin, 2020
 # Артур Чеботарь <artcha.chebotar@gmail.com>, 2020
 # Vasiliy Korobatov <korobatov@gmail.com>, 2020
@@ -28,14 +26,15 @@
 # Ye Ye <vrio.ua@gmail.com>, 2020
 # Сергей Шебанин <sergey@shebanin.ru>, 2020
 # Polina Alexandrova <polinaalexnder@gmail.com>, 2020
+# Ivan Yelizariev // IEL <yelizariev@itpp.dev>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-29 15:48+0000\n"
+"POT-Creation-Date: 2020-11-27 14:12+0000\n"
 "PO-Revision-Date: 2020-09-07 08:17+0000\n"
-"Last-Translator: Polina Alexandrova <polinaalexnder@gmail.com>, 2020\n"
+"Last-Translator: Ivan Yelizariev // IEL <yelizariev@itpp.dev>, 2021\n"
 "Language-Team: Russian (https://www.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,10 +74,9 @@ msgstr ""
 #: model:mail.template,subject:sale.email_template_edi_sale
 msgid ""
 "${object.company_id.name} ${object.state in ('draft', 'sent') and "
-"'Quotation' or 'Order'} (Ref ${object.name or 'n/a' })"
+"(ctx.get('proforma') and 'Proforma' or 'Quotation') or 'Order'} (Ref "
+"${object.name or 'n/a' })"
 msgstr ""
-"${object.company_id.name} ${object.state in ('draft', 'sent') and "
-"'Коммерческое предложение' or 'Заказ'} (No. ${object.name or 'n/a' })"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.portal_my_orders
@@ -90,11 +88,6 @@ msgstr "и "
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_content_totals_table
 msgid "&amp;nbsp;<span>on</span>&amp;nbsp;"
 msgstr "&amp;nbsp;<span>on</span>&amp;nbsp;"
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_template
-msgid "&amp;times;"
-msgstr "&amp;times;"
 
 #. module: sale
 #: model:ir.actions.report,print_report_name:sale.action_report_pro_forma_invoice
@@ -427,8 +420,9 @@ msgid ""
 "specific.\" aria-label=\"Values set here are company-specific.\" "
 "groups=\"base.group_multi_company\" role=\"img\"/>"
 msgstr ""
-"<span class=\"o_form_label\">Налоги по умолчанию</span>\n"
-"                                    <span class=\"fa fa-lg fa-building-o\" title=\"Налоги по умолчанию.\" aria-label=\"Налоги по умолчанию.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" aria-label=\"Values set here are company-specific.\" "
+"groups=\"base.group_multi_company\" role=\"img\"/>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -756,7 +750,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:sale.mail_activity_type_action_config_sale
 #: model:ir.ui.menu,name:sale.sale_menu_config_activity_type
 msgid "Activity Types"
-msgstr "Виды деятельности"
+msgstr "Виды задач"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
@@ -870,7 +864,7 @@ msgstr ""
 #. module: sale
 #: model_terms:ir.actions.act_window,help:sale.action_orders_upselling
 msgid ""
-"As an example, if you sell pre-paid hours of services, Odoo recommends you\n"
+"As an example, if you sell pre-paid hours of services, Flectra recommends you\n"
 "                to sell extra hours when all ordered hours have been consumed."
 msgstr ""
 
@@ -1496,7 +1490,7 @@ msgstr "Отображаемое имя"
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order_line__display_type
 msgid "Display Type"
-msgstr "Тип экрана"
+msgstr "Способ отображения"
 
 #. module: sale
 #. openerp-web
@@ -1795,7 +1789,7 @@ msgstr "Вес брутто"
 #: model_terms:ir.ui.view,arch_db:sale.view_sales_order_filter
 #: model_terms:ir.ui.view,arch_db:sale.view_sales_order_line_filter
 msgid "Group By"
-msgstr "Группировать по"
+msgstr "Группировка"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order__show_update_pricelist
@@ -2620,7 +2614,7 @@ msgstr "Статус заказа"
 #. module: sale
 #: model:mail.activity.type,name:sale.mail_act_sale_upsell
 msgid "Order Upsell"
-msgstr "допродажа заказов"
+msgstr "Допродажа"
 
 #. module: sale
 #: code:addons/sale/controllers/portal.py:0
@@ -2671,7 +2665,7 @@ msgstr "Заказы к фактурированию"
 #: model:ir.actions.act_window,name:sale.action_orders_upselling
 #: model:ir.ui.menu,name:sale.menu_sale_order_upselling
 msgid "Orders to Upsell"
-msgstr "Заказы на продажу более дорогого товара"
+msgstr "Заказы на допродажу"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
@@ -4060,7 +4054,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_view_search_inherit_sale
 #: model_terms:ir.ui.view,arch_db:sale.view_sales_order_line_filter
 msgid "To Invoice"
-msgstr "Выписать счет"
+msgstr "Выставить счет"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order_line__qty_to_invoice
@@ -4070,7 +4064,7 @@ msgstr "Количество счетов-фактур"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_view_search_inherit_sale
 msgid "To Upsell"
-msgstr "сделать допродажа"
+msgstr "Сделать допродажу"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form

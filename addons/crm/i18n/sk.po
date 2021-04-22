@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* crm
 # 
@@ -6,7 +6,7 @@
 # Pavol Krnáč <pavol.krnac@ekoenergo.sk>, 2020
 # Stefan Stieranka <stieranka@itec.sk>, 2020
 # Adam Levrinc <adam.levrinc@26house.com>, 2020
-# Rastislav Brenčič <rastislav.brencic99@gmail.com>, 2020
+# rastislav Brencic <rastislav.brencic99@gmail.com>, 2020
 # Martin Trigaux, 2020
 # Matus Krnac <matus.krnac@gmail.com>, 2020
 # Jaroslav Bosansky <jaro.bosansky@ekoenergo.sk>, 2020
@@ -14,7 +14,7 @@
 # Michal Matus <misko.matus@gmail.com>, 2020
 # Jan Prokop, 2020
 # karolína schusterová <karolina.schusterova@vdp.sk>, 2020
-# Rastislav Brencic <rastislav.brencic@azet.sk>, 2020
+# Rastislav Brencic <rastislav.brencic@azet.sk>, 2021
 # 
 msgid ""
 msgstr ""
@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-27 14:12+0000\n"
 "PO-Revision-Date: 2020-09-07 08:11+0000\n"
-"Last-Translator: Rastislav Brencic <rastislav.brencic@azet.sk>, 2020\n"
+"Last-Translator: Rastislav Brencic <rastislav.brencic@azet.sk>, 2021\n"
 "Language-Team: Slovak (https://www.transifex.com/odoo/teams/41243/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -232,7 +232,7 @@ msgid ""
 "                        <div>\n"
 "                            Hi ${object.partner_id and object.partner_id.name or ''},<br/><br/>\n"
 "                            Welcome to ${object.company_id.name}.\n"
-"                            It's great to meet you! Now that you're on board, you'll discover what ${object.company_id.name} has to offer. My name is ${object.user_id.name} and I'll help you get the most out of Odoo. Could we plan a quick demo soon?<br/>\n"
+"                            It's great to meet you! Now that you're on board, you'll discover what ${object.company_id.name} has to offer. My name is ${object.user_id.name} and I'll help you get the most out of Flectra. Could we plan a quick demo soon?<br/>\n"
 "                            Feel free to reach out at any time!<br/><br/>\n"
 "                            Best,<br/>\n"
 "                            % if object.user_id:\n"
@@ -269,7 +269,7 @@ msgid ""
 "</td></tr>\n"
 "<!-- POWERED BY -->\n"
 "<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
-"    Powered by <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=email\" style=\"color: #009EFB;\">Odoo</a>\n"
+"    Powered by <a target=\"_blank\" href=\"https://www.flectrahq.com?utm_source=db&amp;utm_medium=email\" style=\"color: #009EFB;\">Flectra</a>\n"
 "</td></tr>\n"
 "</table>\n"
 "        "
@@ -1007,11 +1007,11 @@ msgstr ""
 #: model_terms:digest.tip,tip_description:crm.digest_tip_crm_4
 msgid ""
 "Did you know you can search a company by name or VAT number to instantly "
-"fill in all its data? Odoo autocompletes everything for you: logo, address, "
+"fill in all its data? Flectra autocompletes everything for you: logo, address, "
 "company size, business information, social media accounts, etc."
 msgstr ""
 "Vedeli ste, že môžete vyhľadať spoločnosť podľa názvu alebo čísla DPH a "
-"okamžite vyplniť všetky jej údaje? Odoo za vás automaticky doplní všetko: "
+"okamžite vyplniť všetky jej údaje? Flectra za vás automaticky doplní všetko: "
 "logo, adresu, veľkosť spoločnosti, obchodné informácie, účty sociálnych "
 "médií atď."
 
@@ -1019,11 +1019,11 @@ msgstr ""
 #: model_terms:digest.tip,tip_description:crm.digest_tip_crm_5
 msgid ""
 "Did you know you can turn a list of opportunities into a map view, using the"
-" top-right map icon? A lot of screens in Odoo can be turned into a map: "
+" top-right map icon? A lot of screens in Flectra can be turned into a map: "
 "tasks, contacts, delivery orders, etc."
 msgstr ""
 "Vedeli ste, že môžete zmeniť zoznam príležitostí na zobrazenie mapy pomocou "
-"ikony mapy vpravo hore? Mnoho obrazoviek v Odoo sa dá zmeniť na mapu: úlohy,"
+"ikony mapy vpravo hore? Mnoho obrazoviek v Flectra sa dá zmeniť na mapu: úlohy,"
 " kontakty, objednávky na doručenie atď."
 
 #. module: crm
@@ -1311,6 +1311,12 @@ msgstr "Priradenie sily"
 #, python-format
 msgid "From %(source_name)s : %(source_subject)s"
 msgstr "Z %(source_name)s : %(source_subject)s"
+
+#. module: crm
+#: code:addons/crm/models/crm_lead.py:0
+#, python-format
+msgid "From %(source_name)s"
+msgstr ""
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_leads_filter
@@ -1915,7 +1921,7 @@ msgstr "Marketing"
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_leads_filter
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_opportunities_filter
 msgid "Medium"
-msgstr "Stredný"
+msgstr "Médium"
 
 #. module: crm
 #: code:addons/crm/models/crm_lead.py:0
@@ -2168,23 +2174,23 @@ msgstr "Počet neprečítaných správ"
 #. module: crm
 #: model_terms:ir.actions.act_window,help:crm.crm_case_form_view_salesteams_opportunity
 msgid ""
-"Odoo helps you keep track of your sales pipeline to follow\n"
+"Flectra helps you keep track of your sales pipeline to follow\n"
 "                    up potential sales and better forecast your future revenues."
 msgstr ""
-"Odoo vam pomáha sledovať a riadiť Obchodné príležitosti\n"
+"Flectra vam pomáha sledovať a riadiť Obchodné príležitosti\n"
 " potenciálne predaje a lepšie odhady vašich budúcich tržieb."
 
 #. module: crm
 #: model_terms:digest.tip,tip_description:crm.digest_tip_crm_2
 msgid ""
-"Odoo's artificial intelligence engine predicts the success rate of each "
+"Flectra's artificial intelligence engine predicts the success rate of each "
 "opportunity based on your history. You can always update the success rate "
-"manually, but if you let Odoo do the job the score is updated while the "
+"manually, but if you let Flectra do the job the score is updated while the "
 "opportunity moves forward in your sales cycle."
 msgstr ""
-"Engine Odoo umelej inteligencie predpovedá úspešnosť každej príležitosti na "
+"Engine Flectra umelej inteligencie predpovedá úspešnosť každej príležitosti na "
 "základe vašej histórie. Mieru úspešnosti môžete kedykoľvek aktualizovať "
-"manuálne, ale ak necháte prácu Odoo, skóre sa aktualizuje, zatiaľ čo sa "
+"manuálne, ale ak necháte prácu Flectra, skóre sa aktualizuje, zatiaľ čo sa "
 "príležitosť posúva vpred v predajnom cykle."
 
 #. module: crm
@@ -2582,7 +2588,7 @@ msgstr "Týkajúce sa zákazníka"
 #. module: crm
 #: model:ir.ui.menu,name:crm.crm_menu_report
 msgid "Reporting"
-msgstr "Reportovanie"
+msgstr "Prehľady"
 
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_stage__requirements
@@ -2921,11 +2927,11 @@ msgstr ""
 #. module: crm
 #: model:ir.model.fields,help:crm.field_crm_team__alias_model_id
 msgid ""
-"The model (Odoo Document Kind) to which this alias corresponds. Any incoming"
+"The model (Flectra Document Kind) to which this alias corresponds. Any incoming"
 " email that does not reply to an existing record will cause the creation of "
 "a new record of this model (e.g. a Project Task)"
 msgstr ""
-"Model (Odoo druh dokumentu), ktorému odpovedá tento alias. Každý "
+"Model (Flectra druh dokumentu), ktorému odpovedá tento alias. Každý "
 "prichádzajúci email ktorý neodpovie na existujúci záznam, spôsobí vytvorenie"
 " nového záznamu tohto modelu (napr požiadavku projektu)"
 
@@ -2933,10 +2939,10 @@ msgstr ""
 #: model:ir.model.fields,help:crm.field_crm_team__alias_name
 msgid ""
 "The name of the email alias, e.g. 'jobs' if you want to catch emails for "
-"<jobs@example.odoo.com>"
+"<jobs@example.flectrahq.com>"
 msgstr ""
 "Meno emailového alias, napr. \"práce\", ak chcete zachytiť emaily pre "
-"<praca@priklad.odoo.com>"
+"<praca@priklad.flectrahq.com>"
 
 #. module: crm
 #: model:ir.model.fields,help:crm.field_crm_lead__partner_name
@@ -3072,9 +3078,9 @@ msgstr "Tip: konvertujte prichádzajúce e-maily na príležitosti"
 #. module: crm
 #: model:digest.tip,name:crm.digest_tip_crm_1
 #: model_terms:digest.tip,tip_description:crm.digest_tip_crm_1
-msgid "Tip: Did you know Odoo has built-in lead mining?"
+msgid "Tip: Did you know Flectra has built-in lead mining?"
 msgstr ""
-"Tip: Vedeli ste, že Odoo má zabudovanú ťažbu Potenciálnych príležitostí?"
+"Tip: Vedeli ste, že Flectra má zabudovanú ťažbu Potenciálnych príležitostí?"
 
 #. module: crm
 #: model:digest.tip,name:crm.digest_tip_crm_4
@@ -3131,7 +3137,7 @@ msgstr "Veľmi drahé"
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_lead_view_form
 msgid "Tracking"
-msgstr "Sledovanie"
+msgstr "Sledovanie "
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_activity_report_view_search
@@ -3382,7 +3388,7 @@ msgstr "Ročne"
 #: code:addons/crm/models/crm_lead.py:0
 #, python-format
 msgid "You don't have the access needed to run this cron."
-msgstr "Nemáš prístup na nastavenie tejto opakujúcej sa veci."
+msgstr "Nemáte prístup potrebný na spustenie tohto cron."
 
 #. module: crm
 #: code:addons/crm/models/crm_lead.py:0
@@ -3425,8 +3431,8 @@ msgstr "napr. Ceny produktov"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_lead_view_form
-msgid "e.g. https://www.odoo.com"
-msgstr "napr. https://www.odoo.com"
+msgid "e.g. https://www.flectrahq.com"
+msgstr "napr. https://www.flectrahq.com"
 
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_stage__team_count
