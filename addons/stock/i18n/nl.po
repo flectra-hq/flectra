@@ -1,25 +1,25 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* stock
 # 
 # Translators:
 # Thijs van Oers <thijsvanoers@yahoo.com>, 2020
-# Cécile Collart <cco@odoo.com>, 2020
+# Cécile Collart <cco@flectrahq.com>, 2020
 # Eric Geens <ericgeens@yahoo.com>, 2020
 # Cas Vissers <casvissers@brahoo.nl>, 2020
 # Martin Trigaux, 2020
 # Gunther Clauwaert <gclauwae@hotmail.com>, 2020
 # Yenthe Van Ginneken <yenthespam@gmail.com>, 2020
-# Odoo Experts Consultants <consultants@odooexperts.nl>, 2020
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2020
+# Flectra Experts Consultants <consultants@odooexperts.nl>, 2020
+# Erwin van der Ploeg (Flectra Experts) <erwin@odooexperts.nl>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-16 13:33+0000\n"
+"POT-Creation-Date: 2020-11-27 11:23+0000\n"
 "PO-Revision-Date: 2020-09-07 08:19+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2020\n"
+"Last-Translator: Erwin van der Ploeg (Flectra Experts) <erwin@odooexperts.nl>, 2021\n"
 "Language-Team: Dutch (https://www.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -798,18 +798,18 @@ msgid "Allowed Route"
 msgstr "Toegestane route"
 
 #. module: stock
+#: model:ir.model.fields,help:stock.field_stock_inventory__prefill_counted_quantity
+msgid ""
+"Allows to start with a pre-filled counted quantity for each lines or with "
+"all counted quantities set to zero."
+msgstr ""
+"Maakt het mogelijk om te beginnen met een vooraf ingevulde getelde "
+"hoeveelheid voor elke regel of met alle getelde hoeveelheden op nul gezet."
+
+#. module: stock
 #: model:ir.model.fields,help:stock.field_stock_inventory__start_empty
 msgid "Allows to start with an empty inventory."
 msgstr "Maakt het mogelijk om te beginnen met een lege voorraad."
-
-#. module: stock
-#: model:ir.model.fields,help:stock.field_stock_inventory__prefill_counted_quantity
-msgid ""
-"Allows to start with prefill counted quantity for each lines or with all "
-"counted quantity set to zero."
-msgstr ""
-"Hiermee kunt u beginnen met de vooringevulde getelde hoeveelheid voor elke "
-"regel of met alle getelde hoeveelheid ingesteld op nul."
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_stock_rule_form
@@ -1719,8 +1719,7 @@ msgstr "Gegevens verwerken"
 #: model:ir.model.fields,help:stock.field_stock_move__date_deadline
 #: model:ir.model.fields,help:stock.field_stock_picking__date_deadline
 msgid "Date Promise to the customer on the top level document (SO/PO)"
-msgstr ""
-"Beloofde datum aan de klant op het document op het hoogste niveau (SO / PO)"
+msgstr "Beloofde datum aan de klant op de order (Verkooporder of Inkooporder)"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move__date
@@ -1758,7 +1757,7 @@ msgstr "Deadline overschrijden of/en door de geplande"
 #: code:addons/stock/models/stock_move.py:0
 #, python-format
 msgid "Deadline updated due to delay on %s"
-msgstr ""
+msgstr "Deadline bijgewerkt wegens vertraging op %s"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type__default_location_dest_id
@@ -1810,10 +1809,10 @@ msgstr "Standaard routes door het magazijn"
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_orderpoint
 msgid ""
-"Define a minimum stock rule so that Odoo creates automatically requests for "
+"Define a minimum stock rule so that Flectra creates automatically requests for "
 "quotations or draft manufacturing orders to resupply your stock."
 msgstr ""
-"Definieer een minimale voorraadregel, zodat Odoo automatisch aanvragen voor "
+"Definieer een minimale voorraadregel, zodat Flectra automatisch aanvragen voor "
 "offertes of productieorders kan aanmaken om uw voorraad te aan te vullen."
 
 #. module: stock
@@ -1825,14 +1824,14 @@ msgstr "Definieer een nieuw magazijn"
 #: model_terms:ir.actions.act_window,help:stock.action_location_form
 msgid ""
 "Define your locations to reflect your warehouse structure and\n"
-"            organization. Odoo is able to manage physical locations\n"
+"            organization. Flectra is able to manage physical locations\n"
 "            (warehouses, shelves, bin, etc), partner locations (customers,\n"
 "            vendors) and virtual locations which are the counterpart of\n"
 "            the stock operations like the manufacturing orders\n"
 "            consumptions, inventories, etc."
 msgstr ""
 "Definieer uw locaties om uw magazijnstructuur en organisatie\n"
-"te reflecteren. Odoo kan fysieke locaties beheren\n"
+"te reflecteren. Flectra kan fysieke locaties beheren\n"
 "(magazijnen, planken, bakken, enz), relatie locaties (klanten,\n"
 "leveranciers) en virtuele locaties die de tegenrekening zijn van de\n"
 "voorraad bewerkingen zoals de productieorder\n"
@@ -2268,12 +2267,12 @@ msgstr "Geen voorraad"
 #. module: stock
 #: model_terms:digest.tip,tip_description:stock.digest_tip_stock_0
 msgid ""
-"Enjoy a quick-paced experience with the Odoo barcode app. It is blazing fast"
+"Enjoy a quick-paced experience with the Flectra barcode app. It is blazing fast"
 " and works even without a stable internet connection. It supports all flows:"
 " inventory adjustments, batch picking, moving lots or pallets, low inventory"
 " checks, etc. Go to the \"Apps\" menu to activate the barcode interface."
 msgstr ""
-"Geniet van een snelle ervaring met de Odoo barcode-app. Het is razendsnel en"
+"Geniet van een snelle ervaring met de Flectra barcode-app. Het is razendsnel en"
 " werkt zelfs zonder een stabiele internetverbinding. Het ondersteunt alle "
 "stromen: voorraadaanpassingen, batch-picking, verplaatsen van partijen of "
 "pallets, lage voorraadcontroles, enz. Ga naar het menu \"Apps\" om de "
@@ -2302,14 +2301,14 @@ msgstr "Fout"
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_location_form
 msgid ""
-"Every stock operation in Odoo moves the products from one\n"
+"Every stock operation in Flectra moves the products from one\n"
 "            location to another one.  For instance, if you receive products\n"
-"            from a vendor, Odoo will move products from the Vendor\n"
+"            from a vendor, Flectra will move products from the Vendor\n"
 "            location to the Stock location. Each report can be performed on\n"
 "            physical, partner or virtual locations."
 msgstr ""
-"Elke voorraad bewerking in Odoo verplaatst het product van een locatie naar een \n"
-"andere. Bijvoorbeeld, als u producten ontvangt van een leverancier, zal Odoo de \n"
+"Elke voorraad bewerking in Flectra verplaatst het product van een locatie naar een \n"
+"andere. Bijvoorbeeld, als u producten ontvangt van een leverancier, zal Flectra de \n"
 "producten verplaatsen van de leverancierslocatie naar de voorraad locatie. Elk rapport\n"
 "kan toegepast worden op fysieke, partner of virtuele locaties."
 
@@ -2455,7 +2454,7 @@ msgstr "Volgers (Relaties)"
 #: model:ir.model.fields,help:stock.field_stock_picking__activity_type_icon
 #: model:ir.model.fields,help:stock.field_stock_production_lot__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Font awesome icoon b.v. fa-tasks"
+msgstr "Font awesome icoon bijv. fa-tasks"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_product_category__removal_strategy_id
@@ -2579,7 +2578,7 @@ msgstr "Prognoses met wachtende"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_replenishment_header
 msgid "Forecasted<br/>+ Pending"
-msgstr "Prognoses <br/>+ In afwachting"
+msgstr "Prognoses <br/>+ wachtende"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_product_product_replenishment
@@ -2892,11 +2891,11 @@ msgstr ""
 #: model:ir.model.fields,help:stock.field_stock_picking__show_reserved
 #: model:ir.model.fields,help:stock.field_stock_picking_type__show_reserved
 msgid ""
-"If this checkbox is ticked, Odoo will automatically pre-fill the detailed "
+"If this checkbox is ticked, Flectra will automatically pre-fill the detailed "
 "operations with the corresponding products, locations and lot/serial "
 "numbers."
 msgstr ""
-"Indien aangevinkt, vult Odoo automatisch de gedetailleerde bewerkingen in "
+"Indien aangevinkt, vult Flectra automatisch de gedetailleerde bewerkingen in "
 "met de overeenkomstige producten, locaties en partij- / serienummers."
 
 #. module: stock
@@ -3355,7 +3354,7 @@ msgstr "JSON data voor de pop-up widget"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_orderpoint__json_lead_days_popover
 msgid "Json Lead Days Popover"
-msgstr ""
+msgstr "Json Lead Days Popover"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_barcode_rule____last_update
@@ -3979,7 +3978,6 @@ msgstr "Nieuw"
 
 #. module: stock
 #: code:addons/stock/models/stock_move_line.py:0
-#: code:addons/stock/models/stock_picking.py:0
 #, python-format
 msgid "New Move:"
 msgstr "Nieuwe verplaatsing:"
@@ -5538,7 +5536,7 @@ msgstr "Heraanvulling wizard"
 #: model_terms:ir.ui.view,arch_db:stock.report_product_product_replenishment
 #, python-format
 msgid "Replenishment"
-msgstr "Vooraadaanvullen"
+msgstr "Voorraadaanvullen"
 
 #. module: stock
 #: code:addons/stock/models/stock_orderpoint.py:0
@@ -6358,6 +6356,7 @@ msgstr "Voorraadverplaatsingsanalyse"
 
 #. module: stock
 #: code:addons/stock/models/stock_quant.py:0
+#: model:ir.actions.act_window,name:stock.dashboard_open_quants
 #, python-format
 msgid "Stock On Hand"
 msgstr " Beschikbare voorraad"
@@ -6990,6 +6989,20 @@ msgstr ""
 " aanmaken)"
 
 #. module: stock
+#: code:addons/stock/models/product.py:0
+#, python-format
+msgid ""
+"This product has been used in at least one inventory movement. It is not "
+"advised to change the Product Type since it can lead to inconsistencies. A "
+"better solution could be to archive the product and create a new one "
+"instead."
+msgstr ""
+"Dit product is in minstens één voorraadbeweging gebruikt. Het wordt niet "
+"aangeraden om het producttype te wijzigen, aangezien dit tot inconsistenties"
+" kan leiden. Een betere oplossing zou kunnen zijn om het product te "
+"archiveren en in plaats daarvan een nieuw product te maken."
+
+#. module: stock
 #: model:ir.model.fields,help:stock.field_stock_change_product_qty__new_quantity
 msgid ""
 "This quantity is expressed in the Default Unit of Measure of the product."
@@ -7505,7 +7518,7 @@ msgstr "Goedkeuren voorraadtelling"
 #: model:ir.model.fields.selection,name:stock.selection__stock_inventory__state__done
 #: model_terms:ir.ui.view,arch_db:stock.view_inventory_filter
 msgid "Validated"
-msgstr "Gevalideerd"
+msgstr "Goedgekeurd"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_change_product_qty__product_variant_count
@@ -7533,7 +7546,7 @@ msgstr "Leverancierslocaties"
 #: model:ir.model.fields.selection,name:stock.selection__stock_location__usage__view
 #: model_terms:ir.ui.view,arch_db:stock.stock_picking_type_kanban
 msgid "View"
-msgstr "Weergave"
+msgstr "Bekijk"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_template_property_form
@@ -7795,22 +7808,22 @@ msgstr ""
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint__product_min_qty
 msgid ""
 "When the virtual stock equals to or goes below the Min Quantity specified "
-"for this field, Odoo generates a procurement to bring the forecasted "
+"for this field, Flectra generates a procurement to bring the forecasted "
 "quantity to the Max Quantity."
 msgstr ""
 "Wanneer een virtuele voorraad gelijk is aan of onder de minimale voorraad "
-"komt, zoals gespecificeerd in dit veld, zal Odoo een verwervingsopdracht "
+"komt, zoals gespecificeerd in dit veld, zal Flectra een verwervingsopdracht "
 "genereren om de voorraadprognose aan te vullen tot de maximale hoeveelheid."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint__product_max_qty
 msgid ""
-"When the virtual stock goes below the Min Quantity, Odoo generates a "
+"When the virtual stock goes below the Min Quantity, Flectra generates a "
 "procurement to bring the forecasted quantity to the Quantity specified as "
 "Max Quantity."
 msgstr ""
 "Wanneer een virtuele voorraad onder de minimale voorraad komt, zoals "
-"gespecificeerd in dit veld, zal Odoo een verwervingsopdracht genereren om de"
+"gespecificeerd in dit veld, zal Flectra een verwervingsopdracht genereren om de"
 " voorraadprognose aan te vullen tot de maximale hoeveelheid."
 
 #. module: stock
@@ -8160,10 +8173,10 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock.view_immediate_transfer
 msgid ""
 "You have not recorded <i>done</i> quantities yet, by clicking on "
-"<i>apply</i> Odoo will process all the quantities."
+"<i>apply</i> Flectra will process all the quantities."
 msgstr ""
 "Je hebt nog geen <i>gemaakte</i> hoeveelheden geregistreerd. Door op "
-"<i>toepassen</i> te klikken zal Odoo alle hoeveelheden verwerken."
+"<i>toepassen</i> te klikken zal Flectra alle hoeveelheden verwerken."
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_backorder_confirmation
@@ -8387,3 +8400,23 @@ msgstr "report_stock_quantity_graph"
 #, python-format
 msgid "should be replenished to reach the maximum of"
 msgstr "zouden moeten aangevuld om het maximum te bereiken van "
+
+#. module: stock
+#: code:addons/stock/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"You can't desactivate the multi-location if you have more than once "
+"warehouse by company"
+msgstr ""
+"U kunt de multi-locatie niet deactiveren als u meer dan één magazijn per "
+"bedrijf heeft"
+
+#. module: stock
+#: code:addons/stock/models/stock_warehouse.py:0
+#, python-format
+msgid ""
+"Creating a new warehouse will automatically activate the Storage Locations "
+"setting"
+msgstr ""
+"Door een nieuw magazijn aan te maken, wordt automatisch de instelling "
+"voorraadlocaties geactiveerd"

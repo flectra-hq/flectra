@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* web
 # 
@@ -22,7 +22,6 @@
 # Martin Trigaux, 2020
 # Grażyna Grzelak <grazyna.grzelak@openglobe.pl>, 2020
 # Tadeusz Karpiński <tadeuszkarpinski@gmail.com>, 2020
-# Tomasz Leppich <t.leppich@gmail.com>, 2020
 # Mariusz, 2020
 # Zdzisław Krajewski <zdzichucb@gmail.com>, 2020
 # Piotr Szlązak <szlazakpiotr@gmail.com>, 2020
@@ -33,14 +32,16 @@
 # Paweł Wodyński <pw@myodoo.pl>, 2020
 # Maja Stawicka <mjstwck@wp.pl>, 2020
 # Maksym <ms@myodoo.pl>, 2020
+# Tomasz Leppich <t.leppich@gmail.com>, 2021
+# Piotr Strębski <strebski@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-29 15:48+0000\n"
+"POT-Creation-Date: 2021-02-25 10:30+0000\n"
 "PO-Revision-Date: 2020-09-07 08:19+0000\n"
-"Last-Translator: Maksym <ms@myodoo.pl>, 2020\n"
+"Last-Translator: Piotr Strębski <strebski@gmail.com>, 2021\n"
 "Language-Team: Polish (https://www.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -68,13 +69,6 @@ msgstr " rekordy"
 #, python-format
 msgid "# Code editor"
 msgstr "# Edytor kodu"
-
-#. module: web
-#. openerp-web
-#: code:addons/web/static/src/js/fields/basic_fields.js:0
-#, python-format
-msgid "${-diffDays} days ago"
-msgstr ""
 
 #. module: web
 #. openerp-web
@@ -120,10 +114,10 @@ msgstr ""
 
 #. module: web
 #. openerp-web
-#: code:addons/web/static/src/xml/notification.xml:0
+#: code:addons/web/static/src/js/fields/basic_fields.js:0
 #, python-format
-msgid "&times;"
-msgstr "&times;"
+msgid "%s days ago"
+msgstr ""
 
 #. module: web
 #. openerp-web
@@ -259,6 +253,8 @@ msgid ""
 "<span class=\"o_footer_copyright_name mr-2\">Copyright &amp;copy; Company "
 "name</span>"
 msgstr ""
+"<span class=\"o_footer_copyright_name mr-2\">Prawa autorskie &amp;copy; "
+"Nazwa firmy</span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
@@ -1154,7 +1150,7 @@ msgstr "Firma"
 #. module: web
 #: model:ir.model,name:web.model_base_document_layout
 msgid "Company Document Layout"
-msgstr ""
+msgstr "Układ dokumentu firmy"
 
 #. module: web
 #: model:ir.model.fields,field_description:web.field_base_document_layout__logo
@@ -2024,8 +2020,8 @@ msgstr "Fuksja"
 #. openerp-web
 #: code:addons/web/static/src/xml/base.xml:0
 #, python-format
-msgid "Get this feature and much more with Odoo Enterprise!"
-msgstr "Uzyskaj tę funkcję i wiele więcej dzięki Odoo Enterprise!"
+msgid "Get this feature and much more with Flectra Enterprise!"
+msgstr "Uzyskaj tę funkcję i wiele więcej dzięki Flectra Enterprise!"
 
 #. module: web
 #. openerp-web
@@ -2046,6 +2042,7 @@ msgstr "Zielony"
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/control_panel/groupby_menu.js:0
+#: code:addons/web/static/src/js/views/graph/graph_controller.js:0
 #, python-format
 msgid "Group By"
 msgstr "Grupuj wg"
@@ -2149,7 +2146,7 @@ msgstr "Obraz"
 #. openerp-web
 #: code:addons/web/static/src/js/fields/basic_fields.js:0
 #, python-format
-msgid "In ${diffDays} days"
+msgid "In %s days"
 msgstr ""
 
 #. module: web
@@ -2426,6 +2423,13 @@ msgstr "Mac"
 
 #. module: web
 #. openerp-web
+#: code:addons/web/static/src/js/services/crash_manager.js:0
+#, python-format
+msgid "MailDeliveryException"
+msgstr ""
+
+#. module: web
+#. openerp-web
 #: code:addons/web/static/src/xml/base.xml:0
 #: code:addons/web/static/src/xml/base.xml:0
 #: code:addons/web/static/src/xml/base.xml:0
@@ -2500,6 +2504,7 @@ msgstr "Może powinieneś przeładować aplikację naciskając F5..."
 
 #. module: web
 #. openerp-web
+#: code:addons/web/static/src/js/views/graph/graph_controller.js:0
 #: code:addons/web/static/src/xml/base.xml:0
 #, python-format
 msgid "Measures"
@@ -2527,13 +2532,6 @@ msgstr "Metadane (%s)"
 #, python-format
 msgid "Method:"
 msgstr "Metoda:"
-
-#. module: web
-#. openerp-web
-#: code:addons/web/static/src/js/services/crash_manager.js:92
-#, python-format
-msgid "MailDeliveryException"
-msgstr ""
 
 #. module: web
 #. openerp-web
@@ -2614,8 +2612,8 @@ msgstr "Tekst wielowierszowy"
 #. openerp-web
 #: code:addons/web/static/src/xml/base.xml:0
 #, python-format
-msgid "My Odoo.com account"
-msgstr "Moje konto Odoo.com"
+msgid "My Flectrahq.com account"
+msgstr "Moje konto Flectrahq.com"
 
 #. module: web
 #. openerp-web
@@ -2635,7 +2633,7 @@ msgstr "Nowa"
 #. openerp-web
 #: code:addons/web/static/src/js/fields/relational_fields.js:0
 #, python-format
-msgid "New ${this.name}"
+msgid "New %s"
 msgstr ""
 
 #. module: web
@@ -2809,15 +2807,15 @@ msgstr "Obiekt:"
 #: code:addons/web/static/src/js/core/dialog.js:0
 #: model_terms:ir.ui.view,arch_db:web.brand_promotion_message
 #, python-format
-msgid "Odoo"
-msgstr "Odoo"
+msgid "Flectra"
+msgstr "Flectra"
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/apps.js:0
 #, python-format
-msgid "Odoo Apps will be available soon"
-msgstr "Aplikacje Odoo będą dostępne wkrótce "
+msgid "Flectra Apps will be available soon"
+msgstr "Aplikacje Flectra będą dostępne wkrótce "
 
 #. module: web
 #. openerp-web
@@ -2826,35 +2824,35 @@ msgstr "Aplikacje Odoo będą dostępne wkrótce "
 #: code:addons/web/static/src/js/services/crash_manager.js:0
 #: code:addons/web/static/src/js/services/crash_manager.js:0
 #, python-format
-msgid "Odoo Client Error"
+msgid "Flectra Client Error"
 msgstr "Błąd klienta"
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/fields/upgrade_fields.js:0
 #, python-format
-msgid "Odoo Enterprise"
-msgstr "Odoo wersja Enterpise"
+msgid "Flectra Enterprise"
+msgstr "Flectra wersja Enterpise"
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/services/crash_manager.js:0
 #, python-format
-msgid "Odoo Error"
+msgid "Flectra Error"
 msgstr "Błąd serwera"
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/services/crash_manager.js:0
 #, python-format
-msgid "Odoo Session Expired"
+msgid "Flectra Session Expired"
 msgstr "Sesja wygasła"
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/services/crash_manager.js:0
 #, python-format
-msgid "Odoo Warning"
+msgid "Flectra Warning"
 msgstr "Ostrzeżenie"
 
 #. module: web
@@ -3192,8 +3190,8 @@ msgstr ""
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.login_layout
-msgid "Powered by <span>Odoo</span>"
-msgstr "Powered by <span>Odoo</span>"
+msgid "Powered by <span>Flectra</span>"
+msgstr "Powered by <span>Flectra</span>"
 
 #. module: web
 #. openerp-web
@@ -3896,7 +3894,7 @@ msgstr "Wsparcie"
 #: code:addons/web/static/src/xml/base.xml:0
 #, python-format
 msgid "Switch to this company"
-msgstr ""
+msgstr "Przełącz na tę firmę"
 
 #. module: web
 #. openerp-web
@@ -4454,6 +4452,13 @@ msgstr "Zmiana"
 
 #. module: web
 #. openerp-web
+#: code:addons/web/static/src/xml/base.xml:0
+#, python-format
+msgid "View %s"
+msgstr "Widok %s"
+
+#. module: web
+#. openerp-web
 #: code:addons/web/static/src/xml/debug.xml:0
 #, python-format
 msgid "View Access Rights"
@@ -4645,10 +4650,10 @@ msgstr ""
 #: code:addons/web/static/src/js/chrome/action_manager_report.js:0
 #, python-format
 msgid ""
-"You need to start Odoo with at least two workers to print a pdf version of "
+"You need to start Flectra with at least two workers to print a pdf version of "
 "the reports."
 msgstr ""
-"Musisz uruchomić Odoo z co najmniej dwoma workerami, aby wydrukować wersję "
+"Musisz uruchomić Flectra z co najmniej dwoma workerami, aby wydrukować wersję "
 "PDF raportów."
 
 #. module: web
@@ -4668,7 +4673,7 @@ msgstr ""
 #. openerp-web
 #: code:addons/web/static/src/js/services/crash_manager.js:0
 #, python-format
-msgid "Your Odoo session expired. The current page is about to be refreshed."
+msgid "Your Flectra session expired. The current page is about to be refreshed."
 msgstr ""
 
 #. module: web
@@ -5042,13 +5047,6 @@ msgstr "z:"
 #, python-format
 msgid "or"
 msgstr "lub"
-
-#. module: web
-#. openerp-web
-#: code:addons/web/static/src/xml/colorpicker.xml:0
-#, python-format
-msgid "p-0 border-0 text-center text-monospace bg-transparent text-white"
-msgstr ""
 
 #. module: web
 #. openerp-web

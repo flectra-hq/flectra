@@ -1,17 +1,16 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* mail
 # 
 # Translators:
 # Andreas Stauder <andreas.stauder@brain-tec.ch>, 2020
-# Johannes Croe <jcr@odoo.com>, 2020
-# Antoine Gilard <ang@odoo.com>, 2020
+# Antoine Gilard <ang@flectrahq.com>, 2020
 # Patrick Heuel <patrick.heuel@odoo-bs.com>, 2020
 # Oliver Roch <oliver.roch@d9t.de>, 2020
-# Nicola Peiffer <epn@odoo.com>, 2020
+# Nicola Peiffer <epn@flectrahq.com>, 2020
 # Max-Milan Stoyanov, 2020
 # Jan Meyer, 2020
-# Sebastian <shu@odoo.com>, 2020
+# Sebastian <shu@flectrahq.com>, 2020
 # Florian Pose <fp@igh.de>, 2020
 # UteHaus, 2020
 # Ralf Hilgenstock <rh@dialoge.info>, 2020
@@ -19,11 +18,13 @@
 # Felix Schubert <felix.schubert@go-erp.com>, 2020
 # Ermin Trevisan <trevi@twanda.com>, 2020
 # Anja Funk <anja.funk@afimage.de>, 2020
-# Leon Grill <leg@odoo.com>, 2020
+# Leon Grill <leg@flectrahq.com>, 2020
 # Chris Egal <sodaswed@web.de>, 2020
-# JEK Odoo <jek@odoo.com>, 2020
-# Kevin Harrings <kha@odoo.com>, 2020
-# Andreas Jonderko <a.jonderko@gastronovi.com>, 2020
+# JEK Flectra <jek@flectrahq.com>, 2020
+# Kevin Harrings <kha@flectrahq.com>, 2020
+# Caroline Renson <car@flectrahq.com>, 2021
+# Andreas Jonderko <a.jonderko@gastronovi.com>, 2021
+# Robert Förster <hello@suppliot.eu>, 2021
 # 
 msgid ""
 msgstr ""
@@ -31,7 +32,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-27 11:23+0000\n"
 "PO-Revision-Date: 2020-09-07 08:14+0000\n"
-"Last-Translator: Andreas Jonderko <a.jonderko@gastronovi.com>, 2020\n"
+"Last-Translator: Robert Förster <hello@suppliot.eu>, 2021\n"
 "Language-Team: German (https://www.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -696,7 +697,7 @@ msgstr "Anhang hinzufügen"
 #: code:addons/mail/static/src/components/attachment_box/attachment_box.xml:0
 #, python-format
 msgid "Add attachments"
-msgstr ""
+msgstr "Anhänge hinzufügen"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_wizard_invite_form
@@ -1030,7 +1031,7 @@ msgstr "Avatar"
 #. openerp-web
 #: code:addons/mail/static/src/components/notification_request/notification_request.xml:0
 #, python-format
-msgid "Avatar of OdooBot"
+msgid "Avatar of FlectraBot"
 msgstr ""
 
 #. module: mail
@@ -2277,7 +2278,7 @@ msgstr "E-Mails"
 #: model:ir.model.fields,field_description:mail.field_mail_mail__is_internal
 #: model:ir.model.fields,field_description:mail.field_mail_message__is_internal
 msgid "Employee Only"
-msgstr ""
+msgstr "Nur Mitarbeiter"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_ir_model_fields__tracking
@@ -2583,6 +2584,12 @@ msgid "Following"
 msgstr "Abonniert"
 
 #. module: mail
+#: code:addons/mail/models/mail_channel.py:778
+#, python-format
+msgid "Following invites are invalid as user groups do not match: %s"
+msgstr ""
+
+#. module: mail
 #: model:ir.model.fields,help:mail.field_mail_activity__icon
 #: model:ir.model.fields,help:mail.field_mail_activity_mixin__activity_type_icon
 #: model:ir.model.fields,help:mail.field_mail_activity_type__icon
@@ -2681,8 +2688,8 @@ msgstr "Mit E-Mail behandeln"
 
 #. module: mail
 #: model:ir.model.fields.selection,name:mail.selection__res_users__notification_type__inbox
-msgid "Handle in Odoo"
-msgstr "In Odoo bearbeiten"
+msgid "Handle in Flectra"
+msgstr "In Flectra bearbeiten"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_resend_message__has_cancel
@@ -2945,7 +2952,7 @@ msgstr ""
 #. module: mail
 #: model:ir.model.fields,help:mail.field_res_config_settings__alias_domain
 msgid ""
-"If you have setup a catch-all email domain redirected to the Odoo server, "
+"If you have setup a catch-all email domain redirected to the Flectra server, "
 "enter the domain name here."
 msgstr ""
 "Wenn Sie eine Catch-All E-Mail-Aliasanschrift eingerichtet haben, geben Sie "
@@ -3434,7 +3441,7 @@ msgstr "Interne Notiz erfassen"
 #: code:addons/mail/static/src/components/composer_text_input/composer_text_input.js:0
 #, python-format
 msgid "Log an internal note..."
-msgstr ""
+msgstr "Interne Notiz erfassen..."
 
 #. module: mail
 #. openerp-web
@@ -3960,7 +3967,7 @@ msgstr "Moderationsstatus"
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_res_users__moderation_counter
 msgid "Moderation count"
-msgstr ""
+msgstr "Moderatoren Anzahl"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_channel__is_moderator
@@ -4399,15 +4406,15 @@ msgstr "Anzahl ungelesener Nachrichten"
 #: model_terms:ir.ui.view,arch_db:mail.mail_notification_light
 #: model_terms:ir.ui.view,arch_db:mail.mail_notification_paynow
 #: model_terms:ir.ui.view,arch_db:mail.message_notification_email
-msgid "Odoo"
-msgstr "Odoo"
+msgid "Flectra"
+msgstr "Flectra"
 
 #. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/components/notification_alert/notification_alert.xml:0
 #, python-format
 msgid ""
-"Odoo Push notifications have been blocked. Go to your browser settings to "
+"Flectra Push notifications have been blocked. Go to your browser settings to "
 "allow them."
 msgstr ""
 
@@ -4416,10 +4423,10 @@ msgstr ""
 #: code:addons/mail/static/src/components/notification_request/notification_request.js:0
 #, python-format
 msgid ""
-"Odoo will not have the permission to send native notifications on this "
+"Flectra will not have the permission to send native notifications on this "
 "device."
 msgstr ""
-"Odoo hat nicht die Berechtigung, Benachrichtigungen auf dieses Gerät zu "
+"Flectra hat nicht die Berechtigung, Benachrichtigungen auf dieses Gerät zu "
 "senden."
 
 #. module: mail
@@ -4492,6 +4499,18 @@ msgstr ""
 #, python-format
 msgid "Online"
 msgstr "Online"
+
+#. module: mail
+#: code:addons/mail/models/mail_message.py:0
+#, python-format
+msgid "Only administrators are allowed to export mail message"
+msgstr ""
+
+#. module: mail
+#: code:addons/mail/models/mail_message.py:0
+#, python-format
+msgid "Only administrators are allowed to use grouped read on message model"
+msgstr ""
 
 #. module: mail
 #: code:addons/mail/models/mail_channel.py:0
@@ -4849,7 +4868,7 @@ msgstr ""
 msgid ""
 "Policy on how to handle Chatter notifications:\n"
 "- Handle by Emails: notifications are sent to your email address\n"
-"- Handle in Odoo: notifications appear in your Odoo Inbox"
+"- Handle in Flectra: notifications appear in your Flectra Inbox"
 msgstr ""
 
 #. module: mail
@@ -5338,7 +5357,7 @@ msgstr "Rich-text/HTML-Nachricht"
 #: code:addons/mail/static/src/xml/thread.xml:0
 #, python-format
 msgid "Rotate"
-msgstr ""
+msgstr "Drehen"
 
 #. module: mail
 #. openerp-web
@@ -5376,7 +5395,7 @@ msgstr "Als neue Vorlage speichern"
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_activity_view_form_popup
 msgid "Schedule"
-msgstr "Ausführungsplan"
+msgstr "Planen"
 
 #. module: mail
 #. openerp-web
@@ -5992,11 +6011,11 @@ msgstr "Der interne Benutzer, der für diesen Kontakt verantwortlich ist."
 #: model:ir.model.fields,help:mail.field_mail_alias_mixin__alias_model_id
 #: model:ir.model.fields,help:mail.field_mail_channel__alias_model_id
 msgid ""
-"The model (Odoo Document Kind) to which this alias corresponds. Any incoming"
+"The model (Flectra Document Kind) to which this alias corresponds. Any incoming"
 " email that does not reply to an existing record will cause the creation of "
 "a new record of this model (e.g. a Project Task)"
 msgstr ""
-"Das Odoo Datenmodell auf das sich der Alias bezieht. Jeglicher E-Mail "
+"Das Flectra Datenmodell auf das sich der Alias bezieht. Jeglicher E-Mail "
 "Posteingang ohne Bezug zu einer bereits vorhandenen E-Mail  führt "
 "üblicherweise zur Erstellung eines neuen Datensatz (z.B. Projektaufgabe)."
 
@@ -6006,10 +6025,10 @@ msgstr ""
 #: model:ir.model.fields,help:mail.field_mail_channel__alias_name
 msgid ""
 "The name of the email alias, e.g. 'jobs' if you want to catch emails for "
-"<jobs@example.odoo.com>"
+"<jobs@example.flectrahq.com>"
 msgstr ""
 "Die Bezeichnung des E-Mail-Alias, z.B. 'jobs', falls Sie E-Mails an z.B. "
-"<jobs@example.odoo.com> erhalten möchten"
+"<jobs@example.flectrahq.com> erhalten möchten"
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_mail_alias__alias_user_id
@@ -6112,7 +6131,7 @@ msgstr ""
 msgid ""
 "This option permanently removes any track of email after it's been sent, "
 "including from the Technical menu in the Settings, in order to preserve "
-"storage space of your Odoo database."
+"storage space of your Flectra database."
 msgstr ""
 
 #. module: mail
@@ -6581,12 +6600,12 @@ msgstr ""
 msgid ""
 "Using your own email server is required to send/receive emails in Community "
 "and Enterprise versions. Online users already benefit from a ready-to-use "
-"email server (@mycompany.odoo.com)."
+"email server (@mycompany.flectrahq.com)."
 msgstr ""
 "Bei der Community- und Enterprise-Version ist es erforderlich, zum Senden "
 "und Empfangen von E-Mails Ihren eigenen E-Mail-Server zu verwenden. Online-"
 "Benutzer können bereits von einem einsatzbereiten E-Mail-Server "
-"(@mycompany.odoo.com) profitieren."
+"(@mycompany.flectrahq.com) profitieren."
 
 #. module: mail
 #. openerp-web
@@ -7038,6 +7057,7 @@ msgstr "Tage"
 
 #. module: mail
 #: code:addons/mail/models/mail_thread.py:0
+#: code:addons/mail/static/src/components/message/message.xml:0
 #, python-format
 msgid "document"
 msgstr "Dokument"
@@ -7112,8 +7132,8 @@ msgstr "Monate"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
-msgid "mycompany.odoo.com"
-msgstr "mycompany.odoo.com"
+msgid "mycompany.flectrahq.com"
+msgstr "mycompany.flectrahq.com"
 
 #. module: mail
 #. openerp-web
@@ -7255,3 +7275,17 @@ msgstr ""
 #: model:ir.model.fields.selection,name:mail.selection__mail_activity_type__delay_unit__weeks
 msgid "weeks"
 msgstr "Wochen"
+
+#. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/models/follower/follower.js:0
+#, python-format
+msgid "The subscription preferences were successfully applied."
+msgstr ""
+
+#. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/components/message/message.xml:0
+#, python-format
+msgid "channel"
+msgstr ""

@@ -1,11 +1,10 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* payment
 # 
 # Translators:
 # Oleg Kuryan <oleg@ventor.tech>, 2020
 # Denis Baranov <baranov@itlibertas.com>, 2020
-# Ivan Yelizariev <yelizariev@itpp.dev>, 2020
 # Sergey Vilizhanin, 2020
 # Viktor Pogrebniak <vp@aifil.ru>, 2020
 # Vasiliy Korobatov <korobatov@gmail.com>, 2020
@@ -14,6 +13,7 @@
 # Irina Fedulova <istartlin@gmail.com>, 2020
 # Сергей Шебанин <sergey@shebanin.ru>, 2020
 # Martin Trigaux, 2020
+# Ivan Yelizariev // IEL <yelizariev@itpp.dev>, 2021
 # 
 msgid ""
 msgstr ""
@@ -21,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-27 14:12+0000\n"
 "PO-Revision-Date: 2020-09-07 08:15+0000\n"
-"Last-Translator: Martin Trigaux, 2020\n"
+"Last-Translator: Ivan Yelizariev // IEL <yelizariev@itpp.dev>, 2021\n"
 "Language-Team: Russian (https://www.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -450,8 +450,8 @@ msgstr "Захвата транзакций"
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer__capture_manually
-msgid "Capture the amount from Odoo, when the delivery is completed."
-msgstr "Получить сумму с Odoo, когда будет завершено доставку."
+msgid "Capture the amount from Flectra, when the delivery is completed."
+msgstr "Получить сумму с Flectra, когда будет завершено доставку."
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.payment_acquirer_onboarding_wizard_form
@@ -621,7 +621,7 @@ msgstr ""
 
 #. module: payment
 #: model:payment.acquirer,display_as:payment.payment_acquirer_odoo_by_adyen
-msgid "Credit Card (powered by Odoo Payments)"
+msgid "Credit Card (powered by Flectra Payments)"
 msgstr ""
 
 #. module: payment
@@ -849,7 +849,7 @@ msgstr ""
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.acquirer_search
 msgid "Group By"
-msgstr "Группировать по"
+msgstr "Группировка"
 
 #. module: payment
 #: model:ir.model,name:payment.model_ir_http
@@ -1080,13 +1080,13 @@ msgstr "Вручную"
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer__inbound_payment_method_ids
 msgid ""
-"Manual: Get paid by cash, check or any other method outside of Odoo.\n"
+"Manual: Get paid by cash, check or any other method outside of Flectra.\n"
 "Electronic: Get paid automatically through a payment acquirer by requesting a transaction on a card saved by the customer when buying or subscribing online (payment token).\n"
-"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Odoo,you are suggested to reconcile the transaction with the batch deposit. Enable this option from the settings."
+"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Flectra,you are suggested to reconcile the transaction with the batch deposit. Enable this option from the settings."
 msgstr ""
-"Вручную: Оплачено наличными, чеком или любым другим способом вне Odoo.\n"
+"Вручную: Оплачено наличными, чеком или любым другим способом вне Flectra.\n"
 "Электронно: Оплачено автоматически с помощью платёжного агента, путём запроса перевода с карты, сохранённой покупателем при приобретении или подписке онлайн (признак оплаты).\n"
-"Пакетное списание: Объединяет чеки нескольких покупателей за раз, генерируя пакетное списание для отправки в ваш банк. Когда расшифровывается выписка банка в Odoo, вам предлагается сопоставить перевод  с пакетным списанием. Задействуйте эту возможность в Настройках."
+"Пакетное списание: Объединяет чеки нескольких покупателей за раз, генерируя пакетное списание для отправки в ваш банк. Когда расшифровывается выписка банка в Flectra, вам предлагается сопоставить перевод  с пакетным списанием. Задействуйте эту возможность в Настройках."
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__paypal_seller_account
@@ -1223,12 +1223,12 @@ msgstr ""
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer__module_to_buy
-msgid "Odoo Enterprise Module"
-msgstr "Модуль Odoo Enterprise"
+msgid "Flectra Enterprise Module"
+msgstr "Модуль Flectra Enterprise"
 
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_odoo_by_adyen
-msgid "Odoo Payments by Adyen"
+msgid "Flectra Payments by Adyen"
 msgstr ""
 
 #. module: payment
@@ -1420,8 +1420,8 @@ msgstr "Помощник привлечения платежного эквай�
 
 #. module: payment
 #: model:ir.model.fields.selection,name:payment.selection__payment_acquirer__payment_flow__s2s
-msgid "Payment from Odoo"
-msgstr "Платеж с Odoo"
+msgid "Payment from Flectra"
+msgstr "Платеж с Flectra"
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
@@ -1896,8 +1896,8 @@ msgstr "Тип"
 #. openerp-web
 #: code:addons/payment/static/src/xml/payment_processing.xml:0
 #, python-format
-msgid "Unable to contact the Odoo server."
-msgstr "Невозможно связаться с сервером Odoo."
+msgid "Unable to contact the Flectra server."
+msgstr "Невозможно связаться с сервером Flectra."
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.acquirer_form

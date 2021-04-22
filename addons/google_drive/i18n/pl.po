@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* google_drive
 # 
@@ -14,8 +14,9 @@
 # Radosław Biegalski <radoslaw.biegalski@openglobe.pl>, 2020
 # Paweł Wodyński <pw@myodoo.pl>, 2020
 # Maksym <ms@myodoo.pl>, 2020
-# Natalia Gros <nag@odoo.com>, 2020
+# Natalia Gros <nag@flectrahq.com>, 2020
 # Zbigniew Łukasiak <z.lukasiak@archimedes.pl>, 2020
+# Piotr Strębski <strebski@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
@@ -23,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:45+0000\n"
 "PO-Revision-Date: 2020-09-07 08:12+0000\n"
-"Last-Translator: Zbigniew Łukasiak <z.lukasiak@archimedes.pl>, 2020\n"
+"Last-Translator: Piotr Strębski <strebski@gmail.com>, 2021\n"
 "Language-Team: Polish (https://www.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,14 +36,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:google_drive.view_google_drive_config_form
 msgid ""
 "<b>To create a new filter:</b><br/>\n"
-"                                - Go to the Odoo document you want to filter. For instance, go to Opportunities and search on Sales Department.<br/>\n"
+"                                - Go to the Flectra document you want to filter. For instance, go to Opportunities and search on Sales Department.<br/>\n"
 "                                - In this \"Search\" view, select the option \"Save Current Filter\", enter the name (Ex: Sales Department)<br/>\n"
 "                                - If you select \"Share with all users\", link of google document in \"More\" options will appear for all users in opportunities of Sales Department.<br/>\n"
 "                                - If you don't select \"Share with all users\", link of google document in \"More\" options will not appear for other users in opportunities of Sales Department.<br/>\n"
 "                                - If filter is not specified, link of google document will appear in \"More\" option for all users for all opportunities."
 msgstr ""
 "<b>Aby stworzyć nowy filtr:</b><br/>\n"
-"                                - Przejdź do dokumentu w Odoo, który chcesz filtrować. Na przykład, idź do Szansei wyszukaj Dział Sprzedaży.<br/>\n"
+"                                - Przejdź do dokumentu w Flectra, który chcesz filtrować. Na przykład, idź do Szansei wyszukaj Dział Sprzedaży.<br/>\n"
 "                                - W tym widoku \"wyszukiwania\", wybierz opcję \"Zapisz aktualny filtr\", wprowadź nazwę (Np.: Dział Sprzedaży).<br/>\n"
 "                                - Jeżeli wybierzesz \"Udostępnij wszystkim użytkownikom\", link do dokumentu pojawi się u wszystkich użytkowników Działu Sprzedaży.<br/>\n"
 "                                - Jeżeli nie wybierzesz \"Udostępnij wszystkim użytkownikom\", link do dokumentu nie pojawi się u wszystkich użytkowników Działu Sprzedaży.<br/>\n"
@@ -110,6 +111,8 @@ msgstr "Zarchiwizowane"
 #, python-format
 msgid "At least one key cannot be found in your Google Drive name pattern."
 msgstr ""
+"Co najmniej jeden klucz nie może zostać znaleziony we wzorze Twojej nazwy "
+"Dysku Google."
 
 #. module: google_drive
 #: model:ir.model.fields,field_description:google_drive.field_res_config_settings__google_drive_authorization_code
@@ -155,6 +158,14 @@ msgstr "Utworzono"
 #, python-format
 msgid "Creating google drive may only be done by one at a time."
 msgstr "Dyski Google mogą być tworzone wyłącznie po jednym w danym czasie."
+
+#. module: google_drive
+#: code:addons/google_drive/models/google_drive.py:161
+#, python-format
+msgid ""
+"The document filter must not include any 'dynamic' part, so it should not be"
+" based on the current time or current user, for example."
+msgstr ""
 
 #. module: google_drive
 #: model:ir.filters,name:google_drive.filter_partner
@@ -239,11 +250,11 @@ msgstr "Data ostatniej aktualizacji"
 #. module: google_drive
 #: model_terms:ir.actions.act_window,help:google_drive.action_google_drive_users_config
 msgid ""
-"Link your own google drive templates to any record of Odoo. If you have "
+"Link your own google drive templates to any record of Flectra. If you have "
 "really specific documents you want your collaborator fill in, e.g. Use a "
 "spreadsheet to control the quality of your product or review the delivery "
 "checklist for each order in a foreign country, ... Its very easy to manage "
-"them, link them to Odoo and use them to collaborate with your employees."
+"them, link them to Flectra and use them to collaborate with your employees."
 msgstr ""
 
 #. module: google_drive
@@ -275,7 +286,7 @@ msgstr "ID zasobu"
 #. module: google_drive
 #: model_terms:ir.ui.view,arch_db:google_drive.google_drive_config_view_search
 msgid "Search Google Drive Config"
-msgstr ""
+msgstr "Przeszukaj konfigurację Dysku Google"
 
 #. module: google_drive
 #: code:addons/google_drive/models/res_config_settings.py:0
@@ -324,7 +335,7 @@ msgstr "Adres do generowania kodu autoryzacji w Google"
 msgid ""
 "The name of the attached document can use fixed or variable data. To distinguish between documents in\n"
 "                                Google Drive, use fixed words and fields. For instance, in the example above, if you wrote Deco_Addict_%(name)s_Sales\n"
-"                                in the Google Drive name field, the document in your Google Drive and in Odoo attachment will be named\n"
+"                                in the Google Drive name field, the document in your Google Drive and in Flectra attachment will be named\n"
 "                                'Deco_Addict_SO0001_Sales'."
 msgstr ""
 
@@ -345,6 +356,8 @@ msgid ""
 "There is no refresh code set for Google Drive. You can set it up from the "
 "configuration panel."
 msgstr ""
+"Nie ma ustawionego kodu odświeżania dla Dysku Google. Możesz to ustawić z "
+"panelu konfiguracyjnego."
 
 #. module: google_drive
 #: model:ir.model.fields,field_description:google_drive.field_res_config_settings__google_drive_uri

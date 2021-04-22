@@ -1,37 +1,36 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* account
 # 
 # Translators:
-# Laura Koedam <lko@odoo.com>, 2020
-# Maxim Vandenbroucke <mxv@odoo.com>, 2020
+# Laura Koedam <lko@flectrahq.com>, 2020
+# Maxim Vandenbroucke <mxv@flectrahq.com>, 2020
 # Cas Vissers <casvissers@brahoo.nl>, 2020
 # Julia van Orsouw <Julia@vanorsouw-consultancy.nl>, 2020
 # Jordy Blankestijn <jblankestijn@erpopen.nl>, 2020
 # woutvanrooij <wout.vanrooij@dynapps.be>, 2020
-# Antoine Gilard <ang@odoo.com>, 2020
+# Antoine Gilard <ang@flectrahq.com>, 2020
 # ca2da8678cdb9cbd573eaf985f02c476, 2020
-# Martin Trigaux, 2020
-# Cécile Collart <cco@odoo.com>, 2020
+# Cécile Collart <cco@flectrahq.com>, 2020
 # Cas Vissers <c.vissers@brahoo.nl>, 2020
 # dpms <pieter.van.de.wygaert@telenet.be>, 2020
 # Erik-Jan Bulthuis <ejbulthuis@erpopen.nl>, 2020
 # Yip132 <yannick.renders@gmail.com>, 2020
-# Wynand Tastenhoye <wta@odoo.com>, 2020
-# Odoo Experts Consultants <consultants@odooexperts.nl>, 2020
+# Wynand Tastenhoye <wta@flectrahq.com>, 2020
+# Flectra Experts Consultants <consultants@odooexperts.nl>, 2020
 # Eric Geens <ericgeens@yahoo.com>, 2020
-# Yenthe Van Ginneken <yenthespam@gmail.com>, 2020
 # Gunther Clauwaert <gclauwae@hotmail.com>, 2020
-# Pieter Van de Wygaert <pieter.va.de.wygaert@telenet.be>, 2020
-# Erwin van der Ploeg (Odoo Experts) <erwin@odooexperts.nl>, 2020
+# Martin Trigaux, 2021
+# Yenthe Van Ginneken <yenthespam@gmail.com>, 2021
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-27 15:35+0000\n"
+"POT-Creation-Date: 2021-02-25 10:15+0000\n"
 "PO-Revision-Date: 2020-09-07 08:09+0000\n"
-"Last-Translator: Erwin van der Ploeg (Odoo Experts) <erwin@odooexperts.nl>, 2020\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2021\n"
 "Language-Team: Dutch (https://www.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -167,6 +166,12 @@ msgstr "-> Zie de gedeeltelijk afgeletterde boekingen"
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
 msgid ". You might want to put a higher number here."
 msgstr ". Misschien wilt u hier een hoger nummer neerzetten."
+
+#. module: account
+#: code:addons/account/wizard/account_resequence.py:0
+#, python-format
+msgid "... (%s other)"
+msgstr "... (%s overige)"
 
 #. module: account
 #: model:account.payment.term,name:account.account_payment_term_15days
@@ -1370,7 +1375,7 @@ msgstr "Rekening op product"
 #: model:ir.model.fields,help:account.field_account_tax_repartition_line__account_id
 #: model:ir.model.fields,help:account.field_account_tax_repartition_line_template__account_id
 msgid "Account on which to post the tax amount"
-msgstr "Rekening waarop het BTW-bedrag te posten"
+msgstr "Rekening waarop het belastingbedrag moet worden geboekt"
 
 #. module: account
 #: model:ir.model,name:account.model_report_account_report_invoice_with_payments
@@ -2521,6 +2526,13 @@ msgid "Balance"
 msgstr "Saldo"
 
 #. module: account
+#. openerp-web
+#: code:addons/account/static/src/js/account_selection.js:0
+#, python-format
+msgid "Balance Sheet"
+msgstr "Balans"
+
+#. module: account
 #: model:ir.model.fields,help:account.field_account_bank_statement__balance_end
 msgid "Balance as calculated based on Opening Balance and transaction lines"
 msgstr "Saldo berekend op basis van de openingsbalans en alle boekingen"
@@ -2851,7 +2863,7 @@ msgstr "Blokkerend bericht"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_account_type__include_initial_balance
 msgid "Bring Accounts Balance Forward"
-msgstr "Breng rekeningslado voorwaarts"
+msgstr "Breng rekeningsaldo voorwaarts"
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.open_account_journal_dashboard_kanban
@@ -4435,10 +4447,10 @@ msgstr "Datum Modus"
 #. module: account
 #: model:ir.model.fields,help:account.field_account_financial_year_op__opening_date
 msgid ""
-"Date from which the accounting is managed in Odoo. It is the date of the "
+"Date from which the accounting is managed in Flectra. It is the date of the "
 "opening entry."
 msgstr ""
-"Datum vanaf wanneer de boekhouding bijgehouden is in Odoo. Het is de datum "
+"Datum vanaf wanneer de boekhouding bijgehouden is in Flectra. Het is de datum "
 "van de openingsbalans boeking."
 
 #. module: account
@@ -4493,7 +4505,7 @@ msgstr "Debet boeking"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_tax_adjustments_wizard__debit_account_id
 msgid "Debit account"
-msgstr "Debiteurenrekening"
+msgstr "Debet rekening"
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_move_line__matched_debit_ids
@@ -5297,7 +5309,7 @@ msgstr "Verwacht een grootboek rekeningschema"
 #: model:ir.model.fields.selection,name:account.selection__account_automatic_entry_wizard__account_type__expense
 #, python-format
 msgid "Expense"
-msgstr "Declaratie"
+msgstr "Kosten"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_product_category__property_account_expense_categ_id
@@ -5603,7 +5615,7 @@ msgstr "Volgers (Relaties)"
 #: model:ir.model.fields,help:account.field_account_move__activity_type_icon
 #: model:ir.model.fields,help:account.field_account_payment__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Font awesome icoon b.v. fa-tasks"
+msgstr "Font awesome icoon bijv. fa-tasks"
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_payment_term_line__value_amount
@@ -5681,7 +5693,7 @@ msgstr "Van debiteuren"
 #: model:ir.model.fields.selection,name:account.selection__account_reconcile_model_line__amount_type__regex
 #: model:ir.model.fields.selection,name:account.selection__account_reconcile_model_line_template__amount_type__regex
 msgid "From label"
-msgstr "Vanuit label"
+msgstr "Van label"
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.action_account_invoice_report_all_supp
@@ -6369,10 +6381,10 @@ msgid ""
 "transactions will be reconciled with entries on the Outstanding Receipts "
 "Account instead of the receivable account."
 msgstr ""
-"Inkomende betalingen die worden geactiveerd door facturen creditfacturen, "
+"Inkomende betalingen die worden geactiveerd door facturen/creditfacturen, "
 "worden geboekt op de rekening voor openstaande ontvangsten en worden "
 "weergegeven als blauwe lijnen bij het afletteren. Tijdens het afletterproces"
-" worden de betreffende transacties afgeletterd met posten op de rekening "
+" worden de betreffende transacties afgeletterd met boekingen op de rekening "
 "voor openstaande ontvangsten in plaats van de rekening voor ontvangsten."
 
 #. module: account
@@ -6493,7 +6505,9 @@ msgid "Internal Notes"
 msgstr "Interne notities"
 
 #. module: account
+#: code:addons/account/models/account_payment.py:0
 #: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
+#, python-format
 msgid "Internal Transfer"
 msgstr "Interne overboeking"
 
@@ -6565,7 +6579,7 @@ msgstr "Factuur #"
 #. module: account
 #: model:ir.ui.menu,name:account.menu_action_account_invoice_report_all
 msgid "Invoice Analysis"
-msgstr "Analyse facturen"
+msgstr "Factuuranalyse"
 
 #. module: account
 #: code:addons/account/models/account_move.py:0
@@ -6632,7 +6646,7 @@ msgstr "Factuurwidget voor uitstaande credits en debets"
 #: model:ir.model.fields,field_description:account.field_account_move__invoice_partner_display_name
 #: model:ir.model.fields,field_description:account.field_account_payment__invoice_partner_display_name
 msgid "Invoice Partner Display Name"
-msgstr "Factuur partnerweergavenaam"
+msgstr "Factuurrelatie weergavenaam"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_bank_statement_line__invoice_payments_widget
@@ -7157,7 +7171,7 @@ msgstr "Kanban dashboard grafiek"
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_resequence_wizard__ordering__keep
 msgid "Keep current order"
-msgstr "Behoud huidige order"
+msgstr "Houd de huidige volgorde aan"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_journal_form
@@ -7669,39 +7683,39 @@ msgstr "Handmatig"
 #. module: account
 #: model:ir.model.fields,help:account.field_account_journal__inbound_payment_method_ids
 msgid ""
-"Manual: Get paid by cash, check or any other method outside of Odoo.\n"
+"Manual: Get paid by cash, check or any other method outside of Flectra.\n"
 "Electronic: Get paid automatically through a payment acquirer by requesting a transaction on a card saved by the customer when buying or subscribing online (payment token).\n"
-"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Odoo,you are suggested to reconcile the transaction with the batch deposit. Enable this option from the settings."
+"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Flectra,you are suggested to reconcile the transaction with the batch deposit. Enable this option from the settings."
 msgstr ""
-"Handmatig: Krijg betaald met contant geld, cheques of een andere methode buiten Odoo om.\n"
+"Handmatig: Krijg betaald met contant geld, cheques of een andere methode buiten Flectra om.\n"
 "Elektronisch: Betaal automatisch via een betaalprovider door een transactie aan te vragen op een door de klant opgeslagen kaart bij het online kopen of abonneren van (betalingstoken).\n"
-"Batch Deposito: Verzamel meerdere klantcheques tegelijk door een batch deposito te genereren om bij uw bank in te dienen. Wanneer u de bankafschriften in Odoo ingeeft, wordt u voorgesteld om de transactie af te letteren met de batchafbetaling. Schakel deze optie in bij instellingen."
+"Batch Deposito: Verzamel meerdere klantcheques tegelijk door een batch deposito te genereren om bij uw bank in te dienen. Wanneer u de bankafschriften in Flectra ingeeft, wordt u voorgesteld om de transactie af te letteren met de batchafbetaling. Schakel deze optie in bij instellingen."
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_payment__payment_method_id
 #: model:ir.model.fields,help:account.field_account_payment_register__payment_method_id
 msgid ""
-"Manual: Get paid by cash, check or any other method outside of Odoo.\n"
+"Manual: Get paid by cash, check or any other method outside of Flectra.\n"
 "Electronic: Get paid automatically through a payment acquirer by requesting a transaction on a card saved by the customer when buying or subscribing online (payment token).\n"
-"Check: Pay bill by check and print it from Odoo.\n"
-"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Odoo, you are suggested to reconcile the transaction with the batch deposit.To enable batch deposit, module account_batch_payment must be installed.\n"
+"Check: Pay bill by check and print it from Flectra.\n"
+"Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Flectra, you are suggested to reconcile the transaction with the batch deposit.To enable batch deposit, module account_batch_payment must be installed.\n"
 "SEPA Credit Transfer: Pay bill from a SEPA Credit Transfer file you submit to your bank. To enable sepa credit transfer, module account_sepa must be installed "
 msgstr ""
-"Handmatig: Krijg betaald met contant geld, cheques of een andere methode buiten Odoo om.\n"
+"Handmatig: Krijg betaald met contant geld, cheques of een andere methode buiten Flectra om.\n"
 "Elektronisch: Betaal automatisch via een betalingsverwerker door een transactie aan te vragen op een door de klant opgeslagen kaart bij het online kopen of abonneren van (betalingstoken).\n"
-"Cheque: Betaal factuur met een cheque en druk deze af in Odoo\n"
-"Batch Deposito: Verzamel meerdere klantcheques tegelijk door een batch deposito te genereren om bij uw bank in te dienen. Wanneer u de bankafschriften in Odoo ingeeft, wordt u voorgesteld om de transactie af te letteren met de batchafbetaling. Schakel deze optie in bij instellingen.\n"
+"Cheque: Betaal factuur met een cheque en druk deze af in Flectra\n"
+"Batch Deposito: Verzamel meerdere klantcheques tegelijk door een batch deposito te genereren om bij uw bank in te dienen. Wanneer u de bankafschriften in Flectra ingeeft, wordt u voorgesteld om de transactie af te letteren met de batchafbetaling. Schakel deze optie in bij instellingen.\n"
 "SEPA overschrijving: Betaal de factuur met een SEPA overschrijvingsbestand welke je upload bij de bank. Om SEPA te activeren dient te module account_sepa worden geïnstalleerd."
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_journal__outbound_payment_method_ids
 msgid ""
-"Manual:Pay bill by cash or any other method outside of Odoo.\n"
-"Check:Pay bill by check and print it from Odoo.\n"
+"Manual:Pay bill by cash or any other method outside of Flectra.\n"
+"Check:Pay bill by check and print it from Flectra.\n"
 "SEPA Credit Transfer: Pay bill from a SEPA Credit Transfer file you submit to your bank. Enable this option from the settings."
 msgstr ""
-"Handmatig: Betaal met contant geld of een andere methode buiten Odoo om\n"
-"Cheque: Betaal rekening per cheque en druk deze af in Odoo.\n"
+"Handmatig: Betaal met contant geld of een andere methode buiten Flectra om\n"
+"Cheque: Betaal rekening per cheque en druk deze af in Flectra.\n"
 "SEPA Overboeking: Betaal factuur via een SEPA-bestand dat u bij uw bank indient. Schakel deze optie in bij de instellingen."
 
 #. module: account
@@ -8133,8 +8147,8 @@ msgid ""
 "No users can edit journal entries related to a tax prior and inclusive of "
 "this date."
 msgstr ""
-"Er zijn geen gebruikers die de dagboek boekingen kunnen wijzigen gerelateerd"
-" aan een BTW voorafgaand of op deze datum."
+"Er zijn geen gebruikers die de boekingen kunnen wijzigen gerelateerd aan een"
+" BTW voorafgaand of op deze datum."
 
 #. module: account
 #: model:ir.model.fields,help:account.field_res_company__fiscalyear_lock_date
@@ -8366,39 +8380,39 @@ msgstr "Oktober"
 
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_journal__invoice_reference_model__odoo
-msgid "Odoo"
-msgstr "Odoo"
+msgid "Flectra"
+msgstr "Flectra"
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.action_bank_statement_line
 msgid ""
-"Odoo allows you to reconcile a statement line directly with\n"
+"Flectra allows you to reconcile a statement line directly with\n"
 "                the related sale or purchase invoice(s)."
 msgstr ""
-"Odoo laat u toe om een afschriftregel direct met de gerelateerde\n"
+"Flectra laat u toe om een afschriftregel direct met de gerelateerde\n"
 "klant- of leveranciersfactuur af te letteren. "
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.action_bank_statement_tree
 msgid ""
-"Odoo allows you to reconcile a statement line directly with\n"
+"Flectra allows you to reconcile a statement line directly with\n"
 "                the related sale or purchase invoices."
 msgstr ""
-"Odoo laat u toe om een afschriftregel direct met de gerelateerde\n"
+"Flectra laat u toe om een afschriftregel direct met de gerelateerde\n"
 "klant- of leveranciersfactuur af te letteren. "
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.res_partner_action_customer
-msgid "Odoo helps you easily track all activities related to a customer."
+msgid "Flectra helps you easily track all activities related to a customer."
 msgstr ""
-"Odoo helpt u bij het gemakkelijk opvolgen van alle activiteiten gerelateerd "
+"Flectra helpt u bij het gemakkelijk opvolgen van alle activiteiten gerelateerd "
 "aan een klant."
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.res_partner_action_supplier
-msgid "Odoo helps you easily track all activities related to a supplier."
+msgid "Flectra helps you easily track all activities related to a supplier."
 msgstr ""
-"Odoo helpt u bij het gemakkelijk opvolgen van alle activiteiten gerelateerd "
+"Flectra helpt u bij het gemakkelijk opvolgen van alle activiteiten gerelateerd "
 "aan een leverancier."
 
 #. module: account
@@ -8477,6 +8491,7 @@ msgstr "Alleen administrators kunnen een lijst met accounts laden"
 #. module: account
 #: code:addons/account/models/account_move.py:0
 #: code:addons/account/models/account_move.py:0
+#: code:addons/account/models/ir_actions_report.py:0
 #, python-format
 msgid "Only invoices could be printed."
 msgstr "Alleen facturen konden afgedrukt worden."
@@ -8634,6 +8649,12 @@ msgid "Options"
 msgstr "Opties"
 
 #. module: account
+#: code:addons/account/wizard/account_tour_upload_bill.py:0
+#, python-format
+msgid "Or send a bill to %s@%s"
+msgstr "Of stuur een factuur naar %s@%s"
+
+#. module: account
 #: model:ir.model.fields,field_description:account.field_account_resequence_wizard__ordering
 msgid "Ordering"
 msgstr "Ordening"
@@ -8656,6 +8677,12 @@ msgstr "Bron kassttelsel BTW boeking"
 #: model:ir.actions.report,name:account.action_account_original_vendor_bill
 msgid "Original Bills"
 msgstr "Originele facturen"
+
+#. module: account
+#: model_terms:ir.ui.view,arch_db:account.view_move_line_tree
+#: model_terms:ir.ui.view,arch_db:account.view_move_line_tree_grouped
+msgid "Original Currency"
+msgstr "Originele valuta"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line__payment_id
@@ -8769,7 +8796,7 @@ msgstr "Rekening openstaande ontvangsten"
 #: code:addons/account/models/account_move.py:0
 #, python-format
 msgid "Outstanding credits"
-msgstr "Uitstaande omzet"
+msgstr "Openstaand credits"
 
 #. module: account
 #: code:addons/account/models/account_move.py:0
@@ -8780,7 +8807,7 @@ msgstr "Uitstaande uitgaven"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_invoice_filter
 msgid "Overdue"
-msgstr "Te laat"
+msgstr "Vervallen"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_invoice_filter
@@ -9343,7 +9370,7 @@ msgstr "Portaal toegang URL"
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
 #: model_terms:ir.ui.view,arch_db:account.view_move_line_tree_grouped
 msgid "Post"
-msgstr "Posten"
+msgstr "Boeken"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
@@ -9745,7 +9772,7 @@ msgstr "Debiteurenrekeningen"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.product_template_form_view
 msgid "Receivables"
-msgstr "Debiteuren rekening"
+msgstr "Debiteuren"
 
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_payment__payment_type__inbound
@@ -9884,7 +9911,7 @@ msgstr "Creditfactuur aangemaakt"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_move_reversal
 msgid "Refund Date"
-msgstr "Datum creditering"
+msgstr "Creditdatum"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_tax_repartition_line__refund_tax_id
@@ -10149,7 +10176,7 @@ msgstr "Omzet/kostenrekening"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_move_reversal
 msgid "Reversal Date"
-msgstr "Omkeringsdatum"
+msgstr "Creditdatum"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_bank_statement_line__reversal_move_id
@@ -10161,7 +10188,7 @@ msgstr "Omgekeerde boeking"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_reversal__date
 msgid "Reversal date"
-msgstr "Omkeringsdatum"
+msgstr "Creditdatum"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_bank_statement_line__reversed_entry_id
@@ -10189,7 +10216,7 @@ msgstr "Omkering van: %s"
 #: model_terms:ir.ui.view,arch_db:account.view_account_move_reversal
 #: model_terms:ir.ui.view,arch_db:account.view_move_line_tree_grouped
 msgid "Reverse"
-msgstr "Retourneren"
+msgstr "Crediteren"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
@@ -10214,7 +10241,7 @@ msgstr "Boekingen omkeren"
 #: model_terms:ir.ui.view,arch_db:account.view_account_move_filter
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
 msgid "Reversed"
-msgstr "Omgekeerd"
+msgstr "Gecrediteerd"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_bank_statement_form
@@ -10689,13 +10716,13 @@ msgid ""
 "\n"
 "Any file extension will be accepted.\n"
 "\n"
-"Only PDF and XML files will be interpreted by Odoo"
+"Only PDF and XML files will be interpreted by Flectra"
 msgstr ""
 "Stuur een aparte e-mail voor elke factuur.\n"
 "\n"
 "Elke bestandsextensie wordt geaccepteerd.\n"
 "\n"
-"Alleen PDF- en XML-bestanden worden door Odoo geïnterpreteerd"
+"Alleen PDF- en XML-bestanden worden door Flectra geïnterpreteerd"
 
 #. module: account
 #: model:ir.actions.act_window,name:account.account_send_payment_receipt_by_email_action
@@ -11855,7 +11882,7 @@ msgid ""
 "matching amount in any supsense account."
 msgstr ""
 "Technisch veld dat wordt gebruikt om een waarschuwing op facturen weer te "
-"geven als er ten minste een overeenkomend bedrag op een supsense-account "
+"geven als er ten minste een overeenkomend bedrag op een tussenrekening "
 "staat."
 
 #. module: account
@@ -12103,6 +12130,16 @@ msgid "That is the date of the opening entry."
 msgstr "Dat is de datum van de openingsboeking."
 
 #. module: account
+#: code:addons/account/models/sequence_mixin.py:0
+#, python-format
+msgid ""
+"The %(date_field)s (%(date)s) doesn't match the %(sequence_field)s (%(sequence)s).\n"
+"You might want to clear the field %(sequence_field)s before proceeding with the change of the date."
+msgstr ""
+"De  %(date_field)s (%(date)s) komen niet overeen met %(sequence_field)s (%(sequence)s).\n"
+"Mogelijk wilt u het veld %(sequence_field)s leegmaken voordat u doorgaat met het wijzigen van de datum."
+
+#. module: account
 #: model:ir.model.fields,help:account.field_account_account__internal_group
 #: model:ir.model.fields,help:account.field_account_account_type__internal_group
 #: model:ir.model.fields,help:account.field_account_move_line__account_internal_group
@@ -12125,6 +12162,13 @@ msgstr ""
 "De 'Interne soort' wordt gebruikt om kenmerken aan te duiden bij "
 "verschillende rekeningen: liquiditeit is voor kas- en bankrekeningen, "
 "crediteuren/debiteuren is voor leverancier-/klantfacturen."
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "The Bill/Refund date is required to validate this document."
+msgstr ""
+"De factuur- of creditfactuurdatum is vereist om dit document te beveestigen."
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_bank_statement__country_code
@@ -12168,6 +12212,18 @@ msgstr ""
 #, python-format
 msgid "The account %s (%s) is deprecated."
 msgstr "Deze rekening %s (%s) is vervallen"
+
+#. module: account
+#: code:addons/account/models/account_account.py:0
+#, python-format
+msgid ""
+"This account is configured in %(journal_names)s journal(s) (ids "
+"%(journal_ids)s) as payment debit or credit account. This means that this "
+"account's type should be reconcilable."
+msgstr ""
+"Deze rekening is in %(journal_names)s dagboek(en) (ids %(journal_ids)s) "
+"geconfigureerd als debet- of creditrekening voor betalingen. Dit betekent "
+"dat het type van dit account afletterbaar moet zijn."
 
 #. module: account
 #: code:addons/account/models/account_account.py:0
@@ -12397,16 +12453,6 @@ msgstr ""
 "afgeletterd. Er valt niets meer te verwerken."
 
 #. module: account
-#: code:addons/account/models/sequence_mixin.py:0
-#, python-format
-msgid ""
-"The %(date_field)s (%(date)s) doesn't match the %(sequence_field)s (%(sequence)s).\n"
-"You might want to clear the field %(sequence_field)s before proceeding with the change of the date."
-msgstr ""
-"De  %(date_field)s (%(date)s) komen niet overeen met %(sequence_field)s (%(sequence)s).\n"
-"U zou best veld %(sequence_field)s ledigen alvorens de datum wijziging door te voeren."
-
-#. module: account
 #: code:addons/account/models/account_payment_term.py:0
 #, python-format
 msgid "The day of the month used for this term must be strictly positive."
@@ -12495,6 +12541,15 @@ msgstr ""
 "geen e-mail adres is ingesteld."
 
 #. module: account
+#: code:addons/account/models/account_reconcile_model.py:0
+#, python-format
+msgid ""
+"The following regular expression is invalid to create a partner mapping: %s"
+msgstr ""
+"De volgende reguliere expressie is ongeldig om een relatietoewijzing te "
+"maken: %s"
+
+#. module: account
 #: code:addons/account/models/chart_template.py:0
 #, python-format
 msgid ""
@@ -12537,6 +12592,20 @@ msgstr ""
 #, python-format
 msgid "The holder of a journal's bank account must be the company (%s)."
 msgstr "De rekeninghouder van het bankdagboek moet het bedrijf zijn (%s)."
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid ""
+"The invoice already contains lines, it was not updated from the attachment."
+msgstr ""
+"De factuur bevat al regels, deze is niet bijgewerkt vanuit de bijlage."
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "The invoice is not a draft, it was not updated from the attachment."
+msgstr "De factuur is geen concept en is niet bijgewerkt vanuit de bijlage."
 
 #. module: account
 #: code:addons/account/models/account_bank_statement.py:0
@@ -13307,11 +13376,11 @@ msgstr "Deze boeking wordt geboekt op de boekhouddatum: %(date)s"
 msgid ""
 "This option permanently removes any track of email after it's been sent, "
 "including from the Technical menu in the Settings, in order to preserve "
-"storage space of your Odoo database."
+"storage space of your Flectra database."
 msgstr ""
 "Deze optie verwijdert permanent elk spoor van e-mail nadat deze is "
 "verzonden, inclusief vanuit het Technisch menu in de Instellingen, om "
-"opslagruimte van uw Odoo-database te behouden."
+"opslagruimte van uw Flectra-database te behouden."
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_account_template__chart_template_id
@@ -13345,7 +13414,7 @@ msgid ""
 "This payment term will be used instead of the default one for purchase "
 "orders and vendor bills"
 msgstr ""
-"Deze betalingsvoorwaarden zullen gebruikt worden in plaats van de standaard "
+"Deze betalingscondities zullen gebruikt worden in plaats van de standaard "
 "voor inkooporders en leveranciersfacturen"
 
 #. module: account
@@ -13402,7 +13471,7 @@ msgstr ""
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_automatic_entry_wizard__destination_account_id
 msgid "To"
-msgstr "Aan"
+msgstr "Naar"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_bank_statement_line__to_check
@@ -13553,7 +13622,7 @@ msgstr "Verplaatsing"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_automatic_entry_wizard_form
 msgid "Transfer Date"
-msgstr "Verplaatsingsdatum"
+msgstr "Boekingsdatum"
 
 #. module: account
 #: code:addons/account/wizard/account_automatic_entry_wizard.py:0
@@ -13585,6 +13654,12 @@ msgstr "Overboeken naar %s"
 #: model_terms:ir.ui.view,arch_db:account.view_account_payment_search
 msgid "Transfers"
 msgstr "Verplaatsingen"
+
+#. module: account
+#: code:addons/account/wizard/account_tour_upload_bill.py:0
+#, python-format
+msgid "Try a sample vendor bill"
+msgstr "Probeer een voorbeeld van een leveranciersfactuur"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_account__user_type_id
@@ -13795,6 +13870,12 @@ msgid "Upload"
 msgstr "Upload"
 
 #. module: account
+#: code:addons/account/wizard/account_tour_upload_bill.py:0
+#, python-format
+msgid "Upload your own bill"
+msgstr "Upload uw eigen factuur"
+
+#. module: account
 #: model:ir.model.fields,field_description:account.field_account_chart_template__use_anglo_saxon
 msgid "Use Anglo-Saxon accounting"
 msgstr "Angelsaksische boekhouding gebruiken"
@@ -13972,7 +14053,7 @@ msgstr "Bevestig"
 #: model:mail.message.subtype,name:account.mt_invoice_validated
 #: model_terms:ir.ui.view,arch_db:account.view_bank_statement_search
 msgid "Validated"
-msgstr "bevestigd"
+msgstr "Bevestigd"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_payment_term_line__value_amount
@@ -14083,7 +14164,7 @@ msgstr "Leveranciers"
 #: code:addons/account/static/src/xml/account_payment.xml:0
 #, python-format
 msgid "View"
-msgstr "Weergave"
+msgstr "Bekijk"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_partner_property_form
@@ -14198,8 +14279,8 @@ msgstr "Met valuta"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_tour_upload_bill
-msgid "With Odoo, you won't have to records bills manually"
-msgstr "Met Odoo hoeft u facturen niet handmatig te registreren"
+msgid "With Flectra, you won't have to records bills manually"
+msgstr "Met Flectra hoeft u facturen niet handmatig te registreren"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_reconcile_model_search
@@ -14246,10 +14327,10 @@ msgstr ""
 #: model:ir.model.fields,help:account.field_account_journal__invoice_reference_model
 msgid ""
 "You can choose different models for each type of reference. The default one "
-"is the Odoo reference."
+"is the Flectra reference."
 msgstr ""
 "U kunt verschillende modellen kiezen voor elk type referentie. De standaard "
-"is de Odoo-referentie."
+"is de Flectra-referentie."
 
 #. module: account
 #: code:addons/account/models/account_payment_term.py:0
@@ -14258,7 +14339,7 @@ msgid ""
 "You can not delete payment terms as other records still reference it. "
 "However, you can archive it."
 msgstr ""
-"U kunt geen betalingstermijnen verwijderen gerelateerd aan gegevens. "
+"U kunt geen betalingstermijn verwijderen gerelateerd aan gegevens. "
 "Daarentegen, kan u ze wel archiveren. "
 
 #. module: account
@@ -14332,7 +14413,7 @@ msgid ""
 "for vendor bill."
 msgstr ""
 "U kunt alleen een crediteurenrekening instellen op regels voor "
-"betalingsvoorwaarden voor leveranciersfacturen."
+"betalingscondities voor leveranciersfacturen."
 
 #. module: account
 #: code:addons/account/models/account_move.py:0
@@ -14342,7 +14423,7 @@ msgid ""
 "lines for customer invoice."
 msgstr ""
 "U kunt alleen een debiteurenrekening instellen op regels voor "
-"betalingsvoorwaarden voor klantfacturen."
+"betalingscondities voor klantfacturen."
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_journal__invoice_reference_type
@@ -14613,8 +14694,8 @@ msgid ""
 "You cannot have more than one account with \"Current Year Earnings\" as "
 "type. (accounts: %s)"
 msgstr ""
-"U kunt niet meer dan een rekening hebben in \"Huidige Boekjaar\" van het "
-"type. (rekeningen: %s)"
+"U kunt niet meer dan één rekening hebben met als type \"Huidige Jaarwinst\"."
+" (rekeningen: %s)"
 
 #. module: account
 #: code:addons/account/models/account_move.py:0
@@ -14678,12 +14759,10 @@ msgstr ""
 #, python-format
 msgid ""
 "You cannot reduce the number of decimal places of a currency which has "
-"already been used to make accounting entries. If you really need to do that,"
-" please contact tech support."
+"already been used to make accounting entries."
 msgstr ""
 "U kunt het aantal decimalen van een valuta die al is gebruikt om boekingen "
-"te boeken, niet verminderen. Neem contact op met de technische ondersteuning"
-" als u dat echt nodig heeft."
+"te boeken, niet verminderen."
 
 #. module: account
 #: code:addons/account/models/account_journal.py:0
@@ -14732,8 +14811,8 @@ msgid ""
 "You cannot switch an account to prevent the reconciliation if some partial "
 "reconciliations are still pending."
 msgstr ""
-"U kan niet wisselen van account om het afletteren te voorkomen als "
-"gedeeltelijke afletteringen nog in aanvraag zijn."
+"U kan niet wisselen van rekening om het afletteren te voorkomen als "
+"gedeeltelijke afletteringen nog in behandeling zijn."
 
 #. module: account
 #: code:addons/account/models/account_move.py:0
@@ -14814,8 +14893,14 @@ msgstr "Maak een 'tussenrekening' aan in uw kas register."
 #. module: account
 #: code:addons/account/models/account_move.py:0
 #, python-format
+msgid "The entry %s (id %s) is already posted."
+msgstr "De boeking %s (id %s) is al geboekt."
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
 msgid "You need to add a line before posting."
-msgstr "Je moet een regel toevoegen voordat je kunt posten."
+msgstr "U moet een regel toevoegen voordat u boekt."
 
 #. module: account
 #: code:addons/account/models/account_move.py:0
@@ -14873,6 +14958,7 @@ msgstr "Tot postcode"
 #. module: account
 #: code:addons/account/models/account_move.py:0
 #: code:addons/account/wizard/account_automatic_entry_wizard.py:0
+#: code:addons/account/wizard/account_automatic_entry_wizard.py:0
 #, python-format
 msgid "[Not set]"
 msgstr "[Niet ingesteld]"
@@ -14910,7 +14996,7 @@ msgstr "dag(en) na het einde van de gefactureerde maand"
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_payment_term_line__option__day_after_invoice_date
 msgid "days after the invoice date"
-msgstr "dagen na de factureringsdatum"
+msgstr "dagen na factuurdatum"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.setup_bank_account_wizard
@@ -15009,6 +15095,18 @@ msgstr "technisch veld voor het tax-group-custom-field widget"
 #: model:ir.model.fields,help:account.field_account_bank_statement__previous_statement_id
 msgid "technical field to compute starting balance correctly"
 msgstr "technisch veld om het beginsaldo correct te berekenen"
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid ""
+"The chosen journal has a type that is not compatible with your invoice type."
+" Sales operations should go to 'sale' journals, and purchase operations to "
+"'purchase' ones."
+msgstr ""
+"Het gekozen dagboek heeft een type dat niet compatibel is met uw "
+"factuurtype. Verkoopactiviteiten moeten naar 'verkoop dagboek' gaan en "
+"inkoopactiviteiten naar een 'inkoop dagboek'."
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_partner_property_form

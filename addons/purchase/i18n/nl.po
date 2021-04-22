@@ -1,25 +1,25 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* purchase
 # 
 # Translators:
 # Eric Geens <ericgeens@yahoo.com>, 2020
-# Cécile Collart <cco@odoo.com>, 2020
-# Wynand Tastenhoye <wta@odoo.com>, 2020
+# Cécile Collart <cco@flectrahq.com>, 2020
+# Wynand Tastenhoye <wta@flectrahq.com>, 2020
 # Martin Trigaux, 2020
-# Yenthe Van Ginneken <yenthespam@gmail.com>, 2020
 # Cas Vissers <casvissers@brahoo.nl>, 2020
 # Gunther Clauwaert <gclauwae@hotmail.com>, 2020
-# Odoo Experts Consultants <consultants@odooexperts.nl>, 2020
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2020
+# Flectra Experts Consultants <consultants@odooexperts.nl>, 2020
+# Yenthe Van Ginneken <yenthespam@gmail.com>, 2020
+# Erwin van der Ploeg (Flectra Experts) <erwin@odooexperts.nl>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-16 13:33+0000\n"
+"POT-Creation-Date: 2020-11-27 13:50+0000\n"
 "PO-Revision-Date: 2020-09-07 08:17+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2020\n"
+"Last-Translator: Erwin van der Ploeg (Flectra Experts) <erwin@odooexperts.nl>, 2021\n"
 "Language-Team: Dutch (https://www.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +35,7 @@ msgid ""
 "                'Purchase Order - %s' % (object.name))"
 msgstr ""
 "\n"
-"                    (object.state in ('concept', 'verzonden') en 'Offerte aanvraag - %s'% (object.name) of\n"
+"                    (object.state in ('draft', 'sent') and 'Offerte aanvraag - %s'% (object.name) or\n"
 "                    'Inkooporder - %s'% (object.name))"
 
 #. module: purchase
@@ -314,7 +314,7 @@ msgstr ""
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.view_partner_property_form
 msgid "<span> day(s) before</span>"
-msgstr ""
+msgstr "<span> dag(en) voor</span>"
 
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
@@ -480,13 +480,13 @@ msgstr "Toegang waarschuwing"
 #. module: purchase
 #: model:ir.model.fields,help:purchase.field_purchase_order_line__qty_received_method
 msgid ""
-"According to product configuration, the recieved quantity can be automatically computed by mechanism :\n"
+"According to product configuration, the received quantity can be automatically computed by mechanism :\n"
 "  - Manual: the quantity is set manually on the line\n"
 "  - Stock Moves: the quantity comes from confirmed pickings\n"
 msgstr ""
-"Afhankelijk van de productinstellingen kan de ontvangen hoeveelheid automatisch berekend worden met behulp van het mechanisme:\n"
-"- Handmatig: het aantal wordt handmatig op de regel ingesteld\n"
-"- Voorraadverplaatstingen: de hoeveelheid komt van bevestigde pickings\n"
+"Volgens de productconfiguratie kan de ontvangen hoeveelheid automatisch worden berekend door het mechanisme:\n"
+"- Handmatig: het aantal wordt handmatig op de lijn ingesteld\n"
+"- Voorraadbewegingen: de hoeveelheid is afkomstig van bevestigde pickings\n"
 
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_purchase_order__message_needaction
@@ -581,8 +581,10 @@ msgstr "Alle Wachtende Offerteaanvragen"
 
 #. module: purchase
 #: model:ir.model.fields,help:purchase.field_res_config_settings__group_send_reminder
-msgid "Allow automatically send email to reminde your vendor the receipt date"
+msgid "Allow automatically send email to remind your vendor the receipt date"
 msgstr ""
+"Laat automatisch een e-mail verzenden om uw leverancier de ontvangstdatum te"
+" herinneren"
 
 #. module: purchase
 #: model:ir.model.fields.selection,name:purchase.selection__res_company__po_lock__edit
@@ -880,7 +882,7 @@ msgstr "Bevestig order"
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Confirm Receipt Date"
-msgstr "Bevestig de ontvangstdatum."
+msgstr "Bevestig de ontvangstdatum"
 
 #. module: purchase
 #: model:ir.model.fields.selection,name:purchase.selection__res_company__po_double_validation__one_step
@@ -1059,7 +1061,7 @@ msgid ""
 "Depicts the date when the Quotation should be validated and converted into a"
 " purchase order."
 msgstr ""
-"Geeft de datum weer waarop de offerte moet worden gevalideerd en worden "
+"Geeft de datum weer waarop de offerte moet worden goedgekeurd en worden "
 "omgezet in een inkooporder."
 
 #. module: purchase
@@ -1069,6 +1071,8 @@ msgid ""
 "Depicts the date within which the Quotation should be confirmed and "
 "converted into a purchase order."
 msgstr ""
+"Geeft de datum weer waarbinnen de offerte moet worden bevestigd en omgezet "
+"in een inkooporder."
 
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_purchase_order_line__name
@@ -1173,7 +1177,7 @@ msgstr "Volgers (Relaties)"
 #. module: purchase
 #: model:ir.model.fields,help:purchase.field_purchase_order__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Font awesome icoon b.v. fa-tasks"
+msgstr "Font awesome icoon bijv. fa-tasks"
 
 #. module: purchase
 #: model:ir.model.constraint,message:purchase.constraint_purchase_order_line_non_accountable_null_fields
@@ -1183,7 +1187,7 @@ msgstr "Verboden waarde op niet boekhoudkundige inkooporderregel"
 #. module: purchase
 #: model:ir.model.fields.selection,name:purchase.selection__purchase_order__invoice_status__invoiced
 msgid "Fully Billed"
-msgstr "Volledig gefactureer"
+msgstr "Volledig gefactureerd"
 
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.purchase_order_view_search
@@ -1439,7 +1443,7 @@ msgstr "Blokkeer"
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_res_config_settings__lock_confirmed_po
 msgid "Lock Confirmed Orders"
-msgstr "Bevestigde orders vastzetten"
+msgstr "Bevestigde orders blokkeren"
 
 #. module: purchase
 #: code:addons/purchase/controllers/portal.py:0
@@ -1709,7 +1713,7 @@ msgstr "Aantal ongelezen berichten"
 #. module: purchase
 #: model:ir.model.fields.selection,name:purchase.selection__product_template__purchase_method__purchase
 msgid "On ordered quantities"
-msgstr "Op order hoeveelheden"
+msgstr "Op bestelde hoeveelheden"
 
 #. module: purchase
 #: model:ir.model.fields,help:purchase.field_product_product__purchase_method
@@ -2131,13 +2135,13 @@ msgstr "Ingekocht"
 #: code:addons/purchase/static/src/xml/purchase_dashboard.xml:0
 #, python-format
 msgid "Purchased Last 7 Days ("
-msgstr "Aangekocht laatste 7 dagen ("
+msgstr "Ingekocht laatste 7 dagen ("
 
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.product_normal_form_view_inherit_purchase
 #: model_terms:ir.ui.view,arch_db:purchase.view_product_template_purchase_buttons_from
 msgid "Purchased in the last 365 days"
-msgstr "Aangekocht in de laatste 365 dagen"
+msgstr "Ingekocht in de laatste 365 dagen"
 
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.res_partner_view_purchase_buttons
@@ -2166,7 +2170,7 @@ msgstr "Gefactureerde hvh"
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_purchase_report__qty_ordered
 msgid "Qty Ordered"
-msgstr "Bestelde hvh"
+msgstr "Hvh bestelde"
 
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_purchase_report__qty_received
@@ -2928,12 +2932,12 @@ msgid ""
 "Vendors bills can be pre-generated based on purchase\n"
 "                    orders or receipts. This allows you to control bills\n"
 "                    you receive from your vendor according to the draft\n"
-"                    document in Odoo."
+"                    document in Flectra."
 msgstr ""
 "Leveranciersfacturen kunnen op voorhand gegenereerd worden gebaseerd op inkooporders\n"
 "of ontvangsten. Dit staat u toe de facturen te beheren\n"
 "die u ontvangt van leveranciers aan de hand van het concept\n"
-"document in Odoo."
+"document in Flectra."
 
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_purchase_report__volume
@@ -3004,14 +3008,14 @@ msgid ""
 "When creating a purchase order, have a look at the vendor's <i>On Time "
 "Delivery</i> rate: the percentage of products shipped on time. If it is too "
 "low, activate the <i>automated reminders</i>. A few days before the due "
-"shipment, Odoo will send the vendor an email to ask confirmation of shipment"
+"shipment, Flectra will send the vendor an email to ask confirmation of shipment"
 " dates and keep you informed in case of any delays. To get the vendor's "
 "performance statistics, click on the OTD rate."
 msgstr ""
 "Bekijk bij het aanmaken van een inkooporder het percentage <i>tijdige "
 "levering</i> van de leverancier: het percentage producten dat op tijd is "
 "verzonden. Activeer de <i>automatische herinneringen</i> als deze te laag "
-"is. Een paar dagen voor de geplande verzending zal Odoo de verkoper een "
+"is. Een paar dagen voor de geplande verzending zal Flectra de verkoper een "
 "e-mail sturen om bevestiging van de verzenddatums te vragen en je op de "
 "hoogte houden in geval van vertragingen. Om de prestatiestatistieken van de "
 "leverancier te krijgen, klik je op het OTD-tarief."
@@ -3019,12 +3023,12 @@ msgstr ""
 #. module: purchase
 #: model_terms:digest.tip,tip_description:purchase.digest_tip_purchase_1
 msgid ""
-"When sending a purchase order by email, Odoo asks the vendor to acknowledge "
+"When sending a purchase order by email, Flectra asks the vendor to acknowledge "
 "the reception of the order. When the vendor acknowledges the order by "
 "clicking on a button in the email, the information is added on the purchase "
 "order. Use filters to track orders that have not been acknowledged."
 msgstr ""
-"Bij het verzenden van een order per e-mail, vraagt Odoo de verkoper om de "
+"Bij het verzenden van een order per e-mail, vraagt Flectra de verkoper om de "
 "ontvangst van de order te bevestigen. Wanneer de verkoper de order bevestigt"
 " door op een knop in de e-mail te klikken, wordt de informatie toegevoegd "
 "aan de order. Gebruik filters om orders te volgen die niet zijn bevestigd."
@@ -3084,4 +3088,4 @@ msgstr ""
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "day(s) before"
-msgstr ""
+msgstr "dag(en) voor"

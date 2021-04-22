@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* stock
 # 
@@ -9,17 +9,17 @@
 # 경민기 <moonend@gmail.com>, 2020
 # Martin Trigaux, 2020
 # Goh Gangtai <gangtai.goh@gmail.com>, 2020
-# JH CHOI <hwangtog@gmail.com>, 2020
 # Link Up링크업 <linkup.way@gmail.com>, 2020
-# Linkup <link-up@naver.com>, 2020
+# Linkup <link-up@naver.com>, 2021
+# JH CHOI <hwangtog@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-16 13:33+0000\n"
+"POT-Creation-Date: 2020-11-27 11:23+0000\n"
 "PO-Revision-Date: 2020-09-07 08:19+0000\n"
-"Last-Translator: Linkup <link-up@naver.com>, 2020\n"
+"Last-Translator: JH CHOI <hwangtog@gmail.com>, 2021\n"
 "Language-Team: Korean (https://www.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -631,7 +631,7 @@ msgstr "활동 상태"
 #: model:ir.model.fields,field_description:stock.field_stock_picking__activity_type_icon
 #: model:ir.model.fields,field_description:stock.field_stock_production_lot__activity_type_icon
 msgid "Activity Type Icon"
-msgstr ""
+msgstr "활동 유형 아이콘"
 
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_production_lot_form
@@ -743,16 +743,16 @@ msgid "Allowed Route"
 msgstr ""
 
 #. module: stock
+#: model:ir.model.fields,help:stock.field_stock_inventory__prefill_counted_quantity
+msgid ""
+"Allows to start with a pre-filled counted quantity for each lines or with "
+"all counted quantities set to zero."
+msgstr ""
+
+#. module: stock
 #: model:ir.model.fields,help:stock.field_stock_inventory__start_empty
 msgid "Allows to start with an empty inventory."
 msgstr "재고가 없는 상태로 시작할 수 있습니다."
-
-#. module: stock
-#: model:ir.model.fields,help:stock.field_stock_inventory__prefill_counted_quantity
-msgid ""
-"Allows to start with prefill counted quantity for each lines or with all "
-"counted quantity set to zero."
-msgstr "각 내역에 대해 미리 채우기 계산된 수량 또는 모든 계산된 수량을 0으로 설정한 상태에서 시작할 수 있습니다."
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_stock_rule_form
@@ -1724,9 +1724,9 @@ msgstr "창고를 통한 기본 경로"
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_orderpoint
 msgid ""
-"Define a minimum stock rule so that Odoo creates automatically requests for "
+"Define a minimum stock rule so that Flectra creates automatically requests for "
 "quotations or draft manufacturing orders to resupply your stock."
-msgstr "Odoo가 자동으로 견적 요청 또는 제조 주문 초안을 작성하여 재고를 다시 공급하도록 최소 재고 규칙을 정의하십시오."
+msgstr "Flectra가 자동으로 견적 요청 또는 제조 주문 초안을 작성하여 재고를 다시 공급하도록 최소 재고 규칙을 정의하십시오."
 
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_warehouse_form
@@ -1737,14 +1737,14 @@ msgstr "새 창고 정의"
 #: model_terms:ir.actions.act_window,help:stock.action_location_form
 msgid ""
 "Define your locations to reflect your warehouse structure and\n"
-"            organization. Odoo is able to manage physical locations\n"
+"            organization. Flectra is able to manage physical locations\n"
 "            (warehouses, shelves, bin, etc), partner locations (customers,\n"
 "            vendors) and virtual locations which are the counterpart of\n"
 "            the stock operations like the manufacturing orders\n"
 "            consumptions, inventories, etc."
 msgstr ""
 "창고 구조 및 조직을 반영하도록 공간(위치)를\n"
-"            정의하십시오. Odoo는 제조 주문 소비,\n"
+"            정의하십시오. Flectra는 제조 주문 소비,\n"
 "            재고 자산 등과 같은 재고 작업의,\n"
 "            상대적인 물리적 공간(위치)(창고, 셀브, 빈 등) 파트너 창고(고객, 공급업체) 및 가상 공간(위치)를 관리 할 수 있습니다.\n"
 "            파트너 창고(고객, 공급업체) 및 가상 공간(위치)를\n"
@@ -2170,7 +2170,7 @@ msgstr "재고 없음"
 #. module: stock
 #: model_terms:digest.tip,tip_description:stock.digest_tip_stock_0
 msgid ""
-"Enjoy a quick-paced experience with the Odoo barcode app. It is blazing fast"
+"Enjoy a quick-paced experience with the Flectra barcode app. It is blazing fast"
 " and works even without a stable internet connection. It supports all flows:"
 " inventory adjustments, batch picking, moving lots or pallets, low inventory"
 " checks, etc. Go to the \"Apps\" menu to activate the barcode interface."
@@ -2197,15 +2197,15 @@ msgstr "오류"
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_location_form
 msgid ""
-"Every stock operation in Odoo moves the products from one\n"
+"Every stock operation in Flectra moves the products from one\n"
 "            location to another one.  For instance, if you receive products\n"
-"            from a vendor, Odoo will move products from the Vendor\n"
+"            from a vendor, Flectra will move products from the Vendor\n"
 "            location to the Stock location. Each report can be performed on\n"
 "            physical, partner or virtual locations."
 msgstr ""
-"Odoo의 모든 재고 작업은 품목을 한 공간(위치)에서\n"
+"Flectra의 모든 재고 작업은 품목을 한 공간(위치)에서\n"
 "            다른 공간(위치)로 옮깁니다.  예를 들어, 공급 업체로부터\n"
-"            품목을 받은 경우, Odoo는 품목을 공급 업체 창고에서\n"
+"            품목을 받은 경우, Flectra는 품목을 공급 업체 창고에서\n"
 "            재고 공간(위치)로 옮깁니다. 각 보고서는 실제,\n"
 "            파트너, 또는 가상 공간(위치)에서 수행 할 수 있습니다."
 
@@ -2775,10 +2775,10 @@ msgstr "선별이 잠금 해제되면 초기 수요(초안 선별의 경우) 또
 #: model:ir.model.fields,help:stock.field_stock_picking__show_reserved
 #: model:ir.model.fields,help:stock.field_stock_picking_type__show_reserved
 msgid ""
-"If this checkbox is ticked, Odoo will automatically pre-fill the detailed "
+"If this checkbox is ticked, Flectra will automatically pre-fill the detailed "
 "operations with the corresponding products, locations and lot/serial "
 "numbers."
-msgstr "이 확인란을 선택하면 Odoo는 해당 제품, 위치 및 일련번호로 세부 작업을 자동으로 미리 채웁니다."
+msgstr "이 확인란을 선택하면 Flectra는 해당 제품, 위치 및 일련번호로 세부 작업을 자동으로 미리 채웁니다."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move__show_operations
@@ -3828,7 +3828,6 @@ msgstr "새로운"
 
 #. module: stock
 #: code:addons/stock/models/stock_move_line.py:0
-#: code:addons/stock/models/stock_picking.py:0
 #, python-format
 msgid "New Move:"
 msgstr "신규 이동 :"
@@ -4621,7 +4620,7 @@ msgstr "바코드로 작업 처리 속도 향상"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.res_config_settings_view_form
 msgid "Process transfers in batch per worker"
-msgstr "작업자별 일괄 전송 처리"
+msgstr "작업자별 일괄 이송 처리"
 
 #. module: stock
 #: model:ir.model,name:stock.model_procurement_group
@@ -5369,7 +5368,7 @@ msgstr ""
 #: code:addons/stock/models/stock_orderpoint.py:0
 #, python-format
 msgid "Replenishment Report"
-msgstr ""
+msgstr "재보충 보고서"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.stock_reorder_report_search
@@ -6154,6 +6153,7 @@ msgstr "재고 이동 분석"
 
 #. module: stock
 #: code:addons/stock/models/stock_quant.py:0
+#: model:ir.actions.act_window,name:stock.dashboard_open_quants
 #, python-format
 msgid "Stock On Hand"
 msgstr "보유 재고"
@@ -6199,7 +6199,7 @@ msgstr "재고 수량 보고서"
 #: model:ir.model,name:stock.model_report_stock_report_product_product_replenishment
 #: model:ir.model,name:stock.model_report_stock_report_product_template_replenishment
 msgid "Stock Replenishment Report"
-msgstr ""
+msgstr "재고 재보충 보고서"
 
 #. module: stock
 #: model:ir.model,name:stock.model_stock_rule
@@ -6724,6 +6724,16 @@ msgid ""
 msgstr ""
 "이 선별은 다른 작업과 연결되어있는 것으로 보입니다. 나중에 반환하는 품목을 수령 한 경우, 물류 규칙이 다시 적용되지 않도록 반환 된 "
 "선별을 <b>반대</b>로 해야합니다 (중복 된 작업을 생성 할 수 있음)"
+
+#. module: stock
+#: code:addons/stock/models/product.py:0
+#, python-format
+msgid ""
+"This product has been used in at least one inventory movement. It is not "
+"advised to change the Product Type since it can lead to inconsistencies. A "
+"better solution could be to archive the product and create a new one "
+"instead."
+msgstr ""
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_change_product_qty__new_quantity
@@ -7506,19 +7516,19 @@ msgstr "선별을 하지 않으면 초기 수요를 변결할 수 있습니다. 
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint__product_min_qty
 msgid ""
 "When the virtual stock equals to or goes below the Min Quantity specified "
-"for this field, Odoo generates a procurement to bring the forecasted "
+"for this field, Flectra generates a procurement to bring the forecasted "
 "quantity to the Max Quantity."
 msgstr ""
-"가상 재고가 이 필드에 지정된 최소 수량과 같거나 이보다 낮을 경우, Odoo는 예측 수량을 최대 수량으로 가져 오기 위해 조달을 "
+"가상 재고가 이 필드에 지정된 최소 수량과 같거나 이보다 낮을 경우, Flectra는 예측 수량을 최대 수량으로 가져 오기 위해 조달을 "
 "생성합니다."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint__product_max_qty
 msgid ""
-"When the virtual stock goes below the Min Quantity, Odoo generates a "
+"When the virtual stock goes below the Min Quantity, Flectra generates a "
 "procurement to bring the forecasted quantity to the Quantity specified as "
 "Max Quantity."
-msgstr "가상 재고가 최소 수량보다 낮아지면 Odoo는 예측 수량을 최대 수량으로 지정된 수량을 가져 오는 조달을 생성합니다."
+msgstr "가상 재고가 최소 수량보다 낮아지면 Flectra는 예측 수량을 최대 수량으로 지정된 수량을 가져 오는 조달을 생성합니다."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_rule__propagate_cancel
@@ -7812,7 +7822,7 @@ msgstr "제품 명세를 수동으로 생성했습니다. 계속 진행하려면
 #: model_terms:ir.ui.view,arch_db:stock.view_immediate_transfer
 msgid ""
 "You have not recorded <i>done</i> quantities yet, by clicking on "
-"<i>apply</i> Odoo will process all the quantities."
+"<i>apply</i> Flectra will process all the quantities."
 msgstr ""
 
 #. module: stock
@@ -8018,4 +8028,20 @@ msgstr "report_stock_quantity_graph"
 #: code:addons/stock/static/src/xml/stock_orderpoint.xml:0
 #, python-format
 msgid "should be replenished to reach the maximum of"
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"You can't desactivate the multi-location if you have more than once "
+"warehouse by company"
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/stock_warehouse.py:0
+#, python-format
+msgid ""
+"Creating a new warehouse will automatically activate the Storage Locations "
+"setting"
 msgstr ""
