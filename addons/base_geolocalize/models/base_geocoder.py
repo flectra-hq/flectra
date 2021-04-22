@@ -87,7 +87,7 @@ class GeoCoder(models.AbstractModel):
             return None
         url = 'https://nominatim.openstreetmap.org/search'
         try:
-            headers = {'User-Agent': 'Flectra (http://flectrahq.com/contactus)'}
+            headers = {'User-Agent': 'Flectra (http://www.flectrahq.com/contactus)'}
             response = requests.get(url, headers=headers, params={'format': 'json', 'q': addr})
             _logger.info('openstreetmap nominatim service called')
             if response.status_code != 200:

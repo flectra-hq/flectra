@@ -5,7 +5,7 @@
     'name': 'Blogs',
     'category': 'Website/Website',
     'sequence': 200,
-    'website': 'https://flectrahq.com/blog-engine',
+    'website': 'https://www.flectrahq.com/page/blog-engine',
     'summary': 'Publish blog posts, announces, news',
     'version': '1.0',
     'description': "",

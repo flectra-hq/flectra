@@ -17,7 +17,7 @@ Add all information on the employee form to manage contracts.
 
 You can assign several contracts per employee.
     """,
-    'website': 'https://flectrahq.com/employees',
+    'website': 'https://www.flectrahq.com/page/employees',
     'depends': ['hr'],
     'data': [
         'security/security.xml',

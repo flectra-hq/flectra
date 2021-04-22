@@ -6,7 +6,7 @@
     'version': '1.0',
     'category': 'Productivity/Notes',
     'description': "",
-    'website': 'https://flectrahq.com/notes',
+    'website': 'https://www.flectrahq.com/page/notes',
     'summary': 'Organize your work with memos',
     'sequence': 260,
     'depends': [

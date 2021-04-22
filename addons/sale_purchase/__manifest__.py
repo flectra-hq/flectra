@@ -9,7 +9,7 @@ Allows the outsourcing of services. This module allows one to sell services prov
 by external providers and will automatically generate purchase orders directed to the service seller.
     """,
     'version': '1.0',
-    'website': 'https://www.odoo.com/',
+    'website': 'https://www.flectrahq.com/',
     'category': 'Hidden',
     'depends': [
         'sale',

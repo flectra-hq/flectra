@@ -8,7 +8,7 @@
     'sequence': 1002,
     'version': '1.0',
     'summary': 'Event: meeting and chat rooms',
-    'website': 'https://flectrahq.com/events',
+    'website': 'https://www.flectrahq.com/page/events',
     'description': "",
     'depends': [
         'website_event',

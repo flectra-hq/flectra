@@ -305,7 +305,7 @@ class BaseCase(TreeCase, MetaCase('DummyCase', (object,), {})):
     initialized by subclasses.
     """
 
-    longMessage = True      # more verbose error message by default: https://flectrahq.com/r/Vmh
+    longMessage = True      # more verbose error message by default: https://www.flectrahq.com/r/Vmh
     warm = True             # False during warm-up phase (see :func:`warmup`)
 
     def cursor(self):
@@ -1810,8 +1810,8 @@ class Form(object):
         '<=': operator.le,
         '>=': operator.ge,
         '>': operator.gt,
-        'in': lambda a, b: a in b,
-        'not in': lambda a, b: a not in b
+        'in': lambda a, b: (a in b) if isinstance(b, (tuple, list)) else (b in a),
+        'not in': lambda a, b: (a not in b) if isinstance(b, (tuple, list)) else (b not in a),
     }
     def _get_context(self, field):
         c = self._view['contexts'].get(field)

@@ -7,7 +7,7 @@
     'description': "",
     'version': '2.2',
     'sequence': 60,
-    'website': 'https://flectrahq.com/mailing',
+    'website': 'https://www.flectrahq.com/page/mailing',
     'category': 'Marketing/Email Marketing',
     'depends': [
         'contacts',

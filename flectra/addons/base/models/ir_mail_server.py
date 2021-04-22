@@ -108,7 +108,7 @@ class IrMailServer(models.Model):
         if not email_from:
             raise UserError(_('Please configure an email on the current user to simulate '
                               'sending an email message via this outgoing server'))
-        return email_from, 'noreply@flectra.com'
+        return email_from, 'noreply@flectrahq.com'
 
     def test_smtp_connection(self):
         for server in self:

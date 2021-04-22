@@ -1,10 +1,10 @@
 {
     'name': 'Base import',
     'description': """
-New extensible file import for Odoo
+New extensible file import for Flectra
 ======================================
 
-Re-implement Odoo's file import system:
+Re-implement Flectra's file import system:
 
 * Server side, the previous system forces most of the logic into the
   client which duplicates the effort (between clients), makes the
@@ -18,7 +18,7 @@ Re-implement Odoo's file import system:
   files) which may be simpler to handle in their work flow or from
   their data production sources.
 
-* In a module, so that administrators and users of Odoo who do not
+* In a module, so that administrators and users of Flectra who do not
   need or want an online import can avoid it being available to users.
 """,
     'depends': ['web'],

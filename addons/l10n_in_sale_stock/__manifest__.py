@@ -14,8 +14,8 @@
         useful when you setup the multiple GSTIN units.
     """,
 
-    'author': "Odoo",
-    'website': "https://www.odoo.com",
+    'author': "Flectra",
+    'website': "https://www.flectrahq.com",
     'category': 'Accounting/Localizations/Sale',
     'version': '0.1',
 

@@ -64,8 +64,8 @@ class MailBot(models.AbstractModel):
             # help message
             elif self._is_help_requested(body) or flectrabot_state == 'idle':
                 return _("Unfortunately, I'm just a bot 😞 I don't understand! If you need help discovering our product, please check "
-                         "<a href=\"https://flectrahq.com/page/docs\" target=\"_blank\">our documentation</a> or "
-                         "<a href=\"https://flectrahq.com/slides\" target=\"_blank\">our videos</a>.")
+                         "<a href=\"https://www.flectrahq.com/page/docs\" target=\"_blank\">our documentation</a> or "
+                         "<a href=\"https://www.flectrahq.com/slides\" target=\"_blank\">our videos</a>.")
             else:
                 # repeat question
                 if flectrabot_state == 'onboarding_emoji':

@@ -6,7 +6,7 @@ from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 
 from flectra import api, fields, models, _
-from flectra.exceptions import UserError
+from flectra.exceptions import UserError, ValidationError
 
 ATTENDEE_CONVERTER_O2M = {
     'needsAction': 'notresponded',
@@ -347,6 +347,27 @@ class Meeting(models.Model):
 
         return values
 
+    def _ensure_attendees_have_email(self):
+        invalid_event_ids = self.env['calendar.event'].search_read(
+            domain=[('id', 'in', self.ids), ('attendee_ids.partner_id.email', '=', False)],
+            fields=['display_time', 'display_name'],
+            order='start',
+        )
+        if invalid_event_ids:
+            list_length_limit = 50
+            total_invalid_events = len(invalid_event_ids)
+            invalid_event_ids = invalid_event_ids[:list_length_limit]
+            invalid_events = ['\t- %s: %s' % (event['display_time'], event['display_name'])
+                              for event in invalid_event_ids]
+            invalid_events = '\n'.join(invalid_events)
+            details = "(%d/%d)" % (list_length_limit, total_invalid_events) if list_length_limit < total_invalid_events else "(%d)" % total_invalid_events
+            raise ValidationError(_("For a correct synchronization between Flectra and Outlook Calendar, "
+                                    "all attendees must have an email address. However, some events do "
+                                    "not respect this condition. As long as the events are incorrect, "
+                                    "the calendars will not be synchronized."
+                                    "\nEither update the events/attendees or archive these events %s:"
+                                    "\n%s", details, invalid_events))
+
     def _microsoft_values_occurence(self, initial_values={}):
         values = dict(initial_values)
         values['id'] = self.microsoft_id
@@ -381,3 +402,10 @@ class Meeting(models.Model):
         super(Meeting, my_cancelled_records)._cancel_microsoft()
         attendees = (self - my_cancelled_records).attendee_ids.filtered(lambda a: a.partner_id == user.partner_id)
         attendees.state = 'declined'
+
+    def _notify_attendees(self):
+        # filter events before notifying attendees through calendar_alarm_manager
+        need_notifs = self.filtered(lambda event: event.alarm_ids and event.stop >= fields.Datetime.now())
+        partners = need_notifs.partner_ids
+        if partners:
+            self.env['calendar.alarm_manager']._notify_next_alarm(partners.ids)

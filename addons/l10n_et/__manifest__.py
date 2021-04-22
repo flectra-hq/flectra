@@ -11,7 +11,7 @@
 Base Module for Ethiopian Localization
 ======================================
 
-This is the latest Ethiopian Odoo localization and consists of:
+This is the latest Ethiopian Flectra localization and consists of:
     - Chart of Accounts
     - VAT tax structure
     - Withholding tax structure

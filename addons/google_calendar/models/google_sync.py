@@ -155,13 +155,15 @@ class GoogleSync(models.AbstractModel):
             dict(self._flectra_values(e, default_reminders), need_sync=False)
             for e in new
         ]
-        new_flectra = self.create(flectra_values)
+        new_flectra = self.with_context(dont_notify=True)._create_from_google(new, flectra_values)
+        # Synced recurrences attendees will be notified once _apply_recurrence is called.
+        if not self._context.get("dont_notify") and all(not e.is_recurrence() for e in google_events):
+            new_flectra._notify_attendees()
 
         cancelled = existing.cancelled()
         cancelled_flectra = self.browse(cancelled.flectra_ids(self.env))
         cancelled_flectra._cancel()
-
-        synced_records = new_flectra + cancelled_flectra
+        synced_records = (new_flectra + cancelled_flectra).with_context(dont_notify=self._context.get("dont_notify", False))
         for gevent in existing - cancelled:
             # Last updated wins.
             # This could be dangerous if google server time and flectra server time are different
@@ -170,7 +172,7 @@ class GoogleSync(models.AbstractModel):
             # Migration from 13.4 does not fill write_date. Therefore, we force the update from Google.
             if not flectra_record.write_date or updated >= pytz.utc.localize(flectra_record.write_date):
                 vals = dict(self._flectra_values(gevent, default_reminders), need_sync=False)
-                flectra_record.write(vals)
+                flectra_record._write_from_google(gevent, vals)
                 synced_records |= flectra_record
 
         return synced_records
@@ -180,7 +182,9 @@ class GoogleSync(models.AbstractModel):
         with google_calendar_token(self.env.user.sudo()) as token:
             if token:
                 google_service.delete(google_id, token=token, timeout=timeout)
-                self.need_sync = False
+                # When the record has been deleted on our side, we need to delete it on google but we don't want
+                # to raise an error because the record don't exists anymore.
+                self.exists().need_sync = False
 
     @after_commit
     def _google_patch(self, google_service: GoogleCalendarService, google_id, values, timeout=TIMEOUT):
@@ -217,6 +221,13 @@ class GoogleSync(models.AbstractModel):
             ]])
         return self.with_context(active_test=False).search(domain)
 
+    def _write_from_google(self, gevent, vals):
+        self.write(vals)
+
+    @api.model
+    def _create_from_google(self, gevents, vals_list):
+        return self.create(vals_list)
+
     @api.model
     def _flectra_values(self, google_event: GoogleEvent, default_reminders=()):
         """Implements this method to return a dict of Flectra values corresponding
@@ -241,5 +252,15 @@ class GoogleSync(models.AbstractModel):
     def _get_google_synced_fields(self):
         """Return a set of field names. Changing one of these fields
         marks the record to be re-synchronized.
+        """
+        raise NotImplementedError()
+
+    def _notify_attendees(self):
+        """ Notify calendar event partners.
+        This is called when creating new calendar events in _sync_google2flectra.
+        At the initialization of a synced calendar, Flectra requests all events for a specific
+        GoogleCalendar. Among those there will probably be lots of events that will never triggers a notification
+        (e.g. single events that occured in the past). Processing all these events through the notification procedure
+        of calendar.event.create is a possible performance bottleneck. This method aimed at alleviating that.
         """
         raise NotImplementedError()

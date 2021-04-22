@@ -104,8 +104,10 @@ class AccountMove(models.Model):
 
         return journal
 
+    # TODO remove in master
     @api.model
     def _get_default_invoice_date(self):
+        warnings.warn("Method '_get_default_invoice_date()' is deprecated and has been removed.", DeprecationWarning)
         return fields.Date.context_today(self) if self._context.get('default_move_type', 'entry') in self.get_purchase_types(include_receipts=True) else False
 
     @api.model
@@ -159,10 +161,11 @@ class AccountMove(models.Model):
         check_company=True, domain="[('id', 'in', suitable_journal_ids)]",
         default=_get_default_journal)
     suitable_journal_ids = fields.Many2many('account.journal', compute='_compute_suitable_journal_ids')
-    company_id = fields.Many2one(string='Company', store=True, readonly=True,
-        related='journal_id.company_id', change_default=True, default=lambda self: self.env.company)
+    company_id = fields.Many2one(comodel_name='res.company', string='Company',
+                                 store=True, readonly=True,
+                                 compute='_compute_company_id')
     company_currency_id = fields.Many2one(string='Company Currency', readonly=True,
-        related='journal_id.company_id.currency_id')
+        related='company_id.currency_id')
     currency_id = fields.Many2one('res.currency', store=True, readonly=True, tracking=True, required=True,
         states={'draft': [('readonly', False)]},
         string='Currency',
@@ -263,8 +266,7 @@ class AccountMove(models.Model):
         string='Salesperson',
         default=lambda self: self.env.user)
     invoice_date = fields.Date(string='Invoice/Bill Date', readonly=True, index=True, copy=False,
-        states={'draft': [('readonly', False)]},
-        default=_get_default_invoice_date)
+        states={'draft': [('readonly', False)]})
     invoice_date_due = fields.Date(string='Due Date', readonly=True, index=True, copy=False,
         states={'draft': [('readonly', False)]})
     invoice_origin = fields.Char(string='Origin', readonly=True, tracking=True,
@@ -686,8 +688,8 @@ class AccountMove(models.Model):
 
             balance = currency._convert(
                 taxes_map_entry['amount'],
-                self.journal_id.company_id.currency_id,
-                self.journal_id.company_id,
+                self.company_currency_id,
+                self.company_id,
                 self.date or fields.Date.context_today(self),
             )
             to_write_on_line = {
@@ -1037,6 +1039,11 @@ class AccountMove(models.Model):
                 if invoice != invoice._origin:
                     invoice.invoice_line_ids = invoice.line_ids.filtered(lambda line: not line.exclude_from_invoice_tab)
 
+    @api.depends('journal_id')
+    def _compute_company_id(self):
+        for move in self:
+            move.company_id = move.journal_id.company_id or move.company_id or self.env.company
+
     def _get_lines_onchange_currency(self):
         # Override needed for COGS
         return self.line_ids
@@ -1264,12 +1271,9 @@ class AccountMove(models.Model):
             total_residual_currency = 0.0
             total = 0.0
             total_currency = 0.0
-            currencies = set()
+            currencies = move._get_lines_onchange_currency().currency_id
 
             for line in move.line_ids:
-                if line.currency_id and line in move._get_lines_onchange_currency():
-                    currencies.add(line.currency_id)
-
                 if move.is_invoice(include_receipts=True):
                     # === Invoices ===
 
@@ -1309,7 +1313,7 @@ class AccountMove(models.Model):
             move.amount_total_signed = abs(total) if move.move_type == 'entry' else -total
             move.amount_residual_signed = total_residual
 
-            currency = len(currencies) == 1 and currencies.pop() or move.company_id.currency_id
+            currency = len(currencies) == 1 and currencies or move.company_id.currency_id
 
             # Compute 'payment_state'.
             new_pmt_state = 'not_paid' if move.move_type != 'entry' else False
@@ -1649,7 +1653,11 @@ class AccountMove(models.Model):
         duplicated_moves = self.browse([r[0] for r in self._cr.fetchall()])
         if duplicated_moves:
             raise ValidationError(_('Duplicated vendor reference detected. You probably encoded twice the same vendor bill/credit note:\n%s') % "\n".join(
-                duplicated_moves.mapped(lambda m: "%(partner)s - %(ref)s - %(date)s" % {'ref': m.ref, 'partner': m.partner_id.display_name, 'date': format_date(self.env, m.date)})
+                duplicated_moves.mapped(lambda m: "%(partner)s - %(ref)s - %(date)s" % {
+                    'ref': m.ref,
+                    'partner': m.partner_id.display_name,
+                    'date': format_date(self.env, m.invoice_date),
+                })
             ))
 
     def _check_balanced(self):
@@ -1836,8 +1844,9 @@ class AccountMove(models.Model):
 
         vals_list = self._move_autocomplete_invoice_lines_create(vals_list)
         rslt = super(AccountMove, self).create(vals_list)
-        if 'line_ids' in vals_list:
-            rslt.update_lines_tax_exigibility()
+        for i, vals in enumerate(vals_list):
+            if 'line_ids' in vals:
+                rslt[i].update_lines_tax_exigibility()
         return rslt
 
     def write(self, vals):
@@ -2424,6 +2433,8 @@ class AccountMove(models.Model):
         if not self.env.su and not self.env.user.has_group('account.group_account_invoice'):
             raise AccessError(_("You don't have the access rights to post an invoice."))
         for move in to_post:
+            if move.state == 'posted':
+                raise UserError(_('The entry %s (id %s) is already posted.') % (move.name, move.id))
             if not move.line_ids.filtered(lambda line: not line.display_type):
                 raise UserError(_('You need to add a line before posting.'))
             if move.auto_post and move.date > fields.Date.context_today(self):
@@ -2443,9 +2454,12 @@ class AccountMove(models.Model):
             # lines are recomputed accordingly.
             # /!\ 'check_move_validity' must be there since the dynamic lines will be recomputed outside the 'onchange'
             # environment.
-            if not move.invoice_date and move.is_invoice(include_receipts=True):
-                move.invoice_date = fields.Date.context_today(self)
-                move.with_context(check_move_validity=False)._onchange_invoice_date()
+            if not move.invoice_date:
+                if move.is_sale_document(include_receipts=True):
+                    move.invoice_date = fields.Date.context_today(self)
+                    move.with_context(check_move_validity=False)._onchange_invoice_date()
+                elif move.is_purchase_document(include_receipts=True):
+                    raise UserError(_("The Bill/Refund date is required to validate this document."))
 
             # When the accounting date is prior to the tax lock date, move it automatically to the next available date.
             # /!\ 'check_move_validity' must be there since the dynamic lines will be recomputed outside the 'onchange'
@@ -2969,7 +2983,7 @@ class AccountMoveLine(models.Model):
     currency_id = fields.Many2one('res.currency', string='Currency', required=True)
     partner_id = fields.Many2one('res.partner', string='Partner', ondelete='restrict')
     product_uom_id = fields.Many2one('uom.uom', string='Unit of Measure', domain="[('category_id', '=', product_uom_category_id)]")
-    product_id = fields.Many2one('product.product', string='Product')
+    product_id = fields.Many2one('product.product', string='Product', ondelete='restrict')
     product_uom_category_id = fields.Many2one('uom.category', related='product_id.uom_id.category_id')
 
     # ==== Origin fields ====
@@ -3601,7 +3615,7 @@ class AccountMoveLine(models.Model):
             )
             FROM %(from)s
             WHERE %(where)s
-        """ % {'from': from_clause, 'where': where_clause, 'order_by': order_string}
+        """ % {'from': from_clause, 'where': where_clause or 'TRUE', 'order_by': order_string}
         self.env.cr.execute(sql, where_clause_params)
         result = {r[0]: r[1] for r in self.env.cr.fetchall()}
         for record in self:

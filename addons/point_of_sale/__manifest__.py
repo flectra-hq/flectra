@@ -120,5 +120,5 @@
         'static/src/xml/ChromeWidgets/ClientScreenButton.xml',
         'static/src/xml/Misc/MobileOrderWidget.xml',
     ],
-    'website': 'https://flectrahq.com/point-of-sale-shop',
+    'website': 'https://www.flectrahq.com/page/point-of-sale-shop',
 }

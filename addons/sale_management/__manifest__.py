@@ -35,7 +35,7 @@ The Dashboard for the Sales Manager will include
 * My Quotations
 * Monthly Turnover (Graph)
     """,
-    'website': 'https://flectrahq.com/sales',
+    'website': 'https://www.flectrahq.com/page/sales',
     'depends': ['sale', 'digest'],
     'data': [
         'security/sale_management_security.xml',

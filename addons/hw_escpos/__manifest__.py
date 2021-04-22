@@ -5,13 +5,13 @@
     'name': 'ESC/POS Hardware Driver',
     'category': 'Sales/Point of Sale',
     'sequence': 6,
-    'website': 'https://flectrahq.com/point-of-sale-hardware',
+    'website': 'https://www.flectrahq.com/page/point-of-sale-hardware',
     'summary': 'Hardware Driver for ESC/POS Printers and Cashdrawers',
     'description': """
 ESC/POS Hardware Driver
 =======================
 
-This module allows Odoo to print with ESC/POS compatible printers and
+This module allows Flectra to print with ESC/POS compatible printers and
 to open ESC/POS controlled cashdrawers in the point of sale and other modules
 that would need such functionality.
 

@@ -8,7 +8,7 @@
     'sequence': 90,
     'summary': 'Track your recruitment pipeline',
     'description': "",
-    'website': 'https://flectrahq.com/recruitment',
+    'website': 'https://www.flectrahq.com/page/recruitment',
     'depends': [
         'hr',
         'calendar',

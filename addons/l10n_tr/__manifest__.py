@@ -6,7 +6,7 @@
     'version': '1.0',
     'category': 'Accounting/Localizations/Account Charts',
     'description': """
-Türkiye için Tek düzen hesap planı şablonu Odoo Modülü.
+Türkiye için Tek düzen hesap planı şablonu Flectra Modülü.
 ==========================================================
 
 Bu modül kurulduktan sonra, Muhasebe yapılandırma sihirbazı çalışır

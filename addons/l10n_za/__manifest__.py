@@ -7,7 +7,7 @@
     'version': '1.0',
     'category': 'Accounting/Localizations/Account Charts',
     'description': """
-This is the latest basic South African localisation necessary to run Odoo in ZA:
+This is the latest basic South African localisation necessary to run Flectra in ZA:
 ================================================================================
     - a generic chart of accounts
     - SARS VAT Ready Structure""",

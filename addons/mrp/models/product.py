@@ -28,7 +28,7 @@ class ProductTemplate(models.Model):
     def _compute_used_in_bom_count(self):
         for template in self:
             template.used_in_bom_count = self.env['mrp.bom'].search_count(
-                [('bom_line_ids.product_id', 'in', template.product_variant_ids.ids)])
+                [('bom_line_ids.product_tmpl_id', '=', template.id)])
 
     def write(self, values):
         if 'active' in values:
@@ -40,7 +40,7 @@ class ProductTemplate(models.Model):
     def action_used_in_bom(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id("mrp.mrp_bom_form_action")
-        action['domain'] = [('bom_line_ids.product_id', 'in', self.product_variant_ids.ids)]
+        action['domain'] = [('bom_line_ids.product_tmpl_id', '=', self.id)]
         return action
 
     def _compute_mrp_product_qty(self):
@@ -124,12 +124,7 @@ class ProductProduct(models.Model):
         This override is used to get the correct quantities of products
         with 'phantom' as BoM type.
         """
-        bom_kits = {
-            product: bom
-            for product in self
-            for bom in (self.env['mrp.bom']._bom_find(product=product, bom_type='phantom'),)
-            if bom
-        }
+        bom_kits = self.env['mrp.bom']._get_product2bom(self, bom_type='phantom')
         kits = self.filtered(lambda p: bom_kits.get(p))
         res = super(ProductProduct, self - kits)._compute_quantities_dict(lot_id, owner_id, package_id, from_date=from_date, to_date=to_date)
         for product in bom_kits:

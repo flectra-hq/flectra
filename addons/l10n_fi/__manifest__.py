@@ -10,7 +10,7 @@
               "Sprintit",
     "category": "Accounting/Localizations/Account Charts",
     "description": """
-This is the Odoo module to manage the accounting in Finland.
+This is the Flectra module to manage the accounting in Finland.
 ============================================================
 
 After installing this module, you'll have access to :

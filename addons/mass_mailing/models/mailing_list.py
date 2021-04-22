@@ -76,16 +76,16 @@ class MassMailingList(models.Model):
             'src_lists' after the merge except the destination mailing list 'self'.
         """
         # Explation of the SQL query with an example. There are the following lists
-        # A (id=4): yti@flectra.com; yti@example.com
-        # B (id=5): yti@flectra.com; yti@openerp.com
+        # A (id=4): yti@flectrahq.com; yti@example.com
+        # B (id=5): yti@flectrahq.com; yti@openerp.com
         # C (id=6): nothing
         # To merge the mailing lists A and B into C, we build the view st that looks
         # like this with our example:
         #
         #  contact_id |           email           | row_number |  list_id |
         # ------------+---------------------------+------------------------
-        #           4 | yti@flectra.com              |          1 |        4 |
-        #           6 | yti@flectra.com              |          2 |        5 |
+        #           4 | yti@flectrahq.com              |          1 |        4 |
+        #           6 | yti@flectrahq.com              |          2 |        5 |
         #           5 | yti@example.com           |          1 |        4 |
         #           7 | yti@openerp.com           |          1 |        5 |
         #

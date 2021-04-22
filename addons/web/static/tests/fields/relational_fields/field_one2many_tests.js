@@ -1629,7 +1629,6 @@ QUnit.module('fields', {}, function () {
                             '</form>' +
                         '</field>' +
                     '</form>',
-                debug: 1,
             });
 
 
@@ -4664,6 +4663,55 @@ QUnit.module('fields', {}, function () {
             // then we render the control panel (also in owl), so we have to wait again for the
             // next animation frame
             await testUtils.owlCompatibilityNextTick();
+            form.destroy();
+        });
+
+        QUnit.test('parent data is properly sent on an onchange rpc (existing x2many record)', async function (assert) {
+            assert.expect(4);
+
+            this.data.partner.onchanges = {
+                display_name: function () {},
+            };
+            this.data.partner.records[0].p = [1];
+            this.data.partner.records[0].turtles = [2];
+            const form = await createView({
+                View: FormView,
+                model: 'partner',
+                data: this.data,
+                arch: `
+                    <form>
+                        <field name="foo"/>
+                        <field name="p">
+                            <tree editable="top">
+                                <field name="display_name"/>
+                                <field name="turtles" widget="many2many_tags"/>
+                            </tree>
+                        </field>
+                    </form>`,
+                res_id: 1,
+                mockRPC(route, args) {
+                    if (args.method === 'onchange') {
+                        const fieldValues = args.args[1];
+                        assert.strictEqual(fieldValues.trululu.foo, "yop");
+                        // we only send fields that changed inside the reverse many2one
+                        assert.deepEqual(fieldValues.trululu.p, [
+                            [1, 1, { display_name: 'new val' }],
+                        ]);
+                    }
+                    return this._super(...arguments);
+                },
+                viewOptions: {
+                    mode: 'edit',
+                },
+            });
+
+            assert.containsOnce(form, '.o_data_row');
+
+            await testUtils.dom.click(form.$('.o_data_row .o_data_cell:first'));
+
+            assert.containsOnce(form, '.o_data_row.o_selected_row');
+            await testUtils.fields.editInput(form.$('.o_selected_row .o_field_widget[name=display_name]'), "new val");
+
             form.destroy();
         });
 
@@ -9768,6 +9816,77 @@ QUnit.module('fields', {}, function () {
             await testUtils.dom.click(form.$('.o_data_row .o_field_boolean input'));
 
             form.destroy();
+        });
+
+        QUnit.test('update a one2many from a custom field widget', async function (assert) {
+            // In this test, we define a custom field widget to render/update a one2many
+            // field. For the update part, we ensure that updating primitive fields of a sub
+            // record works. There is no guarantee that updating a relational field on the sub
+            // record would work. Deleting a sub record works as well. However, creating sub
+            // records isn't supported. There are obviously a lot of limitations, but the code
+            // hasn't been designed to support all this. This test simply encodes what can be
+            // done, and this comment explains what can't (and won't be implemented in stable
+            // versions).
+            assert.expect(3);
+
+            this.data.partner.records[0].p = [1, 2];
+            const MyRelationalField = AbstractField.extend({
+                events: {
+                    'click .update': '_onUpdate',
+                    'click .delete': '_onDelete',
+                },
+                async _render() {
+                    const records = await this._rpc({
+                        method: 'read',
+                        model: 'partner',
+                        args: [this.value.res_ids],
+                    });
+                    this.$el.text(records.map(r => `${r.display_name}/${r.int_field}`).join(', '));
+                    this.$el.append($('<button class="update fa fa-edit">'));
+                    this.$el.append($('<button class="delete fa fa-trash">'));
+                },
+                _onUpdate() {
+                    this._setValue({
+                        operation: 'UPDATE',
+                        id: this.value.data[0].id,
+                        data: {
+                            display_name: 'new name',
+                            int_field: 44,
+                        },
+                    });
+                },
+                _onDelete() {
+                    this._setValue({
+                        operation: 'DELETE',
+                        ids: [this.value.data[0].id],
+                    });
+                },
+            });
+            fieldRegistry.add('my_relational_field', MyRelationalField);
+
+            const form = await createView({
+                View: FormView,
+                model: 'partner',
+                data: this.data,
+                arch: `
+                    <form>
+                        <field name="p" widget="my_relational_field"/>
+                    </form>`,
+                res_id: 1,
+            });
+
+            assert.strictEqual(form.$('.o_field_widget[name=p]').text(), 'first record/10, second record/9');
+
+            await testUtils.dom.click(form.$('button.update'));
+
+            assert.strictEqual(form.$('.o_field_widget[name=p]').text(), 'new name/44, second record/9');
+
+            await testUtils.dom.click(form.$('button.delete'));
+
+            assert.strictEqual(form.$('.o_field_widget[name=p]').text(), 'second record/9');
+
+            form.destroy();
+            delete fieldRegistry.map.my_relational_field;
         });
     });
 });

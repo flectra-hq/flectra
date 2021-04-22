@@ -2,12 +2,12 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'OdooBot',
+    'name': 'FlectraBot',
     'version': '1.2',
     'category': 'Productivity/Discuss',
-    'summary': 'Add OdooBot in discussions',
+    'summary': 'Add FlectraBot in discussions',
     'description': "",
-    'website': 'https://flectrahq.com/discuss',
+    'website': 'https://www.flectrahq.com/page/discuss',
     'depends': ['mail'],
     'auto_install': True,
     'installable': True,

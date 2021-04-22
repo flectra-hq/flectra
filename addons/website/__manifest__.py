@@ -6,7 +6,7 @@
     'category': 'Website/Website',
     'sequence': 20,
     'summary': 'Enterprise website builder',
-    'website': 'https://flectrahq.com/website-builder',
+    'website': 'https://www.flectrahq.com/page/website-builder',
     'version': '1.0',
     'description': "",
     'depends': [
