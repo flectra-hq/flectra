@@ -14,13 +14,13 @@ class HelpdeskTicket(models.Model):
         self.ensure_one()
         user = self.env['res.users'].search(
             [('partner_id', '=', self.partner_id.id)], limit=1)
-        vals = {'name': self.name,
+        vals = {'name': self.issue_name,
                 'helpdesk_id': self.id,
                 'partner_id': self.user_id.id,
                 'description':
-                    self.name or '' + '<br/>' + self.help_description or '',
+                    self.issue_name or '' + '<br/>' + self.help_description or '',
                 'user_id': user and user.id,
-                'priority': '2',
+                'priority': '1',
                 }
         config_data = self.env['res.config.settings'].sudo().get_values()
         if config_data.get('use_project'):

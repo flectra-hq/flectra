@@ -267,6 +267,7 @@ class HelpdeskTicket(models.Model):
 
     @api.onchange('team_id')
     def onchange_team_id(self):
+        self.user_id = False
         if self.team_id:
             self.stage_id = \
                 self.team_id.stage_ids and self.team_id.stage_ids.ids[0]
