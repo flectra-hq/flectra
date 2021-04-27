@@ -251,7 +251,7 @@ class SaleOrderLine(models.Model):
             if line.state != 'sale' or not line.product_id.type in ('consu','product'):
                 continue
             qty = line._get_qty_procurement()
-            if float_compare(qty, line.product_uom_qty, precision_digits=precision) >= 0:
+            if float_compare(qty, line.product_uom_qty, precision_digits=precision) == 0:
                 continue
 
             group_id = line.order_id.procurement_group_id
