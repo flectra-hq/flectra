@@ -147,7 +147,7 @@ $chatter_zone_width: 35%;
     user-select: none;
 
     a.full {
-        width: $o-navbar-height;
+//         width: $o-navbar-height;
         text-align: center;
     }
 
@@ -341,6 +341,10 @@ html .o_web_client .o_action_manager .o_action {
 
 // Control panel (breadcrumbs, search box, buttons...)
 @include media-breakpoint-down(sm) {
+
+    .o_menu_systray .o_debug_manager a{
+       padding: 0 8px;
+    }
     .o_control_panel {
         // Arrange buttons to use space better
         .breadcrumb,
@@ -353,9 +357,23 @@ html .o_web_client .o_action_manager .o_action {
                 flex-basis: 50%;
             }
         }
-
-        .breadcrumb {
+        .o_cp_top{
+            align-items: center !important;
+        }
+        .o_cp_top_left,
+        .o_cp_top_right {
+            flex: 1 1 100%;
+        }
+        .o_cp_top_left {
             flex-basis: 80%;
+            max-width: unset !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .o_cp_top_right {
+            flex-basis: 20%;
+            min-width: unset !important;
         }
 
         .o_cp_searchview,
@@ -417,7 +435,20 @@ html .o_web_client .o_action_manager .o_action {
         .o_cp_buttons .btn.d-block:not(.d-none) {
             display: inline-block !important;
         }
-
+        .o_searchview {
+            padding: 1px 0px 3px 0px;
+            &.o_searchview_mobile {
+                cursor: pointer;
+            }
+            &.o_searchview_quick {
+                display: flex;
+                flex: 1 1 auto;
+                align-items: center;
+                .o_searchview_input_container {
+                    flex: 1 1 auto;
+                }
+            }
+        }
         // Dropdown with buttons to switch the view type
         .o_cp_switch_buttons.show {
             .dropdown-menu {

@@ -13,6 +13,11 @@ flectra.define("web_responsive", function (require) {
     const FormRenderer = require("web.FormRenderer");
     const Menu = require("web.Menu");
     const RelationalFields = require("web.relational_fields");
+    const ControlPanel = require("web.ControlPanel");
+    const CalendarRenderer = require("web.CalendarRenderer");
+    const {QWeb, Context} = owl;
+    const {useState, useContext} = owl.hooks;
+    const SearchPanel = require("web/static/src/js/views/search_panel.js");
     const ListRenderer = require("web.ListRenderer");
     const DocumentViewer = require("mail.DocumentViewer");
 
@@ -249,6 +254,97 @@ flectra.define("web_responsive", function (require) {
         },
     });
 
+    CalendarRenderer.include({
+        _getFullCalendarOptions: function () {
+            var options = this._super.apply(this, arguments);
+            if (config.device.isMobile) {
+                options.views.dayGridMonth.columnHeaderFormat = "ddd";
+            }
+            return options;
+        },
+    });
+
+    const deviceContext = new Context({
+        isMobile: config.device.isMobile,
+        size_class: config.device.size_class,
+        SIZES: config.device.SIZES,
+    });
+
+    window.addEventListener(
+        "resize",
+        owl.utils.debounce(() => {
+            const state = deviceContext.state;
+            if (state.isMobile !== config.device.isMobile) {
+                state.isMobile = !state.isMobile;
+            }
+            if (state.size_class !== config.device.size_class) {
+                state.size_class = config.device.size_class;
+            }
+        }, 15)
+    );
+
+    ControlPanel.patch("web_responsive.ControlPanelMobile", (T) => {
+        class ControlPanelPatchResponsive extends T {
+            constructor() {
+                super(...arguments);
+                this.state = useState({
+                    mobileSearchMode: "",
+                });
+                this.device = useContext(deviceContext);
+            }
+        }
+        return ControlPanelPatchResponsive;
+    });
+    SearchPanel.patch("web_responsive.SearchPanelMobile", (T) => {
+        class SearchPanelPatchResponsive extends T {
+            constructor() {
+                super(...arguments);
+                this.state.mobileSearch = false;
+                this.device = useContext(deviceContext);
+            }
+            getActiveSummary() {
+                const selection = [];
+                for (const filter of this.model.get("sections")) {
+                    let filterValues = [];
+                    if (filter.type === "category") {
+                        if (filter.activeValueId) {
+                            const parentIds = this._getAncestorValueIds(
+                                filter,
+                                filter.activeValueId
+                            );
+                            filterValues = [...parentIds, filter.activeValueId].map(
+                                (valueId) => filter.values.get(valueId).display_name
+                            );
+                        }
+                    } else {
+                        let values = [];
+                        if (filter.groups) {
+                            values = [
+                                ...filter.groups.values().map((g) => g.values),
+                            ].flat();
+                        }
+                        if (filter.values) {
+                            values = [...filter.values.values()];
+                        }
+                        filterValues = values
+                            .filter((v) => v.checked)
+                            .map((v) => v.display_name);
+                    }
+                    if (filterValues.length) {
+                        selection.push({
+                            values: filterValues,
+                            icon: filter.icon,
+                            color: filter.color,
+                            type: filter.type,
+                        });
+                    }
+                }
+                return selection;
+            }
+        }
+        return SearchPanelPatchResponsive;
+    });
+
 
     DocumentViewer.include({
         events: _.extend(
@@ -282,4 +378,7 @@ flectra.define("web_responsive", function (require) {
             this.$el.addClass("o_responsive_document_viewer");
         },
     });
+    return {
+        deviceContext: deviceContext,
+    };
 });
