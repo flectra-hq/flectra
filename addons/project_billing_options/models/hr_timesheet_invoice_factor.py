@@ -142,11 +142,12 @@ class Project(models.Model):
                 'time': data_timesheet_invoice_type}
 
         for key, value in res['repartition_employee'].items():
-            res['repartition_employee'][key].update({
-                emp_data[key]['type']: emp_data[key]['time']})
+            if emp_data:
+                res['repartition_employee'][key].update({
+                    emp_data[key]['type']: emp_data[key]['time']})
 
-            res['repartition_employee'][key]['total'] = sum(
-                [value[inv_type] for inv_type in [*billable_types, 'canceled']])
+                res['repartition_employee'][key]['total'] = sum(
+                    [value[inv_type] for inv_type in [*billable_types, 'canceled']])
 
         return res
 
