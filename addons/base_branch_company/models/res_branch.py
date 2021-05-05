@@ -148,6 +148,19 @@ class Users(models.Model):
             self.default_branch_id = self.company_id.branch_id.id
             self.branch_ids = [(4, self.company_id.branch_id.id)]
 
+    @api.onchange('company_ids')
+    def onchange_company(self):
+
+        branch_rec = self.env['res.branch'].search([])
+        company_list = []
+        for company in self.company_ids:
+            for branch in branch_rec:
+                if branch.company_id == company:
+                    company_list.append(company.branch_id.id)
+        domain = ['|', ('company_id', '=', self.company_id.id), ('id', 'in', company_list)]
+        vals = {'domain': {'branch_ids': domain, 'default_branch_id': domain}}
+        return vals
+
     # To do : Check with all base module test cases
     # @api.multi
     # @api.constrains('default_branch_id', 'branch_ids')
