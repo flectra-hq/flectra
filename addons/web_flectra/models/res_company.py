@@ -16,7 +16,7 @@ class ResCompany(models.Model):
 
     theme_menu_style = fields.Selection([
         ('sidemenu', 'Side Menu'),
-        ('apps', 'Top Menu')], string="Menu Style", default="sidemenu")
+        ('apps', 'Top Menu')], string="Menu Style", default="apps")
     theme_font_name = fields.Selection([
         ('Rubik', 'Rubik'),
         ('sans-serif', 'sans-serif'),

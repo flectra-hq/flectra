@@ -19,7 +19,6 @@ flectra.define("web_responsive", function (require) {
     const {useState, useContext} = owl.hooks;
     const SearchPanel = require("web/static/src/js/views/search_panel.js");
     const ListRenderer = require("web.ListRenderer");
-    const DocumentViewer = require("mail.DocumentViewer");
 
     function closeAppDrawer() {
         _.defer(function () {
@@ -346,38 +345,6 @@ flectra.define("web_responsive", function (require) {
     });
 
 
-    DocumentViewer.include({
-        events: _.extend(
-            _.omit(DocumentViewer.prototype.events, ["keydown", "keyup"]),
-            {
-                "click .o_maximize_btn": "_onClickMaximize",
-                "click .o_minimize_btn": "_onClickMinimize",
-                "shown.bs.modal": "_onShownModal",
-            }
-        ),
-
-        start: function () {
-            core.bus.on("keydown", this, this._onKeydown);
-            core.bus.on("keyup", this, this._onKeyUp);
-            return this._super.apply(this, arguments);
-        },
-
-        destroy: function () {
-            core.bus.off("keydown", this, this._onKeydown);
-            core.bus.off("keyup", this, this._onKeyUp);
-            this._super.apply(this, arguments);
-        },
-
-        _onShownModal: function () {
-            $(document).off("focusin.modal");
-        },
-        _onClickMaximize: function () {
-            this.$el.removeClass("o_responsive_document_viewer");
-        },
-        _onClickMinimize: function () {
-            this.$el.addClass("o_responsive_document_viewer");
-        },
-    });
     return {
         deviceContext: deviceContext,
     };

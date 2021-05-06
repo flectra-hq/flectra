@@ -13,7 +13,7 @@ class ResUsers(models.Model):
     chatter_position = fields.Selection(
         [("bottom", "Bottom"), ("sided", "Sided")],
         string="Chatter Position",
-        default="sided",
+        default="bottom",
     )
     dark_mode = fields.Boolean(default=False)
 
