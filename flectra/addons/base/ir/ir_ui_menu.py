@@ -70,7 +70,10 @@ class IrUiMenu(models.Model):
         self.ensure_one()
         if self.web_icon_data:
             return self.web_icon_data
-        return self.parent_id._get_parent_icon()
+        elif self.parent_id:
+            return self.parent_id._get_parent_icon()
+        else:
+            return False
 
     @api.depends('name', 'parent_id.complete_name')
     def _compute_complete_name(self):
