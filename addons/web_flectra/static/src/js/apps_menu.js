@@ -56,8 +56,8 @@ flectra.define('web_flectra.AppsMenu', function (require) {
             this.$search_results = this.$(".search-results");
             this.$theme_search = this.$('input#goolegoogle_font_val');
             this.$('.o_app_search').css('visibility', 'hidden');
-           $(window).keypress( function(e){
-                if($(e.target).attr('id') != 'google_font_val'){
+            $(window).keypress( function(e){
+                if($(document.activeElement).is('body', '.o_search_box')){
                     if(self.$el.find('.full > i').hasClass('fa-th') === false){
                         if((e.key == 'Delete') == false && (e.key == 'Enter') == false){
                             self.$search_input.val(self.$search_input.val() + e.key);
@@ -89,6 +89,9 @@ flectra.define('web_flectra.AppsMenu', function (require) {
         _onAppsMenuItemClicked: function(ev){
             this._super.apply(this, arguments);
             this._searchReset();
+            var $navbar = this.$el.parents('.o_main_navbar');
+            var $menu_tray = $navbar.find('.o_menu_brand, .o_menu_sections');
+            $menu_tray.css('display','block');
         },
         _searchResultsNavigate: function (event) {
             // Find current results and active element (1st by default)
@@ -309,6 +312,7 @@ flectra.define('web_flectra.AppsMenu', function (require) {
                     $toggle_btn.addClass('fa-chevron-left').removeClass('fa-th');
                     $menu_tray.hide();
                     $dashboard.removeClass('d-none');
+                    document.activeElement.blur();
                 }
             }
         },

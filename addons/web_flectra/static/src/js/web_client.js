@@ -21,6 +21,7 @@ return  WebClient.include({
         start: function(){
             return this._super.apply(this, arguments).then(function () {
                 $('#menu_launcher').removeClass('d-none');
+                core.bus.trigger('web_client_ready');
             });
         },
         _on_app_clicked_done: function (ev) {
@@ -54,6 +55,7 @@ return  WebClient.include({
             }else{
                 $toggle_btn.removeClass('fa-chevron-left').addClass('fa-th');
                 $dashboard.addClass('d-none');
+                this.$el.find('.o_menu_brand, .o_menu_sections').css('display','block');
             }
         },
         on_custom_clicked: function(){
