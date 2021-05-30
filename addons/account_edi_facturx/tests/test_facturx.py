@@ -66,6 +66,7 @@ class TestAccountEdiFacturx(AccountEdiTestCommon):
                     </GuidelineSpecifiedDocumentContextParameter>
                 </ExchangedDocumentContext>
                 <ExchangedDocument>
+                    <ID>INV/2017/01/0001</ID>
                     <TypeCode>380</TypeCode>
                     <IssueDateTime>
                         <DateTimeString format="102">20170101</DateTimeString>
@@ -208,6 +209,11 @@ class TestAccountEdiFacturx(AccountEdiTestCommon):
         '''
 
         self.assert_generated_file_equal(self.invoice, self.expected_invoice_facturx_values, applied_xpath)
+
+    def test_export_pdf(self):
+        self.invoice.action_post()
+        pdf_values = self.edi_format._get_embedding_to_invoice_pdf_values(self.invoice)
+        self.assertEqual(pdf_values['name'], 'factur-x.xml')
 
     ####################################################
     # Test import

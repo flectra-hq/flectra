@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from flectra import fields, models, tools
+from flectra import fields, models, tools, api
 
 
 class ReportStockQuantity(models.Model):
@@ -26,8 +26,15 @@ class ReportStockQuantity(models.Model):
         tools.drop_view_if_exists(self._cr, 'report_stock_quantity')
         query = """
 CREATE or REPLACE VIEW report_stock_quantity AS (
-WITH forecast_qty AS (
-    SELECT
+SELECT
+    MIN(id) as id,
+    product_id,
+    state,
+    date,
+    sum(product_qty) as product_qty,
+    company_id,
+    warehouse_id
+FROM (SELECT
         m.id,
         m.product_id,
         CASE
@@ -114,18 +121,18 @@ WITH forecast_qty AS (
         product_qty != 0 AND
         (whs.id IS NOT NULL OR whd.id IS NOT NULL) AND
         (whs.id IS NULL or whd.id IS NULL OR whs.id != whd.id) AND
-        m.state NOT IN ('cancel', 'draft')
-) -- /forecast_qty
-SELECT
-    MIN(id) as id,
-    product_id,
-    state,
-    date,
-    sum(product_qty) as product_qty,
-    company_id,
-    warehouse_id
-FROM forecast_qty
+        m.state NOT IN ('cancel', 'draft')) AS forecast_qty
 GROUP BY product_id, state, date, company_id, warehouse_id
 );
 """
         self.env.cr.execute(query)
+
+    @api.model
+    def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
+        for i in range(len(domain)):
+            if domain[i][0] == 'product_tmpl_id' and domain[i][1] in ('=', 'in'):
+                tmpl = self.env['product.template'].browse(domain[i][2])
+                # Avoid the subquery done for the related, the postgresql will plan better with the SQL view
+                # and then improve a lot the performance for the forecasted report of the product template.
+                domain[i] = ('product_id', 'in', tmpl.with_context(active_test=False).product_variant_ids.ids)
+        return super().read_group(domain, fields, groupby, offset, limit, orderby, lazy)

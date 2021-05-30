@@ -138,6 +138,8 @@ class SaleOrder(models.Model):
             """, (list(value),))
             so_ids = self.env.cr.fetchone()[0] or []
             return [('id', 'in', so_ids)]
+        if operator == '=' and not value:
+            return [('order_line.invoice_lines', '=', False)]
         return ['&', ('order_line.invoice_lines.move_id.move_type', 'in', ('out_invoice', 'out_refund')), ('order_line.invoice_lines.move_id', operator, value)]
 
     name = fields.Char(string='Order Reference', required=True, copy=False, readonly=True, states={'draft': [('readonly', False)]}, index=True, default=lambda self: _('New'))
@@ -856,6 +858,14 @@ Reason(s) of this behavior could be:
             self.filtered(lambda o: o.state == 'draft').with_context(tracking_disable=True).write({'state': 'sent'})
         return super(SaleOrder, self.with_context(mail_post_autofollow=True)).message_post(**kwargs)
 
+    def _sms_get_number_fields(self):
+        """ No phone or mobile field is available on sale model. Instead SMS will
+        fallback on partner-based computation using ``_sms_get_partner_fields``. """
+        return []
+
+    def _sms_get_partner_fields(self):
+        return ['partner_id']
+
     def _send_order_confirmation_mail(self):
         if self.env.su:
             # sending mail in sudo was meant for it being sent from superuser
@@ -1083,19 +1093,6 @@ Reason(s) of this behavior could be:
         self.ensure_one()
         return '%s %s' % (self.type_name, self.name)
 
-    def _get_share_url(self, redirect=False, signup_partner=False, pid=None):
-        """Override for sales order.
-
-        If the SO is in a state where an action is required from the partner,
-        return the URL with a login token. Otherwise, return the URL with a
-        generic access token (no login).
-        """
-        self.ensure_one()
-        if self.state not in ['sale', 'done']:
-            auth_param = url_encode(self.partner_id.signup_get_auth_param()[self.partner_id.id])
-            return self.get_portal_url(query_string='&%s' % auth_param)
-        return super(SaleOrder, self)._get_share_url(redirect, signup_partner, pid)
-
     def _get_payment_type(self, tokenize=False):
         self.ensure_one()
         return 'form_save' if tokenize else 'form'
@@ -1169,7 +1166,7 @@ class SaleOrderLine(models.Model):
 
     def _expected_date(self):
         self.ensure_one()
-        order_date = fields.Datetime.from_string(self.order_id.date_order if self.order_id.state in ['sale', 'done'] else fields.Datetime.now())
+        order_date = fields.Datetime.from_string(self.order_id.date_order if self.order_id.date_order and self.order_id.state in ['sale', 'done'] else fields.Datetime.now())
         return order_date + timedelta(days=self.customer_lead or 0.0)
 
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')

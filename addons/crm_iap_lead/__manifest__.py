@@ -27,5 +27,5 @@
     'qweb': [
         'static/src/xml/leads_tree_generate_leads_views.xml',
     ],
-    'auto_install': False,
+    'auto_install': True,
 }

@@ -504,9 +504,7 @@ exports.PosModel = Backbone.Model.extend({
     },{
         model:  'pos.payment.method',
         fields: ['name', 'is_cash_count', 'use_payment_terminal'],
-        domain: function(self, tmp) {
-            return [['id', 'in', tmp.payment_method_ids]];
-        },
+        domain: function(self){return ['|',['active', '=', false], ['active', '=', true]]; },
         loaded: function(self, payment_methods) {
             self.payment_methods = payment_methods.sort(function(a,b){
                 // prefer cash payment_method to be first in the list
@@ -1157,9 +1155,8 @@ exports.PosModel = Backbone.Model.extend({
                 timeout: timeout,
                 shadow: true,
             })
-            .then(function (ids) {
-                self.db.set_ids_removed_from_server(server_ids);
-                return server_ids;
+            .then(function (data) {
+                return self._post_remove_from_server(server_ids, data)
             }).catch(function (reason){
                 var error = reason.message;
                 if(error.code === 200 ){    // Business Logic Error, not a connection problem
@@ -1173,6 +1170,12 @@ exports.PosModel = Backbone.Model.extend({
                 console.warn('Failed to remove orders:', server_ids);
                 throw error;
             });
+    },
+
+    // to override
+    _post_remove_from_server(server_ids, data) {
+        this.db.set_ids_removed_from_server(server_ids);
+        return server_ids;
     },
 
     scan_product: function(parsed_code){
@@ -1820,6 +1823,10 @@ exports.Orderline = Backbone.Model.extend({
         }
     },
 
+    get_lot_lines: function() {
+        return this.pack_lot_lines.models;
+    },
+
     get_required_number_of_lots: function(){
         var lots_required = 1;
 
@@ -1936,6 +1943,7 @@ exports.Orderline = Backbone.Model.extend({
             tax:                this.get_tax(),
             product_description:      this.get_product().description,
             product_description_sale: this.get_product().description_sale,
+            pack_lot_lines:      this.get_lot_lines()
         };
     },
     generate_wrapped_product_name: function() {
@@ -3071,6 +3079,10 @@ exports.Order = Backbone.Model.extend({
         newPaymentline.set_amount(this.get_due());
         this.paymentlines.add(newPaymentline);
         this.select_paymentline(newPaymentline);
+        if(this.pos.config.cash_rounding){
+          this.selected_paymentline.set_amount(0);
+          this.selected_paymentline.set_amount(this.get_due());
+        }
         return newPaymentline;
     },
     get_paymentlines: function(){
@@ -3307,22 +3319,32 @@ exports.Order = Backbone.Model.extend({
     get_rounding_applied: function() {
         if(this.pos.config.cash_rounding) {
             const only_cash = this.pos.config.only_round_cash_method;
-            const has_cash = _.some(this.get_paymentlines(), function(pl) { return pl.payment_method.is_cash_count == true;});
-            if (!only_cash || (only_cash && has_cash)) {
-                var total = round_pr(this.get_total_with_tax(), this.pos.cash_rounding[0].rounding);
-                var sign = total > 0 ? 1.0 : -1.0;
+            const paymentlines = this.get_paymentlines();
+            const last_line = paymentlines ? paymentlines[paymentlines.length-1]: false;
+            const last_line_is_cash = last_line ? last_line.payment_method.is_cash_count == true: false;
+            if (!only_cash || (only_cash && last_line_is_cash)) {
+                var remaining = this.get_total_with_tax() - this.get_total_paid();
+                var total = round_pr(remaining, this.pos.cash_rounding[0].rounding);
+                var sign = remaining > 0 ? 1.0 : -1.0;
 
-                var rounding_applied = total - (this.pos.config['iface_tax_included'] === "total"? this.get_subtotal(): this.get_total_with_tax());
+                var rounding_applied = total - remaining;
                 rounding_applied *= sign;
                 // because floor and ceil doesn't include decimals in calculation, we reuse the value of the half-up and adapt it.
                 if (utils.float_is_zero(rounding_applied, this.pos.currency.decimals)){
                     // https://xkcd.com/217/
                     return 0;
-                } else if(this.pos.cash_rounding[0].rounding_method === "UP" && rounding_applied < 0) {
+                }
+                else if(this.pos.cash_rounding[0].rounding_method === "UP" && rounding_applied < 0 && remaining > 0) {
                     rounding_applied += this.pos.cash_rounding[0].rounding;
                 }
-                else if(this.pos.cash_rounding[0].rounding_method === "DOWN" && rounding_applied > 0){
+                else if(this.pos.cash_rounding[0].rounding_method === "UP" && rounding_applied > 0 && remaining < 0) {
                     rounding_applied -= this.pos.cash_rounding[0].rounding;
+                }
+                else if(this.pos.cash_rounding[0].rounding_method === "DOWN" && rounding_applied > 0 && remaining > 0){
+                    rounding_applied -= this.pos.cash_rounding[0].rounding;
+                }
+                else if(this.pos.cash_rounding[0].rounding_method === "DOWN" && rounding_applied < 0 && remaining < 0){
+                    rounding_applied += this.pos.cash_rounding[0].rounding;
                 }
                 return sign * rounding_applied;
             }
@@ -3350,12 +3372,29 @@ exports.Order = Backbone.Model.extend({
         return false;
     },
     is_paid: function(){
-        return this.get_due() <= 0;
+        return this.get_due() <= 0 && this.check_paymentlines_rounding();
     },
     is_paid_with_cash: function(){
         return !!this.paymentlines.find( function(pl){
             return pl.payment_method.is_cash_count;
         });
+    },
+    check_paymentlines_rounding: function() {
+        if(this.pos.config.cash_rounding) {
+            var cash_rounding = this.pos.cash_rounding[0].rounding;
+            var default_rounding = this.pos.currency.rounding;
+            for(var id in this.get_paymentlines()) {
+                var line = this.get_paymentlines()[id];
+                var diff = round_pr(round_pr(line.amount, cash_rounding) - round_pr(line.amount, default_rounding), default_rounding);
+                if(diff && line.payment_method.is_cash_count) {
+                    return false;
+                } else if(!this.pos.config.only_round_cash_method && diff) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return true;
     },
     finalize: function(){
         this.destroy();

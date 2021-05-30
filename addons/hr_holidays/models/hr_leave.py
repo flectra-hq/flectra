@@ -594,7 +594,10 @@ class HolidaysRequest(models.Model):
         """ Returns a float equals to the timedelta between two dates given as string."""
         if employee_id:
             employee = self.env['hr.employee'].browse(employee_id)
-            return employee._get_work_days_data_batch(date_from, date_to)[employee.id]
+            result = employee._get_work_days_data_batch(date_from, date_to)[employee.id]
+            if self.request_unit_half:
+                result['days'] = 0.5
+            return result
 
         today_hours = self.env.company.resource_calendar_id.get_work_hours_count(
             datetime.combine(date_from.date(), time.min),
@@ -602,8 +605,8 @@ class HolidaysRequest(models.Model):
             False)
 
         hours = self.env.company.resource_calendar_id.get_work_hours_count(date_from, date_to)
-
-        return {'days': hours / (today_hours or HOURS_PER_DAY), 'hours': hours}
+        days = hours / (today_hours or HOURS_PER_DAY) if not self.request_unit_half else 0.5
+        return {'days': days, 'hours': hours}
 
     def _adjust_date_based_on_tz(self, leave_date, hour):
         """ request_date_{from,to} are local to the user's tz but hour_{from,to} are in UTC.
@@ -1220,15 +1223,15 @@ class HolidaysRequest(models.Model):
         """ Handle HR users and officers recipients that can validate or refuse holidays
         directly from email. """
         groups = super(HolidaysRequest, self)._notify_get_groups(msg_vals=msg_vals)
-        msg_vals = msg_vals or {}
+        local_msg_vals = dict(msg_vals or {})
 
         self.ensure_one()
         hr_actions = []
         if self.state == 'confirm':
-            app_action = self._notify_get_action_link('controller', controller='/leave/validate', **msg_vals)
+            app_action = self._notify_get_action_link('controller', controller='/leave/validate', **local_msg_vals)
             hr_actions += [{'url': app_action, 'title': _('Approve')}]
         if self.state in ['confirm', 'validate', 'validate1']:
-            ref_action = self._notify_get_action_link('controller', controller='/leave/refuse', **msg_vals)
+            ref_action = self._notify_get_action_link('controller', controller='/leave/refuse', **local_msg_vals)
             hr_actions += [{'url': ref_action, 'title': _('Refuse')}]
 
         holiday_user_group_id = self.env.ref('hr_holidays.group_hr_holidays_user').id

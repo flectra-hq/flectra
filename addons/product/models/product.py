@@ -428,6 +428,12 @@ class ProductProduct(models.Model):
             args.append((('categ_id', 'child_of', self._context['search_default_categ_id'])))
         return super(ProductProduct, self)._search(args, offset=offset, limit=limit, order=order, count=count, access_rights_uid=access_rights_uid)
 
+    @api.depends_context('display_default_code')
+    def _compute_display_name(self):
+        # `display_name` is calling `name_get()`` which is overidden on product
+        # to depend on `display_default_code`
+        return super()._compute_display_name()
+
     def name_get(self):
         # TDE: this could be cleaned a bit I think
 
@@ -591,9 +597,7 @@ class ProductProduct(models.Model):
                 'target': 'new'}
 
     def _prepare_sellers(self, params=False):
-        # This search is made to avoid retrieving seller_ids from the cache.
-        return self.env['product.supplierinfo'].search([('product_tmpl_id', '=', self.product_tmpl_id.id),
-                                                        ('name.active', '=', True)]).sorted(lambda s: (s.sequence, -s.min_qty, s.price, s.id))
+        return self.seller_ids.filtered(lambda s: s.name.active).sorted(lambda s: (s.sequence, -s.min_qty, s.price, s.id))
 
     def _select_seller(self, partner_id=False, quantity=0.0, date=None, uom_id=False, params=False):
         self.ensure_one()
@@ -727,7 +731,7 @@ class ProductPackaging(models.Model):
 class SupplierInfo(models.Model):
     _name = "product.supplierinfo"
     _description = "Supplier Pricelist"
-    _order = 'sequence, min_qty desc, price'
+    _order = 'sequence, min_qty DESC, price, id'
 
     name = fields.Many2one(
         'res.partner', 'Vendor',
