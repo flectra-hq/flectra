@@ -8,6 +8,7 @@
 # Lorenzo Battistini <lb@takobi.online>, 2020
 # Luigia Cimmino Caserta <lcc@flectrahq.com>, 2020
 # Giacomo Grasso <giacomo.grasso.82@gmail.com>, 2020
+# Petra <bop@flectrahq.com>, 2020
 # Francesco Garganese <francesco.garganese@aeromnia.aero>, 2020
 # Luigi Di Naro <gigidn@gmail.com>, 2020
 # Simone Bernini <simone@aperturelabs.it>, 2020
@@ -17,7 +18,6 @@
 # Léonie Bouchat <lbo@flectrahq.com>, 2020
 # Martin Trigaux, 2020
 # Matteo Boscolo <matteo.boscolo.76@gmail.com>, 2020
-# Petra <bop@flectrahq.com>, 2020
 # Sergio Zanchetta <primes2h@gmail.com>, 2021
 # 
 msgid ""
@@ -1561,7 +1561,7 @@ msgstr "Allegato"
 #. module: website
 #: model:ir.model.fields,field_description:website.field_theme_ir_attachment__copy_ids
 msgid "Attachment using a copy of me"
-msgstr "Allegato"
+msgstr "Allegato a partire da una copia"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.cookie_policy
@@ -1792,7 +1792,7 @@ msgstr ""
 #: code:addons/website/static/src/xml/theme_preview.xml:0
 #, python-format
 msgid "Building your website..."
-msgstr ""
+msgstr "Creazione del sito web..."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.bs_debug_view
@@ -2452,7 +2452,7 @@ msgstr "Proprietà copertina"
 #. module: website
 #: model:ir.model,name:website.model_website_cover_properties_mixin
 msgid "Cover Properties Website Mixin"
-msgstr ""
+msgstr "Mixin sito web per proprietà copertina"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.page_404
@@ -3472,6 +3472,8 @@ msgid ""
 "File from where the view originates.\n"
 "                                                          Useful to (hard) reset broken views or to read arch from file in dev-xml mode."
 msgstr ""
+"File dal quale ha origine la vista.\n"
+"                                                          Utile per il ripristino (forte) delle viste danneggiate o per leggere, nella modalità dev-xml, l'architettura dal file."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_product_catalog
@@ -5177,7 +5179,7 @@ msgstr "Etichetta menù"
 #. module: website
 #: model:ir.model.fields,field_description:website.field_theme_website_menu__copy_ids
 msgid "Menu using a copy of me"
-msgstr "Menu"
+msgstr "Menù a partire da una copia"
 
 #. module: website
 #: code:addons/website/models/website.py:0
@@ -5333,7 +5335,7 @@ msgstr "Mixin siti web multipli"
 #. module: website
 #: model:ir.model,name:website.model_website_published_multi_mixin
 msgid "Multi Website Published Mixin"
-msgstr "Mixin siti web multipli pubblicati "
+msgstr "Mixin siti web multipli pubblicati"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_res_config_settings__group_multi_website
@@ -5647,6 +5649,15 @@ msgid ""
 "(<xpath/>) are applied, and the result is used as if it were this view's\n"
 "actual arch.\n"
 msgstr ""
+"Viene impiegato solo se la vista eredita da un'altra vista (inherit_id non è falso/nullo).\n"
+"\n"
+"* Se estensione (predefinito), ed è richiesta la vista, viene cercata la\n"
+"primaria più vicina (via inherit_id). Quindi vengono applicate, con il\n"
+"suo modello, tutte quelle che ereditano dalla vista stessa\n"
+"* Se primario, viene pienamente risolta la vista primaria più vicina (anche\n"
+"se usa un modello diverso), quindi vengono applicate le specifiche\n"
+"di ereditarietà della vista stessa (<xpath/>) usando il risultato come fosse\n"
+"l'attuale architettura.\n"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.show_website_info
@@ -5801,7 +5812,7 @@ msgstr "Visibilità pagina"
 #. module: website
 #: model:ir.model.fields,field_description:website.field_theme_website_page__copy_ids
 msgid "Page using a copy of me"
-msgstr ""
+msgstr "Pagina a partire da una copia"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.website_visitor_view_form
@@ -5863,7 +5874,7 @@ msgstr "Menù superiore"
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website_menu__parent_path
 msgid "Parent Path"
-msgstr "Percorso padre"
+msgstr "Percorso primario"
 
 #. module: website
 #: model:ir.model.fields,help:website.field_website_visitor__partner_id
@@ -5873,7 +5884,7 @@ msgstr "Partner dell'ultimo utente che ha effettuato l'accesso."
 #. module: website
 #: model:ir.model.fields,help:website.field_website__partner_id
 msgid "Partner-related data of the user"
-msgstr "Dati utente collegati al partner"
+msgstr "Dati utente correlati al partner"
 
 #. module: website
 #: model:ir.actions.act_window,name:website.visitor_partner_action
@@ -6203,24 +6214,24 @@ msgstr "Normale"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.website_pages_form_view
 msgid "Related Menu Items"
-msgstr "Voci di menù collegate"
+msgstr "Voci di menù correlate"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website_page__menu_ids
 msgid "Related Menus"
-msgstr "Menù collegati"
+msgstr "Menù correlati"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website_menu__page_id
 msgid "Related Page"
-msgstr "Pagina collegata"
+msgstr "Pagina correlata"
 
 #. module: website
 #. openerp-web
 #: code:addons/website/static/src/xml/website.seo.xml:0
 #, python-format
 msgid "Related keywords"
-msgstr "Parole chiave collegate"
+msgstr "Parole chiave correlate"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.cookie_policy
@@ -6266,7 +6277,7 @@ msgstr "Ripristina modelli"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.qweb_500
 msgid "Reset to initial version (hard reset)."
-msgstr ""
+msgstr "Ripristina versione iniziale (ripristino forte)"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.template_footer_links
@@ -6511,6 +6522,11 @@ msgid ""
 "free and high quality photos, makes it possible for you to get the perfect "
 "picture, in just a few clicks."
 msgstr ""
+
+#. module: website
+#: model_terms:ir.ui.view,arch_db:website.website_search_box
+msgid "Search..."
+msgstr "Ricerca..."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_features
@@ -7242,7 +7258,7 @@ msgstr "Un'applicazione è già in corso di installazione."
 #: code:addons/website/static/src/xml/website.seo.xml:0
 #, python-format
 msgid "The language of the keyword and related keywords."
-msgstr "La lingua della parola chiave e di quelle collegate."
+msgstr "La lingua della parola chiave e di quelle correlate."
 
 #. module: website
 #: model:ir.model.fields,help:website.field_website_snippet_filter__limit
@@ -7425,6 +7441,8 @@ msgid ""
 "This field will save the current `arch_db` before writing on it.\n"
 "                                                                         Useful to (soft) reset a broken view."
 msgstr ""
+"Campo che salva l'attuale `arch_db` prima di effettuare la scrittura.\n"
+"                                                                         Utile per il ripristino (leggero) di una vista danneggiata."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.bs_debug_view
@@ -7511,7 +7529,7 @@ msgstr "Fuso orario"
 #: model:digest.tip,name:website.digest_tip_website_0
 #: model_terms:digest.tip,tip_description:website.digest_tip_website_0
 msgid "Tip: Engage with visitors to convert them into leads"
-msgstr ""
+msgstr "Consiglio: coinvolgi i visitatori per convertirti in contatti"
 
 #. module: website
 #: model:digest.tip,name:website.digest_tip_website_2
@@ -8079,7 +8097,7 @@ msgstr "Tipo vista"
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website_page__mode
 msgid "View inheritance mode"
-msgstr "Modo ereditarietà della vista"
+msgstr "Modo di ereditarietà della vista"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_product_list
@@ -8095,7 +8113,7 @@ msgstr "Visualizzazioni"
 #. module: website
 #: model:ir.model.fields,field_description:website.field_theme_ir_ui_view__copy_ids
 msgid "Views using a copy of me"
-msgstr "Vista"
+msgstr "Viste a partire da una copia"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website_page__inherit_children_ids
@@ -8629,7 +8647,7 @@ msgid ""
 "build confidence in your products or services."
 msgstr ""
 "Scrivi una citazione proveniente da un cliente. Le citazioni sono un ottimo "
-"modo per costruire la fiducia nei prodotti o nei servizi offerti."
+"modo per costruire la fiducia nei prodotti o nei servizi."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_image_text
@@ -8638,8 +8656,8 @@ msgid ""
 "Write one or two paragraphs describing your product or services. To be "
 "successful your content needs to be useful to your readers."
 msgstr ""
-"Scrivi uno o due paragrafi che descrivono il prodotto o i servizi offerti. "
-"Per essere efficace, il contenuto deve essere utile ai lettori. "
+"Scrivi uno o due paragrafi che descrivono il prodotto o i servizi. Per avere"
+" successo, il contenuto deve essere utile ai lettori. "
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_cover
@@ -8649,8 +8667,8 @@ msgid ""
 "readers."
 msgstr ""
 "Scrivi uno o due paragrafi che descrivono il prodotto, i servizi o una "
-"particolare funzionalità offerta. <br/>Per essere efficace, il contenuto "
-"deve essere utile ai lettori. "
+"particolare funzionalità. <br/>Per avere successo, il contenuto deve essere "
+"utile ai lettori. "
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_features
