@@ -948,7 +948,7 @@ class Users(models.Model):
                     "and *might* be a proxy. If your Flectra is behind a proxy, "
                     "it may be mis-configured. Check that you are running "
                     "Flectra in Proxy Mode and that the proxy is properly configured, see "
-                    "https://www.flectrahq.com/documentation/14.0/setup/deploy.html#https for details.",
+                    "https://doc.flectrahq.com/2.0/administration/deployment/deploy.html#https for details.",
                     source
                 )
             raise AccessDenied(_("Too many login failures, please wait a bit before trying again."))

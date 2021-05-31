@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* base
 # 
@@ -12,7 +12,7 @@
 # Bohdan Lisnenko, 2020
 # ТАрас <tratatuta@i.ua>, 2020
 # Martin Trigaux, 2020
-# Alina Lisnenko <alinasemeniuk1@gmail.com>, 2020
+# Alina Lisnenko <alinasemeniuk1@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-27 13:50+0000\n"
 "PO-Revision-Date: 2020-09-07 08:09+0000\n"
-"Last-Translator: Alina Lisnenko <alinasemeniuk1@gmail.com>, 2020\n"
+"Last-Translator: Alina Lisnenko <alinasemeniuk1@gmail.com>, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -101,6 +101,19 @@ msgid ""
 "\n"
 "    "
 msgstr ""
+"\n"
+"   \n"
+"Австрійський план рахунків (Einheitskontenrahmen 2010).\n"
+"==========================================================\n"
+"\n"
+"    * Визначає наступні плани рахунків:\n"
+"        * Австрійський загальний план рахунків 2010\n"
+"    * Визначає шаблони для ПДВ на продажах та купівлях\n"
+"    * Визначає шаблони податків\n"
+"    * Визначає схему оподаткування для австрійського фінансовго законодавства\n"
+"    * Визначає податкові звіти U1/U30\n"
+" \n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_hu
@@ -212,9 +225,91 @@ msgid ""
 "\n"
 ".\n"
 "\n"
-"Copyright 2018 Odoo House ApS\n"
+"Copyright 2018 Flectra House ApS\n"
 "    "
 msgstr ""
+"\n"
+"\n"
+"Модуль локалізації для Данії\n"
+"===============================\n"
+"\n"
+"Це модуль для упраління **планом рахунків для Данії**. Охоплюйте як приватний бізнес, так і I/S, IVS, ApS та A/S\n"
+"\n"
+"**Modulet opsætter:**\n"
+"\n"
+"- **Dansk kontoplan**\n"
+"\n"
+"- Dansk moms\n"
+"        - 25% moms\n"
+"        - Resturationsmoms 6,25%\n"
+"        - Omvendt betalingspligt\n"
+"        \n"
+"- Konteringsgrupper\n"
+"        - EU (Virksomhed)\n"
+"        - EU (Privat)\n"
+"        - 3.lande\n"
+"\n"
+"- Finans raporter\n"
+"        - Resulttopgørelse\n"
+"        - Balance\n"
+"        - Momsafregning\n"
+"            - Afregning\n"
+"            - Rubrik A, B og C\n"
+"\n"
+"- **Anglo-Saxon regnskabsmetode**\n"
+"\n"
+".\n"
+"\n"
+"Produkt setup:\n"
+"==============\n"
+"\n"
+"**Vare**\n"
+"\n"
+"**Salgsmoms:**      Salgmoms 25%\n"
+"\n"
+"**Salgskonto:**     1010 Salg af vare, m/moms\n"
+"\n"
+"**Købsmoms:**       Købsmoms 25%\n"
+"\n"
+"**Købskonto:**      2010 Direkte omkostninger vare, m/moms\n"
+"\n"
+".\n"
+"\n"
+"**Ydelse**\n"
+"\n"
+"**Salgsmoms:**      Salgmoms 25%, ydelser\n"
+"\n"
+"**Salgskonto:**     1011 Salg af ydelser, m/moms\n"
+"\n"
+"**Købsmoms:**       Købsmoms 25%, ydelser\n"
+"\n"
+"**Købskonto:**      2011 Direkte omkostninger ydelser, m/moms\n"
+"\n"
+".\n"
+"\n"
+"**Vare med omvendt betalingspligt**\n"
+"\n"
+"**Salgsmoms:**      Salg omvendt betalingspligt\n"
+"\n"
+"**Salgskonto:**     1012 Salg af vare, u/moms\n"
+"\n"
+"**Købsmoms:**       Køb omvendt betalingspligt\n"
+"\n"
+"**Købskonto:**      2012 Direkte omkostninger vare, u/moms\n"
+"\n"
+"\n"
+".\n"
+"\n"
+"**Restauration**\n"
+"\n"
+"**Købsmoms:**       Restaurationsmoms 6,25%, købsmoms\n"
+"\n"
+"**Købskonto:**      4010 Restaurationsbesøg\n"
+"\n"
+".\n"
+"\n"
+"Copyright 2018 Flectra House ApS\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_do
@@ -281,7 +376,7 @@ msgid ""
 "210101 - Proveedores locales\n"
 "\n"
 "**Ocho dígitos** son para las cuentas de tercer orden (las visualizadas\n"
-"en Odoo):\n"
+"en Flectra):\n"
 "1101- Efectivo y Equivalentes\n"
 "110101- Caja\n"
 "11010101 Caja General\n"
@@ -349,7 +444,7 @@ msgstr ""
 "210101 - Proveedores locales\n"
 "\n"
 "**Ocho dígitos** son para las cuentas de tercer orden (las visualizadas\n"
-"en Odoo):\n"
+"en Flectra):\n"
 "1101- Efectivo y Equivalentes\n"
 "110101- Caja\n"
 "11010101 Caja General\n"
@@ -618,6 +713,12 @@ msgid ""
 "        MTD-VAT API to HMRC.\n"
 "    "
 msgstr ""
+"\n"
+"        Бухгалтерські звіти для Великобританії\n"
+"        \n"
+"        Дозволяє надсилати податковий звіт через\n"
+"        MTD-VAT API до HMRC.   \n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_us_reports
@@ -638,6 +739,10 @@ msgid ""
 "        the questions and answers linked to the registrations.\n"
 "    "
 msgstr ""
+"\n"
+"        Додайте інформацію, коли ми створюємо опис ліда, щоби включити\n"
+"        запитання та відповіді, пов'язані до реєстрації.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,summary:base.module_l10n_mx_reports_closing
@@ -691,6 +796,9 @@ msgid ""
 "        Bridge module between point_of_sale and account_reports,\n"
 "        for tax reporting."
 msgstr ""
+"\n"
+"        Мостовий модуль між point_of_sale та account_reports,\n"
+"        для податкового звіту."
 
 #. module: base
 #: model:ir.module.module,description:base.module_purchase_intrastat
@@ -699,6 +807,9 @@ msgid ""
 "        Bridge module between purchase and intrastat.\n"
 "    "
 msgstr ""
+"\n"
+"        Мостовий модуль між закупівлями та intrastat.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_sale_intrastat
@@ -885,6 +996,9 @@ msgid ""
 "        Disallowed Expenses Data for Belgium\n"
 "    "
 msgstr ""
+"\n"
+"        Дані заборонених витрат для Бельгії\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_id_efaktur
@@ -913,6 +1027,29 @@ msgid ""
 "        you have not already sent to the government to reuse its number.\n"
 "    "
 msgstr ""
+"\n"
+"        E-Faktur Menu(Indonesia)\n"
+"        Формат : 010.000-16.00000001\n"
+"        * 2 (dua) digit pertama adalah Kode Transaksi\n"
+"        * 1 (satu) digit berikutnya adalah Kode Status\n"
+"        * 3 (tiga) digit berikutnya adalah Kode Cabang\n"
+"        * 2 (dua) digit pertama adalah Tahun Penerbitan\n"
+"        * 8 (delapan) digit berikutnya adalah Nomor Urut\n"
+"        \n"
+"        Щоби можна було експортувати клієнтські рахунки як e-Faktur,\n"
+"        вам необхідно проставити діапазон номерів, які були призначені\n"
+"        законодавством у Бухобліку > Клієнти > e-Faktur\n"
+"                    \n"
+"        Коли ви підтверджуєте рахунок, де партнер має позначене поле ID PKP,\n"
+"         номер податку буде призначено до того рахунку. \n"
+"        Після цього ви можете фільтрувати рахунки, а також експортувати у\n"
+"        список рахунків, натиснувши на Дія > Завантажити e-Faktur, щоби завантажити\n"
+"        csv-файл та завантажити його на сайт уряду. \n"
+"        \n"
+"        Ви можете замінити вже надісланий рахунок-фактуру іншим,\n"
+" вказавши замінений рахунок-фактуру та новий, і ви можете скинути рахунок,\n"
+" який ви ще не надіслали уряду, щоби повторно використовувати його номер.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,summary:base.module_l10n_mx_reports
@@ -938,6 +1075,9 @@ msgid ""
 "        Enterprise digest data\n"
 "    "
 msgstr ""
+"\n"
+"        Цифрові дані Enterprise\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_sepa
@@ -949,6 +1089,12 @@ msgid ""
 "        For more information about the SEPA standards : http://www.iso20022.org/ and http://www.europeanpaymentscouncil.eu/\n"
 "    "
 msgstr ""
+"\n"
+"        Створіть платіжні доручення, як це рекомендовано стандартом SEPA, завдяки повідомленням від pain. 001. Підтримувані варіанти pain. (країни): pain.001.001.03 (загальний), pain.001.001.03.ch.02 (Швейцарія) та pain.001.003.03 (Німеччина). Згенерований XML-файл може бути завантажений у ваш банк.\n"
+"\n"
+"        Цей модуль відповідає інструкціям щодо впровадження, викладеним Європейською Радою з оплати.\n"
+"        Для отримання додаткової інформації про стандарти SEPA: http://www.iso20022.org/ та http://www.europeanpaymentscouncil.eu/\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_winbooks_import
@@ -996,7 +1142,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"        Метою цього модуля є реалізація \"розріджених\" полів, тобто полів\n"
+"        Метою цього модуля є реалізація \"розділених\" полів, тобто полів\n"
 "         які переважно нульові. Ця реалізація обходить PostgreSQL\n"
 "         обмеження на кількість стовпців у таблиці. Значення всіх рідких\n"
 "         полів зберігаються у серії \"серійний\" у вигляді відображення JSON.\n"
@@ -1031,6 +1177,9 @@ msgid ""
 "        This bridge module is auto-installed when the modules stock_barcode and mrp_subcontracting are installed.\n"
 "    "
 msgstr ""
+"\n"
+"        Цей мостовий модуль встановлюється автоматично, після того, як встановлено модулі stock_barcode та mrp_subcontracting.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_stock_barcode_quality_control
@@ -1050,6 +1199,9 @@ msgid ""
 "        This module adds support for SEPA Credit Transfer QR-code generation.\n"
 "    "
 msgstr ""
+"\n"
+"        Цей модуль надає техпідтримку для генерації QR-коду переміщення кредитів SEPA.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_approvals_purchase
@@ -1059,6 +1211,10 @@ msgid ""
 "        RFQ from an approval purchase request.\n"
 "    "
 msgstr ""
+"\n"
+"        Цей модуль додає до процесу затвердження можливість генерувати\n"
+"        ЗНКП із запиту на затвердження закупівлі.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_purchase_product_matrix
@@ -1115,7 +1271,7 @@ msgid ""
 "\n"
 "        To be elligible for this payment method, a customer must have first\n"
 "        returned a mandate to the company, giving his consent to use direct debit.\n"
-"        This consent must have been encoded as a 'customer mandate' into Odoo.\n"
+"        This consent must have been encoded as a 'customer mandate' into Flectra.\n"
 "\n"
 "        You also need to meet the following requirements in order to properly\n"
 "        generate a SDD file:\n"
@@ -1124,7 +1280,7 @@ msgid ""
 "        - Your company must have defined a journal to receive SDD payments (again, in 'settings' of accounting module)\n"
 "        - Every customer for which you generate a payment must have a valid IBAN account number.\n"
 "\n"
-"        Odoo will let you know if any of these requirements are not satisfied.\n"
+"        Flectra will let you know if any of these requirements are not satisfied.\n"
 "\n"
 "        Any invoice that gets validated for a customer with a mandate will be\n"
 "        automatically set in 'paid' state, and a payment will be generated. An\n"
@@ -1139,6 +1295,37 @@ msgid ""
 "        try to use this method on an invoice for whose payment no mandate can be used.\n"
 "    "
 msgstr ""
+"\n"
+"        Цей модуль дозволяє створювати відповідні XML-файли SEPA Direct Debit (SDD) (сумісні\n"
+"        зі специфікацією pain.008.001.02), щоби відправити у ваш банк для того, аби\n"
+"        збирати комплект платежів.\n"
+"\n"
+"        Щоби бути доступним для цього способу оплати, спочатку клієнт повинен мати\n"
+"        повернений мандат компанії, давши свою згоду на використання прямого дебету.\n"
+"        Ця згода повинна бути закодована як \"мандат замовника\" на Flectra.\n"
+"\n"
+"        Ви також повинні відповідати наступним вимогам, щоби правильно\n"
+"        згенерувати файл SDD:\n"
+"        - Рахунок вашої компанії має бути встановлений на дійсний номер IBAN\n"
+"        - Рахунок вашої компанії має бути пов'язаний з банком, який має дійсний BIC\n"
+"        - Ваша компанія повинна мати ідентифікатор кредитора (це можна зробити в меню \"Налаштування\" модуля бухгалтерського обліку)\n"
+"        - Ваша компанія повинна визначити журнал для отримання платежів SDD (знову ж таки, в \"налаштуваннях\" модуля бухобліку)\n"
+"        - Кожен клієнт, для якого ви створили платіж, повинен мати дійсний номер рахунку IBAN у банку, пов'язаному з правильним BIC.\n"
+"\n"
+"        Flectra повідомить вас, якщо будь-яке з цих вимог не виконується.\n"
+"\n"
+"        Будь-який рахунок-фактура, який отримує підтвердження для замовника з мандатом, буде\n"
+"        автоматично встановлюватися в \"оплачуваному\" стані, а платіж буде створений.\n"
+"        Опція на інформаційній панелі дозволить вам переглянути всі отримані платежі\n"
+"        через SDD і генерувати файл збору XML, групуючи це, як\n"
+"        ви вважаєте за потрібне.\n"
+"\n"
+"        Також доступний спеціальний метод оплати \"SEPA Direct Debit\"\n"
+"        відкривайте рахунки-фактури, коли вибираєте банківський рахунок у майстрі реєстрації платежів.\n"
+"        Використовуйте його, щоб створити платіж SDD для рахунків-фактур, якщо ви додали мандат\n"
+"        для його власника після його перевірки. Ви побачите повідомлення про помилку, якщо ви\n"
+"        спробуєте використати цей метод на рахунку-фактурі, для оплати якого мандат не може бути використаний.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_google_recaptcha
@@ -1147,6 +1334,9 @@ msgid ""
 "        This module implements reCaptchaV3 so that you can prevent bot spam on your public modules.\n"
 "    "
 msgstr ""
+"\n"
+"        Цей модуль встановлює reCaptchaV3 так що ви можете запобігти спаму ботів на ваших загальнодоступних модулях.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,summary:base.module_account_online_sync
@@ -1171,11 +1361,11 @@ msgstr ""
 #: model:ir.module.module,description:base.module_web_mobile
 msgid ""
 "\n"
-"        This module provides the core of the Odoo Mobile App.\n"
+"        This module provides the core of the Flectra Mobile App.\n"
 "        "
 msgstr ""
 "\n"
-"        Цей модуль є основою Мобільного Додатка Odoo.\n"
+"        Цей модуль є основою Мобільного Додатка Flectra.\n"
 "        "
 
 #. module: base
@@ -1362,18 +1552,11 @@ msgid ""
 "\n"
 "    Make the lock date irreversible:\n"
 "\n"
-"    * You cannot define stricter conditions on advisors than on users. Then, the lock date on advisor must be set before the lock date for users.\n"
-"    * You cannot lock a period that is not finished yet. Then, the lock date for advisors must be set before the last day of the previous month.\n"
-"    * The new lock date for advisors must be set after the previous lock date.\n"
+"    * You cannot set stricter restrictions on advisors than on users. Therefore, the All Users Lock Date must be anterior (or equal) to the Invoice/Bills Lock Date.\n"
+"    * You cannot lock a period that has not yet ended. Therefore, the All Users Lock Date must be anterior (or equal) to the last day of the previous month.\n"
+"    * Any new All Users Lock Date must be posterior (or equal) to the previous one.\n"
 "    "
 msgstr ""
-"\n"
-"   Зробити дату блокування незворотньою:\n"
-"\n"
-"     * Ви не можете визначити більш жорсткі умови для консультантів, ніж для користувачів. Потім дата блокування для консультанта повинна бути встановлена до дати блокування для користувачів.\n"
-"     * Ви не можете заблокувати період, який ще не завершено. Тоді, дата блокування консультантів повинна бути встановлена до останнього дня попереднього місяця.\n"
-"     * Нова дата блокування для консультантів повинна бути встановлена після попередньої дати блокування.\n"
-"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_sale_coupon_taxcloud
@@ -1701,7 +1884,7 @@ msgstr ""
 "Кредитний переказ ABA\n"
 "===================\n"
 "\n"
-"Цей модуль дозволяє генерувати платіжні партії як ABA (Австралійський\n"
+"Цей модуль дозволяє генерувати платіжні партії як ABA (Австралійська\n"
 "Асоціація банкірів) текстові файли. Створений файл \"aba\" може бути завантажений\n"
 "для багатьох австралійських банків.\n"
 "\n"
@@ -2015,6 +2198,9 @@ msgid ""
 "Add a dynamic report about recruitment.\n"
 "    "
 msgstr ""
+"\n"
+"AДодайте динамічний звіт по рекрутингу.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_latam_base
@@ -2131,7 +2317,7 @@ msgstr ""
 "\n"
 "* Договір\n"
 "* Місце народження\n"
-"* Дата медичного обслідування\n"
+"* Дата медичного обстеження\n"
 "* Службовий транспорт\n"
 "\n"
 "Можна закріпляти кілька договорів за працівником."
@@ -2148,7 +2334,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Додайте шаблони електронних листів до товарів, які надсилатимуться на підтвердження рахунку-фактури\n"
+"Додайте шаблони електронних листів до товарів, які надсилатимуться на підтвердження рахунка-фактури\n"
 "================================================== ================\n"
 "\n"
 "За допомогою цього модуля зв'яжіть ваші товари з шаблоном, щоби надіслати повну інформацію та інструменти своїм клієнтам.\n"
@@ -2169,7 +2355,7 @@ msgid ""
 "Add the ability to create invoices from the document module.\n"
 msgstr ""
 "\n"
-"Додайте можливість створення рахунків-фактур з модуля Документ.\n"
+"Додайте можливість створення рахунків-фактур з модуля Документи.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_documents_sign
@@ -2179,7 +2365,7 @@ msgid ""
 "The first element of the selection (in DRM) will be used as the signature attachment.\n"
 msgstr ""
 "\n"
-"Додайте можливість створення підписів з модуля документ.\n"
+"Додайте можливість створення підписів з модуля Документи.\n"
 "Перший елемент виділення (в DRM) буде використовуватися як прикріплення підпису.\n"
 
 #. module: base
@@ -2218,7 +2404,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Додає розширену підтримку для прикріплеь (Ether) Pad у веб-клієнті.\n"
+"Додає розширену підтримку для прикріплень (Ether) Pad у веб-клієнті.\n"
 "================================================== =================\n"
 "\n"
 "Дозволяє компанії налаштовувати, які установки Pad потрібно використовувати для посилання на нові\n"
@@ -2241,8 +2427,8 @@ msgid ""
 "option to send products' attachments to the documents app.\n"
 msgstr ""
 "\n"
-"Додає можливість створювати товари з модуля документ та додає\n"
-"опцію надсилати прикріплення товарів в модуль документи.\n"
+"Додає можливість створювати товари з модуля Документи та додає\n"
+"опцію надсилати прикріплення товарів в модуль Документи.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_voip_crm
@@ -2275,7 +2461,7 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"Дозвольте клієнтам призначати за допомогою вашого веб-сайту\n"
+"Дозвольте клієнтам планувати зустрічі за допомогою вашого веб-сайту\n"
 "-------------------------------------------------------------\n"
 "\n"
 
@@ -2398,7 +2584,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Дозволяє здійснювати дзвінки з наступних дій або за допомогою натиснути для набору.\n"
+"Дозволяє здійснювати дзвінки з наступних дій або за допомогою натискання для набору.\n"
 "    "
 
 #. module: base
@@ -2482,6 +2668,8 @@ msgid ""
 "\n"
 "Allows using IoT devices, such as scales and printers, for delivery operations.\n"
 msgstr ""
+"\n"
+"Дозволяє використання пристроїв IoT, таких як ваги та принтери, для операцій доставки.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_delivery
@@ -2497,7 +2685,7 @@ msgstr ""
 "Дозволяє додавати методи доставки у замовлення на продаж і комплектування.\n"
 "==============================================================\n"
 "Ви можете вказати власного перевізника і ціну. При створенні \n"
-"рахунків з комплектування, система здатна додавати та вираховувати вартість доставки.\n"
+"рахунків із комплектування, система здатна додавати та вираховувати вартість доставки.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_mrp_account_enterprise
@@ -2566,7 +2754,7 @@ msgstr ""
 "======================\n"
 "За допомогою цього модуля ви можете вручну перевірити послідовності та невідповідності модуля бухгалтерського обліку в меню Звіти/ Бухгалтерія/Бухгалтерські тести.\n"
 "\n"
-"Ви можете написати запит, щоб створити Test Consistency, і ви отримаєте результат тесту\n"
+"Ви можете написати запит, щоб створити Тест узгодження, і ви отримаєте результат тесту\n"
 "у форматі PDF, до якого можна отримати доступ з Меню звітів-> Тестування бухгалтерського обліку, після чого виберіть тест\n"
 "і надрукуйте звіт з кнопки «Друк» в області заголовка.\n"
 
@@ -2660,7 +2848,7 @@ msgid ""
 "Base Module for Ethiopian Localization\n"
 "======================================\n"
 "\n"
-"This is the latest Ethiopian Odoo localization and consists of:\n"
+"This is the latest Ethiopian Flectra localization and consists of:\n"
 "    - Chart of Accounts\n"
 "    - VAT tax structure\n"
 "    - Withholding tax structure\n"
@@ -2671,7 +2859,7 @@ msgstr ""
 "Базовий модуль для ефіопської локалізації\n"
 "============================\n"
 "\n"
-"Це остання ефіопська локалізація Odoo і складається з:\n"
+"Це остання ефіопська локалізація Flectra і складається з:\n"
 "     - Плану рахунків\n"
 "     - Структури податку з ПДВ\n"
 "     - Структури податку на утримання\n"
@@ -2720,12 +2908,12 @@ msgid ""
 "propagate those new data properly.\n"
 "\n"
 "It's important to note however that this module lack many implementations to\n"
-"use Odoo properly in Brazil. Those implementations (such as the electronic\n"
+"use Flectra properly in Brazil. Those implementations (such as the electronic\n"
 "fiscal Invoicing which is already operational) are brought by more than 15\n"
 "additional modules of the Brazilian Launchpad localization project\n"
 "https://launchpad.net/openerp.pt-br-localiz and their dependencies in the\n"
 "extra addons branch. Those modules aim at not breaking with the remarkable\n"
-"Odoo modularity, this is why they are numerous but small. One of the\n"
+"Flectra modularity, this is why they are numerous but small. One of the\n"
 "reasons for maintaining those modules apart is that Brazilian Localization\n"
 "leaders need commit rights agility to complete the localization as companies\n"
 "fund the remaining legal requirements (such as soon fiscal ledgers,\n"
@@ -2804,12 +2992,12 @@ msgid ""
 "\n"
 "Legal\n"
 "-----\n"
-"**The use of pos_blackbox_be sources is only certified on odoo.com SaaS platform\n"
-"for version 13.0.** Contact Odoo SA before installing pos_blackbox_be module.\n"
+"**The use of pos_blackbox_be sources is only certified on flectrahq.com SaaS platform\n"
+"for version 13.0.** Contact FlectraHQ before installing pos_blackbox_be module.\n"
 "\n"
 "An obfuscated and certified version of the pos_blackbox_be may be provided on\n"
 "requests for on-premise installations.\n"
-"No modified version is certified and supported by Odoo SA.\n"
+"No modified version is certified and supported by FlectraHQ.\n"
 "    "
 msgstr ""
 "\n"
@@ -2824,12 +3012,12 @@ msgstr ""
 "\n"
 "Юридична інформація\n"
 "-----\n"
-"**Використання джерел pos_blackbox_be сертифіковано лише на платформі odoo.com SaaS\n"
-"для версії 11.0.** Зв'яжіться з Odoo SA перед встановленням модуля pos_blackbox_be.\n"
+"**Використання джерел pos_blackbox_be сертифіковано лише на платформі flectrahq.com SaaS\n"
+"для версії 11.0.** Зв'яжіться з FlectraHQ перед встановленням модуля pos_blackbox_be.\n"
 "\n"
 "Запитувана і сертифікована версія pos_blackbox_be може бути\n"
 "надана на встановлення на вашому сервері.\n"
-"Модифікована версія не сертифікована і не підтримується Odoo SA.\n"
+"Модифікована версія не сертифікована і не підтримується FlectraHQ.\n"
 "    "
 
 #. module: base
@@ -2971,16 +3159,16 @@ msgid ""
 "===============================\n"
 "\n"
 "Venezuela doesn't have any chart of account by law, but the default\n"
-"proposed in Odoo should comply with some Accepted best practices in Venezuela,\n"
+"proposed in Flectra should comply with some Accepted best practices in Venezuela,\n"
 "this plan comply with this practices.\n"
 "\n"
 "This module has been tested as base for more of 1000 companies, because\n"
 "it is based in a mixtures of most common software in the Venezuelan\n"
 "market what will allow for sure to accountants feel them first steps with\n"
-"Odoo more comfortable.\n"
+"Flectra more comfortable.\n"
 "\n"
 "This module doesn't pretend be the total localization for Venezuela,\n"
-"but it will help you to start really quickly with Odoo in this country.\n"
+"but it will help you to start really quickly with Flectra in this country.\n"
 "\n"
 "This module give you.\n"
 "---------------------\n"
@@ -3176,7 +3364,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Містить перегляд ентерпрайзу для управління складом\n"
+"Містить перегляди ентерпрайзу для управління складом\n"
 "    "
 
 #. module: base
@@ -3214,7 +3402,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Створюйте сторно і заявок служби підтримки\n"
+"Створюйте сторно із заявок служби підтримки\n"
 "    "
 
 #. module: base
@@ -3266,6 +3454,9 @@ msgid ""
 "Create Sales order with timesheets and products from tasks\n"
 "    "
 msgstr ""
+"\n"
+"Створюйте замовлення на продаж з табелями та товарами із завдань\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_survey
@@ -3327,7 +3518,7 @@ msgstr ""
 "=============================\n"
 "\n"
 "Цей модуль дозволяє вам автоматизувати та підключити створення реєстрації за допомогою\n"
-"вашого основного потоку продажів і, отже, щоби включити функцію рахунків-фактур реєстрацій.\n"
+"вашого основного процесу продажів і, отже, щоби включити функцію рахунків-фактур реєстрацій.\n"
 "\n"
 "Вона визначає новий вид послуг сервісу, який пропонує вам можливість\n"
 "вибрати категорію подій, пов'язану з нею. Коли ви кодуєте замовлення на продаж для\n"
@@ -3521,7 +3712,7 @@ msgid ""
 "ESC/POS Hardware Driver\n"
 "=======================\n"
 "\n"
-"This module allows Odoo to print with ESC/POS compatible printers and\n"
+"This module allows Flectra to print with ESC/POS compatible printers and\n"
 "to open ESC/POS controlled cashdrawers in the point of sale and other modules\n"
 "that would need such functionality.\n"
 "\n"
@@ -3530,7 +3721,7 @@ msgstr ""
 "ESC/Драйвер обладнання точки продажу\n"
 "=======================\n"
 "\n"
-"Цей модуль дозволяє Odoo друкувати з сумісними принтерами з ESC/Точкою продажу та\n"
+"Цей модуль дозволяє Flectra друкувати з сумісними принтерами з ESC/Точкою продажу та\n"
 "відкрити контрольні готівкові картки ESC/Точка продажу в точці продажу та інші модулі\n"
 "що потребують таку функціональність.\n"
 "\n"
@@ -3712,6 +3903,9 @@ msgid ""
 "Filters the stock lines out of the reconciliation widget\n"
 "    "
 msgstr ""
+"\n"
+"Фільтрує рядки складу з віджету узгодження\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_fr_hr_payroll
@@ -3773,20 +3967,20 @@ msgid ""
 "Functional\n"
 "----------\n"
 "\n"
-"Be able to create journals in Odoo to create electronic customer invoices and report then to AFIP (via webserices).\n"
+"Be able to create journals in Flectra to create electronic customer invoices and report then to AFIP (via webserices).\n"
 "The options available are:\n"
 "\n"
 "    * Electronic Invoice - Web Service\n"
 "    * Export Voucher - Web Service\n"
 "    * Electronic Fiscal Bond - Web Service\n"
 "\n"
-"In the electronic journals if you validate an invoice this one will be validated in both Odoo and AFIP. This validation is\n"
+"In the electronic journals if you validate an invoice this one will be validated in both Flectra and AFIP. This validation is\n"
 "made at the instant and we recieve and \"approved/approved with observation/rejected\" state from AFIP. If the invoice has\n"
 "been rejected by AFIP will not be post in the system and a pop up message will be shown with both the error detail (reject reasons)\n"
 "we recieve and a HINT about what the problem could be.\n"
 "\n"
 "For auditing and troubleshooting purposes we also add a menu \"Consulit Invoice in AFIP\" that let us to consult invoices previously\n"
-"sent to AFIP and last number used as support for any possible issues on the sequences synchronization between Odoo and AFIP.\n"
+"sent to AFIP and last number used as support for any possible issues on the sequences synchronization between Flectra and AFIP.\n"
 "\n"
 "    NOTE: From the Journal's form view we are able to force a sync between the odoo sequences to each of the document types in\n"
 "    with the last numbers registered in AFIP.\n"
@@ -3810,7 +4004,7 @@ msgid ""
 "\n"
 "    1.3. Optionally you can define if you like to be eable to verify vendor bills in AFIP.\n"
 "\n"
-"2. Create Sales journals that will represent each one of your AFIP POS (Available in AFIP Portal) you want to use in Odoo.\n"
+"2. Create Sales journals that will represent each one of your AFIP POS (Available in AFIP Portal) you want to use in Flectra.\n"
 "\n"
 "    2.1. Use Documents field is set by default please dont change\n"
 "    2.2. Set AFIP POS System for one of the electronic ones.\n"
@@ -3843,21 +4037,21 @@ msgstr ""
 "\n"
 "----------\n"
 "\n"
-"Може створювати журнали в Odoo, щоби створювати електронні рахунки клієнтів та звітувати потім в AFIP (через веб-сарвіси).\n"
+"Може створювати журнали в Flectra, щоби створювати електронні рахунки клієнтів та звітувати потім в AFIP (через веб-сарвіси).\n"
 "Доступні опції:\n"
 "\n"
 "    * Електронний рахунок - Веб-послуга\n"
 "    * Експорт ваучера - Веб-послуга\n"
 "    * Електронна фіскальна облігація - Веб-послуга\n"
 "\n"
-"В електронних журналах, якщо ви підтверджуватимете рахунок, він буде валідуватися і в Odoo і в AFIP. Це підтвердження виконується\n"
+"В електронних журналах, якщо ви підтверджуватимете рахунок, він буде валідуватися і в Flectra і в AFIP. Це підтвердження виконується\n"
 "миттєво і ми отримуємо область \"затверджено/затверджено із спостереженням/відхилено\" від AFIP. Якщо рахунок-фактура\n"
 "відхилений AFIP, його не буде опубліковано в системі, і з'явиться спливаюче повідомлення з обома деталями помилки (причини відхилення)\n"
 "ми отримуємо підказку щодо проблеми, яка може бути.\n"
 "\n"
 "Для цілей аудиту та усунення несправностей ми також додаємо меню \"Рахунок-фактура в AFIP\", яке дозволяє нам перевіряти рахунки,\n"
 " надіслані раніше AFIP, та останній номер, який використовується як підтримка будь-яких можливих питань синхронізації послідовностей\n"
-"Odoo та AFIP.\n"
+"Flectra та AFIP.\n"
 "\n"
 "    ЗАНОТУЙТЕ: З форми перегляду Журналу ми можемо запустити синхронізацію між послідовностями odoo та кожним типом документів\n"
 "    з останніми номерами, зареєстрованими в AFIP.\n"
@@ -3882,7 +4076,7 @@ msgstr ""
 "\n"
 "    1.3. Опціонально ви можете визначити, чи ви хочете підтверджувати рахунки постачальників у AFIP.\n"
 "\n"
-"2. Створіть журнали Продажів, що будуть відображати кожну вашу точку продажу AFIP (Доступно на порталі AFIP), яку ви хочете використовувати в Odoo.\n"
+"2. Створіть журнали Продажів, що будуть відображати кожну вашу точку продажу AFIP (Доступно на порталі AFIP), яку ви хочете використовувати в Flectra.\n"
 "\n"
 "    2.1. Використовуйте поле Документів, що встановлено за замовчуванням, але не змінюйте його\n"
 "    2.2. Встановіть систему точки продажу AFIP для електронної точки продажу.\n"
@@ -3983,7 +4177,7 @@ msgid ""
 "  * Gritti (Monotributo)\n"
 "  * Cerro Castor. IVA Liberado in Zona Franca\n"
 "  * Expresso (Cliente del Exterior)\n"
-"  * Odoo (Proveedor del Exterior)\n"
+"  * Flectra (Proveedor del Exterior)\n"
 "\n"
 "Highlights:\n"
 "\n"
@@ -4045,7 +4239,7 @@ msgstr ""
 "  * Gritti (Monotributo)\n"
 "  * Cerro Castor. IVA Liberado in Zona Franca\n"
 "  * Expresso (Cliente del Exterior)\n"
-"  * Odoo (Proveedor del Exterior)\n"
+"  * Flectra (Proveedor del Exterior)\n"
 "\n"
 "Основні моменти:\n"
 "\n"
@@ -4084,26 +4278,26 @@ msgid ""
 "\n"
 "Gamification process\n"
 "====================\n"
-"The Gamification module provides ways to evaluate and motivate the users of Odoo.\n"
+"The Gamification module provides ways to evaluate and motivate the users of Flectra.\n"
 "\n"
 "The users can be evaluated using goals and numerical objectives to reach.\n"
 "**Goals** are assigned through **challenges** to evaluate and compare members of a team with each others and through time.\n"
 "\n"
 "For non-numerical achievements, **badges** can be granted to users. From a simple \"thank you\" to an exceptional achievement, a badge is an easy way to exprimate gratitude to a user for their good work.\n"
 "\n"
-"Both goals and badges are flexibles and can be adapted to a large range of modules and actions. When installed, this module creates easy goals to help new users to discover Odoo and configure their user profile.\n"
+"Both goals and badges are flexibles and can be adapted to a large range of modules and actions. When installed, this module creates easy goals to help new users to discover Flectra and configure their user profile.\n"
 msgstr ""
 "\n"
 "Процес геміфікації\n"
 "====================\n"
-"Модуль геміфікації забезпечує способи оцінювання та мотивації користувачів Odoo.\n"
+"Модуль геміфікації забезпечує способи оцінювання та мотивації користувачів Flectra.\n"
 "\n"
 "Користувачі можуть оцінюватися за допомогою цілей та чисельних цілей, щоб досягти їх.\n"
 "**Цілі** призначаються за допомогою **завдань**, щоб оцінювати та порівнювати членів команди з кожним іншим та через час.\n"
 "\n"
 "Для нечисленних досягнень, **значки** можуть бути надані користувачам. Від простого \"дякую\" до виняткового досягнення значка - це простий спосіб виразити подяку користувача за їхню хорошу роботу.\n"
 "\n"
-"Обидві цілі та значки - це гнучкі елементи, які можуть бути адаптовані до широкого кола модулів та дій. Після встановлення цей модуль створює легкі цілі, щоб допомогти новим користувачам знаходити Odoo та налаштовувати їхній профіль користувача.\n"
+"Обидві цілі та значки - це гнучкі елементи, які можуть бути адаптовані до широкого кола модулів та дій. Після встановлення цей модуль створює легкі цілі, щоб допомогти новим користувачам знаходити Flectra та налаштовувати їхній профіль користувача.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_uy
@@ -4141,7 +4335,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Створюйте електронні рахунки з номерами клієнтів\n"
+"Створюйте електронні рахунки з кастомними номерами\n"
 "    "
 
 #. module: base
@@ -4149,13 +4343,13 @@ msgstr ""
 msgid ""
 "\n"
 "Generate leads or opportunities in the CRM app from a contact form published on the Contact us page of your website.\n"
-"This form can be customized thanks to the *Form Builder* module (available in Odoo Enterprise).\n"
+"This form can be customized thanks to the *Form Builder* module (available in Flectra Enterprise).\n"
 "\n"
 "This module includes contact phone and mobile numbers validation."
 msgstr ""
 "\n"
-"Створюйте ліди та нагоди в модулі з контактної форми, опублікованої на сторінці Зв'жіться з нами на вашому веб-сайті.\n"
-"Цю форму можна змінювати, завдяки модулю *Конструктор форм* (доступний в Odoo Enterprise).\n"
+"Створюйте ліди та нагоди в модулі CRM із контактної форми, опублікованої на сторінці Зв'жіться з нами на вашому веб-сайті.\n"
+"Цю форму можна змінювати, завдяки модулю *Конструктор форм* (доступний в Flectra Enterprise).\n"
 "\n"
 "Цей модуль включає перевірку телефону контакту та мобільного телефону."
 
@@ -4164,34 +4358,34 @@ msgstr ""
 msgid ""
 "\n"
 "Generate short links with analytics trackers (UTM) to share your pages through marketing campaigns.\n"
-"Those trackers can be used in Google Analytics to track clicks and visitors, or in Odoo reports to analyze the efficiency of those campaigns in terms of lead generation, related revenues (sales orders), recruitment, etc.\n"
+"Those trackers can be used in Google Analytics to track clicks and visitors, or in Flectra reports to analyze the efficiency of those campaigns in terms of lead generation, related revenues (sales orders), recruitment, etc.\n"
 "    "
 msgstr ""
 "\n"
 "Створіть короткі посилання з аналітичними трекерами (UTM), щоби поділитися своїми сторінками за допомогою маркетингових кампаній.\n"
-"Ці трекери можуть бути використані в Google Analytics для відстеження кліків і відвідувачів, або в звітах Odoo для аналізу ефективності цих кампаній з точки зору генерації лідів, пов'язаних доходів (замовлень на купівлю), підбору персоналу тощо.\n"
+"Ці трекери можуть бути використані в Google Analytics для відстеження кліків і відвідувачів, або в звітах Flectra для аналізу ефективності цих кампаній з точки зору генерації лідів, пов'язаних доходів (замовлень на купівлю), підбору персоналу тощо.\n"
 "    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_website_form_project
 msgid ""
 "\n"
-"Generate tasks in Project app from a form published on your website. This module requires the use of the *Form Builder* module (available in Odoo Enterprise) in order to build the form.\n"
+"Generate tasks in Project app from a form published on your website. This module requires the use of the *Form Builder* module (available in Flectra Enterprise) in order to build the form.\n"
 "    "
 msgstr ""
 "\n"
-"Створюйте завдання у модулі Проект з форми, опублікованої на вашому веб-сайті. Цей модуль вимагає використання модуля *Конструктор форм* (доступного в Odoo Enterprise) для створення форми.\n"
+"Створюйте завдання у модулі Проект з форми, опублікованої на вашому веб-сайті. Цей модуль вимагає використання модуля *Конструктор форм* (доступного в Flectra Enterprise) для створення форми.\n"
 "    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_website_helpdesk_form
 msgid ""
 "\n"
-"Generate tickets in Helpdesk app from a form published on your website. This form can be customized thanks to the *Form Builder* module (available in Odoo Enterprise).\n"
+"Generate tickets in Helpdesk app from a form published on your website. This form can be customized thanks to the *Form Builder* module (available in Flectra Enterprise).\n"
 "    "
 msgstr ""
 "\n"
-"Створюйте заявку в додатку Служба підтримки з форми, опублікованої на вашому сайті. Цю форму можна налаштувати завдяки модулю *Конструктор форми* (доступному в Odoo Enterprise).\n"
+"Створюйте заявку в додатку Служба підтримки з форми, опублікованої на вашому сайті. Цю форму можна налаштувати завдяки модулю *Конструктор форми* (доступному в Flectra Enterprise).\n"
 "    "
 
 #. module: base
@@ -4319,14 +4513,14 @@ msgstr ""
 #: model:ir.module.module,description:base.module_sale_amazon
 msgid ""
 "\n"
-"Import your Amazon orders in Odoo and synchronize deliveries\n"
+"Import your Amazon orders in Flectra and synchronize deliveries\n"
 "============================================================\n"
 "\n"
 "Key Features\n"
 "------------\n"
 "* Import orders from multiple accounts and marketplaces.\n"
-"* Orders are matched with Odoo products based on their internal reference (SKU in Amazon).\n"
-"* Deliveries confirmed in Odoo are synchronized in Amazon.\n"
+"* Orders are matched with Flectra products based on their internal reference (SKU in Amazon).\n"
+"* Deliveries confirmed in Flectra are synchronized in Amazon.\n"
 "* Support for both Fulfilment by Amazon (FBA) and Fulfilment by Merchant (FBM):\n"
 "    * FBA: A stock location and stock moves allow to monitor your stock in Amazon Fulfilment Centers.\n"
 "    * FBM: Delivery notifications are sent to Amazon for each confirmed picking (partial delivery friendly).\n"
@@ -4401,11 +4595,11 @@ msgid ""
 "\n"
 "Indian accounting chart and localization.\n"
 "\n"
-"Odoo allows to manage Indian Accounting by providing Two Formats Of Chart of Accounts i.e Indian Chart Of Accounts - Standard and Indian Chart Of Accounts - Schedule VI.\n"
+"Flectra allows to manage Indian Accounting by providing Two Formats Of Chart of Accounts i.e Indian Chart Of Accounts - Standard and Indian Chart Of Accounts - Schedule VI.\n"
 "\n"
 "Note: The Schedule VI has been revised by MCA and is applicable for all Balance Sheet made after\n"
 "31st March, 2011. The Format has done away with earlier two options of format of Balance\n"
-"Sheet, now only Vertical format has been permitted Which is Supported By Odoo.\n"
+"Sheet, now only Vertical format has been permitted Which is Supported By Flectra.\n"
 "  "
 msgstr ""
 "\n"
@@ -4414,11 +4608,11 @@ msgstr ""
 "\n"
 "Індійський план рахунків та локалізація.\n"
 "\n"
-"Odoo дозволяє управляти обліковим записом Індії, надаючи два формати плану рахунків, тобто індійський план рахунків - стандартний та індійський план рахунків - розклад VI.\n"
+"Flectra дозволяє управляти обліковим записом Індії, надаючи два формати плану рахунків, тобто індійський план рахунків - стандартний та індійський план рахунків - розклад VI.\n"
 "\n"
 "Примітка: Розклад VI був переглянутий MCA і застосовується до всіх балансів, зроблених після\n"
 "31 березня 2011 р. Формат відмовився від попередніх двох варіантів формату балансу,\n"
-" тепер лише вертикальний формат дозволено, який підтримується Odoo.\n"
+" тепер лише вертикальний формат дозволено, який підтримується Flectra.\n"
 "  "
 
 #. module: base
@@ -4462,34 +4656,34 @@ msgstr ""
 #: model:ir.module.module,description:base.module_mail_github
 msgid ""
 "\n"
-"Integrate Github to Odoo Discuss.\n"
+"Integrate Github to Flectra Discuss.\n"
 "======================================\n"
 "\n"
-"This Module integrates all post commits, pull requests and activity of github issue to channels in Odoo.\n"
+"This Module integrates all post commits, pull requests and activity of github issue to channels in Flectra.\n"
 "    "
 msgstr ""
 "\n"
-"Інтеграція Github в Обговореннях Odoo.\n"
+"Інтеграція Github в Обговореннях Flectra.\n"
 "============================\n"
 "\n"
-"Цей модуль об'єднує всі поштові зобов'язання, витягує запити та активність github-проблеми на канали в Odoo.\n"
+"Цей модуль об'єднує всі поштові зобов'язання, витягує запити та активність github-проблеми на канали в Flectra.\n"
 "    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_google_drive
 msgid ""
 "\n"
-"Integrate google document to Odoo record.\n"
+"Integrate google document to Flectra record.\n"
 "============================================\n"
 "\n"
-"This module allows you to integrate google documents to any of your Odoo record quickly and easily using OAuth 2.0 for Installed Applications,\n"
+"This module allows you to integrate google documents to any of your Flectra record quickly and easily using OAuth 2.0 for Installed Applications,\n"
 "You can configure your google Authorization Code from Settings > Configuration > General Settings by clicking on \"Generate Google Authorization Code\"\n"
 msgstr ""
 "\n"
-"Інтеграція Google-документа із записом Odoo.\n"
+"Інтеграція Google-документа із записом Flectra.\n"
 "============================================\n"
 "\n"
-"Цей модуль дозволяє вам швидко і легко інтегрувати Google документи до будь-якого запису Odoo, використовуючи OAuth 2.0 для встановлених програм.\n"
+"Цей модуль дозволяє вам швидко і легко інтегрувати Google документи до будь-якого запису Flectra, використовуючи OAuth 2.0 для встановлених програм.\n"
 "Ви можете налаштувати свій код авторизації Google в меню Налаштування > Налаштування > Загальні налаштування, натиснувши \"Створити код авторизації Google\"\n"
 
 #. module: base
@@ -4511,7 +4705,7 @@ msgid ""
 "\n"
 "Invoicing & Payments\n"
 "====================\n"
-"The specific and easy-to-use Invoicing system in Odoo allows you to keep track of your accounting, even when you are not an accountant. It provides an easy way to follow up on your vendors and customers.\n"
+"The specific and easy-to-use Invoicing system in Flectra allows you to keep track of your accounting, even when you are not an accountant. It provides an easy way to follow up on your vendors and customers.\n"
 "\n"
 "You could use this simplified accounting in case you work with an (external) account to keep your books, and you still want to keep track of payments. This module also offers you an easy method of registering payments, without having to encode complete abstracts of account.\n"
 "    "
@@ -4519,7 +4713,7 @@ msgstr ""
 "\n"
 "Виставлення рахунків та Платежі\n"
 "====================\n"
-"Спеціальна та проста у використанні система рахунків-фактур в Odoo дозволяє вам стежити за вашим бухобліком, навіть якщо ви не бухгалтер. Це забезпечує простий спосіб відслідковувати своїх продавців та клієнтів.\n"
+"Спеціальна та проста у використанні система рахунків-фактур в Flectra дозволяє вам стежити за вашим бухобліком, навіть якщо ви не бухгалтер. Це забезпечує простий спосіб відслідковувати своїх продавців та клієнтів.\n"
 "\n"
 "Ви можете використовувати цей спрощений облік, якщо ви працюєте із (зовнішнім) обліковим записом, щоби зберігати свої книги, і ви все ще хочете відстежувати платежі. Цей модуль також пропонує вам простий спосіб реєстрації платежів без необхідності кодувати повні виписки бухобліку.\n"
 "    "
@@ -4531,22 +4725,22 @@ msgid ""
 "IoT Box Homepage\n"
 "================\n"
 "\n"
-"This module overrides Odoo web interface to display a simple\n"
+"This module overrides Flectra web interface to display a simple\n"
 "Homepage that explains what's the iotbox and shows the status,\n"
 "and where to find documentation.\n"
 "\n"
 "If you activate this module, you won't be able to access the \n"
-"regular Odoo interface anymore.\n"
+"regular Flectra interface anymore.\n"
 "\n"
 msgstr ""
 "\n"
 "Домашня сторінка IoT Box\n"
 "================\n"
 "\n"
-"Цей модуль переосмислює веб-інтерфейс Odoo, щоб відобразити\n"
+"Цей модуль переосмислює веб-інтерфейс Flectra, щоб відобразити\n"
 " просту домашню сторінку, яка пояснює, що таке iotbox, показує стан та\n"
 " де знайти документацію.\n"
-"Якщо ви активуєте цей модуль, ви більше не зможете отримати доступ до звичайного інтерфейсу Odoo.\n"
+"Якщо ви активуєте цей модуль, ви більше не зможете отримати доступ до звичайного інтерфейсу Flectra.\n"
 "\n"
 
 #. module: base
@@ -4659,7 +4853,7 @@ msgid ""
 "This module modifies the mail addon to provide:\n"
 "\n"
 "* Push notifications to registered devices for direct messages, chatter messages and channel.\n"
-"* Redirection to the Android/iOS mobile app when you click on an Odoo URL.\n"
+"* Redirection to the Android/iOS mobile app when you click on an Flectra URL.\n"
 "    "
 msgstr ""
 
@@ -5088,7 +5282,7 @@ msgid ""
 "============================================\n"
 "\n"
 "This Chart of account is a minimal proposal to be able to use OoB the\n"
-"accounting feature of Odoo.\n"
+"accounting feature of Flectra.\n"
 "\n"
 "This doesn't pretend be all the localization for MX it is just the minimal\n"
 "data required to start from 0 in mexican localization.\n"
@@ -5108,7 +5302,7 @@ msgstr ""
 "============================================\n"
 "\n"
 "Цей план рахунків є мінімальною пропозицією, щоби мати можливість використовувати OоB\n"
-"Особливість бухобліку Odoo.\n"
+"Особливість бухобліку Flectra.\n"
 "\n"
 "Це не претендує на те, що вся локалізація для MX є лише мінімальними\n"
 "даними, необхідними для запуску з 0 в мексиканській локалізації.\n"
@@ -5131,7 +5325,7 @@ msgid ""
 "Module for defining analytic accounting object.\n"
 "===============================================\n"
 "\n"
-"In Odoo, analytic accounts are linked to general accounts but are treated\n"
+"In Flectra, analytic accounts are linked to general accounts but are treated\n"
 "totally independently. So, you can enter various different analytic operations\n"
 "that have no counterpart in the general financial accounts.\n"
 "    "
@@ -5140,7 +5334,7 @@ msgstr ""
 "Модуль для визначення об'єкта аналітичного рахунку.\n"
 "===============================================\n"
 "\n"
-"В Odoo аналітичні рахунки пов'язані із загальними рахунками, але їх обробляють\n"
+"В Flectra аналітичні рахунки пов'язані із загальними рахунками, але їх обробляють\n"
 "абсолютно незалежно. Отже, ви можете вводити різні аналітичні операції,\n"
 "які не мають аналогів на загальних фінансових рахунках.\n"
 "    "
@@ -5308,7 +5502,7 @@ msgid ""
 "Module to import CSV bank statements.\n"
 "======================================\n"
 "\n"
-"This module allows you to import CSV Files in Odoo: they are parsed and stored in human readable format in\n"
+"This module allows you to import CSV Files in Flectra: they are parsed and stored in human readable format in\n"
 "Accounting \\ Bank and Cash \\ Bank Statements.\n"
 "\n"
 "Important Note\n"
@@ -5320,7 +5514,7 @@ msgstr ""
 "Модуль для імпорту банківських виписок у форматі CSV.\n"
 "============================\n"
 "\n"
-"Цей модуль дозволяє імпортувати файли CSV в Odoo: вони аналізуються та зберігаються у читабельному вигляді формату\n"
+"Цей модуль дозволяє імпортувати файли CSV в Flectra: вони аналізуються та зберігаються у читабельному вигляді формату\n"
 "Бухгалтерський облік \\ Банк та готівка \\ Банківські виписки.\n"
 "\n"
 "Важлива примітка\n"
@@ -5335,7 +5529,7 @@ msgid ""
 "Module to import OFX bank statements.\n"
 "======================================\n"
 "\n"
-"This module allows you to import the machine readable OFX Files in Odoo: they are parsed and stored in human readable format in\n"
+"This module allows you to import the machine readable OFX Files in Flectra: they are parsed and stored in human readable format in\n"
 "Accounting \\ Bank and Cash \\ Bank Statements.\n"
 "\n"
 "Bank Statements may be generated containing a subset of the OFX information (only those transaction lines that are required for the\n"
@@ -5346,7 +5540,7 @@ msgstr ""
 "Модуль імпорту банківських виписок OFX.\n"
 "======================================\n"
 "\n"
-"Цей модуль дозволяє імпортувати автозчитувані файли OFX в Odoo: вони аналізуються та зберігаються у читальному форматі в\n"
+"Цей модуль дозволяє імпортувати автозчитувані файли OFX в Flectra: вони аналізуються та зберігаються у читальному форматі в\n"
 "Бухгалтерський облік \\ Банк та каса \\ Банківські виписки.\n"
 "\n"
 "Банківські виписки можуть бути згенеровані, що містить підмножину OFX інформації (тільки ті рядки транзакцій, які необхідні для\n"
@@ -5360,7 +5554,7 @@ msgid ""
 "Module to import QIF bank statements.\n"
 "======================================\n"
 "\n"
-"This module allows you to import the machine readable QIF Files in Odoo: they are parsed and stored in human readable format in\n"
+"This module allows you to import the machine readable QIF Files in Flectra: they are parsed and stored in human readable format in\n"
 "Accounting \\ Bank and Cash \\ Bank Statements.\n"
 "\n"
 "Important Note\n"
@@ -5372,7 +5566,7 @@ msgstr ""
 "Модуль імпорту банківських виписок QIF.\n"
 "======================================\n"
 "\n"
-"Цей модуль дозволяє вам імпортувати файли QIF, що читаються автоматично, в Odoo: вони аналізуються та зберігаються в читабельному вигляді у форматі\n"
+"Цей модуль дозволяє вам імпортувати файли QIF, що читаються автоматично, в Flectra: вони аналізуються та зберігаються в читабельному вигляді у форматі\n"
 "Бухгалтерський облік \\ Банк та каса \\ Банківські заяви.\n"
 "\n"
 "Важлива примітка\n"
@@ -5445,10 +5639,10 @@ msgstr ""
 #: model:ir.module.module,description:base.module_base_import
 msgid ""
 "\n"
-"New extensible file import for Odoo\n"
+"New extensible file import for Flectra\n"
 "======================================\n"
 "\n"
-"Re-implement Odoo's file import system:\n"
+"Re-implement Flectra's file import system:\n"
 "\n"
 "* Server side, the previous system forces most of the logic into the\n"
 "  client which duplicates the effort (between clients), makes the\n"
@@ -5462,14 +5656,14 @@ msgid ""
 "  files) which may be simpler to handle in their work flow or from\n"
 "  their data production sources.\n"
 "\n"
-"* In a module, so that administrators and users of Odoo who do not\n"
+"* In a module, so that administrators and users of Flectra who do not\n"
 "  need or want an online import can avoid it being available to users.\n"
 msgstr ""
 "\n"
-"Новий розширений імпорт файлів для Odoo\n"
+"Новий розширений імпорт файлів для Flectra\n"
 "============================\n"
 "\n"
-"Повторно впровадьте систему імпорту файлів Odoo:\n"
+"Повторно впровадьте систему імпорту файлів Flectra:\n"
 "\n"
 "* Серверна сторона, попередня система запускає більшу частину логіки клієнту, \n"
 "що дублює зусилля (між клієнтами), робить \n"
@@ -5483,7 +5677,7 @@ msgstr ""
 "   які можуть бути простішими для обробки в робочому процесі або від\n"
 "   джерела їхніх даних.\n"
 "\n"
-"* У модулі, для адміністраторів та користувачів Odoo, які цього не роблять,\n"
+"* У модулі, для адміністраторів та користувачів Flectra, які цього не роблять,\n"
 "   їм це не потрібно або хочуть онлайн-імпорт, щоб уникнути його доступності для користувачів.\n"
 
 #. module: base
@@ -5498,14 +5692,14 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_sa
 msgid ""
 "\n"
-"Odoo Arabic localization for most arabic countries and Saudi Arabia.\n"
+"Flectra Arabic localization for most arabic countries and Saudi Arabia.\n"
 "\n"
 "This initially includes chart of accounts of USA translated to Arabic.\n"
 "\n"
 "In future this module will include some payroll rules for ME .\n"
 msgstr ""
 "\n"
-"Арабська локалізація Odoo для більшості арабських країн та Саудівської Аравії.\n"
+"Арабська локалізація Flectra для більшості арабських країн та Саудівської Аравії.\n"
 "\n"
 "Це спочатку включає в себе план рахунків США, перекладену на арабську мову.\n"
 "\n"
@@ -5515,7 +5709,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_web_dashboard
 msgid ""
 "\n"
-"Odoo Dashboard View.\n"
+"Flectra Dashboard View.\n"
 "========================\n"
 "\n"
 "This module defines the Dashboard view, a new type of reporting view. This view\n"
@@ -5523,7 +5717,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Вигляд панелі приладів Odoo.\n"
+"Вигляд панелі приладів Flectra.\n"
 "========================\n"
 "\n"
 "Цей модуль визначає вигляд панелі приладів, новий тип вигляду звітів. Цей вигляд\n"
@@ -5534,14 +5728,14 @@ msgstr ""
 #: model:ir.module.module,description:base.module_web_enterprise
 msgid ""
 "\n"
-"Odoo Enterprise Web Client.\n"
+"Flectra Enterprise Web Client.\n"
 "===========================\n"
 "\n"
 "This module modifies the web addon to provide Enterprise design and responsiveness.\n"
 "        "
 msgstr ""
 "\n"
-"Odoo Enterprise Web Client.\n"
+"Flectra Enterprise Web Client.\n"
 "===========================\n"
 "\n"
 "Цей модуль змінює веб диск, щоб забезпечити дизайн платної версії та чуйність.\n"
@@ -5551,12 +5745,12 @@ msgstr ""
 #: model:ir.module.module,description:base.module_web_editor
 msgid ""
 "\n"
-"Odoo Web Editor widget.\n"
+"Flectra Web Editor widget.\n"
 "==========================\n"
 "\n"
 msgstr ""
 "\n"
-"Віджет веб-редактора Odoo.\n"
+"Віджет веб-редактора Flectra.\n"
 "==========================\n"
 "\n"
 
@@ -5564,12 +5758,12 @@ msgstr ""
 #: model:ir.module.module,description:base.module_web_gantt
 msgid ""
 "\n"
-"Odoo Web Gantt chart view.\n"
+"Flectra Web Gantt chart view.\n"
 "=============================\n"
 "\n"
 msgstr ""
 "\n"
-"Перегляд діаграми Ганта Odoo Web.\n"
+"Перегляд діаграми Ганта Flectra Web.\n"
 "=============================\n"
 "\n"
 
@@ -5577,29 +5771,29 @@ msgstr ""
 #: model:ir.module.module,description:base.module_web
 msgid ""
 "\n"
-"Odoo Web core module.\n"
+"Flectra Web core module.\n"
 "========================\n"
 "\n"
-"This module provides the core of the Odoo Web Client.\n"
+"This module provides the core of the Flectra Web Client.\n"
 "        "
 msgstr ""
 "\n"
-"Модуль Odoo Web core.\n"
+"Модуль Flectra Web core.\n"
 "========================\n"
 "\n"
-"Цей модуль забезпечує ядро Odoo Web Client.\n"
+"Цей модуль забезпечує ядро Flectra Web Client.\n"
 "        "
 
 #. module: base
 #: model:ir.module.module,description:base.module_web_tour
 msgid ""
 "\n"
-"Odoo Web tours.\n"
+"Flectra Web tours.\n"
 "========================\n"
 "\n"
 msgstr ""
 "\n"
-"Веб-тури Odoo.\n"
+"Веб-тури Flectra.\n"
 "========================\n"
 "\n"
 
@@ -5844,7 +6038,7 @@ msgid ""
 "Publish your products on eBay\n"
 "=============================\n"
 "\n"
-"The eBay integrator gives you the opportunity to manage your Odoo's products on eBay.\n"
+"The eBay integrator gives you the opportunity to manage your Flectra's products on eBay.\n"
 "\n"
 "Key Features\n"
 "------------\n"
@@ -5859,7 +6053,7 @@ msgstr ""
 "Опублікуйте ваші товари на eBay\n"
 "=============================\n"
 "\n"
-"Інтегратор eBay дає вам можливість керувати вашими товарами Odoo на eBay.\n"
+"Інтегратор eBay дає вам можливість керувати вашими товарами Flectra на eBay.\n"
 "\n"
 "Ключові особливості\n"
 "------------\n"
@@ -5965,11 +6159,11 @@ msgid ""
 "============================================\n"
 "\n"
 "Enter the parameters of your POP/IMAP account(s), and any incoming emails on\n"
-"these accounts will be automatically downloaded into your Odoo system. All\n"
+"these accounts will be automatically downloaded into your Flectra system. All\n"
 "POP3/IMAP-compatible servers are supported, included those that require an\n"
 "encrypted SSL/TLS connection.\n"
 "\n"
-"This can be used to easily create email-based workflows for many email-enabled Odoo documents, such as:\n"
+"This can be used to easily create email-based workflows for many email-enabled Flectra documents, such as:\n"
 "----------------------------------------------------------------------------------------------------------\n"
 "    * CRM Leads/Opportunities\n"
 "    * CRM Claims\n"
@@ -5980,8 +6174,8 @@ msgid ""
 "Just install the relevant application, and you can assign any of these document\n"
 "types (Leads, Project Issues) to your incoming email accounts. New emails will\n"
 "automatically spawn new documents of the chosen type, so it's a snap to create a\n"
-"mailbox-to-Odoo integration. Even better: these documents directly act as mini\n"
-"conversations synchronized by email. You can reply from within Odoo, and the\n"
+"mailbox-to-Flectra integration. Even better: these documents directly act as mini\n"
+"conversations synchronized by email. You can reply from within Flectra, and the\n"
 "answers will automatically be collected when they come back, and attached to the\n"
 "same *conversation* document.\n"
 "\n"
@@ -5994,11 +6188,11 @@ msgstr ""
 "============================================\n"
 "\n"
 "Введіть параметри вашого облікового запису POP/IMAP, а також будь-які вхідні електронні листи,\n"
-"які облікові записи будуть автоматично завантажувати в систему Odoo. Все\n"
+"які облікові записи будуть автоматично завантажувати в систему Flectra. Все\n"
 "Підтримуються POP3/IMAP-сумісні сервери, включені ті, для яких потрібно мати\n"
 "зашифроване SSL/TLS з'єднання.\n"
 "\n"
-"Це може бути використано для легкого створення робочих процесів на основі електронної пошти для багатьох документів Odoo, що підтримуються електронною поштою, таких як:\n"
+"Це може бути використано для легкого створення робочих процесів на основі електронної пошти для багатьох документів Flectra, що підтримуються електронною поштою, таких як:\n"
 "----------------------------------------------------------------------------------------------------------\n"
 "    * Ліди/Нагоди CRM\n"
 "\n"
@@ -6010,8 +6204,8 @@ msgstr ""
 "Просто встановіть відповідний модуль, і ви можете призначити будь-який тип цих документів\n"
 "(Ліди, Проблеми проекту) до вхідних електронних адрес. Нові електронні листи будуть\n"
 "автоматично виводити нові документи вибраного типу, так що це просто, щоби створити\n"
-"інтеграцію поштової скриньки з Odoo. Ще краще: ці документи безпосередньо діють як міні\n"
-"бесіди, синхронізовані з електронною поштою. Ви можете відповісти зсередини Odoo, а також\n"
+"інтеграцію поштової скриньки з Flectra. Ще краще: ці документи безпосередньо діють як міні\n"
+"бесіди, синхронізовані з електронною поштою. Ви можете відповісти зсередини Flectra, а також\n"
 "відповіді автоматично збиратимуться, коли вони повертаються, і приєднуються до\n"
 "тієї ж *розмови* документу\n"
 "\n"
@@ -6244,7 +6438,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_web_studio
 msgid ""
 "\n"
-"Studio - Customize Odoo\n"
+"Studio - Customize Flectra\n"
 "=======================\n"
 "\n"
 "This addon allows the user to customize most element of the user interface, in a\n"
@@ -6256,7 +6450,7 @@ msgid ""
 "Note: Only the admin user is allowed to make those customizations.\n"
 msgstr ""
 "\n"
-"Студія - Налаштування Odoo\n"
+"Студія - Налаштування Flectra\n"
 "=======================\n"
 "\n"
 "Цей модуль дозволяє користувачеві налаштовувати більшість елементів інтерфейсу користувача в\n"
@@ -6271,7 +6465,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_website_studio
 msgid ""
 "\n"
-"Studio - Customize Odoo\n"
+"Studio - Customize Flectra\n"
 "=======================\n"
 "\n"
 "This addon allows the user to display all the website forms linked to a certain\n"
@@ -6279,7 +6473,7 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"Студія - Налаштування Odoo\n"
+"Студія - Налаштування Flectra\n"
 "=======================\n"
 "\n"
 "Цей аддон дозволяє користувачеві відображати всі форми веб-сайтів, пов'язані з певною\n"
@@ -6362,14 +6556,14 @@ msgid ""
 "Synchronization of timesheet entries with the external timesheet application.\n"
 "=============================================================================\n"
 "\n"
-"If you use the external timesheet application, this module alows you to synchronize timesheet entries between Odoo and the application.\n"
+"If you use the external timesheet application, this module alows you to synchronize timesheet entries between Flectra and the application.\n"
 "    "
 msgstr ""
 "\n"
 "Синхронізація записів табелю за допомогою зовнішнього додатка табелю.\n"
 "=============================================================================\n"
 "\n"
-"Якщо ви використовуєте зовнішню програму для створення табелю, цей модуль дозволить вам синхронізувати записи табелю між Odoo та програмою.\n"
+"Якщо ви використовуєте зовнішню програму для створення табелю, цей модуль дозволить вам синхронізувати записи табелю між Flectra та програмою.\n"
 "    "
 
 #. module: base
@@ -6397,6 +6591,9 @@ msgid ""
 "Technical module.\n"
 "    "
 msgstr ""
+"\n"
+"Технічний модуль.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_repair
@@ -6464,11 +6661,11 @@ msgstr ""
 #: model:ir.module.module,description:base.module_base
 msgid ""
 "\n"
-"The kernel of Odoo, needed for all installation.\n"
+"The kernel of Flectra, needed for all installation.\n"
 "===================================================\n"
 msgstr ""
 "\n"
-"Ядро Odoo, необхідне для всього встановлення.\n"
+"Ядро Flectra, необхідне для всього встановлення.\n"
 "===================================================\n"
 
 #. module: base
@@ -6478,6 +6675,9 @@ msgid ""
 "The module adds Microsoft user in res user.\n"
 "===========================================\n"
 msgstr ""
+"\n"
+"Модуль додає поле користувача Microsoft на користувача.\n"
+"===========================================\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_google_account
@@ -6494,11 +6694,11 @@ msgstr ""
 #: model:ir.module.module,description:base.module_google_spreadsheet
 msgid ""
 "\n"
-"The module adds the possibility to display data from Odoo in Google Spreadsheets in real time.\n"
+"The module adds the possibility to display data from Flectra in Google Spreadsheets in real time.\n"
 "=================================================================================================\n"
 msgstr ""
 "\n"
-"Модуль додає можливість відображати дані з Odoo в Google Spreadsheets в режимі реального часу.\n"
+"Модуль додає можливість відображати дані з Flectra в Google Spreadsheets в режимі реального часу.\n"
 "=================================================================================================\n"
 
 #. module: base
@@ -6531,7 +6731,7 @@ msgid ""
 "\n"
 "    Storage: automatic sales closings with computation of both period and cumulative totals (daily, monthly, annually)\n"
 "\n"
-"    Access to download the mandatory Certificate of Conformity delivered by Odoo SA (only for Odoo Enterprise users)\n"
+"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ (only for Flectra Enterprise users)\n"
 msgstr ""
 "\n"
 "Цей додаток містить технічні вимоги французького регулювання CGI art. 286, I. 3 ° bis, який передбачає певні критерії щодо незмінності, безпеки, зберігання та архівування даних, пов'язаних з продажем приватним особам (B2C).\n"
@@ -6547,7 +6747,7 @@ msgstr ""
 "\n"
 "    Зберігання: автоматичне закриття продажів з обчисленням як періоду, так і сукупних підсумків (щодня, щомісяця, щорічно)\n"
 "\n"
-"    Доступ до завантаження обов'язкового Сертифіката відповідності, наданий Odoo SA (тільки для користувачів Odoo Enterprise)\n"
+"    Доступ до завантаження обов'язкового Сертифіката відповідності, наданий FlectraHQ (тільки для користувачів Flectra Enterprise)\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_pos_cache
@@ -6614,7 +6814,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_fi
 msgid ""
 "\n"
-"This is the Odoo module to manage the accounting in Finland.\n"
+"This is the Flectra module to manage the accounting in Finland.\n"
 "============================================================\n"
 "\n"
 "After installing this module, you'll have access to :\n"
@@ -6626,7 +6826,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Це модуль Odoo для управління бухобліком у Фінляндії.\n"
+"Це модуль Flectra для управління бухобліком у Фінляндії.\n"
 "============================================================\n"
 "\n"
 "Після встановлення цього модуля, ви отримаєте доступ до:\n"
@@ -6654,7 +6854,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_product
 msgid ""
 "\n"
-"This is the base module for managing products and pricelists in Odoo.\n"
+"This is the base module for managing products and pricelists in Flectra.\n"
 "========================================================================\n"
 "\n"
 "Products support variants, different pricing methods, vendors information,\n"
@@ -6675,7 +6875,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Це базовий модуль для управління товарами та прайс-листами в Odoo.\n"
+"Це базовий модуль для управління товарами та прайс-листами в Flectra.\n"
 "================================================== ======================\n"
 "\n"
 "Варіанти підтримки товарів, різні методи ціноутворення, інформація про постачальників,\n"
@@ -6699,7 +6899,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_be
 msgid ""
 "\n"
-"This is the base module to manage the accounting chart for Belgium in Odoo.\n"
+"This is the base module to manage the accounting chart for Belgium in Flectra.\n"
 "==============================================================================\n"
 "\n"
 "After installing this module, the Configuration wizard for accounting is launched.\n"
@@ -6729,7 +6929,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Це базовий модуль для управління планом рахунків для Бельгії в Odoo.\n"
+"Це базовий модуль для управління планом рахунків для Бельгії в Flectra.\n"
 "==============================================================================\n"
 "\n"
 "Після встановлення цього модуля запускається майстер налаштування бухобліку.\n"
@@ -6759,7 +6959,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_ec
 msgid ""
 "\n"
-"This is the base module to manage the accounting chart for Ecuador in Odoo.\n"
+"This is the base module to manage the accounting chart for Ecuador in Flectra.\n"
 "==============================================================================\n"
 "\n"
 "Accounting chart and localization for Ecuador.\n"
@@ -6878,14 +7078,14 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_generic_coa
 msgid ""
 "\n"
-"This is the base module to manage the generic accounting chart in Odoo.\n"
+"This is the base module to manage the generic accounting chart in Flectra.\n"
 "==============================================================================\n"
 "\n"
 "Install some generic chart of accounts.\n"
 "    "
 msgstr ""
 "\n"
-"Це базовий модуль для керування загальним планом рахунків в Odoo.\n"
+"Це базовий модуль для керування загальним планом рахунків в Flectra.\n"
 "================================================== ============================\n"
 "\n"
 "Встановіть загальний план рахунків.\n"
@@ -6895,13 +7095,13 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_id
 msgid ""
 "\n"
-"This is the latest Indonesian Odoo localisation necessary to run Odoo accounting for SMEs with:\n"
+"This is the latest Indonesian Flectra localisation necessary to run Flectra accounting for SMEs with:\n"
 "=================================================================================================\n"
 "    - generic Indonesian chart of accounts\n"
 "    - tax structure"
 msgstr ""
 "\n"
-"Це остання індонезійська локалізація Odoo, необхідна для запуску бухобліку Odoo для SME з:\n"
+"Це остання індонезійська локалізація Flectra, необхідна для запуску бухобліку Flectra для SME з:\n"
 "=================================================================================================\n"
 "    - загальний план рахунків Індонезії\n"
 "    - структура податків"
@@ -6910,7 +7110,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_uk
 msgid ""
 "\n"
-"This is the latest UK Odoo localisation necessary to run Odoo accounting for UK SME's with:\n"
+"This is the latest UK Flectra localisation necessary to run Flectra accounting for UK SME's with:\n"
 "=================================================================================================\n"
 "    - a CT600-ready chart of accounts\n"
 "    - VAT100-ready tax structure\n"
@@ -6918,7 +7118,7 @@ msgid ""
 "    - a few other adaptations"
 msgstr ""
 "\n"
-"Це найостанніша локалізація у Великобританії Odoo, необхідна для запуску бухобліку Odoo для малого та середнього бізнесу Великобританії:\n"
+"Це найостанніша локалізація у Великобританії Flectra, необхідна для запуску бухобліку Flectra для малого та середнього бізнесу Великобританії:\n"
 "================================================== ===============================================\n"
 "     - готовий план рахунків CT600\n"
 "     - податкова структура VAT100\n"
@@ -6929,7 +7129,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_il
 msgid ""
 "\n"
-"This is the latest basic Israelian localisation necessary to run Odoo in Israel:\n"
+"This is the latest basic Israelian localisation necessary to run Flectra in Israel:\n"
 "================================================================================\n"
 "\n"
 "This module consists of:\n"
@@ -6943,13 +7143,13 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_za
 msgid ""
 "\n"
-"This is the latest basic South African localisation necessary to run Odoo in ZA:\n"
+"This is the latest basic South African localisation necessary to run Flectra in ZA:\n"
 "================================================================================\n"
 "    - a generic chart of accounts\n"
 "    - SARS VAT Ready Structure"
 msgstr ""
 "\n"
-"Це остання базова локлаізація для Південної Африки для запуску Odoo в ZA:\n"
+"Це остання базова локлаізація для Південної Африки для запуску Flectra в ZA:\n"
 "================================================================================\n"
 "    - загальний план рахунків\n"
 "    - готова структура ПДВ SARS"
@@ -6959,7 +7159,7 @@ msgstr ""
 msgid ""
 "\n"
 "This is the module to manage the Accounting Chart, VAT structure, Fiscal Position and Tax Mapping.\n"
-"It also adds the Registration Number for Romania in Odoo.\n"
+"It also adds the Registration Number for Romania in Flectra.\n"
 "================================================================================================================\n"
 "\n"
 "Romanian accounting chart and localization.\n"
@@ -6967,7 +7167,7 @@ msgid ""
 msgstr ""
 "\n"
 "Це модуль для управління планом рахунків, структурою ПДВ, схемою оподаткування та податковою картою.\n"
-"Він також додає реєстраційний номер для Румунії в Odoo.\n"
+"Він також додає реєстраційний номер для Румунії в Flectra.\n"
 "================================================== ================================================== ============\n"
 "\n"
 "Румунський план рахунків та локалізація.\n"
@@ -6977,7 +7177,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_ca
 msgid ""
 "\n"
-"This is the module to manage the Canadian accounting chart in Odoo.\n"
+"This is the module to manage the Canadian accounting chart in Flectra.\n"
 "===========================================================================================\n"
 "\n"
 "Canadian accounting charts and localizations.\n"
@@ -7005,7 +7205,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Це модуль для управління канадським планом рахунків в Odoo.\n"
+"Це модуль для управління канадським планом рахунків в Flectra.\n"
 "================================================== ==========================================\n"
 "\n"
 "Канадський план рахунків та локалізація.\n"
@@ -7036,7 +7236,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_pl
 msgid ""
 "\n"
-"This is the module to manage the accounting chart and taxes for Poland in Odoo.\n"
+"This is the module to manage the accounting chart and taxes for Poland in Flectra.\n"
 "==================================================================================\n"
 "\n"
 "To jest moduł do tworzenia wzorcowego planu kont, podatków, obszarów podatkowych i\n"
@@ -7048,7 +7248,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Це модуль для управління планами рахунків та податками для Польщі в Odoo.\n"
+"Це модуль для управління планами рахунків та податками для Польщі в Flectra.\n"
 "==================================================================================\n"
 "\n"
 "To jest moduł do tworzenia wzorcowego planu kont, podatków, obszarów podatkowych i\n"
@@ -7063,12 +7263,12 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_dz
 msgid ""
 "\n"
-"This is the module to manage the accounting chart for Algeria in Odoo.\n"
+"This is the module to manage the accounting chart for Algeria in Flectra.\n"
 "======================================================================\n"
 "This module applies to companies based in Algeria.\n"
 msgstr ""
 "\n"
-"Це модуль для управління планом рахунків для Алжиру в Odoo.\n"
+"Це модуль для управління планом рахунків для Алжиру в Flectra.\n"
 "======================================================================\n"
 "Цей модуль застосовується для компаній, які знаходяться в Алжирі.\n"
 
@@ -7076,7 +7276,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_fr
 msgid ""
 "\n"
-"This is the module to manage the accounting chart for France in Odoo.\n"
+"This is the module to manage the accounting chart for France in Flectra.\n"
 "========================================================================\n"
 "\n"
 "This module applies to companies based in France mainland. It doesn't apply to\n"
@@ -7098,7 +7298,7 @@ msgid ""
 "**Credits:** Sistheo, Zeekom, CrysaLEAD, Akretion and Camptocamp.\n"
 msgstr ""
 "\n"
-"Це модуль для управління планом рахунків для Франції в Odoo.\n"
+"Це модуль для управління планом рахунків для Франції в Flectra.\n"
 "================================================== ======================\n"
 "\n"
 "Цей модуль застосовується до компаній, розташованих у материковій частині Франції. Це не стосується\n"
@@ -7146,7 +7346,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_vn
 msgid ""
 "\n"
-"This is the module to manage the accounting chart for Vietnam in Odoo.\n"
+"This is the module to manage the accounting chart for Vietnam in Flectra.\n"
 "=========================================================================\n"
 "\n"
 "This module applies to companies based in Vietnamese Accounting Standard (VAS)\n"
@@ -7158,7 +7358,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Це модуль для управління планом рахунків для В'єтнаму в Odoo.\n"
+"Це модуль для управління планом рахунків для В'єтнаму в Flectra.\n"
 "================================================== =======================\n"
 "\n"
 "Цей модуль застосовується до компаній, заснованих у В'єтнамському стандарті бухгалтерського обліку (VAS)\n"
@@ -7340,6 +7540,10 @@ msgid ""
 "widget.\n"
 "    "
 msgstr ""
+"\n"
+"Цей модуль додає можливість фільтрувати за номерами чеків із віджету\n"
+"узгодження.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_hr_attendance
@@ -7461,7 +7665,7 @@ msgid ""
 "-----------------\n"
 "This module supports the three most common check formats and will work out of the box with the linked checks from checkdepot.net.\n"
 "\n"
-"View all checks at: https://www.checkdepot.net/checks/laser/Odoo.htm\n"
+"View all checks at: https://www.checkdepot.net/checks/laser/Flectra.htm\n"
 "\n"
 "You can choose between:\n"
 "\n"
@@ -7654,13 +7858,13 @@ msgid ""
 "This module gives a framework for SMS text messaging\n"
 "----------------------------------------------------\n"
 "\n"
-"The service is provided by the In App Purchase Odoo platform.\n"
+"The service is provided by the In App Purchase Flectra platform.\n"
 msgstr ""
 "\n"
 "Цей модуль дає основу для текстових повідомлень SMS\n"
 "---------------------------------------------------\n"
 "\n"
-"Послуга надається платформою Odoo в додатку Купівлі.\n"
+"Послуга надається платформою Flectra в додатку Купівлі.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_contacts
@@ -7717,6 +7921,12 @@ msgid ""
 "It adds a timer to a view for time recording purpose\n"
 "    "
 msgstr ""
+"\n"
+"Цей модуль встановлює таймер.\n"
+"==========================================\n"
+"\n"
+"Він додає таймер до вікна перегляду для запису часу\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_hr_timesheet
@@ -7808,6 +8018,8 @@ msgid ""
 "\n"
 "This module is used for Online bank synchronization."
 msgstr ""
+"\n"
+"Цей модуль використовується для онлайн синхронізації з банком."
 
 #. module: base
 #: model:ir.module.module,description:base.module_approvals
@@ -7904,17 +8116,17 @@ msgstr ""
 #: model:ir.module.module,description:base.module_iot
 msgid ""
 "\n"
-"This module provides management of your IoT Boxes inside Odoo.\n"
+"This module provides management of your IoT Boxes inside Flectra.\n"
 msgstr ""
 "\n"
-"Цей модуль забезпечує керування вашими IoT Box всередині Odoo.\n"
+"Цей модуль забезпечує керування вашими IoT Box всередині Flectra.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_iap
 msgid ""
 "\n"
 "This module provides standard tools (account model, context manager and helpers)\n"
-"to support In-App purchases inside Odoo. "
+"to support In-App purchases inside Flectra. "
 msgstr ""
 
 #. module: base
@@ -7930,14 +8142,14 @@ msgstr ""
 #: model:ir.module.module,description:base.module_note_pad
 msgid ""
 "\n"
-"This module update memos inside Odoo for using an external pad\n"
+"This module update memos inside Flectra for using an external pad\n"
 "=================================================================\n"
 "\n"
 "Use for update your text memo in real time with the following user that you invite.\n"
 "\n"
 msgstr ""
 "\n"
-"Цей модуль оновлюється в Odoo для використання зовнішньої панелі\n"
+"Цей модуль оновлюється в Flectra для використання зовнішньої панелі\n"
 "=================================================================\n"
 "\n"
 "Використовуйте для оновлення текстового нагадування в режимі реального часу з наступним запрошеним користувачем.\n"
@@ -7982,12 +8194,12 @@ msgstr ""
 #: model:ir.module.module,description:base.module_test_website_slides_full
 msgid ""
 "\n"
-"This module will test the main certification flow of Odoo.\n"
+"This module will test the main certification flow of Flectra.\n"
 "It will install the e-learning, survey and e-commerce apps and make a complete\n"
 "certification flow including purchase, certification, failure and success.\n"
 msgstr ""
 "\n"
-"Цей модуль буде тестувати основний процес сертифікації Odoo.\n"
+"Цей модуль буде тестувати основний процес сертифікації Flectra.\n"
 "Він встановить модулі електронного навчання, опитування та електронної комерції, а також зробить повний\n"
 "процес сертифікації, включаючи купівлі, сертифікацію, невдачу та успіх.\n"
 
@@ -7995,7 +8207,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_test_event_full
 msgid ""
 "\n"
-"This module will test the main event flows of Odoo, both frontend and backend.\n"
+"This module will test the main event flows of Flectra, both frontend and backend.\n"
 "It installs sale capabilities, front-end flow, eCommerce, questions and\n"
 "automatic lead generation, full Online support, ...\n"
 msgstr ""
@@ -8004,11 +8216,11 @@ msgstr ""
 #: model:ir.module.module,description:base.module_test_main_flows
 msgid ""
 "\n"
-"This module will test the main workflow of Odoo.\n"
+"This module will test the main workflow of Flectra.\n"
 "It will install some main apps and will try to execute the most important actions.\n"
 msgstr ""
 "\n"
-"Цей модуль перевірить основний робочий процес Odoo.\n"
+"Цей модуль перевірить основний робочий процес Flectra.\n"
 "Він встановить деякі основні програми та спробує виконати найважливіші дії.\n"
 
 #. module: base
@@ -8067,7 +8279,7 @@ msgid ""
 "This module will add a link to the Transifex project in the translation view.\n"
 "The purpose of this module is to speed up translations of the main modules.\n"
 "\n"
-"To work, Odoo uses Transifex configuration files `.tx/config` to detec the\n"
+"To work, Flectra uses Transifex configuration files `.tx/config` to detec the\n"
 "project source. Custom modules will not be translated (as not published on\n"
 "the main Transifex project).\n"
 "\n"
@@ -8081,7 +8293,7 @@ msgstr ""
 "Цей модуль додасть посилання на проект Transifex у вікні перекладу.\n"
 "Метою цього модуля є прискорення перекладів основних модулів.\n"
 "\n"
-"Щоб працювати, Odoo використовує конфігураційні файли Transifex `.tx/config` для виявлення\n"
+"Щоб працювати, Flectra використовує конфігураційні файли Transifex `.tx/config` для виявлення\n"
 "джерела проекту. Користувацькі модулі не будуть перекладені (які не опубліковано в\n"
 "головний проект Transifex).\n"
 "\n"
@@ -8111,7 +8323,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_l10n_tr
 msgid ""
 "\n"
-"Türkiye için Tek düzen hesap planı şablonu Odoo Modülü.\n"
+"Türkiye için Tek düzen hesap planı şablonu Flectra Modülü.\n"
 "==========================================================\n"
 "\n"
 "Bu modül kurulduktan sonra, Muhasebe yapılandırma sihirbazı çalışır\n"
@@ -8120,7 +8332,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Türkiye için Tek düzen hesap planı şablonu Odoo Modülü.\n"
+"Türkiye için Tek düzen hesap planı şablonu Flectra Modülü.\n"
 "==========================================================\n"
 "\n"
 "Bu modül kurulduktan sonra, Muhasebe yapılandırma sihirbazı çalışır\n"
@@ -8205,6 +8417,8 @@ msgid ""
 "\n"
 "Use devices connected to an IoT Box to control the quality of your products.\n"
 msgstr ""
+"\n"
+"Використовуйте пристрої, підключені до IoT Box, щоб контролювати якість ваших товарів.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_pos_restaurant_iot
@@ -8212,6 +8426,8 @@ msgid ""
 "\n"
 "Use receipt printers connected to an IoT Box to print orders in the kitchen or at the bar.\n"
 msgstr ""
+"\n"
+"Виористовуйте принтер чеків, підключений до IoT Box для друку замовлень на кухні чи барі.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_sales_team
@@ -8303,7 +8519,7 @@ msgid ""
 "\n"
 "Vehicle, leasing, insurances, cost\n"
 "==================================\n"
-"With this module, Odoo helps you managing all your vehicles, the\n"
+"With this module, Flectra helps you managing all your vehicles, the\n"
 "contracts associated to those vehicle as well as services, costs\n"
 "and many other features necessary to the management of your fleet\n"
 "of vehicle(s)\n"
@@ -8501,7 +8717,7 @@ msgstr ""
 #: code:addons/base/models/ir_ui_view.py:0
 #, python-format
 msgid "\"group_by\" value must be a string %(attribute)s=%(value)r"
-msgstr ""
+msgstr "значення \"group_by\" повинно бути рядком %(attribute)s=%(value)r"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_users__accesses_count
@@ -8522,19 +8738,21 @@ msgstr "К-сть записаних правил"
 #: code:addons/base/models/ir_ui_view.py:0
 #, python-format
 msgid "%(action_name)s is not a valid action on %(model_name)s"
-msgstr ""
+msgstr "%(action_name)s недійсна дія на %(model_name)s"
 
 #. module: base
 #: code:addons/base/models/ir_ui_view.py:0
 #, python-format
 msgid "%(attribute)r value must be an integer (%(value)s)"
-msgstr ""
+msgstr "%(attribute)r значення має бути цілим числом (%(value)s)"
 
 #. module: base
 #: code:addons/base/models/ir_ui_view.py:0
 #, python-format
 msgid "%(method)s on %(model)s is private and cannot be called from a button"
 msgstr ""
+"%(method)s на %(model)s приватний і не може бути викликаний за допомогою "
+"кнопки"
 
 #. module: base
 #: code:addons/fields.py:0 code:addons/models.py:0
@@ -8555,6 +8773,7 @@ msgid ""
 "%(xmlid)s is of type %(xmlid_model)s, expected a subclass of "
 "ir.actions.actions"
 msgstr ""
+"%(xmlid)s є типом %(xmlid_model)s, очікується підклас ir.actions.actions"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.res_lang_form
@@ -8634,7 +8853,7 @@ msgstr "%s (копія)"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.res_lang_form
 msgid "%w - Day of the week number [0(Sunday),6].\""
-msgstr ""
+msgstr "%w - Значення дня тижня [0(Sunday),6].\""
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.res_lang_form
@@ -8644,7 +8863,7 @@ msgstr "%y - Рік без століття [00,99].\""
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_base_language_install
 msgid "&amp; Close"
-msgstr ""
+msgstr "&amp; Закрити"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.module_view_kanban
@@ -8809,7 +9028,7 @@ msgstr "3. %y, %Y         ==&gt; 08, 2008"
 #. module: base
 #: model:ir.module.module,summary:base.module_hr_appraisal_survey
 msgid "360 Feedback"
-msgstr ""
+msgstr "360 Відгук"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.res_lang_form
@@ -8859,6 +9078,8 @@ msgstr ""
 msgid ""
 "<code>UserError</code>: Warning Exception to use with <code>raise</code>"
 msgstr ""
+"<code>UserError</code>: Попередження винятку у використанні "
+"<code>raise</code>"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_model_fields_form
@@ -8874,8 +9095,8 @@ msgstr "<code>використання дати</code> (модуль Python)"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_server_action_form
-msgid "<code>env</code>: Odoo Environment on which the action is triggered"
-msgstr "<code>серед.</code>: Середовище Odoo, на якому спрацьовує дія"
+msgid "<code>env</code>: Flectra Environment on which the action is triggered"
+msgstr "<code>серед.</code>: Середовище Flectra, на якому спрацьовує дія"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_server_action_form
@@ -8889,10 +9110,10 @@ msgstr ""
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_server_action_form
 msgid ""
-"<code>model</code>: Odoo Model of the record on which the action is "
+"<code>model</code>: Flectra Model of the record on which the action is "
 "triggered; is a void recordset"
 msgstr ""
-"<code>модель</code>: Модель Odoo запису, на якій дія є недійсним набором "
+"<code>модель</code>: Модель Flectra запису, на якій дія є недійсним набором "
 "записів"
 
 #. module: base
@@ -8962,6 +9183,8 @@ msgid ""
 "<i class=\"fa fa-fw o_button_icon fa-arrow-right\"/>\n"
 "                                    <span>Documentation</span>"
 msgstr ""
+"<i class=\"fa fa-fw o_button_icon fa-arrow-right\"/>\n"
+"                                    <span>Документація</span>"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_rule_form
@@ -8980,7 +9203,7 @@ msgstr "<i class=\"fa fa-times\" title=\"Close the onboarding panel\"/>"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.onboarding_container
 msgid "<span aria-label=\"Close\">×</span>"
-msgstr ""
+msgstr "<span aria-label=\"Close\">×</span>"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.reset_view_arch_wizard_view
@@ -9187,7 +9410,7 @@ msgstr "<strong>Телефон</strong>"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.identity_check_wizard
 msgid "<strong>Please confirm your password to continue</strong>"
-msgstr ""
+msgstr "<strong>Підтвердіть ваш пароль, щоби продовжити</strong>"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.report_irmodulereference
@@ -9263,7 +9486,7 @@ msgstr "<u><strong>Перегляди</strong></u>"
 #: model:ir.module.module,description:base.module_l10n_mx_edi_landing
 msgid ""
 "==========================================\n"
-"Odoo Mexico Localization for Stock/Landing\n"
+"Flectra Mexico Localization for Stock/Landing\n"
 "==========================================\n"
 "\n"
 "This module extends the functionality of Mexican localization to support\n"
@@ -9338,7 +9561,7 @@ msgid ""
 ".. figure:: static/description/invoice_custom_xml.png\n"
 msgstr ""
 "==========================================\n"
-"Локалізація Odoo Мексика для Складу/Додаткових витрат\n"
+"Локалізація Flectra Мексика для Складу/Додаткових витрат\n"
 "===========================================\n"
 "\n"
 "Цей модуль розширює функціональність мексиканської локалізації для підтримки\n"
@@ -9416,7 +9639,7 @@ msgstr ""
 #: code:addons/base/models/ir_ui_view.py:0
 #, python-format
 msgid "A <graph> can only contains <field> nodes, found a <%s>"
-msgstr ""
+msgstr "<graph> Може містити лише <field> вузли, знайдені <%s>"
 
 #. module: base
 #: model:res.partner.industry,full_name:base.res_partner_industry_A
@@ -9468,8 +9691,8 @@ msgstr "Модуль для генерування винятків."
 
 #. module: base
 #: model:ir.module.module,description:base.module_test_lint
-msgid "A module to test Odoo code with various linters."
-msgstr "Модуль для тестування коду Odoo з різними вкладками."
+msgid "A module to test Flectra code with various linters."
+msgstr "Модуль для тестування коду Flectra з різними вкладками."
 
 #. module: base
 #: model:ir.module.module,description:base.module_test_impex
@@ -9479,7 +9702,7 @@ msgstr "Модуль для тестування імпорту/експорту
 #. module: base
 #: model:ir.module.module,description:base.module_test_populate
 msgid "A module to test populate."
-msgstr ""
+msgstr "Модуль для тестування заповнення."
 
 #. module: base
 #: model:ir.module.module,description:base.module_test_new_api
@@ -9553,6 +9776,7 @@ msgstr "Користувач, пов'язаний із контактом"
 #, python-format
 msgid "A valid email is required for find_or_create to work properly."
 msgstr ""
+"Вимагається дійсний email для find_or_create, щоби працювати належним чином."
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__report_paperformat__format__a0
@@ -9612,17 +9836,17 @@ msgstr "Кредитний переказ ABA"
 #. module: base
 #: model:ir.actions.act_window,name:base.action_res_users_keys_description
 msgid "API Key: description input wizard"
-msgstr ""
+msgstr "Ключ API: помічник вводу опису"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_users__api_key_ids
 msgid "API Keys"
-msgstr ""
+msgstr "API ключі"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_apikeys_admin
 msgid "API Keys Listing"
-msgstr ""
+msgstr "Перелік API ключів "
 
 #. module: base
 #: code:addons/fields.py:0
@@ -9705,7 +9929,7 @@ msgstr "Доступ до приватних адрес"
 #. module: base
 #: model:res.groups,name:base.group_allow_export
 msgid "Access to export feature"
-msgstr ""
+msgstr "Функція доступу для експорту"
 
 #. module: base
 #: code:addons/api.py:0 code:addons/api.py:0
@@ -9778,7 +10002,7 @@ msgstr "Номер рахунку повинен бути унікальним"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_users_form_simple_modif
 msgid "Account Security"
-msgstr ""
+msgstr "Безпека облікового запису"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_taxcloud
@@ -9895,7 +10119,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_fleet
 msgid "Accounting/Fleet bridge"
-msgstr ""
+msgstr "Мостовий модуль Бухоблік/Автотранспорт"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_actions_act_window_view__act_window_id
@@ -10007,7 +10231,7 @@ msgstr "Дії"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.res_lang_tree
 msgid "Activate / Update"
-msgstr ""
+msgstr "Активувати / Оновити"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.res_lang_form
@@ -10057,12 +10281,12 @@ msgstr "Додати"
 #. module: base
 #: model:ir.actions.act_window,name:base.action_view_base_language_install
 msgid "Add Language"
-msgstr ""
+msgstr "Додати мову"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_mail_bot
-msgid "Add OdooBot in discussions"
-msgstr "Додати OdooBot в обговорення"
+msgid "Add FlectraBot in discussions"
+msgstr "Додати FlectraBot в обговорення"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_sale_subscription_sepa_direct_debit
@@ -10133,7 +10357,7 @@ msgstr "Додайте вартість доставки до онлайн-пр�
 #: code:addons/base/models/ir_qweb_fields.py:0
 #, python-format
 msgid "Add direction"
-msgstr ""
+msgstr "Додати напрямок"
 
 #. module: base
 #: code:addons/base/models/ir_qweb_fields.py:0
@@ -10165,8 +10389,8 @@ msgstr "Додати UTM інформацію про ліди/нагоди дл�
 
 #. module: base
 #: model:ir.module.module,summary:base.module_im_livechat_mail_bot
-msgid "Add livechat support for OdooBot"
-msgstr "Додайте підтримку живого чату для OdooBot"
+msgid "Add livechat support for FlectraBot"
+msgstr "Додайте підтримку живого чату для FlectraBot"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_social_sale
@@ -10191,7 +10415,7 @@ msgstr "Додайте варіанти у замовлення на прода�
 #. module: base
 #: model:ir.module.module,summary:base.module_event_enterprise
 msgid "Add views and tweaks on event"
-msgstr ""
+msgstr "Додайте перегляди та налаштування події"
 
 #. module: base
 #: model:res.partner,website_short_description:base.res_partner_address_31
@@ -10242,12 +10466,12 @@ msgstr "Роздільник адреси"
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_restaurant_adyen
 msgid "Adds American style tipping to Adyen"
-msgstr ""
+msgstr "Додає американський тип чайових до Adyen"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_hr_contract_salary_payroll
 msgid "Adds a Gross to Net Salary Simulaton"
-msgstr ""
+msgstr "Додає моделювання валової до чистої зарплати"
 
 #. module: base
 #: model:ir.module.module,description:base.module_contacts_enterprise
@@ -10260,7 +10484,7 @@ msgid ""
 "Adds support for authentication by LDAP server.\n"
 "===============================================\n"
 "This module allows users to login with their LDAP username and password, and\n"
-"will automatically create Odoo users for them on the fly.\n"
+"will automatically create Flectra users for them on the fly.\n"
 "\n"
 "**Note:** This module only work on servers that have Python's ``python-ldap`` module installed.\n"
 "\n"
@@ -10269,7 +10493,7 @@ msgid ""
 "After installing this module, you need to configure the LDAP parameters in the\n"
 "General Settings menu. Different companies may have different\n"
 "LDAP servers, as long as they have unique usernames (usernames need to be unique\n"
-"in Odoo, even across multiple companies).\n"
+"in Flectra, even across multiple companies).\n"
 "\n"
 "Anonymous LDAP binding is also supported (for LDAP servers that allow it), by\n"
 "simply keeping the LDAP user and password empty in the LDAP configuration.\n"
@@ -10285,24 +10509,24 @@ msgid ""
 "\n"
 "Security Considerations:\n"
 "------------------------\n"
-"Users' LDAP passwords are never stored in the Odoo database, the LDAP server\n"
+"Users' LDAP passwords are never stored in the Flectra database, the LDAP server\n"
 "is queried whenever a user needs to be authenticated. No duplication of the\n"
 "password occurs, and passwords are managed in one place only.\n"
 "\n"
-"Odoo does not manage password changes in the LDAP, so any change of password\n"
+"Flectra does not manage password changes in the LDAP, so any change of password\n"
 "should be conducted by other means in the LDAP directory directly (for LDAP users).\n"
 "\n"
-"It is also possible to have local Odoo users in the database along with\n"
+"It is also possible to have local Flectra users in the database along with\n"
 "LDAP-authenticated users (the Administrator account is one obvious example).\n"
 "\n"
 "Here is how it works:\n"
 "---------------------\n"
-"    * The system first attempts to authenticate users against the local Odoo\n"
+"    * The system first attempts to authenticate users against the local Flectra\n"
 "      database;\n"
 "    * if this authentication fails (for example because the user has no local\n"
 "      password), the system then attempts to authenticate against LDAP;\n"
 "\n"
-"As LDAP users have blank passwords by default in the local Odoo database\n"
+"As LDAP users have blank passwords by default in the local Flectra database\n"
 "(which means no access), the first step always fails and the LDAP server is\n"
 "queried to do the authentication.\n"
 "\n"
@@ -10320,14 +10544,14 @@ msgid ""
 "         assigned as local password for each new LDAP user, effectively setting\n"
 "         a *master password* for these users (until manually changed). You\n"
 "         usually do not want this. One easy way to setup a template user is to\n"
-"         login once with a valid LDAP user, let Odoo create a blank local\n"
+"         login once with a valid LDAP user, let Flectra create a blank local\n"
 "         user with the same login (and a blank password), then rename this new\n"
 "         user to a username that does not exist in LDAP, and setup its groups\n"
 msgstr ""
 "Додає підтримку аутентифікації на сервері LDAP.\n"
 "===============================================\n"
 "Цей модуль дозволяє користувачам увійти за допомогою свого імені користувача та\n"
-"пароля LDAP, і автоматично створює користувачів Odoo для них на ходу.\n"
+"пароля LDAP, і автоматично створює користувачів Flectra для них на ходу.\n"
 "\n"
 "**Занотуйте:** Цей модуль працює на сервері лише зі встановленим модулем Python ``python-ldap``.\n"
 "\n"
@@ -10336,7 +10560,7 @@ msgstr ""
 "Після встановлення цього модуля потрібно налаштувати параметри LDAP\n"
 "в меню Загальні налаштування. У різних компаніях можуть бути різні\n"
 "сервери LDAP, якщо вони мають унікальні імена користувачів (імена\n"
-"користувачів повинні бути унікальними в Odoo, навіть у багатьох компаніях).\n"
+"користувачів повинні бути унікальними в Flectra, навіть у багатьох компаніях).\n"
 "\n"
 "Анонімне прив'язування LDAP також підтримується (для серверів LDAP, \n"
 "які це дозволяють), просто збережіть користувача та пароль LDAP порожніми у налаштуваннях LDAP. Це не дозволяє анонімну \n"
@@ -10351,25 +10575,25 @@ msgstr ""
 "\n"
 "Міркування безпеки:\n"
 "------------------------\n"
-"Паролі LDAP користувачів ніколи не зберігаються в базі даних Odoo, сервер\n"
+"Паролі LDAP користувачів ніколи не зберігаються в базі даних Flectra, сервер\n"
 "LDAP запитується кожного разу, коли користувачеві потрібно перевірити автентифікацію. Дублювання пароля не відбувається, а\n"
 "паролі керуються лише в одному місці.\n"
 "\n"
-"Odoo не керує зміною пароля в LDAP, тому будь-яка зміна пароля\n"
+"Flectra не керує зміною пароля в LDAP, тому будь-яка зміна пароля\n"
 "повинна проводитися іншими способами безпосередньо в каталозі LDAP (для користувачів LDAP).\n"
 "\n"
-"Також можливо мати місцевих користувачів Odoo в базі даних разом з користувачами, що підтверджують\n"
+"Також можливо мати місцевих користувачів Flectra в базі даних разом з користувачами, що підтверджують\n"
 " LDAP (автентичний обліковий запис адміністратора - один очевидний приклад).\n"
 "\n"
 "Ось як це працює:\n"
 "---------------------\n"
 "    * Система спочатку намагається аутентифікувати користувачів на\n"
-"локальній базі даних Odoo;\n"
+"локальній базі даних Flectra;\n"
 "    * якщо ця автентифікація не вдалася (наприклад, через те, що у користувача немає локального\n"
 "пароля), система намагається перевірити автентифікацію проти LDAP;\n"
 "\n"
 "Оскільки користувачі LDAP за замовчуванням мають локальні паролі в\n"
-"локальній базі даних Odoo (що означає відсутність доступу), перший\n"
+"локальній базі даних Flectra (що означає відсутність доступу), перший\n"
 "крок завжди виходить з ладу, і сервер LDAP намагається зробити аутентифікацію.\n"
 "\n"
 "Увімкнення STARTTLS гарантує, що запит аутентифікації на сервері\n"
@@ -10386,7 +10610,7 @@ msgstr ""
 "користувача, цей пароль буде призначений як локальний пароль для\n"
 "кожного нового користувача LDAP, фактично встановивши *головний пароль* для цих користувачів (поки не буде змінено вручну). Ви\n"
 "зазвичай цього не хочете. Один з простих способів налаштування шаблону - це один раз увійти в систему з дійсним користувачем LDAP,\n"
-"дозволити Odoo створити порожнього локального користувача з тим самим\n"
+"дозволити Flectra створити порожнього локального користувача з тим самим\n"
 "логіном (і порожнім паролем), а потім перейменувати цього нового\n"
 "користувача на ім’я користувача, яке не існує в LDAP та налаштувати його групи\n"
 
@@ -10423,7 +10647,7 @@ msgstr "Розширене форматування адреси"
 #. module: base
 #: model:ir.module.module,summary:base.module_website_event_track_gantt
 msgid "Advanced Event Track Management"
-msgstr ""
+msgstr "Розширене керування відстеженням подій"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_event_track
@@ -10475,7 +10699,7 @@ msgstr "Розширені функції для stock_account"
 #. module: base
 #: model:ir.module.module,summary:base.module_l10n_be_hr_payroll_proration
 msgid "Advantage Proration"
-msgstr ""
+msgstr "Пропорція надбавки"
 
 #. module: base
 #: model:ir.module.module,description:base.module_payment_adyen
@@ -10486,7 +10710,7 @@ msgstr "Платіжний еквайєр Adyen"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_adyen_platforms
 msgid "Adyen for Platforms"
-msgstr ""
+msgstr "Adyen для Platforms"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_module_module__license__agpl-3
@@ -10588,12 +10812,12 @@ msgstr "Дозволяє створювати завдання виїзного 
 #. module: base
 #: model:ir.module.module,summary:base.module_hr_payroll_edit_lines
 msgid "Allow payslip edition"
-msgstr ""
+msgstr "Дозволити версію платіжної відомості"
 
 #. module: base
 #: model:ir.module.module,description:base.module_website_event_crm
 msgid "Allow per-order lead creation mode"
-msgstr ""
+msgstr "Дозволяє режим створення лідів на замовлення"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_website_sale_comparison
@@ -10612,8 +10836,8 @@ msgstr "Дозвольте відвідувачам приєднуватися �
 
 #. module: base
 #: model:ir.module.module,summary:base.module_odoo_referral
-msgid "Allow you to refer your friends to Odoo and get rewards"
-msgstr "Дозволяє вам направляти ваших друзів в Odoo та отримувати нагороду"
+msgid "Allow you to refer your friends to Flectra and get rewards"
+msgstr "Дозволяє вам направляти ваших друзів в Flectra та отримувати нагороду"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_users_form
@@ -10623,7 +10847,7 @@ msgstr "Дозволені компанії"
 #. module: base
 #: model:ir.module.module,summary:base.module_stock_barcode_mrp_subcontracting
 msgid "Allows the subcontracting process with the barcode views"
-msgstr ""
+msgstr "Дозволяє процес субпідряду з переглядом штрих-коду"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_stock_barcode_quality_control
@@ -10880,7 +11104,7 @@ msgstr "Оцінка"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_appraisal_survey
 msgid "Appraisal - Survey"
-msgstr ""
+msgstr "Оцінювання - Опитування"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_human_resources_appraisals
@@ -10896,12 +11120,12 @@ msgstr "Затвердження"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_approvals_purchase
 msgid "Approvals - Purchase"
-msgstr ""
+msgstr "Затвердження - Закупівлі"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_approvals_purchase_stock
 msgid "Approvals - Purchase - Stock"
-msgstr ""
+msgstr "Затвердження - Закупівлі - Склад"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.open_module_tree
@@ -11027,7 +11251,7 @@ msgstr "Аруба"
 #: model_terms:res.partner,website_description:base.res_partner_3
 #: model_terms:res.partner,website_description:base.res_partner_4
 msgid "As a team, we are happy to contribute to this event."
-msgstr ""
+msgstr "Як команда, ми раді зробити свій внесок у подію."
 
 #. module: base
 #: model:ir.module.module,summary:base.module_hr_appraisal
@@ -11541,12 +11765,12 @@ msgstr "База: автоматичні вакуумні внутрішні д�
 #. module: base
 #: model:ir.module.module,summary:base.module_web_grid
 msgid "Basic 2D Grid view for odoo"
-msgstr "Базовий перегляд 2D Grid для Odoo"
+msgstr "Базовий перегляд 2D Grid для Flectra"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_web_cohort
 msgid "Basic Cohort view for odoo"
-msgstr "Базовий перегляд когорти для Odoo"
+msgstr "Базовий перегляд когорти для Flectra"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_quality
@@ -11572,7 +11796,7 @@ msgstr "Груповий платіж"
 #: model_terms:ir.ui.view,arch_db:base.view_view_form
 msgid ""
 "Be aware that editing the architecture of a standard view is not advised, since the changes will be overwritten during future module updates.<br/>\n"
-"                        We recommend applying modifications to standard views through inherited views or customization with Odoo Studio."
+"                        We recommend applying modifications to standard views through inherited views or customization with Flectra Studio."
 msgstr ""
 
 #. module: base
@@ -11607,17 +11831,17 @@ msgstr "Бельгійська декларація Intrastat "
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_proration
 msgid "Belgian Payroll - Advantage Proration"
-msgstr ""
+msgstr "Бельгійська зарплата - пропорція надбавки"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_posted_employee
 msgid "Belgian Payroll - Posted Employee"
-msgstr ""
+msgstr "Бельгійська зарплата - опубліковані співробітники"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_variable_revenue
 msgid "Belgian Payroll - Variable Revenue"
-msgstr ""
+msgstr "Бельгійська зарплата - змінний дохід"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_blackbox_be
@@ -11647,7 +11871,7 @@ msgstr "Бельгія - Бухгалтерські звіти"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_be_disallowed_expenses
 msgid "Belgium - Disallowed Expenses Data"
-msgstr ""
+msgstr "Бельгія - Дані про заборонені витрати"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_be_edi
@@ -11848,7 +12072,7 @@ msgstr "Мостовий модуль між Табелями продажу т�
 #. module: base
 #: model:ir.module.module,summary:base.module_mail_bot_hr
 msgid "Bridge module between hr and mailbot."
-msgstr ""
+msgstr "Мостовий модуль між hr та mailbot."
 
 #. module: base
 #: model:ir.module.module,description:base.module_website_helpdesk
@@ -11969,7 +12193,7 @@ msgstr "CRM"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_data_merge_crm
 msgid "CRM Deduplication"
-msgstr ""
+msgstr "Дедуплікація CRM"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_gamification_sale_crm
@@ -12058,7 +12282,7 @@ msgstr "Можна перейменувати лише одне поле за р
 #: code:addons/base/models/ir_ui_view.py:0
 #, python-format
 msgid "Can't compare more than two views."
-msgstr ""
+msgstr "Не можна порівняти більше ніж два перегляди."
 
 #. module: base
 #: model:res.country,name:base.ca
@@ -12286,7 +12510,7 @@ msgstr "Перевірка"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_accountant_check_printing
 msgid "Check Printing Accounting"
-msgstr ""
+msgstr "Бухоблік друку чеків"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_check_printing
@@ -12379,7 +12603,7 @@ msgstr "Чилі - Бухгалтерські звіти"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_cl_edi
 msgid "Chile - E-invoicing"
-msgstr ""
+msgstr "Чилі - Електронне виставлення рахунків"
 
 #. module: base
 #: model:res.country,name:base.cn
@@ -12526,7 +12750,7 @@ msgstr "Колумбія"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_co
 msgid "Colombia - Accounting"
-msgstr ""
+msgstr "Колумбія - Бухоблік"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_co_reports
@@ -12585,7 +12809,7 @@ msgstr "Колонка з посиланням на запис у таблицю
 #: model_terms:res.partner,website_description:base.res_partner_3
 #: model_terms:res.partner,website_description:base.res_partner_4
 msgid "Come see us live, we hope to meet you !"
-msgstr ""
+msgstr "Приходьте побачити нас вживу, маємо надію зустрітися з вами!"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__report_paperformat__format__comm10e
@@ -12733,7 +12957,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_reset_view_arch_wizard__compare_view_id
 msgid "Compare To View"
-msgstr ""
+msgstr "Порівняти з перегляду"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_project_timesheet_forecast_sale
@@ -12748,7 +12972,7 @@ msgstr "Порівняйте табелі та планування"
 #. module: base
 #: model:ir.actions.act_window,name:base.reset_view_arch_wizard_action
 msgid "Compare/Reset"
-msgstr ""
+msgstr "Порівняти/Скинути"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_partner__contact_address
@@ -12856,7 +13080,7 @@ msgstr "Помічники налаштування"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_event_twitter_wall
 msgid "Configure a Twitter Wall on your Event"
-msgstr ""
+msgstr "Налаштуйте стрічку Twitter на вашій події"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_partner_commission
@@ -13311,16 +13535,16 @@ msgstr "Створіть нового постачальника у вашій �
 
 #. module: base
 #: model:ir.module.module,summary:base.module_web_studio
-msgid "Create and customize your Odoo apps"
-msgstr "Створіть та налаштуйте ваші модулі Odoo"
+msgid "Create and customize your Flectra apps"
+msgstr "Створіть та налаштуйте ваші модулі Flectra"
 
 #. module: base
 #: model_terms:ir.actions.act_window,help:base.action_res_company_form
 msgid ""
-"Create and manage the companies that will be managed by Odoo from here. "
+"Create and manage the companies that will be managed by Flectra from here. "
 "Shops or subsidiaries can be created and maintained from here."
 msgstr ""
-"Створюйте та керуйте компаніями, які будуть керувати Odoo звідси. Магазини "
+"Створюйте та керуйте компаніями, які будуть керувати Flectra звідси. Магазини "
 "чи дочірні компанії можуть бути створені та обслуговувані звідси."
 
 #. module: base
@@ -13810,7 +14034,7 @@ msgstr "Панелі приладів"
 #: model:ir.module.category,name:base.module_category_productivity_data_cleaning
 #: model:ir.module.module,shortdesc:base.module_data_cleaning
 msgid "Data Cleaning"
-msgstr ""
+msgstr "Очищення даних"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_data_merge
@@ -15384,11 +15608,11 @@ msgstr "Невірно пов’язані звіти"
 #: model:ir.module.module,description:base.module_web_unsplash
 msgid ""
 "Explore the free high-resolution image library of Unsplash.com and find "
-"images to use in Odoo. An Unsplash search bar is added to the image library "
+"images to use in Flectra. An Unsplash search bar is added to the image library "
 "modal."
 msgstr ""
 "Дослідіть безкоштовну бібліотеку зображень з високою роздільною здатністю "
-"Unsplash.com і знайдіть зображення для використання в Odoo. Панель пошуку "
+"Unsplash.com і знайдіть зображення для використання в Flectra. Панель пошуку "
 "Unsplash додається до модальної бібліотеки зображень."
 
 #. module: base
@@ -15633,7 +15857,7 @@ msgid ""
 "La structure du fichier FEC généré par ce module a été vérifiée avec le logiciel\n"
 "*Test Compta Demat* version 1_00_05 disponible sur\n"
 "`le site de la direction générale des finances publiques <http://www.economie.gouv.fr/dgfip/outil-test-des-fichiers-des-ecritures-comptables-fec>`\n"
-"en utilisant une base de donnée Odoo réelle.\n"
+"en utilisant une base de donnée Flectra réelle.\n"
 "\n"
 "Configuration\n"
 "=============\n"
@@ -15674,7 +15898,7 @@ msgstr ""
 "La structure du fichier FEC généré par ce module a été vérifiée avec le logiciel\n"
 "*Test Compta Demat* version 1_00_05 disponible sur\n"
 "`le site de la direction générale des finances publiques <http://www.economie.gouv.fr/dgfip/outil-test-des-fichiers-des-ecritures-comptables-fec>`\n"
-"en utilisant une base de donnée Odoo réelle.\n"
+"en utilisant une base de donnée Flectra réelle.\n"
 "\n"
 "Configuration\n"
 "=============\n"
@@ -15936,12 +16160,12 @@ msgstr "Архітектура файлу"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_attachment__datas
 msgid "File Content (base64)"
-msgstr ""
+msgstr "Вміст файлу (base64)"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_attachment__raw
 msgid "File Content (raw)"
-msgstr ""
+msgstr "Вміст файлу (рядок)"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_base_language_export__format
@@ -16177,9 +16401,9 @@ msgstr "Нижній колонтитул відображається в кін
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.wizard_lang_export
 msgid ""
-"For more details about translating Odoo in your language, please refer to "
+"For more details about translating Flectra in your language, please refer to "
 "the"
-msgstr "Щоб дізнатись більше про переклад Odoo вашою мовою, зверніться до"
+msgstr "Щоб дізнатись більше про переклад Flectra вашою мовою, зверніться до"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_model_fields__relation_field
@@ -16905,7 +17129,7 @@ msgstr "Обробляйте замовлення на обід ваших сп�
 #: model_terms:res.partner,website_description:base.res_partner_3
 #: model_terms:res.partner,website_description:base.res_partner_4
 msgid "Happy to be Sponsor"
-msgstr ""
+msgstr "Раді бути спонсором"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_hw_escpos
@@ -17619,11 +17843,11 @@ msgstr ""
 #: model:ir.model.fields,help:base.field_ir_ui_menu__groups_id
 msgid ""
 "If you have groups, the visibility of this menu will be based on these "
-"groups. If this field is empty, Odoo will compute visibility based on the "
+"groups. If this field is empty, Flectra will compute visibility based on the "
 "related object's read access."
 msgstr ""
 "Якщо у вас є групи, видимість цього меню базуватиметься на них. Якщо "
-"залишити це поле порожнім, Odoo вирахує видимість на основі доступу для "
+"залишити це поле порожнім, Flectra вирахує видимість на основі доступу для "
 "читання в суміжних об'єктах."
 
 #. module: base
@@ -18302,6 +18526,8 @@ msgid ""
 "Invalid server name !\n"
 " %s"
 msgstr ""
+"Недійсна назва сервера!\n"
+" %s"
 
 #. module: base
 #: code:addons/base/models/ir_ui_view.py:0
@@ -18597,8 +18823,8 @@ msgstr "Кірібаті"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_website_helpdesk_forum
-msgid "Knowledge base for helpdesk based on Odoo Forum"
-msgstr "База знань для довідкової служби на базі форуму Odoo"
+msgid "Knowledge base for helpdesk based on Flectra Forum"
+msgstr "База знань для довідкової служби на базі форуму Flectra"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_si
@@ -18856,7 +19082,7 @@ msgstr "Дата останнього виконання"
 #: model:ir.model.fields,field_description:base.field_reset_view_arch_wizard____last_update
 #: model:ir.model.fields,field_description:base.field_wizard_ir_model_menu_create____last_update
 msgid "Last Modified on"
-msgstr "Останні зміни на"
+msgstr "Останні зміни"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_base_language_export__write_uid
@@ -19227,7 +19453,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_ir_actions_server__link_field_id
 #: model:ir.model.fields,field_description:base.field_ir_cron__link_field_id
 msgid "Link Field"
-msgstr ""
+msgstr "Зв'язати поле"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_link_tracker
@@ -19593,8 +19819,8 @@ msgid ""
 "Manage Recruitment and Job applications\n"
 "---------------------------------------\n"
 "\n"
-"Publish, promote and organize your job offers with the Odoo\n"
-"<a href=\"https://www.odoo.com/page/recruitment\">Open Source Recruitment Application</a>.\n"
+"Publish, promote and organize your job offers with the Flectra\n"
+"<a href=\"https://www.flectrahq.com/page/recruitment\">Open Source Recruitment Application</a>.\n"
 "\n"
 "Organize your job board, promote your job announces and keep track of\n"
 "application submissions easily. Follow every applicant and build up a database\n"
@@ -19633,8 +19859,8 @@ msgstr ""
 "Управління додатками для підбору персоналу та робочих місць\n"
 "---------------------------------------\n"
 "\n"
-"Публікуйте, рекламуйте та організовуйте свої пропозиції роботи з Odoo\n"
-"<a href=\"https://www.odoo.com/page/recruitment\">Заява про підбір персоналу з відкритим кодом</a>.\n"
+"Публікуйте, рекламуйте та організовуйте свої пропозиції роботи з Flectra\n"
+"<a href=\"https://www.flectrahq.com/page/recruitment\">Заява про підбір персоналу з відкритим кодом</a>.\n"
 "\n"
 "Організуйте вашу роботу, рекламуйте вашу роботу, оголошуйте та відстежуйте\n"
 "подання заявки легко. Стежте за кожним заявником і створюйте базу даних\n"
@@ -19688,14 +19914,14 @@ msgstr ""
 #. module: base
 #: model_terms:ir.actions.act_window,help:base.grant_menu_access
 msgid ""
-"Manage and customize the items available and displayed in your Odoo system "
+"Manage and customize the items available and displayed in your Flectra system "
 "menu. You can delete an item by clicking on the box at the beginning of each"
 " line and then delete it through the button that appeared. Items can be "
 "assigned to specific groups in order to make them accessible to some users "
 "within the system."
 msgstr ""
 "Керуйте та налаштовуйте доступні елементи та відображайте їх у системному "
-"меню Odoo. Ви можете видалити елемент, натиснувши поле на початку кожного "
+"меню Flectra. Ви можете видалити елемент, натиснувши поле на початку кожного "
 "рядка, а потім видалити його за допомогою кнопки, яка з'явилася. Елементи "
 "можуть бути призначені для певних груп, щоб зробити їх доступними для деяких"
 " користувачів у системі."
@@ -20823,7 +21049,7 @@ msgstr "Гарна робота! Ваше налаштування заверш�
 #: model_terms:res.partner,website_description:base.res_partner_address_16
 msgid ""
 "Nicole is <b>author of several books</b>, including Amazon best seller\n"
-"                \"How Azure and Odoo will change the business world!\"."
+"                \"How Azure and Flectra will change the business world!\"."
 msgstr ""
 
 #. module: base
@@ -20833,7 +21059,7 @@ msgid ""
 "                develops software to help develop websites.  She sold her\n"
 "                first company at 30 years old and manage to grow Azure Interior\n"
 "                from 1 to 55 employees mostly by reselling services on\n"
-"                Odoo."
+"                Flectra."
 msgstr ""
 
 #. module: base
@@ -21123,12 +21349,12 @@ msgstr "Об'єкт:"
 #. module: base
 #: model:ir.module.module,description:base.module_website_blog
 msgid ""
-"Odoo Blogs\n"
+"Flectra Blogs\n"
 "----------\n"
 "\n"
-"Write, Design, Promote and Engage with <a href=\"https://www.odoo.com/page/blog-engine\">Odoo Blogs</a>.\n"
+"Write, Design, Promote and Engage with <a href=\"https://www.flectrahq.com/page/blog-engine\">Flectra Blogs</a>.\n"
 "\n"
-"Express yourself with the Odoo enterprise grade blogging platform. Write\n"
+"Express yourself with the Flectra enterprise grade blogging platform. Write\n"
 "beautiful blog posts, engage with visitors, translate content and moderate\n"
 "social streams.\n"
 "\n"
@@ -21175,17 +21401,17 @@ msgid ""
 "Google Analytics Integration\n"
 "----------------------------\n"
 "\n"
-"Get a clear visibility of your sales funnel. Odoo's Google Analytics trackers\n"
+"Get a clear visibility of your sales funnel. Flectra's Google Analytics trackers\n"
 "are configured by default to track all kinds of events related to shopping\n"
 "carts, call-to-actions, etc.\n"
 "\n"
-"As Odoo marketing tools (mass mailing, campaigns, etc) are also linked with\n"
+"As Flectra marketing tools (mass mailing, campaigns, etc) are also linked with\n"
 "Google Analytics, you get a 360° view of your business.\n"
 "\n"
 "SEO Optimized Blog Posts\n"
 "------------------------\n"
 "\n"
-"SEO tools are ready to use, with no configuration required. Odoo suggests\n"
+"SEO tools are ready to use, with no configuration required. Flectra suggests\n"
 "keywords for your titles according to Google's most searched terms, Google\n"
 "Analytics tracks interests of your visitors, sitemaps are created automatically\n"
 "for quick Google indexing, etc.\n"
@@ -21212,15 +21438,15 @@ msgid ""
 "This lets you organize your publishing process according to your needs.\n"
 "\n"
 "Other access rights are related to business objects (products, people, events,\n"
-"etc) and directly following Odoo's standard access rights management, so you do\n"
+"etc) and directly following Flectra's standard access rights management, so you do\n"
 "not have to configure things twice.\n"
 msgstr ""
-"Блоги Odoo\n"
+"Блоги Flectra\n"
 "----------\n"
 "\n"
-"Пишіть, створюйте дизайн, рекламуйте та Залучайте з <a href=\"https://www.odoo.com/page/blog-engine\">Блоги Odoo</a>.\n"
+"Пишіть, створюйте дизайн, рекламуйте та Залучайте з <a href=\"https://www.flectrahq.com/page/blog-engine\">Блоги Flectra</a>.\n"
 "\n"
-"Виразіть себе за допомогою блогів платформи Odoo для ведення бізнесу. Пишіть\n"
+"Виразіть себе за допомогою блогів платформи Flectra для ведення бізнесу. Пишіть\n"
 "гарні пости, спілкуйтеся з відвідувачами, перекладайте вміст та модеруйте\n"
 "соціальні потоки.\n"
 "\n"
@@ -21267,17 +21493,17 @@ msgstr ""
 "Інтеграція з Google Analytics\n"
 "----------------------------\n"
 "\n"
-"Отримайте чітке уявлення про вашу послідовність продажів. Відстеження Google Analytics від Odoo\n"
+"Отримайте чітке уявлення про вашу послідовність продажів. Відстеження Google Analytics від Flectra\n"
 "за замовчуванням налаштовуються для відстеження всіх видів подій, пов'язаних із кошиками\n"
 "покупок, закликами до дій та ін.\n"
 "\n"
-"Окрім того, пов'язані маркетингові інструменти Odoo (масові розсилки, кампанії тощо) з\n"
+"Окрім того, пов'язані маркетингові інструменти Flectra (масові розсилки, кампанії тощо) з\n"
 "Google Analytics, ви отримуєте 360° вигляду вашого бізнесу.\n"
 "\n"
 "SEO оптимізація постів блогу\n"
 "------------------------\n"
 "\n"
-"Інструменти SEO готові до використання, без налаштування. Odoo пропонує\n"
+"Інструменти SEO готові до використання, без налаштування. Flectra пропонує\n"
 "ключові слова для ваших імен відповідно до самих пошукових термінів Google, Google\n"
 "Analytics відслідковує інтереси ваших відвідувачів, файли Sitemap створюються автоматично\n"
 "для швидкої індексації Google тощо.\n"
@@ -21303,17 +21529,17 @@ msgstr ""
 "Це дозволяє організувати процес публікації відповідно до ваших потреб.\n"
 "\n"
 "Інші права доступу стосуються бізнес-об'єктів (товарів, людей, подій,\n"
-"тощо) та безпосередньо керують стандартними правами доступу Odoo, так що\n"
+"тощо) та безпосередньо керують стандартними правами доступу Flectra, так що\n"
 "не потрібно двічі налаштовувати ці речі.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_crm
 msgid ""
-"Odoo CRM\n"
+"Flectra CRM\n"
 "--------\n"
 "\n"
-"Boost sales productivity, improve win rates, grow revenue with the Odoo\n"
-"<a href=\"https://www.odoo.com/page/crm\">Open Source CRM</a>.\n"
+"Boost sales productivity, improve win rates, grow revenue with the Flectra\n"
+"<a href=\"https://www.flectrahq.com/page/crm\">Open Source CRM</a>.\n"
 "\n"
 "Manage your sales funnel with no effort. Attract leads, follow-up on phone\n"
 "calls and meetings. Analyse the quality of your leads to make informed\n"
@@ -21352,7 +21578,7 @@ msgid ""
 "company uses Microsoft Outlook or Gmail, no one needs to change the way they\n"
 "work, so everyone stays productive.\n"
 "\n"
-"Route, sort and filter incoming emails automatically. Odoo CRM handles incoming\n"
+"Route, sort and filter incoming emails automatically. Flectra CRM handles incoming\n"
 "emails and route them to the right opportunities or Sales Team. New leads are\n"
 "created on the fly and interested salespersons are notified automatically.\n"
 "\n"
@@ -21366,7 +21592,7 @@ msgid ""
 "Lead Automation and Marketing Campaigns\n"
 "---------------------------------------\n"
 "\n"
-"Drive performance by automating tasks with Odoo <a href=\"https://www.odoo.com/page/crm\">CRM</a>.\n"
+"Drive performance by automating tasks with Flectra <a href=\"https://www.flectrahq.com/page/crm\">CRM</a>.\n"
 "\n"
 "Use our marketing campaigns to automate lead acquisition, follow ups and\n"
 "promotions. Define automated actions (e.g. ask a salesperson to call, send an\n"
@@ -21407,11 +21633,11 @@ msgid ""
 "Compare revenues with forecasts and budgets in real time.\n"
 "\n"
 msgstr ""
-"Odoo CRM\n"
+"Flectra CRM\n"
 "--------\n"
 "\n"
-"Підвищуйте продуктивність продажів, покращуйте коефіцієнти виграшу, збільшуйте прибутки з Odoo\n"
-"<a href=\"https://www.odoo.com/page/crm\">CRM з відкритим кодом</a>.\n"
+"Підвищуйте продуктивність продажів, покращуйте коефіцієнти виграшу, збільшуйте прибутки з Flectra\n"
+"<a href=\"https://www.flectrahq.com/page/crm\">CRM з відкритим кодом</a>.\n"
 "\n"
 "Керуйте послідовністю продажів без зусиль. Залучення потенційних клієнтів, подальші дзвінки та зустрічі.\n"
 " Проаналізуйте якість ваших потенційних клієнтів, щоб прийняти обгрунтовані рішення та заощадити час, інтегруючи електронні листи\n"
@@ -21450,7 +21676,7 @@ msgstr ""
 "щодня. Незалежно від того, чи використовує ваша компанія Microsoft \n"
 "Outlook або Gmail, ніхто не повинен змінювати спосіб роботи, щоб кожен залишався продуктивним.\n"
 "\n"
-"Маршрут, сортування та фільтрування вхідних повідомлень автоматично. Odoo CRM обробляє вхідні повідомлення електронної пошти та\n"
+"Маршрут, сортування та фільтрування вхідних повідомлень автоматично. Flectra CRM обробляє вхідні повідомлення електронної пошти та\n"
 " направляє їх до потрібних нагод або команди продажів. Нові ліди створюються на льоту, і зацікавлені продавці отримують \n"
 "сповіщення автоматично.\n"
 "\n"
@@ -21464,7 +21690,7 @@ msgstr ""
 "Автоматизація лідів та маркетингові кампанії\n"
 "---------------------------------------\n"
 "\n"
-"Підвищуйте продуктивність завдяки автоматизації завдань за допомогою програми Odoo <a href=\"https://www.odoo.com/page/crm\">CRM</a>.\n"
+"Підвищуйте продуктивність завдяки автоматизації завдань за допомогою програми Flectra <a href=\"https://www.flectrahq.com/page/crm\">CRM</a>.\n"
 "\n"
 "Використовуйте наші маркетингові кампанії, щоб автоматизувати\n"
 " придбання ліда, подальші заходи та рекламу. Визначте автоматизовані\n"
@@ -21507,22 +21733,22 @@ msgstr ""
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_module_module__license__oeel-1
-msgid "Odoo Enterprise Edition License v1.0"
-msgstr "Ліцензія Odoo Enterprise v1.0"
+msgid "Flectra Enterprise Edition License v1.0"
+msgstr "Ліцензія Flectra Enterprise v1.0"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_module_module__to_buy
-msgid "Odoo Enterprise Module"
-msgstr "Модуль Odoo Enterprise"
+msgid "Flectra Enterprise Module"
+msgstr "Модуль Flectra Enterprise"
 
 #. module: base
 #: model:ir.module.module,description:base.module_mail
 msgid ""
-"Odoo Enterprise Social Network\n"
+"Flectra Enterprise Social Network\n"
 "------------------------------\n"
 "\n"
 "Connect with experts, follow what interests you, share documents and promote\n"
-"best practices with Odoo <a href=\"https://www.odoo.com/page/enterprise-social-network\">Enterprise Social Network</a>. Get work done with\n"
+"best practices with Flectra <a href=\"https://www.flectrahq.com/page/enterprise-social-network\">Enterprise Social Network</a>. Get work done with\n"
 "effective collaboration across departments, geographies, documents and business\n"
 "applications. All of this while decreasing email overload.\n"
 "\n"
@@ -21530,7 +21756,7 @@ msgid ""
 "--------------------\n"
 "\n"
 "Next time you have a question for the marketing, sales, R&D or any other\n"
-"department, don't send an email blast-post the question to Odoo and get answers\n"
+"department, don't send an email blast-post the question to Flectra and get answers\n"
 "from the right persons.\n"
 "\n"
 "Follow what interests you\n"
@@ -21573,11 +21799,11 @@ msgid ""
 "for your own company. Follow people, share best practices, 'like' top ideas,\n"
 "etc.\n"
 msgstr ""
-"Соціальні мережі Odoo Enterprise\n"
+"Соціальні мережі Flectra Enterprise\n"
 "------------------------------\n"
 "\n"
 "Зв'яжіться з експертами, стежте за тим, що вас цікавить, обмінюйтеся документами та рекламуйте\n"
-"найкращі практики з Odoo <a href=\"https://www.odoo.com/page/enterprise-social-network\">Соціальні мережі Enterprise</a>. Зробіть роботу з\n"
+"найкращі практики з Flectra <a href=\"https://www.flectrahq.com/page/enterprise-social-network\">Соціальні мережі Enterprise</a>. Зробіть роботу з\n"
 "ефективним співробітництвом між відомствами, географією, документами та бізнес-заявками.\n"
 "Все це при зниженні перевантаження електронної пошти.\n"
 "\n"
@@ -21585,7 +21811,7 @@ msgstr ""
 "--------------------\n"
 "\n"
 "Наступного разу, коли у вас буде питання по маркетингу, продажам, дослідженням та розробкам або будь-якому іншому\n"
-"відділу, не надсилайте по електронній пошті повідомлення до Odoo та отримуйте відповіді\n"
+"відділу, не надсилайте по електронній пошті повідомлення до Flectra та отримуйте відповіді\n"
 "від необхідих осіб.\n"
 "\n"
 "Дотримуйтесь того, що вас цікавить\n"
@@ -21632,10 +21858,10 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,description:base.module_hr
 msgid ""
-"Odoo Human Resources\n"
+"Flectra Human Resources\n"
 "--------------------\n"
 "\n"
-"With Odoo <a href=\"https://www.odoo.com/page/employees\">Human Resources</a>,\n"
+"With Flectra <a href=\"https://www.flectrahq.com/page/employees\">Human Resources</a>,\n"
 "manage the most important asset in your company: People\n"
 "\n"
 "Get all your HR operations managed easily: knowledge sharing, recruitments,\n"
@@ -21655,7 +21881,7 @@ msgid ""
 "Streamline Your Recruitment Process\n"
 "-----------------------------------\n"
 "\n"
-"Index resumes, track applicants, search profiles with <a href=\"https://www.odoo.com/page/employees\">Odoo HR</a>.\n"
+"Index resumes, track applicants, search profiles with <a href=\"https://www.flectrahq.com/page/employees\">Flectra HR</a>.\n"
 "\n"
 "Post job offers and keep track of each application received. Follow applicants\n"
 "in your recruitment process with the smart kanban view.\n"
@@ -21690,7 +21916,7 @@ msgid ""
 "Keep Track of Employee Expenses\n"
 "-------------------------------\n"
 "\n"
-"Get rid of the paper work and follow employee's expenses directly in Odoo.\n"
+"Get rid of the paper work and follow employee's expenses directly in Flectra.\n"
 "Don't loose time or money by controlling the full flow: expense validation,\n"
 "reimbursement of employees, posting in the accounting and re-invoicing to\n"
 "customers.\n"
@@ -21699,7 +21925,7 @@ msgid ""
 "--------------------------\n"
 "\n"
 "Set-up appraisals plans and/or surveys for your employees and watch their\n"
-"evolution. Define steps for interviews and Odoo will notify managers or\n"
+"evolution. Define steps for interviews and Flectra will notify managers or\n"
 "subordinates automatically to prepare appraisals. Keep track of the progress of\n"
 "your staff periodically.\n"
 "\n"
@@ -21725,10 +21951,10 @@ msgid ""
 "Compare revenues with forecasts and budgets in real time.\n"
 "\n"
 msgstr ""
-"Відділ кадрів Odoo\n"
+"Відділ кадрів Flectra\n"
 "--------------------\n"
 "\n"
-"З <a href=\"https://www.odoo.com/page/employees\">Відділом кадрів</a> Odoo,\n"
+"З <a href=\"https://www.flectrahq.com/page/employees\">Відділом кадрів</a> Flectra,\n"
 "керуйте найважливішими активами вашої компанії: людьми\n"
 "\n"
 "Отримайте всі керовані операції легко: обмін знаннями, підбір персоналу, оцінка, \n"
@@ -21748,7 +21974,7 @@ msgstr ""
 "Оптимізуйте процес набору персоналу\n"
 "-----------------------------------\n"
 "\n"
-"Індекс резюме, відстеження заявників, пошук профілів з <a href=\"https://www.odoo.com/page/employees\">Відділом кадрів Odoo</a>.\n"
+"Індекс резюме, відстеження заявників, пошук профілів з <a href=\"https://www.flectrahq.com/page/employees\">Відділом кадрів Flectra</a>.\n"
 "\n"
 "Розміщуйте вакансії та відстежуйте кожну отриману заявку. Слідкуйте\n"
 " за заявниками у процесі підбору персоналу за допомогою інтелектуального перегляду канбану.\n"
@@ -21783,7 +22009,7 @@ msgstr ""
 "Слідкуйте за витратами співробітника\n"
 "-------------------------------\n"
 "\n"
-"Позбавтеся паперової роботи і слідкуйте за витратами працівників безпосередньо в Odoo.\n"
+"Позбавтеся паперової роботи і слідкуйте за витратами працівників безпосередньо в Flectra.\n"
 "Не втрачайте час або гроші, контролюючи повний потік: валідацію витрат,\n"
 " відшкодування працівників, розміщення в обліку та перерахунок рахунків\n"
 " клієнтам.\n"
@@ -21793,7 +22019,7 @@ msgstr ""
 "\n"
 "Створюйте плани оцінювання та/або опитування для ваших\n"
 " співробітників та стежте за їхнім розвитком. Визначте кроки для проведення інтерв'ю,\n"
-" і Odoo автоматично повідомляє менеджерів або підлеглих про підготовку оцінювання. \n"
+" і Flectra автоматично повідомляє менеджерів або підлеглих про підготовку оцінювання. \n"
 "Періодично відстежуйте прогрес ваших співробітників.\n"
 "\n"
 "Підвищуйте залученість з Геміфікацією\n"
@@ -21820,13 +22046,13 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,description:base.module_mrp
 msgid ""
-"Odoo Manufacturing Resource Planning\n"
+"Flectra Manufacturing Resource Planning\n"
 "------------------------------------\n"
 "\n"
 "Manage Bill of Materials, plan manufacturing orders, track work orders with the\n"
-"Odoo <a href=\"https://www.odoo.com/page/manufacturing\">Open Source MRP</a> app.\n"
+"Flectra <a href=\"https://www.flectrahq.com/page/manufacturing\">Open Source MRP</a> app.\n"
 "\n"
-"Get all your assembly or manufacturing operations managed by Odoo. Schedule\n"
+"Get all your assembly or manufacturing operations managed by Flectra. Schedule\n"
 "manufacturing orders and work orders automatically. Review the proposed\n"
 "planning with the smart kanban and gantt views. Use the advanced analytics\n"
 "features to detect bottleneck in resources capacities and inventory locations.\n"
@@ -21848,7 +22074,7 @@ msgid ""
 "Get Flexibility In All Operations\n"
 "---------------------------------\n"
 "\n"
-"Edit manually all proposed operations at any level of the progress. With Odoo,\n"
+"Edit manually all proposed operations at any level of the progress. With Flectra,\n"
 "you will not be frustrated by a rigid system.\n"
 "\n"
 "Schedule Work Orders\n"
@@ -21883,13 +22109,13 @@ msgid ""
 "manufacturing operations.\n"
 "\n"
 msgstr ""
-"Планування виробництва ресурсів Odoo\n"
+"Планування виробництва ресурсів Flectra\n"
 "------------------------------------\n"
 "\n"
 "Управління специфікацією, плануванням замовлень на виробництво, відстеженням робочих замовлень з додатком\n"
-"Odoo <a href=\"https://www.odoo.com/page/manufacturing\">Виробництвом Open Source</a>.\n"
+"Flectra <a href=\"https://www.flectrahq.com/page/manufacturing\">Виробництвом Open Source</a>.\n"
 "\n"
-"Отримайте всі ваші збірки або виробничі операції під управлінням Odoo. Плануйте\n"
+"Отримайте всі ваші збірки або виробничі операції під управлінням Flectra. Плануйте\n"
 "замовлення на виробництво та робочі замовлення автоматично. Перегляньте пропонований варіант\n"
 "планування з розумним канбаном та гантом. Використовуйте розширені аналітичні\n"
 "функції, що дозволяють виявити обмеженість ресурсів та місць інвентаризації.\n"
@@ -21949,11 +22175,11 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,description:base.module_mass_mailing
 msgid ""
-"Odoo Mass Mailing\n"
+"Flectra Mass Mailing\n"
 "-----------------\n"
 "\n"
 "Easily send mass mailing to your leads, opportunities or customers\n"
-"with Odoo <a href=\"https://www.odoo.com/page/mailing#\">Email Marketing</a>. Track\n"
+"with Flectra <a href=\"https://www.flectrahq.com/page/mailing#\">Email Marketing</a>. Track\n"
 "marketing campaigns performance to improve conversion rates. Design\n"
 "professional emails and reuse templates in a few clicks.\n"
 "\n"
@@ -21969,7 +22195,7 @@ msgid ""
 "Organize Marketing Campaigns\n"
 "----------------------------\n"
 "\n"
-"Design, Send, Track by Campaigns with our <a href=\"https://www.odoo.com/page/mailing\">Lead Automation</a> app.\n"
+"Design, Send, Track by Campaigns with our <a href=\"https://www.flectrahq.com/page/mailing\">Lead Automation</a> app.\n"
 "\n"
 "Get real time statistics on campaigns performance to improve your conversion\n"
 "rate. Track mails sent, received, opened and answered.\n"
@@ -21977,14 +22203,14 @@ msgid ""
 "Easily manage your marketing campaigns, discussion groups, leads and\n"
 "opportunities in one simple and powerful platform.\n"
 "\n"
-"Integrated with Odoo Apps\n"
+"Integrated with Flectra Apps\n"
 "-------------------------\n"
 "\n"
-"Get access to mass mailing features from every Odoo app to improve the way your\n"
+"Get access to mass mailing features from every Flectra app to improve the way your\n"
 "users communicate.\n"
 "\n"
-"Send template of emails from Odoo <a href=\"https://www.odoo.com/page/mailing\">CRM opportunities</a>, select leads based\n"
-"on marketing segments, send <a href=\"https://www.odoo.com/page/recruitment\">job offers</a> and automate\n"
+"Send template of emails from Flectra <a href=\"https://www.flectrahq.com/page/mailing\">CRM opportunities</a>, select leads based\n"
+"on marketing segments, send <a href=\"https://www.flectrahq.com/page/recruitment\">job offers</a> and automate\n"
 "answers to applicants, reuse email template in the lead automation marketing\n"
 "campaigns.\n"
 "\n"
@@ -21995,7 +22221,7 @@ msgid ""
 "------------------------\n"
 "\n"
 "Get a clean lead database that improves over the time using the performance of\n"
-"your mails. Odoo handle bounce mails efficiently, flag erroneous leads\n"
+"your mails. Flectra handle bounce mails efficiently, flag erroneous leads\n"
 "accordingly and gives you statistics on the quality of your leads.\n"
 "\n"
 "One click emails send\n"
@@ -22015,7 +22241,7 @@ msgid ""
 "The chatter feature enables you to communicate faster and more efficiently with\n"
 "your customer. Get documents created automatically (leads, opportunities,\n"
 "tasks, ...) based on answers to your mass mailing campaigns Follow the\n"
-"discussion directly on the business documents within Odoo or via email.\n"
+"discussion directly on the business documents within Flectra or via email.\n"
 "\n"
 "Get all the negotiations and discussions attached to the right document and\n"
 "relevent managers notified on specific events.\n"
@@ -22039,19 +22265,19 @@ msgid ""
 "company's bottom line.\n"
 "\n"
 "Integrate a contact form in your website easily. Forms submissions create leads\n"
-"automatically in Odoo CRM. Leads can be used in marketing campaigns.\n"
+"automatically in Flectra CRM. Leads can be used in marketing campaigns.\n"
 "\n"
-"Manage your <a href=\"https://www.odoo.com/page/crm\">sales funnel</a> with no\n"
+"Manage your <a href=\"https://www.flectrahq.com/page/crm\">sales funnel</a> with no\n"
 "effort. Attract leads, follow-up on phone calls and meetings. Analyse the\n"
 "quality of your leads to make informed decisions and save time by integrating\n"
 "emails directly into the application.\n"
 "\n"
 msgstr ""
-"Масова розсилка Odoo\n"
+"Масова розсилка Flectra\n"
 "-----------------\n"
 "\n"
 "Легко розсилайте масову розсилку вашим лідам, нагодам чи клієнтам\n"
-"<a href=\"https://www.odoo.com/page/mailing#\">Email-маркетингом</a> Odoo. Відстежуйте\n"
+"<a href=\"https://www.flectrahq.com/page/mailing#\">Email-маркетингом</a> Flectra. Відстежуйте\n"
 "виконання маркетингових кампаній, щоби підвищувати рівень конверсії. Створюйте\n"
 "професійні електронні листи та повторно використовуйте шаблони лише у кілька кліків.\n"
 "\n"
@@ -22067,7 +22293,7 @@ msgstr ""
 "Організуйте маркетингові кампанії\n"
 "----------------------------\n"
 "\n"
-"Створюйте, надсилайте, слідкуйте за кампаніями з нашим модулем <a href=\"https://www.odoo.com/page/mailing\">Автоматизація лідів</a>.\n"
+"Створюйте, надсилайте, слідкуйте за кампаніями з нашим модулем <a href=\"https://www.flectrahq.com/page/mailing\">Автоматизація лідів</a>.\n"
 "\n"
 "Отримуйте статистику виконання кампанії в реальному часі для покращення вашого рівня\n"
 "конверсії. Слідкуйте за надісланими листами, отриманими, відкритими та з відповідями.\n"
@@ -22075,14 +22301,14 @@ msgstr ""
 "Легко керуйте вашими маркетинговими кампаніями, групами обговорення, лідами та\n"
 "нагодами на одній простій та потужній платформі.\n"
 "\n"
-"Інтегровано з модулями Odoo\n"
+"Інтегровано з модулями Flectra\n"
 "-------------------------\n"
 "\n"
-"Отримайте доступ до функцій масової розсилки з будь-якого модуля Odoo для покращення способу, яким спілкуються\n"
+"Отримайте доступ до функцій масової розсилки з будь-якого модуля Flectra для покращення способу, яким спілкуються\n"
 "ваші користувачі.\n"
 "\n"
-"Надсилайте шаблони листів з <a href=\"https://www.odoo.com/page/mailing\">нагодами CRM</a>Odoo, обирайте ліди на основі\n"
-"сегментів маркетингу, надсилайте <a href=\"https://www.odoo.com/page/recruitment\">вакансії</a> та автоматично\n"
+"Надсилайте шаблони листів з <a href=\"https://www.flectrahq.com/page/mailing\">нагодами CRM</a>Flectra, обирайте ліди на основі\n"
+"сегментів маркетингу, надсилайте <a href=\"https://www.flectrahq.com/page/recruitment\">вакансії</a> та автоматично\n"
 "відповідайте заявникам, повторно використовуючи шаблони листів у кампаніях автоматичного маркетингу\n"
 "лідів.\n"
 "\n"
@@ -22093,7 +22319,7 @@ msgstr ""
 "------------------------\n"
 "\n"
 "Отримайте чисту базу даних, що покращується з часом, використовуючи\n"
-" продуктивність вашої пошти. Odoo ефективно обробляє електронні листи відмов, відповідно повідомляє\n"
+" продуктивність вашої пошти. Flectra ефективно обробляє електронні листи відмов, відповідно повідомляє\n"
 " про помилкові ліди та дає статистику щодо якості ваших потенційних клієнтів.\n"
 "\n"
 "Надсилання листів в один клік\n"
@@ -22113,7 +22339,7 @@ msgstr ""
 "Функція балачки дозволяє швидше та ефективніше спілкуватися зі своїм клієнтом.\n"
 " Отримуйте документи, створені автоматично (ліди, нагоди, завдання ...)\n"
 " на основі відповідей на ваші кампанії масової розсилки.\n"
-"Дотримуйтесь обговорення безпосередньо в ділових документах в Odoo або електронною поштою.\n"
+"Дотримуйтесь обговорення безпосередньо в ділових документах в Flectra або електронною поштою.\n"
 "\n"
 "Отримуйте всі переговори та дискусії, що додаються до потрібного документа,\n"
 " а відповідні менеджери повідомляють про конкретні події.\n"
@@ -22136,41 +22362,41 @@ msgstr ""
 "рішення щодо того, куди інвестувати, та покажіть вплив вашої \n"
 "маркетингової діяльності на підсумковий результат вашої компанії.\n"
 "\n"
-"Легко інтегруйте контактну форму у свій веб-сайт. Форми подань створюють ліди автоматично в Odoo CRM. \n"
+"Легко інтегруйте контактну форму у свій веб-сайт. Форми подань створюють ліди автоматично в Flectra CRM. \n"
 "Ліди можна використовувати в маркетингових кампаніях.\n"
 "\n"
-"Керуйте вашою <a href=\"https://www.odoo.com/page/crm\">лінією продажів</a> без\n"
+"Керуйте вашою <a href=\"https://www.flectrahq.com/page/crm\">лінією продажів</a> без\n"
 "зусиль. Залучайте ліди, наступні спостереження за телефонними дзвінками та зустрічами.\n"
 " Проаналізуйте якість потенційних клієнтів для прийняття обґрунтованих рішень та заощаджуйте час, інтегруючи електронні листи безпосередньо в програму.\n"
 "\n"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_mx_reports
-msgid "Odoo Mexican Localization Reports"
-msgstr "Мексиканська локалізація звітів Odoo "
+msgid "Flectra Mexican Localization Reports"
+msgstr "Мексиканська локалізація звітів Flectra "
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_mx_reports_closing
-msgid "Odoo Mexican Localization Reports for Closing"
-msgstr "Звіти для закриття Мексиканської локалізації Odoo"
+msgid "Flectra Mexican Localization Reports for Closing"
+msgstr "Звіти для закриття Мексиканської локалізації Flectra"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_mx_edi_landing
-msgid "Odoo Mexico Localization for Stock/Landing"
-msgstr "Мексиканська локалізація Odoo для Складу/Додаткових витрат"
+msgid "Flectra Mexico Localization for Stock/Landing"
+msgstr "Мексиканська локалізація Flectra для Складу/Додаткових витрат"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_web_mobile
-msgid "Odoo Mobile Core module"
-msgstr "Модуль Odoo Mobile Core"
+msgid "Flectra Mobile Core module"
+msgstr "Модуль Flectra Mobile Core"
 
 #. module: base
 #: model:ir.module.module,description:base.module_note
 msgid ""
-"Odoo Notes\n"
+"Flectra Notes\n"
 "----------\n"
 "\n"
-"Organize yourself with efficient <a href=\"https://www.odoo.com/page/notes\">todo lists and notes</a>.\n"
+"Organize yourself with efficient <a href=\"https://www.flectrahq.com/page/notes\">todo lists and notes</a>.\n"
 "From personal tasks to collaborative meeting minutes, increase your user's\n"
 "productivity by giving them the tools to prioritize their work, share their\n"
 "ideas and collaborate on documents.\n"
@@ -22197,7 +22423,7 @@ msgid ""
 "\n"
 "### Customize to your own workflow\n"
 "\n"
-"Everyone has their own way to organize activities. Odoo Notes' smart kanban approach allows every user to customize their own steps to process it's to-dos and notes.\n"
+"Everyone has their own way to organize activities. Flectra Notes' smart kanban approach allows every user to customize their own steps to process it's to-dos and notes.\n"
 "\n"
 "### A Creative Person\n"
 "\n"
@@ -22229,21 +22455,21 @@ msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_payment_odoo_by_adyen
-msgid "Odoo Payments by Adyen"
+msgid "Flectra Payments by Adyen"
 msgstr ""
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_payment_odoo_by_adyen
-msgid "Odoo Payments by Adyen Payment Acquirer"
+msgid "Flectra Payments by Adyen Payment Acquirer"
 msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_point_of_sale
 msgid ""
-"Odoo Point of Sale\n"
+"Flectra Point of Sale\n"
 "-----------------------------\n"
 "\n"
-"Odoo's <a href=\"https://www.odoo.com/page/point-of-sale\">Point of Sale</a>\n"
+"Flectra's <a href=\"https://www.flectrahq.com/page/point-of-sale\">Point of Sale</a>\n"
 "introduces a super clean interface with no installation required that runs\n"
 "online and offline on modern hardwares.\n"
 "\n"
@@ -22256,7 +22482,7 @@ msgid ""
 "\n"
 "### In your web browser\n"
 "\n"
-"Odoo's POS is a web application that can run on any device that can display\n"
+"Flectra's POS is a web application that can run on any device that can display\n"
 "websites with little to no setup required.\n"
 "\n"
 "### Touchscreen or Keyboard ?\n"
@@ -22274,7 +22500,7 @@ msgid ""
 "Online and Offline\n"
 "------------------\n"
 "\n"
-"### Odoo's POS stays reliable even if your connection isn't\n"
+"### Flectra's POS stays reliable even if your connection isn't\n"
 "\n"
 "Deploy new stores with just an internet connection: **no installation, no\n"
 "specific hardware required**. It works with any **iPad, Tablet PC, laptop** or\n"
@@ -22289,7 +22515,7 @@ msgid ""
 "\n"
 "### Simple and beautiful\n"
 "\n"
-"Say goodbye to ugly, outdated POS software and enjoy the Odoo web interface\n"
+"Say goodbye to ugly, outdated POS software and enjoy the Flectra web interface\n"
 "designed for modern retailer.\n"
 "\n"
 "### Designed for Productivity\n"
@@ -22323,7 +22549,7 @@ msgid ""
 "----------------------------------\n"
 "\n"
 "Produce customer invoices in just a few clicks. Control sales and cash in real\n"
-"time and use Odoo's powerful reporting to make smarter decisions to improve\n"
+"time and use Flectra's powerful reporting to make smarter decisions to improve\n"
 "your store's efficiency.\n"
 "\n"
 "No more hassle of having to integrate softwares: get all your sales and\n"
@@ -22336,7 +22562,7 @@ msgid ""
 "selected stores. Work on a unified customer base. No complex interface is\n"
 "required to pilot a global strategy amongst all your stores.\n"
 "\n"
-"With Odoo as a backend, you have a system proven to be perfectly suitable for\n"
+"With Flectra as a backend, you have a system proven to be perfectly suitable for\n"
 "small stores or large multinationals.\n"
 "\n"
 "Know your customers - in store and out\n"
@@ -22346,24 +22572,24 @@ msgid ""
 "channels to develop accurate customer profile and communicate with shoppers as\n"
 "they make buying decisions, in store or online.\n"
 "\n"
-"With Odoo, you get a 360° customer view, including cross-channel sales,\n"
+"With Flectra, you get a 360° customer view, including cross-channel sales,\n"
 "interaction history, profiles, and more.\n"
 "\n"
 msgstr ""
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_module_module__license__opl-1
-msgid "Odoo Proprietary License v1.0"
-msgstr "Ліцензія Odoo Proprietary v1.0"
+msgid "Flectra Proprietary License v1.0"
+msgstr "Ліцензія Flectra Proprietary v1.0"
 
 #. module: base
 #: model:ir.module.module,description:base.module_purchase
 msgid ""
-"Odoo Supply Chain\n"
+"Flectra Supply Chain\n"
 "-----------------\n"
 "\n"
-"Automate requisition-to-pay, control invoicing with the Odoo\n"
-"<a href=\"https://www.odoo.com/page/purchase\">Open Source Supply Chain</a>.\n"
+"Automate requisition-to-pay, control invoicing with the Flectra\n"
+"<a href=\"https://www.flectrahq.com/page/purchase\">Open Source Supply Chain</a>.\n"
 "\n"
 "Automate procurement propositions, launch request for quotations, track\n"
 "purchase orders, manage vendors' information, control products reception and\n"
@@ -22400,7 +22626,7 @@ msgid ""
 "\n"
 "Use the costing method that reflects your business: standard price, average\n"
 "price, fifo or lifo. Get your accounting entries and the right inventory\n"
-"valuation in real-time; Odoo manages everything for you, transparently.\n"
+"valuation in real-time; Flectra manages everything for you, transparently.\n"
 "\n"
 "Import Vendor Pricelists\n"
 "--------------------------\n"
@@ -22423,11 +22649,11 @@ msgid ""
 "etc.\n"
 "\n"
 msgstr ""
-"Ланцюг поставок Odoo\n"
+"Ланцюг поставок Flectra\n"
 "-----------------\n"
 "\n"
-"Автоматизація заявки на оплату, контрольне виставлення рахунків за допомогою Odoo\n"
-"<a href=\"https://www.odoo.com/page/purchase\">Ланцюг поставок з відкритим кодом</a>.\n"
+"Автоматизація заявки на оплату, контрольне виставлення рахунків за допомогою Flectra\n"
+"<a href=\"https://www.flectrahq.com/page/purchase\">Ланцюг поставок з відкритим кодом</a>.\n"
 "\n"
 "Автоматизація пропозицій щодо закупівель, запуск запиту на комерційну пропозицію, відстеження\n"
 "замовлення на купівлю, управління інформацією постачальників, прийом керованих товарів та\n"
@@ -22464,7 +22690,7 @@ msgstr ""
 "\n"
 "Використовуйте метод визначення вартості, який відображає ваш бізнес: стандартна ціна, середня\n"
 "ціна, FIFO або LIFO. Отримайте облікові записи та правильну оцінку\n"
-"інвентаризації в режимі реального часу; Odoo управляє всім для вас прозоро.\n"
+"інвентаризації в режимі реального часу; Flectra управляє всім для вас прозоро.\n"
 "\n"
 "Імпорт цін постачальників\n"
 "--------------------------\n"
@@ -22490,11 +22716,11 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,description:base.module_website
 msgid ""
-"Odoo Website Builder\n"
+"Flectra Website Builder\n"
 "--------------------\n"
 "\n"
-"Get an awesome and <a href=\"https://www.odoo.com/page/website-builder\">free website</a>,\n"
-"easily customizable with the Odoo <a href=\"https://www.odoo.com/page/website-builder\">website builder</a>.\n"
+"Get an awesome and <a href=\"https://www.flectrahq.com/page/website-builder\">free website</a>,\n"
+"easily customizable with the Flectra <a href=\"https://www.flectrahq.com/page/website-builder\">website builder</a>.\n"
 "\n"
 "Create enterprise grade website with our super easy builder. Use finely\n"
 "designed building blocks and edit everything inline.\n"
@@ -22505,7 +22731,7 @@ msgid ""
 "Edit Anything Inline\n"
 "--------------------\n"
 "\n"
-"Create beautiful websites with no technical knowledge. Odoo's unique *'edit\n"
+"Create beautiful websites with no technical knowledge. Flectra's unique *'edit\n"
 "inline'* approach makes website creation surprisingly easy. No more complex\n"
 "backend; just click anywhere to change any content.\n"
 "\n"
@@ -22515,7 +22741,7 @@ msgid ""
 "Awesome. Astonishingly Beautiful.\n"
 "---------------------------------\n"
 "\n"
-"Odoo's building blocks allow to design modern websites that are not possible\n"
+"Flectra's building blocks allow to design modern websites that are not possible\n"
 "with traditional WYSIWYG page editors.\n"
 "\n"
 "Whether it's for products descriptions, blogs or static pages, you don't need\n"
@@ -22529,7 +22755,7 @@ msgid ""
 "call-to-actions, jobs announces, events, customer references, blogs, etc.\n"
 "\n"
 "Traditional eCommerce and CMS have poorly designed backends as it's not their\n"
-"core focus. With the Odoo integration, you benefit from the best management\n"
+"core focus. With the Flectra integration, you benefit from the best management\n"
 "software to follow-up on your orders, your jobs applicants, your leads, etc.\n"
 "\n"
 "A Great Mobile Experience\n"
@@ -22553,7 +22779,7 @@ msgid ""
 "Multi-Languages Made Easy\n"
 "-------------------------\n"
 "\n"
-"Get your website translated in multiple languages with no effort. Odoo proposes\n"
+"Get your website translated in multiple languages with no effort. Flectra proposes\n"
 "and propagates translations automatically across pages, following what you edit\n"
 "on the master page.\n"
 "\n"
@@ -22565,7 +22791,7 @@ msgid ""
 "[bootstrap](http://getbootstrap.com/) CSS.\n"
 "\n"
 "Customize every page on the fly with the integrated template editor. Distribute\n"
-"your work easily as an Odoo module.\n"
+"your work easily as an Flectra module.\n"
 "\n"
 "Fluid Grid Layouting\n"
 "--------------------\n"
@@ -22586,7 +22812,7 @@ msgid ""
 "Test new color scheme easily; you can change your theme at any time in just a\n"
 "click.\n"
 "\n"
-"Integrated With Odoo Apps\n"
+"Integrated With Flectra Apps\n"
 "-------------------------\n"
 "\n"
 "### e-Commerce\n"
@@ -22607,12 +22833,12 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,description:base.module_website_sale
 msgid ""
-"Odoo e-Commerce\n"
+"Flectra e-Commerce\n"
 "---------------\n"
 "\n"
 "### Optimize sales with an awesome online store.\n"
 "\n"
-"Odoo is an <a href=\"https://www.odoo.com/page/e-commerce\">Open Source eCommerce</a>\n"
+"Flectra is an <a href=\"https://www.flectrahq.com/page/e-commerce\">Open Source eCommerce</a>\n"
 "unlike anything you have ever seen before. Get an awesome catalog of products\n"
 "and great product description pages.\n"
 "\n"
@@ -22622,7 +22848,7 @@ msgid ""
 "Create Awesome Product Pages\n"
 "----------------------------\n"
 "\n"
-"Odoo's unique *'edit inline'* and building blocks approach makes product pages\n"
+"Flectra's unique *'edit inline'* and building blocks approach makes product pages\n"
 "creation surprisingly easy. \"Want to change the price of a product? or put it\n"
 "in bold? Want to add a banner for a specific product?\" just click and change.\n"
 "What you see is what you get. Really.\n"
@@ -22636,7 +22862,7 @@ msgid ""
 "The built-in cross-selling feature helps you offer extra products related to\n"
 "what the shopper put in his cart. (e.g. accessories)\n"
 "\n"
-"Odoo's upselling algorythm allows you to show visitors similar but more\n"
+"Flectra's upselling algorythm allows you to show visitors similar but more\n"
 "expensive products than the one in view, with incentives.\n"
 "\n"
 "The inline editing feature allows you to easily change a price, launch a\n"
@@ -22645,17 +22871,17 @@ msgid ""
 "A Clean Google Analytics Integration\n"
 "------------------------------------\n"
 "\n"
-"Get a clear visibility of your sales funnel. Odoo's Google Analytics trackers\n"
+"Get a clear visibility of your sales funnel. Flectra's Google Analytics trackers\n"
 "are configured by default to track all kind of events related to shopping\n"
 "carts, call-to-actions, etc.\n"
 "\n"
-"As Odoo marketing tools (mass mailing, campaigns, etc) are also linked with\n"
+"As Flectra marketing tools (mass mailing, campaigns, etc) are also linked with\n"
 "Google Analytics, you get a complete view of your business.\n"
 "\n"
 "Target New Markets\n"
 "------------------\n"
 "\n"
-"Get your website translated in multiple languages with no effort. Odoo proposes\n"
+"Get your website translated in multiple languages with no effort. Flectra proposes\n"
 "and propagates translations automatically across pages.\n"
 "\n"
 "Our translation \"on demand\" features allows you to benefit from professional\n"
@@ -22675,7 +22901,7 @@ msgid ""
 "Acquire New Customers\n"
 "---------------------\n"
 "\n"
-"SEO tools are ready to use, with no configuration required. Odoo suggests\n"
+"SEO tools are ready to use, with no configuration required. Flectra suggests\n"
 "keywords according to Google most searched terms, Google Analytics tracks your\n"
 "shopping cart events, sitemap are created automatically for Google indexation,\n"
 "etc.\n"
@@ -22686,7 +22912,7 @@ msgid ""
 "Leverage Social Media\n"
 "---------------------\n"
 "\n"
-"Create new landing pages easily with the Odoo inline editing feature. Send\n"
+"Create new landing pages easily with the Flectra inline editing feature. Send\n"
 "visitors of your different marketing campaigns to specific landing pages to\n"
 "optimize conversions.\n"
 "\n"
@@ -22701,13 +22927,13 @@ msgid ""
 "geolocalisation feature), define specific pricelists, launch a loyalty program\n"
 "(offer specific discounts to your best customers or resellers), etc.\n"
 "\n"
-"Benefit from the power of Odoo, in your online store: a powerfull tax engine,\n"
+"Benefit from the power of Flectra, in your online store: a powerfull tax engine,\n"
 "flexible pricing structures, a real inventory management solution, a reseller\n"
 "interface, support for products with different behaviours; physical goods,\n"
 "events, services, variants and options, etc.\n"
 "\n"
 "You don't need to interface with your warehouse, sales or accounting software.\n"
-"Everything is integrated with Odoo. No pain, real time.\n"
+"Everything is integrated with Flectra. No pain, real time.\n"
 "\n"
 "A Clean Checkout Process\n"
 "------------------------\n"
@@ -22766,46 +22992,56 @@ msgstr ""
 #. module: base
 #: model_terms:ir.actions.act_window,help:base.action_partner_customer_form
 #: model_terms:ir.actions.act_window,help:base.action_partner_form
-msgid "Odoo helps you easily track all activities related to a customer."
-msgstr "Odoo допоможе вам легко відстежувати всі дії, пов'язані з клієнтом."
+msgid "Flectra helps you easily track all activities related to a customer."
+msgstr "Flectra допоможе вам легко відстежувати всі дії, пов'язані з клієнтом."
 
 #. module: base
 #: model_terms:ir.actions.act_window,help:base.action_partner_supplier_form
-msgid "Odoo helps you easily track all activities related to a vendor."
+msgid "Flectra helps you easily track all activities related to a vendor."
 msgstr ""
-"Odoo допоможе вам легко відстежувати всі дії, пов'язані з постачальником."
+"Flectra допоможе вам легко відстежувати всі дії, пов'язані з постачальником."
 
 #. module: base
 #: code:addons/base/models/ir_module.py:0
 #, python-format
 msgid ""
-"Odoo is currently processing a scheduled action.\n"
+"Flectra is currently processing a scheduled action.\n"
 "Module operations are not possible at this time, please try again later or contact your system administrator."
 msgstr ""
 
 #. module: base
+#: code:addons/base/models/ir_actions_report.py:0
+#, python-format
+msgid ""
+"Flectra is unable to merge the PDFs attached to the following records:\n"
+"%s\n"
+"\n"
+"Please exclude them from the selection to continue. It's possible to still retrieve those PDFs by selecting each of the affected records individually, which will avoid merging."
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_odoo_referral
-msgid "Odoo referral program"
-msgstr "Програма рекомендацій Odoo"
+msgid "Flectra referral program"
+msgstr "Програма рекомендацій Flectra"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_sequence__padding
 msgid ""
-"Odoo will automatically adds some '0' on the left of the 'Next Number' to "
+"Flectra will automatically adds some '0' on the left of the 'Next Number' to "
 "get the required padding size."
 msgstr ""
-"Odoo автоматично додає деякі \"0\" ліворуч від \"наступного номера\", щоб "
+"Flectra автоматично додає деякі \"0\" ліворуч від \"наступного номера\", щоб "
 "отримати необхідний розмір підкладки."
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mail_bot
-msgid "OdooBot"
-msgstr "OdooBot"
+msgid "FlectraBot"
+msgstr "FlectraBot"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_im_livechat_mail_bot
-msgid "OdooBot for livechat"
-msgstr "OdooBot для живого чату"
+msgid "FlectraBot for livechat"
+msgstr "FlectraBot для живого чату"
 
 #. module: base
 #: model:res.partner.category,name:base.res_partner_category_12
@@ -22854,6 +23090,12 @@ msgid ""
 msgstr ""
 "Один із документів, які ви намагаєтесь отримати, було видалено. Будь ласка, "
 "повторіть спробу після оновлення."
+
+#. module: base
+#: code:addons/base/models/ir_actions_report.py:0
+#, python-format
+msgid "One of the documents, you try to merge is encrypted"
+msgstr "Один з документів, які ви намагаєтесь об'єднати, зашифровано"
 
 #. module: base
 #: code:addons/models.py:0
@@ -23114,7 +23356,7 @@ msgid ""
 "\n"
 "Add a talk proposal form on your events to allow visitors to submit talks and speakers. Organize the validation process of every talk, and schedule easily.\n"
 "\n"
-"Odoo's unique frontend and backend integration makes organization and publication so easy. Easily design beautiful speaker biographies and talks description.\n"
+"Flectra's unique frontend and backend integration makes organization and publication so easy. Easily design beautiful speaker biographies and talks description.\n"
 "\n"
 "Agenda and List of Talks\n"
 "------------------------\n"
@@ -23130,7 +23372,7 @@ msgid ""
 "\n"
 "Add sponsors to your events and publish sponsors per level (e.g. bronze, silver, gold) on the bottom of every page of the event.\n"
 "\n"
-"Sell sponsorship packages online through the Odoo eCommerce for a full sales cycle integration.\n"
+"Sell sponsorship packages online through the Flectra eCommerce for a full sales cycle integration.\n"
 "\n"
 "Communicate Efficiently\n"
 "-----------------------\n"
@@ -23153,7 +23395,7 @@ msgstr ""
 "\n"
 "Додайте форму пропозиції щодо обговорення у свої події, щоб відвідувачі могли надіслати переговори та спікерів. Організуйте процес підтвердження кожної бесіди та легко плануйте.\n"
 "\n"
-"Налаштування унікального фронтенду та бекенд Odoo робить організацію та публікацію настільки простими. Легко оформлюйте прекрасні біографії динаміків та опис розмов.\n"
+"Налаштування унікального фронтенду та бекенд Flectra робить організацію та публікацію настільки простими. Легко оформлюйте прекрасні біографії динаміків та опис розмов.\n"
 "\n"
 "Порядок денний та перелік переговорів\n"
 "------------------------\n"
@@ -23169,7 +23411,7 @@ msgstr ""
 "\n"
 "Додайте спонсорів до ваших подій та публікуйте спонсорів на рівні (наприклад, бронзовий, срібний, золотий) внизу кожної сторінки події.\n"
 "\n"
-"Продаж спонсорських пакетів онлайн через електронну комерцію Odoo для повної інтеграції з циклом продажів.\n"
+"Продаж спонсорських пакетів онлайн через електронну комерцію Flectra для повної інтеграції з циклом продажів.\n"
 "\n"
 "Ефективне спілкування\n"
 "-----------------------\n"
@@ -23186,7 +23428,7 @@ msgid ""
 "\n"
 "### Schedule, Promote, Sell, Organize\n"
 "\n"
-"Organize, promote and sell events online. Whether you organize meetings, conferences, trainings or webinars, Odoo gives you all the features you need to manage your events.\n"
+"Organize, promote and sell events online. Whether you organize meetings, conferences, trainings or webinars, Flectra gives you all the features you need to manage your events.\n"
 "\n"
 "Create Awesome Event Pages\n"
 "--------------------------\n"
@@ -23195,7 +23437,7 @@ msgid ""
 "\n"
 "Create beautiful event pages by drag & droping well designed *'Building Blocks'*. Publish event photos, speakers, schedule, etc.\n"
 "\n"
-"Odoo's unique *'edit inline'* approach makes website creation surprisingly easy. \"Want to introduce a speaker? to change the price of a ticket? to update a banner? promote sponsors?\" just click and change.\n"
+"Flectra's unique *'edit inline'* approach makes website creation surprisingly easy. \"Want to introduce a speaker? to change the price of a ticket? to update a banner? promote sponsors?\" just click and change.\n"
 "\n"
 "Sell Tickets Online\n"
 "-------------------\n"
@@ -23211,9 +23453,9 @@ msgid ""
 "\n"
 "### Control your sales funnel with Google Analytics\n"
 "\n"
-"Get a clear visibility of your sales funnel. Odoo's Google Analytics trackers are configured by default to track all kind of events related to shopping carts, call-to-actions, etc.\n"
+"Get a clear visibility of your sales funnel. Flectra's Google Analytics trackers are configured by default to track all kind of events related to shopping carts, call-to-actions, etc.\n"
 "\n"
-"As Odoo marketing tools (mass mailing, campaigns, etc) are also linked with Google Analytics, you get a full view of your business.\n"
+"As Flectra marketing tools (mass mailing, campaigns, etc) are also linked with Google Analytics, you get a full view of your business.\n"
 "\n"
 "Promote Events Efficiently\n"
 "--------------------------\n"
@@ -23225,7 +23467,7 @@ msgid ""
 "Designer-Friendly Themes\n"
 "------------------------\n"
 "\n"
-"### Designers love working on Odoo\n"
+"### Designers love working on Flectra\n"
 "\n"
 "Themes are awesome and easy to design. You don't need to develop to create new pages, themes or building blocks. We use a clean HTML structure, a [bootstrap](http://getbootstrap.com/) CSS and our modularity allows to distribute your themes easily.\n"
 "\n"
@@ -23236,7 +23478,7 @@ msgid ""
 "\n"
 "### SEO tools at your finger tips\n"
 "\n"
-"SEO tools are ready to use, with no configuration required. Odoo suggests keywords according to Google most searched terms, Google Analytics tracks your shopping cart events and sitemap are created automatically.\n"
+"SEO tools are ready to use, with no configuration required. Flectra suggests keywords according to Google most searched terms, Google Analytics tracks your shopping cart events and sitemap are created automatically.\n"
 "\n"
 "We even do structured content automatically to promote your events and products efficiently in Google.\n"
 "\n"
@@ -23245,7 +23487,7 @@ msgid ""
 "\n"
 "### Optimize: from Ads to Conversions\n"
 "\n"
-"Create new landing pages easily with the Odoo inline editing feature. Send visitors of your different marketing campaigns to event landing pages to optimize conversions.\n"
+"Create new landing pages easily with the Flectra inline editing feature. Send visitors of your different marketing campaigns to event landing pages to optimize conversions.\n"
 "\n"
 "And Much More...\n"
 "----------------\n"
@@ -23395,7 +23637,7 @@ msgstr "Сервери вихідної пошти"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_microsoft_calendar
 msgid "Outlook Calendar"
-msgstr ""
+msgstr "Календар Outlook"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_report_paperformat__dpi
@@ -23763,7 +24005,7 @@ msgstr "Платіжний еквайєр: впровадження Ingenico"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_payment_odoo_by_adyen
-msgid "Payment Acquirer: Odoo Payments by Adyen"
+msgid "Payment Acquirer: Flectra Payments by Adyen"
 msgstr ""
 
 #. module: base
@@ -24019,10 +24261,10 @@ msgstr ""
 #: model:res.groups,comment:base.group_portal
 msgid ""
 "Portal members have specific access rights (such as record rules and restricted menus).\n"
-"                They usually do not belong to the usual Odoo groups."
+"                They usually do not belong to the usual Flectra groups."
 msgstr ""
 "Члени порталу мають спеціальні права доступу (наприклад, правила запису та обмежені меню).\n"
-"                 Вони зазвичай не належать до звичайних груп Odoo."
+"                 Вони зазвичай не належать до звичайних груп Flectra."
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__report_paperformat__orientation__portrait
@@ -24249,7 +24491,7 @@ msgid ""
 "### Infinitely flexible. Incredibly easy to use.\n"
 "\n"
 "\n"
-"Odoo's collaborative and realtime <a href=\"https://www.odoo.com/page/project-management\">open source project management</a>\n"
+"Flectra's collaborative and realtime <a href=\"https://www.flectrahq.com/page/project-management\">open source project management</a>\n"
 "helps your team get work done. Keep track of everything, from the big picture\n"
 "to the minute details, from the customer contract to the billing.\n"
 "\n"
@@ -24388,6 +24630,8 @@ msgid ""
 "Provide the field used to link the newly created record on the record used "
 "by the server action."
 msgstr ""
+"Вкажіть поле, яке використовується для зв’язку новоствореного запису на "
+"записі, який використовується дією сервера."
 
 #. module: base
 #: model:ir.module.module,summary:base.module_mail_mobile
@@ -24408,10 +24652,10 @@ msgstr "Публічне адміністрування"
 #: model:res.groups,comment:base.group_public
 msgid ""
 "Public users have specific access rights (such as record rules and restricted menus).\n"
-"                They usually do not belong to the usual Odoo groups."
+"                They usually do not belong to the usual Flectra groups."
 msgstr ""
 "Громадські користувачі мають спеціальні права доступу (наприклад, правила запису та обмежені меню).\n"
-"                 Вони зазвичай не належать до звичайних груп Odoo."
+"                 Вони зазвичай не належать до звичайних груп Flectra."
 
 #. module: base
 #: model:ir.module.module,summary:base.module_website_blog
@@ -25844,12 +26088,12 @@ msgstr "Виберіть підходящий розмір сторінки"
 msgid ""
 "Select the list of fields used to search for\n"
 "                            duplicated records. If you select several fields,\n"
-"                            Odoo will propose you to merge only those having\n"
+"                            Flectra will propose you to merge only those having\n"
 "                            all these fields in common. (not one of the fields)."
 msgstr ""
 "Виберіть список полів, які використовуються для пошуку\n"
 "                             дубльованих записів. Якщо ви виберете декілька полів,\n"
-"                             Odoo запропонує вам об'єднати лише тих, хто має\n"
+"                             Flectra запропонує вам об'єднати лише тих, хто має\n"
 "                             всі ці поля. (не одне з полів)."
 
 #. module: base
@@ -26124,6 +26368,8 @@ msgid ""
 "Server replied with following exception:\n"
 " %s"
 msgstr ""
+"Сервер відповів з наступною помилкою:\n"
+" %s"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_services
@@ -26594,7 +26840,7 @@ msgstr "Почніть налаштування"
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
 #: model_terms:ir.ui.view,arch_db:base.view_res_bank_form
 msgid "State"
-msgstr "Статус"
+msgstr "Область"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_country_state__code
@@ -27400,11 +27646,11 @@ msgstr "Назва компанії повинна бути унікальною
 #: model_terms:ir.actions.act_window,help:base.act_ir_actions_todo_form
 msgid ""
 "The configuration wizards are used to help you configure a new instance of "
-"Odoo. They are launched during the installation of new modules, but you can "
+"Flectra. They are launched during the installation of new modules, but you can "
 "choose to restart some wizards manually from this menu."
 msgstr ""
 "Майстри налаштування використовуються, щоби допомогти вам налаштувати нову "
-"версію Odoo. Вони запускаються під час встановлення нових модулів, але ви "
+"версію Flectra. Вони запускаються під час встановлення нових модулів, але ви "
 "можете перезапустити деякі майстри вручну з цього меню."
 
 #. module: base
@@ -27530,6 +27776,12 @@ msgstr "Повна назва країни."
 #: model:ir.model.fields,help:base.field_res_users__user_id
 msgid "The internal user in charge of this contact."
 msgstr "Внутрішній користувач, який відповідає за цей контакт."
+
+#. module: base
+#: code:addons/base/models/res_country.py:106
+#, python-format
+msgid "The layout contains an invalid format key"
+msgstr ""
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_model__inherited_model_ids
@@ -27969,13 +28221,13 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_no
 msgid ""
-"This is the module to manage the accounting chart for Norway in Odoo.\n"
+"This is the module to manage the accounting chart for Norway in Flectra.\n"
 "\n"
-"Updated for Odoo 9 by Bringsvor Consulting AS <www.bringsvor.com>\n"
+"Updated for Flectra 9 by Bringsvor Consulting AS <www.bringsvor.com>\n"
 msgstr ""
-"Це модуль для управління планом рахунків для Норвегії в Odoo.\n"
+"Це модуль для управління планом рахунків для Норвегії в Flectra.\n"
 "\n"
-"Оновлений для Odoo 9 компанією Bringsvor Consulting AS <www.bringsvor.com>\n"
+"Оновлений для Flectra 9 компанією Bringsvor Consulting AS <www.bringsvor.com>\n"
 
 #. module: base
 #: code:addons/base/models/res_users.py:0
@@ -27986,7 +28238,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,description:base.module_mail_bot_hr
 msgid ""
-"This module adds the OdooBot state and notifications in the user form "
+"This module adds the FlectraBot state and notifications in the user form "
 "modified by hr."
 msgstr ""
 
@@ -28586,6 +28838,8 @@ msgid ""
 "Turn emails received in your Outlook mailbox into leads and log their "
 "content as internal notes."
 msgstr ""
+"Перетворіть отримані електронні листи в Outlook на ліди та запишіть їх вміст"
+" як внутрішні примітки."
 
 #. module: base
 #: model:res.country,name:base.tv
@@ -28610,7 +28864,7 @@ msgstr "Сніппет скролера Twitter на веб-сайті"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_auth_totp
 msgid "Two-Factor Authentication (TOTP)"
-msgstr ""
+msgstr "Двофакторна автентифікація (TOTP)"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_attachment__type
@@ -28730,7 +28984,7 @@ msgstr "USt"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_data_merge_utm
 msgid "UTM Deduplication"
-msgstr ""
+msgstr "Видалення UTM дублікатів "
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_utm
@@ -28965,6 +29219,8 @@ msgid ""
 "Unsearchable field \"%(field)s\" in path %(field_path)r in "
 "%(attribute)s=%(value)r"
 msgstr ""
+"Поле не знаходиться \"%(field)s\" in path %(field_path)r in "
+"%(attribute)s=%(value)r"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_web_unsplash
@@ -29037,7 +29293,7 @@ msgstr "Url-адреса"
 #. module: base
 #: model:ir.model.fields,help:base.field_res_country__image_url
 msgid "Url of static flag image"
-msgstr ""
+msgstr "Url статичного зображення прапора"
 
 #. module: base
 #: model:res.country,name:base.uy
@@ -29047,7 +29303,7 @@ msgstr "Уругвай"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_uy
 msgid "Uruguay - Accounting"
-msgstr ""
+msgstr "Уругвай - Бухоблік"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_decimal_precision__name
@@ -29066,17 +29322,17 @@ msgstr "Введіть \"1\" для 'так', і \"0\" для 'ні'."
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_iot
 msgid "Use IoT Devices in the PoS"
-msgstr ""
+msgstr "Використовуйте пристрої IoT у точці продажу"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_delivery_iot
 msgid "Use IoT devices in delivery operations"
-msgstr ""
+msgstr "Використовуйте пристрої IoT в операціях доставки"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_partner__barcode
 msgid "Use a barcode to identify this contact."
-msgstr ""
+msgstr "Використовуйте штрих-код для ідентифікації цього контакту."
 
 #. module: base
 #: model:ir.module.module,summary:base.module_stock_barcode
@@ -29104,7 +29360,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,summary:base.module_coupon
 msgid "Use discount coupons in different sales channels."
-msgstr ""
+msgstr "Використовуйте купони на знижку у різних каналах продажу."
 
 #. module: base
 #: model:ir.module.module,summary:base.module_sale_coupon
@@ -29167,7 +29423,7 @@ msgid ""
 "Used for custom many2many fields to define a custom relation table name"
 msgstr ""
 "Використовується для користувацьких полів many2many, щоб визначити пов'язану"
-" користувацьку назву таблиці"
+" кастомну назву таблиці"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_actions_act_window__usage
@@ -29258,7 +29514,7 @@ msgstr "Користувач:"
 #: code:addons/base/models/ir_rule.py:0
 #, python-format
 msgid "User: %s"
-msgstr ""
+msgstr "Користувач: %s"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_mail_server__smtp_user
@@ -29336,7 +29592,7 @@ msgstr "ПДВ"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_base_vat
 msgid "VAT Number Validation"
-msgstr "Вирівнювання номерів"
+msgstr "Валідація ІПН"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_productivity_voip
@@ -29432,7 +29688,7 @@ msgstr "Вануату"
 #. module: base
 #: model:ir.module.module,summary:base.module_l10n_be_hr_payroll_variable_revenue
 msgid "Variable Revenue"
-msgstr ""
+msgstr "Перемінний дохід"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_server_action_form
@@ -29477,7 +29733,7 @@ msgstr "Венесуела - Бухоблік"
 #: code:addons/base/models/ir_qweb_fields.py:0
 #, python-format
 msgid "Vertical bar"
-msgstr ""
+msgstr "Вертикальна гістограма"
 
 #. module: base
 #: model:res.country,name:base.vn
@@ -29501,13 +29757,13 @@ msgstr "Перегляд"
 #: code:addons/base/models/ir_ui_view.py:0
 #, python-format
 msgid "View '%(name)s' accessible only to groups %(groups)s "
-msgstr ""
+msgstr "Перегляд '%(name)s' доступний лише групам %(groups)s "
 
 #. module: base
 #: code:addons/base/models/ir_ui_view.py:0
 #, python-format
 msgid "View '%(name)s' is private"
-msgstr ""
+msgstr "Перегляд '%(name)s' приватний"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_ui_view__arch
@@ -29537,7 +29793,7 @@ msgstr "Назва перегляду"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_actions_act_window__view_id
 msgid "View Ref."
-msgstr "Посилання перегляду"
+msgstr "Референс перегляду"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_actions_act_window_view__view_mode
@@ -29585,10 +29841,10 @@ msgstr "Представлення"
 #. module: base
 #: model_terms:ir.actions.act_window,help:base.action_ui_view
 msgid ""
-"Views allows you to personalize each view of Odoo. You can add new fields, "
+"Views allows you to personalize each view of Flectra. You can add new fields, "
 "move fields, rename them or delete the ones that you do not need."
 msgstr ""
-"Перегляди дозволяють персоналізувати кожен перегляд Odoo. Ви можете додати "
+"Перегляди дозволяють персоналізувати кожен перегляд Flectra. Ви можете додати "
 "нові поля, переміщати поля, перейменовувати їх або видаляти ті, які вам не "
 "потрібні."
 
@@ -29709,12 +29965,13 @@ msgstr "Веб-діаграма Ганта"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_web_grid
 msgid "Web Grid Tests"
-msgstr ""
+msgstr "Тести веб-сітки"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_test_web_grid
 msgid "Web Grid Tests: performances and tests specific to the grid view"
 msgstr ""
+"Тести веб-сітки: продуктивність та тести відповідно до перегляду сітки"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_ui_menu__web_icon
@@ -29766,12 +30023,12 @@ msgstr "Веб-сайт Enterprise"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_event_crm_questions
 msgid "Website Event CRM Questions"
-msgstr ""
+msgstr "Веб-сайт Події CRM Запитання"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_event_crm
 msgid "Website Events CRM"
-msgstr ""
+msgstr "Веб-сайт Події CRM"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_form
@@ -29791,7 +30048,7 @@ msgstr "Служба підтримки живого чату IM веб-сайт
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_jitsi
 msgid "Website Jitsi"
-msgstr ""
+msgstr "Веб-сайт Jitsi"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company__website
@@ -29868,7 +30125,7 @@ msgstr "Тест веб-сайту, в основному для модулів 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_crm_enterprise_iap_lead_website
 msgid "Website Visits Lead Generation Enterprise"
-msgstr ""
+msgstr "Генерація лідів з відвідувачів сайту версії Enterprise"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_profile
@@ -29893,7 +30150,7 @@ msgstr "Західна Сахара"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.form_res_users_key_description
 msgid "What's this key for?"
-msgstr ""
+msgstr "Для чого цей ключ?"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_actions_server__sequence
@@ -30030,7 +30287,7 @@ msgstr "Робочі записи"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_work_entry_contract
 msgid "Work Entries - Contract"
-msgstr ""
+msgstr "Робочі записи - контракт"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_mrp_workorder
@@ -30072,7 +30329,7 @@ msgstr ""
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.form_res_users_key_show
 msgid "Write down your key"
-msgstr ""
+msgstr "Запишіть ваш ключ"
 
 #. module: base
 #: model:res.country,name:base.ye
@@ -30106,6 +30363,7 @@ msgid ""
 "You are not allowed to access '%(document_kind)s' (%(document_model)s) "
 "records."
 msgstr ""
+"У вас немає доступу до записів '%(document_kind)s' (%(document_model)s)."
 
 #. module: base
 #: code:addons/base/models/ir_model.py:0
@@ -30114,6 +30372,7 @@ msgid ""
 "You are not allowed to create '%(document_kind)s' (%(document_model)s) "
 "records."
 msgstr ""
+"Ви не можете створювати записи '%(document_kind)s' (%(document_model)s)."
 
 #. module: base
 #: code:addons/base/models/ir_model.py:0
@@ -30191,10 +30450,10 @@ msgstr ""
 #, python-format
 msgid ""
 "You can not remove the admin user as it is used internally for resources "
-"created by Odoo (updates, module installation, ...)"
+"created by Flectra (updates, module installation, ...)"
 msgstr ""
 "Ви не можете видалити користувача адміністратора, оскільки воно "
-"використовується всередині ресурсів, створених Odoo (оновлення, встановлення"
+"використовується всередині ресурсів, створених Flectra (оновлення, встановлення"
 " модулів, ...)"
 
 #. module: base
@@ -30214,8 +30473,8 @@ msgstr "Не можна активувати суперкористувача."
 #. module: base
 #: code:addons/base/models/res_partner.py:0
 #, python-format
-msgid "You cannot archive a contact linked to an internal user."
-msgstr "Неможливо архівувати контакт, пов'язаний із внутрішнім користувачем."
+msgid "You cannot archive a contact linked to a portal or internal user."
+msgstr ""
 
 #. module: base
 #: code:addons/base/models/res_partner.py:0
@@ -30330,14 +30589,21 @@ msgstr ""
 "користувача в меню Налаштування/Користувачі."
 
 #. module: base
+#: model_terms:ir.ui.view,arch_db:base.view_currency_form
+msgid ""
+"You won't be able to reduce the number of decimal places of a currency which"
+" has already been used to make accounting entries."
+msgstr ""
+
+#. module: base
 #: code:addons/base/models/ir_mail_server.py:0
 #, python-format
 msgid ""
-"Your Odoo Server does not support SMTP-over-SSL. You could use STARTTLS "
+"Your Flectra Server does not support SMTP-over-SSL. You could use STARTTLS "
 "instead. If SSL is needed, an upgrade to Python 2.6 on the server-side "
 "should do the trick."
 msgstr ""
-"Ваш сервер Odoo не підтримує SMTP-over-SSL. Ви можете використовувати "
+"Ваш сервер Flectra не підтримує SMTP-over-SSL. Ви можете використовувати "
 "STARTTLS. Якщо потрібен протокол SSL, оновлення до Python 2.6 на стороні "
 "сервера повинно зробити трюк."
 
@@ -30381,7 +30647,7 @@ msgstr "Індекс"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_country__zip_required
 msgid "Zip Required"
-msgstr ""
+msgstr "Потрібний індекс"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_base_import_language
@@ -30406,7 +30672,7 @@ msgstr "account_ponto"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_qr_code_sepa
 msgid "account_qr_code_sepa"
-msgstr ""
+msgstr "account_qr_code_sepa"
 
 #. module: base
 #: code:addons/models.py:0
@@ -30418,7 +30684,7 @@ msgstr "дозволено для груп %s"
 #: code:addons/models.py:0
 #, python-format
 msgid "always forbidden"
-msgstr ""
+msgstr "завжди заборонено"
 
 #. module: base
 #: code:addons/base/models/res_currency.py:0
@@ -30429,7 +30695,7 @@ msgstr "і"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.res_partner_kanban_view
 msgid "at"
-msgstr "за"
+msgstr "в"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_model_fields__ttype__binary
@@ -30497,7 +30763,7 @@ msgstr "напр. BE0477472701"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_base_import_language
 msgid "e.g. English"
-msgstr "наприклад: Українська"
+msgstr "напр.: Англійська"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
@@ -30529,8 +30795,8 @@ msgstr "напр. en_US"
 #: model_terms:ir.ui.view,arch_db:base.view_company_form
 #: model_terms:ir.ui.view,arch_db:base.view_partner_address_form
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
-msgid "e.g. https://www.odoo.com"
-msgstr "наприклад, https://www.odoo.com"
+msgid "e.g. https://www.flectrahq.com"
+msgstr "напр., https://www.flectrahq.com"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_sale_ebay
@@ -30609,6 +30875,8 @@ msgid ""
 "has been successfully installed.\n"
 "Users can choose his favorite language in their preferences."
 msgstr ""
+"було успішно встановлено.\n"
+"Користувачі можуть обрати мову у їхніх налаштуваннях профілю."
 
 #. module: base
 #: code:addons/base/models/ir_qweb_fields.py:0
@@ -30665,7 +30933,7 @@ msgstr "l10n_es_real_estates"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mail_bot_hr
 msgid "mail_bot_hr"
-msgstr ""
+msgstr "mail_bot_hr"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_model_fields__ttype__many2many
@@ -30686,7 +30954,7 @@ msgstr "many2one_reference"
 #: code:addons/base/models/ir_qweb_fields.py:0
 #, python-format
 msgid "minute"
-msgstr ""
+msgstr "хвилина"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.demo_failures_dialog
@@ -30734,7 +31002,7 @@ msgstr "one2many"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_account_reports
 msgid "pos_account_reports"
-msgstr ""
+msgstr "pos_account_reports"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_cache
@@ -30764,7 +31032,7 @@ msgstr "pos_sale"
 #. module: base
 #: model:ir.module.module,summary:base.module_hr_expense_predict_product
 msgid "predict the product from the expense description based on old ones"
-msgstr ""
+msgstr "прогнозувати товар за описом витрат на основі старих"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_model_fields__ttype__reference
@@ -30774,23 +31042,23 @@ msgstr "посилання"
 #. module: base
 #: model:ir.model,name:base.model_res_users_apikeys
 msgid "res.users.apikeys"
-msgstr ""
+msgstr "res.users.apikeys"
 
 #. module: base
 #: model:ir.model,name:base.model_res_users_apikeys_description
 msgid "res.users.apikeys.description"
-msgstr ""
+msgstr "res.users.apikeys.description"
 
 #. module: base
 #: model:ir.model,name:base.model_res_users_apikeys_show
 msgid "res.users.apikeys.show"
-msgstr ""
+msgstr "res.users.apikeys.show"
 
 #. module: base
 #: code:addons/base/models/ir_qweb_fields.py:0
 #, python-format
 msgid "second"
-msgstr ""
+msgstr "секунда"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_model_fields__ttype__selection
@@ -30805,7 +31073,7 @@ msgstr "snailmail_account"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_users_form_simple_modif
 msgid "test"
-msgstr ""
+msgstr "тест"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_mimetypes
@@ -30875,7 +31143,7 @@ msgstr "test-lint"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_populate
 msgid "test-populate"
-msgstr ""
+msgstr "test-populate"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_translation_import
@@ -30895,7 +31163,7 @@ msgstr "test_convert"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_search_panel
 msgid "test_search_panel"
-msgstr ""
+msgstr "test_search_panel"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_model_fields__ttype__text
