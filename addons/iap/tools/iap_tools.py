@@ -6,13 +6,33 @@ import logging
 import json
 import requests
 import uuid
+from unittest.mock import patch
 
 from flectra import exceptions, _
+from flectra.tests.common import BaseCase
 from flectra.tools import pycompat
 
 _logger = logging.getLogger(__name__)
 
 DEFAULT_ENDPOINT = 'https://iap.flectrahq.com'
+
+
+# We need to mock iap_jsonrpc during tests as we don't want to perform real calls to RPC endpoints
+def iap_jsonrpc_mocked(*args, **kwargs):
+    raise exceptions.AccessError("Unavailable during tests.")
+
+
+iap_patch = patch('flectra.addons.iap.tools.iap_tools.iap_jsonrpc', iap_jsonrpc_mocked)
+
+
+def setUp(self):
+    old_setup_func(self)
+    iap_patch.start()
+    self.addCleanup(iap_patch.stop)
+
+
+old_setup_func = BaseCase.setUp
+BaseCase.setUp = setUp
 
 #----------------------------------------------------------
 # Helpers for both clients and proxy

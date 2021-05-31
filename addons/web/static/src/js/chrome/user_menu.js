@@ -79,7 +79,7 @@ var UserMenu = Widget.extend({
      * @private
      */
     _onMenuDocumentation: function () {
-        window.open('https://www.flectrahq.com/documentation/user', '_blank');
+        window.open('https://doc.flectrahq.com/2.0', '_blank');
     },
     /**
      * @private
