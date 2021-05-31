@@ -20,7 +20,7 @@ Shows you a list of applications features to install from.
     ],
     'demo': [],
     'installable': True,
-    'auto_install': True,
+    'auto_install': False,
 
     'qweb': [
         'static/src/xml/res_config_dev_tool.xml',
