@@ -12,7 +12,7 @@ class FlectraBaseChecker(checkers.BaseChecker):
         'E8502': (
             'Bad usage of _, _lt function.',
             'gettext-variable',
-            'See https://flectrahq.com/documentation/14.0/reference/translations.html#variables'
+            'See https://doc.flectrahq.com/2.0/reference/translations.html#variables'
         )
     }
 
