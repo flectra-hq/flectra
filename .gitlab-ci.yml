@@ -12,7 +12,7 @@ variables:
   UBUNTU_BASE_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/base/ubuntu"
   UBUNTU_FLECTRA_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/ubuntu"
   UBUNTUDEV_FLECTRA_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/ubuntudev"
-  GAE_FLECTRA_IMAGE: "registry.gitlab.com/${CI_PROJECT_PATH}/gae"
+  GAE_FLECTRA_IMAGE: "eu.gcr.io/test-flectra-2-0-0/flectra"
   #  DOCKER_HOST: tcp://docker:2375
   #  DOCKER_DRIVER: overlay2
 
@@ -314,9 +314,13 @@ deploy:flectra_gae:
   only:
     - tags
   script:
+    - mkdir -p ~/.ssh
+    - echo "$GITLAB_PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
+    - chmod 0700 ~/.ssh
+    - chmod 0600 ~/.ssh/id_rsa
     - ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts
     - git clone --depth=1 git@gitlab.com:jamotion/paas/f20.git ~/f20
-    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://eu.gcr.io
     - docker pull ${GAE_FLECTRA_IMAGE}:2-latest || true
     - docker build --cache-from ${GAE_FLECTRA_IMAGE}:2-latest -f ~/f20/Dockerfile ~/f20 --tag ${GAE_FLECTRA_IMAGE}:2-latest --tag ${GAE_FLECTRA_IMAGE}:$CI_COMMIT_TAG
     - docker push ${GAE_FLECTRA_IMAGE}:$CI_COMMIT_TAG
