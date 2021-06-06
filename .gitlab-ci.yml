@@ -314,6 +314,7 @@ deploy:flectra_gae:
   only:
     - tags
   script:
+    - apk update && apk add git
     - mkdir -p ~/.ssh
     - echo "$GITLAB_PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
     - chmod 0700 ~/.ssh
