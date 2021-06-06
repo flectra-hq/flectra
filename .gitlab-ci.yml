@@ -305,9 +305,6 @@ deploy:flectra_gae_paas:
     - cd ~/f20 && git commit -am"Automatic Release Upgrade to $CI_COMMIT_TAG"
     - cd ~/f20 && git tag -f $CI_COMMIT_TAG
     - cd ~/f20 && git push --force --tags
-    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
-    - docker pull ${GAE_FLECTRA_IMAGE}:latest || true
-    - docker build --cache-from ${GAE_FLECTRA_IMAGE}:$CI_COMMIT_SHA
 
 deploy:flectra_gae:
   <<: *build_definition
