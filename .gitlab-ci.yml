@@ -287,9 +287,9 @@ deploy:flectra_gitlab:
 
 deploy:flectra_gae_paas:
   image: ${UBUNTU_BASE_IMAGE}:2-latest
-  stage: deploy
-  needs:
-    - build:flectra_ubuntu
+  stage: unittest
+#  needs:
+#    - build:flectra_ubuntu
   only:
     - tags
   script:
@@ -308,7 +308,7 @@ deploy:flectra_gae_paas:
 
 deploy:flectra_gae:
   <<: *build_definition
-  stage: package
+  stage: unitttest2
   needs:
     - deploy:flectra_gae_paas
   only:
