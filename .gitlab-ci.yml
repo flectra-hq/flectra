@@ -310,7 +310,7 @@ deploy:flectra_gae_paas:
     - docker build --cache-from ${GAE_FLECTRA_IMAGE}:$CI_COMMIT_SHA
 
 deploy:flectra_gae:
-   <<: *build_definition
+  <<: *build_definition
   stage: deploy
   needs:
     - deploy:flectra_gae_paas
