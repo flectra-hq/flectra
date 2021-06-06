@@ -311,7 +311,7 @@ deploy:flectra_gae_paas:
 
 deploy:flectra_gae:
   <<: *build_definition
-  stage: deploy
+  stage: package
   needs:
     - deploy:flectra_gae_paas
   only:
