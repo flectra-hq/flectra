@@ -11,7 +11,7 @@ class AccountPayment(models.Model):
     payment_date = fields.Date(string='Date', default=fields.Date.context_today, required=True, readonly=True,
                                states={'draft': [('readonly', False)]}, copy=False, tracking=True)
     communication = fields.Char(string='Memo', readonly=True, states={'draft': [('readonly', False)]})
-    move_line_ids = fields.One2many('account.move.line', 'payment_id', readonly=True, copy=False, ondelete='restrict')
+    move_line_ids = fields.One2many('account.move.line', 'payment_id', readonly=True, copy=False)
 
     def open_payment_matching_screen(self):
         # Open reconciliation view for customers/suppliers
