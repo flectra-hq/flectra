@@ -88,8 +88,8 @@ class HelpdeskTicket(http.Controller):
 
 class CustomerPortal(CustomerPortal):
 
-    def _prepare_portal_layout_values(self):
-        values = super(CustomerPortal, self)._prepare_portal_layout_values()
+    def _prepare_home_portal_values(self, counters=None):
+        values = super(CustomerPortal, self)._prepare_home_portal_values(counters)
         user = request.env.user
         ticket = request.env['helpdesk.ticket'].sudo().search_count(['|',
                 ('user_id', '=', user.id),('partner_id', '=', user.partner_id.id)])

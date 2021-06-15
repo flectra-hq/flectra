@@ -19,7 +19,7 @@
             <li t-if="ticket" class="breadcrumb-item active text-truncate col-8 col-lg-10">
                 <t t-esc="ticket.issue_name"/>
             </li>
-            <div class="nav flex-column flex-lg-row ml-auto p-0 mb-3 mb-lg-0 mt-1 mt-lg-0">
+            <div t-if="page_name == 'ticket' or ticket" class="nav flex-column flex-lg-row ml-auto p-0 mb-3 mb-lg-0 mt-1 mt-lg-0">
                 <div t-if="searchbar_sortings" class="form-inline">
                     <span class="small mr-1 navbar-text">Sort By:</span>
                     <div class="btn-group">
@@ -97,66 +97,47 @@
               inherit_id="portal.portal_my_home"
               priority="30">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
-            <li t-if="ticket_count" class="list-group-item">
-                <a class="ticket-list-group-item ticket-align-items-center ticket-justify-content-between" href="/my/tickets">Tickets
-                    <span class="badge ticket-count badge-ticket-count" t-esc="ticket_count"/>
-                </a>
-            </li>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Tickets</t>
+                <t t-set="url" t-value="'/my/tickets'"/>
+                <t t-set="placeholder_count" t-value="'ticket_count'"/>
+            </t>
         </xpath>
     </template>
 
     <template id="my_tickets" name="Tickets">
         <t t-call="portal.portal_layout">
-            <div class="ticket-panel ticket-panel-primary">
-                <div class="ticket-panel-heading">
-                    <h3 class="ticket-panel-title">
-                        Your Helpdesk Tickets
-                    </h3>
+            <a class="btn btn-primary" href="/helpdesk-form">Create</a>
+            <t t-if="not tickets">
+                <p>There are currently no tickets for your account.</p>
+            </t>
+            <t t-if="tickets" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Ticket Sequence #</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <t t-foreach="tickets" t-as="ticket">
+                    <tr>
+                        <td>
+                            <a t-attf-href="/my/ticket/#{ticket.id}?{{ keep_query() }}">
+                                <span t-raw="ticket.ticket_seq"/>
+                            </a>
+                        </td>
+                        <td>
+                            <span t-raw="ticket.issue_name"/>
+                        </td>
+                        <td>
+                            <t t-raw="ticket.stage_id.name"/>
+                        </td>
+                    </tr>
+                </t>
+                <div t-if="pager" class="o_portal_pager text-center">
+                    <t t-call="website.pager"/>
                 </div>
-                <div class="ticket-panel-body">
-                    <div class="mb16">
-                        <t t-if="not tickets">
-                            <p class="mt32 text-center">There are currently
-                                no ticket.
-                            </p>
-                        </t>
-                        <a class="btn ticket-btn-primary module_create_btn"
-                           href="/helpdesk-form">Create
-                        </a>
-                    </div>
-                    <t t-if="tickets">
-                        <div class="table-responsive">
-                            <table class="ticket-table table-hover o_my_status_table">
-                                <thead>
-                                    <tr class="active">
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <t t-foreach="tickets" t-as="ticket">
-                                    <tr>
-                                        <td>
-                                            <a t-attf-href="/my/ticket/#{ticket.id}?{{ keep_query() }}">
-                                                <span t-raw="ticket.ticket_seq"/>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <span t-raw="ticket.issue_name"/>
-                                        </td>
-                                        <td>
-                                            <t t-raw="ticket.stage_id.name"/>
-                                        </td>
-                                    </tr>
-                                </t>
-                            </table>
-                        </div>
-                        <div t-if="pager" class="o_portal_pager text-center">
-                            <t t-call="website.pager"/>
-                        </div>
-                    </t>
-                </div>
-            </div>
+            </t>
         </t>
     </template>
 
@@ -272,10 +253,8 @@
                             </t>
                             <t t-if="ticket.user_id">
                                 <strong>Assigned to:</strong>
-                                <div>
-                                    <address t-field="ticket.user_id"
-                                             t-field-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'/>
-                                </div>
+                                <span t-field="ticket.user_id"
+                                         t-field-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'/>
                             </t>
                         </div>
                         <div class="col-md-6 mb8">
@@ -308,10 +287,8 @@
                             </t>
                             <t t-if="ticket.partner_id">
                                 <strong>Reported by:</strong>
-                                <div>
-                                    <address t-field="ticket.partner_id"
-                                             t-field-options='{"widget": "contact", "fields": ["name", "email"]}'/>
-                                </div>
+                                <span t-field="ticket.partner_id"
+                                         t-field-options='{"widget": "contact", "fields": ["name", "email"]}'/>
                             </t>
                         </div>
                     </div>
