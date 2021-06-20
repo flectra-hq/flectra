@@ -55,14 +55,14 @@ flectra.define('web_flectra.AppsMenu', function (require) {
             this.$search_input = this.$(".search-input input");
             this.$search_results = this.$(".search-results");
             this.$theme_search = this.$('input#goolegoogle_font_val');
-            this.$('.o_app_search').css('visibility', 'hidden');
+            this.$('.o_app_search').css('display', 'none');
             $(window).keypress( function(e){
                 if($(document.activeElement).is('body', '.o_search_box')){
                     if(self.$el.find('.full > i').hasClass('fa-th') === false){
                         if((e.key == 'Delete') == false && (e.key == 'Enter') == false){
                             self.$search_input.val(self.$search_input.val() + e.key);
                             self._onAppsSearch(e);
-                            self.$('.o_app_search').css('visibility', 'unset');
+                            self.$('.o_app_search').css('display', 'flex');
                         }
                         self.$search_input.focus();
                     }
@@ -213,7 +213,7 @@ flectra.define('web_flectra.AppsMenu', function (require) {
             this.$search_container.removeClass("has-results");
             this.$search_results.empty();
             this.$search_input.val("");
-            this.$('.o_app_search').css('visibility', 'hidden');
+            this.$('.o_app_search').css('display', 'none');
             this.$el.find('.full').css('pointer-events','all');
             this._searchApps = this._apps;
             var html = Qweb.render('AppsSearch', {apps: this._searchApps});
