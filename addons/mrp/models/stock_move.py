@@ -133,7 +133,7 @@ class StockMove(models.Model):
                 operation_domain = [
                     ('id', 'in', move.raw_material_production_id.bom_id.operation_ids.ids),
                     '|',
-                        ('company_id', '=', self.company_id.id),
+                        ('company_id', '=', move.company_id.id),
                         ('company_id', '=', False)
                 ]
                 move.allowed_operation_ids = self.env['mrp.routing.workcenter'].search(operation_domain)
@@ -359,12 +359,14 @@ class StockMove(models.Model):
     def _prepare_merge_moves_distinct_fields(self):
         distinct_fields = super()._prepare_merge_moves_distinct_fields()
         distinct_fields.append('created_production_id')
+        distinct_fields.append('bom_line_id')
         return distinct_fields
 
     @api.model
     def _prepare_merge_move_sort_method(self, move):
         keys_sorted = super()._prepare_merge_move_sort_method(move)
         keys_sorted.append(move.created_production_id.id)
+        keys_sorted.append(move.bom_line_id.id)
         return keys_sorted
 
     def _compute_kit_quantities(self, product_id, kit_qty, kit_bom, filters):

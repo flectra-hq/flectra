@@ -259,6 +259,8 @@ class PosSession(models.Model):
     def action_pos_session_closing_control(self):
         self._check_pos_session_balance()
         for session in self:
+            if any(order.state == 'draft' for order in session.order_ids):
+                raise UserError(_("You cannot close the POS when orders are still in draft"))
             if session.state == 'closed':
                 raise UserError(_('This session is already closed.'))
             session.write({'state': 'closing_control', 'stop_at': fields.Datetime.now()})
@@ -296,6 +298,7 @@ class PosSession(models.Model):
 
     def _validate_session(self):
         self.ensure_one()
+        sudo = self.user_has_groups('point_of_sale.group_pos_user')
         if self.order_ids or self.statement_ids.line_ids:
             self.cash_real_transaction = self.cash_register_total_entry_encoding
             self.cash_real_expected = self.cash_register_balance_end
@@ -310,7 +313,7 @@ class PosSession(models.Model):
             try:
                 self.with_company(self.company_id)._create_account_move()
             except AccessError as e:
-                if self.user_has_groups('point_of_sale.group_pos_user'):
+                if sudo:
                     self.sudo().with_company(self.company_id)._create_account_move()
                 else:
                     raise e
@@ -319,6 +322,10 @@ class PosSession(models.Model):
                 self.env['pos.order'].search([('session_id', '=', self.id), ('state', '=', 'paid')]).write({'state': 'done'})
             else:
                 self.move_id.unlink()
+        elif not self.cash_register_id.difference:
+            cash_register = self.cash_register_id.sudo() if sudo else self.cash_register_id
+            cash_register.pos_session_id = False
+            cash_register.unlink()
         self.write({'state': 'closed'})
         return {
             'type': 'ir.actions.client',
@@ -657,12 +664,13 @@ class PosSession(models.Model):
             invoice_receivable_vals[commercial_partner].append(self._get_invoice_receivable_vals(account_id, amounts['amount'], amounts['amount_converted'], partner=commercial_partner))
         for commercial_partner, vals in invoice_receivable_vals.items():
             account_id = commercial_partner.property_account_receivable_id.id
-            receivable_line = MoveLine.create(vals)
-            if (not receivable_line.reconciled):
-                if account_id not in invoice_receivable_lines:
-                    invoice_receivable_lines[account_id] = receivable_line
-                else:
-                    invoice_receivable_lines[account_id] |= receivable_line
+            receivable_lines = MoveLine.create(vals)
+            for receivable_line in receivable_lines:
+                if (not receivable_line.reconciled):
+                    if account_id not in invoice_receivable_lines:
+                        invoice_receivable_lines[account_id] = receivable_line
+                    else:
+                        invoice_receivable_lines[account_id] |= receivable_line
 
         data.update({'invoice_receivable_lines': invoice_receivable_lines})
         return data
