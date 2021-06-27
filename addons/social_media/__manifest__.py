@@ -8,7 +8,7 @@
 The purpose of this technical module is to provide a front for
 social media configuration for any other module that might need it.
     """,
-    'author': "FlectraHQ, Odoo S.A.",
+    'author': "FlectraHQ Inc.., Odoo S.A.",
     'category': 'Hidden',
     'version': '0.1',
     'depends': ['base'],
