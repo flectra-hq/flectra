@@ -8,7 +8,7 @@
 
 {
     'name' : 'Venezuela - Accounting',
-    'author': ['FlectraHQ, Odoo S.A.', 'Vauxoo'],
+    'author': ['FlectraHQ Inc.., Odoo S.A.', 'Vauxoo'],
     'category': 'Accounting/Localizations/Account Charts',
     'description':
 """

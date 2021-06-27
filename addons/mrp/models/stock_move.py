@@ -382,6 +382,9 @@ class StockMove(models.Model):
         qty_ratios = []
         boms, bom_sub_lines = kit_bom.explode(product_id, kit_qty)
         for bom_line, bom_line_data in bom_sub_lines:
+            # skip service since we never deliver them
+            if bom_line.product_id.type == 'service':
+                continue
             bom_line_moves = self.filtered(lambda m: m.bom_line_id == bom_line)
             if bom_line_moves:
                 if float_is_zero(bom_line_data['qty'], precision_rounding=bom_line.product_uom_id.rounding):
@@ -399,7 +402,7 @@ class StockMove(models.Model):
                 outgoing_moves = bom_line_moves.filtered(filters['outgoing_moves'])
                 qty_processed = sum(incoming_moves.mapped('product_qty')) - sum(outgoing_moves.mapped('product_qty'))
                 # We compute a ratio to know how many kits we can produce with this quantity of that specific component
-                qty_ratios.append(qty_processed / qty_per_kit)
+                qty_ratios.append(float_round(qty_processed / qty_per_kit, precision_rounding=bom_line.product_id.uom_id.rounding))
             else:
                 return 0.0
         if qty_ratios:
