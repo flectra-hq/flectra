@@ -216,6 +216,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </t>
                 </templates>
             </kanban>
@@ -275,6 +276,15 @@
                                     </div>
                                     <div class="issue_type_css col-xs-4">
                                         <field name="issue_type_ids"/>
+                                    </div>
+                                    <div class="issue_type_css col-xs-4" 
+                                        id="unassigned_issues">
+                                        <a name="%(act_helpdesk_view)d"
+                                           type="action"
+                                           context="{'search_default_team_id': [active_id], 'default_team_id': active_id}">
+                                            <field name="unassigned_issues"/>
+                                            Unassigned Issues
+                                        </a>
                                     </div>
                                 </div>
                             </div>

@@ -43,7 +43,7 @@ class HelpdeskTicket(models.Model):
     user_id = fields.Many2one(
         'res.users', string='Assigned to',tracking=True)
     color = fields.Integer(string='Color Index')
-    ticket_seq = fields.Char('Sequence', default='New', copy=False)
+    ticket_seq = fields.Char('Ticket No', default='New', copy=False)
     priority = fields.Selection([('1', 'Low'), ('2', 'Medium'),
                                  ('3', 'High')], default='1')
     partner_id = fields.Many2one('res.partner', string='Related Partner',
@@ -52,8 +52,8 @@ class HelpdeskTicket(models.Model):
     email = fields.Char(string='Email')
     issue_type_id = fields.Many2one('issue.type', string='Issue Type', store=True)
     start_date = fields.Datetime(
-            string='Start Date', default=fields.Datetime.now, tracking=True)
-    end_date = fields.Datetime(string='End Date', tracking=True)
+            string='Ticket Created Date', default=fields.Datetime.now, tracking=True)
+    end_date = fields.Datetime(string='Ticket Close Date', tracking=True)
     attachment_ids = fields.One2many('ir.attachment', compute='_compute_attachments',
             string="Main Attachments", help="Attachment that don't come from message.")
     attachments_count = fields.Integer(compute='_compute_attachments',
@@ -69,6 +69,10 @@ class HelpdeskTicket(models.Model):
 
     rating_last_value = fields.Float('Rating Last Value', groups='base.group_user', compute='_compute_rating_last_value', compute_sudo=True, store=True)
     is_rating = fields.Boolean("Is Rating")
+
+    def action_assign_to_me(self):
+        if not self.user_id:
+            self.user_id = self.env.user
 
     def _merge_ticket_attachments(self, tickets):
         self.ensure_one()
@@ -156,7 +160,6 @@ class HelpdeskTicket(models.Model):
         if self.stage_id.stage_type == 'done':
             self.end_date = datetime.today()
             
-
     def _creation_subtype(self):
         return self.env.ref('helpdesk_basic.mt_ticket_new')
     
@@ -243,7 +246,7 @@ class HelpdeskTicket(models.Model):
         stage_id = self.env['helpdesk.stage'].search([])
         ticket = self[0]
         if ticket.stage_id.stage_type == 'draft':
-            if 'team_id' in changes or ticket.team_id.mail_template_id:
+            if 'stage_id' in changes and ticket.team_id.mail_template_id:
                 res['team_id'] = (ticket.team_id.mail_template_id, {
                     'auto_delete_message': True,
                     'subtype_id': self.env['ir.model.data'].xmlid_to_res_id('mail.mt_note'),
@@ -251,7 +254,7 @@ class HelpdeskTicket(models.Model):
                 }
             )
         if ticket.stage_id.stage_type == 'done':
-            if 'team_id' in changes or ticket.team_id.mail_close_tmpl_id:
+            if 'stage_id' in changes or ticket.team_id.mail_close_tmpl_id:
                 res['team_id'] = (ticket.team_id.mail_close_tmpl_id, {
                     'auto_delete_message': True,
                     'subtype_id': self.env['ir.model.data'].xmlid_to_res_id('mail.mt_note'),
