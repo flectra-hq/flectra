@@ -33,7 +33,7 @@
     <record id="ticket_confirm_mail_template" model="mail.template">
         <field name="name">Helpdesk Ticket : Confirm By Email</field>
         <field name="subject">Confirm Ticket Mail</field>
-        <field name="email_from">${(user.email or '')|safe}</field>
+        <field name="email_from">${(object.user_id.email_formatted or user.email_formatted) | safe}</field>
         <field name="email_to">${object.email}</field>
         <field name="model_id" ref="helpdesk_basic.model_helpdesk_ticket"/>
         <field name="body_html" type="html">

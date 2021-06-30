@@ -9,7 +9,8 @@
     'category': 'Human Resources',
     'author': 'FlectraHQ',
     'website': 'https://flectrahq.com',
-    'depends': ['base_setup','mail','utm','rating','web_tour','resource','portal','digest','portal_rating'],
+    'depends': ['base_setup', 'mail', 'utm', 'rating', 'web_tour', 'resource',
+                'portal', 'digest', 'portal_rating'],
     'data': [
         'security/helpdesk_security_view.xml',
         'security/ir.model.access.csv',

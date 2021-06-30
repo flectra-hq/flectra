@@ -24,6 +24,7 @@ class HelpdeskTeam(models.Model):
     issue_type_ids = fields.Many2many('issue.type', string='Issue Type')
     helpdesk_count = fields.Integer(compute='_compute_helpdesk_count',
                                     string='Total Helpdesk')
+    unassigned_issues = fields.Integer(compute="_compute_unassigned_issues", string='Unassigned Issues')
     stage_ids = fields.Many2many('helpdesk.stage', string='Stages')
     kanban_dashboard_graph = fields.Text(
         compute='_compute_kanban_dashboard_graph')
@@ -45,11 +46,16 @@ class HelpdeskTeam(models.Model):
 
     visibility_member_ids = fields.Many2many('res.users', 'users_members_info', string="Team Visibility")
     is_rating = fields.Boolean('Ratings On Tickets')
+
+    def _compute_unassigned_issues(self):
+        for team in self:
+            team.unassigned_issues = self.env['helpdesk.ticket'].search_count([
+                ('team_id', '=', team.id), ('user_id', '=', None)])
     
     def _compute_helpdesk_count(self):
         for team in self:
             team.helpdesk_count = self.env['helpdesk.ticket'].search_count([
-                ('team_id', '=', team.id)])
+                ('team_id', '=', team.id), ('stage_id.stage_type', '!=', 'done')])
 
     def write(self, vals):
         result = super(HelpdeskTeam, self).write(vals)
@@ -74,6 +80,10 @@ class HelpdeskTeam(models.Model):
     def get_bar_graph_datas(self):
         data = []
         today = datetime.strptime(str(fields.Date.context_today(self)), DF)
+        draft_count =self.env['helpdesk.ticket'].search_count([('team_id', '=', self.id),
+            ('stage_id.stage_type', '=', 'draft')])
+        done_count =self.env['helpdesk.ticket'].search_count([('team_id', '=', self.id),
+            ('stage_id.stage_type', '=', 'done')])
         data.append({'label': _('Past'), 'value': 0.0, 'type': 'past'})
         day_of_week = int(format_datetime(today, 'e', locale=self._context.get(
             'lang') or 'en_US'))
@@ -128,4 +138,6 @@ class HelpdeskTeam(models.Model):
         for index in range(0, len(query_results)):
             if query_results[index]:
                 data[index]['value'] = query_results[index].get('count')
+        data.append({'label': _('Open'), 'value': draft_count})
+        data.append({'label': _('Close'), 'value': done_count})
         return [{'values': data}]

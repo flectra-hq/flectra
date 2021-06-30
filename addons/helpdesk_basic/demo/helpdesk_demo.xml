@@ -111,11 +111,11 @@ A.
             <field name="issue_name">Software Issue</field>
             <field name="priority">2</field>
             <field name="user_id" ref="base.user_admin"/> 
+            <field name="partner_id" ref="base.partner_admin"/>
             <field name="issue_type_id"
                    eval="ref('helpdesk_basic.issue_type_software')"/>
             <field name="team_id"
                    eval="ref('helpdesk_basic.helpdesk_software')"/>
-            <field name="user_id" eval="ref('base.user_demo')"/>
             <field name="tag_ids"
                    eval="[(6,0,[ref('helpdesk_basic.helpdesk_tag_new')])]"/>
         </record>
