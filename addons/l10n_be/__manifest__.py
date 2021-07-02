@@ -34,7 +34,7 @@ Wizards provided by this module:
         **Path to access :** Invoicing/Reporting/Legal Reports/Belgium Statements/Annual Listing Of VAT-Subjected Customers
 
     """,
-    'author': 'Noviat, FlectraHQ Inc..',
+    'author': 'Noviat, FlectraHQ Inc.',
     'depends': [
         'account',
         'base_iban',
