@@ -9,7 +9,7 @@
     'description': """
        Auto-complete partner companies' data
     """,
-    'author': "FlectraHQ Inc..",
+    'author': "FlectraHQ Inc.",
     'category': 'Hidden/Tools',
     'version': '1.0',
     'depends': [

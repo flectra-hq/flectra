@@ -19,7 +19,7 @@ The module adds following features:
 
     Storage: automatic sales closings with computation of both period and cumulative totals (daily, monthly, annually)
 
-    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ Inc.. (only for Flectra Enterprise users)
+    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ Inc. (only for Flectra Enterprise users)
 """,
     'depends': ['l10n_fr', 'point_of_sale'],
     'installable': True,
