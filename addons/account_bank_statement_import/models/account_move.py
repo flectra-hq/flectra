@@ -26,7 +26,7 @@ class AccountMove(models.Model):
         ('not_paid', 'Not Paid'),
         ('in_payment', 'In Payment'),
         ('paid', 'Paid')],
-        string='Payment', store=True, readonly=True, copy=False, tracking=True,
+        string='Status of Payment', store=True, readonly=True, copy=False, tracking=True,
         compute='_compute_amount')
 
     def action_open_reconcile(self):
