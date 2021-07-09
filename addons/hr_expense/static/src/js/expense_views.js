@@ -28,7 +28,7 @@ flectra.define('hr_expense.expenses.tree', function (require) {
         async _renderView() {
             const self = this;
             await this._super(...arguments);
-            const google_url = "https://play.google.com/store/apps/details?id=com.flectra.mobile";
+            const google_url = "https://play.google.com/store/apps/details?id=com.flectra.flectrahq";
             const apple_url = "https://apps.apple.com/be/app/flectra/id1561830563";
             const action_desktop = {
                 name: 'Download our App',
