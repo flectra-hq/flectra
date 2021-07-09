@@ -14,7 +14,7 @@ class AccountBankStatementLine(models.Model):
                                  help="This technical field can be used at the statement line creation/import time in order to avoid the reconciliation"
                                       " process on it later on. The statement line will simply create a counterpart on this account")
     note = fields.Text(string='Notes')
-    journal_entry_ids = fields.One2many('account.move.line', 'statement_line_id', 'Journal Items', copy=False,
+    journal_entry_ids = fields.One2many('account.move.line', 'statement_line_id', 'Journals', copy=False,
                                         readonly=True)
     move_name = fields.Char(string='Journal Entry Name', readonly=True,
                             default=False, copy=False,

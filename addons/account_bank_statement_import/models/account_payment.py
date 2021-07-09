@@ -8,7 +8,7 @@ from flectra.exceptions import UserError, ValidationError
 class AccountPayment(models.Model):
     _inherit = "account.payment"
 
-    payment_date = fields.Date(string='Date', default=fields.Date.context_today, required=True, readonly=True,
+    payment_date = fields.Date(string='Payment Date', default=fields.Date.context_today, required=True, readonly=True,
                                states={'draft': [('readonly', False)]}, copy=False, tracking=True)
     communication = fields.Char(string='Memo', readonly=True, states={'draft': [('readonly', False)]})
     move_line_ids = fields.One2many('account.move.line', 'payment_id', readonly=True, copy=False)
