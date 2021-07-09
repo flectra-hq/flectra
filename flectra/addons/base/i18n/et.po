@@ -8,18 +8,18 @@
 # Helen Sulaoja <helen@avalah.ee>, 2020
 # Algo Kärp <algokarp@gmail.com>, 2020
 # Egon Raamat <egon@avalah.ee>, 2020
+# Marek Pontus, 2020
 # Rivo Zängov <eraser@eraser.ee>, 2020
 # Martin Trigaux, 2020
 # Arma Gedonsky <armagedonsky@hot.ee>, 2020
 # Gert Valdek <gert@airobot.ee>, 2020
-# Marek Pontus, 2020
 # Ants Peetsalu <ants@avalah.ee>, 2020
 # Martin Aavastik <martin@avalah.ee>, 2020
 # Andre Roomet <andreroomet@gmail.com>, 2021
-# Eneli Õigus <enelioigus@gmail.com>, 2021
 # Piia Paurson <piia@avalah.ee>, 2021
 # Triine Aavik <triine@avalah.ee>, 2021
 # Martin Talts <martin.t@avalah.ee>, 2021
+# Eneli Õigus <enelioigus@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-27 13:50+0000\n"
 "PO-Revision-Date: 2020-09-07 08:09+0000\n"
-"Last-Translator: Martin Talts <martin.t@avalah.ee>, 2021\n"
+"Last-Translator: Eneli Õigus <enelioigus@gmail.com>, 2021\n"
 "Language-Team: Estonian (https://www.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2915,11 +2915,11 @@ msgid ""
 "Legal\n"
 "-----\n"
 "**The use of pos_blackbox_be sources is only certified on flectrahq.com SaaS platform\n"
-"for version 13.0.** Contact FlectraHQ before installing pos_blackbox_be module.\n"
+"for version 13.0.** Contact FlectraHQ Inc. before installing pos_blackbox_be module.\n"
 "\n"
 "An obfuscated and certified version of the pos_blackbox_be may be provided on\n"
 "requests for on-premise installations.\n"
-"No modified version is certified and supported by FlectraHQ.\n"
+"No modified version is certified and supported by FlectraHQ Inc..\n"
 "    "
 msgstr ""
 "\n"
@@ -2935,11 +2935,11 @@ msgstr ""
 "Legal\n"
 "-----\n"
 "**The use of pos_blackbox_be sources is only certified on flectrahq.com SaaS platform\n"
-"for version 13.0.** Contact FlectraHQ before installing pos_blackbox_be module.\n"
+"for version 13.0.** Contact FlectraHQ Inc. before installing pos_blackbox_be module.\n"
 "\n"
 "An obfuscated and certified version of the pos_blackbox_be may be provided on\n"
 "requests for on-premise installations.\n"
-"No modified version is certified and supported by FlectraHQ.\n"
+"No modified version is certified and supported by FlectraHQ Inc..\n"
 "    "
 
 #. module: base
@@ -5897,7 +5897,7 @@ msgid ""
 "\n"
 "    Storage: automatic sales closings with computation of both period and cumulative totals (daily, monthly, annually)\n"
 "\n"
-"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ (only for Flectra Enterprise users)\n"
+"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ Inc. (only for Flectra Enterprise users)\n"
 msgstr ""
 
 #. module: base
@@ -8032,22 +8032,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
 msgid ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'contact')]}\">Company Address</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'invoice')]}\">Invoice Address</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'delivery')]}\">Delivery Address</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'other')]}\">Other Address</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'private')]}\">Private Address</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', False)]}\">Address</b>\n"
+"                                <b attrs=\"{'invisible': [('company_type', '!=', 'company')]}\">Company Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'invoice'), ('company_type', '=', 'company')]}\">Invoice Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'delivery'), ('company_type', '=', 'company')]}\">Delivery Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'other'), ('company_type', '=', 'company')]}\">Other Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'private'), ('company_type', '=', 'company')]}\">Private Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('type', 'not in', (False, 'contact')), ('company_type', '=', 'company')]}\">Address</b>\n"
 "                            </span>"
 msgstr ""
-"<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'contact')]}\">Ettevõtte aadress</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'invoice')]}\">Arve aadress</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'delivery')]}\">Tarne aadress</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'other')]}\">Muu aadress</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'private')]}\">Era-aadress</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', False)]}\">Aadress</b>\n"
-"                            </span>"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_base_module_update
@@ -8721,7 +8713,7 @@ msgstr "Kontonumber peab olema kordumatu"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_users_form_simple_modif
 msgid "Account Security"
-msgstr "Konto turvalisus"
+msgstr "Konto andmed"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_taxcloud
@@ -11054,17 +11046,17 @@ msgstr "Muuda kasutaja seadistusi"
 #: model:ir.actions.act_window,name:base.change_password_wizard_action
 #: model_terms:ir.ui.view,arch_db:base.change_password_wizard_view
 msgid "Change Password"
-msgstr "Muuda Salasõna"
+msgstr "Muuda parooli"
 
 #. module: base
 #: model:ir.model,name:base.model_change_password_wizard
 msgid "Change Password Wizard"
-msgstr "Muutke salasõna viisardit"
+msgstr "Muutke parooli viisardit"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_users_form_simple_modif
 msgid "Change password"
-msgstr "Vaheta salasõna"
+msgstr "Muuda parooli"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_country_form
@@ -18606,7 +18598,7 @@ msgstr "Menüüde kohandamine"
 #. module: base
 #: model:ir.actions.act_window,name:base.action_partner_merge
 msgid "Merge"
-msgstr "Ühilda"
+msgstr "Ühenda"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.base_partner_merge_automatic_wizard_form
@@ -24832,7 +24824,7 @@ msgstr "Esita, valideeri ja tee arveks töötaja kulusid"
 #. module: base
 #: model:ir.module.category,name:base.module_category_sales_subscription
 msgid "Subscription"
-msgstr "Liitumine"
+msgstr "Tellimus"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_sale_subscription_sepa_direct_debit

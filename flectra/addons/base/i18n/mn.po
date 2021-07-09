@@ -4,7 +4,6 @@
 # 
 # Translators:
 # Nurbahyt Kh <nurbahyt.kh@gmail.com>, 2020
-# Bayarkhuu Bataa, 2020
 # nurbakhit nurka <nurbakhit@bumanit.mn>, 2020
 # Batmunkh Ganbat <batmunkh.g@bumanit.mn>, 2020
 # nasaaskii <nasaaskii@gmail.com>, 2020
@@ -19,6 +18,7 @@
 # Khishigbat Ganbold <khishigbat@asterisk-tech.mn>, 2020
 # baaska sh <sh.baaskash@gmail.com>, 2020
 # Батмөнх Ганбат <batmunkh2522@gmail.com>, 2020
+# Bayarkhuu Bataa, 2021
 # 
 msgid ""
 msgstr ""
@@ -26,7 +26,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-27 13:50+0000\n"
 "PO-Revision-Date: 2020-09-07 08:09+0000\n"
-"Last-Translator: Батмөнх Ганбат <batmunkh2522@gmail.com>, 2020\n"
+"Last-Translator: Bayarkhuu Bataa, 2021\n"
 "Language-Team: Mongolian (https://www.transifex.com/odoo/teams/41243/mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2328,11 +2328,11 @@ msgid ""
 "Legal\n"
 "-----\n"
 "**The use of pos_blackbox_be sources is only certified on flectrahq.com SaaS platform\n"
-"for version 13.0.** Contact FlectraHQ before installing pos_blackbox_be module.\n"
+"for version 13.0.** Contact FlectraHQ Inc. before installing pos_blackbox_be module.\n"
 "\n"
 "An obfuscated and certified version of the pos_blackbox_be may be provided on\n"
 "requests for on-premise installations.\n"
-"No modified version is certified and supported by FlectraHQ.\n"
+"No modified version is certified and supported by FlectraHQ Inc..\n"
 "    "
 msgstr ""
 
@@ -5061,7 +5061,7 @@ msgid ""
 "\n"
 "    Storage: automatic sales closings with computation of both period and cumulative totals (daily, monthly, annually)\n"
 "\n"
-"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ (only for Flectra Enterprise users)\n"
+"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ Inc. (only for Flectra Enterprise users)\n"
 msgstr ""
 
 #. module: base
@@ -7111,12 +7111,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
 msgid ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'contact')]}\">Company Address</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'invoice')]}\">Invoice Address</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'delivery')]}\">Delivery Address</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'other')]}\">Other Address</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', 'private')]}\">Private Address</b>\n"
-"                                <b attrs=\"{'invisible': [('type', '!=', False)]}\">Address</b>\n"
+"                                <b attrs=\"{'invisible': [('company_type', '!=', 'company')]}\">Company Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'invoice'), ('company_type', '=', 'company')]}\">Invoice Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'delivery'), ('company_type', '=', 'company')]}\">Delivery Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'other'), ('company_type', '=', 'company')]}\">Other Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'private'), ('company_type', '=', 'company')]}\">Private Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('type', 'not in', (False, 'contact')), ('company_type', '=', 'company')]}\">Address</b>\n"
 "                            </span>"
 msgstr ""
 
@@ -26649,7 +26649,7 @@ msgstr "Харагдац: %s"
 #: model_terms:ir.ui.view,arch_db:base.view_view_tree
 #: model_terms:ir.ui.view,arch_db:base.view_window_action_form
 msgid "Views"
-msgstr "үзсэн"
+msgstr "Харагдац"
 
 #. module: base
 #: model_terms:ir.actions.act_window,help:base.action_ui_view
