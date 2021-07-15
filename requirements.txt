@@ -11,6 +11,7 @@ html2text==2016.9.19
 Jinja2==2.10.1
 lxml==3.7.1 ; sys_platform != 'win32' and python_version < '3.7'
 lxml==4.2.3 ; sys_platform != 'win32' and python_version >= '3.7'
+lxml==4.6.3 ; sys_platform != 'win32' and python_version >= '3.8'
 lxml ; sys_platform == 'win32'
 Mako==1.0.4
 MarkupSafe==0.23
@@ -20,9 +21,11 @@ ofxparse==0.16
 passlib==1.6.5
 Pillow==4.0.0 ; python_version < '3.7'
 Pillow==6.1.0 ; python_version >= '3.7'
-psutil==4.3.1; sys_platform != 'win32'
+psutil==4.3.1; sys_platform != 'win32' and python_version >= '3.7'
+psutil==5.6.3; sys_platform != 'win32' and python_version >= '3.8'
 psutil==5.6.3; sys_platform == 'win32'
-psycopg2==2.7.3.1; sys_platform != 'win32'
+psycopg2==2.7.3.1; sys_platform != 'win32' and python_version >= '3.7'
+psycopg2==2.8.5; sys_platform != 'win32' and python_version >= '3.8'
 psycopg2==2.8.3; sys_platform == 'win32'
 pydot==1.2.3
 pyldap==2.4.28; sys_platform != 'win32'
