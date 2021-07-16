@@ -10,7 +10,7 @@
     "author": "FlectraHQ,Openworx",
     "license": "LGPL-3",
     'summary': 'Backend Theme For Flectra',
-    'depends': ['base_setup'],
+    'depends': ['base_setup', 'iap'],
     'data': [
         'security/ir.model.access.csv',
         'data/theme_config.xml',
