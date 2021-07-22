@@ -196,8 +196,8 @@ db_name = flectra.tools.config.get('db_name')
 class ControllerREST(http.Controller):
 
     # Login in flectra database and get access tokens:
-    @http.route('/api/auth/get_tokens', methods=['POST'], type='http',
-                auth='none', csrf=False)
+    @http.route('/api/auth/get_tokens', methods=['POST', 'OPTIONS'], type='http',
+                auth='none', csrf=False, cors='*')
     def api_auth_gettokens(self, **post):
         # Convert http data into json:
         db = post['db'] if post.get('db') else db_name
@@ -248,8 +248,8 @@ class ControllerREST(http.Controller):
         )
 
     # Delete access tokens from token store:
-    @http.route('/api/auth/delete_tokens', methods=['POST'], type='http',
-                auth='none', csrf=False)
+    @http.route('/api/auth/delete_tokens', methods=['POST', 'OPTIONS'], type='http',
+                auth='none', csrf=False, cors='*')
     def api_auth_deletetokens(self, **post):
         # Try convert http data into json:
         access_token = request.httprequest.headers.get('access_token')
@@ -271,8 +271,8 @@ class ControllerREST(http.Controller):
     @http.route([
         '/api/<model_name>',
         '/api/<model_name>/<id>'
-    ], type='http', auth="none", methods=['POST', 'GET', 'PUT', 'DELETE'],
-        csrf=False)
+    ], type='http', auth="none", methods=['POST', 'GET', 'PUT', 'DELETE', 'OPTIONS'],
+        csrf=False, cors='*')
     @check_valid_token
     def restapi_access_token(self, model_name=False, id=False, **post):
         Model = request.env['ir.model']

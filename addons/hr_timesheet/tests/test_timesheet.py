@@ -16,13 +16,13 @@ class TestCommonTimesheet(TransactionCase):
         })
         self.task1 = self.env['project.task'].create({
             'name': 'Task One',
-            'priority': 'l',
+            'priority': '2',
             'kanban_state': 'normal',
             'project_id': self.project_customer.id,
         })
         self.task2 = self.env['project.task'].create({
             'name': 'Task Two',
-            'priority': 'm',
+            'priority': '1',
             'kanban_state': 'done',
             'project_id': self.project_customer.id,
         })

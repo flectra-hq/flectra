@@ -2,7 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from lxml import etree
-from datetime import date
+from datetime import date, timedelta
 from flectra import api, fields, models, tools, SUPERUSER_ID, _
 from flectra.exceptions import UserError, AccessError, ValidationError
 from flectra.tools.safe_eval import safe_eval
@@ -382,7 +382,7 @@ class Task(models.Model):
     _date_name = "date_start"
     _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin', 'ir.branch.company.mixin']
     _mail_post_access = 'read'
-    _order = "priority desc, sequence, id desc"
+    _order = "priority, sequence, id desc"
 
     def _get_default_partner(self):
         if 'default_project_id' in self.env.context:
@@ -415,10 +415,10 @@ class Task(models.Model):
     name = fields.Char(string='Task Title', track_visibility='always', required=True, index=True)
     description = fields.Html(string='Description')
     priority = fields.Selection([
-        ('l', 'Low'),
-        ('m', 'Medium'),
-        ('h', 'High')
-        ], default='l', index=True, string="Priority")
+        ('2', 'Low'),
+        ('1', 'Medium'),
+        ('0', 'High')
+        ], default='2', index=True, string="Priority")
     sequence = fields.Integer(string='Sequence', index=True, default=10,
         help="Gives the sequence order when displaying a list of tasks.")
     stage_id = fields.Many2one('project.task.type', string='Stage', track_visibility='onchange', index=True,
@@ -506,9 +506,9 @@ class Task(models.Model):
     def task_deadline(self):
         if self.project_id and self.priority:
             days = 0
-            if self.priority == "l":
+            if self.priority == "2":
                 days = int(self.project_id.low)
-            elif self.priority == "m":
+            elif self.priority == "1":
                 days = int(self.project_id.medium)
             else:
                 days = int(self.project_id.high)

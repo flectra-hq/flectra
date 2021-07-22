@@ -92,7 +92,7 @@ class ProcurementRule(models.Model):
         # it is possible that we've already got some move done, so check for the done qty and create
         # a new move with the correct qty
         qty_left = product_qty
-        return {
+        vals = {
             'name': name[:2000],
             'company_id': self.company_id.id or self.location_src_id.company_id.id or self.location_id.company_id.id or values['company_id'].id,
             'product_id': product_id.id,

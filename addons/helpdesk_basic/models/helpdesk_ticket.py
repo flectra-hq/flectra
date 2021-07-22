@@ -22,7 +22,8 @@ class HelpdeskTicket(models.Model):
     priority = fields.Selection([('1', 'Low'), ('2', 'Medium'),
                                  ('3', 'High')], default='1')
     user_id = fields.Many2one('res.users', string='Created By',
-                              track_visibility='onchange')
+                              track_visibility='onchange',
+                              default=lambda self: self.env.user)
     partner_id = fields.Many2one(
         'res.partner',
         string='Related Partner',

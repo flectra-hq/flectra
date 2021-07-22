@@ -1,4 +1,4 @@
-odoo.define('sale.dashboard_tests', function (require) {
+flectra.define('sale.dashboard_tests', function (require) {
 "use strict";
 
 var KanbanView = require('web.KanbanView');

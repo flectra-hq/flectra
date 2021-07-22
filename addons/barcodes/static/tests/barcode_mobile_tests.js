@@ -1,4 +1,4 @@
-odoo.define('barcodes.barcode_mobile_tests', function () {
+flectra.define('barcodes.barcode_mobile_tests', function () {
     "use strict";
 
     QUnit.module('Barcodes', {}, function () {

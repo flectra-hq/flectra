@@ -1,3 +1,7 @@
+**Flectra Version**
+
+(Please provide exact Flectra version you are using)
+
 **Summary**
 
 (Summarize the bug encountered concisely)

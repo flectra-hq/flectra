@@ -597,6 +597,13 @@ class Partner(models.Model):
                 name = partner._display_address(without_company=True)
             if self._context.get('show_address'):
                 name = name + "\n" + partner._display_address(without_company=True)
+            if self._context.get('show_address_search'):
+                name = name + "\n" + partner._display_address(without_company=True)
+                # Are you a good coder? then you do not need the following comment ;-)))
+                # Beginner? Okay, read this:
+                # Replace \n with comma but ignore empty parts
+                name = ', '.join([p.strip() for p in name.split("\n") if p.strip()])
+
             name = name.replace('\n\n', '\n')
             name = name.replace('\n\n', '\n')
             if self._context.get('show_email') and partner.email:
