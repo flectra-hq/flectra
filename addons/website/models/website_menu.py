@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
+import werkzeug.exceptions
+
 from flectra import api, fields, models
 from flectra.tools.translate import html_translate
 
@@ -193,7 +195,12 @@ class Menu(models.Model):
                     menu['page_id'] = page.id
                     menu['url'] = page.url
                 elif menu_id.page_id:
-                    menu_id.page_id.write({'url': menu['url']})
+                    try:
+                        # a page shouldn't have the same url as a controller
+                        rule, arguments = self.env['ir.http']._match(menu['url'])
+                        menu_id.page_id = None
+                    except werkzeug.exceptions.NotFound:
+                        menu_id.page_id.write({'url': menu['url']})
             menu_id.write(menu)
 
         return True
