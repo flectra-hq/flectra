@@ -4,16 +4,17 @@
         <record id="ticket_mail_template" model="mail.template">
             <field name="name">Helpdesk Ticket : Send By Email</field>
             <field name="subject">Ticket Receive Mail</field>
-            <field name="email_from">${(user.email or '')|safe}</field>
-            <field name="email_to">${object.email}</field>
+            <field name="email_from">${(object.user_id.email_formatted or user.email_formatted) | safe}</field>
+            <field name="email_to">${(object.partner_email if not object.sudo().partner_id.email or object.sudo().partner_id.email != object.partner_email else '') | safe}</field>
+            <field name="partner_to">${object.partner_id.id if object.sudo().partner_id.email and object.sudo().partner_id.email == object.partner_email else ''}</field>
             <field name="model_id" ref="helpdesk_basic.model_helpdesk_ticket"/>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px;">
                     <h2>Dear
                         % if object.partner_id:
-                            ${object.partner_id.name},
+                            ${object.partner_id.name}
                         % else:
-                            ${object.user_id.name},
+                            ${object.user_id.name}
                         % endif
                     </h2>
                     <p>Your request has been received and is being reviewed by our ${object.team_id.name}.<br/><br/>
@@ -34,15 +35,16 @@
         <field name="name">Helpdesk Ticket : Confirm By Email</field>
         <field name="subject">Confirm Ticket Mail</field>
         <field name="email_from">${(object.user_id.email_formatted or user.email_formatted) | safe}</field>
-        <field name="email_to">${object.email}</field>
+        <field name="email_to">${(object.partner_email if not object.sudo().partner_id.email or object.sudo().partner_id.email != object.partner_email else '') | safe}</field>
+        <field name="partner_to">${object.partner_id.id if object.sudo().partner_id.email and object.sudo().partner_id.email == object.partner_email else ''}</field>
         <field name="model_id" ref="helpdesk_basic.model_helpdesk_ticket"/>
         <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <h2>Dear
                     % if object.partner_id:
-                        ${object.partner_id.name},
+                        ${object.partner_id.name}
                     % else:
-                        ${object.user_id.name},
+                        ${object.user_id.name}
                     % endif
                 </h2>
                 <p>Your request flectra has been Confirm by our ${object.team_id.name}.<br/><br/>
@@ -61,8 +63,9 @@
     <record id="ticket_rating_mail_template" model="mail.template">
         <field name="name">Helpdesk Ticket : Rating By Email</field>
         <field name="subject">Rating Request Mail</field>
-        <field name="email_from">${(user.email or '')|safe}</field>
-        <field name="email_to">${object.email}</field>
+        <field name="email_from">${(object.user_id.email_formatted or user.email_formatted) | safe}</field>
+        <field name="email_to">${(object.partner_email if not object.sudo().partner_id.email or object.sudo().partner_id.email != object.partner_email else '') | safe}</field>
+        <field name="partner_to">${object.partner_id.id if object.sudo().partner_id.email and object.sudo().partner_id.email == object.partner_email else ''}</field>
         <field name="model_id" ref="helpdesk_basic.model_helpdesk_ticket"/>
         <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
