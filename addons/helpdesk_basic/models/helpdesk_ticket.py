@@ -254,7 +254,7 @@ class HelpdeskTicket(models.Model):
                 }
             )
         if ticket.stage_id.stage_type == 'done':
-            if 'stage_id' in changes or ticket.team_id.mail_close_tmpl_id:
+            if 'stage_id' in changes and ticket.team_id.mail_close_tmpl_id:
                 res['team_id'] = (ticket.team_id.mail_close_tmpl_id, {
                     'auto_delete_message': True,
                     'subtype_id': self.env['ir.model.data'].xmlid_to_res_id('mail.mt_note'),
