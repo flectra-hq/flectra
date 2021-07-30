@@ -15,7 +15,7 @@ from werkzeug import urls
 
 from flectra import api, fields, models, _
 from flectra.addons.http_routing.models.ir_http import slug
-from flectra.exceptions import Warning, UserError, AccessError
+from flectra.exceptions import UserError, AccessError
 from flectra.http import request
 from flectra.addons.http_routing.models.ir_http import url_for
 from flectra.tools import sql
@@ -358,10 +358,10 @@ class Slide(models.Model):
         if self.url:
             res = self._parse_document_url(self.url)
             if res.get('error'):
-                raise Warning(res.get('error'))
+                raise UserError(res.get('error'))
             values = res['values']
             if not values.get('document_id'):
-                raise Warning(_('Please enter valid Youtube or Google Doc URL'))
+                raise UserError(_('Please enter valid Youtube or Google Doc URL'))
             for key, value in values.items():
                 self[key] = value
 

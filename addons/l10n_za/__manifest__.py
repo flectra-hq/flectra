@@ -27,4 +27,5 @@ This is the latest basic South African localisation necessary to run Flectra in 
     'demo': [
         'demo/demo_company.xml',
     ],
+    'license': 'LGPL-3',
 }

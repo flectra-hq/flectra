@@ -34,4 +34,5 @@ This is the latest UK Flectra localisation necessary to run Flectra accounting f
         'demo/l10n_uk_demo.xml',
         'demo/demo_company.xml',
     ],
+    'license': 'LGPL-3',
 }

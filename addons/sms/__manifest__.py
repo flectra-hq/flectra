@@ -45,4 +45,5 @@ The service is provided by the In App Purchase Flectra platform.
     ],
     'installable': True,
     'auto_install': True,
+    'license': 'LGPL-3',
 }

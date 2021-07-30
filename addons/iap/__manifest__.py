@@ -24,4 +24,5 @@ to support In-App purchases inside Flectra. """,
         'static/src/xml/iap_templates.xml',
     ],
     'auto_install': True,
+    'license': 'LGPL-3',
 }

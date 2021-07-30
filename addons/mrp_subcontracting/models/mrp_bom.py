@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from flectra import fields, models
+from flectra import api, fields, models, _
+from flectra.exceptions import ValidationError
 from flectra.osv.expression import AND
 
 class MrpBom(models.Model):
@@ -19,3 +20,8 @@ class MrpBom(models.Model):
             return self.search(domain, order='sequence, product_id', limit=1)
         else:
             return self.env['mrp.bom']
+
+    @api.constrains('operation_ids', 'type')
+    def _check_subcontracting_no_operation(self):
+        if self.filtered_domain([('type', '=', 'subcontract'), ('operation_ids', '!=', False)]):
+            raise ValidationError(_('You can not set a Bill of Material with operations as subcontracting.'))

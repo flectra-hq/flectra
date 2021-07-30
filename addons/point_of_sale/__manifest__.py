@@ -121,4 +121,5 @@
         'static/src/xml/Misc/MobileOrderWidget.xml',
     ],
     'website': 'https://www.flectrahq.com/page/point-of-sale-shop',
+    'license': 'LGPL-3',
 }
