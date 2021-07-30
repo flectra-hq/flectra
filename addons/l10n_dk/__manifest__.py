@@ -105,4 +105,5 @@ Copyright 2018 Flectra House ApS
     'demo': [
         'demo/demo_company.xml',
     ],
+    'license': 'LGPL-3',
 }

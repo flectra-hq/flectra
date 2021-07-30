@@ -34,4 +34,5 @@ This is the latest Ethiopian Flectra localization and consists of:
     'demo': [
         'demo/demo_company.xml',
     ],
+    'license': 'LGPL-3',
 }

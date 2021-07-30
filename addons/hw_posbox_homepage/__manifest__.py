@@ -20,4 +20,5 @@ regular Flectra interface anymore.
 
 """,
     'installable': False,
+    'license': 'LGPL-3',
 }

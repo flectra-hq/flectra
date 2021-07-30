@@ -30,4 +30,5 @@ invoice and send propositions for membership renewal.
         'report/report_membership_views.xml',
     ],
     'website': 'https://www.flectrahq.com/page/community-builder',
+    'license': 'LGPL-3',
 }
