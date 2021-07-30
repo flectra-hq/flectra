@@ -106,10 +106,10 @@ class CrossoveredBudgetLines(models.Model):
     @api.model
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
         # overrides the default read_group in order to compute the computed fields manually for the group
-
+        fields_list = {'practical_amount', 'theoritical_amount', 'percentage'}
+        fields = {field.split(':', 1)[0] if field.split(':', 1)[0] in fields_list else field for field in fields}
         result = super(CrossoveredBudgetLines, self).read_group(domain, fields, groupby, offset=offset, limit=limit,
                                                                 orderby=orderby, lazy=lazy)
-        fields_list = ['practical_amount', 'theoritical_amount', 'percentage']
         if any(x in fields for x in fields_list):
             for group_line in result:
 
