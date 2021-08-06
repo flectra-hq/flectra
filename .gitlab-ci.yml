@@ -63,7 +63,6 @@ variables:
   coverage: '/^TOTAL.*\s+(\d+\%)$/'
   only:
     - branches
-    - tags
   except:
     - schedules
 
@@ -284,50 +283,6 @@ deploy:flectra_gitlab:
     - docker tag ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_SHA ${UBUNTU_FLECTRA_IMAGE}:2-latest
     - docker push ${UBUNTU_FLECTRA_IMAGE}:$CI_COMMIT_TAG
     - docker push ${UBUNTU_FLECTRA_IMAGE}:2-latest
-
-deploy:flectra_gae_paas:
-  image: ${UBUNTU_BASE_IMAGE}:2-latest
-  stage: unittest
-#  needs:
-#    - build:flectra_ubuntu
-  only:
-    - tags
-  script:
-    - mkdir -p ~/.ssh
-    - echo "$GITLAB_PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
-    - chmod 0700 ~/.ssh
-    - chmod 0600 ~/.ssh/id_rsa
-    - ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts
-    - git config --global user.name "Jamotion Bot"
-    - git config --global user.email "info@jamotion.ch"
-    - git clone --depth=1 git@gitlab.com:jamotion/paas/f20.git ~/f20
-    - cd ~/f20 && ./update-flectra.sh
-    - cd ~/f20 && git commit -am"Automatic Release Upgrade to $CI_COMMIT_TAG"
-    - cd ~/f20 && git tag -f $CI_COMMIT_TAG
-    - cd ~/f20 && git push --force --tags
-
-deploy:flectra_gae:
-  <<: *build_definition
-  stage: unittest2
-  needs:
-    - deploy:flectra_gae_paas
-  only:
-    - tags
-  script:
-    - apk update && apk add git
-    - mkdir -p ~/.ssh
-    - echo "$GITLAB_PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
-    - chmod 0700 ~/.ssh
-    - chmod 0600 ~/.ssh/id_rsa
-    - ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts
-    - git clone --depth=1 git@gitlab.com:jamotion/paas/f20.git ~/f20
-    - echo "$GOOGLE_CLOUD_ACCOUNT" > ~/gc.key
-    - cat ~/gc.key
-    - cat ~/gc.key | docker login -u _json_key --password-stdin https://eu.gcr.io
-    - docker pull ${GAE_FLECTRA_IMAGE}:2-latest || true
-    - docker build --cache-from ${GAE_FLECTRA_IMAGE}:2-latest -f ~/f20/Dockerfile ~/f20 --tag ${GAE_FLECTRA_IMAGE}:2-latest --tag ${GAE_FLECTRA_IMAGE}:$CI_COMMIT_TAG
-    - docker push ${GAE_FLECTRA_IMAGE}:$CI_COMMIT_TAG
-    - docker push ${GAE_FLECTRA_IMAGE}:2-latest
 
 deploy:flectra_dev_gitlab:
   <<: *build_definition
