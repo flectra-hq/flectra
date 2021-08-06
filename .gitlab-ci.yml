@@ -188,8 +188,6 @@ build:flectra_ubuntu:
   stage: build
   only:
     - tags
-  needs:
-    - test:pg9_base
   script:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
     - docker pull ${UBUNTU_FLECTRA_IMAGE}:2-latest || true
