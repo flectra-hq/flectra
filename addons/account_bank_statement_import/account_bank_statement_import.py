@@ -228,6 +228,8 @@ class AccountBankStatementImport(models.TransientModel):
         BankStatement = self.env['account.bank.statement']
         BankStatementLine = self.env['account.bank.statement.line']
 
+        bank_statements = self.env['account.bank.statement']
+
         # Filter out already imported transactions and create statements
         statement_line_ids = []
         ignored_statement_lines_import_ids = []
@@ -250,9 +252,15 @@ class AccountBankStatementImport(models.TransientModel):
                 st_vals.pop('transactions', None)
                 # Create the statement
                 st_vals['line_ids'] = [[0, False, line] for line in filtered_st_lines]
-                statement_line_ids.extend(BankStatement.create(st_vals).line_ids.ids)
+                bank_statement = BankStatement.create(st_vals)
+                statement_line_ids.extend(bank_statement.line_ids.ids)
+                bank_statements |= bank_statement
+
         if len(statement_line_ids) == 0:
             raise UserError(_('You already have imported that file.'))
+
+        # generated bank statements need to be posted to show the not reconciled button on journal dashboard
+        bank_statements.button_post()
 
         # Prepare import feedback
         notifications = []
