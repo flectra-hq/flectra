@@ -1,4 +1,4 @@
-﻿flectra.define("web_responsive.KanbanRendererMobile", function (require) {
+﻿flectra.define("web_flectra.KanbanRendererMobile", function (require) {
     "use strict";
 
     /**
@@ -17,7 +17,7 @@
     var _t = core._t;
     var qweb = core.qweb;
 
-    if (!config.device.isMobile) {
+    if (!config.device.isMobileDevice) {
         return;
     }
 
