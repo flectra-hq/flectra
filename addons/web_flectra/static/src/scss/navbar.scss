@@ -25,3 +25,44 @@ nav.o_main_navbar {
 .o_main_navbar > ul > li > a, .o_main_navbar > ul > li > label {
     letter-spacing: 0.5px;
 }
+
+.o_menu_sections.mobile-view.collapse.show{
+    display:flex !important;
+}
+
+@media (max-width: 767.98px){
+    .o_main_navbar .o_menu_sections.show {
+        border: none;
+        box-shadow: none;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        height: calc(100vh - 46px);
+        position: fixed;
+        margin: 0;
+        width: 100vw;
+        z-index: 100;
+        top: 46px !important;
+        transform: none !important;
+        background-color: #FFFFFF;
+        overflow: auto;
+
+        .dropdown-toggle::after{
+            right: 5% !important;
+            position: absolute;
+            top: 50%;
+        }
+
+    }
+
+    .dropdown-menu.show{
+        transform: none !important;
+        top:100% !important;
+
+    }
+}
+
