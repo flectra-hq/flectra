@@ -290,7 +290,8 @@ class Module(models.Model):
         ('AGPL-3', 'Affero GPL-3'),
         ('LGPL-3', 'LGPL Version 3'),
         ('Other OSI approved licence', 'Other OSI Approved License'),
-        ('OEEL-1', 'Flectra Enterprise Edition License v1.0'),
+        ('OEEL-1', 'Odoo Enterprise Edition License v1.0'),
+        ('FPEL-1', 'Flectra Professional Edition License v1.0'),
         ('OPL-1', 'Flectra Proprietary License v1.0'),
         ('Other proprietary', 'Other Proprietary')
     ], string='License', default='LGPL-3', readonly=True)
