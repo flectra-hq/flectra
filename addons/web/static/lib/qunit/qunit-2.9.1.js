@@ -2977,6 +2977,7 @@
   }
 
   Test.prototype = {
+  	get moduleName() { return this.module.name; },
   	before: function before() {
   		var _this = this;
 
@@ -3142,7 +3143,7 @@
   			this.pushFailure("Expected at least one assertion, but none were run - call " + "expect(0) to accept zero assertions.", this.stack);
   		}
 
-        emit("FlectraAfterTestHook", { moduleName: this.module.name, testName: this.testName }); // Flectra customization
+        emit("FlectraAfterTestHook", this); // Flectra customization
 
   		var i,
   		    module = this.module,
