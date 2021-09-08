@@ -112,8 +112,8 @@
         <field name="category_id" ref="hr_payroll.GROSS"/>
         <field name="condition_select">none</field>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = categories.BASIC + categories.ALW + categories.HRA +
-            categories.Travel
+        <field name="amount_python_compute">result = (categories.BASIC + categories.ALW + categories.HRA +
+            categories.Travel)
         </field>
     </record>
 
@@ -124,8 +124,8 @@
         <field name="category_id" ref="hr_payroll.NET"/>
         <field name="condition_select">none</field>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = categories.BASIC + categories.ALW + categories.HRA +
-            categories.Travel + categories.Medical + categories.DED
+        <field name="amount_python_compute">result = (categories.BASIC + categories.ALW + categories.HRA +
+            categories.Travel + categories.Medical + categories.DED)
         </field>
         <field name="register_id" ref="contrib_register_employees"/>
     </record>
