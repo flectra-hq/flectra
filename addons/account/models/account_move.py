@@ -151,7 +151,7 @@ class AccountMove(models.Model):
             ('in_refund', 'Vendor Credit Note'),
             ('out_receipt', 'Sales Receipt'),
             ('in_receipt', 'Purchase Receipt'),
-        ], string='Type', required=True, store=True, index=True, readonly=True, tracking=True,
+        ], string='Move Type', required=True, store=True, index=True, readonly=True, tracking=True,
         default="entry", change_default=True)
     type_name = fields.Char('Type Name', compute='_compute_type_name')
     to_check = fields.Boolean(string='To Check', default=False,
