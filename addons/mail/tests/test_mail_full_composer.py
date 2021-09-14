@@ -4,7 +4,7 @@
 from flectra.tests.common import tagged, HttpCase
 
 
-@tagged('-at_install', 'post_install')
+@tagged('-at_install', 'post_install', 'mail_composer')
 class TestMailFullComposer(HttpCase):
 
     def test_full_composer_tour(self):
