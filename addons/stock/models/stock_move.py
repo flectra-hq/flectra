@@ -15,7 +15,7 @@ from flectra import SUPERUSER_ID, _, api, fields, models
 from flectra.exceptions import UserError
 from flectra.osv import expression
 from flectra.tools.float_utils import float_compare, float_is_zero, float_repr, float_round
-from flectra.tools.misc import format_date, OrderedSet
+from flectra.tools.misc import clean_context, format_date, OrderedSet
 
 PROCUREMENT_PRIORITIES = [('0', 'Normal'), ('1', 'Urgent')]
 
@@ -1148,7 +1148,8 @@ class StockMove(models.Model):
 
         # assign picking in batch for all confirmed move that share the same details
         for moves in to_assign.values():
-            moves._assign_picking()
+            moves.with_context(clean_context(
+                moves.env.context))._assign_picking()
         self._push_apply()
         self._check_company()
         moves = self
