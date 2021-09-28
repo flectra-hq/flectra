@@ -3,6 +3,7 @@
 
 from datetime import datetime as dt
 from datetime import timedelta as td
+from freezegun import freeze_time
 
 from flectra import SUPERUSER_ID
 from flectra.tests import Form
@@ -10,6 +11,7 @@ from flectra.tests.common import SavepointCase
 from flectra.exceptions import UserError
 
 
+@freeze_time("2021-01-14 09:12:15")
 class TestReorderingRule(SavepointCase):
     @classmethod
     def setUpClass(cls):
