@@ -9,7 +9,6 @@ from flectra.exceptions import UserError
 from flectra.tests import Form
 from flectra.tools import float_is_zero, float_compare
 
-from flectra.tests.common import Form
 
 class TestPickShip(TestStockCommon):
     def create_pick_ship(self):
