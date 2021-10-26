@@ -196,7 +196,7 @@ def get_data_from_auth_header(header):
     normalized_token = header.replace(
         "Basic ", "").replace("\\n", "").encode("utf-8")
     try:
-        decoded_token_parts = base64.decodestring(normalized_token).split(b":")
+        decoded_token_parts = base64.decodebytes(normalized_token).split(b":")
     except TypeError:
         raise werkzeug.exceptions.HTTPException(
             response=error_response(
@@ -327,7 +327,8 @@ def _create_log_record(
         elif namespace_log_request == "info":
             log_data["request_data"] = user_request.__dict__
             for k in ["form", "files"]:
-                del log_data["request_data"][k]
+                if log_data["request_data"].get(k):
+                    del log_data["request_data"][k]
 
         if namespace_log_response == "debug":
             log_data["response_data"] = user_response.__dict__
