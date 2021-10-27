@@ -45,9 +45,9 @@
         <field name="arch" type="xml">
             <search string="Search for Issue Type">
                 <field name="name" string="Name"
-                       filter_domain="['|',('name','ilike',self)]"/>
+                       filter_domain="[('name','ilike',self)]"/>
                 <field name="code" string="Code"
-                       filter_domain="['|',('code','ilike',self)]"/>
+                       filter_domain="[('code','ilike',self)]"/>
             </search>
         </field>
     </record>
