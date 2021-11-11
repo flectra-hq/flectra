@@ -5,11 +5,11 @@ from flectra.addons.microsoft_calendar.utils.microsoft_calendar import Microsoft
 from flectra.exceptions import ValidationError
 import pytz
 from datetime import datetime, date
-from flectra.tests.common import SavepointCase
+from flectra.tests.common import TransactionCase
 from dateutil.relativedelta import relativedelta
 
 
-class TestSyncMicrosoft2Flectra(SavepointCase):
+class TestSyncMicrosoft2Flectra(TransactionCase):
 
     @property
     def now(self):
