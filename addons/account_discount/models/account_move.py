@@ -89,7 +89,7 @@ class AccountMove(models.Model):
                 if move.discount_type == 'fixed':
                     document_discount = move.discount_value
                     if document_discount >= total_amt:
-                        raise UserError(_("Discount Cannat be more than or equal to Total Amount"))
+                        raise UserError(_("Discount Cannot be more than or equal to Total Amount"))
                     for line in move.invoice_line_ids:
                         if line.product_id:
                             tax = 0
