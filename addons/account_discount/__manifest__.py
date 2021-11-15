@@ -15,7 +15,7 @@
         'account',
     ],
     'data': [
-        'views/res_config_settings_views.xml',
+        # 'views/res_config_settings_views.xml',
         'views/account_move_views.xml',
         'reports/invoice_report_views.xml',
     ],
