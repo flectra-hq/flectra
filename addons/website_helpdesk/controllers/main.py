@@ -106,7 +106,7 @@ class CustomerPortal(CustomerPortal):
         }
         return self._get_page_view_values(ticket, access_token, values, 'my_tickets_history', False, **kwargs)
 
-    @http.route(['/my/ticket/<int:ticket_id>'], type='http', auth="public", website=True)
+    @http.route(['/my/ticket/<int:ticket_id>'], type='http', auth="user", website=True)
     def portal_my_home_ticket(self, ticket_id=None, access_token=None, **kw):
         try:
             project_sudo = self._document_check_access('helpdesk.ticket', ticket_id, access_token)
@@ -144,7 +144,7 @@ class CustomerPortal(CustomerPortal):
 
 
     @http.route(['/my/tickets', '/my/tickets/page/<int:page>'], type='http',
-                auth="public", website=True)
+                auth="user", website=True)
     def portal_my_ticket(self, page=1, ticket_id=None, sortby=None, filterby=None,
         groupby=None, search=None, search_in='all', **kw):
         values = self._prepare_portal_layout_values()
@@ -236,7 +236,7 @@ class CustomerPortal(CustomerPortal):
         return request.render("website_helpdesk.my_tickets", values)
 
     @http.route(['/my/ticket/<int:ticket_id>'], type='http',
-                auth="public", website=True)
+                auth="user", website=True)
     def list_my_tickets(self, ticket_id=None, **kw):
         values = self._prepare_portal_layout_values()
         user = request.env.user
