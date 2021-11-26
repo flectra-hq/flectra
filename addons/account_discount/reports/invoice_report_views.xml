@@ -2,24 +2,16 @@
 <flectra>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
         <xpath expr="//div[@id='total']/div/table/tr[1]" position="before">
-            <t t-if="o.has_document_discount">
-                <tr class="border-black o_subtotal" style="">
-                    <td>
-                        <strong>Gross Amount</strong>
-                    </td>
-                    <td class="text-right">
-                        <span t-field="o.amount_gross"/>
-                    </td>
-                </tr>
+            <t t-if="o.discount_type">
                 <tr style="">
                     <td t-if="o.discount_type == 'fixed'">
                         Fixed Discount
                     </td>
                     <td t-if="o.discount_type == 'percent'">
-                        <span t-field="o.discount_value_percent"/>% Discount
+                        % Discount
                     </td>
                     <td class="text-right">
-                        <span t-field="o.document_discount"/>
+                        <span t-field="o.discount_value"/>
                     </td>
                 </tr>
             </t>
