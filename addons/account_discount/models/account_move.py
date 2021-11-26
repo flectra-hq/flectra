@@ -32,26 +32,6 @@ class AccountMove(models.Model):
         compute_sudo=True,
     )
 
-    amount_gross = fields.Monetary(
-        string='Gross Amount',
-        store=True,
-        readonly=True,
-        compute='_compute_amount',
-    )
-
-    document_discount = fields.Monetary(
-        string='Document Discount',
-        store=True,
-        readonly=True,
-        compute='_compute_document_discount',
-    )
-
-    document_discount_tax_amount = fields.Monetary(
-        string='Document Discount Tax',
-        store=True,
-        readonly=True,
-        compute='_compute_document_discount',
-    )
 
     has_document_discount = fields.Boolean(
         string='Has Document Discount',
@@ -124,12 +104,6 @@ class AccountMove(models.Model):
                                     'discount': discount_ratio
                                 })
                                 move._move_autocomplete_invoice_lines_values()
-            else:
-                for line in move.invoice_line_ids:
-                    line.update({
-                        'discount': 0.0
-                    })
-                    move._move_autocomplete_invoice_lines_values()
 
     @api.depends(
         'line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual',
@@ -145,7 +119,6 @@ class AccountMove(models.Model):
         'line_ids.payment_id.state',
         'line_ids.full_reconcile_id',
         'line_ids.price_total',
-        'document_discount',
     )
     def _compute_amount(self):
         super(AccountMove, self)._compute_amount()
@@ -154,10 +127,18 @@ class AccountMove(models.Model):
                 amount_gross = sum(
                     move.line_ids.filtered(lambda f: not f.exclude_from_invoice_tab).mapped('price_subtotal'))
                 move.update({
-                    'amount_gross': amount_gross,
                     'amount_untaxed': amount_gross
                 })
-                # move._generate_document_discount_move_line()
                 move.update({
                     'amount_total': move.amount_untaxed + move.amount_tax,
                 })
+
+
+    def clear_discount(self):
+        for move in self.with_context(check_move_validity=False):
+            for inv in move.invoice_line_ids:
+                if inv.product_id:
+                    inv.write({'discount': 0.0})
+            move.discount_value = 0.0
+            self.with_context(check_move_validity=False)._recompute_dynamic_lines(recompute_all_taxes=True)
+
