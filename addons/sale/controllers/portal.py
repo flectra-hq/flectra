@@ -3,7 +3,7 @@
 
 import binascii
 
-from flectra import fields, http, _
+from flectra import fields, http, SUPERUSER_ID, _
 from flectra.exceptions import AccessError, MissingError
 from flectra.http import request
 from flectra.addons.payment.controllers.portal import PaymentProcessing
@@ -231,7 +231,7 @@ class CustomerPortal(CustomerPortal):
             order_sudo.action_confirm()
             order_sudo._send_order_confirmation_mail()
 
-        pdf = request.env.ref('sale.action_report_saleorder').sudo()._render_qweb_pdf([order_sudo.id])[0]
+        pdf = request.env.ref('sale.action_report_saleorder').with_user(SUPERUSER_ID)._render_qweb_pdf([order_sudo.id])[0]
 
         _message_post_helper(
             'sale.order', order_sudo.id, _('Order signed by %s') % (name,),

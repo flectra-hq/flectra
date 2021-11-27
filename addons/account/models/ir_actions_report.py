@@ -3,6 +3,9 @@
 from flectra import models, api, _
 from flectra.exceptions import UserError
 
+from flectra.tools import float_compare
+
+
 class IrActionsReport(models.Model):
     _inherit = 'ir.actions.report'
 
@@ -45,3 +48,8 @@ class IrActionsReport(models.Model):
                     raise UserError(_("Only invoices could be printed."))
 
         return super()._render_qweb_pdf(res_ids=res_ids, data=data)
+
+    def _get_rendering_context(self, docids, data):
+        data = data and dict(data) or {}
+        data.update({'float_compare': float_compare})
+        return super()._get_rendering_context(docids=docids, data=data)
