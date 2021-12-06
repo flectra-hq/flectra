@@ -15,6 +15,7 @@
 # Vida Potočnik <vida.potocnik@mentis.si>, 2021
 # matjaz k <matjaz@mentis.si>, 2021
 # Tadej Lupšina <tadej@hbs.si>, 2021
+# Nejc G <nejc@luxim.si>, 2021
 # Jasmina Macur <jasmina@hbs.si>, 2021
 # 
 msgid ""
@@ -195,6 +196,9 @@ msgid ""
 "A consumable product is a product for which stock is not managed.\n"
 "A service is a non-material product you provide."
 msgstr ""
+"Izdelek, ki ga je mogoče shraniti, je izdelek, pri katerem upravljate z zalogami. Namestiti je treba aplikacijo Inventory.\n"
+"Potrošni izdelek je izdelek, pri katerem se zaloge ne upravljajo.\n"
+"Storitev je nematerialni izdelek, ki ga ponujate."
 
 #. module: product
 #: model:product.product,name:product.product_product_25
@@ -260,7 +264,7 @@ msgstr ""
 #. module: product
 #: model:ir.model.fields.selection,name:product.selection__res_config_settings__product_pricelist_setting__advanced
 msgid "Advanced price rules (discounts, formulas)"
-msgstr ""
+msgstr "Napredna pravila o cenah (popusti, formule)"
 
 #. module: product
 #: code:addons/product/models/product_pricelist.py:0
@@ -274,6 +278,7 @@ msgstr "Vsi proizvodi"
 #: model:ir.model.fields,help:product.field_product_template_attribute_value__is_custom
 msgid "Allow users to input custom values for this attribute value"
 msgstr ""
+"Dovoli uporabnikom, da za to vrednost atributa vnesejo vrednosti po meri"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_res_config_settings__group_sale_pricelist
@@ -363,7 +368,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product.field_product_template_attribute_exclusion__product_template_attribute_value_id
 #: model:ir.model.fields,field_description:product.field_product_template_attribute_value__product_attribute_value_id
 msgid "Attribute Value"
-msgstr ""
+msgstr "Vrednost atributa"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product__product_template_attribute_value_ids
@@ -719,7 +724,7 @@ msgstr ""
 #: model:ir.model.fields,help:product.field_product_product__uom_id
 #: model:ir.model.fields,help:product.field_product_template__uom_id
 msgid "Default unit of measure used for all stock operations."
-msgstr ""
+msgstr "Privzeta merska enota, ki se uporablja za vse operacije z zalogami."
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_product__uom_po_id
@@ -1214,7 +1219,7 @@ msgstr "Je varianta izdelka"
 #: model:ir.model.fields,field_description:product.field_product_attribute_value__is_custom
 #: model:ir.model.fields,field_description:product.field_product_template_attribute_value__is_custom
 msgid "Is custom value"
-msgstr ""
+msgstr "Ali je vrednost po meri"
 
 #. module: product
 #: model:ir.model.fields.selection,name:product.selection__res_config_settings__product_weight_in_lbs__0
@@ -1393,7 +1398,7 @@ msgstr "Min. količina"
 #. module: product
 #: model:ir.model.fields.selection,name:product.selection__res_config_settings__product_pricelist_setting__basic
 msgid "Multiple prices per product"
-msgstr ""
+msgstr "Več različnih cen na proizvodu"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_res_config_settings__product_pricelist_setting
@@ -1631,7 +1636,7 @@ msgstr "Zaokroževanje"
 #: model_terms:ir.ui.view,arch_db:product.product_pricelist_view
 #, python-format
 msgid "Price Rules"
-msgstr ""
+msgstr "Pravila cen"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_pricelist_item__price_surcharge
@@ -1764,7 +1769,7 @@ msgstr "Lastnost proizvoda"
 #. module: product
 #: model:ir.model,name:product.model_product_attribute_custom_value
 msgid "Product Attribute Custom Value"
-msgstr ""
+msgstr "Vrednost po meri atributa izdelka"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_template_attribute_line__product_template_value_ids
@@ -2297,7 +2302,7 @@ msgstr "Minimalna marža mora biti manjša od maksimalne marže."
 msgid ""
 "The number of products under this category (Does not consider the children "
 "categories)"
-msgstr ""
+msgstr "Število izdelkov v tej kategoriji (ne upošteva podkategorij)"
 
 #. module: product
 #: code:addons/product/models/product_template.py:0
@@ -2843,6 +2848,21 @@ msgstr ""
 #, python-format
 msgid ""
 "You cannot delete the value %s because it is used on the following products:\n"
+"%s\n"
+"If the value has been associated to a product in the past, you will not be able to delete it."
+msgstr ""
+
+#. module: product
+#: code:addons/product/models/product_attribute.py:0
+#, python-format
+msgid "You cannot delete value %s because it was used in some products."
+msgstr ""
+
+#. module: product
+#: code:addons/product/models/product_pricelist.py:0
+#, python-format
+msgid ""
+"You cannot delete this pricelist (%s), it is used in other pricelist(s) : \n"
 "%s"
 msgstr ""
 

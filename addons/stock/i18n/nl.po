@@ -10,14 +10,14 @@
 # Martin Trigaux, 2020
 # Gunther Clauwaert <gclauwae@hotmail.com>, 2020
 # Yenthe Van Ginneken <yenthespam@gmail.com>, 2020
-# Flectra Experts Consultants <consultants@odooexperts.nl>, 2020
+# Flectra Experts Consultants <consultants@odooexperts.nl>, 2021
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-27 11:23+0000\n"
+"POT-Creation-Date: 2021-08-16 09:00+0000\n"
 "PO-Revision-Date: 2020-09-07 08:19+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2021\n"
 "Language-Team: Dutch (https://www.transifex.com/odoo/teams/41243/nl/)\n"
@@ -61,7 +61,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Overboekingen %s: je kunt deze overboekingen niet valideren als er geen hoeveelheden zijn gereserveerd of gedaan. Om deze overdrachten te forceren, schakel je in om meer te bewerken en de voltooide hoeveelheden te coderen."
+"Overboekingen %s: je kunt deze overboekingen niet bevestigen als er geen hoeveelheden zijn gereserveerd of gedaan. Om deze overdrachten te forceren, schakel je in om meer te bewerken en de voltooide hoeveelheden te coderen."
 
 #. module: stock
 #: code:addons/stock/models/stock_picking.py:0
@@ -189,7 +189,7 @@ msgstr ""
 "* Wachten op een andere verplaatsing: Deze status kan worden gezien wanneer de verplaatsing wacht op een andere verplaatsing, bijvoorbeeld bij een gekoppeld proces. \n"
 "* Wacht op beschikbaarheid: Deze staat wordt bereikt wanneer de verwerving niet gelijk gedaan kan worden. Het kan zijn dat de planner moet worden gestart. \n"
 "* Beschikbaar: Wanneer de producten zijn gereserveerd, krijgt de verplaatsing de status 'Beschikbaar' \n"
-"* Gereed: Wanneer de levering is verwerkt, krijgt de verplaatsing de status 'Gereed'"
+"* Gereed: Wanneer de levering is verwerkt, krijgt de verplaatsing de status 'Gereed'."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location__usage
@@ -460,6 +460,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock.view_stock_move_operations
 msgid "<span>Assign Serial Numbers</span>"
 msgstr "<span>Serienummers toewijzen</span>"
+
+#. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.view_stock_move_operations
+msgid "<span>Clear All</span>"
+msgstr "<span>Wis alles</span>"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_lot_label
@@ -1266,6 +1271,11 @@ msgid "Choose your date"
 msgstr "Kies uw datum"
 
 #. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.view_stock_move_operations
+msgid "Clear Lines"
+msgstr "Wis regels"
+
+#. module: stock
 #. openerp-web
 #: code:addons/stock/static/src/xml/stock_traceability_report_backend.xml:0
 #: model_terms:ir.ui.view,arch_db:stock.view_stock_move_operations
@@ -1360,6 +1370,7 @@ msgid "Configuration"
 msgstr "Configuratie"
 
 #. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.package_level_form_edit_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_package_destination_form_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_form_view
 #: model_terms:ir.ui.view,arch_db:stock.view_product_replenish
@@ -1404,7 +1415,7 @@ msgstr "Inhoud"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_inventory_form
 msgid "Continue Inventory"
-msgstr "Doorgaan met voorraad"
+msgstr "Doorgaan met tellen"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_product_replenish__product_uom_category_id
@@ -1623,6 +1634,16 @@ msgid "Created on"
 msgstr "Aangemaakt op"
 
 #. module: stock
+#: code:addons/stock/models/stock_warehouse.py:0
+#, python-format
+msgid ""
+"Creating a new warehouse will automatically activate the Storage Locations "
+"setting"
+msgstr ""
+"Door een nieuw magazijn aan te maken, wordt automatisch de instelling "
+"voorraadlocaties geactiveerd"
+
+#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move__create_date
 #: model:ir.model.fields,field_description:stock.field_stock_picking__date
 #: model_terms:ir.ui.view,arch_db:stock.view_move_search
@@ -1695,8 +1716,8 @@ msgstr "Klantlocaties"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_config_settings__module_delivery_dhl
-msgid "DHL USA Connector"
-msgstr "DHL US connector"
+msgid "DHL Express Connector"
+msgstr ""
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_report_stock_quantity__date
@@ -1810,10 +1831,11 @@ msgstr "Standaard routes door het magazijn"
 #: model_terms:ir.actions.act_window,help:stock.action_orderpoint
 msgid ""
 "Define a minimum stock rule so that Flectra creates automatically requests for "
-"quotations or draft manufacturing orders to resupply your stock."
+"quotations or confirmed manufacturing orders to resupply your stock."
 msgstr ""
 "Definieer een minimale voorraadregel, zodat Flectra automatisch aanvragen voor "
-"offertes of productieorders kan aanmaken om uw voorraad te aan te vullen."
+"offertes of bevestigde productieorders kan aanmaken om je voorraad te aan te"
+" vullen."
 
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_warehouse_form
@@ -2080,6 +2102,7 @@ msgid "Difference different than zero"
 msgstr "Verschil wijkt af van 0"
 
 #. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.package_level_form_edit_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_package_destination_form_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_form_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_scrap_form_view
@@ -3945,6 +3968,13 @@ msgid "Multiple Quantity"
 msgstr "Veelvoud"
 
 #. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_inventory__my_activity_date_deadline
+#: model:ir.model.fields,field_description:stock.field_stock_picking__my_activity_date_deadline
+#: model:ir.model.fields,field_description:stock.field_stock_production_lot__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Mijn activiteit deadline"
+
+#. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_picking_internal_search
 msgid "My Transfers"
 msgstr "Mijn verplaatsingen"
@@ -4217,7 +4247,7 @@ msgstr "Aanwezige voorraad:"
 #: code:addons/stock/models/stock_inventory.py:0
 #, python-format
 msgid "Only a stock manager can validate an inventory adjustment."
-msgstr "Alleen een voorraadbeheerder kan een voorraadaanpassing valideren."
+msgstr "Alleen een voorraadbeheerder kan een voorraadaanpassing bevestigen."
 
 #. module: stock
 #: code:addons/stock/models/stock_rule.py:0
@@ -6087,7 +6117,7 @@ msgid ""
 msgstr ""
 "Met verzendconnectoren kunt u nauwkeurig de verzendkosten berekenen, "
 "verzendlabels afdrukken en ophaling in uw magazijn aanvragen. Pas een "
-"verzendconnector toe op een leveringsmethode."
+"verzendconnector toe op een verzendwijze."
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse__code
@@ -7429,6 +7459,13 @@ msgid "Unreserve"
 msgstr "Reservering ongedaan maken"
 
 #. module: stock
+#: code:addons/stock/models/stock_inventory.py:0
+#: code:addons/stock/models/stock_inventory.py:0
+#, python-format
+msgid "Unsupported search on %s outside of an Inventory Adjustment"
+msgstr "Niet-ondersteunde zoekopdracht %s buiten een voorraadaanpassing"
+
+#. module: stock
 #: model:ir.ui.menu,name:stock.menu_stock_uom_form_action
 #: model_terms:ir.ui.view,arch_db:stock.report_product_product_replenishment
 #: model_terms:ir.ui.view,arch_db:stock.stock_inventory_line_tree
@@ -7691,6 +7728,7 @@ msgstr "Meld onvoldoende afkeur hoeveelheid"
 #: code:addons/stock/models/stock_move.py:0
 #: code:addons/stock/models/stock_move_line.py:0
 #: code:addons/stock/models/stock_move_line.py:0
+#: code:addons/stock/models/stock_warehouse.py:0
 #: model:ir.model.fields.selection,name:stock.selection__res_partner__picking_warn__warning
 #, python-format
 msgid "Warning"
@@ -7992,6 +8030,16 @@ msgstr ""
 "U kan slechts 1.0%s verwerken van producten met een unieke serienummer."
 
 #. module: stock
+#: code:addons/stock/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"You can't desactivate the multi-location if you have more than once "
+"warehouse by company"
+msgstr ""
+"U kunt de multi-locatie niet deactiveren als u meer dan één magazijn per "
+"bedrijf heeft"
+
+#. module: stock
 #: code:addons/stock/models/stock_inventory.py:0
 #, python-format
 msgid ""
@@ -8157,7 +8205,7 @@ msgid ""
 "You cannot validate a transfer if no quantities are reserved nor done. To "
 "force the transfer, switch in edit mode and encode the done quantities."
 msgstr ""
-"Je kunt een transfer niet valideren als er geen hoeveelheden zijn "
+"Je kunt een overboeking niet bevestigen als er geen hoeveelheden zijn "
 "gereserveerd of gedaan. Om de overdracht te forceren, schakel je over naar "
 "de bewerkingsmodus en codeer je de voltooide hoeveelheden."
 
@@ -8400,23 +8448,3 @@ msgstr "report_stock_quantity_graph"
 #, python-format
 msgid "should be replenished to reach the maximum of"
 msgstr "zouden moeten aangevuld om het maximum te bereiken van "
-
-#. module: stock
-#: code:addons/stock/models/res_config_settings.py:0
-#, python-format
-msgid ""
-"You can't desactivate the multi-location if you have more than once "
-"warehouse by company"
-msgstr ""
-"U kunt de multi-locatie niet deactiveren als u meer dan één magazijn per "
-"bedrijf heeft"
-
-#. module: stock
-#: code:addons/stock/models/stock_warehouse.py:0
-#, python-format
-msgid ""
-"Creating a new warehouse will automatically activate the Storage Locations "
-"setting"
-msgstr ""
-"Door een nieuw magazijn aan te maken, wordt automatisch de instelling "
-"voorraadlocaties geactiveerd"

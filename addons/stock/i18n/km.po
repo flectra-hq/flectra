@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-27 11:23+0000\n"
+"POT-Creation-Date: 2021-08-16 09:00+0000\n"
 "PO-Revision-Date: 2020-09-07 08:19+0000\n"
 "Last-Translator: Lux Sok <sok.lux@gmail.com>, 2020\n"
 "Language-Team: Khmer (https://www.transifex.com/odoo/teams/41243/km/)\n"
@@ -383,6 +383,11 @@ msgstr ""
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_stock_move_operations
 msgid "<span>Assign Serial Numbers</span>"
+msgstr ""
+
+#. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.view_stock_move_operations
+msgid "<span>Clear All</span>"
 msgstr ""
 
 #. module: stock
@@ -1173,6 +1178,11 @@ msgid "Choose your date"
 msgstr "ជ្រើសរើសពេលវេលារបស់អ្នក"
 
 #. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.view_stock_move_operations
+msgid "Clear Lines"
+msgstr ""
+
+#. module: stock
 #. openerp-web
 #: code:addons/stock/static/src/xml/stock_traceability_report_backend.xml:0
 #: model_terms:ir.ui.view,arch_db:stock.view_stock_move_operations
@@ -1267,6 +1277,7 @@ msgid "Configuration"
 msgstr "កំណត់ផ្លាស់ប្តូរ"
 
 #. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.package_level_form_edit_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_package_destination_form_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_form_view
 #: model_terms:ir.ui.view,arch_db:stock.view_product_replenish
@@ -1528,6 +1539,14 @@ msgid "Created on"
 msgstr "បង្កើតនៅ"
 
 #. module: stock
+#: code:addons/stock/models/stock_warehouse.py:0
+#, python-format
+msgid ""
+"Creating a new warehouse will automatically activate the Storage Locations "
+"setting"
+msgstr ""
+
+#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move__create_date
 #: model:ir.model.fields,field_description:stock.field_stock_picking__date
 #: model_terms:ir.ui.view,arch_db:stock.view_move_search
@@ -1601,7 +1620,7 @@ msgstr "ទីតាំងអតិថិជន"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_config_settings__module_delivery_dhl
-msgid "DHL USA Connector"
+msgid "DHL Express Connector"
 msgstr ""
 
 #. module: stock
@@ -1717,10 +1736,8 @@ msgstr "បទបញ្ញត្តិនៃកិច្ចសន្យាទៅ
 #: model_terms:ir.actions.act_window,help:stock.action_orderpoint
 msgid ""
 "Define a minimum stock rule so that Flectra creates automatically requests for "
-"quotations or draft manufacturing orders to resupply your stock."
+"quotations or confirmed manufacturing orders to resupply your stock."
 msgstr ""
-"កំណត់វិធានភាគហ៊ុនអប្បបរមាដូច្នេះ Flectra "
-"បង្កើតសំណើដោយស្វ័យប្រវត្តិសម្រាប់ការដកស្រង់ឬសេចក្តីព្រាងការបញ្ជាទិញផលិតកម្មដើម្បីគាំទ្រភាគហ៊ុនរបស់អ្នកឡើងវិញ។"
 
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_warehouse_form
@@ -1983,6 +2000,7 @@ msgid "Difference different than zero"
 msgstr ""
 
 #. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.package_level_form_edit_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_package_destination_form_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_form_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_scrap_form_view
@@ -3805,6 +3823,13 @@ msgstr "ផ្លូវពហុជំហាន"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_orderpoint__qty_multiple
 msgid "Multiple Quantity"
+msgstr ""
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_inventory__my_activity_date_deadline
+#: model:ir.model.fields,field_description:stock.field_stock_picking__my_activity_date_deadline
+#: model:ir.model.fields,field_description:stock.field_stock_production_lot__my_activity_date_deadline
+msgid "My Activity Deadline"
 msgstr ""
 
 #. module: stock
@@ -7121,6 +7146,13 @@ msgid "Unreserve"
 msgstr ""
 
 #. module: stock
+#: code:addons/stock/models/stock_inventory.py:0
+#: code:addons/stock/models/stock_inventory.py:0
+#, python-format
+msgid "Unsupported search on %s outside of an Inventory Adjustment"
+msgstr ""
+
+#. module: stock
 #: model:ir.ui.menu,name:stock.menu_stock_uom_form_action
 #: model_terms:ir.ui.view,arch_db:stock.report_product_product_replenishment
 #: model_terms:ir.ui.view,arch_db:stock.stock_inventory_line_tree
@@ -7380,6 +7412,7 @@ msgstr ""
 #: code:addons/stock/models/stock_move.py:0
 #: code:addons/stock/models/stock_move_line.py:0
 #: code:addons/stock/models/stock_move_line.py:0
+#: code:addons/stock/models/stock_warehouse.py:0
 #: model:ir.model.fields.selection,name:stock.selection__res_partner__picking_warn__warning
 #, python-format
 msgid "Warning"
@@ -7628,6 +7661,14 @@ msgstr ""
 #: code:addons/stock/models/stock_move_line.py:0
 #, python-format
 msgid "You can only process 1.0 %s of products with unique serial number."
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"You can't desactivate the multi-location if you have more than once "
+"warehouse by company"
 msgstr ""
 
 #. module: stock
@@ -7979,20 +8020,4 @@ msgstr ""
 #: code:addons/stock/static/src/xml/stock_orderpoint.xml:0
 #, python-format
 msgid "should be replenished to reach the maximum of"
-msgstr ""
-
-#. module: stock
-#: code:addons/stock/models/res_config_settings.py:0
-#, python-format
-msgid ""
-"You can't desactivate the multi-location if you have more than once "
-"warehouse by company"
-msgstr ""
-
-#. module: stock
-#: code:addons/stock/models/stock_warehouse.py:0
-#, python-format
-msgid ""
-"Creating a new warehouse will automatically activate the Storage Locations "
-"setting"
 msgstr ""

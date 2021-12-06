@@ -11,6 +11,7 @@
 # Boris Kodelja <boris@hbs.si>, 2021
 # Matjaz Mozetic <m.mozetic@matmoz.si>, 2021
 # Tadej Lupšina <tadej@hbs.si>, 2021
+# Nejc G <nejc@luxim.si>, 2021
 # Jasmina Macur <jasmina@hbs.si>, 2021
 # 
 msgid ""
@@ -367,7 +368,7 @@ msgstr ""
 #: code:addons/project/models/project.py:0
 #, python-format
 msgid "<p><em>Number of tasks: %(tasks_count)s</em></p>"
-msgstr ""
+msgstr "<p><em>Število opravil: %(tasks_count)s</em></p>"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.portal_my_task
@@ -595,12 +596,12 @@ msgstr "Vse"
 #. module: project
 #: model:ir.model.fields.selection,name:project.selection__project_project__privacy_visibility__employees
 msgid "All internal users"
-msgstr ""
+msgstr "Vsi interni uporabniki"
 
 #. module: project
 #: model:ir.model.fields.selection,name:project.selection__project_task__recurrence_update__all
 msgid "All tasks"
-msgstr ""
+msgstr "Vsa opravila"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task__allow_subtasks
@@ -615,7 +616,7 @@ msgstr ""
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__allowed_portal_user_ids
 msgid "Allowed Portal Users"
-msgstr ""
+msgstr "Dovoljeni portal uporabniki"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__allowed_user_ids
@@ -722,7 +723,7 @@ msgstr "Datum dodelitve"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_report_project_task_user__date_assign
 msgid "Assignment Date"
-msgstr ""
+msgstr "Datum dodelitve"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.task_type_edit
@@ -990,12 +991,12 @@ msgstr "Ustvari novo stopnjo v opravilni tok"
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.edit_project
 msgid "Create tasks by sending an email"
-msgstr ""
+msgstr "Ustvarite opravilo s pošiljanjem e-pošte"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_project_view_form_simplified
 msgid "Create tasks by sending an email to"
-msgstr ""
+msgstr "Ustvarite opravilo s pošiljanjem e-pošte na naslov"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task__create_date
@@ -1078,7 +1079,7 @@ msgstr "E-pošta stranke"
 #: code:addons/project/static/src/js/project_task_kanban_examples.js:0
 #, python-format
 msgid "Customer Feedback"
-msgstr ""
+msgstr "Odzivi strank"
 
 #. module: project
 #: model:ir.model.fields,help:project.field_project_project__access_url
@@ -1705,6 +1706,8 @@ msgid ""
 "If set an email will be sent to the customer when the task or issue reaches "
 "this step."
 msgstr ""
+"Če je nastavljeno, bo stranki poslana e-pošta, ko bo opravilo ali težava "
+"dosegla ta korak."
 
 #. module: project
 #: model:ir.model.fields,help:project.field_project_task_type__rating_template_id
@@ -1798,12 +1801,12 @@ msgstr ""
 #. module: project
 #: model:ir.model.fields.selection,name:project.selection__project_project__privacy_visibility__followers
 msgid "Invited internal users"
-msgstr ""
+msgstr "Povabljeni interni uporabniki"
 
 #. module: project
 #: model:ir.model.fields.selection,name:project.selection__project_project__privacy_visibility__portal
 msgid "Invited portal users and all internal users"
-msgstr ""
+msgstr "Povabljeni portal uporabniki in vsi interni uporabniki"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__message_is_follower
@@ -2147,7 +2150,7 @@ msgstr "Naziv"
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.edit_project
 msgid "Name of the tasks:"
-msgstr ""
+msgstr "Naziv opravila:"
 
 #. module: project
 #: model:project.task,legend_blocked:project.project_task_10
@@ -2265,7 +2268,7 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:project.action_view_task
 #: model_terms:ir.actions.act_window,help:project.project_task_action_sub_task
 msgid "No tasks found. Let's create one!"
-msgstr ""
+msgstr "Nobenega opravila ni najdenega. Kreirajte ga!"
 
 #. module: project
 #: code:addons/project/controllers/portal.py:0
@@ -2333,7 +2336,7 @@ msgstr "Število sporočil, ki niso bila pravilno dostavljena."
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task_type_delete_wizard__tasks_count
 msgid "Number of tasks"
-msgstr ""
+msgstr "Število opravil"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task_recurrence__recurrence_left
@@ -2372,7 +2375,7 @@ msgstr ""
 #. module: project
 #: model:ir.model.fields,field_description:project.field_digest_digest__kpi_project_task_opened
 msgid "Open Tasks"
-msgstr ""
+msgstr "Odprta opravila"
 
 #. module: project
 #: model:ir.model.fields,help:project.field_project_project__alias_force_thread_id
@@ -2627,7 +2630,7 @@ msgstr "Projektna opravila"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task__project_privacy_visibility
 msgid "Project Visibility"
-msgstr ""
+msgstr "Vidnost projekta"
 
 #. module: project
 #: model:ir.model.fields,help:project.field_project_project__subtask_project_id
@@ -2713,7 +2716,7 @@ msgstr "Četrtletno"
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.view_task_search_form
 msgid "Rated tasks"
-msgstr ""
+msgstr "Ocenjena opravila"
 
 #. module: project
 #: model:ir.actions.act_window,name:project.rating_rating_action_view_project_rating
@@ -3286,7 +3289,7 @@ msgstr "Podopravila"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task__subtask_planned_hours
 msgid "Sub-tasks Planned Hours"
-msgstr ""
+msgstr "Planirane ure podopravil"
 
 #. module: project
 #: model:ir.model.fields,help:project.field_project_task__subtask_planned_hours
@@ -3473,7 +3476,7 @@ msgstr "Analiza opravil"
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.edit_project
 msgid "Tasks In Progress"
-msgstr ""
+msgstr "Opravila v teku"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.res_config_settings_view_form

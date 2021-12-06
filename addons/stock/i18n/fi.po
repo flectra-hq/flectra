@@ -27,15 +27,18 @@
 # Sari Mäyrä <sari.mayra@sv-oy.fi>, 2020
 # Jussi Heikkilä <jussi.heikkila@panimo.com>, 2020
 # Mikko Virtanen <mikko.virtanen2013@gmail.com>, 2021
+# Petteri Torssonen <info@collapick.com>, 2021
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2021
+# Antti Oksman <antti.oksman@web-veistamo.fi>, 2021
+# Janne Räty, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-27 11:23+0000\n"
+"POT-Creation-Date: 2021-08-16 09:00+0000\n"
 "PO-Revision-Date: 2020-09-07 08:19+0000\n"
-"Last-Translator: Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2021\n"
+"Last-Translator: Janne Räty, 2021\n"
 "Language-Team: Finnish (https://www.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -405,6 +408,11 @@ msgid "<span>Assign Serial Numbers</span>"
 msgstr "<span>Määritä sarjanumeroita</span>"
 
 #. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.view_stock_move_operations
+msgid "<span>Clear All</span>"
+msgstr "<span>Tyhjennä kaikki</span>"
+
+#. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_lot_label
 msgid "<span>LN/SN:</span>"
 msgstr "<span>EN/SN:</span>"
@@ -422,7 +430,7 @@ msgstr "<span> Pakkaustyyppi: </span>"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.stock_report_delivery_no_package_section_line
 msgid "<span>Products with no package assigned</span>"
-msgstr ""
+msgstr "<span>Tuotteet, joille ei ole määritetty pakkausta</span>"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.message_head
@@ -553,7 +561,7 @@ msgstr "<strong> Mistä haluat lähettää tuotteet? </strong>"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_scrap_form_view
 msgid "? This may lead to inconsistencies in your inventory."
-msgstr ""
+msgstr "? Tämä voi johtaa epäjohdonmukaisuuksiin varastossa."
 
 #. module: stock
 #: code:addons/stock/models/stock_move_line.py:0
@@ -1094,7 +1102,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock.field_stock_scrap__product_uom_category_id
 #: model_terms:ir.ui.view,arch_db:stock.stock_reorder_report_search
 msgid "Category"
-msgstr "Tuoteryhmä(t)"
+msgstr "Kategoria"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_product_product__route_from_categ_ids
@@ -1191,6 +1199,11 @@ msgid "Choose your date"
 msgstr "Valitse päivämäärä"
 
 #. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.view_stock_move_operations
+msgid "Clear Lines"
+msgstr ""
+
+#. module: stock
 #. openerp-web
 #: code:addons/stock/static/src/xml/stock_traceability_report_backend.xml:0
 #: model_terms:ir.ui.view,arch_db:stock.view_stock_move_operations
@@ -1285,6 +1298,7 @@ msgid "Configuration"
 msgstr "Asetukset"
 
 #. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.package_level_form_edit_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_package_destination_form_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_form_view
 #: model_terms:ir.ui.view,arch_db:stock.view_product_replenish
@@ -1546,6 +1560,14 @@ msgid "Created on"
 msgstr "Luotu"
 
 #. module: stock
+#: code:addons/stock/models/stock_warehouse.py:0
+#, python-format
+msgid ""
+"Creating a new warehouse will automatically activate the Storage Locations "
+"setting"
+msgstr ""
+
+#. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move__create_date
 #: model:ir.model.fields,field_description:stock.field_stock_picking__date
 #: model_terms:ir.ui.view,arch_db:stock.view_move_search
@@ -1619,7 +1641,7 @@ msgstr "Asiakkaan paikat"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_config_settings__module_delivery_dhl
-msgid "DHL USA Connector"
+msgid "DHL Express Connector"
 msgstr ""
 
 #. module: stock
@@ -1734,11 +1756,8 @@ msgstr "Oletusreitit varaston läpi"
 #: model_terms:ir.actions.act_window,help:stock.action_orderpoint
 msgid ""
 "Define a minimum stock rule so that Flectra creates automatically requests for "
-"quotations or draft manufacturing orders to resupply your stock."
+"quotations or confirmed manufacturing orders to resupply your stock."
 msgstr ""
-"Määritä varaston vähimmäissääntö, jotta Flectra luo automaattisesti "
-"tarjouspyynnöt tai valmistusmääräysluonnokset varastosi uudelleen "
-"toimittamiseksi."
 
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_warehouse_form
@@ -2002,6 +2021,7 @@ msgid "Difference different than zero"
 msgstr "Erotus ei ole nolla"
 
 #. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.package_level_form_edit_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_package_destination_form_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_form_view
 #: model_terms:ir.ui.view,arch_db:stock.stock_warn_insufficient_qty_scrap_form_view
@@ -2260,13 +2280,13 @@ msgstr ""
 #: code:addons/stock/static/src/xml/forecast_widget.xml:0
 #, python-format
 msgid "Exp"
-msgstr ""
+msgstr "Odotettu"
 
 #. module: stock
 #: code:addons/stock/models/stock_picking.py:0
 #, python-format
 msgid "Exp %s"
-msgstr ""
+msgstr "Odotettu %s"
 
 #. module: stock
 #: model:ir.model.fields.selection,name:stock.selection__stock_picking__products_availability_state__expected
@@ -2276,12 +2296,12 @@ msgstr "Odotettu"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_product_product_replenishment
 msgid "Expected Delivery"
-msgstr ""
+msgstr "Odotettu toimitus"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_product_product_replenishment
 msgid "Expected Receipt"
-msgstr ""
+msgstr "Odotettu vastaanotto"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_config_settings__module_product_expiry
@@ -2427,7 +2447,7 @@ msgstr "Ennustettu"
 #: code:addons/stock/static/src/xml/stock_orderpoint.xml:0
 #, python-format
 msgid "Forecasted Date"
-msgstr ""
+msgstr "Ennustettu päivä"
 
 #. module: stock
 #: model:ir.model.fields.selection,name:stock.selection__report_stock_quantity__state__out
@@ -2471,7 +2491,7 @@ msgstr "Ennustetut vastaanotot"
 #: model:ir.actions.report,name:stock.stock_replenishment_report_product_template_action
 #, python-format
 msgid "Forecasted Report"
-msgstr "Ennustettu raportti"
+msgstr "Ennusteraportti"
 
 #. module: stock
 #: model:ir.model.fields.selection,name:stock.selection__report_stock_quantity__state__forecast
@@ -2482,12 +2502,12 @@ msgstr "Ennustetut saldot"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_product_product_replenishment
 msgid "Forecasted with Pending"
-msgstr ""
+msgstr "Ennustettu ja odottavat"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_replenishment_header
 msgid "Forecasted<br/>+ Pending"
-msgstr ""
+msgstr "Ennustettu<br/>+ Odottavat"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_product_product_replenishment
@@ -3828,6 +3848,13 @@ msgstr "Monivaiheiset reitit"
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_orderpoint__qty_multiple
 msgid "Multiple Quantity"
 msgstr "Monikerran määrä"
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_inventory__my_activity_date_deadline
+#: model:ir.model.fields,field_description:stock.field_stock_picking__my_activity_date_deadline
+#: model:ir.model.fields,field_description:stock.field_stock_production_lot__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Toimintani määräaika"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_picking_internal_search
@@ -5408,7 +5435,7 @@ msgstr "Täydennä ohjattu toiminto"
 #: model_terms:ir.ui.view,arch_db:stock.report_product_product_replenishment
 #, python-format
 msgid "Replenishment"
-msgstr ""
+msgstr "Täydennys"
 
 #. module: stock
 #: code:addons/stock/models/stock_orderpoint.py:0
@@ -6535,7 +6562,7 @@ msgstr ""
 #: code:addons/stock/static/src/xml/stock_orderpoint.xml:0
 #, python-format
 msgid "The forecasted stock on the"
-msgstr ""
+msgstr "Katso ennustettu saldo"
 
 #. module: stock
 #. openerp-web
@@ -6627,6 +6654,8 @@ msgid ""
 "The serial number has already been assigned: \n"
 " Product: %s, Serial Number: %s"
 msgstr ""
+"Tämä sarjanumero on jo määritetty: \n"
+" Tuote: %s, Sarjanumero: %s"
 
 #. module: stock
 #: code:addons/stock/models/stock_move.py:0
@@ -6668,8 +6697,8 @@ msgid ""
 "The stock will be reserved for operations waiting for availability and the "
 "reordering rules will be triggered."
 msgstr ""
-"Varasto varataan käytettävyyttä odottaviin toimintoihin ja "
-"uudelleenjärjestelysäännöt käynnistyvät."
+"Nykyinen varastosaldo varataan odottaville siirroille ja automaattinen "
+"tilausten luonti käynnistetään."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_rule__propagate_warehouse_id
@@ -6889,7 +6918,7 @@ msgstr "Kohdepaikka"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_backorder_confirmation_line__to_backorder
 msgid "To Backorder"
-msgstr ""
+msgstr "Jälkitoimitettavat"
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_picking_tree_ready
@@ -6901,7 +6930,7 @@ msgstr "Tehtävät"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_orderpoint__qty_to_order
 msgid "To Order"
-msgstr ""
+msgstr "Tilattavat"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_immediate_transfer_line__to_immediate
@@ -6912,7 +6941,7 @@ msgstr "Tehtävänä"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.stock_reorder_report_search
 msgid "To Reorder"
-msgstr ""
+msgstr "Uudelleentilattavat"
 
 #. module: stock
 #. openerp-web
@@ -7248,6 +7277,13 @@ msgid "Unreserve"
 msgstr "Peruuta varaus"
 
 #. module: stock
+#: code:addons/stock/models/stock_inventory.py:0
+#: code:addons/stock/models/stock_inventory.py:0
+#, python-format
+msgid "Unsupported search on %s outside of an Inventory Adjustment"
+msgstr ""
+
+#. module: stock
 #: model:ir.ui.menu,name:stock.menu_stock_uom_form_action
 #: model_terms:ir.ui.view,arch_db:stock.report_product_product_replenishment
 #: model_terms:ir.ui.view,arch_db:stock.stock_inventory_line_tree
@@ -7303,7 +7339,7 @@ msgstr "Käytä omia reittejä"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_product_product_replenishment
 msgid "Used by"
-msgstr ""
+msgstr "Käytössä"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_type__sequence
@@ -7367,14 +7403,14 @@ msgstr "Näytä"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_template_property_form
 msgid "View Diagram"
-msgstr ""
+msgstr "Katso diagrammi"
 
 #. module: stock
 #. openerp-web
 #: code:addons/stock/static/src/xml/stock_orderpoint.xml:0
 #, python-format
 msgid "View Forecast"
-msgstr ""
+msgstr "Katso ennuste"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse__view_location_id
@@ -7507,6 +7543,7 @@ msgstr "Varoita riittämätöntä romun määrää"
 #: code:addons/stock/models/stock_move.py:0
 #: code:addons/stock/models/stock_move_line.py:0
 #: code:addons/stock/models/stock_move_line.py:0
+#: code:addons/stock/models/stock_warehouse.py:0
 #: model:ir.model.fields.selection,name:stock.selection__res_partner__picking_warn__warning
 #, python-format
 msgid "Warning"
@@ -7786,6 +7823,14 @@ msgstr ""
 "Voit käsitellä vain 1,0 %s tuotteita, joilla on yksilöllinen sarjanumero."
 
 #. module: stock
+#: code:addons/stock/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"You can't desactivate the multi-location if you have more than once "
+"warehouse by company"
+msgstr ""
+
+#. module: stock
 #: code:addons/stock/models/stock_inventory.py:0
 #, python-format
 msgid ""
@@ -7954,6 +7999,8 @@ msgid ""
 "You have product(s) in stock that have no lot/serial number. You can assign "
 "lot/serial numbers by doing an inventory adjustment."
 msgstr ""
+"Sinulla on tuotteita varastossa, joilla ei ole erä-/sarjanumeroa. Voit "
+"määrittää erä-/sarjanumeroita tekemällä varaston oikaisun."
 
 #. module: stock
 #: code:addons/stock/models/stock_picking.py:0
@@ -8149,20 +8196,4 @@ msgstr "report_stock_quantity_graph"
 #: code:addons/stock/static/src/xml/stock_orderpoint.xml:0
 #, python-format
 msgid "should be replenished to reach the maximum of"
-msgstr ""
-
-#. module: stock
-#: code:addons/stock/models/res_config_settings.py:0
-#, python-format
-msgid ""
-"You can't desactivate the multi-location if you have more than once "
-"warehouse by company"
-msgstr ""
-
-#. module: stock
-#: code:addons/stock/models/stock_warehouse.py:0
-#, python-format
-msgid ""
-"Creating a new warehouse will automatically activate the Storage Locations "
-"setting"
 msgstr ""

@@ -11,9 +11,17 @@
 # Martin Trigaux, 2020
 # Jorge Luis Alfonso <jlalfonso21@gmail.com>, 2020
 # Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com.mx>, 2021
-# Pedro M. Baeza <pedro.baeza@gmail.com>, 2021
+# Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2021
 # José Cabrera Lozano <jose.cabrera@edukative.es>, 2021
-# Josep Anton Belchi Riera, 2021
+# jabelchi, 2021
+# Braulio D. López Vázquez <bdl@flectrahq.com>, 2021
+# Patricia Gutiérrez Capetillo <pagc@flectrahq.com>, 2021
+# Daniela Cervantes <dace@flectrahq.com>, 2021
+# Nelson Ramírez Sánchez <info@konos.cl>, 2021
+# Rick Hunter <rick.hunter.ec@gmail.com>, 2021
+# Ernesto Tejeda <ernesto.tejeda87@gmail.com>, 2021
+# Sarah Kamli <sak@flectrahq.com>, 2021
+# Alejandro Concepción <alconor23@hotmail.com>, 2021
 # 
 msgid ""
 msgstr ""
@@ -21,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-29 15:48+0000\n"
 "PO-Revision-Date: 2020-09-07 08:14+0000\n"
-"Last-Translator: Josep Anton Belchi Riera, 2021\n"
+"Last-Translator: Alejandro Concepción <alconor23@hotmail.com>, 2021\n"
 "Language-Team: Spanish (https://www.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +47,12 @@ msgid ""
 " * Done: The MO is closed, the stock moves are posted. \n"
 " * Cancelled: The MO has been cancelled, can't be confirmed anymore."
 msgstr ""
+"* Borrador: El MO aún no está confirmado.\n"
+"* Confirmado: El MO está confirmado, las reglas de stock y el reordenamiento de los componentes se gestionan.\n"
+"* En curso: la producción ha comenzado (en el MO o en el WO).\n"
+"* Para cerrar: La producción está hecha, el MO tiene que estar cerrado.\n"
+"* Listo: el MO está cerrado, los movimientos de acciones se registran.\n"
+"* Cancelado: el MO ha sido cancelado, ya no se puede confirmar."
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_production__reservation_state
@@ -251,7 +265,7 @@ msgstr "<span class=\"text-bf\">Para producir</span>"
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.report_mrp_bom
 msgid "<span><strong>Unit Cost</strong></span>"
-msgstr "<span><strong>Costo unitario</strong></span>"
+msgstr "<span><strong>Coste unitario</strong></span>"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_workcenter_kanban
@@ -556,7 +570,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:mrp.selection__mrp_consumption_warning__consumption__warning
 #: model:ir.model.fields.selection,name:mrp.selection__mrp_production__consumption__warning
 msgid "Allowed with warning"
-msgstr ""
+msgstr "Permitido con advertencia"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_workcenter__alternative_workcenter_ids
@@ -693,7 +707,7 @@ msgstr "Se necesitan variantes de producto LdM para aplicar esta línea."
 #. module: mrp
 #: model:ir.model,name:mrp.model_report_mrp_report_bom_structure
 msgid "BOM Structure Report"
-msgstr "Reporte de estructura de BOM"
+msgstr "Informe de estructura de LdM"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_bom_line__child_line_ids
@@ -766,7 +780,7 @@ msgstr "Línea de Lista de Materiales"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_unbuild__mo_bom_id
 msgid "Bill of Material used on the Production Order"
-msgstr ""
+msgstr "Lista de materiales utilizada en la orden de producción"
 
 #. module: mrp
 #: model:ir.actions.act_window,name:mrp.product_open_bom
@@ -863,7 +877,7 @@ msgstr "Componentes de LdM"
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.report_mrp_bom
 msgid "BoM Cost"
-msgstr "Costo de Lista de Materiales"
+msgstr "Coste de Lista de Materiales"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_stock_move__bom_line_id
@@ -889,12 +903,12 @@ msgstr "Estructura de Lista de Materiales"
 #: model:ir.actions.client,name:mrp.action_report_mrp_bom
 #, python-format
 msgid "BoM Structure & Cost"
-msgstr "Estructura & Costo de Lista de Materiales"
+msgstr "Estructura & Coste de Lista de Materiales"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.report_mrp_bom
 msgid "BoM Structure &amp; Cost"
-msgstr "Estructura de Lista de Materiales &amp; Costo"
+msgstr "Estructura de Lista de Materiales &amp; Coste"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_bom__type
@@ -1323,7 +1337,7 @@ msgstr "Cantidad actualmente producida"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_production__product_description_variants
 msgid "Custom Description"
-msgstr ""
+msgstr "Descripción personalizada"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_document__db_datas
@@ -1387,6 +1401,10 @@ msgid ""
 "  * Allowed with warning: allowed for all manufacturing users with summary of consumption differences when closing the manufacturing order.\n"
 "  * Blocked: only a manager can close a manufacturing order when the BoM consumption is not respected."
 msgstr ""
+"Define si puede consumir más o menos componentes que la cantidad definida en la lista de materiales:\n"
+"  * Permitido: permitido para todos los usuarios de fabricación.\n"
+"  * Permitido con advertencia: permitido para todos los usuarios de fabricación, con un resumen de las diferencias de consumo al cerrar la orden de fabricación.\n"
+"  * Bloqueado: sólo un administrador puede cerrar una orden de fabricación cuando no se ha seguido la lista de materiales."
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_routing_workcenter__worksheet_type
@@ -1670,12 +1688,12 @@ msgstr "Duración prevista (en minutos)"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_document__datas
 msgid "File Content (base64)"
-msgstr ""
+msgstr "Contenido del archivo (base64)"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_document__raw
 msgid "File Content (raw)"
-msgstr ""
+msgstr "Contenido del archivo (raw)"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_document__file_size
@@ -2799,6 +2817,15 @@ msgid "Not to restrict or prefer quants, but informative."
 msgstr "Informativo, mas no para restingir o preferir Cuants."
 
 #. module: mrp
+#: code:addons/mrp/models/mrp_workcenter.py:0
+#, python-format
+msgid ""
+"Note that archived work center(s): '%s' is/are still linked to active Bill "
+"of Materials, which means that operations can still be planned on it/them. "
+"To prevent this, deletion of the work center is recommended instead."
+msgstr ""
+
+#. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_bom__message_needaction_counter
 #: model:ir.model.fields,field_description:mrp.field_mrp_production__message_needaction_counter
 #: model:ir.model.fields,field_description:mrp.field_mrp_unbuild__message_needaction_counter
@@ -3004,7 +3031,7 @@ msgstr "Plantilla de Producto Padre"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_consumption_warning_line__mrp_consumption_warning_id
 msgid "Parent Wizard"
-msgstr ""
+msgstr "Asistente padre "
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_routing_workcenter__worksheet_google_slide
@@ -3288,7 +3315,7 @@ msgstr "Productos Adjuntos"
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.report_mrp_bom
 msgid "Product Cost"
-msgstr "Costo del Producto"
+msgstr "Coste del Producto"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_res_config_settings__module_mrp_plm
@@ -3578,7 +3605,7 @@ msgstr ""
 #: code:addons/mrp/static/src/xml/mrp.xml:0
 #, python-format
 msgid "Report:"
-msgstr "Reporte:"
+msgstr "Informe:"
 
 #. module: mrp
 #: model:ir.ui.menu,name:mrp.menu_mrp_reporting
@@ -3957,7 +3984,7 @@ msgstr "Fecha de inicio"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_production__state
 msgid "State"
-msgstr "Provincia"
+msgstr "Estado"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_unbuild__state
@@ -4029,7 +4056,7 @@ msgstr "Ubicación de Almacén Después de la Producción"
 #. module: mrp
 #: model:ir.model,name:mrp.model_report_stock_report_stock_rule
 msgid "Stock rule report"
-msgstr "Reporte de Regla de Inventario"
+msgstr "Informe de Regla de Inventario"
 
 #. module: mrp
 #: code:addons/mrp/models/stock_warehouse.py:0
@@ -4050,7 +4077,7 @@ msgstr "Estricto"
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_bom_form_view
 msgid "Structure & Cost"
-msgstr "Estructura & Costo"
+msgstr "Estructura & Coste"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_bom_line__child_bom_id
@@ -4155,7 +4182,7 @@ msgstr ""
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_routing_workcenter__bom_id
 msgid "The Bill of Material this operation is linked to"
-msgstr ""
+msgstr "La lista de materiales a la que esta operación está vinculada"
 
 #. module: mrp
 #: code:addons/mrp/models/mrp_bom.py:0 code:addons/mrp/models/mrp_bom.py:0
@@ -4312,14 +4339,14 @@ msgid ""
 "This is the cost based on the BoM of the product. It is computed by summing "
 "the costs of the components and operations needed to build the product."
 msgstr ""
-"Este es el costo basado en la LdM del producto. Se calcula sumando los "
-"costos de los componentes y operaciones necesarios para construir el "
+"Este es el coste basado en la LdM del producto. Se calcula sumando los "
+"costes de los componentes y operaciones necesarios para construir el "
 "producto."
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.report_mrp_bom
 msgid "This is the cost defined on the product."
-msgstr "Este es el costo definido en el producto."
+msgstr "Este es el coste definido en el producto."
 
 #. module: mrp
 #: model_terms:ir.actions.act_window,help:mrp.action_mrp_unbuild_moves
@@ -4849,7 +4876,7 @@ msgstr ""
 #. module: mrp
 #: model:ir.model.fields.selection,name:mrp.selection__mrp_bom__ready_to_produce__asap
 msgid "When components for 1st operation are available"
-msgstr "Cuando los componentes para la 1er operación están disponibles"
+msgstr "Cuando los componentes para la 1era operación están disponibles"
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_stock_warehouse__manufacture_to_resupply
@@ -5310,7 +5337,7 @@ msgstr ""
 #. module: mrp
 #: model_terms:ir.actions.act_window,help:mrp.mrp_production_action
 msgid "bills of materials"
-msgstr ""
+msgstr "listas de materiales"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.exception_on_mo
@@ -5385,7 +5412,7 @@ msgstr "se ha actualizado la cantidad."
 #: code:addons/mrp/static/src/js/mrp_documents_controller_mixin.js:0
 #, python-format
 msgid "status code: %s </br> message: %s"
-msgstr ""
+msgstr "código de estado: %s </br> mensaje: %s"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_routing_workcenter_form_view

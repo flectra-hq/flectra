@@ -6,6 +6,7 @@
 # Andreas Stauder <andreas.stauder@brain-tec.ch>, 2020
 # e2f <projects@e2f.com>, 2020
 # DE T2 <e2f48d4s5vd1s2@outlook.com>, 2020
+# Wolfgang Taferner, 2020
 # Ermin Trevisan <trevi@twanda.com>, 2020
 # brokemeister <work@maltejansen.de>, 2020
 # Patrick Heuel <patrick.heuel@odoo-bs.com>, 2020
@@ -17,12 +18,13 @@
 # Mathias Neef <mn@copado.de>, 2020
 # Leon Grill <leg@flectrahq.com>, 2020
 # Felix Hoßfeld <felix.hossfeld@thoughtgang.de>, 2020
-# Chris Egal <sodaswed@web.de>, 2020
 # Felix Schubert <felix.schubert@go-erp.com>, 2020
 # Martin Trigaux, 2020
-# Wolfgang Taferner, 2021
-# EugenBrodskiSAMSAIT <eugen.brodski@samsa-it.de>, 2021
 # Andreas Jonderko <a.jonderko@gastronovi.com>, 2021
+# EugenBrodskiSAMSAIT <eugen.brodski@samsa-it.de>, 2021
+# Robert Förster <hello@suppliot.eu>, 2021
+# Chris Egal <sodaswed@web.de>, 2021
+# Friederike Fasterling-Nesselbosch, 2021
 # 
 msgid ""
 msgstr ""
@@ -30,7 +32,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-27 14:12+0000\n"
 "PO-Revision-Date: 2020-09-07 08:16+0000\n"
-"Last-Translator: Andreas Jonderko <a.jonderko@gastronovi.com>, 2021\n"
+"Last-Translator: Friederike Fasterling-Nesselbosch, 2021\n"
 "Language-Team: German (https://www.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,6 +94,10 @@ msgid ""
 "        - Never: Variants are never created for the attribute.\n"
 "        Note: the variants creation mode cannot be changed once the attribute is used on at least one product."
 msgstr ""
+"- Sofort: Alle möglichen Varianten werden erstellt, sobald die Attribute und deren Werte zum Produkt hinzugefügt werden.\n"
+"        - Dynamisch: Eine Variante wird nur dann erstellt wenn deren Attribute und Werte zu einem Verkaufsauftrag hinzugefügt werden.\n"
+"        - Niemals: Es werden keine Varianten für dieses Attribut erstellt.\n"
+"        Bitte beachten: Der Varianten-Erstell-Modus kann nicht mehr geändert werden, sobald das Attribut bei zumindest einem Produkt verwendet wird."
 
 #. module: product
 #: model:product.attribute.value,name:product.product_attribute_value_5
@@ -160,8 +166,8 @@ msgstr "<span class=\"text-muted\">Kein Barcode verfügbar</span>"
 #: model_terms:ir.ui.view,arch_db:product.product_variant_easy_edit_view
 msgid "<span>All general settings about this product are managed on</span>"
 msgstr ""
-"<span>Alle allgemeinen Einstellungen zu diesem Produkt werden verwaltet "
-"unter</span>"
+"<span>Um allgemeine Einstellungen zu diesem Produkt zu verwalten, verwenden "
+"Sie </span>"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.report_simple_label
@@ -281,7 +287,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product.field_res_config_settings__group_sale_pricelist
 #: model:res.groups,name:product.group_sale_pricelist
 msgid "Advanced Pricelists"
-msgstr ""
+msgstr "Erweiterte Preislisten"
 
 #. module: product
 #: model:ir.model.fields.selection,name:product.selection__res_config_settings__product_pricelist_setting__advanced
@@ -359,6 +365,8 @@ msgid ""
 "At most %d quantities can be displayed simultaneously. Remove a selected "
 "quantity to add others."
 msgstr ""
+"Es können maximal %d Mengen gleichzeitig angezeigt werden. Entfernen Sie "
+"eine, um andere hinzuzufügen."
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product__message_attachment_count
@@ -446,7 +454,7 @@ msgstr "Basiert auf"
 #. module: product
 #: model:res.groups,name:product.group_product_pricelist
 msgid "Basic Pricelists"
-msgstr ""
+msgstr "Basispreisliste"
 
 #. module: product
 #: model:product.attribute.value,name:product.product_attribute_value_4
@@ -768,12 +776,12 @@ msgstr "Lieferantenpreislisten definieren."
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.res_config_settings_view_form
 msgid "Define your volume unit of measure"
-msgstr ""
+msgstr "Volumeneinheit definieren"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.res_config_settings_view_form
 msgid "Define your weight unit of measure"
-msgstr ""
+msgstr "Gewichtseinheit definieren"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_supplierinfo__delay
@@ -889,7 +897,7 @@ msgstr "Dauer"
 #. module: product
 #: model:ir.model.fields.selection,name:product.selection__product_attribute__create_variant__dynamic
 msgid "Dynamically"
-msgstr ""
+msgstr "Dynamisch"
 
 #. module: product
 #: model:ir.model.constraint,message:product.constraint_product_template_attribute_value_attribute_value_unique
@@ -1008,7 +1016,7 @@ msgstr "Allgemeine Informationen"
 #: model:ir.actions.server,name:product.action_product_price_list_report
 #: model:ir.actions.server,name:product.action_product_template_price_list_report
 msgid "Generate Pricelist"
-msgstr ""
+msgstr "Preisliste generieren"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_product__packaging_ids
@@ -1206,7 +1214,7 @@ msgstr "Individueller Arbeitsplatz"
 #. module: product
 #: model:ir.model.fields.selection,name:product.selection__product_attribute__create_variant__always
 msgid "Instantly"
-msgstr ""
+msgstr "Sofort"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_template_form_view
@@ -1434,7 +1442,7 @@ msgstr "Min. Bestellmenge"
 #. module: product
 #: model:ir.model.fields.selection,name:product.selection__res_config_settings__product_pricelist_setting__basic
 msgid "Multiple prices per product"
-msgstr ""
+msgstr "Mehrere Preise pro Produkt"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_res_config_settings__product_pricelist_setting
@@ -1483,7 +1491,7 @@ msgstr "Nächster Aktivitätstyp"
 #. module: product
 #: model_terms:ir.actions.act_window,help:product.product_supplierinfo_type_action
 msgid "No vendor pricelist found"
-msgstr ""
+msgstr "Keine Lieferantenpreisliste gefunden"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product__message_needaction_counter
@@ -1611,7 +1619,7 @@ msgstr "Preis über Prozentsatz"
 #: code:addons/product/static/src/js/product_pricelist_report.js:0
 #, python-format
 msgid "Please enter a positive whole number"
-msgstr ""
+msgstr "Bitte geben Sie eine positive ganze Zahl ein"
 
 #. module: product
 #: code:addons/product/models/product_pricelist.py:0
@@ -1624,6 +1632,7 @@ msgstr ""
 #, python-format
 msgid "Please specify the product for which this rule should be applied"
 msgstr ""
+"Bitte geben Sie das Produkt an, auf das diese Regel angewendet werden soll."
 
 #. module: product
 #: code:addons/product/models/product_pricelist.py:0
@@ -1731,7 +1740,7 @@ msgstr "Preisliste Bezeichnung"
 #: model:ir.model,name:product.model_report_product_report_pricelist
 #, python-format
 msgid "Pricelist Report"
-msgstr ""
+msgstr "Preislistenbericht"
 
 #. module: product
 #: model:ir.model,name:product.model_product_pricelist_item
@@ -1744,7 +1753,7 @@ msgstr "Preislistenregel"
 #: model_terms:ir.ui.view,arch_db:product.report_pricelist_page
 #, python-format
 msgid "Pricelist:"
-msgstr ""
+msgstr "Preisliste:"
 
 #. module: product
 #: model:ir.actions.act_window,name:product.product_pricelist_action2
@@ -1993,7 +2002,7 @@ msgstr "Produkte Preissuche"
 #: code:addons/product/models/product.py:0
 #, python-format
 msgid "Products: %(category)s"
-msgstr ""
+msgstr "Produkte: %(category)s"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product__lst_price
@@ -2295,7 +2304,7 @@ msgstr ""
 #: code:addons/product/models/product_attribute.py:0
 #, python-format
 msgid "The attribute %s must have at least one value for the product %s."
-msgstr ""
+msgstr "Das Merkmal %s muss mindestens einen Wert für das Produkt %s haben."
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_attribute_value__attribute_id
@@ -2327,7 +2336,7 @@ msgstr ""
 #: model:ir.model.fields,help:product.field_product_attribute_value__display_type
 #: model:ir.model.fields,help:product.field_product_template_attribute_value__display_type
 msgid "The display type used in the Product Configurator."
-msgstr ""
+msgstr "Anzeigetyp, der im Produktkonfigurator verwendet wird."
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_packaging__sequence
@@ -2430,7 +2439,7 @@ msgstr "Dies ist die Summe der Preisaufschläge aller Attribute"
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_template_form_view
 msgid "This note is added to sales orders and invoices."
-msgstr ""
+msgstr "Die Notiz wird Kundenaufträgen und Rechnungen hinzugefügt."
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_template_form_view
@@ -2505,7 +2514,7 @@ msgstr "Typ der Ausnahmeaktivität im Datensatz."
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_supplierinfo_form_view
 msgid "Unit Price"
-msgstr "Einzelpreis"
+msgstr "Stückpreis"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_packaging__product_uom_id
@@ -2600,7 +2609,7 @@ msgstr "Zähler der ungelesenen Nachrichten"
 #: model:ir.model.fields,field_description:product.field_product_attribute__is_used_on_products
 #: model:ir.model.fields,field_description:product.field_product_attribute_value__is_used_on_products
 msgid "Used on Products"
-msgstr ""
+msgstr "Auf Produkte angewendet"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product__valid_product_template_attribute_line_ids
@@ -2692,7 +2701,7 @@ msgstr "Variantenwerte"
 #: code:addons/product/models/product_pricelist.py:0
 #, python-format
 msgid "Variant: %s"
-msgstr ""
+msgstr "Variante: %s"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_res_config_settings__group_product_variant
@@ -2705,7 +2714,7 @@ msgstr "Varianten"
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_attribute__create_variant
 msgid "Variants Creation Mode"
-msgstr ""
+msgstr "Varianten-Erstell-Modus"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_supplierinfo__name
@@ -2921,6 +2930,21 @@ msgstr ""
 #, python-format
 msgid ""
 "You cannot delete the value %s because it is used on the following products:\n"
+"%s\n"
+"If the value has been associated to a product in the past, you will not be able to delete it."
+msgstr ""
+
+#. module: product
+#: code:addons/product/models/product_attribute.py:0
+#, python-format
+msgid "You cannot delete value %s because it was used in some products."
+msgstr ""
+
+#. module: product
+#: code:addons/product/models/product_pricelist.py:0
+#, python-format
+msgid ""
+"You cannot delete this pricelist (%s), it is used in other pricelist(s) : \n"
 "%s"
 msgstr ""
 
