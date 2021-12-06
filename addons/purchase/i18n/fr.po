@@ -25,7 +25,6 @@
 # Aurélien Pillevesse <aurelienpillevesse@hotmail.fr>, 2020
 # Eloïse Stilmant <est@flectrahq.com>, 2020
 # Laura Piraux <lap@flectrahq.com>, 2020
-# Cécile Collart <cco@flectrahq.com>, 2020
 # Nathan Grognet <ngr@flectrahq.com>, 2020
 # Sébastien BÜHL <buhlsebastien@gmail.com>, 2020
 # Celia Tydgat <cty@flectrahq.com>, 2020
@@ -35,6 +34,8 @@
 # guillaume bauer <guillaume.bauer@syentys.fr>, 2020
 # Arnaud Willem <contact@arnaud-willem.eu>, 2020
 # Idir Talem <idir.talem@gmail.com>, 2020
+# Cécile Collart <cco@flectrahq.com>, 2021
+# RHTodoo, 2021
 # Thomas Deleval <thd@flectrahq.com>, 2021
 # 
 msgid ""
@@ -84,7 +85,7 @@ msgstr "${object.company_id.name} Commande (Ref ${object.name or 'n/d' })"
 #: code:addons/purchase/models/purchase.py:0
 #, python-format
 msgid "%(name)s confirmed the receipt will take place on %(date)s."
-msgstr ""
+msgstr "%(name)s a confirmé que la réception se fera le %(date)s."
 
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.mail_notification_confirm
@@ -514,8 +515,8 @@ msgid ""
 "  - Stock Moves: the quantity comes from confirmed pickings\n"
 msgstr ""
 "Selon la configuration de l'article, la quantité reçue peut être automatiquement calculée :\n"
-"  - Manuel: la quantité est indiquée manuellement sur la ligne\n"
-"  - Mouvements de stock: la quantité provient de transferts confirmés\n"
+"  - Manuel : la quantité est indiquée manuellement sur la ligne\n"
+"  - Mouvements d'inventaire : la quantité provient de transferts confirmés\n"
 
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_purchase_order__message_needaction
@@ -1104,7 +1105,7 @@ msgid ""
 "Depicts the date within which the Quotation should be confirmed and "
 "converted into a purchase order."
 msgstr ""
-"Représente la date où le devis devrait être validé et le converti en bon de "
+"Représente la date où le devis devrait être validé et converti en bon de "
 "commande."
 
 #. module: purchase
@@ -2657,7 +2658,7 @@ msgstr "Conditions générales"
 #: code:addons/purchase/models/purchase.py:0
 #, python-format
 msgid "The order receipt has been acknowledged by %(name)s."
-msgstr ""
+msgstr "La réception de la commande à été constatée par %(name)s."
 
 #. module: purchase
 #: model_terms:ir.actions.act_window,help:purchase.act_res_partner_2_purchase_order

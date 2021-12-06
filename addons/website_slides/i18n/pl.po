@@ -17,12 +17,14 @@
 # Karol Rybak <karolrybak85@gmail.com>, 2020
 # Piotr Cierkosz <piotr.w.cierkosz@gmail.com>, 2020
 # Paweł Wodyński <pw@myodoo.pl>, 2020
-# Maksym <ms@myodoo.pl>, 2020
 # Martin Trigaux, 2020
 # Dariusz Żbikowski <darek@krokus.com.pl>, 2020
 # Piotr Szlązak <szlazakpiotr@gmail.com>, 2020
 # Natalia Gros <nag@flectrahq.com>, 2020
 # Piotr Strębski <strebski@gmail.com>, 2021
+# Wojciech Warczakowski <w.warczakowski@gmail.com>, 2021
+# Maksym <ms@myodoo.pl>, 2021
+# Jakub Schwarz <kubaschwarz.official@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
@@ -30,7 +32,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-16 13:33+0000\n"
 "PO-Revision-Date: 2020-09-07 08:22+0000\n"
-"Last-Translator: Piotr Strębski <strebski@gmail.com>, 2021\n"
+"Last-Translator: Jakub Schwarz <kubaschwarz.official@gmail.com>, 2021\n"
 "Language-Team: Polish (https://www.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -140,6 +142,12 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"<p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"Witaj<br/><br/>\n"
+"Zostałeś zaproszony do dołączenia do nowego szkolenia: ${object.channel_id.name}.\n"
+"</p>\n"
+"</div>"
 
 #. module: website_slides
 #: model:mail.template,body_html:website_slides.slide_template_shared
@@ -154,7 +162,7 @@ msgid ""
 "                            </a>\n"
 "                        </div>\n"
 "                        <div style=\"margin: 16px 8px 16px 8px; text-align: center;\">\n"
-"                            <a href=\"${(object.website_url + '?fullscreen=1') if ctx['fullscreen'] else object.website_url | safe}\" style=\"background-color: #875a7b; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">View <strong>${object.name}</strong></a>\n"
+"                            <a href=\"${(object.website_url + '?fullscreen=1') if ctx['fullscreen'] else object.website_url | safe}\" style=\"background-color: #2496f6; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">View <strong>${object.name}</strong></a>\n"
 "                        </div>\n"
 "                        % if user.signature\n"
 "                            <br/>\n"
@@ -181,7 +189,7 @@ msgid ""
 "                        </div>\n"
 "                        % endif\n"
 "                        <div style=\"margin: 16px 8px 16px 8px; text-align: center;\">\n"
-"                            <a href=\"${object.website_url}\" style=\"background-color: #875a7b; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">View content</a>\n"
+"                            <a href=\"${object.website_url}\" style=\"background-color: #2496f6; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">View content</a>\n"
 "                        </div>\n"
 "                        Enjoy this exclusive content!\n"
 "                        % if user.signature\n"
@@ -357,7 +365,7 @@ msgstr "<i class=\"fa fa-folder mr-2\" aria-label=\"Open folder\"/>"
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_slides_list
 msgid "<i class=\"fa fa-folder-o mr-1\"/><span>Add Section</span>"
-msgstr "<i class=\"fa fa-folder-o mr-1\"/><span>dodaj sekcję</span>"
+msgstr "<i class=\"fa fa-folder-o mr-1\"/><span>Dodaj sekcję</span>"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_slides_cards
@@ -430,7 +438,7 @@ msgstr "<i class=\"fa fa-plus mr-1\"/><span>Dodaj Zawartość</span>"
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_slides_cards
 msgid "<i class=\"fa fa-plus mr-1\"/><span>Add Tag</span>"
-msgstr "<i class=\"fa fa-plus mr-1\"/><span>Dodaj Znacznik</span>"
+msgstr "<i class=\"fa fa-plus mr-1\"/><span>Dodaj znacznik</span>"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.lesson_content_quiz_add_buttons
@@ -439,7 +447,7 @@ msgid ""
 "            <span>Add Question</span>"
 msgstr ""
 "<i class=\"fa fa-plus mr-2\"/>\n"
-"<span>Dodaj Pytanie</span>"
+"<span>Dodaj pytanie</span>"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.lesson_content_quiz_add_buttons
@@ -620,6 +628,8 @@ msgid ""
 "<span class=\"badge badge-success font-weight-normal px-2 py-1 "
 "m-1\"><span>Preview</span></span>"
 msgstr ""
+"<span class=\"badge badge-success font-weight-normal px-2 py-1 "
+"m-1\"><span>Podgląd</span></span>"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_slides_list_sample
@@ -627,6 +637,8 @@ msgid ""
 "<span class=\"badge badge-success font-weight-normal px-2 py-1 "
 "m-1\">Preview</span>"
 msgstr ""
+"<span class=\"badge badge-success font-weight-normal px-2 py-1 "
+"m-1\">Podgląd</span>"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_slides_list_sample
@@ -667,7 +679,7 @@ msgstr "<span class=\"font-weight-bold text-muted mr-2\">Obecna ranga:</span>"
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_main
 msgid "<span class=\"font-weight-normal\">Last update:</span>"
-msgstr "<span class=\"font-weight-normal\">Ostatni Update:</span>"
+msgstr "<span class=\"font-weight-normal\">Ostatnia aktualizacja:</span>"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_social_email
@@ -720,7 +732,7 @@ msgstr ""
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_channel_view_kanban
 msgid "<span class=\"text-muted\">Contents</span>"
-msgstr "<span class=\"text-muted\">Zawartośći</span>"
+msgstr "<span class=\"text-muted\">Zawartości</span>"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_slides_list_sample
@@ -782,7 +794,7 @@ msgstr ""
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_slides_list_slide
 msgid "<span>Preview</span>"
-msgstr ""
+msgstr "<span>Podgląd</span>"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_slides_list_sample
@@ -797,6 +809,7 @@ msgstr "<span>XP</span>"
 #. module: website_slides
 #. openerp-web
 #: code:addons/website_slides/static/src/js/slides_course_fullscreen_player.js:0
+#: code:addons/website_slides/static/src/js/slides_share.js:0
 #, python-format
 msgid "<strong>Thank you!</strong> Mail has been sent."
 msgstr "<strong>Dziękujemy!</strong>Mail został wysłany."
@@ -809,6 +822,15 @@ msgstr ""
 #. module: website_slides
 #: model:slide.answer,text_value:website_slides.slide_slide_demo_0_4_question_0_0
 msgid "A fruit"
+msgstr ""
+
+#. module: website_slides
+#. openerp-web
+#: code:addons/website_slides/static/src/js/tours/slides_tour.js:0
+#, python-format
+msgid ""
+"A good course has a structure. Pick a name for your first section and click "
+"<b>Save</b> to create it."
 msgstr ""
 
 #. module: website_slides
@@ -967,7 +989,7 @@ msgstr "Dodaj"
 #. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_slide_channel__karma_slide_comment
 msgid "Add Comment"
-msgstr "Dodaj Komentarz "
+msgstr "Dodaj komentarz "
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.view_slide_channel_form
@@ -977,19 +999,19 @@ msgstr "Dodaj zawartość"
 #. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_slide_channel__karma_review
 msgid "Add Review"
-msgstr "Dodaj Recenzję"
+msgstr "Dodaj recenzję"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_slides_cards
 #: model_terms:ir.ui.view,arch_db:website_slides.view_slide_channel_form
 msgid "Add Section"
-msgstr "Dodaj Sekcję"
+msgstr "Dodaj sekcję"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_main
 #: model_terms:ir.ui.view,arch_db:website_slides.course_slides_cards
 msgid "Add Tag"
-msgstr "Dodaj Znacznik"
+msgstr "Dodaj znacznik"
 
 #. module: website_slides
 #: model_terms:ir.actions.act_window,help:website_slides.slide_slide_action
@@ -1009,7 +1031,7 @@ msgstr "Dodaj sekcję"
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_channel_tag_group_view_form
 #, python-format
 msgid "Add a tag"
-msgstr "Dodaj Znacznik"
+msgstr "Dodaj znacznik"
 
 #. module: website_slides
 #. openerp-web
@@ -1973,7 +1995,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_slides.field_slide_slide_resource__create_uid
 #: model:ir.model.fields,field_description:website_slides.field_slide_tag__create_uid
 msgid "Created by"
-msgstr "Utworzona przez"
+msgstr "Utworzył(a)"
 
 #. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_slide_answer__create_date
@@ -1990,7 +2012,7 @@ msgstr "Utworzona przez"
 #: model:ir.model.fields,field_description:website_slides.field_slide_slide_resource__create_date
 #: model:ir.model.fields,field_description:website_slides.field_slide_tag__create_date
 msgid "Created on"
-msgstr "Utworzono"
+msgstr "Data utworzenia"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.rating_rating_view_search_slide_channel
@@ -3611,7 +3633,7 @@ msgstr "Urzędnik"
 #. module: website_slides
 #: model:ir.model.fields.selection,name:website_slides.selection__slide_channel__enroll__invite
 msgid "On Invitation"
-msgstr "Na Zaproszenie"
+msgstr "Na zaproszenie"
 
 #. module: website_slides
 #. openerp-web
@@ -4140,7 +4162,7 @@ msgstr "Zapisz"
 #: code:addons/website_slides/static/src/js/slides_upload.js:0
 #, python-format
 msgid "Save & Publish"
-msgstr ""
+msgstr "Zapisz i opublikuj"
 
 #. module: website_slides
 #. openerp-web
@@ -4360,7 +4382,7 @@ msgstr "Zarejestruj się!"
 #: code:addons/website_slides/static/src/xml/slide_course_join.xml:0
 #, python-format
 msgid "Sign in"
-msgstr "Wejście"
+msgstr "Zaloguj się"
 
 #. module: website_slides
 #. openerp-web
@@ -5467,6 +5489,13 @@ msgid ""
 msgstr ""
 "np. W tym filmie pokażemy ci jak Flectra może pomóc ci rozwinąć swój biznes. Na"
 " koniec zaproponujemy ci quiz by sprawdzić swoją wiedzę"
+
+#. module: website_slides
+#. openerp-web
+#: code:addons/website_slides/static/src/xml/slide_management.xml:0
+#, python-format
+msgid "e.g. Introduction"
+msgstr ""
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.view_slide_slide_form

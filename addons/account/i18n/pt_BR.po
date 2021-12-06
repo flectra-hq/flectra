@@ -343,28 +343,28 @@ msgstr ""
 "            ${object.partner_id.name},\n"
 "        % endif\n"
 "        <br/><br/>\n"
-"        Aqui está sua\n"
+"        Segue em anexo sua\n"
 "        % if object.name:\n"
-"            fatura<strong>${object.name}</strong>\n"
+"            fatura <strong>${object.name}</strong>\n"
 "        % else:\n"
 "            fatura\n"
 "        %endif\n"
 "        % if object.invoice_origin:\n"
 "            (com a referência: ${object.invoice_origin})\n"
 "        % endif\n"
-"        totalizada em <strong>${format_amount(object.amount_total, object.currency_id)}</strong>\n"
-"        da ${object.company_id.name}.\n"
+"        Totalizada em <strong>${format_amount(object.amount_total, object.currency_id)}</strong>\n"
+"        da empresa ${object.company_id.name}.\n"
 "        % if object.payment_state in ('paid', 'in_payment'):\n"
-"            Esta fatura está paga.\n"
+"            Esta fatura já encontra-se paga.\n"
 "        % else:\n"
-"            Por favor, envie o pagamento de acordo com o método de pagamento acordado.\n"
+"            Por favor, emita o pagamento conforme as condições de pagamento.\n"
 "            % if object.payment_reference:\n"
 "                <br/><br/>\n"
-"                Use a seguinte comunicação para o seu pagamento: <strong>${object.payment_reference}</strong>.\n"
+"                Utilize a seguinte referência de comunicação em seu pagamento: <strong>${object.payment_reference}</strong>.\n"
 "            % endif\n"
 "        % endif\n"
 "        <br/><br/>\n"
-"        Não hesite em entrar em contato caso tenha alguma dúvida.\n"
+"        Caso tenha alguma dúvida não hesite entrar em contato conosco.\n"
 "        % if object.invoice_user_id.signature:\n"
 "            <br/>\n"
 "            ${object.invoice_user_id.signature | safe}\n"
@@ -538,7 +538,7 @@ msgid ""
 "class=\"d-none d-md-inline\"> Cancelled</span></span>"
 msgstr ""
 "<span class=\"badge badge-pill badge-warning\"><i class=\"fa fa-fw fa-"
-"remove\" aria-label=\"Cancelled\" title=\"Cancelled\" role=\"img\"/><span "
+"remove\" aria-label=\"Cancelado\" title=\"Cancelado\" role=\"img\"/><span "
 "class=\"d-none d-md-inline\"> Cancelado</span></span>"
 
 #. module: account
@@ -548,9 +548,10 @@ msgid ""
 "specific.\" aria-label=\"Values set here are company-specific.\" "
 "groups=\"base.group_multi_company\" role=\"img\"/>"
 msgstr ""
-"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
-"specific.\" aria-label=\"Values set here are company-specific.\" "
-"groups=\"base.group_multi_company\" role=\"img\"/>"
+"<span class=\"fa fa-lg fa-building-o\" title=\"Valores definidos aqui são "
+"específicos por empresa.\" aria-label=\"Valores definidos aqui são "
+"específicos por empresa.\" groups=\"base.group_multi_company\" "
+"role=\"img\"/>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
@@ -2852,7 +2853,7 @@ msgstr "Digitalização de Contas"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
 msgid "Bill Reference"
-msgstr "Conta de Referência"
+msgstr "Referência da Conta"
 
 #. module: account
 #: model:res.groups,name:account.group_account_invoice
@@ -6951,6 +6952,12 @@ msgid ""
 msgstr ""
 "Parece que os impostos foram modificados desde a criação da entrada de "
 "diário. Você deve criar a nota de crédito manualmente."
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "It was previously '%(previous)s' and it is now '%(now)s'."
+msgstr "Era anteriormente '%(previous)s' e agora é '%(now)s'."
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
@@ -12521,7 +12528,7 @@ msgid ""
 "validation."
 msgstr ""
 "A despesa é contabilizada quando uma nota de fornecedor é validada, exceto "
-"em contabilidade anglo saxônica com validação de inventário perpétua quando "
+"em contabilidade anglo-saxônica com validação de inventário perpétua quando "
 "é o caso em que a despesa (conta Custo de Bens Vendidos) é reconhecida na "
 "validação de fatura de consumidor."
 
@@ -13050,6 +13057,12 @@ msgstr ""
 "são aplicadas."
 
 #. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "The sequence format has changed."
+msgstr "O formato de sequência foi alterado."
+
+#. module: account
 #: code:addons/account/models/sequence_mixin.py:0
 #, python-format
 msgid ""
@@ -13058,6 +13071,40 @@ msgid ""
 msgstr ""
 "A sequência regex deve conter pelo menos as chaves de agrupamento seq. Por exemplo:\n"
 "^(?P<prefix1>.*?)(?P<seq>\\d*)(?P<suffix>\\D*?)$"
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid ""
+"The sequence will never restart.\n"
+"The incrementing number in this case is '%(formatted_seq)s'."
+msgstr ""
+"A sequência nunca reiniciará.\n"
+"O número de incremento neste caso é '%(formatted_seq)s'"
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid ""
+"The sequence will restart at 1 at the start of every month.\n"
+"The year detected here is '%(year)s' and the month is '%(month)s'.\n"
+"The incrementing number in this case is '%(formatted_seq)s'."
+msgstr ""
+"A sequência reiniciará para 1 no início de cada mês.\n"
+"O ano detectado aqui é '%(year)s' e o mês é '%(month)s'.\n"
+"O número de incremento neste caso é '%(formatted_seq)s'."
+
+#. module: account
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid ""
+"The sequence will restart at 1 at the start of every year.\n"
+"The year detected here is '%(year)s'.\n"
+"The incrementing number in this case is '%(formatted_seq)s'."
+msgstr ""
+"A sequência reiniciará para 1 no início de cada ano.\n"
+"O ano detectado aqui é '%(year)s'.\n"
+"O número de incremento neste caso é '%(formatted_seq)s'."
 
 #. module: account
 #: code:addons/account/wizard/account_resequence.py:0
@@ -13906,7 +13953,7 @@ msgstr "Carregue sua própria conta"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_chart_template__use_anglo_saxon
 msgid "Use Anglo-Saxon accounting"
-msgstr "Usar contabilidade Anglo-Saxão"
+msgstr "Usar contabilidade Anglo-Saxônica"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_res_company__tax_exigibility
@@ -13932,7 +13979,7 @@ msgstr "Utilizar domínio ativo"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_res_company__anglo_saxon_accounting
 msgid "Use anglo-saxon accounting"
-msgstr "Usar contabilidade anglo-saxão"
+msgstr "Usar contabilidade Anglo-Saxônica"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_res_config_settings__module_account_batch_payment
@@ -14358,6 +14405,24 @@ msgid ""
 msgstr ""
 "Você pode escolher modelos diferentes para cada tipo de referência. O padrão"
 " é a referência Flectra."
+
+#. module: account
+#: code:addons/account/models/account_journal.py:0
+#, python-format
+msgid ""
+"You can not archive a journal containing draft journal entries.\n"
+"\n"
+"To proceed:\n"
+"1/ click on the top-right button 'Journal Entries' from this journal form\n"
+"2/ then filter on 'Draft' entries\n"
+"3/ select them all and post or delete them through the action menu"
+msgstr ""
+"Você não pode arquivar um diário que contém rascunhos de entradas de diário.\n"
+"\n"
+"Para proceder:\n"
+"1/ clique no botão superior direito 'Entradas de Diário' a partir deste formulário\n"
+"2/ então filtre as entradas por 'Rascunho'\n"
+"3/ selecione todas elas e faça o lançamento ou delete-as através do menu de ação"
 
 #. module: account
 #: code:addons/account/models/account_payment_term.py:0
