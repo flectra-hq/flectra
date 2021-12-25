@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Sale Purchase',
@@ -9,7 +9,7 @@ Allows the outsourcing of services. This module allows one to sell services prov
 by external providers and will automatically generate purchase orders directed to the service seller.
     """,
     'version': '1.0',
-    'website': 'https://www.odoo.com/',
+    'website': 'https://www.flectrahq.com/',
     'category': 'Hidden',
     'depends': [
         'sale',

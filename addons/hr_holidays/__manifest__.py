@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Time Off',
@@ -7,7 +7,7 @@
     'category': 'Human Resources/Time Off',
     'sequence': 85,
     'summary': 'Allocate time off and follow time off requests',
-    'website': 'https://www.odoo.com/page/leaves',
+    'website': 'https://www.flectrahq.com/page/leaves',
     'description': """
 Manage time off requests and allocations
 =====================================

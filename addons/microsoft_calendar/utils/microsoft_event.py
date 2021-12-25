@@ -107,7 +107,7 @@ class MicrosoftEvent(abc.Set):
         return self.filter(lambda e: e.id in existing_microsoft_ids)
 
     def owner(self, env):
-        # Owner/organizer could be desynchronised between Microsoft and Odoo, Flectra.
+        # Owner/organizer could be desynchronised between Microsoft and Flectra.
         # Let userA, userB be two new users (never synced to Microsoft before).
         # UserA creates an event in Flectra (he is the owner) but userB syncs first.
         # There is no way to insert the event into userA's calendar since we don't have

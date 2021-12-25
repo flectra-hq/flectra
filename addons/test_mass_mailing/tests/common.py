@@ -25,7 +25,7 @@ class TestMassMailCommon(MassMailCommon, TestMailCommon):
             'subject': 'MailingSubject',
             'preview': 'Hi ${object.name} :)',
             'body_html': """<div><p>Hello ${object.name}</p>,
-% set url = "www.flectra.com"
+% set url = "www.flectrahq.com"
 % set httpurl = "https://www.flectra.eu"
 <span>Website0: <a id="url0" href="https://www.flectra.tz/my/${object.name}">https://www.flectra.tz/my/${object.name}</a></span>
 <span>Website1: <a id="url1" href="https://www.flectra.be">https://www.flectra.be</a></span>
@@ -34,7 +34,7 @@ class TestMassMailCommon(MassMailCommon, TestMailCommon):
 <span>External1: <a id="url4" href="https://www.example.com/foo/bar?baz=qux">Youpie</a></span>
 <span>Internal1: <a id="url5" href="/event/dummy-event-0">Internal link</a></span>
 <span>Internal2: <a id="url6" href="/view"/>View link</a></span>
-<span>Email: <a id="url7" href="mailto:test@flectra.com">test@flectra.com</a></span>
+<span>Email: <a id="url7" href="mailto:test@flectrahq.com">test@flectrahq.com</a></span>
 <p>Stop spam ? <a id="url8" role="button" href="/unsubscribe_from_list">Ok</a></p>
 </div>""",
             'mailing_type': 'mail',

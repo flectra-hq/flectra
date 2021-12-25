@@ -80,9 +80,8 @@ flectra.define('point_of_sale.PaymentScreen', function (require) {
             }
             if (!this.selectedPaymentLine) return; // do nothing if no selected payment line
             // disable changing amount on paymentlines with running or done payments on a payment terminal
-            const payment_terminal = this.selectedPaymentLine.payment_method.payment_terminal;
             if (
-                payment_terminal &&
+                this.payment_interface &&
                 !['pending', 'retry'].includes(this.selectedPaymentLine.get_payment_status())
             ) {
                 return;

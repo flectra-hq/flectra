@@ -12,7 +12,7 @@ from werkzeug import urls
 from werkzeug.datastructures import OrderedMultiDict
 from werkzeug.exceptions import NotFound
 
-from flectra import api, fields, models, tools, http
+from flectra import api, fields, models, tools
 from flectra.addons.http_routing.models.ir_http import slugify, _guess_mimetype, url_for
 from flectra.addons.website.models.ir_http import sitemap_qs2dom
 from flectra.addons.portal.controllers.portal import pager
@@ -794,7 +794,7 @@ class Website(models.Model):
             :rtype: list({name: str, url: str})
         """
 
-        router = http.root.get_db_router(request.db)
+        router = request.httprequest.app.get_db_router(request.db)
         # Force enumeration to be performed as public user
         url_set = set()
 
@@ -973,7 +973,7 @@ class Website(models.Model):
         """
         self.ensure_one()
         if request.endpoint:
-            router = http.root.get_db_router(request.db).bind('')
+            router = request.httprequest.app.get_db_router(request.db).bind('')
             arguments = dict(request.endpoint_arguments)
             for key, val in list(arguments.items()):
                 if isinstance(val, models.BaseModel):

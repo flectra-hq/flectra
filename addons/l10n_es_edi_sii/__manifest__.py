@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-# Thanks to AEOdoo and the Spanish community
+# Thanks to AEFlectra and the Spanish community
 # Specially among others Ignacio Ibeas, Pedro Baeza and Landoo
 
 {

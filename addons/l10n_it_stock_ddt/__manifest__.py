@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "l10n_it_stock_ddt",
-    'website': 'https://www.odoo.com',
+    'website': 'https://www.flectrahq.com',
     'category': 'Accounting/Localizations/EDI',
     'version': '0.1',
     'description': """

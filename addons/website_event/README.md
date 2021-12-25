@@ -3,7 +3,7 @@ Organize Events, Trainings & Webinars
 
 ### Schedule, Promote, Sell, Organize
 
-Organize, promote and sell events online. Whether you organize meetings, conferences, trainings or webinars, Odoo gives you all the features you need to manage your events.
+Organize, promote and sell events online. Whether you organize meetings, conferences, trainings or webinars, Flectra gives you all the features you need to manage your events.
 
 Create Awesome Event Pages
 --------------------------
@@ -12,7 +12,7 @@ Create Awesome Event Pages
 
 Create beautiful event pages by drag & droping well designed *'Building Blocks'*. Publish event photos, speakers, schedule, etc.
 
-Odoo's unique *'edit inline'* approach makes website creation surprisingly easy. "Want to introduce a speaker? to change the price of a ticket? to update a banner? promote sponsors?" just click and change.
+Flectra's unique *'edit inline'* approach makes website creation surprisingly easy. "Want to introduce a speaker? to change the price of a ticket? to update a banner? promote sponsors?" just click and change.
 
 Sell Tickets Online
 -------------------
@@ -28,9 +28,9 @@ A Clean Google Analytics Integration
 
 ### Control your sales funnel with Google Analytics
 
-Get a clear visibility of your sales funnel. Odoo's Google Analytics trackers are configured by default to track all kind of events related to shopping carts, call-to-actions, etc.
+Get a clear visibility of your sales funnel. Flectra's Google Analytics trackers are configured by default to track all kind of events related to shopping carts, call-to-actions, etc.
 
-As Odoo marketing tools (mass mailing, campaigns, etc) are also linked with Google Analytics, you get a full view of your business.
+As Flectra marketing tools (mass mailing, campaigns, etc) are also linked with Google Analytics, you get a full view of your business.
 
 Promote Events Efficiently
 --------------------------
@@ -42,7 +42,7 @@ Use the segmentation, the social network integration and mass mailing features t
 Designer-Friendly Themes
 ------------------------
 
-### Designers love working on Odoo
+### Designers love working on Flectra
 
 Themes are awesome and easy to design. You don't need to develop to create new pages, themes or building blocks. We use a clean HTML structure, a [bootstrap](http://getbootstrap.com/) CSS and our modularity allows to distribute your themes easily.
 
@@ -53,7 +53,7 @@ Make Your Event More Visible
 
 ### SEO tools at your finger tips
 
-SEO tools are ready to use, with no configuration required. Odoo suggests keywords according to Google most searched terms, Google Analytics tracks your shopping cart events and sitemap are created automatically.
+SEO tools are ready to use, with no configuration required. Flectra suggests keywords according to Google most searched terms, Google Analytics tracks your shopping cart events and sitemap are created automatically.
 
 We even do structured content automatically to promote your events and products efficiently in Google.
 
@@ -62,7 +62,7 @@ Leverage Social Media
 
 ### Optimize: from Ads to Conversions
 
-Create new landing pages easily with the Odoo inline editing feature. Send visitors of your different marketing campaigns to event landing pages to optimize conversions.
+Create new landing pages easily with the Flectra inline editing feature. Send visitors of your different marketing campaigns to event landing pages to optimize conversions.
 
 And Much More...
 ----------------

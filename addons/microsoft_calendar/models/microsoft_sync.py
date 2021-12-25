@@ -25,7 +25,7 @@ MAX_RECURRENT_EVENT = 720
 # API requests are sent to Microsoft Calendar after the current transaction ends.
 # This ensures changes are sent to Microsoft only if they really happened in the Flectra database.
 # It is particularly important for event creation , otherwise the event might be created
-# twice in Microsoft if the first creation crashed in Odoo, Flectra.
+# twice in Microsoft if the first creation crashed in Flectra.
 def after_commit(func):
     @wraps(func)
     def wrapped(self, *args, **kwargs):
@@ -242,7 +242,7 @@ class MicrosoftSync(models.AbstractModel):
 
     @api.model
     def _sync_microsoft2flectra(self, microsoft_events: MicrosoftEvent, default_reminders=()):
-        """Synchronize Microsoft recurrences in Odoo, Flectra. Creates new recurrences, updates
+        """Synchronize Microsoft recurrences in Flectra. Creates new recurrences, updates
         existing ones.
 
         :return: synchronized flectra

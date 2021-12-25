@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'France - VAT Anti-Fraud Certification for Point of Sale (CGI 286 I-3 bis)',
@@ -19,7 +19,7 @@ The module adds following features:
 
     Storage: automatic sales closings with computation of both period and cumulative totals (daily, monthly, annually)
 
-    Access to download the mandatory Certificate of Conformity delivered by Odoo SA (only for Odoo Enterprise users)
+    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ Inc. (only for Flectra Enterprise users)
 """,
     'depends': ['l10n_fr', 'point_of_sale'],
     'installable': True,

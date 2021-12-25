@@ -37,12 +37,13 @@ class PatchedHTTPAdapter(requests.adapters.HTTPAdapter):
         # still made without checking temporary files exist.
         super().cert_verify(conn, url, verify, None)
         conn.cert_file = cert
-        conn.key_file = None
+        conn.key_file = cert
 
     def get_connection(self, url, proxies=None):
         # OVERRIDE
         # Patch the OpenSSLContext to decode the certificate in-memory.
         conn = super().get_connection(url, proxies=proxies)
+
         context = conn.conn_kw['ssl_context']
 
         def patched_load_cert_chain(l10n_es_flectra_certificate, keyfile=None, password=None):
@@ -672,5 +673,5 @@ class AccountEdiFormat(models.Model):
                     'res_model': inv._name,
                     'res_id': inv.id,
                 })
-                res[inv]['attachment'] = attachment
+                res[inv] = {'attachment': attachment}
         return res

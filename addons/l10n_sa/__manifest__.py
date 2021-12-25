@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Saudi Arabia - Accounting',
@@ -7,7 +7,7 @@
     'author': 'DVIT.ME',
     'category': 'Accounting/Localizations/Account Charts',
     'description': """
-Odoo Arabic localization for most arabic countries and Saudi Arabia.
+Flectra Arabic localization for most arabic countries and Saudi Arabia.
 
 This initially includes chart of accounts of USA translated to Arabic.
 

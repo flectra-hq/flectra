@@ -82,9 +82,9 @@ class AccountPaymentRegister(models.TransientModel):
         readonly=False, store=True,
         compute='_compute_payment_method_id',
         domain="[('id', 'in', available_payment_method_ids)]",
-        help="Manual: Get paid by cash, check or any other method outside of Odoo, Flectra.\n"\
+        help="Manual: Get paid by cash, check or any other method outside of Flectra.\n"\
         "Electronic: Get paid automatically through a payment acquirer by requesting a transaction on a card saved by the customer when buying or subscribing online (payment token).\n"\
-        "Check: Pay bill by check and print it from Odoo, Flectra.\n"\
+        "Check: Pay bill by check and print it from Flectra.\n"\
         "Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Flectra, you are suggested to reconcile the transaction with the batch deposit.To enable batch deposit, module account_batch_payment must be installed.\n"\
         "SEPA Credit Transfer: Pay bill from a SEPA Credit Transfer file you submit to your bank. To enable sepa credit transfer, module account_sepa must be installed ")
     available_payment_method_ids = fields.Many2many('account.payment.method',
@@ -128,73 +128,21 @@ class AccountPaymentRegister(models.TransientModel):
         return ' '.join(sorted(labels))
 
     @api.model
-    def _get_batch_journal(self, batch_result):
-        """ Helper to compute the journal based on the batch.
-
-        :param batch_result:    A batch returned by '_get_batches'.
-        :return:                An account.journal record.
-        """
-        key_values = batch_result['key_values']
-        foreign_currency_id = key_values['currency_id']
-        partner_bank_id = key_values['partner_bank_id']
-
-        currency_domain = [('currency_id', '=', foreign_currency_id)]
-        partner_bank_domain = [('bank_account_id', '=', partner_bank_id)]
-
-        default_domain = [
-            ('type', 'in', ('bank', 'cash')),
-            ('company_id', '=', batch_result['lines'].company_id.id),
-        ]
-
-        if partner_bank_id:
-            extra_domains = (
-                currency_domain + partner_bank_domain,
-                partner_bank_domain,
-                currency_domain,
-                [],
-            )
-        else:
-            extra_domains = (
-                currency_domain,
-                [],
-            )
-
-        for extra_domain in extra_domains:
-            journal = self.env['account.journal'].search(default_domain + extra_domain, limit=1)
-            if journal:
-                return journal
-
-        return self.env['account.journal']
-
-    @api.model
-    def _get_batch_available_partner_banks(self, batch_result, journal):
-        key_values = batch_result['key_values']
-        company = batch_result['lines'].company_id
-
-        # A specific bank account is set on the journal. The user must use this one.
-        if key_values['payment_type'] == 'inbound':
-            # Receiving money on a bank account linked to the journal.
-            return journal.bank_account_id
-        else:
-            # Sending money to a bank account owned by a partner.
-            return batch_result['lines'].partner_id.bank_ids.filtered(lambda x: x.company_id.id in (False, company.id))._origin
-
-    @api.model
     def _get_line_batch_key(self, line):
         ''' Turn the line passed as parameter to a dictionary defining on which way the lines
         will be grouped together.
         :return: A python dictionary.
         '''
         move = line.move_id
-
         partner_bank_account = self.env['res.partner.bank']
+
         if move.is_invoice(include_receipts=True):
             partner_bank_account = move.partner_bank_id._origin
 
         return {
             'partner_id': line.partner_id.id,
             'account_id': line.account_id.id,
-            'currency_id': line.currency_id.id,
+            'currency_id': (line.currency_id or line.company_currency_id).id,
             'partner_bank_id': partner_bank_account.id,
             'partner_type': 'customer' if line.account_internal_type == 'receivable' else 'supplier',
             'payment_type': 'inbound' if line.balance > 0.0 else 'outbound',
@@ -225,7 +173,6 @@ class AccountPaymentRegister(models.TransientModel):
                 'lines': self.env['account.move.line'],
             })
             batches[serialized_key]['lines'] += line
-
         return list(batches.values())
 
     @api.model
@@ -280,6 +227,7 @@ class AccountPaymentRegister(models.TransientModel):
                     'partner_id': False,
                     'partner_type': False,
                     'payment_type': wizard_values_from_batch['payment_type'],
+                    'partner_bank_id': False,
                     'source_currency_id': False,
                     'source_amount': False,
                     'source_amount_currency': False,
@@ -308,40 +256,39 @@ class AccountPaymentRegister(models.TransientModel):
             else:
                 wizard.group_payment = False
 
-    @api.depends('can_edit_wizard', 'company_id')
+    @api.depends('company_id', 'source_currency_id')
     def _compute_journal_id(self):
         for wizard in self:
-            if wizard.can_edit_wizard:
-                batch = wizard._get_batches()[0]
-                wizard.journal_id = wizard._get_batch_journal(batch)
-            else:
-                wizard.journal_id = self.env['account.journal'].search([
-                    ('type', 'in', ('bank', 'cash')),
-                    ('company_id', '=', wizard.company_id.id),
-                ], limit=1)
+            domain = [
+                ('type', 'in', ('bank', 'cash')),
+                ('company_id', '=', wizard.company_id.id),
+            ]
+            journal = None
+            if wizard.source_currency_id:
+                journal = self.env['account.journal'].search(domain + [('currency_id', '=', wizard.source_currency_id.id)], limit=1)
+            if not journal:
+                journal = self.env['account.journal'].search(domain, limit=1)
+            wizard.journal_id = journal
 
-    @api.depends('can_edit_wizard', 'journal_id')
+    @api.depends('company_id', 'can_edit_wizard')
     def _compute_available_partner_bank_ids(self):
         for wizard in self:
             if wizard.can_edit_wizard:
-                batch = wizard._get_batches()[0]
-                wizard.available_partner_bank_ids = wizard._get_batch_available_partner_banks(batch, wizard.journal_id)
+                batches = wizard._get_batches()
+                bank_partners = batches[0]['lines'].move_id.bank_partner_id
+                wizard.available_partner_bank_ids = bank_partners.bank_ids\
+                    .filtered(lambda x: x.company_id.id in (False, wizard.company_id.id))._origin
             else:
-                wizard.available_partner_bank_ids = None
+                wizard.available_partner_bank_ids = False
 
-    @api.depends('journal_id', 'available_partner_bank_ids')
+    @api.depends('available_partner_bank_ids')
     def _compute_partner_bank_id(self):
         for wizard in self:
             if wizard.can_edit_wizard:
-                batch = wizard._get_batches()[0]
-                partner_bank_id = batch['key_values']['partner_bank_id']
-                available_partner_banks = wizard.available_partner_bank_ids._origin
-                if partner_bank_id and partner_bank_id in available_partner_banks.ids:
-                    wizard.partner_bank_id = self.env['res.partner.bank'].browse(partner_bank_id)
-                else:
-                    wizard.partner_bank_id = available_partner_banks[:1]
+                batches = wizard._get_batches()
+                wizard.partner_bank_id = self.env['res.partner.bank'].browse(batches[0]['key_values']['partner_bank_id'])
             else:
-                wizard.partner_bank_id = None
+                wizard.partner_bank_id = False
 
     @api.depends('journal_id')
     def _compute_currency_id(self):
@@ -432,7 +379,7 @@ class AccountPaymentRegister(models.TransientModel):
                         'name': 'available_partner_bank_ids',
                         'invisible': '1',
                     }))
-                    form_view.sudo().write({'arch': etree.tostring(arch_tree, encoding='unicode')})
+                    form_view.arch = etree.tostring(arch_tree, encoding='unicode')
                     return super().fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
 
         return res
@@ -480,7 +427,7 @@ class AccountPaymentRegister(models.TransientModel):
                 raise UserError(_("You can't register payments for journal items being either all inbound, either all outbound."))
 
             res['line_ids'] = [(6, 0, available_lines.ids)]
-
+        
         return res
 
     # -------------------------------------------------------------------------
@@ -512,12 +459,6 @@ class AccountPaymentRegister(models.TransientModel):
 
     def _create_payment_vals_from_batch(self, batch_result):
         batch_values = self._get_wizard_values_from_batch(batch_result)
-
-        if batch_values['payment_type'] == 'inbound':
-            partner_bank_id = self.journal_id.bank_account_id.id
-        else:
-            partner_bank_id = batch_result['key_values']['partner_bank_id']
-
         return {
             'date': self.payment_date,
             'amount': batch_values['source_amount_currency'],
@@ -527,7 +468,7 @@ class AccountPaymentRegister(models.TransientModel):
             'journal_id': self.journal_id.id,
             'currency_id': batch_values['source_currency_id'],
             'partner_id': batch_values['partner_id'],
-            'partner_bank_id': partner_bank_id,
+            'partner_bank_id': batch_result['key_values']['partner_bank_id'],
             'payment_method_id': self.payment_method_id.id,
             'destination_account_id': batch_result['lines'][0].account_id.id
         }

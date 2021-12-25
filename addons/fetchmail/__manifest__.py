@@ -1,5 +1,5 @@
 #-*- coding:utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Email Gateway',
@@ -11,11 +11,11 @@ Retrieve incoming email on POP/IMAP servers.
 ============================================
 
 Enter the parameters of your POP/IMAP account(s), and any incoming emails on
-these accounts will be automatically downloaded into your Odoo system. All
+these accounts will be automatically downloaded into your Flectra system. All
 POP3/IMAP-compatible servers are supported, included those that require an
 encrypted SSL/TLS connection.
 
-This can be used to easily create email-based workflows for many email-enabled Odoo documents, such as:
+This can be used to easily create email-based workflows for many email-enabled Flectra documents, such as:
 ----------------------------------------------------------------------------------------------------------
     * CRM Leads/Opportunities
     * CRM Claims
@@ -26,8 +26,8 @@ This can be used to easily create email-based workflows for many email-enabled O
 Just install the relevant application, and you can assign any of these document
 types (Leads, Project Issues) to your incoming email accounts. New emails will
 automatically spawn new documents of the chosen type, so it's a snap to create a
-mailbox-to-Odoo integration. Even better: these documents directly act as mini
-conversations synchronized by email. You can reply from within Odoo, and the
+mailbox-to-Flectra integration. Even better: these documents directly act as mini
+conversations synchronized by email. You can reply from within Flectra, and the
 answers will automatically be collected when they come back, and attached to the
 same *conversation* document.
 

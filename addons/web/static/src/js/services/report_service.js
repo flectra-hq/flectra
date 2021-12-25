@@ -2,7 +2,7 @@ flectra.define('web.ReportService', function (require) {
 "use strict";
 
 /**
- * This file defines the service for the report generation in Odoo, Flectra.
+ * This file defines the service for the report generation in Flectra.
  */
 
 var AbstractService = require('web.AbstractService');

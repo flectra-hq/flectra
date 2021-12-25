@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Accounting - MRP',
@@ -17,7 +17,7 @@ It adds a button on the product itself but also an action in the list view of th
 If the automated inventory valuation is active, the necessary accounting entries will be created.
 
 """,
-    'website': 'https://www.odoo.com/page/manufacturing',
+    'website': 'https://www.flectrahq.com/page/manufacturing',
     'depends': ['mrp', 'stock_account'],
     "init_xml" : [],
     "demo_xml" : [],

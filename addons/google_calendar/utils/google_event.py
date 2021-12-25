@@ -122,7 +122,7 @@ class GoogleEvent(abc.Set):
 
 
     def owner(self, env):
-        # Owner/organizer could be desynchronised between Google and Odoo, Flectra.
+        # Owner/organizer could be desynchronised between Google and Flectra.
         # Let userA, userB be two new users (never synced to Google before).
         # UserA creates an event in Flectra (he is the owner) but userB syncs first.
         # There is no way to insert the event into userA's calendar since we don't have

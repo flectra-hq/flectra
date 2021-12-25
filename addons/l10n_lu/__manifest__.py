@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 # Copyright (C) 2011 Thamini S.à.R.L (<http://www.thamini.com>)
 # Copyright (C) 2011 ADN Consultants S.à.R.L (<http://www.adn-luxembourg.com>)

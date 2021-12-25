@@ -19,12 +19,12 @@
 
         % if object.program_id.reward_type == 'discount':
             % if object.program_id.discount_type == 'fixed_amount':
-            <span style="font-size: 50px; color: #875A7B; font-weight: bold;">
+            <span style="font-size: 50px; color: #009EFB; font-weight: bold;">
                 ${'%s' % format_amount(object.program_id.discount_fixed_amount, object.program_id.currency_id)}
             </span><br />
             <strong style="font-size: 24px;">off on your next order</strong><br />
             %else
-            <span style="font-size: 50px; color: #875A7B; font-weight: bold;">
+            <span style="font-size: 50px; color: #009EFB; font-weight: bold;">
                 ${object.program_id.discount_percentage} %
             </span>
             % if object.program_id.discount_apply_on == 'specific_products'
@@ -51,12 +51,12 @@
             <br />
             % endif
         % elif object.program_id.reward_type == 'product':
-            <span style="font-size: 36px; color: #875A7B; font-weight: bold;">
+            <span style="font-size: 36px; color: #009EFB; font-weight: bold;">
                 ${'get %s free %s' % (object.program_id.reward_product_quantity, object.program_id.reward_product_id.name)}
             </span><br />
             <strong style="font-size: 24px;">on your next order</strong><br />
         % elif object.program_id.reward_type == 'free_shipping':
-            <span style="font-size: 36px; color: #875A7B; font-weight: bold;">
+            <span style="font-size: 36px; color: #009EFB; font-weight: bold;">
                 get free shipping
             </span><br />
             <strong style="font-size: 24px;">on your next order</strong><br />

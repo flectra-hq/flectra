@@ -106,7 +106,7 @@ class MicrosoftCalendarService():
     def _get_calendar_scope(self):
         return 'offline_access openid Calendars.ReadWrite'
 
-    def _microsoft_authentication_url(self, from_url='http://www.flectra.com'):
+    def _microsoft_authentication_url(self, from_url='http://www.flectrahq.com'):
         return self.microsoft_service._get_authorize_uri(from_url, service='calendar', scope=self._get_calendar_scope())
 
     def _can_authorize_microsoft(self, user):
