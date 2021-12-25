@@ -135,7 +135,7 @@ class AccountJournal(models.Model):
         compute='_compute_inbound_payment_method_ids',
         store=True,
         readonly=False,
-        help="Manual: Get paid by cash, check or any other method outside of Odoo, Flectra.\n"
+        help="Manual: Get paid by cash, check or any other method outside of Flectra.\n"
              "Electronic: Get paid automatically through a payment acquirer by requesting a transaction"
              " on a card saved by the customer when buying or subscribing online (payment token).\n"
              "Batch Deposit: Encase several customer checks at once by generating a batch deposit to"
@@ -152,8 +152,8 @@ class AccountJournal(models.Model):
         compute='_compute_outbound_payment_method_ids',
         store=True,
         readonly=False,
-        help="Manual:Pay bill by cash or any other method outside of Odoo, Flectra.\n"
-             "Check:Pay bill by check and print it from Odoo, Flectra.\n"
+        help="Manual:Pay bill by cash or any other method outside of Flectra.\n"
+             "Check:Pay bill by check and print it from Flectra.\n"
              "SEPA Credit Transfer: Pay bill from a SEPA Credit Transfer file you submit to your"
              " bank. Enable this option from the settings."
     )

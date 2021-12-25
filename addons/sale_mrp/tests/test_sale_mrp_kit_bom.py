@@ -23,14 +23,14 @@ class TestSaleMrpKitBom(TransactionCase):
         #   - Quantity: 3
         #   - Components:
         #     * 2 x Kit B
-        #     * 1 x Component A (Cost: $3, Storable)
+        #     * 1 x Component A (Cost: $3)
         #
         # BoM of Kit B:
         #   - BoM Type: Kit
         #   - Quantity: 10
         #   - Components:
-        #     * 2 x Component B (Cost: $4, Storable)
-        #     * 3 x Component BB (Cost: $5, Consumable)
+        #     * 2 x Component B (Cost: $4)
+        #     * 3 x Component BB (Cost: $5)
         # ----------------------------------------------
 
         self.env.user.company_id.anglo_saxon_accounting = True
@@ -89,8 +89,8 @@ class TestSaleMrpKitBom(TransactionCase):
             'company_id': self.env.user.company_id.id,
         })
 
-        self.component_a = self._create_product('Component A', 'product', 3.00)
-        self.component_b = self._create_product('Component B', 'product', 4.00)
+        self.component_a = self._create_product('Component A', 'consu', 3.00)
+        self.component_b = self._create_product('Component B', 'consu', 4.00)
         self.component_bb = self._create_product('Component BB', 'consu', 5.00)
         self.kit_a = self._create_product('Kit A', 'product', 0.00)
         self.kit_b = self._create_product('Kit B', 'consu', 0.00)
@@ -160,9 +160,9 @@ class TestSaleMrpKitBom(TransactionCase):
         self.assertEqual(len(amls), 4)
         stock_out_aml = amls.filtered(lambda aml: aml.account_id == self.stock_output_account)
         self.assertEqual(stock_out_aml.debit, 0)
-        self.assertAlmostEqual(stock_out_aml.credit, 1.53, "Should not include the value of consumable component")
+        self.assertAlmostEqual(stock_out_aml.credit, 2.53)
         cogs_aml = amls.filtered(lambda aml: aml.account_id == self.expense_account)
-        self.assertAlmostEqual(cogs_aml.debit, 1.53, "Should not include the value of consumable component")
+        self.assertAlmostEqual(cogs_aml.debit, 2.53)
         self.assertEqual(cogs_aml.credit, 0)
 
     def test_reset_avco_kit(self):

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'SMS gateway',
@@ -10,7 +10,7 @@
 This module gives a framework for SMS text messaging
 ----------------------------------------------------
 
-The service is provided by the In App Purchase Odoo platform.
+The service is provided by the In App Purchase Flectra platform.
 """,
     'depends': [
         'base',

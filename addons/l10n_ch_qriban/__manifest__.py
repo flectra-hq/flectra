@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': "Switzerland - QR-IBAN",
     'description': """
@@ -11,7 +11,7 @@ However, if the new QR-IBAN field is filled, the value will be used as the QR-IB
 This should help for reconciliation on the bank statements where the old IBAN code is still used.
     """,
     'version': '1.0',
-    'author': 'Odoo S.A',
+    'author': 'FlectraHQ Inc., Odoo S.A',
     'category': 'Hidden',
     'depends': ['l10n_ch'],
     'data': [

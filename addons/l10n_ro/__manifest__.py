@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 # @author -  Fekete Mihai <feketemihai@gmail.com>, Tatár Attila <atta@nvm.ro>
 # Copyright (C) 2019 NextERP Romania (https://nexterp.ro)
@@ -20,7 +20,7 @@
     ],
     "description": """
 This is the module to manage the Accounting Chart, VAT structure, Fiscal Position and Tax Mapping.
-It also adds the Registration Number for Romania in Odoo.
+It also adds the Registration Number for Romania in Flectra.
 ================================================================================================================
 
 Romanian accounting chart and localization.

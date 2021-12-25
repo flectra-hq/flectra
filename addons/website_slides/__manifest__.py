@@ -4,7 +4,7 @@
     'version': '2.2',
     'sequence': 125,
     'summary': 'Manage and publish an eLearning platform',
-    'website': 'https://www.odoo.com/page/slides',
+    'website': 'https://www.flectrahq.com/page/slides',
     'category': 'Website/eLearning',
     'description': """
 Create Online Courses

@@ -103,13 +103,13 @@ class TestMassMailing(TestMailFullCommon):
                 mail_links_info=[[
                     ('url0', 'https://www.flectra.tz/my/%s' % recipient.name, True, {}),
                     ('url1', 'https://www.flectra.be', True, {}),
-                    ('url2', 'https://www.flectra.com', True, {}),
+                    ('url2', 'https://www.flectrahq.com', True, {}),
                     ('url3', 'https://www.flectra.eu', True, {}),
                     ('url4', 'https://www.example.com/foo/bar?baz=qux', True, {'baz': 'qux'}),
                     ('url5', '%s/event/dummy-event-0' % mailing.get_base_url(), True, {}),
                     # view is not shortened and parsed at sending
                     ('url6', '%s/view' % mailing.get_base_url(), False, {}),
-                    ('url7', 'mailto:test@flectra.com', False, {}),
+                    ('url7', 'mailto:test@flectrahq.com', False, {}),
                     # unsubscribe is not shortened and parsed at sending
                     ('url8', '%s/unsubscribe_from_list' % mailing.get_base_url(), False, {}),
                 ]],

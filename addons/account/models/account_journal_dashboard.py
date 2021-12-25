@@ -131,7 +131,7 @@ class account_journal(models.Model):
             data[:0] = [build_graph_data(last_month, amount)]
 
         [graph_title, graph_key] = self._graph_title_and_key()
-        color = '#875A7B' if 'e' in version else '#7c7bad'
+        color = '#009EFB' if 'e' in version else '#7c7bad'
 
         is_sample_data = not last_stmt and len(query_result) == 0
         if is_sample_data:
@@ -231,9 +231,9 @@ class account_journal(models.Model):
             last_balance = last_statement.balance_end
             has_at_least_one_statement = bool(last_statement)
             bank_account_balance, nb_lines_bank_account_balance = self._get_journal_bank_account_balance(
-                domain=[('parent_state', '=', 'posted')])
+                domain=[('move_id.state', '=', 'posted')])
             outstanding_pay_account_balance, nb_lines_outstanding_pay_account_balance = self._get_journal_outstanding_payments_account_balance(
-                domain=[('parent_state', '=', 'posted')])
+                domain=[('move_id.state', '=', 'posted')])
 
             self._cr.execute('''
                 SELECT COUNT(st_line.id)

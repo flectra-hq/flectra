@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 
 {
@@ -15,7 +15,7 @@ This module aims to manage employee's attendances.
 Keeps account of the attendances of the employees on the basis of the
 actions(Check in/Check out) performed by them.
        """,
-    'website': 'https://www.odoo.com/page/employees',
+    'website': 'https://www.flectrahq.com/page/employees',
     'depends': ['hr', 'barcodes'],
     'data': [
         'security/hr_attendance_security.xml',

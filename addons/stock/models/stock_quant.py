@@ -6,7 +6,7 @@ import logging
 from psycopg2 import Error, OperationalError
 
 from flectra import _, api, fields, models
-from flectra.exceptions import RedirectWarning, UserError, ValidationError
+from flectra.exceptions import UserError, ValidationError
 from flectra.osv import expression
 from flectra.tools.float_utils import float_compare, float_is_zero, float_round
 
@@ -472,16 +472,7 @@ class StockQuant(models.Model):
             # if we want to unreserve
             available_quantity = sum(quants.mapped('reserved_quantity'))
             if float_compare(abs(quantity), available_quantity, precision_rounding=rounding) > 0:
-                action_fix_unreserve = self.env.ref(
-                    'stock.stock_quant_stock_move_line_desynchronization', raise_if_not_found=False)
-                if action_fix_unreserve and self.user_has_groups('base.group_system'):
-                    raise RedirectWarning(
-                        _("""It is not possible to unreserve more products of %s than you have in stock.
-The correction could unreserve some operations with problematics products.""", product_id.display_name),
-                        action_fix_unreserve.id,
-                        _('Automated action to fix it'))
-                else:
-                    raise UserError(_('It is not possible to unreserve more products of %s than you have in stock. Contact an administrator.', product_id.display_name))
+                raise UserError(_('It is not possible to unreserve more products of %s than you have in stock.', product_id.display_name))
         else:
             return reserved_quants
 

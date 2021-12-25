@@ -286,14 +286,14 @@ class TestMassMailFeatures(MassMailCommon):
             'subject': 'TestShortener',
             'body_html': """<div>
 Hi,
-% set url = "www.flectra.com"
+% set url = "www.flectrahq.com"
 % set httpurl = "https://www.flectra.eu"
 Website0: <a id="url0" href="https://www.flectra.tz/my/${object.name}">https://www.flectra.tz/my/${object.name}</a>
 Website1: <a id="url1" href="https://www.flectra.be">https://www.flectra.be</a>
 Website2: <a id="url2" href="https://${url}">https://${url}</a>
 Website3: <a id="url3" href="${httpurl}">${httpurl}</a>
 External1: <a id="url4" href="https://www.example.com/foo/bar?baz=qux">Youpie</a>
-Email: <a id="url5" href="mailto:test@flectra.com">test@flectra.com</a></div>""",
+Email: <a id="url5" href="mailto:test@flectrahq.com">test@flectrahq.com</a></div>""",
             'mailing_model_id': self.env['ir.model']._get('mailing.list').id,
             'reply_to_mode': 'email',
             'reply_to': self.email_reply_to,
@@ -317,10 +317,10 @@ Email: <a id="url5" href="mailto:test@flectra.com">test@flectra.com</a></div>"""
             new_mail = self._find_mail_mail_wrecord(contact)
             for link_info in [('url0', 'https://www.flectra.tz/my/%s' % contact.name, True),
                               ('url1', 'https://www.flectra.be', True),
-                              ('url2', 'https://www.flectra.com', True),
+                              ('url2', 'https://www.flectrahq.com', True),
                               ('url3', 'https://www.flectra.eu', True),
                               ('url4', 'https://www.example.com/foo/bar?baz=qux', True),
-                              ('url5', 'mailto:test@flectra.com', False)]:
+                              ('url5', 'mailto:test@flectrahq.com', False)]:
                 # TDE FIXME: why going to mail message id ? mail.body_html seems to fail, check
                 link_params = {'utm_medium': 'Email', 'utm_source': mailing.name}
                 if link_info[0] == 'url4':

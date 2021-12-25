@@ -193,7 +193,6 @@ flectra.define('website_form.s_website_form', function (require) {
                     }
                     switch (successMode) {
                         case 'redirect':
-                            successPage = successPage.startsWith("/#") ? successPage.slice(1) : successPage;
                             if (successPage.charAt(0) === "#") {
                                 dom.scrollTo($(successPage)[0], {
                                     duration: 500,

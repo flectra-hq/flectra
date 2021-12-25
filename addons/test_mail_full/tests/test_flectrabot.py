@@ -24,7 +24,7 @@ class TestFlectrabot(TestMailCommon, TestRecipients):
             'partner_ids': [],
             'subtype_xmlid': 'mail.mt_comment'
         }
-        cls.flectrabot_ping_body = '<a href="http://flectra.com/web#model=res.partner&amp;id=%s" class="o_mail_redirect" data-oe-id="%s" data-oe-model="res.partner" target="_blank">@FlectraBot</a>' % (cls.flectrabot.id, cls.flectrabot.id)
+        cls.flectrabot_ping_body = '<a href="http://flectrahq.com/web#model=res.partner&amp;id=%s" class="o_mail_redirect" data-oe-id="%s" data-oe-model="res.partner" target="_blank">@FlectraBot</a>' % (cls.flectrabot.id, cls.flectrabot.id)
         cls.test_record_employe = cls.test_record.with_user(cls.user_employee)
 
     @mute_logger('flectra.addons.mail.models.mail_mail')

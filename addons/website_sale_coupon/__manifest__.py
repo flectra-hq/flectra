@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': "Coupons & Promotions for eCommerce",
     'summary': """Use coupon & promotion programs in your eCommerce store""",

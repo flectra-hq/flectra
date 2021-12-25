@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name' : 'Fleet',
     'version' : '0.1',
     'sequence': 185,
     'category': 'Human Resources/Fleet',
-    'website' : 'https://www.odoo.com/page/fleet',
+    'website' : 'https://www.flectrahq.com/page/fleet',
     'summary' : 'Manage your fleet and track car costs',
     'description' : """
 Vehicle, leasing, insurances, cost
 ==================================
-With this module, Odoo helps you managing all your vehicles, the
+With this module, Flectra helps you managing all your vehicles, the
 contracts associated to those vehicle as well as services, costs
 and many other features necessary to the management of your fleet
 of vehicle(s)

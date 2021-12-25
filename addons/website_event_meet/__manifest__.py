@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 
 {
@@ -8,7 +8,7 @@
     'sequence': 1002,
     'version': '1.0',
     'summary': 'Event: meeting and chat rooms',
-    'website': 'https://www.odoo.com/page/events',
+    'website': 'https://www.flectrahq.com/page/events',
     'description': "",
     'depends': [
         'website_event',

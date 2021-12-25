@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Google Drive™ integration',
@@ -20,10 +20,10 @@
     ],
     'depends': ['base_setup', 'google_account'],
     'description': """
-Integrate google document to Odoo record.
+Integrate google document to Flectra record.
 ============================================
 
-This module allows you to integrate google documents to any of your Odoo record quickly and easily using OAuth 2.0 for Installed Applications,
+This module allows you to integrate google documents to any of your Flectra record quickly and easily using OAuth 2.0 for Installed Applications,
 You can configure your google Authorization Code from Settings > Configuration > General Settings by clicking on "Generate Google Authorization Code"
 """,
     'license': 'LGPL-3',

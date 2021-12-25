@@ -43,7 +43,7 @@ var AbstractFieldUpgrade = {
                 args: [[["share", "=", false]]],
             })
             .then(function (data) {
-                framework.redirect("https://www.flectra.com/flectra-enterprise/upgrade?num_users=" + data);
+                framework.redirect("https://www.flectrahq.com/flectra-enterprise/upgrade?num_users=" + data);
             });
     },
     /**

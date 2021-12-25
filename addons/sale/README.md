@@ -1,7 +1,7 @@
 Sales Management Made Easy
 --------------------------
 
-From quotes to invoices, in just a few clicks with the Odoo <a href="https://www.odoo.com/page/crm">Sales Management</a>.
+From quotes to invoices, in just a few clicks with the Flectra <a href="https://www.flectrahq.com/page/crm">Sales Management</a>.
 
 Drive your sales operations from quotes to invoices with all the information
 you need, easily accessible. Keep track of long term contracts, automate
@@ -44,7 +44,7 @@ Fully Integrated Invoicing
 --------------------------
 
 Whether you invoice based on time and materials, on delivery orders or fixed
-price; Odoo supports all possible methods.
+price; Flectra supports all possible methods.
 
 Get recurring invoices produced automatically, create advances in just a few
 clicks, re-invoices expenses easily, etc.
@@ -61,7 +61,7 @@ Communicate Efficiently With Customers
 
 The chatter feature enables you to communicate faster and more efficiently with
 your customer. This takes place directly on a quotation or sale order from
-within Odoo or via email.
+within Flectra or via email.
 
 Get all the negotiations and discussions attached to the right document and
 relevent managers notified on specific events.

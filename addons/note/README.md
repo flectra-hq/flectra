@@ -1,7 +1,7 @@
-Odoo Notes
+Flectra Notes
 ----------
 
-Organize yourself with efficient <a href="https://www.odoo.com/page/notes">todo lists and notes</a>.
+Organize yourself with efficient <a href="https://www.flectrahq.com/page/notes">todo lists and notes</a>.
 From personal tasks to collaborative meeting minutes, increase your user's
 productivity by giving them the tools to prioritize their work, share their
 ideas and collaborate on documents.
@@ -28,7 +28,7 @@ Adapts to Your Creative Process
 
 ### Customize to your own workflow
 
-Everyone has their own way to organize activities. Odoo Notes' smart kanban approach allows every user to customize their own steps to process it's to-dos and notes.
+Everyone has their own way to organize activities. Flectra Notes' smart kanban approach allows every user to customize their own steps to process it's to-dos and notes.
 
 ### A Creative Person
 

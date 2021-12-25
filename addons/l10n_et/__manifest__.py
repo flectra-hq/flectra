@@ -1,5 +1,5 @@
 #-*- coding:utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 # Copyright (C) 2012 Michael Telahun Makonnen <mmakonnen@gmail.com>.
 
@@ -11,7 +11,7 @@
 Base Module for Ethiopian Localization
 ======================================
 
-This is the latest Ethiopian Odoo localization and consists of:
+This is the latest Ethiopian Flectra localization and consists of:
     - Chart of Accounts
     - VAT tax structure
     - Withholding tax structure

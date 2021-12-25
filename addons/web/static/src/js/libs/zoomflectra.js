@@ -77,7 +77,7 @@ function ZoomFlectra(target, options) {
  * Init
  * @private
  */
-ZoomOdoo, Flectra.prototype._init = function () {
+ZoomFlectra.prototype._init = function () {
     if (window.outerWidth > 467 || !this.opts.disabledOnMobile) {
         this.$link  = this.$target.find(this.opts.linkTag).length && this.$target.find(this.opts.linkTag) || this.$target;
         this.$image  = this.$target.find('img').length && this.$target.find('img') || this.$target;
@@ -105,7 +105,7 @@ ZoomOdoo, Flectra.prototype._init = function () {
  * @param {MouseEvent|TouchEvent} e
  * @param {Boolean} testMouseOver (Optional)
  */
-ZoomOdoo, Flectra.prototype.show = function (e, testMouseOver) {
+ZoomFlectra.prototype.show = function (e, testMouseOver) {
     var w1, h1, w2, h2;
     var self = this;
 
@@ -217,7 +217,7 @@ ZoomOdoo, Flectra.prototype.show = function (e, testMouseOver) {
  * @private
  * @param {Event} e
  */
-ZoomOdoo, Flectra.prototype._onEnter = function (e) {
+ZoomFlectra.prototype._onEnter = function (e) {
     var self = this;
     var touches = e.originalEvent.touches;
     e.preventDefault();
@@ -236,7 +236,7 @@ ZoomOdoo, Flectra.prototype._onEnter = function (e) {
  * @private
  * @param {Event} e
  */
-ZoomOdoo, Flectra.prototype._onMove = function (e) {
+ZoomFlectra.prototype._onMove = function (e) {
     if (!this.isOpen) return;
 
     e.preventDefault();
@@ -247,7 +247,7 @@ ZoomOdoo, Flectra.prototype._onMove = function (e) {
  * On leave
  * @private
  */
-ZoomOdoo, Flectra.prototype._onLeave = function () {
+ZoomFlectra.prototype._onLeave = function () {
     this.isMouseOver = false;
     if (this.isOpen) {
         this.hide();
@@ -259,7 +259,7 @@ ZoomOdoo, Flectra.prototype._onLeave = function () {
  * @private
  * @param {Event} e
  */
-ZoomOdoo, Flectra.prototype._onLoad = function (e) {
+ZoomFlectra.prototype._onLoad = function (e) {
     // IE may fire a load event even on error so test the image dimensions
     if (!e.currentTarget.width) return;
 
@@ -278,7 +278,7 @@ ZoomOdoo, Flectra.prototype._onLoad = function (e) {
  * @param {String} href
  * @param {Function} callback
  */
-ZoomOdoo, Flectra.prototype._loadImage = function (href, callback) {
+ZoomFlectra.prototype._loadImage = function (href, callback) {
     var zoom = new Image();
 
     this.$zoom = $(zoom).on('load', callback, $.proxy(this._onLoad, this));
@@ -292,7 +292,7 @@ ZoomOdoo, Flectra.prototype._loadImage = function (href, callback) {
  * @private
  * @param {Event} e
  */
-ZoomOdoo, Flectra.prototype._move = function (e) {
+ZoomFlectra.prototype._move = function (e) {
     if (e.type.indexOf('touch') === 0) {
         var touchlist = e.touches || e.originalEvent.touches;
         lx = touchlist[0].pageX;
@@ -328,7 +328,7 @@ ZoomOdoo, Flectra.prototype._move = function (e) {
 /**
  * Hide
  */
-ZoomOdoo, Flectra.prototype.hide = function () {
+ZoomFlectra.prototype.hide = function () {
     if (!this.isOpen) return;
     if (this.opts.beforeHide.call(this) === false) return;
 

@@ -5,7 +5,7 @@ flectra.define('web.concurrency', function (require) {
  * Concurrency Utils
  *
  * This file contains a short collection of useful helpers designed to help with
- * everything concurrency related in Odoo, Flectra.
+ * everything concurrency related in Flectra.
  *
  * The basic concurrency primitives in Flectra JS are the callback, and the
  * promises.  Promises (promise) are more composable, so we usually use them

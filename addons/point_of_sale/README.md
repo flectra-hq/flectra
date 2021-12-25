@@ -1,7 +1,7 @@
-Odoo Point of Sale
+Flectra Point of Sale
 -----------------------------
 
-Odoo's <a href="https://www.odoo.com/page/point-of-sale">Point of Sale</a>
+Flectra's <a href="https://www.flectrahq.com/page/point-of-sale">Point of Sale</a>
 introduces a super clean interface with no installation required that runs
 online and offline on modern hardwares.
 
@@ -14,7 +14,7 @@ Work with the hardware you already have
 
 ### In your web browser
 
-Odoo's POS is a web application that can run on any device that can display
+Flectra's POS is a web application that can run on any device that can display
 websites with little to no setup required.
 
 ### Touchscreen or Keyboard ?
@@ -32,7 +32,7 @@ API.
 Online and Offline
 ------------------
 
-### Odoo's POS stays reliable even if your connection isn't
+### Flectra's POS stays reliable even if your connection isn't
 
 Deploy new stores with just an internet connection: **no installation, no
 specific hardware required**. It works with any **iPad, Tablet PC, laptop** or
@@ -47,7 +47,7 @@ A super clean user interface
 
 ### Simple and beautiful
 
-Say goodbye to ugly, outdated POS software and enjoy the Odoo web interface
+Say goodbye to ugly, outdated POS software and enjoy the Flectra web interface
 designed for modern retailer.
 
 ### Designed for Productivity
@@ -81,7 +81,7 @@ Invoicing & Accounting Integration
 ----------------------------------
 
 Produce customer invoices in just a few clicks. Control sales and cash in real
-time and use Odoo's powerful reporting to make smarter decisions to improve
+time and use Flectra's powerful reporting to make smarter decisions to improve
 your store's efficiency.
 
 No more hassle of having to integrate softwares: get all your sales and
@@ -94,7 +94,7 @@ Get new products, pricing strategies and promotions applied automatically to
 selected stores. Work on a unified customer base. No complex interface is
 required to pilot a global strategy amongst all your stores.
 
-With Odoo as a backend, you have a system proven to be perfectly suitable for
+With Flectra as a backend, you have a system proven to be perfectly suitable for
 small stores or large multinationals.
 
 Know your customers - in store and out
@@ -104,6 +104,6 @@ Successful brands integrates all their customer relationship accross all their
 channels to develop accurate customer profile and communicate with shoppers as
 they make buying decisions, in store or online.
 
-With Odoo, you get a 360° customer view, including cross-channel sales,
+With Flectra, you get a 360° customer view, including cross-channel sales,
 interaction history, profiles, and more.
 

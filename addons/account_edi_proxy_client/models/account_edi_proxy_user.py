@@ -17,7 +17,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-SERVER_URL = 'https://l10n-it-edi.api.flectra.com'
+SERVER_URL = 'https://l10n-it-edi.api.flectrahq.com'
 TIMEOUT = 30
 
 
