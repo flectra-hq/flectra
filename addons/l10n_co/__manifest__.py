@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 # Copyright (C) David Arnold (XOE Solutions).
 # Author        David Arnold (XOE Solutions), dar@xoe.solutions
@@ -14,7 +14,7 @@
     'category': 'Accounting/Localizations/Account Charts',
     'description': 'Colombian Accounting and Tax Preconfiguration',
     'author': 'David Arnold (XOE Solutions)',
-    'website': 'https://www.flectrahq.com/colombia',
+    'website': 'https://www.odoo.com/colombia',
     'depends': [
         'account',
         'base_address_city',

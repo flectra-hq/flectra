@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': "Sale Coupon Delivery",
     'summary': """Allows to offer free shippings in coupon reward""",

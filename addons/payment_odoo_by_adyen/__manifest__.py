@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'Flectra Payments by Adyen Payment Acquirer',
+    'name': 'Odoo Payments by Adyen Payment Acquirer',
     'category': 'Accounting/Payment Acquirers',
     'sequence': 330,
-    'summary': 'Payment Acquirer: Flectra Payments by Adyen',
+    'summary': 'Payment Acquirer: Odoo Payments by Adyen',
     'version': '1.0',
-    'description': """Flectra Payments by Adyen""",
+    'description': """Odoo Payments by Adyen""",
     'depends': ['payment', 'adyen_platforms'],
     'data': [
         'views/payment_views.xml',

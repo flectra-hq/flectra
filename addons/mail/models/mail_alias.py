@@ -34,7 +34,7 @@ class Alias(models.Model):
     def _default_alias_domain(self):
         return self.env["ir.config_parameter"].sudo().get_param("mail.catchall.domain")
 
-    alias_name = fields.Char('Alias Name', copy=False, help="The name of the email alias, e.g. 'jobs' if you want to catch emails for <jobs@example.flectrahq.com>")
+    alias_name = fields.Char('Alias Name', copy=False, help="The name of the email alias, e.g. 'jobs' if you want to catch emails for <jobs@example.flectra.com>")
     alias_model_id = fields.Many2one('ir.model', 'Aliased Model', required=True, ondelete="cascade",
                                      help="The model (Flectra Document Kind) to which this alias "
                                           "corresponds. Any incoming email that does not reply to an "
@@ -124,7 +124,7 @@ class Alias(models.Model):
     def name_get(self):
         """Return the mail alias display alias_name, including the implicit
            mail catchall domain if exists from config otherwise "New Alias".
-           e.g. `jobs@mail.flectrahq.com` or `jobs` or 'New Alias'
+           e.g. `jobs@mail.flectra.com` or `jobs` or 'New Alias'
         """
         res = []
         for record in self:

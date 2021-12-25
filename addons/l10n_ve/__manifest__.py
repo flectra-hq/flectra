@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 #    Module programed and financed by:
 #    Vauxoo, C.A. (<http://vauxoo.com>).
@@ -8,7 +8,7 @@
 
 {
     'name' : 'Venezuela - Accounting',
-    'author': ['FlectraHQ Inc., Odoo S.A.', 'Vauxoo'],
+    'author': ['Odoo S.A.', 'Vauxoo'],
     'category': 'Accounting/Localizations/Account Charts',
     'description':
 """
@@ -16,16 +16,16 @@ Chart of Account for Venezuela.
 ===============================
 
 Venezuela doesn't have any chart of account by law, but the default
-proposed in Flectra should comply with some Accepted best practices in Venezuela,
+proposed in Odoo should comply with some Accepted best practices in Venezuela,
 this plan comply with this practices.
 
 This module has been tested as base for more of 1000 companies, because
 it is based in a mixtures of most common software in the Venezuelan
 market what will allow for sure to accountants feel them first steps with
-Flectra more comfortable.
+Odoo more comfortable.
 
 This module doesn't pretend be the total localization for Venezuela,
-but it will help you to start really quickly with Flectra in this country.
+but it will help you to start really quickly with Odoo in this country.
 
 This module give you.
 ---------------------

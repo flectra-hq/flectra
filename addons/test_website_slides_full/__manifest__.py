@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Test Full eLearning Flow',
     'version': '1.0',
     'category': 'Hidden/Tests',
     'description': """
-This module will test the main certification flow of Flectra.
+This module will test the main certification flow of Odoo.
 It will install the e-learning, survey and e-commerce apps and make a complete
 certification flow including purchase, certification, failure and success.
 """,

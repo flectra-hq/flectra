@@ -23,7 +23,7 @@ _logger = logging.getLogger(__name__)
 # API requests are sent to Google Calendar after the current transaction ends.
 # This ensures changes are sent to Google only if they really happened in the Flectra database.
 # It is particularly important for event creation , otherwise the event might be created
-# twice in Google if the first creation crashed in Flectra.
+# twice in Google if the first creation crashed in Odoo, Flectra.
 def after_commit(func):
     @wraps(func)
     def wrapped(self, *args, **kwargs):
@@ -142,7 +142,7 @@ class GoogleSync(models.AbstractModel):
 
     @api.model
     def _sync_google2flectra(self, google_events: GoogleEvent, default_reminders=()):
-        """Synchronize Google recurrences in Flectra. Creates new recurrences, updates
+        """Synchronize Google recurrences in Odoo, Flectra. Creates new recurrences, updates
         existing ones.
 
         :param google_recurrences: Google recurrences to synchronize in Flectra

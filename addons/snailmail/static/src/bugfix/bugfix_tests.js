@@ -4,7 +4,7 @@ flectra.define('snailmail/static/src/bugfix/bugfix_tests.js', function (require)
 /**
  * This file allows introducing new QUnit test modules without contaminating
  * other test files. This is useful when bug fixing requires adding new
- * components for instance in stable versions of Flectra. Any test that is defined
+ * components for instance in stable versions of Odoo, Flectra. Any test that is defined
  * in this file should be isolated in its own file in master.
  */
 QUnit.module('snailmail', {}, function () {

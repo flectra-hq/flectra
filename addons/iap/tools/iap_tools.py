@@ -14,7 +14,7 @@ from flectra.tools import pycompat
 
 _logger = logging.getLogger(__name__)
 
-DEFAULT_ENDPOINT = 'https://iap.flectrahq.com'
+DEFAULT_ENDPOINT = 'https://iap.flectra.com'
 
 
 # We need to mock iap_jsonrpc during tests as we don't want to perform real calls to RPC endpoints

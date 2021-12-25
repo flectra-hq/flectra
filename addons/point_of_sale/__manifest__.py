@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Point of Sale',
@@ -120,6 +120,6 @@
         'static/src/xml/ChromeWidgets/ClientScreenButton.xml',
         'static/src/xml/Misc/MobileOrderWidget.xml',
     ],
-    'website': 'https://www.flectrahq.com/page/point-of-sale-shop',
+    'website': 'https://www.odoo.com/page/point-of-sale-shop',
     'license': 'LGPL-3',
 }

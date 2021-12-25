@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Mail Client Extension',
@@ -8,7 +8,7 @@
     'sequence': 5,
     'summary': 'Turn emails received in your Outlook mailbox into leads and log their content as internal notes.',
     'description': "Turn emails received in your Outlook mailbox into leads and log their content as internal notes.",
-    'website': 'https://www.flectrahq.com/page/crm',
+    'website': 'https://www.odoo.com/page/crm',
     'depends': [
         'web',
         'crm',

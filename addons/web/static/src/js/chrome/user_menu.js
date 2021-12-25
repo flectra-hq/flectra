@@ -70,7 +70,7 @@ var UserMenu = Widget.extend({
                     })
                     .guardedCatch(function (result, ev){
                         ev.preventDefault();
-                        framework.redirect('https://accounts.flectrahq.com/account');
+                        framework.redirect('https://accounts.flectra.com/account');
                     });
             },
         });
@@ -79,7 +79,7 @@ var UserMenu = Widget.extend({
      * @private
      */
     _onMenuDocumentation: function () {
-        window.open('https://doc.flectrahq.com/2.0', '_blank');
+        window.open('https://www.flectra.com/documentation/14.0', '_blank');
     },
     /**
      * @private
@@ -112,7 +112,7 @@ var UserMenu = Widget.extend({
      * @private
      */
     _onMenuSupport: function () {
-        window.open('https://www.flectrahq.com/buy', '_blank');
+        window.open('https://www.flectra.com/buy', '_blank');
     },
     /**
      * @private

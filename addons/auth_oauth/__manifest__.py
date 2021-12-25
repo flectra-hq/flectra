@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'OAuth2 Authentication',
@@ -8,7 +8,7 @@
 Allow users to login through OAuth2 Provider.
 =============================================
 """,
-    'maintainer': 'FlectraHQ Inc., Odoo S.A.',
+    'maintainer': 'Odoo S.A.',
     'depends': ['base', 'web', 'base_setup', 'auth_signup'],
     'data': [
         'data/auth_oauth_data.xml',

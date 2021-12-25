@@ -4,7 +4,7 @@
     'summary': 'Generate trackable & short URLs',
     'description': """
 Generate short links with analytics trackers (UTM) to share your pages through marketing campaigns.
-Those trackers can be used in Google Analytics to track clicks and visitors, or in Flectra reports to analyze the efficiency of those campaigns in terms of lead generation, related revenues (sales orders), recruitment, etc.
+Those trackers can be used in Google Analytics to track clicks and visitors, or in Odoo reports to analyze the efficiency of those campaigns in terms of lead generation, related revenues (sales orders), recruitment, etc.
     """,
     'version': '1.0',
     'depends': ['website', 'link_tracker'],

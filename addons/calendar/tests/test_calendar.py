@@ -23,7 +23,7 @@ class TestCalendar(SavepointCaseWithUserDemo):
             'stop': '2011-04-30 18:30:00',
             'description': 'The Technical Presentation will cover following topics:\n* Creating Flectra class\n* Views\n* Wizards\n* Workflows',
             'duration': 2.5,
-            'location': 'FlectraHQ Inc., Odoo S.A.',
+            'location': 'Flectra S.A.',
             'name': 'Technical Presentation'
         })
 

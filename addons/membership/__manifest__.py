@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 
 {
@@ -29,6 +29,6 @@ invoice and send propositions for membership renewal.
         'views/partner_views.xml',
         'report/report_membership_views.xml',
     ],
-    'website': 'https://www.flectrahq.com/page/community-builder',
+    'website': 'https://www.odoo.com/page/community-builder',
     'license': 'LGPL-3',
 }

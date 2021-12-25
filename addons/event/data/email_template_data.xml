@@ -54,7 +54,7 @@
                 </td><td valign="middle" align="right">
                     % if is_online
                     <a href="${object.event_id.website_url}"
-                        style="padding: 8px 12px; font-size: 12px; color: #FFFFFF; text-decoration: none !important; font-weight: 400; background-color: #009EFB; border: 0px solid #009EFB; border-radius:3px">
+                        style="padding: 8px 12px; font-size: 12px; color: #FFFFFF; text-decoration: none !important; font-weight: 400; background-color: #875A7B; border: 0px solid #875A7B; border-radius:3px">
                         View Event
                     </a>
                     % else
@@ -76,7 +76,7 @@
                         Hello ${object.name or ''},<br/>
                         We are happy to confirm your registration to the event
                         % if is_online:
-                            <a href="${object.event_id.website_url}" style="color:#009EFB;text-decoration:none;">${object.event_id.name}</a>
+                            <a href="${object.event_id.website_url}" style="color:#875A7B;text-decoration:none;">${object.event_id.name}</a>
                         % else:
                             <strong>${object.event_id.name}</strong>
                         % endif
@@ -85,9 +85,9 @@
                     <div>
                         <br />
                         <strong>Add this event to your calendar</strong>
-                        <a href="https://www.google.com/calendar/render?action=TEMPLATE&amp;text=${object.event_id.name}&amp;dates=${date_begin}/${date_end}&amp;location=${location}" style="padding:3px 5px;border:1px solid #009EFB;color:#009EFB;text-decoration:none;border-radius:3px;" target="new"><img src="/web_editor/font_to_img/61525/rgb(135,90,123)/16" style="vertical-align:middle;" height="16" alt=""/> Google</a>
-                        <a href="/event/${slug(object.event_id)}/ics" style="padding:3px 5px;border:1px solid #009EFB;color:#009EFB;text-decoration:none;border-radius:3px;"><img src="/web_editor/font_to_img/61525/rgb(135,90,123)/16" style="vertical-align:middle;" height="16" alt=""/> iCal/Outlook</a>
-                        <a href="https://calendar.yahoo.com/?v=60&amp;view=d&amp;type=20&amp;title=${object.event_id.name}&amp;in_loc=${location}&amp;st=${format_datetime(object.event_id.date_begin, tz='UTC', dt_format='yyyyMMdd\'T\'HHmmss')}&amp;et=${format_datetime(object.event_id.date_end, tz='UTC', dt_format='yyyyMMdd\'T\'HHmmss')}" style="padding:3px 5px;border:1px solid #009EFB;color:#009EFB;text-decoration:none;border-radius:3px;" target="new">
+                        <a href="https://www.google.com/calendar/render?action=TEMPLATE&amp;text=${object.event_id.name}&amp;dates=${date_begin}/${date_end}&amp;location=${location}" style="padding:3px 5px;border:1px solid #875A7B;color:#875A7B;text-decoration:none;border-radius:3px;" target="new"><img src="/web_editor/font_to_img/61525/rgb(135,90,123)/16" style="vertical-align:middle;" height="16" alt=""/> Google</a>
+                        <a href="/event/${slug(object.event_id)}/ics" style="padding:3px 5px;border:1px solid #875A7B;color:#875A7B;text-decoration:none;border-radius:3px;"><img src="/web_editor/font_to_img/61525/rgb(135,90,123)/16" style="vertical-align:middle;" height="16" alt=""/> iCal/Outlook</a>
+                        <a href="https://calendar.yahoo.com/?v=60&amp;view=d&amp;type=20&amp;title=${object.event_id.name}&amp;in_loc=${location}&amp;st=${format_datetime(object.event_id.date_begin, tz='UTC', dt_format='yyyyMMdd\'T\'HHmmss')}&amp;et=${format_datetime(object.event_id.date_end, tz='UTC', dt_format='yyyyMMdd\'T\'HHmmss')}" style="padding:3px 5px;border:1px solid #875A7B;color:#875A7B;text-decoration:none;border-radius:3px;" target="new">
                             <img src="/web_editor/font_to_img/61525/rgb(135,90,123)/16" style="vertical-align:middle;" height="16" alt=""/> Yahoo
                         </a>
                         <br /><br />
@@ -182,7 +182,7 @@
                         <ul>
                             <li>${event_organizer.name}</li>
                             % if event_organizer.email
-                                <li>Mail: <a href="mailto:${event_organizer.email}" style="text-decoration:none;color:#009EFB;">${event_organizer.email}</a></li>
+                                <li>Mail: <a href="mailto:${event_organizer.email}" style="text-decoration:none;color:#875A7B;">${event_organizer.email}</a></li>
                             % endif
                             % if event_organizer.phone
                                 <li>Phone: ${event_organizer.phone}</li>
@@ -237,7 +237,7 @@
     % if object.company_id
     <table width="590" border="0" cellpadding="0" cellspacing="0" style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;">
       <tr><td style="text-align: center; font-size: 14px;">
-        Sent by <a target="_blank" href="${object.company_id.website}" style="color: #009EFB;">${object.company_id.name}</a>
+        Sent by <a target="_blank" href="${object.company_id.website}" style="color: #875A7B;">${object.company_id.name}</a>
         % if is_online:
         <br />
         Discover <a href="/event" style="text-decoration:none;color:#717188;">all our events</a>.
@@ -278,7 +278,7 @@
                 </td><td valign="middle" align="right">
                     % if is_online
                     <a href="${object.event_id.website_url}"
-                        style="padding: 8px 12px; font-size: 12px; color: #FFFFFF; text-decoration: none !important; font-weight: 400; background-color: #009EFB; border: 0px solid #009EFB; border-radius:3px">
+                        style="padding: 8px 12px; font-size: 12px; color: #FFFFFF; text-decoration: none !important; font-weight: 400; background-color: #875A7B; border: 0px solid #875A7B; border-radius:3px">
                         View Event
                     </a>
                     % else
@@ -300,7 +300,7 @@
                         Hello ${object.name},<br/>
                         We are excited to remind you that the event
                         % if is_online:
-                            <a href="${object.event_id.website_url}" style="color:#009EFB;text-decoration:none;">${object.event_id.name}</a>
+                            <a href="${object.event_id.website_url}" style="color:#875A7B;text-decoration:none;">${object.event_id.name}</a>
                         % else:
                             <strong>${object.event_id.name}</strong>
                         % endif
@@ -309,9 +309,9 @@
                     <div>
                         <br />
                         <strong>Add this event to your calendar</strong>
-                        <a href="https://www.google.com/calendar/render?action=TEMPLATE&amp;text=${object.event_id.name}&amp;dates=${date_begin}/${date_end}&amp;location=${location}" style="padding:3px 5px;border:1px solid #009EFB;color:#009EFB;text-decoration:none;border-radius:3px;" target="new"><img src="/web_editor/font_to_img/61525/rgb(135,90,123)/16" style="vertical-align:middle;" height="16" alt=""/> Google</a>
-                        <a href="/event/${slug(object.event_id)}/ics" style="padding:3px 5px;border:1px solid #009EFB;color:#009EFB;text-decoration:none;border-radius:3px;"><img src="/web_editor/font_to_img/61525/rgb(135,90,123)/16" style="vertical-align:middle;" height="16" alt=""/> iCal/Outlook</a>
-                        <a href="https://calendar.yahoo.com/?v=60&amp;view=d&amp;type=20&amp;title=${object.event_id.name}&amp;in_loc=${location}&amp;st=${format_datetime(object.event_id.date_begin, tz='UTC', dt_format='yyyyMMdd\'T\'HHmmss')}&amp;et=${format_datetime(object.event_id.date_end, tz='UTC', dt_format='yyyyMMdd\'T\'HHmmss')}" style="padding:3px 5px;border:1px solid #009EFB;color:#009EFB;text-decoration:none;border-radius:3px;" target="new">
+                        <a href="https://www.google.com/calendar/render?action=TEMPLATE&amp;text=${object.event_id.name}&amp;dates=${date_begin}/${date_end}&amp;location=${location}" style="padding:3px 5px;border:1px solid #875A7B;color:#875A7B;text-decoration:none;border-radius:3px;" target="new"><img src="/web_editor/font_to_img/61525/rgb(135,90,123)/16" style="vertical-align:middle;" height="16" alt=""/> Google</a>
+                        <a href="/event/${slug(object.event_id)}/ics" style="padding:3px 5px;border:1px solid #875A7B;color:#875A7B;text-decoration:none;border-radius:3px;"><img src="/web_editor/font_to_img/61525/rgb(135,90,123)/16" style="vertical-align:middle;" height="16" alt=""/> iCal/Outlook</a>
+                        <a href="https://calendar.yahoo.com/?v=60&amp;view=d&amp;type=20&amp;title=${object.event_id.name}&amp;in_loc=${location}&amp;st=${format_datetime(object.event_id.date_begin, tz='UTC', dt_format='yyyyMMdd\'T\'HHmmss')}&amp;et=${format_datetime(object.event_id.date_end, tz='UTC', dt_format='yyyyMMdd\'T\'HHmmss')}" style="padding:3px 5px;border:1px solid #875A7B;color:#875A7B;text-decoration:none;border-radius:3px;" target="new">
                             <img src="/web_editor/font_to_img/61525/rgb(135,90,123)/16" style="vertical-align:middle;" height="16" alt=""/> Yahoo
                         </a>
                         <br /><br />
@@ -406,7 +406,7 @@
                         <ul>
                             <li>${event_organizer.name}</li>
                             % if event_organizer.email
-                                <li>Mail: <a href="mailto:${event_organizer.email}" style="text-decoration:none;color:#009EFB;">${event_organizer.email}</a></li>
+                                <li>Mail: <a href="mailto:${event_organizer.email}" style="text-decoration:none;color:#875A7B;">${event_organizer.email}</a></li>
                             % endif
                             % if event_organizer.phone
                                 <li>Phone: ${event_organizer.phone}</li>
@@ -461,7 +461,7 @@
     % if object.company_id
     <table width="590" border="0" cellpadding="0" cellspacing="0" style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;">
       <tr><td style="text-align: center; font-size: 14px;">
-        Sent by <a target="_blank" href="${object.company_id.website}" style="color: #009EFB;">${object.company_id.name}</a>
+        Sent by <a target="_blank" href="${object.company_id.website}" style="color: #875A7B;">${object.company_id.name}</a>
         % if 'website_url' in object.event_id and object.event_id.website_url:
         <br />
         Discover <a href="/event" style="text-decoration:none;color:#717188;">all our events</a>.

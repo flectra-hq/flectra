@@ -1,8 +1,8 @@
-Flectra Website Builder
+Odoo Website Builder
 --------------------
 
-Get an awesome and <a href="https://www.flectrahq.com/page/website-builder">free website</a>,
-easily customizable with the Flectra <a href="https://www.flectrahq.com/page/website-builder">website builder</a>.
+Get an awesome and <a href="https://www.odoo.com/page/website-builder">free website</a>,
+easily customizable with the Odoo <a href="https://www.odoo.com/page/website-builder">website builder</a>.
 
 Create enterprise grade website with our super easy builder. Use finely
 designed building blocks and edit everything inline.
@@ -13,7 +13,7 @@ announces, customer references, call-to-actions, etc.
 Edit Anything Inline
 --------------------
 
-Create beautiful websites with no technical knowledge. Flectra's unique *'edit
+Create beautiful websites with no technical knowledge. Odoo's unique *'edit
 inline'* approach makes website creation surprisingly easy. No more complex
 backend; just click anywhere to change any content.
 
@@ -23,7 +23,7 @@ blog title?" Just click and change. What you see is what you get. Really.
 Awesome. Astonishingly Beautiful.
 ---------------------------------
 
-Flectra's building blocks allow to design modern websites that are not possible
+Odoo's building blocks allow to design modern websites that are not possible
 with traditional WYSIWYG page editors.
 
 Whether it's for products descriptions, blogs or static pages, you don't need
@@ -37,7 +37,7 @@ Activate ready-to-use enterprise features in just a click; e-commerce,
 call-to-actions, jobs announces, events, customer references, blogs, etc.
 
 Traditional eCommerce and CMS have poorly designed backends as it's not their
-core focus. With the Flectra integration, you benefit from the best management
+core focus. With the Odoo integration, you benefit from the best management
 software to follow-up on your orders, your jobs applicants, your leads, etc.
 
 A Great Mobile Experience
@@ -61,7 +61,7 @@ structured content are created automatically for Google indexation.
 Multi-Languages Made Easy
 -------------------------
 
-Get your website translated in multiple languages with no effort. Flectra proposes
+Get your website translated in multiple languages with no effort. Odoo proposes
 and propagates translations automatically across pages, following what you edit
 on the master page.
 
@@ -73,7 +73,7 @@ new pages, themes or building blocks. We use a clean HTML structure, a
 [bootstrap](http://getbootstrap.com/) CSS.
 
 Customize every page on the fly with the integrated template editor. Distribute
-your work easily as an Flectra module.
+your work easily as an Odoo module.
 
 Fluid Grid Layouting
 --------------------
@@ -94,7 +94,7 @@ feel of your website.
 Test new color scheme easily; you can change your theme at any time in just a
 click.
 
-Integrated With Flectra Apps
+Integrated With Odoo Apps
 -------------------------
 
 ### e-Commerce

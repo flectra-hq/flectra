@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Google Spreadsheet',
     'version': '1.0',
     'category': 'Hidden/Tools',
     'description': """
-The module adds the possibility to display data from Flectra in Google Spreadsheets in real time.
+The module adds the possibility to display data from Odoo in Google Spreadsheets in real time.
 =================================================================================================
 """,
     'depends': ['google_drive'],

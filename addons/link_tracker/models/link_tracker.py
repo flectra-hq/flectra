@@ -15,7 +15,7 @@ URL_MAX_SIZE = 10 * 1024 * 1024
 
 class LinkTracker(models.Model):
     """ Link trackers allow users to wrap any URL into a short URL that can be
-    tracked by Flectra. Clicks are counter on each link. A tracker is linked to
+    tracked by Odoo, Flectra. Clicks are counter on each link. A tracker is linked to
     UTMs allowing to analyze marketing actions.
 
     This model is also used in mass_mailing where each link in html body is

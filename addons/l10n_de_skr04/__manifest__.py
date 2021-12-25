@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 # SKR04
 # =====
 # Dieses Modul bietet Ihnen einen deutschen Kontenplan basierend auf dem SKR03.
-# Gemäss der aktuellen Einstellungen ist ein neues Unternehmen in Flectra
+# Gemäss der aktuellen Einstellungen ist ein neues Unternehmen in Odoo
 # Umsatzsteuerpflichtig. Zahlreiche Erlös- und Aufwandskonten enthalten
 # bereits eine zugeordnete Steuer. Hierdurch wird für diese Konten bereits
 # die richtige Vorsteuer (Eingangsrechnungen) bzw. Umsatzsteuer
@@ -25,7 +25,7 @@
 # die Zuordnung bei Produkten und überschreibt diese im Einzelfall.
 #
 # Zur Vereinfachung der Steuerausweise und Buchung bei Auslandsgeschäften
-# erlaubt Flectra ein generelles Mapping von Steuerausweis und Steuerkonten
+# erlaubt Odoo ein generelles Mapping von Steuerausweis und Steuerkonten
 # (z.B. Zuordnung 'Umsatzsteuer 19%' zu 'steuerfreie Einfuhren aus der EU')
 # zwecks Zuordnung dieses Mappings zum ausländischen Partner (Kunde/Lieferant).
 

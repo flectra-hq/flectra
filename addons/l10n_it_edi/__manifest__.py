@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Italy - E-invoicing',
@@ -9,12 +9,12 @@
         'fetchmail',
         'account_edi'
     ],
-    'author': 'Flectra',
+    'author': 'Odoo',
     'description': """
 E-invoice implementation
     """,
     'category': 'Accounting/Localizations/EDI',
-    'website': 'http://www.flectrahq.com/',
+    'website': 'http://www.odoo.com/',
     'data': [
         'security/ir.model.access.csv',
         'data/account_edi_data.xml',

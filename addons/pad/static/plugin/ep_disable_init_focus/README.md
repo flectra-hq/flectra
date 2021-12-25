@@ -8,7 +8,7 @@ the focus on the pad content after its loading.
 Rationale
 ---------
 
-Etherpad-lite autofocus can be annoying to end-users when it is used in Flectra's
+Etherpad-lite autofocus can be annoying to end-users when it is used in Odoo's
 "pad" widget, because it will override web client focus rules. This plugin is
 design to get rid of this behavior.
 

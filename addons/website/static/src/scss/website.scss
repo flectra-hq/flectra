@@ -38,7 +38,7 @@ $-seen-urls: ();
         }
     }
 
-    // 4) The Flectra values map, $o-website-values, must be printed.
+    // 4) The Odoo values map, $o-website-values, must be printed.
     @each $key, $value in $o-website-values {
         @include print-variable($key, $value);
     }
@@ -234,7 +234,7 @@ body:not(.o_fullscreen) {
 }
 
 .navbar-light {
-    // Style only navbar-light which Flectra is only supposed to use in standard
+    // Style only navbar-light which Odoo is only supposed to use in standard
     // anyway. Automatically mimic navbar-dark if the user's menu color is dark.
     // Note: this only works because navbar-light is defined before navbar-dark,
     // we may want to use a safest way when possible.

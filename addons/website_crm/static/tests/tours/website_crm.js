@@ -21,7 +21,7 @@ flectra.define('website_crm.tour', function(require) {
     }, {
         content: "Complete Company",
         trigger: "input[name=partner_name]",
-        run: "text FlectraHQ Inc., Odoo S.A."
+        run: "text Flectra S.A."
     }, {
         content: "Complete Subject",
         trigger: "input[name=name]",

@@ -1,11 +1,11 @@
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Peru - Accounting',
     "version": "2.0",
     'summary': "PCGE Simplified",
     'category': 'Accounting/Localizations/Account Charts',
-    'author': 'Vauxoo, Flectra',
-    'website': 'https://doc.flectrahq.com/2.0/accounting/fiscal_localizations/localizations/peru.html',
+    'author': 'Vauxoo, Odoo',
+    'website': 'https://www.odoo.com/documentation/user/14.0/accounting/fiscal_localizations/localizations/peru.html',
     'license': 'LGPL-3',
     'depends': [
         'base_vat',

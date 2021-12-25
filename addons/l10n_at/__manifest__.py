@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 # Copyright (c) 2015 WT-IO-IT GmbH (https://www.wt-io-it.at)
 #                    Mag. Wolfgang Taferner <wolfgang.taferner@wt-io-it.at>
 
 # List of contributors:
 # Mag. Wolfgang Taferner <wolfgang.taferner@wt-io-it.at>
-# Josse Colpaert <jco@flectrahq.com>
+# Josse Colpaert <jco@odoo.com>
 
 {
     "name": "Austria - Accounting",

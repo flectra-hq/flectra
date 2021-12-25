@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 
 {
     'name': 'Manufacturing',
     'version': '2.0',
-    'website': 'https://www.flectrahq.com/page/manufacturing',
+    'website': 'https://www.odoo.com/page/manufacturing',
     'category': 'Manufacturing/Manufacturing',
     'sequence': 55,
     'summary': 'Manufacturing Orders & BOMs',

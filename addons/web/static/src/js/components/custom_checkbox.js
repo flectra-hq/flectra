@@ -8,7 +8,7 @@ flectra.define('web.CustomCheckbox', function (require) {
     /**
      * Custom checkbox
      * 
-     * Component that can be used in templates to render the custom checkbox of Flectra.
+     * Component that can be used in templates to render the custom checkbox of Odoo, Flectra.
      * 
      * <CustomCheckbox
      *     value="boolean"

@@ -360,7 +360,7 @@ class TestMessageAccess(TestMailCommon):
         test_record = self.env['mail.test.simple'].with_context(self._test_context).create({'name': 'Test', 'email_from': 'ignasse@example.com'})
         partner_1 = self.env['res.partner'].create({
             'name': 'Jitendra Prajapati (jpr-flectra)',
-            'email': 'jpr@flectrahq.com',
+            'email': 'jpr@flectra.com',
         })
         test_record.message_subscribe((partner_1 | self.user_admin.partner_id).ids)
 

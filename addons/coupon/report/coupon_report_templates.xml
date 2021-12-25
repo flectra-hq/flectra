@@ -16,10 +16,10 @@
                                 <t t-if="o.program_id.reward_type == 'discount'">
                                     <t t-set="trans_text">off %s</t>
                                     <t t-set="text" t-value="trans_text % text"/>
-                                    <h1 t-if="o.program_id.discount_type == 'fixed_amount'" style="font-size: 55px; color: #009EFB">
+                                    <h1 t-if="o.program_id.discount_type == 'fixed_amount'" style="font-size: 55px; color: #875A7B">
                                         <strong><span t-field="o.program_id.discount_fixed_amount" t-options='{"widget": "monetary", "display_currency": o.program_id.currency_id}'/></strong>
                                     </h1>
-                                    <h1 t-if="o.program_id.discount_type == 'percentage'" style="font-size: 55px; color: #009EFB">
+                                    <h1 t-if="o.program_id.discount_type == 'percentage'" style="font-size: 55px; color: #875A7B">
                                         <strong><span t-field="o.program_id.discount_percentage"/> %</strong>
                                     </h1>
                                     <t t-if="o.program_id.discount_apply_on == 'specific_products'">
@@ -37,12 +37,12 @@
                                     </t>
                                 </t>
                                 <t t-if="o.program_id.reward_type == 'product'">
-                                    <strong style="font-size: 55px; color: #009EFB">
+                                    <strong style="font-size: 55px; color: #875A7B">
                                         <t t-esc="'get %s free %s' % (o.program_id.reward_product_quantity, o.program_id.reward_product_id.name)"/>
                                     </strong>
                                 </t>
                                 <t t-if="o.program_id.reward_type == 'free_shipping'">
-                                    <strong style="font-size: 55px; color: #009EFB">get free shipping</strong>
+                                    <strong style="font-size: 55px; color: #875A7B">get free shipping</strong>
                                 </t>
                                 <h1 class="font-weight-bold" style="font-size: 34px" t-esc="text"/>
                                 <br/>

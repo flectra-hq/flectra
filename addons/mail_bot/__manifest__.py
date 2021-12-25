@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'FlectraBot',
+    'name': 'OdooBot',
     'version': '1.2',
     'category': 'Productivity/Discuss',
-    'summary': 'Add FlectraBot in discussions',
+    'summary': 'Add OdooBot in discussions',
     'description': "",
-    'website': 'https://www.flectrahq.com/page/discuss',
+    'website': 'https://www.odoo.com/page/discuss',
     'depends': ['mail'],
     'auto_install': True,
     'installable': True,

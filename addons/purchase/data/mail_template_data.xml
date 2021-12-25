@@ -109,11 +109,11 @@
         <xpath expr="//a[@t-att-href='access_url']" position="replace">
             <t t-if="record._name == 'purchase.order' and record.env.context.get('is_reminder')">
                 <a t-att-href="record.get_confirm_url(confirm_type='reminder')"
-                    style="margin-right: 10px; background-color: #009EFB; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
+                    style="margin-right: 10px; background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
                     Yes
                 </a>
                 <a t-att-href="record.get_update_url()"
-                    style="margin-left: 10px; background-color: #009EFB; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
+                    style="margin-left: 10px; background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
                     No, Update Dates
                 </a>
                 <div>&amp;nbsp;</div>
@@ -125,7 +125,7 @@
             </t>
             <t t-else="">
                 <a t-att-href="access_url"
-                    style="margin-left: 10px; background-color: #009EFB; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
+                    style="margin-left: 10px; background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
                     <t t-esc="access_name"/>
                 </a>
             </t>

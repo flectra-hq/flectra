@@ -234,7 +234,7 @@ Received: by mail.example.com (Postfix, from userid 10002)
     id E8166BFACB; Fri, 23 Aug 2013 13:18:02 +0200 (CEST)
 From: "Bruce Wayne" <bruce@wayneenterprises.com>
 Subject: test
-Message-ID: <c0c20fdd-a38e-b296-865b-d9232bf30ce5@flectrahq.com>
+Message-ID: <c0c20fdd-a38e-b296-865b-d9232bf30ce5@flectra.com>
 Date: Mon, 26 Aug 2019 16:55:09 +0200
 MIME-Version: 1.0
 Content-Type: multipart/mixed;
@@ -373,13 +373,13 @@ AAAAACwAAAAAAgACAAAEA3DJFQA7
 MAIL_EML_ATTACHMENT = """Subject: Re: test attac
 From: {email_from}
 To: {to}
-References: <f3b9f8f8-28fa-2543-cab2-7aa68f679ebb@flectrahq.com>
-Message-ID: <cb7eaf62-58dc-2017-148c-305d0c78892f@flectrahq.com>
+References: <f3b9f8f8-28fa-2543-cab2-7aa68f679ebb@flectra.com>
+Message-ID: <cb7eaf62-58dc-2017-148c-305d0c78892f@flectra.com>
 Date: Wed, 14 Mar 2018 14:26:58 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
  Thunderbird/52.6.0
 MIME-Version: 1.0
-In-Reply-To: <f3b9f8f8-28fa-2543-cab2-7aa68f679ebb@flectrahq.com>
+In-Reply-To: <f3b9f8f8-28fa-2543-cab2-7aa68f679ebb@flectra.com>
 Content-Type: multipart/mixed;
  boundary="------------A6B5FD5F68F4D73ECD739009"
 Content-Language: en-US
@@ -428,33 +428,33 @@ ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc
          7wXuo/gpYe6E2cPuS2opei8AzjEhYTNzlYXTPvaoxCCTTjfGTaPv22TeRDehuIXngSEl
          Nmmw==
 ARC-Authentication-Results: i=1; mx.google.com;
-       dkim=pass header.i=@flectrahq.com header.s=mail header.b=MCzhjB9b;
-       spf=pass (google.com: domain of soup@flectrahq.com designates 149.202.180.44 as permitted sender) smtp.mailfrom=soup@flectrahq.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=flectrahq.com
-Return-Path: <soup@flectrahq.com>
-Received: from mail2.flectrahq.com (mail2.flectrahq.com. [149.202.180.44])
+       dkim=pass header.i=@flectra.com header.s=mail header.b=MCzhjB9b;
+       spf=pass (google.com: domain of soup@flectra.com designates 149.202.180.44 as permitted sender) smtp.mailfrom=soup@flectra.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=flectra.com
+Return-Path: <soup@flectra.com>
+Received: from mail2.flectra.com (mail2.flectra.com. [149.202.180.44])
         by mx.google.com with ESMTPS id y4si4279200wmy.148.2018.03.05.01.19.22
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 05 Mar 2018 01:19:23 -0800 (PST)
-Received-SPF: pass (google.com: domain of soup@flectrahq.com designates 149.202.180.44 as permitted sender) client-ip=149.202.180.44;
+Received-SPF: pass (google.com: domain of soup@flectra.com designates 149.202.180.44 as permitted sender) client-ip=149.202.180.44;
 Authentication-Results: mx.google.com;
-       dkim=pass header.i=@flectrahq.com header.s=mail header.b=MCzhjB9b;
-       spf=pass (google.com: domain of soup@flectrahq.com designates 149.202.180.44 as permitted sender) smtp.mailfrom=soup@flectrahq.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=flectrahq.com
+       dkim=pass header.i=@flectra.com header.s=mail header.b=MCzhjB9b;
+       spf=pass (google.com: domain of soup@flectra.com designates 149.202.180.44 as permitted sender) smtp.mailfrom=soup@flectra.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=flectra.com
 Received: from [10.10.31.24] (unknown [91.183.114.50])
 	(Authenticated sender: soup)
-	by mail2.flectrahq.com (Postfix) with ESMTPSA id 7B571A4085
-	for <what@flectrahq.com>; Mon,  5 Mar 2018 10:19:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=flectrahq.com; s=mail;
+	by mail2.flectra.com (Postfix) with ESMTPSA id 7B571A4085
+	for <what@flectra.com>; Mon,  5 Mar 2018 10:19:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=flectra.com; s=mail;
 	t=1520241562; bh=L2r7Sp/vjogIdM1k8H9zDGDjnhKolsTTLLjndnFC4Jc=;
 	h=To:From:Subject:Date:From;
 	b=MCzhjB9bnsrJ3uKjq+GjujFxmtrq3fc7Vv7Vg2C72EPKnkxgqy6yPjWKtXbBlaiT3
 	 YjKI24aiSQlOeOPQiqFgiDzeqqemNDp+CRuhoYz1Vbz+ESRaHtkWRLb7ZjvohS2k7e
 	 RTq7tUxY2nUL2YrNHV7DFYtJVBwiTuyLP6eAiJdE=
-To: what@flectrahq.com
-From: Soup <soup@flectrahq.com>
+To: what@flectra.com
+From: Soup <soup@flectra.com>
 Subject: =?UTF-8?Q?Soupe_du_jour_:_Pois_cass=c3=a9s?=
-Message-ID: <a05d8334-7b7c-df68-c96a-4a88ed19f31b@flectrahq.com>
+Message-ID: <a05d8334-7b7c-df68-c96a-4a88ed19f31b@flectra.com>
 Date: Mon, 5 Mar 2018 10:19:21 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
  Thunderbird/52.6.0
@@ -465,7 +465,7 @@ Content-Language: en-US
 X-Spam-Status: No, score=-1.2 required=5.0 tests=ALL_TRUSTED,BAYES_00,
 	HTML_IMAGE_ONLY_08,HTML_MESSAGE,T_REMOTE_IMAGE autolearn=no
 	autolearn_force=no version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on mail2.flectrahq.com
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on mail2.flectra.com
 
 This is a multi-part message in MIME format.
 --------------1F2D18B1129FC2F0B9EECF50
@@ -477,10 +477,10 @@ Résultat de recherche d'images pour "dessin la princesse au petit pois"
 --
 Soup
 
-FlectraHQ Inc., Odoo S.A.
+Flectra S.A.
 Chaussée de Namur, 40
 B-1367 Grand Rosière
-Web: http://www.flectrahq.com
+Web: http://www.flectra.com
 
 
 --------------1F2D18B1129FC2F0B9EECF50
@@ -500,10 +500,10 @@ src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjCNAadd3NDM8g9w0P_-g
     <pre class="moz-signature" cols="72">--
 Soup
 
-FlectraHQ Inc., Odoo S.A.
+Flectra S.A.
 Chaussée de Namur, 40
 B-1367 Grand Rosière
-Web: <a class="moz-txt-link-freetext" href="http://www.flectrahq.com">http://www.flectrahq.com</a> </pre>
+Web: <a class="moz-txt-link-freetext" href="http://www.flectra.com">http://www.flectra.com</a> </pre>
   </body>
 </html>
 
@@ -718,7 +718,7 @@ ication">
                       <tr>
                         <td align=3D"center" style=3D"min-width: 590px;">
                           <table width=3D"590" border=3D"0" cellpadding=3D=
-"0" bgcolor=3D"#009EFB" style=3D"min-width: 590px; background-color: rgb(13=
+"0" bgcolor=3D"#875A7B" style=3D"min-width: 590px; background-color: rgb(13=
 5,90,123); padding: 20px;">
                             <tbody><tr>
                               <td valign=3D"middle">
@@ -770,7 +770,7 @@ cida Grande&quot;, Helvetica, Verdana, Arial, sans-serif">Thank you,</p>
                       <tr>
                         <td align=3D"center" style=3D"min-width: 590px;">
                           <table width=3D"590" border=3D"0" cellpadding=3D=
-"0" bgcolor=3D"#009EFB" style=3D"min-width: 590px; background-color: rgb(13=
+"0" bgcolor=3D"#875A7B" style=3D"min-width: 590px; background-color: rgb(13=
 5,90,123); padding: 20px;">
                             <tbody><tr>
                               <td valign=3D"middle" align=3D"left" style=
@@ -796,7 +796,7 @@ aa.com" style=3D"text-decoration:none; color: white;">info@aust-mfg.com</a>=
                       </tr>
                       <tr>
                         <td align=3D"center">
-                            Powered by <a href=3D"https://www.flectrahq.com">Odo=
+                            Powered by <a href=3D"https://www.flectra.com">Odo=
 o</a>.
                         </td>
                       </tr>

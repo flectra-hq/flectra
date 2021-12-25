@@ -33,7 +33,7 @@ Virtual locations as counterparts for production are used in manufacturing opera
 
 Inventory locations are counterparts of the stock operations that represent your company's profit and loss in terms of your stocks.
 
-In Flectra, locations are structured hierarchically. You can structure your locations as a tree, dependent on a parent-child relationship. This gives you more detailed levels of analysis of your stock operations and the organization of your warehouses.
+In Odoo, locations are structured hierarchically. You can structure your locations as a tree, dependent on a parent-child relationship. This gives you more detailed levels of analysis of your stock operations and the organization of your warehouses.
 
 
 
@@ -93,7 +93,7 @@ In order for the reordering rule to create the procurement, we need to launch th
 
 Procurement groups: 
 
-Even when you have multiple lines in your sales order, you want one delivery order with all the lines of the sales order.  To accomplish this, Flectra groups the different procurements of this sale order into the same procurement group we create for the sales order.  That way, the moves of a delivery order stay together by putting moves of the same group in the same picking.
+Even when you have multiple lines in your sales order, you want one delivery order with all the lines of the sales order.  To accomplish this, Odoo groups the different procurements of this sale order into the same procurement group we create for the sales order.  That way, the moves of a delivery order stay together by putting moves of the same group in the same picking.
 
 =================================
 Consumables vs stockable products
@@ -125,9 +125,9 @@ In the following chapters, we go a little deeper into the mechanisms behind the 
 Assigning stock moves to pickings
 =================================
 
-When you want to give an assignment to a warehouse operator manually, you will create a picking and create the moves in it by specifying the different products and quantities.   When confirming a sale order however, Flectra will create procurements which will be solved bt creating moves.  First, these stock moves will be created without picking.  In a second step, they will be attributed to an existing picking or a picking will be created.
+When you want to give an assignment to a warehouse operator manually, you will create a picking and create the moves in it by specifying the different products and quantities.   When confirming a sale order however, Odoo will create procurements which will be solved bt creating moves.  First, these stock moves will be created without picking.  In a second step, they will be attributed to an existing picking or a picking will be created.
 
-In order to assign the move to a picking, Flectra will check if the move was assigned an operation type (e.g. My Company: Delivery Orders) and if it does, it will search for a picking to assign the move to.  This picking should be in the correct state, picking type, procurement group (=group of procurements related to e.g. the same sale order) and source and destination locations.  If no picking can be found, it will create a new one.
+In order to assign the move to a picking, Odoo will check if the move was assigned an operation type (e.g. My Company: Delivery Orders) and if it does, it will search for a picking to assign the move to.  This picking should be in the correct state, picking type, procurement group (=group of procurements related to e.g. the same sale order) and source and destination locations.  If no picking can be found, it will create a new one.
 
 This mechanism allows for a lot of flexibility when for example some products have to go through the Packing zone for packing and some don't.  That way, the packing order will still group the moves that need packing from the sale order and the direct moves will be grouped in a separate picking also.  For the delivery order, everything will be together in one picking again.  
 
@@ -165,7 +165,7 @@ Pull rules are not the opposite of push rules! It’s very different as push rul
 
 When a stock move is confirmed and its procurement method is 'Advanced: Apply procurement rules', it will create a procurement in the source location for the quantity of the move.  To fulfill this procurement, a procurement rule needs to be applied on this procurement.  There are several types of procurement rules with different results: move products from another location to the source location, purchase to the source location, produce towards the source location.  
 
-A procurement does not need to be created by a stock move however.  A user can create a procurement manually and when we confirm a sale order, Flectra will create a procurement per sale order line in the Customers location.  Actually, this system of procurements, stock moves and procurement rules is used consistently throughout Flectra.  Even in the simplest warehouse configuration, when we run the procurements generated from the sale order, these procurement rules will generate the delivery order.
+A procurement does not need to be created by a stock move however.  A user can create a procurement manually and when we confirm a sale order, Odoo will create a procurement per sale order line in the Customers location.  Actually, this system of procurements, stock moves and procurement rules is used consistently throughout Odoo.  Even in the simplest warehouse configuration, when we run the procurements generated from the sale order, these procurement rules will generate the delivery order.
 
 Procurements will pass through the following states when everything goes well:
 
@@ -228,9 +228,9 @@ The checkbox MTO in the product form is actually a procurement rule that may be 
 
 Lead times
 
-All procurement operations (that is, the requirement for both production orders and purchase orders) are automatically calculated by the scheduler. But more than just creating each order, Flectra plans the timing of each step. A planned date calculated by the system can be found on each order document.
+All procurement operations (that is, the requirement for both production orders and purchase orders) are automatically calculated by the scheduler. But more than just creating each order, Odoo plans the timing of each step. A planned date calculated by the system can be found on each order document.
 
-To organize the whole chain of manufacturing and procurement, Flectra bases everything on the delivery date promised to the customer. This is given by the date of the confirmation in the order and the lead times shown in each product line of the order. This lead time is itself proposed automatically in the field Customer Lead Time shown in the product form. This Customer Lead Time is the difference between the time on an order and that of the delivery.  There is also the sale_order_dates module that can help to promise a date to a customer.  Below is a calculation from the OpenERP books.
+To organize the whole chain of manufacturing and procurement, Odoo bases everything on the delivery date promised to the customer. This is given by the date of the confirmation in the order and the lead times shown in each product line of the order. This lead time is itself proposed automatically in the field Customer Lead Time shown in the product form. This Customer Lead Time is the difference between the time on an order and that of the delivery.  There is also the sale_order_dates module that can help to promise a date to a customer.  Below is a calculation from the OpenERP books.
 
 To see a calculation of the lead times, take the example of the cabinet above. Suppose that the cabinet is assembled in two steps, using the two following bills of materials.
 
@@ -312,7 +312,7 @@ A lot of Warehouses have input docks and output docks or have a packing zone whe
 
 Using these routes is simple as you just need to select them on e.g. a product or product category, but configuring them correctly is a little more difficult.  This is the reason why OpenERP will create the necessary routes automatically when you create a new warehouse.  Configuring the warehouse can then be a simple as choosing two step incoming and 3 step delivery, will always be supplied from warehouse B, will be purchased, ...
 
-We will however explain the routes as you might maybe enhance the basic config from Flectra.
+We will however explain the routes as you might maybe enhance the basic config from Odoo.
 
 ======
 Routes
@@ -337,7 +337,7 @@ When a sales order creates a procurement it passes some useful information to it
 
 These routes on the procurement itself can also come in handy when the procurement can not find a suitable rule.  By adding a route, you can solve the procurement according to the situation.  (e.g. a certain product needs to be manufactured sometimes or bought sometimes) 
 
-When Flectra needs to find a procurement/push rule, it will check the routes that can be applied to the procurement as follows:
+When Odoo needs to find a procurement/push rule, it will check the routes that can be applied to the procurement as follows:
 
 * It will try to find a rule from the route(s) on the procurement first
 * If it does not find any, it will try to find a rule from the route(s) on the product and product category (+ its parents)
@@ -444,9 +444,9 @@ This is the model used by the bar code interface.  There are actually 2 types of
 Preparing pack operations
 =========================
 
-If a picking will be processed by the bar code scanner, Flectra will propose the pack operations that need to be executed.  If it is an incoming shipment, it will be based on the moves, otherwise it will use the stock that has been reserved already.
+If a picking will be processed by the bar code scanner, Odoo will propose the pack operations that need to be executed.  If it is an incoming shipment, it will be based on the moves, otherwise it will use the stock that has been reserved already.
 
-Before creating the actual pack operations, Flectra will group the moves or reserved stock (quants) by:
+Before creating the actual pack operations, Odoo will group the moves or reserved stock (quants) by:
 
 * Lot: lot of the quant or empty if from stock move
 * Product: product of the quant or stock move
@@ -456,7 +456,7 @@ Before creating the actual pack operations, Flectra will group the moves or rese
 
 The putway strategies are similar to the removal strategies, but determine for the original destination location a child location where the goods should be deposited (instead as for the source location).  By default, there is no putaway strategy defined on the destination location.  In that case, the goods will be deposited in the destination location of the move.  In the stock module, there is one putaway strategy: fixed location.  For each such strategy you can also specify the related location.  Of course, based on this, custom developments make it possible to implement the putaway strategy you want (as it is applied on all of the stock being moved at once).
 
-For the reserved stock (which also means it is determined which pieces of stock), Flectra will try to find as many packages (and as high-level) as possible for which the stock is entirely reserved and the destination location is the same for every piece of stock.  That way, the operator knows he can simply move the package to the destination location, instead of having to open the box unnecessarily.
+For the reserved stock (which also means it is determined which pieces of stock), Odoo will try to find as many packages (and as high-level) as possible for which the stock is entirely reserved and the destination location is the same for every piece of stock.  That way, the operator knows he can simply move the package to the destination location, instead of having to open the box unnecessarily.
 
 An example might illustrate this further:
 
@@ -492,8 +492,8 @@ When using the bar code interface, the pack operations will be prepared as expla
 - If everything has been done and the operator took the correct products, it will also finish the picking.  
 If this is not the case, he can do "Create backorder", and then he needs to check if all the products have been done or not.  If only part has been done, OpenERP needs to create a backorder for it.  It is however more complicated than that.  The operator could have chosen other source/destination location or even create new pack operations with new products.  
 
-In order to manage all these possible changes, in the background, Flectra is going to do a matching between the pack operations executed by the warehouse operator and the moves given as assignment beforehand.
-It is also possible that the operator chooses other stock than was reserved at forehand.  In that case, Flectra will need to redo the reservation of the stock.
+In order to manage all these possible changes, in the background, Odoo is going to do a matching between the pack operations executed by the warehouse operator and the moves given as assignment beforehand.
+It is also possible that the operator chooses other stock than was reserved at forehand.  In that case, Odoo will need to redo the reservation of the stock.
 
 The matching of the pack operations and stock moves will determine if extra moves need to be created or if some moves need to go (partially) into backorder.  
 
@@ -554,11 +554,11 @@ This is not something which is propagated to the purchase / manufacturing order.
 8 Inventory
 ***********
 
-When you start using Flectra, you might have an inventory to start from.  (Starting Inventory)  You will enter all the products that are in the warehouse and Flectra will put them in this position.  When you validate this inventory, Flectra will create the necessary stock moves that will go from Inventory Loss to these locations.
+When you start using Odoo, you might have an inventory to start from.  (Starting Inventory)  You will enter all the products that are in the warehouse and Odoo will put them in this position.  When you validate this inventory, Odoo will create the necessary stock moves that will go from Inventory Loss to these locations.
 
-It is possible that operations in the warehouse are not well registered and the stock in Flectra does not correspond exactly to the physical stock in the warehouse.  Of course, you do not want this to happen, but errors do happen and a way to solve these mistakes, is to check the inventory once and a while.  Most companies will do an entire inventory yearly.
+It is possible that operations in the warehouse are not well registered and the stock in Odoo does not correspond exactly to the physical stock in the warehouse.  Of course, you do not want this to happen, but errors do happen and a way to solve these mistakes, is to check the inventory once and a while.  Most companies will do an entire inventory yearly.
 
-You can decide to do a certain product or a certain location.  So, you are not required to do all the inventory at once.  In a next step Flectra will propose all the current stock in the system.  When you correct this stock, Flectra will create the necessary moves in a second tab.  The inventory is done, when these moves are all transferred.
+You can decide to do a certain product or a certain location.  So, you are not required to do all the inventory at once.  In a next step Odoo will propose all the current stock in the system.  When you correct this stock, Odoo will create the necessary moves in a second tab.  The inventory is done, when these moves are all transferred.
 
 
 

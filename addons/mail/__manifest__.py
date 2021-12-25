@@ -7,7 +7,7 @@
     'sequence': 145,
     'summary': 'Chat, mail gateway and private channels',
     'description': "",
-    'website': 'https://www.flectrahq.com/page/discuss',
+    'website': 'https://www.odoo.com/page/discuss',
     'depends': ['base', 'base_setup', 'bus', 'web_tour'],
     'data': [
         'views/assets.xml',

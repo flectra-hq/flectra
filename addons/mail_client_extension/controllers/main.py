@@ -41,7 +41,7 @@ class MailClientExtensionController(http.Controller):
     @http.route('/mail_client_extension/auth', type='http', auth="user", methods=['GET'], website=True)
     def auth(self, **values):
         """
-         Once authenticated this route renders the view that shows an app wants to access Flectra.
+         Once authenticated this route renders the view that shows an app wants to access Odoo, Flectra.
          The user is invited to allow or deny the app. The form posts to `/mail_client_extension/auth/confirm`.
          """
         return request.render('mail_client_extension.app_auth', values)

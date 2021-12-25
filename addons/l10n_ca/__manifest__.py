@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Canada - Accounting',
@@ -7,7 +7,7 @@
     'website': 'https://www.savoirfairelinux.com',
     'category': 'Accounting/Localizations/Account Charts',
     'description': """
-This is the module to manage the Canadian accounting chart in Flectra.
+This is the module to manage the Canadian accounting chart in Odoo.
 ===========================================================================================
 
 Canadian accounting charts and localizations.
