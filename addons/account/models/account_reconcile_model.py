@@ -291,11 +291,14 @@ class AccountReconcileModel(models.Model):
 
         new_aml_dicts = []
         for tax_res in res['taxes']:
+            if self.company_id.currency_id.is_zero(tax_res['amount']):
+                continue
             tax = self.env['account.tax'].browse(tax_res['id'])
             balance = tax_res['amount']
             name = ' '.join([x for x in [base_line_dict.get('name', ''), tax_res['name']] if x])
             new_aml_dicts.append({
                 'account_id': tax_res['account_id'] or base_line_dict['account_id'],
+                'journal_id': base_line_dict.get('journal_id', False),
                 'name': name,
                 'partner_id': base_line_dict.get('partner_id'),
                 'balance': balance,
@@ -649,30 +652,42 @@ class AccountReconcileModel(models.Model):
             if partner:
                 st_line_subquery += r" AND aml.partner_id = %s" % partner.id
             else:
-                st_line_subquery += r"""
-                    AND
-                    (
-                        substring(REGEXP_REPLACE(st_line.payment_ref, '[^0-9\s]', '', 'g'), '\S(?:.*\S)*') != ''
-                        AND
-                        (
-                            (""" + self._get_select_communication_flag() + """)
-                            OR
-                            (""" + self._get_select_payment_reference_flag() + """)
-                        )
-                    )
-                    OR
-                    (
-                        /* We also match statement lines without partners with amls
-                        whose partner's name's parts (splitting on space) are all present
-                        within the payment_ref, in any order, with any characters between them. */
+                st_line_fields_consideration = [
+                    (self.match_text_location_label, 'st_line.payment_ref'),
+                    (self.match_text_location_note, 'st_line_move.narration'),
+                    (self.match_text_location_reference, 'st_line_move.ref'),
+                ]
 
-                        aml_partner.name IS NOT NULL
-                        AND """ + unaccent("st_line.payment_ref") + r""" ~* ('^' || (
-                            SELECT string_agg(concat('(?=.*\m', chunk[1], '\M)'), '')
-                              FROM regexp_matches(""" + unaccent("aml_partner.name") + r""", '\w{3,}', 'g') AS chunk
-                        ))
-                    )
-                """
+                no_partner_query = " OR ".join([
+                    r"""
+                        (
+                            substring(REGEXP_REPLACE(""" + sql_field + """, '[^0-9\s]', '', 'g'), '\S(?:.*\S)*') != ''
+                            AND
+                            (
+                                (""" + self._get_select_communication_flag() + """)
+                                OR
+                                (""" + self._get_select_payment_reference_flag() + """)
+                            )
+                        )
+                        OR
+                        (
+                            /* We also match statement lines without partners with amls
+                            whose partner's name's parts (splitting on space) are all present
+                            within the payment_ref, in any order, with any characters between them. */
+
+                            aml_partner.name IS NOT NULL
+                            AND """ + unaccent(sql_field) + r""" ~* ('^' || (
+                                SELECT string_agg(concat('(?=.*\m', chunk[1], '\M)'), '')
+                                  FROM regexp_matches(""" + unaccent("aml_partner.name") + r""", '\w{3,}', 'g') AS chunk
+                            ))
+                        )
+                    """
+                    for consider_field, sql_field in st_line_fields_consideration
+                    if consider_field
+                ])
+
+                if no_partner_query:
+                    st_line_subquery += " AND " + no_partner_query
 
             st_lines_queries.append(r"st_line.id = %s AND (%s)" % (st_line.id, st_line_subquery))
 

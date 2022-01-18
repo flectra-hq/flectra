@@ -1014,6 +1014,7 @@ var BasicModel = AbstractModel.extend({
         var params = {
             model: modelName,
             ids: resIDs,
+            context: data.getContext(),
         };
         if (options.offset) {
             params.offset = options.offset;
@@ -1037,6 +1038,7 @@ var BasicModel = AbstractModel.extend({
                     model: modelName,
                     method: 'read',
                     args: [resIDs, [field]],
+                    context: data.getContext(),
                 }).then(function (records) {
                     if (data.data.length) {
                         var dataType = self.localData[data.data[0]].type;
@@ -5123,6 +5125,7 @@ var BasicModel = AbstractModel.extend({
         var fieldsInfo = view ? view.fieldsInfo : fieldInfo.fieldsInfo;
         var fields = view ? view.fields : fieldInfo.relatedFields;
         var viewType = view ? view.type : fieldInfo.viewType;
+        var id2Values = new Map(values.map((value) => [value.id, value]))
 
         _.each(records, function (record) {
             var x2mList = self.localData[record.data[fieldName]];
@@ -5130,7 +5133,7 @@ var BasicModel = AbstractModel.extend({
             _.each(x2mList.res_ids, function (res_id) {
                 var dataPoint = self._makeDataPoint({
                     modelName: field.relation,
-                    data: _.findWhere(values, {id: res_id}),
+                    data: id2Values.get(res_id),
                     fields: fields,
                     fieldsInfo: fieldsInfo,
                     parentID: x2mList.id,

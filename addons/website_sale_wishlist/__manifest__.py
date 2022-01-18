@@ -6,7 +6,7 @@
     'description': """
 Allow shoppers of your eCommerce store to create personalized collections of products they want to buy and save them for future reference.
     """,
-    'author': 'FlectraHQ Inc.',
+    'author': 'FlectraHQ, Inc.',
     'category': 'Website/Website',
     'version': '1.0',
     'depends': ['website_sale'],
