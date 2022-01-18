@@ -37,13 +37,12 @@ class PatchedHTTPAdapter(requests.adapters.HTTPAdapter):
         # still made without checking temporary files exist.
         super().cert_verify(conn, url, verify, None)
         conn.cert_file = cert
-        conn.key_file = cert
+        conn.key_file = None
 
     def get_connection(self, url, proxies=None):
         # OVERRIDE
         # Patch the OpenSSLContext to decode the certificate in-memory.
         conn = super().get_connection(url, proxies=proxies)
-
         context = conn.conn_kw['ssl_context']
 
         def patched_load_cert_chain(l10n_es_flectra_certificate, keyfile=None, password=None):
@@ -229,7 +228,7 @@ class AccountEdiFormat(models.Model):
         if (not partner.country_id or partner.country_id.code == 'ES') and partner.vat:
             # ES partner with VAT.
             partner_info['NIF'] = partner.vat[2:] if partner.vat.startswith('ES') else partner.vat
-        elif partner.country_id.code in eu_country_codes:
+        elif partner.country_id.code in eu_country_codes and partner.vat:
             # European partner.
             partner_info['IDOtro'] = {'IDType': '02', 'ID': IDOtro_ID}
         else:
@@ -600,8 +599,6 @@ class AccountEdiFormat(models.Model):
 
         if not move.company_id.vat:
             res.append(_("VAT number is missing on company %s", move.company_id.display_name))
-        if not move.partner_id.vat:
-            res.append(_("VAT number needs to be configured on the partner %s", move.partner_id.display_name))
         for line in move.invoice_line_ids.filtered(lambda line: not line.display_type):
             taxes = line.tax_ids.flatten_taxes_hierarchy()
             recargo_count = taxes.mapped('l10n_es_type').count('recargo')
@@ -673,5 +670,5 @@ class AccountEdiFormat(models.Model):
                     'res_model': inv._name,
                     'res_id': inv.id,
                 })
-                res[inv] = {'attachment': attachment}
+                res[inv]['attachment'] = attachment
         return res

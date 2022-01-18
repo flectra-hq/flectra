@@ -3,7 +3,7 @@
 {
     'name': 'K.S.A - Invoice',
     'version': '1.0.0',
-    'author': 'FlectraHQ Inc., Odoo S.A.',
+    'author': 'FlectraHQ, Inc., Odoo S.A.',
     'category': 'Accounting/Localizations',
     'license': 'LGPL-3',
     'description': """

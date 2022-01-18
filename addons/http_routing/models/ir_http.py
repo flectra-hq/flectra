@@ -16,7 +16,7 @@ except ImportError:
     slugify_lib = None
 
 import flectra
-from flectra import api, models, registry, exceptions, tools
+from flectra import api, models, registry, exceptions, tools, http
 from flectra.addons.base.models.ir_http import RequestUID, ModelConverter
 from flectra.addons.base.models.qweb import QWebException
 from flectra.http import request
@@ -653,14 +653,14 @@ class IrHttp(models.AbstractModel):
     @tools.ormcache('path')
     def url_rewrite(self, path):
         new_url = False
-        req = request.httprequest
-        router = req.app.get_db_router(request.db).bind('')
+        router = http.root.get_db_router(request.db).bind('')
         try:
             _ = router.match(path, method='POST')
         except werkzeug.exceptions.MethodNotAllowed:
             _ = router.match(path, method='GET')
         except werkzeug.routing.RequestRedirect as e:
-            new_url = e.new_url[7:]  # remove scheme
+            # get path from http://{path}?{current query string}
+            new_url = e.new_url.split('?')[0][7:]
         except werkzeug.exceptions.NotFound:
             new_url = path
         except Exception as e:
@@ -672,7 +672,7 @@ class IrHttp(models.AbstractModel):
     @api.model
     @tools.cache('path', 'query_args')
     def _get_endpoint_qargs(self, path, query_args=None):
-        router = request.httprequest.app.get_db_router(request.db).bind('')
+        router = http.root.get_db_router(request.db).bind('')
         endpoint = False
         try:
             endpoint = router.match(path, method='POST', query_args=query_args)

@@ -2,7 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'K.S.A. - Point of Sale',
-    'author': 'FlectraHQ Inc., Odoo S.A',
+    'author': 'FlectraHQ, Inc., Odoo S.A',
     'category': 'Accounting/Localizations/Point of Sale',
     'description': """
 K.S.A. POS Localization
