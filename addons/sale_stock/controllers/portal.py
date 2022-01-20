@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from flectra import exceptions
+from flectra import exceptions, SUPERUSER_ID
 from flectra.addons.sale.controllers.portal import CustomerPortal
 from flectra.http import request, route
 from flectra.tools import consteq
@@ -29,8 +29,8 @@ class SaleStockPortal(CustomerPortal):
         except exceptions.AccessError:
             return request.redirect('/my')
 
-        # print report as sudo, since it require access to product, taxes, payment term etc.. and portal does not have those access rights.
-        pdf = request.env.ref('stock.action_report_delivery').sudo()._render_qweb_pdf([picking_sudo.id])[0]
+        # print report as SUPERUSER, since it require access to product, taxes, payment term etc.. and portal does not have those access rights.
+        pdf = request.env.ref('stock.action_report_delivery').with_user(SUPERUSER_ID)._render_qweb_pdf([picking_sudo.id])[0]
         pdfhttpheaders = [
             ('Content-Type', 'application/pdf'),
             ('Content-Length', len(pdf)),
