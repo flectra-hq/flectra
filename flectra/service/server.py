@@ -1240,7 +1240,6 @@ def start(preload=None, stop=False):
     global server
 
     load_server_wide_modules()
-    flectra.service.wsgi_server._patch_xmlrpc_marshaller()
 
     if flectra.evented:
         server = GeventServer(flectra.service.wsgi_server.application)

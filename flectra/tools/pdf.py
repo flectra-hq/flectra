@@ -2,6 +2,7 @@
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
 import base64
 import io
+import re
 
 from datetime import datetime
 from hashlib import md5
@@ -19,6 +20,8 @@ from flectra.tools.misc import file_open
 
 _logger = getLogger(__name__)
 DEFAULT_PDF_DATETIME_FORMAT = "D:%Y%m%d%H%M%S+00'00'"
+REGEX_SUBTYPE_UNFORMATED = re.compile(r'^\w+/[\w-]+$')
+REGEX_SUBTYPE_FORMATED = re.compile(r'^/\w+#2F[\w-]+$')
 
 
 # make sure values are unwrapped by calling the specialized __getitem__
@@ -96,15 +99,15 @@ class FlectraPdfFileReader(PdfFileReader):
 
         try:
             file_path = self.trailer["/Root"].get("/Names", {}).get("/EmbeddedFiles", {}).get("/Names")
+
+            if not file_path:
+                return []
+            for i in range(0, len(file_path), 2):
+                attachment = file_path[i+1].getObject()
+                yield (attachment["/F"], attachment["/EF"]["/F"].getObject().getData())
         except Exception:
             # malformed pdf (i.e. invalid xref page)
             return []
-
-        if not file_path:
-            return []
-        for i in range(0, len(file_path), 2):
-            attachment = file_path[i+1].getObject()
-            yield (attachment["/F"], attachment["/EF"]["/F"].getObject().getData())
 
 
 class FlectraPdfFileWriter(PdfFileWriter):
@@ -118,18 +121,29 @@ class FlectraPdfFileWriter(PdfFileWriter):
         self._reader = None
         self.is_pdfa = False
 
-    def addAttachment(self, name, data, subtype=""):
+    def addAttachment(self, name, data, subtype=None):
         """
         Add an attachment to the pdf. Supports adding multiple attachment, while respecting PDF/A rules.
         :param name: The name of the attachement
         :param data: The data of the attachement
         :param subtype: The mime-type of the attachement. This is required by PDF/A, but not essential otherwise.
-        It should take the form of "/xxx%2Fxxx". E.g. for "text/xml": "/text%2Fxml"
+        It should take the form of "/xxx#2Fxxx". E.g. for "text/xml": "/text#2Fxml"
         """
+        adapted_subtype = subtype
+        if subtype:
+            # If we receive the subtype in an 'unformated' (mimetype) format, we'll try to convert it to a pdf-valid one
+            if REGEX_SUBTYPE_UNFORMATED.match(subtype):
+                adapted_subtype = '/' + subtype.replace('/', '#2F')
+
+            if not REGEX_SUBTYPE_FORMATED.match(adapted_subtype):
+                # The subtype still does not match the correct format, so we will not add it to the document
+                _logger.warning("Attempt to add an attachment with the incorrect subtype '%s'. The subtype will be ignored.", subtype)
+                adapted_subtype = ''
+
         attachment = self._create_attachment_object({
             'filename': name,
             'content': data,
-            'subtype': subtype,
+            'subtype': adapted_subtype,
         })
         if self._root_object.get('/Names') and self._root_object['/Names'].get('/EmbeddedFiles'):
             names_array = self._root_object["/Names"]["/EmbeddedFiles"]["/Names"]
