@@ -12,7 +12,7 @@
 # Arnau Ros, 2020
 # Carles Antoli <carlesantoli@hotmail.com>, 2020
 # José Cabrera Lozano <jose.cabrera@edukative.es>, 2021
-# Josep Anton Belchi Riera, 2021
+# jabelchi, 2021
 # 
 msgid ""
 msgstr ""
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-27 13:50+0000\n"
 "PO-Revision-Date: 2020-09-07 08:09+0000\n"
-"Last-Translator: Josep Anton Belchi Riera, 2021\n"
+"Last-Translator: jabelchi, 2021\n"
 "Language-Team: Catalan (https://www.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2149,11 +2149,11 @@ msgid ""
 "Legal\n"
 "-----\n"
 "**The use of pos_blackbox_be sources is only certified on flectrahq.com SaaS platform\n"
-"for version 13.0.** Contact FlectraHQ Inc. before installing pos_blackbox_be module.\n"
+"for version 13.0.** Contact FlectraHQ, Inc. before installing pos_blackbox_be module.\n"
 "\n"
 "An obfuscated and certified version of the pos_blackbox_be may be provided on\n"
 "requests for on-premise installations.\n"
-"No modified version is certified and supported by FlectraHQ Inc..\n"
+"No modified version is certified and supported by FlectraHQ, Inc..\n"
 "    "
 msgstr ""
 
@@ -3195,6 +3195,12 @@ msgid ""
 "This module allows authorized users to import a custom data module (.xml files and static assests)\n"
 "for customization purpose.\n"
 msgstr ""
+"\n"
+"Importar un mòdul de dades personalitzat\n"
+"=====================================\n"
+"\n"
+"Aquest mòdul permet als usuaris autoritzats importar un mòdul de dades personalitzat (fitxers .xml i recursos estàtics)\n"
+"amb propòsits de personalització.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_sale_amazon
@@ -3344,6 +3350,13 @@ msgid ""
 "You could use this simplified accounting in case you work with an (external) account to keep your books, and you still want to keep track of payments. This module also offers you an easy method of registering payments, without having to encode complete abstracts of account.\n"
 "    "
 msgstr ""
+"\n"
+"Facturació i pagaments\n"
+"=====================\n"
+"El sistema específic i senzill d'Flectra us permet fer un seguiment de la comptabilitat, fins i tot si no cou comptable. Facilita una control fàcil de proveïdors i clients.\n"
+"\n"
+"Podeu fer servir aquesta comptabilitat simplificada en cas de que treballeu amb un comptable extern per a portar els vostres llibres, però encara vulgueu conservar el seguiment dels pagaments. Aquest mòdul us ofereix un mètode fàcil per a registrar pagaments, sense codificacions de comptes complicades.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_hw_posbox_homepage
@@ -3745,6 +3758,15 @@ msgid ""
 "that have no counterpart in the general financial accounts.\n"
 "    "
 msgstr ""
+"\n"
+"Mòdul per a definir l'objecte de comptabilitat analítica.\n"
+"================================================\n"
+"\n"
+"A Flectra, els comptes analítics s'enllacen a comptes generals, però es tracten\n"
+"de manera completament independent. Per tant, podeu introduir diferents\n"
+"operacions analítiques que no tinguin contrapartida als comptes financers\n"
+"generals.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_resource
@@ -4682,6 +4704,9 @@ msgid ""
 "The module adds the possibility to display data from Flectra in Google Spreadsheets in real time.\n"
 "=================================================================================================\n"
 msgstr ""
+"\n"
+"El mòdul afegeix la possibilitat de mostrar dades de Flectra a fulls de càlcul Google Spreadsheets en temps real.\n"
+"=================================================================================================\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_social_media
@@ -4709,7 +4734,7 @@ msgid ""
 "\n"
 "    Storage: automatic sales closings with computation of both period and cumulative totals (daily, monthly, annually)\n"
 "\n"
-"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ Inc. (only for Flectra Enterprise users)\n"
+"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ, Inc. (only for Flectra Enterprise users)\n"
 msgstr ""
 
 #. module: base
@@ -5573,6 +5598,13 @@ msgid ""
 "with a single statement.\n"
 "    "
 msgstr ""
+"\n"
+"Aquest mòdul instal·la la base per comptes bancaris IBAN (International Bank Account Number) i comprovació de la seva validesa.\n"
+"======================================================================================================================\n"
+"\n"
+"La possibilitat d'extreure els comptes locals correctament representats de comptes IBAN\n"
+"amb un sol pas.\n"
+"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_association
@@ -6323,7 +6355,7 @@ msgstr ", només de lectura"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.report_irmodulereference
 msgid ", required"
-msgstr ",requerit"
+msgstr ", requerit"
 
 #. module: base
 #: code:addons/models.py:0
@@ -6599,12 +6631,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
 msgid ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                <b attrs=\"{'invisible': [('company_type', '!=', 'company')]}\">Company Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'invoice'), ('company_type', '=', 'company')]}\">Invoice Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'delivery'), ('company_type', '=', 'company')]}\">Delivery Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'other'), ('company_type', '=', 'company')]}\">Other Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'private'), ('company_type', '=', 'company')]}\">Private Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', 'not in', (False, 'contact')), ('company_type', '=', 'company')]}\">Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}\">Company Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'invoice')]}\">Invoice Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'delivery')]}\">Delivery Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'other')]}\">Other Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'private')]}\">Private Address</b>\n"
+"                                <b attrs=\"{'invisible': ['&amp;', ('parent_id', '!=', False), ('type', '!=', False)]}\">Address</b>\n"
 "                            </span>"
 msgstr ""
 
@@ -6772,7 +6804,7 @@ msgstr "<strong>Telèfon:</strong>"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_res_company_kanban
 msgid "<strong>Phone</strong>"
-msgstr ""
+msgstr "<strong>Telèfon</strong>"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.identity_check_wizard
@@ -7940,7 +7972,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__res_country__name_position__after
 msgid "After Address"
-msgstr ""
+msgstr "Altra adreça"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__res_currency__position__after
@@ -7976,7 +8008,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_payment_alipay
 #: model:ir.module.module,shortdesc:base.module_payment_alipay
 msgid "Alipay Payment Acquirer"
-msgstr ""
+msgstr "Mètode de pagament Alipay"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.ir_cron_view_search
@@ -8243,8 +8275,8 @@ msgid ""
 "Appears by default on the top right corner of your printed documents (report"
 " header)."
 msgstr ""
-"Apareix per defecte a la cantonada superior dret dels documents impresos "
-"(encapçalament de la informació)."
+"Apareix per defecte a la cantonada superior dreta dels documents impresos "
+"(capçalera de l'informe)"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_module_category
@@ -8626,7 +8658,7 @@ msgstr "Regles automatitzades d'acció"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_base_automation_hr_contract
 msgid "Automated Action based on Employee Contracts"
-msgstr ""
+msgstr "Acció automàtica basada en contractes d'empleat"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_module_module__auto_install
@@ -8923,7 +8955,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,summary:base.module_payment
 msgid "Base Module for Payment Acquirers"
-msgstr ""
+msgstr "Mòdul base per a mètodes de pagament"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_model__state__base
@@ -9800,7 +9832,7 @@ msgstr "Xile - Informes de comptabilitat "
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_cl_edi
 msgid "Chile - E-invoicing"
-msgstr ""
+msgstr "Chile - E-invoicing"
 
 #. module: base
 #: model:res.country,name:base.cn
@@ -10061,7 +10093,7 @@ msgstr "Empreses"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_users_form
 msgid "Companies count"
-msgstr "Comptador de companyies"
+msgstr "Nombre de companyies"
 
 #. module: base
 #: code:addons/base/models/ir_qweb_fields.py:0
@@ -10262,7 +10294,7 @@ msgstr "Configuració"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.res_config_installer
 msgid "Configuration Installer"
-msgstr "Configurar l'instal·lador "
+msgstr "Instal·lador de la configuració"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.act_ir_actions_todo_form
@@ -10609,7 +10641,7 @@ msgstr "Província"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_coupon
 msgid "Coupon"
-msgstr ""
+msgstr "Cupó"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_sale_coupon
@@ -10975,7 +11007,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_res_partner__credit_limit
 #: model:ir.model.fields,field_description:base.field_res_users__credit_limit
 msgid "Credit Limit"
-msgstr "Crèdit concedit"
+msgstr "Límit de crèdit"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_mercury
@@ -11043,7 +11075,7 @@ msgstr "Taxes monetària"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency__currency_subunit_label
 msgid "Currency Subunit"
-msgstr ""
+msgstr "Sub-unitat de moneda"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_currency__currency_subunit_label
@@ -11053,7 +11085,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency__currency_unit_label
 msgid "Currency Unit"
-msgstr ""
+msgstr "Unitat de moneda"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_currency__currency_unit_label
@@ -11063,7 +11095,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,help:base.field_res_currency__symbol
 msgid "Currency sign, to be used when printing amounts."
-msgstr "Fraccions de moneda, que seran utilitzades quan imprimim quantitats."
+msgstr "Símbol de moneda, que s'utilitzarà per imprimir imports."
 
 #. module: base
 #: code:addons/base/models/ir_ui_view.py:0
@@ -11188,7 +11220,7 @@ msgstr "República Txeca"
 #. module: base
 #: model:res.country,name:base.ci
 msgid "Côte d'Ivoire"
-msgstr ""
+msgstr "Costa d'Ivori"
 
 #. module: base
 #: model:res.partner.industry,full_name:base.res_partner_industry_D
@@ -11419,7 +11451,7 @@ msgstr "Tema per defecte "
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_default__json_value
 msgid "Default Value (JSON format)"
-msgstr ""
+msgstr "Valor per defecte (format JSON)"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_default
@@ -11632,7 +11664,7 @@ msgid ""
 "Determines where the currency symbol should be placed after or before the "
 "amount."
 msgstr ""
-"Determinar si el símbol de moneda ha de situar-se abans o després de la "
+"Determina si el símbol de moneda ha de situar-se abans o després de la "
 "quantitat."
 
 #. module: base
@@ -11830,7 +11862,7 @@ msgstr "Mostrar "
 #: model:ir.model.fields,field_description:base.field_reset_view_arch_wizard__display_name
 #: model:ir.model.fields,field_description:base.field_wizard_ir_model_menu_create__display_name
 msgid "Display Name"
-msgstr "Nom mostrat"
+msgstr "Nom a mostrar"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_website_studio
@@ -12898,7 +12930,7 @@ msgstr ""
 #. module: base
 #: model:res.partner.industry,name:base.res_partner_industry_U
 msgid "Extraterritorial"
-msgstr ""
+msgstr "Extraterritorial"
 
 #. module: base
 #: model:res.partner.industry,full_name:base.res_partner_industry_F
@@ -13111,7 +13143,7 @@ msgstr "Camp d'Etiqueta"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_server_action_form
 msgid "Field Mappings"
-msgstr "Camp de Mapejats. "
+msgstr "Mapeig de camps"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_exports_line__name
@@ -13154,7 +13186,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_ir_model_fields__ttype
 #: model_terms:ir.ui.view,arch_db:base.view_model_fields_search
 msgid "Field Type"
-msgstr "Camp de Tipus"
+msgstr "Tipus de camp"
 
 #. module: base
 #: code:addons/base/models/ir_ui_view.py:0
@@ -13223,7 +13255,7 @@ msgstr ""
 #: code:addons/base/models/ir_model.py:0
 #, python-format
 msgid "Fields: %s"
-msgstr ""
+msgstr "Camps: %s"
 
 #. module: base
 #: model:res.country,name:base.fj
@@ -14317,8 +14349,8 @@ msgid ""
 "Helps you handle your accounting needs, if you are not an accountant, we "
 "suggest you to install only the Invoicing."
 msgstr ""
-"L'ajuda a gestionar les seves necessitats de comptabilitat, si vostè no és "
-"comptable, li suggerim que instal només la facturació."
+"Us ajuda a gestionar les necessitats de comptabilitat. Si no sou comptable, "
+"us suggerim instal·lar només la facturació."
 
 #. module: base
 #: model:ir.module.category,description:base.module_category_sales_sales
@@ -14369,7 +14401,7 @@ msgstr "Us ajuda a gestionar els treballadors."
 #. module: base
 #: model:ir.module.category,description:base.module_category_human_resources_expenses
 msgid "Helps you manage your expenses."
-msgstr "L'ajuda a gestionar les seves despeses."
+msgstr "Us ajuda a gestionar les vostres despeses."
 
 #. module: base
 #: model:ir.module.category,description:base.module_category_inventory_inventory
@@ -14774,7 +14806,7 @@ msgstr "URL d'icona"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_base_partner_merge_line__aggr_ids
 msgid "Ids"
-msgstr "ID"
+msgstr "Ids"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_model_fields__group_expand
@@ -14803,8 +14835,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_rule__global
 msgid "If no group is specified the rule is global and applied to everyone"
-msgstr ""
-"Si no s'especifica cap grup, la regla és global i s'aplica a tot el món."
+msgstr "Si no s'especifica cap grup, la regla és global i s'aplica a tothom."
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_property__res_id
@@ -14936,7 +14967,7 @@ msgstr ""
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_base_module_upgrade
 msgid "If you wish to cancel the process, press the cancel button below"
-msgstr "Si vol cancel·lar el procés, pressioni el botó cancel·lar."
+msgstr "Si voleu cancel·lar el procés, pressioneu el botó cancel·lar."
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_image_mixin__image_1920
@@ -15063,7 +15094,7 @@ msgstr "Importar Extracte Bancari QIF "
 #: code:addons/base/models/res_partner.py:0
 #, python-format
 msgid "Import Template for Customers"
-msgstr ""
+msgstr "Plantilla d'importació de clients"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_view_base_import_language
@@ -15558,6 +15589,12 @@ msgid "Invalid model name %r in action definition."
 msgstr "Nom de model %r no vàlid en la definició de l'acció."
 
 #. module: base
+#: code:addons/base/models/ir_actions.py:611
+#, python-format
+msgid "many2many fields cannot be evaluated by reference"
+msgstr ""
+
+#. module: base
 #: code:addons/template_inheritance.py:0
 #, python-format
 msgid "Invalid position attribute: '%s'"
@@ -15896,7 +15933,7 @@ msgstr "Kuwait"
 #. module: base
 #: model:res.country,name:base.kg
 msgid "Kyrgyzstan"
-msgstr ""
+msgstr "Kirguizistan"
 
 #. module: base
 #: model:res.partner.industry,full_name:base.res_partner_industry_L
@@ -17181,7 +17218,7 @@ msgstr "Màrqueting"
 #: model:ir.module.category,name:base.module_category_marketing_marketing_automation
 #: model:ir.module.module,shortdesc:base.module_marketing_automation
 msgid "Marketing Automation"
-msgstr ""
+msgstr "Automatització de màrqueting"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_marketing_automation
@@ -17201,7 +17238,7 @@ msgstr "Illes Marshall"
 #. module: base
 #: model:res.country,name:base.mq
 msgid "Martinique"
-msgstr ""
+msgstr "Martinica"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_mass_mailing
@@ -17785,7 +17822,7 @@ msgstr ""
 #. module: base
 #: model:res.country,name:base.md
 msgid "Moldova"
-msgstr ""
+msgstr "Moldàvia"
 
 #. module: base
 #: model:res.country,name:base.mc
@@ -17864,7 +17901,7 @@ msgstr "Multi companyies"
 #. module: base
 #: model:res.groups,name:base.group_multi_currency
 msgid "Multi Currencies"
-msgstr "Multidivises"
+msgstr "Multi-divisa"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_multilang
@@ -18009,7 +18046,7 @@ msgstr ""
 #. module: base
 #: model:res.country,name:base.nc
 msgid "New Caledonia"
-msgstr ""
+msgstr "Nova Caledònia"
 
 #. module: base
 #: code:addons/base/wizard/base_export_language.py:0
@@ -18287,7 +18324,7 @@ msgstr "Sense fer"
 #: code:addons/base/models/ir_model.py:0
 #, python-format
 msgid "Not enough access rights on the external ID:"
-msgstr ""
+msgstr "No hi ha prou drets d'accés a l'ID extern:"
 
 #. module: base
 #: code:addons/base/models/ir_rule.py:0
@@ -18313,7 +18350,7 @@ msgstr "Nombre d'aplicacions"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_cron__numbercall
 msgid "Number of Calls"
-msgstr "Nombre de trucades"
+msgstr "Nombre de crides"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_users__companies_count
@@ -18798,6 +18835,90 @@ msgid ""
 "Compare revenues with forecasts and budgets in real time.\n"
 "\n"
 msgstr ""
+"Flectra Recursos Humans\n"
+"--------------------\n"
+"\n"
+"Amb <a href=\"https://www.flectrahq.com/page/employees\">Recursos Humans</a>d'Flectra,\n"
+"gestioneu l'actiu més important de la vostra empresa: Les persones\n"
+"\n"
+"Tingueu totes les operacions de RRHH gestionades amb facilitat: coneixement compartit, seleccions,\n"
+"avaluacions, fulls d'hores, contractes, assistències, nòmina, etc.\n"
+"\n"
+"Cada necessitat és coberta per una aplicació específica que s'activa sota demanda.\n"
+"\n"
+"Gestioneu els empleats\n"
+"---------------------\n"
+"\n"
+"Superviseu tota la informació important a la llibreta d'adreces de l'empresa. Part de la \n"
+"informació està restringida als responsables de RRHH, la resta és pública per a veure fàcilment els col·legues.\n"
+"\n"
+"Enregistreu els contractes dels empleats y rebeu alertes quan calgui renovar-los.\n"
+"\n"
+"Organitzeu el procés de selecció\n"
+"-----------------------------------\n"
+"\n"
+"Organitzeu currículums, seguiu candidats, cerqueu perfils amb <a href=\"https://www.flectrahq.com/page/employees\">Flectra RRHH</a>.\n"
+"\n"
+"Publiqueu ofertes i gestiuneu cada candidatura rebuda. Seguiu els candidats\n"
+"del vostre procès amb la vista kanban.\n"
+"\n"
+"Estalvieu temps tot automatitzant algunes comunicacions amb plantilles de correu electrònic. Els currículums s'indexen automàticament, permetent-vos trobar-los per perfils específics.\n"
+"\n"
+"Xarxa social d'empresa\n"
+"-------------------------\n"
+"\n"
+"Desmonteu els espais tancats d'incormació. Compartiu coneixement i les millors pràctiques entre tots els empleats. \n"
+"Seguiu persones específiques o documents i uniu-vos a grups d'interès per a compartir expertesa i documents.\n"
+"\n"
+"Interactueu amb els vostres companys en temps real amb el xat web.\n"
+"\n"
+"Seguiu temps i assistències\n"
+"--------------------------\n"
+"\n"
+"Feu seguiment del temps invertit per projecte, client o tasca. És fàcil enregistrar\n"
+"fulls d'hores o comprovar assistències per a cada empleat. Obtingueu automàticament comptabilitat analítica basada en temps invertit en els projectes. \n"
+"\n"
+"Gestió d'absències\n"
+"-----------------\n"
+"\n"
+"Feu seguiment dels dies de vacances acumulats per cada empleat. Els empleats introdueixen les seves\n"
+"peticions (absències pagades, temps de malaltia, etc), per a que les aprovin i validin\n"
+"els responsables. Tot en uns pocs clics. L'agenda de cada empleat \n"
+"s'actualitza en conseqüència.\n"
+"\n"
+"Feu seguiment de les despeses dels empleats\n"
+"-------------------------------\n"
+"\n"
+"Allibereu-vos de la paperassa i seguiu les despeses dels empleats directament a Flectra.\n"
+"No perdeu temps i diners tot controlant el flux complet: validació de la despesa,\n"
+"reembosament als empleats, comptabilització i refacturació als clients.\n"
+"\n"
+"Seguiment d'avaluacions peròdiques\n"
+"--------------------------\n"
+"\n"
+"Establiu plans d'avaluació o enquestes pels empleats i controleu la seva evolució. Definiu passos per a les entrevistes i Flectra notificarà als responsables o subordinats automàticament per a preparar les avaluacions. Seguiu el procés de la vostra plantilla periòdicament. \n"
+"\n"
+"Milloreu el compromís amb gamificació\n"
+"----------------------------------\n"
+"\n"
+"### Definiu objectius clars i faciliteu feedback en temps real\n"
+"\n"
+"Inspireu l'assoliment amb reptes, objectius i recompenses. Definiu objectius clars\n"
+"i faciliteu feedback i resultats tangibles en temps real. Mostreu els que tenen\n"
+"millor rendiment a tot el canal i reconeixeu-los-hi la feina ben feta done.\n"
+"\n"
+"### Lideratge\n"
+"\n"
+"Promogueu el lideratge i la competició entre l'equip de vendes amb ràtios de rendiment.\n"
+"\n"
+"### Objectius personals\n"
+"\n"
+"Assigneu objectius clars als usuaris per a que estiguin alineats amb els objectius de l'empresa.\n"
+"\n"
+"### Objectius d'equip\n"
+"\n"
+"Compareu en temps real ingressos i amb previsions i pressupostos. \n"
+"\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_mrp
@@ -19738,7 +19859,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.constraint,message:base.constraint_res_currency_rate_unique_name_per_day
 msgid "Only one currency rate per day allowed!"
-msgstr ""
+msgstr "Només es permet un tipus de canvi de divisa per dia"
 
 #. module: base
 #: model:ir.model.constraint,message:base.constraint_decimal_precision_name_uniq
@@ -20471,7 +20592,7 @@ msgstr "Mètode de pagament: Implementació Adyen"
 #. module: base
 #: model:ir.module.module,summary:base.module_payment_alipay
 msgid "Payment Acquirer: Alipay Implementation"
-msgstr ""
+msgstr "Mètode de pagament: Implementació Alipay"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_payment_authorize
@@ -20501,7 +20622,7 @@ msgstr "Mètode de pagament: Implementació Paypal"
 #. module: base
 #: model:ir.module.module,summary:base.module_payment_payulatam
 msgid "Payment Acquirer: PayuLatam Implementation"
-msgstr ""
+msgstr "Mètode de pagament: Implementació PayuLatam"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_payment_payumoney
@@ -20511,7 +20632,7 @@ msgstr "Mètode de pagament: Implementació de PayuMoney"
 #. module: base
 #: model:ir.module.module,summary:base.module_payment_sepa_direct_debit
 msgid "Payment Acquirer: Sepa Direct Debit"
-msgstr ""
+msgstr "Mètode de pagament: SEPA"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_payment_stripe
@@ -20568,7 +20689,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_payment_payulatam
 msgid "PayuLatam Payment Acquirer"
-msgstr ""
+msgstr "Mètode de pagament PayuLatam"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_payment_payumoney
@@ -20578,7 +20699,7 @@ msgstr "Mètode de pagament PayuMoney"
 #. module: base
 #: model:ir.module.module,description:base.module_payment_payulatam
 msgid "Payulatam payment acquirer"
-msgstr ""
+msgstr "Mètode de pagament Payulatam"
 
 #. module: base
 #: model:res.country,name:base.pe
@@ -20609,7 +20730,7 @@ msgstr "Telèfon"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_phone_validation
 msgid "Phone Numbers Validation"
-msgstr ""
+msgstr "Validació de números telefònics"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
@@ -20840,7 +20961,7 @@ msgstr "Precisió del preu"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company__primary_color
 msgid "Primary Color"
-msgstr ""
+msgstr "Color primari"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_l10n_ca_check_printing
@@ -21120,7 +21241,7 @@ msgstr "Públic"
 #. module: base
 #: model:res.partner.industry,name:base.res_partner_industry_O
 msgid "Public Administration"
-msgstr ""
+msgstr "Administració pública"
 
 #. module: base
 #: model:res.groups,comment:base.group_public
@@ -21645,7 +21766,7 @@ msgstr "Camp relacionat"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_fields__relation
 msgid "Related Model"
-msgstr ""
+msgstr "Model relacionat"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_users__partner_id
@@ -22513,7 +22634,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company__secondary_color
 msgid "Secondary Color"
-msgstr ""
+msgstr "Color secundari"
 
 #. module: base
 #: model:ir.ui.menu,name:base.menu_security
@@ -22683,7 +22804,7 @@ msgstr ""
 #: model:ir.module.module,description:base.module_calendar_sms
 #: model:ir.module.module,summary:base.module_calendar_sms
 msgid "Send text messages as event reminders"
-msgstr ""
+msgstr "Enviar missatges de text com a recordatoris d'esdeveniments"
 
 #. module: base
 #: model:ir.module.module,description:base.module_stock_sms
@@ -22725,7 +22846,7 @@ msgstr "Senegal"
 #: model:ir.module.module,description:base.module_payment_sepa_direct_debit
 #: model:ir.module.module,shortdesc:base.module_payment_sepa_direct_debit
 msgid "Sepa Direct Debit Payment Acquirer"
-msgstr ""
+msgstr "Mètode de pagament SEPA"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_lang__grouping
@@ -23322,7 +23443,7 @@ msgstr ""
 #. module: base
 #: model:res.country,name:base.ps
 msgid "State of Palestine"
-msgstr ""
+msgstr "Estat de Palestina"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company__base_onboarding_company_state
@@ -23592,7 +23713,7 @@ msgstr "Enquestes"
 #. module: base
 #: model:res.country,name:base.sj
 msgid "Svalbard and Jan Mayen"
-msgstr ""
+msgstr "Svalbard i Jan Mayen"
 
 #. module: base
 #: model:res.country,name:base.sz
@@ -23903,7 +24024,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_payment_test
 msgid "Test Payment Acquirer"
-msgstr ""
+msgstr "Mètode de pagament de test"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_performance
@@ -24487,6 +24608,7 @@ msgid ""
 "The value for the field '%s' already exists (this is probably '%s' in the "
 "current model)."
 msgstr ""
+"El valor pel camp '%s' ja existeix (és probablement '%s' al model actual)."
 
 #. module: base
 #: code:addons/base/models/ir_qweb_fields.py:0
@@ -24501,6 +24623,8 @@ msgid ""
 "The values for the fields '%s' already exist (they are probably '%s' in the "
 "current model)."
 msgstr ""
+"Els valors pels camps '%s' ja existeixen (són probablement '%s' al model "
+"actual)."
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_theme
@@ -25090,17 +25214,17 @@ msgstr "Model transitori"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "Transient: False"
-msgstr "Transitori: False"
+msgstr "Transitori: Fals"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "Transient: True"
-msgstr "Transitori: True"
+msgstr "Transitori: Cert"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_transifex
 msgid "Transifex integration"
-msgstr ""
+msgstr "Integració amb Transifex"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_groups__trans_implied_ids
@@ -26010,7 +26134,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,summary:base.module_phone_validation
 msgid "Validate and format phone numbers"
-msgstr ""
+msgstr "Validar i formatar números telefònics"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_industry_fsm_stock
@@ -26215,7 +26339,7 @@ msgstr ""
 #: code:addons/base/models/ir_model.py:0
 #, python-format
 msgid "View: %s"
-msgstr ""
+msgstr "Vista: %s"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_ui_view
@@ -26665,7 +26789,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_work_entry
 msgid "Work Entries"
-msgstr ""
+msgstr "Entrades de Treball"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_work_entry_contract
@@ -26776,7 +26900,7 @@ msgstr ""
 #: code:addons/base/models/ir_module.py:0
 #, python-format
 msgid "You are trying to install incompatible modules in category \"%s\":"
-msgstr ""
+msgstr "Esteu intentant instal·lar mòduls incompatibles a la categoria \"%s\":"
 
 #. module: base
 #: code:addons/base/models/ir_module.py:0

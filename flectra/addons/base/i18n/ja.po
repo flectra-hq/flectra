@@ -3051,11 +3051,11 @@ msgid ""
 "Legal\n"
 "-----\n"
 "**The use of pos_blackbox_be sources is only certified on flectrahq.com SaaS platform\n"
-"for version 13.0.** Contact FlectraHQ Inc. before installing pos_blackbox_be module.\n"
+"for version 13.0.** Contact FlectraHQ, Inc. before installing pos_blackbox_be module.\n"
 "\n"
 "An obfuscated and certified version of the pos_blackbox_be may be provided on\n"
 "requests for on-premise installations.\n"
-"No modified version is certified and supported by FlectraHQ Inc..\n"
+"No modified version is certified and supported by FlectraHQ, Inc..\n"
 "    "
 msgstr ""
 "\n"
@@ -3071,11 +3071,11 @@ msgstr ""
 "リーガル\n"
 "-----\n"
 "**pos_blackbox_beソースの使用は、flectrahq.comのSaaSプラットフォームでのみ認定されています。\n"
-"バージョン13.0.0用 ** pos_blackbox_beモジュールをインストールする前に、FlectraHQ Inc.にお問い合わせください。\n"
+"バージョン13.0.0用 ** pos_blackbox_beモジュールをインストールする前に、FlectraHQ, Inc.にお問い合わせください。\n"
 "\n"
 "pos_blackbox_be の難読化された認証済みバージョンは\n"
 "オンプレミスでのインストールのためのリクエストを受け付けています。\n"
-"FlectraHQ Inc.が認定し、サポートしている修正版はありません。"
+"FlectraHQ, Inc.が認定し、サポートしている修正版はありません。"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_bo
@@ -5627,6 +5627,7 @@ msgid ""
 "creation of the Financial Accounting records).\n"
 "    "
 msgstr ""
+"\n"
 "OFX銀行取引明細書をインポートするモジュール。\n"
 "======================================\n"
 "このモジュールを使用すると、マシンで読み取り可能なOFXファイルをインポートできます。\n"
@@ -5650,16 +5651,21 @@ msgid ""
 "Because of the QIF format limitation, we cannot ensure the same transactions aren't imported several times or handle multicurrency.\n"
 "Whenever possible, you should use a more appropriate file format like OFX.\n"
 msgstr ""
+"\n"
 "QIF銀行取引明細書をインポートするモジュール。\n"
 "======================================\n"
+"\n"
 "このモジュールを使用すると、機械可読QIFファイルを次の場所にインポートできます。 \n"
-"Flectra:それらは解析され、会計\\銀行および現金\\銀行取引明細書に人間が読める形式で保存されます。\n"
+"Flectra:それらは解析され、\n"
+"会計\\銀行および現金\\銀行取引明細書\n"
+"に人間が読める形式で保存されます。\n"
+"\n"
 "\n"
 "重要な注意事項\n"
 "--------------------------------------------- \n"
 "QIF形式の制限により、同じトランザクションが複数回インポートされたり、\n"
 "複数通貨を処理したりしないようにすることはできません。\n"
-"可能な限り、OFXなどのより適切なファイル形式を使用する必要があります。"
+"可能な限り、OFXなどのより適切なファイル形式を使用する必要があります。\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_voip_onsip
@@ -6732,7 +6738,7 @@ msgid ""
 "\n"
 "    Storage: automatic sales closings with computation of both period and cumulative totals (daily, monthly, annually)\n"
 "\n"
-"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ Inc. (only for Flectra Enterprise users)\n"
+"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ, Inc. (only for Flectra Enterprise users)\n"
 msgstr ""
 "\n"
 "This add-on brings the technical requirements of the French regulation CGI art. 286, I. 3° bis that stipulates certain criteria concerning the inalterability, security, storage and archiving of data related to sales to private individuals (B2C).\n"
@@ -6748,7 +6754,7 @@ msgstr ""
 "\n"
 "    Storage: automatic sales closings with computation of both period and cumulative totals (daily, monthly, annually)\n"
 "\n"
-"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ Inc. (only for Flectra Enterprise users)\n"
+"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ, Inc. (only for Flectra Enterprise users)\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_pos_cache
@@ -9164,12 +9170,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
 msgid ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                <b attrs=\"{'invisible': [('company_type', '!=', 'company')]}\">Company Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'invoice'), ('company_type', '=', 'company')]}\">Invoice Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'delivery'), ('company_type', '=', 'company')]}\">Delivery Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'other'), ('company_type', '=', 'company')]}\">Other Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'private'), ('company_type', '=', 'company')]}\">Private Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', 'not in', (False, 'contact')), ('company_type', '=', 'company')]}\">Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}\">Company Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'invoice')]}\">Invoice Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'delivery')]}\">Delivery Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'other')]}\">Other Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'private')]}\">Private Address</b>\n"
+"                                <b attrs=\"{'invisible': ['&amp;', ('parent_id', '!=', False), ('type', '!=', False)]}\">Address</b>\n"
 "                            </span>"
 msgstr ""
 
@@ -18092,6 +18098,12 @@ msgid "Invalid model name %r in action definition."
 msgstr "無効なモデル名 %r がアクションの定義にあります。"
 
 #. module: base
+#: code:addons/base/models/ir_actions.py:611
+#, python-format
+msgid "many2many fields cannot be evaluated by reference"
+msgstr ""
+
+#. module: base
 #: code:addons/template_inheritance.py:0
 #, python-format
 msgid "Invalid position attribute: '%s'"
@@ -26087,7 +26099,7 @@ msgstr "設定を開始"
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
 #: model_terms:ir.ui.view,arch_db:base.view_res_bank_form
 msgid "State"
-msgstr "ステータス"
+msgstr "都道府県/州"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_country_state__code

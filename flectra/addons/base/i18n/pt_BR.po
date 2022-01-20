@@ -3118,11 +3118,11 @@ msgid ""
 "Legal\n"
 "-----\n"
 "**The use of pos_blackbox_be sources is only certified on flectrahq.com SaaS platform\n"
-"for version 13.0.** Contact FlectraHQ Inc. before installing pos_blackbox_be module.\n"
+"for version 13.0.** Contact FlectraHQ, Inc. before installing pos_blackbox_be module.\n"
 "\n"
 "An obfuscated and certified version of the pos_blackbox_be may be provided on\n"
 "requests for on-premise installations.\n"
-"No modified version is certified and supported by FlectraHQ Inc..\n"
+"No modified version is certified and supported by FlectraHQ, Inc..\n"
 "    "
 msgstr ""
 "\n"
@@ -3138,11 +3138,11 @@ msgstr ""
 "Legal\n"
 "-----\n"
 "**The use of pos_blackbox_be sources is only certified on flectrahq.com SaaS platform\n"
-"for version 13.0.** Contact FlectraHQ Inc. before installing pos_blackbox_be module.\n"
+"for version 13.0.** Contact FlectraHQ, Inc. before installing pos_blackbox_be module.\n"
 "\n"
 "An obfuscated and certified version of the pos_blackbox_be may be provided on\n"
 "requests for on-premise installations.\n"
-"No modified version is certified and supported by FlectraHQ Inc..\n"
+"No modified version is certified and supported by FlectraHQ, Inc..\n"
 "    "
 
 #. module: base
@@ -6981,7 +6981,7 @@ msgid ""
 "\n"
 "    Storage: automatic sales closings with computation of both period and cumulative totals (daily, monthly, annually)\n"
 "\n"
-"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ Inc. (only for Flectra Enterprise users)\n"
+"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ, Inc. (only for Flectra Enterprise users)\n"
 msgstr ""
 "\n"
 "Este complemento traz os requisitos técnicos do regulamento francês CGI art. 286, I. 3° bis que estipula determinados critérios relativos à inalterabilidade, segurança, armazenamento e arquivamento de dados relacionados às vendas para pessoas físicas (B2C).\n"
@@ -6997,7 +6997,7 @@ msgstr ""
 "\n"
 "Armazenamento: fechamentos automáticos de vendas com cálculo de ambos os totais de período e acumulados (diário, mensal, anual)\n"
 "\n"
-"Acesso ao download do Certificado obrigatório de Conformidade entregue pela FlectraHQ Inc. (somente para usuários da Flectra Enterprise)\n"
+"Acesso ao download do Certificado obrigatório de Conformidade entregue pela FlectraHQ, Inc. (somente para usuários da Flectra Enterprise)\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_pos_cache
@@ -9594,22 +9594,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
 msgid ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                <b attrs=\"{'invisible': [('company_type', '!=', 'company')]}\">Company Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'invoice'), ('company_type', '=', 'company')]}\">Invoice Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'delivery'), ('company_type', '=', 'company')]}\">Delivery Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'other'), ('company_type', '=', 'company')]}\">Other Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'private'), ('company_type', '=', 'company')]}\">Private Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', 'not in', (False, 'contact')), ('company_type', '=', 'company')]}\">Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}\">Company Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'invoice')]}\">Invoice Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'delivery')]}\">Delivery Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'other')]}\">Other Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'private')]}\">Private Address</b>\n"
+"                                <b attrs=\"{'invisible': ['&amp;', ('parent_id', '!=', False), ('type', '!=', False)]}\">Address</b>\n"
 "                            </span>"
 msgstr ""
-"<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                <b attrs=\"{'invisible': [('company_type', '!=', 'company')]}\">Endereço da Empresa</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'invoice'), ('company_type', '=', 'company')]}\">Endereço da Fatura</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'delivery'), ('company_type', '=', 'company')]}\">Endereço de Entrega</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'other'), ('company_type', '=', 'company')]}\">Outro Endereço</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'private'), ('company_type', '=', 'company')]}\">Endereço Privado</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', 'not in', (False, 'contact')), ('company_type', '=', 'company')]}\">Endereço</b>\n"
-"                            </span>"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_base_module_update
@@ -18979,6 +18971,12 @@ msgstr "Chave inválida: a visualização QWeb deve ter uma chave"
 #, python-format
 msgid "Invalid model name %r in action definition."
 msgstr "Invalid model name %r in action definition."
+
+#. module: base
+#: code:addons/base/models/ir_actions.py:611
+#, python-format
+msgid "many2many fields cannot be evaluated by reference"
+msgstr ""
 
 #. module: base
 #: code:addons/template_inheritance.py:0

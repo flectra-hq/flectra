@@ -1,22 +1,41 @@
+import re
+import xmlrpc.client
 from datetime import date, datetime
 from xmlrpc.client import dumps, loads
-import xmlrpc.client
 
 from werkzeug.wrappers import Response
 
 from flectra.http import Controller, dispatch_rpc, request, route
 from flectra.service import wsgi_server
 from flectra.fields import Date, Datetime
-from flectra.tools import lazy
+from flectra.tools import lazy, ustr
+from flectra.tools.misc import frozendict
 
-
+# ustr decodes as utf-8 or latin1 so we can search for the ASCII bytes
+# 	Char	   ::=   	#x9 | #xA | #xD | [#x20-#xD7FF]
+XML_INVALID = re.compile(b'[\x00-\x08\x0B\x0C\x0F-\x1F]')
 class FlectraMarshaller(xmlrpc.client.Marshaller):
-
-    """
-    XMLRPC Marshaller that converts date(time) objects to strings in iso8061 format.
-    """
-
     dispatch = dict(xmlrpc.client.Marshaller.dispatch)
+
+    def dump_frozen_dict(self, value, write):
+        value = dict(value)
+        self.dump_struct(value, write)
+    dispatch[frozendict] = dump_frozen_dict
+    
+    # By default, in xmlrpc, bytes are converted to xmlrpclib.Binary object.
+    # Historically, flectra is sending binary as base64 string.
+    # In python 3, base64.b64{de,en}code() methods now works on bytes.
+    # Convert them to str to have a consistent behavior between python 2 and python 3.
+    def dump_bytes(self, value, write):
+        # XML 1.0 disallows control characters, check for them immediately to
+        # see if this is a "real" binary (rather than base64 or somesuch) and
+        # blank it out, otherwise they get embedded in the output and break
+        # client-side parsers
+        if XML_INVALID.search(value):
+            self.dump_unicode('', write)
+        else:
+            self.dump_unicode(ustr(value), write)
+    dispatch[bytes] = dump_bytes
 
     def dump_datetime(self, value, write):
         # override to marshall as a string for backwards compatibility

@@ -21,7 +21,7 @@
 # Hans Henrik Gabelgaard <hhg@gabelgaard.org>, 2020
 # lhmflexerp <lhm@flexerp.dk>, 2020
 # Mads Søndergaard, 2020
-# Mads Søndergaard <mads@vkdata.dk>, 2021
+# Mads Søndergaard, 2021
 # 
 msgid ""
 msgstr ""
@@ -29,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-27 13:50+0000\n"
 "PO-Revision-Date: 2020-09-07 08:09+0000\n"
-"Last-Translator: Mads Søndergaard <mads@vkdata.dk>, 2021\n"
+"Last-Translator: Mads Søndergaard, 2021\n"
 "Language-Team: Danish (https://www.transifex.com/odoo/teams/41243/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3111,11 +3111,11 @@ msgid ""
 "Legal\n"
 "-----\n"
 "**The use of pos_blackbox_be sources is only certified on flectrahq.com SaaS platform\n"
-"for version 13.0.** Contact FlectraHQ Inc. before installing pos_blackbox_be module.\n"
+"for version 13.0.** Contact FlectraHQ, Inc. before installing pos_blackbox_be module.\n"
 "\n"
 "An obfuscated and certified version of the pos_blackbox_be may be provided on\n"
 "requests for on-premise installations.\n"
-"No modified version is certified and supported by FlectraHQ Inc..\n"
+"No modified version is certified and supported by FlectraHQ, Inc..\n"
 "    "
 msgstr ""
 "\n"
@@ -3131,11 +3131,11 @@ msgstr ""
 "Juridisk:\n"
 "-----\n"
 "**Brugen af pos_blackbox_be ressourcer er kun certificeret på flectrahq.com SaaS platform\n"
-"for version 13.0.** Kontakt FlectraHQ Inc. før du installere pos_blackbox_be modulet.\n"
+"for version 13.0.** Kontakt FlectraHQ, Inc. før du installere pos_blackbox_be modulet.\n"
 "\n"
 "En tilsløret og certificeret version af pos_blackbox_be kan leveres ved\n"
 "anmodninger om lokalinstallationer.\n"
-"Ingen ændret version er certificeret og understøttet af FlectraHQ Inc..    "
+"Ingen ændret version er certificeret og understøttet af FlectraHQ, Inc..    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_bo
@@ -7002,7 +7002,7 @@ msgid ""
 "\n"
 "    Storage: automatic sales closings with computation of both period and cumulative totals (daily, monthly, annually)\n"
 "\n"
-"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ Inc. (only for Flectra Enterprise users)\n"
+"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ, Inc. (only for Flectra Enterprise users)\n"
 msgstr ""
 "\n"
 "Denne add-on bringer de tekniske krav frra den Franske regulering CGI art.  286, I. 3° bis som stipulerer, at visse kiterier vedrørende uforanderligheden, sikkerheden, lagringen, og arkiveringen af data relateret til salg til private individer (B2C).\n"
@@ -7018,7 +7018,7 @@ msgstr ""
 "\n"
 "    Lagring: automatisk afslutning af salg med udregning af både periode og akkumulerede totaler (daglig, månedlig, årlig)\n"
 "\n"
-"    Adgang til at hente den obligatoriske Overensstemmelsescertifikat leveret af FlectraHQ Inc. (kun for Flectra Enterprise brugere)\n"
+"    Adgang til at hente den obligatoriske Overensstemmelsescertifikat leveret af FlectraHQ, Inc. (kun for Flectra Enterprise brugere)\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_pos_cache
@@ -9569,21 +9569,21 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
 msgid ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                <b attrs=\"{'invisible': [('company_type', '!=', 'company')]}\">Company Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'invoice'), ('company_type', '=', 'company')]}\">Invoice Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'delivery'), ('company_type', '=', 'company')]}\">Delivery Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'other'), ('company_type', '=', 'company')]}\">Other Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'private'), ('company_type', '=', 'company')]}\">Private Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', 'not in', (False, 'contact')), ('company_type', '=', 'company')]}\">Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}\">Company Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'invoice')]}\">Invoice Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'delivery')]}\">Delivery Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'other')]}\">Other Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'private')]}\">Private Address</b>\n"
+"                                <b attrs=\"{'invisible': ['&amp;', ('parent_id', '!=', False), ('type', '!=', False)]}\">Address</b>\n"
 "                            </span>"
 msgstr ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                <b attrs=\"{'invisible': [('company_type', '!=', 'company')]}\">Virksomhedsadresse</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'invoice'), ('company_type', '=', 'company')]}\">Faktureringsadresse</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'delivery'), ('company_type', '=', 'company')]}\">Leveringsadresse</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'other'), ('company_type', '=', 'company')]}\">Anden adresse</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'private'), ('company_type', '=', 'company')]}\">Privat Adresse</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', 'not in', (False, 'contact')), ('company_type', '=', 'company')]}\">Adresse</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}\">Virksomhedsadresse</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'invoice')]}\">Fakturerings adresse</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'delivery')]}\">Leveringsadresse</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'other')]}\">Anden adresse</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'private')]}\">Privat adresse</b>\n"
+"                                <b attrs=\"{'invisible': ['&amp;', ('parent_id', '!=', False), ('type', '!=', False)]}\">Adresse</b>\n"
 "                            </span>"
 
 #. module: base
@@ -15929,7 +15929,7 @@ msgstr "Eksklusiv"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.ir_cron_view_form
 msgid "Execute Every"
-msgstr "Udfør alle"
+msgstr "Udfør hver"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_actions_server__state__code
@@ -18890,6 +18890,12 @@ msgstr "Ugyldig nøgle: QWeb visning skal have en nøgle"
 #, python-format
 msgid "Invalid model name %r in action definition."
 msgstr "Ugyldig model navn %r i handlingsdefinition."
+
+#. module: base
+#: code:addons/base/models/ir_actions.py:611
+#, python-format
+msgid "many2many fields cannot be evaluated by reference"
+msgstr ""
 
 #. module: base
 #: code:addons/template_inheritance.py:0

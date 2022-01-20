@@ -6,9 +6,6 @@ from collections.abc import Iterable
 
 from flectra import api, fields, models, _
 from flectra.osv import expression
-from flectra.exceptions import UserError
-
-import werkzeug.urls
 
 def sanitize_account_number(acc_number):
     if acc_number:

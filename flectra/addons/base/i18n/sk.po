@@ -2531,11 +2531,11 @@ msgid ""
 "Legal\n"
 "-----\n"
 "**The use of pos_blackbox_be sources is only certified on flectrahq.com SaaS platform\n"
-"for version 13.0.** Contact FlectraHQ Inc. before installing pos_blackbox_be module.\n"
+"for version 13.0.** Contact FlectraHQ, Inc. before installing pos_blackbox_be module.\n"
 "\n"
 "An obfuscated and certified version of the pos_blackbox_be may be provided on\n"
 "requests for on-premise installations.\n"
-"No modified version is certified and supported by FlectraHQ Inc..\n"
+"No modified version is certified and supported by FlectraHQ, Inc..\n"
 "    "
 msgstr ""
 
@@ -3242,13 +3242,13 @@ msgstr ""
 "Od 1. januára 2015 telekomunikácie, vysielanie\n"
 "a elektronické služby predávané v rámci Európskej únie\n"
 "musia byť vždy zdanené v krajine, kde je zákazník\n"
-"patrí. Z dôvodu zjednodušenia uplatňovania tejto EÚ\n"
+"daňovo registrovaný. Z dôvodu zjednodušenia uplatňovania tejto EÚ\n"
 "smernice, registračná schéma Mini One Stop Shop (MOSS)\n"
 "umožňuje podnikateľom vytvoriť jedinečné daňové priznanie.\n"
 "\n"
 "Tento modul umožňuje pomoc pri tvorbe\n"
 "požadovaných fiškálnych pozícií a daní EÚ, aby\n"
-"automaticky uplatniť a zaznamenať požadované dane.\n"
+"automaticky uplatnili a zdanili požadované dane.\n"
 "\n"
 "Tento modul inštaluje sprievodcu, ktorý pomáha nastavovať fiškálne pozície\n"
 "a dane za predaj elektronických služieb v rámci EÚ.\n"
@@ -5617,7 +5617,7 @@ msgid ""
 "\n"
 "    Storage: automatic sales closings with computation of both period and cumulative totals (daily, monthly, annually)\n"
 "\n"
-"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ Inc. (only for Flectra Enterprise users)\n"
+"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ, Inc. (only for Flectra Enterprise users)\n"
 msgstr ""
 
 #. module: base
@@ -6823,7 +6823,7 @@ msgid ""
 "Time off documents will be automatically integrated to the Document app.\n"
 msgstr ""
 "\n"
-"Dokumenty o voľných dňoch sa automaticky integrujú do aplikácie Dokument.\n"
+"Dokumenty o voľných dňoch sa automaticky integrujú do aplikácie dokument.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_product_expiry
@@ -7733,12 +7733,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
 msgid ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                <b attrs=\"{'invisible': [('company_type', '!=', 'company')]}\">Company Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'invoice'), ('company_type', '=', 'company')]}\">Invoice Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'delivery'), ('company_type', '=', 'company')]}\">Delivery Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'other'), ('company_type', '=', 'company')]}\">Other Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'private'), ('company_type', '=', 'company')]}\">Private Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', 'not in', (False, 'contact')), ('company_type', '=', 'company')]}\">Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}\">Company Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'invoice')]}\">Invoice Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'delivery')]}\">Delivery Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'other')]}\">Other Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'private')]}\">Private Address</b>\n"
+"                                <b attrs=\"{'invisible': ['&amp;', ('parent_id', '!=', False), ('type', '!=', False)]}\">Address</b>\n"
 "                            </span>"
 msgstr ""
 
@@ -16752,6 +16752,12 @@ msgid "Invalid model name %r in action definition."
 msgstr "Neplatný názov modelu% r v definícii akcie."
 
 #. module: base
+#: code:addons/base/models/ir_actions.py:611
+#, python-format
+msgid "many2many fields cannot be evaluated by reference"
+msgstr ""
+
+#. module: base
 #: code:addons/template_inheritance.py:0
 #, python-format
 msgid "Invalid position attribute: '%s'"
@@ -18110,7 +18116,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,summary:base.module_hr_work_entry_holidays
 msgid "Manage Time Off in Payslips"
-msgstr "Spravujte si voľno na výplatných páskach"
+msgstr "Spravujte si voľné dni na výplatných páskach"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_website_forum
@@ -27848,6 +27854,9 @@ msgid ""
 "If the timezone is not set, UTC (Coordinated Universal Time) is used.\n"
 "Anywhere else, time values are computed according to the time offset of your web client."
 msgstr ""
+"Pri tlači dokumentov a exporte / importe údajov sa časové hodnoty počítajú podľa tohto časového pásma.\n"
+"Ak nie je nastavené časové pásmo, použije sa UTC (Coordinated Universal Time).\n"
+"Kdekoľvek inde sa časové hodnoty počítajú podľa časového posunu vášho webového klienta."
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.sequence_view

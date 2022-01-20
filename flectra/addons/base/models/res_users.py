@@ -21,6 +21,7 @@ import passlib.context
 import pytz
 from lxml import etree
 from lxml.builder import E
+from psycopg2 import sql
 
 from flectra import api, fields, models, tools, SUPERUSER_ID, _
 from flectra.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
@@ -1624,7 +1625,7 @@ class APIKeys(models.Model):
 
     def init(self):
         # pylint: disable=sql-injection
-        self.env.cr.execute("""
+        self.env.cr.execute(sql.SQL("""
         CREATE TABLE IF NOT EXISTS {table} (
             id serial primary key,
             name varchar not null,
@@ -1635,10 +1636,23 @@ class APIKeys(models.Model):
             create_date timestamp without time zone DEFAULT (now() at time zone 'utc')
         );
         CREATE INDEX IF NOT EXISTS res_users_apikeys_user_id_index_idx ON {table} (user_id, index);
-        """.format(table=self._table, index_size=INDEX_SIZE))
+        """).format(
+            table=sql.Identifier(self._table),
+            index_size=sql.Placeholder('index_size')
+        ), {
+            'index_size': INDEX_SIZE
+        })
 
     @check_identity
     def remove(self):
+        return self._remove()
+
+    def _remove(self):
+        """Use the remove() method to remove an API Key. This method implement logic,
+        but won't check the identity (mainly used to remove trusted devices)"""
+        if not self:
+            return {'type': 'ir.actions.act_window_close'}
+
         if self.env.is_system() or self.mapped('user_id') == self.env.user:
             ip = request.httprequest.environ['REMOTE_ADDR'] if request else 'n/a'
             _logger.info("API key(s) removed: scope: <%s> for '%s' (#%s) from %s",

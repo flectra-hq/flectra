@@ -5,6 +5,7 @@
 # Translators:
 # Lucia Pacheco <lpo@flectrahq.com>, 2021
 # Cécile Collart <cco@flectrahq.com>, 2021
+# Braulio D. López Vázquez <bdl@flectrahq.com>, 2021
 # Patricia Gutiérrez Capetillo <pagc@flectrahq.com>, 2021
 # 
 msgid ""
@@ -2917,7 +2918,7 @@ msgstr ""
 "\n"
 "Esta es la última localización etíope de Flectra y consiste en:\n"
 "- Gráfico de cuentas\n"
-"- Estructura fiscal del IVA\n"
+"- Estructura fiscal del NIF\n"
 "- Estructura de la retención\n"
 "- Lista regional de estados"
 
@@ -3086,11 +3087,11 @@ msgid ""
 "Legal\n"
 "-----\n"
 "**The use of pos_blackbox_be sources is only certified on flectrahq.com SaaS platform\n"
-"for version 13.0.** Contact FlectraHQ Inc. before installing pos_blackbox_be module.\n"
+"for version 13.0.** Contact FlectraHQ, Inc. before installing pos_blackbox_be module.\n"
 "\n"
 "An obfuscated and certified version of the pos_blackbox_be may be provided on\n"
 "requests for on-premise installations.\n"
-"No modified version is certified and supported by FlectraHQ Inc..\n"
+"No modified version is certified and supported by FlectraHQ, Inc..\n"
 "    "
 msgstr ""
 "\n"
@@ -4589,9 +4590,9 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Genera informe XML Intrastat para declaración\n"
+"Genera un reporte XML Intrastat para declaración\n"
 "Basado en facturas.\n"
-"Agrega la posibilidad de especificar el país de origen de los bienes y el IVA del socio en el informe XML de Intrastat.\n"
+"Agrega la posibilidad de especificar el país de origen de los bienes y el RFC del socio en el reporte XML de Intrastat.\n"
 "    "
 
 #. module: base
@@ -6980,7 +6981,7 @@ msgid ""
 "\n"
 "    Storage: automatic sales closings with computation of both period and cumulative totals (daily, monthly, annually)\n"
 "\n"
-"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ Inc. (only for Flectra Enterprise users)\n"
+"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ, Inc. (only for Flectra Enterprise users)\n"
 msgstr ""
 "\n"
 "Este complemento trae los requisitos técnicos de la regulación francesa CGI art. 286, I. 3 ° bis que estipula ciertos criterios relativos a la inalterabilidad, seguridad, almacenamiento y archivo de los datos relacionados con las ventas a particulares (B2C).\n"
@@ -6996,7 +6997,7 @@ msgstr ""
 "\n"
 " Almacenamiento: cierres automáticos de ventas con el cálculo del período y totales acumulados (diarios, mensuales, anuales)\n"
 "\n"
-" Acceso para descargar el Certificado de Conformidad obligatorio entregado por FlectraHQ Inc. (solo para usuarios de Flectra Enterprise)\n"
+" Acceso para descargar el Certificado de Conformidad obligatorio entregado por FlectraHQ, Inc. (solo para usuarios de Flectra Enterprise)\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_pos_cache
@@ -9597,21 +9598,21 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
 msgid ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                <b attrs=\"{'invisible': [('company_type', '!=', 'company')]}\">Company Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'invoice'), ('company_type', '=', 'company')]}\">Invoice Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'delivery'), ('company_type', '=', 'company')]}\">Delivery Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'other'), ('company_type', '=', 'company')]}\">Other Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'private'), ('company_type', '=', 'company')]}\">Private Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', 'not in', (False, 'contact')), ('company_type', '=', 'company')]}\">Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}\">Company Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'invoice')]}\">Invoice Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'delivery')]}\">Delivery Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'other')]}\">Other Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'private')]}\">Private Address</b>\n"
+"                                <b attrs=\"{'invisible': ['&amp;', ('parent_id', '!=', False), ('type', '!=', False)]}\">Address</b>\n"
 "                            </span>"
 msgstr ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                <b attrs=\"{'invisible': [('company_type', '!=', 'company')]}\">Domicilio de la empresa</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'invoice'), ('company_type', '=', 'company')]}\">Domicilio de facturación</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'delivery'), ('company_type', '=', 'company')]}\">Ddimicilio de entrega</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'other'), ('company_type', '=', 'company')]}\">Otro domicilio</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'private'), ('company_type', '=', 'company')]}\">Domicilio privado</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', 'not in', (False, 'contact')), ('company_type', '=', 'company')]}\">Domicilio</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}\">Dirección de la empresa</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'invoice')]}\">Dirección de facturación</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'delivery')]}\">Dirección de entrega</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'other')]}\">Otra dirección</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'private')]}\">Dirección privada</b>\n"
+"                                <b attrs=\"{'invisible': ['&amp;', ('parent_id', '!=', False), ('type', '!=', False)]}\">Dirección</b>\n"
 "                            </span>"
 
 #. module: base
@@ -12986,7 +12987,7 @@ msgstr "Aplicaciones hijas"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company__child_ids
 msgid "Child Companies"
-msgstr "Compañías hijas"
+msgstr "Empresas hijas"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_ui_view__field_parent
@@ -13363,7 +13364,7 @@ msgstr "Propiedad de la empresa"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company__company_registry
 msgid "Company Registry"
-msgstr "Registro de la empresa"
+msgstr "Registro mercantil"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company__report_header
@@ -18996,6 +18997,12 @@ msgid "Invalid model name %r in action definition."
 msgstr "Nombre de modelo %r no valido en la definición de la acción."
 
 #. module: base
+#: code:addons/base/models/ir_actions.py:611
+#, python-format
+msgid "many2many fields cannot be evaluated by reference"
+msgstr ""
+
+#. module: base
 #: code:addons/template_inheritance.py:0
 #, python-format
 msgid "Invalid position attribute: '%s'"
@@ -19818,7 +19825,7 @@ msgstr "De lead a ticket"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.module_view_kanban
 msgid "Learn More"
-msgstr "Saber más"
+msgstr "Más información"
 
 #. module: base
 #: model:res.country,name:base.lb
@@ -21403,7 +21410,7 @@ msgstr "Sra."
 #: model:res.groups,name:base.group_multi_company
 #: model_terms:ir.ui.view,arch_db:base.view_users_form
 msgid "Multi Companies"
-msgstr "Multicompañía"
+msgstr "Multiempresa"
 
 #. module: base
 #: model:res.groups,name:base.group_multi_currency
@@ -27835,7 +27842,7 @@ msgstr "Eslovenia - Contabilidad"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_snailmail
 msgid "Snail Mail"
-msgstr "correo ordinario"
+msgstr "Correo postal"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_snailmail_account_followup
@@ -29743,7 +29750,7 @@ msgstr "Formato de hora"
 #: model:ir.module.category,name:base.module_category_human_resources_time_off
 #: model:ir.module.module,shortdesc:base.module_hr_holidays
 msgid "Time Off"
-msgstr "Ausencias"
+msgstr "Tiempo personal"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_payroll_holidays
@@ -30914,12 +30921,12 @@ msgstr "Uzbekistán"
 #: model:res.country,vat_label:base.uk
 #, python-format
 msgid "VAT"
-msgstr "IVA"
+msgstr "RFC"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_base_vat
 msgid "VAT Number Validation"
-msgstr "Validación de número de IVA"
+msgstr "Validación de RFC"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_productivity_voip

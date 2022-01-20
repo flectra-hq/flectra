@@ -62,7 +62,6 @@
 # Fernanda Marques <fem@flectrahq.com>, 2020
 # Priscilla (prs) Flectra <prs@flectrahq.com>, 2020
 # Jonathan Quique <jqu@flectrahq.com>, 2020
-# Vallen Delobel <edv@flectrahq.com>, 2020
 # Julien Goergen <jgo@flectrahq.com>, 2020
 # Christelle Pinchart <cpi@flectrahq.com>, 2020
 # Olivier Lenoir <olivier.lenoir@free.fr>, 2020
@@ -75,10 +74,14 @@
 # N GR <nathg212@gmail.com>, 2021
 # Nathan Grognet <ngr@flectrahq.com>, 2021
 # Luc N, 2021
-# Cécile Collart <cco@flectrahq.com>, 2021
 # Alexandra Jubert <aju@flectrahq.com>, 2021
 # Martin Trigaux, 2021
 # Tivisse <yti@flectrahq.com>, 2021
+# Gwladys Jouble <g.jouble@vieconnect.io>, 2021
+# Vallen Delobel <edv@flectrahq.com>, 2021
+# Camille Dantinne <cmd@flectrahq.com>, 2021
+# sakodoo <sak@flectrahq.com>, 2021
+# Cécile Collart <cco@flectrahq.com>, 2021
 # 
 msgid ""
 msgstr ""
@@ -86,7 +89,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-27 13:50+0000\n"
 "PO-Revision-Date: 2020-09-07 08:09+0000\n"
-"Last-Translator: Tivisse <yti@flectrahq.com>, 2021\n"
+"Last-Translator: Cécile Collart <cco@flectrahq.com>, 2021\n"
 "Language-Team: French (https://www.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2679,11 +2682,11 @@ msgid ""
 "Legal\n"
 "-----\n"
 "**The use of pos_blackbox_be sources is only certified on flectrahq.com SaaS platform\n"
-"for version 13.0.** Contact FlectraHQ Inc. before installing pos_blackbox_be module.\n"
+"for version 13.0.** Contact FlectraHQ, Inc. before installing pos_blackbox_be module.\n"
 "\n"
 "An obfuscated and certified version of the pos_blackbox_be may be provided on\n"
 "requests for on-premise installations.\n"
-"No modified version is certified and supported by FlectraHQ Inc..\n"
+"No modified version is certified and supported by FlectraHQ, Inc..\n"
 "    "
 msgstr ""
 
@@ -6155,7 +6158,7 @@ msgid ""
 "\n"
 "    Storage: automatic sales closings with computation of both period and cumulative totals (daily, monthly, annually)\n"
 "\n"
-"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ Inc. (only for Flectra Enterprise users)\n"
+"    Access to download the mandatory Certificate of Conformity delivered by FlectraHQ, Inc. (only for Flectra Enterprise users)\n"
 msgstr ""
 "\n"
 "Cet add-on apporte les exigences techniques de la réglementation française CGI art. 286, I. 3 ° bis qui stipule certains critères concernant l'inaltérabilité, la sécurité, le stockage et l'archivage des données relatives aux ventes aux particuliers (B2C).\n"
@@ -6171,7 +6174,7 @@ msgstr ""
 "\n"
 "  Stockage: clôtures automatiques des ventes avec calcul des totaux par période et cumulés (journalier, mensuel, annuel)\n"
 "\n"
-"    Accès pour télécharger le certificat de conformité obligatoire délivré par FlectraHQ Inc. (uniquement pour les utilisateurs Flectra Enterprise)\n"
+"    Accès pour télécharger le certificat de conformité obligatoire délivré par FlectraHQ, Inc. (uniquement pour les utilisateurs Flectra Enterprise)\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_pos_cache
@@ -8574,8 +8577,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base.view_res_users_kanban
 msgid "<i class=\"fa fa-circle\" role=\"img\" aria-label=\"Invalid\" title=\"Invalid\"/>"
 msgstr ""
-"<i class=\"fa fa-circle\" role=\"img\" aria-label=\"Non-valide\" title"
-"=\"Non-valide\"/>"
+"<i class=\"fa fa-circle\" role=\"img\" aria-label=\"Non-valide\" "
+"title=\"Non-valide\"/>"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_res_users_kanban
@@ -8625,12 +8628,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base.view_partner_form
 msgid ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                <b attrs=\"{'invisible': [('company_type', '!=', 'company')]}\">Company Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'invoice'), ('company_type', '=', 'company')]}\">Invoice Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'delivery'), ('company_type', '=', 'company')]}\">Delivery Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'other'), ('company_type', '=', 'company')]}\">Other Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', '!=', 'private'), ('company_type', '=', 'company')]}\">Private Address</b>\n"
-"                                <b attrs=\"{'invisible': ['|', ('type', 'not in', (False, 'contact')), ('company_type', '=', 'company')]}\">Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}\">Company Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'invoice')]}\">Invoice Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'delivery')]}\">Delivery Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'other')]}\">Other Address</b>\n"
+"                                <b attrs=\"{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'private')]}\">Private Address</b>\n"
+"                                <b attrs=\"{'invisible': ['&amp;', ('parent_id', '!=', False), ('type', '!=', False)]}\">Address</b>\n"
 "                            </span>"
 msgstr ""
 
@@ -9406,7 +9409,7 @@ msgstr "Le numéro de compte doit être unique"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_users_form_simple_modif
 msgid "Account Security"
-msgstr ""
+msgstr "Sécurité du compte"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_taxcloud
@@ -10107,7 +10110,7 @@ msgstr "Algérie"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_dz
 msgid "Algeria - Accounting"
-msgstr ""
+msgstr "Comptabilité - Algérie"
 
 #. module: base
 #: model:ir.module.module,description:base.module_payment_alipay
@@ -10342,7 +10345,7 @@ msgstr ""
 #: code:addons/base/models/res_partner.py:0
 #, python-format
 msgid "An email is required for find_or_create to work"
-msgstr ""
+msgstr "Un email est demandé pour trouver_ou_créer du travail"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_analytic
@@ -10480,7 +10483,7 @@ msgstr "Validations"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_approvals_purchase
 msgid "Approvals - Purchase"
-msgstr ""
+msgstr "Approbations - Achat"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_approvals_purchase_stock
@@ -10579,12 +10582,12 @@ msgstr "Comptabilité - Argentine"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_ar_reports
 msgid "Argentinian Accounting Reports"
-msgstr ""
+msgstr "Rapports comptables argentins"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_ar_edi
 msgid "Argentinian Electronic Invoicing"
-msgstr ""
+msgstr "Facturation électronique argentine"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_actions_client__params
@@ -13547,7 +13550,7 @@ msgstr "Jours"
 #: model:ir.module.module,shortdesc:base.module_account_debit_note
 #: model:ir.module.module,summary:base.module_account_debit_note
 msgid "Debit Notes"
-msgstr ""
+msgstr "Notes de débit"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_mail_server__smtp_debug
@@ -15116,7 +15119,7 @@ msgstr "ID Externe"
 #. module: base
 #: model:ir.model.constraint,message:base.constraint_ir_model_data_name_nospaces
 msgid "External IDs cannot contain spaces"
-msgstr ""
+msgstr "Les identifiants externes ne peuvent pas contenir d'espaces."
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_data__name
@@ -17902,6 +17905,12 @@ msgid "Invalid model name %r in action definition."
 msgstr "Nom de modèle %r non valide dans la définition de l'action."
 
 #. module: base
+#: code:addons/base/models/ir_actions.py:611
+#, python-format
+msgid "many2many fields cannot be evaluated by reference"
+msgstr ""
+
+#. module: base
 #: code:addons/template_inheritance.py:0
 #, python-format
 msgid "Invalid position attribute: '%s'"
@@ -18032,7 +18041,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_iot
 msgid "IoT for PoS"
-msgstr ""
+msgstr "IoT pour PdV"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_restaurant_iot
@@ -18270,7 +18279,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_latam_base
 msgid "LATAM Localization Base"
-msgstr ""
+msgstr "Base de la localisation LATAM"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_module_module__license__lgpl-3
@@ -18280,7 +18289,7 @@ msgstr "LGPL Version 3"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_lt_reports
 msgid "LT - Accounting Reports"
-msgstr ""
+msgstr "LT - Rapports comptables"
 
 #. module: base
 #: code:addons/base/models/ir_ui_view.py:0
@@ -18764,6 +18773,8 @@ msgid ""
 "Let the system try to select the right account, taxes and/or product for "
 "your vendor bills"
 msgstr ""
+"Laissez le système essayer de sélectionner le bon compte, les bonnes taxes "
+"et/ou le bon produit pour vos factures fournisseurs."
 
 #. module: base
 #: model:ir.module.module,description:base.module_hr_referral
@@ -19429,7 +19440,7 @@ msgstr "Gérez votre processus de recrutement en ligne"
 #: model:ir.module.module,description:base.module_social
 #: model:ir.module.module,summary:base.module_social
 msgid "Manage your social media and website visitors"
-msgstr ""
+msgstr "Gérez vos médias sociaux et les visiteurs de votre site web"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_stock
@@ -19701,7 +19712,7 @@ msgstr "Micronésie"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_microsoft_account
 msgid "Microsoft Users"
-msgstr ""
+msgstr "Utilisateurs Microsoft"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_attachment__mimetype
@@ -22651,7 +22662,7 @@ msgstr "Opportunité vers devis."
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_sale_renting_crm
 msgid "Opportunity to Rental"
-msgstr ""
+msgstr "Opportunité de location"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__base_partner_merge_automatic_wizard__state__option
@@ -24588,7 +24599,7 @@ msgstr "Enregistrements:"
 #: code:addons/base/models/ir_rule.py:0
 #, python-format
 msgid "Records: %s"
-msgstr ""
+msgstr "Enregistrements : %s"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_human_resources_recruitment
@@ -24599,7 +24610,7 @@ msgstr "Recrutement"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_recruitment_reports
 msgid "Recruitment Reporting"
-msgstr ""
+msgstr "Rapports de recrutement"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_documents_hr_recruitment
@@ -24747,7 +24758,7 @@ msgstr "Retirer du menu \"Imprimer\""
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.act_report_xml_view
 msgid "Remove the contextual action related to this report"
-msgstr ""
+msgstr "Supprimer l'action contextuelle liée à ce rapport"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_sale_renting
@@ -25144,6 +25155,8 @@ msgid ""
 "SQL expression for ordering records in the model; e.g. \"x_sequence asc, id "
 "desc\""
 msgstr ""
+"Expression SQL pour ordonner les enregistrements dans le modèle; par "
+"exemple: \"x_sequence asc, id desc\""
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_mail_server__smtp_encryption__ssl
@@ -25188,7 +25201,7 @@ msgstr "Saint-Vincent-et-les-Grenadines"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_contract_salary
 msgid "Salary Configurator"
-msgstr ""
+msgstr "Configurateur de salaire"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_be_hr_contract_salary
@@ -25854,6 +25867,8 @@ msgid ""
 "Server replied with following exception:\n"
 " %s"
 msgstr ""
+"Le serveur a répondu avec l'exception suivante :\n"
+" %s"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_services
@@ -25996,7 +26011,7 @@ msgstr "Signature"
 #. module: base
 #: model:ir.module.module,summary:base.module_hr_contract_salary
 msgid "Sign Employment Contracts"
-msgstr ""
+msgstr "Signer des contrats de travail"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_documents_sign
@@ -26436,6 +26451,8 @@ msgstr "Stock entreprise"
 #: model:ir.module.module,summary:base.module_documents_l10n_be_hr_payroll
 msgid "Store employee 281.10 and 281.45 forms in the Document app"
 msgstr ""
+"Stockez les formulaires 281.10 et 281.45 des employés dans l'application "
+"Documents"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_documents_hr_contract
@@ -26451,6 +26468,8 @@ msgstr "Stocker les fiches de paie des employés dans l'application Document"
 #: model:ir.module.module,summary:base.module_documents_hr_holidays
 msgid "Store employee's time off documents in the Document app"
 msgstr ""
+"Stockez les documents liés aux congés des employés dans l'application "
+"Documents"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_fields__store
@@ -26641,12 +26660,12 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_se_ocr
 msgid "Sweden - Structured Communication OCR"
-msgstr ""
+msgstr "Suède - Communication Structurée OCR"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_se
 msgid "Swedish - Accounting"
-msgstr ""
+msgstr "Suéde - Comptabilité"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_base_language_install
@@ -27564,8 +27583,8 @@ msgid ""
 "The values for the fields '%s' already exist (they are probably '%s' in the "
 "current model)."
 msgstr ""
-"Les valeurs des champs « %s » existent déjà (il s'agit probablement de « %s "
-"» dans le modèle actuel)."
+"Les valeurs des champs « %s » existent déjà (il s'agit probablement de "
+"« %s » dans le modèle actuel)."
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_theme
@@ -28158,7 +28177,7 @@ msgstr "Gérez votre tunnel de recrutement"
 #. module: base
 #: model:ir.module.module,summary:base.module_helpdesk
 msgid "Track, prioritize, and solve customer tickets"
-msgstr ""
+msgstr "Suivez, priorisez et résolvez les tickets clients"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_event
@@ -28804,7 +28823,7 @@ msgstr "Url"
 #. module: base
 #: model:ir.model.fields,help:base.field_res_country__image_url
 msgid "Url of static flag image"
-msgstr ""
+msgstr "URL de l'image de drapeau statique"
 
 #. module: base
 #: model:res.country,name:base.uy
@@ -28871,7 +28890,7 @@ msgstr "Utilisez les programmes de promotion et de coupon sur votre eCommerce"
 #. module: base
 #: model:ir.module.module,summary:base.module_coupon
 msgid "Use discount coupons in different sales channels."
-msgstr ""
+msgstr "Utilisez des coupons de réduction dans différents canaux de vente."
 
 #. module: base
 #: model:ir.module.module,summary:base.module_sale_coupon
@@ -29850,7 +29869,7 @@ msgstr ""
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.form_res_users_key_show
 msgid "Write down your key"
-msgstr ""
+msgstr "Notez votre clé"
 
 #. module: base
 #: model:res.country,name:base.ye
@@ -29973,6 +29992,8 @@ msgstr "Deux utilisateurs ne peuvent pas avoir le même compte! "
 msgid ""
 "You can not remove API keys unless they're yours or you are a system user"
 msgstr ""
+"Vous ne pouvez pas supprimer les clés API à moins qu'elles ne vous "
+"appartiennent ou que vous soyez un utilisateur du système"
 
 #. module: base
 #: code:addons/base/models/res_users.py:0
@@ -30081,6 +30102,8 @@ msgstr ""
 msgid ""
 "You don't have the rights to export data. Please contact an Administrator."
 msgstr ""
+"Vous n'avez pas le droit d'exporter des données. Veuillez contacter un "
+"administrateur."
 
 #. module: base
 #: code:addons/base/wizard/base_partner_merge.py:0
@@ -30205,7 +30228,7 @@ msgstr "account_ponto"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_qr_code_sepa
 msgid "account_qr_code_sepa"
-msgstr ""
+msgstr "account_qr_code_sepa"
 
 #. module: base
 #: code:addons/models.py:0
@@ -30465,7 +30488,7 @@ msgstr "l10n_es_real_estates"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mail_bot_hr
 msgid "mail_bot_hr"
-msgstr ""
+msgstr "mail_bot_hr"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_model_fields__ttype__many2many
@@ -30677,7 +30700,7 @@ msgstr "test-lint"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_populate
 msgid "test-populate"
-msgstr ""
+msgstr "test-populate"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_translation_import
@@ -30697,7 +30720,7 @@ msgstr "test_conversion"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_search_panel
 msgid "test_search_panel"
-msgstr ""
+msgstr "test_search_panel"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_model_fields__ttype__text
