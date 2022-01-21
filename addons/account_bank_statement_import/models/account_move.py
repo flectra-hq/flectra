@@ -20,7 +20,7 @@ class AccountMove(models.Model):
         ('in_refund', 'Vendor Credit Note'),
         ('out_receipt', 'Sales Receipt'),
         ('in_receipt', 'Purchase Receipt'),
-    ], string='Type', required=True, store=True, index=True, readonly=True, tracking=True,
+    ], string='Entry Type', required=True, store=True, index=True, readonly=True, tracking=True,
         default="entry", change_default=True)
     invoice_payment_state = fields.Selection(selection=[
         ('not_paid', 'Not Paid'),
