@@ -175,9 +175,9 @@ class FlectraPdfFileWriter(PdfFileWriter):
                 NameObject("/AF"): attachment_array
             })
 
-    def embed_flectra_attachment(self, attachment):
+    def embed_flectra_attachment(self, attachment, subtype=None):
         assert attachment, "embed_flectra_attachment cannot be called without attachment."
-        self.addAttachment(attachment.name, attachment.raw, attachment.mimetype)
+        self.addAttachment(attachment.name, attachment.raw, subtype=subtype or attachment.mimetype)
 
     def cloneReaderDocumentRoot(self, reader):
         super().cloneReaderDocumentRoot(reader)
