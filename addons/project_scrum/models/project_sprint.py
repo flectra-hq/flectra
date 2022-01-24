@@ -416,6 +416,7 @@ class Project(models.Model):
 
 class SprintPlanningLine(models.Model):
     _name = "sprint.planning.line"
+    _description = "Sprint Planning Line"
 
     @api.depends('available_per', 'sprint_id.project_id',
                  'sprint_id.project_id.no_of_hours',
@@ -464,6 +465,7 @@ class SprintPlanningLine(models.Model):
 
 class UserRole(models.Model):
     _name = "user.role"
+    _description = "User Role"
 
     name = fields.Char(string="Role")
     code = fields.Char(string="Code")

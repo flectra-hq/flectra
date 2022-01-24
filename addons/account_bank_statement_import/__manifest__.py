@@ -11,15 +11,15 @@
     'depends': ['account'],
     'data': [
         'security/ir.model.access.csv',
-        'account_bank_statement_import_view.xml',
-        'account_import_tip_data.xml',
-        'wizard/journal_creation.xml',
+        'data/account_import_tip_data.xml',
+        'views/account_bank_statement_import_view.xml',
         'views/account_bank_statement_import_templates.xml',
         'views/account_journal_dashboard_inherit.xml',
         'views/account_journal_inherit.xml',
         'views/account_payment_inherit.xml',
         'views/account_bank_statement_view_inherit.xml',
-        'views/assets.xml'
+        'views/assets.xml',
+        'wizard/journal_creation.xml',
     ],
     'demo': [
         'demo/partner_bank.xml',

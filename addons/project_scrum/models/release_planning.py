@@ -5,6 +5,7 @@ from flectra import models, fields
 
 class ReleasePlanning(models.Model):
     _name = "release.planning"
+    _description = "Release Planing"
     _inherit = 'mail.thread'
 
     name = fields.Char(string="Planning Name", tracking=True)

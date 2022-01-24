@@ -5,6 +5,7 @@ from flectra import models, fields, api
 
 class Retrospective(models.Model):
     _name = "retrospective"
+    _description = "Retrospective"
     _inherit = 'mail.thread'
 
     name = fields.Char(string="Retrospective Name", required=True,
@@ -29,6 +30,7 @@ class Retrospective(models.Model):
 
 class RetrospectiveLines(models.Model):
     _name = "retrospective.lines"
+    _description = "Retrospective Lines"
 
     user_id = fields.Many2one("res.users", string="User", readonly=True,
                               required=True,
