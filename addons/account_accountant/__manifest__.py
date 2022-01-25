@@ -13,7 +13,7 @@
     'maintainer': 'FlectraHQ',
     'license': 'LGPL-3',
     'depends': ['web_flectra','accounting_pdf_reports', 'account_asset',
-                'account_budget', 'account_bank_statement_import'],
+                'account_budget'],
     'demo': [],
     'data': [
         'security/ir.model.access.csv',

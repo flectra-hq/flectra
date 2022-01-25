@@ -139,6 +139,7 @@ class ProjectStory(models.Model):
 
 class StoryPriority(models.Model):
     _name = "story.priority"
+    _description = "Story Priority"
     _inherit = 'mail.thread'
 
     name = fields.Char("Name", tracking=True)
@@ -147,6 +148,7 @@ class StoryPriority(models.Model):
 
 class StoryType(models.Model):
     _name = "story.type"
+    _description = "Story Type"
     _inherit = 'mail.thread'
 
     name = fields.Char("Name", tracking=True)
