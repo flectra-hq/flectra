@@ -105,7 +105,7 @@ flectra_mailgate: "|/path/to/flectra-mailgate.py --host=localhost -u %(uid)d -p 
                 connection = IMAP4_SSL(self.server, int(self.port))
             else:
                 connection = IMAP4(self.server, int(self.port))
-            connection.login(self.user, self.password)
+            self._imap_login(connection)
         elif self.server_type == 'pop':
             if self.is_ssl:
                 connection = POP3_SSL(self.server, int(self.port))
@@ -118,6 +118,16 @@ flectra_mailgate: "|/path/to/flectra-mailgate.py --host=localhost -u %(uid)d -p 
         # Add timeout on socket
         connection.sock.settimeout(MAIL_TIMEOUT)
         return connection
+
+    def _imap_login(self, connection):
+        """Authenticate the IMAP connection.
+
+        Can be overridden in other module for different authentication methods.
+
+        :param connection: The IMAP connection to authenticate
+        """
+        self.ensure_one()
+        connection.login(self.user, self.password)
 
     def button_confirm_login(self):
         for server in self:
