@@ -3,7 +3,7 @@
 
 from flectra import api, fields, models, _
 from flectra.exceptions import AccessError, UserError
-from flectra.tools import float_compare
+from flectra.tools import float_compare, float_round
 from flectra.osv import expression
 
 
@@ -198,7 +198,7 @@ class MrpUnbuild(models.Model):
                         })
                         needed_quantity -= taken_quantity
             else:
-                move.quantity_done = move.product_uom_qty
+                move.quantity_done = float_round(move.product_uom_qty, precision_rounding=move.product_uom.rounding)
 
         finished_moves._action_done()
         consume_moves._action_done()
