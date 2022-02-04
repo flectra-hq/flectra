@@ -11,3 +11,4 @@ from . import reconciliation_widget
 from . import account_move
 from . import account_payment
 from . import account_partial_reconcile
+from . import base_import_csv

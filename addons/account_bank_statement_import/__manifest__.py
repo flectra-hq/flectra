@@ -8,7 +8,7 @@
     'description': """Bank Reconciliation""",
     'category': '',
     'website': '',
-    'depends': ['account'],
+    'depends': ['account','base_import'],
     'data': [
         'security/ir.model.access.csv',
         'data/account_import_tip_data.xml',

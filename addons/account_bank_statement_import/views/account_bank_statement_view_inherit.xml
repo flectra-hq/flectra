@@ -11,6 +11,23 @@
                         class="oe_highlight"
                         attrs="{'invisible':['|','|',('all_lines_reconciled','=',True),('line_ids','=',[]),('state', '!=', 'posted')]}"/>
             </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="open_statement_lines"
+                        type="object"
+                        class="oe_stat_button" icon="fa-bars">
+                    <span class="o_stat_text">Statement Lines</span>
+                </button>
+        </xpath>
+        </field>
+    </record>
+    <record id="view_bank_statement_line_tree_flectra" model="ir.ui.view">
+        <field name="name">account.bank.statement.line.flectra.tree</field>
+        <field name="model">account.bank.statement.line</field>
+        <field name="inherit_id" ref="account.view_bank_statement_line_tree"/>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="create">true</attribute>
+            </tree>
         </field>
     </record>
 </flectra>

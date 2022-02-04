@@ -21,6 +21,27 @@ class AccountBankStatement(models.Model):
                                        " be booked is already closed.",
                                   states={'open': [('readonly', False)]}, readonly=True)
 
+    @api.model
+    def default_get(self, fields):
+        res = super(AccountBankStatement, self).default_get(fields)
+        journal_name = ''
+        if res.get('journal_id'):
+            journal_name = self.env['account.journal'].browse(res.get('journal_id')).name
+        res.update({'name': journal_name})
+        return res
+
+    @api.depends('line_ids')
+    def open_statement_lines(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Bank Statement Lines',
+            'view_mode': 'list',
+            'res_model': 'account.bank.statement.line',
+            'res_id': self.id,
+            'target': 'current',
+            'domain': [('statement_id', '=', self.id)],
+        }
+
     def _balance_check(self):
         for stmt in self:
             if not stmt.currency_id.is_zero(stmt.difference):
