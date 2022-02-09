@@ -8,8 +8,8 @@ $Gray99: #dadada;
 $font_name: "sans-serif";
 $font_size: 0.85em;
 $menu_height: $o-navbar-height;
-$sidebar_collapsed_width: 56px;
-$sidebar_width: 240px;
+$sidebar_collapsed_width: 68px;
+$sidebar_width: 252px;
 $theme_color: #ffffff;
 $highlight_color: #009efb;
 $hover_color: #ddd;
@@ -29,20 +29,28 @@ body[data-menu="sidemenu"].o_web_client {
         z-index: 199;
         max-height: calc(100vH - #{$menu_height});
         height: calc(100vH - #{$menu_height});
+        overflow-x: hidden;
+        overflow-y: auto;
         font-family: $font_name;
+        &::-webkit-scrollbar{
+            background-color: $theme-sidebar-color;
+            width: 8px;
+        }
+        &::-webkit-scrollbar-thumb{
+            border-radius: 10px;
+            background-color: darken($o-brand-primary, 10%);
+        }
         .f_launcher_content {
-             transition: all 0.4s;
+             transition: all 0.3s;
             &:hover{
                 transform: translate3d(0, 0, 0);
                 -webkit-transform: translate3d(0, 0, 0);
             }
             position: relative;
             background-color: $theme-sidebar-color;
-            height: 100%;
             max-width: $sidebar_width;
             width: $sidebar_width;
-            overflow-x: hidden;
-            overflow-y: auto;
+            overflow: hidden;
             &::-webkit-scrollbar {
                 display: none;
             }
@@ -286,10 +294,15 @@ body[data-menu="sidemenu"].o_web_client {
     /// ACTION MANAGER LAYOUT
     /////////////////////////////
     >.o_action_manager {
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             flex: 1 1;
+            padding-left: $sidebar_collapsed_width;
+        }
+        &.force_mobile {
+            flex: 1 1;
+            padding-left: $sidebar_collapsed_width;
         }
         height: calc(100% - #{$menu_height}) !important;
-        padding-left: $sidebar_collapsed_width;
+        padding-left: $sidebar_width;
     }
 }
