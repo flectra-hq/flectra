@@ -128,6 +128,7 @@ class IrAttachment(models.Model):
 
     def _mark_for_gc(self, fname):
         """ Add ``fname`` in a checklist for the filestore garbage collection. """
+        fname = re.sub('[.]', '', fname).strip('/\\')
         # we use a spooldir: add an empty file in the subdirectory 'checklist'
         full_path = os.path.join(self._full_path('checklist'), fname)
         if not os.path.exists(full_path):
@@ -564,7 +565,9 @@ class IrAttachment(models.Model):
 
     def copy(self, default=None):
         self.check('write')
-        default = dict(default or {}, datas=self.datas)
+        if not (default or {}).keys() & {'datas', 'db_datas', 'raw'}:
+            # ensure the content is kept and recomputes checksum/store_fname
+            default = dict(default or {}, raw=self.raw)
         return super(IrAttachment, self).copy(default)
 
     def unlink(self):
