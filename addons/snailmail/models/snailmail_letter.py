@@ -5,6 +5,7 @@ import base64
 
 from flectra import fields, models, api, _
 from flectra.addons.iap.tools import iap_tools
+from flectra.exceptions import AccessError
 from flectra.tools.safe_eval import safe_eval
 
 DEFAULT_ENDPOINT = 'https://iap-snailmail.flectrahq.com'
@@ -336,7 +337,14 @@ class SnailmailLetter(models.Model):
         endpoint = self.env['ir.config_parameter'].sudo().get_param('snailmail.endpoint', DEFAULT_ENDPOINT)
         timeout = int(self.env['ir.config_parameter'].sudo().get_param('snailmail.timeout', DEFAULT_TIMEOUT))
         params = self._snailmail_create('print')
-        response = iap_tools.iap_jsonrpc(endpoint + PRINT_ENDPOINT, params=params, timeout=timeout)
+        try:
+            response = iap_tools.iap_jsonrpc(endpoint + PRINT_ENDPOINT, params=params, timeout=timeout)
+        except AccessError as ae:
+            for doc in params['documents']:
+                letter = self.browse(doc['letter_id'])
+                letter.state = 'error'
+                letter.error_code = 'UNKNOWN_ERROR'
+            raise ae
         for doc in response['request']['documents']:
             if doc.get('sent') and response['request_code'] == 200:
                 note = _('The document was correctly sent by post.<br>The tracking id is %s', doc['send_id'])
