@@ -362,7 +362,7 @@ class HrPayslip(models.Model):
                     # check if there is already a rule computed with that code
                     previous_amount = rule.code in localdict and localdict[rule.code] or 0.0
                     # set/overwrite the amount computed for this rule in the localdict
-                    tot_rule = amount * qty * rate / 100.0
+                    tot_rule = contract.company_id.currency_id.round(amount * qty * rate / 100.0)
                     localdict[rule.code] = tot_rule
                     rules_dict[rule.code] = rule
                     # sum the amount for its salary category
