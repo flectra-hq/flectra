@@ -5,6 +5,7 @@ from flectra import models, fields, api
 from flectra.tools.pdf import FlectraPdfFileReader, FlectraPdfFileWriter
 from flectra.osv import expression
 from flectra.tools import html_escape
+from flectra.exceptions import RedirectWarning
 
 from lxml import etree
 import base64
@@ -453,6 +454,8 @@ class AccountEdiFormat(models.Model):
                         file_data['pdf_reader'].stream.close()
                     else:
                         res = edi_format._create_invoice_from_binary(file_data['filename'], file_data['content'], file_data['extension'])
+                except RedirectWarning as rw:
+                    raise rw
                 except Exception as e:
                     _logger.exception("Error importing attachment \"%s\" as invoice with format \"%s\"", file_data['filename'], edi_format.name, str(e))
                 if res:
