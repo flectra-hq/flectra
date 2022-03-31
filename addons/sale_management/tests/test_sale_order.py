@@ -2,7 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from flectra.addons.sale.tests.common import TestSaleCommon
-from flectra.tests import tagged
+from flectra.tests import Form, tagged
 
 
 @tagged('-at_install', 'post_install')
@@ -341,3 +341,10 @@ class TestSaleOrder(TestSaleCommon):
             self.pl_option_discount,
             "If a pricelist is set without discount included,"
             " the discount should be correctly computed.")
+
+    def test_option_creation(self):
+        """Make sure the product uom is automatically added to the option when the product is specified"""
+        order_form = Form(self.sale_order)
+        with order_form.sale_order_option_ids.new() as option:
+            option.product_id = self.product_1
+            self.assertTrue(bool(option.uom_id))
