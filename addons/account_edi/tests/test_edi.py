@@ -3,8 +3,10 @@
 
 from flectra.addons.account_edi.tests.common import AccountEdiTestCommon
 from unittest.mock import patch
+from flectra.tests import tagged
 
 
+@tagged('post_install', '-at_install')
 class TestAccountEdi(AccountEdiTestCommon):
 
     def test_export_edi(self):
