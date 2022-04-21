@@ -4,6 +4,7 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
     var SystrayMenu = require('web.SystrayMenu');
     var Widget = require('web.Widget');
     var core = require('web.core')
+    var Dialog = require('web.Dialog')
     var session = require('web.session');
     var rpc = require('web.rpc');
     var ajax = require('web.ajax');
@@ -19,6 +20,7 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
             "click .save-btn": "_on_save_btn",
             "change #select_font": "_onChangeFont",
             "input #google_font_val": "_onFontInput",
+            "click #reset_to_default": "_resetDefault",
         }),
 
         willStart: function () {
@@ -104,6 +106,32 @@ flectra.define('web_flectra.BackendThemeCustomizer', function (require) {
             }else{
                 $('.google-font-input').hide();
             }
+        },
+
+        _resetDefault(){
+            var self = this;
+            Dialog.confirm(this, ("Are You Sure You Want Reset Default?"), {
+                confirm_callback: function () {
+                    self._onResetDefault();
+                },
+            });
+        },
+
+        _onResetDefault: async function(){
+            if (session.is_admin) {
+                await this._write_data('company_settings', {
+                    theme_background_color: '#f2f7fb',
+                    theme_color_brand: '#009efb',
+                    theme_sidebar_color: '#212529',
+                    theme_font_name: 'Rubik',
+                    theme_menu_style: 'apps',
+                });
+            }
+            await this._write_data('user_settings', {
+                chatter_position: 'bottom',
+                dark_mode: false,
+            });
+            window.location.reload();
         },
 
         _onFontInput: function(e){
