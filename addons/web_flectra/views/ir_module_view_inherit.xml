@@ -10,5 +10,27 @@
                 </xpath>
             </field>
         </record>
+
+        <record model="ir.actions.act_url" id="modules_act_cl_app_store">
+            <field name="name">App Store</field>
+            <field name="target">new</field>
+            <field name="url">https://store.flectrahq.com/</field>
+        </record>
+
+        <record model="ir.actions.act_url" id="modules_act_cl_app_updates">
+            <field name="name">Updates</field>
+            <field name="target">new</field>
+            <field name="url">https://store.flectrahq.com/</field>
+        </record>
+
+        <menuitem id="base.module_mi"
+                  parent="base.menu_management" sequence="10"
+                  groups="base.group_no_one"
+                  action="modules_act_cl_app_store"/>
+
+        <menuitem id="base.menu_module_updates" parent="base.menu_management" sequence="20"
+                  action="modules_act_cl_app_updates"
+                  groups="base.group_no_one"/>
+
     </data>
 </flectra>
