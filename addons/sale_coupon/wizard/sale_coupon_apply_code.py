@@ -2,6 +2,7 @@
 
 from flectra import api, fields, models, _
 from flectra.exceptions import UserError
+from flectra.osv import expression
 
 
 class SaleCouponApplyCode(models.TransientModel):
@@ -24,7 +25,9 @@ class SaleCouponApplyCode(models.TransientModel):
 
     def apply_coupon(self, order, coupon_code):
         error_status = {}
-        program = self.env['coupon.program'].search([('promo_code', '=', coupon_code)])
+        program_domain = order._get_coupon_program_domain()
+        program_domain = expression.AND([program_domain, [('promo_code', '=', coupon_code)]])
+        program = self.env['coupon.program'].search(program_domain)
         if program:
             error_status = program._check_promo_code(order, coupon_code)
             if not error_status:
