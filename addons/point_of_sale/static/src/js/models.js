@@ -1403,6 +1403,8 @@ exports.PosModel = Backbone.Model.extend({
         if(base < 0){
             base = -base;
             sign = -1;
+        } else if(utils.float_is_zero(base, this.currency.decimals) && quantity < 0){
+            sign = -1
         }
 
         var total_included_checkpoints = {};
@@ -2737,7 +2739,9 @@ exports.Order = Backbone.Model.extend({
         var orderlines = json.lines;
         for (var i = 0; i < orderlines.length; i++) {
             var orderline = orderlines[i][2];
-            this.add_orderline(new exports.Orderline({}, {pos: this.pos, order: this, json: orderline}));
+            if(this.pos.db.get_product_by_id(orderline.product_id)){
+                this.add_orderline(new exports.Orderline({}, {pos: this.pos, order: this, json: orderline}));
+            }
         }
 
         var paymentlines = json.statement_ids;
