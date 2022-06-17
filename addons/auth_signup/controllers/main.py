@@ -3,7 +3,7 @@
 import logging
 import werkzeug
 
-from flectra import http, _
+from flectra import http, tools, _
 from flectra.addons.auth_signup.models.res_users import SignupError
 from flectra.addons.web.controllers.main import ensure_db, Home, SIGN_UP_REQUEST_PARAMS
 from flectra.addons.base_setup.controllers.main import BaseSetup
@@ -95,6 +95,7 @@ class AuthSignupHome(Home):
 
         get_param = request.env['ir.config_parameter'].sudo().get_param
         return {
+            'disable_database_manager': not tools.config['list_db'],
             'signup_enabled': request.env['res.users']._get_signup_invitation_scope() == 'b2c',
             'reset_password_enabled': get_param('auth_signup.reset_password') == 'True',
         }
