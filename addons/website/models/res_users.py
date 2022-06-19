@@ -2,7 +2,7 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import logging
 
-from flectra import api, fields, models, tools, _
+from flectra import api, fields, models, _
 from flectra.exceptions import ValidationError
 from flectra.http import request
 
@@ -18,12 +18,6 @@ class ResUsers(models.Model):
         # Partial constraint, complemented by a python constraint (see below).
         ('login_key', 'unique (login, website_id)', 'You can not have two users with the same login!'),
     ]
-
-    def _has_unsplash_key_rights(self):
-        self.ensure_one()
-        if self.has_group('website.group_website_designer'):
-            return True
-        return super(ResUsers, self)._has_unsplash_key_rights()
 
     @api.constrains('login', 'website_id')
     def _check_login(self):
