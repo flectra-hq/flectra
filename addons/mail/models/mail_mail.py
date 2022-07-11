@@ -46,7 +46,7 @@ class MailMail(models.Model):
         ('received', 'Received'),
         ('exception', 'Delivery Failed'),
         ('cancel', 'Cancelled'),
-    ], 'Status', readonly=True, copy=False, default='outgoing')
+    ], 'Status', readonly=True, copy=False, default='outgoing', index=True)
     auto_delete = fields.Boolean(
         'Auto Delete',
         help="Permanently delete this email after sending it, to save space")
