@@ -3,13 +3,14 @@
 import base64
 import io
 
+from flectra.addons.website_sale.tests.common import TestWebsiteSaleCommon
 from PIL import Image
 
 import flectra.tests
 
 
 @flectra.tests.common.tagged('post_install', '-at_install')
-class TestWebsiteSaleImage(flectra.tests.HttpCase):
+class TestWebsiteSaleImage(flectra.tests.HttpCase, TestWebsiteSaleCommon):
 
     # registry_test_mode = False  # uncomment to save the product to test in browser
 
