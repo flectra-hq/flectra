@@ -6,11 +6,12 @@ import flectra.tests
 from flectra import api
 from flectra.addons.base.tests.common import HttpCaseWithUserDemo, TransactionCaseWithUserDemo
 from flectra.addons.website_sale.controllers.main import WebsiteSale
+from flectra.addons.website_sale.tests.common import TestWebsiteSaleCommon
 from flectra.addons.website.tools import MockRequest
 
 
 @flectra.tests.tagged('post_install', '-at_install')
-class TestUi(HttpCaseWithUserDemo):
+class TestUi(HttpCaseWithUserDemo, TestWebsiteSaleCommon):
 
     def setUp(self):
         super(TestUi, self).setUp()
