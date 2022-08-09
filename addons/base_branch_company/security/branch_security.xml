@@ -10,8 +10,8 @@
     <record id="ir_rule_branch_allowed"
             model="ir.rule">
         <field name="model_id" ref="model_res_branch"/>
-        <field name="domain_force">['|',  ('id','=',user.default_branch_id.id), ('id','in',[g.id for g in user.branch_ids])]
-</field>
+        <field name="domain_force">['|', ('id','=',user.default_branch_id.id), ('id','in',user.branch_ids.ids)]
+        </field>
         <field name="name">Allowed Branch</field>
         <field name="global" eval="True"/>
     </record>
