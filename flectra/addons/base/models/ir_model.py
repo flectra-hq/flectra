@@ -201,7 +201,7 @@ class IrModel(models.Model):
         self.count = 0
         for model in self:
             records = self.env[model.model]
-            if not records._abstract:
+            if not records._abstract and records._auto:
                 cr.execute(sql.SQL('SELECT COUNT(*) FROM {}').format(sql.Identifier(records._table)))
                 model.count = cr.fetchone()[0]
 
@@ -826,16 +826,15 @@ class IrModelFields(models.Model):
         self._prepare_update()
 
         # determine registry fields corresponding to self
-        fields = []
+        fields = OrderedSet()
         for record in self:
             try:
-                fields.append(self.pool[record.model]._fields[record.name])
+                fields.add(self.pool[record.model]._fields[record.name])
             except KeyError:
                 pass
 
-        model_names = self.mapped('model')
-        self._drop_column()
-        res = super(IrModelFields, self).unlink()
+        # clean the registry from the fields to remove
+        self.pool.registry_invalidated = True
 
         # discard the removed fields from field triggers
         def discard_fields(tree):
@@ -850,7 +849,18 @@ class IrModelFields(models.Model):
                     discard_fields(subtree)
 
         discard_fields(self.pool.field_triggers)
-        self.pool.registry_invalidated = True
+
+        # discard the removed fields from field inverses
+        for Model in self.pool.values():
+            Model._field_inverses.discard_keys_and_values(fields)
+
+        # discard the removed fields from fields to compute
+        for field in fields:
+            self.env.all.tocompute.pop(field, None)
+
+        model_names = self.mapped('model')
+        self._drop_column()
+        res = super(IrModelFields, self).unlink()
 
         # The field we just deleted might be inherited, and the registry is
         # inconsistent in this case; therefore we reload the registry.
