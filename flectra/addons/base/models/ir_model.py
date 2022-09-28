@@ -14,7 +14,7 @@ from psycopg2 import sql
 from flectra import api, fields, models, tools, _
 from flectra.exceptions import AccessError, UserError, ValidationError
 from flectra.osv import expression
-from flectra.tools import pycompat, unique
+from flectra.tools import pycompat, unique, OrderedSet
 from flectra.tools.safe_eval import safe_eval, datetime, dateutil, time
 
 _logger = logging.getLogger(__name__)
