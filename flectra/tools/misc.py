@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo,Flectra. See LICENSE file for full copyright and licensing details.
 
 
 """
@@ -57,6 +57,8 @@ SKIPPED_ELEMENT_TYPES = (etree._Comment, etree._ProcessingInstruction, etree.Com
 
 # Configure default global parser
 etree.set_default_parser(etree.XMLParser(resolve_entities=False))
+
+NON_BREAKING_SPACE = u'\N{NO-BREAK SPACE}'
 
 #----------------------------------------------------------
 # Subprocesses
@@ -282,7 +284,7 @@ def flatten(list):
     """
     r = []
     for e in list:
-        if isinstance(e, (bytes, str)) or not isinstance(e, collections.Iterable):
+        if isinstance(e, (bytes, str)) or not isinstance(e, collections.abc.Iterable):
             r.append(e)
         else:
             r.extend(flatten(e))
@@ -1009,18 +1011,30 @@ class Collector(Mapping):
         for ``defaultdict(list)``.
     """
     __slots__ = ['_map']
+
     def __init__(self):
         self._map = {}
+
     def add(self, key, val):
         vals = self._map.setdefault(key, [])
         if val not in vals:
             vals.append(val)
+
     def __getitem__(self, key):
         return self._map.get(key, ())
+
     def __iter__(self):
         return iter(self._map)
+
     def __len__(self):
         return len(self._map)
+
+    def discard_keys_and_values(self, excludes):
+        self._map = {
+            key: [val for val in vals if val not in excludes]
+            for key, vals in self._map.items()
+            if key not in excludes
+        }
 
 
 class StackMap(MutableMapping):
@@ -1286,9 +1300,9 @@ def formatLang(env, value, digits=None, grouping=True, monetary=False, dp=False,
 
     if currency_obj and currency_obj.symbol:
         if currency_obj.position == 'after':
-            res = '%s %s' % (res, currency_obj.symbol)
+            res = '%s%s%s' % (res, NON_BREAKING_SPACE, currency_obj.symbol)
         elif currency_obj and currency_obj.position == 'before':
-            res = '%s %s' % (currency_obj.symbol, res)
+            res = '%s%s%s' % (currency_obj.symbol, NON_BREAKING_SPACE, res)
     return res
 
 
