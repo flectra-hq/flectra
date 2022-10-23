@@ -1,4 +1,5 @@
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
+# -*- coding: utf-8 -*-
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 from flectra import _, api, models
 from flectra.exceptions import UserError

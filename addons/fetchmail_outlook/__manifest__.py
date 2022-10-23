@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 {
     "name": "Fetchmail Outlook",
-    "version": "1.0.1.0.0",
+    "version": "1.0",
     "category": "Hidden",
     "description": "OAuth authentication for incoming Outlook mail server",
     "depends": [
