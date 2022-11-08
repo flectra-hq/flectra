@@ -13,7 +13,7 @@ from reportlab.pdfgen.canvas import Canvas
 
 from flectra import fields, models, api, _
 from flectra.addons.iap.tools import iap_tools
-from flectra.exceptions import AccessError
+from flectra.exceptions import AccessError, UserError
 from flectra.tools.safe_eval import safe_eval
 
 DEFAULT_ENDPOINT = 'https://iap-snailmail.flectrahq.com'
@@ -140,7 +140,10 @@ class SnailmailLetter(models.Model):
             else:
                 report_name = 'Document'
             filename = "%s.%s" % (report_name, "pdf")
-            pdf_bin, _ = report.with_context(snailmail_layout=not self.cover)._render_qweb_pdf(self.res_id)
+            paperformat = report.get_paperformat()
+            if (paperformat.format == 'custom' and paperformat.page_width != 210 and paperformat.page_height != 297) or paperformat.format != 'A4':
+                raise UserError(_("Please use an A4 Paper format."))
+            pdf_bin, unused_filetype = report.with_context(snailmail_layout=not self.cover, lang='en_US').render_qweb_pdf(self.res_id)
             if self.cover:
                 pdf_bin = self._append_cover_page(pdf_bin)
             attachment = self.env['ir.attachment'].create({
@@ -426,7 +429,7 @@ class SnailmailLetter(models.Model):
         return all(record[key] for key in required_keys)
 
     def _append_cover_page(self, invoice_bin: bytes):
-        address = self.partner_id.with_context(show_address=True)._get_name().replace('\n', '<br/>')
+        address = self.partner_id.with_context(show_address=True, lang='en_US')._get_name().replace('\n', '<br/>')
         address_x = 118 * mm
         address_y = 60 * mm
         frame_width = 85.5 * mm
