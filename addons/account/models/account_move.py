@@ -4,6 +4,7 @@ from flectra import api, fields, models, _
 from flectra.exceptions import RedirectWarning, UserError, ValidationError, AccessError
 from flectra.tools import float_compare, date_utils, email_split, email_re, float_is_zero
 from flectra.tools.misc import formatLang, format_date, get_lang
+from flectra.osv import expression
 
 from datetime import date, timedelta
 from collections import defaultdict
@@ -3874,6 +3875,13 @@ class AccountMoveLine(models.Model):
         # Add the domain and order by in order to compute the cumulated balance in _compute_cumulated_balance
         return super(AccountMoveLine, self.with_context(domain_cumulated_balance=to_tuple(domain or []), order_cumulated_balance=order)).search_read(domain, fields, offset, limit, order)
 
+    @api.model
+    def fields_get(self, allfields=None, attributes=None):
+        res = super().fields_get(allfields, attributes)
+        if res.get('cumulated_balance'):
+            res['cumulated_balance']['exportable'] = False
+        return res
+
     @api.depends_context('order_cumulated_balance', 'domain_cumulated_balance')
     def _compute_cumulated_balance(self):
         if not self.env.context.get('order_cumulated_balance'):
@@ -4381,11 +4389,11 @@ class AccountMoveLine(models.Model):
     @api.model
     def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
         if operator == 'ilike':
-            args = ['|', '|',
+            domain = ['|', '|',
                     ('name', 'ilike', name),
                     ('move_id', 'ilike', name),
                     ('product_id', 'ilike', name)]
-            return self._search(args, limit=limit, access_rights_uid=name_get_uid)
+            return self._search(expression.AND([domain, args]), limit=limit, access_rights_uid=name_get_uid)
 
         return super()._name_search(name, args=args, operator=operator, limit=limit, name_get_uid=name_get_uid)
 
