@@ -292,6 +292,12 @@
                             </t>
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <t t-call="portal.message_thread">
+                            <t t-set="object" t-value="ticket"/>
+                            <t t-set="display_rating" t-value="False"/>
+                        </t>
+                    </div>
                     <div class="row">
                         <t t-if="ticket.help_description">
                             <div class="col-md-12">
