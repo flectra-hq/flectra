@@ -18,7 +18,7 @@ class Task(models.Model):
         ('non_billable_project', 'No task found')],
         string="Billable Type")
     invoicable_id = fields.Many2one('hr_timesheet_invoice.factor',
-                                    string="Invoicable(%)")
+                                    string="Invoiceable(%)")
     total_computed_hours = fields.Float(compute="_compute_total_calculated_hours",
                                         help="Time spent on this task,"
                                              " excluding its sub-tasks.")
@@ -42,7 +42,7 @@ class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'
     _description = "Account Analytic Line"
 
-    invoicable_id = fields.Many2one('hr_timesheet_invoice.factor', string="Invoicable",
+    invoicable_id = fields.Many2one('hr_timesheet_invoice.factor', string="Invoiceable",
                                     readonly=False)
     timesheet_invoice_type = fields.Selection([
         ('billable_time', 'Billed on Timesheets'),
@@ -132,7 +132,7 @@ class Project(models.Model):
     _description = "Project of Project"
 
     invoicable_id = fields.Many2one('hr_timesheet_invoice.factor',
-                                    string="Invoicable(%)")
+                                    string="Invoiceable(%)")
     timesheet_invoice_type = fields.Selection([
         ('billable_time', 'Billed on Timesheets'),
         ('billable_fixed', 'Billed at a Fixed price'),
