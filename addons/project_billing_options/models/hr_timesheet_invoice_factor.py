@@ -12,8 +12,9 @@ class HrTimesheetInvoiceFactor(models.Model):
     _description = "Invoice Rate"
 
     name = fields.Char('Name', translate=True)
-    factor = fields.Float(string='Invoicable Factor',
-                          required=True, help="Invoicable in percentage")
+    factor = fields.Float(string='Invoiceable Factor',
+                          required=True, help="Invoiceable in percentage")
+    not_invoiceable = fields.Boolean(string='Not Invoiceable')
 
 
 class AccountAnalyticLine(models.Model):
@@ -21,7 +22,7 @@ class AccountAnalyticLine(models.Model):
     _description = "Account Analytic Line"
 
     invoicable_id = fields.Many2one('hr_timesheet_invoice.factor',
-                                    string="Invoicable(%)")
+                                    string="Invoiceable(%)")
     calculated_hours_invoice = fields.Float(string="Calculated Hours",
                                             compute_sudo=True, store=True,
                                             compute="_compute_calculated_hours")
@@ -29,7 +30,11 @@ class AccountAnalyticLine(models.Model):
     @api.depends('unit_amount', 'invoicable_id')
     def _compute_calculated_hours(self):
         for rec in self:
-            if rec.invoicable_id.factor != 0.0:
+            if rec.invoicable_id.not_invoiceable:
+                rec.update({
+                    'calculated_hours_invoice': 0.0,
+                })
+            elif rec.invoicable_id.factor != 0.0:
                 calculated_hours = (rec.unit_amount * rec.invoicable_id.factor / 100)
                 rec.update({
                     'calculated_hours_invoice': calculated_hours,

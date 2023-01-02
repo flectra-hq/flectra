@@ -6,7 +6,8 @@
         <field name="arch" type="xml">
             <tree string="Invoice factor" editable="bottom">
                 <field name="name"/>
-                <field name="factor"/>
+                <field name="not_invoiceable"/>
+                <field name="factor" attrs="{'invisible': [('not_invoiceable', '=', True)]}"/>
             </tree>
         </field>
     </record>
