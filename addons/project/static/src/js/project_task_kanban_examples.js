@@ -31,7 +31,7 @@ function escFormat() {
     var args = arguments;
     return {
         toString: function () {
-            args[0] = _.unescape(args[0]);
+            args[0] = _.escape(args[0]);
             return _.str.sprintf.apply(_.str, args);
         },
     };
