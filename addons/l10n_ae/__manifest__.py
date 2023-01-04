@@ -10,7 +10,8 @@
     'description': """
 United Arab Emirates accounting chart and localization.
 =======================================================
-
+20230104 ChriCar: for tax exempt companies all items including Tax must be supressed in invoices.
+         A tax exempt company has no entry in res.partner.vat
     """,
     'depends': ['base', 'account'],
     'data': [

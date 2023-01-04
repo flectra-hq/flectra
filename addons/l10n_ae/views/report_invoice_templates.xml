@@ -7,9 +7,13 @@
             </p>
         </xpath>
         <xpath expr="//h2/span" position="before">
-            <span t-if="o.company_id.country_id.code == 'AE' and o.move_type in ['out_invoice', 'out_refund']">Tax</span>
+            <span t-if="o.company_id.country_id.code == 'AE' and o.move_type in ['out_invoice', 'out_refund'] and o.company_id.partner_id.vat != False ">Tax</span>
         </xpath>
 
+        <xpath expr="//th[@name='th_taxes']/span" position="replace">
+            <span t-if="o.company_id.country_id.code == 'AE' and o.move_type in ['out_invoice', 'out_refund'] and o.company_id.partner_id.vat != False" class="text-right">Taxes</span>
+        </xpath>
+        
         <xpath expr="//div[hasclass('clearfix')]" position="after">
             <div t-if="o.company_id.country_id.code == 'AE' and o.currency_id != o.company_id.currency_id" id="aed_amounts" class="row clearfix ml-auto my-3 text-nowrap table">
                 <t t-set="aed_rate" t-value="o.env['res.currency']._get_conversion_rate(o.currency_id, o.company_id.currency_id, o.company_id, o.invoice_date or datetime.date.today())"/>
@@ -21,7 +25,7 @@
                     <strong>Subtotal (AED)</strong>
                     <p class="m-0" t-esc="o.amount_untaxed_signed" t-options='{"widget": "monetary", "display_currency": o.company_currency_id}'/>
                 </div>
-                <div name="aed_vat_amount" class="col-auto">
+                <div t-if="o.company_id.partner_id.vat != False" name="aed_vat_amount" class="col-auto">
                     <strong>Tax Amount (AED)</strong>
                     <p class="m-0" t-esc="o.currency_id._convert(o.amount_tax, o.company_id.currency_id, o.company_id, o.invoice_date or datetime.date.today())" t-options='{"widget": "monetary", "display_currency": o.company_currency_id}'/>
                 </div>
