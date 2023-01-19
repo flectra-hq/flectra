@@ -75,7 +75,7 @@ class BaseImportCSV(models.TransientModel):
         parse_info = super(
             BaseImportCSV, self)._parse_import_data(
             data, fields_info, options)
-        st_id = self._context.get('active_id', False)
+        st_id = self._context.get('bank_statement_id', False)
         account_stmt_obj = self.env['account.bank.statement']
 
         if not st_id:
@@ -91,7 +91,7 @@ class BaseImportCSV(models.TransientModel):
         return list_data
 
     def do(self, fields, columns, options, dryrun=False):
-        st = self._context.get('active_id')
+        st = self._context.get('active_id') if self.res_model == 'account.bank.statement' else None
         res = super(
             BaseImportCSV, self.with_context(
                 bank_statement_id=st)).do(
