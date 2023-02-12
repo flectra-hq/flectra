@@ -13,8 +13,10 @@
                     <h2>Dear
                         % if object.partner_id:
                             ${object.partner_id.name}
-                        % else:
+                        % elif not object.partner_id and object.user_id:
                             ${object.user_id.name}
+                        % else:
+                            ${user.name}
                         % endif
                     </h2>
                     <p>Your request has been received and is being reviewed by our ${object.team_id.name}.<br/><br/>
@@ -43,8 +45,10 @@
                 <h2>Dear
                     % if object.partner_id:
                         ${object.partner_id.name}
-                    % else:
+                    % elif not object.partner_id and object.user_id:
                         ${object.user_id.name}
+                    % else:
+                        ${user.name}
                     % endif
                 </h2>
                 <p>Your request flectra has been Confirm by our ${object.team_id.name}.<br/><br/>
