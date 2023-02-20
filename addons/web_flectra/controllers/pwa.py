@@ -112,7 +112,8 @@ class ProgressiveWebApp(Controller):
         urls.extend(self._get_asset_urls("web.assets_frontend_lazy"))
         version_list = []
         for url in urls:
-            version_list.append(url.split("/")[3])
+            if len(url.split("/")) >= 3:
+                version_list.append(url.split("/")[3])
         urls.extend([
             '/web/static/lib/fontawesome/fonts/fontawesome-webfont.woff2?v=4.7.0',
             '/web/static/src/img/favicon.ico',
