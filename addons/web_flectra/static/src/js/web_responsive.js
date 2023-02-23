@@ -136,13 +136,22 @@ flectra.define("web_responsive", function (require) {
     });
     var dragCount = 0;
     FormRenderer.include({
+        init() {
+            this.enableFormDragDrop = true;
+            this.DragDropForm = 'all';
+            this._super(...arguments);
+        },
         start: function (){
             var superMethod = this._super.apply(this, arguments);
             this.dropTemplateAvailable = false;
-            document.addEventListener('dragenter', this._onDragEnterForm.bind(this), true);
-            document.addEventListener('dragover', this._onDragOver.bind(this), true);
-            document.addEventListener('dragleave', this._onDragLeaveForm.bind(this), true);
-            document.addEventListener('drop', this._onDropFile.bind(this), true);
+            let active_model = this.state.model;
+            if(this.enableFormDragDrop)
+            {
+                document.addEventListener('dragenter', this._onDragEnterForm.bind(this), true);
+                document.addEventListener('dragover', this._onDragOver.bind(this), true);
+                document.addEventListener('dragleave', this._onDragLeaveForm.bind(this), true);
+                document.addEventListener('drop', this._onDropFile.bind(this), true);
+            }
             return superMethod;
         },
         _onDragEnterForm: function (e) {
