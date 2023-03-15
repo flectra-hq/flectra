@@ -614,7 +614,7 @@ exports.PosModel = Backbone.Model.extend({
                     reject();
                 };
                 self.company_logo.crossOrigin = "anonymous";
-                self.company_logo.src = '/web/binary/company_logo' + '?dbname=' + self.session.db + '&company=' + self.company.id + '&_' + Math.random();
+                self.company_logo.src = `/web/image?model=res.company&id=${self.company.id}&field=logo`;
             });
         },
     }, {
@@ -2290,14 +2290,14 @@ exports.Orderline = Backbone.Model.extend({
         }
     },
     get_taxed_lst_unit_price: function(){
-        var lst_price = this.get_lst_price();
+        var base_price = this.compute_fixed_price(this.get_base_price());
         if (this.pos.config.iface_tax_included === 'total') {
             var product =  this.get_product();
             var taxes_ids = product.taxes_id;
             var product_taxes = this.get_taxes_after_fp(taxes_ids);
-            return this.compute_all(product_taxes, lst_price, 1, this.pos.currency.rounding).total_included;
+            return this.compute_all(product_taxes, base_price, 1, this.pos.currency.rounding).total_included;
         }
-        return lst_price;
+        return base_price;
     },
     get_price_without_tax: function(){
         return this.get_all_prices().priceWithoutTax;
