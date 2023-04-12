@@ -8,7 +8,7 @@ from flectra.tests import tagged
 from flectra.tools import mute_logger
 
 
-@tagged('post_install')
+@tagged('post_install', '-at_install')
 class TestSmsTemplateAccessRights(SavepointCase):
 
     @classmethod
