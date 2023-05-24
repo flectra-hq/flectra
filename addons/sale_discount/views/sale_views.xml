@@ -13,9 +13,8 @@
                         <field name="discount_value" attrs="{'invisible': [('discount_type', '=', False)]}"/>
                     </div>
                 </field>
-                <field name="amount_untaxed" position="before">
-                    <field name="amount_gross" widget='monetary' options="{'currency_field': 'currency_id'}"/>
-                    <field name="document_discount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                <field name="amount_untaxed" position="after">
+                    <field name="amount_discount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                 </field>
             </field>
         </record>
