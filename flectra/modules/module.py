@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 import ast
 import collections.abc
@@ -140,7 +140,7 @@ def initialize_sys_path():
     legacy_upgrade_path = os.path.join(base_path, 'base', 'maintenance', 'migrations')
     for up in (tools.config['upgrade_path'] or legacy_upgrade_path).split(','):
         up = os.path.normcase(os.path.abspath(tools.ustr(up.strip())))
-        if up not in upgrade.__path__:
+        if os.path.isdir(up) and up not in upgrade.__path__:
             upgrade.__path__.append(up)
 
     # create decrecated module alias from flectra.addons.base.maintenance.migrations to flectra.upgrade
@@ -313,7 +313,7 @@ def load_information_from_description_file(module, mod_path=None):
         # default values for descriptor
         info = {
             'application': False,
-            'author': 'FlectraHQ Inc., Odoo S.A.',
+            'author': 'Flectra S.A.',
             'auto_install': False,
             'category': 'Uncategorized',
             'depends': [],
@@ -421,6 +421,9 @@ def get_modules():
 
     plist = []
     for ad in flectra.addons.__path__:
+        if not os.path.exists(ad):
+            _logger.warning("addons path does not exist: %s", ad)
+            continue
         plist.extend(listdir(ad))
     return list(set(plist))
 
