@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
-
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 from math import log10
 
 from flectra.tests.common import TransactionCase

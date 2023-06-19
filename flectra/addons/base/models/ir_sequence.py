@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
-from datetime import datetime, timedelta
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.from datetime import datetime, timedelta
 import logging
 import pytz
 from psycopg2 import sql, OperationalError, errorcodes

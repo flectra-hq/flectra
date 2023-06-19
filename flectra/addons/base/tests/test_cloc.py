@@ -1,5 +1,4 @@
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
-from flectra.tools import cloc
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.from flectra.tools import cloc
 from flectra.tests import TransactionCase, tagged
 
 XML_TEST = """<!-- Comment -->

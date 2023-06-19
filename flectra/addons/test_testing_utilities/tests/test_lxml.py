@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
-
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 from flectra.tests import common
 from flectra.tools.xml_utils import _check_with_xsd
 

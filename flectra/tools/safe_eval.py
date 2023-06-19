@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
-
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 """
 safe_eval module - methods intended to provide more restricted alternatives to
                    evaluate simple and/or untrusted code.

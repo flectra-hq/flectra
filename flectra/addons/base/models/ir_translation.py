@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
-import hashlib
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.import hashlib
 import itertools
 import json
 import logging

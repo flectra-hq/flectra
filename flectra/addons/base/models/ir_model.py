@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
-import itertools
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.import itertools
 import logging
 import re
 import psycopg2

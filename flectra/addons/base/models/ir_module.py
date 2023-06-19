@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
-import base64
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.import base64
 from collections import defaultdict, OrderedDict
 from decorator import decorator
 from operator import attrgetter

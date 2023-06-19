@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
-
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 """ Domain expression processing
 
 The main duty of this module is to compile a domain expression into a

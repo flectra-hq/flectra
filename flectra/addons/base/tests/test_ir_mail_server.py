@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
-
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 from flectra import tools
 from flectra.addons.base.tests import test_mail_examples
 from flectra.tests import tagged
