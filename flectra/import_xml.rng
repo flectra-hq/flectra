@@ -303,11 +303,11 @@
         </rng:element>
     </rng:define>
 
-    <rng:define name="odoo_openerp_data">
+    <rng:define name="flectra_openerp_data">
         <rng:element>
             <rng:choice>
-                <rng:name>odoo</rng:name>
                 <rng:name>flectra</rng:name>
+                <rng:name>openerp</rng:name>
                 <rng:name>data</rng:name>
             </rng:choice>
             <rng:optional><rng:attribute name="noupdate" /></rng:optional>
@@ -315,7 +315,7 @@
             <rng:zeroOrMore>
                 <rng:choice>
                     <rng:text/>
-                    <rng:ref name="odoo_openerp_data"/>
+                    <rng:ref name="flectra_openerp_data"/>
                     <rng:ref name="menuitem" />
                     <rng:ref name="record" />
                     <rng:ref name="template" />
@@ -329,6 +329,6 @@
     </rng:define>
 
     <rng:start>
-        <rng:ref name="odoo_openerp_data"/>
+        <rng:ref name="flectra_openerp_data"/>
     </rng:start>
 </rng:grammar>

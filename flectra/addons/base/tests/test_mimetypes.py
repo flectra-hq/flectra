@@ -1,8 +1,13 @@
 import base64
 import unittest
 
+try:
+    import magic
+except ImportError:
+    magic = None
+
 from flectra.tests.common import BaseCase
-from flectra.tools.mimetypes import guess_mimetype
+from flectra.tools.mimetypes import guess_mimetype, get_extension
 
 PNG = b'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQI12P4//8/AAX+Av7czFnnAAAAAElFTkSuQmCC'
 GIF = b"R0lGODdhAQABAIAAAP///////ywAAAAAAQABAAACAkQBADs="
@@ -65,7 +70,7 @@ class test_guess_mimetype(BaseCase):
         content = base64.b64decode(SVG)
         mimetype = guess_mimetype(content, default='test')
         self.assertTrue(mimetype.startswith('image/svg'))
-        # Tests that whitespace padded SVG are not detected as SVG in odoo implementation
+        # Tests that whitespace padded SVG are not detected as SVG in flectra implementation
         if not magic:
             mimetype = guess_mimetype(b"   " + content, default='test')
             self.assertNotIn("svg", mimetype)

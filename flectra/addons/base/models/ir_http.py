@@ -22,7 +22,7 @@ from flectra import api, http, models, tools, SUPERUSER_ID
 from flectra.exceptions import AccessDenied, AccessError, MissingError
 from flectra.http import request, content_disposition
 from flectra.tools import consteq, pycompat
-from flectra.tools.mimetypes import get_extension,guess_mimetype
+from flectra.tools.mimetypes import get_extension, guess_mimetype
 from flectra.modules.module import get_resource_path, get_module_path
 
 from flectra.http import ALLOWED_DEBUG_MODES

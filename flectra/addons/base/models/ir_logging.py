@@ -1,4 +1,4 @@
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 from flectra import api, fields, models
 
 

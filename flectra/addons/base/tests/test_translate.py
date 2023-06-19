@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
+from flectra.exceptions import AccessError, ValidationError
 from flectra.tools import mute_logger
 from flectra.tools.translate import quote, unquote, xml_translate, html_translate
-from flectra.tests.common import TransactionCase, BaseCase
+from flectra.tests.common import TransactionCase, BaseCase, new_test_user
 from psycopg2 import IntegrityError
 
 
@@ -285,6 +286,7 @@ class TestTranslation(TransactionCase):
 
     def test_103_duplicate_record_fr(self):
         category = self.customers.with_context({'lang': 'fr_FR'}).copy({'name': 'Clients (copie)'})
+        self.assertEqual(category.env.context.get('lang'), 'fr_FR')
 
         category_no = category.with_context({})
         self.assertEqual(category_no.name, 'Clients (copie)', "Duplication should set untranslated value")

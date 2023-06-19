@@ -1,8 +1,6 @@
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
-import sys
-
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 from flectra.tools import cloc
-from flectra.tests.common import TransactionCase
+from flectra.tests import TransactionCase, tagged
 
 XML_TEST = """<!-- Comment -->
 <?xml version="1.0" encoding="UTF-8"?>
@@ -98,7 +96,7 @@ class TestClocCustomization(TransactionCase):
             'store': False,
             'compute': "for rec in self: rec['x_invoice_count'] = 10",
         })
-        # Simulate the effect of https://github.com/flectrahq/flectrahq/commit/9afce4805fc8bac45fdba817488aa867fddff69b
+        # Simulate the effect of https://github.com/flectra/flectra/commit/9afce4805fc8bac45fdba817488aa867fddff69b
         # Updating a module create xml_id of the module even for manual field if it's the original module
         # of the model
         self.create_xml_id('base', name, field)
@@ -125,21 +123,21 @@ for rec in records:
         self.create_xml_id('studio_customization', 'invoice_count', f1)
         cl = cloc.Cloc()
         cl.count_customization(self.env)
-        self.assertEqual(cl.code.get('odoo/studio', 0), 0, 'Studio auto generated count field should not be counted in cloc')
+        self.assertEqual(cl.code.get('flectra/studio', 0), 0, 'Studio auto generated count field should not be counted in cloc')
         f2 = self.create_field('x_studio_custom_field')
         self.create_xml_id('studio_customization', 'studio_custom', f2)
         cl = cloc.Cloc()
         cl.count_customization(self.env)
-        self.assertEqual(cl.code.get('odoo/studio', 0), 1, 'Count other studio computed field')
+        self.assertEqual(cl.code.get('flectra/studio', 0), 1, 'Count other studio computed field')
         self.create_field('x_custom_field')
         cl = cloc.Cloc()
         cl.count_customization(self.env)
-        self.assertEqual(cl.code.get('odoo/studio', 0), 2, 'Count fields without xml_id')
+        self.assertEqual(cl.code.get('flectra/studio', 0), 2, 'Count fields without xml_id')
         f4 = self.create_field('x_custom_field_export')
         self.create_xml_id('__export__', 'studio_custom', f4)
         cl = cloc.Cloc()
         cl.count_customization(self.env)
-        self.assertEqual(cl.code.get('odoo/studio', 0), 3, 'Count fields with xml_id but without module')
+        self.assertEqual(cl.code.get('flectra/studio', 0), 3, 'Count fields with xml_id but without module')
 
     def test_several_xml_id(self):
         sa = self.create_server_action("Test double xml_id")
@@ -147,11 +145,11 @@ for rec in records:
         self.create_xml_id("base", "second", sa)
         cl = cloc.Cloc()
         cl.count_customization(self.env)
-        self.assertEqual(cl.code.get('odoo/studio', 0), 2, 'Count Should count SA with a non standard xml_id')
+        self.assertEqual(cl.code.get('flectra/studio', 0), 2, 'Count Should count SA with a non standard xml_id')
         self.create_xml_id("__import__", "third", sa)
         cl = cloc.Cloc()
         cl.count_customization(self.env)
-        self.assertEqual(cl.code.get('odoo/studio', 0), 2, 'SA with several xml_id should be counted only once')
+        self.assertEqual(cl.code.get('flectra/studio', 0), 2, 'SA with several xml_id should be counted only once')
 
     def test_cloc_exclude_xml_id(self):
         sa = self.create_server_action("Test double xml_id")
@@ -159,14 +157,14 @@ for rec in records:
         self.create_xml_id("__upgrade__", "sa_second", sa)
         cl = cloc.Cloc()
         cl.count_customization(self.env)
-        self.assertEqual(cl.code.get('odoo/studio', 0), 0, 'Should not count SA with cloc_exclude xml_id')
+        self.assertEqual(cl.code.get('flectra/studio', 0), 0, 'Should not count SA with cloc_exclude xml_id')
 
         f1 = self.create_field('x_invoice_count')
         self.create_xml_id("__cloc_exclude__", "field_first", f1)
         self.create_xml_id("__upgrade__", "field_second", f1)
         cl = cloc.Cloc()
         cl.count_customization(self.env)
-        self.assertEqual(cl.code.get('odoo/studio', 0), 0, 'Should not count Field with cloc_exclude xml_id')
+        self.assertEqual(cl.code.get('flectra/studio', 0), 0, 'Should not count Field with cloc_exclude xml_id')
 
     def test_field_no_xml_id(self):
         self.env['ir.model.fields'].create({
@@ -180,7 +178,7 @@ for rec in records:
         })
         cl = cloc.Cloc()
         cl.count_customization(self.env)
-        self.assertEqual(cl.code.get('odoo/studio', 0), 1, 'Should count field with no xml_id at all')
+        self.assertEqual(cl.code.get('flectra/studio', 0), 1, 'Should count field with no xml_id at all')
 
 
 class TestClocParser(TransactionCase):
@@ -192,7 +190,7 @@ class TestClocParser(TransactionCase):
         py_count = cl.parse_py(PY_TEST_NO_RETURN)
         self.assertEqual(py_count, (2, 2))
         py_count = cl.parse_py(PY_TEST)
-        if sys.version_info >= (3, 8, 0):
+        if self._python_version >= (3, 8, 0):
             # Multi line str lineno return the begining of the str
             # in python 3.8, it result in a different count for
             # multi str used in expressions
@@ -201,3 +199,16 @@ class TestClocParser(TransactionCase):
             self.assertEqual(py_count, (8, 16))
         js_count = cl.parse_js(JS_TEST)
         self.assertEqual(js_count, (10, 17))
+
+
+@tagged('post_install', '-at_install')
+class TestClocStdNoCusto(TransactionCase):
+
+    def test_no_custo_install(self):
+        """
+            Make sure after the installation of module
+            no database customization is counted
+        """
+        cl = cloc.Cloc()
+        cl.count_customization(self.env)
+        self.assertEqual(cl.code.get('flectra/studio', 0), 0, 'Module should not generate customization in database')

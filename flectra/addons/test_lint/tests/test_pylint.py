@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 try:
@@ -10,7 +10,6 @@ import subprocess
 from distutils.version import LooseVersion
 import os
 from os.path import join
-import sys
 
 from flectra.tests.common import TransactionCase
 from flectra import tools
@@ -52,7 +51,7 @@ class TestPyLint(TransactionCase):
         if pylint is None:
             self._skip_test('please install pylint')
         required_pylint_version = LooseVersion('1.6.4')
-        if sys.version_info >= (3, 6):
+        if self._python_version >= (3, 6):
             required_pylint_version = LooseVersion('1.7.0')
         if LooseVersion(getattr(pylint, '__version__', '0.0.1')) < required_pylint_version:
             self._skip_test('please upgrade pylint to >= %s' % required_pylint_version)

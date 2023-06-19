@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 import base64
 import datetime
 import os
@@ -331,6 +331,11 @@ class TestDurationExport(TestBasicExport):
 
         result = converter(72, {'unit': 'second'}, {'lang': 'fr_FR'})
         self.assertEqual(result, u"1 minute 12 secondes")
+
+    def test_negative_digital(self):
+        converter = self.get_converter('float', 'duration')
+        result = converter(-90, {'unit': 'minute', 'round': 'minute', 'digital': True}, {'lang': 'fr_FR'})
+        self.assertEqual(result, u'-01:30')
 
 
 class TestRelativeDatetime(TestBasicExport):

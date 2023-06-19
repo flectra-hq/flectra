@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 RELEASE_LEVELS = [ALPHA, BETA, RELEASE_CANDIDATE, FINAL] = ['alpha', 'beta', 'candidate', 'final']
 RELEASE_LEVELS_DISPLAY = {ALPHA: ALPHA,
@@ -30,7 +30,7 @@ License :: OSI Approved :: GNU Lesser General Public License v3
 Programming Language :: Python
 """
 url = 'https://www.flectrahq.com'
-author = 'FlectraHQ'
+author = 'OpenERP S.A.'
 author_email = 'info@flectrahq.com'
 license = 'LGPL-3'
 

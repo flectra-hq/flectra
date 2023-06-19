@@ -186,6 +186,7 @@ else:
             return 'image/svg+xml'
         return mimetype
 
+
 def neuter_mimetype(mimetype, user):
     wrong_type = 'ht' in mimetype or 'xml' in mimetype or 'svg' in mimetype
     if wrong_type and not user._is_system():

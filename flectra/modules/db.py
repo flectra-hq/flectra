@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 import flectra.modules
 import logging
@@ -29,7 +29,7 @@ def initialize(cr):
         raise IOError(m)
 
     with flectra.tools.misc.file_open(f) as base_sql_file:
-        cr.execute(base_sql_file.read())
+        cr.execute(base_sql_file.read())  # pylint: disable=sql-injection
 
     for i in flectra.modules.get_modules():
         mod_path = flectra.modules.get_module_path(i)

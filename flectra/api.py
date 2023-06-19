@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 """The Flectra API module defines Flectra Environments and method decorators.
 
@@ -616,6 +616,7 @@ class Environment(Mapping):
         """ Clear all record caches, and discard all fields to recompute.
             This may be useful when recovering from a failed ORM operation.
         """
+        lazy_property.reset_all(self)
         self.cache.invalidate()
         self.all.tocompute.clear()
         self.all.towrite.clear()
