@@ -1,4 +1,5 @@
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.from flectra import api, fields, models
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
+from flectra import api, fields, models
 
 
 class IrLogging(models.Model):

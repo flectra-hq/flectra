@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
+
 from flectra import models
 from flectra.modules.loading import force_demo
 from flectra.addons.base.models.ir_module import assert_log_admin_access

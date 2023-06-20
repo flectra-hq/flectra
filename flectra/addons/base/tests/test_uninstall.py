@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
+
 # This assumes an existing but uninitialized database.
 
 from contextlib import contextmanager

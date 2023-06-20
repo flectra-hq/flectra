@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.import flectra.tests
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
+import flectra.tests
 
 
 @flectra.tests.tagged('-at_install', 'post_install')

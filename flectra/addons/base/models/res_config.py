@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.import json
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
+import json
 import logging
 import re
 

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.import codecs
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
+import codecs
 import fnmatch
 import functools
 import inspect

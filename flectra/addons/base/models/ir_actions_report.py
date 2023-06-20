@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.from flectra import api, fields, models, tools, SUPERUSER_ID, _
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
+from flectra import api, fields, models, tools, SUPERUSER_ID, _
 from flectra.exceptions import UserError, AccessError
 from flectra.tools.safe_eval import safe_eval, time
 from flectra.tools.misc import find_in_path, ustr

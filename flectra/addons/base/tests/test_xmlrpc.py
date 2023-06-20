@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.import time
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
+import time
 from xmlrpc.client import Binary
 
 from flectra.exceptions import AccessDenied, AccessError
