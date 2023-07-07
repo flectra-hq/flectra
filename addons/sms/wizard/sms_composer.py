@@ -6,7 +6,7 @@ from ast import literal_eval
 from flectra import api, fields, models, _
 from flectra.addons.phone_validation.tools import phone_validation
 from flectra.exceptions import UserError
-from flectra.tools import html2plaintext
+from flectra.tools import html2plaintext, plaintext2html
 
 
 class SendSMS(models.TransientModel):
@@ -340,7 +340,7 @@ class SendSMS(models.TransientModel):
     def _prepare_log_body_values(self, sms_records_values):
         result = {}
         for record_id, sms_values in sms_records_values.items():
-            result[record_id] = html2plaintext(sms_values['body'])
+            result[record_id] = plaintext2html(html2plaintext(sms_values['body']))
         return result
 
     def _prepare_mass_log_values(self, records, sms_records_values):
