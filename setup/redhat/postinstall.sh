@@ -9,6 +9,7 @@ FLECTRA_GROUP="flectra"
 FLECTRA_LOG_DIR=/var/log/flectra
 FLECTRA_LOG_FILE=$FLECTRA_LOG_DIR/flectra-server.log
 FLECTRA_USER="flectra"
+ABI=$(rpm -q --provides python3 | awk '/abi/ {print $NF}')
 
 if ! getent passwd | grep -q "^flectra:"; then
     groupadd $FLECTRA_GROUP

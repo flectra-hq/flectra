@@ -13,7 +13,7 @@ trap cleanup EXIT
 wget -q http://get.enterprisedb.com/postgresql/postgresql-9.5.4-2-windows.exe
 
 # wkhtmltopdf
-wget -q -P $TEMPDIR https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.1/wkhtmltox-0.12.1.2_msvc2013-win32.exe
+wget -q -P $TEMPDIR http://download.gna.org/wkhtmltopdf/0.12/0.12.1/wkhtmltox-0.12.1.2_msvc2013-win32.exe
 7z x -o$TEMPDIR $TEMPDIR/wkhtmltox-0.12.1.2_msvc2013-win32.exe
 cp $TEMPDIR/bin/wkhtmltopdf.exe ./wkhtmltopdf
 
