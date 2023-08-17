@@ -59,7 +59,7 @@ Unicode True
 !endif
 
 !ifndef PYTHONVERSION
-	!define PYTHONVERSION '3.8.3'
+	!define PYTHONVERSION '3.7.4'
 !endif
 
 !ifndef SERVICENAME
@@ -174,7 +174,7 @@ LangString TITLE_PostgreSQL ${LANG_ENGLISH} "PostgreSQL Database"
 LangString DESC_FinishPageText ${LANG_ENGLISH} "Start Flectra"
 
 ; French
-LangString DESC_Flectra_Server ${LANG_FRENCH} "Installation du Serveur Flectra avec tous les modules Odoo standards."
+LangString DESC_Flectra_Server ${LANG_FRENCH} "Installation du Serveur Flectra avec tous les modules Flectra standards."
 LangString DESC_PostgreSQL ${LANG_FRENCH} "Installation de la base de données PostgreSQL utilisée par Flectra."
 LangString DESC_FinishPage_Link ${LANG_FRENCH} "Contactez Flectra pour un Partenariat et/ou du Support"
 LangString DESC_AtLeastOneComponent ${LANG_FRENCH} "Vous devez choisir au moins un composant"

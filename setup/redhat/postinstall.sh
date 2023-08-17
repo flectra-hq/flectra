@@ -29,7 +29,7 @@ db_host = False
 db_port = False
 db_user = $FLECTRA_USER
 db_password = False
-addons_path = /usr/lib/python3.7/site-packages/flectra/addons
+addons_path = /usr/lib/python${ABI}/site-packages/flectra/addons
 " > $FLECTRA_CONFIGURATION_FILE
     chown $FLECTRA_USER:$FLECTRA_GROUP $FLECTRA_CONFIGURATION_FILE
     chmod 0640 $FLECTRA_CONFIGURATION_FILE
