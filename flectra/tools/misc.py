@@ -140,7 +140,7 @@ def exec_pg_command_pipe(name, *args):
 #file_path_root = os.getcwd()
 #file_path_addons = os.path.join(file_path_root, 'addons')
 
-def file_open(name, mode="r", subdir='addons', pathinfo=False, filter_ext=None):
+def file_open(name, mode="r", subdir='addons', pathinfo=False, filter_ext=None, env=None):
     """Open a file from the OpenERP root, using a subdir folder.
 
     Example::
