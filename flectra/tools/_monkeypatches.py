@@ -3,6 +3,9 @@ import os
 from shutil import copyfileobj
 
 from werkzeug.datastructures import FileStorage
+from werkzeug.wrappers import Request, Response
+
+from .json import scriptsafe
 
 try:
     from xlrd import xlsx
@@ -25,6 +28,8 @@ else:
 
 FileStorage.save = lambda self, dst, buffer_size=1<<20: copyfileobj(self.stream, dst, buffer_size)
 
+Request.json_module = Response.json_module = scriptsafe
+
 orig_literal_eval = ast.literal_eval
 
 def literal_eval(expr):
@@ -32,7 +37,7 @@ def literal_eval(expr):
     # the default limit is set to 100KiB
     # can be overridden by setting the FLECTRA_LIMIT_LITEVAL_BUFFER environment variable
     buffer_size = os.getenv("FLECTRA_LIMIT_LITEVAL_BUFFER") or 1.024e5
-    if len(expr) > int(buffer_size):
+    if isinstance(expr, str) and len(expr) > int(buffer_size):
         raise ValueError("expression can't exceed buffer limit")
 
     return orig_literal_eval(expr)
