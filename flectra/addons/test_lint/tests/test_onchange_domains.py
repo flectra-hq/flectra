@@ -44,7 +44,7 @@ class TestOnchangeDomains(lint_case.LintCase):
     """
     def test_forbid_domains_in_onchanges(self):
         """ Dynamic domains (returning a domain from an onchange) are deprecated
-        and should not be used in "standard" Flectra anymore
+        and should not be used in "standard" Odoo anymore
         """
         checker = OnchangeChecker()
         rs = []

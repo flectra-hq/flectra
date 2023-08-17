@@ -33,7 +33,7 @@ class IrUiMenu(models.Model):
     groups_id = fields.Many2many('res.groups', 'ir_ui_menu_group_rel',
                                  'menu_id', 'gid', string='Groups',
                                  help="If you have groups, the visibility of this menu will be based on these groups. "\
-                                      "If this field is empty, Flectra will compute visibility based on the related object's read access.")
+                                      "If this field is empty, Odoo will compute visibility based on the related object's read access.")
     complete_name = fields.Char(compute='_compute_complete_name', string='Full Path')
     web_icon = fields.Char(string='Web Icon File')
     action = fields.Reference(selection=[('ir.actions.report', 'ir.actions.report'),

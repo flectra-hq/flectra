@@ -14,7 +14,7 @@ from flectra.tools.misc import frozendict
 # ustr decodes as utf-8 or latin1 so we can search for the ASCII bytes
 # 	Char	   ::=   	#x9 | #xA | #xD | [#x20-#xD7FF]
 XML_INVALID = re.compile(b'[\x00-\x08\x0B\x0C\x0F-\x1F]')
-class FlectraMarshaller(xmlrpc.client.Marshaller):
+class OdooMarshaller(xmlrpc.client.Marshaller):
     dispatch = dict(xmlrpc.client.Marshaller.dispatch)
 
     def dump_frozen_dict(self, value, write):
@@ -55,7 +55,7 @@ class FlectraMarshaller(xmlrpc.client.Marshaller):
 
 
 # monkey-patch xmlrpc.client's marshaller
-xmlrpc.client.Marshaller = FlectraMarshaller
+xmlrpc.client.Marshaller = OdooMarshaller
 
 
 class RPC(Controller):

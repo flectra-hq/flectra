@@ -18,7 +18,7 @@ class TestPdf(TransactionCase):
         file_path = get_module_resource('base', 'tests', 'minimal.pdf')
         self.file = open(file_path, 'rb').read()
         self.minimal_reader_buffer = io.BytesIO(self.file)
-        self.minimal_pdf_reader = pdf.FlectraPdfFileReader(self.minimal_reader_buffer)
+        self.minimal_pdf_reader = pdf.OdooPdfFileReader(self.minimal_reader_buffer)
 
     def test_flectra_pdf_file_reader(self):
         attachments = list(self.minimal_pdf_reader.getAttachments())
@@ -35,7 +35,7 @@ class TestPdf(TransactionCase):
         attachments = list(self.minimal_pdf_reader.getAttachments())
         self.assertEqual(len(attachments), 0)
 
-        pdf_writer = pdf.FlectraPdfFileWriter()
+        pdf_writer = pdf.OdooPdfFileWriter()
         pdf_writer.cloneReaderDocumentRoot(self.minimal_pdf_reader)
 
         pdf_writer.addAttachment('test_attachment.txt', b'My awesome attachment')
@@ -47,7 +47,7 @@ class TestPdf(TransactionCase):
         self.assertEqual(len(attachments), 2)
 
     def test_flectra_pdf_file_reader_with_owner_encryption(self):
-        pdf_writer = pdf.FlectraPdfFileWriter()
+        pdf_writer = pdf.OdooPdfFileWriter()
         pdf_writer.cloneReaderDocumentRoot(self.minimal_pdf_reader)
 
         pdf_writer.addAttachment('test_attachment.txt', b'My awesome attachment')
@@ -60,7 +60,7 @@ class TestPdf(TransactionCase):
             encrypted_content = writer_buffer.getvalue()
 
         with io.BytesIO(encrypted_content) as reader_buffer:
-            pdf_reader = pdf.FlectraPdfFileReader(reader_buffer)
+            pdf_reader = pdf.OdooPdfFileReader(reader_buffer)
             attachments = list(pdf_reader.getAttachments())
 
         self.assertEqual(len(attachments), 2)
@@ -71,7 +71,7 @@ class TestPdf(TransactionCase):
 
         merged_pdf = pdf.merge_pdf([self.file, self.file])
         merged_reader_buffer = io.BytesIO(merged_pdf)
-        merged_pdf_reader = pdf.FlectraPdfFileReader(merged_reader_buffer)
+        merged_pdf_reader = pdf.OdooPdfFileReader(merged_reader_buffer)
         self.assertEqual(merged_pdf_reader.getNumPages(), 2)
         merged_reader_buffer.close()
 
@@ -88,8 +88,8 @@ class TestPdf(TransactionCase):
         reader_buffer = io.BytesIO(branded_content)
         pdf_reader = pdf.PdfFileReader(reader_buffer)
         pdf_info = pdf_reader.getDocumentInfo()
-        self.assertEqual(pdf_info['/Producer'], 'Flectra')
-        self.assertEqual(pdf_info['/Creator'], 'Flectra')
+        self.assertEqual(pdf_info['/Producer'], 'Odoo')
+        self.assertEqual(pdf_info['/Creator'], 'Odoo')
         reader_buffer.close()
 
     def tearDown(self):

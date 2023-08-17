@@ -1404,7 +1404,7 @@ class Prisoner(models.Model):
 
 class Team(models.Model):
     _name = 'test_new_api.team'
-    _description = 'Flectra Team'
+    _description = 'Odoo Team'
 
     name = fields.Char()
     parent_id = fields.Many2one('test_new_api.team')
@@ -1413,7 +1413,7 @@ class Team(models.Model):
 
 class TeamMember(models.Model):
     _name = 'test_new_api.team.member'
-    _description = 'Flectra Developer'
+    _description = 'Odoo Developer'
 
     name = fields.Char('Name')
     team_id = fields.Many2one('test_new_api.team')

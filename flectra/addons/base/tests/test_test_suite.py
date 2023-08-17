@@ -10,7 +10,7 @@ from unittest.mock import patch
 
 from flectra.tests.common import TransactionCase
 from flectra.tests.common import users, warmup
-from flectra.tests.runner import FlectraTestResult
+from flectra.tests.runner import OdooTestResult
 
 _logger = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ class TestTestSuite(TestCase):
     test_sequence = 0
 
     def test_test_suite(self):
-        """ Check that FlectraSuite handles unittest.TestCase correctly. """
+        """ Check that OdooSuite handles unittest.TestCase correctly. """
 
 
 class TestRunnerLoggingCommon(TransactionCase):
@@ -69,7 +69,7 @@ class TestRunnerLoggingCommon(TransactionCase):
                 # disable error logging
                 return
 
-            fake_result = FlectraTestResult()
+            fake_result = OdooTestResult()
             with patch('logging.Logger.makeRecord', makeRecord), patch('logging.Logger.handle', handle):
                 super()._feedErrorsToResult(fake_result, errors)
 
