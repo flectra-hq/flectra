@@ -1276,7 +1276,7 @@ class QWeb(object):
         return ast_options if ast_options and ast_options.keys else None
 
     def _compile_directive_field(self, el, options):
-        """ Compile something like ``<span t-field="record.phone">+1 555 555 8069</span>`` """
+        """ Compile something like ``<span t-field="record.phone">+1 555 555 7073</span>`` """
         node_name = el.tag
         assert node_name not in ("table", "tbody", "thead", "tfoot", "tr", "td",
                                  "li", "ul", "ol", "dl", "dt", "dd"),\

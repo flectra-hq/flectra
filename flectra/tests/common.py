@@ -31,7 +31,7 @@ from collections import defaultdict
 from contextlib import contextmanager
 from datetime import datetime, date
 from itertools import zip_longest as izip_longest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 from xmlrpc import client as xmlrpclib
 
 import requests

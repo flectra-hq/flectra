@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 from flectra import models, fields
 
 class test_uninstall_model(models.Model):
     """
     This model uses different types of columns to make it possible to test
-    the uninstall feature of Odoo.
+    the uninstall feature of Flectra.
     """
     _name = 'test_uninstall.model'
     _description = 'Testing Uninstall Model'

@@ -1,4 +1,4 @@
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Test HTTP',
     'version': '1.0',

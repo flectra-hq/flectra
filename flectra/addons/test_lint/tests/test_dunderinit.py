@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 import logging
 from pathlib import Path
@@ -15,7 +15,7 @@ WHITELIST = ['test_data_module', ]
 class TestDunderinit(lint_case.LintCase):
 
     def test_dunderinit(self):
-        """ Test that __init__.py exists in Odoo modules, otherwise they won't get packaged"""
+        """ Test that __init__.py exists in Flectra modules, otherwise they won't get packaged"""
 
         modules_list = [mod for mod in get_modules() if mod not in WHITELIST]
         for mod in modules_list:

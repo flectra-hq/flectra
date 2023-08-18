@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 
 """
@@ -278,10 +278,10 @@ def file_open_temporary_directory(env):
 
     Examples::
 
-        >>> with odoo.tools.file_open_temporary_directory(self.env) as module_dir:
+        >>> with flectra.tools.file_open_temporary_directory(self.env) as module_dir:
         ...    with zipfile.ZipFile('foo.zip', 'r') as z:
         ...        z.extract('foo/__manifest__.py', module_dir)
-        ...    with odoo.tools.file_open('foo/__manifest__.py', env=self.env) as f:
+        ...    with flectra.tools.file_open('foo/__manifest__.py', env=self.env) as f:
         ...        manifest = f.read()
 
     :param env: environment for which the temporary directory is created.

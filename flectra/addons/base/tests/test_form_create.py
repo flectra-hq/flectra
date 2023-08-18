@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 from flectra.tests import TransactionCase, tagged, Form
 
@@ -7,7 +7,7 @@ from flectra.tests import TransactionCase, tagged, Form
 @tagged('-at_install', 'post_install')
 class TestFormCreate(TransactionCase):
     """
-    Test that the basic Odoo models records can be created on
+    Test that the basic Flectra models records can be created on
     the interface.
     """
 

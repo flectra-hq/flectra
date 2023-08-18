@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 import base64
 import binascii
@@ -607,7 +607,7 @@ class Users(models.Model):
 
     def unlink(self):
         if SUPERUSER_ID in self.ids:
-            raise UserError(_('You can not remove the admin user as it is used internally for resources created by Odoo (updates, module installation, ...)'))
+            raise UserError(_('You can not remove the admin user as it is used internally for resources created by Flectra (updates, module installation, ...)'))
         self.clear_caches()
         return super(Users, self).unlink()
 
@@ -946,10 +946,10 @@ class Users(models.Model):
             if ipaddress.ip_address(source).is_private:
                 _logger.warning(
                     "The rate-limited IP address %s is classified as private "
-                    "and *might* be a proxy. If your Odoo is behind a proxy, "
+                    "and *might* be a proxy. If your Flectra is behind a proxy, "
                     "it may be mis-configured. Check that you are running "
-                    "Odoo in Proxy Mode and that the proxy is properly configured, see "
-                    "https://www.flectra.com/documentation/14.0/administration/deployment/deploy.html#https for details.",
+                    "Flectra in Proxy Mode and that the proxy is properly configured, see "
+                    "https://www.flectrahq.com/documentation/14.0/administration/deployment/deploy.html#https for details.",
                     source
                 )
             raise AccessDenied(_("Too many login failures, please wait a bit before trying again."))

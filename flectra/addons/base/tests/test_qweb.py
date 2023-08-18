@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 import collections
 import json
@@ -503,7 +503,7 @@ class TestQWebNS(TransactionCase):
             'type': 'qweb',
             'arch': u"""
                 <t t-name="base.dummy">
-                    <Invoice xmlns:od="http://flectra.com/od">
+                    <Invoice xmlns:od="http://flectrahq.com/od">
                         <od:name t-att-test="'a' + 1"/>
                     </Invoice>
                 </t>

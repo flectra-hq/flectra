@@ -539,7 +539,7 @@ class AssetsBundle(object):
             if '.' not in ref and line not in imports and not ref.startswith(('.', '/', '~')):
                 imports.append(line)
                 return line
-            msg = "Local import '%s' is forbidden for security reasons. Please remove all @import {your_file} imports in your custom files. In Odoo you have to import all files in the assets, and not through the @import statement." % ref
+            msg = "Local import '%s' is forbidden for security reasons. Please remove all @import {your_file} imports in your custom files. In Flectra you have to import all files in the assets, and not through the @import statement." % ref
             _logger.warning(msg)
             self.css_errors.append(msg)
             return ''

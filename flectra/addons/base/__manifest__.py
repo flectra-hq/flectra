@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Flectra, Flectra. See LICENSE file for full copyright and licensing details.
 
 
 {
@@ -7,7 +7,7 @@
     'version': '1.3',
     'category': 'Hidden',
     'description': """
-The kernel of Odoo, needed for all installation.
+The kernel of Flectra, needed for all installation.
 ===================================================
 """,
     'depends': [],

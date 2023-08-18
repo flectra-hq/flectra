@@ -4,7 +4,7 @@ import astroid
 from pylint import checkers, interfaces
 
 
-class OdooBaseChecker(checkers.BaseChecker):
+class FlectraBaseChecker(checkers.BaseChecker):
     __implements__ = interfaces.IAstroidChecker
     name = 'flectra'
 
@@ -12,7 +12,7 @@ class OdooBaseChecker(checkers.BaseChecker):
         'E8502': (
             'Bad usage of _, _lt function.',
             'gettext-variable',
-            'See https://www.flectra.com/documentation/14.0/reference/translations.html#variables'
+            'See https://www.flectrahq.com/documentation/14.0/reference/translations.html#variables'
         )
     }
 
@@ -25,4 +25,4 @@ class OdooBaseChecker(checkers.BaseChecker):
 
 
 def register(linter):
-    linter.register_checker(OdooBaseChecker(linter))
+    linter.register_checker(FlectraBaseChecker(linter))
