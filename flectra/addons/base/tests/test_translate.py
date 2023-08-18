@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 from flectra.exceptions import AccessError, ValidationError
 from flectra.tools import mute_logger
 from flectra.tools.translate import quote, unquote, xml_translate, html_translate

@@ -1,5 +1,5 @@
 #flectra.loggers.handlers. -*- coding: utf-8 -*-
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 import configparser as ConfigParser
 import errno
