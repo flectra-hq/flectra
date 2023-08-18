@@ -1,4 +1,4 @@
-# Part of Flectra, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 {
     'name': "Adyen Payment Acquirer/Pay by Link Patch",
     'category': 'Accounting/Payment',
