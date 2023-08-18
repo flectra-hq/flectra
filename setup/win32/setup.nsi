@@ -40,7 +40,7 @@ Unicode True
     Exch $R2
 !macroend
 
-!define PUBLISHER 'Flectra S.A.'
+!define PUBLISHER 'FlectraHQ, Inc.'
 
 !ifndef MAJOR_VERSION
     !define MAJOR_VERSION '14'
@@ -140,7 +140,7 @@ Page Custom ShowPostgreSQL LeavePostgreSQL
 !define MUI_FINISHPAGE_RUN_TEXT "$(DESC_FinishPageText)"
 !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
 !define MUI_FINISHPAGE_LINK $(DESC_FinishPage_Link)
-!define MUI_FINISHPAGE_LINK_LOCATION "https://www.flectra.com/page/contactus"
+!define MUI_FINISHPAGE_LINK_LOCATION "https://www.flectrahq.com/page/contactus"
 !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_UNPAGE_WELCOME
@@ -302,10 +302,10 @@ Section -Post
     WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "DisplayName" "${DISPLAY_NAME}"
     WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "DisplayVersion" "${MAJOR_VERSION}.${MINOR_VERSION}"
     WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "Publisher" "${PUBLISHER}"
-    WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "HelpLink" "support@flectra.com"
+    WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "HelpLink" "support@flectrahq.com"
     WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "HelpTelephone" "+32.81.81.37.00"
-    WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "URLInfoAbout" "https://www.flectra.com"
-    WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "Contact" "sales@flectra.com"
+    WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "URLInfoAbout" "https://www.flectrahq.com"
+    WriteRegStr HKLM       "${UNINSTALL_REGISTRY_KEY}" "Contact" "sales@flectrahq.com"
     WriteRegDWORD HKLM     "${UNINSTALL_REGISTRY_KEY}" "NoModify" "1"
     WriteRegDWORD HKLM     "${UNINSTALL_REGISTRY_KEY}" "NoRepair" "1"
     WriteUninstaller "$INSTDIR\Uninstall.exe"

@@ -12,7 +12,7 @@
 ## Reporting a Vulnerability
 
 Please share privately the details of your security vulnerability by contacting our Security Team:
-[Contact Info](https://www.flectra.com/security-report)
+[Contact Info](https://www.flectrahq.com/security-report)
 
 Make sure to include as much information as possible, with the detailed steps to reproduce the problem,
 the versions that are affected, the expected results and actual results, and any other information that
@@ -21,7 +21,7 @@ might help us react faster and more efficiently.
 We tend to prefer _text-based descriptions_ accompanied with a proof-of-concept script/exploit, rather
 than screenshots and videos.
 
-Our [Responsible Disclosure](https://www.flectra.com/security-report) page gives an overview of the
+Our [Responsible Disclosure](https://www.flectrahq.com/security-report) page gives an overview of the
 process, including:
 
  - Our Incident Response Procedure (what will happen after you report an issue)
@@ -37,4 +37,4 @@ the Flectra Cloud, and we ultimately have to reject them. To avoid a disappointi
 contacting us, please try to put together a proof-of-concept attack and take a critical look at
 what's really at risk.
 If the proposed attack scenario turns out unrealistic, your report will probably be rejected.
-Also be sure to review our list of [non-qualifying issues](https://www.flectra.com/security-report#what).
+Also be sure to review our list of [non-qualifying issues](https://www.flectrahq.com/security-report#what).

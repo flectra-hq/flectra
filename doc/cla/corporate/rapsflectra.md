@@ -8,18 +8,18 @@ declaration.
 
 Signed,
 
-Filippo Iovine filippo.iovine@rapsflectra.com https://github.com/ioFilippo
+Filippo Iovine filippo.iovine@rapsflectrahq.com https://github.com/ioFilippo
 
 List of contributors:
 
-Filippo Iovine filippo.iovine@rapsflectra.com https://github.com/ioFilippo
-Lucio Valente lucio.valente@rapsflectra.com https://github.com/luciovalente
-Mario Pitingolo mario.pitingolo@rapsflectra.com https://github.com/Pits79
-Simone Papandrea simone.papandrea@rapsflectra.com https://github.com/SI3P
-Davide Fella davide.fella@rapsflectra.com https://github.com/davidefella
-Angel Corpuz angel.corpuz@rapsflectra.com https://github.com/acorpuz
-Tony Masci tony.masci@rapsflectra.com https://github.com/TonyMasciI
-Andrea Patusso andrea.patusso@rapsflectra.com https://github.com/AndreaPatusso
-Valentina Maltese valentina.maltese@rapsflectra.com https://github.com/ValentinaMal
-Tommaso Bellelli tommaso.bellelli@rapsflectra.com https://github.com/tommasobellelli
-Saydigital info@rapsflectra.com https://github.com/saydigital
+Filippo Iovine filippo.iovine@rapsflectrahq.com https://github.com/ioFilippo
+Lucio Valente lucio.valente@rapsflectrahq.com https://github.com/luciovalente
+Mario Pitingolo mario.pitingolo@rapsflectrahq.com https://github.com/Pits79
+Simone Papandrea simone.papandrea@rapsflectrahq.com https://github.com/SI3P
+Davide Fella davide.fella@rapsflectrahq.com https://github.com/davidefella
+Angel Corpuz angel.corpuz@rapsflectrahq.com https://github.com/acorpuz
+Tony Masci tony.masci@rapsflectrahq.com https://github.com/TonyMasciI
+Andrea Patusso andrea.patusso@rapsflectrahq.com https://github.com/AndreaPatusso
+Valentina Maltese valentina.maltese@rapsflectrahq.com https://github.com/ValentinaMal
+Tommaso Bellelli tommaso.bellelli@rapsflectrahq.com https://github.com/tommasobellelli
+Saydigital info@rapsflectrahq.com https://github.com/saydigital
