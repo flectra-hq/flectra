@@ -10,7 +10,7 @@ DFTL_CURSOR_EXPR = [
 ]
 
 
-class OdooBaseChecker(checkers.BaseChecker):
+class FlectraBaseChecker(checkers.BaseChecker):
     __implements__ = interfaces.IAstroidChecker
     name = 'flectra'
 
@@ -147,4 +147,4 @@ class OdooBaseChecker(checkers.BaseChecker):
 
 
 def register(linter):
-    linter.register_checker(OdooBaseChecker(linter))
+    linter.register_checker(FlectraBaseChecker(linter))

@@ -3,7 +3,7 @@
 
 """ Addons module.
 
-This module serves to contain all Odoo addons, across all configured addons
+This module serves to contain all Flectra addons, across all configured addons
 paths. For the code to manage those addons, see flectra.modules.
 
 Addons are made available under `flectra.addons` after

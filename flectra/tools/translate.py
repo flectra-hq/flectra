@@ -22,6 +22,7 @@ from babel.messages import extract
 from lxml import etree, html
 
 import flectra
+from flectra.exceptions import UserError
 from . import config, pycompat
 from .misc import file_open, get_iso_codes, SKIPPED_ELEMENT_TYPES
 

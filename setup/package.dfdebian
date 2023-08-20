@@ -1,7 +1,7 @@
 # Please note that this Dockerfile is used for testing nightly builds and should
 # not be used to deploy Flectra
 FROM debian:buster
-MAINTAINER FlectraHQ <info@flectrahq.com>
+MAINTAINER FlectraHQ, Inc. <info@flectrahq.com>
 
 RUN apt-get update && \
     apt-get install -y locales && \
@@ -27,9 +27,7 @@ RUN apt-get update -qq &&  \
         python3-dateutil \
         python3-decorator \
         python3-docutils \
-        python3-feedparser \
         python3-gevent \
-        python3-html2text \
         python3-pil \
         python3-jinja2 \
         python3-libsass \
@@ -41,7 +39,6 @@ RUN apt-get update -qq &&  \
         python3-psutil \
         python3-psycopg2 \
         python3-pydot \
-        python3-pyparsing \
         python3-pypdf2 \
         python3-qrcode \
         python3-renderpm \
@@ -50,7 +47,6 @@ RUN apt-get update -qq &&  \
         python3-serial \
         python3-setuptools \
         python3-stdnum \
-        python3-suds \
         python3-tz \
         python3-usb \
         python3-vobject \
