@@ -49,7 +49,7 @@ Demo_ instances require no local installation, just a web browser.
 SaaS
 ----
 
-Trivial to start with, fully managed and migrated by Flectra S.A., Flectra's SaaS_
+Trivial to start with, fully managed and migrated by FlectraHQ, Inc., Flectra's SaaS_
 provides private instances and starts out free. It can be used to discover and
 test Flectra and do non-code customizations (i.e. incompatible with custom modules
 or the Flectra Apps Store) without having to install it locally.
@@ -119,7 +119,7 @@ Flectra instance. Execute the following command in order to install the PostgreS
 Repository
 ^^^^^^^^^^
 
-Flectra S.A. provides a repository that can be used with  Debian and Ubuntu distributions. It can be
+FlectraHQ, Inc. provides a repository that can be used with  Debian and Ubuntu distributions. It can be
 used to install *Flectra Community Edition* by executing the following commands **as root**:
 
 .. code-block:: console
@@ -194,7 +194,7 @@ server:
 Repository
 ^^^^^^^^^^
 
-Flectra S.A. provides a repository that can be used with the Fedora distributions.
+FlectraHQ, Inc. provides a repository that can be used with the Fedora distributions.
 It can be used to install *Flectra Community Edition* by executing the following
 commands:
 

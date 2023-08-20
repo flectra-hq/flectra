@@ -1,7 +1,7 @@
 # Please note that this Dockerfile is used for testing nightly builds and should
-# not be used to deploy Odoo
+# not be used to deploy Flectra
 FROM debian:buster
-MAINTAINER FlectraHQ <info@flectrahq.com>
+MAINTAINER FlectraHQ, Inc. <info@flectrahq.com>
 
 RUN apt-get update && \
 	apt-get install -y locales && \
@@ -20,15 +20,8 @@ RUN apt-get update -qq &&  \
 		postgresql-server-dev-all \
 		postgresql-client \
 		adduser \
-		libsass1 \
-		libxml2-dev \
-		libxslt1-dev \
 		libldap2-dev \
 		libsasl2-dev \
-		libssl-dev \
-		libjpeg-dev \
-		zlib1g-dev \
-		python3-dev \
 		python3-pip \
 		python3-wheel \
 		build-essential \

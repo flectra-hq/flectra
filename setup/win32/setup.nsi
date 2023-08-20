@@ -1,4 +1,4 @@
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+﻿# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
 # TODO: Avoid to uninstall the database
 # TODO: We can update the server or the clients without to uninstall the all-in-one
@@ -40,10 +40,10 @@ Unicode True
     Exch $R2
 !macroend
 
-!define PUBLISHER 'FlectaHQ'
+!define PUBLISHER 'FlectraHQ, Inc.'
 
 !ifndef MAJOR_VERSION
-    !define MAJOR_VERSION '2'
+    !define MAJOR_VERSION '14'
 !endif
 
 !ifndef MINOR_VERSION
@@ -140,7 +140,7 @@ Page Custom ShowPostgreSQL LeavePostgreSQL
 !define MUI_FINISHPAGE_RUN_TEXT "$(DESC_FinishPageText)"
 !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
 !define MUI_FINISHPAGE_LINK $(DESC_FinishPage_Link)
-!define MUI_FINISHPAGE_LINK_LOCATION "https://flectrahq.com/contactus"
+!define MUI_FINISHPAGE_LINK_LOCATION "https://www.flectrahq.com/page/contactus"
 !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_UNPAGE_WELCOME
@@ -485,5 +485,5 @@ Function ComponentLeave
 FunctionEnd
 
 Function LaunchLink
-    ExecShell "open" "http://localhost:7073/"
+    ExecShell "open" "http://localhost:8069/"
 FunctionEnd

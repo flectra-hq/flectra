@@ -7,7 +7,7 @@ from flectra.tests import TransactionCase, tagged, Form
 @tagged('-at_install', 'post_install')
 class TestFormCreate(TransactionCase):
     """
-    Test that the basic Odoo models records can be created on
+    Test that the basic Flectra models records can be created on
     the interface.
     """
 
