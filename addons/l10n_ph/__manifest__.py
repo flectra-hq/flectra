@@ -8,7 +8,7 @@
     "category": "Accounting/Localizations/Account Charts",
     "version": "1.0",
     "author": "Flectra PS",
-    "website": "https://flectrahq.com",
+    "website": "https://www.flectrahq.com",
     "depends": [
         "account",
         "base_vat",
