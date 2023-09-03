@@ -9,7 +9,7 @@ from uuid import uuid4
 from flectra import _, api, fields, models, modules, tools
 from flectra.exceptions import UserError, ValidationError
 from flectra.osv import expression
-from flectra.tools import ormcache, formataddr
+from flectra.tools import ormcache
 from flectra.exceptions import AccessError
 from flectra.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
 from flectra.tools import html_escape
@@ -378,7 +378,7 @@ class Channel(models.Model):
         # real mailing list: multiple recipients (hidden by X-Forge-To)
         if self.alias_domain and self.alias_name:
             return {
-                'email_to': ','.join(formataddr((partner.name, partner.email_normalized)) for partner in whitelist if partner.email_normalized),
+                'email_to': ','.join(partner.email_formatted for partner in whitelist if partner.email_normalized),
                 'recipient_ids': [],
             }
         return super(Channel, self)._notify_email_recipient_values(whitelist.ids)
