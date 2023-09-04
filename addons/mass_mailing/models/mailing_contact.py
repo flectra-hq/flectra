@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from flectra import api, fields, models
+from flectra import api, fields, models, tools
 from flectra.osv import expression
 
 
@@ -162,9 +162,10 @@ class MassMailingContact(models.Model):
         return contact.name_get()[0]
 
     def _message_get_default_recipients(self):
-        return {r.id: {
-            'partner_ids': [],
-            'email_to': r.email_normalized,
-            'email_cc': False}
-            for r in self
+        return {
+            r.id: {
+                'partner_ids': [],
+                'email_to': ','.join(tools.email_normalize_all(r.email)) or r.email,
+                'email_cc': False,
+            } for r in self
         }
