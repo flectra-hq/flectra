@@ -14,6 +14,7 @@ from flectra import api, http, SUPERUSER_ID, _
 from flectra.exceptions import AccessDenied
 from flectra.http import request
 from flectra import registry as registry_get
+from flectra.tools.misc import clean_context
 
 from flectra.addons.auth_signup.controllers.main import AuthSignupHome as Home
 from flectra.addons.web.controllers.main import db_monodb, ensure_db, set_cookie_and_redirect, login_and_redirect
@@ -126,7 +127,7 @@ class OAuthController(http.Controller):
         if not http.db_filter([dbname]):
             return BadRequest()
         provider = state['p']
-        context = state.get('c', {})
+        context = clean_context(state.get('c', {}))
         registry = registry_get(dbname)
         with registry.cursor() as cr:
             try:
