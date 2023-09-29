@@ -1,0 +1,24 @@
+<templates>
+
+    <t t-name="calendar.filterBar">
+        <div class="o_other_calendar_panel d-flex align-items-center d-md-none">
+            <i class="fa fa-fw fa-filter me-3" />
+            <div class="o_filter me-auto d-flex overflow-auto">
+                <t t-foreach="filterSections" t-as="section">
+                    <t t-if="section.filters.length gt 0">
+                        <span class="text-nowrap fw-bold text-uppercase me-1" t-esc="section.label" />
+
+                        <t t-foreach="section.filters" t-as="filter">
+                            <span t-if="filter.active" class="d-flex align-items-center text-nowrap ml-1 mr-2">
+                                <span t-att-class="widget.getColor(filter.color_index)">⬤</span>
+                                <span class="ml-1 fw-bold text-nowrap" t-esc="filter.label" />
+                            </span>
+                        </t>
+                    </t>
+                </t>
+            </div>
+            <i t-attf-class="fa fa-fw fa-caret-{{caretDirection}} ml-2" />
+        </div>
+    </t>
+
+</templates>
