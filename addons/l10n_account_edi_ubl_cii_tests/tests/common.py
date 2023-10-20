@@ -7,6 +7,8 @@ from flectra.addons.account_edi.tests.common import AccountEdiTestCommon
 from flectra import fields
 from flectra.modules.module import get_resource_path
 from flectra.tests import tagged
+from flectra.tools import float_round
+
 from lxml import etree
 
 
@@ -135,7 +137,8 @@ class TestUBLCommon(AccountEdiTestCommon):
         if list_line_price_unit:
             self.assertEqual(invoice.invoice_line_ids.mapped('price_unit'), list_line_price_unit)
         if list_line_discount:
-            self.assertEqual(invoice.invoice_line_ids.mapped('discount'), list_line_discount)
+            dp = self.env['decimal.precision'].precision_get("Discount")
+            self.assertListEqual([float_round(line.discount, precision_digits=dp) for line in invoice.invoice_line_ids], list_line_discount)
         if list_line_taxes:
             for line, taxes in zip(invoice.invoice_line_ids, list_line_taxes):
                 self.assertEqual(line.tax_ids, taxes)
