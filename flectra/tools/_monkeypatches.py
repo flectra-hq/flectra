@@ -30,6 +30,14 @@ FileStorage.save = lambda self, dst, buffer_size=1<<20: copyfileobj(self.stream,
 
 Request.json_module = Response.json_module = scriptsafe
 
+get_func_code = getattr(Rule, '_get_func_code', None)
+if get_func_code:
+    @staticmethod
+    def _get_func_code(code, name):
+        assert isinstance(code, CodeType)
+        return get_func_code(code, name)
+    Rule._get_func_code = _get_func_code
+
 orig_literal_eval = ast.literal_eval
 
 def literal_eval(expr):
