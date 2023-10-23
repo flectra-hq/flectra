@@ -7,6 +7,7 @@ import logging
 
 from flectra.tools.translate import _
 from flectra.tools import SKIPPED_ELEMENT_TYPES
+from flectra.exceptions import ValidationError
 _logger = logging.getLogger(__name__)
 
 

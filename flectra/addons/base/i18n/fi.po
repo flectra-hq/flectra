@@ -33,9 +33,10 @@
 # Miika Nissi <miika.nissi@tawasta.fi>, 2022
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2022
 # Joakim Weckman, 2022
-# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2022
 # Richard Mouthier <rmo@odoo.com>, 2022
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2023
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
+# Tuomas Suutari <tuomas.suutari@anders.fi>, 2023
 # Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
 # 
 msgid ""
@@ -14513,6 +14514,18 @@ msgid "Error message returned when the constraint is violated."
 msgstr "Virheilmoitus, joka palautetaan, kun rajoitusta rikotaan."
 
 #. module: base
+#: code:addons/translate.py:0
+#, python-format
+msgid ""
+"Error while parsing view:\n"
+"\n"
+"%s"
+msgstr ""
+"Virhe näkymää jäsentäessä:\n"
+"\n"
+"%s"
+
+#. module: base
 #: code:addons/base/models/ir_ui_view.py:0
 #, python-format
 msgid ""
@@ -17549,10 +17562,16 @@ msgid "Invalid 'group by' parameter"
 msgstr "Virheellinen 'group by' -parametri"
 
 #. module: base
+#: code:addons/template_inheritance.py:0
+#, python-format
+msgid "Invalid Expression while parsing xpath %r"
+msgstr "Virheellinen lauseke xpathin jäsentämisen aikana %r"
+
+#. module: base
 #: code:addons/base/models/ir_default.py:0
 #, python-format
 msgid "Invalid JSON format in Default Value field."
-msgstr ""
+msgstr "Oletusarvo-kentän JSON-muoto on virheellinen."
 
 #. module: base
 #: code:addons/models.py:0
@@ -23121,7 +23140,7 @@ msgstr "Prioriteetti"
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__res_partner__type__private
 msgid "Private Address"
-msgstr "Kotiosoite"
+msgstr "Yksityinen osoite"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.res_partner_view_form_private
@@ -29244,6 +29263,12 @@ msgid "You cannot deactivate the user you're currently logged in as."
 msgstr "Et voi poistaa itseäsi."
 
 #. module: base
+#: code:addons/base/models/ir_config_parameter.py:0
+#, python-format
+msgid "You cannot delete the %s record."
+msgstr "Et voi poistaa %s-tietuetta."
+
+#. module: base
 #: code:addons/base/models/res_lang.py:0
 #, python-format
 msgid ""
@@ -29264,6 +29289,12 @@ msgstr "Et voi poistaa kieltä, joka on käyttäjän suosima kieli."
 #, python-format
 msgid "You cannot merge a contact with one of his parent."
 msgstr "Et voi yhdistää yhteystietoja ylemmän tason kanssa."
+
+#. module: base
+#: code:addons/base/models/ir_config_parameter.py:0
+#, python-format
+msgid "You cannot rename config parameters with keys %s"
+msgstr "Et voi nimetä uudelleen asetusparametrejä, joilla on avainarvoja %s"
 
 #. module: base
 #: code:addons/models.py:0

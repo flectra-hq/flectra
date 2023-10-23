@@ -1,8 +1,10 @@
 import ast
 import os
 from shutil import copyfileobj
+from types import CodeType
 
 from werkzeug.datastructures import FileStorage
+from werkzeug.routing import Rule
 from werkzeug.wrappers import Request, Response
 
 from .json import scriptsafe
