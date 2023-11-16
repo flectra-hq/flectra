@@ -2,12 +2,12 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 import datetime
 
-from flectra.addons.base.tests.common import TransactionCaseWithUserDemo
+from flectra.addons.gamification.tests.common import TransactionCaseGamification
 from flectra.exceptions import UserError
 from flectra.tools import mute_logger
 
 
-class TestGamificationCommon(TransactionCaseWithUserDemo):
+class TestGamificationCommon(TransactionCaseGamification):
 
     def setUp(self):
         super(TestGamificationCommon, self).setUp()
