@@ -1,11 +1,11 @@
 # Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
 
-from flectra.addons.base.tests.common import HttpCaseWithUserDemo
+from flectra.addons.gamification.tests.common import HttpCaseGamification
 from flectra.tests import tagged
 
 
 @tagged('post_install', '-at_install')
-class TestUi(HttpCaseWithUserDemo):
+class TestUi(HttpCaseGamification):
 
     def test_01_admin_forum_tour(self):
         self.start_tour("/", 'question', login="admin", step_delay=100)
