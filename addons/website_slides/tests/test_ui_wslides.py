@@ -3,13 +3,15 @@
 import base64
 
 from dateutil.relativedelta import relativedelta
+
 from flectra import tests
+from flectra.addons.base.tests.common import HttpCaseWithUserPortal
+from flectra.addons.gamification.tests.common import HttpCaseGamification
 from flectra.fields import Datetime
 from flectra.modules.module import get_module_resource
-from flectra.addons.base.tests.common import HttpCaseWithUserDemo, HttpCaseWithUserPortal
 
 
-class TestUICommon(HttpCaseWithUserDemo, HttpCaseWithUserPortal):
+class TestUICommon(HttpCaseGamification, HttpCaseWithUserPortal):
     
     def setUp(self):
         super(TestUICommon, self).setUp()
@@ -168,7 +170,7 @@ class TestUi(TestUICommon):
 
 
 @tests.common.tagged('external', 'post_install', '-standard', '-at_install')
-class TestUiYoutube(HttpCaseWithUserDemo):
+class TestUiYoutube(HttpCaseGamification):
 
     def test_course_member_yt_employee(self):
         # remove membership because we need to be able to join the course during the tour
