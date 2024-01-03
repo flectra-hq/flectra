@@ -1,0 +1,21 @@
+/** @flectra-module **/
+import { FormLabel } from "@web/views/form/form_label";
+import { HighlightText } from "./highlight_text";
+
+export class FormLabelHighlightText extends FormLabel {
+    setup() {
+        super.setup();
+        const isEnterprise = flectra.info && flectra.info.isEnterprise;
+        if (
+            this.props.fieldInfo &&
+            this.props.fieldInfo.field &&
+            this.props.fieldInfo.field.isUpgradeField &&
+            !isEnterprise
+        ) {
+            this.upgradeEnterprise = true;
+        }
+    }
+}
+
+FormLabelHighlightText.template = "web.FormLabelHighlightText";
+FormLabelHighlightText.components = { HighlightText };

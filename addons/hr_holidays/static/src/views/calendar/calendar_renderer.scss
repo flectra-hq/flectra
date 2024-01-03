@@ -1,0 +1,22 @@
+.o_timeoff_calendar {
+    background-color: $o-view-background-color;
+    flex-grow: 1;
+    flex-basis: fit-content;
+
+    .o_calendar_renderer {
+        @for $size from 1 through length($o-colors) {
+            .o_calendar_widget {
+                .hr_mandatory_day_top_#{$size - 1}:not(.fc-disabled-day) {
+                    .fc-day-number {
+                        color: nth($o-colors, $size) !important;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+
+        .fc-bgevent {
+            border-radius: 25px;
+        }
+    }
+}

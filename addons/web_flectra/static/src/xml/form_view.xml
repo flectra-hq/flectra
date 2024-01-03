@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<templates id="form_view" xml:space="preserve">
+    <t t-name="web_responsive.icon_button">
+<!--        <i t-attf-class="fa fa-#{icon}" t-att-title="label" />-->
+        <span class=" d-sm-inline" t-esc="label" />
+    </t>
+    <t t-name="web_responsive.MenuStatusbarButtons">
+        <div class="dropdown">
+            <button
+                class="o_statusbar_buttons_dropdown btn btn-primary dropdown-toggle"
+                type="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+            >
+                <t t-call="web_responsive.icon_button">
+                    <t t-set="icon" t-value="'cogs'" />
+                    <t t-set="label">Action</t>
+                </t>
+            </button>
+            <!-- A div.o_statusbar_buttons.dropdown-menu
+                 is appended here from JS -->
+        </div>
+    </t>
+    <t t-extend="FormView.buttons">
+        <!-- Add responsive icons to buttons -->
+        <t t-jquery=".o_form_button_edit" t-operation="inner">
+            <t t-call="web_responsive.icon_button">
+                <t t-set="icon" t-value="'pencil'" />
+                <t t-set="label">Edit</t>
+            </t>
+        </t>
+        <t t-jquery=".o_form_button_create" t-operation="inner">
+            <t t-call="web_responsive.icon_button">
+                <t t-set="icon" t-value="'plus'" />
+                <t t-set="label">Create</t>
+            </t>
+        </t>
+        <t t-jquery=".o_form_button_save" t-operation="inner">
+            <t t-call="web_responsive.icon_button">
+                <t t-set="icon" t-value="'check'" />
+                <t t-set="label">Save</t>
+            </t>
+        </t>
+        <t t-jquery=".o_form_button_cancel" t-operation="inner">
+            <t t-call="web_responsive.icon_button">
+                <t t-set="icon" t-value="'times'" />
+                <t t-set="label">Discard</t>
+            </t>
+        </t>
+    </t>
+    <t t-extend="KanbanView.buttons">
+        <!-- Add responsive icons to buttons -->
+        <t t-jquery="button" t-operation="inner">
+            <t t-call="web_responsive.icon_button">
+                <t t-set="icon" t-value="'plus'" />
+                <t t-set="label" t-value="create_text || _t('Create')" />
+            </t>
+        </t>
+    </t>
+    <t t-extend="ListView.buttons">
+        <!-- Add responsive icons to buttons -->
+        <t t-jquery=".o_list_button_add" t-operation="inner">
+            <t t-call="web_responsive.icon_button">
+                <t t-set="icon" t-value="'plus'" />
+                <t t-set="label">Create</t>
+            </t>
+        </t>
+        <t t-jquery=".o_list_button_save" t-operation="inner">
+            <t t-call="web_responsive.icon_button">
+                <t t-set="icon" t-value="'check'" />
+                <t t-set="label">Save</t>
+            </t>
+        </t>
+        <t t-jquery=".o_list_button_discard" t-operation="inner">
+            <t t-call="web_responsive.icon_button">
+                <t t-set="icon" t-value="'times'" />
+                <t t-set="label">Discard</t>
+            </t>
+        </t>
+    </t>
+    <t t-extend="Sidebar">
+        <!-- Replace some common sections by icons in mobile -->
+        <t
+            t-jquery=".o_dropdown_toggler_btn t[t-esc='section.label']"
+            t-operation="replace"
+        >
+            <t t-set="label" t-value="section.label" />
+            <t t-if="section.name == 'files'">
+                <t t-call="web_responsive.icon_button">
+                    <t t-set="icon" t-value="'paperclip'" />
+                </t>
+            </t>
+            <t t-elif="section.name == 'print'">
+                <t t-call="web_responsive.icon_button">
+                    <t t-set="icon" t-value="'print'" />
+                </t>
+            </t>
+            <t t-elif="section.name == 'other'">
+                <t t-call="web_responsive.icon_button">
+                    <t t-set="icon" t-value="'wrench'" />
+                </t>
+            </t>
+            <t t-else="">
+                <span t-esc="label" />
+            </t>
+        </t>
+    </t>
+    <t t-extend="mail.Chatter">
+        <t t-jquery=".o_chatter_topbar" t-operation="replace">
+            <div class="o_chatter_header_container">
+                <div class="o_chatter_topbar">
+                    <div class="o_topbar_right_area" />
+                </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="drop_template">
+        <t t-if="mode == 'readonly'">
+            <div class="drag_zone" style="top:0;left:0;background:#afc9d88c;position:absolute;width:100%;height:100%;">
+                <div style="position:absolute;top:50%;left:50%;">
+                    <h4>Drop Files Here!</h4>
+                </div>
+            </div>
+        </t>
+        <t t-if="mode == 'edit'">
+            <div class="drag_zone" style="top:0;left:0;background:#d7d8af8c;position:absolute;width:100%;height:100%;">
+                <div style="position:absolute;top:50%;left:50%;">
+                    <h4>Please Save Your Record!</h4>
+                </div>
+            </div>
+        </t>
+    </t>
+</templates>

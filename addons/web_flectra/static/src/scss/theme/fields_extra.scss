@@ -1,0 +1,22 @@
+$brand-primary: $o-brand-primary;
+$brand-secondary: $o-brand-secondary;
+
+$brand-primary-dark: darken($brand-primary, 10%);
+$brand-secondary-dark: darken($brand-secondary, 10%);
+
+.o_required_modifier {
+    &.o_input, .o_input {
+        background-color: lighten($brand-primary, 100%) !important;
+        border-bottom: 2px solid #666666;
+    }
+}
+
+.o_field_widget {
+    &.o_field_many2one .o_external_button {
+        color: lighten($brand-primary, 30%);
+    }
+}
+
+.form-control:focus {
+    border-color:$primary !important;
+}

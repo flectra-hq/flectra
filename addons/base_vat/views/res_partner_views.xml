@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data>
+        <record id="view_partner_base_vat_form" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="name">view.partner.base.vat.form</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="replace">
+                    <field name="perform_vies_validation" invisible="1"/>
+                    <label for="vat" string="Tax ID"/>
+                    <div>
+                        <field name="vat" placeholder="e.g. BE0477472701" readonly="parent_id" class="oe_inline"/>
+                        <label for="vies_valid" invisible="not perform_vies_validation"/>
+                        <field name="vies_valid" invisible="not perform_vies_validation"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</flectra>

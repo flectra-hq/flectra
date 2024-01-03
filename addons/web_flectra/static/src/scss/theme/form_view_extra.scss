@@ -1,0 +1,255 @@
+$brand-primary: $o-brand-primary;
+$brand-secondary: $o-brand-secondary;
+
+$brand-primary-dark: darken($brand-primary, 10%);
+$brand-secondary-dark: darken($brand-secondary, 10%);
+@mixin f-form-view-responsive() {
+  @media (max-width: map-get($grid-breakpoints, 'sm')) {
+    .o_group_col_6, .o_inner_group {
+      width: 100%;
+    }
+  }
+  @media (max-width: 480px) {
+    .o_group_col_6, .o_inner_group {
+      tr {
+        display: flex; //.o-flex-display();
+        flex-flow: row wrap; //.o-flex-flow(row, wrap);
+        td {
+          flex: 1 0 auto; //.o-flex(1, 0, auto);
+          max-width: 100%;
+          width: auto !important;
+          display: block;
+
+          &.o_td_label {
+            width: 90% !important;
+            border: none;
+          }
+
+          .o_input_dropdown {
+            width: auto;
+            max-width: 100%;
+          }
+
+          .o_field_widget.o_field_many2one.o_with_button {
+            display: flex;
+          }
+        }
+
+        .o_td_label + td {
+          padding: 3px 5px 3px 5px;
+        }
+
+        .o_field_widget.o_text_overflow {
+          width: auto !important;
+        }
+      }
+    }
+  }
+}
+
+.o_legacy_form_view,.o_form_view {
+
+  .o_field_image.oe_avatar{
+    padding: 0 1%;
+  }
+  .o_form_sheet_bg {
+    background: lighten($brand-primary, 30%);
+
+    > .o_form_sheet {
+      max-width: 1172px;
+      min-width: 0;
+
+      .oe_title {
+        // width: auto;
+      }
+
+      .oe_button_box {
+        width: auto;
+        margin-bottom: 20px;
+        max-width: inherit !important;
+      }
+
+      @media (max-width: map-get($grid-breakpoints, 'xs')) {
+        margin: 24px 0;
+      }
+      @include f-form-view-responsive();
+    }
+  }
+
+  // Button box
+  .oe_button_box {
+    width: 100%;
+    // text-align: left;
+//     float: left;
+    margin-bottom: 12px;
+
+  }
+
+  .oe_chatter {
+    background-color: #ffffff;
+    min-width: unset;
+    max-width: 1024px;
+
+    .o_mail_activity .o_thread_date:hover {
+      color: inherit;
+    }
+  }
+}
+
+.modal-dialog {
+  .modal-content {
+    .o_form_view {
+      @include f-form-view-responsive();
+    }
+  }
+}
+
+.o_legacy_form_view,.o_form_view {
+    //Tab Color Changes
+    .nav-tabs > li > a{
+        border:none;
+        margin-right: 0;
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #666;
+    -webkit-box-shadow: inset 0 -1px 0 #bbb;
+    box-shadow: inset 0 -1px 0 #bbb;
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+    }
+    .nav-tabs > li > a:hover{
+        color:$brand-primary  !important;
+    }
+
+    .nav-tabs > li.nav-item > a, .nav-tabs > li.nav-item > a:focus {
+        border: none;
+        //color:$brand-primary !important;
+        color:333 !important;
+    }
+
+    .nav-tabs > li.nav-item > a:hover, .nav-tabs > li.nav-item > a:focus:hover {
+        border: none !important;
+        color: $brand-primary !important;
+    }
+
+    .nav-tabs > li.nav-item > a.active{
+        border-bottom: none !important;
+        color:$brand-primary  !important;
+    }
+
+    .nav-tabs > li{
+        margin-top: 2px;
+    }
+
+}
+
+
+.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
+    background-color: rgba(66, 66, 66, 0.1);
+}
+
+
+.o-form-buttonbox .btn.oe_stat_button > .o_stat_info .o_stat_value, .o-form-buttonbox .btn.oe_stat_button > span .o_stat_value, .o-form-buttonbox .btn.oe_stat_button > .o_field_statinfo .o_stat_value {
+   //color:#009efb !important;
+   color:$brand-primary !important;
+}
+.o_form_view .o_horizontal_separator{
+    color:$brand-primary !important;
+}
+
+.o_form_view .o_form_sheet_bg {
+    background: #8f8e8e !important;
+}
+
+.o_attachment .o_attachment_delete:hover {
+    background: $brand-primary;
+}
+.form-check:not(:disabled):not(.disabled):hover, .form-check:not(:disabled):not(.disabled):hover .form-check-input, .form-select:not(:disabled):not(.disabled):hover, .form-select:not(:disabled):not(.disabled):hover .form-check-input{
+    border-color: $brand-primary;
+}
+
+@media (min-width: 768px){
+    .o_field_website_redirect_button{
+        display: initial !important;
+    }
+}
+
+.pos .pos-topheader{
+    background: $brand-primary;
+}
+
+.pos .mode-button.selected-mode {
+    background: $brand-primary;
+}
+
+.pos .debug-widget .button:active {
+    background: $brand-primary;
+}
+
+.o_form_sheet_bg{
+
+    .o_form_label{
+        font-family: $o-root-font-family !important;
+    }
+
+    border-bottom: 1px solid #ddd;
+
+    .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:before {
+        border-left-color:#ddd !important;
+    }
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button:after,
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button.o_arrow_button_current.disabled + .btn:before{
+        border-left: 1em solid #ffffff;
+    }
+
+    .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button.o_arrow_button_current.disabled {
+        &:hover{
+            color:#fff !important;
+        }
+    }
+
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button.o_arrow_button_current.disabled:hover{
+            color:#fff !important;
+    }
+
+    .o_statusbar_status > .o_arrow_button:hover:after,
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(:first-child):hover:after,
+    .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(:first-child):hover:after {
+               border-left-color:$brand-primary !important;
+    }
+
+    .o_statusbar_status{
+        .btn{
+            border-radius:1px !important;
+        }
+    }
+
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(:first-child):after,
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button:after{
+        right: -0.99em !important;
+    }
+
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(:first-child):before,
+    .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(:first-child):before,
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button:before,
+    .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:before{
+        border-left-color: unset !important;
+    }
+
+
+    @media (min-width: 768px){
+        .o_form_statusbar{
+            margin-bottom:0 !important;
+        }
+    }
+}
+
+.o_chatter_position_sided{
+    .o_form_view .o_form_sheet_bg > .o_form_sheet{
+        padding: 24px;
+    }
+}

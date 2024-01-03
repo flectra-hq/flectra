@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="web.NavBar.SectionsMenu.MoreDropdown" t-inherit-mode="extension" owl="1">
+        </t>
+    <t t-inherit="web.FormLabelHighlightText" t-inherit-mode="extension" owl="1">
+        <xpath expr="//label" position="attributes">
+            <attribute name="t-if">!upgradeEnterprise</attribute>
+        </xpath>
+    </t>
+    <t t-inherit="web.NavBar" t-inherit-mode="extension" owl="1">
+        <xpath expr="//t[@t-call='web.NavBar.SectionsMenu']" position="replace">
+            <t t-if="currentAppSections.length &amp;&amp; state.isMobile &amp;&amp; !state.is_home_menu">
+                <button class="btn btn-link btn-sm o_mobile_menu_NavBar_btn" data-toggle="collapse" data-target=".o_mobile_menu_NavBar" aria-expanded="false">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div class="o_mobile_menu_NavBar collapse">
+                    <div class="o_mobile_search dropdown-menu-right list-inline">
+                        <ul style="padding-left:0px;">
+                            <t t-if="currentAppSections.length &amp;&amp; !state.is_home_menu" t-call="web.NavBar.SectionsMenu">
+                                <t t-set="sections" t-value="currentAppSections" />
+                            </t>
+                        </ul>
+                    </div>
+                </div>
+            </t>
+            <t t-if="currentAppSections.length &amp;&amp; !state.isMobile &amp;&amp; !state.is_home_menu" t-call="web.NavBar.SectionsMenu">
+                <t t-set="sections" t-value="currentAppSections" />
+              </t>
+
+        </xpath>
+        <xpath expr="//DropdownItem" position="replace">
+            <DropdownItem
+                t-if="currentApp and !state.is_home_menu"
+                href="getMenuItemHref(currentApp)"
+                t-esc="currentApp.name"
+                class="'o_menu_brand d-none d-md-block'"
+                dataset="{ menuXmlid: currentApp.xmlid, section: currentApp.id }"
+                onSelected="() => this.onNavBarDropdownItemSelection(currentApp)"
+                />
+        </xpath>
+    </t>
+    <t t-inherit="web.NavBar.AppsMenu" t-inherit-mode="extension" owl="1">
+        <xpath expr="//Dropdown" position="replace">
+            <a t-if="!state.is_home_menu" href="#" class="o_navbar_apps_menu o-menu-slide full btn text-white" t-on-click="onClickSideBarMenu">
+                <i class="fa fa-compress" />
+            </a>
+            <a t-if="!state.is_home_menu" href="#" class="o_navbar_apps_menu btn text-white" t-on-click="onClickMainMenu">
+                <i class="fa fa-th-large" />
+            </a>
+            <a t-if="state.is_home_menu &amp;&amp; state.prev_url" href="#" class="o_navbar_apps_menu btn text-white" t-on-click="onClickBackButton">
+                <i t-if="state.prev_url" class="fa fa-chevron-left" />
+            </a>
+        </xpath>
+    </t>
+
+    <t t-name="theme.HomeMenuWrapper" owl="1">
+        <!-- <t t-esc="this.props.allMenus"/> -->
+        <HomeMenu/>
+    </t>
+    <t t-name="HomeMenu.Template" owl="1">
+        <div id="apps_menu">
+            <input type="text" class="visually-hidden" t-ref="searchBox" t-on-input="onInput"/>
+            <div class="o_app_search_results">
+                <div class="o_app_search_results_sub">
+                    <div class="o_apps_container">
+                        <t t-foreach="rootMenus.children" t-as="app" t-key="app.id">
+                            <a class="o_app" t-on-click="() => this.onMenuClick(app.id)" t-key="app.id" t-att-data-menu-id="app.menuID" t-att-data-menu-xmlid="app.xmlid" t-att-data-action-id="app.action">
+                                <img class="img img-fluid o_app_icon" t-att-src="app.web_icon_data ? 'data:'+ app.mimetype +';base64,' + app.web_icon_data : '/base/static/description/icon.png'" />
+                                <div class="o_app_name">
+                                    <t t-esc="app.name" />
+                                </div>
+                            </a>
+                        </t>
+                    </div>
+                </div>
+            </div>
+<!--            <div class="o_brand_logo img-fluid">-->
+<!--                <img class="img img-responsive m-0 m-auto" t-attf-src="app-menu-logo" />-->
+<!--            </div>-->
+        </div>
+    </t>
+
+    <t t-name="web_flectra.HomeMenuWrapper" owl="1">
+        <HomeMenu rootMenus="rootMenus" allMenus="allMenus"/>
+    </t>
+</templates>

@@ -1,0 +1,316 @@
+/////////////////
+/// Variables
+/////////////////
+$theme_sidebar_submenu_color: lighten($theme-sidebar-color, 13.5%);
+$label-default-color: black;
+$white_color: #ffffff;
+$Gray99: #dadada;
+$font_name: "sans-serif";
+$font_size: 0.85em;
+$menu_height: $o-navbar-height;
+$sidebar_collapsed_width: 68px;
+$sidebar_width: 252px;
+$theme_color: #ffffff;
+$highlight_color: #009efb;
+$hover_color: #ddd;
+
+///////////////
+/// Sidebar
+///////////////
+body[data-menu="sidemenu"].o_web_client ,.o_menu_sided{
+    flex-flow: row wrap;
+    >header {
+       // flex: 0 0 100%;
+    }
+
+    .o_menu_sections{
+        display:none !important;
+    }
+
+    .f_launcher {
+        position: absolute;
+        top: $menu_height;
+        z-index: 199;
+        max-height: calc(100vH - #{$menu_height});
+        height: calc(100vH - #{$menu_height});
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-family: $font_name;
+        background-color: $theme-sidebar-color;
+        &::-webkit-scrollbar{
+            background-color: $theme-sidebar-color;
+            width: 8px;
+        }
+        &::-webkit-scrollbar-thumb{
+            border-radius: 10px;
+            background-color: darken($o-brand-primary, 10%);
+        }
+        .f_launcher_content {
+             transition: all 0.3s;
+            &:hover{
+                transform: translate3d(0, 0, 0);
+                -webkit-transform: translate3d(0, 0, 0);
+            }
+            position: relative;
+            background-color: $theme-sidebar-color;
+            max-width: $sidebar_width;
+            width: $sidebar_width;
+            overflow: hidden;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            ul {
+                list-style: none;
+            }
+            .hidden {
+                display: none !important;
+            }
+            ul {
+                padding: 0;
+                li {
+                    .oe_main_menu_container {
+                        display: flex;
+                        width: 100%;
+                        > a {
+                            display: flex;
+                            width: 100%;
+                            position: relative;
+                        }
+                        .app_icon {
+                            width: 45px;
+                            padding: 8px 5px 8px 10px;
+                        }
+                        .app_name {
+                            margin: 4px 0;
+                            padding: 8px 5px 8px 10px;
+                        }
+                        .more-less {
+                            margin: 13px;
+                            position: absolute;
+                            right: 0;
+                        }
+                    }
+                }
+                .panel {
+                    &:hover {
+                        background-color: $o-brand-primary;
+                    }
+                    &.active{
+                        background-color: $o-brand-primary;
+                    }
+                    .oe_main_menu_container {
+                        color: $white_color;
+                        margin: 0px;
+                        font-family: $o-root-font-family;
+                        font-size: $font_size;
+                        cursor: pointer;
+                        font-weight: normal !important;
+                        a {
+                            color: $white_color;
+                            i {
+                                padding-right: 10px;
+                            }
+                        }
+                        img {
+                            width: 29px;
+                        }
+                        &.arrow_sb_menu {
+                            &:after {
+                                float: right;
+                                width: 10px;
+                                margin-right: 5px;
+                                margin-left: 5px;
+                                margin-top: 6px;
+                                display: inline;
+                                font-size: 16px;
+                                font-family: FontAwesome;
+                                height: auto;
+                                content: "\f105";
+                                font-weight: 300;
+                                text-shadow: none;
+                                text-align: left;
+                                border: 0px;
+                                text-indent: 1px;
+                                opacity: 1;
+                            }
+                            &.active {
+                                background-color: $o-brand-primary;
+                            }
+                            &.active:after {
+                                content: "\f107";
+                            }
+                        }
+                    }
+                    .oe_secondary_menu {
+                        > img {
+                            width: 20px;
+                            height: 20px;
+                            margin-left: 5px;
+                        }
+                        ul.oe_secondary_submenu {
+                            background-color: $theme_sidebar_submenu_color;
+                            margin: 0 !important;
+                            line-height: 0.95em;
+                            padding: 0;
+                            display: block;
+                            li {
+                                position: relative;
+                                display: block;
+                                a {
+                                    color: $white_color;
+                                    padding: 9px 15px 9px 21px;
+                                    font-size: $font_size;
+                                    font-family: $o-root-font-family;
+                                    position: relative;
+                                    display: block;
+                                    &:hover {
+                                        background-color: $o-brand-flectra;
+                                        border-radius: 0px;
+                                    }
+                                    &:focus {
+                                        background-color: $o-brand-flectra;
+                                        outline: none;
+                                    }
+                                }
+                                .oe_menu_toggler {
+                                    &:after {
+                                        float: right;
+                                        width: 10px;
+                                        margin-right: 5px;
+                                        margin-left: 5px;
+                                        margin-top: 0px;
+                                        display: inline;
+                                        font-size: 16px;
+                                        font-family: FontAwesome;
+                                        height: auto;
+                                        content: "\f105";
+                                        font-weight: 300;
+                                        text-shadow: none;
+                                        text-align: left;
+                                        border: 0px;
+                                        text-indent: 1px;
+                                        opacity: 1;
+                                    }
+                                    &.oe_menu_opened:after {
+                                        content: "\f107";
+                                    }
+                                }
+                                &.active a {
+                                    background-color: $o-brand-flectra;
+                                }
+                            }
+                            .oe_menu_text {
+                                white-space: nowrap;
+                                overflow: hidden;
+                                display: inline-block;
+                                text-overflow: ellipsis;
+                                max-width: 83%;
+                                margin-top: 1px;
+                                vertical-align: text-bottom;
+                            }
+                            .oe_secondary_submenu {
+                                li {
+                                    a {
+                                        padding-left: 29px;
+                                        &:hover {
+                                            background-color: $o-brand-flectra;
+                                            border-radius: 0px;
+                                        }
+                                        &:focus {
+                                            background-color: $o-brand-flectra;
+                                            outline: none;
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                        .side_menu_heading {
+                            background-color: $o-brand-flectra;
+                            color: $white_color;
+                            padding: 12px 13px 12px 13px;
+                            margin: 0px;
+                            font-weight: normal !important;
+                            text-align: left;
+                            display: none;
+                            font-family: $o-root-font-family;
+                        }
+                        .oe_secondary_menu_section {
+                            font-weight: bold;
+                            background-color: $theme_sidebar_submenu_color;
+                            color: $white_color;
+                            font-size: $font_size;
+                            text-transform: uppercase;
+                            padding: 5px 10px 5px 15px;
+                            font-family: $o-root-font-family;
+                            text-align: left;
+                            margin-left: 0px;
+                            &:first-child {
+                                border-top: none;
+                            }
+                            a {
+                                display: block;
+                                padding: 9px 15px 9px 21px;
+                                margin: -5px -10px -5px -15px;
+                                &:hover {
+                                    background-color: $o-brand-flectra;
+                                    border-radius: 0px;
+                                }
+                                &:focus {
+                                    background-color: $o-brand-flectra;
+                                    outline: none;
+                                }
+                            }
+                            &.active a {
+                                background-color: $o-brand-primary;
+                            }
+                            .oe_menu_leaf {
+                                color: $white_color;
+                                font-weight: normal;
+                            }
+                            > .oe_menu_leaf {
+                                text-transform: initial;
+                                font-size: $font_size + 0.1;
+                            }
+                            .nsms_item{
+                                border-bottom: 1px solid $theme_color;
+                            }
+                        }
+                    }
+                }
+            }
+            ///////////////////
+            /// MOBILE VIEW
+            ///////////////////
+            &.mobile_views_menu {
+                flex: 0 0 $sidebar_collapsed_width;
+                width: $sidebar_collapsed_width;
+                .mobile_view_title_hide {
+                    display: none !important;
+                }
+                ul li.panel .oe_main_menu_container .app_name, .more-less {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    /////////////////////////////
+    /// ACTION MANAGER LAYOUT
+    /////////////////////////////
+    >.o_action_manager {
+        @media (max-width: 1024px) {
+            flex: 1 1;
+            padding-left: $sidebar_collapsed_width;
+        }
+        &.force_mobile {
+            flex: 1 1;
+            padding-left: $sidebar_collapsed_width;
+        }
+        height: calc(100% - #{$menu_height}) !important;
+        padding-left: $sidebar_width;
+    }
+
+
+}
+

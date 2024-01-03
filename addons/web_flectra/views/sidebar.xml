@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<flectra>
+    <template id="webclient_bootstrap_community" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//t[@t-set='body_classname']" position="attributes">
+            <attribute name="t-value" add="(' f_dark_mode' if request.env.user.dark_mode else ' ')" separator="+"/>
+        </xpath>
+
+         <xpath expr="//t[@t-set='body_classname']" position="attributes">
+            <attribute name="t-value" add="+ ' o_chatter_position_' + (request.env.user.chatter_position or 'sided')" separator=" " />
+        </xpath>
+
+        <xpath expr="//t[@t-set='body_classname']" position="attributes">
+            <attribute name="t-value" add="+ (' o_menu_sided ' if request.env.company.theme_menu_style == 'sidemenu' else ' ') + (request.env.user.chatter_position or 'sided') + (' web_flc_menu_bg_image ' if request.env.company.menu_bg_image  else ' ')" separator=" " />
+        </xpath>
+
+        <xpath expr="//t[@t-set='body_classname']" position="after">
+            <t t-if="request.env.user and request.env.user.company_id and request.env.user.company_id.theme_menu_style == 'sidemenu'">
+                <div class="f_launcher" groups="base.group_user,base.group_portal">
+                    <t t-call="web_flectra.menu_launcher"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+     <template id="web_flectra.menu_launcher">
+        <div class="f_launcher_content mobile_views_menu">
+            <ul style="display: none;" class="oe_application_menu_placeholder hidden">
+                <li t-foreach="menu_data['root']['children']" t-as="menu">
+                    <t t-call="web_flectra.menu_link"/>
+                </li>
+            </ul>
+            <ul class="d-none" id="menu_launcher">
+                <li t-foreach="menu_data['root']['children']" t-as="menu" class="panel">
+                    <div class="oe_main_menu_container"
+                         data-bs-toggle="tooltip"
+                         data-bs-placement="right"
+                         t-att-title="menu_data[menu]['name']">
+                        <a t-att-href="'#menu_id=%s&amp;action=%s' % (menu_data[menu]['id'], menu_data[menu]['action'] and menu_data[menu]['action'].split(',')[1] or '')"
+                           class="oe_main_menu"
+                           t-att-data-menu="menu_data[menu]['id']"
+                           t-att-data-menu-xmlid="menu_data[menu].get('xmlid')"
+                           t-att-data-action-model="menu_data[menu]['action'] and menu_data[menu]['action'].split(',')[0] or None"
+                           t-att-data-action-id="menu_data[menu]['action'] and menu_data[menu]['action'].split(',')[1] or None">
+                            <div class="app_icon">
+                                <t t-if="menu_data[menu]['web_icon_data']">
+                                    <img t-att-src="'data:%s;base64,%s' % (menu_data[menu]['mimetype'], menu_data[menu]['web_icon_data'].decode('utf-8'))"/>                                </t>
+                                <t t-else="">
+                                    <t t-if="menu_data[menu]['web_icon']">
+                                        <t t-set="web_icon_data" t-value="menu_data[menu]['web_icon'].split(',')"/>
+                                        <div class="material-icons" t-att-style="'color: %s; background-color: %s; font-size: 27px;' % (web_icon_data[0], web_icon_data[1])">
+                                            <!--                                                <t t-esc="web_icon_data[2]"/>-->
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <img src="/base/static/description/icon.png"/>
+                                    </t>
+                                </t>
+                            </div>
+                            <div class="app_name">
+                                <span class="oe_menu_text">
+                                    <t t-esc="menu_data[menu]['name']"/>
+                                </span>
+                            </div>
+                        </a>
+                        <div class="more-less">
+                            <a data-bs-toggle="collapse" data-parent="#menu_launcher" t-att-href="'#collapse-%s' %(menu_data[menu]['id'])">
+                                <i t-att-class="'fa fa-chevron-right' if menu_data[menu]['children'] else 'hidden'"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div t-att-id="'collapse-%s' % ( menu_data[menu]['id'] )" class="oe_secondary_menu collapse" t-att-data-menu-parent="menu_data[menu]['id']">
+                        <t t-foreach="menu_data[menu]['children']" t-as="menu">
+                            <div class="oe_secondary_menu_section" t-att-data-menu-xmlid="menu_data[menu].get('xmlid')">
+                                <t t-if="menu_data[menu]['children']">
+                                    <t t-esc="menu_data[menu]['name']"/>
+                                </t>
+                                <t t-if="not menu_data[menu]['children']">
+                                    <t t-call="web_flectra.menu_link"/>
+                                </t>
+                            </div>
+                            <t t-call="web_flectra.menu_secondary_submenu"/>
+                        </t>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </template>
+    <template id="web_flectra.menu_secondary">
+        <div class="o_menu_content">
+            <t t-foreach="menu_data" t-as="menu">
+                <div style="display: none" class="oe_secondary_menu" t-att-data-menu-parent="menu_data[menu]['id']">
+                    <t t-foreach="menu_data[menu]['children']" t-as="menu">
+                        <div class="oe_secondary_menu_section" t-att-data-menu-xmlid="menu_data[menu].get('xmlid')">
+                            <t t-if="menu_data[menu]['children']"><t t-esc="menu_data[menu]['name']"/></t>
+                            <t t-if="not menu_data[menu]['children']"><t t-call="web.menu_link"/></t>
+                        </div>
+                        <t t-call="web.menu_secondary_submenu"/>
+                    </t>
+                </div>
+            </t>
+        </div>
+    </template>
+    <template id="web_flectra.menu_secondary_submenu">
+        <ul t-if="menu_data[menu]['children']" class="oe_secondary_submenu nav nav-pills nav-stacked">
+            <li t-foreach="menu_data[menu]['children']" t-as="menu">
+                <t t-call="web_flectra.menu_link"/>
+                <t t-call="web_flectra.menu_secondary_submenu"/>
+            </li>
+        </ul>
+    </template>
+    <template id="web_flectra.menu_link">
+        <t t-if="debug and debug == 'assets'">
+            <t t-set="debug_param" t-value="'?debug=assets'"/>
+        </t>
+        <t t-if="debug and debug == '1' or debug== True">
+            <t t-set="debug_param" t-value="'?debug=1'"/>
+        </t>
+        <t t-if="not debug">
+            <t t-set="debug_param" t-value="''"/>
+        </t>
+        <a t-att-href="'/web%s#menu_id=%s&amp;action=%s' % (debug_param, menu_data[menu]['id'], menu_data[menu]['action'] and menu_data[menu]['action'].split(',')[1] or '')"
+            t-att-class="'oe_menu_toggler' if menu_data[menu].get('children') else 'oe_menu_leaf'"
+            t-att-data-menu="menu_data[menu]['id']"
+            t-att-data-menu-xmlid="menu_data[menu].get('xmlid')"
+            t-att-data-action-model="menu_data[menu]['action'] and menu_data[menu]['action'].split(',')[0] or None"
+            t-att-data-action-id="menu_data[menu]['action'] and menu_data[menu]['action'].split(',')[1] or None">
+            <span class="oe_menu_text">
+                <t t-esc="menu_data[menu]['name']"/>
+            </span>
+        </a>
+    </template>
+</flectra>

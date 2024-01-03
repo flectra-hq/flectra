@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="web.DateTimePickerPopover">
+        <DateTimePicker t-props="props.pickerProps">
+            <t t-set-slot="buttons">
+                <t t-if="props.pickerProps.type === 'datetime' or Array.isArray(props.pickerProps.value)">
+                    <button
+                        class="o_apply btn btn-primary btn-sm w-100 w-md-auto d-flex align-items-center justify-content-center gap-1"
+                        tabindex="-1"
+                        t-on-click="props.close"
+                    >
+                        <i class="fa fa-check" />
+                        <span>Apply</span>
+                    </button>
+                </t>
+            </t>
+        </DateTimePicker>
+    </t>
+</templates>
