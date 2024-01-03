@@ -2,7 +2,7 @@
 {
     "name": "Flectra Core Backend",
     "category": "Hidden",
-    "version": "17.0.1.0",
+    "version": "3.0",
     "author": "FlectraHQ",
     "website": "https://flectrahq.com/",
     'company': 'FlectraHQ Inc.',
