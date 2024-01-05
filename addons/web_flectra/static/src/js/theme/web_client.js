@@ -3,10 +3,20 @@
 import { WebClient } from "@web/webclient/webclient";
 import { SideBar } from "@web_flectra/js/sidebar";
 const { HomeMenu } = '@web_flectra/js/theme/home_menu';
-const { onMounted } = owl;
-import { mount } from "@flectra/owl";
+import { mount, onPatched, onMounted, useEffect } from "@flectra/owl";
 import { useBus, useService } from "@web/core/utils/hooks";
 import { patch } from "@web/core/utils/patch";
+import { SettingsApp } from "@web/webclient/settings_form_view/settings/settings_app";
+
+patch(SettingsApp.prototype, {
+    setup() {
+        super.setup(...arguments);
+        useEffect(() => {
+            const els = document.querySelectorAll('.o_field_upgrade_boolean');
+            els.forEach(el => el.parentElement.parentElement.remove());
+        })
+    }
+});
 
 patch(WebClient.prototype , {
     
