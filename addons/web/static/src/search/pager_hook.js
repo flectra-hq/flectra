@@ -1,6 +1,6 @@
 /** @flectra-module **/
 
-import { useEnv, useChildSubEnv, useState, onWillRender } from "@flectra/owl";
+import { useEnv, useSubEnv, useState, onWillRender } from "@flectra/owl";
 
 /**
  * @typedef PagerUpdateParams
@@ -25,7 +25,7 @@ export function usePager(getProps) {
     const env = useEnv();
     const pagerState = useState({});
 
-    useChildSubEnv({
+    useSubEnv({
         config: {
             ...env.config,
             pagerProps: pagerState,
