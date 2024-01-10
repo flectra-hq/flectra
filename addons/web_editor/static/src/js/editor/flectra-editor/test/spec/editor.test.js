@@ -3425,6 +3425,15 @@ X[]
                 contentAfter: `<p>a&nbsp;[]</p>`,
             });
         });
+        it('should transform the space node preceded by a styled element to &nbsp;', async () => {
+            await testEditor(BasicEditor, {
+                contentBefore: `<p><strong>ab</strong> [cd]</p>`,
+                stepFunction: async editor => {
+                    await insertText(editor, 'x');
+                },
+                contentAfter: `<p><strong>ab</strong>&nbsp;x[]</p>`,
+            });
+        });
     });
 
     describe('insertParagraphBreak', () => {
@@ -4296,6 +4305,16 @@ X[]
                 },
                 contentAfter: '<p>a http://test.com b <a href="http://test.com">http://test.com</a>[] c http://test.com d</p>',
                 //in reality: '<p>a http://test.com b <a href="http://test.com">http://test.com</a>&nbsp;[] c http://test.com d</p>'
+            });
+            await testEditor(BasicEditor, {
+                contentBefore: '<p>http://test.com[]</p>',
+                stepFunction: async (editor) => {
+                    // Setup: simulate multiple text nodes in a p: <p>"http://test" ".com"</p>
+                    editor.editable.firstChild.firstChild.splitText(11);
+                    // Action: insert space
+                    insertText(editor, ' ');
+                },
+                contentAfter: '<p><a href="http://test.com">http://test.com</a> []</p>',
             });
         });
         it('should transform url after enter', async () => {
