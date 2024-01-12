@@ -2151,7 +2151,8 @@ class AccountMove(models.Model):
     def _sync_rounding_lines(self, container):
         yield
         for invoice in container['records']:
-            invoice._recompute_cash_rounding_lines()
+            if invoice.state != 'posted':
+                invoice._recompute_cash_rounding_lines()
 
     @contextmanager
     def _sync_dynamic_line(self, existing_key_fname, needed_vals_fname, needed_dirty_fname, line_type, container):
@@ -3100,7 +3101,7 @@ class AccountMove(models.Model):
 
         def add_file_data_results(file_data, invoice):
             passed_file_data_list.append(file_data)
-            attachment = file_data.get('attachment')
+            attachment = file_data.get('attachment') or file_data.get('originator_pdf')
             if attachment:
                 if attachments_by_invoice[attachment]:
                     attachments_by_invoice[attachment] |= invoice
@@ -3123,8 +3124,8 @@ class AccountMove(models.Model):
                 close_file(file_data)
                 continue
 
-            # When receiving an xml plus a pdf, since both are representing the same invoice, both needs
-            # to be linked to the same invoice.
+            # When receiving multiple files, if they have a different type, we supposed they are all linked
+            # to the same invoice.
             if (
                 passed_file_data_list
                 and passed_file_data_list[-1]['filename'] != file_data['filename']
