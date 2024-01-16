@@ -26,7 +26,7 @@ import psycopg2
 import flectra
 from flectra import api, fields, models, modules, tools, _
 from flectra.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
-from flectra.exceptions import AccessDenied, UserError
+from flectra.exceptions import AccessDenied, UserError, ValidationError
 from flectra.osv import expression
 from flectra.tools.parse_version import parse_version
 from flectra.tools.misc import topological_sort, get_flag
@@ -97,6 +97,12 @@ class ModuleCategory(models.Model):
             xml_ids[data['res_id']].append("%s.%s" % (data['module'], data['name']))
         for cat in self:
             cat.xml_id = xml_ids.get(cat.id, [''])[0]
+
+    @api.constrains('parent_id')
+    def _check_parent_not_circular(self):
+        if not self._check_recursion():
+            raise ValidationError(_("Error ! You cannot create recursive categories."))
+
 
 class MyFilterMessages(Transform):
     """
@@ -456,7 +462,7 @@ class Module(models.Model):
         # configure the CoA on his own company, which makes no sense.
         if request:
             request.allowed_company_ids = self.env.companies.ids
-        return self._button_immediate_function(type(self).button_install)
+        return self._button_immediate_function(self.env.registry[self._name].button_install)
 
     @assert_log_admin_access
     def button_install_cancel(self):
@@ -609,7 +615,7 @@ class Module(models.Model):
         returns the next res.config action to execute
         """
         _logger.info('User #%d triggered module uninstallation', self.env.uid)
-        return self._button_immediate_function(type(self).button_uninstall)
+        return self._button_immediate_function(self.env.registry[self._name].button_uninstall)
 
     @assert_log_admin_access
     def button_uninstall(self):
@@ -647,7 +653,7 @@ class Module(models.Model):
         Upgrade the selected module(s) immediately and fully,
         return the next res.config action to execute
         """
-        return self._button_immediate_function(type(self).button_upgrade)
+        return self._button_immediate_function(self.env.registry[self._name].button_upgrade)
 
     @assert_log_admin_access
     def button_upgrade(self):

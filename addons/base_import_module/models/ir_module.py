@@ -13,7 +13,7 @@ from io import BytesIO
 from os.path import join as opj
 
 from flectra import api, fields, models, _
-from flectra.exceptions import AccessDenied, UserError
+from flectra.exceptions import AccessDenied, AccessError, UserError
 from flectra.modules.module import adapt_version, MANIFEST_NAMES
 from flectra.osv.expression import is_leaf
 from flectra.release import major_version
@@ -199,6 +199,8 @@ class IrModule(models.Model):
 
     @api.model
     def _import_zipfile(self, module_file, force=False, with_demo=False):
+        if not self.env.is_admin():
+            raise AccessError(_("Only administrators can install data modules."))
         if not module_file:
             raise Exception(_("No file sent."))
         if not zipfile.is_zipfile(module_file):
@@ -249,7 +251,7 @@ class IrModule(models.Model):
                     try:
                         # assert mod_name.startswith('theme_')
                         path = opj(module_dir, mod_name)
-                        if self._import_module(mod_name, path, force=force, with_demo=with_demo):
+                        if self.sudo()._import_module(mod_name, path, force=force, with_demo=with_demo):
                             success.append(mod_name)
                     except Exception as e:
                         _logger.exception('Error while importing module')
