@@ -3,7 +3,6 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { makeFakePresenceService } from "@bus/../tests/helpers/mock_services";
 import { TEST_USER_IDS } from "@bus/../tests/helpers/test_constants";
-import { waitNotifications } from "@bus/../tests/helpers/websocket_event_deferred";
 
 import { Command } from "@mail/../tests/helpers/command";
 import { patchUiSize } from "@mail/../tests/helpers/patch_ui_size";
@@ -12,7 +11,6 @@ import { start } from "@mail/../tests/helpers/test_utils";
 import {
     editInput,
     makeDeferred,
-    nextTick,
     patchWithCleanup,
     triggerHotkey,
 } from "@web/../tests/helpers/utils";
@@ -179,6 +177,29 @@ QUnit.test(
         await click(".o-mail-Composer button:enabled", { text: "Send" });
         await contains(".o-mail-Message", { count: 2 });
         await contains(".o-mail-Message-header"); // just 1, because 2nd message is squashed
+    }
+);
+
+QUnit.test(
+    "Message of type notification in chatter should not have inline display",
+    async (assert) => {
+        const pyEnv = await startServer();
+        const partnerId = pyEnv["res.partner"].create({ name: "testPartner" });
+        pyEnv["mail.message"].create({
+            author_id: pyEnv.currentPartnerId,
+            body: "<p>Line 1</p><p>Line 2</p>",
+            model: "res.partner",
+            res_id: partnerId,
+            message_type: "notification",
+        });
+        const { openFormView } = await start();
+        await openFormView("res.partner", partnerId);
+        await contains(".o-mail-Message-body");
+        assert.notOk(
+            window
+                .getComputedStyle(document.querySelector(".o-mail-Message-body"), null)
+                .display.includes("inline")
+        );
     }
 );
 
@@ -922,78 +943,135 @@ QUnit.test("auto-focus composer on opening thread [REQUIRE FOCUS]", async () => 
     await contains(".o-mail-Composer-input:focus");
 });
 
-QUnit.test(
-    "receive new chat message: out of flectra focus (notification, channel)",
-    async (assert) => {
-        const pyEnv = await startServer();
-        const channelId = pyEnv["discuss.channel"].create({ channel_type: "chat" });
-        const { env, openDiscuss } = await start({
-            services: {
-                presence: makeFakePresenceService({ isFlectraFocused: () => false }),
-            },
-        });
-        openDiscuss();
-        patchWithCleanup(env.services["title"], {
-            setParts(parts) {
-                if (parts._chat) {
-                    step("set_title_part");
-                    assert.strictEqual(parts._chat, "1 Message");
-                }
-            },
-        });
-        const channel = pyEnv["discuss.channel"].searchRead([["id", "=", channelId]])[0];
-        // simulate receiving a new message with flectra out-of-focused
-        pyEnv["bus.bus"]._sendone(channel, "discuss.channel/new_message", {
-            id: channelId,
-            message: {
-                id: 126,
-                model: "discuss.channel",
-                res_id: channelId,
-            },
-        });
-        await assertSteps(["set_title_part"]);
-    }
-);
-
-QUnit.test("receive new chat message: out of flectra focus (notification, chat)", async (assert) => {
+QUnit.test("no out-of-focus notif on non-needaction message in channel", async (assert) => {
     const pyEnv = await startServer();
-    const channelId = pyEnv["discuss.channel"].create({ channel_type: "chat" });
-    const { env, openDiscuss } = await start({
+    const partnerId = pyEnv["res.partner"].create({ name: "Dumbledore" });
+    const userId = pyEnv["res.users"].create({ partner_id: partnerId });
+    const channelId = pyEnv["discuss.channel"].create({
+        channel_member_ids: [
+            Command.create({ partner_id: pyEnv.currentPartnerId }),
+            Command.create({ partner_id: partnerId }),
+        ],
+        channel_type: "channel",
+    });
+    const { env } = await start({
         services: {
             presence: makeFakePresenceService({ isFlectraFocused: () => false }),
         },
     });
-    openDiscuss();
     patchWithCleanup(env.services["title"], {
         setParts(parts) {
             if (parts._chat) {
                 step("set_title_part");
-                assert.strictEqual(parts._chat, "1 Message");
             }
         },
     });
-    const channel = pyEnv["discuss.channel"].searchRead([["id", "=", channelId]])[0];
-    // simulate receiving a new message with flectra out-of-focused
-    pyEnv["bus.bus"]._sendone(channel, "discuss.channel/new_message", {
-        id: channelId,
-        message: {
-            id: 126,
-            model: "discuss.channel",
-            res_id: channelId,
+    await contains(".o_menu_systray i[aria-label='Messages']");
+    await contains(".o-mail-ChatWindow", { count: 0 });
+    // simulate receving new message
+    pyEnv.withUser(userId, () =>
+        env.services.rpc("/mail/message/post", {
+            post_data: { body: "New message", message_type: "comment" },
+            thread_id: channelId,
+            thread_model: "discuss.channel",
+        })
+    );
+    await click(".o_menu_systray i[aria-label='Messages']");
+    await contains(".o-mail-NotificationItem", { text: "Dumbledore: New message" });
+    await contains(".o-mail-ChatWindow", { count: 0 });
+    await assertSteps([]);
+});
+
+QUnit.test("out-of-focus notif on needaction message in channel", async (assert) => {
+    const pyEnv = await startServer();
+    const partnerId = pyEnv["res.partner"].create({ name: "Dumbledore" });
+    const userId = pyEnv["res.users"].create({ partner_id: partnerId });
+    const channelId = pyEnv["discuss.channel"].create({
+        channel_member_ids: [
+            Command.create({ partner_id: pyEnv.currentPartnerId }),
+            Command.create({ partner_id: partnerId }),
+        ],
+        channel_type: "channel",
+    });
+    const { env } = await start({
+        services: {
+            presence: makeFakePresenceService({ isFlectraFocused: () => false }),
         },
     });
-    await assertSteps(["set_title_part"]);
+    patchWithCleanup(env.services["title"], {
+        setParts(parts) {
+            if (parts._chat) {
+                step(`set_title_part:${parts._chat}`);
+            }
+        },
+    });
+    await contains(".o_menu_systray i[aria-label='Messages']");
+    await contains(".o-mail-ChatWindow", { count: 0 });
+    // simulate receiving a new needaction message with flectra out-of-focused
+    const currentPartnerId = pyEnv.currentPartnerId;
+    pyEnv.withUser(userId, () =>
+        env.services.rpc("/mail/message/post", {
+            post_data: {
+                body: "@Michell Admin",
+                partner_ids: [currentPartnerId],
+                message_type: "comment",
+            },
+            thread_id: channelId,
+            thread_model: "discuss.channel",
+        })
+    );
+    await contains(".o-mail-ChatWindow");
+    await assertSteps(["set_title_part:1 Message"]);
+});
+
+QUnit.test("receive new chat message: out of flectra focus (notification, chat)", async (assert) => {
+    const pyEnv = await startServer();
+    const partnerId = pyEnv["res.partner"].create({ name: "Dumbledore" });
+    const userId = pyEnv["res.users"].create({ partner_id: partnerId });
+    const channelId = pyEnv["discuss.channel"].create({
+        channel_member_ids: [
+            Command.create({ partner_id: pyEnv.currentPartnerId }),
+            Command.create({ partner_id: partnerId }),
+        ],
+        channel_type: "chat",
+    });
+    const { env } = await start({
+        services: {
+            presence: makeFakePresenceService({ isFlectraFocused: () => false }),
+        },
+    });
+    patchWithCleanup(env.services["title"], {
+        setParts(parts) {
+            if (parts._chat) {
+                step(`set_title_part:${parts._chat}`);
+            }
+        },
+    });
+    await contains(".o_menu_systray i[aria-label='Messages']");
+    await contains(".o-mail-ChatWindow", { count: 0 });
+    // simulate receiving a new message with flectra out-of-focused
+    pyEnv.withUser(userId, () =>
+        env.services.rpc("/mail/message/post", {
+            post_data: {
+                body: "New message",
+                message_type: "comment",
+            },
+            thread_id: channelId,
+            thread_model: "discuss.channel",
+        })
+    );
+    await contains(".o-mail-ChatWindow");
+    await assertSteps(["set_title_part:1 Message"]);
 });
 
 QUnit.test("no out-of-focus notification on receiving self messages in chat", async () => {
     const pyEnv = await startServer();
     const channelId = pyEnv["discuss.channel"].create({ channel_type: "chat" });
-    const { env, openDiscuss } = await start({
+    const { env } = await start({
         services: {
             presence: makeFakePresenceService({ isFlectraFocused: () => false }),
         },
     });
-    openDiscuss();
     patchWithCleanup(env.services["title"], {
         setParts(parts) {
             if (parts._chat) {
@@ -1001,20 +1079,22 @@ QUnit.test("no out-of-focus notification on receiving self messages in chat", as
             }
         },
     });
-    const channel = pyEnv["discuss.channel"].searchRead([["id", "=", channelId]])[0];
+    await contains(".o_menu_systray i[aria-label='Messages']");
+    await contains(".o-mail-ChatWindow", { count: 0 });
     // simulate receiving a new message of self with flectra out-of-focused
-    pyEnv["bus.bus"]._sendone(channel, "discuss.channel/new_message", {
-        id: channelId,
-        message: {
-            author: { id: pyEnv.currentPartnerId, type: "partner" },
-            id: 126,
-            model: "discuss.channel",
-            res_id: channelId,
-        },
-    });
-    await waitNotifications([env, "discuss.channel/new_message"]);
-    // weak test, no guarantee to wait long enough for the potential step to trigger
-    await nextTick();
+    pyEnv.withUser(pyEnv.currentUserId, () =>
+        env.services.rpc("/mail/message/post", {
+            post_data: {
+                body: "New message",
+                message_type: "comment",
+            },
+            thread_id: channelId,
+            thread_model: "discuss.channel",
+        })
+    );
+    await click(".o_menu_systray i[aria-label='Messages']");
+    await contains(".o-mail-NotificationItem", { text: "You: New message" });
+    await contains(".o-mail-ChatWindow", { count: 0 });
     assertSteps([]);
 });
 
@@ -1602,6 +1682,7 @@ QUnit.test(
         await contains(".o-mail-Message", { count: 30 });
         messageFetchShouldFail = true;
         await click("button", { text: "Load More" });
+        await contains("button", { text: "Click here to retry" });
         messageFetchShouldFail = false;
         await click("button", { text: "Click here to retry" });
         await contains(".o-mail-Message", { count: 60 });

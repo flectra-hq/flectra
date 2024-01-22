@@ -1,8 +1,8 @@
-from flectra.addons.barcodes.tests.test_barcode_nomenclature import TestBarcodeNomenclature
 from flectra.exceptions import ValidationError
+from flectra.tests.common import TransactionCase
 
 
-class TestBarcodeGS1Nomenclature(TestBarcodeNomenclature):
+class TestBarcodeGS1Nomenclature(TransactionCase):
     def test_gs1_date_to_date(self):
         barcode_nomenclature = self.env['barcode.nomenclature']
         # 20/10/2015 -> 151020

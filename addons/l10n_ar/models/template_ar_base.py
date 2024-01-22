@@ -1,5 +1,5 @@
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
-from flectra import models
+from flectra import models, _
 from flectra.addons.account.models.chart_template import template
 
 
@@ -15,7 +15,7 @@ class AccountChartTemplate(models.AbstractModel):
             'property_account_income_categ_id': 'base_venta_de_mercaderia',
             'property_tax_payable_account_id': 'base_default_vat',
             'property_tax_receivable_account_id': 'base_default_vat',
-            'name': 'Generic Chart of Accounts Argentina Single Taxpayer / Basis',
+            'name': _('Generic Chart of Accounts Argentina Single Taxpayer / Basis'),
             'code_digits': '12',
         }
 

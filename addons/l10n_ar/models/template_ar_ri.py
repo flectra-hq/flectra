@@ -1,5 +1,5 @@
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
-from flectra import models
+from flectra import models, _
 from flectra.addons.account.models.chart_template import template
 
 
@@ -9,7 +9,7 @@ class AccountChartTemplate(models.AbstractModel):
     @template('ar_ri')
     def _get_ar_ri_template_data(self):
         return {
-            'name': 'Argentine Generic Chart of Accounts for Registered Accountants',
+            'name': _('Argentine Generic Chart of Accounts for Registered Accountants'),
             'parent': 'ar_ex',
             'code_digits': '12',
             'property_tax_payable_account_id': 'ri_iva_saldo_a_pagar',

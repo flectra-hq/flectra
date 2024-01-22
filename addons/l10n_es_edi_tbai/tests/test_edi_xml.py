@@ -2,7 +2,7 @@
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 from base64 import b64encode
-from datetime import datetime
+from datetime import datetime, date
 
 from freezegun import freeze_time
 from lxml import etree
@@ -23,7 +23,7 @@ class TestEdiTbaiXmls(TestEsEdiTbaiCommon):
         cls.out_invoice = cls.env['account.move'].create({
             'name': 'INV/01',
             'move_type': 'out_invoice',
-            'invoice_date': datetime.now(),
+            'invoice_date': date(2022, 1, 1),
             'partner_id': cls.partner_a.id,
             'invoice_line_ids': [(0, 0, {
                 'product_id': cls.product_a.id,
@@ -87,17 +87,17 @@ class TestEdiTbaiXmls(TestEsEdiTbaiCommon):
                     <DetallesFactura>
                       <IDDetalleFactura>
                           <DescripcionDetalle>producta</DescripcionDetalle>
-                          <Cantidad>5.00</Cantidad>
-                          <ImporteUnitario>246.00</ImporteUnitario>
-                          <Descuento>246.00</Descuento>
-                          <ImporteTotal>1190.64</ImporteTotal>
+                          <Cantidad>5.00000000</Cantidad>
+                          <ImporteUnitario>246.00000000</ImporteUnitario>
+                          <Descuento>246.00000000</Descuento>
+                          <ImporteTotal>1190.64000000</ImporteTotal>
                       </IDDetalleFactura>
                       <IDDetalleFactura>
                           <DescripcionDetalle>producta</DescripcionDetalle>
-                          <Cantidad>5.00</Cantidad>
-                          <ImporteUnitario>246.00</ImporteUnitario>
-                          <Descuento>1230.00</Descuento>
-                          <ImporteTotal>0.00</ImporteTotal>
+                          <Cantidad>5.00000000</Cantidad>
+                          <ImporteUnitario>246.00000000</ImporteUnitario>
+                          <Descuento>1230.00000000</Descuento>
+                          <ImporteTotal>0.00000000</ImporteTotal>
                       </IDDetalleFactura>
                     </DetallesFactura>
                 </xpath>

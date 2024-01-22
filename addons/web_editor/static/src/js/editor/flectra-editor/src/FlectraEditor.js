@@ -75,7 +75,6 @@ import {
     getDeepestPosition,
     leftPos,
     isNotAllowedContent,
-    childNodeIndex,
     EMAIL_REGEX,
     prepareUpdate,
     boundariesOut,
@@ -753,7 +752,7 @@ export class FlectraEditor extends EventTarget {
         }
         const fontSizeInput = this.toolbar.querySelector('input#fontSizeCurrentValue');
         this.addDomListener(this.toolbar, 'click', ev => {
-            if (fontSizeInput && ev.target.closest('#font-size .dropdown-toggle')) {
+            if (fontSizeInput && !fontSizeInput.readOnly && ev.target.closest('#font-size .dropdown-toggle')) {
                 // If the click opened the font size dropdown, select the input content.
                 fontSizeInput.select();
             } else if (!this.isSelectionInEditable()) {
@@ -1584,7 +1583,6 @@ export class FlectraEditor extends EventTarget {
         return false;
     }
     historySetSelection(step) {
-        this.deselectTable();
         if (step.selection && step.selection.anchorNodeOid) {
             const anchorNode = this.idFind(step.selection.anchorNodeOid);
             const focusNode = this.idFind(step.selection.focusNodeOid) || anchorNode;
@@ -2605,7 +2603,6 @@ export class FlectraEditor extends EventTarget {
         if (anchorNode && !ancestors(anchorNode).includes(this.editable)) {
             return false;
         }
-        this.deselectTable();
         const traversedNodes = getTraversedNodes(this.editable);
         if (this._isResizingTable || !traversedNodes.some(node => !!closestElement(node, 'td') && !isProtected(node))) {
             return false;
@@ -4703,6 +4700,7 @@ export class FlectraEditor extends EventTarget {
         if (
             selection &&
             selection.anchorNode &&
+            isHtmlContentSupported(selection.anchorNode) &&
             !closestElement(selection.anchorNode).closest('a') &&
             selection.anchorNode.nodeType === Node.TEXT_NODE
         ) {
@@ -4711,19 +4709,19 @@ export class FlectraEditor extends EventTarget {
             const textSliced = selection.anchorNode.textContent.slice(0, selection.anchorOffset);
             const textNodeSplitted = textSliced.split(/\s/);
             const potentialUrl = textNodeSplitted.pop();
-            const match = potentialUrl.match(URL_REGEX);
+            // In case of multiple matches, only the last one will be converted.
+            const match = [...potentialUrl.matchAll(new RegExp(URL_REGEX, 'g'))].pop();
 
-            if (match && match[0] === potentialUrl && !EMAIL_REGEX.test(potentialUrl)) {
+            if (match && !EMAIL_REGEX.test(match[0])) {
+                const nodeForSelectionRestore = selection.anchorNode.splitText(selection.anchorOffset);
                 const url = match[2] ? match[0] : 'http://' + match[0];
                 const range = this.document.createRange();
-                range.setStart(selection.anchorNode, selection.anchorOffset - match[0].length);
-                range.setEnd(selection.anchorNode, selection.anchorOffset);
+                const startOffset = selection.anchorOffset - potentialUrl.length + match.index;
+                range.setStart(selection.anchorNode, startOffset);
+                range.setEnd(selection.anchorNode, startOffset + match[0].length);
                 const link = this._createLink(range.extractContents().textContent, url);
                 range.insertNode(link);
-                const container = link.parentElement;
-                const offset = childNodeIndex(link) + 1;
-                setSelection(container, offset, container, offset, false);
-                selection.collapseToEnd();
+                setCursorStart(nodeForSelectionRestore, false);
             }
         }
     }
@@ -4787,7 +4785,10 @@ export class FlectraEditor extends EventTarget {
             link.remove();
             setSelection(...start, ...start, false);
         }
-        if (flectraEditorHtml && targetSupportsHtmlContent) {
+        if (!targetSupportsHtmlContent) {
+            const text = ev.clipboardData.getData("text/plain");
+            this._applyCommand("insert", text);
+        } else if (flectraEditorHtml) {
             const fragment = parseHTML(this.document, flectraEditorHtml);
             // Instantiate DOMPurify with the correct window.
             this.DOMPurify ??= DOMPurify(this.document.defaultView);
@@ -4795,7 +4796,7 @@ export class FlectraEditor extends EventTarget {
             if (fragment.hasChildNodes()) {
                 this._applyCommand('insert', fragment);
             }
-        } else if ((files.length || clipboardHtml) && targetSupportsHtmlContent) {
+        } else if (files.length || clipboardHtml) {
             const clipboardElem = this._prepareClipboardData(clipboardHtml);
             // When copy pasting a table from the outside, a picture of the
             // table can be included in the clipboard as an image file. In that
