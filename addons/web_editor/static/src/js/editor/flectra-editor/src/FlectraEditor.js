@@ -3172,7 +3172,10 @@ export class FlectraEditor extends EventTarget {
         const block = closestBlock(sel.anchorNode);
         let activeLabel = undefined;
         for (const [style, cssSelector, isList] of [
-            ['paragraph', 'p:not(.small, .lead)', false],
+            // TODO we might want to review this list to not mention o_xxx
+            // classes but be a setting instead? Probably after current
+            // refactorings being made in master.
+            ['paragraph', 'p:not(.small, .lead, .o_small)', false],
             ['pre', 'pre', false],
             ['heading1', 'h1:not(.display-1, .display-2, .display-3, .display-4)', false],
             ['heading2', 'h2', false],
@@ -3185,7 +3188,10 @@ export class FlectraEditor extends EventTarget {
             ['display-3', 'h1.display-3', false],
             ['display-4', 'h1.display-4', false],
             ['blockquote', 'blockquote', false],
-            ['small', '.small', false],
+            // Note: this button will apply the "o_small" class but as an
+            // approximation, we display "Small" if this actually use the
+            // Bootstrap "small" class.
+            ['small', '.small, .o_small', false],
             ['light', '.lead', false],
             ['unordered', 'UL', true],
             ['ordered', 'OL', true],
@@ -3247,7 +3253,7 @@ export class FlectraEditor extends EventTarget {
         const range = getDeepRange(this.editable, { sel, correctTripleClick: true });
         const spansBlocks = [...range.commonAncestorContainer.childNodes].some(isBlock);
         linkButton?.classList.toggle('d-none', spansBlocks || isInMedia);
-        
+
         // Hide link button group if it has no visible button.
         const linkBtnGroup = this.toolbar.querySelector('#link.btn-group');
         linkBtnGroup?.classList.toggle('d-none', !linkBtnGroup.querySelector('.btn:not(.d-none)'));
@@ -4018,23 +4024,37 @@ export class FlectraEditor extends EventTarget {
             if (!focusNode) {
                 return;
             }
-            // Find previous character.
-            let previousCharacter = focusOffset > 0 && focusNode.textContent[focusOffset - 1];
-            if (!previousCharacter) {
-                focusNode = previousLeaf(focusNode);
-                focusOffset = nodeSize(focusNode);
-                previousCharacter = focusNode.textContent[focusOffset - 1];
-            }
-            // Move selection if previous character is zero-width space
-            if (previousCharacter === '\u200B' && !focusNode.parentElement.hasAttribute('data-o-link-zws')) {
-                focusOffset -= 1;
-                while (focusNode && (focusOffset < 0 || !focusNode.textContent[focusOffset])) {
-                    focusNode = nextLeaf(focusNode);
-                    focusOffset = focusNode && nodeSize(focusNode);
+            // If the selection is at the beginning of a code element at the
+            // start of its parent, make sure there's a zws before it, where the
+            // selection can then be set.
+            const codeElement = closestElement(anchorNode, 'code');
+            if (
+                codeElement?.classList.contains('o_inline_code') &&
+                !anchorOffset &&
+                (!codeElement.previousSibling || codeElement?.previousSibling.nodeType !== Node.TEXT_NODE ) &&
+                !isZWS(codeElement?.previousSibling)
+            ) {
+                codeElement.before(document.createTextNode('\u200B'));
+                setSelection(codeElement.previousSibling, 0);
+            } else {
+                // Find previous character.
+                let previousCharacter = focusOffset > 0 && focusNode.textContent[focusOffset - 1];
+                if (!previousCharacter) {
+                    focusNode = previousLeaf(focusNode);
+                    focusOffset = nodeSize(focusNode);
+                    previousCharacter = focusNode.textContent[focusOffset - 1];
                 }
-                const startContainer = ev.shiftKey ? anchorNode : focusNode;
-                const startOffset = ev.shiftKey ? anchorOffset : focusOffset;
-                setSelection(startContainer, startOffset, focusNode, focusOffset);
+                // Move selection if previous character is zero-width space
+                if (previousCharacter === '\u200B' && !focusNode.parentElement.hasAttribute('data-o-link-zws')) {
+                    focusOffset -= 1;
+                    while (focusNode && (focusOffset < 0 || !focusNode.textContent[focusOffset])) {
+                        focusNode = nextLeaf(focusNode);
+                        focusOffset = focusNode && nodeSize(focusNode);
+                    }
+                    const startContainer = ev.shiftKey ? anchorNode : focusNode;
+                    const startOffset = ev.shiftKey ? anchorOffset : focusOffset;
+                    setSelection(startContainer, startOffset, focusNode, focusOffset);
+                }
             }
         } else if (IS_KEYBOARD_EVENT_RIGHT_ARROW(ev)) {
             if (ev.shiftKey) {
@@ -4045,28 +4065,42 @@ export class FlectraEditor extends EventTarget {
             if (!focusNode) {
                 return;
             }
-            // Find next character.
-            let nextCharacter = focusNode.textContent[focusOffset];
-            if (!nextCharacter) {
-                focusNode = nextLeaf(focusNode);
-                focusOffset = 0;
-                nextCharacter = focusNode.textContent[focusOffset];
-            }
-            // Move selection if next character is zero-width space
-            if (nextCharacter === '\u200B' && !focusNode.parentElement.hasAttribute('data-o-link-zws')) {
-                focusOffset += 1;
-                let newFocusNode = focusNode;
-                while (newFocusNode && (!newFocusNode.textContent[focusOffset] || !closestElement(newFocusNode).isContentEditable)) {
-                    newFocusNode = nextLeaf(newFocusNode);
+            // If the selection is at the ending of a code element at the
+            // end of its parent, make sure there's a zws after it, where the
+            // selection can then be set.
+            const codeElement = closestElement(anchorNode, 'code');
+            if (
+                codeElement?.classList.contains('o_inline_code') &&
+                anchorOffset === nodeSize(anchorNode) &&
+                (!codeElement?.nextSibling || codeElement?.nextSibling.nodeType !== Node.TEXT_NODE ) &&
+                !isZWS(codeElement?.nextSibling)
+            ) {
+                codeElement.after(document.createTextNode('\u200B'));
+                setSelection(codeElement.nextSibling, 1);
+            } else {
+                // Find next character.
+                let nextCharacter = focusNode.textContent[focusOffset];
+                if (!nextCharacter) {
+                    focusNode = nextLeaf(focusNode);
                     focusOffset = 0;
+                    nextCharacter = focusNode.textContent[focusOffset];
                 }
-                if (!focusOffset && closestBlock(focusNode) !== closestBlock(newFocusNode)) {
-                    newFocusNode = focusNode; // Do not move selection to next block.
-                    focusOffset = nodeSize(focusNode);
+                // Move selection if next character is zero-width space
+                if (nextCharacter === '\u200B' && !focusNode.parentElement.hasAttribute('data-o-link-zws')) {
+                    focusOffset += 1;
+                    let newFocusNode = focusNode;
+                    while (newFocusNode && (!newFocusNode.textContent[focusOffset] || !closestElement(newFocusNode).isContentEditable)) {
+                        newFocusNode = nextLeaf(newFocusNode);
+                        focusOffset = 0;
+                    }
+                    if (!focusOffset && closestBlock(focusNode) !== closestBlock(newFocusNode)) {
+                        newFocusNode = focusNode; // Do not move selection to next block.
+                        focusOffset = nodeSize(focusNode);
+                    }
+                    const startContainer = ev.shiftKey ? anchorNode : newFocusNode;
+                    const startOffset = ev.shiftKey ? anchorOffset : focusOffset;
+                    setSelection(startContainer, startOffset, newFocusNode, focusOffset);
                 }
-                const startContainer = ev.shiftKey ? anchorNode : newFocusNode;
-                const startOffset = ev.shiftKey ? anchorOffset : focusOffset;
-                setSelection(startContainer, startOffset, newFocusNode, focusOffset);
             }
         }
     }
@@ -4330,7 +4364,7 @@ export class FlectraEditor extends EventTarget {
             node.replaceChildren();
         }
 
-        sanitize(element, this.editable);
+        sanitize(element);
 
         // Remove contenteditable=false on elements
         for (const el of element.querySelectorAll('[contenteditable="false"]')) {
@@ -4607,6 +4641,12 @@ export class FlectraEditor extends EventTarget {
             this.document.addEventListener('mousemove', resizeTable);
             this.document.addEventListener('mouseup', stopResizing);
             this.document.addEventListener('mouseleave', stopResizing);
+        }
+
+        // Handle emoji popover
+        const isEmojiPopover = document.querySelector('.o-EmojiPicker');
+        if (isEmojiPopover && ev.target !== isEmojiPopover) {
+            isEmojiPopover.remove();
         }
     }
 

@@ -4,15 +4,53 @@
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
-from flectra import fields
+from flectra import fields, http
 from flectra.addons.base.tests.common import HttpCaseWithUserDemo, HttpCaseWithUserPortal
 from flectra.addons.mail.tests.common import mail_new_test_user
 from flectra.addons.website.tests.test_base_url import TestUrlCommon
-from flectra.addons.website_event.tests.common import OnlineEventCase
+from flectra.addons.website_event.tests.common import TestEventOnlineCommon, OnlineEventCase
 from flectra.exceptions import AccessError
-from flectra.tests import tagged
+from flectra.tests import HttpCase, tagged
 from flectra.tools import mute_logger
 from flectra.tests.common import users
+
+class TestEventRegisterUTM(HttpCase, TestEventOnlineCommon):
+    def test_event_registration_utm_values(self):
+        self.event_0.registration_ids.unlink()
+        self.event_0.write({
+            'event_ticket_ids': [
+                (5, 0),
+                (0, 0, {
+                    'name': 'First Ticket',
+                }),
+            ],
+            'is_published': True
+        })
+        event_campaign = self.env['utm.campaign'].create({'name': 'utm event test'})
+
+        self.authenticate(None, None)
+        self.opener.cookies.update({
+            'flectra_utm_campaign': event_campaign.name,
+            'flectra_utm_source': self.env.ref('utm.utm_source_newsletter').name,
+            'flectra_utm_medium': self.env.ref('utm.utm_medium_email').name
+        })
+        event_questions = self.event_0.question_ids
+        name_question = event_questions.filtered(lambda q: q.question_type == 'name')
+        email_question = event_questions.filtered(lambda q: q.question_type == 'email')
+        self.assertTrue(name_question and email_question)
+        # get 1 free ticket
+        self.url_open(f'/event/{self.event_0.id}/registration/confirm', data={
+            f'1-name-{name_question.id}': 'Bob',
+            f'1-email-{email_question.id}': 'bob@test.lan',
+            '1-event_ticket_id': self.event_0.event_ticket_ids[0].id,
+            'csrf_token': http.Request.csrf_token(self),
+        })
+        new_registration = self.event_0.registration_ids
+        self.assertEqual(len(new_registration), 1)
+        self.assertEqual(new_registration.utm_campaign_id, event_campaign)
+        self.assertEqual(new_registration.utm_source_id, self.env.ref('utm.utm_source_newsletter'))
+        self.assertEqual(new_registration.utm_medium_id, self.env.ref('utm.utm_medium_email'))
+
 
 @tagged('post_install', '-at_install')
 class TestUi(HttpCaseWithUserDemo, HttpCaseWithUserPortal):

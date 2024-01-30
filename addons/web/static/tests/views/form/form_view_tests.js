@@ -55,6 +55,7 @@ import { Field } from "@web/views/fields/field";
 import { IntegerField } from "@web/views/fields/integer/integer_field";
 import { useSpecialData } from "@web/views/fields/relational_utils";
 import { X2ManyField, x2ManyField } from "@web/views/fields/x2many/x2many_field";
+import { standardFieldProps } from "@web/views/fields/standard_field_props";
 import { FormController } from "@web/views/form/form_controller";
 import { companyService } from "@web/webclient/company_service";
 
@@ -764,6 +765,60 @@ QUnit.module("Views", (hooks) => {
         await click(target.querySelector(".o_field_widget[name=p] .o_data_row .o_data_cell"));
         assert.containsOnce(target, ".modal .o_form_view .o_field_widget[name=p]");
     });
+
+    QUnit.test(
+        "form with o2m having a selection field with fieldDependencies",
+        async function (assert) {
+            class MyField extends CharField {}
+            fieldRegistry.add("my_widget", {
+                component: MyField,
+                fieldDependencies: [{ name: "selection", type: "selection" }],
+            });
+
+            serverData.models.partner.fields.o2m = { type: "one2many", relation: "partner_type" };
+            serverData.models.partner.records[1].o2m = [];
+            serverData.views = {
+                "partner_type,false,form": `<form><field name="display_name" /></form>`,
+            };
+
+            serverData.models.partner_type.fields.selection = {
+                type: "selection",
+                selection: [
+                    ["a", "A"],
+                    ["b", "B"],
+                ],
+            };
+            serverData.models.partner_type.records = [
+                {
+                    id: 1,
+                    display_name: "first partner_type",
+                    selection: false,
+                },
+            ];
+
+            serverData.models.partner.records[1].o2m = [1];
+            await makeView({
+                type: "form",
+                resModel: "partner",
+                serverData,
+                arch: `
+                <form>
+                    <field name="o2m">
+                        <tree>
+                            <field name="display_name" widget="my_widget"/>
+                        </tree>
+                    </field>
+                </form>`,
+                resId: 2,
+            });
+
+            assert.containsOnce(target, ".o_field_widget[name=o2m] .o_data_row");
+            await click(
+                target.querySelector(".o_field_widget[name=o2m] .o_field_x2many_list_row_add a")
+            );
+            assert.containsOnce(target, ".modal .o_form_view .o_field_widget[name=display_name]");
+        }
+    );
 
     QUnit.test("fieldDependencies are readonly by default", async function (assert) {
         class MyField extends CharField {}
@@ -14485,6 +14540,40 @@ QUnit.module("Views", (hooks) => {
         assert.containsOnce(
             target,
             ".modal:not(.o_inactive_modal) .modal-footer button[name='someothername']"
+        );
+    });
+
+    QUnit.test("an empty json object does not pass the required check", async function (assert) {
+        assert.expect(3);
+        serverData.models.partner.fields.json_field = { type: "json" };
+        class JsonField extends Component {
+            onChange(ev) {
+                this.props.record.update({ [this.props.name]: JSON.parse(ev.target.value) });
+            }
+        }
+        JsonField.props = standardFieldProps;
+        JsonField.supportedTypes = ["json"];
+        JsonField.template = xml`<span><input t-on-change="onChange"/></span>`;
+
+        fieldRegistry.add("json", { component: JsonField });
+        const form = await makeView({
+            type: "form",
+            resModel: "partner",
+            serverData,
+            arch: `<form><field name="json_field" widget="json" required="1"/></form>`,
+        });
+
+        patchWithCleanup(form.env.services.notification, {
+            add: (message, params) => {
+                assert.strictEqual(message.toString(), "<ul><li>json_field</li></ul>");
+                assert.deepEqual(params, { title: "Invalid fields: ", type: "danger" });
+            },
+        });
+        await editInput(target, ".o_field_widget[name=json_field] input", "{}")
+        await clickSave(target);
+        assert.hasClass(
+            target.querySelector(".o_field_widget[name=json_field]"),
+            "o_field_invalid"
         );
     });
 });

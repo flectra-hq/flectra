@@ -390,6 +390,8 @@ export class Wysiwyg extends Component {
             return savedVideo;
         };
 
+        weUtils.setEditableDocument(this.options.document);
+
         const _getContentEditableAreas = this.options.getContentEditableAreas;
         this.flectraEditor = new FlectraEditor(this.$editable[0], Object.assign({
             _t: _t,
@@ -656,8 +658,8 @@ export class Wysiwyg extends Component {
                             target: $target[0],
                             wysiwyg: this,
                             container,
-                            notify: (params) => {
-                                this.notification.add(params.message, { type: params.type });
+                            notify: (message, params) => {
+                                this.notification.add(message, { type: params.type });
                             },
                         });;
                         $target.data('popover-widget-initialized', this.linkPopover);
@@ -1895,15 +1897,7 @@ export class Wysiwyg extends Component {
             }
             this._updateMediaJustifyButton(justifyBtn.id);
         });
-        $toolbar.find('#image-crop').click(e => {
-            if (!this.lastMediaClicked) {
-                return;
-            }
-            this.imageCropProps.media = this.lastMediaClicked;
-            this.imageCropProps.showCount++;
-            this.flectraEditor.toolbarHide();
-            $(this.lastMediaClicked).on('image_cropper_destroyed', () => this.flectraEditor.toolbarShow());
-        });
+        $toolbar.find('#image-crop').click(() => this._showImageCrop());
         $toolbar.find('#image-transform').click(e => {
             if (!this.lastMediaClicked) {
                 return;
@@ -1954,6 +1948,16 @@ export class Wysiwyg extends Component {
             // Scroll event does not bubble.
             document.addEventListener('scroll', this._onScroll, true);
         }
+    }
+
+    _showImageCrop() {
+        if (!this.lastMediaClicked) {
+            return;
+        }
+        this.imageCropProps.media = this.lastMediaClicked;
+        this.imageCropProps.showCount++;
+        this.flectraEditor.toolbarHide();
+        $(this.lastMediaClicked).on('image_cropper_destroyed', () => this.flectraEditor.toolbarShow());
     }
     /**
      * @private

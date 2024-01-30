@@ -176,6 +176,7 @@ class HolidaysRequest(models.Model):
     number_of_hours = fields.Float(
         'Duration (Hours)', compute='_compute_duration', store=True, tracking=True,
         help='Number of hours of the time off request. Used in the calculation.')
+    last_several_days = fields.Boolean("All day", compute="_compute_last_several_days")
     number_of_days_display = fields.Float(
         'Duration in days', compute='_compute_number_of_days_display',
         help='Number of days of the time off request according to your working schedule. Used for interface.')
@@ -581,6 +582,11 @@ class HolidaysRequest(models.Model):
                 or holiday.mode_company_id \
                 or holiday.department_id.company_id \
                 or self.env.company
+
+    @api.depends('number_of_days')
+    def _compute_last_several_days(self):
+        for holiday in self:
+            holiday.last_several_days = holiday.number_of_days > 1
 
     @api.depends('tz')
     @api.depends_context('uid')
@@ -994,6 +1000,22 @@ Attempting to double-book your time off won't magically make your vacation 2x be
     ####################################################
     # Business methods
     ####################################################
+
+    @api.model
+    def action_open_records(self, leave_ids):
+        if len(leave_ids) == 1:
+            return {
+                'type': 'ir.actions.act_window',
+                'view_mode': 'form',
+                'res_id': leave_ids[0],
+                'res_model': 'hr.leave',
+            }
+        return {
+            'type': 'ir.actions.act_window',
+            'view_mode': [[False, 'tree'], [False, 'form']],
+            'domain': [('id', 'in', leave_ids.ids)],
+            'res_model': 'hr.leave',
+        }
 
     def _prepare_resource_leave_vals(self):
         """Hook method for others to inject data

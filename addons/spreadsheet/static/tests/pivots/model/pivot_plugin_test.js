@@ -388,6 +388,70 @@ QUnit.module("spreadsheet > pivot plugin", {}, () => {
         assert.equal(getCellValue(model, "A1"), 131);
     });
 
+    QUnit.test("evaluates only once when two pivots are loading", async function (assert) {
+        const spreadsheetData = {
+            sheets: [{ id: "sheet1" }],
+            pivots: {
+                1: {
+                    id: 1,
+                    colGroupBys: ["foo"],
+                    domain: [],
+                    measures: [{ field: "probability", operator: "avg" }],
+                    model: "partner",
+                    rowGroupBys: ["bar"],
+                },
+                2: {
+                    id: 2,
+                    colGroupBys: ["foo"],
+                    domain: [],
+                    measures: [{ field: "probability", operator: "avg" }],
+                    model: "partner",
+                    rowGroupBys: ["bar"],
+                },
+            },
+        };
+        const model = await createModelWithDataSource({
+            spreadsheetData,
+        });
+        model.config.custom.dataSources.addEventListener("data-source-updated", () =>
+            assert.step("data-source-notified")
+        );
+        setCellContent(model, "A1", '=FLECTRA.PIVOT("1", "probability")');
+        setCellContent(model, "A2", '=FLECTRA.PIVOT("2", "probability")');
+        assert.equal(getCellValue(model, "A1"), "Loading...");
+        assert.equal(getCellValue(model, "A2"), "Loading...");
+        await nextTick();
+        assert.equal(getCellValue(model, "A1"), 131);
+        assert.equal(getCellValue(model, "A2"), 131);
+        assert.verifySteps(["data-source-notified"], "evaluation after both pivots are loaded");
+    });
+
+    QUnit.test("concurrently load the same pivot twice", async function (assert) {
+        const spreadsheetData = {
+            sheets: [{ id: "sheet1" }],
+            pivots: {
+                1: {
+                    id: 1,
+                    colGroupBys: ["foo"],
+                    domain: [],
+                    measures: [{ field: "probability", operator: "avg" }],
+                    model: "partner",
+                    rowGroupBys: ["bar"],
+                },
+            },
+        };
+        const model = await createModelWithDataSource({
+            spreadsheetData,
+        });
+        // the data loads first here, when we insert the first pivot function
+        setCellContent(model, "A1", '=FLECTRA.PIVOT("1", "probability")');
+        assert.equal(getCellValue(model, "A1"), "Loading...");
+        // concurrently reload the same pivot
+        model.dispatch("REFRESH_PIVOT", { id: 1 });
+        await nextTick();
+        assert.equal(getCellValue(model, "A1"), 131);
+    });
+
     QUnit.test("display loading while data is not fully available", async function (assert) {
         const metadataPromise = makeDeferred();
         const dataPromise = makeDeferred();
@@ -674,6 +738,61 @@ QUnit.module("spreadsheet > pivot plugin", {}, () => {
         assert.strictEqual(getEvaluatedCell(model, "B1").format, "m/d/yyyy");
         assert.strictEqual(getEvaluatedCell(model, "B1").value, 42474);
         assert.strictEqual(getEvaluatedCell(model, "B1").formattedValue, "4/14/2016");
+    });
+
+    QUnit.test("PIVOT.HEADER week are correctly formatted at evaluation", async function (assert) {
+        const { model } = await createSpreadsheetWithPivot({
+            arch: /* xml */ `
+                <pivot>
+                    <field name="date" interval="week" type="col"/>
+                    <field name="foo" type="measure"/>
+                </pivot>`,
+        });
+        assert.strictEqual(getEvaluatedCell(model, "B1").format, undefined);
+        assert.strictEqual(getEvaluatedCell(model, "B1").value, "W15 2016");
+        assert.strictEqual(getEvaluatedCell(model, "B1").formattedValue, "W15 2016");
+    });
+
+    QUnit.test("PIVOT.HEADER month are correctly formatted at evaluation", async function (assert) {
+        const { model } = await createSpreadsheetWithPivot({
+            arch: /* xml */ `
+                <pivot>
+                    <field name="date" interval="month" type="col"/>
+                    <field name="foo" type="measure"/>
+                </pivot>`,
+        });
+        assert.strictEqual(getEvaluatedCell(model, "B1").format, "mmmm yyyy");
+        assert.strictEqual(getEvaluatedCell(model, "B1").value, 42461);
+        assert.strictEqual(getEvaluatedCell(model, "B1").formattedValue, "April 2016");
+    });
+
+    QUnit.test(
+        "PIVOT.HEADER quarter are correctly formatted at evaluation",
+        async function (assert) {
+            const { model } = await createSpreadsheetWithPivot({
+                arch: /* xml */ `
+                <pivot>
+                    <field name="date" interval="quarter" type="col"/>
+                    <field name="foo" type="measure"/>
+                </pivot>`,
+            });
+            assert.strictEqual(getEvaluatedCell(model, "B1").format, undefined);
+            assert.strictEqual(getEvaluatedCell(model, "B1").value, "Q2 2016");
+            assert.strictEqual(getEvaluatedCell(model, "B1").formattedValue, "Q2 2016");
+        }
+    );
+
+    QUnit.test("PIVOT.HEADER year are correctly formatted at evaluation", async function (assert) {
+        const { model } = await createSpreadsheetWithPivot({
+            arch: /* xml */ `
+                <pivot>
+                    <field name="date" interval="year" type="col"/>
+                    <field name="foo" type="measure"/>
+                </pivot>`,
+        });
+        assert.strictEqual(getEvaluatedCell(model, "B1").format, "0");
+        assert.strictEqual(getEvaluatedCell(model, "B1").value, 2016);
+        assert.strictEqual(getEvaluatedCell(model, "B1").formattedValue, "2016");
     });
 
     QUnit.test(

@@ -434,7 +434,9 @@ function _getImageSizeFromCache(src) {
  * @param {DOMStringMap} dataset dataset containing the cropperDataFields
  */
 export async function activateCropper(image, aspectRatio, dataset) {
-    image.src = await _loadImageObjectURL(image.getAttribute('src'));
+    const oldSrc = image.src;
+    const newSrc = await _loadImageObjectURL(image.getAttribute('src'));
+    image.src = newSrc;
     $(image).cropper({
         viewMode: 2,
         dragMode: 'move',
@@ -446,6 +448,9 @@ export async function activateCropper(image, aspectRatio, dataset) {
         minContainerWidth: 1,
         minContainerHeight: 1,
     });
+    if (oldSrc === newSrc && image.complete) {
+        return;
+    }
     return new Promise(resolve => image.addEventListener('ready', resolve, {once: true}));
 }
 /**
@@ -471,7 +476,12 @@ export async function loadImageInfo(img, rpc, attachmentSrc = '') {
     // the URL object if the src of the img is a relative or protocol relative
     // URL. The original attachment linked to the img is then retrieved thanks
     // to the path of the built URL object.
-    const srcUrl = new URL(src, img.ownerDocument.defaultView.location.href);
+    let docHref = img.ownerDocument.defaultView.location.href;
+    if (docHref === "about:srcdoc") {
+        docHref = window.location.href;
+    }
+
+    const srcUrl = new URL(src, docHref);
     const relativeSrc = srcUrl.pathname;
 
     const {original} = await rpc('/web_editor/get_image_info', {src: relativeSrc});

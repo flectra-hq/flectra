@@ -61,19 +61,49 @@ export class PivotDataSource extends FlectraViewsDataSource {
     }
 
     /**
-     * @param {string[]} domain
+     * High level method computing the result of FLECTRA.PIVOT.HEADER functions.
+     * - regular function 'FLECTRA.PIVOT.HEADER(1,"stage_id",2,"user_id",6)'
+     * - measure header 'FLECTRA.PIVOT.HEADER(1,"stage_id",2,"user_id",6,"measure","expected_revenue")
+     * - positional header 'FLECTRA.PIVOT.HEADER(1,"#stage_id",1,"#user_id",1)'
+     *
+     * @param {(string | number)[]} domainArgs arguments of the function (except the first one which is the pivot id)
+     * @returns {string | number}
      */
-    getDisplayedPivotHeaderValue(domain) {
+    computeFlectraPivotHeaderValue(domainArgs) {
         this._assertDataIsLoaded();
-        return this._model.getDisplayedPivotHeaderValue(domain);
+        if (domainArgs.length === 0) {
+            return _t("Total");
+        }
+        if (domainArgs.at(-2) === "measure") {
+            return this.getMeasureDisplayName(domainArgs.at(-1));
+        }
+        return this._model.getGroupByCellValue(
+            domainArgs.at(-2),
+            this._model.getLastPivotGroupValue(domainArgs)
+        );
     }
 
     /**
-     * @param {string[]} domain
+     * @param {string} measure
+     * @returns {string}
      */
-    getPivotHeaderValue(domain) {
+    getMeasureDisplayName(measure) {
+        if (measure === "__count") {
+            return _t("Count");
+        }
+        const field = this.getField(measure);
+        if (field === undefined) {
+            throw new Error(_t("Field %s does not exist", measure));
+        }
+        return field.string;
+    }
+
+    /**
+     * @param {(string | number)[]} domainArgs
+     */
+    getLastPivotGroupValue(domainArgs) {
         this._assertDataIsLoaded();
-        return this._model.getPivotHeaderValue(domain);
+        return this._model.getLastPivotGroupValue(domainArgs);
     }
 
     /**
@@ -140,17 +170,6 @@ export class PivotDataSource extends FlectraViewsDataSource {
     getPivotCellDomain(domain) {
         this._assertDataIsLoaded();
         return this._model.getPivotCellDomain(domain);
-    }
-
-    /**
-     * @param {string} fieldName
-     * @param {string} value raw string value
-     * @param {object} locale
-     * @returns {string}
-     */
-    getGroupByDisplayLabel(fieldName, value, locale) {
-        this._assertDataIsLoaded();
-        return this._model.getGroupByDisplayLabel(fieldName, value, locale);
     }
 
     /**

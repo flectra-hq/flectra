@@ -63,14 +63,22 @@ export const PROTECTED_BLOCK_TAG = ['TR','TD','TABLE','TBODY','UL','OL','LI'];
 
 /**
  * Array of all the classes used by the editor to change the font size.
+ *
+ * Note: the Bootstrap "small" class is an exception, the editor does not allow
+ * to set it but it did in the past and we want to remove it when applying an
+ * override of the font-size.
  */
 export const FONT_SIZE_CLASSES = ["display-1-fs", "display-2-fs", "display-3-fs", "display-4-fs", "h1-fs",
-    "h2-fs", "h3-fs", "h4-fs", "h5-fs", "h6-fs", "base-fs", "small"];
+    "h2-fs", "h3-fs", "h4-fs", "h5-fs", "h6-fs", "base-fs", "o_small-fs", "small"];
 
 /**
  * Array of all the classes used by the editor to change the text style.
+ *
+ * Note: the Bootstrap "small" class was actually part of "text style"
+ * configuration in the past... but also of the "font size" configuration (see
+ * FONT_SIZE_CLASSES). It should be mentioned here too.
  */
-export const TEXT_STYLE_CLASSES = ["display-1", "display-2", "display-3", "display-4", "lead"];
+export const TEXT_STYLE_CLASSES = ["display-1", "display-2", "display-3", "display-4", "lead", "o_small", "small"];
 
 //------------------------------------------------------------------------------
 // Position and sizes
@@ -755,7 +763,12 @@ export function getSelectedNodes(editable) {
  */
 export function getDeepRange(editable, { range, sel, splitText, select, correctTripleClick } = {}) {
     sel = sel || editable.parentElement && editable.ownerDocument.getSelection();
-    if (sel && sel.isCollapsed && sel.anchorNode && sel.anchorNode.nodeName === "BR") {
+    if (
+        sel &&
+        sel.isCollapsed &&
+        sel.anchorNode &&
+        (sel.anchorNode.nodeName === "BR" || (sel.anchorNode.nodeType === Node.TEXT_NODE && sel.anchorNode.textContent === ''))
+    ) {
         setCursorStart(sel.anchorNode.parentElement, false);
     }
     range = range ? range.cloneRange() : sel && sel.rangeCount && sel.getRangeAt(0).cloneRange();
@@ -1362,9 +1375,9 @@ export function hasClass(node, props) {
  */
 export function isSelectionFormat(editable, format) {
     const selectedNodes = getTraversedNodes(editable)
-        .filter(n => n.nodeType === Node.TEXT_NODE && n.nodeValue.trim().length);
+        .filter(n => n.nodeType === Node.TEXT_NODE);
     const isFormatted = formatsSpecs[format].isFormatted;
-    return selectedNodes && selectedNodes.every(n => isFormatted(n, editable));
+    return selectedNodes.length && selectedNodes.every(n => isFormatted(n, editable));
 }
 
 export function isUnbreakable(node) {

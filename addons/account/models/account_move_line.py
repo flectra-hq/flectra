@@ -261,6 +261,7 @@ class AccountMoveLine(models.Model):
     matching_number = fields.Char(
         string="Matching #",
         copy=False,
+        index='btree',
         help="Matching number for this line, 'P' if it is only partially reconcile, or the name of "
              "the full reconcile if it exists.",
     )  # can also start with `I` for imports: see `_reconcile_marked`
@@ -880,7 +881,7 @@ class AccountMoveLine(models.Model):
             tax_ids = filtered_supplier_taxes_id or self.account_id.tax_ids.filtered(lambda tax: tax.type_tax_use == 'purchase')
 
         else:
-            tax_ids = self.account_id.tax_ids
+            tax_ids = False if self.env.context.get('skip_computed_taxes') else self.account_id.tax_ids
 
         if self.company_id and tax_ids:
             tax_ids = tax_ids.filtered_domain(company_domain)
@@ -1357,6 +1358,8 @@ class AccountMoveLine(models.Model):
                     raise Exception("Should have partials")
                 elif line.matching_number.startswith('P') and line.full_reconcile_id:
                     raise Exception("Should not be partial number")
+                elif line.matching_number.isdecimal() and not line.full_reconcile_id:
+                    raise Exception("Should not be full number")
                 elif line.full_reconcile_id and line.matching_number != str(line.full_reconcile_id.id):
                     raise Exception("Matching number should be the full reconcile")
             elif line.matched_debit_ids or line.matched_credit_ids:
@@ -1433,6 +1436,13 @@ class AccountMoveLine(models.Model):
                 vals.pop('credit', None)
             else:
                 vals['balance'] = vals.pop('debit', 0) - vals.pop('credit', 0)
+        if (
+            vals.get('matching_number')
+            and not vals['matching_number'].startswith('I')
+            and not self.env.context.get('skip_matching_number_check')
+        ):
+            vals['matching_number'] = f"I{vals['matching_number']}"
+
         return vals
 
     def _prepare_create_values(self, vals_list):
@@ -2630,6 +2640,7 @@ class AccountMoveLine(models.Model):
                     'debit': -amount_residual if amount_residual < 0.0 else 0.0,
                     'credit': amount_residual if amount_residual > 0.0 else 0.0,
                     'amount_currency': -amount_residual_currency,
+                    'full_reconcile_id': line.full_reconcile_id.id,
                     'account_id': line.account_id.id,
                     'currency_id': line.currency_id.id,
                     'partner_id': line.partner_id.id,
@@ -3045,23 +3056,11 @@ class AccountMoveLine(models.Model):
         return ids
 
     def _all_reconciled_lines(self):
-        reconciliation_lines = self.filtered(lambda x: x.account_id.reconcile or x.account_id.account_type in ('asset_cash', 'liability_credit_card'))
-        self.env['account.partial.reconcile'].flush_model()
-        self.env.cr.execute("""
-            WITH RECURSIVE partials (current_id) AS (
-                    SELECT line.id
-                      FROM account_move_line line
-                     WHERE id = ANY(%s)
-
-                                                UNION
-
-                    SELECT CASE WHEN partial.debit_move_id = p.current_id THEN partial.credit_move_id ELSE partial.debit_move_id END
-                      FROM partials p
-                      JOIN account_partial_reconcile partial ON partial.debit_move_id = p.current_id OR partial.credit_move_id = p.current_id
-            )
-            SELECT current_id FROM partials;
-        """, [reconciliation_lines.ids])
-        return self.browse(r[0] for r in self.env.cr.fetchall())
+        reconciled = self
+        matching_numbers = [n for n in set(self.mapped('matching_number')) if n]
+        if matching_numbers:
+            reconciled |= self.search([('matching_number', 'in', matching_numbers)])
+        return reconciled
 
     def _get_attachment_domains(self):
         self.ensure_one()

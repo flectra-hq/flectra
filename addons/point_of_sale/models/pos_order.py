@@ -877,8 +877,9 @@ class PosOrder(models.Model):
             new_move.sudo().with_company(order.company_id).with_context(skip_invoice_sync=True)._post()
 
             # Send and Print
-            template = self.env.ref(new_move._get_mail_template())
-            new_move.with_context(skip_invoice_sync=True)._generate_pdf_and_send_invoice(template)
+            if self.env.context.get('generate_pdf', True):
+                template = self.env.ref(new_move._get_mail_template())
+                new_move.with_context(skip_invoice_sync=True)._generate_pdf_and_send_invoice(template)
 
             moves += new_move
             payment_moves = order._apply_invoice_payments()
@@ -1512,7 +1513,7 @@ class PosOrderLine(models.Model):
             commercial_partner = self.order_id.partner_id.commercial_partner_id
             fiscal_position = self.order_id.fiscal_position_id
             line = line.with_company(self.order_id.company_id)
-            account = line.product_id._get_product_accounts()['income']
+            account = line.product_id._get_product_accounts()['income'] or self.order_id.config_id.journal_id.default_account_id
             if not account:
                 raise UserError(_(
                     "Please define income account for this product: '%s' (id:%d).",
