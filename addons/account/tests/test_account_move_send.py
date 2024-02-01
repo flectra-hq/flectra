@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
+import json
 
 from datetime import date
-from dateutil.relativedelta import relativedelta
-from freezegun import freeze_time
 from unittest.mock import patch
 
-from flectra import Command, fields
+from flectra import Command
 from flectra.addons.account.tests.common import AccountTestInvoicingCommon
 from flectra.addons.mail.tests.common import MailCommon
 from flectra.exceptions import UserError
-from flectra.tests.common import Form, users, warmup
+from flectra.tests.common import users, warmup
 from flectra.tests import tagged
 from flectra.tools import formataddr, mute_logger
 
@@ -581,7 +580,8 @@ class TestAccountMoveSend(TestAccountMoveSendCommon):
 
         # Process.
         results = wizard.action_send_and_print()
-        self.assertEqual(results['type'], 'ir.actions.act_window_close')
+        self.assertEqual(results['type'], 'ir.actions.client')
+        self.assertEqual(results['params']['next']['type'], 'ir.actions.act_window_close')
         self.assertRecordValues(wizard, [{'mode': 'invoice_multi'}])
 
         # Awaiting the CRON.
@@ -934,3 +934,97 @@ class TestAccountMoveSend(TestAccountMoveSendCommon):
             self.create_send_and_print(invoice_draft)
         with self.assertRaises(UserError):
             self.create_send_and_print(invoice_posted + invoice_draft)
+
+    def test_link_pdf_webservice_fails_after(self):
+        invoice = self.init_invoice("out_invoice", amounts=[1000], post=True)
+        wizard = self.create_send_and_print(invoice)
+
+        def _call_web_service_after_invoice_pdf_render(self, invoices_data):
+            for move_data in invoices_data.values():
+                move_data['error'] = 'service_failed_after'
+
+        # Process.
+        with patch(
+                'flectra.addons.account.wizard.account_move_send.AccountMoveSend._call_web_service_after_invoice_pdf_render',
+                _call_web_service_after_invoice_pdf_render,
+        ):
+            wizard.action_send_and_print(allow_fallback_pdf=True)
+
+        # The PDF is generated and linked
+        self.assertTrue(invoice.invoice_pdf_report_id)
+        # Not a proforma
+        self.assertFalse(self.env['ir.attachment'].search([
+            ('name', '=', invoice._get_invoice_proforma_pdf_report_filename()),
+        ]))
+
+    def test_link_pdf_webservice_fails_before(self):
+        invoice = self.init_invoice("out_invoice", amounts=[1000], post=True)
+        wizard = self.create_send_and_print(invoice)
+
+        def _call_web_service_before_invoice_pdf_render(self, invoices_data):
+            for move_data in invoices_data.values():
+                move_data['error'] = 'service_failed_before'
+
+        # Process.
+        with patch(
+                'flectra.addons.account.wizard.account_move_send.AccountMoveSend._call_web_service_before_invoice_pdf_render',
+                _call_web_service_before_invoice_pdf_render,
+        ):
+            wizard.action_send_and_print(allow_fallback_pdf=True)
+
+        # The PDF is not generated but a proforma.
+        self.assertFalse(invoice.invoice_pdf_report_id)
+        self.assertTrue(self.env['ir.attachment'].search([
+            ('name', '=', invoice._get_invoice_proforma_pdf_report_filename()),
+        ]))
+
+    def test_send_and_print_cron(self):
+        """ Test the cron for generating """
+        invoice_1_1 = self.init_invoice("out_invoice", amounts=[1000], post=True, company=self.company_data['company'])
+        invoice_1_2 = self.init_invoice("out_invoice", amounts=[1000], post=True, company=self.company_data['company'])
+        wizard = self.create_send_and_print(invoice_1_1 + invoice_1_2)
+        wizard.checkbox_download = False
+        wizard.action_send_and_print()  # saves value on moves to be sent asynchronously
+
+        invoice_2_1 = self.init_invoice("out_invoice", amounts=[1000], post=True, company=self.company_data_2['company'])
+        invoice_2_2 = self.init_invoice("out_invoice", amounts=[1000], post=True, company=self.company_data_2['company'])
+        wizard_2 = self.create_send_and_print(invoice_2_1 + invoice_2_2)
+        wizard_2.checkbox_download = False
+        wizard_2.action_send_and_print()
+
+        invoices = invoice_1_1 + invoice_1_2 + invoice_2_1 + invoice_2_2
+        self.assertFalse(invoices.invoice_pdf_report_id)
+        self.assertEqual(invoices.mapped(lambda inv: bool(inv.send_and_print_values)), [True] * len(invoices))
+        self.env.ref('account.ir_cron_account_move_send').method_direct_trigger()  # force processing
+        self.assertTrue(all(invoice.invoice_pdf_report_id for invoice in invoices))
+        self.assertTrue(all(not invoice.send_and_print_values for invoice in invoices))
+
+    def test_cron_notifications(self):
+        invoice_success = self.init_invoice("out_invoice", amounts=[1000], post=True)
+        invoice_error = self.init_invoice("out_invoice", amounts=[1000], post=True)
+        wizard = self.create_send_and_print(invoice_success + invoice_error)
+        wizard.checkbox_download = False
+        sp_partner = self.env.user.partner_id
+        wizard.action_send_and_print()
+
+        def _hook_invoice_document_before_pdf_report_render(self, invoice, invoice_data):
+            if invoice == invoice_error:
+                invoice_data['error'] = 'blblblbl'
+
+        self.assertTrue(invoice_success.send_and_print_values)
+        self.assertEqual(invoice_success.send_and_print_values.get('sp_partner_id'), sp_partner.id)
+
+        with patch(
+            'flectra.addons.account.wizard.account_move_send.AccountMoveSend._hook_invoice_document_before_pdf_report_render',
+            _hook_invoice_document_before_pdf_report_render,
+        ):
+            self.env.ref('account.ir_cron_account_move_send').method_direct_trigger()  # force processing
+
+        bus = self.env['bus.bus'].sudo().search(
+            [('channel', 'like', f'"res.partner",{sp_partner.id}')],
+            order='id desc',
+            limit=1,
+        )
+        self.assertEqual(json.loads(bus.message)['payload']['type'], 'success')
+        self.assertEqual(json.loads(bus.message)['payload']['action_button']['res_ids'], invoice_success.ids)
+        # FIXME @las I only manage to get the latest message, and not the previous one with the invoices in error T_T any idea ?

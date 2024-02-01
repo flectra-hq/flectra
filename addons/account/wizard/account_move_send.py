@@ -562,8 +562,7 @@ class AccountMoveSend(models.TransientModel):
                 self._hook_invoice_document_before_pdf_report_render(invoice, invoice_data)
                 invoice_data['blocking_error'] = invoice_data.get('error') \
                                                  and not (allow_fallback_pdf and invoice_data.get('error_but_continue'))
-                if invoice_data['blocking_error']:
-                    continue
+                invoice_data['error_but_continue'] = allow_fallback_pdf and invoice_data.get('error_but_continue')
 
         invoices_data_web_service = {
             invoice: invoice_data
@@ -576,7 +575,7 @@ class AccountMoveSend(models.TransientModel):
         invoices_data_pdf = {
             invoice: invoice_data
             for invoice, invoice_data in invoices_data.items()
-            if not invoice_data.get('error') or not invoice_data.get('blocking_error', True)
+            if not invoice_data.get('error') or invoice_data.get('error_but_continue')
         }
         for invoice, invoice_data in invoices_data_pdf.items():
             if self._need_invoice_document(invoice) and not invoice_data.get('error'):
@@ -603,8 +602,8 @@ class AccountMoveSend(models.TransientModel):
             self._call_web_service_after_invoice_pdf_render(invoices_data_web_service)
 
         # Create and link the generated documents to the invoice if the web-service didn't failed.
-        for invoice, invoice_data in invoices_data_pdf.items():
-            if not invoice_data.get('error') and self._need_invoice_document(invoice):
+        for invoice, invoice_data in invoices_data_web_service.items():
+            if self._need_invoice_document(invoice) and (not invoice_data.get('error') or allow_fallback_pdf):
                 self._link_invoice_documents(invoice, invoice_data)
 
     @api.model
@@ -629,7 +628,7 @@ class AccountMoveSend(models.TransientModel):
                 'close': True,  # close the wizard
             }
         else:
-            filename = next(iter(moves_data))._get_invoice_report_filename(extension='zip') if len(moves_data) == 1 else 'invoices.zip'
+            filename = next(iter(moves_data))._get_invoice_report_filename(extension='zip') if len(moves_data) == 1 else _('invoices') + '.zip'
             return {
                 'type': 'ir.actions.act_url',
                 'url': f"/account/export_zip_documents?{url_encode({'ids': attachment_ids, 'filename': filename})}",
@@ -672,8 +671,10 @@ class AccountMoveSend(models.TransientModel):
             self._hook_if_success(success, from_cron=from_cron, allow_fallback_pdf=allow_fallback_pdf)
 
         # Update send and print values of moves
-        for move in moves:
-            if move.send_and_print_values:
+        for move, move_data in moves_data.items():
+            if from_cron and move_data.get('error'):
+                move.send_and_print_values = {'error': True}
+            else:
                 move.send_and_print_values = False
 
         to_download = {move: move_data for move, move_data in moves_data.items() if move_data.get('download')}
@@ -705,9 +706,18 @@ class AccountMoveSend(models.TransientModel):
         if process_later:
             # Set sending information on moves
             for move in self.move_ids:
-                move.send_and_print_values = self._get_wizard_values()
+                move.send_and_print_values = {'sp_partner_id': self.env.user.partner_id.id, **self._get_wizard_values()}
             self.env.ref('account.ir_cron_account_move_send')._trigger()
-            return {'type': 'ir.actions.act_window_close'}
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'info',
+                    'title': _('Sending invoices'),
+                    'message': _('Invoices are being sent in the background.'),
+                    'next': {'type': 'ir.actions.act_window_close'},
+                },
+            }
 
         return self._process_send_and_print(
             self.move_ids,
