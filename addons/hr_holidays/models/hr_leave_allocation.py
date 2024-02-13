@@ -562,6 +562,8 @@ class HolidaysAllocation(models.Model):
 
         fake_allocation = self.env['hr.leave.allocation'].new(origin=self)
         fake_allocation.sudo()._process_accrual_plans(accrual_date, log=False)
+        if self.type_request_unit in ['hour']:
+            return float_round(fake_allocation.number_of_hours_display - self.number_of_hours_display, precision_digits=2)
         return round((fake_allocation.number_of_days - self.number_of_days), 2)
 
     ####################################################
@@ -708,12 +710,14 @@ class HolidaysAllocation(models.Model):
         } for employee in employees]
 
     def action_validate(self):
-        self.write({
-            'state': 'validate',
-            'approver_id': self.env.user.employee_id.id
-        })
-        self._action_validate_create_childs()
-        self.activity_update()
+        to_validate = self.filtered(lambda alloc: alloc.state != 'validate')
+        if to_validate:
+            to_validate.write({
+                'state': 'validate',
+                'approver_id': self.env.user.employee_id.id
+            })
+            to_validate._action_validate_create_childs()
+            to_validate.activity_update()
         return True
 
     def _action_validate_create_childs(self):
@@ -848,7 +852,8 @@ class HolidaysAllocation(models.Model):
                     to_do |= allocation
                 elif allocation.state == 'refuse':
                     to_clean |= allocation
-        self.env['mail.activity'].create(activity_vals)
+        if activity_vals:
+            self.env['mail.activity'].create(activity_vals)
         if to_clean:
             to_clean.activity_unlink(['hr_holidays.mail_act_leave_allocation_approval'])
         if to_do:

@@ -1,8 +1,8 @@
 /** @flectra-module **/
 
 import { FloatField, floatField } from "@web/views/fields/float/float_field";
+import { formatFloat } from "@web/views/fields/formatters";
 import { registry } from "@web/core/registry";
-import { formatFloat } from "@web/core/utils/numbers";
 import { useRef, onPatched, onMounted, useState } from "@flectra/owl";
 
 /**

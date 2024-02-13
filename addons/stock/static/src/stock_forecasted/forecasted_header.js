@@ -1,6 +1,6 @@
 /** @flectra-module **/
 import { useService } from "@web/core/utils/hooks";
-import { formatFloat } from "@web/core/utils/numbers";
+import { formatFloat } from "@web/views/fields/formatters";
 import { Component } from "@flectra/owl";
 
 export class ForecastedHeader extends Component {

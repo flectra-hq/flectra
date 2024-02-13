@@ -1,5 +1,5 @@
 /** @flectra-module **/
-import { formatFloat } from "@web/core/utils/numbers";
+import { formatFloat } from "@web/views/fields/formatters";
 import { useService } from "@web/core/utils/hooks";
 import { Component } from "@flectra/owl";
 

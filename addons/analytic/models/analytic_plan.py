@@ -5,7 +5,7 @@ from random import randint
 
 from flectra import api, fields, models, _
 from flectra.exceptions import UserError
-from flectra.tools import ormcache
+from flectra.tools import ormcache, make_index_name, create_index
 
 
 class AccountAnalyticPlan(models.Model):
@@ -246,7 +246,7 @@ class AccountAnalyticPlan(models.Model):
         return super().unlink()
 
     def _find_plan_column(self):
-        return self.env['ir.model.fields'].search([
+        return self.env['ir.model.fields'].sudo().search([
             ('name', 'in', [plan._strict_column_name() for plan in self]),
             ('model', '=', 'account.analytic.line'),
         ])
@@ -260,8 +260,9 @@ class AccountAnalyticPlan(models.Model):
             elif prev:
                 prev.field_description = plan.name
             elif not plan.parent_id:
-                self.env['ir.model.fields'].with_context(update_custom_fields=True).create({
-                    'name': plan._strict_column_name(),
+                column = plan._strict_column_name()
+                self.env['ir.model.fields'].with_context(update_custom_fields=True).sudo().create({
+                    'name': column,
                     'field_description': plan.name,
                     'state': 'manual',
                     'model': 'account.analytic.line',
@@ -269,6 +270,9 @@ class AccountAnalyticPlan(models.Model):
                     'ttype': 'many2one',
                     'relation': 'account.analytic.account',
                 })
+                tablename = self.env['account.analytic.line']._table
+                indexname = make_index_name(tablename, column)
+                create_index(self.env.cr, indexname, tablename, [column], 'btree', f'{column} IS NOT NULL')
 
 
 class AccountAnalyticApplicability(models.Model):

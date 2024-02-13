@@ -3,6 +3,7 @@
 from flectra.exceptions import UserError
 from flectra.tests import tagged, common, Form
 from flectra.tools import float_compare, float_is_zero
+from flectra import Command
 
 
 @tagged('post_install', '-at_install')
@@ -303,8 +304,13 @@ class TestRepair(common.TransactionCase):
         self.assertEqual(lineD.state, 'assigned')
         num_of_lines = len(repair.move_ids)
         self.assertFalse(repair.move_id)
-        repair.action_repair_end()
-
+        end_action = repair.action_repair_end()
+        self.assertEqual(end_action.get("res_model"), "repair.warn.uncomplete.move")
+        warn_uncomplete_wizard = Form(
+            self.env['repair.warn.uncomplete.move']
+            .with_context(**end_action['context'])
+            ).save()
+        warn_uncomplete_wizard.action_validate()
         self.assertEqual(repair.state, "done")
         done_moves = repair.move_ids - lineD
         #line a,b,c are 'done', line d is 'cancel'
@@ -618,3 +624,31 @@ class TestRepair(common.TransactionCase):
         repair_order.move_ids.quantity = 1
         repair_order.action_repair_end()
         self.assertEqual(repair_order.state, 'done')
+
+    def test_repair_multi_unit_order_with_serial_tracking(self):
+        """
+        Test that a sale order with a single order line with quantity > 1 for a product that creates a repair order and
+        is tracked via serial number creates multiple repair orders rather than grouping the line into a single RO
+        """
+        product_a = self.env['product.product'].create({
+            'name': 'productA',
+            'detailed_type': 'product',
+            'tracking': 'serial',
+            'create_repair': True,
+        })
+
+        sale_order = self.env['sale.order'].create({
+            'partner_id': self.res_partner_1.id,
+            'order_line': [Command.create({
+                'product_id': product_a.id,
+                'product_uom_qty': 3.0,
+            })]
+        })
+        sale_order.action_confirm()
+
+        repair_orders = sale_order.repair_order_ids
+        self.assertRecordValues(repair_orders, [
+            {'product_id': product_a.id, 'product_qty': 1.0},
+            {'product_id': product_a.id, 'product_qty': 1.0},
+            {'product_id': product_a.id, 'product_qty': 1.0},
+        ])

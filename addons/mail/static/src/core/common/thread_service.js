@@ -642,7 +642,10 @@ export class ThreadService {
      * @param {import("models").Thread} thread
      * @param {boolean} pushState
      */
-    setDiscussThread(thread, pushState = true) {
+    setDiscussThread(thread, pushState) {
+        if (pushState === undefined) {
+            pushState = thread.localId !== this.store.discuss.thread?.localId;
+        }
         this.store.discuss.thread = thread;
         const activeId =
             typeof thread.id === "string"
@@ -776,14 +779,18 @@ export class ThreadService {
               })
             : undefined;
         const partner_ids = validMentions?.partners.map((partner) => partner.id);
-        let recipientEmails = [];
+        const recipientEmails = [];
+        const recipientAdditionalValues = {};
         if (!isNote) {
             const recipientIds = thread.suggestedRecipients
                 .filter((recipient) => recipient.persona && recipient.checked)
                 .map((recipient) => recipient.persona.id);
-            recipientEmails = thread.suggestedRecipients
+            thread.suggestedRecipients
                 .filter((recipient) => recipient.checked && !recipient.persona)
-                .map((recipient) => recipient.email);
+                .forEach((recipient) => {
+                    recipientEmails.push(recipient.email);
+                    recipientAdditionalValues[recipient.email] = recipient.defaultCreateValues;
+                });
             partner_ids?.push(...recipientIds);
         }
         return {
@@ -799,6 +806,7 @@ export class ThreadService {
                 partner_ids,
                 subtype_xmlid: subtype,
                 partner_emails: recipientEmails,
+                partner_additional_values: recipientAdditionalValues,
             },
             thread_id: thread.id,
             thread_model: thread.model,

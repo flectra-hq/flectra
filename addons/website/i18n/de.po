@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 12:31+0000\n"
+"POT-Creation-Date: 2024-01-29 10:44+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
@@ -1630,6 +1630,13 @@ msgid "About us"
 msgstr "Über uns"
 
 #. module: website
+#. odoo-python
+#: code:addons/website/models/website.py:0
+#, python-format
+msgid "Access Denied"
+msgstr "Zugriff verweigert"
+
+#. module: website
 #: model:ir.model.fields,field_description:website.field_website_visitor__access_token
 msgid "Access Token"
 msgstr "Zugriffstoken"
@@ -1860,6 +1867,11 @@ msgstr "Ein neues Feld nach diesem hinzufügen"
 #: model_terms:ir.ui.view,arch_db:website.s_website_form_options
 msgid "Add a new field at the end"
 msgstr "Ein neues Feld am Ende hinzufügen"
+
+#. module: website
+#: model_terms:ir.ui.view,arch_db:website.view_view_form_extend
+msgid "Add groups in the \"Access Rights\" tab below."
+msgstr "Fügen Sie Gruppen unten im Reiter „Zugriffsrechte“ hinzu."
 
 #. module: website
 #. odoo-python
@@ -5701,6 +5713,18 @@ msgid "Google Search Console"
 msgstr "Google-Suchkonsole"
 
 #. module: website
+#. odoo-python
+#: code:addons/website/models/res_config_settings.py:0
+#: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
+#, python-format
+msgid ""
+"Google doesn't need to be pinged anymore. It will automatically fetch your "
+"/sitemap.xml."
+msgstr ""
+"Google braucht nicht mehr gepingt zu werden. Ihre /sitemap.xml wird "
+"automatisch abgerufen."
+
+#. module: website
 #: model:ir.model.fields,help:website.field_res_config_settings__google_search_console
 #: model:ir.model.fields,help:website.field_website__google_search_console
 msgid "Google key, or Enable to access first reply"
@@ -8144,6 +8168,11 @@ msgstr "Newsletter-Pop-up"
 #, python-format
 msgid "Next"
 msgstr "Weiter"
+
+#. module: website
+#: model_terms:ir.ui.view,arch_db:website.step_wizard
+msgid "Next:"
+msgstr "Als nächstes:"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_tabs_options

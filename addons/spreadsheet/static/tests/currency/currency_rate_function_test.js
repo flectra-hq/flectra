@@ -7,7 +7,7 @@ import {
     waitForDataSourcesLoaded,
 } from "@spreadsheet/../tests/utils/model";
 
-QUnit.module("spreadsheet > Currency");
+QUnit.module("spreadsheet > FLECTRA.CURRENCY.RATE function");
 
 QUnit.test("Basic exchange formula", async (assert) => {
     const model = await createModelWithDataSource({

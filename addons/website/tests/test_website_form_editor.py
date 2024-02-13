@@ -1,11 +1,14 @@
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
 # -*- coding: utf-8 -*-
 
-import flectra.tests
+from flectra.http import request
 from flectra.addons.base.tests.common import HttpCaseWithUserPortal
+from flectra.addons.website.controllers.form import WebsiteForm
+from flectra.addons.website.tools import MockRequest
+from flectra.tests.common import tagged, TransactionCase
 
 
-@flectra.tests.tagged('post_install', '-at_install')
+@tagged('post_install', '-at_install')
 class TestWebsiteFormEditor(HttpCaseWithUserPortal):
     @classmethod
     def setUpClass(cls):
@@ -50,3 +53,21 @@ class TestWebsiteFormEditor(HttpCaseWithUserPortal):
         self.start_tour('/contactus', 'website_form_contactus_change_random_option', login="admin")
         self.env.company.email = 'after.change@mail.com'
         self.start_tour('/contactus', 'website_form_contactus_check_changed_email', login="portal")
+
+
+@tagged('post_install', '-at_install')
+class TestWebsiteForm(TransactionCase):
+
+    def test_website_form_html_escaping(self):
+        website = self.env['website'].browse(1)
+        WebsiteFormController = WebsiteForm()
+        with MockRequest(self.env, website=website):
+            WebsiteFormController.insert_record(
+                request,
+                self.env['ir.model'].search([('model', '=', 'mail.mail')]),
+                {'email_from': 'flectrabot@example.com', 'subject': 'John <b>Smith</b>', 'email_to': 'company@company.company'},
+                "John <b>Smith</b>",
+            )
+            mail = self.env['mail.mail'].search([], order='id desc', limit=1)
+            self.assertNotIn('<b>', mail.body_html, "HTML should be escaped in website form")
+            self.assertIn('&lt;b&gt;', mail.body_html, "HTML should be escaped in website form (2)")

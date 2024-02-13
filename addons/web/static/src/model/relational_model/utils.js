@@ -475,7 +475,7 @@ export function extractInfoFromGroupData(groupData, groupBy, fields) {
     info.rawValue = groupData[groupBy[0]];
     info.value = getValueFromGroupData(groupByField, info.rawValue, info.range);
     info.displayName = getDisplayNameFromGroupData(groupByField, info.rawValue);
-    info.serverValue = getServerValueFromGroupData(groupByField, info.value);
+    info.serverValue = getGroupServerValue(groupByField, info.value);
     info.aggregates = getAggregatesFromGroupData(groupData, fields);
     return info;
 }
@@ -514,7 +514,7 @@ function getDisplayNameFromGroupData(field, rawValue) {
  * @param {any} value
  * @returns {any}
  */
-function getServerValueFromGroupData(field, value) {
+export function getGroupServerValue(field, value) {
     switch (field.type) {
         case "many2many": {
             return value ? [value] : false;
@@ -619,7 +619,8 @@ export function isRelational(field) {
 export function useRecordObserver(callback) {
     const component = useComponent();
     let alive = true;
-    const fct = (props) => {
+    let props = component.props;
+    const fct = () => {
         const def = new Deferred();
         let firstCall = true;
         effect(
@@ -652,10 +653,12 @@ export function useRecordObserver(callback) {
     onWillDestroy(() => {
         alive = false;
     });
-    onWillStart(() => fct(component.props));
-    onWillUpdateProps((props) => {
-        if (props.record.id !== component.props.record.id) {
-            return fct(props);
+    onWillStart(() => fct());
+    onWillUpdateProps((nextProps) => {
+        const currentRecordId = props.record.id;
+        props = nextProps;
+        if (props.record.id !== currentRecordId) {
+            return fct();
         }
     });
 }

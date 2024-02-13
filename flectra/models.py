@@ -2463,7 +2463,7 @@ class BaseModel(metaclass=MetaModel):
 
                 if not value and field.type == 'many2many':
                     other_values = [other_row[group][0] if isinstance(other_row[group], tuple)
-                                    else other_row[group].id if isinstance(value, BaseModel)
+                                    else other_row[group].id if isinstance(other_row[group], BaseModel)
                                     else other_row[group] for other_row in rows_dict if other_row[group]]
                     additional_domain = [(field_name, 'not in', other_values)]
                 else:
@@ -5598,6 +5598,7 @@ class BaseModel(metaclass=MetaModel):
         self.flush_model([parent])
         for id in self.ids:
             current_id = id
+            seen_ids = {current_id}
             while current_id:
                 cr.execute(SQL(
                     "SELECT %s FROM %s WHERE id = %s",
@@ -5605,8 +5606,9 @@ class BaseModel(metaclass=MetaModel):
                 ))
                 result = cr.fetchone()
                 current_id = result[0] if result else None
-                if current_id == id:
+                if current_id in seen_ids:
                     return False
+                seen_ids.add(current_id)
         return True
 
     def _check_m2m_recursion(self, field_name):

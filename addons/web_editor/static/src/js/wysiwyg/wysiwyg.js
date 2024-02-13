@@ -60,6 +60,8 @@ const hasValidSelection = FlectraEditorLib.hasValidSelection;
 const parseHTML = FlectraEditorLib.parseHTML;
 const closestBlock = FlectraEditorLib.closestBlock;
 const getRangePosition = FlectraEditorLib.getRangePosition;
+const getCursorDirection = FlectraEditorLib.getCursorDirection;
+const DIRECTIONS = FlectraEditorLib.DIRECTIONS;
 
 function getJqueryFromDocument(doc) {
     if (doc.defaultView && doc.defaultView.$) {
@@ -189,6 +191,10 @@ export class Wysiwyg extends Component {
             withGradients: true,
             onColorLeave: () => {
                 this.flectraEditor.historyRevertCurrentStep();
+                // Compute the selection to ensure it's preserved between
+                // selectionchange events in case this gets triggered multiple
+                // times quickly.
+                this.flectraEditor._computeHistorySelection();
             },
             onInputEnter: (ev) => {
                 const pickergroup = ev.target.closest('.colorpicker-group');
@@ -484,7 +490,7 @@ export class Wysiwyg extends Component {
             plugins: options.editorPlugins,
             direction: options.direction || localization.direction || 'ltr',
             collaborationClientAvatarUrl: this._getCollaborationClientAvatarUrl(),
-            renderingClasses: ['o_dirty', 'o_transform_removal', 'oe_edited_link', 'o_menu_loading'],
+            renderingClasses: ["o_dirty", "o_transform_removal", "oe_edited_link", "o_menu_loading", "o_draggable"],
             dropImageAsAttachment: options.dropImageAsAttachment,
             foldSnippets: !!options.foldSnippets,
             useResponsiveFontSizes: options.useResponsiveFontSizes,
@@ -1562,8 +1568,17 @@ export class Wysiwyg extends Component {
                         anchorOffset = focusOffset = index;
                     }
                 } else {
-                    anchorNode = link;
-                    focusNode = link;
+                    const isDirectionRight = getCursorDirection(selection.anchorNode, 0, selection.focusNode, 0) === DIRECTIONS.RIGHT;
+                    if (
+                        closestElement(selection.anchorNode, 'a') === link &&
+                        closestElement(selection.focusNode, 'a') === link
+                    ) {
+                        [anchorNode, focusNode] = isDirectionRight
+                            ? [selection.anchorNode, selection.focusNode]
+                            : [selection.focusNode, selection.anchorNode];
+                    } else {
+                        [anchorNode, focusNode] = [link, link];
+                    }
                 }
                 if (!focusOffset) {
                     focusOffset = focusNode.childNodes.length || focusNode.length;
@@ -1648,25 +1663,30 @@ export class Wysiwyg extends Component {
         const targetEl = this.flectraEditor.document.getSelection();
         const closest = closestBlock(targetEl.anchorNode);
         const restoreSelection = preserveCursor(this.flectraEditor.document);
-        const blockWidth = parseInt(getComputedStyle(closest).width.slice(0, -2)); // remove 'px'
-        // Calculate one/fouth portion of blockWidth, and then on the basis of our cursor position
-        // check in which quadrant it falls, give the popover its position accordingly
-        const portionWidth = (blockWidth / 4);
-        const cursorAt = getRangePosition(targetEl, this.flectraEditor.document).left;
-        let position = 'end';
-        if (cursorAt < portionWidth * 2) {
-            position = 'start';
-        } else if (cursorAt <= portionWidth * 3) {
-            position = 'middle';
-        }
 
         this.popover.add(closest, EmojiPicker, {
                 onSelect: (str) => {
                     restoreSelection();
                     this.flectraEditor.execCommand('insert', str);
                 },
+            }, {
+                onPositioned: (popover) => {
+                    restoreSelection();
+                    // Set the 'parentContextRect' option in 'options' when
+                    // 'getContextFromParentRect' is available. This facilitates
+                    // element positioning relative to a parent or reference
+                    // rectangle.
+                    const options = {};
+                    if (this.options.getContextFromParentRect) {
+                        options['parentContextRect'] = this.options.getContextFromParentRect();
+                    }
+                    const rangePosition = getRangePosition(popover, this.options.document, options);
+                    popover.style.top = rangePosition.top + 'px';
+                    popover.style.left = rangePosition.left + 'px';
+                    const oInputBox = popover.getElementsByClassName('o_input')[0];
+                    oInputBox.focus();
+                },
             },
-            { position: `bottom-${position}`}
         );
     }
     /**
@@ -2026,7 +2046,7 @@ export class Wysiwyg extends Component {
             const range = new Range();
             range.setStart(first, 0);
             range.setEnd(...endPos(last));
-            sel.addRange(range);
+            sel.addRange(getDeepRange(this.flectraEditor.editable, { range }));
         }
 
         const hexColor = this._colorToHex(color);
@@ -2293,7 +2313,8 @@ export class Wysiwyg extends Component {
                     </div>
                 `).childNodes[0];
                 this.flectraEditor.execCommand('insert', bannerElement);
-                setSelection(bannerElement.querySelector('.o_editor_banner > div'), 0);
+                this.flectraEditor.activateContenteditable();
+                setSelection(bannerElement.querySelector('.o_editor_banner > div > p'), 0);
             },
         }
     }
@@ -2643,7 +2664,7 @@ export class Wysiwyg extends Component {
                         .removeClass(id)
                         .popover({
                             trigger: 'hover',
-                            content: response.message.data.message || '',
+                            content: response.message.data?.message || '',
                             placement: 'auto',
                         })
                         .popover('show');

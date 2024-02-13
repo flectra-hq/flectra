@@ -338,10 +338,6 @@ $o-we-zindex: $o-we-overlay-zindex + 1 !default;
             display: none;
         }
 
-        .colorpicker-menu {
-            bottom: 100%;
-        }
-
         .o_we_colorpicker_switch_panel button {
             margin-bottom: -1px;
             border: 0;
@@ -432,7 +428,9 @@ body:not(.editor_has_snippets) {
 
 .oe_edited_link {
     position: relative;
-    display: inline-block;
+    &:not(.nav-link) {
+        display: inline-block;
+    }
     &::before {
         content: '';
         border: dashed 3px #01bad2;

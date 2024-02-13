@@ -33,14 +33,17 @@
 # Chrille Hedberg <hedberg.chrille@gmail.com>, 2024
 # Lasse L, 2024
 # Kristoffer Grundström <lovaren@gmail.com>, 2024
+# Caroline Renson <car@odoo.com>, 2024
+# Frida E, 2024
+# sesn-odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 12:31+0000\n"
+"POT-Creation-Date: 2024-01-29 10:44+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Kristoffer Grundström <lovaren@gmail.com>, 2024\n"
+"Last-Translator: sesn-odoo, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -671,47 +674,47 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
-"<div style=”margin: 0px; padding: 0px;”>\n"
-"    <p style=”margin: 0px; padding: 0px; font-size: 13px;”>\n"
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
 "        Hej\n"
-"        <t t-if=”object.partner_id.parent_id”>\n"
-"            <t t-out=”object.partner_id.name or ’’”>Brandon Freeman</t> (<t t-out=”object.partner_id.parent_id.name or ’’”>Azure Interior</t>)!\n"
+"        <t t-if=\"object.partner_id.parent_id\">\n"
+"            <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t> (<t t-out=\"object.partner_id.parent_id.name or ''\">Azure Interior</t>),\n"
 "        </t>\n"
-"        <t t-else=””>\n"
-"            <t t-out=”object.partner_id.name or ’’”>Brandon Freeman</t>!\n"
+"        <t t-else=\"\">\n"
+"            <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t>,\n"
 "        </t>\n"
 "        <br><br>\n"
 "        Här är din\n"
-"        <t t-if=”object.name”>\n"
-"            faktura <span style=”font-weight:bold;” t-out=”object.name or ’’”>FAK/2021/05/0005</span>\n"
+"        <t t-if=\"object.name\">\n"
+"            faktura <span style=\"font-weight:bold;\" t-out=\"object.name or ''\">INV/2021/05/0005</span>\n"
 "        </t>\n"
-"        <t t-else=””>\n"
+"        <t t-else=\"\">\n"
 "            faktura\n"
 "        </t>\n"
-"        <t t-if=”object.invoice_origin”>\n"
-"            (med hänvisning till: <t t-out=”object.invoice_origin or ’’”>SUB003</t>)\n"
+"        <t t-if=\"object.invoice_origin\">\n"
+"            (med hänvisning till: <t t-out=\"object.invoice_origin or ''\">SUB003</t>)\n"
 "        </t>\n"
-"        på totalt <span style=”font-weight:bold;” t-out=”format_amount(object.amount_total, object.currency_id) or ’’”>143 750,00 kr</span>\n"
-"        från <t t-out=”object.company_id.name or ’’”>DittFöretag</t>.\n"
-"        <t t-if=”object.payment_state in (’paid’, ’in_payment’)”>\n"
+"        på totalt <span style=\"font-weight:bold;\" t-out=\"format_amount(object.amount_total, object.currency_id) or ''\">$ 143,750.00</span>\n"
+"        från <t t-out=\"object.company_id.name or ''\">DittFöretag</t>.\n"
+"        <t t-if=\"object.payment_state in ('paid', 'in_payment')\">\n"
 "            Denna faktura är redan betald.\n"
 "        </t>\n"
-"        <t t-else=””>\n"
+"        <t t-else=\"\">\n"
 "            Vänligen genomför betalning så snart som möjligt.\n"
-"            <t t-if=”object.payment_reference”>\n"
+"            <t t-if=\"object.payment_reference\">\n"
 "                <br><br>\n"
-"                Använd följande referens vid din betalning: <span style=”font-weight:bold;” t-out=”object.payment_reference or ’’”>FAK/2021/05/0005</span>.\n"
+"                Använd följande referens vid din betalning: <span style=\"font-weight:bold;\" t-out=\"object.payment_reference or ''\">INV/2021/05/0005</span>.\n"
 "            </t>\n"
 "        </t>\n"
-"        <t t-if=”hasattr(object, ’timesheet_count’) and object.timesheet_count”>\n"
+"        <t t-if=\"hasattr(object, 'timesheet_count') and object.timesheet_count\">\n"
 "            <br><br>\n"
-"            PS: du kan granska dina tidrapporter <a t-att-href=”’my/timesheets?search_in=invoice&amp;search=%s’ % object.name”>via portalen.</a>\n"
+"            PS: du kan granska dina tidrapporter <a t-att-href=\"'my/timesheets?search_in=invoice&amp;search=%s' % object.name\">via portalen.</a>\n"
 "        </t>\n"
 "        <br><br>\n"
 "        Tveka inte att kontakta oss om du har några frågor.\n"
-"        <t t-if=”not is_html_empty(object.invoice_user_id.signature)”>\n"
+"        <t t-if=\"not is_html_empty(object.invoice_user_id.signature)\">\n"
 "            <br><br>\n"
-"            <t t-out=”object.invoice_user_id.signature or ’’”>—<br>Mitchell Admin</t>\n"
+"            <t t-out=\"object.invoice_user_id.signature or ''\">--<br>Mitchell Admin</t>\n"
 "        </t>\n"
 "    </p>\n"
 "</div>\n"
@@ -870,9 +873,9 @@ msgid ""
 "                            <span invisible=\"not allow_out_payment\" class=\"text-success\">Trusted</span>\n"
 "                        </span>"
 msgstr ""
-"<span class=”d-flex gap-2 w-100”>\n"
-"    <span invisible=”allow_out_payment” class=”text-muted”>Ej betrodd</span>\n"
-"    <span invisible=”not allow_out_payment” class=”text-success”>Betrodd</span>\n"
+"<span class=\"d-flex gap-2 w-100\">\n"
+"    <span invisible=\"allow_out_payment\" class=\"text-muted\">Ej betrodd</span>\n"
+"    <span invisible=\"not allow_out_payment\" class=\"text-success\">Betrodd</span>\n"
 "</span>"
 
 #. module: account
@@ -1072,8 +1075,8 @@ msgid ""
 "                                        A second payment will be created in the destination journal.\n"
 "                                    </span>"
 msgstr ""
-"<span invisible=”paired_internal_transfer_payment_id or not is_internal_transfer or state != ’draft’” class=”fst-italic”>\n"
-"                                        En andra betalning kommer att skapas i måljournalen.\n"
+"<span invisible=\"paired_internal_transfer_payment_id or not is_internal_transfer or state != ’draft’\" class=\"fst-italic\">\n"
+"En andra betalning kommer att skapas i måljournalen.\n"
 "</span>"
 
 #. module: account
@@ -1116,7 +1119,7 @@ msgstr "<span role=\"separator\">Vy</span>"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
 msgid "<span title=\"Latest Statement\">Last Statement</span>"
-msgstr "<span title=”Senaste kontoutdraget”>Sista kontoutdraget</span>"
+msgstr "<span title=\"Senaste kontoutdraget\">Sista kontoutdraget</span>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
@@ -6354,6 +6357,16 @@ msgid "Epd Needed"
 msgstr "Epd Behövs"
 
 #. module: account
+#. odoo-javascript
+#: code:addons/account/static/src/components/account_type_selection/account_type_selection.js:0
+#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__equity
+#: model:ir.model.fields.selection,name:account.selection__account_account__internal_group__equity
+#: model_terms:ir.ui.view,arch_db:account.view_account_search
+#, python-format
+msgid "Equity"
+msgstr "Eget kapital"
+
+#. module: account
 #. odoo-python
 #: code:addons/account/models/chart_template.py:0
 #, python-format
@@ -6363,16 +6376,6 @@ msgid ""
 msgstr ""
 "Fel uppstod vid laddningen av lokaliseringen. Du borde nog uppdatera din "
 "lokaliseringsapp först."
-
-#. module: account
-#. odoo-javascript
-#: code:addons/account/static/src/components/account_type_selection/account_type_selection.js:0
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__equity
-#: model:ir.model.fields.selection,name:account.selection__account_account__internal_group__equity
-#: model_terms:ir.ui.view,arch_db:account.view_account_search
-#, python-format
-msgid "Equity"
-msgstr "Eget kapital"
 
 #. module: account
 #. odoo-python
@@ -8005,6 +8008,13 @@ msgstr "Felaktigt \"Postnummerintervall\", vänligen konfigurera det korrekt."
 
 #. module: account
 #. odoo-python
+#: code:addons/account/models/account_report.py:0
+#, python-format
+msgid "Invalid domain for expression '%s' of line '%s': %s"
+msgstr ""
+
+#. module: account
+#. odoo-python
 #: code:addons/account/models/company.py:0
 #, python-format
 msgid "Invalid fiscal year last day"
@@ -8288,10 +8298,39 @@ msgstr "Fakturastatistik"
 
 #. module: account
 #. odoo-python
+#: code:addons/account/wizard/account_move_send.py:0
+#, python-format
+msgid "Invoices are being sent in the background."
+msgstr ""
+
+#. module: account
+#. odoo-python
+#: code:addons/account/models/account_move.py:0
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "Invoices in error"
+msgstr ""
+
+#. module: account
+#. odoo-python
 #: code:addons/account/models/account_journal_dashboard.py:0
 #, python-format
 msgid "Invoices owed to you"
 msgstr "Fakturor som du är skyldig dig"
+
+#. module: account
+#. odoo-python
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "Invoices sent"
+msgstr ""
+
+#. module: account
+#. odoo-python
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "Invoices sent successfully."
+msgstr ""
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
@@ -10221,6 +10260,13 @@ msgstr ""
 "En eller flera bankkonton inställda på denna partner används också av andra"
 
 #. module: account
+#. odoo-python
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "One or more invoices couldn't be processed."
+msgstr ""
+
+#. module: account
 #: model:ir.ui.menu,name:account.root_payment_menu
 msgid "Online Payments"
 msgstr "Onlinebetalningar"
@@ -10294,8 +10340,11 @@ msgid "Oops"
 msgstr "Oops"
 
 #. module: account
+#. odoo-python
+#: code:addons/account/models/account_move.py:0
 #: model:ir.model.fields.selection,name:account.selection__account_invoice_report__state__posted
 #: model:ir.model.fields.selection,name:account.selection__account_journal__invoice_reference_type__none
+#, python-format
 msgid "Open"
 msgstr "Öppna"
 
@@ -12713,9 +12762,23 @@ msgid ""
 msgstr ""
 
 #. module: account
+#. odoo-python
+#: code:addons/account/wizard/account_move_send.py:0
+#, python-format
+msgid "Sending invoices"
+msgstr ""
+
+#. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_payment_search
 msgid "Sent"
 msgstr "Skickat"
+
+#. module: account
+#. odoo-python
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "Sent invoices"
+msgstr ""
 
 #. module: account
 #: model:mail.template,description:account.mail_template_data_payment_receipt
@@ -16839,8 +16902,8 @@ msgstr ""
 #, python-format
 msgid ""
 "You cannot import the \"openning_balance\" if the opening move (%s) is "
-"already posted.                         If you are absolutely sure you want "
-"to modify the opening balance of your accounts, reset the move to draft."
+"already posted. If you are absolutely sure you want to modify the opening "
+"balance of your accounts, reset the move to draft."
 msgstr ""
 
 #. module: account
@@ -17398,6 +17461,13 @@ msgstr ""
 #: model:ir.model.fields.selection,name:account.selection__account_reconcile_model__payment_tolerance_type__percentage
 msgid "in percentage"
 msgstr "i procent"
+
+#. module: account
+#. odoo-python
+#: code:addons/account/wizard/account_move_send.py:0
+#, python-format
+msgid "invoices"
+msgstr "fakturor"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_partner_bank_form_inherit_account

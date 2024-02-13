@@ -466,10 +466,10 @@ registry.slider = publicWidget.Widget.extend({
         $(window).on('resize.slider', debounce(() => this._computeHeights(), 250));
         if (this.editableMode) {
             // Prevent carousel slide to be an history step.
-            this.$el.on("slide.bs.carousel", () => {
+            this.$el.on("slide.bs.carousel.slider", () => {
                 this.options.wysiwyg.flectraEditor.observerUnactive();
             });
-            this.$el.on("slid.bs.carousel", () => {
+            this.$el.on("slid.bs.carousel.slider", () => {
                 this.options.wysiwyg.flectraEditor.observerActive();
             });
         }
@@ -489,7 +489,7 @@ registry.slider = publicWidget.Widget.extend({
                 $(el).css("min-height", "");
             });
         $(window).off('.slider');
-        this.$target.off('.carousel');
+        this.$el.off('.slider');
     },
 
     //--------------------------------------------------------------------------
@@ -1142,7 +1142,16 @@ registry.FullScreenHeight = publicWidget.Widget.extend({
         // Doing it that way allows to considerer fixed headers, hidden headers,
         // connected users, ...
         const firstContentEl = $('#wrapwrap > main > :first-child')[0]; // first child to consider the padding-top of main
+        // When a modal is open, we remove the "modal-open" class from the body.
+        // This is because this class sets "#wrapwrap" and "<body>" to
+        // "overflow: hidden," preventing the "closestScrollable" function from
+        // correctly recognizing the scrollable element closest to the element
+        // for which the height needs to be calculated. Without this, the
+        // "mainTopPos" variable would be incorrect.
+        const modalOpen = document.body.classList.contains("modal-open");
+        document.body.classList.remove("modal-open");
         const mainTopPos = firstContentEl.getBoundingClientRect().top + $(firstContentEl.parentNode).closestScrollable()[0].scrollTop;
+        document.body.classList.toggle("modal-open", modalOpen);
         return (windowHeight - mainTopPos);
     },
 });

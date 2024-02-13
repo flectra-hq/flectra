@@ -23,7 +23,7 @@ from flectra import api, models, exceptions, tools, http
 from flectra.addons.base.models import ir_http
 from flectra.addons.base.models.ir_http import RequestUID
 from flectra.addons.base.models.ir_qweb import QWebException
-from flectra.http import request, Response
+from flectra.http import request, HTTPRequest, Response
 from flectra.osv import expression
 from flectra.tools import config, ustr, pycompat
 
@@ -527,16 +527,14 @@ class IrHttp(models.AbstractModel):
             query_string = request.httprequest.environ['QUERY_STRING']
 
         # Change the WSGI environment
-        environ = request.httprequest.environ.copy()
+        environ = request.httprequest._HTTPRequest__environ.copy()
         environ['PATH_INFO'] = path
         environ['QUERY_STRING'] = query_string
         environ['RAW_URI'] = f'{path}?{query_string}'
         # REQUEST_URI left as-is so it still contains the original URI
 
         # Create and expose a new request from the modified WSGI env
-        httprequest = werkzeug.wrappers.Request(environ)
-        httprequest.parameter_storage_class = (
-            werkzeug.datastructures.ImmutableOrderedMultiDict)
+        httprequest = HTTPRequest(environ)
         threading.current_thread().url = httprequest.url
         request.httprequest = httprequest
 

@@ -858,7 +858,7 @@ export function getDeepestPosition(node, offset) {
     let direction = DIRECTIONS.RIGHT;
     let next = node;
     while (next) {
-        if (isVisible(next) || isZWS(next)) {
+        if ((isVisible(next) || isZWS(next)) && (!isBlock(next) || next.isContentEditable)) {
             // Valid node: update position then try to go deeper.
             if (next !== node) {
                 [node, offset] = [next, direction ? 0 : nodeSize(next)];
@@ -866,7 +866,7 @@ export function getDeepestPosition(node, offset) {
             // First switch direction to left if offset is at the end.
             direction = offset < node.childNodes.length;
             next = node.childNodes[direction ? offset : offset - 1];
-        } else if (direction && next.nextSibling && !isBlock(next.nextSibling)) {
+        } else if (direction && next.nextSibling) {
             // Invalid node: skip to next sibling (without crossing blocks).
             next = next.nextSibling;
         } else {
@@ -1973,6 +1973,11 @@ export function splitElement(element, offset) {
         index < offset ? before.appendChild(child) : after.appendChild(child);
         index++;
     }
+    // e.g.: <p>Test/banner</p> + ENTER <=> <p>Test</p><div class="o_editor_banner>...</div><p><br></p>
+    const blockEl = closestBlock(after);
+    if (blockEl) {
+        fillEmpty(blockEl);
+    }
     element.before(before);
     element.after(after);
     element.remove();
@@ -2101,10 +2106,12 @@ export function setTagName(el, newTagName) {
     if (el.tagName === newTagName) {
         return el;
     }
-    var n = document.createElement(newTagName);
-    var attr = el.attributes;
-    for (var i = 0, len = attr.length; i < len; ++i) {
-        n.setAttribute(attr[i].name, attr[i].value);
+    const n = document.createElement(newTagName);
+    if (paragraphRelatedElements.includes(el.nodeName)) {
+        const attributes = el.attributes;
+        for (const attr of attributes) {
+            n.setAttribute(attr.name, attr.value);
+        }
     }
     while (el.firstChild) {
         n.append(el.firstChild);

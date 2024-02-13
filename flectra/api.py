@@ -910,6 +910,10 @@ class Cache(object):
         # in `_data`
         self._dirty = defaultdict(OrderedSet)
 
+        # {field: {record_id: ids}} record ids to be added to the values of
+        # x2many fields if they are not in cache yet
+        self._patches = defaultdict(lambda: defaultdict(list))
+
     def __repr__(self):
         # for debugging: show the cache content and dirty flags as stars
         data = {}
@@ -992,27 +996,31 @@ class Cache(object):
             dirty must raise an exception
         """
         field_cache = self._set_field_cache(record, field)
+        record_id = record.id
+
         if field.translate and value is not None:
             # only for model translated fields
             lang = record.env.lang or 'en_US'
-            cache_value = field_cache.get(record._ids[0]) or {}
+            cache_value = field_cache.get(record_id) or {}
             cache_value[lang] = value
             value = cache_value
-        field_cache[record._ids[0]] = value
+
+        field_cache[record_id] = value
 
         if not check_dirty:
             return
+
         if dirty:
-            assert field.column_type and field.store and record.id
-            self._dirty[field].add(record.id)
+            assert field.column_type and field.store and record_id
+            self._dirty[field].add(record_id)
             if record.pool.field_depends_context[field]:
                 # put the values under conventional context key values {'context_key': None},
                 # in order to ease the retrieval of those values to flush them
                 context_none = dict.fromkeys(record.pool.field_depends_context[field])
                 record = record.with_env(record.env(context=context_none))
                 field_cache = self._set_field_cache(record, field)
-                field_cache[record._ids[0]] = value
-        elif record.id in self._dirty.get(field, ()):
+                field_cache[record_id] = value
+        elif record_id in self._dirty.get(field, ()):
             _logger.error("cache.set() removing flag dirty on %s.%s", record, field.name, stack_info=True)
 
     def update(self, records, field, values, dirty=False, check_dirty=True):
@@ -1098,6 +1106,34 @@ class Cache(object):
         else:
             for id_, val in zip(records._ids, values):
                 field_cache.setdefault(id_, val)
+
+    def patch(self, records, field, new_id):
+        """ Apply a patch to an x2many field on new records. The patch consists
+        in adding new_id to its value in cache. If the value is not in cache
+        yet, it will be applied once the value is put in cache with method
+        :meth:`patch_and_set`.
+        """
+        assert not new_id, "Cache.patch can only be called with a new id"
+        field_cache = self._set_field_cache(records, field)
+        for id_ in records._ids:
+            assert not id_, "Cache.patch can only be called with new records"
+            if id_ in field_cache:
+                field_cache[id_] = tuple(dict.fromkeys(field_cache[id_] + (new_id,)))
+            else:
+                self._patches[field][id_].append(new_id)
+
+    def patch_and_set(self, record, field, value):
+        """ Set the value of ``field`` for ``record``, like :meth:`set`, but
+        apply pending patches to ``value`` and return the value actually put
+        in cache.
+        """
+        field_patches = self._patches.get(field)
+        if field_patches:
+            ids = field_patches.pop(record.id, ())
+            if ids:
+                value = tuple(dict.fromkeys(value + tuple(ids)))
+        self.set(record, field, value)
+        return value
 
     def remove(self, record, field):
         """ Remove the value of ``field`` for ``record``. """
@@ -1257,6 +1293,7 @@ class Cache(object):
         """ Invalidate the cache and its dirty flags. """
         self._data.clear()
         self._dirty.clear()
+        self._patches.clear()
 
     def check(self, env):
         """ Check the consistency of the cache for the given environment. """

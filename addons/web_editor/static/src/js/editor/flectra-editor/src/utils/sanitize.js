@@ -180,13 +180,20 @@ function sanitizeNode(node, root) {
         node = parent; // The node has been removed, update the reference.
     } else if (
         node.nodeName === 'P' && // Note: not sure we should limit to <p>.
-        node.parentElement.nodeName === 'LI'
+        node.parentElement.nodeName === 'LI' &&
+        !node.parentElement.classList.contains('nav-item')
     ) {
         // Remove empty paragraphs in <li>.
+        const classes = node.classList;
         const parent = node.parentElement;
         const restoreCursor = shouldPreserveCursor(node, root) && preserveCursor(root.ownerDocument);
         if (isEmptyBlock(node)) {
             node.remove();
+        } else if (classes.length) {
+            const spanEl = document.createElement('span');
+            spanEl.setAttribute('class', classes);
+            spanEl.append(...node.childNodes);
+            node.replaceWith(spanEl);
         } else {
             unwrapContents(node);
         }
