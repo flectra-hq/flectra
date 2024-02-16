@@ -305,13 +305,17 @@ QUnit.test("Current user that is a follower should be considered as such", async
     await openFormView("res.partner", pyEnv.currentPartnerId);
     await click("button", { text: "Send message" });
     await insertText(".o-mail-Composer-input", "@");
-    await contains(".o-mail-Composer-suggestion", { count: 3 });
+    await contains(".o-mail-Composer-suggestion", { count: 4 });
     await contains(".o-mail-Composer-suggestion", {
         text: "Mitchell Admin",
         before: [".o-mail-Composer-suggestion", { text: "Person B(b@test.com)" }],
     });
     await contains(".o-mail-Composer-suggestion", {
         text: "Person B(b@test.com)",
+        before: [".o-mail-Composer-suggestion", { text: "FlectraBot" }],
+    });
+    await contains(".o-mail-Composer-suggestion", {
+        text: "FlectraBot",
         before: [".o-mail-Composer-suggestion", { text: "Person A(a@test.com)" }],
     });
 });

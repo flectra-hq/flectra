@@ -118,10 +118,6 @@ export class SuggestionService {
         const mainSuggestionList = [];
         const extraSuggestionList = [];
         for (const partner of partners) {
-            if (partner.eq(this.store.flectrabot)) {
-                // ignore archived partners (except FlectraBot)
-                continue;
-            }
             if (!partner.name) {
                 continue;
             }

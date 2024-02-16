@@ -6,7 +6,7 @@ from markupsafe import Markup
 from flectra import api, fields, models, _
 from flectra.addons.mail.tools.parser import parse_res_ids
 from flectra.exceptions import ValidationError
-from flectra.tools.misc import clean_context
+from flectra.tools.misc import clean_context, format_date
 
 
 class MailActivitySchedule(models.TransientModel):
@@ -224,7 +224,7 @@ class MailActivitySchedule(models.TransientModel):
                 activity_descriptions.append(
                     _('%(activity)s, assigned to %(name)s, due on the %(deadline)s',
                       activity=template.summary or template.activity_type_id.name,
-                      name=responsible.name, deadline=date_deadline))
+                      name=responsible.name, deadline=format_date(self.env, date_deadline)))
 
             if activity_descriptions:
                 body += Markup('<ul>%s</ul>') % (
