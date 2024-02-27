@@ -995,7 +995,18 @@ class SaleOrderLine(models.Model):
         if 'product_uom_qty' in values:
             precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
             self.filtered(
-                lambda r: r.state == 'sale' and float_compare(r.product_uom_qty, values['product_uom_qty'], precision_digits=precision) != 0)._update_line_quantity(values)
+                lambda r: r.state == 'sale' and float_compare(
+                    r.product_uom_qty,
+                    values['product_uom_qty'],
+                    precision_digits=precision
+                ) != 0
+            )._update_line_quantity(values)
+            if len(self) == 1 and float_compare(
+                self.product_uom_qty,
+                values['product_uom_qty'],
+                precision_digits=precision
+            ) == 0:
+                values.pop('product_uom_qty')
 
         # Prevent writing on a locked SO.
         protected_fields = self._get_protected_fields()
@@ -1194,7 +1205,8 @@ class SaleOrderLine(models.Model):
         the product is read-only or not.
 
         A product is considered read-only if the order is considered read-only (see
-        ``SaleOrder._is_readonly`` for more details) or if `self` contains multiple records.
+        ``SaleOrder._is_readonly`` for more details) or if `self` contains multiple records
+        or if it has sale_line_warn == "block".
 
         Note: This method cannot be called with multiple records that have different products linked.
 
@@ -1205,19 +1217,24 @@ class SaleOrderLine(models.Model):
                 'quantity': float,
                 'price': float,
                 'readOnly': bool,
+                'warning': String
             }
         """
         if len(self) == 1:
-            return {
+            res = {
                 'quantity': self.product_uom_qty,
                 'price': self.price_unit,
-                'readOnly': self.order_id._is_readonly(),
+                'readOnly': self.order_id._is_readonly() or (self.product_id.sale_line_warn == "block"),
+                'warning': self.product_id.sale_line_warn_msg,
             }
+            if self.product_id.sale_line_warn_msg:
+                res['warning'] = self.product_id.sale_line_warn_msg
+            return res
         elif self:
             self.product_id.ensure_one()
             order_line = self[0]
             order = order_line.order_id
-            return {
+            res = {
                 'readOnly': True,
                 'price': order.pricelist_id._get_product_price(
                     product=order_line.product_id,
@@ -1233,8 +1250,11 @@ class SaleOrderLine(models.Model):
                             to_unit=line.product_id.uom_id,
                         )
                     )
-                ),
+                )
             }
+            if self.product_id.sale_line_warn_msg:
+                res['warning'] = self.product_id.sale_line_warn_msg
+            return res
         else:
             return {
                 'quantity': 0,

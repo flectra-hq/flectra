@@ -1,5 +1,6 @@
-from flectra import _, models
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
 
+from flectra import _, models
 
 
 class ProductCatalogMixin(models.AbstractModel):

@@ -115,7 +115,9 @@ async function autoHideMenu(el, options) {
         const wysiwyg = window.$ && $('#wrapwrap').data('wysiwyg');
         const flectraEditor = wysiwyg && wysiwyg.flectraEditor;
         if (flectraEditor) {
+            flectraEditor.observerUnactive("adapt");
             flectraEditor.withoutRollback(__adapt);
+            flectraEditor.observerActive("adapt");
             return;
         }
         __adapt();
@@ -275,7 +277,8 @@ async function autoHideMenu(el, options) {
 document.addEventListener('DOMContentLoaded', async () => {
     const header = document.querySelector('header#top');
     if (header) {
-        const topMenu = header.querySelector('#top_menu');
+        // TODO in master: remove `#top_menu` from the selector.
+        const topMenu = header.querySelector("#top_menu, .top_menu");
         if (header.classList.contains('o_no_autohide_menu')) {
             topMenu.classList.remove('o_menu_loading');
             return;

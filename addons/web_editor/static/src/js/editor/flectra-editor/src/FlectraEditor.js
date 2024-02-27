@@ -1534,6 +1534,7 @@ export class FlectraEditor extends EventTarget {
                     const node = this.idFind(mutation.id);
                     if (node) {
                         node.remove();
+                        node.ouid = undefined;
                     }
                 }
             }
@@ -3135,6 +3136,9 @@ export class FlectraEditor extends EventTarget {
                     this.toolbar.style.visibility = show ? 'visible' : 'hidden';
                 }
                 if (show === false) {
+                    for (const menu of this.toolbar.querySelectorAll('.dropdown-menu.show')) {
+                        menu.parentElement?.querySelector('[data-bs-toggle="dropdown"]')?.click();
+                    };
                     return;
                 }
             }
@@ -4069,8 +4073,9 @@ export class FlectraEditor extends EventTarget {
             } else {
                 // Find previous character.
                 let previousCharacter = focusOffset > 0 && focusNode.textContent[focusOffset - 1];
-                if (!previousCharacter) {
-                    focusNode = previousLeaf(focusNode);
+                const previousNode = previousLeaf(focusNode, this.editable);
+                if (!previousCharacter && previousNode && closestBlock(previousNode) === closestBlock(focusNode)) {
+                    focusNode = previousNode;
                     focusOffset = nodeSize(focusNode);
                     previousCharacter = focusNode.textContent[focusOffset - 1];
                 }
@@ -4078,12 +4083,14 @@ export class FlectraEditor extends EventTarget {
                 if (previousCharacter === '\u200B' && !focusNode.parentElement.hasAttribute('data-o-link-zws')) {
                     focusOffset -= 1;
                     while (focusNode && (focusOffset < 0 || !focusNode.textContent[focusOffset])) {
-                        focusNode = nextLeaf(focusNode);
+                        focusNode = nextLeaf(focusNode, this.editable);
                         focusOffset = focusNode && nodeSize(focusNode);
                     }
-                    const startContainer = ev.shiftKey ? anchorNode : focusNode;
-                    const startOffset = ev.shiftKey ? anchorOffset : focusOffset;
-                    setSelection(startContainer, startOffset, focusNode, focusOffset);
+                    if (focusNode) {
+                        const startContainer = ev.shiftKey ? anchorNode : focusNode;
+                        const startOffset = ev.shiftKey ? anchorOffset : focusOffset;
+                        setSelection(startContainer, startOffset, focusNode, focusOffset);
+                    }
                 }
             }
         } else if (IS_KEYBOARD_EVENT_RIGHT_ARROW(ev)) {
@@ -4110,8 +4117,9 @@ export class FlectraEditor extends EventTarget {
             } else {
                 // Find next character.
                 let nextCharacter = focusNode.textContent[focusOffset];
-                if (!nextCharacter) {
-                    focusNode = nextLeaf(focusNode);
+                const nextNode = nextLeaf(focusNode, this.editable);
+                if (!nextCharacter && nextNode && closestBlock(nextNode) === closestBlock(focusNode)) {
+                    focusNode = nextNode;
                     focusOffset = 0;
                     nextCharacter = focusNode.textContent[focusOffset];
                 }
@@ -4120,16 +4128,18 @@ export class FlectraEditor extends EventTarget {
                     focusOffset += 1;
                     let newFocusNode = focusNode;
                     while (newFocusNode && (!newFocusNode.textContent[focusOffset] || !closestElement(newFocusNode).isContentEditable)) {
-                        newFocusNode = nextLeaf(newFocusNode);
+                        newFocusNode = nextLeaf(newFocusNode, this.editable);
                         focusOffset = 0;
                     }
-                    if (!focusOffset && closestBlock(focusNode) !== closestBlock(newFocusNode)) {
+                    if (newFocusNode && !focusOffset && closestBlock(focusNode) !== closestBlock(newFocusNode)) {
                         newFocusNode = focusNode; // Do not move selection to next block.
-                        focusOffset = nodeSize(focusNode);
+                        focusOffset = focusNode && nodeSize(focusNode);
                     }
-                    const startContainer = ev.shiftKey ? anchorNode : newFocusNode;
-                    const startOffset = ev.shiftKey ? anchorOffset : focusOffset;
-                    setSelection(startContainer, startOffset, newFocusNode, focusOffset);
+                    if (newFocusNode) {
+                        const startContainer = ev.shiftKey ? anchorNode : newFocusNode;
+                        const startOffset = ev.shiftKey ? anchorOffset : focusOffset;
+                        setSelection(startContainer, startOffset, newFocusNode, focusOffset);
+                    }
                 }
             }
         }
@@ -4671,6 +4681,7 @@ export class FlectraEditor extends EventTarget {
                 ev.preventDefault();
                 this._isResizingTable = false;
                 this._toggleTableResizeCursor(false);
+                this.historyStep();
                 this.document.removeEventListener('mousemove', resizeTable);
                 this.document.removeEventListener('mouseup', stopResizing);
                 this.document.removeEventListener('mouseleave', stopResizing);

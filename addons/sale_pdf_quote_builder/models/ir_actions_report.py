@@ -1,5 +1,6 @@
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
 
+import base64
 import io
 
 from PyPDF2 import PdfFileWriter, PdfFileReader
@@ -42,20 +43,17 @@ class IrActionsReport(models.Model):
                 if (not has_header and not included_product_docs and not has_footer):
                     continue
 
-                IrBinary = self.env['ir.binary']
                 writer = PdfFileWriter()
                 if has_header:
-                    header_stream = IrBinary._record_to_stream(header_record, 'sale_header').read()
-                    self._add_pages_to_writer(writer, header_stream)
+                    self._add_pages_to_writer(writer, base64.b64decode(header_record.sale_header))
                 if included_product_docs:
                     for doc in included_product_docs:
-                        doc_stream = IrBinary._record_to_stream(doc, 'datas').read()
-                        self._add_pages_to_writer(writer, doc_stream, doc_line_id_mapping[doc.id])
-                        self._prefix_sol_form_fields(writer, doc_line_id_mapping[doc.id])
-                self._add_pages_to_writer(writer, (initial_stream).getvalue())
+                        self._add_pages_to_writer(
+                            writer, base64.b64decode(doc.datas), doc_line_id_mapping[doc.id]
+                        )
+                self._add_pages_to_writer(writer, initial_stream.getvalue())
                 if has_footer:
-                    footer_stream = IrBinary._record_to_stream(footer_record, 'sale_footer').read()
-                    self._add_pages_to_writer(writer, footer_stream)
+                    self._add_pages_to_writer(writer, base64.b64decode(footer_record.sale_footer))
 
                 form_fields = self._get_form_fields_mapping(order, doc_line_id_mapping)
                 pdf.fill_form_fields_pdf(writer, form_fields=form_fields)
@@ -73,37 +71,15 @@ class IrActionsReport(models.Model):
         for page_id in range(0, reader.getNumPages()):
             page = reader.getPage(page_id)
             if sol_id and page.get('/Annots'):
+                # Prefix all form fields in the document with the sale order line id.
+                # This is necessary to avoid conflicts between fields with the same name.
                 for j in range(0, len(page['/Annots'])):
-                    writer_annot = page['/Annots'][j].getObject()
-                    if writer_annot.get('/T') in sol_field_names:
-                        writer_annot.update({
-                            NameObject("/T"): createStringObject(prefix + writer_annot.get('/T'))
+                    reader_annot = page['/Annots'][j].getObject()
+                    if reader_annot.get('/T') in sol_field_names:
+                        reader_annot.update({
+                            NameObject("/T"): createStringObject(prefix + reader_annot.get('/T'))
                         })
             writer.addPage(page)
-
-    def _prefix_sol_form_fields(self, writer, sol_id):
-        """ Prefix all form fields in the document with the sale order line id.
-        This is necessary to avoid conflicts between fields with the same name.
-
-        :param PdfFileWriter writer: PdfFileWriter instance
-        :param int sol_id: sale.order.line id
-        """
-        prefix = f'{sol_id}_'
-        sol_field_names = self._get_sol_form_fields_names()
-        if hasattr(writer, 'pages'):
-            nbr_pages = len(writer.pages)
-        else:  # This method was renamed in PyPDF2 2.0
-            nbr_pages = writer.getNumPages()
-        for page_id in range(0, nbr_pages):
-            page = writer.getPage(page_id)
-            if not page.get('/Annots'):
-                continue
-            for j in range(0, len(page['/Annots'])):
-                writer_annot = page['/Annots'][j].getObject()
-                if writer_annot.get('/T') in sol_field_names:
-                    writer_annot.update({
-                        NameObject("/T"): createStringObject(prefix + writer_annot.get('/T'))
-                    })
 
     def _get_sol_form_fields_names(self):
         """ List of specific pdf fields name for an order line that needs to be renamed in the pdf.

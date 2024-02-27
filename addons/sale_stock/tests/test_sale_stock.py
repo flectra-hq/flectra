@@ -1,11 +1,17 @@
-# -*- coding: utf-8 -*-
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
+
 from datetime import datetime, timedelta
 
-from flectra.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_common import ValuationReconciliationTestCommon
-from flectra.addons.sale.tests.common import TestSaleCommon
+from freezegun import freeze_time
+
+from flectra import Command
 from flectra.exceptions import UserError
 from flectra.tests import Form, tagged
+
+from flectra.addons.sale.tests.common import SaleCommon, TestSaleCommon
+from flectra.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_common import (
+    ValuationReconciliationTestCommon,
+)
 
 
 @tagged('post_install', '-at_install')
@@ -1720,3 +1726,67 @@ class TestSaleStock(TestSaleCommon, ValuationReconciliationTestCommon):
         self.assertEqual(out1.move_line_ids.quantity, 3)
         self.assertEqual(out2.state, 'assigned')
         self.assertEqual(out2.move_line_ids.quantity, 1)
+
+    def test_delivery_on_negative_delivered_qty(self):
+        """
+            Tests that returns created from SO lines with negative quantities update the delivered
+            quantities negatively so that they appear on the corresponding invoice.
+        """
+        product = self.env['product.product'].create({
+            'name': 'Super product',
+            'uom_id': self.env.ref('uom.product_uom_unit').id,
+            'lst_price': 100.0,
+            'detailed_type': 'product',
+            'invoice_policy': 'delivery',
+        })
+        sale_order = self.env['sale.order'].create({
+            'partner_id': self.partner_a.id,
+            'state': 'draft',
+            'order_line':[Command.create({
+                'product_id': product.id,
+                'product_uom_qty': -1,
+            })],
+        })
+        sale_order.action_confirm()
+        self.assertEqual(sale_order.order_line.qty_delivered, 0.0)
+        self.assertEqual(sale_order.order_line.qty_to_invoice, 0.0)
+        picking = self.env['stock.move'].browse(self.env['stock.move'].search([('sale_line_id', '=', sale_order.order_line.id)]).id).picking_id
+        picking.action_confirm()
+        picking.button_validate()
+        self.assertEqual(sale_order.order_line.qty_delivered, -1.0)
+        self.assertEqual(sale_order.order_line.qty_to_invoice, -1.0)
+
+
+class TestSaleOrder(SaleCommon):
+
+    @freeze_time('2017-01-07')
+    def test_order_onchange(self):
+        order = self.empty_order
+        storable_product = self.env['product.product'].create({
+            'name': 'Test Storable',
+            'type': 'product',
+            'list_price': 25.0,
+        })
+        order.order_line = [
+            Command.create({
+                'product_id': storable_product.id,
+                'product_uom_qty': 15.12,
+                'price_unit': 50.0,
+            }),
+        ]
+        # retrieve the onchange spec for calling 'onchange'
+        order_form = Form(order)
+        # spec = order_form._view['onchange']
+        # onchange_vals = order_form._onchange_values()
+        # res = order.onchange(
+        #     dict(
+        #         onchange_vals,
+        #         commitment_date='2017-01-12',
+        #     ),
+        #     'commitment_date',
+        #     spec
+        # )
+        # self.assertEqual(res['value']['order_line'][1][2]['product_uom_qty'], 15.12)
+        order_form.commitment_date = '2017-01-12'
+        order_form.save()
+        self.assertEqual(order.order_line.price_unit, 50.0)

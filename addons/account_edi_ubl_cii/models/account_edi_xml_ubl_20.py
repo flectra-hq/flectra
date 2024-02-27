@@ -4,6 +4,7 @@ from lxml import etree
 
 from flectra import models, _
 from flectra.tools import html2plaintext, cleanup_xml_node
+from flectra.tools.float_utils import float_round
 
 
 class AccountEdiXmlUBL20(models.AbstractModel):
@@ -66,11 +67,10 @@ class AccountEdiXmlUBL20(models.AbstractModel):
         }]
 
     def _get_partner_contact_vals(self, partner):
-        phone = partner.phone or partner.mobile
         return {
             'id': partner.id,
             'name': partner.name,
-            'telephone': phone and phone.strip(),
+            'telephone': partner.phone or partner.mobile,
             'electronic_mail': partner.email,
         }
 
@@ -338,7 +338,7 @@ class AccountEdiXmlUBL20(models.AbstractModel):
             'currency_dp': self._get_currency_decimal_places(line.currency_id),
 
             # The price of an item, exclusive of VAT, after subtracting item price discount.
-            'price_amount': gross_price_unit,
+            'price_amount': float_round(gross_price_unit, 10),
             'product_price_dp': self.env['decimal.precision'].precision_get('Product Price'),
 
             # The number of item units to which the price applies.

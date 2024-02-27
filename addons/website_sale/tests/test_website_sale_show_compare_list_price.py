@@ -1,4 +1,8 @@
+# Part of Flectra. See LICENSE file for full copyright and licensing details.
+
+from flectra.fields import Command
 from flectra.tests import tagged
+
 from flectra.addons.account.tests.common import AccountTestInvoicingHttpCommon
 
 
@@ -112,4 +116,9 @@ class WebsiteSaleShopPriceListCompareListPriceDispayTests(AccountTestInvoicingHt
         })
 
     def test_compare_list_price_price_list_display(self):
+        self.env.user.write({
+            'groups_id': [Command.link(
+                self.env.ref('website_sale.group_product_price_comparison').id
+            )],
+        })
         self.start_tour("/", 'compare_list_price_price_list_display', login=self.env.user.login)
