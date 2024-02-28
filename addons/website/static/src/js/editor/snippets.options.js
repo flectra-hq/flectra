@@ -3557,6 +3557,10 @@ options.registry.WebsiteAnimate = options.Class.extend({
             this._toggleImagesLazyLoading(true);
         }
         if (widgetValue === "onHover") {
+            // Pause the history until the hover effect is applied in
+            // "setImgShapeHoverEffect". This prevents saving the intermediate
+            // steps done (in a tricky way) up to that point.
+            this.options.wysiwyg.flectraEditor.historyPauseSteps();
             this.trigger_up("option_update", {
                 optionName: "ImageTools",
                 name: "enable_hover_effect",
@@ -3650,8 +3654,7 @@ options.registry.WebsiteAnimate = options.Class.extend({
                     const hoverEffectWidget = hoverEffectOverlayWidget.getParent();
                     const imageToolsOpt = hoverEffectWidget.getParent();
                     return (
-                        !imageToolsOpt._isDeviceShape()
-                        && !imageToolsOpt._isAnimatedShape()
+                        imageToolsOpt._canHaveHoverEffect()
                         && !await isImageCorsProtected(this.$target[0])
                     );
                 }
