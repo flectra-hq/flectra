@@ -788,7 +788,7 @@ class HttpRequest(WebRequest):
 
 Flectra URLs are CSRF-protected by default (when accessed with unsafe
 HTTP methods). See
-https://www.flectrahq.com/documentation/14.0/developer/reference/http.html#csrf for
+https://www.flectra.com/documentation/14.0/developer/reference/http.html#csrf for
 more details.
 
 * if this endpoint is accessed through Flectra via py-QWeb form, embed a CSRF
@@ -1161,9 +1161,9 @@ def session_gc(session_store):
             except OSError:
                 pass
 
-FLECTRA_DISABLE_SESSION_GC = str2bool(os.environ.get('FLECTRA_DISABLE_SESSION_GC', '0'))
+ODOO_DISABLE_SESSION_GC = str2bool(os.environ.get('ODOO_DISABLE_SESSION_GC', '0'))
 
-if FLECTRA_DISABLE_SESSION_GC:
+if ODOO_DISABLE_SESSION_GC:
     # empty function, in case another module would be
     # calling it out of setup_session()
     session_gc = lambda s: None
@@ -1274,7 +1274,7 @@ class Root(object):
         # Setup http sessions
         path = flectra.tools.config.session_dir
         _logger.debug('HTTP sessions stored in: %s', path)
-        if FLECTRA_DISABLE_SESSION_GC:
+        if ODOO_DISABLE_SESSION_GC:
             _logger.info('Default session GC disabled, manual GC required.')
         return sessions.FilesystemSessionStore(
             path, session_class=OpenERPSession, renew_missing=True)
