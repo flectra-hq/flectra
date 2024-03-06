@@ -799,7 +799,8 @@ class PosSession(models.Model):
                     stock_moves = self.env['stock.move'].sudo().search([
                         ('picking_id', 'in', order.picking_ids.ids),
                         ('company_id.anglo_saxon_accounting', '=', True),
-                        ('product_id.categ_id.property_valuation', '=', 'real_time')
+                        ('product_id.categ_id.property_valuation', '=', 'real_time'),
+                        ('product_id.type', '=', 'product'),
                     ])
                     for move in stock_moves:
                         exp_key = move.product_id._get_product_accounts()['expense']
@@ -829,6 +830,7 @@ class PosSession(models.Model):
                     ('picking_id', 'in', global_session_pickings.ids),
                     ('company_id.anglo_saxon_accounting', '=', True),
                     ('product_id.categ_id.property_valuation', '=', 'real_time'),
+                    ('product_id.type', '=', 'product'),
                 ])
                 for move in stock_moves:
                     exp_key = move.product_id._get_product_accounts()['expense']
@@ -955,6 +957,7 @@ class PosSession(models.Model):
             'ref': _('Combine %s POS payments from %s', payment_method.name, self.name),
             'pos_payment_method_id': payment_method.id,
             'pos_session_id': self.id,
+            'company_id': self.company_id.id,
         })
 
         diff_amount_compare_to_zero = self.currency_id.compare_amounts(diff_amount, 0)

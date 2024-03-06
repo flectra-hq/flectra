@@ -7,9 +7,10 @@ from flectra import fields
 from flectra.addons.event.tests.common import EventCase
 from flectra.addons.phone_validation.tools import phone_validation
 from flectra.addons.sms.tests.common import SMSCase
-from flectra.tests import users
+from flectra.tests import tagged, users
 
 
+@tagged('event_mail')
 class TestSMSSchedule(EventCase, SMSCase):
 
     @classmethod

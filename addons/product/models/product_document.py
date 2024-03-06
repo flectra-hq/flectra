@@ -1,7 +1,8 @@
 
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
 
-from flectra import api, fields, models
+from flectra import _, api, fields, models
+from flectra.exceptions import ValidationError
 
 
 class ProductDocument(models.Model):
@@ -19,6 +20,16 @@ class ProductDocument(models.Model):
         ondelete='cascade')
 
     active = fields.Boolean(default=True)
+
+    @api.onchange('url')
+    def _onchange_url(self):
+        for attachment in self:
+            if attachment.type == 'url' and attachment.url and\
+                not attachment.url.startswith(('https://', 'http://', 'ftp://')):
+                raise ValidationError(_(
+                    "Please enter a valid URL.\nExample: https://www.flectrahq.com\n\nInvalid URL: %s",
+                    attachment.url
+                ))
 
     #=== CRUD METHODS ===#
 

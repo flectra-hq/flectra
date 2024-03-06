@@ -592,7 +592,7 @@ class PosOrder(models.Model):
                             })
 
                     else:
-                        self.env['account.move.line'].with_context(skip_invoice_sync=True).create({
+                        self.env['account.move.line'].sudo().with_context(skip_invoice_sync=True).create({
                             'balance': -rounding_applied,
                             'quantity': 1.0,
                             'partner_id': new_move.partner_id.id,
@@ -876,13 +876,14 @@ class PosOrder(models.Model):
             order.write({'account_move': new_move.id, 'state': 'invoiced'})
             new_move.sudo().with_company(order.company_id).with_context(skip_invoice_sync=True)._post()
 
+            moves += new_move
+            payment_moves = order._apply_invoice_payments()
+
             # Send and Print
             if self.env.context.get('generate_pdf', True):
                 template = self.env.ref(new_move._get_mail_template())
                 new_move.with_context(skip_invoice_sync=True)._generate_pdf_and_send_invoice(template)
 
-            moves += new_move
-            payment_moves = order._apply_invoice_payments()
 
             if order.session_id.state == 'closed':  # If the session isn't closed this isn't needed.
                 # If a client requires the invoice later, we need to revers the amount from the closing entry, by making a new entry for that.
@@ -969,8 +970,8 @@ class PosOrder(models.Model):
         if len(data['lines']) != len(existing_order.lines):
             return False
 
-        received_lines = sorted([(l[2]['product_id'], l[2]['qty'], l[2]['price_unit']) for l in data['lines']])
-        existing_lines = sorted([(l.product_id.id, l.qty, l.price_unit) for l in existing_order.lines])
+        received_lines = sorted([(l[2]['product_id'], l[2]['price_unit']) for l in data['lines']])
+        existing_lines = sorted([(l.product_id.id, l.price_unit) for l in existing_order.lines])
 
         if received_lines != existing_lines:
             return False
@@ -983,7 +984,7 @@ class PosOrder(models.Model):
     def _create_order_picking(self):
         self.ensure_one()
         if self.shipping_date:
-            self.lines._launch_stock_rule_from_pos_order_lines()
+            self.sudo().lines._launch_stock_rule_from_pos_order_lines()
         else:
             if self._should_create_picking_real_time():
                 picking_type = self.config_id.picking_type_id

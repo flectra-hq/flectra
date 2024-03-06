@@ -48,7 +48,6 @@ class TestPointOfSaleHttpCommon(AccountTestInvoicingHttpCommon):
             'groups_id': [
                 (4, cls.env.ref('base.group_user').id),
                 (4, cls.env.ref('point_of_sale.group_pos_user').id),
-                (4, cls.env.ref('account.group_account_invoice').id),
             ],
         })
         cls.pos_admin = cls.env['res.users'].create({
@@ -1107,6 +1106,36 @@ class TestUi(TestPointOfSaleHttpCommon):
 
         self.main_pos_config.open_ui()
         self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'limitedProductPricelistLoading', login="accountman")
+
+    def test_multi_product_options(self):
+        product_a = self.env['product.product'].create({
+            'name': 'Product A',
+            'available_in_pos': True,
+            'list_price': 10,
+            'taxes_id': False,
+        })
+
+        chair_multi_attribute = self.env['product.attribute'].create({
+            'name': 'Multi',
+            'display_type': 'multi',
+            'create_variant': 'no_variant',
+        })
+        chair_multi_value_1 = self.env['product.attribute.value'].create({
+            'name': 'Value 1',
+            'attribute_id': chair_multi_attribute.id,
+        })
+        chair_multi_value_2 = self.env['product.attribute.value'].create({
+            'name': 'Value 2',
+            'attribute_id': chair_multi_attribute.id,
+        })
+        self.chair_multi_line = self.env['product.template.attribute.line'].create({
+            'product_tmpl_id': product_a.product_tmpl_id.id,
+            'attribute_id': chair_multi_attribute.id,
+            'value_ids': [(6, 0, [chair_multi_value_1.id, chair_multi_value_2.id])]
+        })
+
+        self.main_pos_config.with_user(self.pos_user).open_ui()
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'MultiProductOptionsTour', login="pos_user")
 
 # This class just runs the same tests as above but with mobile emulation
 class MobileTestUi(TestUi):

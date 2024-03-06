@@ -82,7 +82,7 @@ EAS_MAPPING = {
     'PT': {'9946': 'vat'},
     'RO': {'9947': 'vat'},
     'RS': {'9948': 'vat'},
-    'SE': {'9955': 'vat'},
+    'SE': {'0007': 'vat'},
     'SI': {'9949': 'vat'},
     'SK': {'9950': 'vat'},
     'SM': {'9951': 'vat'},
@@ -607,7 +607,7 @@ class AccountEdiCommon(models.AbstractModel):
                     # Handle Fixed Taxes: when exporting from Flectra, we use the allowance_charge node
                     fixed_taxes_list.append({
                         'tax_name': reason.text,
-                        'tax_amount': float(amount.text),
+                        'tax_amount': float(amount.text) / billed_qty,
                     })
                 else:
                     allow_charge_amount += float(amount.text) * discount_factor
@@ -637,7 +637,7 @@ class AccountEdiCommon(models.AbstractModel):
 
         # discount
         discount = 0
-        amount_fixed_taxes = sum(d['tax_amount'] for d in fixed_taxes_list)
+        amount_fixed_taxes = sum(d['tax_amount'] * billed_qty for d in fixed_taxes_list)
         if billed_qty * price_unit != 0 and price_subtotal is not None:
             discount = 100 * (1 - (price_subtotal - amount_fixed_taxes) / (billed_qty * price_unit))
 

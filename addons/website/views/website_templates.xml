@@ -12,9 +12,10 @@
             <span t-field="submenu.name"/>
         </a>
     </li>
-    <li t-elif="show_dropdown" t-attf-class="#{item_class or ''} dropdown #{submenu.is_mega_menu and 'position-static'}">
+    <li t-elif="show_dropdown" t-attf-class="#{item_class or ''} dropdown #{submenu.is_mega_menu and 'position-static'}" role="presentation">
         <a t-attf-class="#{link_class or ''} dropdown-toggle #{submenu.is_mega_menu and 'o_mega_menu_toggle'} #{submenu._is_active() and 'active'} #{dropdown_toggler_classes}"
-           data-bs-toggle="dropdown" href="#" t-att-data-bs-display="'static' if submenu.is_mega_menu else None">
+           data-bs-toggle="dropdown" href="#" t-att-data-bs-display="'static' if submenu.is_mega_menu else None"
+           role="menuitem">
             <span t-field="submenu.name"/>
         </a>
         <div t-if="submenu.is_mega_menu and not is_mobile"
@@ -32,7 +33,8 @@
         <div t-if="submenu.is_mega_menu" t-elif="False"
              t-attf-class="dropdown-menu o_mega_menu #{submenu.mega_menu_classes}"
              data-name="Mega Menu"
-             t-field="submenu.mega_menu_content"/>
+             t-field="submenu.mega_menu_content"
+             role="menuitem"/>
         <ul t-else="" t-attf-class="dropdown-menu #{dropdown_menu_classes}" role="menu">
             <t t-foreach="submenu.child_id" t-as="submenu">
                 <t t-call="website.submenu">
@@ -152,6 +154,7 @@
 
     <xpath expr="//header" position="attributes">
         <attribute name="data-name">Header</attribute>
+        <attribute name="t-att-data-extra-items-toggle-aria-label">extra_items_toggle_aria_label</attribute>
     </xpath>
 
     <xpath expr="//header/t[@t-cache]" position="attributes">
@@ -164,6 +167,7 @@
     <xpath expr="//header" position="before">
         <t t-set="cta_btn_text" t-value="False"/>
         <t t-set="cta_btn_href">/contactus</t>
+        <t t-set="extra_items_toggle_aria_label">Extra items button</t>
     </xpath>
 
     <xpath expr="//footer" position="attributes">
@@ -233,7 +237,7 @@
                        t-attf-href="/web#menu_id=#{menu['id']}&amp;action=#{menu['action'] and menu['action'].split(',')[1] or ''}"/>
                 </div>
                 <a groups="website.group_website_restricted_editor" href="#" title="Edit this content" class="o_frontend_to_backend_edit_btn px-3 d-flex align-items-center justify-content-center text-decoration-none">
-                    <img src="/website/static/description/icon.png"/>Editor
+                    <img src="/website/static/description/icon.png" alt=""/>Editor
                 </a>
             </div>
         </div>
@@ -1631,16 +1635,16 @@
                             </ul>
                             <div class="s_social_media text-start o_not_editable" data-snippet="s_social_media" data-name="Social Media" contenteditable="false">
                                 <h5 class="s_social_media_title d-none" contenteditable="true">Follow us</h5>
-                                <a href="/website/social/facebook" class="s_social_media_facebook" target="_blank">
+                                <a href="/website/social/facebook" class="s_social_media_facebook" target="_blank" aria-label="Facebook">
                                     <i class="fa fa-facebook rounded-circle shadow-sm o_editable_media"/>
                                 </a>
-                                <a href="/website/social/twitter" class="s_social_media_twitter" target="_blank">
+                                <a href="/website/social/twitter" class="s_social_media_twitter" target="_blank" aria-label="Twitter">
                                     <i class="fa fa-twitter rounded-circle shadow-sm o_editable_media"/>
                                 </a>
-                                <a href="/website/social/linkedin" class="s_social_media_linkedin" target="_blank">
+                                <a href="/website/social/linkedin" class="s_social_media_linkedin" target="_blank" aria-label="LinkedIn">
                                     <i class="fa fa-linkedin rounded-circle shadow-sm o_editable_media"/>
                                 </a>
-                                <a href="/" class="text-800">
+                                <a href="/" class="text-800" aria-label="Extra page">
                                     <i class="fa fa-home rounded-circle shadow-sm o_editable_media"/>
                                 </a>
                             </div>
@@ -1704,13 +1708,13 @@
                 <div class="container s_allow_columns">
                     <div class="s_social_media text-center mb-4 o_not_editable" data-snippet="s_social_media" data-name="Social Media" contenteditable="false">
                         <h5 class="s_social_media_title d-none" contenteditable="true">Follow us</h5>
-                        <a href="/website/social/facebook" class="s_social_media_facebook" target="_blank">
+                        <a href="/website/social/facebook" class="s_social_media_facebook" target="_blank" aria-label="Facebook">
                             <i class="fa fa-facebook rounded-circle rounded shadow-sm o_editable_media"/>
                         </a>
-                        <a href="/website/social/twitter" class="s_social_media_twitter" target="_blank">
+                        <a href="/website/social/twitter" class="s_social_media_twitter" target="_blank" aria-label="Twitter">
                             <i class="fa fa-twitter rounded-circle rounded shadow-sm o_editable_media"/>
                         </a>
-                        <a href="/website/social/linkedin" class="s_social_media_linkedin" target="_blank">
+                        <a href="/website/social/linkedin" class="s_social_media_linkedin" target="_blank" aria-label="LinkedIn">
                             <i class="fa fa-linkedin rounded-circle rounded shadow-sm o_editable_media"/>
                         </a>
                     </div>
@@ -1989,13 +1993,13 @@
                         <div class="col-lg-3 pb24">
                             <div class="s_social_media text-end o_not_editable" data-snippet="s_social_media" data-name="Social Media" contenteditable="false">
                                 <h5 class="s_social_media_title d-none" contenteditable="true">Follow Us</h5>
-                                <a href="/website/social/facebook" class="s_social_media_facebook" target="_blank">
+                                <a href="/website/social/facebook" class="s_social_media_facebook" target="_blank" aria-label="Facebook">
                                     <i class="fa fa-1x fa-facebook rounded-circle shadow-sm o_editable_media"/>
                                 </a>
-                                <a href="/website/social/twitter" class="s_social_media_twitter" target="_blank">
+                                <a href="/website/social/twitter" class="s_social_media_twitter" target="_blank" aria-label="Twitter">
                                     <i class="fa fa-1x fa-twitter rounded-circle shadow-sm o_editable_media"/>
                                 </a>
-                                <a href="/website/social/instagram" class="s_social_media_instagram" target="_blank">
+                                <a href="/website/social/instagram" class="s_social_media_instagram" target="_blank" aria-label="Instagram">
                                     <i class="fa fa-1x fa-instagram rounded-circle shadow-sm o_editable_media"/>
                                 </a>
                             </div>
@@ -2084,8 +2088,13 @@
 </template>
 
 <!-- Language selector templates -->
+<!-- TODO adapt in master so this template receives lang as parameter -->
 <template id="lang_flag" name="Language Flag">
-    <img t-attf-class="o_lang_flag #{_flag_class}" t-attf-src="#{flag_image_src}?height=25"/>
+    <t t-set="lang" t-value="lg or active_lang"/>
+    <t t-set="lang_name" t-value="lang and lang[2].split('/').pop()"/>
+    <img t-attf-class="o_lang_flag #{_flag_class}"
+         t-attf-src="#{flag_image_src}?height=25"
+         t-att-alt="lang_name"/>
 </template>
 
 <template id="language_selector" inherit_id="portal.language_selector">
@@ -2842,16 +2851,16 @@ Sitemap: <t t-esc="url_root"/>sitemap.xml
             <div t-attf-class="o_header_social_links #{_div_class}">
                 <div class="s_social_media o_not_editable oe_unmovable oe_unremovable" data-snippet="s_social_media" data-name="Social Media">
                     <h5 class="s_social_media_title d-none">Follow us</h5>
-                    <a href="/website/social/facebook" class="s_social_media_facebook o_nav-link_secondary nav-link m-0 p-0 text-decoration-none" target="_blank">
+                    <a href="/website/social/facebook" class="s_social_media_facebook o_nav-link_secondary nav-link m-0 p-0 text-decoration-none" target="_blank" aria-label="Facebook">
                         <i class="fa fa-facebook fa-stack p-1 o_editable_media"/>
                     </a>
-                    <a href="/website/social/twitter" class="s_social_media_twitter o_nav-link_secondary nav-link m-0 p-0 text-decoration-none" target="_blank">
+                    <a href="/website/social/twitter" class="s_social_media_twitter o_nav-link_secondary nav-link m-0 p-0 text-decoration-none" target="_blank" aria-label="Twitter">
                         <i class="fa fa-twitter fa-stack p-1 o_editable_media"/>
                     </a>
-                    <a href="/website/social/linkedin" class="s_social_media_linkedin o_nav-link_secondary nav-link m-0 p-0 text-decoration-none" target="_blank">
+                    <a href="/website/social/linkedin" class="s_social_media_linkedin o_nav-link_secondary nav-link m-0 p-0 text-decoration-none" target="_blank" aria-label="LinkedIn">
                         <i class="fa fa-linkedin fa-stack p-1 o_editable_media"/>
                     </a>
-                    <a href="/website/social/instagram" class="s_social_media_instagram o_nav-link_secondary nav-link m-0 p-0 text-decoration-none" target="_blank">
+                    <a href="/website/social/instagram" class="s_social_media_instagram o_nav-link_secondary nav-link m-0 p-0 text-decoration-none" target="_blank" aria-label="Instagram">
                         <i class="fa fa-instagram fa-stack p-1 o_editable_media"/>
                     </a>
                 </div>
@@ -2891,7 +2900,7 @@ Sitemap: <t t-esc="url_root"/>sitemap.xml
                         </div>
                     </div>
                 </div>
-                <a t-attf-class="btn rounded-circle p-1 lh-1 #{_button_classes or 'bg-o-color-3'} o_not_editable" data-bs-target="#o_search_modal" data-bs-toggle="modal" role="button" title="Search">
+                <a t-attf-class="btn rounded-circle p-1 lh-1 #{_button_classes or 'bg-o-color-3'} o_not_editable" data-bs-target="#o_search_modal" data-bs-toggle="modal" role="button" title="Search" href="#">
                     <i class="oi oi-search fa-stack lh-lg"/>
                 </a>
             </t>

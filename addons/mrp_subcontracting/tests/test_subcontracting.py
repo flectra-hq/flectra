@@ -21,6 +21,43 @@ class TestSubcontractingBasic(TransactionCase):
         self.assertTrue(company2.subcontracting_location_id)
         self.assertTrue(self.env.company.subcontracting_location_id != company2.subcontracting_location_id)
 
+    def test_duplicating_warehouses_recreates_their_routes_and_operation_types(self):
+        """ Duplicating a warehouse should result in the creation of new routes and operation types.
+        Not reusing the existing routes and operation types"""
+        wh_original = self.env['stock.warehouse'].search([], limit=1)
+        wh_copy = wh_original.copy(default={'name': 'Dummy Warehouse (copy)', 'code': 'Dummy'})
+
+        # Check if warehouse routes got RECREATED (instead of reused)
+        route_types = [
+            "route_ids",
+            "pbm_route_id",
+            "subcontracting_route_id",
+            "crossdock_route_id",
+            "reception_route_id",
+            "delivery_route_id"
+        ]
+        for route_type in route_types:
+            original_route_set = wh_original[route_type]
+            copy_route_set = wh_copy[route_type]
+            error_message = f"At least one {route_type} (route) got reused on duplication (should have been recreated)"
+            self.assertEqual(len(original_route_set & copy_route_set), 0, error_message)
+
+        # Check if warehouse operation types (picking.type) got RECREATED (instead of reused)
+        operation_types = [
+            "subcontracting_type_id",
+            "subcontracting_resupply_type_id",
+            "pick_type_id",
+            "pack_type_id",
+            "out_type_id",
+            "in_type_id",
+            "int_type_id"
+        ]
+        for operation_type in operation_types:
+            original_type_set = wh_original[operation_type]
+            copy_type_set = wh_copy[operation_type]
+            error_message = f"At least one {operation_type} (operation_type) got reused on duplication (should have been recreated)"
+            self.assertEqual(len(original_type_set & copy_type_set), 0, error_message)
+
 
 @tagged('post_install', '-at_install')
 class TestSubcontractingFlows(TestMrpSubcontractingCommon):
@@ -1535,3 +1572,38 @@ class TestSubcontractingSerialMassReceipt(TransactionCase):
         self.assertEqual(picking_receipt.state, 'done')
         self.assertEqual(self.env['stock.quant']._get_available_quantity(self.raw_material, self.env.ref('stock.stock_location_stock')), 0)
         self.assertEqual(self.env['stock.quant']._get_available_quantity(self.raw_material, self.subcontractor.property_stock_subcontractor, allow_negative=True), -quantity)
+
+    def test_bom_subcontracting_product_dynamic_attribute(self):
+        """
+            Test that the report BOM data is available for a product with an dynamic attribute
+            but without variant.
+        """
+        dynamic_attribute = self.env['product.attribute'].create({
+            'name': 'flavour',
+            'create_variant': 'dynamic',
+        })
+        value_1 = self.env['product.attribute.value'].create({
+            'name': 'Vanilla',
+            'attribute_id': dynamic_attribute.id,
+        })
+        value_2 = self.env['product.attribute.value'].create({
+            'name': 'Chocolate',
+            'attribute_id': dynamic_attribute.id,
+        })
+        product_template = self.env['product.template'].create({
+            'name': 'Cake',
+            'uom_id': self.env.ref('uom.product_uom_unit').id,
+            'detailed_type': 'product',
+        })
+        self.env['product.template.attribute.line'].create({
+            'product_tmpl_id': product_template.id,
+            'attribute_id': dynamic_attribute.id,
+            'value_ids': [Command.set([value_1.id, value_2.id])],
+        })
+        bom = self.env['mrp.bom'].create({
+            'product_tmpl_id': product_template.id,
+            'type': 'subcontract',
+            'subcontractor_ids': [Command.set([self.subcontractor.id])],
+        })
+        report_values = self.env['report.mrp.report_bom_structure']._get_report_data(bom_id=bom.id, searchVariant=False)
+        self.assertTrue(report_values)
