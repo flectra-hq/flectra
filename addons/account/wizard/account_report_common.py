@@ -10,8 +10,8 @@ class AccountCommonReport(models.TransientModel):
 
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)
     journal_ids = fields.Many2many('account.journal', string='Journals', required=True, default=lambda self: self.env['account.journal'].search([('company_id', '=', self.company_id.id)]))
-    date_from = fields.Date(string='Start Date')
-    date_to = fields.Date(string='End Date')
+    date_from = fields.Date(string='Start Date', required=True)
+    date_to = fields.Date(string='End Date', required=True)
     target_move = fields.Selection([('posted', 'All Posted Entries'),
                                     ('all', 'All Entries'),
                                     ], string='Target Moves', required=True, default='posted')

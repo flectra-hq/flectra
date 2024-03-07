@@ -5276,7 +5276,9 @@ class AccountMoveLine(models.Model):
             elif context.get('initial_bal'):
                 domain += [(date_field, '<', context['date_from'])]
             else:
-                domain += [(date_field, '>=', context['date_from'])]
+                # domain += [(date_field, '>=', context['date_from'])]
+                domain += ['|', (date_field, '>=', context['date_from']),
+                           ('account_id.user_type_id.include_initial_balance', '=', True)]
 
         if context.get('journal_ids'):
             domain += [('journal_id', 'in', context['journal_ids'])]
