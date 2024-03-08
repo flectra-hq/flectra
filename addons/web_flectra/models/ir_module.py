@@ -6,3 +6,6 @@ class IrModuleModule(models.Model):
     license = fields.Selection(selection_add=[('FPL-1', 'Flectra Proprietary License v1.0'),
                                               ('FPEL-1', 'Flectra Professional Edition License v1.0'),
                                               ])
+    module_type = fields.Selection(selection="_get_selection_app_options", required=False)
+    def _get_selection_app_options(self):
+        return [('official', 'Official Apps')]	
