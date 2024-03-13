@@ -34,13 +34,22 @@ class StockPicking(models.Model):
 
     @api.depends('move_line_ids', 'move_line_ids.result_package_id')
     def _compute_packages(self):
-        for package in self:
+        counts = dict(self.env['stock.move.line']._read_group(
+           domain=[
+              ('picking_id', 'in', self.ids),
+              ('result_package_id', '!=', False)],
+              groupby=['picking_id'],
+              aggregates=['__count'],
+        ))
+        self.fetch(['move_line_ids'])
+        self.move_line_ids.fetch(['result_package_id'])
+        for picking in self:
             packs = set()
-            if self.env['stock.move.line'].search_count([('picking_id', '=', package.id), ('result_package_id', '!=', False)]):
-                for move_line in package.move_line_ids:
+            if counts.get(picking, 0):
+                for move_line in picking.move_line_ids:
                     if move_line.result_package_id:
                         packs.add(move_line.result_package_id.id)
-            package.package_ids = list(packs)
+            picking.package_ids = list(packs)
 
     @api.depends('move_line_ids', 'move_line_ids.result_package_id', 'move_line_ids.product_uom_id', 'move_line_ids.quantity')
     def _compute_bulk_weight(self):
@@ -129,12 +138,15 @@ class StockPicking(models.Model):
     def _pre_put_in_pack_hook(self, move_line_ids):
         res = super(StockPicking, self)._pre_put_in_pack_hook(move_line_ids)
         if not res:
-            if self.carrier_id:
-                return self._set_delivery_package_type()
+            if move_line_ids.carrier_id:
+                if len(move_line_ids.carrier_id) > 1 or any(not ml.carrier_id for ml in move_line_ids):
+                    # avoid (duplicate) costs for products
+                    raise UserError(_("You cannot pack products into the same package when they have different carriers (i.e. check that all of their transfers have a carrier assigned and are using the same carrier)."))
+                return self._set_delivery_package_type(batch_pack=len(move_line_ids.picking_id) > 1)
         else:
             return res
 
-    def _set_delivery_package_type(self):
+    def _set_delivery_package_type(self, batch_pack=False):
         """ This method returns an action allowing to set the package type and the shipping weight
         on the stock.quant.package.
         """
@@ -143,7 +155,8 @@ class StockPicking(models.Model):
         context = dict(
             self.env.context,
             current_package_carrier_type=self.carrier_id.delivery_type,
-            default_picking_id=self.id
+            default_picking_id=self.id,
+            batch_pack=batch_pack,
         )
         # As we pass the `delivery_type` ('fixed' or 'base_on_rule' by default) in a key who
         # correspond to the `package_carrier_type` ('none' to default), we make a conversion.
