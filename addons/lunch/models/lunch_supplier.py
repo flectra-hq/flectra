@@ -8,6 +8,7 @@ from datetime import datetime, time, timedelta
 from textwrap import dedent
 
 from flectra import api, fields, models, _
+from flectra.exceptions import UserError
 from flectra.osv import expression
 from flectra.tools import float_round
 
@@ -246,7 +247,7 @@ class LunchSupplier(models.Model):
             return
 
         if self.send_by != 'mail':
-            raise ValueError("Cannot send an email to this supplier")
+            raise UserError(_("Cannot send an email to this supplier!"))
 
         orders = self._get_current_orders()
         if not orders:
