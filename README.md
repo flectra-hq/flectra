@@ -1,2 +1,2 @@
-Flectra 3.0 Work In Progress Branch
------------------------------------
+Flectra 3.0 
+------------
