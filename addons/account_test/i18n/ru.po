@@ -9,13 +9,13 @@ msgstr ""
 "Project-Id-Version: Odoo Server saas~11.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-26 08:16+0000\n"
-"PO-Revision-Date: 2018-09-21 13:17+0000\n"
+"PO-Revision-Date: 2024-03-23 21:58+0300\n"
 "Last-Translator: Martin Trigaux, 2018\n"
 "Language-Team: Russian (https://www.transifex.com/odoo/teams/41243/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: account_test
@@ -35,12 +35,12 @@ msgstr "<strong>Наименование:</strong>"
 #. module: account_test
 #: model:ir.model,name:account_test.model_report_account_test_report_accounttest
 msgid "Account Test Report"
-msgstr ""
+msgstr "Отчет о проверке счетов"
 
 #. module: account_test
 #: model:ir.model,name:account_test.model_accounting_assert_test
 msgid "Accounting Assert Test"
-msgstr ""
+msgstr "Бухгалтерский тест активов"
 
 #. module: account_test
 #: model:ir.actions.act_window,name:account_test.action_accounting_assert
@@ -52,7 +52,7 @@ msgstr "Тесты Бухгалтерского учета"
 #. module: account_test
 #: model_terms:ir.ui.view,arch_db:account_test.report_accounttest
 msgid "Accounting tests on"
-msgstr ""
+msgstr "Бухгалтерские тесты по"
 
 #. module: account_test
 #: model:ir.model.fields,field_description:account_test.field_accounting_assert_test__active
@@ -62,7 +62,7 @@ msgstr "Активно"
 #. module: account_test
 #: model_terms:ir.ui.view,arch_db:account_test.accounting_assert_test_view_search
 msgid "Archived"
-msgstr ""
+msgstr "Архивировано"
 
 #. module: account_test
 #: model:accounting.assert.test,desc:account_test.account_test_03
@@ -123,11 +123,31 @@ msgid ""
 "    cr.execute(sql)\n"
 "    result = cr.dictfetchall()"
 msgstr ""
+"Код всегда должен устанавливать переменную с именем `result` с результатом вашего теста, который может быть списком или\n"
+"словарем. Если `result` - пустой список, это означает, что тест прошел успешно. В противном случае будет\n"
+"попытается перевести и напечатать то, что находится внутри `result`.\n"
+"\n"
+"Если результатом теста является словарь, вы можете задать переменную с именем `column_order`, чтобы выбрать, в каком порядке вы хотите вывести `result`\n"
+"в каком порядке вы хотите вывести содержимое `result`.\n"
+"\n"
+"Если вам понадобится, вы также можете использовать следующие переменные в своем коде:\n"
+"    * cr: курсор к базе данных\n"
+"    * uid: идентификатор текущего пользователя\n"
+"\n"
+"В любом случае, код должен представлять собой легальные python-выражения с правильными отступами (при необходимости).\n"
+"\n"
+"Пример:\n"
+"    sql = '''SELECT id, name, ref, date\n"
+"             FROM account_move_line\n"
+"             WHERE account_id IN (SELECT id FROM account_account WHERE type = 'view')\n"
+"          '''\n"
+"    cr.execute(sql)\n"
+"    result = cr.dictfetchall()"
 
 #. module: account_test
 #: model_terms:ir.actions.act_window,help:account_test.action_accounting_assert
 msgid "Create a new accounting test"
-msgstr ""
+msgstr "Создать новый тест по бухгалтерскому учету"
 
 #. module: account_test
 #: model:ir.model.fields,field_description:account_test.field_accounting_assert_test__create_uid
@@ -181,7 +201,7 @@ msgstr "Последнее обновление"
 #. module: account_test
 #: model_terms:ir.ui.view,arch_db:account_test.accounting_assert_test_view_search
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #. module: account_test
 #: model_terms:ir.ui.view,arch_db:account_test.account_assert_form
@@ -196,7 +216,7 @@ msgstr "Код на Python"
 #. module: account_test
 #: model_terms:ir.ui.view,arch_db:account_test.accounting_assert_test_view_search
 msgid "Search Account Test"
-msgstr ""
+msgstr "Проверка учетки поиска"
 
 #. module: account_test
 #: model:ir.model.fields,field_description:account_test.field_accounting_assert_test__sequence
