@@ -12,13 +12,13 @@ msgstr ""
 "Project-Id-Version: Odoo Server saas~12.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-12 07:50+0000\n"
-"PO-Revision-Date: 2024-03-23 22:15+0300\n"
+"PO-Revision-Date: 2019-08-26 09:09+0000\n"
 "Last-Translator: Aidos Kakimzhanov <aidos.kakimzhan@gmail.com>, 2019\n"
 "Language-Team: Russian (https://www.transifex.com/odoo/teams/41243/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: auth_ldap
@@ -37,23 +37,11 @@ msgid ""
 "        (|(mail=%s)(uid=%s))\n"
 "    "
 msgstr ""
-"    Фильтр, используемый для поиска учетных записей пользователей в базе данных LDAP. Это произвольный LDAP-фильтр в строковом представлении. Любой заполнитель `%s` будет заменен на логин (идентификатор), указанный пользователем, фильтр должен содержать хотя бы один такой заполнитель.\n"
-"\n"
-"    Фильтр должен давать ровно один (1) результат, иначе логин будет считаться недействительным.\n"
-"\n"
-"    Пример (фактические атрибуты зависят от сервера LDAP и настроек):\n"
-"\n"
-"        (&(objectCategory=person)(objectClass=user)(sAMAccountName=%s))\n"
-"\n"
-"    или\n"
-"\n"
-"        (|(mail=%s)(uid=%s))\n"
-"    "
 
 #. module: auth_ldap
 #: model:ir.model.fields,help:auth_ldap.field_res_company_ldap__create_user
 msgid "Automatically create local user accounts for new users authenticating via LDAP"
-msgstr "Автоматическое создание локальных учетных записей для новых пользователей, проходящих аутентификацию через LDAP"
+msgstr "Автоматически создавать локальную учётную запись для новых пользователей прошедших проверку подлинности LDAP"
 
 #. module: auth_ldap
 #: model:ir.model,name:auth_ldap.model_res_company
@@ -93,7 +81,7 @@ msgstr "Создан"
 #. module: auth_ldap
 #: model:ir.model.fields,help:auth_ldap.field_res_company_ldap__ldap_base
 msgid "DN of the user search scope: all descendants of this base will be searched for users."
-msgstr "DN области поиска пользователей: поиск пользователей будет осуществляться по всем потомкам этой базы."
+msgstr ""
 
 #. module: auth_ldap
 #: model:ir.model.fields,field_description:auth_ldap.field_res_company_ldap__display_name
