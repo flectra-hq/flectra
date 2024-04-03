@@ -143,7 +143,7 @@
                             </div>
                         </button>
                         <button name="action_project_sharing_open_subtasks" type="object" class="oe_stat_button" icon="fa-tasks"
-                            invisible="not id or subtask_count == 0" context="{'default_user_ids': [(6, 0, [uid])]}">
+                            invisible="not id or subtask_count == 0" context="{'default_user_ids': [(6, 0, [uid])], 'default_project_id': project_id }">
                             <field name="subtask_count" widget="statinfo" string="Sub-tasks"/>
                         </button>
                     </div>
@@ -189,8 +189,8 @@
                                     <field name="project_id" column_invisible="True"/>
                                     <field name="state" column_invisible="True"/>
                                     <field name="sequence" widget="handle"/>
-                                    <field name="priority" widget="priority" optional="show" nolabel="1"/>
-                                    <field name="state" widget="project_task_state_selection" nolabel="1"/>
+                                    <field name="priority" widget="priority" optional="show" nolabel="1" width="40px"/>
+                                    <field name="state" widget="project_task_state_selection" nolabel="1" width="40px"/>
                                     <field name="name"/>
                                     <field name="allow_milestones" column_invisible="True"/>
                                     <field name="milestone_id"
