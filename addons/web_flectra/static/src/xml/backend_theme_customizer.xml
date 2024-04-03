@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Backend Theme Customizer Systray -->
+    <t t-name="web_flectra.theme_customizer.menu" owl="1">
+        <li  class="align-self-center d-flex f_theme_customizer p-2" t-on-click="onClick">
+            <a role="button" href="#" class="f-theme-customizer-toggler" >
+                <span class="fa fa-cogs text-white"/>
+            </a>
+        </li>
+        <div t-ref="themeRef" t-call="web_flectra.theme_customizer.panel"/>
+    </t>
+
+    <div t-name="web_flectra.theme_customizer.panel" class="f-theme-customizer-panel d-flex flex-column" role="menu">
+        <div class="f-theme-customizer-header d-flex flex-row align-items-center justify-content-center p-3">
+            <div class="header">
+                <h3>Theme Customizer</h3>
+            </div>
+            <div class="close">
+                <a class="f-theme-customizer-close" t-on-click="onClose" href="#">
+                    <i class="fa fa-close"/>
+                </a>
+            </div>
+        </div>
+        <div class="f-theme-customizer-content p-4" >
+            <t t-call="web_flectra.theme_customizer.panel.admin"/>
+            <t t-call="web_flectra.theme_customizer.panel.user"/>
+        </div>
+        <div class="f-theme-customizer-footer p-3">
+            <button t-on-click="onSave" class="save-btn btn btn-primary ml-2 mx-2">Save</button>
+            <button t-on-click="onReset" class="btn btn-primary" id="reset_to_default">
+                Reset To Default
+            </button>
+        </div>
+    </div>
+
+    <t t-name="web_flectra.theme_customizer.panel.admin">
+        <div class="company_settings">
+            <div class="d-flex justify-content-center p-3 section">
+                <h4>Global Settings</h4>
+            </div>
+            <div class="d-flex flex-row align-items-center p-2 selectbox_container">
+                <div class="label">
+                    <label for="select_menu">Menu Style</label>
+                </div>
+                <div class="selectbox">
+                    <select class="form-control custom-arrow" id="select_menu">
+                        <option t-att-selected="company_settings.theme_menu_style == 'sidemenu' ? 'selected' : undefined" value="sidemenu">Sided</option>
+                        <option t-att-selected="company_settings.theme_menu_style == 'apps' ? 'selected' : undefined" value="apps">Apps</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex flex-row align-items-center p-2" t-on-change="onChangeFont">
+                <div class="label">
+                    <label for="select_font">Font Type</label>
+                </div>
+                <div class="selectbox">
+                    <select class="form-control custom-arrow" id="select_font">
+                        <option t-att-selected="company_settings.theme_font_name  == 'Rubik' ? 'selected' : undefined" value="Rubik">Rubik</option>
+                        <option t-att-selected="company_settings.theme_font_name  == 'sans-serif' ? 'selected' : undefined" value="sans-serif">sans-serif</option>
+                        <option t-att-selected="company_settings.theme_font_name  == 'poppins' ? 'selected' : undefined" value="poppins">Poppins</option>
+                        <option t-att-selected="company_settings.theme_font_name  == 'lato' ? 'selected' : undefined" value="lato">Lato</option>
+                        <option t-att-selected="company_settings.theme_font_name  == 'merriweather' ? 'selected' : undefined" value="merriweather">Merriweather</option>
+                        <option t-att-selected="company_settings.theme_font_name  == 'montserrat' ? 'selected' : undefined" value="montserrat">Montserrat</option>
+                        <option t-att-selected="company_settings.theme_font_name  == 'opensans' ? 'selected' : undefined" value="opensans">OpenSans</option>
+                        <option t-att-selected="company_settings.theme_font_name  == 'playfairdisplay' ? 'selected' : undefined" value="playfairdisplay">PlayfairDisplay</option>
+                        <option t-att-selected="company_settings.theme_font_name  == 'google-font' ? 'selected' : undefined" value="google-font">Google Font</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex flex-row align-items-start p-2">
+                <div class="label pt-2">
+                    <label for="preloader_option">Preloader Option</label>
+                </div>
+                <div class="selectbox">
+                    <select class="form-control custom-arrow" id="select_preloaders">
+                        <option t-att-selected="company_settings.preloader_option == 'style_one' ? 'selected' : undefined" value="style_one" data-thumbnail="/web_flectra/static/src/img/preloader/style1.png">Style 1</option>
+                        <option t-att-selected="company_settings.preloader_option == 'style_two' ? 'selected' : undefined" value="style_two" data-thumbnail="/web_flectra/static/src/img/preloader/style2.png">Style 2</option>
+                        <option t-att-selected="company_settings.preloader_option == 'style_three' ? 'selected' : undefined" value="style_three" data-thumbnail="/web_flectra/static/src/img/preloader/style3.png">Style 3</option>
+                        <option t-att-selected="company_settings.preloader_option == 'style_four' ? 'selected' : undefined" value="style_four" data-thumbnail="/web_flectra/static/src/img/preloader/style4.png">Style 4</option>
+                        <option t-att-selected="company_settings.preloader_option == 'style_five' ? 'selected' : undefined" value="style_five" data-thumbnail="/web_flectra/static/src/img/preloader/style5.png">Style 5</option>
+                        <option t-att-selected="company_settings.preloader_option == 'style_six' ? 'selected' : undefined" value="style_six" data-thumbnail="/web_flectra/static/src/img/preloader/style6.png">Style 6</option>
+                        <option t-att-selected="company_settings.preloader_option == 'style_seven' ? 'selected' : undefined" value="style_seven" data-thumbnail="/web_flectra/static/src/img/preloader/style7.png">Style 7</option>
+                        <option t-att-selected="company_settings.preloader_option == 'style_eight' ? 'selected' : undefined" value="style_eight" data-thumbnail="/web_flectra/static/src/img/preloader/style8.png">Style 8</option>
+                        <option t-att-selected="company_settings.preloader_option == 'style_nine' ? 'selected' : undefined" value="style_nine" data-thumbnail="/web_flectra/static/src/img/preloader/style9.png">Style 9</option>
+                        <option t-att-selected="company_settings.preloader_option == 'style_ten' ? 'selected' : undefined" value="style_ten" data-thumbnail="/web_flectra/static/src/img/preloader/style10.png">Style 10</option>
+                        <option t-att-selected="company_settings.preloader_option == 'style_eleven' ? 'selected' : undefined" value="style_eleven" data-thumbnail="/web_flectra/static/src/img/preloader/style11.png">Style 11</option>
+                        <option t-att-selected="company_settings.preloader_option == 'style_twelve' ? 'selected' : undefined" value="style_twelve" data-thumbnail="/web_flectra/static/src/img/preloader/style12.png">Style 12</option>
+                    </select>
+<!--                    <div class="preloader-select">-->
+<!--                        <button class="btn-select" value=""></button>-->
+<!--                        <div class="preloader_block">-->
+<!--                            <ul id="preloader_list"></ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+            </div>
+            <div t-attf-class="row pl-4 google-font-input align-items-center p-2 #{company_settings.theme_font_name != 'google-font' ? 'd-none' : ''}">
+                <div class="label">
+                    <label for="select_font">Font Name</label>
+                </div>
+                <div>
+                    <input type="text" id="google_font_val" t-att-value="company_settings.google_font"/>
+                </div>
+            </div>
+            <div class="d-flex justify-content-start p-2 sub_section">
+                <label>Theme Colors</label>
+            </div>
+            <div class="d-flex flex-row p-2 color_picker">
+                <div class="d-flex align-items-center label">
+                    <label>Brand Color</label>
+                </div>
+                <div class="input-group color_picker_component" data-identity="theme_color_brand">
+                    <input type="text" class="form-control color-inp-value" t-att-value="company_settings.theme_color_brand"/>
+                    <span>
+                        <input t-ref="brandRef" class="input-group-text color-picker-base-spectrum" t-att-value="company_settings.theme_color_brand"><i></i></input>
+                    </span>
+                </div>
+            </div>
+            <div class="d-flex flex-row p-2 color_picker">
+                <div class="d-flex align-items-center label">
+                    <label>Background Color</label>
+                </div>
+                <div class="input-group color_picker_component" data-identity="theme_background_color">
+                    <input type="text" class="form-control color-inp-value" t-att-value="company_settings.theme_background_color"/>
+                    <span>
+                        <input t-ref="bgRef" class="input-group-text color-picker-base-spectrum" t-att-value="company_settings.theme_background_color"><i></i></input>
+                    </span>
+                </div>
+            </div>
+            <div class="d-flex flex-row p-2 color_picker">
+                <div class="d-flex align-items-center label">
+                    <label>Sidebar Color</label>
+                </div>
+                <div class="input-group color_picker_component" data-identity="theme_sidebar_color">
+                    <input type="text" class="form-control color-inp-value" t-att-value="company_settings.theme_sidebar_color"/>
+                    <span>
+                        <input t-ref="sidedRef" class="input-group-text color-picker-base-spectrum" t-att-value="company_settings.theme_sidebar_color"><i></i></input>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="web_flectra.theme_customizer.panel.user">
+        <div class="user_settings">
+            <div class="d-flex flex-row align-items-center p-2 switch_checkbox_container">
+                <div class="label">
+                    Dark Mode
+                </div>
+                <div class="switch_checkbox">
+                    <input type="checkbox" t-att-checked="user_settings.dark_mode ? 'checked': undefined" id="toggle_darkmode"/>
+                    <label for="toggle_darkmode" />
+                </div>
+            </div>
+            <div class="d-flex flex-row align-items-center p-2">
+                <div class="label">
+                    <label for="select_chatter">Chatter Position</label>
+                </div>
+                <div class="selectbox">
+                    <select class="form-control custom-arrow" id="select_chatter">
+                        <option t-att-selected="user_settings.chatter_position ? 'bottom' : undefined" value="bottom">Bottom</option>
+                        <option t-att-selected="user_settings.chatter_position ? 'sided' : undefined" value="sided">Sided</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="web_flectra.theme_customizer.component">
+        <t t-if="component.type == 'section'">
+            <t t-call="web_flectra.theme_customizer.section"/>
+        </t>
+        <t t-if="component.type == 'colorpicker'">
+            <t t-call="web_flectra.theme_customizer.colorpicker"/>
+        </t>
+    </t>
+
+    <t t-name="web_flectra.theme_customizer.section">
+        <span t-esc="component.name" />
+        <t t-set="section_component" t-value="component.content"/>
+        <t t-foreach="section_component" t-as="key">
+            <t t-set="component" t-value="section_component[key]"/>
+            <t t-call="web_flectra.theme_customizer.component"/>
+        </t>
+    </t>
+
+    <t t-name="web_flectra.theme_customizer.colorpicker">
+        <div class="title"><t t-esc="component.name" /></div>
+        <div class="input-group style_color_item" t-attr-data-identity="{{component}}">
+            <input type="text" class="form-control" t-attr-value="{{component.value}}"/>
+            <span class="input-group-append">
+                <span class="input-group-text colorpicker-input-addon"><i></i></span>
+            </span>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-inherit="web.Legacy.SearchPanel" t-inherit-mode="extension" owl="1">
+
+        <xpath expr="//div" position="replace">
+
+            <t t-if="state.isMobile">
+                <div class="" t-att-class="props.className">
+                    <button class="btn btn-link btn-sm o_mobile_searchPanel_category" style="font-size:15px;" aria-expanded="false">
+                        <i class="fa fa-filter"></i><span class="ml-1">All</span>
+                    </button>
+                    <div class="o_mobile_searchPanel_toggle d-none">
+                        <div class="o_mobile_search dropdown-menu-right list-inline">
+                            <ul style="padding-left:0px;">
+                                <div class="o_mobile_search_header">
+                                    <span class="o_mobile_searchPanel_toggle_close float-left mt16 mb16 mr8 ml16">
+                                        <i class="fa fa-arrow-left" />
+                                        <strong class="float-right ml8">FILTER</strong>
+                                    </span>
+                                </div>
+                                <section t-foreach="model.get('sections', s => !s.empty)" t-as="section" t-key="section.id"
+                                    t-attf-class="o_search_panel_section o_search_panel_{{ section.type }}" style="padding:20px;">
+                                    <header class="o_search_panel_section_header text-uppercase">
+                                        <i t-attf-class="fa {{ section.icon }} o_search_panel_section_icon mr-2"
+                                            t-att-style="section.color and ('color: ' + section.color)"
+                                        />
+                                        <b t-esc="section.description"/>
+                                    </header>
+                                    <div t-if="section.errorMsg" class="alert alert-warning">
+                                        <span><t t-esc="section.errorMsg"/></span>
+                                    </div>
+                                    <ul t-else="" class="list-group d-block o_search_panel_field">
+                                        <t t-if="section.type === 'category'" t-call="web.Legacy.SearchPanel.Category">
+                                            <t t-set="values" t-value="section.rootIds"/>
+                                        </t>
+                                        <t t-elif="section.groups">
+                                            <li t-foreach="section.sortedGroupIds" t-as="groupId" t-key="groupId"
+                                                class="o_search_panel_filter_group list-group-item border-0"
+                                                >
+                                                <!-- TODO: this is a workaround for issue https://github.com/flectra/owl/issues/695 (remove when solved) -->
+                                                <t t-set="_section" t-value="section"/>
+                                                <t t-set="group" t-value="section.groups.get(groupId)"/>
+                                                <header class="o_search_panel_group_header">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <!-- TODO: "indeterminate" could not be set in the template and had to be set in
+                                                             JS manually. See https://github.com/flectra/owl/issues/713 (adapt when solved)
+                                                        -->
+                                                        <input type="checkbox"
+                                                            class="custom-control-input"
+                                                            t-attf-id="{{ section.id }}_input_{{ groupId }})"
+                                                            t-on-click="_toggleFilterGroup(section.id, group)"
+                                                        />
+                                                        <label t-attf-for="{{ section.id }}_input_{{ groupId }})"
+                                                            class="o_search_panel_label custom-control-label"
+                                                            t-att-class="{ o_with_counters: group.enableCounters }"
+                                                            t-att-title="group.tooltip or false"
+                                                            >
+                                                            <span class="o_search_panel_label_title">
+                                                                <span t-if="group.hex_color" class="mr-1" t-attf-style="color: {{ group.hex_color }};">●</span>
+                                                                <t t-esc="group.name"/>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </header>
+                                                <ul class="list-group d-block">
+                                                    <t t-call="web.Legacy.SearchPanel.FiltersGroup">
+                                                        <t t-set="values" t-value="group.values"/>
+                                                        <!-- TODO: this is a workaround for issue https://github.com/flectra/owl/issues/695 (remove when solved) -->
+                                                        <t t-set="section" t-value="_section"/>
+                                                    </t>
+                                                </ul>
+                                            </li>
+                                            <ul t-if="section.groups.get(false)" class="list-group d-block">
+                                                <t t-call="web.Legacy.SearchPanel.FiltersGroup">
+                                                    <t t-set="group" t-value="section.groups.get(false)"/>
+                                                    <t t-set="values" t-value="group.values"/>
+                                                    <!-- TODO: this is a workaround for issue https://github.com/flectra/owl/issues/695 (remove when solved) -->
+                                                    <t t-set="section" t-value="section"/>
+                                                </t>
+                                            </ul>
+                                        </t>
+                                        <t t-else="" t-call="web.Legacy.SearchPanel.FiltersGroup">
+                                            <t t-set="values" t-value="section.values"/>
+                                        </t>
+                                    </ul>
+                                </section>
+                                <div class="btn btn-primary o_mobile_search_show_result o_mobile_searchPanel_toggle_show_result fixed-bottom">
+                                    <t>SEE RESULT</t>
+                            </div>
+                            </ul>
+                        </div>
+                    </div>
+                     </div>
+            </t>
+            <t t-else="">
+                <div class="o_search_panel" t-att-class="props.className">
+                    <section t-foreach="model.get('sections', s => !s.empty)" t-as="section" t-key="section.id"
+                        t-attf-class="o_search_panel_section o_search_panel_{{ section.type }}"
+                        >
+                        <header class="o_search_panel_section_header text-uppercase">
+                            <i t-attf-class="fa {{ section.icon }} o_search_panel_section_icon mr-2"
+                                t-att-style="section.color and ('color: ' + section.color)"
+                            />
+                            <b t-esc="section.description"/>
+                        </header>
+                        <div t-if="section.errorMsg" class="alert alert-warning">
+                            <span><t t-esc="section.errorMsg"/></span>
+                        </div>
+                        <ul t-else="" class="list-group d-block o_search_panel_field">
+                            <t t-if="section.type === 'category'" t-call="web.Legacy.SearchPanel.Category">
+                                <t t-set="values" t-value="section.rootIds"/>
+                            </t>
+                            <t t-elif="section.groups">
+                                <li t-foreach="section.sortedGroupIds" t-as="groupId" t-key="groupId"
+                                    class="o_search_panel_filter_group list-group-item border-0"
+                                    >
+                                    <!-- TODO: this is a workaround for issue https://github.com/flectra/owl/issues/695 (remove when solved) -->
+                                    <t t-set="_section" t-value="section"/>
+                                    <t t-set="group" t-value="section.groups.get(groupId)"/>
+                                    <header class="o_search_panel_group_header">
+                                        <div class="custom-control custom-checkbox">
+                                            <!-- TODO: "indeterminate" could not be set in the template and had to be set in
+                                                 JS manually. See https://github.com/flectra/owl/issues/713 (adapt when solved)
+                                            -->
+                                            <input type="checkbox"
+                                                class="custom-control-input"
+                                                t-attf-id="{{ section.id }}_input_{{ groupId }})"
+                                                t-on-click="_toggleFilterGroup(section.id, group)"
+                                            />
+                                            <label t-attf-for="{{ section.id }}_input_{{ groupId }})"
+                                                class="o_search_panel_label custom-control-label"
+                                                t-att-class="{ o_with_counters: group.enableCounters }"
+                                                t-att-title="group.tooltip or false"
+                                                >
+                                                <span class="o_search_panel_label_title">
+                                                    <span t-if="group.hex_color" class="mr-1" t-attf-style="color: {{ group.hex_color }};">●</span>
+                                                    <t t-esc="group.name"/>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </header>
+                                    <ul class="list-group d-block">
+                                        <t t-call="web.Legacy.SearchPanel.FiltersGroup">
+                                            <t t-set="values" t-value="group.values"/>
+                                            <!-- TODO: this is a workaround for issue https://github.com/flectra/owl/issues/695 (remove when solved) -->
+                                            <t t-set="section" t-value="_section"/>
+                                        </t>
+                                    </ul>
+                                </li>
+                                <ul t-if="section.groups.get(false)" class="list-group d-block">
+                                    <t t-call="web.Legacy.SearchPanel.FiltersGroup">
+                                        <t t-set="group" t-value="section.groups.get(false)"/>
+                                        <t t-set="values" t-value="group.values"/>
+                                        <!-- TODO: this is a workaround for issue https://github.com/flectra/owl/issues/695 (remove when solved) -->
+                                        <t t-set="section" t-value="section"/>
+                                    </t>
+                                </ul>
+                            </t>
+                            <t t-else="" t-call="web.Legacy.SearchPanel.FiltersGroup">
+                                <t t-set="values" t-value="section.values"/>
+                            </t>
+                        </ul>
+                    </section>
+                </div>
+            </t>
+
+        </xpath>
+    </t>
+</templates>
