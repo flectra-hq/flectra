@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<flectra>
+    <record id="view_db_backup_configure_form_google_drive" model="ir.ui.view">
+        <field name="name">db.backup.configure.form.google.drive</field>
+        <field name="model">db.backup.configure</field>
+        <field name="inherit_id" ref="auto_database_backup.view_db_backup_configure_form"/>
+        <field name="arch" type="xml">
+            <group name="local_section" position="after">
+                <group string="Google Drive Configuration" name="google_drive_section"
+                       invisible="backup_destination != 'google_drive'">
+                    <group>
+                        <field name="gdrive_client_id" string="Client ID" required="backup_destination == 'google_drive'"/>
+                        <field name="gdrive_client_secret" string="Client Secret"
+                               required="backup_destination == 'google_drive'" password="True"/>
+                        <field name="google_drive_folderid" required="backup_destination == 'google_drive'"/>
+                        <field name="gdrive_access_token" password="True" invisible="1"/>
+                        <field name="gdrive_refresh_token" password="True" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="gdrive_redirect_uri" string="Redirect URI"/>
+                        <field name="gdrive_token_validity" invisible="1"/>
+                        <field name="is_google_drive_token_generated" invisible="1"/>
+                        <div invisible="is_google_drive_token_generated == False">
+                            <i class="text-success fa fa-check"/>
+                            Refresh token set
+                        </div>
+                        <div invisible="is_google_drive_token_generated == True">
+                            <i class="fa fa-exclamation-triangle text-warning"/>
+                            No refresh token set
+                        </div>
+                        <div invisible="is_google_drive_token_generated == True">
+                            <button class="btn btn-link" name="action_get_gdrive_auth_code" type="object">
+                                <i class="fa fa-arrow-right"/>
+                                Setup Token
+                            </button>
+                        </div>
+                        <div invisible="is_google_drive_token_generated == False">
+                            <button class="btn btn-link" name="action_get_gdrive_auth_code" type="object">
+                                <i class="fa fa-arrow-right"/>
+                                Reset Token
+                            </button>
+                        </div>
+                    </group>
+                </group>
+            </group>
+        </field>
+    </record>
+
+</flectra>

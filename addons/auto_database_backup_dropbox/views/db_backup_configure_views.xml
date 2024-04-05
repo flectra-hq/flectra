@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<flectra>
+    <record id="view_db_backup_configure_form_drop_box" model="ir.ui.view">
+        <field name="name">db.backup.configure.form.drop.box</field>
+        <field name="model">db.backup.configure</field>
+        <field name="inherit_id" ref="auto_database_backup.view_db_backup_configure_form"/>
+        <field name="arch" type="xml">
+            <group name="local_section" position="after">
+                <group string="Dropbox Configuration" name="dropbox_section" invisible= "backup_destination != 'dropbox'">
+                    <group>
+                        <field name="dropbox_client_id" string="App Key" required="backup_destination == 'dropbox'" password="True"/>
+                        <field name="dropbox_client_secret" string="App Secret" required="backup_destination == 'dropbox'" password="True"/>
+                    </group>
+                    <group>
+                        <field name="dropbox_refresh_token" invisible="1"/>
+                        <field name="is_dropbox_token_generated" invisible="1"/>
+                        <field name="dropbox_folder" required="backup_destination == 'dropbox'"/>
+                        <div invisible="is_dropbox_token_generated == False">
+                            <i class="text-success fa fa-check"/>
+                            Refresh token set
+                        </div>
+                        <div invisible="is_dropbox_token_generated == True">
+                            <i class="fa fa-exclamation-triangle text-warning"/>
+                            No refresh token set
+                        </div>
+                        <div invisible="is_dropbox_token_generated == True">
+                            <button class="btn btn-link"
+                                    name="action_get_dropbox_auth_code"
+                                    type="object">
+                                <i class="fa fa-arrow-right"/>
+                                Setup Token
+                            </button>
+                        </div>
+                        <div invisible="is_dropbox_token_generated == False">
+                            <button class="btn btn-link"
+                                    name="action_get_dropbox_auth_code"
+                                    type="object">
+                                <i class="fa fa-arrow-right"/>
+                                Reset Token
+                            </button>
+                        </div>
+                    </group>
+                </group>
+            </group>
+        </field>
+    </record>
+</flectra>

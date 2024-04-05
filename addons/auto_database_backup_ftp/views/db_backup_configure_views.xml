@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<flectra>
+    <record id="view_db_backup_configure_form_ftp" model="ir.ui.view">
+        <field name="name">db.backup.configure.form.ftp</field>
+        <field name="model">db.backup.configure</field>
+        <field name="inherit_id" ref="auto_database_backup.view_db_backup_configure_form"/>
+        <field name="arch" type="xml">
+            <group name="local_section" position="after">
+                <group string="FTP Configuration" name="ftp_section" invisible="backup_destination != 'ftp'">
+                    <group>
+                        <field name="ftp_host" required="backup_destination =='ftp'"/>
+                        <field name="ftp_user" required="backup_destination =='ftp'"/>
+                        <field name="ftp_path" required="backup_destination =='ftp'"/>
+                    </group>
+                    <group>
+                        <field name="ftp_port" required="backup_destination =='ftp'"/>
+                        <field name="ftp_password" required="backup_destination =='ftp'" password="True"/>
+                        <button name="test_ftp_connection" type="object" string="Test Connection" icon="fa-television"/>
+                    </group>
+                </group>
+            </group>
+        </field>
+    </record>
+
+</flectra>
