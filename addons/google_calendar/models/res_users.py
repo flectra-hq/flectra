@@ -61,8 +61,17 @@ class User(models.Model):
         send_updates = not full_sync
         events.clear_type_ambiguity(self.env)
         recurrences = events.filter(lambda e: e.is_recurrence())
-        synced_recurrences = self.env['calendar.recurrence']._sync_google2flectra(recurrences)
-        synced_events = self.env['calendar.event']._sync_google2flectra(events - recurrences, default_reminders=default_reminders)
+
+        # We apply Google updates only if their write date is later than the write date in Flectra.
+        # It's possible that multiple updates affect the same record, maybe not directly.
+        # To handle this, we preserve the write dates in Flectra before applying any updates,
+        # and use these dates instead of the current live dates.
+        flectra_events = self.env['calendar.event'].browse((events - recurrences).flectra_ids(self.env))
+        flectra_recurrences = self.env['calendar.recurrence'].browse(recurrences.flectra_ids(self.env))
+        recurrences_write_dates = {r.id: r.write_date for r in flectra_recurrences}
+        events_write_dates = {e.id: e.write_date for e in flectra_events}
+        synced_recurrences = self.env['calendar.recurrence'].with_context(write_dates=recurrences_write_dates)._sync_google2flectra(recurrences)
+        synced_events = self.env['calendar.event'].with_context(write_dates=events_write_dates)._sync_google2flectra(events - recurrences, default_reminders=default_reminders)
 
         # Flectra -> Google
         recurrences = self.env['calendar.recurrence']._get_records_to_sync(full_sync=full_sync)
