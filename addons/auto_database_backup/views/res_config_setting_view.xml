@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flectra>
+    <record id="res_config_settings_form_inherit_autobackup" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.autobackup</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="40"/>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='general_settings']" position="inside">
+                <block title="Auto Backup" name="auto_backup">
+                    <div class="col-12">
+                        <button
+                            name="%(auto_database_backup.action_db_backup_configure)d"
+                            string="Configure Auto Backup Server" type="action" class="oe_link"
+                            icon="fa-arrow-right"/>
+                    </div>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</flectra>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<flectra>
+    <record id="view_db_backup_configure_form_sftp" model="ir.ui.view">
+        <field name="name">db.backup.configure.form.sftp</field>
+        <field name="model">db.backup.configure</field>
+        <field name="inherit_id" ref="auto_database_backup.view_db_backup_configure_form"/>
+        <field name="arch" type="xml">
+            <group name="local_section" position="after">
+                <group string="SFTP Configuration" name="sftp_section"
+                       invisible="backup_destination != 'sftp'">
+                    <group>
+                        <field name="sftp_host" required="backup_destination =='sftp'"/>
+                        <field name="sftp_user" required="backup_destination =='sftp'"/>
+                        <field name="sftp_path" required="backup_destination =='sftp'"/>
+                    </group>
+                    <group>
+                        <field name="sftp_port" required="backup_destination =='sftp'"/>
+                        <field name="sftp_password" required="backup_destination =='sftp'" password="True"/>
+                        <button name="test_sftp_connection" type="object" string="Test Connection" icon="fa-television"/>
+                    </group>
+                </group>
+            </group>
+        </field>
+    </record>
+</flectra>

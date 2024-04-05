@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flectra>
+    <record id="view_module_upgrade_wizard_views_form" model="ir.ui.view">
+        <field name="name">module.upgrade.wizard.form</field>
+        <field name="model">module.upgrade.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="database_backup"/>
+                        <field name="database_backup" class="ml16"/>
+                        <br/>
+                        <label for="backup_option_id" invisible="database_backup != False" string="Backup Type"/>
+                        <field name="backup_option_id" class="ml16" invisible="database_backup == False"
+                               required="database_backup != False"/>
+                    </div>
+                </sheet>
+                <footer>
+                    <button string="Upgrade" type="object" name="action_module_upgrade" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</flectra>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<flectra>
+    <record id="view_db_backup_configure_form_one_drive" model="ir.ui.view">
+        <field name="name">db.backup.configure.form.one.drive</field>
+        <field name="model">db.backup.configure</field>
+        <field name="inherit_id" ref="auto_database_backup.view_db_backup_configure_form"/>
+        <field name="arch" type="xml">
+            <group name="local_section" position="after">
+                <group string="Onedrive Configuration" name="onedrive_section" invisible="backup_destination != 'onedrive'">
+                    <group>
+                        <field name="onedrive_client_id" string="Client ID" required="backup_destination == 'onedrive'"/>
+                        <field name="onedrive_client_secret" string="Client Secret" required="backup_destination == 'onedrive'" password="True"/>
+                        <field name="onedrive_folder" string="Folder Name" required="backup_destination == 'onedrive'"/>
+                        <field name="onedrive_folder_id" string="Folder ID" required="backup_destination == 'onedrive'"/>
+                        <field name="onedrive_access_token" string="Access Token" invisible="1" password="True"/>
+                        <field name="onedrive_refresh_token" string="Refresh Token" invisible="1" password="True"/>
+                        <field name="onedrive_token_validity" string="Token Validity" invisible="1"/>
+                        <field name="is_onedrive_token_generated" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="onedrive_redirect_uri" string="Redirect URI"/>
+                        <div invisible="is_onedrive_token_generated == False">
+                            <i class="text-success fa fa-check"/>
+                            Refresh token set
+                        </div>
+                        <div invisible="is_onedrive_token_generated == True">
+                            <i class="fa fa-exclamation-triangle text-warning"/>
+                            No refresh token set
+                        </div>
+                        <div invisible="is_onedrive_token_generated == True">
+                            <button class="btn btn-link"
+                                    name="action_get_onedrive_auth_code"
+                                    type="object">
+                                <i class="fa fa-arrow-right"/>
+                                Setup Token
+                            </button>
+                        </div>
+                        <div invisible="is_onedrive_token_generated == False">
+                            <button class="btn btn-link"
+                                    name="action_get_onedrive_auth_code"
+                                    type="object">
+                                <i class="fa fa-arrow-right"/>
+                                Reset Token
+                            </button>
+                        </div>
+                    </group>
+                </group>
+            </group>
+        </field>
+    </record>
+
+</flectra>
