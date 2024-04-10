@@ -10,6 +10,7 @@ from flectra.exceptions import UserError, ValidationError
 
 from flectra.addons.payment import utils as payment_utils
 from flectra.addons.payment_stripe import const
+from flectra.addons.payment_stripe import utils as stripe_utils
 from flectra.addons.payment_stripe.controllers.main import StripeController
 
 
@@ -151,6 +152,7 @@ class PaymentTransaction(models.Model):
                 payment_method_type, payment_method_type
             ),
             'expand[]': 'payment_method',
+            **stripe_utils.include_shipping_address(self),
         }
         if self.operation in ['online_token', 'offline']:
             if not self.token_id.stripe_payment_method:  # Pre-SCA token, migrate it.
