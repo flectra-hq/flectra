@@ -1,0 +1,1525 @@
+
+msgid ""
+msgstr ""
+"Project-Id-Version:Flectra Server 3.0alpha"
+"Report-Msgid-Bugs-To:"
+"POT-Creation-Date:2024-04-10 10:46+0000"
+"PO-Revision-Date:2024-04-10 10:46+0000"
+"Last-Translator:"
+"Language-Team:"
+"MIME-Version:1.0"
+"Content-Type:text/plain; charset=UTF-8"
+"Content-Transfer-Encoding:"
+"Plural-Forms:"
+
+#. module: account_followup
+#: model:followup.line,description:account_followup.demo_followup_line3
+#: model:followup.line,description:account_followup.demo_followup_line4
+#: model:followup.line,description:account_followup.demo_followup_line5
+msgid ""
+"\n"
+"                Dear %(partner_name)s,\n"
+"\n"
+"                Despite several reminders, your account is still not settled.\n"
+"\n"
+"                Unless full payment is made in next 8 days, then legal action\n"
+"                for the recovery of the debt will be taken without further\n"
+"                notice.\n"
+"\n"
+"                I trust that this action will prove unnecessary and details of\n"
+"                due payments is printed below.\n"
+"\n"
+"                In case of any queries concerning this matter, do not hesitate\n"
+"                to contact our accounting department.\n"
+"\n"
+"                Best Regards,\n"
+"            "
+msgstr ""
+"\n"
+" Kære %(partner_name)s,\n"
+"\n"
+" Trods adskillige påmindelser er din konto stadig ikke afviklet.\n"
+"\n"
+" Medmindre fuld betaling er foretaget inden for de næste 8 dage, vil retslige skridt\n"
+" for inddrivelse af gælden tages uden yderligere\n"
+" varsel.\n"
+"\n"
+" Jeg stoler på, at denne handling vil vise sig at være unødvendig, og detaljer om\n"
+" forfaldne betalinger er udskrevet nedenfor.\n"
+"\n"
+" I tilfælde af spørgsmål vedrørende denne sag, tøv ikke\n"
+" med at kontakt vores regnskabsafdeling.\n"
+"\n"
+" Med venlig hilsen\n"
+
+#. module: account_followup
+#: model:followup.line,description:account_followup.demo_followup_line1
+msgid ""
+"\n"
+"                Dear %(partner_name)s,\n"
+"\n"
+"                Exception made if there was a mistake of ours, it seems that\n"
+"                the following amount stays unpaid. Please, take appropriate\n"
+"                measures in order to carry out this payment in the next 8 days.\n"
+"\n"
+"                Would your payment have been carried out after this mail was\n"
+"                sent, please ignore this message. Do not hesitate to contact\n"
+"                our accounting department.\n"
+"\n"
+"                Best Regards,\n"
+"            "
+msgstr ""
+"\n"
+" Kære %(partner_name)s,\n"
+"\n"
+" Undtagelse, hvis der var en fejl fra os, ser det ud til, at\n"
+" følgende beløb forbliver ubetalt. Tag venligst passende\n"
+" foranstaltninger for at udføre denne betaling inden for de næste 8 dage.\n"
+"\n"
+" Ville din betaling være blevet gennemført efter denne e-mail blev\n"
+" sendt, skal du ignorere denne meddelelse. Tøv ikke med at kontakte\n"
+" vores regnskabsafdeling.\n"
+"\n"
+" Med venlig hilsen\n"
+
+#. module: account_followup
+#: model:followup.line,description:account_followup.demo_followup_line2
+msgid ""
+"\n"
+"                Dear %(partner_name)s,\n"
+"\n"
+"                We are disappointed to see that despite sending a reminder,\n"
+"                that your account is now seriously overdue.\n"
+"\n"
+"                It is essential that immediate payment is made, otherwise we\n"
+"                will have to consider placing a stop on your account which\n"
+"                means that we will no longer be able to supply your company\n"
+"                with (goods/services).\n"
+"                Please, take appropriate measures in order to carry out this\n"
+"                payment in the next 8 days.\n"
+"\n"
+"                If there is a problem with paying invoice that we are not aware\n"
+"                of, do not hesitate to contact our accounting department, so\n"
+"                that we can resolve the matter quickly.\n"
+"\n"
+"                Details of due payments is printed below.\n"
+"\n"
+"                Best Regards,\n"
+"            "
+msgstr ""
+"\n"
+" Kære %(partner_name)s,\n"
+"\n"
+" Vi er skuffede over at se, at trods afsendelse af en påmindelse,\n"
+" at din konto nu er alvorligt forfalden.\n"
+"\n"
+" Det er vigtigt, at der foretages øjeblikkelig betaling, ellers vil vi\\ n bliver nødt til at overveje at placere et stop på din konto, hvilket\n"
+" betyder, at vi ikke længere vil være i stand til at forsyne din virksomhed\n"
+" med (varer/tjenester).\n"
+" Venligst træffe passende foranstaltninger for at udføre dette\n"
+" betaling inden for de næste 8 dage.\n"
+"\n"
+" Hvis der er et problem med betaling af faktura, som vi ikke er bekendt med\n"
+", så tøv ikke med at kontakte vores regnskabsafdeling, så\n"
+" at vi kan løse sagen hurtigt.\n"
+" \n"
+" Oplysninger om forfaldne betalinger er udskrevet nedenfor.\n"
+"\n"
+" Med venlig hilsen\n"
+
+#. module: account_followup
+#: model:mail.template,body_html:account_followup.email_template_account_followup_level0
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"\n"
+"    <p>Dear ${object.name},</p>\n"
+"    <p>\n"
+"    Exception made if there was a mistake of ours, it seems that the following amount stays unpaid. Please, take\n"
+"appropriate measures in order to carry out this payment in the next 8 days.\n"
+"\n"
+"Would your payment have been carried out after this mail was sent, please ignore this message. Do not hesitate to\n"
+"contact our accounting department.  \n"
+"\n"
+"    </p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"<br/>\n"
+"   <br/>\n"
+"${user.name}\n"
+"\n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"\n"
+"${object.get_followup_table_html() | safe}\n"
+"\n"
+"    <br/>\n"
+"\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb( 255, 255, 255); \">\n"
+"\n"
+" <p>Kære ${object.name},</p>\n"
+" <p>\n"
+" Der er gjort en undtagelse, hvis der var en fejl fra os, det ser ud til, at følgende beløb forbliver ubetalt. Tag venligst\n"
+"hensigtsmæssige foranstaltninger for at udføre denne betaling inden for de næste 8 dage.\n"
+"\n"
+"Vil din betaling være blevet gennemført efter at denne mail blev sendt, så ignorer venligst denne besked. Tøv ikke med at\n"
+"kontakte vores regnskabsafdeling. \n"
+"\n"
+" </p>\n"
+"<br/>\n"
+"Med venlig hilsen\n"
+"<br/>\n"
+" <br/>\n"
+"${bruger.navn}\n"
+"\n"
+"<br/>\n"
+"<br />\n"
+"\n"
+"\n"
+"${object.get_followup_table_html() | sikker}\n"
+"\n"
+" <br/>\n"
+"\n"
+"</div>\n"
+
+#. module: account_followup
+#: model:mail.template,body_html:account_followup.email_template_account_followup_level2
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"    \n"
+"    <p>Dear ${object.name},</p>\n"
+"    <p>\n"
+"    Despite several reminders, your account is still not settled.\n"
+"Unless full payment is made in next 8 days, legal action for the recovery of the debt will be taken without\n"
+"further notice.\n"
+"I trust that this action will prove unnecessary and details of due payments is printed below.\n"
+"In case of any queries concerning this matter, do not hesitate to contact our accounting department.\n"
+"</p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"<br/>\n"
+"<br/>\n"
+"${user.name}\n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"\n"
+"${object.get_followup_table_html() | safe}\n"
+"\n"
+"    <br/>\n"
+"\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb( 255, 255, 255); \">\n"
+" \n"
+" <p>Kære ${object.name},</p>\n"
+" <p>\n"
+" På trods af flere påmindelser er din konto stadig ikke afviklet.\n"
+"Medmindre fuld betaling foretages inden for de næste 8 dage, vil der blive taget retslige skridt til inddrivelse af gælden uden\n"
+"yderligere varsel.\n"
+"Jeg stoler på, at denne handling vil vise sig unødvendig, og detaljer om forfaldne betalinger udskrives nedenfor.\n"
+"I tilfælde af spørgsmål vedrørende dette spørgsmål, tøv ikke med at kontakte vores regnskabsafdeling.\n"
+"</p>\n"
+"<br/>\n"
+"Med venlig hilsen\n"
+"<br/>\n"
+"<br/>\n"
+"${bruger.navn}\n"
+"< br/>\n"
+"<br/>\n"
+"\n"
+"\n"
+"${object.get_followup_table_html() | sikker}\n"
+"\n"
+" <br/>\n"
+"\n"
+"</div>\n"
+
+#. module: account_followup
+#: model:mail.template,body_html:account_followup.email_template_account_followup_default
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"    \n"
+"    <p>Dear ${object.name},</p>\n"
+"    <p>\n"
+"    Exception made if there was a mistake of ours, it seems that the following amount stays unpaid. Please, take\n"
+"appropriate measures in order to carry out this payment in the next 8 days.\n"
+"Would your payment have been carried out after this mail was sent, please ignore this message. Do not hesitate to\n"
+"contact our accounting department.\n"
+"    </p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"<br/>\n"
+"<br/>\n"
+"${user.name}\n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"${object.get_followup_table_html() | safe}\n"
+"\n"
+"<br/>\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb( 255, 255, 255); \">\n"
+" \n"
+" <p>Kære ${object.name},</p>\n"
+" <p>\n"
+" Undtagelse foretaget, hvis der var en fejl fra os, ser det ud til, at følgende beløb forbliver ubetalt. Tag venligst\n"
+"hensigtsmæssige foranstaltninger for at udføre denne betaling inden for de næste 8 dage.\n"
+"Vil din betaling være blevet gennemført efter denne mail blev sendt, så ignorer venligst denne besked. Tøv ikke med at\n"
+"kontakte vores regnskabsafdeling.\n"
+" </p>\n"
+"<br/>\n"
+"Med venlig hilsen\n"
+"<br/>\n"
+"<br/>\n"
+"${bruger.navn}\n"
+"<br />\n"
+"<br/>\n"
+"\n"
+"${object.get_followup_table_html() | sikker}\n"
+"\n"
+"<br/>\n"
+"</div>\n"
+
+#. module: account_followup
+#: model:mail.template,body_html:account_followup.email_template_account_followup_level1
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"    \n"
+"    <p>Dear ${object.name},</p>\n"
+"   <p>\n"
+"    We are disappointed to see that despite sending a reminder, that your account is now seriously overdue.\n"
+"It is essential that immediate payment is made, otherwise we will have to consider placing a stop on your account\n"
+"which means that we will no longer be able to supply your company with (goods/services).\n"
+"Please, take appropriate measures in order to carry out this payment in the next 8 days.\n"
+"If there is a problem with paying invoice that we are not aware of, do not hesitate to contact our accounting\n"
+"department. so that we can resolve the matter quickly.\n"
+"Details of due payments is printed below.\n"
+" </p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"    \n"
+"<br/>\n"
+"<br/>\n"
+"${user.name}\n"
+"    \n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"${object.get_followup_table_html() | safe}\n"
+"\n"
+"    <br/>\n"
+"\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb( 255, 255, 255); \">\n"
+" \n"
+" <p>Kære ${object.name},</p>\n"
+" <p>\n"
+" Vi er skuffede over at se, at trods afsendelse af en påmindelse, at din konto er nu alvorligt forsinket.\n"
+"Det er vigtigt, at der straks betales, ellers bliver vi nødt til at overveje at sætte et stop på din konto\n"
+"hvilket betyder, at vi ikke længere vil kunne forsyne din virksomhed med (varer/ydelser).\n"
+"Venligst , træffe passende foranstaltninger for at udføre denne betaling inden for de næste 8 dage.\n"
+"Hvis der er et problem med betaling af faktura, som vi ikke er opmærksomme på, tøv ikke med at kontakte vores regnskabsafdeling. så vi kan løse sagen hurtigt.\n"
+"Oplysninger om forfaldne betalinger er udskrevet nedenfor.\n"
+" </p>\n"
+"<br/>\n"
+"Med venlig hilsen\n"
+" \n"
+"<br/>\n"
+"<br/>\n"
+" ${user.name}\n"
+" \n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"${object.get_followup_table_html() | sikker}\n"
+"\n"
+" <br/>\n"
+"\n"
+"</div>\n"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " email(s) sent"
+msgstr "e-mail(s) sendt"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " email(s) should have been sent, but "
+msgstr "e-mail(s) skulle have været sendt, men"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " had unknown email address(es)"
+msgstr "havde ukendt e-mailadresse(r)"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " letter(s) in report"
+msgstr "brev(e) i rapporten"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " manual action(s) assigned:"
+msgstr "manuelle handling(er) tildelt:"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " will be sent"
+msgstr "vil blive sendt"
+
+#. module: account_followup
+#: model:mail.template,subject:account_followup.email_template_account_followup_default
+#: model:mail.template,subject:account_followup.email_template_account_followup_level0
+#: model:mail.template,subject:account_followup.email_template_account_followup_level1
+#: model:mail.template,subject:account_followup.email_template_account_followup_level2
+msgid "${user.company_id.name} Payment Reminder"
+msgstr "${user.company_id.name} betalingspåmindelse"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "%s partners have no credits and as such the action is cleared"
+msgstr "%s partnere har ingen kreditter, og som sådan er handlingen slettet"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid ", the latest payment follow-up was:"
+msgstr ", den seneste betalingsopfølgning var:"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ": Current Date"
+msgstr ": Nuværende dato"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ": Partner Name"
+msgstr ": Partnernavn"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ": User Name"
+msgstr ": Brugernavn"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ": User's Company Name"
+msgstr ": Brugerens firmanavn"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid ""
+"<br/>\n"
+"                                Customer ref:"
+msgstr ""
+"<br/>\n"
+" Kundereference:"
+
+#. module: account_followup
+#: model:mail.template,name:account_followup.email_template_account_followup_level1
+msgid "A bit urging second payment follow-up reminder email"
+msgstr "Lidt opfordrende anden betalingsopfølgningspåmindelsesmail"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_followup
+msgid "Account Follow-up"
+msgstr "Kontoopfølgning"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Account Move line"
+msgstr "Konto Flyt linje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__manual_action_note
+msgid "Action To Do"
+msgstr "Handling at gøre"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Action to be taken e.g. Give a phonecall, Check if it's paid, ..."
+msgstr "Handling der skal tages f.eks. Ring op, tjek om det er betalt, ..."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "After"
+msgstr "Efter"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+#, python-format
+msgid "Amount"
+msgstr "Beløb"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_amount_due
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_amount_due
+msgid "Amount Due"
+msgstr "Forfaldent beløb"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_amount_overdue
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_amount_overdue
+msgid "Amount Overdue"
+msgstr "Forfaldent beløb"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Amount due"
+msgstr "Forfaldent beløb"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "Anybody"
+msgstr "Nogen"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__manual_action_responsible_id
+msgid "Assign a Responsible"
+msgstr "Tildel en ansvarlig"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__balance
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__balance
+msgid "Balance"
+msgstr "Balance"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_followup_stat_by_partner_search
+msgid "Balance > 0"
+msgstr "Saldo > 0"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_account_move_line__result
+msgid "Balance Amount"
+msgstr "Saldobeløb"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid ""
+"Below is the history of the transactions of this\n"
+"                            customer. You can check \"No Follow-up\" in\n"
+"                            order to exclude it from the next follow-up\n"
+"                            actions."
+msgstr ""
+"Nedenfor er historikken for denne\n"
+" kundes transaktioner. Du kan markere \"Ingen opfølgning\" for\n"
+" at udelukke det fra de næste opfølgning\n"
+" handlinger."
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__blocked
+msgid "Blocked"
+msgstr "Blokeret"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid "Cancel"
+msgstr "Afbestille"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_print__test_print
+msgid ""
+"Check if you want to print follow-ups without changing follow-up level."
+msgstr ""
+"Marker, om du vil udskrive opfølgninger uden at ændre opfølgningsniveau."
+
+#. module: account_followup
+#: model_terms:ir.actions.act_window,help:account_followup.action_account_followup_definition_form
+msgid "Click to define follow-up levels and their related actions."
+msgstr ""
+"Klik for at definere opfølgningsniveauer og deres relaterede handlinger."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Click to mark the action as done."
+msgstr "Klik for at markere handlingen som udført."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_sending_results
+msgid "Close"
+msgstr "Tæt"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__company_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__company_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__company_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__company_id
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Company"
+msgstr "Selskab"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfigurationsindstillinger"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__create_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__create_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__create_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__create_uid
+msgid "Created by"
+msgstr "Lavet af"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__create_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__create_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__create_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__create_date
+msgid "Created on"
+msgstr "Oprettet den"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__credit
+msgid "Credit"
+msgstr "Kredit"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_tree
+msgid "Customer Followup"
+msgstr "Kundeopfølgning"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_note
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_note
+msgid "Customer Payment Promise"
+msgstr "Kundebetalingsløfte"
+
+#. module: account_followup
+#: model:ir.model.constraint,message:account_followup.constraint_followup_line_days_uniq
+msgid "Days of the follow-up levels must be different"
+msgstr "Dagene for opfølgningsniveauerne skal være forskellige"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__debit
+msgid "Debit"
+msgstr "Debet"
+
+#. module: account_followup
+#: model:mail.template,name:account_followup.email_template_account_followup_default
+msgid "Default payment follow-up reminder e-mail"
+msgstr "Standard betalingsopfølgning påmindelse e-mail"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__description
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+#, python-format
+msgid "Description"
+msgstr "Beskrivelse"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__display_name
+msgid "Display Name"
+msgstr "Vist navn"
+
+#. module: account_followup
+#: model:ir.ui.menu,name:account_followup.account_followup_s
+msgid "Do Manual Follow-Ups"
+msgstr "Lav manuelle opfølgninger"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_print__partner_lang
+msgid ""
+"Do not change message text, if you want to send email in partner language, "
+"or configure from company"
+msgstr ""
+"Ændre ikke beskedtekst, hvis du vil sende e-mail på partnersprog eller "
+"konfigurere fra firma"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid ""
+"Document: Customer account statement\n"
+"                                <br/>\n"
+"                                Date:"
+msgstr ""
+"Dokument: Kundekontoudtog\n"
+" <br/>\n"
+" Dato:"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_sending_results
+msgid "Download Letters"
+msgstr "Hent breve"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid "Due"
+msgstr "På grund"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Due Date"
+msgstr "Afleveringsdato"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__delay
+msgid "Due Days"
+msgstr "Forfaldsdage"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__email_body
+msgid "Email Body"
+msgstr "E-mail brødtekst"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__email_subject
+msgid "Email Subject"
+msgstr "Email emne"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__email_template_id
+msgid "Email Template"
+msgstr "Email skabelon"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Email not sent because of email address of partner not filled in"
+msgstr "E-mail ikke sendt på grund af partnerens e-mailadresse ikke udfyldt"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__date_move
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__date_move
+msgid "First move"
+msgstr "Første træk"
+
+#. module: account_followup
+#: model:mail.template,name:account_followup.email_template_account_followup_level0
+msgid "First polite payment follow-up reminder email"
+msgstr "Første høflige betalingsopfølgningspåmindelsesmail"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__followup_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__followup_id
+msgid "Follow Ups"
+msgstr "Opfølgende"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__followup_id
+msgid "Follow-Up"
+msgstr "Opfølgning"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__name
+msgid "Follow-Up Action"
+msgstr "Opfølgende handling"
+
+#. module: account_followup
+#: model:ir.ui.menu,name:account_followup.menu_finance_followup
+msgid "Follow-Ups"
+msgstr "Opfølgende"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__followup_line
+#: model:ir.ui.menu,name:account_followup.account_followup_main_menu
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_form
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_tree
+msgid "Follow-up"
+msgstr "Opfølgning"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_line
+msgid "Follow-up Criteria"
+msgstr "Opfølgningskriterier"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_account_move_line__followup_line_id
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Follow-up Level"
+msgstr "Opfølgningsniveau"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_account_followup_definition_form
+#: model:ir.ui.menu,name:account_followup.account_followup_menu
+msgid "Follow-up Levels"
+msgstr "Opfølgningsniveauer"
+
+#. module: account_followup
+#: model:ir.actions.report,name:account_followup.action_report_followup
+msgid "Follow-up Report"
+msgstr "Opfølgningsrapport"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_responsible_id
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_responsible_id
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "Follow-up Responsible"
+msgstr "Opfølgningsansvarlig"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__date
+msgid "Follow-up Sending Date"
+msgstr "Opfølgning afsendelsesdato"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_stat
+msgid "Follow-up Statistics"
+msgstr "Opfølgningsstatistik"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_stat_by_partner
+msgid "Follow-up Statistics by Partner"
+msgstr "Opfølgningsstatistik efter partner"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_tree
+msgid "Follow-up Steps"
+msgstr "Opfølgningstrin"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "Follow-up letter of "
+msgstr "Opfølgningsbrev af"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_graph
+msgid "Follow-up lines"
+msgstr "Opfølgningslinjer"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_followup_stat
+#: model:ir.ui.menu,name:account_followup.menu_action_followup_stat_follow
+msgid "Follow-ups Analysis"
+msgstr "Opfølgningsanalyse"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Follow-ups Sent"
+msgstr "Opfølgninger sendt"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "Follow-ups To Do"
+msgstr "Opfølgninger at gøre"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "Followup Level"
+msgstr "Opfølgningsniveau"
+
+#. module: account_followup
+#: model_terms:ir.actions.act_window,help:account_followup.action_account_followup_definition_form
+msgid ""
+"For each step, specify the actions to be taken and delay in\n"
+"                    days. It is\n"
+"                    possible to use print and e-mail templates to send specific\n"
+"                    messages to\n"
+"                    the customer."
+msgstr ""
+"For hvert trin skal du angive de handlinger, der skal udføres, og forsinke om\n"
+" dage. Det er\n"
+" muligt at bruge print- og e-mail-skabeloner til at sende specifikke\n"
+" beskeder til\n"
+" kunden."
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__sequence
+#: model:ir.model.fields,help:account_followup.field_res_partner__latest_followup_sequence
+#: model:ir.model.fields,help:account_followup.field_res_users__latest_followup_sequence
+msgid "Gives the sequence order when displaying a list of follow-up lines."
+msgstr "Giver rækkefølgen, når der vises en liste over opfølgningslinjer."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Group By"
+msgstr "Grupper efter"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid ""
+"He said the problem was temporary and promised to pay 50% before 15th of "
+"May, balance before 1st of July."
+msgstr ""
+"Han sagde, at problemet var midlertidigt og lovede at betale 50 % inden 15. "
+"maj, restbeløb inden 1. juli."
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid ""
+"If not specified by the latest follow-up level, it will send from the "
+"default email template"
+msgstr ""
+"Hvis det ikke er angivet af det seneste opfølgningsniveau, sendes det fra "
+"standard e-mailskabelonen"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Including journal entries marked as a litigation"
+msgstr "Inklusive journalposter markeret som en retssag"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__invoice_partner_id
+msgid "Invoice Address"
+msgstr "Faktura adresse"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+#, python-format
+msgid "Invoice Date"
+msgstr "Fakturadato"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "Invoices Reminder"
+msgstr "Påmindelse om fakturaer"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_account_move_line
+msgid "Journal Item"
+msgstr "Journalpost"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.account_manual_reconcile_action
+#: model_terms:ir.ui.view,arch_db:account_followup.view_move_line_reconcile_tree
+msgid "Journal Items to Reconcile"
+msgstr "Journalposter, der skal afstemmes"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__write_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__write_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__write_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__write_uid
+msgid "Last Updated by"
+msgstr "Sidst opdateret af"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__write_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__write_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__write_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__write_date
+msgid "Last Updated on"
+msgstr "Sidst opdateret den"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__date_move_last
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__date_move_last
+msgid "Last move"
+msgstr "Sidste træk"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_account_move_line__followup_date
+msgid "Latest Follow-up"
+msgstr "Seneste opfølgning"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__latest_followup_date
+#: model:ir.model.fields,field_description:account_followup.field_res_users__latest_followup_date
+msgid "Latest Follow-up Date"
+msgstr "Seneste opfølgningsdato"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__latest_followup_level_id
+#: model:ir.model.fields,field_description:account_followup.field_res_users__latest_followup_level_id
+msgid "Latest Follow-up Level"
+msgstr "Seneste opfølgningsniveau"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__latest_followup_level_id_without_lit
+#: model:ir.model.fields,field_description:account_followup.field_res_users__latest_followup_level_id_without_lit
+msgid "Latest Follow-up Level without litigation"
+msgstr "Seneste opfølgningsniveau uden retssager"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Latest Follow-up Month"
+msgstr "Seneste opfølgningsmåned"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__latest_followup_date
+#: model:ir.model.fields,help:account_followup.field_res_users__latest_followup_date
+msgid "Latest date that the follow-up level of the partner was changed"
+msgstr "Seneste dato, hvor partnerens opfølgningsniveau blev ændret"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__date_followup
+msgid "Latest follow-up"
+msgstr "Seneste opfølgning"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__date_followup
+msgid "Latest followup"
+msgstr "Seneste opfølgning"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Lit."
+msgstr "Lit."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Litigation"
+msgstr "Retssager"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__manual_action
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "Manual Action"
+msgstr "Manuel handling"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_customer_followup
+msgid "Manual Follow-Ups"
+msgstr "Manuel opfølgning"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid "Maturity Date"
+msgstr "Udløbsdato"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__max_followup_id
+msgid "Max Follow Up Level"
+msgstr "Max opfølgningsniveau"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_customer_my_followup
+#: model:ir.ui.menu,name:account_followup.menu_sale_followup
+msgid "My Follow-Ups"
+msgstr "Mine opfølgninger"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "My Follow-ups"
+msgstr "Mine opfølgninger"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__name
+msgid "Name"
+msgstr "Navn"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__needprinting
+msgid "Needs Printing"
+msgstr "Trænger til udskrivning"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_next_action
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_next_action
+msgid "Next Action"
+msgstr "Næste handling"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_next_action_date
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_next_action_date
+msgid "Next Action Date"
+msgstr "Næste handlingsdato"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "No Responsible"
+msgstr "Ingen ansvarlig"
+
+#. module: account_followup
+#: model_terms:ir.actions.act_window,help:account_followup.account_manual_reconcile_action
+msgid "No journal items found."
+msgstr "Ingen journalelementer fundet."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Not Litigation"
+msgstr "Ikke retssager"
+
+#. module: account_followup
+#: model:ir.model.constraint,message:account_followup.constraint_followup_followup_company_uniq
+msgid "Only one follow-up per company is allowed"
+msgstr "Kun én opfølgning per virksomhed er tilladt"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__payment_responsible_id
+#: model:ir.model.fields,help:account_followup.field_res_users__payment_responsible_id
+msgid ""
+"Optionally you can assign a user to this field, which will make him "
+"responsible for the action."
+msgstr ""
+"Du kan eventuelt tildele en bruger til dette felt, hvilket vil gøre ham "
+"ansvarlig for handlingen."
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Overdue email sent to %s, "
+msgstr "Forsinket e-mail sendt til %s,"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__partner_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__partner_id
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Partner"
+msgstr "Partner"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_move_line_partner_tree
+msgid "Partner Entries"
+msgstr "Partnerindlæg"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_followup_stat_by_partner_search
+#: model_terms:ir.ui.view,arch_db:account_followup.account_followup_stat_by_partner_tree
+msgid "Partner to Remind"
+msgstr "Partner at minde om"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__partner_ids
+msgid "Partners"
+msgstr "Partnere"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "Partners with Overdue Credits"
+msgstr "Partnere med forfaldne kreditter"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Payment Follow-up"
+msgstr "Betalingsopfølgning"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__payment_note
+#: model:ir.model.fields,help:account_followup.field_res_users__payment_note
+msgid "Payment Note"
+msgstr "Betalingsnotat"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_print
+msgid "Print Follow-up & Send Mail to Customers"
+msgstr "Print opfølgning og send mail til kunder"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Print Overdue Payments"
+msgstr "Udskriv forfaldne betalinger"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Print overdue payments report independent of follow-up line"
+msgstr ""
+"Udskriv rapport om forfaldne betalinger uafhængigt af opfølgningslinje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__description
+msgid "Printed Message"
+msgstr "Trykt besked"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Printed overdue payments report"
+msgstr "Udskrevet rapport om forfaldne betalinger"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid "Ref"
+msgstr "Ref"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Reference"
+msgstr "Reference"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_report_account_followup_report_followup
+msgid "Report Followup"
+msgstr "Rapportér opfølgning"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Responsible of credit collection"
+msgstr "Ansvarlig for kreditopkrævning"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_sending_results
+msgid "Results from the sending of the different letters and emails"
+msgstr "Resultater fra afsendelsen af ​​de forskellige breve og e-mails"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_filter
+msgid "Search Follow-up"
+msgstr "Søgeopfølgning"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__email_conf
+msgid "Send Email Confirmation"
+msgstr "Send e-mail-bekræftelse"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__partner_lang
+msgid "Send Email in Partner Language"
+msgstr "Send e-mail på partnersprog"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_account_followup_print
+msgid "Send Follow-Ups"
+msgstr "Send opfølgninger"
+
+#. module: account_followup
+#: model:ir.ui.menu,name:account_followup.account_followup_print_menu
+msgid "Send Letters and Emails"
+msgstr "Send breve og e-mails"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "Send Letters and Emails: Actions Summary"
+msgstr "Send breve og e-mails: Oversigt over handlinger"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Send Overdue Email"
+msgstr "Send forsinket e-mail"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__send_letter
+msgid "Send a Letter"
+msgstr "Send et brev"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "Send a Letter or Email"
+msgstr "Send et brev eller en e-mail"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__send_email
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "Send an Email"
+msgstr "Send en e-mail"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid "Send emails and generate letters"
+msgstr "Send e-mails og generer breve"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid "Send follow-ups"
+msgstr "Send opfølgninger"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__sequence
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__latest_followup_sequence
+#: model:ir.model.fields,field_description:account_followup.field_res_users__latest_followup_sequence
+msgid "Sequence"
+msgstr "Sekvens"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__summary
+msgid "Summary"
+msgstr "Resumé"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_sending_results
+msgid "Summary of actions"
+msgstr "Sammenfatning af handlinger"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__test_print
+msgid "Test Print"
+msgstr "Test print"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "The"
+msgstr "Det"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/report/followup_print.py:0
+#, python-format
+msgid ""
+"The followup plan defined for the current company does not have any followup"
+" action."
+msgstr ""
+"Den opfølgningsplan, der er defineret for den aktuelle virksomhed, har ingen"
+" opfølgningshandlinger."
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__latest_followup_level_id
+#: model:ir.model.fields,help:account_followup.field_res_users__latest_followup_level_id
+msgid "The maximum follow-up level"
+msgstr "Det maksimale opfølgningsniveau"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__latest_followup_level_id_without_lit
+#: model:ir.model.fields,help:account_followup.field_res_users__latest_followup_level_id_without_lit
+msgid ""
+"The maximum follow-up level without taking into account the account move "
+"lines with litigation"
+msgstr ""
+"Det maksimale opfølgningsniveau uden hensyntagen til kontoen flytter linjer "
+"med retssager"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__delay
+msgid ""
+"The number of days after the due date of the invoice to wait before sending "
+"the reminder. Could be negative if you want to send a polite alert "
+"beforehand."
+msgstr ""
+"Antallet af dage efter fakturaens forfaldsdato, der skal ventes med at sende"
+" rykkeren. Kunne være negativt, hvis du vil sende en høflig advarsel på "
+"forhånd."
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid ""
+"The partner does not have any accounting entries to print in the overdue "
+"report for the current company."
+msgstr ""
+"Partneren har ingen regnskabsposter at udskrive i forfaldsrapporten for den "
+"nuværende virksomhed."
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "There is no followup plan defined for the current company."
+msgstr "Der er ingen opfølgningsplan defineret for den nuværende virksomhed."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid ""
+"This action will send follow-up emails, print the\n"
+"                        letters and\n"
+"                        set the manual actions per customer, according to the\n"
+"                        follow-up levels defined."
+msgstr ""
+"Denne handling vil sende opfølgende e-mails, udskrive\n"
+" brevene og\n"
+" indstille de manuelle handlinger pr. kunde i henhold til\n"
+" definerede opfølgningsniveauer."
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_print__date
+msgid "This field allow you to select a forecast date to plan your follow-ups"
+msgstr ""
+"Dette felt giver dig mulighed for at vælge en prognosedato for at planlægge "
+"dine opfølgninger"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__payment_next_action
+#: model:ir.model.fields,help:account_followup.field_res_users__payment_next_action
+msgid ""
+"This is the next action to be taken.  It will automatically be set when the "
+"partner gets a follow-up level that requires a manual action. "
+msgstr ""
+"Dette er den næste handling, der skal tages. Den indstilles automatisk, når "
+"partneren får et opfølgningsniveau, der kræver en manuel handling."
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__payment_next_action_date
+#: model:ir.model.fields,help:account_followup.field_res_users__payment_next_action_date
+msgid ""
+"This is when the manual follow-up is needed. The date will be set to the "
+"current date when the partner gets a follow-up level that requires a manual "
+"action. Can be practical to set manually e.g. to see if he keeps his "
+"promises."
+msgstr ""
+"Det er her den manuelle opfølgning er nødvendig. Datoen vil blive sat til "
+"den aktuelle dato, hvor partneren får et opfølgningsniveau, der kræver en "
+"manuel handling. Kan være praktisk at indstille manuelt f.eks. for at se, om"
+" han holder sine løfter."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_form
+msgid ""
+"To remind customers of paying their invoices, you can\n"
+"                        define different actions depending on how severely\n"
+"                        overdue the customer is. These actions are bundled\n"
+"                        into follow-up levels that are triggered when the due\n"
+"                        date of an invoice has passed a certain\n"
+"                        number of days. If there are other overdue invoices for\n"
+"                        the\n"
+"                        same customer, the actions of the most\n"
+"                        overdue invoice will be executed."
+msgstr ""
+"For at minde kunderne om at betale deres fakturaer, kan du\n"
+" definere forskellige handlinger afhængigt af, hvor alvorligt\n"
+" kunden er forsinket. Disse handlinger er bundtet\n"
+" i opfølgningsniveauer, der udløses, når forfaldsdatoen for en faktura har passeret et vist\n"
+" antal dage. Hvis der er andre forfaldne fakturaer for\n"
+" den samme kunde, vil handlingerne for den mest\n"
+" forfaldne faktura blive udført."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_move_line_partner_tree
+#: model_terms:ir.ui.view,arch_db:account_followup.view_move_line_reconcile_tree
+msgid "Total credit"
+msgstr "Samlet kredit"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_move_line_partner_tree
+#: model_terms:ir.ui.view,arch_db:account_followup.view_move_line_reconcile_tree
+msgid "Total debit"
+msgstr "Samlet debet"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid "Total:"
+msgstr "I alt:"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__unreconciled_aml_ids
+#: model:ir.model.fields,field_description:account_followup.field_res_users__unreconciled_aml_ids
+msgid "Unreconciled Aml"
+msgstr "Uafstemt Aml"
+
+#. module: account_followup
+#: model:mail.template,name:account_followup.email_template_account_followup_level2
+msgid "Urging payment follow-up reminder email"
+msgstr "Påmindelse om betalingsopfølgning via e-mail"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__send_letter
+msgid "When processing, it will print a letter"
+msgstr "Under behandlingen udskriver den et brev"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__send_email
+msgid "When processing, it will send an email"
+msgstr "Ved behandling vil den sende en e-mail"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__manual_action
+msgid ""
+"When processing, it will set the manual action to be taken for that "
+"customer. "
+msgstr ""
+"Under behandlingen vil den indstille den manuelle handling, der skal udføres"
+" for den pågældende kunde."
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_earliest_due_date
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_earliest_due_date
+msgid "Worst Due Date"
+msgstr "Værste forfaldsdato"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ""
+"Write here the introduction in the letter,\n"
+"                            according to the level of the follow-up. You can\n"
+"                            use the following keywords in the text. Don't\n"
+"                            forget to translate in all languages you installed\n"
+"                            using to top right icon."
+msgstr ""
+"Skriv her introduktionen i brevet,\n"
+" i henhold til niveauet for opfølgningen. Du kan\n"
+" bruge følgende nøgleord i teksten. Glem ikke at oversætte til alle de sprog, du har installeret\n"
+" ved at bruge ikonet øverst til højre."
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid ""
+"You became responsible to do the next action for the payment follow-up of"
+msgstr ""
+"Du blev ansvarlig for at foretage den næste handling for "
+"betalingsopfølgningen af"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/followup.py:0
+#, python-format
+msgid ""
+"Your description is invalid, use the right legend or %% if you want to use "
+"the percent character."
+msgstr ""
+"Din beskrivelse er ugyldig, brug den rigtige forklaring eller %% hvis du vil"
+" bruge procenttegnet."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "days overdue, do the following actions:"
+msgstr "dage forsinket, skal du udføre følgende handlinger:"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid "or"
+msgstr "eller"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "⇾ Mark as Done"
+msgstr "⇾ Markér som udført"
+

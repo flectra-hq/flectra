@@ -1,0 +1,1528 @@
+
+msgid ""
+msgstr ""
+"Project-Id-Version:Flectra Server 3.0alpha"
+"Report-Msgid-Bugs-To:"
+"POT-Creation-Date:2024-04-10 10:46+0000"
+"PO-Revision-Date:2024-04-10 10:46+0000"
+"Last-Translator:"
+"Language-Team:"
+"MIME-Version:1.0"
+"Content-Type:text/plain; charset=UTF-8"
+"Content-Transfer-Encoding:"
+"Plural-Forms:"
+
+#. module: account_followup
+#: model:followup.line,description:account_followup.demo_followup_line3
+#: model:followup.line,description:account_followup.demo_followup_line4
+#: model:followup.line,description:account_followup.demo_followup_line5
+msgid ""
+"\n"
+"                Dear %(partner_name)s,\n"
+"\n"
+"                Despite several reminders, your account is still not settled.\n"
+"\n"
+"                Unless full payment is made in next 8 days, then legal action\n"
+"                for the recovery of the debt will be taken without further\n"
+"                notice.\n"
+"\n"
+"                I trust that this action will prove unnecessary and details of\n"
+"                due payments is printed below.\n"
+"\n"
+"                In case of any queries concerning this matter, do not hesitate\n"
+"                to contact our accounting department.\n"
+"\n"
+"                Best Regards,\n"
+"            "
+msgstr ""
+"\n"
+" Bästa %(partner_name)s,\n"
+"\n"
+" Trots flera påminnelser är ditt konto fortfarande inte löst.\n"
+"\n"
+" Om inte full betalning görs inom de närmaste 8 dagarna kommer rättsliga åtgärder\n"
+" för indrivning av skulden att vidtas utan ytterligare\n"
+" förvarning.\n"
+"\n"
+" Jag litar på att denna åtgärd kommer att visa sig onödig och detaljer om\n"
+" förfallna betalningar skrivs ut nedan.\n"
+"\n"
+" Om du har några frågor angående detta ärende, tveka inte\n"
+" att kontakta vår ekonomiavdelning.\n"
+"\n"
+" Vänliga hälsningar,\n"
+
+#. module: account_followup
+#: model:followup.line,description:account_followup.demo_followup_line1
+msgid ""
+"\n"
+"                Dear %(partner_name)s,\n"
+"\n"
+"                Exception made if there was a mistake of ours, it seems that\n"
+"                the following amount stays unpaid. Please, take appropriate\n"
+"                measures in order to carry out this payment in the next 8 days.\n"
+"\n"
+"                Would your payment have been carried out after this mail was\n"
+"                sent, please ignore this message. Do not hesitate to contact\n"
+"                our accounting department.\n"
+"\n"
+"                Best Regards,\n"
+"            "
+msgstr ""
+"\n"
+" Bästa %(partner_name)s,\n"
+"\n"
+" Undantag görs om det var ett misstag av oss, det verkar som om\n"
+" följande belopp förblir obetalt. Vänligen vidta lämpliga\n"
+" åtgärder för att utföra denna betalning inom de närmaste 8 dagarna.\n"
+"\n"
+" Skulle din betalning ha genomförts efter att detta meddelande\n"
+" skickats, vänligen ignorera detta meddelande. Tveka inte att kontakta\n"
+" vår ekonomiavdelning.\n"
+"\n"
+" Med vänlig hälsning,\n"
+
+#. module: account_followup
+#: model:followup.line,description:account_followup.demo_followup_line2
+msgid ""
+"\n"
+"                Dear %(partner_name)s,\n"
+"\n"
+"                We are disappointed to see that despite sending a reminder,\n"
+"                that your account is now seriously overdue.\n"
+"\n"
+"                It is essential that immediate payment is made, otherwise we\n"
+"                will have to consider placing a stop on your account which\n"
+"                means that we will no longer be able to supply your company\n"
+"                with (goods/services).\n"
+"                Please, take appropriate measures in order to carry out this\n"
+"                payment in the next 8 days.\n"
+"\n"
+"                If there is a problem with paying invoice that we are not aware\n"
+"                of, do not hesitate to contact our accounting department, so\n"
+"                that we can resolve the matter quickly.\n"
+"\n"
+"                Details of due payments is printed below.\n"
+"\n"
+"                Best Regards,\n"
+"            "
+msgstr ""
+"\n"
+" Bästa %(partner_name)s,\n"
+"\n"
+" Vi är besvikna över att se att trots att vi skickat en påminnelse,\n"
+" att ditt konto nu är allvarligt försenat.\n"
+"\n"
+" Det är viktigt att omedelbar betalning görs, annars vi\\ n kommer att behöva överväga att placera ett stopp på ditt konto, vilket\n"
+" innebär att vi inte längre kommer att kunna förse ditt företag\n"
+" med (varor/tjänster).\n"
+" Vänligen vidta lämpliga åtgärder för att utföra detta\n"
+" betalning inom de närmaste 8 dagarna.\n"
+"\n"
+" Om det uppstår problem med att betala faktura som vi inte känner till\n"
+", tveka inte att kontakta vår ekonomiavdelning, så\n"
+" att vi kan lösa ärendet snabbt.\n"
+" \n"
+" Information om förfallna betalningar skrivs ut nedan.\n"
+"\n"
+" Vänliga hälsningar,\n"
+
+#. module: account_followup
+#: model:mail.template,body_html:account_followup.email_template_account_followup_level0
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"\n"
+"    <p>Dear ${object.name},</p>\n"
+"    <p>\n"
+"    Exception made if there was a mistake of ours, it seems that the following amount stays unpaid. Please, take\n"
+"appropriate measures in order to carry out this payment in the next 8 days.\n"
+"\n"
+"Would your payment have been carried out after this mail was sent, please ignore this message. Do not hesitate to\n"
+"contact our accounting department.  \n"
+"\n"
+"    </p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"<br/>\n"
+"   <br/>\n"
+"${user.name}\n"
+"\n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"\n"
+"${object.get_followup_table_html() | safe}\n"
+"\n"
+"    <br/>\n"
+"\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; färg: rgb(34, 34, 34); bakgrundsfärg: rgb( 255, 255, 255); \">\n"
+"\n"
+" <p>Bästa ${object.name},</p>\n"
+" <p>\n"
+" Undantag görs om det var ett misstag av oss, det verkar som om följande belopp förblir obetalt. Vänligen vidta\n"
+"lämpliga åtgärder för att genomföra denna betalning under de närmaste 8 dagarna.\n"
+"\n"
+"Om din betalning har genomförts efter att detta meddelande skickades, vänligen ignorera detta meddelande. Tveka inte att\n"
+"kontakta vår ekonomiavdelning. \n"
+"\n"
+" </p>\n"
+"<br/>\n"
+"Vänliga hälsningar,\n"
+"<br/>\n"
+" <br/>\n"
+"${användarnamn}\n"
+"\n"
+"<br/>\n"
+"<br />\n"
+"\n"
+"\n"
+"${object.get_followup_table_html() | säker}\n"
+"\n"
+" <br/>\n"
+"\n"
+"</div>\n"
+
+#. module: account_followup
+#: model:mail.template,body_html:account_followup.email_template_account_followup_level2
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"    \n"
+"    <p>Dear ${object.name},</p>\n"
+"    <p>\n"
+"    Despite several reminders, your account is still not settled.\n"
+"Unless full payment is made in next 8 days, legal action for the recovery of the debt will be taken without\n"
+"further notice.\n"
+"I trust that this action will prove unnecessary and details of due payments is printed below.\n"
+"In case of any queries concerning this matter, do not hesitate to contact our accounting department.\n"
+"</p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"<br/>\n"
+"<br/>\n"
+"${user.name}\n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"\n"
+"${object.get_followup_table_html() | safe}\n"
+"\n"
+"    <br/>\n"
+"\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; färg: rgb(34, 34, 34); bakgrundsfärg: rgb( 255, 255, 255); \">\n"
+" \n"
+" <p>Bästa ${object.name},</p>\n"
+" <p>\n"
+" Trots flera påminnelser är ditt konto fortfarande inte löst.\n"
+"Om det inte är fullt betalning görs inom de närmaste 8 dagarna, rättsliga åtgärder för indrivning av skulden kommer att vidtas utan\n"
+"vidare meddelande.\n"
+"Jag litar på att denna åtgärd kommer att visa sig onödig och detaljer om förfallna betalningar skrivs ut nedan.\n"
+"Vid några frågor angående detta fråga, tveka inte att kontakta vår ekonomiavdelning.\n"
+"</p>\n"
+"<br/>\n"
+"Med vänlig hälsning,\n"
+"<br/>\n"
+"<br/>\n"
+"${användarnamn}\n"
+"< br/>\n"
+"<br/>\n"
+"\n"
+"\n"
+"${object.get_followup_table_html() | säker}\n"
+"\n"
+" <br/>\n"
+"\n"
+"</div>\n"
+
+#. module: account_followup
+#: model:mail.template,body_html:account_followup.email_template_account_followup_default
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"    \n"
+"    <p>Dear ${object.name},</p>\n"
+"    <p>\n"
+"    Exception made if there was a mistake of ours, it seems that the following amount stays unpaid. Please, take\n"
+"appropriate measures in order to carry out this payment in the next 8 days.\n"
+"Would your payment have been carried out after this mail was sent, please ignore this message. Do not hesitate to\n"
+"contact our accounting department.\n"
+"    </p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"<br/>\n"
+"<br/>\n"
+"${user.name}\n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"${object.get_followup_table_html() | safe}\n"
+"\n"
+"<br/>\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; färg: rgb(34, 34, 34); bakgrundsfärg: rgb( 255, 255, 255); \">\n"
+" \n"
+" <p>Bästa ${object.name},</p>\n"
+" <p>\n"
+" Undantag gjordes om det var ett misstag av oss, det verkar som om följande belopp förblir obetalt. Vänligen vidta\n"
+"lämpliga åtgärder för att genomföra denna betalning under de närmaste 8 dagarna.\n"
+"Om din betalning har genomförts efter att detta meddelande skickades, ignorera detta meddelande. Tveka inte att\n"
+"kontakta vår ekonomiavdelning.\n"
+" </p>\n"
+"<br/>\n"
+"Med vänlig hälsning,\n"
+"<br/>\n"
+"<br/>\n"
+"${användarnamn}\n"
+"<br />\n"
+"<br/>\n"
+"\n"
+"${object.get_followup_table_html() | säker}\n"
+"\n"
+"<br/>\n"
+"</div>\n"
+
+#. module: account_followup
+#: model:mail.template,body_html:account_followup.email_template_account_followup_level1
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"    \n"
+"    <p>Dear ${object.name},</p>\n"
+"   <p>\n"
+"    We are disappointed to see that despite sending a reminder, that your account is now seriously overdue.\n"
+"It is essential that immediate payment is made, otherwise we will have to consider placing a stop on your account\n"
+"which means that we will no longer be able to supply your company with (goods/services).\n"
+"Please, take appropriate measures in order to carry out this payment in the next 8 days.\n"
+"If there is a problem with paying invoice that we are not aware of, do not hesitate to contact our accounting\n"
+"department. so that we can resolve the matter quickly.\n"
+"Details of due payments is printed below.\n"
+" </p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"    \n"
+"<br/>\n"
+"<br/>\n"
+"${user.name}\n"
+"    \n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"${object.get_followup_table_html() | safe}\n"
+"\n"
+"    <br/>\n"
+"\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; färg: rgb(34, 34, 34); bakgrundsfärg: rgb( 255, 255, 255); \">\n"
+" \n"
+" <p>Bästa ${object.name},</p>\n"
+" <p>\n"
+" Vi är besvikna över att se att trots att vi skickat en påminnelse, att ditt konto är nu allvarligt försenad.\n"
+"Det är viktigt att omedelbar betalning görs, annars måste vi överväga att göra ett stopp på ditt konto\n"
+"vilket innebär att vi inte längre kommer att kunna förse ditt företag med (varor/tjänster).\n"
+"Vänligen , vidta lämpliga åtgärder för att genomföra denna betalning inom de närmaste 8 dagarna.\n"
+"Om det finns problem med att betala faktura som vi inte känner till, tveka inte att kontakta vår ekonomiavdelning. så att vi kan lösa problemet snabbt.\n"
+"Uppgifter om förfallna betalningar skrivs ut nedan.\n"
+" </p>\n"
+"<br/>\n"
+"Med vänlig hälsning,\n"
+" \n"
+"<br/>\n"
+"<br/>\n"
+" ${user.name}\n"
+" \n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"${object.get_followup_table_html() | säker}\n"
+"\n"
+" <br/>\n"
+"\n"
+"</div>\n"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " email(s) sent"
+msgstr "e-post(ar) skickade"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " email(s) should have been sent, but "
+msgstr "e-post(ar) borde ha skickats, men"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " had unknown email address(es)"
+msgstr "hade okända e-postadress(er)"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " letter(s) in report"
+msgstr "brev i rapporten"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " manual action(s) assigned:"
+msgstr "manuella åtgärder tilldelade:"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " will be sent"
+msgstr "kommer att skickas"
+
+#. module: account_followup
+#: model:mail.template,subject:account_followup.email_template_account_followup_default
+#: model:mail.template,subject:account_followup.email_template_account_followup_level0
+#: model:mail.template,subject:account_followup.email_template_account_followup_level1
+#: model:mail.template,subject:account_followup.email_template_account_followup_level2
+msgid "${user.company_id.name} Payment Reminder"
+msgstr "${user.company_id.name} Betalningspåminnelse"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "%s partners have no credits and as such the action is cleared"
+msgstr "%s partners har inga tillgodohavanden och som sådan rensas åtgärden"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid ", the latest payment follow-up was:"
+msgstr ", den senaste betalningsuppföljningen var:"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ": Current Date"
+msgstr ": Dagens datum"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ": Partner Name"
+msgstr ": Partnernamn"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ": User Name"
+msgstr ": Användarnamn"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ": User's Company Name"
+msgstr ": Användarens företagsnamn"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid ""
+"<br/>\n"
+"                                Customer ref:"
+msgstr ""
+"<br/>\n"
+" Kundreferens:"
+
+#. module: account_followup
+#: model:mail.template,name:account_followup.email_template_account_followup_level1
+msgid "A bit urging second payment follow-up reminder email"
+msgstr "Lite uppmanande andra betalningsuppföljning påminnelsemail"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_followup
+msgid "Account Follow-up"
+msgstr "Kontouppföljning"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Account Move line"
+msgstr "Konto Flytta linje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__manual_action_note
+msgid "Action To Do"
+msgstr "Åtgärd att göra"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Action to be taken e.g. Give a phonecall, Check if it's paid, ..."
+msgstr ""
+"Åtgärder som ska vidtas t.ex. Ring ett telefonsamtal, kolla om det är "
+"betalt, ..."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "After"
+msgstr "Efter"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+#, python-format
+msgid "Amount"
+msgstr "Belopp"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_amount_due
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_amount_due
+msgid "Amount Due"
+msgstr "Förfallna belopp"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_amount_overdue
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_amount_overdue
+msgid "Amount Overdue"
+msgstr "Förfallna belopp"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Amount due"
+msgstr "Förfallna belopp"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "Anybody"
+msgstr "Vem som helst"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__manual_action_responsible_id
+msgid "Assign a Responsible"
+msgstr "Tilldela en ansvarig"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__balance
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__balance
+msgid "Balance"
+msgstr "Balans"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_followup_stat_by_partner_search
+msgid "Balance > 0"
+msgstr "Saldo > 0"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_account_move_line__result
+msgid "Balance Amount"
+msgstr "Saldobelopp"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid ""
+"Below is the history of the transactions of this\n"
+"                            customer. You can check \"No Follow-up\" in\n"
+"                            order to exclude it from the next follow-up\n"
+"                            actions."
+msgstr ""
+"Nedan är historiken för denna kunds transaktioner. Du kan markera \"Ingen uppföljning\" för att\n"
+" utesluta den från nästa uppföljning\n"
+" åtgärder."
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__blocked
+msgid "Blocked"
+msgstr "Blockerad"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid "Cancel"
+msgstr "Annullera"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_print__test_print
+msgid ""
+"Check if you want to print follow-ups without changing follow-up level."
+msgstr ""
+"Markera om du vill skriva ut uppföljningar utan att ändra uppföljningsnivå."
+
+#. module: account_followup
+#: model_terms:ir.actions.act_window,help:account_followup.action_account_followup_definition_form
+msgid "Click to define follow-up levels and their related actions."
+msgstr ""
+"Klicka för att definiera uppföljningsnivåer och deras relaterade åtgärder."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Click to mark the action as done."
+msgstr "Klicka för att markera åtgärden som klar."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_sending_results
+msgid "Close"
+msgstr "Stänga"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__company_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__company_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__company_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__company_id
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Company"
+msgstr "Företag"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfigurationsinställningar"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__create_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__create_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__create_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__create_uid
+msgid "Created by"
+msgstr "Skapad av"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__create_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__create_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__create_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__create_date
+msgid "Created on"
+msgstr "Skapad på"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__credit
+msgid "Credit"
+msgstr "Kreditera"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_tree
+msgid "Customer Followup"
+msgstr "Kunduppföljning"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_note
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_note
+msgid "Customer Payment Promise"
+msgstr "Kundbetalningslöfte"
+
+#. module: account_followup
+#: model:ir.model.constraint,message:account_followup.constraint_followup_line_days_uniq
+msgid "Days of the follow-up levels must be different"
+msgstr "Dagarna för uppföljningsnivåerna måste vara olika"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__debit
+msgid "Debit"
+msgstr "Debitera"
+
+#. module: account_followup
+#: model:mail.template,name:account_followup.email_template_account_followup_default
+msgid "Default payment follow-up reminder e-mail"
+msgstr "Standarduppföljning av betalningspåminnelse via e-post"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__description
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+#, python-format
+msgid "Description"
+msgstr "Beskrivning"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__display_name
+msgid "Display Name"
+msgstr "Visningsnamn"
+
+#. module: account_followup
+#: model:ir.ui.menu,name:account_followup.account_followup_s
+msgid "Do Manual Follow-Ups"
+msgstr "Gör manuella uppföljningar"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_print__partner_lang
+msgid ""
+"Do not change message text, if you want to send email in partner language, "
+"or configure from company"
+msgstr ""
+"Ändra inte meddelandetext om du vill skicka e-post på partnerspråk eller "
+"konfigurera från företaget"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid ""
+"Document: Customer account statement\n"
+"                                <br/>\n"
+"                                Date:"
+msgstr ""
+"Dokument: Kundkontoutdrag\n"
+" <br/>\n"
+" Datum:"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_sending_results
+msgid "Download Letters"
+msgstr "Ladda ner brev"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid "Due"
+msgstr "På grund av"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Due Date"
+msgstr "Förfallodatum"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__delay
+msgid "Due Days"
+msgstr "Förfallodagar"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__email_body
+msgid "Email Body"
+msgstr "E-posttext"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__email_subject
+msgid "Email Subject"
+msgstr "E-postämne"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__email_template_id
+msgid "Email Template"
+msgstr "E-postmall"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Email not sent because of email address of partner not filled in"
+msgstr ""
+"E-post har inte skickats på grund av att partnerns e-postadress inte har "
+"fyllts i"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__date_move
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__date_move
+msgid "First move"
+msgstr "Första draget"
+
+#. module: account_followup
+#: model:mail.template,name:account_followup.email_template_account_followup_level0
+msgid "First polite payment follow-up reminder email"
+msgstr "Första artiga betalningsuppföljningspåminnelsemail"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__followup_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__followup_id
+msgid "Follow Ups"
+msgstr "Uppföljning"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__followup_id
+msgid "Follow-Up"
+msgstr "Uppföljning"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__name
+msgid "Follow-Up Action"
+msgstr "Uppföljningsåtgärder"
+
+#. module: account_followup
+#: model:ir.ui.menu,name:account_followup.menu_finance_followup
+msgid "Follow-Ups"
+msgstr "Uppföljning"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__followup_line
+#: model:ir.ui.menu,name:account_followup.account_followup_main_menu
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_form
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_tree
+msgid "Follow-up"
+msgstr "Uppföljning"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_line
+msgid "Follow-up Criteria"
+msgstr "Uppföljningskriterier"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_account_move_line__followup_line_id
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Follow-up Level"
+msgstr "Uppföljningsnivå"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_account_followup_definition_form
+#: model:ir.ui.menu,name:account_followup.account_followup_menu
+msgid "Follow-up Levels"
+msgstr "Uppföljningsnivåer"
+
+#. module: account_followup
+#: model:ir.actions.report,name:account_followup.action_report_followup
+msgid "Follow-up Report"
+msgstr "Uppföljningsrapport"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_responsible_id
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_responsible_id
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "Follow-up Responsible"
+msgstr "Uppföljningsansvarig"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__date
+msgid "Follow-up Sending Date"
+msgstr "Uppföljning av sändningsdatum"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_stat
+msgid "Follow-up Statistics"
+msgstr "Uppföljningsstatistik"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_stat_by_partner
+msgid "Follow-up Statistics by Partner"
+msgstr "Uppföljningsstatistik per partner"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_tree
+msgid "Follow-up Steps"
+msgstr "Uppföljningssteg"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "Follow-up letter of "
+msgstr "Uppföljningsbrev av"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_graph
+msgid "Follow-up lines"
+msgstr "Uppföljningslinjer"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_followup_stat
+#: model:ir.ui.menu,name:account_followup.menu_action_followup_stat_follow
+msgid "Follow-ups Analysis"
+msgstr "Uppföljningar Analys"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Follow-ups Sent"
+msgstr "Uppföljningar skickade"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "Follow-ups To Do"
+msgstr "Uppföljningar att göra"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "Followup Level"
+msgstr "Uppföljningsnivå"
+
+#. module: account_followup
+#: model_terms:ir.actions.act_window,help:account_followup.action_account_followup_definition_form
+msgid ""
+"For each step, specify the actions to be taken and delay in\n"
+"                    days. It is\n"
+"                    possible to use print and e-mail templates to send specific\n"
+"                    messages to\n"
+"                    the customer."
+msgstr ""
+"För varje steg, ange vilka åtgärder som ska vidtas och försena i\n"
+" dagar. Det är\n"
+" möjligt att använda utskrifts- och e-postmallar för att skicka specifika\n"
+" meddelanden till\n"
+" kunden."
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__sequence
+#: model:ir.model.fields,help:account_followup.field_res_partner__latest_followup_sequence
+#: model:ir.model.fields,help:account_followup.field_res_users__latest_followup_sequence
+msgid "Gives the sequence order when displaying a list of follow-up lines."
+msgstr "Ger sekvensordningen när en lista med uppföljningsrader visas."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Group By"
+msgstr "Grupp av"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid ""
+"He said the problem was temporary and promised to pay 50% before 15th of "
+"May, balance before 1st of July."
+msgstr ""
+"Han sa att problemet var tillfälligt och lovade att betala 50 % före 15 maj,"
+" resterande belopp före 1 juli."
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid ""
+"If not specified by the latest follow-up level, it will send from the "
+"default email template"
+msgstr ""
+"Om det inte anges av den senaste uppföljningsnivån, skickas det från "
+"standardmallen för e-post"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Including journal entries marked as a litigation"
+msgstr "Inklusive journalanteckningar markerade som en rättstvist"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__invoice_partner_id
+msgid "Invoice Address"
+msgstr "Fakturaadress"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+#, python-format
+msgid "Invoice Date"
+msgstr "Fakturadatum"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "Invoices Reminder"
+msgstr "Påminnelse om fakturor"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_account_move_line
+msgid "Journal Item"
+msgstr "Journalföremål"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.account_manual_reconcile_action
+#: model_terms:ir.ui.view,arch_db:account_followup.view_move_line_reconcile_tree
+msgid "Journal Items to Reconcile"
+msgstr "Journalobjekt som ska stämmas av"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__write_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__write_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__write_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__write_uid
+msgid "Last Updated by"
+msgstr "Senast uppdaterad av"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__write_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__write_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__write_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__write_date
+msgid "Last Updated on"
+msgstr "Senast uppdaterad den"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__date_move_last
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__date_move_last
+msgid "Last move"
+msgstr "Sista draget"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_account_move_line__followup_date
+msgid "Latest Follow-up"
+msgstr "Senaste uppföljningen"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__latest_followup_date
+#: model:ir.model.fields,field_description:account_followup.field_res_users__latest_followup_date
+msgid "Latest Follow-up Date"
+msgstr "Senaste uppföljningsdatum"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__latest_followup_level_id
+#: model:ir.model.fields,field_description:account_followup.field_res_users__latest_followup_level_id
+msgid "Latest Follow-up Level"
+msgstr "Senaste uppföljningsnivån"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__latest_followup_level_id_without_lit
+#: model:ir.model.fields,field_description:account_followup.field_res_users__latest_followup_level_id_without_lit
+msgid "Latest Follow-up Level without litigation"
+msgstr "Senaste uppföljningsnivån utan rättstvister"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Latest Follow-up Month"
+msgstr "Senaste uppföljningsmånaden"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__latest_followup_date
+#: model:ir.model.fields,help:account_followup.field_res_users__latest_followup_date
+msgid "Latest date that the follow-up level of the partner was changed"
+msgstr "Senaste datum då partnerns uppföljningsnivå ändrades"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__date_followup
+msgid "Latest follow-up"
+msgstr "Senaste uppföljningen"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__date_followup
+msgid "Latest followup"
+msgstr "Senaste uppföljningen"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Lit."
+msgstr "Belyst."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Litigation"
+msgstr "Rättstvister"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__manual_action
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "Manual Action"
+msgstr "Manuell åtgärd"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_customer_followup
+msgid "Manual Follow-Ups"
+msgstr "Manuella uppföljningar"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid "Maturity Date"
+msgstr "Förfallodatum"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__max_followup_id
+msgid "Max Follow Up Level"
+msgstr "Max uppföljningsnivå"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_customer_my_followup
+#: model:ir.ui.menu,name:account_followup.menu_sale_followup
+msgid "My Follow-Ups"
+msgstr "Mina uppföljningar"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "My Follow-ups"
+msgstr "Mina uppföljningar"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__name
+msgid "Name"
+msgstr "namn"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__needprinting
+msgid "Needs Printing"
+msgstr "Behöver utskrift"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_next_action
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_next_action
+msgid "Next Action"
+msgstr "Nästa åtgärd"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_next_action_date
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_next_action_date
+msgid "Next Action Date"
+msgstr "Nästa åtgärdsdatum"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "No Responsible"
+msgstr "Ingen ansvarig"
+
+#. module: account_followup
+#: model_terms:ir.actions.act_window,help:account_followup.account_manual_reconcile_action
+msgid "No journal items found."
+msgstr "Inga journalartiklar hittades."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Not Litigation"
+msgstr "Inte rättstvist"
+
+#. module: account_followup
+#: model:ir.model.constraint,message:account_followup.constraint_followup_followup_company_uniq
+msgid "Only one follow-up per company is allowed"
+msgstr "Endast en uppföljning per företag tillåts"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__payment_responsible_id
+#: model:ir.model.fields,help:account_followup.field_res_users__payment_responsible_id
+msgid ""
+"Optionally you can assign a user to this field, which will make him "
+"responsible for the action."
+msgstr ""
+"Alternativt kan du tilldela en användare till detta fält, vilket gör honom "
+"ansvarig för åtgärden."
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Overdue email sent to %s, "
+msgstr "Försenat e-postmeddelande skickat till %s,"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__partner_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__partner_id
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Partner"
+msgstr "Partner"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_move_line_partner_tree
+msgid "Partner Entries"
+msgstr "Partnerinlägg"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_followup_stat_by_partner_search
+#: model_terms:ir.ui.view,arch_db:account_followup.account_followup_stat_by_partner_tree
+msgid "Partner to Remind"
+msgstr "Partner att påminna"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__partner_ids
+msgid "Partners"
+msgstr "Partners"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "Partners with Overdue Credits"
+msgstr "Partners med försenade krediter"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Payment Follow-up"
+msgstr "Betalningsuppföljning"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__payment_note
+#: model:ir.model.fields,help:account_followup.field_res_users__payment_note
+msgid "Payment Note"
+msgstr "Betalningsanmärkning"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_print
+msgid "Print Follow-up & Send Mail to Customers"
+msgstr "Skriv ut uppföljning och skicka mail till kunder"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Print Overdue Payments"
+msgstr "Skriv ut försenade betalningar"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Print overdue payments report independent of follow-up line"
+msgstr "Skriv ut förfallna betalningsrapport oberoende av uppföljningsrad"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__description
+msgid "Printed Message"
+msgstr "Utskrivet meddelande"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Printed overdue payments report"
+msgstr "Utskriven rapport om försenade betalningar"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid "Ref"
+msgstr "Ref"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Reference"
+msgstr "Referens"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_report_account_followup_report_followup
+msgid "Report Followup"
+msgstr "Rapportera uppföljning"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Responsible of credit collection"
+msgstr "Ansvarig för kredituppbörd"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_sending_results
+msgid "Results from the sending of the different letters and emails"
+msgstr "Resultat från sändningen av de olika breven och mejlen"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_filter
+msgid "Search Follow-up"
+msgstr "Sök Uppföljning"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__email_conf
+msgid "Send Email Confirmation"
+msgstr "Skicka e-postbekräftelse"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__partner_lang
+msgid "Send Email in Partner Language"
+msgstr "Skicka e-post på partnerspråk"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_account_followup_print
+msgid "Send Follow-Ups"
+msgstr "Skicka uppföljningar"
+
+#. module: account_followup
+#: model:ir.ui.menu,name:account_followup.account_followup_print_menu
+msgid "Send Letters and Emails"
+msgstr "Skicka brev och e-post"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "Send Letters and Emails: Actions Summary"
+msgstr "Skicka brev och e-postmeddelanden: Sammanfattning av åtgärder"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Send Overdue Email"
+msgstr "Skicka försenat e-postmeddelande"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__send_letter
+msgid "Send a Letter"
+msgstr "Skicka ett brev"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "Send a Letter or Email"
+msgstr "Skicka ett brev eller e-post"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__send_email
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "Send an Email"
+msgstr "Skicka ett email"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid "Send emails and generate letters"
+msgstr "Skicka e-post och generera brev"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid "Send follow-ups"
+msgstr "Skicka uppföljningar"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__sequence
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__latest_followup_sequence
+#: model:ir.model.fields,field_description:account_followup.field_res_users__latest_followup_sequence
+msgid "Sequence"
+msgstr "Sekvens"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__summary
+msgid "Summary"
+msgstr "Sammanfattning"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_sending_results
+msgid "Summary of actions"
+msgstr "Sammanfattning av åtgärder"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__test_print
+msgid "Test Print"
+msgstr "Testutskrift"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "The"
+msgstr "De"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/report/followup_print.py:0
+#, python-format
+msgid ""
+"The followup plan defined for the current company does not have any followup"
+" action."
+msgstr ""
+"Uppföljningsplanen som definierats för det aktuella företaget har inga "
+"uppföljningsåtgärder."
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__latest_followup_level_id
+#: model:ir.model.fields,help:account_followup.field_res_users__latest_followup_level_id
+msgid "The maximum follow-up level"
+msgstr "Den maximala uppföljningsnivån"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__latest_followup_level_id_without_lit
+#: model:ir.model.fields,help:account_followup.field_res_users__latest_followup_level_id_without_lit
+msgid ""
+"The maximum follow-up level without taking into account the account move "
+"lines with litigation"
+msgstr ""
+"Den maximala uppföljningsnivån utan att ta hänsyn till kontot flytta linjer "
+"med rättstvister"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__delay
+msgid ""
+"The number of days after the due date of the invoice to wait before sending "
+"the reminder. Could be negative if you want to send a polite alert "
+"beforehand."
+msgstr ""
+"Antalet dagar efter fakturans förfallodatum att vänta innan påminnelsen "
+"skickas. Kan vara negativt om du vill skicka en artig varning i förväg."
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid ""
+"The partner does not have any accounting entries to print in the overdue "
+"report for the current company."
+msgstr ""
+"Partnern har inga bokföringsposter att skriva ut i förfallorapporten för det"
+" aktuella företaget."
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "There is no followup plan defined for the current company."
+msgstr ""
+"Det finns ingen uppföljningsplan definierad för det aktuella företaget."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid ""
+"This action will send follow-up emails, print the\n"
+"                        letters and\n"
+"                        set the manual actions per customer, according to the\n"
+"                        follow-up levels defined."
+msgstr ""
+"Denna åtgärd kommer att skicka uppföljande e-postmeddelanden, skriva ut\n"
+" brev och\n"
+" ställa in manuella åtgärder per kund, enligt de\n"
+" definierade uppföljningsnivåerna."
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_print__date
+msgid "This field allow you to select a forecast date to plan your follow-ups"
+msgstr ""
+"Detta fält låter dig välja ett prognosdatum för att planera dina "
+"uppföljningar"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__payment_next_action
+#: model:ir.model.fields,help:account_followup.field_res_users__payment_next_action
+msgid ""
+"This is the next action to be taken.  It will automatically be set when the "
+"partner gets a follow-up level that requires a manual action. "
+msgstr ""
+"Detta är nästa åtgärd som ska vidtas. Den kommer automatiskt att ställas in "
+"när partnern får en uppföljningsnivå som kräver en manuell åtgärd."
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__payment_next_action_date
+#: model:ir.model.fields,help:account_followup.field_res_users__payment_next_action_date
+msgid ""
+"This is when the manual follow-up is needed. The date will be set to the "
+"current date when the partner gets a follow-up level that requires a manual "
+"action. Can be practical to set manually e.g. to see if he keeps his "
+"promises."
+msgstr ""
+"Det är då den manuella uppföljningen behövs. Datumet kommer att ställas in "
+"på det aktuella datumet när partnern får en uppföljningsnivå som kräver en "
+"manuell åtgärd. Kan vara praktiskt att ställa in manuellt t.ex. för att se "
+"om han håller sina löften."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_form
+msgid ""
+"To remind customers of paying their invoices, you can\n"
+"                        define different actions depending on how severely\n"
+"                        overdue the customer is. These actions are bundled\n"
+"                        into follow-up levels that are triggered when the due\n"
+"                        date of an invoice has passed a certain\n"
+"                        number of days. If there are other overdue invoices for\n"
+"                        the\n"
+"                        same customer, the actions of the most\n"
+"                        overdue invoice will be executed."
+msgstr ""
+"För att påminna kunder om att betala sina fakturor kan du\n"
+" definiera olika åtgärder beroende på hur mycket\n"
+" kunden är försenad. Dessa åtgärder är buntade\n"
+" i uppföljningsnivåer som utlöses när förfallodatum\n"
+" för en faktura har passerat ett visst\n"
+" antal dagar. Om det finns andra förfallna fakturor för\n"
+" samma kund, kommer åtgärderna för den mest\n"
+" förfallna fakturan att utföras."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_move_line_partner_tree
+#: model_terms:ir.ui.view,arch_db:account_followup.view_move_line_reconcile_tree
+msgid "Total credit"
+msgstr "Total kredit"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_move_line_partner_tree
+#: model_terms:ir.ui.view,arch_db:account_followup.view_move_line_reconcile_tree
+msgid "Total debit"
+msgstr "Total debet"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid "Total:"
+msgstr "Total:"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__unreconciled_aml_ids
+#: model:ir.model.fields,field_description:account_followup.field_res_users__unreconciled_aml_ids
+msgid "Unreconciled Aml"
+msgstr "Oförlikt Aml"
+
+#. module: account_followup
+#: model:mail.template,name:account_followup.email_template_account_followup_level2
+msgid "Urging payment follow-up reminder email"
+msgstr "Uppmanande betalningsuppföljningspåminnelse via e-post"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__send_letter
+msgid "When processing, it will print a letter"
+msgstr "Vid bearbetning kommer det att skriva ut ett brev"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__send_email
+msgid "When processing, it will send an email"
+msgstr "Vid bearbetning skickas ett e-postmeddelande"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__manual_action
+msgid ""
+"When processing, it will set the manual action to be taken for that "
+"customer. "
+msgstr ""
+"Vid bearbetning kommer den att ställa in den manuella åtgärd som ska vidtas "
+"för den kunden."
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_earliest_due_date
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_earliest_due_date
+msgid "Worst Due Date"
+msgstr "Sämsta förfallodatum"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ""
+"Write here the introduction in the letter,\n"
+"                            according to the level of the follow-up. You can\n"
+"                            use the following keywords in the text. Don't\n"
+"                            forget to translate in all languages you installed\n"
+"                            using to top right icon."
+msgstr ""
+"Skriv här inledningen i brevet,\n"
+" efter nivån på uppföljningen. Du kan\n"
+" använda följande nyckelord i texten. Glöm inte\n"
+" att översätta till alla språk du har installerat\n"
+" med ikonen uppe till höger."
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid ""
+"You became responsible to do the next action for the payment follow-up of"
+msgstr ""
+"Du blev ansvarig för att göra nästa åtgärd för betalningsuppföljningen av"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/followup.py:0
+#, python-format
+msgid ""
+"Your description is invalid, use the right legend or %% if you want to use "
+"the percent character."
+msgstr ""
+"Din beskrivning är ogiltig, använd rätt förklaring eller %% om du vill "
+"använda procenttecknet."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "days overdue, do the following actions:"
+msgstr "dagar för sent, gör följande:"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid "or"
+msgstr "eller"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "⇾ Mark as Done"
+msgstr "⇾ Markera som klar"
+
