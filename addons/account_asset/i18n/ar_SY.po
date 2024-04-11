@@ -1,1273 +1,1388 @@
-# Translation of Odoo Server.
-# This file contains the translation of the following modules:
-# 	* om_account_asset
-#
+
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-06 03:01+0000\n"
-"PO-Revision-Date: 2022-07-06 03:01+0000\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Project-Id-Version:Flectra Server 3.0alpha"
+"Report-Msgid-Bugs-To:"
+"POT-Creation-Date:2024-04-10 10:45+0000"
+"PO-Revision-Date:2024-04-10 10:45+0000"
+"Last-Translator:"
+"Language-Team:"
+"MIME-Version:1.0"
+"Content-Type:text/plain; charset=UTF-8"
+"Content-Transfer-Encoding:"
+"Plural-Forms:"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid " (copy)"
-msgstr ""
+msgstr "(ينسخ)"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid " (grouped)"
-msgstr ""
+msgstr "(مجمعة)"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__entry_count
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__entry_count
 msgid "# Asset Entries"
-msgstr ""
+msgstr "#مدخلات الأصول"
 
-#. module: om_account_asset
-#: model:ir.actions.server,name:om_account_asset.account_asset_cron_ir_actions_server
-#: model:ir.cron,cron_name:om_account_asset.account_asset_cron
-#: model:ir.cron,name:om_account_asset.account_asset_cron
+#. module: account_asset
+#: model:ir.actions.server,name:account_asset.account_asset_cron_ir_actions_server
 msgid "Account Asset: Generate asset entries"
-msgstr "أصل الحساب: إنشاء إدخالات الأصول\n"
+msgstr "أصول الحساب: إنشاء إدخالات الأصول"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_depreciation_confirmation_wizard__date
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_depreciation_confirmation_wizard__date
 msgid "Account Date"
-msgstr ""
+msgstr "تاريخ الحساب"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_category__account_depreciation_id
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__account_depreciation_id
 msgid "Account used in the depreciation entries, to decrease the asset value."
-msgstr ""
+msgstr "الحساب المستخدم في قيود الإهلاك لتخفيض قيمة الأصل."
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_category__account_depreciation_expense_id
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__account_depreciation_expense_id
 msgid ""
 "Account used in the periodical entries, to record a part of the asset as "
 "expense."
-msgstr ""
+msgstr "الحساب المستخدم في القيود الدورية لتسجيل جزء من الأصل كمصروف."
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_category__account_asset_id
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__account_asset_id
 msgid ""
 "Account used to record the purchase of the asset at its original price."
-msgstr ""
+msgstr "الحساب المستخدم لتسجيل شراء الأصل بسعره الأصلي."
 
-#. module: om_account_asset
-#. openerp-web
-#: code:addons/om_account_asset/static/src/js/account_asset.js:0
-#, python-format
-msgid "Accounting entries waiting for manual verification"
-msgstr ""
-
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_needaction
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__message_needaction
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "الإجراءات اللازمة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__active
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__active
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__active
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__active
 msgid "Active"
-msgstr ""
+msgstr "نشيط"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__activity_ids
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__activity_ids
+msgid "Activities"
+msgstr "أنشطة"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__activity_exception_decoration
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "زخرفة استثناء النشاط"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__activity_state
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__activity_state
+msgid "Activity State"
+msgstr "حالة النشاط"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__activity_type_icon
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "رمز نوع النشاط"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 msgid "Additional Options"
-msgstr ""
+msgstr "خيارات اضافية"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Amount"
-msgstr ""
+msgstr "كمية"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__depreciation_value
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__depreciation_value
 msgid "Amount of Depreciation Lines"
-msgstr ""
+msgstr "كمية خطوط الإهلاك"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__installment_value
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__installment_value
 msgid "Amount of Installment Lines"
-msgstr ""
+msgstr "عدد خطوط التقسيط"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__account_analytic_id
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__account_analytic_id
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__account_analytic_id
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__account_analytic_id
 msgid "Analytic Account"
-msgstr ""
+msgstr "الحساب التحليلي"
 
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__analytic_distribution
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__analytic_distribution
+msgid "Analytic Distribution"
+msgstr "التوزيع التحليلي"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__asset_id
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__asset_id
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_search
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__analytic_distribution_search
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__analytic_distribution_search
+msgid "Analytic Distribution Search"
+msgstr "بحث التوزيع التحليلي"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__analytic_precision
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__analytic_precision
+msgid "Analytic Precision"
+msgstr "الدقة التحليلية"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__asset_id
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__asset_id
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Asset"
-msgstr ""
+msgstr "أصل"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__account_asset_id
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_search
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__account_asset_id
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Asset Account"
-msgstr ""
+msgstr "حساب الأصول"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_move_line__asset_category_id
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_purchase_tree
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_search
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_invoice_asset_category
+#. module: account_asset
+#: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_list_normal_purchase
+#: model:ir.model.fields,field_description:account_asset.field_account_move_line__asset_category_id
+#: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_list_normal_purchase
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_purchase_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
+#: model_terms:ir.ui.view,arch_db:account_asset.view_invoice_asset_category
 msgid "Asset Category"
-msgstr ""
+msgstr "فئة الأصول"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.asset_modify_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Asset Durations to Modify"
-msgstr ""
+msgstr "فترات الأصول للتعديل"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_move_line__asset_end_date
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_move_line__asset_end_date
 msgid "Asset End Date"
-msgstr ""
+msgstr "تاريخ انتهاء الأصول"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_modify__asset_method_time
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__asset_method_time
 msgid "Asset Method Time"
-msgstr ""
+msgstr "وقت طريقة الأصول"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__name
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__name
 msgid "Asset Name"
-msgstr ""
+msgstr "اسم الأصل"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_move_line__asset_start_date
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_move_line__asset_start_date
 msgid "Asset Start Date"
-msgstr ""
+msgstr "تاريخ بدء الأصول"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__name
-#: model:ir.model.fields,field_description:om_account_asset.field_product_product__asset_category_id
-#: model:ir.model.fields,field_description:om_account_asset.field_product_template__asset_category_id
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__name
+#: model:ir.model.fields,field_description:account_asset.field_product_product__asset_category_id
+#: model:ir.model.fields,field_description:account_asset.field_product_template__asset_category_id
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 msgid "Asset Type"
-msgstr ""
+msgstr "نوع الأصول"
 
-#. module: om_account_asset
-#: model:ir.actions.act_window,name:om_account_asset.action_account_asset_asset_list_normal_purchase
-#: model:ir.ui.menu,name:om_account_asset.menu_action_account_asset_asset_list_normal_purchase
-msgid "Asset Category"
-msgstr ""
-
-#. module: om_account_asset
-#: model:ir.model,name:om_account_asset.model_account_asset_category
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__asset_category_id
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_tree
+#. module: account_asset
+#: model:ir.model,name:account_asset.model_account_asset_category
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__asset_category_id
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_tree
 msgid "Asset category"
-msgstr ""
+msgstr "فئة الأصول"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Asset created"
-msgstr ""
+msgstr "تم إنشاء الأصل"
 
-#. module: om_account_asset
-#: model:ir.model,name:om_account_asset.model_account_asset_depreciation_line
+#. module: account_asset
+#: model:ir.model,name:account_asset.model_account_asset_depreciation_line
 msgid "Asset depreciation line"
-msgstr ""
+msgstr "خط استهلاك الأصول"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Asset sold or disposed. Accounting entry awaiting for validation."
-msgstr ""
+msgstr "بيع الأصول أو التخلص منها. إدخال المحاسبة في انتظار التحقق من صحتها."
 
-#. module: om_account_asset
-#: model:ir.model,name:om_account_asset.model_account_asset_asset
+#. module: account_asset
+#: model:ir.model,name:account_asset.model_account_asset_asset
 msgid "Asset/Revenue Recognition"
-msgstr ""
+msgstr "الاعتراف بالأصول/الإيرادات"
 
-#. module: om_account_asset
-#: model:ir.actions.act_window,name:om_account_asset.action_account_asset_asset_form
-#: model:ir.model.fields,field_description:om_account_asset.field_account_bank_statement_line__asset_ids
-#: model:ir.model.fields,field_description:om_account_asset.field_account_move__asset_ids
-#: model:ir.model.fields,field_description:om_account_asset.field_account_payment__asset_ids
-#: model:ir.ui.menu,name:om_account_asset.menu_action_account_asset_asset_form
-#: model:ir.ui.menu,name:om_account_asset.menu_action_asset_asset_report
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_purchase_tree
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_search
+#. module: account_asset
+#: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_form
+#: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_ids
+#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_ids
+#: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_ids
+#: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_form
+#: model:ir.ui.menu,name:account_asset.menu_action_asset_asset_report
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_purchase_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_search
 msgid "Assets"
-msgstr "الأصول"
+msgstr "أصول"
 
-#. module: om_account_asset
-#: model:ir.actions.act_window,name:om_account_asset.action_asset_asset_report
-#: model:ir.model,name:om_account_asset.model_asset_asset_report
-#: model_terms:ir.ui.view,arch_db:om_account_asset.action_account_asset_report_graph
-#: model_terms:ir.ui.view,arch_db:om_account_asset.action_account_asset_report_pivot
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model:ir.actions.act_window,name:account_asset.action_asset_asset_report
+#: model:ir.model,name:account_asset.model_asset_asset_report
+#: model_terms:ir.ui.view,arch_db:account_asset.action_account_asset_report_graph
+#: model_terms:ir.ui.view,arch_db:account_asset.action_account_asset_report_pivot
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Assets Analysis"
-msgstr "تحليل الأصول\n"
+msgstr "تحليل الأصول"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_bank_statement_line__asset_depreciation_ids
-#: model:ir.model.fields,field_description:om_account_asset.field_account_move__asset_depreciation_ids
-#: model:ir.model.fields,field_description:om_account_asset.field_account_payment__asset_depreciation_ids
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_depreciation_ids
+#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_depreciation_ids
+#: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_depreciation_ids
 msgid "Assets Depreciation Lines"
-msgstr ""
+msgstr "خطوط إهلاك الأصول"
 
-#. module: om_account_asset
-#: model:ir.ui.menu,name:om_account_asset.menu_finance_config_assets
-msgid "Assets and Revenues"
-msgstr ""
-
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Assets in closed state"
-msgstr ""
+msgstr "الأصول في حالة مغلقة"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Assets in draft and open states"
-msgstr ""
+msgstr "الأصول في حالات المسودة والمفتوحة"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Assets in draft state"
-msgstr ""
+msgstr "الأصول في حالة المسودة"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Assets in running state"
-msgstr ""
+msgstr "الأصول في حالة التشغيل"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_attachment_count
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__message_attachment_count
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "عدد المرفقات"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__open_asset
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__open_asset
 msgid "Auto-Confirm Assets"
-msgstr ""
+msgstr "تأكيد الأصول تلقائيًا"
 
-#. module: om_account_asset
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__date_first_depreciation__last_day_period
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_category__date_first_depreciation__last_day_period
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_asset__date_first_depreciation__last_day_period
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_category__date_first_depreciation__last_day_period
 msgid "Based on Last Day of Purchase Period"
-msgstr ""
+msgstr "بناءً على اليوم الأخير من فترة الشراء"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.asset_modify_form
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_depreciation_confirmation_wizard
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_depreciation_confirmation_wizard
 msgid "Cancel"
-msgstr ""
+msgstr "يلغي"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__category_id
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_search
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__category_id
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_search
 msgid "Category"
-msgstr ""
+msgstr "فئة"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Category of asset"
-msgstr ""
+msgstr "فئة الأصول"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_category__open_asset
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__open_asset
 msgid ""
 "Check this if you want to automatically confirm the assets of this category "
 "when created by invoices."
 msgstr ""
+"حدد هذا إذا كنت تريد تأكيد أصول هذه الفئة تلقائيًا عند إنشائها بواسطة "
+"الفواتير."
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_category__group_entries
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__group_entries
 msgid "Check this if you want to group the generated entries by categories."
-msgstr ""
+msgstr "حدد هذا إذا كنت تريد تجميع الإدخالات التي تم إنشاؤها حسب الفئات."
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__method
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_category__method
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__method
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__method
 msgid ""
 "Choose the method to use to compute the amount of depreciation lines.\n"
 "  * Linear: Calculated on basis of: Gross Value / Number of Depreciations\n"
 "  * Degressive: Calculated on basis of: Residual Value * Degressive Factor"
 msgstr ""
+"اختر الطريقة التي سيتم استخدامها لحساب مقدار بنود الإهلاك.\n"
+" * خطي: ​​محسوب على أساس: القيمة الإجمالية / عدد عمليات الإهلاك\n"
+" * تنازلي: محسوب على أساس: القيمة المتبقية * العامل التنازلي"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__method_time
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_category__method_time
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__method_time
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__method_time
 msgid ""
 "Choose the method to use to compute the dates and number of entries.\n"
 "  * Number of Entries: Fix the number of entries and the time between 2 depreciations.\n"
 "  * Ending Date: Choose the time between 2 depreciations and the date the depreciations won't go beyond."
 msgstr ""
+"اختر الأسلوب الذي سيتم استخدامه لحساب التواريخ وعدد الإدخالات.\n"
+" * عدد الإدخالات: قم بإصلاح عدد الإدخالات والوقت بين عمليتي إهلاك.\n"
+" * تاريخ الانتهاء: اختر الوقت بين عمليتي إهلاك وتاريخ عمليات الإهلاك لن تتجاوز."
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_asset_depreciation_confirmation_wizard__date
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_asset_depreciation_confirmation_wizard__date
 msgid ""
 "Choose the period for which you want to automatically post the depreciation "
 "lines of running assets"
 msgstr ""
+"اختر الفترة التي تريد ترحيل بنود الإهلاك للأصول الجاري تشغيلها تلقائيًا"
 
-#. module: om_account_asset
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__state__close
-#: model:ir.model.fields.selection,name:om_account_asset.selection__asset_asset_report__state__close
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_asset__state__close
+#: model:ir.model.fields.selection,name:account_asset.selection__asset_asset_report__state__close
 msgid "Close"
-msgstr ""
+msgstr "يغلق"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Closed"
-msgstr ""
+msgstr "مغلق"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__company_id
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__company_id
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__company_id
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__company_id
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__company_id
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__company_id
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Company"
-msgstr ""
+msgstr "شركة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__method
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__method
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__method
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__method
 msgid "Computation Method"
-msgstr ""
+msgstr "طريقة الحساب"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_depreciation_confirmation_wizard
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_depreciation_confirmation_wizard
 msgid "Compute Asset"
-msgstr ""
+msgstr "حساب الأصول"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Compute Depreciation"
-msgstr ""
+msgstr "حساب الإهلاك"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Confirm"
-msgstr ""
+msgstr "يتأكد"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/wizard/asset_depreciation_confirmation_wizard.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/wizard/asset_depreciation_confirmation_wizard.py:0
 #, python-format
 msgid "Created Asset Moves"
-msgstr ""
+msgstr "تحركات الأصول التي تم إنشاؤها"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/wizard/asset_depreciation_confirmation_wizard.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/wizard/asset_depreciation_confirmation_wizard.py:0
 #, python-format
 msgid "Created Revenue Moves"
-msgstr ""
+msgstr "تحركات الإيرادات التي تم إنشاؤها"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__create_uid
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__create_uid
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__create_uid
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_depreciation_confirmation_wizard__create_uid
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_modify__create_uid
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__create_uid
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__create_uid
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__create_uid
+#: model:ir.model.fields,field_description:account_asset.field_asset_depreciation_confirmation_wizard__create_uid
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "انشأ من قبل"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__create_date
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__create_date
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__create_date
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_depreciation_confirmation_wizard__create_date
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_modify__create_date
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__create_date
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__create_date
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__create_date
+#: model:ir.model.fields,field_description:account_asset.field_asset_depreciation_confirmation_wizard__create_date
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__create_date
 msgid "Created on"
-msgstr ""
+msgstr "تم إنشاؤها على"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__depreciated_value
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__depreciated_value
 msgid "Cumulative Depreciation"
-msgstr ""
+msgstr "الاستهلاك التراكمي"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__currency_id
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__currency_id
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__currency_id
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__currency_id
 #, python-format
 msgid "Currency"
-msgstr ""
+msgstr "عملة"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Current"
-msgstr ""
+msgstr "حاضِر"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__amount
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__amount
 msgid "Current Depreciation"
-msgstr ""
+msgstr "الاستهلاك الحالي"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__date
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__date
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_search
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__date
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__date
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Date"
-msgstr ""
+msgstr "تاريخ"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Date of asset"
-msgstr ""
+msgstr "تاريخ الأصول"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Date of asset purchase"
-msgstr ""
+msgstr "تاريخ شراء الأصول"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Date of depreciation"
-msgstr ""
+msgstr "تاريخ الإهلاك"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 msgid "Deferred Revenue Account"
-msgstr ""
+msgstr "حساب الإيرادات المؤجلة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_product_product__deferred_revenue_category_id
-#: model:ir.model.fields,field_description:om_account_asset.field_product_template__deferred_revenue_category_id
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_product_product__deferred_revenue_category_id
+#: model:ir.model.fields,field_description:account_asset.field_product_template__deferred_revenue_category_id
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 msgid "Deferred Revenue Type"
-msgstr ""
+msgstr "نوع الإيرادات المؤجلة"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_search
 msgid "Deferred Revenues"
-msgstr ""
+msgstr "الإيرادات المؤجلة"
 
-#. module: om_account_asset
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__method__degressive
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_category__method__degressive
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_asset__method__degressive
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_category__method__degressive
 msgid "Degressive"
-msgstr ""
+msgstr "تراجعي"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__method_progress_factor
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__method_progress_factor
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__method_progress_factor
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__method_progress_factor
 msgid "Degressive Factor"
-msgstr ""
+msgstr "عامل تراجعي"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Depreciation"
-msgstr ""
+msgstr "الاستهلاك"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Depreciation Board"
-msgstr ""
+msgstr "مجلس الإهلاك"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__depreciation_nbr
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__depreciation_nbr
 msgid "Depreciation Count"
-msgstr ""
+msgstr "عدد الإهلاك"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__depreciation_date
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__depreciation_date
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__depreciation_date
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__depreciation_date
 msgid "Depreciation Date"
-msgstr ""
+msgstr "تاريخ الإهلاك"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__date_first_depreciation
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__date_first_depreciation
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__date_first_depreciation
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__date_first_depreciation
 msgid "Depreciation Dates"
-msgstr ""
+msgstr "تواريخ الإهلاك"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__account_depreciation_id
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__account_depreciation_id
 msgid "Depreciation Entries: Asset Account"
-msgstr ""
+msgstr "إدخالات الإهلاك: حساب الأصول"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__account_depreciation_expense_id
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__account_depreciation_expense_id
 msgid "Depreciation Entries: Expense Account"
-msgstr ""
+msgstr "إدخالات الإهلاك: حساب المصروفات"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__move_id
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__move_id
 msgid "Depreciation Entry"
-msgstr ""
+msgstr "إدخال الإهلاك"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Depreciation Information"
-msgstr ""
+msgstr "معلومات الإهلاك"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__depreciation_line_ids
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__depreciation_line_ids
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Depreciation Lines"
-msgstr ""
+msgstr "خطوط الإهلاك"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 msgid "Depreciation Method"
-msgstr ""
+msgstr "طريقة الاستهلاك"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Depreciation Month"
-msgstr ""
+msgstr "شهر الإهلاك"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__name
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__name
 msgid "Depreciation Name"
-msgstr ""
+msgstr "اسم الإهلاك"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/wizard/asset_modify.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "Depreciation board modified"
-msgstr ""
+msgstr "تم تعديل لوحة الإهلاك"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Depreciation line posted."
-msgstr ""
+msgstr "تم ترحيل سطر الإهلاك."
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__display_name
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__display_name
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__display_name
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__display_name
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_depreciation_confirmation_wizard__display_name
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_modify__display_name
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__display_name
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__display_name
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__display_name
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__display_name
+#: model:ir.model.fields,field_description:account_asset.field_asset_depreciation_confirmation_wizard__display_name
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "اسم العرض"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Disposal Move"
-msgstr ""
+msgstr "نقل التخلص"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Disposal Moves"
-msgstr ""
+msgstr "تحركات التخلص"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Document closed."
-msgstr ""
+msgstr "الوثيقة مغلقة."
 
-#. module: om_account_asset
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__state__draft
-#: model:ir.model.fields.selection,name:om_account_asset.selection__asset_asset_report__state__draft
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_asset__state__draft
+#: model:ir.model.fields.selection,name:account_asset.selection__asset_asset_report__state__draft
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Draft"
-msgstr ""
+msgstr "مسودة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__method_end
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__method_time__end
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_category__method_time__end
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__method_end
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_asset__method_time__end
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_category__method_time__end
 msgid "Ending Date"
-msgstr ""
+msgstr "تاريخ الانتهاء"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__method_end
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_modify__method_end
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__method_end
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__method_end
 msgid "Ending date"
-msgstr ""
+msgstr "تاريخ الانتهاء"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Extended Filters..."
-msgstr ""
+msgstr "عوامل التصفية الموسعة..."
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__first_depreciation_manual_date
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__first_depreciation_manual_date
 msgid "First Depreciation Date"
-msgstr ""
+msgstr "تاريخ الإهلاك الأول"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_follower_ids
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__message_follower_ids
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "متابعون"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_partner_ids
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__message_partner_ids
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "المتابعون (الشركاء)\n"
+msgstr "المتابعون (الشركاء)"
 
-#. module: om_account_asset
-#: model_terms:ir.actions.act_window,help:om_account_asset.action_asset_asset_report
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__activity_type_icon
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "رمز الخط الرائع على سبيل المثال. مهام كرة القدم"
+
+#. module: account_asset
+#: model_terms:ir.actions.act_window,help:account_asset.action_asset_asset_report
 msgid ""
 "From this report, you can have an overview on all depreciations. The\n"
 "            search bar can also be used to personalize your assets depreciation reporting."
 msgstr ""
+"ومن خلال هذا التقرير، يمكنك الحصول على نظرة عامة على كافة عمليات الإهلاك. يمكن أيضًا استخدام شريط البحث\n"
+" لتخصيص تقارير إهلاك الأصول الخاصة بك."
 
-#. module: om_account_asset
-#: model:ir.ui.menu,name:om_account_asset.menu_asset_depreciation_confirmation_wizard
+#. module: account_asset
+#: model:ir.ui.menu,name:account_asset.menu_asset_depreciation_confirmation_wizard
 msgid "Generate Assets Entries"
-msgstr "إنشاء إدخالات الأصول\n"
+msgstr "توليد إدخالات الأصول"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_depreciation_confirmation_wizard
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_depreciation_confirmation_wizard
 msgid "Generate Entries"
-msgstr ""
+msgstr "توليد الإدخالات"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__gross_value
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__gross_value
 msgid "Gross Amount"
-msgstr ""
+msgstr "المبلغ الإجمالي"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__value
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__value
 msgid "Gross Value"
-msgstr ""
+msgstr "القيمة الإجمالية"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Gross value of asset"
-msgstr ""
+msgstr "القيمة الإجمالية للأصول"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Group By"
-msgstr ""
+msgstr "مجموعة من"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_search
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_search
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Group By..."
-msgstr ""
+msgstr "مجموعة من..."
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__group_entries
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__group_entries
 msgid "Group Journal Entries"
-msgstr ""
+msgstr "إدخالات دفتر يومية المجموعة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__has_message
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__has_message
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "لديه رسالة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__id
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__id
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__id
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__id
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_depreciation_confirmation_wizard__id
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_modify__id
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__id
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__id
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__id
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__id
+#: model:ir.model.fields,field_description:account_asset.field_asset_depreciation_confirmation_wizard__id
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__id
 msgid "ID"
-msgstr ""
+msgstr "بطاقة تعريف"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__message_needaction
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__message_unread
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__activity_exception_icon
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__activity_exception_icon
+msgid "Icon"
+msgstr "أيقونة"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__activity_exception_icon
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "أيقونة للإشارة إلى نشاط الاستثناء."
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__message_needaction
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "إذا تم تحديدها، فإن الرسائل الجديدة تتطلب انتباهك."
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__message_has_error
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__message_has_sms_error
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__message_has_error
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "إذا تم تحديده، فإن بعض الرسائل تحتوي على خطأ في التسليم."
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__prorata
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__prorata
 msgid ""
 "Indicates that the first depreciation entry for this asset have to be done "
 "from the asset date (purchase date) instead of the first January / Start "
 "date of fiscal year"
 msgstr ""
+"يشير إلى أن إدخال الإهلاك الأول لهذا الأصل يجب أن يتم من تاريخ الأصل (تاريخ "
+"الشراء) بدلاً من أول يناير / تاريخ بدء السنة المالية"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_category__prorata
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__prorata
 msgid ""
 "Indicates that the first depreciation entry for this asset have to be done "
 "from the purchase date instead of the first of January"
 msgstr ""
+"يشير إلى أن إدخال الإهلاك الأول لهذا الأصل يجب أن يتم من تاريخ الشراء بدلاً "
+"من الأول من يناير"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__installment_nbr
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__installment_nbr
 msgid "Installment Count"
-msgstr ""
+msgstr "عدد الأقساط"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__invoice_id
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__invoice_id
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Invoice"
-msgstr ""
+msgstr "فاتورة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_is_follower
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__message_is_follower
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "هو تابع"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__salvage_value
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__salvage_value
 msgid "It is the amount you plan to have that you cannot depreciate."
-msgstr ""
+msgstr "هذا هو المبلغ الذي تخطط للحصول عليه والذي لا يمكنك تخفيض قيمته."
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Items"
-msgstr ""
+msgstr "أغراض"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__journal_id
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__journal_id
 msgid "Journal"
-msgstr ""
+msgstr "مجلة"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 #, python-format
 msgid "Journal Entries"
-msgstr ""
+msgstr "إدخالات دفتر اليومية"
 
-#. module: om_account_asset
-#: model:ir.model,name:om_account_asset.model_account_move
+#. module: account_asset
+#: model:ir.model,name:account_asset.model_account_move
 msgid "Journal Entry"
-msgstr "قيد اليومية"
+msgstr "إفتتاحية المجلة"
 
-#. module: om_account_asset
-#: model:ir.model,name:om_account_asset.model_account_move_line
+#. module: account_asset
+#: model:ir.model,name:account_asset.model_account_move_line
 msgid "Journal Item"
-msgstr "عنصر اليومية"
+msgstr "عنصر المجلة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset____last_update
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category____last_update
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line____last_update
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report____last_update
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_depreciation_confirmation_wizard____last_update
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_modify____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__write_uid
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__write_uid
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__write_uid
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_depreciation_confirmation_wizard__write_uid
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_modify__write_uid
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__write_uid
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__write_uid
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__write_uid
+#: model:ir.model.fields,field_description:account_asset.field_asset_depreciation_confirmation_wizard__write_uid
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "آخر تحديث بواسطة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__write_date
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__write_date
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__write_date
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_depreciation_confirmation_wizard__write_date
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_modify__write_date
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__write_date
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__write_date
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__write_date
+#: model:ir.model.fields,field_description:account_asset.field_asset_depreciation_confirmation_wizard__write_date
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "آخر تحديث بتاريخ"
 
-#. module: om_account_asset
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__method__linear
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_category__method__linear
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_asset__method__linear
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_category__method__linear
 msgid "Linear"
-msgstr ""
+msgstr "خطي"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__move_check
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__move_check
 msgid "Linked"
-msgstr ""
+msgstr "مرتبط"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_main_attachment_id
-msgid "Main Attachment"
-msgstr ""
-
-#. module: om_account_asset
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__date_first_depreciation__manual
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_asset__date_first_depreciation__manual
 msgid "Manual"
-msgstr ""
+msgstr "يدوي"
 
-#. module: om_account_asset
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_category__date_first_depreciation__manual
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_category__date_first_depreciation__manual
 msgid "Manual (Defaulted on Purchase Date)"
-msgstr ""
+msgstr "يدوي (متخلف في تاريخ الشراء)"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_has_error
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__message_has_error
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "خطأ في تسليم الرسالة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_ids
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__message_ids
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "رسائل"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.asset_modify_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Modify"
-msgstr ""
+msgstr "يُعدِّل"
 
-#. module: om_account_asset
-#: model:ir.actions.act_window,name:om_account_asset.action_asset_modify
-#: model:ir.model,name:om_account_asset.model_asset_modify
-#: model_terms:ir.ui.view,arch_db:om_account_asset.asset_modify_form
+#. module: account_asset
+#: model:ir.actions.act_window,name:account_asset.action_asset_modify
+#: model:ir.model,name:account_asset.model_asset_modify
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Modify Asset"
-msgstr ""
+msgstr "تعديل الأصول"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Modify Depreciation"
-msgstr ""
+msgstr "تعديل الإهلاك"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_move_line__asset_mrr
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_move_line__asset_mrr
 msgid "Monthly Recurring Revenue"
-msgstr ""
+msgstr "الإيرادات الشهرية المتكررة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__remaining_value
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__my_activity_date_deadline
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "الموعد النهائي لنشاطي"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__activity_date_deadline
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "الموعد النهائي للنشاط التالي"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__activity_summary
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__activity_summary
+msgid "Next Activity Summary"
+msgstr "ملخص النشاط التالي"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__activity_type_id
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__activity_type_id
+msgid "Next Activity Type"
+msgstr "نوع النشاط التالي"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__remaining_value
 msgid "Next Period Depreciation"
-msgstr ""
+msgstr "إهلاك الفترة القادمة"
 
-#. module: om_account_asset
-#: model_terms:ir.actions.act_window,help:om_account_asset.action_asset_asset_report
+#. module: account_asset
+#: model_terms:ir.actions.act_window,help:account_asset.action_asset_asset_report
 msgid "No content"
-msgstr ""
+msgstr "لا يوجد محتوى"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__note
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__note
 msgid "Note"
-msgstr ""
+msgstr "ملحوظة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__first_depreciation_manual_date
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__first_depreciation_manual_date
 msgid ""
 "Note that this date does not alter the computation of the first journal "
 "entry in case of prorata temporis assets. It simply changes its accounting "
 "date"
 msgstr ""
+"لاحظ أن هذا التاريخ لا يغير حساب قيد اليومية الأول في حالة الأصول الزمنية "
+"التناسبية. إنه ببساطة يغير تاريخ المحاسبة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_needaction_counter
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__message_needaction_counter
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "عدد الإجراءات"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__method_number
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__method_number
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_modify__method_number
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__method_number
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__method_number
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__method_number
 msgid "Number of Depreciations"
-msgstr ""
+msgstr "عدد الإهلاكات"
 
-#. module: om_account_asset
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__method_time__number
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_category__method_time__number
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_asset__method_time__number
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_category__method_time__number
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 msgid "Number of Entries"
-msgstr ""
+msgstr "عدد الادخالات"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__method_period
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__method_period
 msgid "Number of Months in a Period"
-msgstr ""
+msgstr "عدد الأشهر في الفترة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_has_error_counter
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__message_has_error_counter
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "عدد الأخطاء"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__message_needaction_counter
-msgid "Number of messages which requires an action"
-msgstr ""
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__message_needaction_counter
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "عدد الرسائل التي تتطلب اتخاذ إجراء"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__message_has_error_counter
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__message_has_error_counter
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "عدد الرسائل التي بها خطأ في التسليم"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__message_unread_counter
-msgid "Number of unread messages"
-msgstr ""
-
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 msgid "One Entry Every"
-msgstr ""
+msgstr "إدخال واحد كل"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__partner_id
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__partner_id
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__partner_id
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__partner_id
 #, python-format
 msgid "Partner"
-msgstr ""
+msgstr "شريك"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__method_period
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_modify__method_period
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__method_period
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__method_period
 msgid "Period Length"
-msgstr ""
+msgstr "طول الفترة"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 msgid "Periodicity"
-msgstr ""
+msgstr "الدورية"
 
-#. module: om_account_asset
-#: model:ir.actions.act_window,name:om_account_asset.action_asset_depreciation_confirmation_wizard
+#. module: account_asset
+#: model:ir.actions.act_window,name:account_asset.action_asset_depreciation_confirmation_wizard
 msgid "Post Depreciation Lines"
-msgstr ""
+msgstr "خطوط ما بعد الإهلاك"
 
-#. module: om_account_asset
-#. openerp-web
-#: code:addons/om_account_asset/static/src/js/account_asset.js:0
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__move_posted_check
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__move_check
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
-#, python-format
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__move_posted_check
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__move_check
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Posted"
-msgstr ""
+msgstr "نشر"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__posted_value
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__posted_value
 msgid "Posted Amount"
-msgstr ""
+msgstr "المبلغ المنشور"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Posted depreciation lines"
-msgstr ""
+msgstr "خطوط الإهلاك المنشورة"
 
-#. module: om_account_asset
-#: model:ir.model,name:om_account_asset.model_product_template
-msgid "Product Template"
-msgstr "قالب المنتج"
+#. module: account_asset
+#: model:ir.model,name:account_asset.model_product_template
+msgid "Product"
+msgstr "منتج"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__prorata
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__prorata
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__prorata
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__prorata
 msgid "Prorata Temporis"
-msgstr ""
+msgstr "وفقا للوقت"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid ""
 "Prorata temporis can be applied only for the \"number of depreciations\" "
 "time method."
-msgstr ""
+msgstr "يمكن تطبيق التناسب الزمني فقط على طريقة الوقت \"عدد مرات الإهلاك\"."
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_search
 msgid "Purchase"
-msgstr ""
+msgstr "شراء"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Purchase Month"
-msgstr ""
+msgstr "شهر الشراء"
 
-#. module: om_account_asset
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_category__type__purchase
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_category__type__purchase
 msgid "Purchase: Asset"
-msgstr ""
+msgstr "الشراء: الأصول"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_modify__name
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__name
 msgid "Reason"
-msgstr ""
+msgstr "سبب"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 msgid "Recognition Account"
-msgstr ""
+msgstr "حساب الاعتراف"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 msgid "Recognition Income Account"
-msgstr ""
+msgstr "حساب الدخل الاعتراف"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__code
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__code
 msgid "Reference"
-msgstr ""
+msgstr "مرجع"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Residual"
-msgstr ""
+msgstr "المتبقية"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__value_residual
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__value_residual
 msgid "Residual Value"
-msgstr ""
+msgstr "القيمة المتبقية"
 
-#. module: om_account_asset
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__state__open
-#: model:ir.model.fields.selection,name:om_account_asset.selection__asset_asset_report__state__open
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_asset_report_search
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__activity_user_id
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__activity_user_id
+msgid "Responsible User"
+msgstr "المستخدم المسؤول"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_asset__state__open
+#: model:ir.model.fields.selection,name:account_asset.selection__asset_asset_report__state__open
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
 msgid "Running"
-msgstr ""
+msgstr "جري"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr ""
-
-#. module: om_account_asset
-#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_category__type__sale
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_category__type__sale
 msgid "Sale: Revenue Recognition"
-msgstr ""
+msgstr "البيع: الاعتراف بالإيرادات"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_search
 msgid "Sales"
-msgstr ""
+msgstr "مبيعات"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__salvage_value
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__salvage_value
 msgid "Salvage Value"
-msgstr ""
+msgstr "قيمة مستردة"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_search
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_search
 msgid "Search Asset Category"
-msgstr ""
+msgstr "ابحث عن فئة الأصول"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Sell or Dispose"
-msgstr ""
+msgstr "بيع أو التخلص"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__sequence
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__sequence
 msgid "Sequence"
-msgstr ""
+msgstr "تسلسل"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "Set to Draft"
-msgstr ""
+msgstr "تعيين على المسودة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_category__method_period
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__method_period
 msgid "State here the time between 2 depreciations, in months"
-msgstr ""
+msgstr "اذكر هنا الوقت بين انخفاضين، بالأشهر"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__parent_state
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line__parent_state
 msgid "State of Asset"
-msgstr ""
+msgstr "حالة الأصول"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__state
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__state
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__state
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__state
 msgid "Status"
-msgstr ""
+msgstr "حالة"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__method_period
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__activity_state
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"تعتمد الحالة على الأنشطة\n"
+"متأخر عن الاستحقاق: لقد تم تجاوز تاريخ الاستحقاق بالفعل\n"
+"اليوم: تاريخ النشاط هو اليوم\n"
+"المخطط له: الأنشطة المستقبلية."
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__method_period
 msgid "The amount of time between two depreciations, in months"
-msgstr ""
+msgstr "مقدار الوقت بين انخفاضين، بالأشهر"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/wizard/asset_modify.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid ""
 "The number of depreciations must be greater than the number of posted or "
 "draft entries to allow for complete depreciation of the asset."
 msgstr ""
+"يجب أن يكون عدد عمليات الإهلاك أكبر من عدد الإدخالات المرحّلة أو المسودة "
+"للسماح بالإهلاك الكامل للأصل."
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__method_number
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_category__method_number
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__method_number
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__method_number
 msgid "The number of depreciations needed to depreciate your asset"
-msgstr ""
+msgstr "عدد عمليات الاستهلاك اللازمة لخفض قيمة الأصول الخاصة بك"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_move.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid ""
 "The number of depreciations or the period length of your asset category "
 "cannot be 0."
 msgstr ""
+"لا يمكن أن يكون عدد عمليات الإهلاك أو طول فترة فئة الأصول الخاصة بك 0."
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_category__date_first_depreciation
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__date_first_depreciation
 msgid ""
 "The way to compute the date of the first depreciation.\n"
 "  * Based on last day of purchase period: The depreciation dates will be based on the last day of the purchase month or the purchase year (depending on the periodicity of the depreciations).\n"
 "  * Based on purchase date: The depreciation dates will be based on the purchase date."
 msgstr ""
+"طريقة حساب تاريخ الإهلاك الأول.\n"
+" * بناءً على آخر يوم في فترة الشراء: سيتم تحديد تواريخ الإهلاك على أساس اليوم الأخير من شهر الشراء أو سنة الشراء (اعتماداً على دورية الإهلاك). \n"
+" * بناءً على تاريخ الشراء: سيتم تحديد تواريخ الإهلاك بناءً على تاريخ الشراء."
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__date_first_depreciation
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__date_first_depreciation
 msgid ""
 "The way to compute the date of the first depreciation.\n"
 "  * Based on last day of purchase period: The depreciation dates will be based on the last day of the purchase month or the purchase year (depending on the periodicity of the depreciations).\n"
 "  * Based on purchase date: The depreciation dates will be based on the purchase date.\n"
 msgstr ""
+"طريقة حساب تاريخ الإهلاك الأول.\n"
+" * بناءً على آخر يوم في فترة الشراء: سيتم تحديد تواريخ الإهلاك على أساس اليوم الأخير من شهر الشراء أو سنة الشراء (اعتماداً على دورية الإهلاك). \n"
+" * بناءً على تاريخ الشراء: ستعتمد تواريخ الإهلاك على تاريخ الشراء.\n"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid ""
 "This depreciation is already linked to a journal entry. Please post or "
 "delete it."
-msgstr ""
+msgstr "يرتبط هذا الإهلاك بالفعل بإدخال دفتر اليومية. الرجاء نشرها أو حذفها."
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_asset_depreciation_confirmation_wizard
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_asset_depreciation_confirmation_wizard
 msgid ""
 "This wizard will post installment/depreciation lines for the selected month.<br/>\n"
 "                        This will generate journal entries for all related installment lines on this period\n"
 "                        of asset/revenue recognition as well."
 msgstr ""
+"سيقوم هذا المعالج بترحيل بنود القسط/الإهلاك للشهر المحدد.<br/>\n"
+" سيؤدي هذا إلى إنشاء قيود يومية لكافة بنود القسط ذات الصلة في هذه الفترة\n"
+" من إقرار الأصول/الإيرادات أيضًا."
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__method_time
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__method_time
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__method_time
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__method_time
 msgid "Time Method"
-msgstr ""
+msgstr "طريقة الوقت"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 msgid "Time Method Based On"
-msgstr ""
+msgstr "طريقة الوقت على أساس"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__type
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__type
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_search
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__type
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__type
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_search
 msgid "Type"
-msgstr ""
+msgstr "يكتب"
 
-#. module: om_account_asset
-#. openerp-web
-#: code:addons/om_account_asset/static/src/js/account_asset.js:0
-#, python-format
-msgid "Unposted"
-msgstr ""
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__activity_exception_decoration
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "نوع نشاط الاستثناء المسجل."
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__unposted_value
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__unposted_value
 msgid "Unposted Amount"
-msgstr ""
+msgstr "المبلغ غير المنشور"
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_unread
-msgid "Unread Messages"
-msgstr ""
-
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_unread_counter
-msgid "Unread Messages Counter"
-msgstr ""
-
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_purchase_tree
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_purchase_tree
 msgid "Vendor"
-msgstr ""
+msgstr "بائع"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_move.py:0
-#: code:addons/om_account_asset/models/account_move.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_move.py:0
+#: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Vendor bill cancelled."
-msgstr ""
+msgstr "تم إلغاء فاتورة البائع."
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__website_message_ids
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset__website_message_ids
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "رسائل الموقع"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__website_message_ids
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__website_message_ids
+#: model:ir.model.fields,help:account_asset.field_account_asset_category__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "تاريخ اتصالات الموقع"
 
-#. module: om_account_asset
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__state
-#: model:ir.model.fields,help:om_account_asset.field_account_asset_depreciation_line__parent_state
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_asset__state
+#: model:ir.model.fields,help:account_asset.field_account_asset_depreciation_line__parent_state
 msgid ""
 "When an asset is created, the status is 'Draft'.\n"
 "If the asset is confirmed, the status goes in 'Running' and the depreciation lines can be posted in the accounting.\n"
 "You can manually close an asset when the depreciation is over. If the last line of depreciation is posted, the asset automatically goes in that status."
 msgstr ""
+"عند إنشاء أصل، تكون الحالة \"مسودة\".\n"
+"إذا تم تأكيد الأصل، تنتقل الحالة إلى \"قيد التشغيل\" ويمكن ترحيل بنود الإهلاك في المحاسبة.\n"
+"يمكنك إغلاق الأصل يدويًا عند انتهاء الإهلاك . إذا تم ترحيل السطر الأخير من الإهلاك، فسينتقل الأصل تلقائيًا إلى تلك الحالة."
 
-#. module: om_account_asset
-#: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__name
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report__name
 msgid "Year"
-msgstr ""
+msgstr "سنة"
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "You cannot delete a document that contains posted entries."
-msgstr ""
+msgstr "لا يمكنك حذف مستند يحتوي على إدخالات منشورة."
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "You cannot delete a document that is in %s state."
-msgstr ""
+msgstr "لا يمكنك حذف مستند موجود في الحالة %s."
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "You cannot delete posted depreciation lines."
-msgstr ""
+msgstr "لا يمكنك حذف بنود الإهلاك المرحلة."
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_asset.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "You cannot delete posted installment lines."
-msgstr ""
+msgstr "لا يمكنك حذف خطوط الأقساط المنشورة."
 
-#. module: om_account_asset
-#: code:addons/om_account_asset/models/account_move.py:0
+#. module: account_asset
+#. flectra-python
+#: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "You cannot reset to draft for an entry having a posted asset"
-msgstr ""
+msgstr "لا يمكنك إعادة التعيين للمسودة لإدخال يحتوي على أصل منشور"
 
-#. module: om_account_asset
-#: model:ir.model,name:om_account_asset.model_asset_depreciation_confirmation_wizard
+#. module: account_asset
+#: model:ir.model,name:account_asset.model_asset_depreciation_confirmation_wizard
 msgid "asset.depreciation.confirmation.wizard"
-msgstr ""
+msgstr "الأصول.الاستهلاك.تأكيد.المعالج"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 msgid "e.g. Computers"
-msgstr ""
+msgstr "على سبيل المثال أجهزة الكمبيوتر"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
 msgid "e.g. Laptop iBook"
-msgstr ""
+msgstr "على سبيل المثال لاب توب اي بوك"
 
-#. module: om_account_asset
-#: model_terms:ir.ui.view,arch_db:om_account_asset.asset_modify_form
-#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
 msgid "months"
-msgstr ""
+msgstr "شهور"
+

@@ -1,0 +1,1522 @@
+
+msgid ""
+msgstr ""
+"Project-Id-Version:Flectra Server 3.0alpha"
+"Report-Msgid-Bugs-To:"
+"POT-Creation-Date:2024-04-10 10:46+0000"
+"PO-Revision-Date:2024-04-10 10:46+0000"
+"Last-Translator:"
+"Language-Team:"
+"MIME-Version:1.0"
+"Content-Type:text/plain; charset=UTF-8"
+"Content-Transfer-Encoding:"
+"Plural-Forms:"
+
+#. module: account_followup
+#: model:followup.line,description:account_followup.demo_followup_line3
+#: model:followup.line,description:account_followup.demo_followup_line4
+#: model:followup.line,description:account_followup.demo_followup_line5
+msgid ""
+"\n"
+"                Dear %(partner_name)s,\n"
+"\n"
+"                Despite several reminders, your account is still not settled.\n"
+"\n"
+"                Unless full payment is made in next 8 days, then legal action\n"
+"                for the recovery of the debt will be taken without further\n"
+"                notice.\n"
+"\n"
+"                I trust that this action will prove unnecessary and details of\n"
+"                due payments is printed below.\n"
+"\n"
+"                In case of any queries concerning this matter, do not hesitate\n"
+"                to contact our accounting department.\n"
+"\n"
+"                Best Regards,\n"
+"            "
+msgstr ""
+"\n"
+" Poštovani %(partner_name)s,\n"
+"\n"
+" Unatoč nekoliko podsjetnika, vaš račun još uvijek nije podmiren.\n"
+"\n"
+" Osim ako se cijela uplata ne izvrši u sljedećih 8 dana, pokrenut će se pravni postupak\n"
+" za povrat duga poduzeti bez daljnje\n"
+" najave.\n"
+"\n"
+" Vjerujem da će se ova radnja pokazati nepotrebnom, a pojedinosti o\n"
+" dospjelim uplatama ispisane su u nastavku.\n"
+"\n"
+" U slučaju bilo kakvih pitanja u vezi s ovim pitanjem, ne ustručavajte se\n"
+" obratite se našem računovodstvenom odjelu.\n"
+"\n"
+" Srdačan pozdrav,\n"
+
+#. module: account_followup
+#: model:followup.line,description:account_followup.demo_followup_line1
+msgid ""
+"\n"
+"                Dear %(partner_name)s,\n"
+"\n"
+"                Exception made if there was a mistake of ours, it seems that\n"
+"                the following amount stays unpaid. Please, take appropriate\n"
+"                measures in order to carry out this payment in the next 8 days.\n"
+"\n"
+"                Would your payment have been carried out after this mail was\n"
+"                sent, please ignore this message. Do not hesitate to contact\n"
+"                our accounting department.\n"
+"\n"
+"                Best Regards,\n"
+"            "
+msgstr ""
+"\n"
+" Poštovani %(partner_name)s,\n"
+"\n"
+" Napravljena je iznimka ako je došlo do naše pogreške, čini se da\n"
+" sljedeći iznos ostaje neisplaćen. Molimo poduzmite odgovarajuće\n"
+" mjere kako biste izvršili ovu uplatu u sljedećih 8 dana.\n"
+"\n"
+" Da li bi vaša uplata bila izvršena nakon što je ova poruka\n"
+" poslana, zanemarite ovu poruku. Ne ustručavajte se kontaktirati\n"
+" naš odjel računovodstva.\n"
+"\n"
+" Srdačan pozdrav,\n"
+
+#. module: account_followup
+#: model:followup.line,description:account_followup.demo_followup_line2
+msgid ""
+"\n"
+"                Dear %(partner_name)s,\n"
+"\n"
+"                We are disappointed to see that despite sending a reminder,\n"
+"                that your account is now seriously overdue.\n"
+"\n"
+"                It is essential that immediate payment is made, otherwise we\n"
+"                will have to consider placing a stop on your account which\n"
+"                means that we will no longer be able to supply your company\n"
+"                with (goods/services).\n"
+"                Please, take appropriate measures in order to carry out this\n"
+"                payment in the next 8 days.\n"
+"\n"
+"                If there is a problem with paying invoice that we are not aware\n"
+"                of, do not hesitate to contact our accounting department, so\n"
+"                that we can resolve the matter quickly.\n"
+"\n"
+"                Details of due payments is printed below.\n"
+"\n"
+"                Best Regards,\n"
+"            "
+msgstr ""
+"\n"
+" Poštovani %(partner_name)s,\n"
+"\n"
+" Razočarani smo kada vidimo da unatoč slanju podsjetnika,\n"
+" da vaš račun sada ozbiljno kasni.\n"
+"\n"
+" Bitno je izvršiti trenutnu uplatu, inače ćemo\\ n morat ćemo razmotriti obustavu vašeg računa što\n"
+" znači da više nećemo moći opskrbljivati ​​vašu tvrtku\n"
+" (robom/uslugama).\n"
+" Molimo poduzmite odgovarajuće mjere kako biste ovo izvršili\n"
+" plaćanje u sljedećih 8 dana.\n"
+"\n"
+" Ako postoji problem s plaćanjem fakture za koji nismo svjesni\n"
+", slobodno se obratite našem računovodstvu, kako bismo\n"
+" mogli brzo riješiti problem.\n"
+" \n"
+" Pojedinosti dospjelih plaćanja ispisane su u nastavku.\n"
+"\n"
+" Srdačan pozdrav,\n"
+
+#. module: account_followup
+#: model:mail.template,body_html:account_followup.email_template_account_followup_level0
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"\n"
+"    <p>Dear ${object.name},</p>\n"
+"    <p>\n"
+"    Exception made if there was a mistake of ours, it seems that the following amount stays unpaid. Please, take\n"
+"appropriate measures in order to carry out this payment in the next 8 days.\n"
+"\n"
+"Would your payment have been carried out after this mail was sent, please ignore this message. Do not hesitate to\n"
+"contact our accounting department.  \n"
+"\n"
+"    </p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"<br/>\n"
+"   <br/>\n"
+"${user.name}\n"
+"\n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"\n"
+"${object.get_followup_table_html() | safe}\n"
+"\n"
+"    <br/>\n"
+"\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"familija-fontova: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; veličina fonta: 12px; boja: rgb(34, 34, 34); boja pozadine: rgb( 255, 255, 255); \">\n"
+"\n"
+" <p>Dragi ${object.name},</p>\n"
+" <p>\n"
+" Napravljena je iznimka ako je došlo do naše pogreške, čini se da sljedeći iznos ostaje neplaćen. Molimo poduzmite\n"
+"odgovarajuće mjere kako biste izvršili ovu uplatu u sljedećih 8 dana.\n"
+"\n"
+"Bi li vaša uplata bila izvršena nakon što je ova poruka poslana, zanemarite ovu poruku. Nemojte se ustručavati kontaktirati\n"
+"naše računovodstvo. \n"
+"\n"
+" </p>\n"
+"<br/>\n"
+"Srdačan pozdrav,\n"
+"<br/>\n"
+" <br/>\n"
+"${user.name}\n"
+"\n"
+"<br/>\n"
+"<br />\n"
+"\n"
+"\n"
+"${object.get_followup_table_html() | sigurno}\n"
+"\n"
+" <br/>\n"
+"\n"
+"</div>\n"
+
+#. module: account_followup
+#: model:mail.template,body_html:account_followup.email_template_account_followup_level2
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"    \n"
+"    <p>Dear ${object.name},</p>\n"
+"    <p>\n"
+"    Despite several reminders, your account is still not settled.\n"
+"Unless full payment is made in next 8 days, legal action for the recovery of the debt will be taken without\n"
+"further notice.\n"
+"I trust that this action will prove unnecessary and details of due payments is printed below.\n"
+"In case of any queries concerning this matter, do not hesitate to contact our accounting department.\n"
+"</p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"<br/>\n"
+"<br/>\n"
+"${user.name}\n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"\n"
+"${object.get_followup_table_html() | safe}\n"
+"\n"
+"    <br/>\n"
+"\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"familija-fontova: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; veličina fonta: 12px; boja: rgb(34, 34, 34); boja pozadine: rgb( 255, 255, 255); \">\n"
+" \n"
+" <p>Dragi ${object.name},</p>\n"
+" <p>\n"
+" Unatoč nekoliko podsjetnika, vaš račun još uvijek nije podmiren.\n"
+"Osim ako nije pun plaćanje bude izvršeno u sljedećih 8 dana, pravne radnje za povrat duga bit će poduzete bez\n"
+"daljnje obavijesti.\n"
+"Vjerujem da će se ova radnja pokazati nepotrebnom, a detalji dospjelih plaćanja ispisani su u nastavku.\n"
+"U slučaju bilo kakvih pitanja u vezi s ovim ne ustručavajte se kontaktirati naš odjel računovodstva.\n"
+"</p>\n"
+"<br/>\n"
+"Srdačan pozdrav,\n"
+"<br/>\n"
+"<br/>\n"
+"${user.name}\n"
+"< br/>\n"
+"<br/>\n"
+"\n"
+"\n"
+"${object.get_followup_table_html() | sigurno}\n"
+"\n"
+" <br/>\n"
+"\n"
+"</div>\n"
+
+#. module: account_followup
+#: model:mail.template,body_html:account_followup.email_template_account_followup_default
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"    \n"
+"    <p>Dear ${object.name},</p>\n"
+"    <p>\n"
+"    Exception made if there was a mistake of ours, it seems that the following amount stays unpaid. Please, take\n"
+"appropriate measures in order to carry out this payment in the next 8 days.\n"
+"Would your payment have been carried out after this mail was sent, please ignore this message. Do not hesitate to\n"
+"contact our accounting department.\n"
+"    </p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"<br/>\n"
+"<br/>\n"
+"${user.name}\n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"${object.get_followup_table_html() | safe}\n"
+"\n"
+"<br/>\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"familija-fontova: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; veličina fonta: 12px; boja: rgb(34, 34, 34); boja pozadine: rgb( 255, 255, 255); \">\n"
+" \n"
+" <p>Dragi ${object.name},</p>\n"
+" <p>\n"
+" Napravljena je iznimka ako je došlo do naše pogreške, čini se da sljedeći iznos ostaje neplaćen. Molimo poduzmite\n"
+"odgovarajuće mjere kako biste izvršili ovu uplatu u sljedećih 8 dana.\n"
+"Bi li vaša uplata bila izvršena nakon što je ova poruka poslana, zanemarite ovu poruku. Nemojte se ustručavati\n"
+"kontaktirati naš odjel računovodstva.\n"
+" </p>\n"
+"<br/>\n"
+"Srdačan pozdrav,\n"
+"<br/>\n"
+"<br/>\n"
+"${user.name}\n"
+"<br />\n"
+"<br/>\n"
+"\n"
+"${object.get_followup_table_html() | sigurno}\n"
+"\n"
+"<br/>\n"
+"</div>\n"
+
+#. module: account_followup
+#: model:mail.template,body_html:account_followup.email_template_account_followup_level1
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"    \n"
+"    <p>Dear ${object.name},</p>\n"
+"   <p>\n"
+"    We are disappointed to see that despite sending a reminder, that your account is now seriously overdue.\n"
+"It is essential that immediate payment is made, otherwise we will have to consider placing a stop on your account\n"
+"which means that we will no longer be able to supply your company with (goods/services).\n"
+"Please, take appropriate measures in order to carry out this payment in the next 8 days.\n"
+"If there is a problem with paying invoice that we are not aware of, do not hesitate to contact our accounting\n"
+"department. so that we can resolve the matter quickly.\n"
+"Details of due payments is printed below.\n"
+" </p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"    \n"
+"<br/>\n"
+"<br/>\n"
+"${user.name}\n"
+"    \n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"${object.get_followup_table_html() | safe}\n"
+"\n"
+"    <br/>\n"
+"\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"familija-fontova: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; veličina fonta: 12px; boja: rgb(34, 34, 34); boja pozadine: rgb( 255, 255, 255); \">\n"
+" \n"
+" <p>Dragi ${object.name},</p>\n"
+" <p>\n"
+" Razočarani smo što vidimo da unatoč slanju podsjetnika vaš račun sada ozbiljno kasni.\n"
+"Od ključne je važnosti izvršiti trenutnu uplatu, inače ćemo morati razmotriti zaustavljanje vašeg računa\n"
+"što znači da više nećemo moći opskrbljivati ​​vašu tvrtku (robom/uslugama).\n"
+"Molimo vas , poduzmite odgovarajuće mjere kako biste izvršili ovu uplatu u sljedećih 8 dana.\n"
+"Ako postoji problem s plaćanjem fakture za koji nismo svjesni, slobodno se obratite našem računovodstvu\n"
+". kako bismo mogli brzo riješiti problem.\n"
+"Detalji dospjelih plaćanja ispisani su u nastavku.\n"
+" </p>\n"
+"<br/>\n"
+"Srdačan pozdrav,\n"
+" \n"
+"<br/>\n"
+"<br/>\n"
+" ${user.name}\n"
+" \n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"${object.get_followup_table_html() | sigurno}\n"
+"\n"
+" <br/>\n"
+"\n"
+"</div>\n"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " email(s) sent"
+msgstr "Poslano e-pošte"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " email(s) should have been sent, but "
+msgstr "e-poruke su trebale biti poslane, ali"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " had unknown email address(es)"
+msgstr "imao nepoznatu(e) adresu(e) e-pošte"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " letter(s) in report"
+msgstr "pismo(a) u izvješću"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " manual action(s) assigned:"
+msgstr "dodijeljene ručne mjere:"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid " will be sent"
+msgstr "bit će poslano"
+
+#. module: account_followup
+#: model:mail.template,subject:account_followup.email_template_account_followup_default
+#: model:mail.template,subject:account_followup.email_template_account_followup_level0
+#: model:mail.template,subject:account_followup.email_template_account_followup_level1
+#: model:mail.template,subject:account_followup.email_template_account_followup_level2
+msgid "${user.company_id.name} Payment Reminder"
+msgstr "${user.company_id.name} Podsjetnik za plaćanje"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "%s partners have no credits and as such the action is cleared"
+msgstr "%s partneri nemaju kredite i kao takva radnja je izbrisana"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid ", the latest payment follow-up was:"
+msgstr ", zadnje praćenje plaćanja bilo je:"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ": Current Date"
+msgstr ": Trenutni datum"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ": Partner Name"
+msgstr ": Ime partnera"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ": User Name"
+msgstr ": Korisničko ime"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ": User's Company Name"
+msgstr ": Naziv tvrtke korisnika"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid ""
+"<br/>\n"
+"                                Customer ref:"
+msgstr ""
+"<br/>\n"
+" Ref. kupca:"
+
+#. module: account_followup
+#: model:mail.template,name:account_followup.email_template_account_followup_level1
+msgid "A bit urging second payment follow-up reminder email"
+msgstr "Pomalo poticajna e-pošta s podsjetnikom za naknadno plaćanje"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_followup
+msgid "Account Follow-up"
+msgstr "Praćenje računa"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Account Move line"
+msgstr "Linija premještanja računa"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__manual_action_note
+msgid "Action To Do"
+msgstr "Akcija koju treba učiniti"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Action to be taken e.g. Give a phonecall, Check if it's paid, ..."
+msgstr ""
+"Radnje koje treba poduzeti npr. Nazovite, provjerite da li se plaća,..."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "After"
+msgstr "Nakon"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+#, python-format
+msgid "Amount"
+msgstr "Iznos"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_amount_due
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_amount_due
+msgid "Amount Due"
+msgstr "Iznos duga"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_amount_overdue
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_amount_overdue
+msgid "Amount Overdue"
+msgstr "Dospjeli iznos"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Amount due"
+msgstr "Iznos duga"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "Anybody"
+msgstr "Itko"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__manual_action_responsible_id
+msgid "Assign a Responsible"
+msgstr "Odredite odgovornog"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__balance
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__balance
+msgid "Balance"
+msgstr "Ravnoteža"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_followup_stat_by_partner_search
+msgid "Balance > 0"
+msgstr "Stanje > 0"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_account_move_line__result
+msgid "Balance Amount"
+msgstr "Iznos stanja"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid ""
+"Below is the history of the transactions of this\n"
+"                            customer. You can check \"No Follow-up\" in\n"
+"                            order to exclude it from the next follow-up\n"
+"                            actions."
+msgstr ""
+"Ispod je povijest transakcija ovog\n"
+" klijenta. Možete označiti \"Bez praćenja\" kako biste ga\n"
+" isključili iz sljedećih\n"
+" radnji praćenja."
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__blocked
+msgid "Blocked"
+msgstr "Blokiran"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid "Cancel"
+msgstr "Otkazati"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_print__test_print
+msgid ""
+"Check if you want to print follow-ups without changing follow-up level."
+msgstr ""
+"Označite želite li ispisivati ​​nastavke bez promjene razine praćenja."
+
+#. module: account_followup
+#: model_terms:ir.actions.act_window,help:account_followup.action_account_followup_definition_form
+msgid "Click to define follow-up levels and their related actions."
+msgstr "Kliknite za definiranje razina praćenja i njihovih povezanih radnji."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Click to mark the action as done."
+msgstr "Kliknite da označite radnju kao obavljenu."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_sending_results
+msgid "Close"
+msgstr "Zatvoriti"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__company_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__company_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__company_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__company_id
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Company"
+msgstr "Društvo"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_res_config_settings
+msgid "Config Settings"
+msgstr "Postavke konfiguracije"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__create_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__create_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__create_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__create_uid
+msgid "Created by"
+msgstr "Napravio"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__create_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__create_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__create_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__create_date
+msgid "Created on"
+msgstr "Stvoreno dana"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__credit
+msgid "Credit"
+msgstr "Kreditna"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_tree
+msgid "Customer Followup"
+msgstr "Praćenje korisnika"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_note
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_note
+msgid "Customer Payment Promise"
+msgstr "Obećanje plaćanja klijenta"
+
+#. module: account_followup
+#: model:ir.model.constraint,message:account_followup.constraint_followup_line_days_uniq
+msgid "Days of the follow-up levels must be different"
+msgstr "Dani razina praćenja moraju biti različiti"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__debit
+msgid "Debit"
+msgstr "Zaduženje"
+
+#. module: account_followup
+#: model:mail.template,name:account_followup.email_template_account_followup_default
+msgid "Default payment follow-up reminder e-mail"
+msgstr "Zadana e-pošta s podsjetnikom za naknadno plaćanje"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__description
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+#, python-format
+msgid "Description"
+msgstr "Opis"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__display_name
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__display_name
+msgid "Display Name"
+msgstr "Ime za prikaz"
+
+#. module: account_followup
+#: model:ir.ui.menu,name:account_followup.account_followup_s
+msgid "Do Manual Follow-Ups"
+msgstr "Učinite ručna praćenja"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_print__partner_lang
+msgid ""
+"Do not change message text, if you want to send email in partner language, "
+"or configure from company"
+msgstr ""
+"Nemojte mijenjati tekst poruke ako želite slati e-poštu na partnerskom "
+"jeziku ili konfigurirati iz tvrtke"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid ""
+"Document: Customer account statement\n"
+"                                <br/>\n"
+"                                Date:"
+msgstr ""
+"Dokument: Izvadak računa kupca\n"
+" <br/>\n"
+" Datum:"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_sending_results
+msgid "Download Letters"
+msgstr "Preuzmite slova"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid "Due"
+msgstr "Duge"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Due Date"
+msgstr "Datum dospijeća"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__delay
+msgid "Due Days"
+msgstr "Dani roka"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__email_body
+msgid "Email Body"
+msgstr "Tijelo e-pošte"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__email_subject
+msgid "Email Subject"
+msgstr "Predmet e-pošte"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__email_template_id
+msgid "Email Template"
+msgstr "Predložak e-pošte"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Email not sent because of email address of partner not filled in"
+msgstr "E-pošta nije poslana jer adresa e-pošte partnera nije popunjena"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__date_move
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__date_move
+msgid "First move"
+msgstr "Prvi potez"
+
+#. module: account_followup
+#: model:mail.template,name:account_followup.email_template_account_followup_level0
+msgid "First polite payment follow-up reminder email"
+msgstr "Prva ljubazna e-pošta s podsjetnikom za plaćanje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__followup_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__followup_id
+msgid "Follow Ups"
+msgstr "Praćenje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__followup_id
+msgid "Follow-Up"
+msgstr "Praćenje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__name
+msgid "Follow-Up Action"
+msgstr "Naknadna radnja"
+
+#. module: account_followup
+#: model:ir.ui.menu,name:account_followup.menu_finance_followup
+msgid "Follow-Ups"
+msgstr "Praćenje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__followup_line
+#: model:ir.ui.menu,name:account_followup.account_followup_main_menu
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_form
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_tree
+msgid "Follow-up"
+msgstr "Praćenje"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_line
+msgid "Follow-up Criteria"
+msgstr "Kriteriji praćenja"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_account_move_line__followup_line_id
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Follow-up Level"
+msgstr "Razina praćenja"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_account_followup_definition_form
+#: model:ir.ui.menu,name:account_followup.account_followup_menu
+msgid "Follow-up Levels"
+msgstr "Razine praćenja"
+
+#. module: account_followup
+#: model:ir.actions.report,name:account_followup.action_report_followup
+msgid "Follow-up Report"
+msgstr "Izvješće o praćenju"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_responsible_id
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_responsible_id
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "Follow-up Responsible"
+msgstr "Odgovoran za praćenje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__date
+msgid "Follow-up Sending Date"
+msgstr "Datum naknadnog slanja"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_stat
+msgid "Follow-up Statistics"
+msgstr "Statistika praćenja"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_stat_by_partner
+msgid "Follow-up Statistics by Partner"
+msgstr "Naknadna statistika po partneru"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_tree
+msgid "Follow-up Steps"
+msgstr "Naknadni koraci"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "Follow-up letter of "
+msgstr "Popratno pismo od"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_graph
+msgid "Follow-up lines"
+msgstr "Prateći redovi"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_followup_stat
+#: model:ir.ui.menu,name:account_followup.menu_action_followup_stat_follow
+msgid "Follow-ups Analysis"
+msgstr "Analiza praćenja"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Follow-ups Sent"
+msgstr "Naknade su poslane"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "Follow-ups To Do"
+msgstr "Naknadne radnje"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "Followup Level"
+msgstr "Razina praćenja"
+
+#. module: account_followup
+#: model_terms:ir.actions.act_window,help:account_followup.action_account_followup_definition_form
+msgid ""
+"For each step, specify the actions to be taken and delay in\n"
+"                    days. It is\n"
+"                    possible to use print and e-mail templates to send specific\n"
+"                    messages to\n"
+"                    the customer."
+msgstr ""
+"Za svaki korak navedite radnje koje treba poduzeti i odgodu za\n"
+" dana. Moguće je\n"
+" koristiti predloške ispisa i e-pošte za slanje određenih\n"
+" poruka korisniku."
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__sequence
+#: model:ir.model.fields,help:account_followup.field_res_partner__latest_followup_sequence
+#: model:ir.model.fields,help:account_followup.field_res_users__latest_followup_sequence
+msgid "Gives the sequence order when displaying a list of follow-up lines."
+msgstr "Daje redoslijed pri prikazu popisa sljedećih redaka."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Group By"
+msgstr "Grupiraj po"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid ""
+"He said the problem was temporary and promised to pay 50% before 15th of "
+"May, balance before 1st of July."
+msgstr ""
+"Rekao je da je problem privremen i obećao da će platiti 50% prije 15. "
+"svibnja, a ostatak prije 1. srpnja."
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__id
+msgid "ID"
+msgstr "iskaznica"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid ""
+"If not specified by the latest follow-up level, it will send from the "
+"default email template"
+msgstr ""
+"Ako nije određeno najnovijom razinom praćenja, poslat će se iz zadanog "
+"predloška e-pošte"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Including journal entries marked as a litigation"
+msgstr "Uključujući unose u dnevnik označene kao parnica"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__invoice_partner_id
+msgid "Invoice Address"
+msgstr "Adresa računa"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+#, python-format
+msgid "Invoice Date"
+msgstr "Datum dostavnice"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "Invoices Reminder"
+msgstr "Podsjetnik na račune"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_account_move_line
+msgid "Journal Item"
+msgstr "Stavka dnevnika"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.account_manual_reconcile_action
+#: model_terms:ir.ui.view,arch_db:account_followup.view_move_line_reconcile_tree
+msgid "Journal Items to Reconcile"
+msgstr "Dnevničke stavke za usklađivanje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__write_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__write_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__write_uid
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__write_uid
+msgid "Last Updated by"
+msgstr "Zadnje ažuriranje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__write_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__write_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__write_date
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__write_date
+msgid "Last Updated on"
+msgstr "Zadnje ažurirano dana"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__date_move_last
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__date_move_last
+msgid "Last move"
+msgstr "Zadnji potez"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_account_move_line__followup_date
+msgid "Latest Follow-up"
+msgstr "Najnovije praćenje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__latest_followup_date
+#: model:ir.model.fields,field_description:account_followup.field_res_users__latest_followup_date
+msgid "Latest Follow-up Date"
+msgstr "Najnoviji datum praćenja"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__latest_followup_level_id
+#: model:ir.model.fields,field_description:account_followup.field_res_users__latest_followup_level_id
+msgid "Latest Follow-up Level"
+msgstr "Najnovija razina praćenja"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__latest_followup_level_id_without_lit
+#: model:ir.model.fields,field_description:account_followup.field_res_users__latest_followup_level_id_without_lit
+msgid "Latest Follow-up Level without litigation"
+msgstr "Najnovija razina praćenja bez sudskog spora"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Latest Follow-up Month"
+msgstr "Zadnji mjesec praćenja"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__latest_followup_date
+#: model:ir.model.fields,help:account_followup.field_res_users__latest_followup_date
+msgid "Latest date that the follow-up level of the partner was changed"
+msgstr "Zadnji datum promjene razine praćenja partnera"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__date_followup
+msgid "Latest follow-up"
+msgstr "Najnovije praćenje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__date_followup
+msgid "Latest followup"
+msgstr "Najnovije praćenje"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Lit."
+msgstr "Lit."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Litigation"
+msgstr "Sudski sporovi"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__manual_action
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "Manual Action"
+msgstr "Ručna radnja"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_customer_followup
+msgid "Manual Follow-Ups"
+msgstr "Ručno praćenje"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid "Maturity Date"
+msgstr "Datum dospijeća"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__max_followup_id
+msgid "Max Follow Up Level"
+msgstr "Maksimalna razina praćenja"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_customer_my_followup
+#: model:ir.ui.menu,name:account_followup.menu_sale_followup
+msgid "My Follow-Ups"
+msgstr "Moja praćenja"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "My Follow-ups"
+msgstr "Moja praćenja"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_followup__name
+msgid "Name"
+msgstr "Ime"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_sending_results__needprinting
+msgid "Needs Printing"
+msgstr "Potrebno tiskanje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_next_action
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_next_action
+msgid "Next Action"
+msgstr "Sljedeća radnja"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_next_action_date
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_next_action_date
+msgid "Next Action Date"
+msgstr "Datum sljedeće radnje"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "No Responsible"
+msgstr "Nema odgovornosti"
+
+#. module: account_followup
+#: model_terms:ir.actions.act_window,help:account_followup.account_manual_reconcile_action
+msgid "No journal items found."
+msgstr "Nema pronađenih stavki u dnevniku."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Not Litigation"
+msgstr "Nije parnica"
+
+#. module: account_followup
+#: model:ir.model.constraint,message:account_followup.constraint_followup_followup_company_uniq
+msgid "Only one follow-up per company is allowed"
+msgstr "Dopušteno je samo jedno praćenje po tvrtki"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__payment_responsible_id
+#: model:ir.model.fields,help:account_followup.field_res_users__payment_responsible_id
+msgid ""
+"Optionally you can assign a user to this field, which will make him "
+"responsible for the action."
+msgstr ""
+"Po želji možete dodijeliti korisnika ovom polju, što će ga učiniti "
+"odgovornim za radnju."
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Overdue email sent to %s, "
+msgstr "Zakašnjela e-pošta poslana na %s,"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat__partner_id
+#: model:ir.model.fields,field_description:account_followup.field_followup_stat_by_partner__partner_id
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_stat_search
+msgid "Partner"
+msgstr "Partner"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_move_line_partner_tree
+msgid "Partner Entries"
+msgstr "Prijave partnera"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_followup_stat_by_partner_search
+#: model_terms:ir.ui.view,arch_db:account_followup.account_followup_stat_by_partner_tree
+msgid "Partner to Remind"
+msgstr "Partner za podsjećanje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__partner_ids
+msgid "Partners"
+msgstr "Partneri"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.customer_followup_search_view
+msgid "Partners with Overdue Credits"
+msgstr "Partneri s dospjelim kreditima"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Payment Follow-up"
+msgstr "Praćenje plaćanja"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__payment_note
+#: model:ir.model.fields,help:account_followup.field_res_users__payment_note
+msgid "Payment Note"
+msgstr "Napomena o plaćanju"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_print
+msgid "Print Follow-up & Send Mail to Customers"
+msgstr "Ispis praćenja i slanje pošte kupcima"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Print Overdue Payments"
+msgstr "Ispis zakašnjelih plaćanja"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Print overdue payments report independent of follow-up line"
+msgstr ""
+"Ispišite izvješće o zakašnjelim plaćanjima neovisno o redu za praćenje"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__description
+msgid "Printed Message"
+msgstr "Tiskana poruka"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Printed overdue payments report"
+msgstr "Tiskano izvješće o dospjelim plaćanjima"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid "Ref"
+msgstr "Ref"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "Reference"
+msgstr "Referenca"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_report_account_followup_report_followup
+msgid "Report Followup"
+msgstr "Prijava praćenja"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Responsible of credit collection"
+msgstr "Odgovoran za naplatu kredita"
+
+#. module: account_followup
+#: model:ir.model,name:account_followup.model_followup_sending_results
+msgid "Results from the sending of the different letters and emails"
+msgstr "Rezultati slanja različitih pisama i e-pošte"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_filter
+msgid "Search Follow-up"
+msgstr "Praćenje pretraživanja"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__email_conf
+msgid "Send Email Confirmation"
+msgstr "Pošaljite potvrdu e-poštom"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__partner_lang
+msgid "Send Email in Partner Language"
+msgstr "Pošaljite e-poštu na partnerskom jeziku"
+
+#. module: account_followup
+#: model:ir.actions.act_window,name:account_followup.action_account_followup_print
+msgid "Send Follow-Ups"
+msgstr "Pošaljite dopise"
+
+#. module: account_followup
+#: model:ir.ui.menu,name:account_followup.account_followup_print_menu
+msgid "Send Letters and Emails"
+msgstr "Šaljite pisma i e-poštu"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/wizard/followup_print.py:0
+#, python-format
+msgid "Send Letters and Emails: Actions Summary"
+msgstr "Slanje pisama i e-pošte: Sažetak radnji"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "Send Overdue Email"
+msgstr "Pošalji e-poštu s kašnjenjem"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__send_letter
+msgid "Send a Letter"
+msgstr "Poslati pismo"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "Send a Letter or Email"
+msgstr "Pošaljite pismo ili e-mail"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__send_email
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "Send an Email"
+msgstr "Pošalji email"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid "Send emails and generate letters"
+msgstr "Šaljite e-poštu i generirajte pisma"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid "Send follow-ups"
+msgstr "Pošaljite dopise"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_line__sequence
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__latest_followup_sequence
+#: model:ir.model.fields,field_description:account_followup.field_res_users__latest_followup_sequence
+msgid "Sequence"
+msgstr "Slijed"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__summary
+msgid "Summary"
+msgstr "Sažetak"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_sending_results
+msgid "Summary of actions"
+msgstr "Sažetak radnji"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_followup_print__test_print
+msgid "Test Print"
+msgstr "Probni ispis"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "The"
+msgstr "The"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/report/followup_print.py:0
+#, python-format
+msgid ""
+"The followup plan defined for the current company does not have any followup"
+" action."
+msgstr ""
+"Plan praćenja definiran za trenutnu tvrtku nema nikakve naknadne radnje."
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__latest_followup_level_id
+#: model:ir.model.fields,help:account_followup.field_res_users__latest_followup_level_id
+msgid "The maximum follow-up level"
+msgstr "Maksimalna razina praćenja"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__latest_followup_level_id_without_lit
+#: model:ir.model.fields,help:account_followup.field_res_users__latest_followup_level_id_without_lit
+msgid ""
+"The maximum follow-up level without taking into account the account move "
+"lines with litigation"
+msgstr ""
+"Maksimalna razina praćenja bez uzimanja u obzir linija pomicanja računa s "
+"parnicom"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__delay
+msgid ""
+"The number of days after the due date of the invoice to wait before sending "
+"the reminder. Could be negative if you want to send a polite alert "
+"beforehand."
+msgstr ""
+"Broj dana nakon datuma dospijeća fakture za čekanje prije slanja "
+"podsjetnika. Može biti negativno ako unaprijed želite poslati pristojno "
+"upozorenje."
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid ""
+"The partner does not have any accounting entries to print in the overdue "
+"report for the current company."
+msgstr ""
+"Partner nema nikakvih računovodstvenih unosa za ispis u izvješću o kašnjenju"
+" za trenutnu tvrtku."
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid "There is no followup plan defined for the current company."
+msgstr "Za sadašnju tvrtku nije definiran daljnji plan."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid ""
+"This action will send follow-up emails, print the\n"
+"                        letters and\n"
+"                        set the manual actions per customer, according to the\n"
+"                        follow-up levels defined."
+msgstr ""
+"Ova će radnja poslati naknadne e-poruke, ispisati\n"
+" pisma i\n"
+" postaviti ručne radnje po korisniku, u skladu s\n"
+" definiranim razinama praćenja."
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_print__date
+msgid "This field allow you to select a forecast date to plan your follow-ups"
+msgstr "Ovo vam polje omogućuje odabir datuma prognoze za planiranje praćenja"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__payment_next_action
+#: model:ir.model.fields,help:account_followup.field_res_users__payment_next_action
+msgid ""
+"This is the next action to be taken.  It will automatically be set when the "
+"partner gets a follow-up level that requires a manual action. "
+msgstr ""
+"Ovo je sljedeća radnja koju treba poduzeti. Automatski će se postaviti kada "
+"partner dobije razinu praćenja koja zahtijeva ručnu radnju."
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_res_partner__payment_next_action_date
+#: model:ir.model.fields,help:account_followup.field_res_users__payment_next_action_date
+msgid ""
+"This is when the manual follow-up is needed. The date will be set to the "
+"current date when the partner gets a follow-up level that requires a manual "
+"action. Can be practical to set manually e.g. to see if he keeps his "
+"promises."
+msgstr ""
+"Tada je potrebno ručno praćenje. Datum će biti postavljen na trenutni datum "
+"kada partner dobije razinu praćenja koja zahtijeva ručnu radnju. Može biti "
+"praktično postaviti ručno, npr. da vidim hoće li održati svoja obećanja."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_form
+msgid ""
+"To remind customers of paying their invoices, you can\n"
+"                        define different actions depending on how severely\n"
+"                        overdue the customer is. These actions are bundled\n"
+"                        into follow-up levels that are triggered when the due\n"
+"                        date of an invoice has passed a certain\n"
+"                        number of days. If there are other overdue invoices for\n"
+"                        the\n"
+"                        same customer, the actions of the most\n"
+"                        overdue invoice will be executed."
+msgstr ""
+"Kako biste korisnike podsjetili na plaćanje faktura, možete\n"
+" definirati različite radnje ovisno o tome koliko ozbiljno\n"
+" klijent kasni. Ove radnje grupirane su\n"
+" u razine praćenja koje se pokreću kada\n"
+" datum dospijeća fakture prođe određeni\n"
+" broj dana. Ako postoje drugi fakture s kašnjenjem\n"
+" za\n"
+" istog kupca, izvršit će se radnje fakture s najvećim\n"
+" kašnjenjem."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_move_line_partner_tree
+#: model_terms:ir.ui.view,arch_db:account_followup.view_move_line_reconcile_tree
+msgid "Total credit"
+msgstr "Ukupni kredit"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.account_move_line_partner_tree
+#: model_terms:ir.ui.view,arch_db:account_followup.view_move_line_reconcile_tree
+msgid "Total debit"
+msgstr "Ukupno zaduženje"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.report_followup
+msgid "Total:"
+msgstr "Ukupno:"
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__unreconciled_aml_ids
+#: model:ir.model.fields,field_description:account_followup.field_res_users__unreconciled_aml_ids
+msgid "Unreconciled Aml"
+msgstr "Nepomireni Aml"
+
+#. module: account_followup
+#: model:mail.template,name:account_followup.email_template_account_followup_level2
+msgid "Urging payment follow-up reminder email"
+msgstr "E-poruka s podsjetnikom za naknadno plaćanje"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__send_letter
+msgid "When processing, it will print a letter"
+msgstr "Prilikom obrade ispisat će slovo"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__send_email
+msgid "When processing, it will send an email"
+msgstr "Prilikom obrade, poslat će e-poruku"
+
+#. module: account_followup
+#: model:ir.model.fields,help:account_followup.field_followup_line__manual_action
+msgid ""
+"When processing, it will set the manual action to be taken for that "
+"customer. "
+msgstr ""
+"Prilikom obrade postavit će ručnu radnju koja će se poduzeti za tog kupca."
+
+#. module: account_followup
+#: model:ir.model.fields,field_description:account_followup.field_res_partner__payment_earliest_due_date
+#: model:ir.model.fields,field_description:account_followup.field_res_users__payment_earliest_due_date
+msgid "Worst Due Date"
+msgstr "Najgori rok poroda"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid ""
+"Write here the introduction in the letter,\n"
+"                            according to the level of the follow-up. You can\n"
+"                            use the following keywords in the text. Don't\n"
+"                            forget to translate in all languages you installed\n"
+"                            using to top right icon."
+msgstr ""
+"Ovdje napišite uvod u pismu,\n"
+" prema razini praćenja. Možete\n"
+" koristiti sljedeće ključne riječi u tekstu. Nemojte\n"
+" zaboraviti prevesti na sve jezike koje ste instalirali\n"
+" pomoću gornje desne ikone."
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/partner.py:0
+#, python-format
+msgid ""
+"You became responsible to do the next action for the payment follow-up of"
+msgstr ""
+"Postali ste odgovorni za poduzimanje sljedeće radnje za praćenje plaćanja"
+
+#. module: account_followup
+#. flectra-python
+#: code:addons/account_followup/models/followup.py:0
+#, python-format
+msgid ""
+"Your description is invalid, use the right legend or %% if you want to use "
+"the percent character."
+msgstr ""
+"Vaš opis nije valjan, upotrijebite desnu legendu ili %% ako želite "
+"upotrijebiti znak postotka."
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
+msgid "days overdue, do the following actions:"
+msgstr "dana kašnjenja, učinite sljedeće radnje:"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_print
+msgid "or"
+msgstr "ili"
+
+#. module: account_followup
+#: model_terms:ir.ui.view,arch_db:account_followup.view_partner_inherit_followup_form
+msgid "⇾ Mark as Done"
+msgstr "⇾ Označi kao gotovo"
+
