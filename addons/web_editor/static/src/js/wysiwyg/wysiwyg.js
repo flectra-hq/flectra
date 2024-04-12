@@ -1017,8 +1017,10 @@ export class Wysiwyg extends Component {
         $editable.find('[data-editor-message]').removeAttr('data-editor-message');
         $editable.find('a.o_image, span.fa, i.fa').html('');
         $editable.find('[aria-describedby]').removeAttr('aria-describedby').removeAttr('data-bs-original-title');
-        this.flectraEditor && this.flectraEditor.cleanForSave($editable[0]);
-        this._attachHistoryIds($editable[0]);
+        if (this.flectraEditor) {
+            this.flectraEditor.cleanForSave($editable[0]);
+            this._attachHistoryIds($editable[0]);
+        }
         return $editable.html();
     }
     /**
