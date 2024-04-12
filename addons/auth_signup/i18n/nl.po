@@ -1,20 +1,20 @@
-# Translation of Odoo Server.
+# Translation of Flectra Server.
 # This file contains the translation of the following modules:
 # 	* auth_signup
 # 
 # Translators:
-# Wil Odoo, 2023
+# Wil Flectra, 2023
 # Jolien De Paepe, 2023
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2023
+# Erwin van der Ploeg <erwin@flectraexperts.nl>, 2023
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Flectra Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 21:55+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2023\n"
-"Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
+"Last-Translator: Erwin van der Ploeg <erwin@flectraexperts.nl>, 2023\n"
+"Language-Team: Dutch (https://app.transifex.com/flectra/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -30,10 +30,10 @@ msgstr "+1 650-123-4567"
 #: model_terms:ir.ui.view,arch_db:auth_signup.reset_password_email
 msgid ""
 ",<br/><br/>\n"
-"                                A password reset was requested for the Odoo account linked to this email.\n"
+"                                A password reset was requested for the Flectra account linked to this email.\n"
 "                                You may change your password by following this link which will remain valid during 24 hours:<br/>"
 msgstr ""
-",<br/><br/> Er is een wachtwoordreset aangevraagd voor het Odoo-account dat "
+",<br/><br/> Er is een wachtwoordreset aangevraagd voor het Flectra-account dat "
 "aan deze e-mail is gekoppeld. Je kunt je wachtwoord wijzigen door deze link "
 "te volgen, die 24 uur geldig blijft:<br/>"
 
@@ -210,7 +210,7 @@ msgid ""
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
 "            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\">\n"
-"                    <span style=\"font-size: 10px;\">Welcome to Odoo</span><br>\n"
+"                    <span style=\"font-size: 10px;\">Welcome to Flectra</span><br>\n"
 "                    <span style=\"font-size: 20px; font-weight: bold;\">\n"
 "                        <t t-out=\"object.name or ''\">Marc Demo</t>\n"
 "                    </span>\n"
@@ -230,20 +230,20 @@ msgid ""
 "                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                    <div>\n"
 "                        Dear <t t-out=\"object.name or ''\">Marc Demo</t>,<br><br>\n"
-"                        You have been invited by <t t-out=\"object.create_uid.name or ''\">OdooBot</t> of <t t-out=\"object.company_id.name or ''\">YourCompany</t> to connect on Odoo.\n"
+"                        You have been invited by <t t-out=\"object.create_uid.name or ''\">FlectraBot</t> of <t t-out=\"object.company_id.name or ''\">YourCompany</t> to connect on Flectra.\n"
 "                        <div style=\"margin: 16px 0px 16px 0px;\">\n"
 "                            <a t-att-href=\"object.signup_url\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
 "                                Accept invitation\n"
 "                            </a>\n"
 "                        </div>\n"
 "                        <t t-set=\"website_url\" t-value=\"object.get_base_url()\"></t>\n"
-"                        Your Odoo domain is: <b><a t-att-href=\"website_url\" t-out=\"website_url or ''\">http://yourcompany.odoo.com</a></b><br>\n"
+"                        Your Flectra domain is: <b><a t-att-href=\"website_url\" t-out=\"website_url or ''\">http://yourcompany.flectrahq.com</a></b><br>\n"
 "                        Your sign in email is: <b><a t-attf-href=\"/web/login?login={{ object.email }}\" target=\"_blank\" t-out=\"object.email or ''\">mark.brown23@example.com</a></b><br><br>\n"
-"                        Never heard of Odoo? It’s an all-in-one business software loved by 7+ million users. It will considerably improve your experience at work and increase your productivity.\n"
+"                        Never heard of Flectra? It’s an all-in-one business software loved by 7+ million users. It will considerably improve your experience at work and increase your productivity.\n"
 "                        <br><br>\n"
-"                        Have a look at the <a href=\"https://www.odoo.com/page/tour?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Odoo Tour</a> to discover the tool.\n"
+"                        Have a look at the <a href=\"https://www.flectrahq.com/page/tour?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Flectra Tour</a> to discover the tool.\n"
 "                        <br><br>\n"
-"                        Enjoy Odoo!<br>\n"
+"                        Enjoy Flectra!<br>\n"
 "                        --<br>The <t t-out=\"object.company_id.name or ''\">YourCompany</t> Team\n"
 "                    </div>\n"
 "                </td></tr>\n"
@@ -279,7 +279,7 @@ msgid ""
 "<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
 "    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
 "      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
-"        Powered by <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Odoo</a>\n"
+"        Powered by <a target=\"_blank\" href=\"https://www.flectrahq.com?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Flectra</a>\n"
 "      </td></tr>\n"
 "    </table>\n"
 "</td></tr>\n"
@@ -293,7 +293,7 @@ msgstr ""
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
 "            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\">\n"
-"                    <span style=\"font-size: 10px;\">Welkom bij Odoo</span><br>\n"
+"                    <span style=\"font-size: 10px;\">Welkom bij Flectra</span><br>\n"
 "                    <span style=\"font-size: 20px; font-weight: bold;\">\n"
 "                        <t t-out=\"object.name or ''\">Marc Demo</t>\n"
 "                    </span>\n"
@@ -313,20 +313,20 @@ msgstr ""
 "                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                    <div>\n"
 "                        Beste <t t-out=\"object.name or ''\">Marc Demo</t>,<br><br>\n"
-"                        Je bent uitgenodigd door <t t-out=\"object.create_uid.name or ''\">OdooBot</t> van <t t-out=\"object.company_id.name or ''\">YourCompany</t> om je te verbinden met Odoo.\n"
+"                        Je bent uitgenodigd door <t t-out=\"object.create_uid.name or ''\">FlectraBot</t> van <t t-out=\"object.company_id.name or ''\">YourCompany</t> om je te verbinden met Flectra.\n"
 "                        <div style=\"margin: 16px 0px 16px 0px;\">\n"
 "                            <a t-att-href=\"object.signup_url\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
 "                                Uitnodiging aanvaarden\n"
 "                            </a>\n"
 "                        </div>\n"
 "                        <t t-set=\"website_url\" t-value=\"object.get_base_url()\"></t>\n"
-"                        Je Odoo domein is: <b><a t-att-href=\"website_url\" t-out=\"website_url or ''\">http://yourcompany.odoo.com</a></b><br>\n"
+"                        Je Flectra domein is: <b><a t-att-href=\"website_url\" t-out=\"website_url or ''\">http://yourcompany.flectrahq.com</a></b><br>\n"
 "                        Je logine-mail is: <b><a t-attf-href=\"/web/login?login={{ object.email }}\" target=\"_blank\" t-out=\"object.email or ''\">mark.brown23@example.com</a></b><br><br>\n"
-"                        Nog nooit gehoord van Odoo? Het is een all-in-one bedrijfssoftware geliefd bij meer dan 7 miljoen gebruikers. Het zal je werkervaring en je productiviteit aanzienlijk verbeteren.\n"
+"                        Nog nooit gehoord van Flectra? Het is een all-in-one bedrijfssoftware geliefd bij meer dan 7 miljoen gebruikers. Het zal je werkervaring en je productiviteit aanzienlijk verbeteren.\n"
 "                        <br><br>\n"
-"                        Bekijk eens de <a href=\"https://www.odoo.com/page/tour?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Odoo Rondleiding</a> om het tool te ontdekken.\n"
+"                        Bekijk eens de <a href=\"https://www.flectrahq.com/page/tour?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Flectra Rondleiding</a> om het tool te ontdekken.\n"
 "                        <br><br>\n"
-"                        Geniet van Odoo!<br>\n"
+"                        Geniet van Flectra!<br>\n"
 "                        --<br>Het <t t-out=\"object.company_id.name or ''\">YourCompany</t> Team\n"
 "                    </div>\n"
 "                </td></tr>\n"
@@ -362,7 +362,7 @@ msgstr ""
 "<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
 "    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
 "      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
-"        Aangeboden door <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Odoo</a>\n"
+"        Aangeboden door <a target=\"_blank\" href=\"https://www.flectrahq.com?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Flectra</a>\n"
 "      </td></tr>\n"
 "    </table>\n"
 "</td></tr>\n"
@@ -448,7 +448,7 @@ msgid ""
 "<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
 "    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
 "      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
-"        Powered by <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Odoo</a>\n"
+"        Powered by <a target=\"_blank\" href=\"https://www.flectrahq.com?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Flectra</a>\n"
 "      </td></tr>\n"
 "    </table>\n"
 "</td></tr>\n"
@@ -531,7 +531,7 @@ msgstr ""
 "<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
 "    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
 "      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
-"        Aangeboden door <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Odoo</a>\n"
+"        Aangeboden door <a target=\"_blank\" href=\"https://www.flectrahq.com?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Flectra</a>\n"
 "      </td></tr>\n"
 "    </table>\n"
 "</td></tr>\n"
@@ -543,14 +543,14 @@ msgid "Already have an account?"
 msgstr "Heb je al een account?"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/controllers/main.py:0
 #, python-format
 msgid "Another user is already registered using this email address."
 msgstr "Er is al een gebruiker geregistreerd met dit e-mailadres."
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/controllers/main.py:0
 #, python-format
 msgid "Authentication Failed."
@@ -567,7 +567,7 @@ msgid "Browser"
 msgstr "Browser"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid "Cannot send email: user %s has no email address."
@@ -610,7 +610,7 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid ""
@@ -621,14 +621,14 @@ msgstr ""
 "je uitgaande e-mailserver"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/controllers/main.py:0
 #, python-format
 msgid "Could not create a new account."
 msgstr "Het was niet mogelijk een nieuw account aan te maken."
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/controllers/main.py:0
 #, python-format
 msgid "Could not reset your password"
@@ -690,14 +690,14 @@ msgstr ""
 "deze link:<br/>"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid "In %(country)s"
 msgstr "Over %(country)s"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/controllers/main.py:0
 #, python-format
 msgid "Invalid signup token"
@@ -721,14 +721,14 @@ msgid "Multiple accounts found for this login"
 msgstr "Meerdere accounts gevonden voor deze login"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid "Near %(city)s, %(region)s, %(country)s"
 msgstr "In de buurt van %(city)s, %(region)s, %(country)s"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid "Near %(region)s, %(country)s"
@@ -740,21 +740,21 @@ msgid "Never Connected"
 msgstr "Nog nooit verbonden"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid "New Connection to your Account"
 msgstr "Nieuwe verbinding met je account"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid "No account found for this login"
 msgstr "Geen account gevonden voor deze login"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/controllers/main.py:0
 #, python-format
 msgid "No login provided."
@@ -768,8 +768,8 @@ msgstr "Besturingsysteem"
 #. module: auth_signup
 #: model_terms:ir.ui.view,arch_db:auth_signup.alert_login_new_device
 #: model_terms:ir.ui.view,arch_db:auth_signup.reset_password_email
-msgid "Odoo"
-msgstr "Odoo"
+msgid "Flectra"
+msgstr "Flectra"
 
 #. module: auth_signup
 #: model:ir.model.fields.selection,name:auth_signup.selection__res_config_settings__auth_signup_uninvited__b2b
@@ -792,14 +792,14 @@ msgid "Password Reset"
 msgstr "Wachtwoord resetten"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid "Password reset"
 msgstr "Wachtwoord resetten"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/controllers/main.py:0
 #, python-format
 msgid "Password reset instructions sent to your email"
@@ -808,7 +808,7 @@ msgstr ""
 "naar je e-mailadres"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/controllers/main.py:0
 #, python-format
 msgid "Passwords do not match; please retype them."
@@ -917,42 +917,42 @@ msgid "Signup URL"
 msgstr "URL aanmelding"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid "Signup is not allowed for uninvited users"
 msgstr "Aanmelden is niet toegestaan voor gebruikers zonder uitnodiging"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_partner.py:0
 #, python-format
 msgid "Signup token '%s' is no longer valid"
 msgstr "Aanmeldingstoken '%s' is niet meer geldig"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_partner.py:0
 #, python-format
 msgid "Signup token '%s' is not valid"
 msgstr "Aanmeldingstoken '%s' is niet geldig"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid "Signup: invalid template user"
 msgstr "Aanmelden: ongeldige sjabloon gebruiker"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid "Signup: no login given for new user"
 msgstr "Aanmelden: geen login opgegeven voor nieuwe gebruiker"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid "Signup: no name or partner given for new user"
@@ -970,14 +970,14 @@ msgstr ""
 "Sjabloon gebruiker voor het aanmaken van nieuwe gebruikers, bij aanmelding"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/controllers/main.py:0
 #, python-format
 msgid "The form was not properly filled in."
 msgstr "Dit formulier is niet correct ingevuld."
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid ""
@@ -1014,7 +1014,7 @@ msgid "Welcome to {{ object.company_id.name }}!"
 msgstr "Welkom bij {{ object.company_id.name }}!"
 
 #. module: auth_signup
-#. odoo-python
+#. flectra-python
 #: code:addons/auth_signup/models/res_users.py:0
 #, python-format
 msgid "You cannot perform this action on an archived user."
@@ -1060,7 +1060,7 @@ msgstr "info@bedrijf.nl"
 #: model:mail.template,subject:auth_signup.set_password_email
 msgid ""
 "{{ object.create_uid.name }} from {{ object.company_id.name }} invites you "
-"to connect to Odoo"
+"to connect to Flectra"
 msgstr ""
 "{{ object.create_uid.name }} van {{ object.company_id.name }} nodigt je uit "
-"om verbinding te maken met Odoo"
+"om verbinding te maken met Flectra"
