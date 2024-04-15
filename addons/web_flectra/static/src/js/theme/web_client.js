@@ -35,7 +35,6 @@ patch(WebClient.prototype , {
             this.toggleHomeMenu(toggle)
         });
         useBus(this.env.bus, "home_menu_selected", (menu) => {
-            console.log('on selected')
             this.homeMenuSelected(menu)
         });
         onMounted(() => {
