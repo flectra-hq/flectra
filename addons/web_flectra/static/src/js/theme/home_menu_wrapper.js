@@ -8,12 +8,11 @@
 
     export class HomeMenuWrapper extends Component{
         setup() {
-            console.log('inside')
             this.menuService = useService("menu");
             this.rpc = useService("rpc");
+            this.userService = useService("user");
             onWillStart(async() => {
                 const data = await this.loadMenus()
-                console.log(data,'.data')
             });
         }
 
@@ -27,7 +26,9 @@
                     model: 'ir.ui.menu',
                     method: 'load_menus_root',
                     args: [],
-                    kwargs: {}
+                    kwargs: {
+                        "context": {'lang': self.userService.context.lang}
+                    },
                 }).then( function(menus){
                     for (var i = 0; i < menus.children.length; i++) {
                         var child = menus.children[i];

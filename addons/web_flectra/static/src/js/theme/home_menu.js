@@ -16,7 +16,6 @@ export class HomeMenu extends Component{
         this.env.bus.trigger('home_menu_change', true);
         this.searchBox = useRef('searchBox');
         this.rootMenus = this.props.rootMenus;
-        console.log(this.company,'.thisaaaa')
         // DO Not Remove -> Will Be Used For No Code Editor
         this.state = useState({
             isEditor: false,
