@@ -13,7 +13,7 @@ patch(SettingsApp.prototype, {
         super.setup(...arguments);
         useEffect(() => {
             const els = document.querySelectorAll('.o_field_upgrade_boolean');
-            els.forEach(el => el.parentElement.parentElement.remove());
+            els.forEach(el => el.parentElement.parentElement.replaceChildren());
         })
     }
 });
