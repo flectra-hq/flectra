@@ -3,6 +3,7 @@ from contextlib import contextmanager
 
 from flectra import api, fields, models, _, Command
 from flectra.exceptions import UserError
+from flectra.tools import create_index
 from flectra.tools.misc import formatLang
 
 class AccountBankStatement(models.Model):
@@ -101,6 +102,13 @@ class AccountBankStatement(models.Model):
         comodel_name='ir.attachment',
         string="Attachments",
     )
+
+    def init(self):
+        super().init()
+        create_index(self.env.cr,
+                     indexname='account_bank_statement_journal_id_date_desc_id_desc_idx',
+                     tablename='account_bank_statement',
+                     expressions=['journal_id', 'date DESC', 'id DESC'])
 
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
