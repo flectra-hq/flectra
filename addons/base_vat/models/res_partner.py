@@ -1,6 +1,5 @@
 import datetime
 import string
-import zeep
 import re
 import stdnum
 from stdnum.eu.vat import check_vies
@@ -11,6 +10,7 @@ from stdnum import luhn
 import logging
 
 from flectra import api, models, fields, tools, _
+from flectra.tools import zeep
 from flectra.tools.misc import ustr
 from flectra.exceptions import ValidationError
 

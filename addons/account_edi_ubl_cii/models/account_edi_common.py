@@ -4,9 +4,9 @@ from flectra.exceptions import UserError, ValidationError
 from flectra.tools import float_repr, find_xml_value
 from flectra.tools.float_utils import float_round
 from flectra.tools.misc import formatLang
+from flectra.tools.zeep import Client
 
 from markupsafe import Markup
-from zeep import Client
 
 # -------------------------------------------------------------------------
 # UNIT OF MEASURE
