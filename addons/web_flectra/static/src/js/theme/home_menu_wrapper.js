@@ -1,10 +1,10 @@
-/** @flectra-module */
+/** @flectra-module alias=web.menu.wrapper */
 
     const { Component, onWillStart, useState , useExternalListener, useRef } = owl;
     import { useService } from "@web/core/utils/hooks";
     import { registry } from "@web/core/registry";
     const actionRegistry = registry.category("actions");
-    const { HomeMenu } = require('@web_flectra/js/theme/home_menu');
+    import HomeMenu from "web.home.menu";
 
     export class HomeMenuWrapper extends Component{
         setup() {
@@ -51,4 +51,7 @@
     }
     HomeMenuWrapper.components = {HomeMenu};
     HomeMenuWrapper.template = 'web_flectra.HomeMenuWrapper';
-    actionRegistry.add('apps_menu',HomeMenuWrapper)
+    actionRegistry.add('apps_menu', HomeMenuWrapper, {
+        force: true,
+        sequence: 1,
+    });

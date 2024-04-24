@@ -161,4 +161,4 @@ const systrayItem = {
     Component: ThemeCustomizer,
 };
 
-registry.category("systray").add("theme_customizer", systrayItem, { sequence: 0 });
+registry.category("systray").add("theme_customizer", systrayItem, { sequence: 1, force: true });

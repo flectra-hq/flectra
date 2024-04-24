@@ -1,4 +1,4 @@
-/** @flectra-module **/
+/** @flectra-module alias=web.home.menu **/
 
 const { Component, onMounted, useState, useExternalListener, useRef } = owl;
 import { ErrorHandler, NotUpdatable } from "@web/core/utils/components";
@@ -6,7 +6,7 @@ import { NavBar, MenuDropdown, MenuItem } from "@web/webclient/navbar/navbar";
 import { useService } from "@web/core/utils/hooks";
 import { isMobileOS } from "@web/core/browser/feature_detection";
 
-export class HomeMenu extends Component{
+export default class HomeMenu extends Component{
 
     setup() {
         super.setup(...arguments);
