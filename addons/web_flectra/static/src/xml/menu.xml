@@ -39,15 +39,18 @@
                 />
         </xpath>
     </t>
-    <t t-inherit="web.NavBar.AppsMenu" t-inherit-mode="extension" owl="1">
-        <xpath expr="//Dropdown" position="replace">
-            <a t-if="!state.is_home_menu" href="#" class="o_navbar_apps_menu o-menu-slide full btn text-white" t-on-click="onClickSideBarMenu">
+    <t t-name="web.theme.navbar.menu" t-inherit="web.NavBar.AppsMenu" t-inherit-mode="extension" owl="1">
+        <xpath expr="//Dropdown" position="attributes">
+            <attribute name="class">'d-none'</attribute>
+        </xpath>
+        <xpath expr="//Dropdown" position="after">
+            <a t-if="!state.is_home_menu" href="#" class="o_navbar_apps_menu o-menu-slide full btn text-white web_theme_menu_icon" t-on-click="onClickSideBarMenu">
                 <i class="fa fa-compress" />
             </a>
-            <a t-if="!state.is_home_menu" href="#" class="o_navbar_apps_menu btn text-white" t-on-click="onClickMainMenu">
+            <a t-if="!state.is_home_menu" href="#" class="o_navbar_apps_menu web_theme_menu_icon btn text-white" t-on-click="onClickMainMenu">
                 <i class="fa fa-th-large" />
             </a>
-            <a t-if="state.is_home_menu &amp;&amp; state.prev_url" href="#" class="o_navbar_apps_menu btn text-white" t-on-click="onClickBackButton">
+            <a t-if="state.is_home_menu &amp;&amp; state.prev_url" href="#" class="o_navbar_apps_menu web_theme_menu_icon btn text-white" t-on-click="onClickBackButton">
                 <i t-if="state.prev_url" class="fa fa-chevron-left" />
             </a>
         </xpath>
@@ -74,9 +77,6 @@
                     </div>
                 </div>
             </div>
-<!--            <div class="o_brand_logo img-fluid">-->
-<!--                <img class="img img-responsive m-0 m-auto" t-attf-src="app-menu-logo" />-->
-<!--            </div>-->
         </div>
     </t>
 

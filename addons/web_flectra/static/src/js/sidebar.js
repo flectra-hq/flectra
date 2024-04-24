@@ -1,4 +1,4 @@
-/** @flectra-module **/
+/** @flectra-module alias=web.home.sidebar **/
 
 import { onMounted, Component, xml } from "@flectra/owl";
 var activeMenu;

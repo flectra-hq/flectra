@@ -1,8 +1,8 @@
 /** @flectra-module **/
 
 import { WebClient } from "@web/webclient/webclient";
-import { SideBar } from "@web_flectra/js/sidebar";
-const { HomeMenu } = '@web_flectra/js/theme/home_menu';
+import SideBar from "web.home.sidebar";
+import HomeMenu from "web.home.menu";
 import { mount, onPatched, onMounted, useEffect } from "@flectra/owl";
 import { useBus, useService } from "@web/core/utils/hooks";
 import { patch } from "@web/core/utils/patch";
