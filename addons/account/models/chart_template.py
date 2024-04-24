@@ -14,7 +14,6 @@ from psycopg2.extras import Json
 
 from flectra import Command, _, models, api
 from flectra.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
-from flectra.addons.account import SYSCOHADA_LIST
 from flectra.exceptions import AccessError, UserError
 from flectra.modules import get_resource_from_path
 from flectra.tools import file_open, get_lang, groupby, SQL
@@ -117,7 +116,6 @@ class AccountChartTemplate(models.AbstractModel):
             (template_code, template['name'])
             for template_code, template in sorted(chart_template_mapping.items(), key=(lambda t: (
                 t[1]['name'] != 'generic_coa' if not country
-                else t[1]['name'] != 'syscohada' if country.code in SYSCOHADA_LIST
                 else t[1]['country_id'] != country.id
             )))
         ]
@@ -350,6 +348,8 @@ class AccountChartTemplate(models.AbstractModel):
                             }])
                             account = existing_account
 
+                    # Prevents overriding user setting & raising a partial reconcile error.
+                    values.pop('reconcile', None)
                     # on existing accounts, only tag_ids are to be updated using default data
                     if account and 'tag_ids' in data[model_name][xmlid]:
                         data[model_name][xmlid] = {'tag_ids': data[model_name][xmlid]['tag_ids']}
@@ -542,8 +542,10 @@ class AccountChartTemplate(models.AbstractModel):
                             if (
                                 model == 'account.tax' and 'repartition_line_ids' in field_name
                                 and not self.ref(xml_id, raise_if_not_found=False)
-                                and all(isinstance(x, tuple | list) for x in field_val)
-                                and all(int(x[0]) in Command for x in field_val)
+                                and all(
+                                    isinstance(x, tuple | list) and len(x)
+                                    and isinstance(x[0], Command | int) for x in field_val
+                                )
                             ):
                                 field_val = [Command.clear()] + field_val
                             to_be_removed.append(field_name)

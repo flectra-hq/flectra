@@ -332,12 +332,12 @@ export class FlectraEditor extends EventTarget {
         // Convention: root node is ID root.
         editable.oid = 'root';
         this._idToNodeMap.set(1, editable);
+        this.editable = editable;
+        this.editable.classList.add("flectra-editor-editable");
         if (this.options.toSanitize) {
             sanitize(editable);
             this.options.onPostSanitize(editable);
         }
-        this.editable = editable;
-        this.editable.classList.add("flectra-editor-editable");
         this.editable.setAttribute('dir', this.options.direction);
 
         // Set contenteditable before clone as FF updates the content at this point.
@@ -1954,6 +1954,7 @@ export class FlectraEditor extends EventTarget {
             avatarElement.append(image);
             image.onload = () => avatarElement.style.removeProperty('display');
             image.setAttribute('src', clientAvatarUrl);
+            image.classList.add('o_object_fit_cover');
         }
         // Avoid re-appending the element in the dom.
         if (!avatarElement.parentElement) {
