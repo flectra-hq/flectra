@@ -31,18 +31,21 @@ $o-we-accent: #01bad2 !default;
 $o-we-border-width: 1px !default;
 $o-we-border-color: $o-we-bg-light !default;
 
-$o-we-ace-color: #2F3129 !default;
-
-$o-we-handles-offset-to-hide: 10000px !default;
-$o-we-handles-btn-size: 20px !default;
+// Needed to be changed to be high enough to not overflow when a user
+// has a page with a lot of content (10000px was proven to be too small)
+$o-we-handles-offset-to-hide: 100000px !default;
+$o-we-handles-btn-size: 14px !default;
 $o-we-handles-accent-color: $o-we-accent !default;
-$o-we-handles-accent-color-preview: $o-enterprise-color !default;
-$o-we-handle-edge-size: 8px !default;
+$o-we-handles-accent-color-preview: #009efb !default;
+$o-we-handle-edge-size: $o-we-handles-btn-size !default;
 $o-we-handle-border-width: 2px !default;
+$o-we-handle-inside-line-width: 3px !default;
 
 $o-we-dropzone-size: 30px !default; // $grid-gutter-width (todo: allow to use the variable)
 $o-we-dropzone-border-width: 2px !default;
 $o-we-dropzone-border: $o-we-dropzone-border-width dashed $o-brand-flectra !default;
+$o-we-dropzone-accent-color: $o-we-accent !default;
+$o-we-dropzone-bg-color: rgba($o-we-dropzone-accent-color, .5) !default;
 
 // Translations
 $o-we-content-to-translate-color: rgba(255, 255, 90, 0.5) !default;
@@ -52,8 +55,8 @@ $o-we-toolbar-height: 40px !default;
 
 $o-we-item-spacing: 8px !default;
 $o-we-item-border-width: 1px !default;
-$o-we-item-border-color: $o-we-bg-darkest !default;
-$o-we-item-border-radius: 2px !default;
+$o-we-item-border-color: transparent !default;
+$o-we-item-border-radius: 4px !default;
 $o-we-item-clickable-bg: $o-we-bg-lightest!default;
 $o-we-item-clickable-color: $o-we-fg-light!default;
 $o-we-item-clickable-hover-bg: $o-we-bg-dark!default;
@@ -117,6 +120,7 @@ $o-we-sidebar-width: 288px !default; // This includes $o-we-sidebar-border-width
 $o-we-sidebar-top-height: 46px !default;
 
 $o-we-sidebar-tabs-size-ratio: 1 !default;
+$o-we-sidebar-tabs-height: 3rem;
 $o-we-sidebar-tabs-bg: $o-we-bg-darker !default;
 $o-we-sidebar-tabs-color: $o-we-sidebar-color !default;
 $o-we-sidebar-tabs-disabled-color: $o-we-fg-darker !default;
@@ -144,7 +148,7 @@ $o-we-sidebar-content-main-title-font-size: 13px !default;
 
 $o-we-sidebar-content-block-spacing: 10px !default;
 
-$o-we-sidebar-content-fold-block-bg: $o-we-bg-light !default;
+$o-we-sidebar-content-fold-block-bg: $o-we-bg-lighter !default;
 
 $o-we-sidebar-content-field-spacing: $o-we-item-spacing !default;
 $o-we-sidebar-content-field-color: $o-we-fg-darker !default;
@@ -194,7 +198,7 @@ $o-we-sidebar-content-field-colorpicker-cc-height: 26px !default;
 
 $o-we-sidebar-content-field-input-max-width: 60px !default;
 $o-we-sidebar-content-field-input-bg: $o-we-bg-light !default;
-$o-we-sidebar-content-field-input-font-family: $o-font-family-monospace !default;
+$o-we-sidebar-content-field-input-font-family: $o-we-font-family !default;
 $o-we-sidebar-content-field-input-unit-font-size: 11px !default;
 $o-we-sidebar-content-field-input-border-color: $o-we-accent !default;
 
@@ -212,10 +216,8 @@ $o-we-sidebar-content-field-toggle-active-bg: $o-we-accent !default;
 $o-we-sidebar-content-field-toggle-control-width: 11px !default;
 $o-we-sidebar-content-field-toggle-control-height: $o-we-sidebar-content-field-toggle-height - 2px !default;
 $o-we-sidebar-content-field-toggle-control-bg: $o-we-fg-lighter !default;
-$o-we-sidebar-content-field-toggle-control-shadow: 0 2px 3px 0 $o-we-bg-darkest !default;
 
 $o-we-technical-modal-zindex: 2001;
-
 //------------------------------------------------------------------------------
 // Preview component Mixins
 //------------------------------------------------------------------------------
@@ -282,17 +284,11 @@ $o-base-color-palette: (
 ) !default;
 $o-color-palettes: (
     'base-1': (
-        'o-color-1': #009feb,
-        'o-color-2': #23323b,
-        'o-color-3': #eceae4,
-        'o-color-4':#FFFFFF,
-        'o-color-5': #16121f,
-
-        'o-cc1-btn-primary':                'o-color-1',
-        'o-cc1-btn-secondary':              'o-color-2',
-
-        'menu': 1,
-        'footer' : 3,
+        'o-color-1': #009efb,
+        'o-color-2': #8595A2,
+        'o-color-3': #F3F2F2,
+        'o-color-4': #FFFFFF,
+        'o-color-5': #111827,
     ),
     'base-2': (
         'o-color-1': #337ab7,
@@ -311,8 +307,8 @@ $o-theme-color-palettes: (
     // They should not be used in the code base anymore and ideally they will
     // not generate any classes for >= 13.4 databases.
     'base-1': (
-        'alpha': $o-enterprise-primary-color,
-        'beta': $o-enterprise-color,
+        'alpha': $o-enterprise-action-color,
+        'beta': #009efb,
         'gamma': #5C5B80,
         'delta': #5B899E,
         'epsilon': #E46F78,
@@ -376,7 +372,7 @@ $o-color-combinations-presets: (
         ),
         (
             'bg': 'o-color-3',
-            'headings': 'o-color-1',
+            'headings': 'o-color-5',
         ),
         (
             'bg': 'o-color-2',
@@ -440,8 +436,8 @@ $o-color-extras-nesting-selector: '&, .o_colored_level &';
     $lightness-c1: lightness($color1);
     $lightness-inc: if($luma-c1 < $luma-c2, -1%, 1%);
     $i: 0;
-    // Max 15% lightness change even if not contrasted enough
-    @while ($lightness-c1 > 0.1% and $lightness-c1 < 99.9% and $i < 15 and not has-enough-contrast($color1, $color2)) {
+    // Max 25% lightness change even if not contrasted enough
+    @while ($lightness-c1 > 0.1% and $lightness-c1 < 99.9% and $i < 25 and not has-enough-contrast($color1, $color2)) {
         $color1: adjust-color($color1, $lightness: $lightness-inc);
         $lightness-c1: $lightness-c1 + $lightness-inc;
         $i: $i + 1;
@@ -684,3 +680,13 @@ $o-bg-shapes: ('web_editor': (
         -moz-appearance: textfield;
     }
 };
+
+.o_edit_website_container{
+    a{
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+}
+.btn-fill-primary, .btn-primary{
+    color: #FFFFFF !important;
+}

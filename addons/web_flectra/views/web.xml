@@ -5,11 +5,71 @@
     -->
     <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap" name="Chatter Position">
         <xpath expr="//t[@t-set='body_classname']" position="attributes">
-            <attribute name="t-value" add="+ ' o_chatter_position_' + (request.env.user.chatter_position or 'sided')" separator=" " />
+            <attribute name="t-value" add="+ ' o_chatter_position_' + (request.env.user.chatter_position or 'sided')"
+                       separator=" "/>
         </xpath>
     </template>
     <!--
         Chatter Position - End
     -->
+
+    <template id="webclient_offline_inherit" inherit_id="web.webclient_offline">
+        <xpath expr="//t" position="replace">
+            <t t-call="web.layout">
+                <t t-set="html_data" t-value="{'style': 'height: 100%;'}"/>
+                <t t-set="title">Offline</t>
+                <t t-set="head">
+                    <script type="text/javascript">
+                        window.addEventListener('online', () => location.reload());
+                    </script>
+                    <style>
+                        body {
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu,
+                        "Noto Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto
+                        Color Emoji";
+                        padding:0;
+                        margin:0;
+                        background-color: #fff;
+                        color: rgb(17, 24, 39);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        text-align: center;
+                        height: 100vh;
+                        width: 100vw;
+                        user-select: none;
+                        }
+                        .card {
+                        width: 80%;
+                        }
+                        .card img {
+                        width: 96px;
+                        height: auto;
+                        filter: grayscale(.6);
+                        }
+                        .card button {
+                        background-color: #009efb;
+                        color: #FFFFFF;
+                        border: 1px solid #009efb;
+                        border-radius: .25rem;
+                        padding: .5rem 1rem;
+                        cursor: pointer;
+                        font-size: 1.2rem;
+                        font-weight: 500;
+                        }
+                    </style>
+                    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                </t>
+                <div class="card">
+                    <img t-attf-src="data:image/png;base64,{{flectra_icon}}" alt="Flectra logo"/>
+                    <h1>You are offline</h1>
+                    <p>Check your network connection and come back here. Flectra will load as soon as you're back
+                        online.
+                    </p>
+                    <button onclick="location.reload()">Check again</button>
+                </div>
+            </t>
+        </xpath>
+    </template>
 
 </flectra>
