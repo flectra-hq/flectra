@@ -1,4 +1,3 @@
-
 {
     "name": "Flectra Core Backend",
     "category": "Hidden",
@@ -77,7 +76,7 @@
 
         'web._assets_primary_variables': [
             '/web_flectra/static/src/scss/backend_theme_customizer/colors.scss',
-            # ('replace', '/web_editor/static/src/scss/web_editor.variables.scss', 'web_flectra/static/src/scss/color_palettes.scss',),
+            ('replace', '/web_editor/static/src/scss/web_editor.variables.scss', 'web_flectra/static/src/scss/color_palettes.scss',),
         ],
 
         'point_of_sale.assets': [
