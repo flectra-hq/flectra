@@ -317,12 +317,12 @@ $fullscreen-bg-color: var(--fullscreen-bg-color) !important;
     margin-left:10px;
     }
     .o_form_view .o_form_statusbar > .o_field_widget {
-        margin-left: -24px !important;
-        margin-top: 1px !important;
+//         margin-left: -24px !important;
+//         margin-top: 1px !important;
     }
     .o_form_view .o_form_statusbar{
         // flex-direction: column !important;
-        padding-left: 8px !important;
+        //padding-left: 8px !important;
     }
 }
 @media (min-width: 768px){
@@ -339,8 +339,14 @@ $fullscreen-bg-color: var(--fullscreen-bg-color) !important;
 
 @media (max-width:767px){
 
+    .o_form_sheet_bg{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
     .o_form_view .o_group{
-        width:100% !important;
+        //width:100% !important;
+        //margin: 0 -14px;
     }
 
     .dropdown-menu.show {
@@ -365,12 +371,36 @@ $fullscreen-bg-color: var(--fullscreen-bg-color) !important;
         max-width: 100%;
         min-height: 100%;
         border: 1px solid #c8c8d3;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        border-left: 0 !important;
+        border-right: 0 !important;
+        box-shadow: none !important;
         background: white;
         // margin: 4.8px auto;
         padding: 24px;
         padding-right: 16px;
         padding-left: 16px;
+        margin-right: auto;
+        margin-left: auto;
+        padding: 15px !important;
+    }
+    .o_form_view .o_notebook .o_notebook_headers {
+        //margin: 0 -14px;
+
+        .nav{
+           padding: 0;
+           width: max-content;
+        }
+    }
+    .o_form_view .o_form_statusbar{
+        margin-bottom: 0px !important;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .o_web_client.o_touch_device .btn, .o_web_client.o_touch_device .btn .btn-sm{
+        padding: 5px 14px;
+    }
+    .o_notebook .o_notebook_content .oe-toolbar{
+        z-index: 1;
     }
     .oe_topbar_name{
         display:none;
@@ -392,7 +422,7 @@ $fullscreen-bg-color: var(--fullscreen-bg-color) !important;
         flex-wrap: wrap !important;
     }
     .o_cp_top_left, .o_cp_searchview{
-        width: 0%;
+        width: 100%;
     }
     .o_cp_top_right{
         width: 100%;
