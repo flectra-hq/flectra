@@ -3,8 +3,8 @@ $o-brand-primary: #009efb !default;
 
 .btn-secondary,.btn-secondary.disabled, .btn-secondary:disabled,.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle{
     color: #4c4c4c;
-    background-color: white;
-    border-color: #cccccc;
+    background-color: #eee;
+    border-color: #eee;
 
     &:hover,&:focus{
         background:#f0f0f0;
@@ -189,8 +189,19 @@ html .o_web_client > .o_action_manager > .o_action > .o_content{
 
 .o_statusbar_status{
     .btn-secondary{
-        border:none !important;
+        //border:none !important;
     }
+}
+.o_field_statusbar > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled, .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first), .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first){
+    background-color: #d7f0ff;
+    border-color: #009efb;
+    color: #212529;
+}
+.o_field_statusbar > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled:before, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled:before, .o_field_statusbar > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled + .btn:before, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled + .btn:before, .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first):before, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first):before, .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first) + .btn:before, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first) + .btn:before{
+    border-left-color: #009efb;
+}
+.o_field_statusbar > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled:after, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled:after, .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first):after, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first):after {
+    border-left-color: #d7f0ff;
 }
 
 a {
@@ -495,7 +506,7 @@ $fullscreen-bg-color: var(--fullscreen-bg-color) !important;
 }
 .o_calendar_view {
     .fc-today.fc-day-header{
-        background: #263544 !important;
+        //background: #263544 !important;
     }
 }
 .o_dashboard_common{
