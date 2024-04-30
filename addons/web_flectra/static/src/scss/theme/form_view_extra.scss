@@ -197,7 +197,7 @@ $brand-secondary-dark: darken($brand-secondary, 10%);
     border-bottom: 1px solid #ddd;
 
     .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:before {
-        border-left-color:#ddd !important;
+        //border-left-color:#ddd !important;
     }
     .o_field_statusbar > .o_statusbar_status > .o_arrow_button:after,
     .o_field_statusbar > .o_statusbar_status > .o_arrow_button.o_arrow_button_current.disabled + .btn:before{
@@ -228,14 +228,25 @@ $brand-secondary-dark: darken($brand-secondary, 10%);
 
     .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(:first-child):after,
     .o_field_statusbar > .o_statusbar_status > .o_arrow_button:after{
-        right: -0.99em !important;
+        right: -0.98em !important;
+        //border-top: 18px solid transparent;
     }
 
     .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(:first-child):before,
     .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(:first-child):before,
     .o_field_statusbar > .o_statusbar_status > .o_arrow_button:before,
     .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:before{
-        border-left-color: unset !important;
+        //border-left-color: unset !important;
+    }
+
+    .o_field_many2many_selection{
+        .o_input_dropdown input{
+            border-bottom: 0 !important;
+        }
+    }
+
+    .o_dropdown_more{
+           box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.1);
     }
 
 
