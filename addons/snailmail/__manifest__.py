@@ -19,7 +19,7 @@ Allows users to send documents by post
         'wizard/snailmail_letter_missing_required_fields_views.xml',
         'security/ir.model.access.csv',
     ],
-    'auto_install': False,
+    'auto_install': True,
     'assets': {
         'web.assets_backend': [
             'snailmail/static/src/**/*',

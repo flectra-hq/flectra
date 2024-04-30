@@ -20,7 +20,7 @@ Auto-complete partner companies' data
         'views/res_config_settings_views.xml',
         'data/cron.xml',
     ],
-    'auto_install': False,
+    'auto_install': True,
     'assets': {
         'web.assets_backend': [
             'partner_autocomplete/static/src/scss/*',

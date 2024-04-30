@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 from markupsafe import Markup
@@ -15,7 +14,7 @@ class MailBot(models.AbstractModel):
                 self.env.user.flectrabot_failed = False
                 self.env.user.flectrabot_state = "onboarding_canned"
                 return Markup(_("That's me! 🎉<br/>Try typing %s to use canned responses.", "<span class=\"o_flectrabot_command\">:</span>"))
-            elif flectrabot_state == "onboarding_canned" and values.get("canned_response_ids"):
+            elif flectrabot_state == "onboarding_canned" and self.env.context.get("canned_response_ids"):
                 self.env.user.flectrabot_failed = False
                 self.env.user.flectrabot_state = "idle"
                 return Markup(_("Good, you can customize canned responses in the live chat application.<br/><br/><b>It's the end of this overview</b>, enjoy discovering Flectra!"))
