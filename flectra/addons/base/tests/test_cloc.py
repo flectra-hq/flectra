@@ -57,7 +57,7 @@ def query():
 print(i.lineno, i, getattr(i,'s',None), getattr(i,'value',None))
 '''
 
-JS_TEST = r'''
+JS_TEST = '''
 /*
 comment
 */

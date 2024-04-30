@@ -14,7 +14,7 @@ export function useSuggestion() {
             comp.props.composer.mentionedChannels.length = 0;
             comp.props.composer.mentionedPartners.length = 0;
         },
-        clearCannedResponses() {
+        clearCannedReponses() {
             comp.props.composer.cannedResponses = [];
         },
         clearSearch() {

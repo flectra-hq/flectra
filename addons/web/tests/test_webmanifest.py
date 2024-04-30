@@ -24,8 +24,8 @@ class WebManifestRoutesTest(HttpCaseWithUserDemo):
         self.assertEqual(data["scope"], "/web")
         self.assertEqual(data["start_url"], "/web")
         self.assertEqual(data["display"], "standalone")
-        self.assertEqual(data["background_color"], "#009efb")
-        self.assertEqual(data["theme_color"], "#009efb")
+        self.assertEqual(data["background_color"], "#714B67")
+        self.assertEqual(data["theme_color"], "#714B67")
         self.assertEqual(data["prefer_related_applications"], False)
         self.assertCountEqual(data["icons"], [
             {'src': '/web/static/img/flectra-icon-192x192.png', 'sizes': '192x192', 'type': 'image/png'},
@@ -50,8 +50,8 @@ class WebManifestRoutesTest(HttpCaseWithUserDemo):
         self.assertEqual(data["scope"], "/web")
         self.assertEqual(data["start_url"], "/web")
         self.assertEqual(data["display"], "standalone")
-        self.assertEqual(data["background_color"], "#009efb")
-        self.assertEqual(data["theme_color"], "#009efb")
+        self.assertEqual(data["background_color"], "#714B67")
+        self.assertEqual(data["theme_color"], "#714B67")
         self.assertEqual(data["prefer_related_applications"], False)
         self.assertCountEqual(data["icons"], [
             {'src': '/web/static/img/flectra-icon-192x192.png', 'sizes': '192x192', 'type': 'image/png'},

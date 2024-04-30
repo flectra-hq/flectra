@@ -308,18 +308,14 @@ export class ImageCrop extends Component {
         }
     }
     /**
-     * Save crop if user hits enter,
-     * discard crop on escape.
-     *
+     * Save crop if user hits enter.
+     * 
      * @private
      * @param {KeyboardEvent} ev
      */
     _onDocumentKeydown(ev) {
-        if (ev.key === 'Enter') {
+        if(ev.key === 'Enter') {
             return this._save();
-        } else if (ev.key === 'Escape') {
-            ev.stopImmediatePropagation();
-            return this._closeCropper();
         }
     }
     /**

@@ -601,7 +601,7 @@ export class Composer extends Component {
             this.notifySendFromMailbox();
         }
         this.suggestion?.clearRawMentions();
-        this.suggestion?.clearCannedResponses();
+        this.suggestion?.clearCannedReponses();
         this.props.messageToReplyTo?.cancel();
     }
 

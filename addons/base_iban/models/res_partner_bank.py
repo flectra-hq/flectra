@@ -7,7 +7,7 @@ from flectra.exceptions import UserError, ValidationError
 
 
 def normalize_iban(iban):
-    return re.sub(r'[\W_]', '', iban or '')
+    return re.sub('[\W_]', '', iban or '')
 
 def pretty_iban(iban):
     """ return iban in groups of four characters separated by a single space """
