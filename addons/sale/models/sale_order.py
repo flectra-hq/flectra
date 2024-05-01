@@ -688,13 +688,16 @@ class SaleOrder(models.Model):
     @api.constrains('company_id', 'order_line')
     def _check_order_line_company_id(self):
         for order in self:
-            product_company = order.order_line.product_id.company_id
-            companies = product_company and product_company._accessible_branches()
-            if companies and order.company_id not in companies:
-                bad_products = order.order_line.product_id.filtered(lambda p: p.company_id and p.company_id != order.company_id)
+            invalid_companies = order.order_line.product_id.company_id.filtered(
+                lambda c: order.company_id not in c._accessible_branches()
+            )
+            if invalid_companies:
+                bad_products = order.order_line.product_id.filtered(
+                    lambda p: p.company_id and p.company_id in invalid_companies
+                )
                 raise ValidationError(_(
                     "Your quotation contains products from company %(product_company)s whereas your quotation belongs to company %(quote_company)s. \n Please change the company of your quotation or remove the products from other companies (%(bad_products)s).",
-                    product_company=', '.join(companies.sudo().mapped('display_name')),
+                    product_company=', '.join(invalid_companies.sudo().mapped('display_name')),
                     quote_company=order.company_id.display_name,
                     bad_products=', '.join(bad_products.mapped('display_name')),
                 ))
@@ -1393,14 +1396,15 @@ class SaleOrder(models.Model):
                         continue
                     inv_amt = order_amt = 0
                     for invoice_line in order_line.invoice_lines:
+                        sign = 1 if invoice_line.move_id.is_inbound() else -1
                         if invoice_line.move_id == move:
-                            inv_amt += invoice_line.price_total
+                            inv_amt += invoice_line.price_total * sign
                         elif invoice_line.move_id.state != 'cancel':  # filter out canceled dp lines
-                            order_amt += invoice_line.price_total
+                            order_amt += invoice_line.price_total * sign
                     if inv_amt and order_amt:
                         # if not inv_amt, this order line is not related to current move
                         # if no order_amt, dp order line was not invoiced
-                        delta_amount += (inv_amt * (1 if move.is_inbound() else -1)) + order_amt
+                        delta_amount += inv_amt + order_amt
 
                 if not move.currency_id.is_zero(delta_amount):
                     receivable_line = move.line_ids.filtered(
