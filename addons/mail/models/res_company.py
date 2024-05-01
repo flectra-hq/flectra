@@ -80,4 +80,4 @@ class Company(models.Model):
         Inverse is not true, people may change email colors without changing
         their overall layout. """
         for company in self:
-            company.email_secondary_color = company.secondary_color or '#875A7B'
+            company.email_secondary_color = company.secondary_color or '#009efb'

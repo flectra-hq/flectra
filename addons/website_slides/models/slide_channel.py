@@ -300,7 +300,7 @@ class Channel(models.Model):
             "background_color_class": "o_cc3",
             'background_color_style': (
                 'background-color: rgba(0, 0, 0, 0); '
-                'background-image: linear-gradient(120deg, #875A7B, #78516F);'
+                'background-image: linear-gradient(120deg, #009efb, #78516F);'
             ),
             'opacity': '0',
             'resize_class': 'cover_auto'

@@ -337,8 +337,8 @@ class TestChannelInternals(MailCommon):
         private_group.uuid = 'group-uuid'
         bgcolor_channel = html_escape('hsl(316, 61%, 45%)')  # depends on uuid
         bgcolor_group = html_escape('hsl(17, 60%, 45%)')  # depends on uuid
-        expceted_avatar_channel = (channel_avatar.replace('fill="#875a7b"', f'fill="{bgcolor_channel}"')).encode()
-        expected_avatar_group = (group_avatar.replace('fill="#875a7b"', f'fill="{bgcolor_group}"')).encode()
+        expceted_avatar_channel = (channel_avatar.replace('fill="#009efb"', f'fill="{bgcolor_channel}"')).encode()
+        expected_avatar_group = (group_avatar.replace('fill="#009efb"', f'fill="{bgcolor_group}"')).encode()
 
         self.assertEqual(base64.b64decode(test_channel.avatar_128), expceted_avatar_channel)
         self.assertEqual(base64.b64decode(private_group.avatar_128), expected_avatar_group)

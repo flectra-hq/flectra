@@ -35,8 +35,8 @@ export async function loadDefaultConfig() {
             isAvailable: true,
             serverUrl: window.origin,
             options: {
-                header_background_color: "#875A7B",
-                button_background_color: "#875A7B",
+                header_background_color: "#009efb",
+                button_background_color: "#009efb",
                 title_color: "#FFFFFF",
                 button_text_color: "#FFFFFF",
                 button_text: "Have a Question? Chat with us.",

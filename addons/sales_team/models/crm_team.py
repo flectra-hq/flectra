@@ -384,7 +384,7 @@ class CrmTeam(models.Model):
             values[index][y_field] = data_item.get('y_value')
 
         [graph_title, graph_key] = self._graph_title_and_key()
-        color = '#875A7B' if '+e' in version else '#7c7bad'
+        color = '#009efb' if '+e' in version else '#7c7bad'
 
         # If no actual data available, show some sample data
         if not graph_data:
