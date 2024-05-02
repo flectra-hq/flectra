@@ -13,6 +13,12 @@
         Chatter Position - End
     -->
 
+    <template id="webclient_bootstrap_inherit" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//meta[@name='theme-color']" position="replace">
+            <meta name="theme-color" content="#009efb"/>
+        </xpath>
+    </template>
+
     <template id="webclient_offline_inherit" inherit_id="web.webclient_offline">
         <xpath expr="//t" position="replace">
             <t t-call="web.layout">
