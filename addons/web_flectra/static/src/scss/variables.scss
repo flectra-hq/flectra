@@ -28,8 +28,10 @@ $gray-lighter: lighten($gray-base, 93.5%);
 // Font
 $o-root-font-size: 15px;
 $o-root-font-family: $theme-root-font-family;
-body.o_web_client{
-    font-size: $o-root-font-size;
+@media(min-width:768px){
+    body.o_web_client{
+        font-size: $o-root-font-size;
+    }
 }
 .o_add_field, .o_remove_field {
     font-size: 12px;

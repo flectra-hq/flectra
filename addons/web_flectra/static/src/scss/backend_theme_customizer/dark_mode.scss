@@ -87,6 +87,12 @@ body.f_dark_mode {
     .o_setting_container .app_settings_header, .o_setting_container .bg-view, .bg-view, .o_timeoff_dashboard, .o_calendar_renderer, .bg-light{
         background-color: transparent !important;
     }
+    .o_knowledge_sidebar.bg-view{
+          background-color: #fff !important;
+          .text-muted{
+              color: #212529 !important;
+          }
+    }
 
     .o_notebook .nav {
         background-color: #212529 !important;
@@ -98,6 +104,11 @@ body.f_dark_mode {
 
     .o_main_navbar .dropdown-toggle:hover, .o_main_navbar .o_nav_entry:hover {
         background-color: #464646 !important;
+    }
+    .o-dropdown button.dropdown-toggle:active, .show > .btn-outline-secondary.dropdown-toggle{
+        color: #212529 !important;
+        background-color: #fff;
+        border-color: #fff !important;
     }
 
     .btn-fill-flectra, .btn-flectra {
@@ -119,8 +130,8 @@ body.f_dark_mode {
     }
     .o_form_sheet, .o_control_panel, .o_form_statusbar, .o_FormRenderer_chatterContainer,
     .o_Chatter_scrollPanel,.o_Chatter, .o_Chatter_fixedPanel, .o_MessageList, .o_Message,
-    .o_search_panel, .o_dropdown_menu , .o_searchview , .dropdown-menu,
-    .o_data_row,.o_form_view,.o_facet_values, .o_search_panel_category_value{
+    .o_search_panel, .o_dropdown_menu , .o_searchview , .dropdown-menu, .o_searchview , .dropdown-menu .o_dropdown_title,
+    .o_data_row,.o_form_view,.o_facet_values, .o_search_panel_category_value, .o_form_view.o_xxs_form_view .o_form_label{
         background-color:  #212529 !important;
         color: #dcdcdc !important;
     }
@@ -135,6 +146,10 @@ body.f_dark_mode {
         -webkit-box-shadow: inset 0 -2px 0 #dcdcdc !important;
         box-shadow: inset 0 -2px 0 #dcdcdc !important;
         color:#dcdcdc !important;
+    }
+    .o_notebook_headers .nav-tabs > li.nav-item > a{
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
     }
     .o_form_uri{
         color: #355cca !important;
@@ -209,6 +224,10 @@ body.f_dark_mode {
         background-color: #777777;
         //color: #dcdcdc !important;
         color: #333 !important;
+
+        &:hover{
+            background: $o-brand-primary !important;
+        }
     }
     .o_required_modifier.o_input{
         background-color: #212529 !important;
@@ -260,6 +279,10 @@ body.f_dark_mode {
     }
     .o_list_table > tbody > tr{
          background-color:  #212529 !important;
+
+         .text-900{
+            color: #fff !important;
+         }
     }
     tr, th{
         background-color: #212529 !important;
@@ -419,6 +442,32 @@ body.f_dark_mode {
     }
     .o_kanban_dashboard:not(.o_legacy_kanban_view) .o_kanban_record > div .o_kanban_card_header_title .o_primary, .o_kanban_dashboard:not(.o_legacy_kanban_view) .o_kanban_record > div .o_kanban_primary_left .o_primary > span:first-child, .o_kanban_dashboard:not(.o_legacy_kanban_view) .o_kanban_record > div .oe_kanban_content > .o_title > h3, .o_kanban_dashboard:not(.o_legacy_kanban_view) .o_kanban_record > div .oe_kanban_content > .o_title > .h3{
         color: #dcdcdc;
+    }
+    .o_kanban_dashboard .o_kanban_renderer .o_kanban_card_manage_title{
+        color: #fff;
+    }
+    .o_upload_media_url_button, .o_upload_media_button, .badge.bg-200{
+        color:  #212529 !important;
+    }
+    .o_tree_editor .o_tree_editor_node .o_tree_editor_node_control_panel > button{
+        opacity: 1 !important;
+    }
+    .o_base_settings_view .o_form_renderer .o_setting_container .settings > .app_settings_block h3, .o_base_settings_view .o_form_renderer .o_setting_container .settings > .app_settings_block .h3{
+        color: #fff;
+    }
+    .o_base_settings_view .o_form_renderer .o_setting_container .settings_tab{
+         background-color: #212529 !important;
+
+         .tab{
+            color: #fff;
+
+            &:hover{
+               color: #dcdcdc;
+            }
+         }
+    }
+    .o_base_settings_view .o_form_renderer .o_setting_container .settings_tab .selected{
+        color:  #212529 !important;
     }
     .preloader-select{
         .arrow{
