@@ -1,8 +1,7 @@
 /** @flectra-module */
 
-import { FlectraEditor, parseHTML, setSelection } from '../../src/FlectraEditor.js';
+import { FlectraEditor, parseHTML, setSelection, insertCharsAt } from '../../src/FlectraEditor.js';
 import {
-    insertCharsAt,
     parseMultipleTextualSelection,
     redo,
     setTestSelection,

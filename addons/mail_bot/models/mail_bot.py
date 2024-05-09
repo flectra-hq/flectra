@@ -52,7 +52,7 @@ class MailBot(models.AbstractModel):
             elif flectrabot_state == 'onboarding_attachement' and values.get("attachment_ids"):
                 self.env.user.flectrabot_state = "idle"
                 self.env.user.flectrabot_failed = False
-                return Markup(_("I am a simple bot, but if that's a dog, he is the cutest 😊 <br/>Congratulations, you finished this tour. You can now <b>close this chat window</b>. Enjoy discovering Flectra."))
+                return Markup(_("I am a simple bot, but if that's a dog, he is the cutest 😊 <br/>Congratulations, you finished this tour. You can now <b>close this conversation</b> or start the tour again with typing <span class=\"o_flectrabot_command\">start the tour</span>. Enjoy discovering Flectra!"))
             elif flectrabot_state in (False, "idle", "not_initialized") and (_('start the tour') in body.lower()):
                 self.env.user.flectrabot_state = "onboarding_emoji"
                 return _("To start, try to send me an emoji :)")

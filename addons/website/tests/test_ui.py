@@ -7,7 +7,9 @@ from werkzeug.urls import url_encode
 
 import flectra
 import flectra.tests
+from flectra import http
 from flectra.addons.base.tests.common import HttpCaseWithUserDemo
+from flectra.addons.web_editor.controllers.main import Web_Editor
 
 
 @flectra.tests.tagged('-at_install', 'post_install')
@@ -112,8 +114,35 @@ class TestUiHtmlEditor(HttpCaseWithUserDemo):
         self.start_tour(self.env['website'].get_client_action_url('/contactus'), 'test_html_editor_scss', login='admin')
         self.start_tour(self.env['website'].get_client_action_url('/'), 'test_html_editor_scss_2', login='demo')
 
-    def media_dialog_undraw(self):
+    def test_media_dialog_undraw(self):
+        BASE_URL = self.base_url()
+        banner = '/website/static/src/img/snippets_demo/s_banner.jpg'
+
+        def mock_media_library_search(self, **params):
+            return {
+                'results': 1,
+                'media': [{
+                    'id': 1,
+                    'media_url': BASE_URL + banner,
+                    'thumbnail_url': BASE_URL + banner,
+                    'tooltip': False,
+                    'author': 'undraw',
+                    'author_link': BASE_URL,
+                }],
+            }
+
+        # disable undraw, no third party should be called in tests
+        # Mocked for the previews in the media dialog
+        mock_media_library_search.routing_type = 'json'
+        Web_Editor.media_library_search = http.route(['/web_editor/media_library_search'], type='json', auth='user', website=True)(mock_media_library_search)
+
         self.start_tour("/", 'website_media_dialog_undraw', login='admin')
+
+
+@flectra.tests.tagged('external', '-standard', '-at_install', 'post_install')
+class TestUiHtmlEditorWithExternal(HttpCaseWithUserDemo):
+    def test_media_dialog_external_library(self):
+        self.start_tour("/", 'website_media_dialog_external_library', login='admin')
 
 
 @flectra.tests.tagged('-at_install', 'post_install')

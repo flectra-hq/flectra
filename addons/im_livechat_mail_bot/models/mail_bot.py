@@ -13,11 +13,11 @@ class MailBot(models.AbstractModel):
             if flectrabot_state == "onboarding_attachement" and values.get("attachment_ids"):
                 self.env.user.flectrabot_failed = False
                 self.env.user.flectrabot_state = "onboarding_canned"
-                return Markup(_("That's me! 🎉<br/>Try typing %s to use canned responses.", "<span class=\"o_flectrabot_command\">:</span>"))
+                return Markup(_("Wonderful! 😇<br/>Try typing %s to use canned responses.", "<span class=\"o_flectrabot_command\">:</span>"))
             elif flectrabot_state == "onboarding_canned" and self.env.context.get("canned_response_ids"):
                 self.env.user.flectrabot_failed = False
                 self.env.user.flectrabot_state = "idle"
-                return Markup(_("Good, you can customize canned responses in the live chat application.<br/><br/><b>It's the end of this overview</b>, enjoy discovering Flectra!"))
+                return Markup(_("Good, you can customize canned responses in the live chat application.<br/><br/><b>It's the end of this overview</b>, you can now <b>close this conversation</b> or start the tour again with typing <span class=\"o_flectrabot_command\">start the tour</span>. Enjoy discovering Flectra!"))
             # repeat question if needed
             elif flectrabot_state == 'onboarding_canned' and not self._is_help_requested(body):
                 self.env.user.flectrabot_failed = True

@@ -1100,9 +1100,11 @@ Please change the quantity done or the rounding precision of your unit of measur
             return 'assigned'
         # The picking should be the same for all moves.
         if moves_todo[:1].picking_id and moves_todo[:1].picking_id.move_type == 'one':
+            if all(not m.product_uom_qty for m in moves_todo):
+                return 'assigned'
             most_important_move = moves_todo[0]
             if most_important_move.state == 'confirmed':
-                return 'confirmed' if most_important_move.product_uom_qty else 'assigned'
+                return 'confirmed'
             elif most_important_move.state == 'partially_available':
                 return 'confirmed'
             else:
@@ -1815,7 +1817,7 @@ Please change the quantity done or the rounding precision of your unit of measur
     def _action_done(self, cancel_backorder=False):
         moves = self.filtered(
             lambda move: move.state == 'draft'
-            or float_is_zero(move.product_uom_qty, precision_digits=move.product_uom.rounding)
+            or float_is_zero(move.product_uom_qty, precision_rounding=move.product_uom.rounding)
         )._action_confirm(merge=False)  # MRP allows scrapping draft moves
         moves = (self | moves).exists().filtered(lambda x: x.state not in ('done', 'cancel'))
         moves_ids_todo = OrderedSet()

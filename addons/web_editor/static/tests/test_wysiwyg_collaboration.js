@@ -98,7 +98,7 @@ class PeerTest {
     }
     async getValue() {
         this.wysiwyg.flectraEditor.observerUnactive('PeerTest.getValue');
-        renderTextualSelection(this.document);
+        renderTextualSelection(this.wysiwyg.flectraEditor);
 
         const html = this.wysiwyg.$editable[0].innerHTML;
 
