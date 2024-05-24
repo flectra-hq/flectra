@@ -765,7 +765,11 @@ export class FlectraEditor extends EventTarget {
             if (fontSizeInput && !fontSizeInput.readOnly && ev.target.closest('#font-size .dropdown-toggle')) {
                 // If the click opened the font size dropdown, select the input content.
                 fontSizeInput.select();
-            } else if (!this.isSelectionInEditable() && ev.target.nodeName !== 'INPUT') {
+            } else if (
+                !this.isSelectionInEditable() &&
+                ev.target.nodeName !== 'INPUT' &&
+                ev.target.id !== 'image-transform'
+            ) {
                 // Otherwise, if we lost the selection in the editable, restore it.
                 this.historyResetLatestComputedSelection(true);
             }
@@ -2231,6 +2235,7 @@ export class FlectraEditor extends EventTarget {
             fillEmpty(closestBlock(start));
         }
         fillEmpty(closestBlock(range.endContainer));
+        range = getDeepRange(this.editable, { sel });
         let joinWith = range.endContainer;
         const rightLeaf = rightLeafOnlyNotBlockPath(joinWith).next().value;
         if (rightLeaf && rightLeaf.nodeValue === ' ') {
@@ -2673,8 +2678,11 @@ export class FlectraEditor extends EventTarget {
      * @param {Range} range
      */
     _selectTableCells(range) {
-        this.observerUnactive('_selectTableCells');
         const table = closestElement(range.commonAncestorContainer, 'table');
+        if (!table) {
+            return;
+        }
+        this.observerUnactive('_selectTableCells');
         const alreadyHadSelection = table.classList.contains('o_selected_table');
         this.deselectTable(); // Undo previous selection.
         table.classList.toggle('o_selected_table', true);
@@ -4723,7 +4731,8 @@ export class FlectraEditor extends EventTarget {
         }
     }
 
-    _onDocumentMouseup() {
+    _onDocumentMouseup(ev) {
+        this._currentMouseState = ev.type;
         if (this.toolbar) {
             this.toolbar.style.pointerEvents = 'auto';
         }

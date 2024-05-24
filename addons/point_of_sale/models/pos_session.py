@@ -8,7 +8,7 @@ from markupsafe import Markup, escape
 from operator import itemgetter
 
 from flectra import api, fields, models, _, Command
-from flectra.exceptions import AccessError, UserError, ValidationError
+from flectra.exceptions import AccessDenied, AccessError, UserError, ValidationError
 from flectra.tools import float_is_zero, float_compare, convert
 from flectra.service.common import exp_version
 from flectra.osv.expression import AND
@@ -1649,7 +1649,7 @@ class PosSession(models.Model):
                        'price_extra': ptav.price_extra,
                        # id of a value should be from the "product.template.attribute.value" record
                        'id': ptav.id,
-                       } for ptav in list(group)]
+                       } for ptav in list(group) if ptav.ptav_active]
             res[attribute_line_id] = {
                 'id': attribute_line_id,
                 'name': attribute.name,
@@ -2275,6 +2275,8 @@ class PosSession(models.Model):
 
     @api.model
     def _load_onboarding_data(self):
+        if not self.env.user.has_group("point_of_sale.group_pos_user"):
+            raise AccessDenied()
         convert.convert_file(self.env, 'point_of_sale', 'data/point_of_sale_onboarding.xml', None, mode='init', kind='data')
         shop_config = self.env.ref('point_of_sale.pos_config_main', raise_if_not_found=False)
         if shop_config and shop_config.active:
