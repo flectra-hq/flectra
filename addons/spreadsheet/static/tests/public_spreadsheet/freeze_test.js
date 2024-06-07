@@ -8,6 +8,10 @@ import { createSpreadsheetWithPivot } from "../utils/pivot";
 import { createModelWithDataSource } from "@spreadsheet/../tests/utils/model";
 import { THIS_YEAR_GLOBAL_FILTER } from "@spreadsheet/../tests/utils/global_filter";
 import { addGlobalFilter } from "@spreadsheet/../tests/utils/commands";
+import { registry } from "@web/core/registry";
+import { menuService } from "@web/webclient/menus/menu_service";
+import { spreadsheetLinkMenuCellService } from "@spreadsheet/ir_ui_menu/index";
+import { getMenuServerData } from "@spreadsheet/../tests/links/menu_data_utils";
 
 QUnit.module("freezing spreadsheet", {}, function () {
     QUnit.test("flectra pivot functions are replaced with their value", async function (assert) {
@@ -154,5 +158,68 @@ QUnit.module("freezing spreadsheet", {}, function () {
         assert.strictEqual(data.globalFilters.length, 1);
         assert.strictEqual(data.globalFilters[0].label, "Date Filter");
         assert.strictEqual(data.globalFilters[0].value, "1/1/2020, 1/1/2021");
+    });
+
+    QUnit.test("from/to global filter without value is exported", async function (assert) {
+        const model = await createModelWithDataSource();
+        await addGlobalFilter(model, {
+            id: "42",
+            type: "date",
+            label: "Date Filter",
+            rangeType: "from_to",
+        });
+        const data = await freezeFlectraData(model);
+        const filterSheet = data.sheets[1];
+        assert.strictEqual(filterSheet.cells.A2.content, "Date Filter");
+        assert.strictEqual(filterSheet.cells.B2, undefined);
+        assert.strictEqual(filterSheet.cells.C2, undefined);
+        assert.strictEqual(data.globalFilters.length, 1);
+        assert.strictEqual(data.globalFilters[0].label, "Date Filter");
+        assert.strictEqual(data.globalFilters[0].value, "");
+    });
+
+    QUnit.test("flectra links are replaced with their label", async function (assert) {
+        const view = {
+            name: "an flectra view",
+            viewType: "list",
+            action: {
+                modelName: "partner",
+                views: [[false, "list"]],
+            },
+        };
+        const data = {
+            sheets: [
+                {
+                    cells: {
+                        A1: { content: "[menu_xml](flectra://ir_menu_xml_id/test_menu)" },
+                        A2: { content: "[menu_id](flectra://ir_menu_id/12)" },
+                        A3: { content: `[flectra_view](flectra://view/${JSON.stringify(view)})` },
+                        A4: { content: "[external_link](https://flectrahq.com)" },
+                        A5: { content: "[internal_link](o-spreadsheet://Sheet1)" },
+                    },
+                },
+            ],
+        };
+        registry
+            .category("services")
+            .add("menu", menuService)
+            .add("spreadsheetLinkMenuCell", spreadsheetLinkMenuCellService);
+
+        const model = await createModelWithDataSource({
+            spreadsheetData: data,
+            serverData: getMenuServerData(),
+        });
+        const frozenData = await freezeFlectraData(model);
+        assert.strictEqual(frozenData.sheets[0].cells.A1.content, "menu_xml");
+        assert.strictEqual(frozenData.sheets[0].cells.A2.content, "menu_id");
+        assert.strictEqual(frozenData.sheets[0].cells.A3.content, "flectra_view");
+        assert.strictEqual(
+            frozenData.sheets[0].cells.A4.content,
+            "[external_link](https://flectrahq.com)"
+        );
+        assert.strictEqual(
+            frozenData.sheets[0].cells.A5.content,
+            "[internal_link](o-spreadsheet://Sheet1)"
+        );
     });
 });

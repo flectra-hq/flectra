@@ -2149,6 +2149,7 @@ const ListUserValueWidget = UserValueWidget.extend({
         'click we-button.o_we_checkbox_wrapper': '_onAddItemCheckboxClick',
         'input table input': '_onListItemBlurInput',
         'blur table input': '_onListItemBlurInput',
+        'mousedown': '_onWeListMousedown',
     },
 
     /**
@@ -2376,11 +2377,9 @@ const ListUserValueWidget = UserValueWidget.extend({
      * @param {Boolean} [preview]
      */
     _notifyCurrentState(preview = false) {
+        const isIdModeName = this.el.dataset.idMode === "name" || !this.isCustom;
         const values = [...this.listTable.querySelectorAll('.o_we_list_record_name input')].map(el => {
-            let id = this.isCustom ? el.value : el.name;
-            if (this.el.dataset.idMode && this.el.dataset.idMode === "name") {
-                id = el.name;
-            }
+            const id = isIdModeName ? el.name : el.value;
             return Object.assign({
                 id: /^-?[0-9]{1,15}$/.test(id) ? parseInt(id) : id,
                 name: el.value,
@@ -2391,7 +2390,7 @@ const ListUserValueWidget = UserValueWidget.extend({
             const checkboxes = [...this.listTable.querySelectorAll('we-button.o_we_checkbox_wrapper.active')];
             this.selected = checkboxes.map(el => {
                 const input = el.parentElement.previousSibling.firstChild;
-                const id = input.name || input.value;
+                const id = isIdModeName ? input.name : input.value;
                 return /^-?[0-9]{1,15}$/.test(id) ? parseInt(id) : id;
             });
             values.forEach(v => {
@@ -2495,8 +2494,24 @@ const ListUserValueWidget = UserValueWidget.extend({
             // from one input to another in the list. This behavior can be
             // cancelled if the widget has reloadOnInputBlur = "true" in its
             // dataset.
-            this._notifyCurrentState(preview);
+            const timeSinceMousedown = ev.timeStamp - this.mousedownTime;
+            if (timeSinceMousedown < 500) {
+                // Without this "setTimeOut", "click" events are not triggered when
+                // clicking directly on a "we-button" of the "we-list" without first
+                // focusing out the input.
+                setTimeout(() => {
+                    this._notifyCurrentState(preview);
+                }, 500);
+            } else {
+                this._notifyCurrentState(preview);
+            }
         }
+    },
+    /**
+     * @private
+     */
+    _onWeListMousedown(ev) {
+        this.mousedownTime = ev.timeStamp;
     },
     /**
      * @private
