@@ -1607,7 +1607,6 @@ export class Order extends PosModel {
         const paymentlines = this.paymentlines
             .filter((p) => !p.is_change)
             .map((p) => p.export_for_printing());
-        this.receiptDate ||= formatDateTime(luxon.DateTime.now());
         return {
             orderlines: this.orderlines.map((l) => omit(l.getDisplayData(), "internalNote")),
             paymentlines,
@@ -1622,7 +1621,7 @@ export class Order extends PosModel {
             name: this.get_name(),
             invoice_id: null, //TODO
             cashier: this.cashier?.name,
-            date: this.receiptDate,
+            date: formatDateTime(this.date_order),
             pos_qr_code:
                 this.pos.company.point_of_sale_use_ticket_qr_code &&
                 (this.finalized || ["paid", "done", "invoiced"].includes(this.state)) &&
@@ -1975,15 +1974,16 @@ export class Order extends PosModel {
      */
     calculate_base_amount(tax_ids_array, lines) {
         // Consider price_include taxes use case
-        const has_taxes_included_in_price = tax_ids_array.filter(
-            (tax_id) => this.pos.taxes_by_id[tax_id].price_include
+        const has_taxes_included_in_price = tax_ids_array.filter( (tax_id) =>
+            this.pos.taxes_by_id[tax_id].price_include ||
+            this.pos.taxes_by_id[tax_id].children_tax_ids.length > 0 &&
+            this.pos.taxes_by_id[tax_id].children_tax_ids.every(child_tax => child_tax.price_include)
         ).length;
 
         const base_amount = lines.reduce(
             (sum, line) =>
                 sum +
-                line.get_price_without_tax() +
-                (has_taxes_included_in_price ? line.get_total_taxes_included_in_price() : 0),
+                (has_taxes_included_in_price ? line.get_price_with_tax() : line.get_price_without_tax()),
             0
         );
         return base_amount;
