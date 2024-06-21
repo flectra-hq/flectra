@@ -218,8 +218,8 @@ body.f_dark_mode {
         color: #adb5bd !important;
     }
     .btn-light, .o_form_view .o_statusbar_status .o_arrow_button:not(.disabled){
-        //background-color: transparent !important;
-        background-color: #fff !important;
+        background-color: transparent !important;
+//         background-color: #fff !important;
     }
     .o_form_view .o_form_statusbar .o_statusbar_status > .o_arrow_button {
         background-color: #777777;
@@ -489,7 +489,8 @@ body.f_dark_mode {
     }
 
     .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):disabled:not(.o_arrow_button_current), .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):disabled:not(.o_arrow_button_current), .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):disabled:not(.o_arrow_button_current):hover, .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):disabled:not(.o_arrow_button_current):focus{
-        color: #111827 !important;
+        color: #fff !important;
+        border-right-color: transparent !important;
     }
 
 }
@@ -653,11 +654,30 @@ body.f_dark_mode .o_list_renderer .o_list_table tbody > tr > td:not(.o_list_reco
 }
 
 body.f_dark_mode{
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):not(.o_first):before,
+    .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):not(.o_first):before,
     .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none).o_arrow_button_current:disabled:after,
     .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):not(.o_first):after,
     o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):not(.o_last):after{
-        border-left: 1em solid #ffffff;
+        border-left: 1em solid #212529;
     }
+
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):not(.o_first):before, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):not(.o_first):before, .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):not(.o_first):after, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):not(.o_first):after, .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):not(.o_last):before, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):not(.o_last):before, .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):not(.o_last):after, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):not(.o_last):after{
+        border-left: 1em solid #212529;
+    }
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled:before, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled:before, .o_field_statusbar > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled + .btn:before, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled + .btn:before, .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first):before, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first):before, .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first) + .btn:before, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first) + .btn:before{
+        border-left-color: #777;
+    }
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button.o_first{
+        border-right-color: #777 !important;
+    }
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button.o_last{
+        border-right-color: transparent !important;
+    }
+    .o_field_statusbar > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled{
+        //border-right-color: transparent !important;
+    }
+
 
     .o_form_view.o_form_nosheet, .o_form_view .o_form_nosheet {
         background:#555555 !important;
@@ -681,7 +701,7 @@ body.f_dark_mode{
     }
 
     .o_field_statusbar > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled, .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button.o_arrow_button_current:not(.d-none):disabled, .o_field_statusbar > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first), .o_field_statusbar_duration > .o_statusbar_status > .o_arrow_button:not(.d-none):active:not(.o_first){
-        background-color: #777777 !important;
+        background-color: transparent!important;
         border-color: #777777 !important;
         color: #fff !important;
 
