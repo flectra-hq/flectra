@@ -15,7 +15,22 @@ body.f_dark_mode {
     html::before, body::before {
       background-image: none !important;
     }
+    .o_field_widget.o_field_selection{
+        select option{
+                background: transparent !important;
+            }
+    }
+    .o_list_renderer .o_list_table tr.o_data_row_selected td, .o_list_renderer .o_list_table tbody > tr.o_data_row_selected > td.o_list_number:not(.o_list_record_selector){
+        background-color: #dedede !important
+     }
+    .o_list_renderer .o_list_table tbody > tr.o_data_row_selected > td:not(.o_list_record_selector):not(.o_handle_cell):not(.o_list_button):not(.o_list_record_remove){
+            color: #333 !important;
+            background-color: #dedede !important;
+      }
+      .o_list_renderer .o_list_table tbody > tr.o_data_row_selected.text-muted td input{
+                    background-color: transparent !important;
 
+        }
     .o_searchview .o_searchview_facet .o_searchview_facet_label{
         background-color:transparent;
     }
@@ -46,7 +61,7 @@ body.f_dark_mode {
 
     .ui-autocomplete .ui-menu-item:hover{
         a{
-            color:#333 !important;
+            color:#dcdcdc !important;
         }
 
     }
@@ -124,6 +139,11 @@ body.f_dark_mode {
         background-color: transparent !important;
     }
     :before {color: #6c757d !important}
+
+    .o_form_view_container{
+        :before {color: #fff !important}
+    }
+
     :link:not(cite), :link *:not(cite) {color: #fff !important}
 
     .breadcrumb-item.active, .o_search_panel_label{
@@ -439,7 +459,7 @@ body.f_dark_mode {
         background-color: transparent;
     }
     .o_data_row_selected td{
-        color: #333;
+        color: #333 !important;
     }
     .o_kanban_dashboard:not(.o_legacy_kanban_view) .o_kanban_record > div .o_kanban_card_header_title .o_primary, .o_kanban_dashboard:not(.o_legacy_kanban_view) .o_kanban_record > div .o_kanban_primary_left .o_primary > span:first-child, .o_kanban_dashboard:not(.o_legacy_kanban_view) .o_kanban_record > div .oe_kanban_content > .o_title > h3, .o_kanban_dashboard:not(.o_legacy_kanban_view) .o_kanban_record > div .oe_kanban_content > .o_title > .h3{
         color: #dcdcdc;
@@ -523,7 +543,7 @@ body.f_dark_mode{
     }
 
     .text-900{
-        color:#333 !important;
+        //color:#333 !important;
     }
 
     .o_form_sheet_bg{
@@ -707,5 +727,13 @@ body.f_dark_mode{
 
     }
 
+    .o_error_dialog .modal-header {
+           margin-bottom:0rem;
+    }
 
+
+}
+
+body.f_dark_mode .btn-light, body.f_dark_mode .o_form_view .o_statusbar_status .o_arrow_button:not(.disabled){
+    background-color:$dark-bg !important;
 }
