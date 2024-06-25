@@ -6,6 +6,7 @@ from markupsafe import Markup
 from flectra import api, fields, models, _
 from flectra.addons.mail.tools.parser import parse_res_ids
 from flectra.exceptions import ValidationError
+from flectra.tools import html2plaintext
 from flectra.tools.misc import clean_context, format_date
 
 
@@ -189,7 +190,7 @@ class MailActivitySchedule(models.TransientModel):
                     'activity_type_id', 'activity_user_id')  # activity specific
     def _check_consistency(self):
         for scheduler in self.filtered('error'):
-            raise ValidationError(scheduler.error)
+            raise ValidationError(html2plaintext(scheduler.error))
 
     @api.constrains('res_ids')
     def _check_res_ids(self):

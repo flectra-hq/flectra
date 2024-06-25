@@ -21,7 +21,7 @@ import contextlib
 import requests
 import secrets
 
-from flectra import _, http, service
+from flectra import _, http, release, service
 from flectra.tools.func import lazy_property
 from flectra.tools.misc import file_path
 
@@ -232,7 +232,7 @@ def get_certificate_status(is_first=True):
                                               "The HTTPS certificate was generated correctly")
 
 def get_img_name():
-    major, minor = get_version().split('.')
+    major, minor = get_version()[1:].split('.')
     return 'iotboxv%s_%s.zip' % (major, minor)
 
 def get_ip():
@@ -272,11 +272,29 @@ def get_flectra_server_url():
 def get_token():
     return read_file_first_line('token')
 
-def get_version():
+
+def get_commit_hash():
+    return subprocess.run(
+        ['git', '--work-tree=/home/pi/flectra/', '--git-dir=/home/pi/flectra/.git', 'rev-parse', '--short', 'HEAD'],
+        stdout=subprocess.PIPE,
+        check=True,
+    ).stdout.decode('ascii').strip()
+
+
+def get_version(detailed_version=False):
     if platform.system() == 'Linux':
-        return read_file_first_line('/var/flectra/iotbox_version')
+        image_version = read_file_first_line('/var/flectra/iotbox_version')
     elif platform.system() == 'Windows':
-        return 'W23_11'
+        # updated manually when big changes are made to the windows virtual IoT
+        image_version = '23.11'
+
+    version = platform.system()[0] + image_version
+    if detailed_version:
+        # Note: on windows IoT, the `release.version` finish with the build date
+        version += f"-{release.version}"
+        if platform.system() == 'Linux':
+            version += f'#{get_commit_hash()}'
+    return version
 
 def get_wifi_essid():
     wifi_options = []
