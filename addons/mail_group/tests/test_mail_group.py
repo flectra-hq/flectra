@@ -4,11 +4,13 @@
 from flectra.addons.mail.tests.common import mail_new_test_user
 from flectra.addons.mail_group.tests.common import TestMailListCommon
 from flectra.exceptions import ValidationError, AccessError
-from flectra.tests.common import users
+from flectra.tests.common import tagged, users
 from flectra.tools import mute_logger, append_content_to_html
 
 
+@tagged("mail_group")
 class TestMailGroup(TestMailListCommon):
+
     def test_clean_email_body(self):
         footer = self.env['ir.qweb']._render('mail_group.mail_group_footer', {'group_url': 'Test remove footer'}, minimal_qcontext=True)
         body = append_content_to_html("<div>Test email body</div>", footer, plaintext=False)
