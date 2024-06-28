@@ -12,21 +12,24 @@ body.f_dark_mode {
       background-color: #292929 !important;
     }
 
-    h1,h2,h3,h4,h5,h6{
-        color: #dcdcdc !important;
-    }
-
-    .text-body {
-        color: #babcbd !important;
-    }
-
     html::before, body::before {
       background-image: none !important;
     }
     .o_field_widget.o_field_selection{
         select option{
                 background: transparent !important;
+                color: #777 !important;
             }
+    }
+    .alert-info .alert-link{
+        color: #00639e !important;
+    }
+    .o_form_label.o_field_invalid, .o_field_invalid {
+        color: #d91f1f !important;
+        input, .o_input{
+            border-color: #d91f1f !important;
+         }
+
     }
     .o_list_renderer .o_list_table tr.o_data_row_selected td, .o_list_renderer .o_list_table tbody > tr.o_data_row_selected > td.o_list_number:not(.o_list_record_selector){
         background-color: #dedede !important
@@ -47,8 +50,7 @@ body.f_dark_mode {
     }
 
     .o_main_navbar {
-       // background-color: transparent;
-        background-image: linear-gradient(-225deg, #000000 0%, #545e66 100%);
+        background:$dark-bg;
 
         .o_menu_sections .o_nav_entry, .o_menu_sections .dropdown-toggle {
             background: transparent !important;
@@ -117,7 +119,9 @@ body.f_dark_mode {
               color: #212529 !important;
           }
     }
-
+    .o_pivot table .o_pivot_measure_row:hover, .o_pivot table .o_pivot_origin_row:hover, .o_pivot table .o_pivot_header_cell_closed:hover, .o_pivot table .o_pivot_header_cell_opened:hover {
+            color: #212529 !important;
+    }
     .o_notebook .nav {
         background-color: #212529 !important;
     }
@@ -198,10 +202,18 @@ body.f_dark_mode {
     .o_MessageList_separatorLabel{
         background-color: #212529 !important;
     }
+    .o_group_by_menu{
+        .o_add_custom_group_menu option{
+            background: inherit !important;
+            color: inherit !important;
+         }
+    }
+
     .o_input, .o_input .o_input {
-        background-color: transparent;
+        background-color: transparent !important;
         //border: none;
         border-radius: 0;
+        color: inherit !important;
         //border-bottom: 1px solid #dcdcdc !important;
         background-position: center bottom, center calc(100% - 1px);
         background-repeat: no-repeat;
@@ -252,7 +264,7 @@ body.f_dark_mode {
     .o_form_view .o_form_statusbar .o_statusbar_status > .o_arrow_button {
         background-color: #777777;
         //color: #dcdcdc !important;
-        color: #333 !important;
+        //color: #333 !important;
 
         &:hover{
             background: $o-brand-primary !important;
@@ -353,12 +365,59 @@ body.f_dark_mode {
         //color: #dcdcdc !important;
         background-color: #434343 !important;
         color: #fff !important;
+
+        button.btn-close{
+            filter: invert(1);
+         }
+        .form-switch .form-check-input{
+            background-color: transparent !important;
+        }
+        .o_domain_selector_debug_container{
+            .text-body{
+                color: inherit !important;
+           }
+         }
+        .o-autocomplete{
+            background-color: transparent !important;
+         }
+        .o_model_field_selector_chain_part{
+            background-color: transparent !important;
+            border-color: transparent !important;
+         }
+        select option{
+            color: #777 !important;
+         }
     }
 
+     .o_list_table{
+         [data-tooltip="Draft"], [data-tooltip="Nothing to Bill"]{
+            .o_field_badge span{
+                 color: #fff !important;
+                background-color: #7c7c7c !important;
+            }
+         }
+     }
+    .o_kanban_header.position-sticky.z-index-1{
+        background: $dark-bg;
+        z-index: 5 !important;
+     }
+    .o_view_nocontent .o_nocontent_help > p:first-of-type{
+        color: inherit !important;
+    }
+
+    .o_model_field_selector_popover .o_model_field_selector_popover_header, .o_model_field_selector_popover .o_model_field_selector_popover_footer{
+        background-color: $dark-bg;
+
+     }
+     .o_popover_field_selector.o-popover-bottom > .popover-arrow::after {
+        border-bottom-color:  $dark-bg;
+    }
     .modal-title{
         color: #fff !important;
     }
-
+    .o_kanban_quick_create .o_inner_group .o_input{
+            background-color: #212529 !important;
+    }
     .note-editable,.o_purchase_dashboard{
         background-color: #212529 !important;
         color: #dcdcdc !important;
@@ -468,6 +527,7 @@ body.f_dark_mode {
     }
     .o_data_row_selected td{
         color: #333 !important;
+
     }
     .o_kanban_dashboard:not(.o_legacy_kanban_view) .o_kanban_record > div .o_kanban_card_header_title .o_primary, .o_kanban_dashboard:not(.o_legacy_kanban_view) .o_kanban_record > div .o_kanban_primary_left .o_primary > span:first-child, .o_kanban_dashboard:not(.o_legacy_kanban_view) .o_kanban_record > div .oe_kanban_content > .o_title > h3, .o_kanban_dashboard:not(.o_legacy_kanban_view) .o_kanban_record > div .oe_kanban_content > .o_title > .h3{
         color: #dcdcdc;
@@ -614,17 +674,24 @@ body.f_dark_mode{
             border:1px solid !important;
         }
     }
-
-    .o_list_renderer .o_list_table tbody > tr > td:not(.o_list_record_selector).o_list_button,
-    .o_list_renderer .o_list_table .o_list_record_selector{
-        background:transparent !important;
-    }
+    .o_data_row_selected{
+        .o_list_button{
+            color: #333 !important;
+            background-color: #dedede !important;
+            }
+     }
+//     .o_list_renderer .o_list_table tbody > tr > td:not(.o_list_record_selector).o_list_button,
+//     .o_list_renderer .o_list_table .o_list_record_selector{
+//         background:transparent !important;
+//     }
 
     .o_form_view .o_notebook > .tab-content > .tab-pane > :first-child:not(.o_group) .o_field_x2many.o_field_x2many_list .o_list_renderer tr > :first-child.o_handle_cell,
     .o_list_renderer .o_list_table .o_list_record_remove{
          background:transparent !important;
     }
-
+    .o_data_row td{
+        background-color: transparent !important;
+    }
     .o_popover{
         .o_avatar_card{
             .card-body{
@@ -641,7 +708,7 @@ body.f_dark_mode{
         }
 
         .o_datetime_picker .o_datetime_picker_header .o_header_part{
-           // color:#333 !important;
+            color:#333 !important;
         }
 
         .o-mail-ActivityMarkAsDone{
@@ -739,33 +806,25 @@ body.f_dark_mode{
            margin-bottom:0rem;
     }
 
-    .o_model_field_selector_popover{
-        .bg-view{
-            background-color:$dark-bg !important;
+    .o_kanban_view{
+        .o_form_view.o_xxs_form_view .o_form_label {
+            background-color:#555 !important;
         }
     }
 
-    .modal-body{
-        select > option{
-            background:$dark-bg !important;
-        }
+    .oi.oi-close.align-text-top:before{
+        color:#333 !important;
     }
 
-    .o_list_unselect_all{
-        margin-right: 4px !important;
-        margin-left: 4px !important;
+    .o-mail-Chatter-topbar{
+         .btn.px-0.my-2{
+                padding-right: 20px !important;
+         }
     }
 
-    select > option{
-        background:$dark-bg !important;
+    .o_setting_right_pane button.btn-link:first-child {
+        padding: revert-layer;
     }
-
-    .list-group-item.active{
-        .o_list_select_domain{
-            margin-right: 0 !important;
-        }
-    }
-
 
 
 }
