@@ -3,6 +3,7 @@
 import { Model } from "@flectra/o-spreadsheet";
 import { getBasicData } from "@spreadsheet/../tests/utils/data";
 import { createBasicChart } from "@spreadsheet/../tests/utils/commands";
+import { createSpreadsheetWithChart } from "@spreadsheet/../tests/utils/chart";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { registry } from "@web/core/registry";
 import { menuService } from "@web/webclient/menus/menu_service";
@@ -166,5 +167,45 @@ QUnit.module(
             });
             assert.equal(model.getters.getChartFlectraMenu(chartId), undefined);
         });
+
+        QUnit.test(
+            "Links of Flectra charts are duplicated when duplicating a sheet",
+            async function (assert) {
+                const { model } = await createSpreadsheetWithChart({
+                    type: "flectra_pie",
+                    serverData: this.serverData,
+                });
+                const sheetId = model.getters.getActiveSheetId();
+                const secondSheetId = "mySecondSheetId";
+                const chartId = model.getters.getChartIds(sheetId)[0];
+                model.dispatch("DUPLICATE_SHEET", { sheetId, sheetIdTo: secondSheetId });
+                const newChartId = model.getters.getChartIds(secondSheetId)[0];
+                assert.deepEqual(
+                    model.getters.getChartFlectraMenu(newChartId),
+                    model.getters.getChartFlectraMenu(chartId)
+                );
+            }
+        );
+
+        QUnit.test(
+            "Links of standard charts are duplicated when duplicating a sheet",
+            async function (assert) {
+                const env = await makeTestEnv({ serverData: this.serverData });
+                const model = new Model({}, { custom: { env } });
+                const sheetId = model.getters.getActiveSheetId();
+                const secondSheetId = "mySecondSheetId";
+                createBasicChart(model, chartId);
+                model.dispatch("LINK_FLECTRA_MENU_TO_CHART", {
+                    chartId,
+                    flectraMenuId: 1,
+                });
+                model.dispatch("DUPLICATE_SHEET", { sheetId, sheetIdTo: secondSheetId });
+                const newChartId = model.getters.getChartIds(secondSheetId)[0];
+                assert.deepEqual(
+                    model.getters.getChartFlectraMenu(newChartId),
+                    model.getters.getChartFlectraMenu(chartId)
+                );
+            }
+        );
     }
 );

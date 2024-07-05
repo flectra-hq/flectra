@@ -7,6 +7,7 @@ import psycopg2
 import psycopg2.errorcodes
 
 import flectra
+from flectra.exceptions import UserError
 from flectra.tests import common
 from flectra.tests.common import BaseCase
 from flectra.tools.misc import mute_logger
@@ -174,6 +175,22 @@ class TestIrSequenceGenerate(BaseCase):
             for i in range(1, 10):
                 n = env['ir.sequence'].next_by_code('test_sequence_type_6')
                 self.assertEqual(n, str(i))
+
+    def test_ir_sequence_prefix(self):
+        """ test whether the raise a user error for an invalid sequence """
+
+        # try to create a sequence with invalid prefix
+        with environment() as env:
+            seq = env['ir.sequence'].create({
+                'code': 'test_sequence_type_7',
+                'name': 'Test sequence',
+                'prefix': '%u',
+                'suffix': '',
+            })
+            self.assertTrue(seq)
+
+            with self.assertRaises(UserError):
+                env['ir.sequence'].next_by_code('test_sequence_type_7')
 
     @classmethod
     def tearDownClass(cls):

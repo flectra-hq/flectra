@@ -1746,6 +1746,8 @@ export class Wysiwyg extends Component {
             }
             this.flectraEditor.unbreakableStepUnactive();
             this.flectraEditor.historyStep();
+            // Refocus again to save updates when calling `_onWysiwygBlur`
+            params.node.ownerDocument.defaultView.focus();
         } else {
             return this.flectraEditor.execCommand('insert', element);
         }
