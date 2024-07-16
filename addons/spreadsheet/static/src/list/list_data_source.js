@@ -104,7 +104,7 @@ export class ListDataSource extends FlectraViewsDataSource {
                     };
                     break;
                 default:
-                    spec[field.name] = field;
+                    spec[field.name] = {};
                     break;
             }
         }

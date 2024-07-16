@@ -11,7 +11,6 @@ from markupsafe import Markup
 
 from flectra import api, fields, models, registry, _
 from flectra.tools import ormcache_context, email_normalize
-from flectra.exceptions import UserError
 from flectra.osv import expression
 
 from flectra.addons.google_calendar.utils.google_event import GoogleEvent
@@ -165,7 +164,7 @@ class GoogleSync(models.AbstractModel):
         ]
         new_flectra = self.with_context(dont_notify=True)._create_from_google(new, flectra_values)
         cancelled = existing.cancelled()
-        cancelled_flectra = self.browse(cancelled.flectra_ids(self.env))
+        cancelled_flectra = self.browse(cancelled.flectra_ids(self.env)).exists()
 
         # Check if it is a recurring event that has been rescheduled.
         # We have to check if an event already exists in Flectra.
@@ -180,11 +179,16 @@ class GoogleSync(models.AbstractModel):
 
         cancelled_flectra.exists()._cancel()
         synced_records = new_flectra + cancelled_flectra
-        for gevent in existing - cancelled:
+        pending = existing - cancelled
+        pending_flectra = self.browse(pending.flectra_ids(self.env)).exists()
+        for gevent in pending:
+            flectra_record = self.browse(gevent.flectra_id(self.env))
+            if flectra_record not in pending_flectra:
+                # The record must have been deleted in the mean time; nothing left to sync
+                continue
             # Last updated wins.
             # This could be dangerous if google server time and flectra server time are different
             updated = parse(gevent.updated)
-            flectra_record = self.browse(gevent.flectra_id(self.env))
             # Use the record's write_date to apply Google updates only if they are newer than Flectra's write_date.
             flectra_record_write_date = write_dates.get(flectra_record.id, flectra_record.write_date)
             # Migration from 13.4 does not fill write_date. Therefore, we force the update from Google.
