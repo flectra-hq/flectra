@@ -67,7 +67,7 @@ Unicode True
 !endif
 
 !ifndef TOOLSDIR
-	!define TOOLSDIR 'c:\odoobuild'
+	!define TOOLSDIR 'c:\flectrabuild'
 !endif
 
 !define PRODUCT_NAME "Flectra"
@@ -87,7 +87,7 @@ Unicode True
 
 Name '${DISPLAY_NAME}'
 Caption "${PRODUCT_NAME} ${VERSION} Setup"
-OutFile "${TOOLSDIR}\server\odoo_setup_${VERSION}.exe"
+OutFile "${TOOLSDIR}\server\flectra_setup_${VERSION}.exe"
 SetCompressor /SOLID /FINAL lzma
 ShowInstDetails hide
 
@@ -159,7 +159,7 @@ Page Custom ShowProxyTokenDialogPage
 !insertmacro MUI_RESERVEFILE_LANGDLL
 
 ; English
-LangString DESC_Odoo_Server ${LANG_ENGLISH} "Install the Flectra Server with all the Flectra standard modules."
+LangString DESC_Flectra_Server ${LANG_ENGLISH} "Install the Flectra Server with all the Flectra standard modules."
 LangString DESC_PostgreSQL ${LANG_ENGLISH} "Install the PostgreSQL RDBMS used by Flectra."
 LangString DESC_FinishPage_Link ${LANG_ENGLISH} "Contact Flectra for Partnership and/or Support"
 LangString DESC_AtLeastOneComponent ${LANG_ENGLISH} "You have to choose at least one component"
@@ -176,7 +176,7 @@ LangString DESC_PostgreSQL_Password ${LANG_ENGLISH} "Password"
 LangString Profile_AllInOne ${LANG_ENGLISH} "Flectra Server And PostgreSQL Server"
 LangString Profile_Server ${LANG_ENGLISH} "Flectra Server Only"
 LangString Profile_IOT ${LANG_ENGLISH} "Flectra IoT"
-LangString TITLE_Odoo_Server ${LANG_ENGLISH} "Flectra Server"
+LangString TITLE_Flectra_Server ${LANG_ENGLISH} "Flectra Server"
 LangString TITLE_PostgreSQL ${LANG_ENGLISH} "PostgreSQL Database"
 LangString TITLE_IOT ${LANG_ENGLISH} "Flectra IoT"
 LangString TITLE_Nginx ${LANG_ENGLISH} "Nginx WebServer"
@@ -185,7 +185,7 @@ LangString DESC_FinishPageText ${LANG_ENGLISH} "Start Flectra"
 LangString UnsafeDirText ${LANG_ENGLISH} "Installing outside of $PROGRAMFILES64 is not recommended.$\nDo you want to continue ?"
 
 ; French
-LangString DESC_Odoo_Server ${LANG_FRENCH} "Installation du Serveur Flectra avec tous les modules Flectra standards."
+LangString DESC_Flectra_Server ${LANG_FRENCH} "Installation du Serveur Flectra avec tous les modules Flectra standards."
 LangString DESC_PostgreSQL ${LANG_FRENCH} "Installation de la base de données PostgreSQL utilisée par Flectra."
 LangString DESC_FinishPage_Link ${LANG_FRENCH} "Contactez Flectra pour un Partenariat et/ou du Support"
 LangString DESC_AtLeastOneComponent ${LANG_FRENCH} "Vous devez choisir au moins un composant"
@@ -202,7 +202,7 @@ LangString DESC_PostgreSQL_Password ${LANG_FRENCH} "Mot de passe"
 LangString Profile_AllInOne ${LANG_FRENCH} "Serveur Flectra Et Serveur PostgreSQL"
 LangString Profile_Server ${LANG_FRENCH} "Seulement Le Serveur Flectra"
 LangString Profile_IOT ${LANG_FRENCH} "Flectra IoT"
-LangString TITLE_Odoo_Server ${LANG_FRENCH} "Serveur Flectra"
+LangString TITLE_Flectra_Server ${LANG_FRENCH} "Serveur Flectra"
 LangString TITLE_PostgreSQL ${LANG_FRENCH} "Installation du serveur de base de données PostgreSQL"
 LangString TITLE_IOT ${LANG_FRENCH} "Flectra IoT"
 LangString TITLE_Nginx ${LANG_FRENCH} "Installation du serveur web Nginx"
@@ -215,7 +215,7 @@ InstType $(Profile_AllInOne)
 InstType $(Profile_Server)
 InstType $(Profile_IOT)
 
-Section $(TITLE_Odoo_Server) SectionOdoo_Server
+Section $(TITLE_Flectra_Server) SectionFlectra_Server
     SectionIn 1 2 3
 
     # Installing winpython
@@ -265,7 +265,7 @@ Section $(TITLE_Odoo_Server) SectionOdoo_Server
     nsExec::ExecToLog '"$INSTDIR\nssm\win64\nssm.exe" set ${SERVICENAME} ObjectName "LOCALSERVICE"'
     AccessControl::GrantOnFile  "$INSTDIR" "LOCALSERVICE" "FullAccess"
 
-    Call RestartOdooService
+    Call RestartFlectraService
 SectionEnd
 
 Section $(TITLE_PostgreSQL) SectionPostgreSQL
@@ -295,7 +295,7 @@ Section $(TITLE_PostgreSQL) SectionPostgreSQL
         --mode unattended \
         --prefix "$INSTDIR\PostgreSQL" \
         --datadir "$INSTDIR\PostgreSQL\data" \
-        --servicename "PostgreSQL_For_Odoo" \
+        --servicename "PostgreSQL_For_Flectra" \
         --serviceaccount "openpgsvc" --servicepassword "0p3npgsvcPWD" \
         --superaccount "$TextPostgreSQLUsername" --superpassword "$TextPostgreSQLPassword" \
         --serverport $TextPostgreSQLPort'
@@ -365,7 +365,7 @@ Section $(TITLE_Ghostscript) SectionGhostscript
     ExecWait '"$TEMP\$ghostscript_exe_filename" \
         /S \
         /D=$INSTDIR\Ghostscript'
-    Call RestartOdooService
+    Call RestartFlectraService
 SectionEnd
 
 Section -Post
@@ -384,7 +384,7 @@ Section -Post
 SectionEnd
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-    !insertmacro MUI_DESCRIPTION_TEXT ${SectionOdoo_Server} $(DESC_Odoo_Server)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SectionFlectra_Server} $(DESC_Flectra_Server)
     !insertmacro MUI_DESCRIPTION_TEXT ${SectionPostgreSQL} $(DESC_PostgreSQL)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
@@ -561,7 +561,7 @@ Function ShowProxyTokenDialogPage
 FunctionEnd
 
 Function ComponentLeave
-    SectionGetFlags ${SectionOdoo_Server} $0
+    SectionGetFlags ${SectionFlectra_Server} $0
     IntOp $0 $0 & ${SF_SELECTED}
     IntCmp $0 ${SF_SELECTED} Done
 
@@ -576,10 +576,10 @@ Function ComponentLeave
 FunctionEnd
 
 Function LaunchLink
-    ExecShell "open" "http://localhost:8069/"
+    ExecShell "open" "http://localhost:7073/"
 FunctionEnd
 
-Function RestartOdooService
+Function RestartFlectraService
     DetailPrint "Restarting Flectra Service"
     ExecWait "net stop ${SERVICENAME}"
     ExecWait "net start ${SERVICENAME}"

@@ -43,45 +43,45 @@ customizable reports, and XML-RPC interfaces.
 
 set -e
 
-ODOO_CONFIGURATION_DIR=/etc/flectra
-ODOO_CONFIGURATION_FILE=$ODOO_CONFIGURATION_DIR/flectra.conf
-ODOO_DATA_DIR=/var/lib/flectra
-ODOO_GROUP="flectra"
-ODOO_LOG_DIR=/var/log/flectra
-ODOO_LOG_FILE=$ODOO_LOG_DIR/flectra-server.log
-ODOO_USER="flectra"
+FLECTRA_CONFIGURATION_DIR=/etc/flectra
+FLECTRA_CONFIGURATION_FILE=$FLECTRA_CONFIGURATION_DIR/flectra.conf
+FLECTRA_DATA_DIR=/var/lib/flectra
+FLECTRA_GROUP="flectra"
+FLECTRA_LOG_DIR=/var/log/flectra
+FLECTRA_LOG_FILE=$FLECTRA_LOG_DIR/flectra-server.log
+FLECTRA_USER="flectra"
 
 if ! getent passwd | grep -q "^flectra:"; then
-    groupadd $ODOO_GROUP
-    adduser --system --no-create-home $ODOO_USER -g $ODOO_GROUP
+    groupadd $FLECTRA_GROUP
+    adduser --system --no-create-home $FLECTRA_USER -g $FLECTRA_GROUP
 fi
-# Register "$ODOO_USER" as a postgres user with "Create DB" role attribute
-su - postgres -c "createuser -d -R -S $ODOO_USER" 2> /dev/null || true
+# Register "$FLECTRA_USER" as a postgres user with "Create DB" role attribute
+su - postgres -c "createuser -d -R -S $FLECTRA_USER" 2> /dev/null || true
 # Configuration file
-mkdir -p $ODOO_CONFIGURATION_DIR
+mkdir -p $FLECTRA_CONFIGURATION_DIR
 # can't copy debian config-file as addons_path is not the same
-if [ ! -f $ODOO_CONFIGURATION_FILE ]
+if [ ! -f $FLECTRA_CONFIGURATION_FILE ]
 then
     echo "[options]
 ; This is the password that allows database operations:
 ; admin_passwd = admin
 db_host = False
 db_port = False
-db_user = $ODOO_USER
+db_user = $FLECTRA_USER
 db_password = False
 addons_path = %{python3_sitelib}/flectra/addons
 default_productivity_apps = True
-" > $ODOO_CONFIGURATION_FILE
-    chown $ODOO_USER:$ODOO_GROUP $ODOO_CONFIGURATION_FILE
-    chmod 0640 $ODOO_CONFIGURATION_FILE
+" > $FLECTRA_CONFIGURATION_FILE
+    chown $FLECTRA_USER:$FLECTRA_GROUP $FLECTRA_CONFIGURATION_FILE
+    chmod 0640 $FLECTRA_CONFIGURATION_FILE
 fi
 # Log
-mkdir -p $ODOO_LOG_DIR
-chown $ODOO_USER:$ODOO_GROUP $ODOO_LOG_DIR
-chmod 0750 $ODOO_LOG_DIR
+mkdir -p $FLECTRA_LOG_DIR
+chown $FLECTRA_USER:$FLECTRA_GROUP $FLECTRA_LOG_DIR
+chmod 0750 $FLECTRA_LOG_DIR
 # Data dir
-mkdir -p $ODOO_DATA_DIR
-chown $ODOO_USER:$ODOO_GROUP $ODOO_DATA_DIR
+mkdir -p $FLECTRA_DATA_DIR
+chown $FLECTRA_USER:$FLECTRA_GROUP $FLECTRA_DATA_DIR
 
 INIT_FILE=/lib/systemd/system/flectra.service
 touch $INIT_FILE
@@ -95,7 +95,7 @@ After=network.target
 Type=simple
 User=flectra
 Group=flectra
-ExecStart=/usr/bin/flectra --config $ODOO_CONFIGURATION_FILE --logfile $ODOO_LOG_FILE
+ExecStart=/usr/bin/flectra --config $FLECTRA_CONFIGURATION_FILE --logfile $FLECTRA_LOG_FILE
 KillMode=mixed
 
 [Install]
