@@ -4,8 +4,10 @@ import { NavBar } from "@web/webclient/navbar/navbar";
 import { patch } from "@web/core/utils/patch";
 const { hooks,useState } = owl;
 import {useService, useRef, useBus} from "@web/core/utils/hooks";
-
+import { registry } from "@web/core/registry";
+import { session } from "@web/session";
 import { isMobileOS } from "@web/core/browser/feature_detection";
+const websiteSystrayRegistry = registry.category('website_systray');
 
 patch(NavBar.prototype, {
     setup(...args) {
@@ -14,6 +16,17 @@ patch(NavBar.prototype, {
             isMobile: isMobileOS(),
             prev_url: null,
         });
+        if(websiteSystrayRegistry){
+            useBus(websiteSystrayRegistry, 'EDIT-WEBSITE', () => {
+                if(this.shouldDisplayWebsiteSystray){
+                    $('body').removeClass('f_dark_mode');
+                } else {
+                    if(session.dark_mode){
+                        $('body').addClass('f_dark_mode');
+                    }
+                }
+            });
+        }
         this.router = useService('router')
         super.setup(...args);
         useBus(this.env.bus ,'app_clicked', (res) => {
