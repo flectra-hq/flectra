@@ -16,6 +16,7 @@ class Http(models.AbstractModel):
     def session_info(self):
         res = super().session_info()
         res['preloader_option'] = self.env.company.sudo().preloader_option
+        res['dark_mode'] = self.env.user.sudo().dark_mode
         return res
 
 
