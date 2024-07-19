@@ -19,7 +19,7 @@ from flectra import SUPERUSER_ID, _, http
 from flectra.addons.base.models.assetsbundle import ANY_UNIQUE
 from flectra.exceptions import AccessError, UserError
 from flectra.http import request, Response
-from flectra.tools import file_open, file_path, replace_exceptions
+from flectra.tools import file_open, file_path, replace_exceptions, str2bool
 from flectra.tools.image import image_guess_size_from_field_name
 from flectra.tools.mimetypes import guess_mimetype
 
@@ -75,7 +75,7 @@ class Binary(http.Controller):
             if request.httprequest.args.get('access_token'):
                 stream.public = True
 
-        send_file_kwargs = {'as_attachment': download}
+        send_file_kwargs = {'as_attachment': str2bool(download)}
         if unique:
             send_file_kwargs['immutable'] = True
             send_file_kwargs['max_age'] = http.STATIC_CACHE_LONG
@@ -188,7 +188,7 @@ class Binary(http.Controller):
             )
             stream.public = False
 
-        send_file_kwargs = {'as_attachment': download}
+        send_file_kwargs = {'as_attachment': str2bool(download)}
         if unique:
             send_file_kwargs['immutable'] = True
             send_file_kwargs['max_age'] = http.STATIC_CACHE_LONG

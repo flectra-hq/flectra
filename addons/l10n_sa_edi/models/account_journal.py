@@ -4,8 +4,10 @@ from markupsafe import Markup
 from lxml import etree
 from datetime import datetime
 from base64 import b64encode, b64decode
+from importlib import metadata
 from flectra import models, fields, service, _, api
 from flectra.exceptions import UserError
+from flectra.tools import parse_version
 from flectra.tools.misc import file_open
 from requests.exceptions import HTTPError, RequestException
 from cryptography import x509
@@ -513,7 +515,11 @@ class AccountJournal(models.Model):
         """
         b64_decoded_pcsid = b64decode(PCSID_data['binarySecurityToken'])
         x509_certificate = load_der_x509_certificate(b64decode(b64_decoded_pcsid.decode()), default_backend())
-        return x509_certificate.not_valid_after
+        if parse_version(metadata.version('cryptography')) < parse_version('42.0.0'):
+            not_valid_after = x509_certificate.not_valid_after
+        else:
+            not_valid_after = x509_certificate.not_valid_after_utc.replace(tzinfo=None)
+        return not_valid_after
 
     def _l10n_sa_request_production_csid(self, csid_data, renew=False, otp=None):
         """
