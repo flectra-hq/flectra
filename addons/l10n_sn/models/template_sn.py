@@ -1,4 +1,4 @@
-from flectra import models
+from flectra import models, _
 from flectra.addons.account.models.chart_template import template
 
 
@@ -8,7 +8,7 @@ class AccountChartTemplate(models.AbstractModel):
     @template('sn')
     def _get_sn_template_data(self):
         return {
-            'name': 'Syscohada for Sénégal',
+            'name': _('SYSCOHADA for Companies'),
             'parent': 'syscohada',
             'code_digits': '6',
         }
