@@ -12,6 +12,7 @@ export function getTooltipInfo(params) {
         debug: Boolean(flectra.debug),
         field: {
             name: params.field.name,
+            label: params.field.string,
             help: params.fieldInfo.help ?? params.field.help,
             type: params.field.type,
             widget: params.fieldInfo.widget,

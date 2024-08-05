@@ -178,6 +178,7 @@ export class Wysiwyg extends Component {
                 this.flectraEditor.historyPauseSteps();
                 try {
                     this._processAndApplyColor(colorType, props.color, true);
+                    this.flectraEditor._computeHistorySelection();
                 } finally {
                     this.flectraEditor.historyUnpauseSteps();
                 }
