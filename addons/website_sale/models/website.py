@@ -2,7 +2,6 @@
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 from flectra import SUPERUSER_ID, _, _lt, api, fields, models, tools
-from flectra.exceptions import UserError
 from flectra.http import request
 from flectra.osv import expression
 
@@ -361,16 +360,6 @@ class Website(models.Model):
         pricelist_id = False
 
         partner_sudo = self.env.user.partner_id
-
-        if partner_sudo.company_id and not partner_sudo.filtered_domain(
-            self.env['res.partner']._check_company_domain(self.company_id)
-        ):
-            raise UserError(_(
-                "Your account is not allowed to pay in company %s."
-                " Please log out and create a new account for this website, or contact the website"
-                " administrator.",
-                self.company_id.name,
-            ))
 
         # cart creation was requested
         if not sale_order_sudo:

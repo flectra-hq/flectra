@@ -469,7 +469,7 @@ class Picking(models.Model):
         'Has Scrap Moves', compute='_has_scrap_move')
     picking_type_id = fields.Many2one(
         'stock.picking.type', 'Operation Type',
-        required=True, readonly=True, index=True,
+        required=True, index=True,
         default=_default_picking_type_id)
     picking_type_code = fields.Selection(
         related='picking_type_id.code',
@@ -959,6 +959,7 @@ class Picking(models.Model):
             'views': [(view_id, 'tree')],
             'domain': [('id', 'in', self.move_line_ids.ids)],
             'context': {
+                'create': self.state != 'done' or not self.is_locked,
                 'default_picking_id': self.id,
                 'default_location_id': self.location_id.id,
                 'default_location_dest_id': self.location_dest_id.id,

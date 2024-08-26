@@ -3,7 +3,7 @@ import base64
 import io
 
 from flectra.addons.account.tests.common import AccountTestInvoicingCommon
-from flectra.exceptions import UserError
+from flectra.exceptions import RedirectWarning
 from flectra.tools import pdf
 from flectra.tests import tagged
 from flectra.tools import file_open
@@ -43,7 +43,7 @@ class TestIrActionsReport(AccountTestInvoicingCommon):
         test_record_report = self.env['ir.actions.report'].with_context(force_report_rendering=True)._render_qweb_pdf('account.action_account_original_vendor_bill', res_ids=in_invoice_1.id)
         self.assertTrue(test_record_report, "The PDF should have been generated")
 
-    def test_download_one_encrypted_pdf(self):
+    def test_download_with_encrypted_pdf(self):
         """
         Same as test_download_one_corrupted_pdf
         but for encrypted pdf with no password and set encryption type to 5 (not known by PyPDF2)
@@ -94,5 +94,5 @@ class TestIrActionsReport(AccountTestInvoicingCommon):
             'res_id': in_invoice_2.id,
         })
         # trying to merge with a corrupted attachment should not work
-        with self.assertRaises(UserError):
+        with self.assertRaises(RedirectWarning):
             self.env['ir.actions.report'].with_context(force_report_rendering=True)._render_qweb_pdf('account.action_account_original_vendor_bill', res_ids=[in_invoice_1.id, in_invoice_2.id])

@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-# Part of Flectra. See LICENSE file for full copyright and licensing details.
-
-from urllib.parse import urlparse
-
 import flectra.tests
 from flectra.tests.common import HOST
 from flectra.tools import config
@@ -50,7 +45,7 @@ class TestWebsiteAttachment(flectra.tests.HttpCase):
 
         req = self.opener.get(base + '/web/image/test.an_image_redirect_301', allow_redirects=False)
         self.assertEqual(req.status_code, 301)
-        self.assertEqual(urlparse(req.headers.get('Location', '')).path, '/web/image/test.an_image_url')
+        self.assertURLEqual(req.headers.get('Location'), '/web/image/test.an_image_url')
 
         req = self.opener.get(base + '/web/image/test.an_image_redirect_301', allow_redirects=True)
         self.assertEqual(req.status_code, 200)
