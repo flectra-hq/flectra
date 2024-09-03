@@ -1224,7 +1224,11 @@ class MrpProduction(models.Model):
             qty_producing_uom = self.product_uom_id._compute_quantity(self.qty_producing, self.product_id.uom_id, rounding_method='HALF-UP')
             if qty_producing_uom != 1:
                 self.qty_producing = self.product_id.uom_id._compute_quantity(1, self.product_uom_id, rounding_method='HALF-UP')
-        for move in (self.move_raw_ids | self.move_finished_ids.filtered(lambda m: m.product_id != self.product_id)):
+
+        # waiting for a preproduction move before assignement
+        is_waiting = self.warehouse_id.manufacture_steps != 'mrp_one_step' and self.picking_ids.filtered(lambda p: p.picking_type_id == self.warehouse_id.pbm_type_id and p.state not in ('done', 'cancel'))
+
+        for move in (self.move_raw_ids.filtered(lambda m: not is_waiting or m.product_id.tracking == 'none') | self.move_finished_ids.filtered(lambda m: m.product_id != self.product_id)):
             # picked + manual means the user set the quantity manually
             if move.manual_consumption and move.picked:
                 continue
@@ -1404,18 +1408,6 @@ class MrpProduction(models.Model):
         self._set_lot_producing()
         if self.product_id.tracking == 'serial':
             self._set_qty_producing()
-            if self.warehouse_id.manufacture_steps != 'mrp_one_step':
-                is_waiting = self.picking_ids.filtered(
-                    lambda p: p.picking_type_id == self.warehouse_id.pbm_type_id
-                    and p.state not in ('done', 'cancel')
-                )
-                if is_waiting:
-                    moves_to_reset = self.move_raw_ids.filtered(
-                        lambda move: not (move.manual_consumption and move.picked)
-                        and move.product_id.type == 'product'
-                    )
-                    moves_to_reset.picked = False
-                    moves_to_reset.quantity = 0.0
         if self.picking_type_id.auto_print_generated_mrp_lot:
             return self._autoprint_generated_lot(self.lot_producing_id)
 
@@ -1472,7 +1464,7 @@ class MrpProduction(models.Model):
         self.allow_workorder_dependencies = self.bom_id.allow_operation_dependencies
 
         def workorder_order(wo):
-            return (wo.operation_id.bom_id, wo.operation_id.sequence)
+            return (wo.operation_id.bom_id, wo.operation_id.sequence, wo.id)
 
         if self.allow_workorder_dependencies:
             for workorder in self.workorder_ids.sorted(workorder_order):
@@ -2159,13 +2151,18 @@ class MrpProduction(models.Model):
                 return self.with_context(always_backorder_mo_ids=mo_ids_always)._action_generate_backorder_wizard(mos_ask)
             elif mo_ids_always:
                 # we have to pass all the MOs that the nevers/no issue MOs are also passed to be "mark done" without a backorder
-                return self.with_context(skip_backorder=True, mo_ids_to_backorder=mo_ids_always).button_mark_done()
+                res = self.with_context(skip_backorder=True, mo_ids_to_backorder=mo_ids_always).button_mark_done()
+                return res if self._should_return_records() else True
         return True
 
     def _button_mark_done_sanity_checks(self):
         self._check_company()
         for order in self:
             order._check_sn_uniqueness()
+
+    def _should_return_records(self):
+        # Meant to be overriden for flows that don't want to be redirected to the backend e.g. barcode
+        return True
 
     def do_unreserve(self):
         (self.move_finished_ids | self.move_raw_ids).filtered(lambda x: x.state not in ('done', 'cancel'))._do_unreserve()

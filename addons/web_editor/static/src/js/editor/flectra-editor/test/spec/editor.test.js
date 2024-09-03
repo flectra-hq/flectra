@@ -159,6 +159,14 @@ describe('Editor', () => {
                 });
             });
         });
+        describe('sanitize should modify p within a', () => {
+            it('should unwrap p element inside editable a inside non editable div', async () => {
+                await testEditor(BasicEditor, {
+                    contentBefore: '<div contenteditable="false"><a href="" contenteditable="true"><p>abc</p></a></div>',
+                    contentAfter: '<div contenteditable="false"><a href="" contenteditable="true">abc</a></div>',
+                });
+            });
+        });
     });
     describe('deleteForward', () => {
         describe('Selection collapsed', () => {
@@ -5308,6 +5316,13 @@ X[]
                     contentBefore: '<table><tbody><tr style="height: 20px;"><td style="width: 20px;">ab</td><td>[cd]</td><td>ef</td></tr></tbody></table>',
                     stepFunction: async editor => triggerEvent(editor.editable, 'keydown', { key: 'Tab'}),
                     contentAfter: '<table><tbody><tr style="height: 20px;"><td style="width: 20px;">ab</td><td>cd</td><td>ef[]</td></tr></tbody></table>',
+                });
+            });
+            it('should move selection to the next cell', async () => {
+                await testEditor(BasicEditor, {
+                    contentBefore: '<ul><li><br><table><tbody><tr style="height: 20px;"><td style="width: 20px;">ab</td><td>[cd]</td><td>ef</td></tr></tbody></table><br></li></ul>',
+                    stepFunction: async editor => triggerEvent(editor.editable, 'keydown', { key: 'Tab'}),
+                    contentAfter: '<ul><li><br><table><tbody><tr style="height: 20px;"><td style="width: 20px;">ab</td><td>cd</td><td>ef[]</td></tr></tbody></table><br></li></ul>',
                 });
             });
         });
