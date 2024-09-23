@@ -7,7 +7,7 @@ import threading
 import flectra
 from flectra.tests import TransactionCase
 
-from ..models.bus import json_dump, get_notify_payloads, NOTIFY_PAYLOAD_MAX_LENGTH
+from ..models.bus import json_dump, get_notify_payloads, NOTIFY_PAYLOAD_MAX_LENGTH, FLECTRA_NOTIFY_FUNCTION
 
 
 class NotifyTests(TransactionCase):
@@ -55,6 +55,8 @@ class NotifyTests(TransactionCase):
 
     def test_postcommit(self):
         """Asserts all ``postcommit`` channels are fetched with a single listen."""
+        if FLECTRA_NOTIFY_FUNCTION != 'pg_notify':
+            return
         channels = []
         stop_event = threading.Event()
 

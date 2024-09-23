@@ -667,8 +667,7 @@ class MailComposer(models.TransientModel):
         for wizard in self:
             if wizard.res_domain:
                 search_domain = wizard._evaluate_res_domain()
-                search_user = wizard.res_domain_user_id or self.env.user
-                res_ids = self.env[wizard.model].with_user(search_user).search(search_domain).ids
+                res_ids = self.env[wizard.model].search(search_domain).ids
             else:
                 res_ids = wizard._evaluate_res_ids()
             # in comment mode: raise here as anyway message_post will raise.
@@ -1260,7 +1259,7 @@ class MailComposer(models.TransientModel):
         template_values = self.template_id._generate_template(
             res_ids,
             template_fields,
-            find_or_create_partners=True
+            find_or_create_partners=find_or_create_partners,
         )
 
         exclusion_list = ('email_cc', 'email_to') if find_or_create_partners else ()

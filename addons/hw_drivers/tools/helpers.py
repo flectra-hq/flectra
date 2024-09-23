@@ -288,12 +288,14 @@ def get_ssid():
 
 @cache
 def get_flectra_server_url():
-    if platform.system() == 'Linux':
-        ap = subprocess.call(['systemctl', 'is-active', '--quiet', 'hostapd']) # if service is active return 0 else inactive
-        if not ap:
-            return False
+    """Get the URL of the linked Flectra database.
+    If the IoT Box is in access point mode, it will return ``None`` to avoid
+    connecting to the server.
 
-    return get_conf('remote_server')
+    :return: The URL of the linked Flectra database.
+    :rtype: str or None
+    """
+    return None if access_point() else get_conf('remote_server')
 
 
 def get_token():
@@ -602,7 +604,7 @@ def migrate_old_config_files_to_new_config_file():
         enterprise_code = read_file_first_line('flectra-enterprise-code.conf')
         remote_server = read_file_first_line('flectra-remote-server.conf')
         token = read_file_first_line('token')
-        subject = read_file_first_line('subject')
+        subject = read_file_first_line('flectra-subject.conf')
 
         update_conf({
             'iotbox_version': iotbox_version,
@@ -633,4 +635,4 @@ def migrate_old_config_files_to_new_config_file():
         unlink_file('flectra-enterprise-code.conf')
         unlink_file('flectra-remote-server.conf')
         unlink_file('token')
-        unlink_file('subject')
+        unlink_file('flectra-subject.conf')

@@ -7,7 +7,8 @@ from unittest.mock import patch
 from flectra import SUPERUSER_ID
 from flectra.addons.base.models.res_users import is_selection_groups, get_selection_groups, name_selection_groups
 from flectra.exceptions import UserError
-from flectra.tests.common import Form, TransactionCase, new_test_user, tagged
+from flectra.service import security
+from flectra.tests.common import Form, TransactionCase, new_test_user, tagged, HttpCase, users
 from flectra.tools import mute_logger
 
 
@@ -534,3 +535,39 @@ class TestUsersTweaks(TransactionCase):
         self.assertFalse(user.active)
         with self.assertRaises(UserError):
             user.write({'active': True})
+
+
+@tagged('post_install', '-at_install')
+class TestUsersIdentitycheck(HttpCase):
+
+    @users('admin')
+    def test_revoke_all_devices(self):
+        """
+        Test to check the revoke all devices by changing the current password as a new password
+        """
+        # Change the password to 8 characters for security reasons
+        self.env.user.password = "admin@flectra"
+        # Create a session
+        session = self.authenticate('admin', 'admin@flectra')
+        # Test the session is valid
+        self.assertTrue(security.check_session(session, self.env))
+        # Valid session -> not redirected from /web to /web/login
+        self.assertTrue(self.url_open('/web').url.endswith('/web'))
+
+        # The user clicks the button logout from all devices from his profile
+        action = self.env.user.action_revoke_all_devices()
+        # The form of the wizard opens with a new record
+        form = Form(self.env[action['res_model']].create({}), action['view_id'])
+        # The user fills his password
+        form.password = 'admin@flectra'
+        # The user clicks the button "Log out from all devices", which triggers a save then a call to the button method
+        user_identity_check = form.save()
+        user_identity_check.revoke_all_devices()
+
+        # Test the session is no longer valid
+        self.assertFalse(security.check_session(session, self.env))
+        # Invalid session -> redirected from /web to /web/login
+        self.assertTrue(self.url_open('/web').url.endswith('/web/login'))
+
+        # In addition, the wizard must have been deleted
+        self.assertFalse(user_identity_check.exists())
