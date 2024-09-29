@@ -16,7 +16,7 @@ from flectra import Command, _, models, api
 from flectra.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
 from flectra.exceptions import AccessError, UserError
 from flectra.modules import get_resource_from_path
-from flectra.tools import file_open, get_lang, groupby, SQL
+from flectra.tools import file_open, float_compare, get_lang, groupby, SQL
 from flectra.tools.translate import code_translations, TranslationImporter
 
 _logger = logging.getLogger(__name__)
@@ -296,7 +296,7 @@ class AccountChartTemplate(models.AbstractModel):
             template_line_ids = [x for x in template.get('repartition_line_ids', []) if x[0] != Command.CLEAR]
             return (
                 tax.amount_type != template.get('amount_type', 'percent')
-                or tax.amount != template.get('amount', 0)
+                or float_compare(tax.amount, template.get('amount', 0), precision_digits=4) != 0
                 # Taxes that don't have repartition lines in their templates get theirs created by default
                 or len(template_line_ids) not in (0, len(tax.repartition_line_ids))
             )
@@ -396,7 +396,10 @@ class AccountChartTemplate(models.AbstractModel):
                     and isinstance(values[fname], (list, tuple))
                 ]
                 if x2manyfields:
-                    rec = self.ref(xmlid, raise_if_not_found=False)
+                    if isinstance(xmlid, int):
+                        rec = self.env[model_name].browse(xmlid).exists()
+                    else:
+                        rec = self.ref(xmlid, raise_if_not_found=False)
                     if rec:
                         for fname in x2manyfields:
                             for i, (line, (command, _id, vals)) in enumerate(zip(rec[fname], values[fname])):
@@ -1106,12 +1109,17 @@ class AccountChartTemplate(models.AbstractModel):
         assert re.fullmatch(r"[a-z0-9_]+", module)
 
         def evaluate(key, value, model_fields):
+            if not value:
+                return value
             if '@' in key:
                 return value
             if '/' in key:
                 return []
-            if model_fields and model_fields[key].type in ('boolean', 'int', 'float'):
-                return ast.literal_eval(value) if value else False
+            if model_fields:
+                if model_fields[key].type in ('boolean', 'int', 'float'):
+                    return ast.literal_eval(value)
+                if model_fields[key].type == 'char':
+                    return value.strip()
             return value
 
         res = {}
