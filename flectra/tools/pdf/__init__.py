@@ -273,7 +273,7 @@ def add_banner(pdf_stream, text=None, logo=False, thickness=2 * cm):
     return output
 
 
-class OdooPdfFileReader(PdfFileReader):
+class FlectraPdfFileReader(PdfFileReader):
     # OVERRIDE of PdfFileReader to add the management of multiple embedded files.
 
     ''' Returns the files inside the PDF.
