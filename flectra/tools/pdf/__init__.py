@@ -297,7 +297,7 @@ class FlectraPdfFileReader(PdfFileReader):
             return []
 
 
-class OdooPdfFileWriter(PdfFileWriter):
+class FlectraPdfFileWriter(PdfFileWriter):
 
     def __init__(self, *args, **kwargs):
         """
