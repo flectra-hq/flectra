@@ -3810,7 +3810,8 @@ export class FlectraEditor extends EventTarget {
                     }
                     setSelection(textNode, offset);
                     const textHasTwoTicks = /`.*`/.test(textNode.textContent);
-                    if (textHasTwoTicks) {
+                    // We don't apply the code tag if there is no content between the two `
+                    if (textHasTwoTicks && textNode.textContent.replace(/`/g, '').length) {
                         this.historyStep();
                         const insertedBacktickIndex = offset - 1;
                         const textBeforeInsertedBacktick = textNode.textContent.substring(0, insertedBacktickIndex - 1);
@@ -3950,8 +3951,8 @@ export class FlectraEditor extends EventTarget {
         }
         const dataHtmlElement = document.createElement('data');
         dataHtmlElement.append(rangeContent);
-        const flectraHtml = dataHtmlElement.innerHTML;
-        const flectraText = selection.toString();
+        const flectraHtml = dataHtmlElement.innerHTML.replace(/\uFEFF/g, "");
+        const flectraText = selection.toString().replace(/\uFEFF/g, "");
         clipboardEvent.clipboardData.setData('text/plain', flectraText);
         clipboardEvent.clipboardData.setData('text/html', flectraHtml);
         clipboardEvent.clipboardData.setData('text/flectra-editor', flectraHtml);
@@ -3962,6 +3963,10 @@ export class FlectraEditor extends EventTarget {
     _onKeyDown(ev) {
         const selection = this.document.getSelection();
         if (selection.anchorNode && isProtected(selection.anchorNode)) {
+            return;
+        }
+        if (this.document.querySelector(".transfo-container")){
+            ev.preventDefault();
             return;
         }
         this.keyboardType =

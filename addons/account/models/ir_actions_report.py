@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 from collections import OrderedDict
 from zlib import error as zlib_error
-try:
-    from PyPDF2.errors import PdfStreamError, PdfReadError
-except ImportError:
-    from PyPDF2.utils import PdfStreamError, PdfReadError
 
 from flectra import api, models, _
 from flectra.exceptions import UserError
 from flectra.tools import pdf
+from flectra.tools.pdf import PdfReadError, PdfStreamError
 
 
 class IrActionsReport(models.Model):

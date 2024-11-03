@@ -7,7 +7,6 @@ import io
 import logging
 import re
 import requests
-import PyPDF2
 
 from dateutil.relativedelta import relativedelta
 from markupsafe import Markup
@@ -18,6 +17,7 @@ from flectra.addons.http_routing.models.ir_http import slug, url_for
 from flectra.exceptions import RedirectWarning, UserError, AccessError
 from flectra.http import request
 from flectra.tools import html2plaintext, sql
+from flectra.tools.pdf import PdfFileReader
 
 _logger = logging.getLogger(__name__)
 
@@ -1336,7 +1336,7 @@ class Slide(models.Model):
 
         if data_bytes.startswith(b'%PDF-'):
             try:
-                pdf = PyPDF2.PdfFileReader(io.BytesIO(data_bytes), overwriteWarnings=False)
+                pdf = PdfFileReader(io.BytesIO(data_bytes), overwriteWarnings=False)
                 return (5 * len(pdf.pages)) / 60
             except Exception:
                 pass  # as this is a nice to have, fail silently

@@ -3,8 +3,8 @@
 # 	* base_import_module
 # 
 # Translators:
-# Wil Flectra, 2023
 # Jolien De Paepe, 2024
+# Wil Flectra, 2024
 # Manon Rondou, 2024
 # 
 msgid ""
@@ -92,15 +92,6 @@ msgid "Created on"
 msgstr "Créé le"
 
 #. module: base_import_module
-#: model_terms:ir.ui.view,arch_db:base_import_module.view_base_module_import
-msgid ""
-"Demo data should only be used on test databases. Once they are loaded, they "
-"cannot be entirely removed!"
-msgstr ""
-"Les données de démonstration ne doivent être utilisées que sur des bases de "
-"données de test. Une fois chargées, elles ne peuvent plus être supprimées !"
-
-#. module: base_import_module
 #: model:ir.model.fields,field_description:base_import_module.field_base_import_module__display_name
 msgid "Display Name"
 msgstr "Nom d'affichage"
@@ -159,11 +150,6 @@ msgid "Import Module"
 msgstr "Importer un module"
 
 #. module: base_import_module
-#: model_terms:ir.ui.view,arch_db:base_import_module.view_base_module_import
-msgid "Import demo data"
-msgstr "Importer les données de démonstration"
-
-#. module: base_import_module
 #: model:ir.model.fields,field_description:base_import_module.field_base_import_module__with_demo
 msgid "Import demo data of module"
 msgstr "Importer les données de démonstration d'un module"
@@ -204,6 +190,23 @@ msgstr "Mis à jour par"
 #: model:ir.model.fields,field_description:base_import_module.field_base_import_module__write_date
 msgid "Last Updated on"
 msgstr "Mis à jour le"
+
+#. module: base_import_module
+#: model_terms:ir.ui.view,arch_db:base_import_module.view_base_module_import
+msgid "Load demo data"
+msgstr "Charger les données de démonstration"
+
+#. module: base_import_module
+#. flectra-python
+#: code:addons/base_import_module/models/ir_module.py:0
+#, python-format
+msgid ""
+"Load demo data to test the industry's features with sample records. Do not "
+"load them if this is your production database."
+msgstr ""
+"Téléchargez des données de démonstration pour tester les fonctionnalités du "
+"secteur à l'aide d'exemples. Ne les téléchargez pas si vous utilisez votre "
+"base de données de production."
 
 #. module: base_import_module
 #: model:ir.model,name:base_import_module.model_ir_module_module
@@ -288,13 +291,6 @@ msgstr "Les personnalisations de Studio nécessitent Studio"
 #, python-format
 msgid "Studio customizations require the Flectra Studio app."
 msgstr "Les personnalisations Studio nécessitent l'application Studio."
-
-#. module: base_import_module
-#. flectra-python
-#: code:addons/base_import_module/models/ir_module.py:0
-#, python-format
-msgid "The following modules will also be installed:\n"
-msgstr "Les modules suivants seront également installés : \n"
 
 #. module: base_import_module
 #. flectra-python

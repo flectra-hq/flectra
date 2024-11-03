@@ -2842,46 +2842,6 @@ QUnit.module("Views", (hooks) => {
         assert.verifySteps(["openRecord", "openRecord"]);
     });
 
-    QUnit.test("open invalid but unchanged record", async function (assert) {
-        const listView = registry.category("views").get("list");
-        class CustomListController extends listView.Controller {
-            openRecord(record) {
-                assert.step("openRecord");
-                assert.strictEqual(record.resId, 2);
-                return super.openRecord(record);
-            }
-        }
-        registry.category("views").add("custom_list", {
-            ...listView,
-            Controller: CustomListController,
-        });
-
-        const list = await makeView({
-            type: "list",
-            resModel: "foo",
-            serverData,
-            arch: `
-                <tree js_class="custom_list">
-                    <field name="foo"/>
-                    <field name="date" required="1"/>
-                </tree>`,
-        });
-
-        patchWithCleanup(list.env.services.notification, {
-            add: () => {
-                throw new Error("should not display a notification");
-            },
-        });
-
-        // second record is invalid as date is not set
-        assert.strictEqual(
-            target.querySelector(".o_data_row:nth-child(2) .o_data_cell[name=date]").innerText,
-            ""
-        );
-        await click(target.querySelector(".o_data_row:nth-child(2) .o_data_cell"));
-        assert.verifySteps(["openRecord"]);
-    });
-
     QUnit.test(
         "execute an action before and after each valid save in a list view",
         async function (assert) {
@@ -4581,7 +4541,7 @@ QUnit.module("Views", (hooks) => {
                 <tree>
                     <field name="company_currency_id" column_invisible="1"/>
                     <field name="currency_id" column_invisible="1"/>
-                    <field name="amount"/>
+                    <field name="amount" sum="Sum"/>
                     <field name="amount_currency"/>
                 </tree>`,
             });
@@ -4600,6 +4560,12 @@ QUnit.module("Views", (hooks) => {
                 target.querySelectorAll("tfoot td")[1].textContent,
                 "—",
                 "aggregates monetary should never work if different currencies are used"
+            );
+            assert.strictEqual(
+                target.querySelectorAll("tfoot td")[2].textContent,
+                "",
+                "monetary aggregation should only be attempted with an active aggregation function" +
+                    " when using different currencies"
             );
         }
     );

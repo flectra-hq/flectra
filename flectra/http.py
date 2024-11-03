@@ -109,7 +109,6 @@ endpoint
 """
 
 import base64
-import cgi
 import collections
 import collections.abc
 import contextlib
@@ -127,7 +126,6 @@ import threading
 import time
 import traceback
 import warnings
-import zlib
 from abc import ABC, abstractmethod
 from datetime import datetime, timedelta
 from io import BytesIO
@@ -1390,6 +1388,7 @@ class Request:
 
     def _post_init(self):
         self.session, self.db = self._get_session_and_dbname()
+        self._post_init = None
 
     def _get_session_and_dbname(self):
         sid = self.httprequest.cookies.get('session_id')
@@ -2158,8 +2157,7 @@ class Application:
         if 'Content-Security-Policy' in headers:
             return
 
-        mime, _params = cgi.parse_header(headers.get('Content-Type', ''))
-        if not mime.startswith('image/'):
+        if not headers.get('Content-Type', '').startswith('image/'):
             return
 
         headers['Content-Security-Policy'] = "default-src 'none'"

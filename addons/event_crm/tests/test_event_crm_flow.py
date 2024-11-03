@@ -7,7 +7,7 @@ from flectra.tests.common import users
 from flectra.tools import mute_logger
 
 
-@tagged('event_flow')
+@tagged('event_crm')
 class TestEventCrmFlow(TestEventCrmCommon):
 
     @classmethod

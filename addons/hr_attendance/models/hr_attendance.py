@@ -8,13 +8,13 @@ from datetime import datetime, timedelta
 from operator import itemgetter
 from pytz import timezone
 
+from flectra.http import request
 from flectra import models, fields, api, exceptions, _
 from flectra.addons.resource.models.utils import Intervals
-from flectra.tools import format_datetime
 from flectra.osv.expression import AND, OR
 from flectra.tools.float_utils import float_is_zero
 from flectra.exceptions import AccessError
-from flectra.tools import format_duration
+from flectra.tools import format_duration, format_time, format_datetime
 
 def get_google_maps_url(latitude, longitude):
     return "https://maps.google.com?q=%s,%s" % (latitude, longitude)
@@ -129,18 +129,19 @@ class HrAttendance(models.Model):
 
     @api.depends('employee_id', 'check_in', 'check_out')
     def _compute_display_name(self):
+        tz = request.httprequest.cookies.get('tz') if request else None
         for attendance in self:
             if not attendance.check_out:
                 attendance.display_name = _(
                     "From %s",
-                    format_datetime(self.env, attendance.check_in, dt_format="HH:mm"),
+                    format_time(self.env, attendance.check_in, time_format=None, tz=tz, lang_code=self.env.lang),
                 )
             else:
                 attendance.display_name = _(
                     "%s : (%s-%s)",
                     format_duration(attendance.worked_hours),
-                    format_datetime(self.env, attendance.check_in, dt_format="HH:mm"),
-                    format_datetime(self.env, attendance.check_out, dt_format="HH:mm"),
+                    format_time(self.env, attendance.check_in, time_format=None, tz=tz, lang_code=self.env.lang),
+                    format_time(self.env, attendance.check_out, time_format=None, tz=tz, lang_code=self.env.lang),
                 )
 
     def _get_employee_calendar(self):

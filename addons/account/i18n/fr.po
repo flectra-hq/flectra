@@ -8,6 +8,7 @@
 # Yassine KHATTABI, 2024
 # Rémi CAZENAVE, 2024
 # Wil Flectra, 2024
+# allanot nicolas <n.allanot@free.fr>, 2024
 # Manon Rondou, 2024
 # 
 msgid ""
@@ -1616,6 +1617,24 @@ msgid ""
 msgstr ""
 "Le compte %s ne permet pas le lettrage. Modifiez sa configuration pour "
 "pouvoir lettrer des écritures."
+
+#. module: account
+#. flectra-python
+#: code:addons/account/models/account_move_line.py:0
+#, python-format
+msgid "Account %s is of payable type, but is used in a sale operation."
+msgstr ""
+"Le compte %s est de type créditeur, mais est utilisé dans une opération de "
+"vente."
+
+#. module: account
+#. flectra-python
+#: code:addons/account/models/account_move_line.py:0
+#, python-format
+msgid "Account %s is of receivable type, but is used in a purchase operation."
+msgstr ""
+"Le compte %s est de type débiteur, mais est utilisé dans une opération "
+"d'achat."
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_res_config_settings__module_account_avatax
@@ -7316,7 +7335,7 @@ msgstr "Comparaison de croissance"
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_cash_rounding__rounding_method__half-up
 msgid "HALF-UP"
-msgstr "ARRONDIR À L'ENTIER SUPÉRIEUR"
+msgstr "ARRONDIR AU DEMI LE PLUS PROCHE"
 
 #. module: account
 #: model:ir.model,name:account.model_ir_http
@@ -14137,6 +14156,15 @@ msgstr ""
 "Le %(date_field)s(%(date)s) ne correspond pas au numéro de la séquence du %(model)s(%(sequence)s) lié.\n"
 "Vous devrez effacer les %(sequence_field)s de %(model)s pour continuer.\n"
 "Ce faisant, vous souhaiterez peut-être remettre en séquence vos écritures afin de maintenir une séquence continue basée sur la date."
+
+#. module: account
+#. flectra-python
+#: code:addons/account/models/account_report.py:0
+#, python-format
+msgid ""
+"The Availability is set to 'Country Matches' but the field Country is not "
+"set."
+msgstr "Translation placeholder"
 
 #. module: account
 #. flectra-python

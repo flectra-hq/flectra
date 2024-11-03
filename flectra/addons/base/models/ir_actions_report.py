@@ -8,6 +8,7 @@ from flectra.exceptions import UserError, AccessError, RedirectWarning
 from flectra.tools.safe_eval import safe_eval, time
 from flectra.tools.misc import find_in_path, ustr
 from flectra.tools import check_barcode_encoding, config, is_html_empty, parse_version, split_every
+from flectra.tools.pdf import PdfFileWriter, PdfFileReader, PdfReadError
 from flectra.http import request
 from flectra.osv.expression import NEGATIVE_TERM_OPERATORS, FALSE_DOMAIN
 
@@ -24,7 +25,6 @@ from lxml import etree
 from contextlib import closing
 from reportlab.graphics.barcode import createBarcodeDrawing
 from reportlab.pdfbase.pdfmetrics import getFont, TypeFace
-from PyPDF2 import PdfFileWriter, PdfFileReader
 from collections import OrderedDict
 from collections.abc import Iterable
 from PIL import Image, ImageFile
@@ -32,11 +32,6 @@ from itertools import islice
 
 # Allow truncated images
 ImageFile.LOAD_TRUNCATED_IMAGES = True
-
-try:
-    from PyPDF2.errors import PdfReadError
-except ImportError:
-    from PyPDF2.utils import PdfReadError
 
 _logger = logging.getLogger(__name__)
 
