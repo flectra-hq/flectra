@@ -1,4 +1,6 @@
 /** @flectra-module */
+import { browser } from "@web/core/browser/browser";
+const localStorage = browser.localStorage;
 
 const urlParams = new URLSearchParams(window.location.search);
 const collaborationDebug = urlParams.get('collaborationDebug');
