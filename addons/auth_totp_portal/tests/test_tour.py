@@ -6,7 +6,7 @@ from passlib.totp import TOTP
 from flectra import http
 from flectra.addons.auth_totp.controllers.home import Home
 from flectra.addons.base.tests.common import HttpCaseWithUserPortal
-from flectra.tests import tagged, loaded_demo_data
+from flectra.tests import tagged
 
 _logger = logging.getLogger(__name__)
 
@@ -17,10 +17,6 @@ class TestTOTPortal(HttpCaseWithUserPortal):
     Largely replicates TestTOTP
     """
     def test_totp(self):
-        # TODO: Make this work if no demo data + hr installed
-        if not loaded_demo_data(self.env):
-            _logger.warning("This test relies on demo data. To be rewritten independently of demo data for accurate and reliable results.")
-            return
         totp = None
         # test endpoint as doing totp on the client side is not really an option
         # (needs sha1 and hmac + BE packing of 64b integers)

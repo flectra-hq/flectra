@@ -1,5 +1,5 @@
 /* @flectra-module */
-import { Component, useState, onWillUnmount } from "@flectra/owl";
+import { Component, useState, onWillUnmount, status } from "@flectra/owl";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { browser } from "@web/core/browser/browser";
@@ -82,6 +82,10 @@ export class VoiceRecorder extends Component {
                 this.microphone = await browser.navigator.mediaDevices.getUserMedia({
                     audio: this.userSettings.audioConstraints,
                 });
+                if (status(this) === "destroyed") {
+                    this.cleanUp({ unmounting: true });
+                    return;
+                }
             } catch {
                 this.notification.add(
                     _t('"%(hostname)s" needs to access your microphone', {

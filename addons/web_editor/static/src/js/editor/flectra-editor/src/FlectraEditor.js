@@ -113,6 +113,8 @@ const IS_KEYBOARD_EVENT_UNDERLINE = ev => ev.key === 'u' && (ev.ctrlKey || ev.me
 const IS_KEYBOARD_EVENT_STRIKETHROUGH = ev => ev.key === '5' && (ev.ctrlKey || ev.metaKey);
 const IS_KEYBOARD_EVENT_LEFT_ARROW = ev => ev.key === 'ArrowLeft' && !(ev.ctrlKey || ev.metaKey);
 const IS_KEYBOARD_EVENT_RIGHT_ARROW = ev => ev.key === 'ArrowRight' && !(ev.ctrlKey || ev.metaKey);
+const IS_KEYBOARD_EVENT_UP_ARROW = ev => ev.key === 'ArrowUp' && !(ev.ctrlKey || ev.metaKey);
+const IS_KEYBOARD_EVENT_DOWN_ARROW = ev => ev.key === 'ArrowDown' && !(ev.ctrlKey || ev.metaKey);
 
 const CLIPBOARD_BLACKLISTS = {
     unwrap: ['.Apple-interchange-newline', 'DIV'], // These elements' children will be unwrapped.
@@ -2479,7 +2481,7 @@ export class FlectraEditor extends EventTarget {
             // Do not apply commands out of the editable area.
             return false;
         }
-        if (!sel.isCollapsed && BACKSPACE_FIRST_COMMANDS.includes(method)) {
+        if (!sel.isCollapsed && (BACKSPACE_FIRST_COMMANDS.includes(method) || this.powerbox.isOpen)) {
             let range = getDeepRange(this.editable, {sel, splitText: true, select: true, correctTripleClick: true});
             if (range &&
                 range.startContainer === range.endContainer &&
@@ -3575,7 +3577,7 @@ export class FlectraEditor extends EventTarget {
      * @returns {boolean}
      */
     _isWhitelisted(item) {
-        if (item instanceof Attr) {
+        if (item && item.nodeType === Node.ATTRIBUTE_NODE) {
             return CLIPBOARD_WHITELISTS.attributes.includes(item.name);
         } else if (typeof item === 'string') {
             return CLIPBOARD_WHITELISTS.classes.some(okClass =>
@@ -4130,7 +4132,30 @@ export class FlectraEditor extends EventTarget {
             this.execCommand('strikeThrough');
         } else if (IS_KEYBOARD_EVENT_LEFT_ARROW(ev) || IS_KEYBOARD_EVENT_RIGHT_ARROW(ev)) {
             const side = ev.key === 'ArrowLeft' ? 'previous' : 'next';
-            const { anchorNode, anchorOffset } = this.document.getSelection() || {};
+            const selection = this.document.getSelection();
+            let { anchorNode, anchorOffset, focusNode, focusOffset } = selection || {};
+            if (ev.shiftKey) {
+                // Since selection can't traverse contenteditable="false"
+                // elements, we adjust the selection to the sibling of
+                // non editable element.
+                const isFocusContentEditable = focusNode.isContentEditable;
+                if (focusNode.nodeType === Node.ELEMENT_NODE) {
+                    getDeepRange(this.editable, { selection, select: !isFocusContentEditable, correctTripleClick: !isFocusContentEditable });
+                }
+                ({ anchorNode, anchorOffset, focusNode, focusOffset } = selection)
+                const currentBlock = closestBlock(focusNode);
+                const isAtBoundary = side === 'previous'
+                    ? firstLeaf(currentBlock) === focusNode && focusOffset === 0
+                    : lastLeaf(currentBlock) === focusNode && focusOffset === nodeSize(focusNode);
+                const adjacentBlock = side === 'previous' ? currentBlock.previousElementSibling : currentBlock.nextElementSibling;
+                const targetBlock = side === 'previous' ? adjacentBlock?.previousElementSibling : adjacentBlock?.nextElementSibling;
+                if (!adjacentBlock?.isContentEditable && targetBlock && isAtBoundary) {
+                    const leafNode = lastLeaf(targetBlock);
+                    const offset = side === 'previous' ? nodeSize(leafNode) : 0;
+                    selection.extend(leafNode, offset);
+                    ev.preventDefault();
+                }
+            }
             // If the selection is at the edge of a code element at the edge of
             // its parent, make sure there's a zws next to it, where the
             // selection can then be set.
@@ -4179,6 +4204,26 @@ export class FlectraEditor extends EventTarget {
                     ev.stopPropagation();
                 }
             }
+        } else if ((IS_KEYBOARD_EVENT_UP_ARROW(ev) || IS_KEYBOARD_EVENT_DOWN_ARROW(ev)) && ev.shiftKey) {
+            // Since selection can't traverse contenteditable="false" elements,
+            // we adjust the selection to the sibling of non editable element.
+            const selection = this.document.getSelection();
+            const isFocusContentEditable = selection.focusNode.isContentEditable;
+            if (selection.focusNode.nodeType === Node.ELEMENT_NODE) {
+                getDeepRange(this.editable, { selection, select: !isFocusContentEditable, correctTripleClick: !isFocusContentEditable });
+            }
+            const currentBlock = closestBlock(selection.focusNode);
+            const isAtBoundary = ev.key === 'ArrowUp'
+                ? firstLeaf(currentBlock) === selection.focusNode && selection.focusOffset === 0
+                : lastLeaf(currentBlock) === selection.focusNode && selection.focusOffset === nodeSize(selection.focusNode);
+            const adjacentBlock = ev.key === 'ArrowUp' ? currentBlock.previousElementSibling : currentBlock.nextElementSibling;
+            const targetBlock = ev.key === 'ArrowUp' ? adjacentBlock?.previousElementSibling : adjacentBlock?.nextElementSibling;
+            if (!adjacentBlock?.isContentEditable && targetBlock && isAtBoundary) {
+                const leafNode = lastLeaf(targetBlock);
+                const offset = ev.key === 'ArrowUp' ? nodeSize(leafNode) : 0;
+                selection.extend(leafNode, offset);
+                ev.preventDefault();
+            }
         }
     }
     /**
@@ -4202,6 +4247,15 @@ export class FlectraEditor extends EventTarget {
             !this.options.allowInlineAtRoot
         ) {
             this._fixSelectionOnEditableRoot(selection, currentKeyPress);
+            // The _onSelectionChange handler is going to be triggered again.
+            return;
+        }
+        if (
+            selection.isCollapsed && anchorNode &&
+            anchorNode.nodeName === "DIV" && anchorNode.innerHTML.trim() === "" &&
+            this.isSelectionInEditable(selection)
+        ) {
+            this._fixSelectionInEmptyDiv(selection);
             // The _onSelectionChange handler is going to be triggered again.
             return;
         }
@@ -4630,6 +4684,14 @@ export class FlectraEditor extends EventTarget {
         }
     }
 
+    _fixSelectionInEmptyDiv(selection){
+        const p = this.document.createElement("p");
+        const br = this.document.createElement("br");
+        p.appendChild(br);
+        selection.anchorNode.appendChild(p);
+        setSelection(p, 0);
+    }
+
     _onMouseup(ev) {
         this._currentMouseState = ev.type;
 
@@ -4979,6 +5041,7 @@ export class FlectraEditor extends EventTarget {
         } else {
             const text = ev.clipboardData.getData('text/plain');
             const selectionIsInsideALink = !!closestElement(sel.anchorNode, 'a');
+            const isSelectionInsidePre = !!closestElement(sel.anchorNode, 'pre');
             let splitAroundUrl = [text];
             // Avoid transforming dynamic placeholder pattern to url.
             if(!text.match(/\${.*}/gi)) {
@@ -4987,7 +5050,7 @@ export class FlectraEditor extends EventTarget {
                 // 2, 5, 8, ...).
                 splitAroundUrl = splitAroundUrl.filter((_, index) => ((index + 1) % 3));
             }
-            if (splitAroundUrl.length === 3 && !splitAroundUrl[0] && !splitAroundUrl[2]) {
+            if (splitAroundUrl.length === 3 && !splitAroundUrl[0] && !splitAroundUrl[2] && !isSelectionInsidePre) {
                 // Pasted content is a single URL.
                 const url = /^https?:\/\//i.test(text) ? text : 'http://' + text;
                 const youtubeUrl = this.options.allowCommandVideo && YOUTUBE_URL_GET_VIDEO_ID.exec(url);
@@ -5086,7 +5149,7 @@ export class FlectraEditor extends EventTarget {
                         : 'http://' + splitAroundUrl[i];
                     // Even indexes will always be plain text, and odd indexes will always be URL.
                     // A url cannot be transformed inside an existing link.
-                    if (i % 2 && !selectionIsInsideALink) {
+                    if (i % 2 && !selectionIsInsideALink && !isSelectionInsidePre) {
                         this._applyCommand('insert', this._createLink(splitAroundUrl[i], url));
                     } else if (splitAroundUrl[i] !== '') {
                         const textFragments = splitAroundUrl[i].split(/\r?\n/);
@@ -5106,7 +5169,10 @@ export class FlectraEditor extends EventTarget {
                                 // Break line by inserting new paragraph and
                                 // remove current paragraph's bottom margin.
                                 const p = closestElement(sel.anchorNode, 'p');
-                                if (isUnbreakable(closestBlock(sel.anchorNode))) {
+                                if (
+                                    isUnbreakable(closestBlock(sel.anchorNode)) ||
+                                    closestElement(sel.anchorNode).nodeName === 'PRE'
+                                ) {
                                     this._applyCommand('oShiftEnter');
                                 } else {
                                     this._applyCommand('oEnter');

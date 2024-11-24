@@ -4201,9 +4201,11 @@ class TestMrpOrder(TestMrpCommon):
     def test_update_qty_producing_done_MO_with_lot(self):
         """
         Test that increasing the qty producing of a done MO for a product tracked by lot
-        will create an additional sml for the final product with the same producing lot
+        will create an additional sml for the final product with the same producing lot.
+        And test that removing products from stock, then increasing the qty producing of the MO
+        results in the correct qty of tracked products in stock.
         """
-        tracked_product = self.env['product.template'].create({
+        tracked_product = self.env['product.product'].create({
             'name': 'Super Product',
             'tracking': 'lot',
             'type': 'product',
@@ -4213,8 +4215,8 @@ class TestMrpOrder(TestMrpCommon):
             })],
         })
         mo = self.env['mrp.production'].create({
-            'product_id': tracked_product.product_variant_ids.id,
-            'product_uom_qty': 2.0,
+            'product_id': tracked_product.id,
+            'product_uom_qty': 5.0,
         })
         mo.action_generate_serial()
         producing_lot = mo.lot_producing_id
@@ -4222,9 +4224,17 @@ class TestMrpOrder(TestMrpCommon):
         self.assertEqual(mo.state, 'done')
         self.assertEqual(mo.move_finished_ids.lot_ids, producing_lot)
         self.assertEqual(mo.move_finished_ids.move_line_ids.mapped('lot_id'), producing_lot)
-        mo.qty_producing = 3.0
+        mo.qty_producing = 10.0
         self.assertTrue(all(sml.lot_id == producing_lot for sml in mo.move_finished_ids.move_line_ids))
-        self.assertEqual(sum(sml.quantity for sml in mo.move_finished_ids.move_line_ids), 3.0)
+        self.assertEqual(sum(sml.quantity for sml in mo.move_finished_ids.move_line_ids), 10.0)
+
+        stock_location = self.env.ref('stock.stock_location_stock')
+        self.env['stock.quant']._update_available_quantity(tracked_product, stock_location, -3, lot_id=producing_lot)
+        mo.qty_producing = 15.0
+        quants = tracked_product.stock_quant_ids.filtered(lambda q: q.location_id == stock_location)
+        self.assertRecordValues(quants, [
+            {'quantity': 12.0, 'lot_id': producing_lot.id},
+        ])
 
     def test_mrp_link_new_operations(self):
         """
@@ -4284,6 +4294,59 @@ class TestMrpOrder(TestMrpCommon):
             {'product_id': kit_bom.bom_line_ids[0].product_id.id, 'product_uom_qty': 2, 'product_uom': kit_bom.bom_line_ids[0].product_id.uom_id.id},
             {'product_id': kit_bom.bom_line_ids[1].product_id.id, 'product_uom_qty': 3, 'product_uom': kit_bom.bom_line_ids[1].product_id.uom_id.id},
         ])
+
+    @freeze_time('2024-11-26 9:00')
+    def test_workorder_planning_validity_with_workcenters(self):
+        # Create a workcenter with no pauses
+        week_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        resource_calendar = self.env['resource.calendar'].create({
+            'name': 'Default Calendar',
+            'company_id': False,
+            'hours_per_day': 24,
+            'attendance_ids': [
+                (0, 0, {
+                    'name': f'{day}',
+                    'dayofweek': str(week_days.index(day)),
+                    'hour_from': 0,
+                    'hour_to': 24,
+                })
+                for day in week_days
+            ],
+        })
+        workcenter_5 = self.env['mrp.workcenter'].create({
+            'name': 'Workcenter no pause',
+            'default_capacity': 1,
+            'time_start': 0,
+            'time_stop': 0,
+            'time_efficiency': 100,
+            'resource_calendar_id': resource_calendar.id
+        })
+
+        bom = self.env['mrp.bom'].create({
+            'product_id': self.product_6.id,
+            'product_tmpl_id': self.product_6.product_tmpl_id.id,
+            'ready_to_produce': 'asap',
+            'consumption': 'flexible',
+            'product_qty': 1.0,
+            'operation_ids': [
+                (0, 0, {'name': 'Cutting Machine', 'workcenter_id': self.workcenter_2.id, 'time_cycle': 1, 'sequence': 1, 'time_cycle_manual': 360}),
+            ],
+            'type': 'normal'
+            })
+
+        production_form = Form(self.env['mrp.production'])
+        production_form.bom_id = bom
+        production = production_form.save()
+
+        production.action_confirm()
+        production.button_plan()
+
+        self.assertEqual(fields.Datetime.now(), production.workorder_ids.date_start)
+        self.assertEqual(fields.Datetime.now() + timedelta(hours=7), production.workorder_ids.date_finished, "The time difference should be 7 hours: 6 for the shift and 1 for the lunch pause")
+
+        production.workorder_ids.workcenter_id = workcenter_5
+        self.assertEqual(fields.Datetime.now(), production.workorder_ids.date_start)
+        self.assertEqual(fields.Datetime.now() + timedelta(hours=6), production.workorder_ids.date_finished, "The time difference should be 6 hours: 6 for the shift and 0 for the lunch pause")
 
 
 @tagged('post_install', '-at_install')

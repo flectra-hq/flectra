@@ -12,6 +12,7 @@
 # ievaputnina <ievai.putninai@gmail.com>, 2024
 # Will Sensors, 2024
 # Martin Trigaux, 2024
+# myacc-pro, 2024
 # Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2024
 # 
 msgid ""
@@ -72,12 +73,12 @@ msgstr ""
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_payment__reconciled_bills_count
 msgid "# Reconciled Bills"
-msgstr "# Saskaņotas izmaksas"
+msgstr "# Saskaņotie izdevumi"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_payment__reconciled_invoices_count
 msgid "# Reconciled Invoices"
-msgstr "# Saskaņoti rēķini"
+msgstr "# Saskaņotie rēķini"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_payment__reconciled_statement_lines_count
@@ -290,7 +291,7 @@ msgstr "- Dokumentu secība ir rediģējama visiem dokumentiem."
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_move_line_form
 msgid "-> View partially reconciled entries"
-msgstr "->Daļēju saskaņošanu Ierakstu apskats"
+msgstr "-> Skatīt daļēji saskaņotos ierakstus"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_partner_property_form
@@ -959,7 +960,7 @@ msgstr "<span class=\"o_stat_text\">Žurnāla ieraksti</span>"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
 msgid "<span class=\"o_stat_text\">Reconciled Items</span>"
-msgstr "<span class=\"o_stat_text\">Saskaņotie vienumi</span>"
+msgstr "<span class=\"o_stat_text\">Saskaņotie ieraksti</span>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_payment_form
@@ -1760,7 +1761,7 @@ msgstr "Debitoru konts (PoS)"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line__is_account_reconcile
 msgid "Account Reconcile"
-msgstr "Kontu saskaņošana"
+msgstr "Konta saskaņošana"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line__account_root_id
@@ -1834,7 +1835,7 @@ msgstr "Kontu Veidi"
 #. module: account
 #: model:ir.model,name:account.model_account_unreconcile
 msgid "Account Unreconcile"
-msgstr "Konta Atsaiste"
+msgstr "Konta atsaiste"
 
 #. module: account
 #: model:ir.model,name:account.model_account_root
@@ -1852,7 +1853,7 @@ msgstr "Starpības summas iegrāmatošana pēc izdevumu atlaides piešķiršanas
 #: model:ir.model.fields,help:account.field_res_config_settings__account_journal_early_pay_discount_gain_account_id
 msgid ""
 "Account for the difference amount after the income discount has been granted"
-msgstr "Starpības summas iegrāmatošana pēc ienākumu atlaides piešķiršanas"
+msgstr "Starpības summas iegrāmatošana pēc peļņas atlaides piešķiršanas"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_group_search
@@ -2471,7 +2472,7 @@ msgstr "Atļaut produkta maržu"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_account__reconcile
 msgid "Allow Reconciliation"
-msgstr "Atļaut Sasaisti"
+msgstr "Atļaut saskaņošanu"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_res_config_settings__module_account_check_printing
@@ -2640,7 +2641,7 @@ msgstr "Maksājamā summa (ārvalstu valūtā)"
 #: model:ir.model.fields,field_description:account.field_account_move__amount_total_words
 #: model:ir.model.fields,field_description:account.field_account_payment__amount_total_words
 msgid "Amount total in words"
-msgstr "Summa vārdos"
+msgstr "Kopsumma vārdos"
 
 #. module: account
 #. flectra-javascript
@@ -3305,7 +3306,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:account.action_account_moves_journal_bank_cash
 #: model:ir.model.fields.selection,name:account.selection__account_account__account_type__asset_cash
 msgid "Bank and Cash"
-msgstr "Banka un Kase"
+msgstr "Banka un skaidrā nauda"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.report_statement
@@ -3787,7 +3788,7 @@ msgstr "Peļņa no naudas starpības"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_res_company__default_cash_difference_income_account_id
 msgid "Cash Difference Income"
-msgstr "Naudas starpība Ienākumi"
+msgstr "Naudas starpības peļņa"
 
 #. module: account
 #. flectra-python
@@ -5235,11 +5236,6 @@ msgid "DELIVERED DUTY PAID"
 msgstr "PIEGĀDEI NODOKLIS SAMAKSĀTS"
 
 #. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_cash_rounding__rounding_method__down
-msgid "DOWN"
-msgstr "NEDARBOJAS"
-
-#. module: account
 #: model:ir.ui.menu,name:account.menu_board_journal_1
 msgid "Dashboard"
 msgstr "Kopskats"
@@ -5441,7 +5437,7 @@ msgstr "Noklusējuma izdevumu konts"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_journal_form
 msgid "Default Income Account"
-msgstr "Noklusējuma ienākumu konts"
+msgstr "Noklusējuma peļņas konts"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
@@ -5973,6 +5969,11 @@ msgstr "Domēna formulas saīsne"
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
 msgid "Domestic country of your accounting"
 msgstr "Jūsu grāmatvedības valsts"
+
+#. module: account
+#: model:ir.model.fields.selection,name:account.selection__account_cash_rounding__rounding_method__down
+msgid "Down"
+msgstr ""
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_send__checkbox_download
@@ -7263,11 +7264,6 @@ msgid "Growth Comparison"
 msgstr "Izaugsmes salīdzinājums"
 
 #. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_cash_rounding__rounding_method__half-up
-msgid "HALF-UP"
-msgstr "HALF-UP"
-
-#. module: account
 #: model:ir.model,name:account.model_ir_http
 msgid "HTTP Routing"
 msgstr "HTTP maršrutēšana"
@@ -7541,8 +7537,8 @@ msgid ""
 "If empty, the discount will be discounted directly on the income/expense "
 "account. If set, discount on invoices will be realized in separate accounts."
 msgstr ""
-"Ja tā ir tukša, atlaide tiks diskontēta tieši ieņēmumu/izdevumu kontā. Ja "
-"tas ir iestatīts, rēķinu atlaides tiks realizētas atsevišķos kontos."
+"Ja tā ir tukša, atlaide tiks diskontēta tieši peļņas/izdevumu kontā. Ja tas "
+"ir iestatīts, rēķinu atlaides tiks realizētas atsevišķos kontos."
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_move_reversal__journal_id
@@ -7837,14 +7833,14 @@ msgstr "Iekļauts Cenā"
 #: model_terms:ir.ui.view,arch_db:account.view_account_search
 #, python-format
 msgid "Income"
-msgstr "Ienākumi"
+msgstr "Peļņa"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_product_category__property_account_income_categ_id
 #: model:ir.model.fields,field_description:account.field_product_product__property_account_income_id
 #: model:ir.model.fields,field_description:account.field_product_template__property_account_income_id
 msgid "Income Account"
-msgstr "Ieņēmumu Konts"
+msgstr "Peļņas konts"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_journal_form
@@ -9784,6 +9780,11 @@ msgstr ""
 "Viegli pārvietojieties pa pārskatiem un uzziniet, kas slēpjas aiz skaitļiem"
 
 #. module: account
+#: model:ir.model.fields.selection,name:account.selection__account_cash_rounding__rounding_method__half-up
+msgid "Nearest"
+msgstr ""
+
+#. module: account
 #: model:ir.model.fields,field_description:account.field_account_bank_statement_line__need_cancel_request
 #: model:ir.model.fields,field_description:account.field_account_move__need_cancel_request
 #: model:ir.model.fields,field_description:account.field_account_payment__need_cancel_request
@@ -10469,7 +10470,7 @@ msgstr "Finanšu gada bilance uz sākumu"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_account__opening_credit
 msgid "Opening Credit"
-msgstr "Kredīts uz sākumu"
+msgstr "Atverošais kredīts"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_financial_year_op__opening_date
@@ -10479,7 +10480,7 @@ msgstr "Datums uz sākumu"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_account__opening_debit
 msgid "Opening Debit"
-msgstr "Debets uz sākumu"
+msgstr "Atverošais debits"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_res_company__account_opening_date
@@ -10611,7 +10612,7 @@ msgstr "Cits"
 #: model:account.account,name:account.1_other_income
 #: model:ir.model.fields.selection,name:account.selection__account_account__account_type__income_other
 msgid "Other Income"
-msgstr "Citi Ienākumi"
+msgstr "Cita peļņa"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
@@ -10841,7 +10842,7 @@ msgstr "Daļējs"
 #. module: account
 #: model:ir.model,name:account.model_account_partial_reconcile
 msgid "Partial Reconcile"
-msgstr "Daļēja Sasaiste"
+msgstr "Daļēji saskaņots"
 
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_invoice_report__payment_state__partial
@@ -11864,12 +11865,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account.field_account_move_line__reconciled
 #: model_terms:ir.ui.view,arch_db:account.view_account_payment_search
 msgid "Reconciled"
-msgstr "Sasaistīts"
+msgstr "Saskaņots"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_payment__reconciled_bill_ids
 msgid "Reconciled Bills"
-msgstr "Saskaņotie rēķini"
+msgstr "Saskaņotie izdevumi"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_payment__reconciled_invoice_ids
@@ -11879,12 +11880,12 @@ msgstr "Saskaņotie rēķini"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_payment__reconciled_invoices_type
 msgid "Reconciled Invoices Type"
-msgstr "Saskaņotie rēķini Veids"
+msgstr "Saskaņoto rēķinu veids"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_payment__reconciled_statement_line_ids
 msgid "Reconciled Statement Lines"
-msgstr "Saskaņotā pārskata rindas"
+msgstr "Saskaņoto izrakstu rindas"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line__reconcile_model_id
@@ -12522,6 +12523,7 @@ msgstr "Saglabāt šo lappusi un atgriezties, lai iestatīt šo funkciju."
 #. module: account
 #. flectra-python
 #: code:addons/account/models/account_payment.py:0
+#: code:addons/account/wizard/account_payment_register.py:0
 #, python-format
 msgid "Scan me with your banking app."
 msgstr "Noskenējiet mani ar savu bankas lietotni."
@@ -12932,7 +12934,7 @@ msgstr "Atsevišķs konts izdevumu atlaidei"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_res_company__account_discount_income_allocation_id
 msgid "Separate account for income discount"
-msgstr "Atsevišķs ienākumu diskonta konts"
+msgstr "Atsevisķš konts peļnas atlaidei"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
@@ -13665,7 +13667,7 @@ msgstr "Nodokļu grupas"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.report_invoice_document
 msgid "Tax ID"
-msgstr "Tax ID"
+msgstr "PVN Nr."
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_reconcile_model_line__force_tax_included
@@ -14226,7 +14228,7 @@ msgstr "Bankas žurnāla bankas kontam ir piederēt tam pašam uzņēmumam (%s).
 #. module: account
 #: model:ir.model.fields,help:account.field_account_move_line__statement_id
 msgid "The bank statement used for bank reconciliation"
-msgstr "Bankas Izraksts, kas tiek izmantots kontējumu sasaistei"
+msgstr "Bankas izraksts, kas tiek izmantots bankas saskaņošanai"
 
 #. module: account
 #. flectra-javascript
@@ -15704,7 +15706,7 @@ msgstr "Kopējā summa pēc automātiskās ievades."
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.report_invoice_document
 msgid "Total amount in words: <br/>"
-msgstr "Kopā vārdos: <br/>"
+msgstr "Kopsumma vārdos: <br/>"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_res_company__display_invoice_amount_total_words
@@ -15882,11 +15884,6 @@ msgid "Type of the exception activity on record."
 msgstr "Reģistrētās izņēmuma aktivitātes veids."
 
 #. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_cash_rounding__rounding_method__up
-msgid "UP"
-msgstr "DARBOJAS"
-
-#. module: account
 #. flectra-python
 #: code:addons/account/models/account_bank_statement.py:0
 #, python-format
@@ -15995,17 +15992,17 @@ msgstr "Atsaistīt"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_unreconcile_view
 msgid "Unreconcile Transactions"
-msgstr "Atcelt grāmatojumu saskaņošanu"
+msgstr "Atsaistīt darījumu"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_move_line_filter
 msgid "Unreconciled"
-msgstr "Nesaistīts"
+msgstr "Nav saskaņots"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_report__filter_unreconciled
 msgid "Unreconciled Entries"
-msgstr "Neizlīdzinātie ieraksti"
+msgstr "Nesaskaņotie ieraksti"
 
 #. module: account
 #. flectra-python
@@ -16063,6 +16060,11 @@ msgstr "Neuzticamo maksājumu skaits"
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
 msgid "UoM"
 msgstr "Mērv"
+
+#. module: account
+#: model:ir.model.fields.selection,name:account.selection__account_cash_rounding__rounding_method__up
+msgid "Up"
+msgstr ""
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
@@ -16859,6 +16861,13 @@ msgid ""
 msgstr ""
 "Jūs nevarat izveidot jaunu izraksta rindu, ja žurnālā %s nav iestatīts "
 "pagaidu konts."
+
+#. module: account
+#. flectra-python
+#: code:addons/account/wizard/account_payment_register.py:0
+#, python-format
+msgid "You can't create payments for entries belonging to different branches."
+msgstr ""
 
 #. module: account
 #. flectra-python

@@ -143,7 +143,6 @@ class SelfOrderCommonTest(flectra.tests.HttpCase):
                 "name": "BarTest",
                 "module_pos_restaurant": True,
                 "self_ordering_mode": "consultation",
-                "floor_ids": self.env["restaurant.floor"].search([]),
             }
         )
 

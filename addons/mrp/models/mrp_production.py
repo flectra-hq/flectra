@@ -14,7 +14,7 @@ from flectra import api, fields, models, _, Command
 from flectra.addons.web.controllers.utils import clean_action
 from flectra.exceptions import UserError, ValidationError
 from flectra.tools import float_compare, float_round, float_is_zero, format_datetime
-from flectra.tools.misc import OrderedSet, format_date, groupby as tools_groupby
+from flectra.tools.misc import OrderedSet, format_date, groupby as tools_groupby, topological_sort
 
 from flectra.addons.stock.models.stock_move import PROCUREMENT_PRIORITIES
 
@@ -891,8 +891,6 @@ class MrpProduction(models.Model):
                     finished_move_lines.write({'lot_id': vals.get('lot_producing_id')})
                 if 'qty_producing' in vals:
                     finished_move.quantity = vals.get('qty_producing')
-                    if production.product_tracking == 'lot':
-                        finished_move.move_line_ids.lot_id = production.lot_producing_id
             if self._has_workorders() and not production.workorder_ids.operation_id and vals.get('date_start') and not vals.get('date_finished'):
                 new_date_start = fields.Datetime.to_datetime(vals.get('date_start'))
                 if not production.date_finished or new_date_start >= production.date_finished:
@@ -2815,3 +2813,9 @@ class MrpProduction(models.Model):
                 'context': {'default_production_ids': self.ids},
             }
         return self.action_open_label_layout()
+
+    def _track_get_fields(self):
+        res = super()._track_get_fields()
+        if res:
+            res = OrderedSet(topological_sort(self.fields_get(res, ('depends'))))
+        return res
