@@ -163,8 +163,8 @@ export class Wysiwyg extends Component {
                 // Deselect tables so the applied color can be seen
                 // without using `!important` (otherwise the selection
                 // hides it).
-                if (this.flectraEditor.deselectTable() && hasValidSelection(this.flectraEditor.editable)) {
-                    this.flectraEditor.document.getSelection().collapseToStart();
+                if (hasValidSelection(this.flectraEditor.editable)) {
+                    this.flectraEditor.deselectTable();
                 }
                 this._updateEditorUI(this.lastMediaClicked && { target: this.lastMediaClicked });
             };
@@ -1755,7 +1755,22 @@ export class Wysiwyg extends Component {
                 params.node.replaceWith(element);
             }
             this.flectraEditor.unbreakableStepUnactive();
-            this.flectraEditor.historyStep();
+
+            if (params.node.matches(".oe_unremovable")) {
+                // The "oe_unremovable" class prevents element deletion and must
+                // be removed during the "historyStep" to allow media
+                // replacement. If the class remains, the "sanitize" function in
+                // "historyStep" will block the replacement.
+                params.node.classList.remove("oe_unremovable");
+                element.classList.remove("oe_unremovable");
+                this.flectraEditor.historyStep();
+                this.flectraEditor.observerUnactive("unremovable");
+                element.classList.add("oe_unremovable");
+                this.flectraEditor.observerActive("unremovable");
+            } else {
+                this.flectraEditor.historyStep();
+            }
+
             // Refocus again to save updates when calling `_onWysiwygBlur`
             this.flectraEditor.editable.focus();
         } else {

@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
 
-from flectra.tests.common import BaseCase
-from flectra.tools import SQL
+from psycopg2.errors import CheckViolation
+
+from flectra.tests.common import BaseCase, TransactionCase
+from flectra.tools import SQL, mute_logger, sql
 
 
 class TestSQL(BaseCase):
@@ -158,3 +160,18 @@ class TestSQL(BaseCase):
             repr(sql),
             """SQL('SELECT "id" FROM "table" WHERE "table"."foo"=%s AND "table"."bar"=%s', 1, 2)"""
         )
+
+class TestSqlTools(TransactionCase):
+
+    def test_add_constraint(self):
+        definition = "CHECK (name !~ '%')"
+        sql.add_constraint(self.env.cr, 'res_bank', 'test_constraint_dummy', definition)
+
+        # ensure the constraint with % works and it's in the DB
+        with self.assertRaises(CheckViolation), mute_logger('flectra.sql_db'):
+            self.env['res.bank'].create({'name': '10% bank'})
+
+        # ensure the definitions match
+        db_definition = sql.constraint_definition(self.env.cr, 'res_bank', 'test_constraint_dummy')
+        self.assertEqual(definition, db_definition)
+

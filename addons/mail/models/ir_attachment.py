@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 import contextlib
 
-from flectra import _, api, models, SUPERUSER_ID
+from flectra import _, models, SUPERUSER_ID
 from flectra.exceptions import AccessError, MissingError, UserError
-from flectra.http import request
 from flectra.tools import consteq
 
 
@@ -74,7 +72,6 @@ class IrAttachment(models.Model):
         return self.env.user.partner_id
 
     def _attachment_format(self):
-        safari = request and request.httprequest.user_agent and request.httprequest.user_agent.browser == 'safari'
         return [{
             'checksum': attachment.checksum,
             'create_date': attachment.create_date,
@@ -83,7 +80,7 @@ class IrAttachment(models.Model):
             'name': attachment.name,
             "size": attachment.file_size,
             'res_name': attachment.res_name,
-            'mimetype': 'application/octet-stream' if safari and attachment.mimetype and 'video' in attachment.mimetype else attachment.mimetype,
+            'mimetype': attachment.mimetype,
             'originThread': [('ADD', {
                 'id': attachment.res_id,
                 'model': attachment.res_model,
