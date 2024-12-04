@@ -335,9 +335,9 @@ class HrExpenseSheet(models.Model):
     @api.depends_context('uid')
     @api.depends('employee_id')
     def _compute_can_approve(self):
-        is_team_approver = self.user_has_groups('hr_expense.group_hr_expense_team_approver')
-        is_approver = self.user_has_groups('hr_expense.group_hr_expense_user')
-        is_hr_admin = self.user_has_groups('hr_expense.group_hr_expense_manager')
+        is_team_approver = self.user_has_groups('hr_expense.group_hr_expense_team_approver') or self.env.su
+        is_approver = self.user_has_groups('hr_expense.group_hr_expense_user') or self.env.su
+        is_hr_admin = self.user_has_groups('hr_expense.group_hr_expense_manager') or self.env.su
 
         for sheet in self:
             reason = False
@@ -464,6 +464,22 @@ class HrExpenseSheet(models.Model):
         sheets.activity_update()
         return sheets
 
+    def write(self, vals):
+        if 'state' in vals or 'approval_state' in vals:
+            # Avoid user with write access on expense sheet in draft state to bypass the validation process
+            valid_states = {'submit', None}
+            if (
+                    not self.user_has_groups('hr_expense.group_hr_expense_manager')
+                    and any(state == 'draft' for state in self.mapped('state'))
+                    and (vals.get('state') not in valid_states or vals.get('approval_state') not in valid_states)
+            ):
+                raise UserError(_("You don't have the rights to bypass the validation process of this expense report."))
+            elif vals.get('state') == 'approve' or vals.get('approval_state') == 'approve':
+                self._check_can_approve()
+            elif vals.get('state') == 'cancel' or vals.get('approval_state') == 'cancel':
+                self._check_can_refuse()
+        return super().write(vals)
+
     @api.ondelete(at_uninstall=False)
     def _unlink_except_posted_or_paid(self):
         for expense in self:
@@ -522,7 +538,6 @@ class HrExpenseSheet(models.Model):
 
     def action_approve_expense_sheets(self):
         self._check_can_approve()
-        self._check_bank_account()
         self._validate_analytic_distribution()
         duplicates = self.expense_line_ids.duplicate_expense_ids.filtered(lambda exp: exp.state in {'approved', 'done'})
         if duplicates:
@@ -550,13 +565,12 @@ class HrExpenseSheet(models.Model):
     def action_register_payment(self):
         ''' Open the account.payment.register wizard to pay the selected journal entries.
         There can be more than one bank_account_id in the expense sheet when registering payment for multiple expenses.
-        The default_partner_bank_id is set to the bank account defined on the employee form.
+        The default_partner_bank_id is set only if there is one available, if more than one the field is left empty.
         :return: An action opening the account.payment.register wizard.
         '''
-        self._check_bank_account()
-        return self.account_move_ids.with_context(
-            default_partner_bank_id=self.employee_id.sudo().bank_account_id.id,
-        ).action_register_payment()
+        return self.account_move_ids.with_context(default_partner_bank_id=(
+            self.employee_id.sudo().bank_account_id.id if len(self.employee_id.sudo().bank_account_id.ids) <= 1 else None
+        )).action_register_payment()
 
     def action_open_expense_view(self):
         self.ensure_one()
@@ -641,12 +655,6 @@ class HrExpenseSheet(models.Model):
             action['domain'] = [('id', 'in', missing_email_employees.ids)]
             raise RedirectWarning(_("The work email of some employees is missing. Please add it on the employee form"), action, _("Show missing work email employees"))
 
-    def _check_bank_account(self):
-        no_bank_employees = self.filtered(lambda sheet: sheet.payment_mode == 'own_account' and not sheet.employee_id.sudo().bank_account_id).mapped('employee_id')
-        if no_bank_employees:
-            action = no_bank_employees._get_records_action(name=_("Employee(s)"))
-            raise RedirectWarning(_("Employee(s) should have a bank account set."), action, _("Go to Employee(s)"))
-
     def _do_submit(self):
         self.write({'approval_state': 'submit'})
         self.sudo().activity_update()
@@ -704,13 +712,15 @@ class HrExpenseSheet(models.Model):
     def _do_reverse_moves(self):
         self = self.with_context(clean_context(self.env.context))
         moves = self.account_move_ids
-        draft_moves = moves.filtered(lambda m: m.state == 'draft')
-        non_draft_moves = moves - draft_moves
-        non_draft_moves._reverse_moves(
-            default_values_list=[{'invoice_date': fields.Date.context_today(move), 'ref': False} for move in non_draft_moves],
-            cancel=True
-        )
-        draft_moves.unlink()
+        if moves:
+            moves_sudo = self.sudo().account_move_ids
+            draft_moves_sudo = moves_sudo.filtered(lambda m: m.state == 'draft')
+            non_draft_moves_sudo = moves_sudo - draft_moves_sudo
+            non_draft_moves_sudo._reverse_moves(
+                default_values_list=[{'invoice_date': fields.Date.context_today(move), 'ref': False} for move in non_draft_moves_sudo],
+                cancel=True
+            )
+            draft_moves_sudo.unlink()
 
     def _prepare_bills_vals(self):
         self.ensure_one()
@@ -723,7 +733,6 @@ class HrExpenseSheet(models.Model):
             'partner_id': self.employee_id.sudo().work_contact_id.id,
             'currency_id': self.currency_id.id,
             'line_ids': [Command.create(expense._prepare_move_lines_vals()) for expense in self.expense_line_ids],
-            'partner_bank_id': self.employee_id.sudo().bank_account_id.id,
             'attachment_ids': [
                 Command.create(attachment.copy_data({'res_model': 'account.move', 'res_id': False, 'raw': attachment.raw})[0])
                 for attachment in self.expense_line_ids.message_main_attachment_id
