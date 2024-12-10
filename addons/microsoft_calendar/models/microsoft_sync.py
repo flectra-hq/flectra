@@ -11,6 +11,7 @@ from datetime import timedelta
 from flectra import api, fields, models, registry
 from flectra.exceptions import UserError
 from flectra.osv import expression
+from flectra.sql_db import BaseCursor
 
 from flectra.addons.microsoft_calendar.utils.microsoft_event import MicrosoftEvent
 from flectra.addons.microsoft_calendar.utils.microsoft_calendar import MicrosoftCalendarService
@@ -28,6 +29,7 @@ MAX_RECURRENT_EVENT = 720
 def after_commit(func):
     @wraps(func)
     def wrapped(self, *args, **kwargs):
+        assert isinstance(self.env.cr, BaseCursor)
         dbname = self.env.cr.dbname
         context = self.env.context
         uid = self.env.uid

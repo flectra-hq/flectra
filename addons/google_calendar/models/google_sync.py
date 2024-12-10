@@ -12,6 +12,7 @@ from markupsafe import Markup
 from flectra import api, fields, models, registry, _
 from flectra.tools import ormcache_context, email_normalize
 from flectra.osv import expression
+from flectra.sql_db import BaseCursor
 
 from flectra.addons.google_calendar.utils.google_event import GoogleEvent
 from flectra.addons.google_calendar.utils.google_calendar import GoogleCalendarService
@@ -27,6 +28,7 @@ _logger = logging.getLogger(__name__)
 def after_commit(func):
     @wraps(func)
     def wrapped(self, *args, **kwargs):
+        assert isinstance(self.env.cr, BaseCursor)
         dbname = self.env.cr.dbname
         context = self.env.context
         uid = self.env.uid
