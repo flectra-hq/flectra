@@ -2,6 +2,7 @@
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 from flectra import fields, models
+from flectra.tools.misc import clean_context
 
 
 class StockWarnInsufficientQtyRepair(models.TransientModel):
@@ -16,4 +17,5 @@ class StockWarnInsufficientQtyRepair(models.TransientModel):
 
     def action_done(self):
         self.ensure_one()
+        self = self.with_context(clean_context(self.env.context))
         return self.repair_id._action_repair_confirm()
