@@ -9,7 +9,7 @@ from werkzeug.urls import url_join
 from flectra import fields, models, api, _
 from flectra.exceptions import UserError, ValidationError
 from flectra.http import request
-from flectra.tools import json
+from flectra.tools.safe_eval import json
 
 
 class ResCompany(models.Model):
