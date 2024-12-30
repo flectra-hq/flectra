@@ -85,7 +85,7 @@ class ScssEditor(models.AbstractModel):
         if custom_attachment.exists():
             return base64.b64decode(custom_attachment.datas).decode('utf-8')
         else:
-            match = re.compile("^/(\w+)/(.+?)(\.custom\.(.+))?\.(\w+)$").match(url)
+            match = re.compile(r"^/(\w+)/(.+?)(\.custom\.(.+))?\.(\w+)$").match(url)
             module_path = module.get_module_path(match.group(1))
             resource_path = "%s.%s" % (match.group(2), match.group(5))
             module_resource_path = module.get_resource_path(module_path, resource_path)
