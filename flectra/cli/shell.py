@@ -4,6 +4,7 @@ import logging
 import os
 import signal
 import sys
+import threading
 from pathlib import Path
 
 import flectra
@@ -106,6 +107,7 @@ class Shell(Command):
             'flectra': flectra,
         }
         if dbname:
+            threading.current_thread().dbname = dbname
             registry = flectra.registry(dbname)
             with registry.cursor() as cr:
                 uid = flectra.SUPERUSER_ID
