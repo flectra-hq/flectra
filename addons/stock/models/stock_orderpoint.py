@@ -12,6 +12,7 @@ from flectra import SUPERUSER_ID, _, api, fields, models, registry
 from flectra.addons.stock.models.stock_rule import ProcurementException
 from flectra.exceptions import RedirectWarning, UserError, ValidationError
 from flectra.osv import expression
+from flectra.sql_db import BaseCursor
 from flectra.tools import float_compare, float_is_zero, frozendict, split_every
 
 _logger = logging.getLogger(__name__)
@@ -559,6 +560,7 @@ class StockWarehouseOrderpoint(models.Model):
 
         for orderpoints_batch_ids in split_every(1000, self.ids):
             if use_new_cursor:
+                assert isinstance(self._cr, BaseCursor)
                 cr = registry(self._cr.dbname).cursor()
                 self = self.with_env(self.env(cr=cr))
             try:
