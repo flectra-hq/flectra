@@ -145,7 +145,8 @@ def gen_deb_package(args, published_files):
     if args.sign:
         # Generate Release.gpg (= signed Release)
         # Options -abs: -a (Create ASCII armored output), -b (Make a detach signature), -s (Make a signature)
-        subprocess.call(['gpg', '--default-key', GPGID, '--passphrase', GPGPASSPHRASE, '--yes', '-abs', '--no-tty', '-o', 'Release.gpg', 'Release'], cwd=os.path.join(args.pub, 'deb'))
+        subprocess.call(['gpg','--pinentry-mode=loopback', '--default-key', GPGID, '--passphrase', GPGPASSPHRASE, '--yes', '-abs', '--no-tty', '-o', 'Release.gpg', 'Release'], cwd=os.path.join(args.pub, 'deb'))
+        # subprocess.call(['gpg', '--pinentry-mode loopback --default-key', GPGID, '--passphrase', GPGPASSPHRASE, '--yes', '-abs', '--no-tty', '-o', 'Release.gpg', 'Release'], cwd=os.path.join(args.pub, 'deb'))
 
 
 # ---------------------------------------------------------
