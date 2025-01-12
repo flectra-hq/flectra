@@ -12,7 +12,7 @@ override_dh_auto_build:
 
 override_dh_auto_install:
 	dh_auto_install
-	#rm debian/flectra/usr/lib/python3*/dist-packages/flectra/addons/point_of_sale/static/src/fonts/Inconsolata.otf
+	rm debian/flectra/usr/lib/python3*/dist-packages/flectra/addons/point_of_sale/static/src/fonts/Inconsolata.otf
 	for LINKTARGET in `awk '{ print $2 }' flectra.links`; do rm debian/flectra/${LINKTARGET} ; done
 	find debian/flectra -name LICENSE.txt -exec rm {} \;
 

@@ -1,7 +1,7 @@
 # Please note that this Dockerfile is used for testing nightly builds and should
-# not be used to deploy Flectra
+# not be used to deploy Odoo
 FROM fedora:38
-MAINTAINER Flectra S.A. <info@flectra.com>
+MAINTAINER Odoo S.A. <info@odoo.com>
 
 # Dependencies and postgres
 RUN dnf update -d 0 -e 0 -y && \
@@ -68,4 +68,4 @@ RUN cp /usr/share/pgsql/postgresql.conf.sample /var/lib/postgres/data/postgresql
 
 RUN echo "PS1=\"[\u@nightly-tests] # \"" > ~/.bashrc
 
-USER flectra
+USER odoo
