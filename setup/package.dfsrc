@@ -1,7 +1,7 @@
 # Please note that this Dockerfile is used for testing nightly builds and should
-# not be used to deploy Odoo
+# not be used to deploy Flectra
 FROM debian:bookworm
-MAINTAINER Odoo S.A. <info@odoo.com>
+MAINTAINER Flectra S.A. <info@flectrahq.com>
 
 RUN apt-get update && \
 	apt-get install -y locales && \
@@ -33,4 +33,4 @@ COPY requirements.txt /opt/release/requirements.txt
 
 RUN echo "PS1=\"[\u@nightly-tests] # \"" > ~/.bashrc
 
-USER odoo
+USER flectra
