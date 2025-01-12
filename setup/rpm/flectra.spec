@@ -13,7 +13,7 @@ Group: Development/Libraries
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Prefix: %{_prefix}
 BuildArch: noarch
-Vendor: Flectra S.A. <info@flectrahq.com>
+Vendor: FlectraHQ, Inc. <info@flectrahq.com>
 Requires: sassc
 BuildRequires: python3-devel
 BuildRequires: pyproject-rpm-macros

@@ -28,7 +28,7 @@ class TestCalendar(SavepointCaseWithUserDemo):
             'stop': '2011-04-30 18:30:00',
             'description': 'The Technical Presentation will cover following topics:\n* Creating Flectra class\n* Views\n* Wizards\n* Workflows',
             'duration': 2.5,
-            'location': 'Flectra S.A.',
+            'location': 'FlectraHQ, Inc.',
             'name': 'Technical Presentation'
         })
 
@@ -499,7 +499,7 @@ class TestCalendarTours(HttpCaseWithUserDemo):
             'start': start.strftime("%Y-%m-%d %H:%M:%S"),
             'stop': stop.strftime("%Y-%m-%d %H:%M:%S"),
             'duration': 3,
-            'location': 'Flectra S.A.',
+            'location': 'FlectraHQ, Inc.',
             'privacy': 'public',
             'show_as': 'busy',
         })
@@ -523,7 +523,7 @@ class TestCalendarTours(HttpCaseWithUserDemo):
             'start': start.strftime("%Y-%m-%d %H:%M:%S"),
             'stop': stop.strftime("%Y-%m-%d %H:%M:%S"),
             'duration': 3,
-            'location': 'Flectra S.A.',
+            'location': 'FlectraHQ, Inc.',
             'privacy': 'public',
             'show_as': 'busy',
         })
@@ -548,7 +548,7 @@ class TestCalendarTours(HttpCaseWithUserDemo):
             'start': start.strftime("%Y-%m-%d %H:%M:%S"),
             'stop': stop.strftime("%Y-%m-%d %H:%M:%S"),
             'duration': 3,
-            'location': 'Flectra S.A.',
+            'location': 'FlectraHQ, Inc.',
             'privacy': 'public',
             'show_as': 'busy',
         })

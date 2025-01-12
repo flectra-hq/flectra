@@ -43,7 +43,7 @@
     }, {
         content: "Complete Company",
         trigger: "input[name=partner_name]",
-        run: "text Flectra S.A."
+        run: "text FlectraHQ, Inc."
     }, {
         content: "Complete Subject",
         trigger: "input[name=name]",

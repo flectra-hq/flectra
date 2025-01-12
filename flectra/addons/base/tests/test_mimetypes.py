@@ -39,12 +39,12 @@ XML = b"""<?xml version='1.0' encoding='utf-8'?>
 <Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.03">
   <CstmrCdtTrfInitn>
     <GrpHdr>
-      <MsgId>123456Flectra S.A.893873733</MsgId>
+      <MsgId>123456FlectraHQ, Inc.893873733</MsgId>
       <CreDtTm>2018-11-21T09:47:32</CreDtTm>
       <NbOfTxs>0</NbOfTxs>
       <CtrlSum>0.0</CtrlSum>
       <InitgPty>
-        <Nm>Flectra S.A.</Nm>
+        <Nm>FlectraHQ, Inc.</Nm>
         <Id>
           <OrgId>
             <Othr>

@@ -29,7 +29,7 @@ _DEFAULT_MANIFEST = {
     'application': False,
     'bootstrap': False,  # web
     'assets': {},
-    'author': 'Flectra S.A.',
+    'author': 'FlectraHQ, Inc.',
     'auto_install': False,
     'category': 'Uncategorized',
     'configurator_snippets': {},  # website themes

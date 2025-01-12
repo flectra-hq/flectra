@@ -38,7 +38,7 @@ class TestModuleManifest(BaseCase):
             'addons_path': self.addons_path,
             'application': False,
             'assets': {},
-            'author': 'Flectra S.A.',
+            'author': 'FlectraHQ, Inc.',
             'auto_install': False,
             'bootstrap': False,
             'category': 'Uncategorized',
