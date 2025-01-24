@@ -7,7 +7,7 @@ from urllib.parse import urlencode
 from unittest.mock import patch
 
 import flectra
-from flectra.tests.common import get_db_name
+from flectra.tests import get_db_name, tagged
 from flectra.tools import mute_logger
 from .test_common import TestHttpBase
 
@@ -23,6 +23,7 @@ GEOIP_FLECTRA_FARM_2 = {
 }
 
 
+@tagged('post_install', '-at_install')
 class TestHttpSession(TestHttpBase):
 
     @mute_logger('flectra.http')  # greeting_none called ignoring args {'debug'}
