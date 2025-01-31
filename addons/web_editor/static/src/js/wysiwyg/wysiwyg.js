@@ -62,6 +62,7 @@ const closestBlock = FlectraEditorLib.closestBlock;
 const getRangePosition = FlectraEditorLib.getRangePosition;
 const fillEmpty = FlectraEditorLib.fillEmpty;
 const isVisible = FlectraEditorLib.isVisible;
+const getSelectedNodes = FlectraEditorLib.getSelectedNodes;
 
 function getJqueryFromDocument(doc) {
     if (doc.defaultView && doc.defaultView.$) {
@@ -1358,7 +1359,25 @@ export class Wysiwyg extends Component {
      * Open the link tools or the image link tool depending on the selection.
      */
     openLinkToolsFromSelection() {
-        const targetEl = this.flectraEditor.document.getSelection().getRangeAt(0).startContainer;
+        const selection = this.flectraEditor.document.getSelection();
+        // If there is no selection return
+        if (!selection || selection.rangeCount === 0) {
+            return;
+        }
+        // If there is a video in selection then return
+        for (const el of getSelectedNodes(this.flectraEditor.editable)) {
+            if (
+                el.classList?.contains("media_iframe_video")
+                || el.classList?.contains("media_iframe_video_size")
+            ) {
+                return;
+            }
+        }
+        const targetEl = selection.getRangeAt(0).startContainer;
+        // Avoid toggleLinkTools for video if targetEl is text
+        if (closestElement(targetEl, ".media_iframe_video")) {
+            return;
+        }
         // Link tool is different if the selection is an image or a text.
         if (targetEl.nodeType === Node.ELEMENT_NODE
                 && (targetEl.tagName === 'IMG' || targetEl.querySelectorAll('img').length === 1)) {

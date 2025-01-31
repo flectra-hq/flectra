@@ -1,5 +1,5 @@
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
-from flectra import models, fields
+from flectra import models, fields, api
 
 
 class ResPartner(models.Model):
@@ -27,3 +27,7 @@ class ResPartner(models.Model):
         for partner in self:
             if partner.country_code == 'MY':
                 partner.ubl_cii_format = 'pint_my'
+
+    @api.model
+    def _commercial_fields(self):
+        return super()._commercial_fields() + ['sst_registration_number', 'ttx_registration_number']

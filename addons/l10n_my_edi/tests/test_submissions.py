@@ -1,4 +1,5 @@
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
+
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
@@ -19,12 +20,6 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref='my'):
         super().setUpClass(chart_template_ref=chart_template_ref)
-
-        # We can reuse this invoice for the flow tests.
-        cls.basic_invoice = cls.init_invoice(
-            'out_invoice', amounts=[100],
-        )
-        cls.basic_invoice.action_post()
 
         # TIN number is required
         cls.company_data['company'].write({
@@ -48,10 +43,21 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
             'city': 'Main city',
             'phone': '+60123456786',
         })
+        cls.product_a.l10n_my_edi_classification_code = "001"
+
+        # We can reuse this invoice for the flow tests.
+        cls.basic_invoice = cls.init_invoice(
+            'out_invoice', products=cls.product_a
+        )
+        cls.basic_invoice.action_post()
 
         # For simplicity, we will test everything using a 'test' mode user, but we create it using demo to avoid triggering any api calls.
         cls.proxy_user = cls.env['account_edi_proxy_client.user']._register_proxy_user(cls.company_data['company'], 'l10n_my_edi', 'demo')
         cls.proxy_user.edi_mode = 'test'
+
+        # This will allow to still use the send and print flow when testing, even if the new module is installed.
+        # It's best to keep the code tested even if we expect users to use the new flow.
+        cls.env['ir.config_parameter'].set_param('l10n_my_edi.disable.send_and_print.first', 'False')
 
         cls.fakenow = datetime(2024, 7, 15, 10, 00, 00)
         cls.startClassPatcher(freeze_time(cls.fakenow))
@@ -246,9 +252,8 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
             invoice_vals.append({
                 'move_type': 'out_invoice',
                 'partner_id': self.partner_a.id,
-                'line_ids': [
-                    Command.create({'debit': 100.0 + i, 'credit': 0.0}),
-                    Command.create({'debit': 0.0, 'credit': 100.0 + i}),
+                'invoice_line_ids': [
+                    Command.create({'product_id': self.product_a.id}),
                 ],
             })
 
@@ -291,7 +296,7 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
         Test the cancellation flow when it works well.
         """
         bill = self.init_invoice(
-            'in_invoice', amounts=[100],
+            'in_invoice', products=self.product_a
         )
         bill.action_post()
 
@@ -357,6 +362,7 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
                     '123458974513518': {
                         'status': 'valid',
                         'reason': '',
+                        'long_id': '',
                         'valid_datetime': '2024-07-15T05:00:00Z',
                     }
                 },
@@ -413,6 +419,7 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
                     '123458974513518': {
                         'status': 'valid',
                         'reason': '',
+                        'long_id': '',
                         'valid_datetime': '2024-07-15T13:15:10Z',
                     }
                 },
@@ -442,6 +449,7 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
                     '123458974513518': {
                         'status': 'valid',
                         'reason': '',
+                        'long_id': '',
                         'valid_datetime': '2024-07-15T13:15:10Z',
                     }
                 },
@@ -488,6 +496,7 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
                     '123458974513518': {
                         'status': 'valid',
                         'reason': '',
+                        'long_id': '',
                         'valid_datetime': '2024-07-15T05:00:00Z',
                     }
                 },
@@ -514,6 +523,7 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
                     '123458974513518': {
                         'status': 'in_progress',
                         'reason': '',
+                        'long_id': '',
                         'valid_datetime': '',
                     }
                 },
@@ -526,6 +536,7 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
                     '123458974513518': {
                         'status': 'valid',
                         'reason': '',
+                        'long_id': '',
                         'valid_datetime': '2024-07-15T05:00:00Z',
                     }
                 },
@@ -554,6 +565,7 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
                     invoice.l10n_my_edi_external_uuid: {
                         'status': 'valid',
                         'reason': '',
+                        'long_id': '',
                         'valid_datetime': '2024-07-15T05:00:00Z',
                     } for invoice in invoices
                 },
@@ -579,6 +591,7 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
                     '123458974513518': {
                         'status': 'in_progress',
                         'reason': '',
+                        'long_id': '',
                         'valid_datetime': '',
                     }
                 },
@@ -588,6 +601,8 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
             return {
                 'status': 'valid',
                 'status_reason': '',
+                'long_id': '',
+                'valid_datetime': '2024-07-15T05:00:00Z',
             }
         else:
             raise UserError('Unexpected endpoint called during a test: %s with params %s.' % (endpoint, params))
@@ -618,6 +633,7 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
                     '123458974513518': {
                         'status': 'valid',
                         'reason': '',
+                        'long_id': '',
                         'valid_datetime': '2024-07-15T05:00:00Z',
                     }
                 },
@@ -627,6 +643,8 @@ class L10nMyEDITestSubmission(TestAccountMoveSendCommon):
             return {
                 'status': 'rejected',
                 'status_reason': 'Wrong address',
+                'long_id': '',
+                'valid_datetime': '',
             }
         elif endpoint == 'api/l10n_my_edi/1/update_status':
             return {

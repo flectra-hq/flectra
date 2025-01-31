@@ -1,11 +1,12 @@
 /** @flectra-module */
 import { DataSources } from "@spreadsheet/data_sources/data_sources";
-import { Model, parse, helpers, iterateAstNodes } from "@flectra/o-spreadsheet";
+import { Model, parse, helpers, iterateAstNodes, constants } from "@flectra/o-spreadsheet";
 import { migrate } from "@spreadsheet/o_spreadsheet/migration";
 import { _t } from "@web/core/l10n/translation";
 import { loadBundle } from "@web/core/assets";
 
-const { formatValue, isDefined, toCartesian, toXC } = helpers;
+const { formatValue, isDefined, toCartesian, toXC, isNumber, isDateTime } = helpers;
+const { DEFAULT_LOCALE } = constants;
 import {
     isMarkdownViewUrl,
     isMarkdownIrMenuIdUrl,
@@ -70,7 +71,15 @@ export async function freezeFlectraData(model) {
             const position = { sheetId, col, row };
             const evaluatedCell = model.getters.getEvaluatedCell(position);
             if (containsFlectraFunction(cell.content)) {
-                cell.content = evaluatedCell.value.toString();
+                if (
+                    evaluatedCell.type === "text" &&
+                    (isNumber(evaluatedCell.value, DEFAULT_LOCALE) ||
+                        isDateTime(evaluatedCell.value, DEFAULT_LOCALE))
+                ) {
+                    cell.content = `="${evaluatedCell.value}"`;
+                } else {
+                    cell.content = evaluatedCell.value.toString();
+                }
                 if (evaluatedCell.format) {
                     cell.format = getItemId(evaluatedCell.format, data.formats);
                 }
