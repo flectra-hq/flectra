@@ -610,7 +610,7 @@ class MrpProduction(models.Model):
             if production.state in ('draft', 'done', 'cancel'):
                 production.reservation_state = False
                 continue
-            relevant_move_state = production.move_raw_ids.filtered(lambda m: not m.picked)._get_relevant_state_among_moves()
+            relevant_move_state = production.move_raw_ids.filtered(lambda m: not (m.picked or float_is_zero(m.product_uom_qty, precision_rounding=m.product_uom.rounding)))._get_relevant_state_among_moves()
             # Compute reservation state according to its component's moves.
             if relevant_move_state == 'partially_available':
                 if production.workorder_ids.operation_id and production.bom_id.ready_to_produce == 'asap':
@@ -868,19 +868,7 @@ class MrpProduction(models.Model):
                 if production.state == 'draft' and picking_type != production.picking_type_id:
                     production.name = picking_type.sequence_id.next_by_id()
 
-        date_start_map = dict()
-        if 'date_start' in vals:
-            date_start = fields.Datetime.to_datetime(vals['date_start'])
-            date_start_map = {
-                prod: date_start - datetime.timedelta(days=prod.bom_id.produce_delay)
-                if prod.bom_id else date_start
-                for prod in self
-            }
-            res = True
-            for production in self:
-                res &= super(MrpProduction, production).write({**vals, 'date_start': date_start_map[production]})
-        else:
-            res = super().write(vals)
+        res = super().write(vals)
 
         for production in self:
             if 'date_start' in vals and not self.env.context.get('force_date', False):

@@ -1,6 +1,7 @@
 import ast
 import os
 import logging
+from email._policybase import _PolicyBase
 from flectra import MIN_PY_VERSION
 from shutil import copyfileobj
 from types import CodeType
@@ -14,6 +15,7 @@ except ImportError:
     _logger.warning("num2words is not available, Arabic number to words conversion will not work")
     num2words = None
 
+from urllib3 import PoolManager
 from werkzeug.datastructures import FileStorage, MultiDict
 from werkzeug.routing import Rule
 from werkzeug.wrappers import Request, Response
@@ -143,3 +145,23 @@ def new_get_soap_client(wsdlurl, timeout=30):
 
 if util:
     util.get_soap_client = new_get_soap_client
+
+
+def pool_init(self, *args, **kwargs):
+    orig_pool_init(self, *args, **kwargs)
+    self.pool_classes_by_scheme = {**self.pool_classes_by_scheme}
+
+
+orig_pool_init = PoolManager.__init__
+PoolManager.__init__ = pool_init
+
+
+def policy_clone(self, **kwargs):
+    for arg in kwargs:
+        if arg.startswith("_") or "__" in arg:
+            raise AttributeError(f"{self.__class__.__name__!r} object has no attribute {arg!r}")
+    return orig_policy_clone(self, **kwargs)
+
+
+orig_policy_clone = _PolicyBase.clone
+_PolicyBase.clone = policy_clone

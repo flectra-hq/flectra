@@ -3669,6 +3669,48 @@ class TestAccountMoveOutInvoiceOnchanges(AccountTestInvoicingCommon):
         ]
         self.assertRecordValues(caba_move.line_ids, expected_values)
 
+    def test_out_invoice_caba_on_payment(self):
+        self.env.company.tax_exigibility = True
+        tax_waiting_account = self.env['account.account'].create({
+            'name': 'TAX_WAIT',
+            'code': 'TWAIT',
+            'account_type': 'liability_current',
+            'reconcile': True,
+            'company_id': self.company_data['company'].id,
+        })
+        caba_tax = self.env['account.tax'].create({
+            'name': 'cash basis 10%',
+            'type_tax_use': 'sale',
+            'amount': 10,
+            'tax_exigibility': 'on_payment',
+            'cash_basis_transition_account_id': tax_waiting_account.id,
+        })
+        caba_tax.invoice_repartition_line_ids.account_id.reconcile = True
+        invoice = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'partner_id': self.partner_a.id,
+            'invoice_line_ids': [
+                Command.create({
+                    'price_unit': 1000.0,
+                    'tax_ids': [Command.set(caba_tax.ids)],
+                })
+            ],
+        })
+        invoice.invoice_line_ids.tax_ids = caba_tax
+        invoice.action_post()
+        credit_note = invoice._reverse_moves()
+        credit_note.action_post()
+        receivable_lines = (invoice + credit_note).line_ids.filtered(lambda l: l.account_id == self.partner_a.property_account_receivable_id)
+        invoice_receivable_matching, refund_receivable_matching = receivable_lines.mapped('matching_number')
+        self.assertEqual(invoice_receivable_matching, refund_receivable_matching)
+        # The tax account should be reconciled with the CABA entries if they exist
+        # But ideally, they shouldn't exist since no cash was involved.
+        tax_lines = (invoice + credit_note).line_ids.filtered(lambda l: l.account_id == tax_waiting_account)
+        invoice_tax_matching, refund_tax_matching = tax_lines.mapped('matching_number')
+        self.assertNotEqual(invoice_tax_matching, refund_tax_matching)
+        self.assertTrue(all([invoice_tax_matching, refund_tax_matching, invoice_receivable_matching, refund_receivable_matching]))
+
+
     def test_tax_grid_remove_tax(self):
         # Add a tag to tax_sale_a
         tax_line_tag = self.env['account.account.tag'].create({
@@ -4461,3 +4503,39 @@ class TestAccountMoveOutInvoiceOnchanges(AccountTestInvoicingCommon):
             })],
         })
         self.assertEqual(move.line_ids.partner_id, self.partner_a)
+
+    def test_out_invoice_bank_partner(self):
+        """ Check the bank partner is recomputed on invoice company change on new invoice """
+        company_1 = self.company_data['company']
+        company_2 = self.company_data_2['company']
+        bank = self.env["res.partner.bank"].create({
+            "bank_name": "FAKE",
+            "acc_number": "1234567890",
+            "partner_id": company_1.partner_id.id,
+        })
+        bank_2 = self.env["res.partner.bank"].create({
+            "bank_name": "FAKE 2",
+            "acc_number": "1234567890",
+            "partner_id": company_2.partner_id.id,
+        })
+        invoice_new = self.env["account.move"].with_context(default_move_type="out_invoice").new({
+            "company_id": company_1.id,
+            "partner_id": self.partner_a.id,
+        })
+        self.assertEqual(
+            company_1.partner_id,
+            invoice_new.bank_partner_id
+        )
+        self.assertEqual(
+            bank,
+            invoice_new.partner_bank_id
+        )
+        invoice_new.company_id = company_2
+        self.assertEqual(
+            company_2.partner_id,
+            invoice_new.bank_partner_id
+        )
+        self.assertEqual(
+            bank_2,
+            invoice_new.partner_bank_id
+        )
