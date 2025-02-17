@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Flectra Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:26+0000\n"
+"POT-Creation-Date: 2025-02-10 10:33+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: or balmas, 2025\n"
 "Language-Team: Hebrew (https://app.transifex.com/flectra/teams/41243/he/)\n"
@@ -147,14 +147,14 @@ msgstr "אבני דרך של %(name)s"
 #: code:addons/project/models/project_project.py:0
 #, python-format
 msgid "%(name)s's Rating"
-msgstr ""
+msgstr "דירוג של %(name)s"
 
 #. module: project
 #. flectra-python
 #: code:addons/project/models/project_project.py:0
 #, python-format
 msgid "%(name)s's Tasks Analysis"
-msgstr ""
+msgstr "ניתוח משימות של %(name)s"
 
 #. module: project
 #. flectra-python
@@ -341,7 +341,7 @@ msgstr ""
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_task_view_activity
 msgid "<i class=\"fa fa-lock\"/> Private"
-msgstr ""
+msgstr "<i class=\"fa fa-lock\"/> פרטי"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.task_type_edit
@@ -360,7 +360,7 @@ msgstr ""
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_sharing_project_task_view_form
 msgid "<i class=\"oi oi-arrow-right me-1\"/>Back to edit mode"
-msgstr ""
+msgstr "<i class=\"oi oi-arrow-right me-1\"/> בחזרה למצב עריכה"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.view_task_kanban
@@ -402,12 +402,12 @@ msgstr ""
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_milestone_view_form
 msgid "<span class=\"fw-normal\"> Done</span>"
-msgstr ""
+msgstr "<span class=\"fw-normal\"> בוצע</span>"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_milestone_view_form
 msgid "<span class=\"fw-normal\"> Tasks</span>"
-msgstr ""
+msgstr "<span class=\"fw-normal\">משימות</span>"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.view_task_form2
@@ -439,12 +439,12 @@ msgstr "<span class=\"o_stat_text\">דירוג אחרון</span>"
 #: model_terms:ir.ui.view,arch_db:project.project_sharing_project_task_view_form
 #: model_terms:ir.ui.view,arch_db:project.view_task_form2
 msgid "<span class=\"o_stat_text\">Parent Task</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">משימת אב</span>"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.edit_project
 msgid "<span class=\"text-muted o_row ps-1 pb-3\">Send a rating request:</span>"
-msgstr ""
+msgstr "<span class=\"text-muted o_row ps-1 pb-3\">שלח בקשת דירוג:</span>"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.edit_project
@@ -526,12 +526,12 @@ msgstr "לא ניתן לקשר שלב אישי לפרויקט מכיוון שה�
 #. module: project
 #: model:ir.model.constraint,message:project.constraint_project_task_private_task_has_no_parent
 msgid "A private task cannot have a parent."
-msgstr ""
+msgstr "למשימה פרטית לא יכול להיות הורה."
 
 #. module: project
 #: model:ir.model.constraint,message:project.constraint_project_task_recurring_task_has_no_parent
 msgid "A subtask cannot be recurrent."
-msgstr ""
+msgstr "משימת משנה לא יכולה להיות חוזרת."
 
 #. module: project
 #: model:ir.model.constraint,message:project.constraint_project_tags_name_uniq
@@ -818,12 +818,9 @@ msgid ""
 msgstr "נתח את התקדמות הפרויקטים שלך ואת הביצועים של העובדים שלך."
 
 #. module: project
-#. flectra-javascript
-#: code:addons/project/static/src/components/project_task_state_selection/project_task_state_selection.js:0
 #: model:ir.model.fields.selection,name:project.selection__project_task__state__03_approved
 #: model:ir.model.fields.selection,name:project.selection__project_task_burndown_chart_report__state__03_approved
 #: model:ir.model.fields.selection,name:project.selection__report_project_task_user__state__03_approved
-#, python-format
 msgid "Approved"
 msgstr "אושר"
 
@@ -856,7 +853,7 @@ msgstr "האם אתה בטוח שברצונך להמשיך?"
 #: model_terms:ir.ui.view,arch_db:project.view_project_project_stage_delete_wizard
 #: model_terms:ir.ui.view,arch_db:project.view_project_task_type_delete_wizard
 msgid "Are you sure you want to delete these stages?"
-msgstr ""
+msgstr "האם אתה בטוח שברצונך למחוק את השלבים האלה?"
 
 #. module: project
 #. flectra-javascript
@@ -951,6 +948,7 @@ msgid ""
 "Attach all documents or links to the task directly, to have all research "
 "information centralized."
 msgstr ""
+"צרף את כל המסמכים או הקישורים למשימה ישירות, כדי לרכז את כל מידע המחקר."
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_milestone__message_attachment_count
@@ -1068,7 +1066,7 @@ msgstr "חסום על ידי"
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.view_task_search_form_base
 msgid "Blocking"
-msgstr ""
+msgstr "חוסם"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.view_task_form2
@@ -1105,10 +1103,8 @@ msgid "Can Be Marked As Done"
 msgstr "ניתן לסמן כבוצע"
 
 #. module: project
-#. flectra-javascript
 #. flectra-python
 #: code:addons/project/models/project_task.py:0
-#: code:addons/project/static/src/components/project_task_state_selection/project_task_state_selection.js:0
 #: model:ir.model.fields.selection,name:project.selection__project_task__state__1_canceled
 #: model:ir.model.fields.selection,name:project.selection__project_task_burndown_chart_report__state__1_canceled
 #: model:ir.model.fields.selection,name:project.selection__report_project_task_user__state__1_canceled
@@ -1121,17 +1117,14 @@ msgid "Canceled"
 msgstr "בוטל"
 
 #. module: project
-#. flectra-javascript
-#: code:addons/project/static/src/components/project_task_state_selection/project_task_state_selection.js:0
 #: model:ir.model.fields.selection,name:project.selection__project_task__state__02_changes_requested
 #: model:ir.model.fields.selection,name:project.selection__project_task_burndown_chart_report__state__02_changes_requested
 #: model:ir.model.fields.selection,name:project.selection__report_project_task_user__state__02_changes_requested
 #: model:mail.message.subtype,description:project.mt_task_changes_requested
 #: model:mail.message.subtype,name:project.mt_project_task_changes_requested
 #: model:mail.message.subtype,name:project.mt_task_changes_requested
-#, python-format
 msgid "Changes Requested"
-msgstr ""
+msgstr "שינויים מבוקשים"
 
 #. module: project
 #. flectra-javascript
@@ -1308,7 +1301,7 @@ msgstr "איש קשר"
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_task_convert_to_subtask_view_form
 msgid "Convert Task"
-msgstr ""
+msgstr "המר משימה"
 
 #. module: project
 #. flectra-python
@@ -1316,7 +1309,7 @@ msgstr ""
 #: model:ir.actions.server,name:project.action_server_convert_to_subtask
 #, python-format
 msgid "Convert to Task/Sub-Task"
-msgstr ""
+msgstr "המר למשימה/תת- משימה"
 
 #. module: project
 #. flectra-javascript
@@ -1343,7 +1336,7 @@ msgstr "תמונת הכריכה"
 #, python-format
 msgid ""
 "Create <b>activities</b> to set yourself to-dos or to schedule meetings."
-msgstr ""
+msgstr "צור <b>פעילויות</b>ת כדי להגדיר לעצמך מטלות או לתזמן פגישות."
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_report_project_task_user__create_date
@@ -1468,6 +1461,7 @@ msgid ""
 "Currently restricted to internal employees, click to make it available to "
 "everyone viewing this document."
 msgstr ""
+"כרגע מוגבל לעובדים פנימיים, לחץ כדי להפוך אותו לזמין לכל מי שצופה במסמך זה."
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__alias_bounced_content
@@ -1576,6 +1570,8 @@ msgid ""
 "Date on which this project ends. The timeframe defined on the project is "
 "taken into account when viewing its planning."
 msgstr ""
+"התאריך שבו פרויקט זה מסתיים. מסגרת הזמן שהוגדרה בפרויקט נלקחת בחשבון בעת "
+"​​הצגת התכנון שלו."
 
 #. module: project
 #: model:ir.model.fields,help:project.field_project_task__date_assign
@@ -1583,6 +1579,8 @@ msgid ""
 "Date on which this task was last assigned (or unassigned). Based on this, "
 "you can get statistics on the time it usually takes to assign tasks."
 msgstr ""
+"התאריך שבו משימה זו הוקצתה לאחרונה (או בוטלה). בהתבסס על זה, אתה יכול לקבל "
+"נתונים סטטיסטיים על הזמן שלוקח בדרך כלל להקצות משימות."
 
 #. module: project
 #: model:ir.model.fields.selection,name:project.selection__project_task__repeat_unit__day
@@ -1635,7 +1633,7 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:project.project_project_stage_configure
 msgid ""
 "Define the steps your projects move through from creation to completion."
-msgstr ""
+msgstr "הגדירו את השלבים שהפרויקטים שלכם עוברים מהיצירה ועד ההשלמה."
 
 #. module: project
 #: model_terms:ir.actions.act_window,help:project.open_task_type_form
@@ -1667,7 +1665,7 @@ msgstr "מחק את אבן דרך"
 #: model_terms:ir.ui.view,arch_db:project.view_project_project_stage_delete_wizard
 #, python-format
 msgid "Delete Project Stage"
-msgstr ""
+msgstr "מחק את שלב הפרויקט"
 
 #. module: project
 #. flectra-python
@@ -1696,6 +1694,8 @@ msgid ""
 "Deliver your services automatically when a milestone is reached by linking "
 "it to a sales order item."
 msgstr ""
+"ספק את השירותים שלך באופן אוטומטי כאשר אבן דרך מושגת על ידי קישורו לפריט "
+"הזמנת מכירות."
 
 #. module: project
 #. flectra-javascript
@@ -1730,7 +1730,7 @@ msgstr "תיאור"
 #. module: project
 #: model:ir.model.fields,help:project.field_project_project__description
 msgid "Description to provide more information and context about this project"
-msgstr ""
+msgstr "תיאור כדי לספק מידע והקשר נוסף על פרויקט זה"
 
 #. module: project
 #. flectra-javascript
@@ -1828,7 +1828,6 @@ msgstr "אין לך גישה, דלג על נתונים אלה עבור תקצי�
 #. flectra-javascript
 #. flectra-python
 #: code:addons/project/models/project_task.py:0
-#: code:addons/project/static/src/components/project_task_state_selection/project_task_state_selection.js:0
 #: code:addons/project/static/src/views/project_task_kanban/project_task_kanban_examples.js:0
 #: code:addons/project/static/src/views/project_task_kanban/project_task_kanban_examples.js:0
 #: code:addons/project/static/src/views/project_task_kanban/project_task_kanban_examples.js:0
@@ -1986,7 +1985,7 @@ msgstr "מועדף"
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.view_task_search_form_base
 msgid "Favorite Projects"
-msgstr ""
+msgstr "פרויקטים אהובים"
 
 #. module: project
 #. flectra-javascript
@@ -2293,7 +2292,6 @@ msgstr ""
 
 #. module: project
 #. flectra-javascript
-#: code:addons/project/static/src/components/project_task_state_selection/project_task_state_selection.js:0
 #: code:addons/project/static/src/components/project_task_state_selection/project_task_state_selection.xml:0
 #: code:addons/project/static/src/views/project_task_kanban/project_task_kanban_examples.js:0
 #: code:addons/project/static/src/views/project_task_kanban/project_task_kanban_examples.js:0
@@ -2564,7 +2562,7 @@ msgstr "בוא ניצור את <b>הפרויקט</b>הראשון שלך."
 #: code:addons/project/static/src/js/tours/project.js:0
 #, python-format
 msgid "Let's create your first <b>stage</b>."
-msgstr ""
+msgstr "בוא ניצור את <b>השלב</b> הראשון."
 
 #. module: project
 #. flectra-javascript
@@ -2578,7 +2576,7 @@ msgstr "בוא ניצור את <b>המשימה</b> הראשונה שלך."
 #: code:addons/project/static/src/js/tours/project.js:0
 #, python-format
 msgid "Let's create your second <b>stage</b>."
-msgstr ""
+msgstr "בוא ניצור את <b>השלב </b>השני. "
 
 #. module: project
 #. flectra-javascript
@@ -2632,7 +2630,7 @@ msgstr "עיצוב לוגו"
 #: code:addons/project/static/src/xml/project_task_kanban_examples.xml:0
 #, python-format
 msgid "Look for the"
-msgstr ""
+msgstr "חפש את ה"
 
 #. module: project
 #: model:ir.model.fields.selection,name:project.selection__project_task__priority__0
@@ -2832,7 +2830,7 @@ msgstr "שם חתוך"
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.edit_project
 msgid "Name of the Tasks"
-msgstr ""
+msgstr "שם של המשימות"
 
 #. module: project
 #: model:ir.model.fields,help:project.field_project_project__label_tasks
@@ -2861,7 +2859,7 @@ msgstr "חדש"
 #. module: project
 #: model:project.tags,name:project.project_tags_01
 msgid "New Feature"
-msgstr ""
+msgstr "תכונה חדשה"
 
 #. module: project
 #. flectra-javascript
@@ -2883,7 +2881,7 @@ msgstr "הזמנות חדשות"
 #: code:addons/project/static/src/views/project_project_calendar/project_project_calendar_controller.js:0
 #, python-format
 msgid "New Project"
-msgstr ""
+msgstr "פרויקט חדש"
 
 #. module: project
 #. flectra-javascript
@@ -2904,7 +2902,7 @@ msgstr "בקשה חדשה"
 #: code:addons/project/static/src/views/project_task_calendar/project_task_calendar_controller.js:0
 #, python-format
 msgid "New Task"
-msgstr ""
+msgstr "משימה חדשה"
 
 #. module: project
 #. flectra-python
@@ -3370,7 +3368,7 @@ msgstr "שמות משתמש בפורטל"
 msgid ""
 "Portal users will be removed from the followers of the project and its "
 "tasks."
-msgstr ""
+msgstr "משתמשי הפורטל יוסרו מהעוקבים אחר הפרויקט ומשימותיו."
 
 #. module: project
 #. flectra-javascript
@@ -3385,7 +3383,7 @@ msgstr "קודם"
 #: code:addons/project/static/src/xml/project_task_kanban_examples.xml:0
 #, python-format
 msgid "Prioritize your tasks by marking important ones using the"
-msgstr ""
+msgstr "תיעדוף את המשימות שלך על ידי סימון חשיבות באמצעות ה"
 
 #. module: project
 #. flectra-python
@@ -3422,7 +3420,7 @@ msgstr "פרטי"
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.view_task_search_form
 msgid "Private Tasks"
-msgstr ""
+msgstr "משימות פרטיות "
 
 #. module: project
 #. flectra-python
@@ -3567,7 +3565,7 @@ msgstr "תגיות פרויקט"
 #. module: project
 #: model:ir.model,name:project.model_project_task_type_delete_wizard
 msgid "Project Task Stage Delete Wizard"
-msgstr ""
+msgstr " אשף המחיקה של שלב משימת הפרויקט"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_task_view_activity
@@ -3577,7 +3575,7 @@ msgstr "משימות הפרויקט"
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.quick_create_project_form
 msgid "Project Title"
-msgstr ""
+msgstr "כותרת פרויקט "
 
 #. module: project
 #: model:ir.model,name:project.model_project_update
@@ -3599,7 +3597,7 @@ msgstr "נראות הפרויקט"
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.edit_project
 msgid "Project description..."
-msgstr ""
+msgstr "תיאור פרויקט..."
 
 #. module: project
 #: model:mail.template,subject:project.project_done_email_template
@@ -3614,7 +3612,7 @@ msgstr "משימות הפרויקט"
 #. module: project
 #: model:mail.template,name:project.project_done_email_template
 msgid "Project: Project Completed"
-msgstr ""
+msgstr "פרויקט: פרויקט הושלם "
 
 #. module: project
 #: model:mail.template,name:project.mail_template_data_project_task
@@ -3629,7 +3627,7 @@ msgstr "פרויקט: שלח דירוג"
 #. module: project
 #: model:mail.template,name:project.rating_project_request_email_template
 msgid "Project: Task Rating Request"
-msgstr ""
+msgstr "פרויקט: בקשת דירוג משימה"
 
 #. module: project
 #. flectra-python
@@ -3663,7 +3661,7 @@ msgstr "פרויקטים"
 #: model_terms:ir.actions.act_window,help:project.open_view_project_all_group_stage
 msgid ""
 "Projects contain tasks on the same topic, and each has its own dashboard."
-msgstr ""
+msgstr "פרויקטים מכילים משימות באותו נושא, ולכל אחד יש לוח מחוונים משלו."
 
 #. module: project
 #: model:ir.model.fields,help:project.field_project_task_type__project_ids
@@ -3714,6 +3712,8 @@ msgid ""
 "identify those on hold until dependencies are resolved with the hourglass "
 "icon."
 msgstr ""
+"בדוק במהירות את הסטטוס של משימות לאישורים או בקשות לשינוי, וזהה את אלו "
+"הממתינות עד לפתרון התלות באמצעות סמל שעון החול."
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_task_view_tree_base
@@ -4035,7 +4035,7 @@ msgstr "חפש בהודעות"
 #: code:addons/project/controllers/portal.py:0
 #, python-format
 msgid "Search in Milestone"
-msgstr ""
+msgstr "חפש באבן דרך"
 
 #. module: project
 #. flectra-python
@@ -4111,7 +4111,7 @@ msgstr "הגדר תמונת כריכה/כיסוי"
 #: model:ir.model.fields.selection,name:project.selection__project_project__last_update_status__to_define
 #, python-format
 msgid "Set Status"
-msgstr ""
+msgstr "הגדר סטטוס"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.edit_project
@@ -4131,7 +4131,7 @@ msgstr ""
 #: code:addons/project/static/src/components/project_task_priority_switch_field/project_task_priority_switch_field.js:0
 #, python-format
 msgid "Set priority as %s"
-msgstr ""
+msgstr "הגדר עדיפות כ %s"
 
 #. module: project
 #. flectra-javascript
@@ -4282,7 +4282,7 @@ msgstr "השלב השתנה"
 #: code:addons/project/models/project_task.py:0
 #, python-format
 msgid "Stage: %s"
-msgstr ""
+msgstr "שלב :%s"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project_stage_delete_wizard__stages_active
@@ -4440,13 +4440,13 @@ msgstr "פעילויות משימה"
 #: model:mail.message.subtype,name:project.mt_project_task_approved
 #: model:mail.message.subtype,name:project.mt_task_approved
 msgid "Task Approved"
-msgstr ""
+msgstr "משימה אושרה "
 
 #. module: project
 #: model:mail.message.subtype,name:project.mt_project_task_canceled
 #: model:mail.message.subtype,name:project.mt_task_canceled
 msgid "Task Canceled"
-msgstr ""
+msgstr "משימה בוטלה"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__task_count
@@ -4479,7 +4479,7 @@ msgstr "משימה בוצעה"
 #: model:mail.message.subtype,name:project.mt_project_task_in_progress
 #: model:mail.message.subtype,name:project.mt_task_in_progress
 msgid "Task In Progress"
-msgstr ""
+msgstr "משימה בביצוע"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_res_config_settings__module_hr_timesheet
@@ -4494,7 +4494,7 @@ msgstr "תוכניות משימה"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__task_properties_definition
 msgid "Task Properties"
-msgstr ""
+msgstr "מאפייני משימה"
 
 #. module: project
 #: model:mail.message.subtype,name:project.mt_project_task_rating
@@ -4544,12 +4544,12 @@ msgstr "שם משימה..."
 #: model:mail.message.subtype,name:project.mt_project_task_waiting
 #: model:mail.message.subtype,name:project.mt_task_waiting
 msgid "Task Waiting"
-msgstr ""
+msgstr "משימה ממתינה"
 
 #. module: project
 #: model:mail.message.subtype,description:project.mt_task_approved
 msgid "Task approved"
-msgstr ""
+msgstr "משימה אושרה"
 
 #. module: project
 #: model:mail.message.subtype,description:project.mt_task_canceled
@@ -4559,7 +4559,7 @@ msgstr ""
 #. module: project
 #: model:mail.message.subtype,description:project.mt_task_done
 msgid "Task done"
-msgstr ""
+msgstr "משימה בוצעה"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.task_track_depending_tasks
@@ -4746,7 +4746,7 @@ msgstr ""
 #. module: project
 #: model:ir.model.constraint,message:project.constraint_project_project_project_date_greater
 msgid "The project's start date must be before its end date."
-msgstr ""
+msgstr "תאריך התחלת הפרויקט חייב להיות לפני תאריך הסיום."
 
 #. module: project
 #. flectra-python
@@ -4761,7 +4761,7 @@ msgstr ""
 #, python-format
 msgid ""
 "The task and the associated partner must be linked to the same company."
-msgstr ""
+msgstr "המשימה והשותף המשויך חייבים להיות מקושרים לאותה חברה."
 
 #. module: project
 #. flectra-python
@@ -4810,7 +4810,7 @@ msgstr "אין משימות."
 #: code:addons/project/controllers/portal.py:0
 #, python-format
 msgid "There is nothing to report."
-msgstr ""
+msgstr "אין מה לדווח."
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_share_wizard_confirm_form
@@ -4874,7 +4874,7 @@ msgstr ""
 #: code:addons/project/static/src/components/project_task_state_selection/project_task_state_selection.xml:0
 #, python-format
 msgid "This task is blocked by another unfinished task"
-msgstr ""
+msgstr "משימה זו חסומה ע\"י משימה אחרת שלא הסתיימה"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.view_project_task_type_delete_confirmation_wizard
@@ -4902,7 +4902,7 @@ msgstr "ניהול זמן"
 #: model:digest.tip,name:project.digest_tip_project_1
 #: model_terms:digest.tip,tip_description:project.digest_tip_project_1
 msgid "Tip: Create tasks from incoming emails"
-msgstr ""
+msgstr "טיפ: צור משימות מאימיילים נכנסים"
 
 #. module: project
 #: model:digest.tip,name:project.digest_tip_project_0
@@ -4925,7 +4925,7 @@ msgstr "תיאור"
 #: code:addons/project/static/src/components/project_right_side_panel/components/project_profitability.xml:0
 #, python-format
 msgid "To Bill"
-msgstr ""
+msgstr "לחיוב"
 
 #. module: project
 #: model:project.project.stage,name:project.project_project_stage_0
@@ -5055,7 +5055,7 @@ msgstr "פעמיים בחודש"
 #: code:addons/project/models/project_task.py:0
 #, python-format
 msgid "Two tasks cannot depend on each other."
-msgstr ""
+msgstr "שתי משימות לא יכולות להיות תלויות זו בזו. "
 
 #. module: project
 #: model:ir.model.fields,help:project.field_project_project__activity_exception_decoration
@@ -5069,14 +5069,14 @@ msgstr "סוג הפעילות החריגה ברשומה."
 #: code:addons/project/models/project_project_stage.py:0
 #, python-format
 msgid "Unarchive Projects"
-msgstr ""
+msgstr "הוצא פרויקטים מהארכיון"
 
 #. module: project
 #. flectra-python
 #: code:addons/project/models/project_task_type.py:0
 #, python-format
 msgid "Unarchive Tasks"
-msgstr ""
+msgstr "הוצא משימות מהארכיון"
 
 #. module: project
 #. flectra-javascript
@@ -5118,7 +5118,7 @@ msgstr "עדכן"
 #: model:mail.message.subtype,name:project.mt_project_update_create
 #: model:mail.message.subtype,name:project.mt_update_create
 msgid "Update Created"
-msgstr ""
+msgstr "עדכון נוצר"
 
 #. module: project
 #: model:project.tags,name:project.project_tags_03
@@ -5185,7 +5185,7 @@ msgstr "השתמש בתגיות כדי לסווג את המשימות שלך"
 #: code:addons/project/static/src/xml/project_task_kanban_examples.xml:0
 #, python-format
 msgid "Use the"
-msgstr ""
+msgstr "השתמש ב-"
 
 #. module: project
 #. flectra-javascript
@@ -5415,6 +5415,8 @@ msgid ""
 "You cannot delete stages containing projects. You can either archive them or"
 " first delete all of their projects."
 msgstr ""
+"לא ניתן למחוק שלבים המכילים פרויקטים. אתה יכול לאחסן אותם בארכיון או למחוק "
+"תחילה את כל הפרויקטים שלהם."
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.view_project_project_stage_delete_wizard
@@ -5422,6 +5424,7 @@ msgid ""
 "You cannot delete stages containing projects. You should first delete all of"
 " their projects."
 msgstr ""
+"לא ניתן למחוק שלבים המכילים פרויקטים. תחילה עליך למחוק את כל הפרויקטים שלהם."
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.view_project_task_type_delete_wizard
@@ -5492,7 +5495,7 @@ msgstr "אתה חייב להיות"
 #: code:addons/project/static/src/xml/project_task_kanban_examples.xml:0
 #, python-format
 msgid "Your managers decide which feedback is accepted"
-msgstr ""
+msgstr "המנהלים שלך מחליטים איזה משוב יתקבל"
 
 #. module: project
 #. flectra-javascript
@@ -5510,6 +5513,8 @@ msgid ""
 "and which feedback is\n"
 "      moved to the \"Refused\" column."
 msgstr ""
+"ואיזה משוב \n"
+"מועבר לעמודת \"מסורב\"."
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_sharing_project_task_view_kanban
@@ -5528,7 +5533,7 @@ msgstr "אווטר"
 #: code:addons/project/static/src/xml/project_task_kanban_examples.xml:0
 #, python-format
 msgid "button."
-msgstr ""
+msgstr "כפתור."
 
 #. module: project
 #. flectra-javascript
@@ -5631,12 +5636,12 @@ msgstr "מחובר"
 #. module: project
 #: model:ir.actions.server,name:project.action_server_view_my_task
 msgid "menu view My Tasks"
-msgstr ""
+msgstr "תצוגת תפריט במשימות שלי"
 
 #. module: project
 #: model:ir.model.fields.selection,name:project.selection__project_project__rating_status__periodic
 msgid "on a periodic basis"
-msgstr ""
+msgstr "על בסיס תקופתי "
 
 #. module: project
 #: model_terms:digest.tip,tip_description:project.digest_tip_project_1
@@ -5692,7 +5697,7 @@ msgstr ""
 #: code:addons/project/static/src/components/project_task_name_with_subtask_count_char_field/project_task_name_with_subtask_count_char_field.xml:0
 #, python-format
 msgid "sub-tasks)"
-msgstr ""
+msgstr "תת- משימות)"
 
 #. module: project
 #. flectra-python
@@ -5704,12 +5709,12 @@ msgstr "משימה"
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_update_default_description
 msgid "the deadline for the following milestone has been updated:"
-msgstr ""
+msgstr "המועד האחרון לאבן הדרך הבאה עודכן:"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_update_default_description
 msgid "the deadline for the following milestones has been updated:"
-msgstr ""
+msgstr "המועד האחרון לאבני הדרך הבאות עודכן:"
 
 #. module: project
 #. flectra-javascript
@@ -5719,6 +5724,8 @@ msgid ""
 "to define if the project is\n"
 "      ready for the next step."
 msgstr ""
+"כדי להגדיר האם הפרויקט\n"
+"מוכן לעבור לצעד הבא."
 
 #. module: project
 #. flectra-javascript
@@ -5737,7 +5744,7 @@ msgstr ""
 #. module: project
 #: model:ir.model.fields.selection,name:project.selection__project_project__rating_status__stage
 msgid "when reaching a given stage"
-msgstr ""
+msgstr "כאשר מגיעים לשלב נתון"
 
 #. module: project
 #: model_terms:digest.tip,tip_description:project.digest_tip_project_1
