@@ -1379,7 +1379,7 @@ export const formatSelection = (editor, formatName, {applyStyle, formatProps} = 
     }
 }
 export const isLinkEligibleForZwnbsp = (editable, link) => {
-    return link.isContentEditable && editable.contains(link) && !(
+    return link.parentElement.isContentEditable && link.isContentEditable && editable.contains(link) && !(
         [link, ...link.querySelectorAll('*')].some(el => el.nodeName === 'IMG' || isBlock(el)) ||
         link.matches('nav a, a.nav-link')
     );
@@ -1953,6 +1953,20 @@ export function isVisible(node) {
 export function hasVisibleContent(node) {
     return [...(node?.childNodes || [])].some(n => isVisible(n));
 }
+
+/**
+ * Returns whether an element is a button
+ *
+ * @param {Node} node
+ * @returns {boolean}
+ */
+export function isButton(node) {
+    if (!node || node.nodeType !== Node.ELEMENT_NODE) {
+        return false;
+    }
+    return node.nodeName === "BUTTON" || node.classList.contains("btn");
+}
+
 const visibleCharRegex = /[^\s\u200b]|[\u00A0\u0009]$/; // contains at least a char that is always visible (TODO: 0009 shouldn't be included)
 export function isVisibleTextNode(testedNode) {
     if (!testedNode || !testedNode.length || testedNode.nodeType !== Node.TEXT_NODE) {

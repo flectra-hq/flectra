@@ -6,7 +6,7 @@ import warnings
 from flectra import http
 from flectra.api import call_kw
 from flectra.http import request
-from flectra.models import check_method_name
+from flectra.service.model import get_public_method
 from .utils import clean_action
 
 
@@ -16,8 +16,9 @@ _logger = logging.getLogger(__name__)
 class DataSet(http.Controller):
 
     def _call_kw(self, model, method, args, kwargs):
-        check_method_name(method)
-        return call_kw(request.env[model], method, args, kwargs)
+        Model = request.env[model]
+        get_public_method(Model, method)  # Don't use the result, call_kw will redo the getattr
+        return call_kw(Model, method, args, kwargs)
 
     @http.route(['/web/dataset/call_kw', '/web/dataset/call_kw/<path:path>'], type='json', auth="user")
     def call_kw(self, model, method, args, kwargs, path=None):

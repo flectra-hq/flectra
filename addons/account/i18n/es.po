@@ -10,9 +10,9 @@
 # Xabi Spacebiker <xabispacebiker@gmail.com>, 2024
 # Patricia Gutiérrez Capetillo <pagc@flectrahq.com>, 2024
 # Wil Flectra, 2024
-# Pilar Vargas, 2024
-# Larissa Manderfeld, 2025
 # Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2025
+# Pilar Vargas, 2025
+# Larissa Manderfeld, 2025
 # 
 msgid ""
 msgstr ""
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 10:33+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2025\n"
+"Last-Translator: Larissa Manderfeld, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/flectra/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -148,6 +148,7 @@ msgstr "%s (copia)"
 #: code:addons/account/models/account_journal.py:0
 #: code:addons/account/models/account_reconcile_model.py:0
 #: code:addons/account/models/account_reconcile_model.py:0
+#: code:addons/account/models/account_payment_term.py:0
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copia)"
@@ -1565,7 +1566,7 @@ msgstr "No puede utilizar un número temporal para una conciliación"
 #. module: account
 #: model:res.groups,name:account.group_warning_account
 msgid "A warning can be set on a partner (Account)"
-msgstr "Una advertencia puede ser configurada en un contacto (cuenta)"
+msgstr "Una advertencia puede ser configurada en una entidad (Cuenta)"
 
 #. module: account
 #: model:ir.model,name:account.model_res_groups
@@ -5834,6 +5835,13 @@ msgstr "Días de descuento"
 #: model:ir.model.fields,field_description:account.field_account_move_line__discount_amount_currency
 msgid "Discount amount in Currency"
 msgstr "Importe de descuento en moneda"
+
+#. module: account
+#. flectra-python
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "Discount of %(amount)s if paid %(when)s"
+msgstr "Descuento de %(amount)s si paga el %(when)s"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_analytic_applicability__display_account_prefix
@@ -10966,7 +10974,7 @@ msgstr "Advertencia de crédito de la empresa"
 #. module: account
 #: model:ir.actions.act_window,name:account.action_account_moves_ledger_partner
 msgid "Partner Ledger"
-msgstr "Libro mayor del contacto"
+msgstr "Libro mayor de la empresa"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_res_partner__use_partner_credit_limit
@@ -18160,6 +18168,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account.account_tour_upload_bill_email_confirm
 msgid "with a pdf of an invoice as attachment."
 msgstr "con un pdf de una factura adjunta."
+
+#. module: account
+#. flectra-python
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "within %(days)s days"
+msgstr "dentro de %(days)s días"
 
 #. module: account
 #. flectra-python

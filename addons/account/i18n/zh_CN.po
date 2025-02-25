@@ -146,6 +146,7 @@ msgstr "%s（副本）"
 #: code:addons/account/models/account_journal.py:0
 #: code:addons/account/models/account_reconcile_model.py:0
 #: code:addons/account/models/account_reconcile_model.py:0
+#: code:addons/account/models/account_payment_term.py:0
 #, python-format
 msgid "%s (copy)"
 msgstr "%s（副本）"
@@ -5658,6 +5659,13 @@ msgstr "折扣天数"
 #: model:ir.model.fields,field_description:account.field_account_move_line__discount_amount_currency
 msgid "Discount amount in Currency"
 msgstr "用币种显示的折扣金额"
+
+#. module: account
+#. flectra-python
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "Discount of %(amount)s if paid %(when)s"
+msgstr ""
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_analytic_applicability__display_account_prefix
@@ -12673,7 +12681,7 @@ msgstr "设定价格"
 #: model:ir.model.fields,help:account.field_res_partner__use_partner_credit_limit
 #: model:ir.model.fields,help:account.field_res_users__use_partner_credit_limit
 msgid "Set a value greater than 0.0 to activate a credit limit check"
-msgstr ""
+msgstr "设置大于 0.0 的值以激活信用额度检查"
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_account_tag__active
@@ -15292,6 +15300,8 @@ msgid ""
 "                                      Set a value greater than 0.0 to "
 "activate a credit limit check"
 msgstr ""
+"为合作伙伴创建发票和销售订单时，若单据应收款总额超过限额，触发警报。                                    设置大于 "
+"0.0 的值以激活信用额度检查"
 
 #. module: account
 #. flectra-python
@@ -17300,6 +17310,13 @@ msgstr "如果延迟付款，将授权暂停提供任何服务，无需事先通
 #: model_terms:ir.ui.view,arch_db:account.account_tour_upload_bill_email_confirm
 msgid "with a pdf of an invoice as attachment."
 msgstr "发票PDF作为附件。"
+
+#. module: account
+#. flectra-python
+#: code:addons/account/models/account_move.py:0
+#, python-format
+msgid "within %(days)s days"
+msgstr ""
 
 #. module: account
 #. flectra-python

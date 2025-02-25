@@ -22,13 +22,13 @@ from flectra import api, fields, models, tools, _
 from flectra.exceptions import ValidationError, AccessError, UserError
 from flectra.http import request
 from flectra.modules.module import get_resource_from_path
+from flectra.service.model import get_public_method
 from flectra.tools import config, ConstantMapping, get_diff, pycompat, apply_inheritance_specs, locate_node, str2bool
 from flectra.tools import safe_eval, lazy, lazy_property, frozendict
 from flectra.tools.convert import _fix_multiple_roots
 from flectra.tools.misc import file_path
 from flectra.tools.translate import xml_translate, TRANSLATED_ATTRS
 from flectra.tools.view_validation import valid_view, get_domain_value_names, get_expression_field_names, get_dict_asts
-from flectra.models import check_method_name
 from flectra.osv.expression import expression
 
 _logger = logging.getLogger(__name__)
@@ -1501,8 +1501,8 @@ actual arch.
                     )
                     self._raise_view_error(msg, node)
                 try:
-                    check_method_name(name)
-                except AccessError:
+                    get_public_method(name_manager.model, name)
+                except (AttributeError, AccessError):
                     msg = _(
                         "%(method)s on %(model)s is private and cannot be called from a button",
                         method=name, model=name_manager.model._name,
