@@ -4,12 +4,12 @@
 from datetime import datetime
 
 from flectra.addons.mass_mailing_sms.tests.common import MassSMSCommon
-from flectra.addons.mass_mailing.tests.test_mailing_ab_testing import TestMailingABTesting
+from flectra.addons.mass_mailing.tests.test_mailing_ab_testing import TestMailingABTestingCommon
 from flectra.tests import tagged
 
 
 @tagged('post_install', '-at_install')
-class TestMailingSMSABTesting(MassSMSCommon, TestMailingABTesting):
+class TestMailingSMSABTesting(MassSMSCommon, TestMailingABTestingCommon):
     def setUp(self):
         super().setUp()
         self.ab_testing_mailing_sms_1 = self.env['mailing.mailing'].create({

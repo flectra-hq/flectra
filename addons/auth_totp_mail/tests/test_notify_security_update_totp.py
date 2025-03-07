@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
 
-from flectra.addons.mail.tests.test_res_users import TestNotifySecurityUpdate
-from flectra.tests import users
+from flectra.addons.mail.tests.common import MailCommon
+from flectra.tests import tagged, users
 
 
-class TestNotifySecurityUpdateTotp(TestNotifySecurityUpdate):
+@tagged('-at_install', 'post_install', 'mail_tools', 'res_users')
+class TestNotifySecurityUpdateTotp(MailCommon):
     @users('employee')
     def test_security_update_totp_enabled_disabled(self):
         recipients = [self.env.user.email_formatted]
