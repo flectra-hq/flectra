@@ -1,14 +1,14 @@
-# -*- coding: utf-8 -*-
 # Part of Flectra. See LICENSE file for full copyright and licensing details.
 
 import random
-import requests
 import string
+
+import requests
 
 from lxml import html
 from werkzeug import urls
 
-from flectra import tools, models, fields, api, _
+from flectra import _, api, fields, models, tools
 from flectra.exceptions import UserError
 from flectra.osv import expression
 from flectra.addons.mail.tools import link_preview
@@ -99,16 +99,15 @@ class LinkTracker(models.Model):
                 tracker.redirected_url = parsed.to_url()
                 continue
 
-            utms = {}
+            query = parsed.decode_query()
             for key, field_name, cook in self.env['utm.mixin'].tracking_fields():
                 field = self._fields[field_name]
                 attr = tracker[field_name]
                 if field.type == 'many2one':
                     attr = attr.name
                 if attr:
-                    utms[key] = attr
-            utms.update(parsed.decode_query())
-            tracker.redirected_url = parsed.replace(query=urls.url_encode(utms)).to_url()
+                    query[key] = attr
+            tracker.redirected_url = parsed.replace(query=urls.url_encode(query)).to_url()
 
     @api.model
     @api.depends('url')

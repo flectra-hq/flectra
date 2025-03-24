@@ -2,6 +2,7 @@
 from flectra import Command
 from flectra.addons.l10n_account_edi_ubl_cii_tests.tests.common import TestUBLCommon
 from flectra.tests import tagged
+from flectra.exceptions import UserError
 import base64
 
 

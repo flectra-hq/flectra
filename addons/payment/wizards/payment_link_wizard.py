@@ -3,6 +3,7 @@
 from werkzeug import urls
 
 from flectra import _, api, fields, models
+from flectra.tools.float_utils import float_repr
 
 from flectra.addons.payment import utils as payment_utils
 
@@ -63,7 +64,7 @@ class PaymentLinkWizard(models.TransientModel):
             related_document = self.env[payment_link.res_model].browse(payment_link.res_id)
             base_url = related_document.get_base_url()  # Don't generate links for the wrong website
             url_params = {
-                'amount': self.amount,
+                'amount': float_repr(self.amount, self.currency_id.decimal_places),
                 'access_token': self._get_access_token(),
                 **self._get_additional_link_values(),
             }

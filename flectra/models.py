@@ -1916,7 +1916,7 @@ class BaseModel(metaclass=MetaModel):
         sql_order, sql_extra_groupby, fnames_used = self._read_group_orderby(order, groupby_terms, query)
         fnames_to_flush.update(fnames_used)
 
-        groupby_terms = list(groupby_terms.values())
+        groupby_terms = [groupby_terms[spec] for spec in groupby]
 
         query_parts = [
             SQL("SELECT %s", SQL(", ").join(groupby_terms + select_terms)),
@@ -2523,7 +2523,12 @@ class BaseModel(metaclass=MetaModel):
                                 value, format=READ_GROUP_DISPLAY_FORMAT[granularity],
                                 locale=locale
                             )
-
+                        if granularity == 'week':
+                            year, week = date_utils.weeknumber(
+                                babel.Locale.parse(locale),
+                                value,
+                            )
+                            label = f"W{week} {year:04}"
                         range_start = range_start.strftime(fmt)
                         range_end = range_end.strftime(fmt)
                         row[group] = label  # TODO should put raw data

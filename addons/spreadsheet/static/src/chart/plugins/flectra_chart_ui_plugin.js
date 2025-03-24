@@ -47,6 +47,7 @@ export class FlectraChartUIPlugin extends UIPlugin {
                         const chart = this.getters.getChart(cmd.id);
                         if (
                             cmd.definition.type !== chart.type ||
+                            chart.cumulative !== cmd.definition.cumulative ||
                             dataSource.getInitialDomainString() !==
                                 new Domain(cmd.definition.searchParams.domain).toString()
                         ) {

@@ -210,6 +210,8 @@ class StockMove(models.Model):
         for move in self:
             if move.state == 'done' or any(ml.picked for ml in move.move_line_ids):
                 move.picked = True
+            elif move.move_line_ids:
+                move.picked = False
 
     def _inverse_picked(self):
         for move in self:
@@ -2020,6 +2022,12 @@ Please change the quantity done or the rounding precision of your unit of measur
         new_product_qty = float_round(new_product_qty, precision_digits=self.env['decimal.precision'].precision_get('Product Unit of Measure'))
         self.with_context(do_not_unreserve=True).write({'product_uom_qty': new_product_qty})
         return new_move_vals
+
+    def _post_process_created_moves(self):
+        # This method is meant to be overriden in order to execute post 
+        # creation actions that would be bypassed since the move was 
+        # and will probably never be confirmed
+        pass
 
     def _recompute_state(self):
         if self._context.get('preserve_state'):
