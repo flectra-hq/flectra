@@ -4085,7 +4085,7 @@ export class FlectraEditor extends EventTarget {
         const dataHtmlElement = document.createElement('data');
         dataHtmlElement.append(rangeContent);
         const flectraHtml = dataHtmlElement.innerHTML.replace(/\uFEFF/g, "");
-        const flectraText = selection.toString().replace(/\uFEFF/g, "");
+        const flectraText = selection.toString().replace(/\uFEFF/g, "").replace(/\u00A0/g, " ");
         clipboardEvent.clipboardData.setData('text/plain', flectraText);
         clipboardEvent.clipboardData.setData('text/html', flectraHtml);
         clipboardEvent.clipboardData.setData('text/flectra-editor', flectraHtml);
