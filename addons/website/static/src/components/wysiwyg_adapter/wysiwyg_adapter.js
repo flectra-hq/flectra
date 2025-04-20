@@ -328,6 +328,12 @@ export class WysiwygAdapterComponent extends Wysiwyg {
         this._setObserver();
         this.flectraEditor.observerActive();
     }
+    _getBannerCommands() {
+        return [];
+    }
+    _getBannerCategory() {
+        return [];
+    }
     /**
      * Stop the widgets and save the content.
      *
@@ -784,6 +790,7 @@ export class WysiwygAdapterComponent extends Wysiwyg {
                 priority: 100,
                 description: _t('Insert an alert snippet'),
                 fontawesome: 'fa-info',
+                keywords: ["banner", "info", "success", "warning", "danger"],
                 isDisabled: () => !this.flectraEditor.isSelectionInBlockRoot(),
                 callback: () => {
                     snippetCommandCallback('.oe_snippet_body[data-snippet="s_alert"]');
